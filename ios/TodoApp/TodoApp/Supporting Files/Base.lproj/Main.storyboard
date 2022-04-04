@@ -18,38 +18,115 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TO-DO LIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2A-Sn-k6t">
-                                <rect key="frame" x="50" y="54" width="223" height="50.5"/>
+                                <rect key="frame" x="50" y="54" width="223" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRT-5E-WhS">
-                                <rect key="frame" x="1088.5" y="54" width="55.5" height="50.5"/>
+                                <rect key="frame" x="1088.5" y="54" width="55.5" height="50"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
                                     <color key="baseForegroundColor" systemColor="labelColor"/>
                                 </buttonConfiguration>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bgk-Gp-o1q">
+                                <rect key="frame" x="50" y="154" width="1094" height="630"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7N-v5-3dX">
+                                        <rect key="frame" x="0.0" y="0.0" width="261.5" height="630"/>
+                                        <connections>
+                                            <segue destination="gRH-8F-LhW" kind="embed" id="1fr-ZW-F0G"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="psB-DY-ZWk">
+                                        <rect key="frame" x="277.5" y="0.0" width="261.5" height="630"/>
+                                        <connections>
+                                            <segue destination="SUv-lW-eLq" kind="embed" id="3QM-Df-Kdo"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86M-EQ-6p4">
+                                        <rect key="frame" x="555" y="0.0" width="261.5" height="630"/>
+                                        <connections>
+                                            <segue destination="HRI-Ax-t3w" kind="embed" id="0wK-qX-oX7"/>
+                                        </connections>
+                                    </containerView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nse-h8-GhP">
+                                        <rect key="frame" x="832.5" y="0.0" width="261.5" height="630"/>
+                                        <color key="backgroundColor" name="Background"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="psB-DY-ZWk" firstAttribute="width" secondItem="y7N-v5-3dX" secondAttribute="width" id="Pul-LU-HyR"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="Background"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bgk-Gp-o1q" secondAttribute="bottom" constant="30" id="8Aj-Yh-01Y"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wRT-5E-WhS" secondAttribute="trailing" constant="50" id="8Fy-vB-f7Y"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bgk-Gp-o1q" secondAttribute="trailing" constant="50" id="Hkw-YX-iEP"/>
+                            <constraint firstItem="bgk-Gp-o1q" firstAttribute="top" secondItem="x2A-Sn-k6t" secondAttribute="bottom" constant="50" id="OeP-Un-Q1w"/>
                             <constraint firstItem="x2A-Sn-k6t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="TGI-f1-gNo"/>
+                            <constraint firstItem="bgk-Gp-o1q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="UMY-hN-hST"/>
                             <constraint firstItem="wRT-5E-WhS" firstAttribute="centerY" secondItem="x2A-Sn-k6t" secondAttribute="centerY" id="Y3m-1J-xre"/>
                             <constraint firstItem="x2A-Sn-k6t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="a6F-Ab-SO2"/>
                             <constraint firstItem="wRT-5E-WhS" firstAttribute="height" secondItem="x2A-Sn-k6t" secondAttribute="height" id="r77-HL-fPG"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="columnStack" destination="bgk-Gp-o1q" id="vKt-s6-itj"/>
                         <outlet property="menuButton" destination="wRT-5E-WhS" id="nxE-Jt-eFi"/>
                         <outlet property="titleLabel" destination="x2A-Sn-k6t" id="WHs-Ce-td7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="113"/>
+            <point key="canvasLocation" x="10" y="-385"/>
+        </scene>
+        <!--Todo List View Controller-->
+        <scene sceneID="WcV-cR-Kxe">
+            <objects>
+                <viewController id="gRH-8F-LhW" customClass="TodoListViewController" customModule="TodoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EYb-uX-avB">
+                        <rect key="frame" x="0.0" y="0.0" width="261.5" height="630"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Tw-2H-Hhh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-225" y="363"/>
+        </scene>
+        <!--Todo List View Controller-->
+        <scene sceneID="MGv-Vv-BQD">
+            <objects>
+                <viewController id="SUv-lW-eLq" customClass="TodoListViewController" customModule="TodoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5nf-bJ-Wjv">
+                        <rect key="frame" x="0.0" y="0.0" width="261.5" height="630"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6wV-YV-i6c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-61" y="363"/>
+        </scene>
+        <!--Todo List View Controller-->
+        <scene sceneID="HLj-Md-eWq">
+            <objects>
+                <viewController id="HRI-Ax-t3w" customClass="TodoListViewController" customModule="TodoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l9c-bg-am3">
+                        <rect key="frame" x="0.0" y="0.0" width="261.5" height="630"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zu4-xV-lag" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="110" y="363"/>
         </scene>
     </scenes>
     <resources>
@@ -59,6 +136,9 @@
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
