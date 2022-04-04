@@ -12,13 +12,13 @@
 
 ### 그라운드 룰
 
-**10:00 ~**
+**10:00 \~**
 - 매일 아침 작업할 내역을 [Github Project](https://github.com/mansaout/todo-list/projects/1)에 정리
 - 프로젝트-이슈로 관리
 
 <br>
 
-**17:00 ~**
+**17:00 \~**
 - 매일 작업한 내용을 `develop` 브랜치로 PR, 같이 검수 후 머지.
 - 매일 작업한 내용 회고 및 next 얘기해보기
 
