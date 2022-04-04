@@ -10,6 +10,7 @@ import UIKit
 class TodoListContainerViewController: UIViewController {
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var columnStack: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
