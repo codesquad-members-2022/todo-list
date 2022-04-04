@@ -38,6 +38,9 @@ class ColumnViewController: UIViewController, ColumnView {
     private let cardTable: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(ColumnViewCell.self, forCellReuseIdentifier: "ColumnViewCell")
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -66,7 +69,8 @@ class ColumnViewController: UIViewController, ColumnView {
     }
     
     private func bind() {
-        
+        cardTable.delegate = self
+        cardTable.dataSource = self
     }
     
     private func attribute() {
@@ -93,5 +97,22 @@ class ColumnViewController: UIViewController, ColumnView {
         cardTable.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         cardTable.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         cardTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10).isActive = true
+    }
+}
+
+extension ColumnViewController: UITableViewDelegate {
+    
+}
+extension ColumnViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ColumnViewCell") as? ColumnViewCell else {
+            return UITableViewCell()
+        }
+        
+        return cell
     }
 }

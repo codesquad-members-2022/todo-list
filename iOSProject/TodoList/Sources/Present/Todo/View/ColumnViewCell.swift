@@ -8,7 +8,15 @@
 import Foundation
 import UIKit
 
-class CardView: UIView {
+class ColumnViewCell: UITableViewCell {
+    let cellBackgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 6
+        return view
+    }()
+    
     let title: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -21,9 +29,12 @@ class CardView: UIView {
     let body: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "message"
+        let random = Int.random(in: 0..<3)
+        label.text = (0..<random).compactMap { _ in "messagemessagemessagemessagemessagemessagemessagemessagemessage"}.joined()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .black
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 3
         return label
     }()
     
@@ -36,8 +47,14 @@ class CardView: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+//    let spacing: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .clear
+//        return view
+//    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         bind()
         attribute()
         layout()
@@ -55,10 +72,15 @@ class CardView: UIView {
     }
     
     private func attribute() {
-        
+        self.backgroundColor = .clear
     }
     
     private func layout() {
+        self.addSubview(cellBackgroundView)
+        cellBackgroundView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        cellBackgroundView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        cellBackgroundView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        
         self.addSubview(title)
         title.topAnchor.constraint(equalTo: self.topAnchor, constant: 16).isActive = true
         title.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
@@ -74,6 +96,7 @@ class CardView: UIView {
         caption.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
         caption.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
         
-        self.bottomAnchor.constraint(equalTo: caption.bottomAnchor, constant: 16).isActive = true
+        cellBackgroundView.bottomAnchor.constraint(equalTo: caption.bottomAnchor, constant: 16).isActive = true
+        self.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16).isActive = true
     }
 }
