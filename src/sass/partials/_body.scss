@@ -1,0 +1,41 @@
+main {
+  display: flex;
+}
+
+.todo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  background-color: aliceblue;
+
+  .todo-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .todo-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 15px;
+    p {
+      font-size: 12px;
+      margin-right: 20px;
+    }
+  }
+
+  h2 {
+    font-size: 18px;
+    margin-right: 20px;
+    margin-left: 5px;
+  }
+}
+
+.btn {
+  background-color: aquamarine;
+  border: none;
+  border-radius: 10px;
+}
