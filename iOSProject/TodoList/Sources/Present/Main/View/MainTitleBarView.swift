@@ -34,8 +34,7 @@ class MainTitleBarView: UIView, MainTitleBar {
     
     private let menu: UIButton = {
         var configuration = UIButton.Configuration.plain()
-        configuration.contentInsets = .init(top: 17.5, leading: 14.5, bottom: 17.5, trailing: 14.5)
-        configuration.imagePadding = 5
+        configuration.contentInsets = .init(top: 11, leading: 11, bottom: 11, trailing: 11)
 
         let button = UIButton(configuration: configuration, primaryAction: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +71,7 @@ class MainTitleBarView: UIView, MainTitleBar {
         titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
         self.addSubview(menu)
-        menu.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -46).isActive = true
+        menu.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -37).isActive = true
         menu.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         menu.widthAnchor.constraint(equalToConstant: 46).isActive = true
         menu.heightAnchor.constraint(equalToConstant: 46).isActive = true
