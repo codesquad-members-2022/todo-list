@@ -7,27 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B5EC66B327FA91940042EFCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66B227FA91940042EFCF /* AppDelegate.swift */; };
-		B5EC66B527FA91940042EFCF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66B427FA91940042EFCF /* SceneDelegate.swift */; };
-		B5EC66B727FA91940042EFCF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66B627FA91940042EFCF /* ViewController.swift */; };
-		B5EC66BA27FA91940042EFCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC66B827FA91940042EFCF /* Main.storyboard */; };
-		B5EC66BC27FA91970042EFCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5EC66BB27FA91970042EFCF /* Assets.xcassets */; };
-		B5EC66BF27FA91970042EFCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC66BD27FA91970042EFCF /* LaunchScreen.storyboard */; };
+		B5EC66D327FADD9C0042EFCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66D227FADD9C0042EFCF /* AppDelegate.swift */; };
+		B5EC66D527FADD9C0042EFCF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66D427FADD9C0042EFCF /* SceneDelegate.swift */; };
+		B5EC66D727FADD9C0042EFCF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66D627FADD9C0042EFCF /* ViewController.swift */; };
+		B5EC66DA27FADD9C0042EFCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC66D827FADD9C0042EFCF /* Main.storyboard */; };
+		B5EC66DC27FADD9E0042EFCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5EC66DB27FADD9E0042EFCF /* Assets.xcassets */; };
+		B5EC66DF27FADD9F0042EFCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC66DD27FADD9E0042EFCF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B5EC66AF27FA91940042EFCF /* TODDList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODDList.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5EC66B227FA91940042EFCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B5EC66B427FA91940042EFCF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B5EC66B627FA91940042EFCF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B5EC66B927FA91940042EFCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B5EC66BB27FA91970042EFCF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B5EC66BE27FA91970042EFCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B5EC66C027FA91970042EFCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5EC66CF27FADD9C0042EFCF /* TODOList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODOList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5EC66D227FADD9C0042EFCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B5EC66D427FADD9C0042EFCF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B5EC66D627FADD9C0042EFCF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B5EC66D927FADD9C0042EFCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B5EC66DB27FADD9E0042EFCF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B5EC66DE27FADD9F0042EFCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B5EC66E027FADD9F0042EFCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B5EC66AC27FA91940042EFCF /* Frameworks */ = {
+		B5EC66CC27FADD9C0042EFCF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -37,72 +37,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B5EC66A627FA91940042EFCF = {
+		B5EC66C627FADD9C0042EFCF = {
 			isa = PBXGroup;
 			children = (
-				B5EC66B127FA91940042EFCF /* TODDList */,
-				B5EC66B027FA91940042EFCF /* Products */,
+				B5EC66D127FADD9C0042EFCF /* TODOList */,
+				B5EC66D027FADD9C0042EFCF /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		B5EC66B027FA91940042EFCF /* Products */ = {
+		B5EC66D027FADD9C0042EFCF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B5EC66AF27FA91940042EFCF /* TODDList.app */,
+				B5EC66CF27FADD9C0042EFCF /* TODOList.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B5EC66B127FA91940042EFCF /* TODDList */ = {
+		B5EC66D127FADD9C0042EFCF /* TODOList */ = {
 			isa = PBXGroup;
 			children = (
-				B5EC66B227FA91940042EFCF /* AppDelegate.swift */,
-				B5EC66B427FA91940042EFCF /* SceneDelegate.swift */,
-				B5EC66B627FA91940042EFCF /* ViewController.swift */,
-				B5EC66B827FA91940042EFCF /* Main.storyboard */,
-				B5EC66BB27FA91970042EFCF /* Assets.xcassets */,
-				B5EC66BD27FA91970042EFCF /* LaunchScreen.storyboard */,
-				B5EC66C027FA91970042EFCF /* Info.plist */,
+				B5EC66D227FADD9C0042EFCF /* AppDelegate.swift */,
+				B5EC66D427FADD9C0042EFCF /* SceneDelegate.swift */,
+				B5EC66D627FADD9C0042EFCF /* ViewController.swift */,
+				B5EC66D827FADD9C0042EFCF /* Main.storyboard */,
+				B5EC66DB27FADD9E0042EFCF /* Assets.xcassets */,
+				B5EC66DD27FADD9E0042EFCF /* LaunchScreen.storyboard */,
+				B5EC66E027FADD9F0042EFCF /* Info.plist */,
 			);
-			path = TODDList;
+			path = TODOList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B5EC66AE27FA91940042EFCF /* TODDList */ = {
+		B5EC66CE27FADD9C0042EFCF /* TODOList */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B5EC66C327FA91970042EFCF /* Build configuration list for PBXNativeTarget "TODDList" */;
+			buildConfigurationList = B5EC66E327FADD9F0042EFCF /* Build configuration list for PBXNativeTarget "TODOList" */;
 			buildPhases = (
-				B5EC66AB27FA91940042EFCF /* Sources */,
-				B5EC66AC27FA91940042EFCF /* Frameworks */,
-				B5EC66AD27FA91940042EFCF /* Resources */,
+				B5EC66CB27FADD9C0042EFCF /* Sources */,
+				B5EC66CC27FADD9C0042EFCF /* Frameworks */,
+				B5EC66CD27FADD9C0042EFCF /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = TODDList;
-			productName = TODDList;
-			productReference = B5EC66AF27FA91940042EFCF /* TODDList.app */;
+			name = TODOList;
+			productName = TODOList;
+			productReference = B5EC66CF27FADD9C0042EFCF /* TODOList.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B5EC66A727FA91940042EFCF /* Project object */ = {
+		B5EC66C727FADD9C0042EFCF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
-					B5EC66AE27FA91940042EFCF = {
+					B5EC66CE27FADD9C0042EFCF = {
 						CreatedOnToolsVersion = 13.3;
 					};
 				};
 			};
-			buildConfigurationList = B5EC66AA27FA91940042EFCF /* Build configuration list for PBXProject "TODDList" */;
+			buildConfigurationList = B5EC66CA27FADD9C0042EFCF /* Build configuration list for PBXProject "TODOList" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -110,55 +110,55 @@
 				en,
 				Base,
 			);
-			mainGroup = B5EC66A627FA91940042EFCF;
-			productRefGroup = B5EC66B027FA91940042EFCF /* Products */;
+			mainGroup = B5EC66C627FADD9C0042EFCF;
+			productRefGroup = B5EC66D027FADD9C0042EFCF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B5EC66AE27FA91940042EFCF /* TODDList */,
+				B5EC66CE27FADD9C0042EFCF /* TODOList */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B5EC66AD27FA91940042EFCF /* Resources */ = {
+		B5EC66CD27FADD9C0042EFCF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5EC66BF27FA91970042EFCF /* LaunchScreen.storyboard in Resources */,
-				B5EC66BC27FA91970042EFCF /* Assets.xcassets in Resources */,
-				B5EC66BA27FA91940042EFCF /* Main.storyboard in Resources */,
+				B5EC66DF27FADD9F0042EFCF /* LaunchScreen.storyboard in Resources */,
+				B5EC66DC27FADD9E0042EFCF /* Assets.xcassets in Resources */,
+				B5EC66DA27FADD9C0042EFCF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B5EC66AB27FA91940042EFCF /* Sources */ = {
+		B5EC66CB27FADD9C0042EFCF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5EC66B727FA91940042EFCF /* ViewController.swift in Sources */,
-				B5EC66B327FA91940042EFCF /* AppDelegate.swift in Sources */,
-				B5EC66B527FA91940042EFCF /* SceneDelegate.swift in Sources */,
+				B5EC66D727FADD9C0042EFCF /* ViewController.swift in Sources */,
+				B5EC66D327FADD9C0042EFCF /* AppDelegate.swift in Sources */,
+				B5EC66D527FADD9C0042EFCF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B5EC66B827FA91940042EFCF /* Main.storyboard */ = {
+		B5EC66D827FADD9C0042EFCF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B5EC66B927FA91940042EFCF /* Base */,
+				B5EC66D927FADD9C0042EFCF /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		B5EC66BD27FA91970042EFCF /* LaunchScreen.storyboard */ = {
+		B5EC66DD27FADD9E0042EFCF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B5EC66BE27FA91970042EFCF /* Base */,
+				B5EC66DE27FADD9F0042EFCF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -166,7 +166,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		B5EC66C127FA91970042EFCF /* Debug */ = {
+		B5EC66E127FADD9F0042EFCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -226,7 +226,7 @@
 			};
 			name = Debug;
 		};
-		B5EC66C227FA91970042EFCF /* Release */ = {
+		B5EC66E227FADD9F0042EFCF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -280,7 +280,7 @@
 			};
 			name = Release;
 		};
-		B5EC66C427FA91970042EFCF /* Debug */ = {
+		B5EC66E427FADD9F0042EFCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -288,7 +288,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TODDList/Info.plist;
+				INFOPLIST_FILE = TODOList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -299,7 +299,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "codesquad-ios.team16.TODDList";
+				PRODUCT_BUNDLE_IDENTIFIER = "codesquad-ios.team16.TODOList";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -307,7 +307,7 @@
 			};
 			name = Debug;
 		};
-		B5EC66C527FA91970042EFCF /* Release */ = {
+		B5EC66E527FADD9F0042EFCF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -315,7 +315,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TODDList/Info.plist;
+				INFOPLIST_FILE = TODOList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -326,7 +326,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "codesquad-ios.team16.TODDList";
+				PRODUCT_BUNDLE_IDENTIFIER = "codesquad-ios.team16.TODOList";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -337,25 +337,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B5EC66AA27FA91940042EFCF /* Build configuration list for PBXProject "TODDList" */ = {
+		B5EC66CA27FADD9C0042EFCF /* Build configuration list for PBXProject "TODOList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B5EC66C127FA91970042EFCF /* Debug */,
-				B5EC66C227FA91970042EFCF /* Release */,
+				B5EC66E127FADD9F0042EFCF /* Debug */,
+				B5EC66E227FADD9F0042EFCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B5EC66C327FA91970042EFCF /* Build configuration list for PBXNativeTarget "TODDList" */ = {
+		B5EC66E327FADD9F0042EFCF /* Build configuration list for PBXNativeTarget "TODOList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B5EC66C427FA91970042EFCF /* Debug */,
-				B5EC66C527FA91970042EFCF /* Release */,
+				B5EC66E427FADD9F0042EFCF /* Debug */,
+				B5EC66E527FADD9F0042EFCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B5EC66A727FA91940042EFCF /* Project object */;
+	rootObject = B5EC66C727FADD9C0042EFCF /* Project object */;
 }
