@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     func setHeaderView(){
         let header = HeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 6))
         self.view.addSubview(header)
+    
     }
+    
 }
 
