@@ -99,12 +99,9 @@
 		8D2AFD6F27FB08AE00307CCB /* To-Do_List */ = {
 			isa = PBXGroup;
 			children = (
-				8D2AFD7027FB08AE00307CCB /* AppDelegate.swift */,
-				8D2AFD7227FB08AE00307CCB /* SceneDelegate.swift */,
 				8D2AFD7427FB08AE00307CCB /* ViewController.swift */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
-				8D2AFD7927FB08B000307CCB /* Assets.xcassets */,
-				8D2AFD7B27FB08B100307CCB /* LaunchScreen.storyboard */,
+				8DC876B727FB0C560014FC94 /* SupportingFiles */,
 				8D2AFD7E27FB08B100307CCB /* Info.plist */,
 			);
 			path = "To-Do_List";
@@ -125,6 +122,17 @@
 				8D2AFD9327FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift */,
 			);
 			path = "To-Do_ListUITests";
+			sourceTree = "<group>";
+		};
+		8DC876B727FB0C560014FC94 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				8D2AFD7027FB08AE00307CCB /* AppDelegate.swift */,
+				8D2AFD7227FB08AE00307CCB /* SceneDelegate.swift */,
+				8D2AFD7927FB08B000307CCB /* Assets.xcassets */,
+				8D2AFD7B27FB08B100307CCB /* LaunchScreen.storyboard */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
