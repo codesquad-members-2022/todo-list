@@ -2,4 +2,4 @@
 
 그룹 프로젝트 #1
 
-jinnie
+jinnie2
