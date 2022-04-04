@@ -39,6 +39,12 @@ class ColumnViewController: UIViewController, ColumnView {
         return label
     }()
     
+    private let cardTable: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     private let add: UIButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
@@ -46,7 +52,6 @@ class ColumnViewController: UIViewController, ColumnView {
         let button = UIButton(configuration: configuration, primaryAction: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "ic_add"), for: .normal)
-        button.tintColor = .gray4
         return button
     }()
     
@@ -69,7 +74,6 @@ class ColumnViewController: UIViewController, ColumnView {
     }
     
     private func attribute() {
-        self.view.backgroundColor = .gray
     }
     
     private func layout() {
@@ -92,5 +96,11 @@ class ColumnViewController: UIViewController, ColumnView {
         add.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true
         add.widthAnchor.constraint(equalToConstant: 24).isActive = true
         add.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        
+        self.view.addSubview(cardTable)
+        cardTable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16).isActive = true
+        cardTable.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        cardTable.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        cardTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10).isActive = true
     }
 }

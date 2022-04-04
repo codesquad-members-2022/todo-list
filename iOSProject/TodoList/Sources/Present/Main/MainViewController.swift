@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
     }
     
     private func attribute() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .gray6
     }
     
     private func layout() {
@@ -65,11 +65,9 @@ class MainViewController: UIViewController {
         columnStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
         columnStackView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 48).isActive = true
         columnStackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -48).isActive = true
-        columnStackView.backgroundColor = .red
         
         columnTableViews.forEach {
             $0.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
-            $0.view.backgroundColor = .brown
             columnStackView.addArrangedSubview($0.view)
         }
         columnStackView.addArrangedSubview(UIView())
