@@ -22,20 +22,16 @@ class ColumnViewController: UIViewController, ColumnView {
         return label
     }()
     
-    private let badge: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray4
-        view.layer.cornerRadius = 13
-        return view
-    }()
-    
     private let count: UILabel = {
-        let label = UILabel()
+        let label = PaddingLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "0"
+        label.text = "100"
         label.font = .systemFont(ofSize: 14, weight: .bold)
         label.textColor = .black
+        label.backgroundColor = .gray4
+        label.padding = .init(top: 8, left: 9, bottom: 8, right: 9)
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 13
         return label
     }()
     
@@ -81,15 +77,10 @@ class ColumnViewController: UIViewController, ColumnView {
         titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true
         
-        self.view.addSubview(badge)
-        badge.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8).isActive = true
-        badge.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-        badge.widthAnchor.constraint(equalToConstant: 26).isActive = true
-        badge.heightAnchor.constraint(equalToConstant: 26).isActive = true
-        
-        badge.addSubview(count)
-        count.centerXAnchor.constraint(equalTo: badge.centerXAnchor).isActive = true
-        count.centerYAnchor.constraint(equalTo: badge.centerYAnchor).isActive = true
+        self.view.addSubview(count)
+        count.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8).isActive = true
+        count.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+        count.heightAnchor.constraint(equalToConstant: 26).isActive = true
         
         self.view.addSubview(add)
         add.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
