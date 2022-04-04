@@ -99,13 +99,13 @@
 		5B349DA327FA9AFE00AA602E /* todo-list */ = {
 			isa = PBXGroup;
 			children = (
+				5B349DD827FA9DBD00AA602E /* View */,
+				5B349DD727FA9DAA00AA602E /* ViewController */,
+				5B349DD627FA9D9F00AA602E /* Model */,
+				5B349DD527FA9D9400AA602E /* configuration */,
+				5B349DD427FA9D5F00AA602E /* Resource */,
 				5B349DA427FA9AFE00AA602E /* AppDelegate.swift */,
 				5B349DA627FA9AFE00AA602E /* SceneDelegate.swift */,
-				5B349DA827FA9AFE00AA602E /* ViewController.swift */,
-				5B349DAA27FA9AFE00AA602E /* Main.storyboard */,
-				5B349DAD27FA9AFF00AA602E /* Assets.xcassets */,
-				5B349DAF27FA9AFF00AA602E /* LaunchScreen.storyboard */,
-				5B349DB227FA9AFF00AA602E /* Info.plist */,
 			);
 			path = "todo-list";
 			sourceTree = "<group>";
@@ -125,6 +125,46 @@
 				5B349DC727FA9AFF00AA602E /* todo_listUITestsLaunchTests.swift */,
 			);
 			path = "todo-listUITests";
+			sourceTree = "<group>";
+		};
+		5B349DD427FA9D5F00AA602E /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				5B349DAA27FA9AFE00AA602E /* Main.storyboard */,
+				5B349DAD27FA9AFF00AA602E /* Assets.xcassets */,
+				5B349DAF27FA9AFF00AA602E /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		5B349DD527FA9D9400AA602E /* configuration */ = {
+			isa = PBXGroup;
+			children = (
+				5B349DB227FA9AFF00AA602E /* Info.plist */,
+			);
+			path = configuration;
+			sourceTree = "<group>";
+		};
+		5B349DD627FA9D9F00AA602E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5B349DD727FA9DAA00AA602E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5B349DA827FA9AFE00AA602E /* ViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		5B349DD827FA9DBD00AA602E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,7 +480,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "todo-list/Info.plist";
+				INFOPLIST_FILE = "todo-list/configuration/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -467,7 +507,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "todo-list/Info.plist";
+				INFOPLIST_FILE = "todo-list/configuration/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
