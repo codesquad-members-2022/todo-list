@@ -1,41 +1,42 @@
-main {
-  display: flex;
+@import 'mixins';
+body {
+  background-color: #f5f5f7;
 }
 
-.todo-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 300px;
-  background-color: aliceblue;
+.columns-wrapper {
+  @include flex();
+  width: calc(100% - 480px);
+  padding-left: 80px;
 
-  .todo-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .todo-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 15px;
-    p {
-      font-size: 12px;
-      margin-right: 20px;
+  .column-wrapper {
+    width: 300px;
+    margin-right: 10px;
+
+    .column-header-wrapper {
+      @include flex($justify-content: space-between);
+      height: 30px;
+      .column-header-left-wrapper {
+        @include flex();
+        .column-header-tittle {
+          height: 30px;
+          line-height: 35px;
+        }
+        .column-header-num {
+          background-color: #bdbdbd;
+          border-radius: 20px;
+          width: 18px;
+          height: 18px;
+          text-align: center;
+          line-height: 18px;
+          font-size: 9px;
+          margin-left: 8px;
+        }
+      }
+
+      .column-header-right-wrapper {
+        width: 30px;
+        @include flex($justify-content: space-between);
+      }
     }
   }
-
-  h2 {
-    font-size: 18px;
-    margin-right: 20px;
-    margin-left: 5px;
-  }
-}
-
-.btn {
-  background-color: aquamarine;
-  border: none;
-  border-radius: 10px;
 }
