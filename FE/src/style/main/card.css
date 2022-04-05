@@ -1,0 +1,36 @@
+.column-item--card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: white;
+  width: 90%;
+  padding: 16px;
+  margin-bottom: 15px;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.5);
+  border-radius: 6px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.card-header h3 {
+  font-weight: bold;
+}
+
+.card-header .delete-btn {
+  border: none;
+  background-color: white;
+  color: #828282;
+}
+.card-content {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 10px 0;
+}
+.card-author {
+  color: #BDBDBD;
+  font-size: 12px;
+}

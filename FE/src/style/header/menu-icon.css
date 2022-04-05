@@ -1,0 +1,49 @@
+#menu-icon {
+  display: none;
+}
+
+#menu-icon + label {
+  z-index: 1;
+  display: block;
+  width: 25px;
+  height: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+#menu-icon + label span {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  border-radius: 10px;
+  background-color:#808080;
+  transition: all .25s;
+}
+
+#menu-icon + label span:nth-child(1) {
+  top:0;
+}
+
+#menu-icon + label span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#menu-icon + label span:nth-child(3) {
+  bottom: 0;
+}
+
+#menu-icon:checked + label span:nth-child(1) {
+  top:50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+#menu-icon:checked + label span:nth-child(2) {
+  opacity: 0;
+}
+
+#menu-icon:checked + label span:nth-child(3) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+}
