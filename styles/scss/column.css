@@ -8,14 +8,14 @@
   height: auto;
   top: 80px;
 }
-.todo-column :first-child {
+.todo-column.first {
   left: 20px;
 }
-.todo-column :nth-child(2) {
+.todo-column.second {
   left: 404px;
 }
-.todo-column :nth-child(3) {
-  left: 728px;
+.todo-column.third {
+  left: 800px;
 }
 
 .todo-card {
@@ -24,7 +24,6 @@
   flex-direction: row;
   align-items: flex-start;
   padding: 16px;
-  position: absolute;
   width: 308px;
   height: auto;
   left: 0px;
@@ -35,16 +34,7 @@
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
   border-radius: 6px;
 }
-.todo-card .cancel {
-  position: absolute;
-  left: 28.12%;
-  right: 28.12%;
-  top: 28.12%;
-  bottom: 28.12%;
-  /* Gray 3 */
-  background: #828282;
-}
-.todo-card textarea {
+.todo-card .wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -61,7 +51,8 @@
   flex-grow: 0;
   margin: 0px 0px;
 }
-.todo-card textarea .card-title {
+
+.wrapper .card-title {
   position: static;
   width: 252px;
   height: 23px;
@@ -80,7 +71,7 @@
   flex-grow: 0;
   margin: 8px 0px;
 }
-.todo-card textarea .card-content {
+.wrapper .card-content {
   position: static;
   width: 252px;
   height: 20px;
@@ -99,7 +90,7 @@
   flex-grow: 0;
   margin: 8px 0px;
 }
-.todo-card textarea .card-caption {
+.wrapper .card-caption {
   position: static;
   width: 252px;
   height: 17px;
@@ -120,6 +111,26 @@
 }
 
 .todo-title {
+  /* Auto layout */
+  /* column title */
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 8px;
+  position: static;
+  width: 308px;
+  height: 26px;
+  left: 0px;
+  top: 0px;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 16px 0px;
+}
+.todo-title .todo-name {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -135,35 +146,7 @@
   flex-grow: 0;
   margin: 0px 8px;
 }
-.todo-title .plus {
-  position: static;
-  width: 24px;
-  height: 24px;
-  left: 244px;
-  top: 1px;
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 0px 8px;
-}
-.todo-title textarea {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  position: static;
-  width: 228px;
-  height: 26px;
-  left: 8px;
-  top: 0px;
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 0px 8px;
-}
-.todo-title textarea .count {
+.todo-title .todo-name .count {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -182,6 +165,52 @@
   order: 1;
   flex-grow: 0;
   margin: 0px 8px;
+}
+.plus {
+  position: static;
+  width: 24px;
+  height: 24px;
+  left: 244px;
+  top: 1px;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
+.plus svg {
+  position: static;
+  width: 24px;
+  height: 24px;
+  left: 244px;
+  top: 1px;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
+
+.cancel {
+  position: static;
+  width: 24px;
+  height: 24px;
+  left: 276px;
+  top: 1px;
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
+.cancel svg {
+  position: absolute;
+  left: 28.12%;
+  right: 28.12%;
+  top: 28.12%;
+  bottom: 28.12%;
+  /* Gray 4 */
+  background: #bdbdbd;
 }
 
 /*# sourceMappingURL=column.css.map */
