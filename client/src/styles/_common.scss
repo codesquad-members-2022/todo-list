@@ -1,4 +1,5 @@
 @import './_variables';
+
 @mixin size($width, $height) {
   width: $width;
   height: $height;
@@ -16,10 +17,17 @@
   line-height: $line-height;
 }
 
-%default_button {
-  width: 134px;
-  padding: 10px;
-  border-radius: 6px;
+/* item 상태별 style */
+
+.default {
+  background-color: $white-color;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+
+  .close-icon {
+    path {
+      fill: $gray3-color;
+    }
+  }
 }
 
 .drag {
@@ -27,32 +35,72 @@
   box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
     0px 2px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(4px);
-}
 
-.default_card_color {
-  background-color: $white-color;
-  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  .close-icon {
+    path {
+      fill: $gray3-color;
+    }
+  }
 }
 
 .place {
-  background: #ffffff;
+  background: $white-color;
   opacity: 0.4;
-
   border: 1px solid #0075de;
-  box-sizing: border-box;
-
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+
+  .close-icon {
+    path {
+      fill: $gray3-color;
+    }
+  }
 }
 
 .delete {
-  background: #ffeeec;
-  border: 1px solid #ff4343;
-  box-sizing: border-box;
+  background: $white-red-color;
+  border: 1px solid $red-color;
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+
+  .close-icon {
+    path {
+      fill: $red-color;
+    }
+  }
 }
 
-.delete_card_background {
-  background: rgba(1, 1, 1, 0.4);
+.active {
+  border: 1px solid $blue-color;
+}
+
+.deactivate {
+  border: 1px solid $blue-color;
+
+  .item-title,
+  .item-content {
+    color: $gray3-color;
+  }
+}
+
+/* 버튼 상태별 style */
+
+%default_button {
+  width: 134px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.active-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  button {
+    @extend %default_button;
+  }
+
+  .normal-btn {
+    margin-right: 8px;
+  }
 }
 
 .accent-btn {
@@ -73,37 +121,15 @@
 
 .normal-btn {
   background-color: $gray5-color;
+  color: $gray3-color;
 }
 
 .normal-btn:hover {
   background-color: $gray3-color;
+  color: $white-color;
 }
 
+/* 팝업 레이어 백그라운드 */
 .make-black {
   background: rgba(1, 1, 1, 0.4);
-}
-
-.active {
-  border: 1px solid $blue-color;
-
-  .item-info {
-    width: 100%;
-  }
-}
-
-.active-btns {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  button {
-    @extend %default_button;
-  }
-}
-
-.accent-btn {
-  background-color: $blue-color;
-  color: $white-color;
-  font-weight: 700;
-  font-size: 14px;
 }

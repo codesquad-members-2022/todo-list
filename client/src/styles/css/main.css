@@ -1,7 +1,13 @@
-.active-btns button {
-  width: 134px;
-  padding: 10px;
-  border-radius: 6px;
+@charset "UTF-8";
+/* item 상태별 style */
+.default {
+  background-color: #fff;
+  -webkit-box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+          box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+}
+
+.default .close-icon path {
+  fill: #828282;
 }
 
 .drag {
@@ -12,33 +18,68 @@
           backdrop-filter: blur(4px);
 }
 
-.default_card_color {
-  background-color: #fff;
+.drag .close-icon path {
+  fill: #828282;
+}
+
+.place {
+  background: #fff;
+  opacity: 0.4;
+  border: 1px solid #0075de;
   -webkit-box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
           box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
 }
 
-.place {
-  background: #ffffff;
-  opacity: 0.4;
-  border: 1px solid #0075de;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
-          box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+.place .close-icon path {
+  fill: #828282;
 }
 
 .delete {
   background: #ffeeec;
   border: 1px solid #ff4343;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   -webkit-box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
           box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
 }
 
-.delete_card_background {
-  background: rgba(1, 1, 1, 0.4);
+.delete .close-icon path {
+  fill: #ff4343;
+}
+
+.active {
+  border: 1px solid #0075de;
+}
+
+.deactivate {
+  border: 1px solid #0075de;
+}
+
+.deactivate .item-title,
+.deactivate .item-content {
+  color: #828282;
+}
+
+/* 버튼 상태별 style */
+.active-btns button {
+  width: 134px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.active-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.active-btns .normal-btn {
+  margin-right: 8px;
 }
 
 .accent-btn {
@@ -59,48 +100,24 @@
 
 .normal-btn {
   background-color: #e0e0e0;
+  color: #828282;
 }
 
 .normal-btn:hover {
   background-color: #828282;
+  color: #fff;
 }
 
+/* 팝업 레이어 백그라운드 */
 .make-black {
   background: rgba(1, 1, 1, 0.4);
-}
-
-.active {
-  border: 1px solid #0075de;
-}
-
-.active .item-info {
-  width: 100%;
-}
-
-.active-btns {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.accent-btn {
-  background-color: #0075de;
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
 }
 
 main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  padding: 0 80px;
 }
 
 .column {
@@ -112,7 +129,6 @@ main {
       -ms-flex-direction: column;
           flex-direction: column;
   width: 308px;
-  margin-left: 80px;
   margin-right: 16px;
 }
 
@@ -123,32 +139,61 @@ main {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   width: 100%;
+  margin-bottom: 16px;
 }
 
 .column-header .column-title {
-  display: inline-block;
-  margin-bottom: 16px;
-  padding: 0 16px;
   font-weight: 700;
   font-size: 18px;
   line-height: 26px;
+  display: inline-block;
+  padding-right: 8px;
 }
 
 .column-header .item-count {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  display: inline-block;
   border-radius: 50%;
+  background-color: #bdbdbd;
+  text-align: center;
+  vertical-align: bottom;
 }
 
-.column-header .close-icon {
-  color: #bdbdbd;
+.column-header .plus-icon {
+  margin-right: 12px;
+}
+
+.column-header .plus-icon path {
+  fill: #bdbdbd;
+}
+
+.column-header .plus-icon:hover path {
+  fill: #0075de;
+}
+
+.column-header .close-icon path {
+  fill: #bdbdbd;
+}
+
+.column-header .close-icon:hover path {
+  fill: #ff4343;
 }
 
 .column-list .list_item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   margin-bottom: 16px;
   padding: 16px;
   border-radius: 6px;
@@ -159,38 +204,37 @@ main {
 }
 
 .column-list .item-info .item-title {
-  margin-bottom: 8px;
-  font-size: 16px;
   font-weight: 700;
+  font-size: 16px;
   line-height: 23px;
+  margin-bottom: 8px;
 }
 
 .column-list .item-info .item-content {
-  margin-bottom: 8px;
+  font-weight: 400;
   font-size: 14px;
   line-height: 20px;
+  margin-bottom: 8px;
 }
 
 .column-list .item-info .item-caption {
+  font-weight: 400;
   font-size: 12px;
   line-height: 17px;
   color: #bdbdbd;
 }
 
-.column-list .item-info .close-icon {
-  width: 10px;
-  height: 10px;
-  background-color: #e0e0e0;
-}
-
 .layer {
-  position: fixed;
-  top: 0%;
   width: 100%;
   height: 100%;
+  position: fixed;
+  top: 0%;
 }
 
 .layer .alert {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 26px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -209,31 +253,20 @@ main {
           align-items: flex-end;
   width: 400px;
   padding: 24px;
+  border-radius: 6px;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  background: #fff;
+  background-color: #fff;
   -webkit-box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
   -webkit-backdrop-filter: blur(4px);
           backdrop-filter: blur(4px);
-  border-radius: 6px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 26px;
 }
 
 .layer .alert .alert_message {
-  margin-bottom: 24px;
   width: 100%;
+  margin-bottom: 24px;
   text-align: left;
-}
-
-.layer .alert .normal-btn {
-  margin-right: 8px;
-}
-
-.layer .alert .accent-btn {
-  color: #fff;
 }
 
 .header {
@@ -258,10 +291,11 @@ main {
 }
 
 .header > .menu-bar {
-  display: none;
   position: absolute;
   top: 0;
   right: 0;
+  display: none;
+  z-index: 1;
   height: 100vh;
   padding: 80px 40px 0 40px;
   background-color: #ffffff;
@@ -494,6 +528,8 @@ button {
 }
 
 body {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   position: relative;
   font-family: 'Noto Sans KR', sans-serif;
   background-color: #f5f5f7;
