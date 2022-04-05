@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+class CardBoard {
+    private(set) var selectedTodo: Card?
+    private(set) var selectedIndex: Int?
+}
