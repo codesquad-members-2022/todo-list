@@ -2,37 +2,51 @@ package team07.todolist.dto;
 
 public class ResponseCard {
 
-	private String userId;
-	private String title;
-	private String content;
-	private Integer row;
-	private int status;
+  private String userId;
+  private String title;
+  private String content;
+  private Integer row;
+  private Integer status;
 
-	public ResponseCard(String userId, String title, String content, Integer row, int status) {
-		this.userId = userId;
-		this.title = title;
-		this.content = content;
-		this.row = row;
-		this.status = status;
-	}
+  public ResponseCard() {
+  }
 
-	public String getUserId() {
-		return userId;
-	}
+  public ResponseCard(String userId, String title, String content, Integer row, Integer status) {
+    this.userId = userId;
+    this.title = title;
+    this.content = content;
+    this.row = row;
+    this.status = status;
+  }
 
-	public String getTitle() {
-		return title;
-	}
+  public String getUserId() {
+    return userId;
+  }
 
-	public String getContent() {
-		return content;
-	}
+  public String getTitle() {
+    return title;
+  }
 
-	public Integer getRow() {
-		return row;
-	}
+  public String getContent() {
+    return content;
+  }
 
-	public int getStatus() {
-		return status;
-	}
+  public Integer getRow() {
+    return row;
+  }
+
+  public Integer getStatus() {
+    return status;
+  }
+
+  @Override
+  public String toString() {
+    return "ResponseCard{" +
+        "userId='" + userId + '\'' +
+        ", title='" + title + '\'' +
+        ", content='" + content + '\'' +
+        ", row=" + row +
+        ", status=" + status +
+        '}';
+  }
 }

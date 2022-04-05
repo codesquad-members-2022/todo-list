@@ -9,26 +9,27 @@ import team07.todolist.repository.CardRepository;
 @Service
 public class CardService {
 
-	private CardRepository cardRepository;
+  private CardRepository cardRepository;
 
-	public CardService(CardRepository cardRepository) {
-		this.cardRepository = cardRepository;
-	}
+  public CardService(CardRepository cardRepository) {
+    this.cardRepository = cardRepository;
+  }
 
-	public void save(ResponseCard responseCard) {
-		//todo
-		//Card card responseCard이용해서 만들기
-//		cardRepository.save(card);
+  public void save(ResponseCard responseCard) {
+    Card newCard = new Card(responseCard.getUserId(), responseCard.getTitle(),
+        responseCard.getContent(), responseCard.getRow(),
+        responseCard.getStatus());
+    int status = responseCard.getStatus().intValue();
+    cardRepository.save(newCard, status);
+  }
 
-	}
+  public void delete(int row, int status) {
 
-	public void delete(int row, int status) {
+  }
 
-	}
-
-	public Card changeRow(int row, int status) {
-		return null;
-	}
+  public Card changeRow(int row, int status) {
+    return null;
+  }
 
 
 }
