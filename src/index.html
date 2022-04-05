@@ -16,8 +16,8 @@
         <div class="column">
           <div class="column-header">
             <div class="column-header__info">
-              <div class="column-header__title"></div>
-              <div class="column-header__count"></div>
+              <div class="column-header__title">해야할 일</div>
+              <div class="column-header__count">2</div>
             </div>
             <div class="column-header__util">
               <!-- 모든 이미지, 아이콘은 div의 백그라운드 이미지로 인코딩해서 사용 -->
@@ -25,43 +25,87 @@
               <div class="column-header__delete-btn"></div>
             </div>
           </div>
+          <ul class="card-list">
+            <!-- 일반 카드 상태 -->
+            <li class="card">
+              <div class="card-contents">
+                <div class="card-contents__title">GitHub 공부하기</div>
+                <div class="card-contents__description">add, commit, push</div>
+                <div class="card-contents__author">author by web</div>
+              </div>
+              <div class="card__delete-btn"></div>
+            </li>
+            <!-- editing 카드 상태 -->
+            <li class="card">
+              <div class="card-contents">
+                <div class="card-contents__title">GitHub 공부하기</div>
+                <div class="card-contents__description">add, commit, push</div>
+              </div>
+              <div class="card__util-btn">
+                <div class="card__util-btn--cancel">취소</div>
+                <div class="card__util-btn--regist">등록</div>
+              </div>
+            </li>
+          </ul>
         </div>
-        <ul class="card-list">
-          <!-- 일반 카드 상태 -->
-          <li class="card">
-            <div class="card-contents">
-              <div class="card-contents__title"></div>
-              <div class="card-contents__description"></div>
-              <div class="card-contents__author"></div>
+        <div class="column">
+          <div class="column-header">
+            <div class="column-header__info">
+              <div class="column-header__title">해야할 일</div>
+              <div class="column-header__count">2</div>
             </div>
-            <div class="card__delete-btn"></div>
-          </li>
-          <!-- editing 카드 상태 -->
-          <li class="card">
-            <div class="card-contents">
-              <div class="card-contents__title"></div>
-              <div class="card-contents__description"></div>
+            <div class="column-header__util">
+              <!-- 모든 이미지, 아이콘은 div의 백그라운드 이미지로 인코딩해서 사용 -->
+              <div class="column-header__add-btn"></div>
+              <div class="column-header__delete-btn"></div>
             </div>
-            <div class="card__util-btn">
-              <div class="card__util-btn--cancel"></div>
-              <div class="card__util-btn--regist"></div>
-            </div>
-          </li>
-        </ul>
-        <div class="log-container">
-          <div class="log__close-btn"></div>
-          <ul class="log-list">
-            <li class="log">
-              <div class="log__emoji"></div>
-              <div class="log-contents">
-                <div class="log-contents__user"></div>
-                <div class="log-contents__description"></div>
-                <div class="log-contents__time"></div>
+          </div>
+          <ul class="card-list">
+            <!-- 일반 카드 상태 -->
+            <li class="card">
+              <div class="card-contents">
+                <div class="card-contents__title">GitHub 공부하기</div>
+                <div class="card-contents__description">add, commit, push</div>
+                <div class="card-contents__author">author by web</div>
+              </div>
+              <div class="card__delete-btn"></div>
+            </li>
+            <!-- editing 카드 상태 -->
+            <li class="card">
+              <div class="card-contents">
+                <div class="card-contents__title">GitHub 공부하기</div>
+                <div class="card-contents__description">add, commit, push</div>
+              </div>
+              <div class="card__util-btn">
+                <div class="card__util-btn--cancel">취소</div>
+                <div class="card__util-btn--regist">등록</div>
               </div>
             </li>
           </ul>
         </div>
       </div>
+      <div class="log-container">
+        <div class="log__close-btn"></div>
+        <ul class="log-list">
+          <li class="log">
+            <div class="log__emoji">😎</div>
+            <div class="log-contents">
+              <div class="log-contents__user">@alan</div>
+              <div class="log-contents__description">HTML/CSS공부하기를 해야할 일에서 하고 있는 일로 이동하였습니다.</div>
+              <div class="log-contents__time">1분 전</div>
+            </div>
+          </li>
+          <li class="log">
+            <div class="log__emoji">😎</div>
+            <div class="log-contents">
+              <div class="log-contents__user">@ver</div>
+              <div class="log-contents__description">HTML/CSS공부하기를 해야할 일에서 하고 있는 일로 이동하였습니다.</div>
+              <div class="log-contents__time">2분 전</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
     </div>
     <script src="../dist/main.js"></script>
   </body>

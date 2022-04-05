@@ -1,0 +1,31 @@
+@import '../scss/variable.scss';
+
+.card {
+    display: flex;
+    padding: 16px;
+    margin: 15px 0px;
+    border-radius: 6px;
+    width: $column-width;
+    height: 108px;
+    background-color: $white;
+    position: relative;
+
+    &-contents {
+        &__title {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        &__author {
+            color: $light-gray;
+        }
+    }
+    &__delete-btn{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 24px;
+        height: 24px;
+        background-image: url(../images/close.png);
+    }
+}

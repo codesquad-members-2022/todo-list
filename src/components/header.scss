@@ -1,11 +1,18 @@
-.header {
-  &__title {
-    color: blue;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 80px;
+
+  .header__title {
+    font-size: 2rem;
+    font-weight: 600;
   }
 
-  &__menu-btn {
+  .header__menu-btn {
     background-image: url("../images/menu.png");
     width: 24px;
     height: 24px;
+    
   }
 }

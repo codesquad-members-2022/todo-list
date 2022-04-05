@@ -1,0 +1,62 @@
+@import '../scss/variable.scss';
+
+.column {
+    margin-right: 15px;
+
+    &-container {
+        padding: 30px 80px;
+        display: flex;
+        width: $column-width;
+    }
+
+    &-header {
+        width: $column-width;
+        height: 26px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 10px;
+        
+        &__info {
+            display: flex;
+            align-items: center;
+        }
+
+        &__title {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        &__count {
+            background-color: $gray;
+            text-align: center;
+            border-radius: 100%;
+            width: 25px;
+            height: 25px;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
+        &__util{
+            display: flex;
+        }
+
+        &__add-btn{
+            width: 24px;
+            height: 24px;
+            background: url(../images/column-plus.png) no-repeat center;
+            margin-right: 5px;
+        }
+        
+        
+        &__delete-btn{
+            width: 24px;
+            height: 24px;
+            background-image: url(../images/column-close.png);
+        }
+
+        
+    }
+
+}
+
