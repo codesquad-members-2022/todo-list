@@ -3,17 +3,14 @@ $list-width: 308px;
 
 main {
   display: flex;
-  background-color: $backbround-color;
 }
 
 .column {
-  position: absolute;
   display: flex;
   flex-direction: column;
   width: $list-width;
+  margin-left: 80px;
   margin-right: $margin;
-  left: 80px;
-  top: 136px;
 }
 
 .column-header {
@@ -55,14 +52,14 @@ main {
     width: 252px;
 
     .item-title {
-      margin-bottom: $margin / 2;
+      margin-bottom: calc($margin / 2);
       font-size: $font-size-16;
       font-weight: 700;
       line-height: 23px;
     }
 
     .item-content {
-      margin-bottom: $margin / 2;
+      margin-bottom: calc($margin / 2);
       font-size: $font-size-14;
       line-height: 20px;
     }
