@@ -55,3 +55,10 @@ button {
   height: 20px;
   background-color: $mainBGColor;
 }
+
+.log-close-btn {
+  background-image: buttonIcon(remove);
+  width: 11px;
+  height: 11px;
+  background-color: $mainBGColor;
+}
