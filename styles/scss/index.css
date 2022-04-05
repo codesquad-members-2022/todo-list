@@ -193,6 +193,191 @@ svg {
   top: 80px;
 }
 
+.todo-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  position: absolute;
+  width: 332px;
+  height: auto;
+  top: 80px;
+}
+.todo-column :first-child {
+  left: 20px;
+}
+.todo-column :nth-child(2) {
+  left: 404px;
+}
+.todo-column :nth-child(3) {
+  left: 728px;
+}
+
+.todo-card {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+  position: absolute;
+  width: 308px;
+  height: auto;
+  left: 0px;
+  top: 20px;
+  /* White */
+  background: #ffffff;
+  /* nomal */
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: 6px;
+}
+.todo-card .cancel {
+  position: absolute;
+  left: 28.12%;
+  right: 28.12%;
+  top: 28.12%;
+  bottom: 28.12%;
+  /* Gray 3 */
+  background: #828282;
+}
+.todo-card textarea {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  position: static;
+  width: 252px;
+  height: 76px;
+  left: 16px;
+  top: 16px;
+  border-radius: 8px;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 0px;
+}
+.todo-card textarea .card-title {
+  position: static;
+  width: 252px;
+  height: 23px;
+  left: 0px;
+  top: 0px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+  /* Black */
+  color: #010101;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 8px 0px;
+}
+.todo-card textarea .card-content {
+  position: static;
+  width: 252px;
+  height: 20px;
+  left: 0px;
+  top: 31px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* Black */
+  color: #010101;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 8px 0px;
+}
+.todo-card textarea .card-caption {
+  position: static;
+  width: 252px;
+  height: 17px;
+  left: 0px;
+  top: 59px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  /* Gray 4 */
+  color: #bdbdbd;
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+  margin: 8px 0px;
+}
+
+.todo-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  position: static;
+  width: 228px;
+  height: 26px;
+  left: 8px;
+  top: 0px;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
+.todo-title .plus {
+  position: static;
+  width: 24px;
+  height: 24px;
+  left: 244px;
+  top: 1px;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
+.todo-title textarea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  position: static;
+  width: 228px;
+  height: 26px;
+  left: 8px;
+  top: 0px;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
+.todo-title textarea .count {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  position: static;
+  width: 26px;
+  height: 26px;
+  left: 79px;
+  top: 0px;
+  /* Gray 4 */
+  background: #bdbdbd;
+  border-radius: 20px;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
 body {
   /* 01 메인 */
   position: relative;

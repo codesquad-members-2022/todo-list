@@ -5,9 +5,17 @@
   padding: 0px;
   position: absolute;
   width: 332px;
-  height: 548px;
-  left: 1028px;
+  height: auto;
   top: 80px;
+}
+.todo-column :first-child {
+  left: 20px;
+}
+.todo-column :nth-child(2) {
+  left: 404px;
+}
+.todo-column :nth-child(3) {
+  left: 728px;
 }
 
 .todo-card {
@@ -18,8 +26,8 @@
   padding: 16px;
   position: absolute;
   width: 308px;
-  height: 108px;
-  left: 20px;
+  height: auto;
+  left: 0px;
   top: 20px;
   /* White */
   background: #ffffff;
@@ -176,4 +184,4 @@
   margin: 0px 8px;
 }
 
-/*# sourceMappingURL=todocolumn.css.map */
+/*# sourceMappingURL=column.css.map */

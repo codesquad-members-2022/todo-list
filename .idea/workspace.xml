@@ -5,27 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d2d2c9f-9b51-4d2e-8991-fb036e8b9897" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/TodoList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/component.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/header.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/css/header.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/css/reset.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/header.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/header.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/header.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/index.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/index.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/reset.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/reset.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/reset.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/todocolumn.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/todocolumn.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/styles/scss/todocolumn.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/Store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/component.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/index.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/index.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/todocolumn.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/column.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/todocolumn.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/column.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/todocolumn.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/column.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +28,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="27JWfHVM7Ar27A7uVC9vcPHWBfh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,6 +44,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/inust/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/221.5080.96/WebStorm 2022.1 EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -68,6 +59,7 @@
       <workItem from="1649038772055" duration="2370000" />
       <workItem from="1649050323849" duration="1260000" />
       <workItem from="1649064895956" duration="710000" />
+      <workItem from="1649120830701" duration="782000" />
     </task>
     <servers />
   </component>
