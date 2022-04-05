@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_emoji"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="@string/label_item_emoji"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/Subtitle1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/label_team04"
+        app:layout_constraintStart_toEndOf="@id/tv_emoji"
+        app:layout_constraintTop_toTopOf="@id/tv_emoji" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        style="@style/Subtitle1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:bufferType="spannable"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:text="HTML/CSS공부하기를 해야할 일에서 하고 있는 일로 이동하였습니다." />
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/Subtitle2.grey03"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        tools:text="1분 전" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
