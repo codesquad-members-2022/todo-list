@@ -22,7 +22,7 @@
 |17|Miller	BC	이든	J|https://github.com/rxdcxdrnine/todo-list
 |18|Geon	아울|https://github.com/Geon-Owl/todo-list
 |19|도토리	Hemdi|https://github.com/hemtori/todo-list
-|20|옐로우	Jwu|https://github.com/mansaout/todo-list
+|20|옐로우	Jwu|https://github.com/jwu-wa-yellow/todo-list
 |21|ikjo	Hanse	Khan	Nick|https://github.com/ikjo93/todo-list
 |22|파크	BB|https://github.com/healtheloper/todo-list
 |23|Maeve	이누|https://github.com/devInu33/todo-list
