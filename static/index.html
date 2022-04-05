@@ -7,51 +7,56 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./resources/scss/main.css">
+    <link rel="stylesheet" href="./resources/css/main.css">
   </head>
   <body>
-    <header>
-      <h1 class="logo">TO-DO LIST</h1>
-      <button type="button" class="history-button"></button>
-    </header>
-    <main>
-      <div class="column-wrap">
-        <div class="column-top-wrap">
-          <h2 class="column-title">해야할 일<span class="card-num">2</span></h2>
-          <div class="column-button-wrap">
-            <button type="button" class="card-add-button"><span class="hide">컬럼 추가 버튼</span></button>
-            <button type="button" class="column-delete-button"><span class="hide">컬럭 삭제 버튼</span></button>
+    <div class="wrap">
+      <header class="header">
+        <h1 class="logo">TO-DO LIST</h1>
+        <button type="button" class="aside-button history-button"></button>
+      </header>
+      <main>
+        <div class="column-wrap">
+          <div class="column">
+            <div class="column-top-wrap">
+              <h2 class="column-title">해야할 일<span class="card-num">2</span></h2>
+              <div class="column-button-wrap">
+                <button type="button" class="add-button card-add-button">
+                  <span class="hidden-text">컬럼 추가 버튼</span>
+                </button>
+                <button type="button" class="delete-button column-delete-button">
+                  <span class="hidden-text">컬럭 삭제 버튼</span>
+                </button>
+              </div>
+            </div>
+            <ul class="cards">
+              <li class="card">
+                <form action="">
+                  <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" />
+                  <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요"></textarea>
+                  <div class="card-button-wrap">
+                    <button type="button" class="cancle-button card-cancle-button">취소</button>
+                    <button type="button" class="submit-button card-regist-button">등록</button>
+                  </div>
+                </form>
+              </li>
+              <li class="card">
+                <h3 class="card-title">포키랑 놀기</h3>
+                <div class="card-content">
+                  <p>뛰어놀기</p>
+                </div>
+                <p class="card-writter">도니</p>
+                <button type="button" class="delete-button card-delete-button">
+                  <span class="hidden-text">카드 삭제 버튼</span>
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
-        <ul class="column">
-          <li class="card">
-            <div class="card-edit-wrap">
-              <form action="">
-                <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" />
-                <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요"></textarea>
-                <div class="card-button-wrap">
-                  <button type="button" class="normal-button card-cancle-button">취소</button>
-                  <button type="button" class="accent-button card-regist-button">등록</button>
-                </div>
-              </form>
-            </div>
-          </li>
-          <li class="card">
-            <div class="card-regist-wrap">
-              <h3 class="card-title">포키랑 놀기</h3>
-              <div class="card-content">
-                <p>뛰어놀기</p>
-              </div>
-              <p class="card-writter">도니</p>
-              <button type="button" class="card-delete-button"><span class="hidden">카드 삭제 버튼</span></button>
-            </div>
-          </li>
-        </ul>
-      </div>
 
-      <div class="column-add-button">
-        <button type="button"><span class="hidden">컬럼 추가 버튼</span></button>
-      </div>
+        <div class="column-add-button">
+          <button type="button"><span class="hidden-text">컬럼 추가 버튼</span></button>
+        </div>
 
       <div class="history-wrap">
         <ul class="histories">
@@ -82,7 +87,9 @@
             </div>
           </li>
         </ul>
-        <button type="button"><span class="hidden">히스토리 닫기 버튼</span></button>
+        <button type="button" class="close-button history__close-button">
+          <span class="hidden-text">히스토리 닫기 버튼</span>
+        </button>
       </div>
 
       <div class="popup-wrap">
@@ -93,7 +100,7 @@
             <button type="button" class="accent-button submit-button">확인</button>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   </body>
 </html>
