@@ -47,12 +47,6 @@ class ColumnViewCell: UITableViewCell {
         return label
     }()
     
-//    let spacing: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .clear
-//        return view
-//    }
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         bind()

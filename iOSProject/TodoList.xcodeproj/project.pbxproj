@@ -18,6 +18,15 @@
 		E0A6BAF527FB325800F00575 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAF427FB325800F00575 /* UIColor+Extension.swift */; };
 		E0A6BAF727FB3C0B00F00575 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAF627FB3C0B00F00575 /* PaddingLabel.swift */; };
 		E0A6BAFA27FB3DE300F00575 /* ColumnViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAF927FB3DE300F00575 /* ColumnViewCell.swift */; };
+		E0A6BAFC27FBCD5800F00575 /* UiViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAFB27FBCD5800F00575 /* UiViewController+Extension.swift */; };
+		E0A6BAFE27FBD3AF00F00575 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAFD27FBD3AF00F00575 /* Card.swift */; };
+		E0A6BB0027FBD3F500F00575 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAFF27FBD3F500F00575 /* Column.swift */; };
+		E0A6BB0227FBD49700F00575 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0127FBD49700F00575 /* NetworkRepository.swift */; };
+		E0A6BB0427FBD49D00F00575 /* BaseTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0327FBD49D00F00575 /* BaseTarget.swift */; };
+		E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0527FBD4BE00F00575 /* TodoRepository.swift */; };
+		E0A6BB0927FBD5FE00F00575 /* TodoRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0827FBD5FE00F00575 /* TodoRepositoryImpl.swift */; };
+		E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0A27FBD63F00F00575 /* TodoTarget.swift */; };
+		E0A6BB0D27FBEE5100F00575 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0C27FBEE5100F00575 /* APIError.swift */; };
 		E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */; };
 		E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */; };
 		E0BE4C2627FAAF6E0076403C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2527FAAF6E0076403C /* ViewController.swift */; };
@@ -38,6 +47,15 @@
 		E0A6BAF427FB325800F00575 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		E0A6BAF627FB3C0B00F00575 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		E0A6BAF927FB3DE300F00575 /* ColumnViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnViewCell.swift; sourceTree = "<group>"; };
+		E0A6BAFB27FBCD5800F00575 /* UiViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UiViewController+Extension.swift"; sourceTree = "<group>"; };
+		E0A6BAFD27FBD3AF00F00575 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		E0A6BAFF27FBD3F500F00575 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
+		E0A6BB0127FBD49700F00575 /* NetworkRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
+		E0A6BB0327FBD49D00F00575 /* BaseTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTarget.swift; sourceTree = "<group>"; };
+		E0A6BB0527FBD4BE00F00575 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
+		E0A6BB0827FBD5FE00F00575 /* TodoRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepositoryImpl.swift; sourceTree = "<group>"; };
+		E0A6BB0A27FBD63F00F00575 /* TodoTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTarget.swift; sourceTree = "<group>"; };
+		E0A6BB0C27FBEE5100F00575 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		E0BE4C1E27FAAF6E0076403C /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +111,15 @@
 				E0A6BAF927FB3DE300F00575 /* ColumnViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E0A6BB0727FBD5E900F00575 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				E0A6BB0527FBD4BE00F00575 /* TodoRepository.swift */,
+				E0A6BB0827FBD5FE00F00575 /* TodoRepositoryImpl.swift */,
+			);
+			path = Todo;
 			sourceTree = "<group>";
 		};
 		E0BE4C1527FAAF6E0076403C = {
@@ -179,6 +206,7 @@
 				E0A6BAEB27FB255300F00575 /* UIConrtol+Extension.swift */,
 				E0A6BAE927FB255300F00575 /* URLSession+Extension.swift */,
 				E0A6BAF427FB325800F00575 /* UIColor+Extension.swift */,
+				E0A6BAFB27FBCD5800F00575 /* UiViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -186,6 +214,8 @@
 		E0BE4C3B27FAAFFB0076403C /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				E0A6BB0727FBD5E900F00575 /* Todo */,
+				E0A6BB0127FBD49700F00575 /* NetworkRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -193,6 +223,8 @@
 		E0BE4C3C27FAB0020076403C /* API */ = {
 			isa = PBXGroup;
 			children = (
+				E0A6BB0327FBD49D00F00575 /* BaseTarget.swift */,
+				E0A6BB0A27FBD63F00F00575 /* TodoTarget.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -200,6 +232,9 @@
 		E0BE4C3D27FAB0090076403C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E0A6BAFD27FBD3AF00F00575 /* Card.swift */,
+				E0A6BAFF27FBD3F500F00575 /* Column.swift */,
+				E0A6BB0C27FBEE5100F00575 /* APIError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -275,20 +310,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0A6BB0227FBD49700F00575 /* NetworkRepository.swift in Sources */,
 				E0A6BAFA27FB3DE300F00575 /* ColumnViewCell.swift in Sources */,
 				E0A6BAF127FB28CE00F00575 /* ColumnViewController.swift in Sources */,
+				E0A6BAFC27FBCD5800F00575 /* UiViewController+Extension.swift in Sources */,
 				E0A6BAE527FB1FD100F00575 /* MainViewModel.swift in Sources */,
+				E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */,
 				E0BE4C2627FAAF6E0076403C /* ViewController.swift in Sources */,
 				E0A6BAF527FB325800F00575 /* UIColor+Extension.swift in Sources */,
 				E0A6BAEC27FB255300F00575 /* URLSession+Extension.swift in Sources */,
 				E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */,
 				E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */,
+				E0A6BB0D27FBEE5100F00575 /* APIError.swift in Sources */,
 				E0A6BAEE27FB255300F00575 /* UIConrtol+Extension.swift in Sources */,
+				E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */,
 				E0A6BAED27FB255300F00575 /* Date+Extension.swift in Sources */,
 				E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */,
 				E0A6BAF727FB3C0B00F00575 /* PaddingLabel.swift in Sources */,
 				E0A6BAF327FB292900F00575 /* ColumnViewModel.swift in Sources */,
 				E0A6BAE127FB1F9F00F00575 /* MainViewController.swift in Sources */,
+				E0A6BB0427FBD49D00F00575 /* BaseTarget.swift in Sources */,
+				E0A6BB0927FBD5FE00F00575 /* TodoRepositoryImpl.swift in Sources */,
+				E0A6BB0027FBD3F500F00575 /* Column.swift in Sources */,
+				E0A6BAFE27FBD3AF00F00575 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
