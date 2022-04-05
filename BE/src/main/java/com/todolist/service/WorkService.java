@@ -24,7 +24,7 @@ public class WorkService {
         List<Category> categoryList = workRepository.findAllCategories();
         for (Category category : categoryList) {
             workLists.add(new WorkList(
-                category.getName(), workRepository.findAllWorksByCategoryId(category.getId())
+                    category.getName(), workRepository.findAllWorksByCategoryId(category.getId())
                 )
             );
         }
