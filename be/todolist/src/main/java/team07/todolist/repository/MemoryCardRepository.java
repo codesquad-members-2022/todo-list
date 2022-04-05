@@ -43,7 +43,28 @@ public class MemoryCardRepository implements CardRepository {
 	@Override
 	public Card delete(Long id) {
 		Card card = store.get(id);
+		Integer row = card.getRow();
+		Integer status = card.getStatus();
+
+		switch (status) {
+			case 1:
+				toDoRow.decrementAndGet();
+				break;
+			case 2:
+				progressRow.decrementAndGet();
+				break;
+			case 3:
+				doneRow.decrementAndGet();
+				break;
+		}
+
 		card.delete();
+
+		store.values().stream()
+			.filter(c -> c.getStatus().equals(status))
+			.filter(c -> c.getRow() > row)
+			.forEach(Card::decreaseRow);
+
 		return card;
 	}
 

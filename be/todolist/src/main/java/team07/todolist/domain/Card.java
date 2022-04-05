@@ -32,6 +32,18 @@ public class Card {
 		this.id = id;
 	}
 
+	public Integer getRow() {
+		return row;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void decreaseRow() {
+		this.row = this.row - 1;
+	}
+
 	public boolean isValid() {
 		return !isDeleted;
 	}
