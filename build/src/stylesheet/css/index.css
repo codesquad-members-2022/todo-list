@@ -1,0 +1,40 @@
+:root {
+    --main-bg-color: #F5F5F7;
+    --dark-gray: #BDBDBD;
+    --white : #ffffff
+}
+
+.center-sort {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row-sort {
+    display: flex;
+    justify-content: center;
+}
+
+.column-sort {
+    display: flex;
+    align-items: center;
+}
+
+.row-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+.row-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-font {
+    font-weight: 700;
+}
+
+
+body {
+    background-color: var(--main-bg-color);
+}
