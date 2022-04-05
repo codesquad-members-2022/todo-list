@@ -3,7 +3,7 @@ scss_files: '**/*.scss'
 severity: warning
 
 linters:
-  BorderZero:styles
+  BorderZero:
     enabled: true
     convention: zero
 
