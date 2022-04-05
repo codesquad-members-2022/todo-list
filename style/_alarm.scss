@@ -1,0 +1,42 @@
+.alarm {
+  width: 452px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-white;
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  &__closeBtn {
+    font-size: $font-20;
+    position: absolute;
+    top: 2%;
+    right: 25%;
+  }
+  .alarm__inner {
+    display: flex;
+  }
+  &__icon,
+  &__contents {
+    margin-top: 30px;
+    padding: 20px;
+  }
+
+  &__icon {
+    font-size: 30px;
+  }
+  &__writer {
+    font-size: $font-16;
+    color: $color-black;
+  }
+  &__content {
+    width: 244px;
+    font-size: $font-16;
+    color: $color-black;
+    margin: 10px 0;
+  }
+  &__time {
+    color: $color-grey-dark;
+  }
+}
