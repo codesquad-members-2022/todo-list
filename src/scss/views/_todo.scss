@@ -1,0 +1,13 @@
+body {
+  background-color: $background;
+  padding: 0 80px;
+}
+
+.header {
+  @include flexbox(between);
+  padding: 33px 0;
+
+  &__title {
+    font-size: 32px;
+  }
+}
