@@ -9,21 +9,38 @@ import UIKit
 
 class ContentViewController: UIViewController {
 
+    
+    let todoList = [["Github공부하기","add,push,commit"],
+                    ["Github공부하기","add,push,commit"],
+                    ["Github공부하기","add,push,commit"]]
+    
+    var todoListTable: TodoTableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTodoTableView()
 
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setTodoTableView(){
+        todoListTable = TodoTableView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: (view.frame.height)*(5/6)))
+        
+        self.view = todoListTable
     }
-    */
-
 }
+
+
+
+
+//extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        <#code#>
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        <#code#>
+//    }
+//
+//
+//
+//}
