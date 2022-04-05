@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="card_todo">해야할 일</string>
+    <string name="card_progress">하고 있는 일</string>
+    <string name="card_done">완료한 일</string>
+</resources>
