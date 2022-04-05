@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1 class="header__title">TO-DO LIST</h1>
+      <div class="header__menu">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="alarm">
+      <div class="alarm__closeBtn">x</div>
+      <div class="alarm__inner">
+        <div class="alarm__icon">😀</div>
+        <div class="alarm__contents">
+          <p class="alarm__writer">@sam</p>
+          <p class="alarm__content">
+            <strong>HTML/CSS공부하기</strong>를 <strong>해야할 일</strong>에서 하고 있는 일로
+            <strong>이동</strong>하였습니다.
+          </p>
+          <p class="alarm__time">1분전</p>
+        </div>
+      </div>
+      <div class="alarm__inner">
+        <div class="alarm__icon">😀</div>
+        <div class="alarm__contents">
+          <p class="alarm__writer">@sam</p>
+          <p class="alarm__content">
+            <strong>해야할 일</strong>에 <strong>HTML/CSS공부하기</strong>를 <strong>등록</strong>하였습니다.
+          </p>
+          <p class="alarm__time">1분전</p>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <article>
+        <nav class="column">
+          <div class="column__left">
+            <span class="column__title">해야할 일</span>
+            <div class="column__count">2</div>
+          </div>
+          <div class="column__right">
+            <div class="column__add">+</div>
+            <div class="column__delete">x</div>
+          </div>
+        </nav>
+        <div class="card">
+          <header>
+            <h3>GitHub공부하기</h3>
+            <div class="column__delete">x</div>
+          </header>
+          <div class="card__content">
+            <p class="card__content-text">add,commit,push</p>
+          </div>
+          <div class="card__author">
+            <p class="card__author-text">author by web</p>
+          </div>
+        </div>
+        <div class="card">
+          <header>
+            <h3>블로그에 포스팅할 것</h3>
+            <div class="column__delete">x</div>
+          </header>
+          <div class="card__content">
+            <p class="card__content-text">*GitHub공부내용</p>
+            <p class="card__content-text">*모던 자바스크립트 1장 공부내용</p>
+          </div>
+          <div class="card__author">
+            <p class="card__author-text">author by web</p>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <nav class="column">
+          <div class="column__left">
+            <span class="column__title">하고 있는 일</span>
+            <div class="column__count">1</div>
+          </div>
+          <div class="column__right">
+            <div class="column__add">+</div>
+            <div class="column__delete">x</div>
+          </div>
+        </nav>
+        <div class="card">
+          <header>
+            <h3>HTML/CSS공부하기</h3>
+            <div class="column__delete">x</div>
+          </header>
+          <div class="card__content">
+            <p class="card__content-text">input태그 실습</p>
+          </div>
+          <div class="card__author">
+            <p class="card__author-text">author by web</p>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <nav class="column">
+          <div class="column__left">
+            <span class="column__title">완료한 일</span>
+            <div class="column__count">0</div>
+          </div>
+          <div class="column__right">
+            <div class="column__add">+</div>
+            <div class="column__delete">x</div>
+          </div>
+        </nav>
+      </article>
+    </section>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
