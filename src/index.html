@@ -5,11 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TO-DO LIST</title>
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <header class="header">
       <div class="header__title">TO-DO LIST</div>
-      <div class="header__layer-button">=</div>
+      <div class="header__layer-button">
+        <svg width="17" height="11" viewBox="0 0 17 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 1V0H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z" fill="black" />
+        </svg>
+      </div>
     </header>
     <main class="main">
       <div class="box todo">
@@ -19,20 +24,33 @@
             <div class="title-box__title__count">2</div>
           </div>
           <div class="title-box__btn">
-            <div class="title-box__btn__add">+</div>
-            <div class="title-box__btn__delete">X</div>
+            <div class="title-box__btn__add">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z"
+                  fill="black"
+                />
+              </svg>
+            </div>
+            <div class="title-box__btn__delete">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                  fill="black"
+                />
+              </svg>
+            </div>
           </div>
         </div>
-        <ul class="box__list">
-          <li class="box__item">
-            <header class="item__header">
-              <div class="item__header__title"></div>
-              <div class="item__header__delete-btn"></div>
-            </header>
-            <main class="item__main"></main>
-            <footer class="item__footer"></footer>
+        <ul class="task__cards">
+          <li class="task__card">
+            <div class="card__contents">
+              <header class="card__header"></header>
+              <main class="card__main"></main>
+              <footer class="card__footer"></footer>
+            </div>
+            <div class="card__delete-btn"></div>
           </li>
-          <li class="box__item"></li>
         </ul>
       </div>
 
@@ -43,20 +61,35 @@
             <div class="title-box__title__count">1</div>
           </div>
           <div class="title-box__btn">
-            <div class="title-box__btn__add">+</div>
-            <div class="title-box__btn__delete">X</div>
+            <div class="title-box__btn">
+              <div class="title-box__btn__add">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z"
+                    fill="black"
+                  />
+                </svg>
+              </div>
+              <div class="title-box__btn__delete">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                    fill="black"
+                  />
+                </svg>
+              </div>
           </div>
         </div>
-        <ul class="box__list">
-          <li class="box__item">
-            <header class="item__header">
-              <div class="item__header__title"></div>
-              <div class="item__header__delete-btn"></div>
-            </header>
-            <main class="item__main"></main>
-            <footer class="item__footer"></footer>
+
+        <ul class="task__cards">
+          <li class="task__card">
+            <div class="card__contents">
+              <header class="card__header"></header>
+              <main class="card__main"></main>
+              <footer class="card__footer"></footer>
+            </div>
+            <div class="card__delete-btn"></div>
           </li>
-          <li class="box__item"></li>
         </ul>
       </div>
 
@@ -67,20 +100,34 @@
             <div class="title-box__title__count">0</div>
           </div>
           <div class="title-box__btn">
-            <div class="title-box__btn__add">+</div>
-            <div class="title-box__btn__delete">X</div>
+            <div class="title-box__btn">
+              <div class="title-box__btn__add">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z"
+                    fill="black"
+                  />
+                </svg>
+              </div>
+              <div class="title-box__btn__delete">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                    fill="black"
+                  />
+                </svg>
+              </div>
           </div>
         </div>
-        <ul class="box__list">
-          <li class="box__item">
-            <header class="item__header">
-              <div class="item__header__title"></div>
-              <div class="item__header__delete-btn"></div>
-            </header>
-            <main class="item__main"></main>
-            <footer class="item__footer"></footer>
+        <ul class="task__cards">
+          <li class="task__card">
+            <div class="card__contents">
+              <header class="card__header"></header>
+              <main class="card__main"></main>
+              <footer class="card__footer"></footer>
+            </div>
+            <div class="card__delete-btn"></div>
           </li>
-          <li class="box__item"></li>
         </ul>
       </div>
     </main>
