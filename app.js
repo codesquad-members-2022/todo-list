@@ -18,9 +18,8 @@ class App {
 }
 new App(document.body);
 
-앱 - TodoList - TodoCard -
 
-변화가 일어나는 것(이벤트):
+
 MainSection
 this.state = {
   list: [
