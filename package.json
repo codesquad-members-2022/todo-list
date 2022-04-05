@@ -28,6 +28,7 @@
     "colorette": "^2.0.16",
     "commander": "^2.20.3",
     "cross-spawn": "^7.0.3",
+    "dart-sass": "^1.25.0",
     "electron-to-chromium": "^1.4.103",
     "enhanced-resolve": "^5.9.2",
     "envinfo": "^7.8.1",
@@ -107,7 +108,7 @@
     "wildcard": "^2.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass": "dart-sass --watch ./src/scss/main.scss ./src/css/style.css"
   },
   "repository": {
     "type": "git",
