@@ -9,8 +9,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let factory = CardFactory()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(factory.createRandomCard())
     }
 }
 

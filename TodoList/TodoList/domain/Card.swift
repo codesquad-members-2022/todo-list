@@ -7,52 +7,51 @@
 
 import Foundation
 
-struct Card{
-    private(set) var section: Section
+struct Card {
+    private(set) var status: Status
     private(set) var title: String
     private(set) var contents: String
     private(set) var date: Date = Date.now
     private(set) var writer: String
     
-    init(section: Section, title: String, contents: String, writer: String){
-        self.section = section
+    init(section: Status, title: String, contents: String, writer: String) {
+        self.status = section
         self.title = title
         self.contents = contents
         self.writer = writer
     }
     
-    enum Section{
+    enum Status {
         case todo
         case doing
         case done
     }
 }
-extension Card: CardUsable{
-    func getSection() -> Section {
+
+extension Card: CardUsable {
+    func getSection() -> Status {
         return .todo
     }
     
-    func getTitle() -> String{
+    func getTitle() -> String {
         return title
     }
     
-    func getContents() -> String{
+    func getContents() -> String {
         return contents
     }
     
-    func getDate() -> Date{
+    func getDate() -> Date {
         return date
     }
     
-    func getWriter() -> String{
+    func getWriter() -> String {
         return writer
     }
 }
 
-protocol CardUsable{
-    func getSection() -> Card.Section
-    func getTitle() -> String
-    func getContents() -> String
-    func getDate() -> Date
-    func getWriter() -> String
+extension Card: CustomStringConvertible {
+    var description: String {
+        return "status : \(status), title : \(title), contents : \(contents), writer : \(writer), date: \(date)"
+    }
 }
