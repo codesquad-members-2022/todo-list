@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import team07.todolist.domain.Card;
+import team07.todolist.dto.RequestCard;
 import team07.todolist.dto.ResponseCard;
-import team07.todolist.dto.ResponseCardWithId;
 import team07.todolist.service.CardService;
 
 @Controller
@@ -29,25 +29,22 @@ public class CardController {
 		this.cardService = cardService;
 	}
 
-  @ResponseBody
-  @GetMapping
-  public List<ResponseCardWithId> home() {
-    List<Card> cardList = cardService.findAll();
-    return cardList.stream()
-        .filter(Card::isValid)
-        .map(Card::createResponseCardWithId).collect(Collectors.toList());
-  }
+	@ResponseBody
+	@GetMapping
+	public List<ResponseCard> home() {
+		return cardService.findAll();
+	}
 
 	@PostMapping
-	public String save(@RequestBody ResponseCard responseCard) {
-		log.debug("{}", responseCard.toString());
-		cardService.save(responseCard);
+	public String save(@RequestBody RequestCard requestCard) {
+		log.debug("{}", requestCard.toString());
+		cardService.save(requestCard);
 
 		return "redirect:/list";
 	}
 
 	@PostMapping("/{row}")
-	public ResponseCard post(@RequestParam int row) {
+	public RequestCard post(@RequestParam int row) {
 
 		Card card = cardService.changeRow(1, 1);
 
@@ -57,8 +54,8 @@ public class CardController {
 
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable Long id) {
-		log.debug("삭제된 아이디: {}", id);
-		cardService.delete(id);
+		Card deletedCard = cardService.delete(id);
+		log.debug("{}", deletedCard);
 		return "redirect:/list";
 	}
 }

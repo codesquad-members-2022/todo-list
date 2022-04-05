@@ -1,26 +1,22 @@
 package team07.todolist.dto;
 
-public class ResponseCard {
+public class RequestCard {
 
-	private Long id;
 	private String userId;
 	private String title;
 	private String content;
 	private Integer row;
 	private Integer status;
 
-	public ResponseCard(Long id, String userId, String title, String content,
-		Integer row, Integer status) {
-		this.id = id;
+	public RequestCard() {
+	}
+
+	public RequestCard(String userId, String title, String content, Integer row, Integer status) {
 		this.userId = userId;
 		this.title = title;
 		this.content = content;
 		this.row = row;
 		this.status = status;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getUserId() {
@@ -41,5 +37,16 @@ public class ResponseCard {
 
 	public Integer getStatus() {
 		return status;
+	}
+
+	@Override
+	public String toString() {
+		return "ResponseCard{" +
+			"userId='" + userId + '\'' +
+			", title='" + title + '\'' +
+			", content='" + content + '\'' +
+			", row=" + row +
+			", status=" + status +
+			'}';
 	}
 }
