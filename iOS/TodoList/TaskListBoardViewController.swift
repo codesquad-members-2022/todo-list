@@ -4,16 +4,14 @@ class TaskListBoardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUpStackView()
-                
     }
     
     func setUpStackView() {
         var taskViewList: [TaskListView] = []
         
         for _ in 0...2 {
-            let taskListView = TaskListView(frame: CGRect())
+            let taskListView: TaskListView = TaskListView()
             taskViewList.append(taskListView)
         }
         
@@ -23,11 +21,12 @@ class TaskListBoardViewController: UIViewController {
         
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.distribution = .fillEqually
+        stackView.spacing = 22
+        
         
         view.addSubview(stackView)
-        
+
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
             stackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
