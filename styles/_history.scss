@@ -1,0 +1,76 @@
+#history {
+    @include flex-layout();
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: map-get($colors, white);
+    height: 100%;
+    box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
+        0px 2px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    padding: 40px 50px;
+    transition: all 0.25s;
+}
+
+.history {
+    &__close-btn {
+        @include flex-layout(center, center);
+        width: 22px;
+        height: 22px;
+        margin-left: auto;
+        margin-bottom: 18.75px;
+    }
+    &__item-list {
+        height: 100%;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera*/
+        }
+    }
+    &__item-container {
+        @include flex-layout();
+        padding: 16px;
+        background-color: map-get($colors, merona);
+    }
+    &__user-img-container {
+        width: 40px;
+        height: 40px;
+        margin-right: 16px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    &__user-img {
+        width: 100%;
+        object-fit: cover;
+    }
+    &__text-container {
+        @include flex-layout();
+        flex-direction: column;
+    }
+    &__user-name {
+        width: 244px;
+        height: 23px;
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 23px;
+        color: map-get($colors, black);
+    }
+    &__body {
+        width: 244px;
+        height: 46px;
+        font-weight: 700;
+        font-size: 1.6rem;
+        line-height: 23px;
+        margin: 8px 0px;
+        color: map-get($colors, black);
+    }
+    &__time-stamp {
+        width: 244px;
+        height: 20px;
+        font-weight: 400;
+        font-size: 1.4rem;
+        line-height: 20px;
+        color: map-get($colors, dark-gray);
+    }
+}
