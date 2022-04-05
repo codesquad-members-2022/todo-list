@@ -1,8 +1,3 @@
-@mixin flexbox($horizon) {
-  display: flex;
-  justify-content: $horizon;
-}
-
-@mixin margincenter {
-  margin: 0 auto;
+.no-display {
+  display: none;
 }
