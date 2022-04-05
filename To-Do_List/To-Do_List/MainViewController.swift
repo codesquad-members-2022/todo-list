@@ -20,7 +20,6 @@ class MainViewController: UIViewController {
 }
     
     @IBAction func TapLogViewButton(_ sender: UIButton) {
-        print(logViewContainer.isHidden)
         self.logViewContainer.isHidden = !logViewContainer.isHidden
     }
     

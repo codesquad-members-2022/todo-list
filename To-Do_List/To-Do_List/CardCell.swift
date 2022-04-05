@@ -9,6 +9,14 @@ import UIKit
 
 class CardCell: UITableViewCell {
 
+    private let inset:CGFloat = 24.0
+    
+    lazy var stackView:UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
     lazy private var headLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"Noto Sans Kannada", size: 16.0)
@@ -23,13 +31,25 @@ class CardCell: UITableViewCell {
         return label
     }()
 
+    lazy private var writerLabel:UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name:"Noto Sans Kannada", size: 14.0)
+        label.text = "ahthor by iOS"
+        label.textColor = .lightGray
+        return label
+    }()
+    
+    
     override func awakeFromNib() {
+        addViews()
         setup()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+        let inset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        self.contentView.frame = contentView.frame.inset(by: inset)
+        self.contentView.backgroundColor = .white
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -42,22 +62,29 @@ class CardCell: UITableViewCell {
         }
     }
     
-    private func setup() {
-        let inset:CGFloat = 16.0
-        
-        
-        [headLabel,bodyLabel].forEach {
+    private func addViews() {
+        [headLabel,bodyLabel,writerLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            self.addSubview($0)
+            stackView.addArrangedSubview($0)
         }
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(stackView)
+    }
+    
+    
+    private func setup() {
         
-        headLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: inset).isActive = true
-        headLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: inset).isActive = true
+        let spacing:CGFloat = 8.0
         
-        bodyLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: inset).isActive = true
-        bodyLabel.topAnchor.constraint(equalTo: self.headLabel.bottomAnchor, constant: 8).isActive = true
-        bodyLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -inset).isActive = true
+        stackView.spacing = spacing
         
+        self.selectionStyle = .none
+        self.backgroundColor = .secondarySystemBackground
+        
+        stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: inset).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: inset).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -inset).isActive = true
+        stackView.topAnchor.constraint(equalTo: self.topAnchor,constant: inset).isActive = true
     }
     
     
