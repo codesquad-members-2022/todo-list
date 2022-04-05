@@ -18,7 +18,7 @@
     </header>
     <main class="main">
       <div class="box todo">
-        <div class="box__title-box">
+        <div class="title-box">
           <div class="title-box__title">
             <div class="title-box__title__text">해야할 일</div>
             <div class="title-box__title__count">2</div>
@@ -28,7 +28,7 @@
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z"
-                  fill="black"
+                  fill="#bdbdbd"
                 />
               </svg>
             </div>
@@ -36,7 +36,7 @@
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                  fill="black"
+                  fill="#bdbdbd"
                 />
               </svg>
             </div>
@@ -45,42 +45,62 @@
         <ul class="task__cards">
           <li class="task__card">
             <div class="card__contents">
-              <header class="card__header"></header>
-              <main class="card__main"></main>
-              <footer class="card__footer"></footer>
+              <header class="card__contents__header">Github 공부하기</header>
+              <main class="card__contents__main">add, commit, push</main>
+              <footer class="card__contents__footer">author by web</footer>
             </div>
-            <div class="card__delete-btn"></div>
+            <div class="card__delete-btn">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                  fill="#828282"
+                />
+              </svg>
+            </div>
+          </li>
+          <li class="task__card">
+            <div class="card__contents">
+              <header class="card__contents__header">블로그에 포스팅할 것</header>
+              <main class="card__contents__main">add, commit, push</main>
+              <footer class="card__contents__footer">author by web</footer>
+            </div>
+            <div class="card__delete-btn">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                  fill="#828282"
+                />
+              </svg>
+            </div>
           </li>
         </ul>
       </div>
 
       <div class="box doing">
-        <div class="box__title-box">
+        <div class="title-box">
           <div class="title-box__title">
             <div class="title-box__title__text">하고 있는 일</div>
             <div class="title-box__title__count">1</div>
           </div>
           <div class="title-box__btn">
-            <div class="title-box__btn">
-              <div class="title-box__btn__add">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z"
-                    fill="black"
-                  />
-                </svg>
-              </div>
-              <div class="title-box__btn__delete">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                    fill="black"
-                  />
-                </svg>
-              </div>
+            <div class="title-box__btn__add">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z"
+                  fill="#bdbdbd"
+                />
+              </svg>
+            </div>
+            <div class="title-box__btn__delete">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                  fill="#bdbdbd"
+                />
+              </svg>
+            </div>
           </div>
         </div>
-
         <ul class="task__cards">
           <li class="task__card">
             <div class="card__contents">
@@ -94,29 +114,28 @@
       </div>
 
       <div class="box done">
-        <div class="box__title-box">
+        <div class="title-box">
           <div class="title-box__title">
             <div class="title-box__title__text">완료한 일</div>
             <div class="title-box__title__count">0</div>
           </div>
           <div class="title-box__btn">
-            <div class="title-box__btn">
-              <div class="title-box__btn__add">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z"
-                    fill="black"
-                  />
-                </svg>
-              </div>
-              <div class="title-box__btn__delete">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                    fill="black"
-                  />
-                </svg>
-              </div>
+            <div class="title-box__btn__add">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z"
+                  fill="#bdbdbd"
+                />
+              </svg>
+            </div>
+            <div class="title-box__btn__delete">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                  fill="#bdbdbd"
+                />
+              </svg>
+            </div>
           </div>
         </div>
         <ul class="task__cards">
