@@ -1,6 +1,5 @@
 .history-wrap {
   @include box-shadow;
-  @include font-regular;
 
   display: none;
   position: absolute;
@@ -10,6 +9,7 @@
   right: 0;
   top: 0;
   background: $component-bg-color;
+  font-weight: $weight-regular;
 }
 
 .history {
@@ -22,7 +22,7 @@
   }
   
   &__description {
-    font-size: $font-16px;
+    font-size: $size-medium;
   }
   
   &__content {
@@ -30,7 +30,7 @@
   }
 
   &__time {
-    font-size: $font-14px;
+    font-size: $size-base;
     color: $sub-font-color;
   }
 }

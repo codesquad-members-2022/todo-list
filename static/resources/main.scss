@@ -1,7 +1,9 @@
 // Utils
-@import './utils/_variables.scss';
+@import "./utils/_variables.scss";
 @import './utils/_function.scss';
-@import './utils/_reset.scss';
-@import './utils/_common.scss';
+@import "./utils/_reset.scss";
+@import "./utils/_utils.scss";
+@import "./utils/_common.scss";
 
 // Layout
+@import "./_history.scss";
