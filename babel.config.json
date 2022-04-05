@@ -1,0 +1,15 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": ["> 0.5% in KR, not dead"]
+        },
+        "useBuiltIns": "usage",
+        "corejs": { "version": 3, "proposals": true },
+        "debug": true
+      }
+    ]
+  ]
+}

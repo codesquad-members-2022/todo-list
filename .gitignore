@@ -104,8 +104,7 @@ dist
 .tern-port
 
 # conf
-.prettierrc
 .prettierignore
 .idea/
-.scss-lint.yml
+dist/
 style.css.map
