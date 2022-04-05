@@ -1,8 +1,7 @@
-@mixin flexbox($horizon) {
-  display: flex;
-  justify-content: $horizon;
+.no-display {
+  display: none;
 }
 
-@mixin margincenter {
-  margin: 0 auto;
+.sky-blue {
+  color: #0075de;
 }

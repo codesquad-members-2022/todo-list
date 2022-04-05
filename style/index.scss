@@ -1,12 +1,15 @@
 @import 'reset';
 @import 'variables';
 @import 'utilities';
+@import 'mixins';
 @import 'alarm';
+@import 'input';
 
 body {
   background: $color-grey-light;
 }
 .header {
+  position: relative;
   width: 1440px;
   height: 112px;
   @include flexbox(space-between);
@@ -16,6 +19,7 @@ body {
     font-size: $font-32;
   }
   &__menu {
+    cursor: pointer;
     div {
       width: 25px;
       height: 3px;
@@ -24,13 +28,13 @@ body {
     }
   }
 }
-section {
+.column-section {
   width: 1440px;
   display: flex;
   @include margincenter();
 }
 
-article {
+.column-list {
   margin-right: 30px;
   .column {
     width: 308px;
@@ -54,17 +58,18 @@ article {
       line-height: 26px;
     }
     &__right {
+      color: $color-grey;
       display: flex;
       align-items: center;
     }
     &__add {
       font-size: $font-20;
-      color: $color-grey;
       margin-right: 5px;
+      cursor: pointer;
     }
     &__delete {
       font-size: $font-20;
-      color: $color-grey;
+      cursor: pointer;
     }
   }
   .card {
