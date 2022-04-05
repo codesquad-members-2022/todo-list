@@ -42,8 +42,8 @@ public class MemoryCardRepository implements CardRepository {
   }
 
   @Override
-  public void delete(int row, int status) {
-
+  public void delete(Long id) {
+    store.get(id).delete();
   }
 
   @Override

@@ -23,8 +23,9 @@ public class CardService {
     cardRepository.save(newCard, status);
   }
 
-  public void delete(int row, int status) {
-
+  //public void delete(int row, int status) {
+  public void delete(Long id) {
+    cardRepository.delete(id);
   }
 
   public Card changeRow(int row, int status) {
