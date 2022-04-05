@@ -13,6 +13,9 @@ repositories {
 }
 
 dependencies {
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
     implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.14'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.4.2'
     runtimeOnly 'mysql:mysql-connector-java:8.0.28'
