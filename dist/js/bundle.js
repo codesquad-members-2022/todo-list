@@ -9111,12 +9111,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/getUrl.js */ "./node_modules/css-loader/dist/runtime/getUrl.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__);
 // Imports
 
 
+
+var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(/*! data:image/svg+xml;charset=utf8,%3Csvg width=%2717%27 height=%2711%27 viewBox=%270 0 17 11%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0 1V3.8147e-06H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z%27 fill=%27%23010101%27/%3E%3C/svg%3E%0A */ "data:image/svg+xml;charset=utf8,%3Csvg width=%2717%27 height=%2711%27 viewBox=%270 0 17 11%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0 1V3.8147e-06H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z%27 fill=%27%23010101%27/%3E%3C/svg%3E%0A"), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(/*! data:image/svg+xml;charset=utf8,%3Csvg width=%2714%27 height=%2714%27 viewBox=%270 0 14 14%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A */ "data:image/svg+xml;charset=utf8,%3Csvg width=%2714%27 height=%2714%27 viewBox=%270 0 14 14%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A"), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_2___ = new URL(/* asset import */ __webpack_require__(/*! data:image/svg+xml;charset=utf8,%3Csvg width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A */ "data:image/svg+xml;charset=utf8,%3Csvg width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A"), __webpack_require__.b);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
+var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_1___);
+var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_2___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "main {\n  display: flex; }\n\n.todo-wrapper {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 300px;\n  background-color: aliceblue; }\n  .todo-wrapper .todo-header {\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n    justify-content: space-between; }\n  .todo-wrapper .todo-content {\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n    margin: 15px; }\n    .todo-wrapper .todo-content p {\n      font-size: 12px;\n      margin-right: 20px; }\n  .todo-wrapper h2 {\n    font-size: 18px;\n    margin-right: 20px;\n    margin-left: 5px; }\n\n.btn {\n  background-color: aquamarine;\n  border: none;\n  border-radius: 10px; }\n\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol,\nul {\n  list-style: none; }\n\nblockquote,\nq {\n  quotes: none; }\n\nblockquote:before, blockquote:after {\n  content: '';\n  content: none; }\n\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n", "",{"version":3,"sources":["webpack://./src/sass/partials/_body.scss","webpack://./src/sass/partials/_reset.scss","webpack://./src/sass/main.scss"],"names":[],"mappings":"AAAA;EACE,aAAa,EAAA;;AAGf;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,2BAA2B,EAAA;EAN7B;IASI,aAAa;IACb,mBAAmB;IACnB,mBAAmB;IACnB,8BAA8B,EAAA;EAZlC;IAeI,aAAa;IACb,mBAAmB;IACnB,mBAAmB;IACnB,YAAY,EAAA;IAlBhB;MAoBM,eAAe;MACf,kBAAkB,EAAA;EArBxB;IA0BI,eAAe;IACf,kBAAkB;IAClB,gBAAgB,EAAA;;AAIpB;EACE,4BAA4B;EAC5B,YAAY;EACZ,mBAAmB,EAAA;;ACvCrB;;;CCoCC;AD/BD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAiFE,SAAS;EACT,UAAU;EACV,SAAS;EACT,eAAe;EACf,aAAa;EACb,wBAAwB,EAAA;;AAG1B,gDAAA;AAEA;;;;;;;;;;;EAWE,cAAc,EAAA;;AAGhB;EACE,cAAc,EAAA;;AAGhB;;EAEE,gBAAgB,EAAA;;AAGlB;;EAEE,YAAY,EAAA;;AAGd;EAGI,WAAW;EACX,aAAa,EAAA;;AAIjB;EAGI,WAAW;EACX,aAAa,EAAA;;AAIjB;EACE,yBAAyB;EACzB,iBAAiB,EAAA","sourcesContent":["main {\n  display: flex;\n}\n\n.todo-wrapper {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 300px;\n  background-color: aliceblue;\n\n  .todo-header {\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n    justify-content: space-between;\n  }\n  .todo-content {\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n    margin: 15px;\n    p {\n      font-size: 12px;\n      margin-right: 20px;\n    }\n  }\n\n  h2 {\n    font-size: 18px;\n    margin-right: 20px;\n    margin-left: 5px;\n  }\n}\n\n.btn {\n  background-color: aquamarine;\n  border: none;\n  border-radius: 10px;\n}\n","/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n}\n\n/* HTML5 display-role reset for older browsers */\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol,\nul {\n  list-style: none;\n}\n\nblockquote,\nq {\n  quotes: none;\n}\n\nblockquote {\n  &:before,\n  &:after {\n    content: '';\n    content: none;\n  }\n}\n\nq {\n  &:before,\n  &:after {\n    content: '';\n    content: none;\n  }\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n","@import 'partials/body';\n@import 'partials/reset';\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: #f5f5f7; }\n\n.columns-wrapper {\n  display: flex;\n  flex-direction: auto;\n  justify-content: auto;\n  align-items: center;\n  width: calc(100% - 480px);\n  padding-left: 80px; }\n  .columns-wrapper .column-wrapper {\n    width: 300px;\n    margin-right: 10px; }\n    .columns-wrapper .column-wrapper .column-header-wrapper {\n      display: flex;\n      flex-direction: auto;\n      justify-content: space-between;\n      align-items: center;\n      height: 30px; }\n      .columns-wrapper .column-wrapper .column-header-wrapper .column-header-left-wrapper {\n        display: flex;\n        flex-direction: auto;\n        justify-content: auto;\n        align-items: center; }\n        .columns-wrapper .column-wrapper .column-header-wrapper .column-header-left-wrapper .column-header-tittle {\n          height: 30px;\n          line-height: 35px; }\n        .columns-wrapper .column-wrapper .column-header-wrapper .column-header-left-wrapper .column-header-num {\n          background-color: #bdbdbd;\n          border-radius: 20px;\n          width: 18px;\n          height: 18px;\n          text-align: center;\n          line-height: 18px;\n          font-size: 9px;\n          margin-left: 8px; }\n      .columns-wrapper .column-wrapper .column-header-wrapper .column-header-right-wrapper {\n        width: 30px;\n        display: flex;\n        flex-direction: auto;\n        justify-content: space-between;\n        align-items: center; }\n\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol,\nul {\n  list-style: none; }\n\nblockquote,\nq {\n  quotes: none; }\n\nblockquote:before, blockquote:after {\n  content: '';\n  content: none; }\n\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\nbutton {\n  border: none; }\n  button:focus {\n    outline: none; }\n  button:hover {\n    cursor: pointer; }\n\n.chat-menu-btn {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  height: 11px;\n  width: 17px; }\n\n.column-add-btn {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  height: 13px;\n  width: 13px;\n  background-color: #f5f5f7; }\n\n.column-remove-btn {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  width: 11px;\n  height: 11px;\n  background-color: #f5f5f7; }\n\nheader {\n  width: 100%;\n  height: 110px; }\n\n.header-wrapper {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 50px 80px; }\n  .header-wrapper h1 {\n    font-size: 32px; }\n", "",{"version":3,"sources":["webpack://./src/sass/partials/_body.scss","webpack://./src/sass/partials/_mixins.scss","webpack://./src/sass/partials/_reset.scss","webpack://./src/sass/main.scss","webpack://./src/sass/partials/_button.scss","webpack://./src/sass/partials/_variable.scss","webpack://./src/sass/partials/_header.scss"],"names":[],"mappings":"AACA;EACE,yBAAyB,EAAA;;AAG3B;ECJE,aAAa;EACb,oBAF+B;EAG/B,qBAHuD;EAIvD,mBAAmB;EDGnB,yBAAyB;EACzB,kBAAkB,EAAA;EAHpB;IAMI,YAAY;IACZ,kBAAkB,EAAA;IAPtB;MCJE,aAAa;MACb,oBAF+B;MAG/B,8BDYiD;MCXjD,mBAAmB;MDYf,YAAY,EAAA;MAXlB;QCJE,aAAa;QACb,oBAF+B;QAG/B,qBAHuD;QAIvD,mBAAmB,EAAA;QDCrB;UAeU,YAAY;UACZ,iBAAiB,EAAA;QAhB3B;UAmBU,yBAAyB;UACzB,mBAAmB;UACnB,WAAW;UACX,YAAY;UACZ,kBAAkB;UAClB,iBAAiB;UACjB,cAAc;UACd,gBAAgB,EAAA;MA1B1B;QA+BQ,WAAW;QCnCjB,aAAa;QACb,oBAF+B;QAG/B,8BDkCmD;QCjCnD,mBAAmB,EAAA;;ACJrB;;;CC8CC;ADzCD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAiFE,SAAS;EACT,UAAU;EACV,SAAS;EACT,eAAe;EACf,aAAa;EACb,wBAAwB,EAAA;;AAG1B,gDAAA;AAEA;;;;;;;;;;;EAWE,cAAc,EAAA;;AAGhB;EACE,cAAc,EAAA;;AAGhB;;EAEE,gBAAgB,EAAA;;AAGlB;;EAEE,YAAY,EAAA;;AAGd;EAGI,WAAW;EACX,aAAa,EAAA;;AAIjB;EAGI,WAAW;EACX,aAAa,EAAA;;AAIjB;EACE,yBAAyB;EACzB,iBAAiB,EAAA;;AE5InB;EACE,YAAY,EAAA;EADd;IAII,aAAa,EAAA;EAJjB;IAOI,eAAe,EAAA;;AAiBnB;EACE,yDAJuD;EAKvD,YAAY;EACZ,WAAW,EAAA;;AAGb;EACE,yDAVuD;EAWvD,YAAY;EACZ,WAAW;EACX,yBCpCmB,EAAA;;ADuCrB;EACE,yDAjBuD;EAkBvD,WAAW;EACX,YAAY;EACZ,yBC3CmB,EAAA;;ACArB;EACE,WAAW;EACX,aAAa,EAAA;;AAEf;EACE,aAAa;EACb,mBAAmB;EACnB,8BAA8B;EAC9B,kBAAkB,EAAA;EAJpB;IAMI,eAAe,EAAA","sourcesContent":["@import 'mixins';\nbody {\n  background-color: #f5f5f7;\n}\n\n.columns-wrapper {\n  @include flex();\n  width: calc(100% - 480px);\n  padding-left: 80px;\n\n  .column-wrapper {\n    width: 300px;\n    margin-right: 10px;\n\n    .column-header-wrapper {\n      @include flex($justify-content: space-between);\n      height: 30px;\n      .column-header-left-wrapper {\n        @include flex();\n        .column-header-tittle {\n          height: 30px;\n          line-height: 35px;\n        }\n        .column-header-num {\n          background-color: #bdbdbd;\n          border-radius: 20px;\n          width: 18px;\n          height: 18px;\n          text-align: center;\n          line-height: 18px;\n          font-size: 9px;\n          margin-left: 8px;\n        }\n      }\n\n      .column-header-right-wrapper {\n        width: 30px;\n        @include flex($justify-content: space-between);\n      }\n    }\n  }\n}\n","@mixin flex($flex-direction: auto, $justify-content: auto) {\n  display: flex;\n  flex-direction: $flex-direction;\n  justify-content: $justify-content;\n  align-items: center;\n}\n","/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml,\nbody,\ndiv,\nspan,\napplet,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\na,\nabbr,\nacronym,\naddress,\nbig,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\ns,\nsamp,\nsmall,\nstrike,\nstrong,\nsub,\nsup,\ntt,\nvar,\nb,\nu,\ni,\ncenter,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nembed,\nfigure,\nfigcaption,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\noutput,\nruby,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline;\n}\n\n/* HTML5 display-role reset for older browsers */\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n}\n\nbody {\n  line-height: 1;\n}\n\nol,\nul {\n  list-style: none;\n}\n\nblockquote,\nq {\n  quotes: none;\n}\n\nblockquote {\n  &:before,\n  &:after {\n    content: '';\n    content: none;\n  }\n}\n\nq {\n  &:before,\n  &:after {\n    content: '';\n    content: none;\n  }\n}\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n","@import 'partials/body';\n@import 'partials/reset';\n@import 'partials/button';\n@import 'partials/header';\n","@import 'variable';\n\nbutton {\n  border: none;\n\n  &:focus {\n    outline: none;\n  }\n  &:hover {\n    cursor: pointer;\n  }\n}\n\n@function buttonIcon($iconName) {\n  $iconList: (\n    menu:\n      \"%3Csvg width='17' height='11' viewBox='0 0 17 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1V3.8147e-06H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z' fill='%23010101'/%3E%3C/svg%3E%0A\",\n    add:\n      \"%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z' fill='%23BDBDBD'/%3E%3C/svg%3E%0A\",\n    remove:\n      \"%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z' fill='%23BDBDBD'/%3E%3C/svg%3E%0A\",\n  );\n  $icon: map-get($iconList, $iconName);\n  @return url('data:image/svg+xml;charset=utf8,#{$icon}');\n}\n\n.chat-menu-btn {\n  background-image: buttonIcon(menu);\n  height: 11px;\n  width: 17px;\n}\n\n.column-add-btn {\n  background-image: buttonIcon(add);\n  height: 13px;\n  width: 13px;\n  background-color: $mainBGColor;\n}\n\n.column-remove-btn {\n  background-image: buttonIcon(remove);\n  width: 11px;\n  height: 11px;\n  background-color: $mainBGColor;\n}\n","$mainBGColor: #f5f5f7;\n","header {\n  width: 100%;\n  height: 110px;\n}\n.header-wrapper {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 50px 80px;\n  h1 {\n    font-size: 32px;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9231,6 +9240,45 @@ module.exports = function (cssWithMappingToString) {
   };
 
   return list;
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/getUrl.js":
+/*!********************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/getUrl.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function (url, options) {
+  if (!options) {
+    options = {};
+  }
+
+  if (!url) {
+    return url;
+  }
+
+  url = String(url.__esModule ? url.default : url); // If url is already wrapped in quotes, remove them
+
+  if (/^['"].*['"]$/.test(url)) {
+    url = url.slice(1, -1);
+  }
+
+  if (options.hash) {
+    url += options.hash;
+  } // Should url be wrapped?
+  // See https://drafts.csswg.org/css-values-3/#urls
+
+
+  if (/["'() \t\n]|(%20)/.test(url) || options.needQuotes) {
+    return "\"".concat(url.replace(/"/g, '\\"').replace(/\n/g, "\\n"), "\"");
+  }
+
+  return url;
 };
 
 /***/ }),
@@ -10341,6 +10389,39 @@ function styleTagTransform(css, styleElement) {
 
 module.exports = styleTagTransform;
 
+/***/ }),
+
+/***/ "data:image/svg+xml;charset=utf8,%3Csvg width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** data:image/svg+xml;charset=utf8,%3Csvg width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = "data:image/svg+xml;charset=utf8,%3Csvg width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A";
+
+/***/ }),
+
+/***/ "data:image/svg+xml;charset=utf8,%3Csvg width=%2714%27 height=%2714%27 viewBox=%270 0 14 14%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** data:image/svg+xml;charset=utf8,%3Csvg width=%2714%27 height=%2714%27 viewBox=%270 0 14 14%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = "data:image/svg+xml;charset=utf8,%3Csvg width=%2714%27 height=%2714%27 viewBox=%270 0 14 14%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0.105713 7.53033L0.105713 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105713Z%27 fill=%27%23BDBDBD%27/%3E%3C/svg%3E%0A";
+
+/***/ }),
+
+/***/ "data:image/svg+xml;charset=utf8,%3Csvg width=%2717%27 height=%2711%27 viewBox=%270 0 17 11%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0 1V3.8147e-06H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z%27 fill=%27%23010101%27/%3E%3C/svg%3E%0A":
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** data:image/svg+xml;charset=utf8,%3Csvg width=%2717%27 height=%2711%27 viewBox=%270 0 17 11%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0 1V3.8147e-06H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z%27 fill=%27%23010101%27/%3E%3C/svg%3E%0A ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = "data:image/svg+xml;charset=utf8,%3Csvg width=%2717%27 height=%2711%27 viewBox=%270 0 17 11%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0 1V3.8147e-06H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z%27 fill=%27%23010101%27/%3E%3C/svg%3E%0A";
+
 /***/ })
 
 /******/ 	});
@@ -10368,6 +10449,9 @@ module.exports = styleTagTransform;
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
@@ -10410,6 +10494,32 @@ module.exports = styleTagTransform;
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		__webpack_require__.b = document.baseURI || self.location.href;
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"main": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		// no on chunks loaded
+/******/ 		
+/******/ 		// no jsonp function
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
@@ -10447,14 +10557,13 @@ function column(title) {
 
 function cards(string) {
   return "<div class=\"todo-content\">\n  <p class=\"cards str\">".concat(string, "</p>\n  <button class=\"remove-btn btn\">remove</button>\n  </div>");
-}
+} // function init() {
+//   const main = document.querySelector('main');
+//   main.innerHTML += column('해야할 일');
+//   main.innerHTML += column('완료한 일');
+//   document.querySelector('.todo-wrapper').innerHTML += cards('공부하기');
+// }
 
-function init() {
-  var main = document.querySelector('main');
-  main.innerHTML += column('해야할 일');
-  main.innerHTML += column('완료한 일');
-  document.querySelector('.todo-wrapper').innerHTML += cards('공부하기');
-}
 
 init();
 })();

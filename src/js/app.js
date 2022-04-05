@@ -18,12 +18,12 @@ function cards(string) {
   </div>`;
 }
 
-function init() {
-  const main = document.querySelector('main');
-  main.innerHTML += column('해야할 일');
-  main.innerHTML += column('완료한 일');
+// function init() {
+//   const main = document.querySelector('main');
+//   main.innerHTML += column('해야할 일');
+//   main.innerHTML += column('완료한 일');
 
-  document.querySelector('.todo-wrapper').innerHTML += cards('공부하기');
-}
+//   document.querySelector('.todo-wrapper').innerHTML += cards('공부하기');
+// }
 
 init();
