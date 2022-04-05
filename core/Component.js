@@ -14,8 +14,9 @@ export default class Component {
 
   render() {
     this.#el.innerHTML = this.template();
+    this.mount();
   }
-
+  mount() {}
   template() {
     return ``;
   }
