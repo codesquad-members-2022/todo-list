@@ -53,18 +53,20 @@ class TodoCell: UITableViewCell{
         title.translatesAutoresizingMaskIntoConstraints = false
         title.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
         title.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
-        title.widthAnchor.constraint(equalTo: self.contentView.widthAnchor).isActive = true
+        title.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -10).isActive = true
+        title.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         contents.translatesAutoresizingMaskIntoConstraints = false
         contents.topAnchor.constraint(equalTo: self.title.bottomAnchor, constant: 5).isActive = true
-        contents.bottomAnchor.constraint(equalTo: self.author.bottomAnchor, constant: -5).isActive = true
+        contents.bottomAnchor.constraint(equalTo: self.author.topAnchor, constant: -5).isActive = true
         contents.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
-        contents.widthAnchor.constraint(equalTo: self.contentView.widthAnchor).isActive = true
+        contents.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -10).isActive = true
         
         author.translatesAutoresizingMaskIntoConstraints = false
         author.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
         author.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
-        author.widthAnchor.constraint(equalTo: self.contentView.widthAnchor).isActive = true
+        author.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -10).isActive = true
+        author.heightAnchor.constraint(equalToConstant: 15).isActive = true
     }
     
     private func addContentViews(){

@@ -44,7 +44,7 @@ class ContainerViewController: UIViewController {
         contentVC.view.topAnchor.constraint(equalTo: headerVC.view.bottomAnchor).isActive = true
         contentVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         contentVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        contentVC.view.widthAnchor.constraint(equalToConstant: view.frame.width * (5/7) ).isActive = true
+        contentVC.view.widthAnchor.constraint(equalToConstant: self.view.frame.width * (5/7) ).isActive = true
         
         
     }
