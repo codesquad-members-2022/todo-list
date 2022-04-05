@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A14F5D27FC07AB00474097 /* CardUsable.swift */; };
+		00A14F6027FC07C700474097 /* CardFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A14F5F27FC07C700474097 /* CardFactory.swift */; };
 		72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1827FBE2DE00A29350 /* AppDelegate.swift */; };
 		72695E1B27FBE2DE00A29350 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1A27FBE2DE00A29350 /* SceneDelegate.swift */; };
 		72695E1D27FBE2DE00A29350 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1C27FBE2DE00A29350 /* ViewController.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00A14F5D27FC07AB00474097 /* CardUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardUsable.swift; sourceTree = "<group>"; };
+		00A14F5F27FC07C700474097 /* CardFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFactory.swift; sourceTree = "<group>"; };
 		72695E1527FBE2DE00A29350 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72695E1827FBE2DE00A29350 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72695E1A27FBE2DE00A29350 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				72695E4927FBE79C00A29350 /* Card.swift */,
+				00A14F5D27FC07AB00474097 /* CardUsable.swift */,
+				00A14F5F27FC07C700474097 /* CardFactory.swift */,
 			);
 			path = domain;
 			sourceTree = "<group>";
@@ -269,7 +275,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00A14F6027FC07C700474097 /* CardFactory.swift in Sources */,
 				72695E1D27FBE2DE00A29350 /* ViewController.swift in Sources */,
+				00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */,
 				72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */,
 				72695E1B27FBE2DE00A29350 /* SceneDelegate.swift in Sources */,
 				72695E4A27FBE79C00A29350 /* Card.swift in Sources */,
