@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TODO LISTS, TEAM 27
 
 ## 팀원소개
@@ -47,3 +48,10 @@
 - 더 공부하고 싶은 내용
 - 이외에 알리고자 하는 내용
 ```
+=======
+# todo-list
+
+그룹 프로젝트 #1
+
+sonya branch test
+>>>>>>> 9ac85adf0a569fb4b2e929bdac00806a527cd0d0
