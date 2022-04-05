@@ -1,19 +1,16 @@
-package com.example.todolist
+package com.example.todolist.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.MotionEvent
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.todolist.R
 import com.google.android.material.appbar.MaterialToolbar
 
 class MainActivity : AppCompatActivity() {
 
-    val mDrawerLayout : DrawerLayout by lazy {
+    private val mDrawerLayout : DrawerLayout by lazy {
         findViewById(R.id.dlo_appbar)
     }
 
