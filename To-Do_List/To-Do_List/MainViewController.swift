@@ -11,7 +11,7 @@ class MainViewController: UIViewController {
 
 //    @IBOutlet weak var tableStackView: UIStackView!
     
-    @IBOutlet weak var statckView1: UIStackView!
+    @IBOutlet weak var statckView: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
            addChild(viewController)
            
            // 자식 뷰 컨트롤러의 루트 뷰를 현재 뷰의 뷰 계층에 추가하는 코드
-            self.statckView1.addArrangedSubview(viewController.view)
+            self.statckView.addArrangedSubview(viewController.view)
         }
         
         let storyboard2 = UIStoryboard(name: "Main", bundle: .main)
@@ -38,7 +38,7 @@ class MainViewController: UIViewController {
            // 핵심 메소드로서, 뷰 컨트롤러에 부모-자식 관계를 형성한다
            addChild(viewController)
 
-            self.statckView1.addArrangedSubview(viewController.view)
+            self.statckView.addArrangedSubview(viewController.view)
         }
         
         let storyboard3 = UIStoryboard(name: "Main", bundle: .main)
@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
            // 핵심 메소드로서, 뷰 컨트롤러에 부모-자식 관계를 형성한다
            addChild(viewController)
 
-            self.statckView1.addArrangedSubview(viewController.view)
+            self.statckView.addArrangedSubview(viewController.view)
         }
     }
     

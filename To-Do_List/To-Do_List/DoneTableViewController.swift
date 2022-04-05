@@ -13,6 +13,8 @@ class DoneTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .brown
+        self.tableView.tableHeaderView = TabelViewHeader(titleText: "하고있는일")
+        self.tableView.tableHeaderView?.backgroundColor = .gray
     }
 
     // MARK: - Table view data source
