@@ -31,5 +31,8 @@ public class CardService {
     return null;
   }
 
+  public List<Card> findAll() {
+    return cardRepository.findAll();
+  }
 
 }

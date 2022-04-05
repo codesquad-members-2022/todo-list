@@ -1,5 +1,7 @@
 package team07.todolist.domain;
 
+import team07.todolist.dto.ResponseCardWithId;
+
 public class Card {
 
   private static final int TODO = 1;
@@ -28,5 +30,13 @@ public class Card {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public boolean isValid() {
+    return !isDeleted;
+  }
+
+  public ResponseCardWithId createResponseCardWithId() {
+    return new ResponseCardWithId(id, userId, title, content, row, status);
   }
 }
