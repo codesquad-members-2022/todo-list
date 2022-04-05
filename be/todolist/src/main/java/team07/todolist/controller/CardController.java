@@ -43,10 +43,10 @@ public class CardController {
 		return "redirect:/list";
 	}
 
-	@PostMapping("/{row}")
-	public RequestCard post(@RequestParam int row) {
+	@PostMapping("/{id}")
+	public RequestCard update(@RequestParam Long id, @RequestBody RequestCard requestCard) {
 
-		Card card = cardService.changeRow(1, 1);
+		Card card = cardService.changeRow(id, requestCard);
 
 //		return new ResponseCard();
 		return null;
