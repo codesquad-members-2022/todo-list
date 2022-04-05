@@ -3,6 +3,7 @@ export default class TodoColumn {
   constructor(title) {
     this.target = document.querySelector('.column-section');
     this.title = title;
+    this.onInput = true;
     this.render();
   }
 
@@ -23,9 +24,17 @@ export default class TodoColumn {
   };
 
   onAddClick = ({ target }) => {
+    if (!this.onInput) {
+      document.querySelector(`.input-${this.title}`)?.remove();
+      this.onInput = true;
+      return;
+    }
+
     if (target.classList.contains('column__add')) {
-      const newInput = new TodoInput();
+      const newInput = new TodoInput(this.title);
       document.querySelector(`.${this.title}`).insertAdjacentHTML('afterend', newInput.template());
+      this.onInput = false;
+      return;
     }
   };
 
