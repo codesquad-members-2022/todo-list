@@ -18,7 +18,7 @@ public class ActivityLogRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public List<ActivityLog> findAll() {
-        return jdbcTemplate.query("select * from activity_log", activityLogLowMapper());
+        return jdbcTemplate.query("select * from activity_log order by create_date desc", activityLogLowMapper());
     }
 
     private RowMapper<ActivityLog> activityLogLowMapper() {
