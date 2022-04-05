@@ -8,6 +8,12 @@
 
 <br>
 
+## 링크
+
+[🌟 쥬와 옐로우가 공부한 내용 모음](https://github.com/jwu-wa-yellow/todo-list/wiki)
+
+<br>
+
 ## 협업 전략
 
 ### 그라운드 룰
