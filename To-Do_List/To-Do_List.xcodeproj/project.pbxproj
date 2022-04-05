@@ -15,6 +15,9 @@
 		8D2AFD8827FB08B100307CCB /* To_Do_ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AFD8727FB08B100307CCB /* To_Do_ListTests.swift */; };
 		8D2AFD9227FB08B100307CCB /* To_Do_ListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AFD9127FB08B100307CCB /* To_Do_ListUITests.swift */; };
 		8D2AFD9427FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AFD9327FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift */; };
+		8D46807727FB3FBB00FA9F34 /* ToDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807627FB3FBB00FA9F34 /* ToDoTableViewController.swift */; };
+		8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */; };
+		8DBB584827FB416D00D129E2 /* DoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */; };
 		8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */; };
 		8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282A27FB1CFE002FB533 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +52,9 @@
 		8D2AFD8D27FB08B100307CCB /* To-Do_ListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "To-Do_ListUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D2AFD9127FB08B100307CCB /* To_Do_ListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_ListUITests.swift; sourceTree = "<group>"; };
 		8D2AFD9327FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_ListUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8D46807627FB3FBB00FA9F34 /* ToDoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewController.swift; sourceTree = "<group>"; };
+		8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableViewController.swift; sourceTree = "<group>"; };
+		8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewController.swift; sourceTree = "<group>"; };
 		8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewController.swift; sourceTree = "<group>"; };
 		8DC2282A27FB1CFE002FB533 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +108,9 @@
 			isa = PBXGroup;
 			children = (
 				8DC2282A27FB1CFE002FB533 /* MainViewController.swift */,
+				8D46807627FB3FBB00FA9F34 /* ToDoTableViewController.swift */,
+				8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */,
+				8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */,
 				8DC2282D27FB1D22002FB533 /* LogTable */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
 				8DC876B727FB0C560014FC94 /* SupportingFiles */,
@@ -277,9 +286,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D46807727FB3FBB00FA9F34 /* ToDoTableViewController.swift in Sources */,
 				8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */,
 				8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */,
 				8D2AFD7127FB08AE00307CCB /* AppDelegate.swift in Sources */,
+				8DBB584827FB416D00D129E2 /* DoneTableViewController.swift in Sources */,
+				8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */,
 				8D2AFD7327FB08AE00307CCB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
