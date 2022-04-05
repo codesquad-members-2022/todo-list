@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="TextAppbarTitle.Black" parent="TextAppearance.MaterialComponents.Headline5">
+    <item name="fontFamily">@font/noto_sans_kr</item>
+    <item name="android:fontFamily">@font/noto_sans_kr</item>
+    <item name="android:textSize">32sp</item>
+    <item name="android:textColor">@color/todo_black</item>
+  </style>
+
+  <style name="TextTitle.Black" parent="TextAppearance.MaterialComponents.Headline6">
+    <item name="fontFamily">@font/noto_sans_kr</item>
+    <item name="android:fontFamily">@font/noto_sans_kr</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:textColor">@color/todo_black</item>
+  </style>
+
+  <style name="TextTitle.Black.Bold">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="TextSubtitle.Black" parent="TextAppearance.MaterialComponents.Subtitle1">
+    <item name="fontFamily">@font/noto_sans_kr</item>
+    <item name="android:fontFamily">@font/noto_sans_kr</item>
+    <item name="android:textColor">@color/todo_black</item>
+  </style>
+
+  <style name="TextSubtitle.Black.Bold">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="TextBody.Black" parent="TextAppearance.MaterialComponents.Body2">
+    <item name="fontFamily">@font/noto_sans_kr</item>
+    <item name="android:fontFamily">@font/noto_sans_kr</item>
+    <item name="android:textColor">@color/todo_black</item>
+  </style>
+
+  <style name="TextBody.Black.Bold">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="TextTitle.White" parent="TextTitle.Black">
+    <item name="android:textColor">@color/todo_white</item>
+  </style>
+
+  <style name="TextCaption.grey03" parent="TextAppearance.MaterialComponents.Caption">
+    <item name="fontFamily">@font/noto_sans_kr</item>
+    <item name="android:fontFamily">@font/noto_sans_kr</item>
+    <item name="android:textColor">@color/todo_grey_03</item>
+  </style>
+
+</resources>

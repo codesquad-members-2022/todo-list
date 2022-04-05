@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="todo_black">#010101</color>
+  <color name="todo_grey_01">#F5F5F7</color>
+  <color name="todo_grey_02">#E5E5E5</color>
+  <color name="todo_grey_03">#BDBDBD</color>
+  <color name="todo_white">#FFFFFF</color>
+
+</resources>
