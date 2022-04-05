@@ -1,0 +1,10 @@
+diff a/android/app/src/main/AndroidManifest.xml b/android/app/src/main/AndroidManifest.xml	(rejected hunks)
+@@ -10,7 +10,7 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.Todo">
+         <activity
+-            android:name=".ui.MainActivity"
++            android:name=".ui.ToDoActivity"
+             android:exported="true">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
