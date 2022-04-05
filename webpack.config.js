@@ -13,7 +13,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: { loader: 'babel-loader' },
+        use: {loader: 'babel-loader'},
       },
       {
         test: /\.css$/i,
@@ -22,5 +22,5 @@ module.exports = {
     ],
   },
   devtool: 'source-map',
-  plugins: [new HtmlWebpackPlugin({ filename: 'index.html', template: './index.html' })],
+  plugins: [new HtmlWebpackPlugin({filename: 'index.html', template: './src/index.html'})],
 };
