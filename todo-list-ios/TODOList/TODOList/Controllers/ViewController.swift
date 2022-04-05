@@ -10,6 +10,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.sideView.tableView.dataSource = self
         self.setLayout()
     }
     
@@ -22,6 +23,20 @@ class ViewController: UIViewController {
             sideView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0)
         ])
     }
+}
+
+extension ViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SideViewTableViewCell.identifier, for: indexPath) as! SideViewTableViewCell
+        cell.imageView?.image = UIImage(named: "emoji")
+        return cell
+    }
+    
     
 }
 
