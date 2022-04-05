@@ -79,12 +79,13 @@ issue/npm-publish/13
 | Chore            | 빌드 태스트 업데이트, 패키지 매니저를 설정하는 경우(프로덕션 코드 변경 X) |
 | Rename           | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우                        |
 | Remove           | 파일을 삭제하는 작업만 수행한 경우                                        |
+| Env              | 환경설정이 변경된 경우                                                    |
 
 출처: https://overcome-the-limits.tistory.com/entry/협업-협업을-위한-기본적인-git-커밋컨벤션-설정하기 [Plus Ultra]
 
 ## PR 템플릿
 
-### 제목 - `브랜치 네이밍` 에 따라 작성
+### 제목
 
 `[<who>] short-description (<type> #<issue-id>)`
 
