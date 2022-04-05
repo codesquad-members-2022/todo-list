@@ -314,7 +314,7 @@ svg {
   justify-content: center;
   align-items: center;
   padding: 0px 8px;
-  position: static;
+  position: absolute;
   width: 308px;
   height: 26px;
   left: 0px;
@@ -361,7 +361,7 @@ svg {
   flex-grow: 0;
   margin: 0px 8px;
 }
-.plus {
+.todo-title .plus {
   position: static;
   width: 24px;
   height: 24px;
@@ -373,20 +373,16 @@ svg {
   flex-grow: 0;
   margin: 0px 8px;
 }
-.plus svg {
-  position: static;
-  width: 24px;
-  height: 24px;
-  left: 244px;
-  top: 1px;
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 0px 8px;
+.todo-title .plus svg {
+  position: absolute;
+  left: 21.27%;
+  right: 21.27%;
+  top: 21.27%;
+  bottom: 21.27%;
+  /* Gray 4 */
+  background: #BDBDBD;
 }
-
-.cancel {
+.todo-title .cancel {
   position: static;
   width: 24px;
   height: 24px;
@@ -398,7 +394,7 @@ svg {
   flex-grow: 0;
   margin: 0px 8px;
 }
-.cancel svg {
+.todo-title .cancel svg {
   position: absolute;
   left: 28.12%;
   right: 28.12%;

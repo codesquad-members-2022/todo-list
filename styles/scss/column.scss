@@ -151,7 +151,7 @@
   align-items: center;
   padding: 0px 8px;
 
-  position: static;
+  position: absolute;
   width: 308px;
   height: 26px;
   left: 0px;
@@ -213,6 +213,7 @@
   }
 }
 
+.todo-title{
 .plus {
   position: static;
   width: 24px;
@@ -227,18 +228,15 @@
   flex-grow: 0;
   margin: 0px 8px;
   svg {
-    position: static;
-    width: 24px;
-    height: 24px;
-    left: 244px;
-    top: 1px;
+    position: absolute;
+    left: 21.27%;
+    right: 21.27%;
+    top: 21.27%;
+    bottom: 21.27%;
 
-    /* Inside auto layout */
+    /* Gray 4 */
 
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-    margin: 0px 8px;
+    background: #BDBDBD;
   }
 }
 .cancel {
@@ -265,4 +263,5 @@
 
     background: #bdbdbd;
   }
+}
 }
