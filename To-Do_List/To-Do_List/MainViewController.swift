@@ -8,10 +8,8 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
-//    @IBOutlet weak var tableStackView: UIStackView!
     
-    @IBOutlet weak var statckView1: UIStackView!
+    @IBOutlet weak var statckView: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,37 +17,19 @@ class MainViewController: UIViewController {
         self.title = "TO-DO-LIST"
         self.navigationController?.navigationBar.backgroundColor = .darkGray
         
-        // 현재의 뷰 컨트롤러에 자식 뷰 컨트롤러를 추가하는 코드
-        let storyboard1 = UIStoryboard(name: "Main", bundle: .main)
-        if let viewController = storyboard1.instantiateViewController(identifier: "ToDoTableViewController")
-                                            as? ToDoTableViewController {
-            
-           // 핵심 메소드로서, 뷰 컨트롤러에 부모-자식 관계를 형성한다
-           addChild(viewController)
-           
-           // 자식 뷰 컨트롤러의 루트 뷰를 현재 뷰의 뷰 계층에 추가하는 코드
-            self.statckView1.addArrangedSubview(viewController.view)
-        }
+        addChildViewControllers()
         
-        let storyboard2 = UIStoryboard(name: "Main", bundle: .main)
-        if let viewController = storyboard2.instantiateViewController(identifier: "DoneTableViewController")
-                                            as? DoneTableViewController {
-
-           // 핵심 메소드로서, 뷰 컨트롤러에 부모-자식 관계를 형성한다
-           addChild(viewController)
-
-            self.statckView1.addArrangedSubview(viewController.view)
-        }
+}
+    
+    private func addChildViewControllers() {
+        let storyBoard = UIStoryboard(name: "Main", bundle: .main)
+        guard let todoViewController = storyBoard.instantiateViewController(withIdentifier: "ToDoTableViewController") as? ToDoTableViewController,
+              let doingTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoingTableViewController") as? DoingTableViewController,
+              let doneTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoneTableViewController") as? DoneTableViewController else { return }
         
-        let storyboard3 = UIStoryboard(name: "Main", bundle: .main)
-        if let viewController = storyboard3.instantiateViewController(identifier: "DoingTableViewController")
-                                            as? DoingTableViewController {
-
-           // 핵심 메소드로서, 뷰 컨트롤러에 부모-자식 관계를 형성한다
-           addChild(viewController)
-
-            self.statckView1.addArrangedSubview(viewController.view)
+        [todoViewController,doingTableViewController,doneTableViewController].forEach {
+            addChild($0)
+            self.statckView.addArrangedSubview($0.view)
         }
     }
-    
 }

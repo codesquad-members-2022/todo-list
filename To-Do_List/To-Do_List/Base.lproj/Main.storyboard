@@ -53,10 +53,10 @@
             </objects>
             <point key="canvasLocation" x="-1026" y="61"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Splite View Controller-->
         <scene sceneID="vAP-Fc-Y6c">
             <objects>
-                <splitViewController allowDoubleColumnStyle="YES" primaryEdge="trailing" id="te4-jz-cac" sceneMemberID="viewController">
+                <splitViewController allowDoubleColumnStyle="YES" primaryEdge="trailing" id="te4-jz-cac" customClass="SpliteViewController" customModule="To_Do_List" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="w6d-9j-x8x" kind="relationship" relationship="masterViewController" id="x3f-5F-aIM"/>
                         <segue destination="P36-ET-pQ7" kind="relationship" relationship="detailViewController" id="gcq-OT-CKP"/>
@@ -88,7 +88,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="statckView1" destination="qsL-gl-oqr" id="Y12-wi-OD2"/>
+                        <outlet property="statckView" destination="qsL-gl-oqr" id="Y12-wi-OD2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Uv-pN-zJC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
