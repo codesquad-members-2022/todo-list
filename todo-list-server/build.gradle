@@ -1,8 +1,10 @@
 plugins {
+    id 'org.springframework.boot' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
-group 'org.example'
+group 'com.list'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -10,8 +12,10 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    runtimeOnly 'mysql:mysql-connector-java'
 }
 
 test {
