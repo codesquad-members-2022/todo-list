@@ -110,10 +110,10 @@ section {
 
 html {
   width: 100%;
-  background: #fff;
+  background: #f5f5f7;
   font: $weight-regular 14px 'Noto Sans KR', sans-serif;
   line-height: 1.43;
-  color: $black;
+  color: $main-font-color;
   letter-spacing: -0.5px;
 }
 
@@ -149,8 +149,7 @@ select::-ms-expand {
 }
 
 textarea {
-  color: $black;
-  background: $white;
+  color: inherit;
   resize: none;
 }
 
@@ -210,12 +209,13 @@ legend {
 
 input,
 select,
-textarea,
-img {
+textarea {
   display: block;
+  width: 100%;
 }
 
 img {
+  display: block;
   max-width: 100%;
   border: 0;
 }
