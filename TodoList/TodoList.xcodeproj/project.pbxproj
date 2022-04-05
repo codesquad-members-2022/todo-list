@@ -14,6 +14,7 @@
 		B39BFEBD27FADA8E00B28376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39BFEBC27FADA8E00B28376 /* Assets.xcassets */; };
 		B39BFEC027FADA8E00B28376 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B39BFEBE27FADA8E00B28376 /* LaunchScreen.storyboard */; };
 		D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */; };
+		D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299330927FBD83000D79C87 /* HeaderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		B39BFEBF27FADA8E00B28376 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B39BFEC127FADA8E00B28376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		D299330927FBD83000D79C87 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				B39BFEB327FADA8700B28376 /* AppDelegate.swift */,
 				B39BFEB527FADA8700B28376 /* SceneDelegate.swift */,
 				B39BFEB727FADA8700B28376 /* ViewController.swift */,
+				D299330927FBD83000D79C87 /* HeaderViewController.swift */,
 				D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */,
 				B39BFEB927FADA8700B28376 /* Main.storyboard */,
 				B39BFEBC27FADA8E00B28376 /* Assets.xcassets */,
@@ -143,6 +146,7 @@
 			files = (
 				B39BFEB827FADA8700B28376 /* ViewController.swift in Sources */,
 				B39BFEB427FADA8700B28376 /* AppDelegate.swift in Sources */,
+				D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */,
 				B39BFEB627FADA8700B28376 /* SceneDelegate.swift in Sources */,
 				D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */,
 			);
