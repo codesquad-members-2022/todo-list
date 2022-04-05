@@ -1,11 +1,12 @@
 export default class TodoInput {
-  constructor() {
+  constructor(title) {
+    this.title = title;
     // this.render();
   }
 
   template = () => {
     return /*html*/ `
-        <article class="input-wrapper">
+        <article class="input-wrapper input-${this.title}">
             <header class="input-header">제목을 입력하세요</header>
             <input class="input-todo" placeholder="내용을 입력하세요" />
             <div class="input-button-wrapper">
