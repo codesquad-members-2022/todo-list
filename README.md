@@ -69,9 +69,9 @@ Git Wiki에서 모두 관리 하도록!
 
 Lists
 
-- [ ] esLint & pritter 설정
-- [ ] babel & webpack 설정
-- [ ] HTML 마크업 진행
+- [x] esLint & pritter 설정
+- [x] babel & webpack 설정
+- [x] HTML 마크업 진행
 - [ ] 기능 분리 논의
   - ADD ? 어떻게 할건지..
   - Remove ? 등등
