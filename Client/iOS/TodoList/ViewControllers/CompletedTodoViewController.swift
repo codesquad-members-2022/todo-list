@@ -1,9 +1,8 @@
 import UIKit
 
-class ViewController: UIViewController {
+class CompletedTodoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
-
