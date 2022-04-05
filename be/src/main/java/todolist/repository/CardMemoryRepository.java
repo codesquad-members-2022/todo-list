@@ -2,20 +2,28 @@ package todolist.repository;
 
 import org.springframework.stereotype.Repository;
 import todolist.domain.Card;
+import todolist.dto.CardDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class CardMemoryRepository implements TodoRepository<Card> {
 
+    private static List<Card> store = new ArrayList<>();
+    private static AtomicLong id = new AtomicLong();
+
     @Override
-    public Card save() {
-        return null;
+    public Card save(Card card) {
+        card.setId(id.incrementAndGet());
+        store.add(card);
+        return card;
     }
 
     @Override
-    public Optional<Card> findById() {
+    public Optional<Card> findById(Long id) {
         return Optional.empty();
     }
 
@@ -25,7 +33,7 @@ public class CardMemoryRepository implements TodoRepository<Card> {
     }
 
     @Override
-    public void delete() {
+    public void delete(Long id) {
 
     }
 }
