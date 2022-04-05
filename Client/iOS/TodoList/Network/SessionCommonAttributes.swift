@@ -32,6 +32,9 @@ class SessionCommonAttributes {
         }
     }
     
+    private var cachePolicy = URLRequest.CachePolicy.useProtocolCachePolicy
+    private var timeoutInterval: TimeInterval = 6.0
+    
     // MARK: - Initializers
     init?(as string: String)
     {
@@ -53,7 +56,7 @@ class SessionCommonAttributes {
     }
     
     private func reloadRequestURL(_ url: URL) {
-        request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 6.0)
+        request = URLRequest(url: url, cachePolicy: cachePolicy, timeoutInterval: timeoutInterval)
         request.httpMethod = httpMethod.rawValue
         request.setValue(mimeType.rawValue, forHTTPHeaderField: "Content-Type")
     }

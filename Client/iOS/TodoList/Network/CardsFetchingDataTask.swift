@@ -11,7 +11,7 @@ import Foundation
 ///
 /// - fetchCardsAll(): 모든 보드의 카드를 가져온다.
 /// - fetchCardsInBoard(in:BoardData): 특정 보드의 카드를 가져온다.
-class CardsFetchingDataTask: SessionConfiguration
+class CardsFetchingDataTask: CardHTTPRequest
 {
     
     private let encoder = JSONEncoder()
@@ -29,16 +29,14 @@ class CardsFetchingDataTask: SessionConfiguration
     func fetchCardsAll(completionHandler: @escaping ([[CardData]]?)->Void)
     {
         do {
-            let url = try CardFetchingURL.fetchAll.toURL()
-            getRequestHandler(url: url) { request in
-                self.session.dataTask(with: request) { data, response, error in
-                    guard let data = data else {
-                        completionHandler(nil)
-                        return
-                    }
-                    
-                    completionHandler(try? self.decoder.decode([[CardData]].self, from: data))
-                }.resume()
+            doGetRequest(url: try CardFetchingURL.fetchAll.toURL(), parameter: nil) { data in
+                
+                guard let data = data else {
+                    completionHandler(nil)
+                    return
+                }
+                
+                completionHandler(try? self.decoder.decode([[CardData]].self, from: data))
             }
         } catch {
             print(error)
@@ -49,16 +47,14 @@ class CardsFetchingDataTask: SessionConfiguration
     func fetchCardsInBoard(completionHandler: @escaping ([CardData]?)->Void)
     {
         do {
-            let url = try CardFetchingURL.oneFetch.toURL()
-            getRequestHandler(url: url) { request in
-                self.session.dataTask(with: request) { data, response, error in
-                    guard let data = data else {
-                        completionHandler(nil)
-                        return
-                    }
-                    
-                    completionHandler(try? self.decoder.decode([CardData].self, from: data))
-                }.resume()
+            doGetRequest(url: try CardFetchingURL.oneFetch.toURL(), parameter: nil) { data in
+                
+                guard let data = data else {
+                    completionHandler(nil)
+                    return
+                }
+                
+                completionHandler(try? self.decoder.decode([CardData].self, from: data))
             }
         } catch {
             print(error)

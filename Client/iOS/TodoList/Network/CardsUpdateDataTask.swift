@@ -13,7 +13,7 @@ import Foundation
 /// - readCard(from:String,completionHandler:(CardData?)->Void) : 전달한 ID와 일치하는 카드를 가져온다.
 /// - updateCard(:CardData,completionHandler:(CardData?)->Void) : 카드 데이터를 업데이트 한다.
 /// - deleteCard(from:String,completionHandler:(CardData?)->Void) : 전달한 ID와 일치하는 카드를 삭제한다.
-class CardsUpdateDataTask: SessionConfiguration
+class CardsUpdateDataTask: CardHTTPRequest
 {
     
     private let encoder = JSONEncoder()
@@ -26,17 +26,14 @@ class CardsUpdateDataTask: SessionConfiguration
     func createCard(_ param: ScreenCardParameter, completionHandler: @escaping (CardData?)->Void)
     {
         do {
-            let paramData = try encoder.encode(param)
-            let url = try CardManagingURL.create.toURL()
-            getRequestHandler(url: url) { request in
-                self.session.uploadTask(with: request, from: paramData) { data, response, error in
-                    guard let data = data else {
-                        completionHandler(nil)
-                        return
-                    }
-                    
-                    completionHandler(try? self.decoder.decode(CardData.self, from: data))
-                }.resume()
+            doPostRequest(url: try CardManagingURL.create.toURL(), try encoder.encode(param)) { data in
+                
+                guard let data = data else {
+                    completionHandler(nil)
+                    return
+                }
+                
+                completionHandler(try? self.decoder.decode(CardData.self, from: data))
             }
         } catch {
             print(error)
@@ -47,26 +44,15 @@ class CardsUpdateDataTask: SessionConfiguration
     func readCard(from objectId: String, completionHandler: @escaping (CardData?)->Void)
     {
         do {
-            let queryItems = [URLQueryItem(name: "objectId", value: objectId)]
-            var urlComp = try CardManagingURL.read.toURLComponent()
-            urlComp.queryItems = queryItems
-            
-            if let url = urlComp.url {
-                getRequestHandler(url: url) { request in
-                    self.session.dataTask(with: request) { data, response, error in
-                        guard let data = data else {
-                            completionHandler(nil)
-                            return
-                        }
-                        
-                        completionHandler(try? self.decoder.decode(CardData.self, from: data))
-                    }.resume()
+            doGetRequest(url: try CardManagingURL.read.toURL(), parameter: ["objectId": objectId]) { data in
+                
+                guard let data = data else {
+                    completionHandler(nil)
+                    return
                 }
-            } else {
-                print("\(CardManagingError.CardURLError) urlComp: \(urlComp.string ?? ""), queryItems: \(queryItems)")
-                throw CardManagingError.CardURLError
+                
+                completionHandler(try? self.decoder.decode(CardData.self, from: data))
             }
-            
         } catch {
             print(error)
             completionHandler(nil)
@@ -76,18 +62,14 @@ class CardsUpdateDataTask: SessionConfiguration
     func updateCard(_ data: CardData, completionHandler: @escaping (CardData?)->Void)
     {
         do {
-            let paramData = try encoder.encode(data)
-            let url = try CardManagingURL.update.toURL()
-            
-            getRequestHandler(url: url) { request in
-                self.session.uploadTask(with: request, from: paramData) { data, response, error in
-                    guard let data = data else {
-                        completionHandler(nil)
-                        return
-                    }
-                    
-                    completionHandler(try? self.decoder.decode(CardData.self, from: data))
-                }.resume()
+            doPostRequest(url: try CardManagingURL.update.toURL(), try encoder.encode(data)) { data in
+                
+                guard let data = data else {
+                    completionHandler(nil)
+                    return
+                }
+                
+                completionHandler(try? self.decoder.decode(CardData.self, from: data))
             }
         } catch {
             print(error)
@@ -98,26 +80,15 @@ class CardsUpdateDataTask: SessionConfiguration
     func deleteCard(from objectId: String, completionHandler: @escaping (CardData?)->Void)
     {
         do {
-            let queryItems = [URLQueryItem(name: "objectId", value: objectId)]
-            var urlComp = try CardManagingURL.delete.toURLComponent()
-            urlComp.queryItems = queryItems
-            
-            if let url = urlComp.url {
-                getRequestHandler(url: url) { request in
-                    self.session.dataTask(with: request) { data, response, error in
-                        guard let data = data else {
-                            completionHandler(nil)
-                            return
-                        }
-                        
-                        completionHandler(try? self.decoder.decode(CardData.self, from: data))
-                    }.resume()
+            doGetRequest(url: try CardManagingURL.delete.toURL(), parameter: ["objectId":objectId]) { data in
+                
+                guard let data = data else {
+                    completionHandler(nil)
+                    return
                 }
-            } else {
-                print("\(CardManagingError.CardURLError) urlComp: \(urlComp.string ?? ""), queryItems: \(queryItems)")
-                throw CardManagingError.CardURLError
+                
+                completionHandler(try? self.decoder.decode(CardData.self, from: data))
             }
-            
         } catch {
             print(error)
             completionHandler(nil)
