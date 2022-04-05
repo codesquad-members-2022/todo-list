@@ -6,8 +6,16 @@
 
   position: absolute;
   width: 332px;
-  height: 548px;
-  left: 1028px;
+  height:auto;
+  :first-child{
+    left:20px;
+  }
+  :nth-child(2){
+    left:404px;
+  }
+  :nth-child(3){
+    left:728px;
+  }
   top: 80px;
 }
 .todo-card {
@@ -20,8 +28,8 @@
 
   position: absolute;
   width: 308px;
-  height: 108px;
-  left: 20px;
+  height: auto;
+ left:0px;
   top: 20px;
 
   /* White */

@@ -1,7 +1,8 @@
 export default class Component {
-  constructor() {
-    this.state = state;
-    this.el = el;
+  state;
+  #el;
+  constructor(el) {
+    this.#el = el;
     this.setEvent();
     this.render();
   }
@@ -12,7 +13,7 @@ export default class Component {
   }
 
   render() {
-    this.el.innerHTML = this.template();
+    this.#el.innerHTML = this.template();
   }
 
   template() {
@@ -22,10 +23,10 @@ export default class Component {
   setEvent() {}
 
   select(selector) {
-    return this.el.querySelector(selector);
+    return this.#el.querySelector(selector);
   }
 
   selectAll(selector) {
-    return this.el.querySelectAll(selector);
+    return this.#el.querySelectorAll(selector);
   }
 }
