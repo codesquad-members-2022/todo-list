@@ -11,8 +11,8 @@
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tool:openDrawer="right"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        tool:openDrawer="right">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -25,39 +25,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-
                 <com.google.android.material.appbar.MaterialToolbar
-                    android:layout_width="match_parent"
                     android:id="@+id/toolbar_menu"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_baseline_menu_24"
                     app:menu="@menu/appbar_main"
                     app:title="@string/appbar_title" />
 
             </com.google.android.material.appbar.AppBarLayout>
+
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
-            >
+            android:layout_gravity="right">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvInDrawer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:text="hihihihihi"/>
+                <TextView
+                    android:id="@+id/tvInDrawer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_view"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.navigation.NavigationView>
 
