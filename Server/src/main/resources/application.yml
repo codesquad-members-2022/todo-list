@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/todoList?serverTimezone=Asia/Seoul
+    username: root
+    password: Lucid123!
+
+  sql:
+    init:
+      mode: never
