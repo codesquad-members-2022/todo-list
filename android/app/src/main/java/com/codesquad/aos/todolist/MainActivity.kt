@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.appbar_main_menu -> {
                     Log.d("mainActivity", "appbar-menu")
+                    binding.drawerLayout?.open()
                     true
                 }
                 else -> false
