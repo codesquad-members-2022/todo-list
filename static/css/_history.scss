@@ -1,0 +1,36 @@
+.history-wrap {
+  @include box-shadow;
+  @include font-regular;
+
+  display: none;
+  position: absolute;
+  padding: 80px 80px 0 40px;
+  max-width: 452px;
+  height: 100%;
+  right: 0;
+  top: 0;
+  background: $component-bg-color;
+}
+
+.history {
+  display: flex;
+  padding: 16px;
+  
+  &__user-image{
+    margin-right: 16px;
+    width: 40px;
+  }
+  
+  &__description {
+    font-size: $font-16px;
+  }
+  
+  &__content {
+    margin: 8px 0;
+  }
+
+  &__time {
+    font-size: $font-14px;
+    color: $sub-font-color;
+  }
+}
