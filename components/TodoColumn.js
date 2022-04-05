@@ -33,9 +33,20 @@ export default class TodoColumn {
     if (target.classList.contains('column__add')) {
       const newInput = new TodoInput(this.title);
       document.querySelector(`.${this.title}`).insertAdjacentHTML('afterend', newInput.template());
+      document.querySelector(`.input-${this.title} .input--cancel`).addEventListener('click', this.onCloseBtn);
+      document.querySelector(`.input-${this.title} .input-todo`).addEventListener('input', this.onInputContent);
       this.onInput = false;
       return;
     }
+  };
+
+  onInputContent = () => {
+    document.querySelector(`.input-${this.title} .input--register`).style.background = '#0075DE';
+  };
+
+  onCloseBtn = () => {
+    document.querySelector(`.input-${this.title}`).remove();
+    this.onInput = false;
   };
 
   render = () => {
