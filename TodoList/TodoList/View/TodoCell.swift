@@ -8,6 +8,7 @@
 import UIKit
 
 class TodoCell: UITableViewCell{
+    private var backView: UIView!
     private var title: UILabel!
     private var contents: UILabel!
     private var author: UILabel!
@@ -34,6 +35,12 @@ class TodoCell: UITableViewCell{
     }
     
     private func configureLabels(){
+        backView = UIView()
+        backView.backgroundColor = .white
+        backView.layer.cornerRadius = 10
+        backView.layer.borderColor = UIColor.blue.cgColor
+        backView.layer.borderWidth = 1
+        
         title = UILabel()
         title.textColor = .black
         title.font = UIFont.boldSystemFont(ofSize: 20)
@@ -50,28 +57,38 @@ class TodoCell: UITableViewCell{
     }
     
     private func setConstraints(){
+        backView.translatesAutoresizingMaskIntoConstraints = false
+        backView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
+        backView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: 5).isActive = true
+        backView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
+        backView.widthAnchor.constraint(equalToConstant: self.contentView.frame.width / 3).isActive = true
+        
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
-        title.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
-        title.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -10).isActive = true
+        title.topAnchor.constraint(equalTo: self.backView.topAnchor, constant: 5).isActive = true
+        title.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 5).isActive = true
+        title.widthAnchor.constraint(equalTo: self.backView.widthAnchor, constant: -10).isActive = true
         title.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         contents.translatesAutoresizingMaskIntoConstraints = false
         contents.topAnchor.constraint(equalTo: self.title.bottomAnchor, constant: 5).isActive = true
         contents.bottomAnchor.constraint(equalTo: self.author.topAnchor, constant: -5).isActive = true
-        contents.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
-        contents.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -10).isActive = true
+        contents.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 5).isActive = true
+        contents.widthAnchor.constraint(equalTo: self.backView.widthAnchor, constant: -10).isActive = true
         
         author.translatesAutoresizingMaskIntoConstraints = false
-        author.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
-        author.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
-        author.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -10).isActive = true
+        author.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor, constant: -5).isActive = true
+        author.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 5).isActive = true
+        author.widthAnchor.constraint(equalTo: self.backView.widthAnchor, constant: -10).isActive = true
         author.heightAnchor.constraint(equalToConstant: 15).isActive = true
     }
     
     private func addContentViews(){
-        self.contentView.addSubview(title)
-        self.contentView.addSubview(contents)
-        self.contentView.addSubview(author)
+        self.backView.addSubview(title)
+        self.backView.addSubview(contents)
+        self.backView.addSubview(author)
+        self.contentView.addSubview(backView)
+        
+        print(backView.frame.width)
+        print(contentView.frame.width)
     }
 }
