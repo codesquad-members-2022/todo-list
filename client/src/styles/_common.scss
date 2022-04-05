@@ -1,0 +1,109 @@
+@import './_variables';
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin position($position, $top, $right) {
+  position: $position;
+  top: $top;
+  right: $right;
+}
+
+@mixin font_style($font-weight, $font-size, $line-height) {
+  font-weight: $font-weight;
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+%default_button {
+  width: 134px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.drag {
+  background-color: rgba(255, 255, 255, 0.226);
+  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
+    0px 2px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+}
+
+.default_card_color {
+  background-color: $white-color;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+}
+
+.place {
+  background: #ffffff;
+  opacity: 0.4;
+
+  border: 1px solid #0075de;
+  box-sizing: border-box;
+
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+}
+
+.delete {
+  background: #ffeeec;
+  border: 1px solid #ff4343;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+}
+
+.delete_card_background {
+  background: rgba(1, 1, 1, 0.4);
+}
+
+.accent-btn {
+  background-color: $blue-color;
+  color: $white-color;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.accent-btn:hover {
+  background-color: $darkblue-color;
+}
+
+.accent-btn:disabled {
+  background-color: $lightblue-color;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.normal-btn {
+  background-color: $gray5-color;
+}
+
+.normal-btn:hover {
+  background-color: $gray3-color;
+}
+
+.make-black {
+  background: rgba(1, 1, 1, 0.4);
+}
+
+.active {
+  border: 1px solid $blue-color;
+
+  .item-info {
+    width: 100%;
+  }
+}
+
+.active-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  button {
+    @extend %default_button;
+  }
+}
+
+.accent-btn {
+  background-color: $blue-color;
+  color: $white-color;
+  font-weight: 700;
+  font-size: 14px;
+}

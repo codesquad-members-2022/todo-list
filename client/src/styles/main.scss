@@ -1,7 +1,8 @@
-@import './common', './_variables', './body/_body', './header/_headerBar',
+@import './_variables', './_common', './body/_body', './header/_headerBar',
   './reset.scss';
 
 body {
+  position: relative;
   font-family: 'Noto Sans KR', sans-serif;
   background-color: $backbround-color;
 }
