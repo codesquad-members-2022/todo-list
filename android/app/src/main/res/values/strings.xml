@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Todo</string>
+    <string name="label_main_toolbar_title">TO-DO LIST</string>
+    <string name="label_toolbar_menu_action">action_menu</string>
 </resources>

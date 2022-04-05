@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--HeadLine: toolbar 제목-->
+    <style name="HeadLine4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <!--Headline : recyclerview 제목 -->
     <style name="HeadLine" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">@color/black</item>
