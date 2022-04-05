@@ -12,10 +12,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(css|scss)$/,
+        test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"],
         exclude: /node_modules/,
       },
+      {
+        test: /\.png/,
+        type: "asset/inline",
+      },
     ],
   },
+  watch: true,
 };
