@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     
     private func setLayout(){
         self.view.addSubview(sideView)
+        
         NSLayoutConstraint.activate([
             sideView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             sideView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
@@ -33,10 +34,10 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SideViewTableViewCell.identifier, for: indexPath) as! SideViewTableViewCell
-        cell.imageView?.image = UIImage(named: "emoji")
+        cell.emojiView.image = UIImage(named: "emoji")
+        cell.stackView = HistoryStackView(name: "Jed", content: "변경했습니당", time: "5")
+        cell.historyView.addSubview(cell.stackView)
         return cell
     }
-    
-    
 }
 
