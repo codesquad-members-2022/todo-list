@@ -10,24 +10,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/todo_grey01"
         tools:context=".MainActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_main"
             android:layout_width="match_parent"
             android:layout_height="72dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                style="@style/TextHeadline4.Black01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_to_do_list"
-                style="@style/TextHeadline4.Black01"
                 android:layout_marginStart="48dp"
-                android:layout_margin="13dp"
-                android:layout_gravity="top" />
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:text="@string/label_to_do_list" />
 
         </androidx.appcompat.widget.Toolbar>
     </androidx.constraintlayout.widget.ConstraintLayout>
