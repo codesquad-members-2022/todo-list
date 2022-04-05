@@ -1,0 +1,38 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "html/css 공부하기",
+      "detail": "input 태그 실습",
+      "time": "~~~"
+    },
+    {
+      "id": 2,
+      "title": "html/css 공부하기",
+      "detail": "input 태그 실습",
+      "time": "~~~"
+    },
+    {
+      "id": 3,
+      "title": "html/css 공부하기",
+      "detail": "input 태그 실습",
+      "time": "~~~"
+    }
+  ],
+  "actions": [
+    {
+      "id": 1,
+      "title": "html/css 공부하기",
+      "column": "해야 할 일",
+      "action": "move",
+      "time": "~~~"
+    },
+    {
+      "id": 2,
+      "title": "html/css 공부하기",
+      "column": "해야 할 일",
+      "action": "move",
+      "time": "~~~"
+    }
+  ]
+}
