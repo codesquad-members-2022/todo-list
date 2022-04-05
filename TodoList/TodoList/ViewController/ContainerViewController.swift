@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ContainerViewController: UIViewController {
     
     var headerVC: HeaderViewController!
     var contentVC: ContentViewController!
