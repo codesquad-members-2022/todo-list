@@ -11,11 +11,18 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var statckView: UIStackView!
 
+    private lazy var titleLabel:UILabel = {
+        let label = UILabel()
+        label.text = "TO-DO-LIST"
+        label.font = .systemFont(ofSize: 32, weight: .bold)
+        label.textAlignment = .left
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.title = "TO-DO-LIST"
-        self.navigationController?.navigationBar.backgroundColor = .darkGray
+        
         
         addChildViewControllers()
         
@@ -32,4 +39,5 @@ class MainViewController: UIViewController {
             self.statckView.addArrangedSubview($0.view)
         }
     }
+
 }
