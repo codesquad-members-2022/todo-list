@@ -11,7 +11,7 @@
         <!--Split View Controller-->
         <scene sceneID="uK2-PN-Zj4">
             <objects>
-                <splitViewController allowDoubleColumnStyle="YES" behavior="overlay" primaryEdge="trailing" id="mBE-x1-Blz" sceneMemberID="viewController">
+                <splitViewController allowDoubleColumnStyle="YES" behavior="overlay" primaryEdge="trailing" id="mBE-x1-Blz" customClass="SplitViewController" customModule="todo_list" sceneMemberID="viewController">
                     <connections>
                         <segue destination="ykt-wd-AVl" kind="relationship" relationship="masterViewController" id="6Rk-md-WOS"/>
                         <segue destination="N1S-8c-0ef" kind="relationship" relationship="detailViewController" id="5BQ-Nb-KZC"/>
@@ -58,7 +58,7 @@
         <!--활동기록-->
         <scene sceneID="ckI-e3-ur3">
             <objects>
-                <tableViewController title="활동기록" id="ykt-wd-AVl" sceneMemberID="viewController">
+                <tableViewController title="활동기록" id="ykt-wd-AVl" customClass="ActivityRecordController" customModule="todo_list" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="K4N-RQ-u2P">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
