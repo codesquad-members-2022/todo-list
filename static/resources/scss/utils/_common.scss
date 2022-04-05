@@ -1,3 +1,26 @@
+// display
+.hidden-text {
+  font-size: 0;
+  color: transparent;
+}
+
+// button
+.add-button {
+  @include icon-button(14px, 14px, 5px, '../images/common/icon-add-gray.png');
+
+  &:hover {
+    background-image: url('../images/common/icon-add-blue.png');
+  }
+}
+
+.delete-button {
+  @include icon-button(12px, 12px, 5px, '../images/common/icon-close-gray.png');
+
+  &:hover {
+    background-image: url('../images/common/icon-close-red.png');
+  }
+}
+
 .button {
   width: 134px;
   height: 40px;
