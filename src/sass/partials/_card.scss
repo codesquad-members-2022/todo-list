@@ -1,0 +1,17 @@
+@import 'button';
+
+.todo-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 284px;
+  height: 100px;
+  background-color: #fff;
+  margin-top: 8px;
+  border-radius: 5px;
+  padding: 8px;
+
+  .card-btn-wrapper {
+    width: 20px;
+  }
+}
