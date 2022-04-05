@@ -16,6 +16,7 @@
 		72695E3027FBE2E000A29350 /* TodoListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E2F27FBE2E000A29350 /* TodoListTests.swift */; };
 		72695E3A27FBE2E000A29350 /* TodoListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E3927FBE2E000A29350 /* TodoListUITests.swift */; };
 		72695E3C27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E3B27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift */; };
+		72695E4A27FBE79C00A29350 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E4927FBE79C00A29350 /* Card.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		72695E3527FBE2E000A29350 /* TodoListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		72695E3927FBE2E000A29350 /* TodoListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUITests.swift; sourceTree = "<group>"; };
 		72695E3B27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		72695E4927FBE79C00A29350 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		72695E1727FBE2DE00A29350 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				72695E4827FBE6DE00A29350 /* domain */,
 				72695E1827FBE2DE00A29350 /* AppDelegate.swift */,
 				72695E1A27FBE2DE00A29350 /* SceneDelegate.swift */,
 				72695E1C27FBE2DE00A29350 /* ViewController.swift */,
@@ -125,6 +128,14 @@
 				72695E3B27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift */,
 			);
 			path = TodoListUITests;
+			sourceTree = "<group>";
+		};
+		72695E4827FBE6DE00A29350 /* domain */ = {
+			isa = PBXGroup;
+			children = (
+				72695E4927FBE79C00A29350 /* Card.swift */,
+			);
+			path = domain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +272,7 @@
 				72695E1D27FBE2DE00A29350 /* ViewController.swift in Sources */,
 				72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */,
 				72695E1B27FBE2DE00A29350 /* SceneDelegate.swift in Sources */,
+				72695E4A27FBE79C00A29350 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
