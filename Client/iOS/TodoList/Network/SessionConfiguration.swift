@@ -17,7 +17,12 @@ import Foundation
 class SessionConfiguration: SessionCommonAttributes {
     
     private(set) var session: URLSession
-    let config = URLSessionConfiguration.default
+    var config = URLSessionConfiguration.default {
+        didSet {
+            resetSession()
+        }
+    }
+    
     var networkServiceType: NSURLRequest.NetworkServiceType
     {
         didSet {

@@ -44,6 +44,38 @@ class CardHTTPRequest: SessionConfiguration {
         }
     }
     
+    func doGetRequest(parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
+        guard let url = URL(string: urlString) else {
+            completionHandler(nil)
+            return
+        }
+        
+        var queryItems = [URLQueryItem]()
+        if let parameter = parameter {
+            for param in parameter {
+                queryItems.append(URLQueryItem(name: param.key, value: param.value))
+            }
+        }
+        var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        urlComp?.queryItems = queryItems
+        
+        if let url = urlComp?.url {
+            urlString = url.absoluteString
+            getCurrentRequestHandler { request in
+                self.session.dataTask(with: request) { data, response, error in
+                    guard let data = data else {
+                        completionHandler(nil)
+                        return
+                    }
+                    
+                    completionHandler(data)
+                }.resume()
+            }
+        } else {
+            completionHandler(nil)
+        }
+    }
+    
     /// HTTP POST 요청을 보냅니다.
     ///
     /// - url: Request를 보낼 URL입니다.
@@ -51,6 +83,19 @@ class CardHTTPRequest: SessionConfiguration {
     /// - completionHandler: 요청 후 Data객체를 (혹은 nil인) 호출하는 클로저입니다.
     func doPostRequest(url: URL, _ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
         getRequestHandler(url: url) { request in
+            self.session.uploadTask(with: request, from: paramData) { data, response, error in
+                guard let data = data else {
+                    completionHandler(nil)
+                    return
+                }
+                
+                completionHandler(data)
+            }.resume()
+        }
+    }
+    
+    func doPostRequest(_ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
+        getCurrentRequestHandler { request in
             self.session.uploadTask(with: request, from: paramData) { data, response, error in
                 guard let data = data else {
                     completionHandler(nil)
