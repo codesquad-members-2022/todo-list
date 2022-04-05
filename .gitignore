@@ -37,5 +37,7 @@ out/
 ### VS Code ###
 .vscode/
 
-### Node Modules ###
+### babel ###
 node_modules/
+package.json
+FE/build/
