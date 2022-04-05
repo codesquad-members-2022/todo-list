@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dha-11-yfD">
-                        <rect key="frame" x="0.0" y="0.0" width="436" height="136"/>
+                        <rect key="frame" x="0.0" y="0.0" width="436" height="120"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Kn-E6-Ytx">
                                 <rect key="frame" x="16" y="16" width="404" height="23"/>
@@ -29,7 +29,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="author by iOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeb-LQ-RnX">
-                                <rect key="frame" x="16" y="103" width="404" height="17"/>
+                                <rect key="frame" x="16" y="87" width="404" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="oZ4-Gk-wkS"/>
                                 </constraints>
@@ -38,7 +38,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2EQ-cA-m9k">
-                                <rect key="frame" x="16" y="47" width="404" height="48"/>
+                                <rect key="frame" x="16" y="47" width="404" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="bt5-sy-hii"/>
                                 </constraints>
@@ -60,13 +60,19 @@
                             <constraint firstItem="0Kn-E6-Ytx" firstAttribute="leading" secondItem="Dha-11-yfD" secondAttribute="leading" constant="16" id="iSC-3S-fOd"/>
                             <constraint firstAttribute="trailing" secondItem="2EQ-cA-m9k" secondAttribute="trailing" constant="16" id="u4z-ro-w2Y"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="Dha-11-yfD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9Cq-F2-lj3"/>
                     <constraint firstItem="Dha-11-yfD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DTY-Fp-dgk"/>
-                    <constraint firstAttribute="bottom" secondItem="Dha-11-yfD" secondAttribute="bottom" id="lYs-6c-TvN"/>
+                    <constraint firstAttribute="bottom" secondItem="Dha-11-yfD" secondAttribute="bottom" constant="16" id="lYs-6c-TvN"/>
                     <constraint firstAttribute="trailing" secondItem="Dha-11-yfD" secondAttribute="trailing" id="vr5-dE-sXk"/>
                 </constraints>
             </tableViewCellContentView>
