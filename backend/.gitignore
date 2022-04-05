@@ -1,4 +1,4 @@
-HELP.md
+README.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### yml 경로설정
+src/main/resources/application-local.yml
