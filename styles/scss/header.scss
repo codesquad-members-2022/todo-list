@@ -1,7 +1,6 @@
 .todo-header {
   /* background */
 
-  position: absolute;
   width: 1440px;
   height: 112px;
   left: 0px;
@@ -10,6 +9,19 @@
   /* Gray 6 */
 
   background: #f5f5f7;
+
+  svg {
+    float: right;
+    /* Vector */
+
+    position: absolute;
+    //   left: 12.5%;
+    right: 16.67%;
+    top: 5.17%;
+    bottom: 25%;
+
+    // background: #010101;
+  }
 }
 
 .todo-header-title {
@@ -31,17 +43,12 @@
 
   color: #010101;
 }
-
-svg {
-  /* Vector */
-
+.menu-sidebar-icon {
   position: absolute;
-  //   left: 12.5%;
-  right: 16.67%;
-  top: 50.17%;
-  bottom: 25%;
-
-  //   background: #010101;
+  width: 24px;
+  height: 24px;
+  left: 1336px;
+  top: 44px;
 }
 .menu-sidebar {
   display: flex;
