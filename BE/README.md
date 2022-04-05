@@ -21,5 +21,10 @@
 ## ToDo list
 - [x] 도메인 Work 객체 만들기
 - [x] Repository 만들기 (memory)
-  - [ ] test 코드 작성하기
+  - [x] test 코드 작성하기
 
+## 흐름
+- 생성 요청 - > dto(title, content, 작성자)
+- 수정 요청 - > id(pathVariable), dto(title, content, 작성자) 
+- 이동 요청 - > id(pathVariable), dto(status) -> entity 찾아오고 -> updateStatus
+- 삭제 요청 - > id(pathVariable) -> 삭제
