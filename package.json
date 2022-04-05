@@ -24,7 +24,8 @@
     "babel-loader": "^8.2.4",
     "clean-webpack-plugin": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
-    "prettier": "2.6.2"
+    "prettier": "2.6.2",
+    "sass": "^1.49.11"
   },
   "dependencies": {
     "core-js": "^3.21.1",
