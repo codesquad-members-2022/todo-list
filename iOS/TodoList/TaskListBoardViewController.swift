@@ -21,7 +21,6 @@ class TaskListBoardViewController: UIViewController {
                 taskListView.frame = self.view.bounds
                 taskViewList.append(taskListView)
             }
-            
         }
         
         let stackView = UIStackView(arrangedSubviews: taskViewList)
