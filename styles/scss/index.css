@@ -256,63 +256,6 @@ svg {
   flex-grow: 0;
   margin: 0px 0px;
 }
-.todo-card textarea .card-title {
-  position: static;
-  width: 252px;
-  height: 23px;
-  left: 0px;
-  top: 0px;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 23px;
-  /* Black */
-  color: #010101;
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 8px 0px;
-}
-.todo-card textarea .card-content {
-  position: static;
-  width: 252px;
-  height: 20px;
-  left: 0px;
-  top: 31px;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  /* Black */
-  color: #010101;
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 8px 0px;
-}
-.todo-card textarea .card-caption {
-  position: static;
-  width: 252px;
-  height: 17px;
-  left: 0px;
-  top: 59px;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 17px;
-  /* Gray 4 */
-  color: #bdbdbd;
-  /* Inside auto layout */
-  flex: none;
-  order: 2;
-  flex-grow: 0;
-  margin: 8px 0px;
-}
 
 .todo-title {
   display: flex;
