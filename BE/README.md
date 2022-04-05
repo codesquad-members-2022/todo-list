@@ -19,7 +19,7 @@
   - 마지막 수정 날짜
 
 ## ToDo list
-- [ ] 도메인 Work 객체 만들기
-- [ ] Repository 만들기 (memory)
+- [x] 도메인 Work 객체 만들기
+- [x] Repository 만들기 (memory)
   - [ ] test 코드 작성하기
 

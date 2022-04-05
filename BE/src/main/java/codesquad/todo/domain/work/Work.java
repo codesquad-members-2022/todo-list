@@ -29,4 +29,7 @@ public class Work {
         this.id = id;
     }
 
+    public boolean hasSameStatus(WorkStatus workStatus) {
+        return this.workStatus == workStatus;
+    }
 }
