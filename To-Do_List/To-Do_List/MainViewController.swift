@@ -11,22 +11,19 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var statckView: UIStackView!
 
-    private lazy var titleLabel:UILabel = {
-        let label = UILabel()
-        label.text = "TO-DO-LIST"
-        label.font = .systemFont(ofSize: 32, weight: .bold)
-        label.textAlignment = .left
-        return label
-    }()
+    @IBOutlet weak var logViewContainer: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        
-        
         addChildViewControllers()
-        
 }
+    
+    @IBAction func TapLogViewButton(_ sender: UIButton) {
+        print(logViewContainer.isHidden)
+        self.logViewContainer.isHidden = !logViewContainer.isHidden
+    }
+    
     
     private func addChildViewControllers() {
         let storyBoard = UIStoryboard(name: "Main", bundle: .main)
@@ -37,6 +34,8 @@ class MainViewController: UIViewController {
         [todoViewController,doingTableViewController,doneTableViewController].forEach {
             addChild($0)
             self.statckView.addArrangedSubview($0.view)
+            
+            self.logViewContainer.isHidden = true
         }
     }
 

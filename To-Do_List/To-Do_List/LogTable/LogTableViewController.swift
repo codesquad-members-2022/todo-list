@@ -12,8 +12,6 @@ class LogTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .gray
-        
-        
     }
 
     // MARK: - Table view data source
