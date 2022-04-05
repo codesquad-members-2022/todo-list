@@ -14,7 +14,9 @@ class ToDoTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = .white
+        self.tableView.tableHeaderView = TabelViewHeader(titleText: "해야할 일")
+
     }
 
     

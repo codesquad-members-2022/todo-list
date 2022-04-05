@@ -17,16 +17,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qsL-gl-oqr">
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qsL-gl-oqr">
                                 <rect key="frame" x="40" y="96" width="766" height="718"/>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzU-m8-3QM">
                                 <rect key="frame" x="0.0" y="24" width="1194" height="72"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TO-DO LIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6N-h6-r5S">
-                                        <rect key="frame" x="48" y="13" width="178.5" height="46"/>
-                                        <fontDescription key="fontDescription" name="NotoSansMyanmar-Regular" family="Noto Sans Myanmar" pointSize="32"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6N-h6-r5S">
+                                        <rect key="frame" x="48" y="13" width="175.5" height="46"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="TO">
+                                                <attributes>
+                                                    <font key="NSFont" size="32" name=".SFNS-Light"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="-">
+                                                <attributes>
+                                                    <font key="NSFont" size="32" name="NotoSansKannada-Light"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="DO">
+                                                <attributes>
+                                                    <font key="NSFont" size="32" name=".SFNS-Light"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content=" ">
+                                                <attributes>
+                                                    <font key="NSFont" size="32" name="NotoSansKannada-Light"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="LIST">
+                                                <attributes>
+                                                    <font key="NSFont" size="32" name=".SFNS-Light"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILv-VI-uUx">
@@ -51,7 +76,7 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yh-mT-u1k">
-                                <rect key="frame" x="814" y="96" width="380" height="718"/>
+                                <rect key="frame" x="869" y="96" width="325" height="718"/>
                                 <connections>
                                     <segue destination="eo3-WM-S7h" kind="embed" id="HY3-Pb-e0O"/>
                                 </connections>
@@ -68,9 +93,9 @@
                             <constraint firstItem="hNL-ez-bcF" firstAttribute="trailing" secondItem="hzU-m8-3QM" secondAttribute="trailing" id="dsI-f4-iOd"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="leading" constant="48" id="e86-Z3-LCu"/>
                             <constraint firstItem="hzU-m8-3QM" firstAttribute="top" secondItem="hNL-ez-bcF" secondAttribute="top" id="fM8-Q7-LJA"/>
-                            <constraint firstItem="qsL-gl-oqr" firstAttribute="trailing" secondItem="hNL-ez-bcF" secondAttribute="trailing" constant="-380" id="hNc-EQ-Eg3"/>
+                            <constraint firstItem="qsL-gl-oqr" firstAttribute="trailing" secondItem="hNL-ez-bcF" secondAttribute="trailing" constant="-330" id="hNc-EQ-Eg3"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="top" secondItem="hzU-m8-3QM" secondAttribute="bottom" id="oaV-Yo-cEf"/>
-                            <constraint firstItem="5yh-mT-u1k" firstAttribute="leading" secondItem="qsL-gl-oqr" secondAttribute="trailing" id="ow6-0K-ADU"/>
+                            <constraint firstItem="5yh-mT-u1k" firstAttribute="leading" secondItem="qsL-gl-oqr" secondAttribute="trailing" constant="5" id="ow6-0K-ADU"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="top" secondItem="hNL-ez-bcF" secondAttribute="top" constant="72" id="xkJ-bl-hAy"/>
                         </constraints>
                     </view>
@@ -88,15 +113,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="LogTableViewController" id="eo3-WM-S7h" customClass="LogTableViewController" customModule="To_Do_List" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="lCa-66-wRt">
-                        <rect key="frame" x="0.0" y="0.0" width="380" height="718"/>
+                        <rect key="frame" x="0.0" y="0.0" width="325" height="718"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PNd-o6-Vm6">
-                                <rect key="frame" x="0.0" y="44.5" width="380" height="43.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="325" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PNd-o6-Vm6" id="aGZ-Hr-D3j">
-                                    <rect key="frame" x="0.0" y="0.0" width="380" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="325" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

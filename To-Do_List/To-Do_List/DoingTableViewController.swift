@@ -13,6 +13,8 @@ class DoingTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .lightGray
+        self.tableView.tableHeaderView = TabelViewHeader(titleText: "완료한 일")
+
     }
 
     // MARK: - Table view data source
