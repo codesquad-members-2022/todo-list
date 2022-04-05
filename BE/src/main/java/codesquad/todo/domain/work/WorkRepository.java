@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface WorkRepository {
     Work save (Work work);
     Optional<Work> findById(Long id);
-    void update(Long id, Work updateWork);
+    void update(Work updateWork);
     void delete(Long id);
     List<Work> findAll();
     List<Work> findByStatus(WorkStatus workStatus);

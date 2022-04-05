@@ -32,4 +32,15 @@ public class Work {
     public boolean hasSameStatus(WorkStatus workStatus) {
         return this.workStatus == workStatus;
     }
+
+    public void update(String updateTitle, String updateContent) {
+        this.title = updateTitle;
+        this.content = updateContent;
+        this.lastModifiedDateTime = LocalDateTime.now();
+    }
+
+    public void changeStatus(WorkStatus workStatus) {
+        this.workStatus = workStatus;
+        this.lastModifiedDateTime = LocalDateTime.now();
+    }
 }

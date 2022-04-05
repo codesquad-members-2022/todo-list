@@ -33,9 +33,8 @@ public class MemoryWorkRepository implements WorkRepository {
         return Optional.ofNullable(store.get(id));
     }
 
-    @Override
-    public void update(Long id, Work updateWork) {
-        store.put(id, updateWork);
+    public void update(Work updateWork) {
+        store.put(updateWork.getId(), updateWork);
     }
 
     @Override
