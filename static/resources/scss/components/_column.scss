@@ -1,0 +1,63 @@
+.column {
+  width: 25%;
+
+  &-wrap {
+    @include flex-box(flex-start, flex-start, 16px);
+  }
+  &-top-wrap {
+    @include flex-box(space-between, center, 16px);
+    padding: 8px;
+  }
+  &-title {
+    @include flex-box(flex-start, center, 8px);
+    flex: 1 auto;
+    font-size: $size-large;
+    font-weight: $weight-bold;
+
+    .card-num {
+      display: block;
+      width: 26px;
+      line-height: 26px;
+      font-size: $size-base;
+      text-align: center;
+      background: $light-gray;
+      border-radius: 50%;
+    }
+  }
+  &-button-wrap {
+    @include flex-box(space-between, center, 16px);
+  }
+}
+
+.card {
+  position: relative;
+  margin-top: 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+
+  &-title {
+    padding-right: 40px;
+    font-size: $size-medium;
+    font-weight: $weight-bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &-content {
+    margin: 8px 0;
+  }
+
+  &-writter {
+    font-size: $size-small;
+    color: $light-gray;
+  }
+
+  &-delete-button {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+  }
+}
