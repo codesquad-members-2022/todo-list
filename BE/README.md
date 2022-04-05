@@ -9,10 +9,10 @@
 - 이동(patch)
 
 ## Work Domain
-- [ ] Work 
+- [x] Work 
   - PK(id)
   - title
-  - contents
+  - content
   - 작성자
   - 상태 Enum으로 관리
   - 작성 날짜
