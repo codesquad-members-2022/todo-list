@@ -18,20 +18,50 @@ function column(className, title) {
       </div>`;
 }
 
-function add(addbtn) {
-  addbtn.forEach((e) => {
-    e.onclick = function () {
-      e.parentNode;
-    };
-  });
+function add(callback) {
+  return callback;
+}
+
+function addTodo() {
+  const parent = document.querySelector(".column-add-btn").parentNode;
+  const grandParent = parent.parentNode;
+  grandParent.parentNode.innerHTML += cards("hi");
 }
 
 function remove(removebtn) {
   removebtn.forEach((e) => {
     e.onclick = function () {
-      this.parentNode.remove();
+      const parent = this.parentNode;
+      parent.parentNode.remove();
     };
   });
 }
 
-export { remove };
+function removeColumn(removebtn) {
+  removebtn.forEach((e) => {
+    e.onclick = function () {
+      const parent = this.parentNode;
+      const grand = parent.parentNode;
+      grand.parentNode.remove();
+    };
+  });
+}
+
+function modalReveal() {
+  document.querySelector(".modal-wrapper").classList.toggle("active");
+}
+
+function toDoInputReveal() {
+  document.querySelector(".todo-input").classList.toggle("active");
+}
+
+export {
+  remove,
+  add,
+  addTodo,
+  cards,
+  column,
+  removeColumn,
+  modalReveal,
+  toDoInputReveal,
+};
