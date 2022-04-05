@@ -15,7 +15,10 @@ import Foundation
 class SessionCommonAttributes {
     
     // MARK: - Local Properties
-    private(set) var request: URLRequest
+    private var request: URLRequest!
+    
+    var urlString: String
+    
     var httpMethod: HTTPMethod = .POST
     {
         didSet {
@@ -32,15 +35,27 @@ class SessionCommonAttributes {
     // MARK: - Initializers
     init?(as string: String)
     {
-        if let url = URL(string: string)
-        {
-            request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 6.0)
-            
-            request.httpMethod = HTTPMethod.POST.rawValue
-            request.setValue(MIMEType.applicationJSON.rawValue, forHTTPHeaderField: "Content-Type")
+        self.urlString = string
+        if let url = URL(string: string) {
+            reloadRequestURL(url)
         } else {
             return nil
         }
+    }
+    
+    func getRequestHandler(url: URL, completionHandler: @escaping (URLRequest) -> Void) {
+        reloadRequestURL(url)
+        completionHandler(request)
+    }
+    
+    func getCurrentRequestHandler(completionHandler: @escaping (URLRequest) -> Void) {
+        completionHandler(request)
+    }
+    
+    private func reloadRequestURL(_ url: URL) {
+        request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 6.0)
+        request.httpMethod = httpMethod.rawValue
+        request.setValue(mimeType.rawValue, forHTTPHeaderField: "Content-Type")
     }
     
     // MARK: - HTTPMethod Types

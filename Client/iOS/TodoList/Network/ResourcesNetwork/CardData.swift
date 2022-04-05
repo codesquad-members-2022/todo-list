@@ -57,6 +57,17 @@ struct CardData: Codable
         self.updateDate = updateDate
     }
     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CardDataJsonKeys.self)
+        try container.encode(objectId, forKey: .objectId)
+        try container.encode(title, forKey: .title)
+        try container.encode(contents, forKey: .contents)
+        try container.encode(creationDate, forKey: .creationDate)
+        try container.encode(index, forKey: .index)
+        try container.encode(status, forKey: .status)
+        try container.encode(updateDate, forKey: .updateDate)
+    }
+    
     enum CardDataJsonKeys: String, CodingKey {
         case objectId = "objectId"
         case title = "title"
