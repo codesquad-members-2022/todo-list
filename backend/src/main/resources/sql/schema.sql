@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS CARD;
 CREATE TABLE CARD (
     id int AUTO_INCREMENT PRIMARY KEY,
-    title varchar(50),
+    title varchar(50) NOT NULL,
     content varchar(500),
     author_system varchar(20) NOT NULL,
     status ENUM('to_do', 'in_progress', 'done'),
@@ -23,4 +23,10 @@ INSERT INTO CARD (title, content, author_system, status, order_index) VALUES (
 );
 INSERT INTO CARD (title, content, author_system, status, order_index) VALUES (
 '테스트 글 제목5', '테스트 내용', 'iOS', 'done', (SELECT count(*) FROM CARD WHERE status = 'done')
+);
+INSERT INTO ACTION_LOG (title, cur_status, action) VALUES (
+'테스트1', 'to_do', 'add'
+);
+INSERT INTO ACTION_LOG (title, cur_status, prev_status, action) VALUES (
+'테스트2', 'in_progress', 'to_do', 'add'
 );
