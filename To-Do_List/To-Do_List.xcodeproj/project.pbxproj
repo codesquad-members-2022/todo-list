@@ -18,6 +18,7 @@
 		8D46807727FB3FBB00FA9F34 /* ToDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807627FB3FBB00FA9F34 /* ToDoTableViewController.swift */; };
 		8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */; };
 		8DBB584827FB416D00D129E2 /* DoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */; };
+		8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB585127FBD8F500D129E2 /* CardCell.swift */; };
 		8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */; };
 		8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282A27FB1CFE002FB533 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
@@ -55,6 +56,7 @@
 		8D46807627FB3FBB00FA9F34 /* ToDoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewController.swift; sourceTree = "<group>"; };
 		8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableViewController.swift; sourceTree = "<group>"; };
 		8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewController.swift; sourceTree = "<group>"; };
+		8DBB585127FBD8F500D129E2 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewController.swift; sourceTree = "<group>"; };
 		8DC2282A27FB1CFE002FB533 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				8D46807627FB3FBB00FA9F34 /* ToDoTableViewController.swift */,
 				8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */,
 				8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */,
+				8DBB585127FBD8F500D129E2 /* CardCell.swift */,
 				8DC2282D27FB1D22002FB533 /* LogTable */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
 				8DC876B727FB0C560014FC94 /* SupportingFiles */,
@@ -289,6 +292,7 @@
 				8D46807727FB3FBB00FA9F34 /* ToDoTableViewController.swift in Sources */,
 				8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */,
 				8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */,
+				8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */,
 				8D2AFD7127FB08AE00307CCB /* AppDelegate.swift in Sources */,
 				8DBB584827FB416D00D129E2 /* DoneTableViewController.swift in Sources */,
 				8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */,
