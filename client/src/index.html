@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TodoList</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/css/main.css">
+</head>
+
+<body>
+  <header>
+    <h1 class="title">TO-DO LIST</h1>
+    <button class="menu-icon"><img src="./assets/icon/menuIcon.png" alt=""></button>
+    <div class="menu-bar">
+      <button class="close-icon"><img src="./assets/icon/closeIcon.png" alt=""></button>
+      <ul class="notification-list">
+        <li>
+          <div class="user-img"></div>
+          <div class="user-action">
+            <p class="user-name">@Jimmy</p>
+            <p class="event-info">ㅎ하하ㅏㅎddddddㅏ</p>
+            <p class="update-time">1분 전</p>
+          </div>
+        </li>
+        <li>test2</li>
+        <li>test3</li>
+        <li>test4</li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <div class="column">
+      <div class="column-header">
+        <div>
+          <h2 class="column-title">해야할 일</h2>
+          <span class="item-count">2</span>
+        </div>
+        <div>
+          <button class="plus-icon"><img src="./assets/icon/plusIcon.png" alt=""></button>
+          <button class="close-icon"><img src="./assets/icon/closeIcon.png" alt=""></button>
+        </div>
+      </div>
+      <ul class="column-list">
+        <li class="list_item">
+          <div class="item-info">
+            <h3 class="item-title">Github 공부하기</h3>
+            <p class="item-content">본문</p>
+            <p class="item-caption">주석</p>
+          </div>
+          <button class="close-icon"><img src="./assets/icon/closeIcon.png" alt=""></button>
+        </li>
+      </ul>
+    </div>
+    <div class="column">
+      <div class="column-header">
+        <div>
+          <h2 class="column-title">해야할 일</h2>
+          <span class="item-count">2</span>
+        </div>
+        <div>
+          <button class="plus-icon"><img src="./assets/icon/plusIcon.png" alt=""></button>
+          <button class="close-icon"><img src="./assets/icon/closeIcon.png" alt=""></button>
+        </div>
+      </div>
+      <ul class="column-list">
+        <li class="list_item">
+          <div class="item-info">
+            <h3 class="item-title">Github 공부하기</h3>
+            <p class="item-content">본문</p>
+            <p class="item-caption">주석</p>
+          </div>
+          <button class="close-icon"><img src="./assets/icon/closeIcon.png" alt=""></button>
+        </li>
+        <li class="list_item">
+          <div class="item-info">
+            <h3 class="item-title">Github 공부하기</h3>
+            <p class="item-content">본문</p>
+            <p class="item-caption">주석</p>
+          </div>
+          <button class="close-icon"><img src="./assets/icon/closeIcon.png" alt=""></button>
+        </li>
+      </ul>
+    </div>
+  </main>
+</body>
+
+</html>
