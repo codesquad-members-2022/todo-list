@@ -1,4 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">todo-list</string>
     <string name="label_to_do_list">TO-DO-LIST</string>
 </resources>
