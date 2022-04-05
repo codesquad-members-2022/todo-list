@@ -3,21 +3,21 @@ CREATE TABLE `card` (
     `columns_id` bigint,
     `title` varchar(255),
     `content` varchar(500),
-    `create_date` timestamp,
+    `created_date` timestamp,
     `modified_date` timestamp
 );
 
 CREATE TABLE `columns` (
     `id` bigint PRIMARY KEY AUTO_INCREMENT,
     `name` varchar(255),
-    `create_date` timestamp,
+    `created_date` timestamp,
     `modified_date` timestamp
 );
 
 CREATE TABLE `users` (
     `id` bigint PRIMARY KEY AUTO_INCREMENT,
     `name` varchar(255),
-    `create_date` timestamp,
+    `created_date` timestamp,
     `modified_date` timestamp
 );
 
@@ -27,7 +27,7 @@ CREATE TABLE `history` (
    `card_id` bigint,
    `columns_id` bigint,
    `action` char,
-   `create_date` timestamp,
+   `created_date` timestamp,
    `modified_date` timestamp
 );
 
