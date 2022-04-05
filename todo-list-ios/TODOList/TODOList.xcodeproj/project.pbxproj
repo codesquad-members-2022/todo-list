@@ -16,6 +16,7 @@
 		B5EC66EC27FC0CD10042EFCF /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66EB27FC0CD10042EFCF /* HeaderView.swift */; };
 		B5EC66EE27FC0D3F0042EFCF /* SideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66ED27FC0D3F0042EFCF /* SideView.swift */; };
 		B5EC66F027FC0D5D0042EFCF /* MemoCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */; };
+		B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		B5EC66EB27FC0CD10042EFCF /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B5EC66ED27FC0D3F0042EFCF /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
 		B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCanvasView.swift; sourceTree = "<group>"; };
+		B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				B5EC66EB27FC0CD10042EFCF /* HeaderView.swift */,
 				B5EC66ED27FC0D3F0042EFCF /* SideView.swift */,
 				B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */,
+				B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				B5EC66EE27FC0D3F0042EFCF /* SideView.swift in Sources */,
 				B5EC66D727FADD9C0042EFCF /* ViewController.swift in Sources */,
 				B5EC66D327FADD9C0042EFCF /* AppDelegate.swift in Sources */,
+				B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */,
 				B5EC66D527FADD9C0042EFCF /* SceneDelegate.swift in Sources */,
 				B5EC66F027FC0D5D0042EFCF /* MemoCanvasView.swift in Sources */,
 				B5EC66EC27FC0CD10042EFCF /* HeaderView.swift in Sources */,
