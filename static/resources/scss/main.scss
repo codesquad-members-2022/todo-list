@@ -1,8 +1,11 @@
 // Utils
 @import './utils/variables';
-@import './utils/_reset.scss';
-@import './utils/_utils.scss';
-@import './utils/_common.scss';
+@import './utils/reset';
+@import './utils/mixin';
+@import './utils/common';
 
-// Layout
-@import './components/_history.scss';
+// Componets
+@import './components/layout';
+@import './components/header';
+@import './components/column';
+@import './components/history';
