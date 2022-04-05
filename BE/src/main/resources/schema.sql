@@ -11,7 +11,7 @@ CREATE TABLE card
      PRIMARY KEY (id)
 );
 
-CREATE TABLE todo_user
+CREATE TABLE `user`
 (
     id       VARCHAR(255) NOT NULL,
     name     VARCHAR(255) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE todo_user
 
 CREATE TABLE log
 (
-    id BIGINT NOT NULL,
+    id BIGINT AUTO_INCREMENT NOT NULL,
     user_name VARCHAR(255) NOT NULL,
     subject VARCHAR(255) NOT NULL,
     `from` INT,
