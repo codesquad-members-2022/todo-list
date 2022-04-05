@@ -3,11 +3,9 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: #f5f5f7;
 }
 
 .column {
-  position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -16,9 +14,8 @@ main {
       -ms-flex-direction: column;
           flex-direction: column;
   width: 308px;
+  margin-left: 80px;
   margin-right: 16px;
-  left: 80px;
-  top: 136px;
 }
 
 .column-header {
@@ -46,6 +43,10 @@ main {
   border-radius: 50%;
 }
 
+.column-header .close-icon {
+  color: #bdbdbd;
+}
+
 .column-list .list_item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -63,14 +64,14 @@ main {
 }
 
 .column-list .item-info .item-title {
-  margin-bottom: 8px;
+  margin-bottom: calc($margin / 2);
   font-size: 16px;
   font-weight: 700;
   line-height: 23px;
 }
 
 .column-list .item-info .item-content {
-  margin-bottom: 8px;
+  margin-bottom: calc($margin / 2);
   font-size: 14px;
   line-height: 20px;
 }
@@ -87,59 +88,47 @@ main {
   background-color: #e0e0e0;
 }
 
-/* button */
-header {
-  position: absolute;
-  width: 1440px;
-  height: 112px;
-  left: 0px;
-  top: 0px;
-  background: #f5f5f7;
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 33px 80px;
 }
 
-header .title {
-  position: absolute;
-  height: 46px;
-  left: 80px;
-  top: 33px;
-  font-style: normal;
-  font-weight: 400;
+.header .title {
   font-size: 32px;
   line-height: 46px;
   color: #010101;
 }
 
-header > .menu-icon {
-  display: none;
-  position: absolute;
+.header > .menu-icon {
   width: 24px;
   height: 24px;
-  left: 1336px;
-  top: 44px;
 }
 
-header > .menu-bar {
+.header > .menu-bar {
   position: absolute;
-  width: 452px;
-  height: 1024px;
-  left: 988px;
-  top: 0px;
-  background: #ffffff;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  padding: 80px 40px 0 40px;
+  background-color: #ffffff;
   -webkit-box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
   -webkit-backdrop-filter: blur(4px);
           backdrop-filter: blur(4px);
 }
 
-header > .menu-bar > .close-icon {
+.header > .menu-bar > .close-icon {
   position: absolute;
-  width: 24px;
-  height: 24px;
-  top: 44px;
-  right: 80px;
+  top: 4%;
+  right: 20px;
 }
 
-header .notification-list {
+.header .notification-list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -150,16 +139,9 @@ header .notification-list {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  padding: 0px;
-  position: absolute;
-  width: 332px;
-  height: 548px;
-  left: 40px;
-  right: 80px;
-  top: 80px;
 }
 
-header .notification-list li {
+.header .notification-list li {
   width: 332px;
   height: 137px;
   display: -webkit-box;
@@ -175,13 +157,14 @@ header .notification-list li {
   padding: 16px;
 }
 
-header .notification-list li .user-img {
+.header .notification-list li .user-img {
   width: 40px;
   height: 40px;
+  margin-right: 16px;
   background: url("../../assets/imoge/user img.png");
 }
 
-header .notification-list li > .user-action {
+.header .notification-list li > .user-action {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -192,39 +175,26 @@ header .notification-list li > .user-action {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  padding: 0px;
-  width: 244px;
-  height: 105px;
+  width: 100%;
 }
 
-header .notification-list li > .user-action > .user-name {
-  width: 244px;
-  height: 23px;
-  color: #010101;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
+.header .notification-list li > .user-action > .user-name {
+  margin-bottom: 8px;
   font-size: 16px;
   line-height: 23px;
+  color: #000;
 }
 
-header .notification-list li > .user-action > .event-info {
-  width: 244px;
-  height: 46px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+.header .notification-list li > .user-action > .event-info {
+  margin-bottom: 8px;
   font-weight: 700;
   font-size: 16px;
   line-height: 23px;
-  color: #010101;
+  color: #000;
 }
 
-header .notification-list li > .user-action > .update-time {
-  width: 244px;
+.header .notification-list li > .user-action > .update-time {
   height: 20px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
   font-size: 14px;
   line-height: 20px;
   color: #828282;
@@ -374,4 +344,5 @@ button {
 
 body {
   font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f5f5f7;
 }
