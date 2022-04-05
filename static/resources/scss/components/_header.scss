@@ -1,0 +1,13 @@
+.header {
+  @include flex-box(space-between, center);
+  min-height: 112px;
+}
+
+.logo {
+  font-size: 2.286rem;
+}
+
+.aside-button {
+  @include icon-button(17px, 11px, 8px, '../images/common/icon-aside.png');
+  box-sizing: content-box;
+}
