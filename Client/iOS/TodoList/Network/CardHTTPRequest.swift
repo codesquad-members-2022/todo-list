@@ -19,16 +19,13 @@ class CardHTTPRequest: SessionConfiguration {
     /// - parameter: Request 뒤에 파라미터로 보낼 딕셔너리 입니다. (예: https://getRequest.com?objectKey=myKey 의 objectKey:myKey)
     /// - completionHandler: 요청 후 Data객체를 (혹은 nil인) 호출하는 클로저입니다.
     func doGetRequest(url: URL, parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
-        var queryItems = [URLQueryItem]()
-        if let parameter = parameter {
-            for param in parameter {
-                queryItems.append(URLQueryItem(name: param.key, value: param.value))
-            }
+
+        guard let urlComp = getURLComponents(parameter) else {
+            completionHandler(nil)
+            return
         }
-        var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        urlComp?.queryItems = queryItems
         
-        if let url = urlComp?.url {
+        if let url = urlComp.url {
             getRequestHandler(url: url) { request in
                 self.session.dataTask(with: request) { data, response, error in
                     guard let data = data else {
@@ -45,21 +42,13 @@ class CardHTTPRequest: SessionConfiguration {
     }
     
     func doGetRequest(parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
-        guard let url = URL(string: urlString) else {
+        
+        guard let urlComp = getURLComponents(from: urlString, parameter) else {
             completionHandler(nil)
             return
         }
         
-        var queryItems = [URLQueryItem]()
-        if let parameter = parameter {
-            for param in parameter {
-                queryItems.append(URLQueryItem(name: param.key, value: param.value))
-            }
-        }
-        var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        urlComp?.queryItems = queryItems
-        
-        if let url = urlComp?.url {
+        if let url = urlComp.url {
             urlString = url.absoluteString
             getCurrentRequestHandler { request in
                 self.session.dataTask(with: request) { data, response, error in
@@ -74,6 +63,25 @@ class CardHTTPRequest: SessionConfiguration {
         } else {
             completionHandler(nil)
         }
+    }
+    
+    private func getURLComponents(from string: String? = nil, _ parameter: [String: String]? = nil) -> URLComponents? {
+        
+        if let string = string {
+            urlString = string
+        }
+        
+        guard let url = URL(string: urlString) else { return nil }
+        
+        var queryItems = [URLQueryItem]()
+        if let parameter = parameter {
+            for param in parameter {
+                queryItems.append(URLQueryItem(name: param.key, value: param.value))
+            }
+        }
+        var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        urlComp?.queryItems = queryItems
+        return urlComp
     }
     
     /// HTTP POST 요청을 보냅니다.
