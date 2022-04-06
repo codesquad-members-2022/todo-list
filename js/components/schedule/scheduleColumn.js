@@ -55,7 +55,8 @@ export class ScheduleColumn {
 
     showRegisterCard() {
         this.registerState = true;
-        new ScheduleRegisterCard(this.$cardsContainer, this.id);
+        const registerCard = new ScheduleRegisterCard(this.$cardsContainer, this.id);
+        registerCard.removeRegisterCard = this.removeRegisterCard.bind(this)
     }
 
     render() {

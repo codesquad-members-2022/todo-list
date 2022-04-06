@@ -7,11 +7,17 @@ export class ScheduleRegisterCard {
 
     init() {
         this.render();
+        this.setEvent();
     }
 
     render() {
         const $registerCard = this.template();
         this.$target.insertAdjacentHTML("afterbegin", $registerCard);
+    }
+
+    setEvent() {
+        const $cancelBtn = this.$target.querySelector('.schedule-register-card__cancel-btn')
+        $cancelBtn.addEventListener('click', () => this.removeRegisterCard())
     }
 
     template() {
