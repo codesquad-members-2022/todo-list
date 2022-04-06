@@ -15,46 +15,65 @@ class TodoCell: UITableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureLabels()
-        addContentViews()
-        setConstraints()
+        setComponents()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
-        configureLabels()
-        addContentViews()
-        setConstraints()
+        setComponents()
     }
     
     func setLabelText(title: String, contents: String){
         self.title.text = title
         self.contents.text = contents
     }
+}
+
+private extension TodoCell{
+    func setComponents() {
+        configureBackView()
+        configureTitleLabel()
+        configureContentLabel()
+        configureAuthor()
+        configureAutoLayout()
+    }
     
-    private func configureLabels(){
+    func configureBackView() {
         backView = UIView()
         backView.backgroundColor = .white
         backView.layer.cornerRadius = 10
         
+        self.contentView.addSubview(backView)
+    }
+    
+
+    func configureTitleLabel(){
         title = UILabel()
         title.textColor = .black
         title.font = UIFont.boldSystemFont(ofSize: 20)
         
+        self.backView.addSubview(title)
+    }
+    
+    func configureContentLabel(){
         contents = UILabel()
         contents.numberOfLines = 3
         contents.textColor = .black
         contents.font = UIFont.systemFont(ofSize: 17)
         
+        self.backView.addSubview(contents)
+    }
+    
+    func configureAuthor(){
         author = UILabel()
         author.text = "author by iOS"
         author.textColor = .systemGray
         author.font = UIFont.systemFont(ofSize: 12)
+        
+        self.backView.addSubview(author)
     }
     
-    private func setConstraints(){
+    func configureAutoLayout(){
         backView.translatesAutoresizingMaskIntoConstraints = false
         backView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
         backView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
@@ -79,11 +98,5 @@ class TodoCell: UITableViewCell{
         author.widthAnchor.constraint(equalTo: self.backView.widthAnchor, constant: -30).isActive = true
         author.heightAnchor.constraint(equalToConstant: 15).isActive = true
     }
-    
-    private func addContentViews(){
-        self.backView.addSubview(title)
-        self.backView.addSubview(contents)
-        self.backView.addSubview(author)
-        self.contentView.addSubview(backView)
-    }
 }
+
