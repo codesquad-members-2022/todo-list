@@ -6,7 +6,9 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(systemName: "list.bullet.circle.fill"), for: .normal)
-        button.addTarget(self, action: #selector(sideMenuButtonDidTap), for: .touchUpInside)
+        button.addAction(UIAction(handler: { _ in
+            self.showSideView()
+        }), for: .touchUpInside)
         return button
     }()
     
@@ -56,10 +58,6 @@ class ViewController: UIViewController {
         }
         
         self.view.addSubview(sideMenuButton)
-    }
-    
-    @objc func sideMenuButtonDidTap() {
-        showSideView()
     }
 }
 
