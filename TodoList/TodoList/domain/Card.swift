@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Codable{
+struct Card: Codable {
     private(set) var status: Status
     private(set) var title: String
     private(set) var contents: String
@@ -22,7 +22,7 @@ struct Card: Codable{
         self.date = Date.now
     }
     
-    enum Status: Codable{
+    enum Status: Codable {
         case todo
         case doing
         case done
