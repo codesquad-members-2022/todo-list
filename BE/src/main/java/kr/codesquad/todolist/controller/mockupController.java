@@ -2,6 +2,7 @@ package kr.codesquad.todolist.controller;
 
 import kr.codesquad.todolist.domain.Card;
 import kr.codesquad.todolist.dto.CardDto;
+import kr.codesquad.todolist.dto.CardResponse;
 import kr.codesquad.todolist.service.CardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,10 @@ public class mockupController {
     }
 
     @GetMapping("/cards")
-    public ResponseEntity<List<Card>> findOne() {
-        Card card1 = new Card(1L, "ron2", 1, "subject", "contents", LocalDateTime.now(), LocalDateTime.now(), false);
-        Card card2 = new Card(2L, "vans", 2, "subject", "contents", LocalDateTime.now(), LocalDateTime.now(), false);
-        ResponseEntity<List<Card>> cardResponseEntity = new ResponseEntity<>(List.of(card1, card2), HttpStatus.OK);
+    public ResponseEntity<List<CardResponse>> findOne() {
+        CardResponse card1 = new CardResponse(1L, 1, "ron2", "subject", "contents", LocalDateTime.now());
+        CardResponse card2 = new CardResponse(2L,  2,"vans", "subject", "contents", LocalDateTime.now());
+        ResponseEntity<List<CardResponse>> cardResponseEntity = new ResponseEntity<>(List.of(card1, card2), HttpStatus.OK);
 
         return cardResponseEntity;
     }

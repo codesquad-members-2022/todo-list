@@ -1,7 +1,5 @@
 package kr.codesquad.todolist.service;
 
-import kr.codesquad.todolist.domain.Card;
-import kr.codesquad.todolist.dto.CardDto;
 import kr.codesquad.todolist.repository.CardRepository;
 import org.springframework.stereotype.Service;
 
