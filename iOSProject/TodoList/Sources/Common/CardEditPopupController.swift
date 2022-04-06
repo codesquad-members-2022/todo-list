@@ -19,7 +19,8 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
         static let bodyPlaceHolder = "내용을 입력하세요"
         static let placeHolderColor = UIColor.gray3
         static let maxBodyHeight = 300.0
-        static let maxBodyLength = 100
+        static let maxtitleLength = 50
+        static let maxBodyLength = 500
     }
     
     private let popupBackground: UIView = {
@@ -117,6 +118,7 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
     }
     
     private func bind() {
+        self.titleTextField.delegate = self
         self.bodyTextView.delegate = self
         self.bodyTextView.changePublisher()
             .sink { textView in
@@ -223,5 +225,15 @@ extension CardEditPopupController: UITextViewDelegate {
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
         maxBodyLength.text = "(\(changedText.count)/\(Constants.maxBodyLength))  "
         return changedText.count < Constants.maxBodyLength
+    }
+}
+
+extension CardEditPopupController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let changedText = currentText.replacingCharacters(in: stringRange, with: string)
+        return changedText.count < Constants.maxtitleLength
     }
 }
