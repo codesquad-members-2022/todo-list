@@ -7,13 +7,14 @@
 
 import Foundation
 import Combine
+
 struct ResponseResult: Decodable {
     let result: String
     let status: String
 }
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
-    func loadColumn() -> AnyPublisher<ResponseResult, APIError> {
+    func loadColumn() -> AnyPublisher<ResponseResult, SessionError> {
         self.request(.loadColumn)
     }
 }
