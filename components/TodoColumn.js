@@ -3,7 +3,7 @@ export default class TodoColumn {
   constructor(title) {
     this.target = document.querySelector('.column-section');
     this.title = title;
-    this.onInput = true;
+    this.onInput = false;
     this.render();
   }
 
@@ -24,9 +24,9 @@ export default class TodoColumn {
   };
 
   onAddClick = ({ target }) => {
-    if (!this.onInput) {
+    if (this.onInput) {
       document.querySelector(`.input-${this.title}`)?.remove();
-      this.onInput = true;
+      this.onInput = false;
       return;
     }
 
@@ -34,8 +34,8 @@ export default class TodoColumn {
       const newInput = new TodoInput(this.title);
       document.querySelector(`.${this.title}`).insertAdjacentHTML('afterend', newInput.template());
       document.querySelector(`.input-${this.title} .input--cancel`).addEventListener('click', this.onCloseBtn);
-      document.querySelector(`.input-${this.title} .input-todo`).addEventListener('input', this.onInputContent);
-      this.onInput = false;
+      document.querySelector(`.input-${this.title} .input-content`).addEventListener('input', this.onInputContent);
+      this.onInput = true;
       return;
     }
   };
@@ -45,7 +45,7 @@ export default class TodoColumn {
   };
 
   onCloseBtn = () => {
-    document.querySelector(`.input-${this.title}`).remove();
+    document.querySelector(`.input-${this.title}`)?.remove();
     this.onInput = false;
   };
 
