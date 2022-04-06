@@ -1,0 +1,14 @@
+{
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "globals": { "_": true },
+  "plugins": ["import", "html"],
+  "extends": ["airbnb-base", "plugin:prettier/recommended"]
+}
