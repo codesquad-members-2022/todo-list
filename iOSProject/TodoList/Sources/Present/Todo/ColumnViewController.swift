@@ -62,13 +62,13 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         return button
     }()
     
-    var controller: ColumnViewController {
-        self
-    }
-    
     private var cancellables = Set<AnyCancellable>()
     private let model: ColumnViewModelBinding & ColumnViewModelProperty = ColumnViewModel()
     private let status: Card.Status
+    
+    var controller: ColumnViewController {
+        self
+    }
     
     var delegate: ColumnViewDelegate?
     
@@ -87,7 +87,6 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         bind()
         attribute()
         layout()
-        gesture()
         
         model.action.loadColumn.send(self.status)
     }
@@ -156,9 +155,6 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         cardTable.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         cardTable.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         cardTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10).isActive = true
-    }
-    
-    private func gesture() {
     }
     
     private func showCardPopup(card: Card? = nil) {

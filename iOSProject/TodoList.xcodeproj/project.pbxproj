@@ -18,7 +18,6 @@
 		E0A6BAFA27FB3DE300F00575 /* ColumnViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAF927FB3DE300F00575 /* ColumnViewCell.swift */; };
 		E0A6BAFC27FBCD5800F00575 /* UiViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAFB27FBCD5800F00575 /* UiViewController+Extension.swift */; };
 		E0A6BAFE27FBD3AF00F00575 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAFD27FBD3AF00F00575 /* Card.swift */; };
-		E0A6BB0027FBD3F500F00575 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAFF27FBD3F500F00575 /* Column.swift */; };
 		E0A6BB0227FBD49700F00575 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0127FBD49700F00575 /* NetworkRepository.swift */; };
 		E0A6BB0427FBD49D00F00575 /* BaseTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0327FBD49D00F00575 /* BaseTarget.swift */; };
 		E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0527FBD4BE00F00575 /* TodoRepository.swift */; };
@@ -53,7 +52,6 @@
 		E0A6BAF927FB3DE300F00575 /* ColumnViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnViewCell.swift; sourceTree = "<group>"; };
 		E0A6BAFB27FBCD5800F00575 /* UiViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UiViewController+Extension.swift"; sourceTree = "<group>"; };
 		E0A6BAFD27FBD3AF00F00575 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		E0A6BAFF27FBD3F500F00575 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		E0A6BB0127FBD49700F00575 /* NetworkRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
 		E0A6BB0327FBD49D00F00575 /* BaseTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTarget.swift; sourceTree = "<group>"; };
 		E0A6BB0527FBD4BE00F00575 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
@@ -268,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				E0A6BAFD27FBD3AF00F00575 /* Card.swift */,
-				E0A6BAFF27FBD3F500F00575 /* Column.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -371,7 +368,6 @@
 				E0A6BB0427FBD49D00F00575 /* BaseTarget.swift in Sources */,
 				E0A6BB1927FC3DA700F00575 /* UITextView+Extension.swift in Sources */,
 				E0A6BB0927FBD5FE00F00575 /* TodoRepositoryImpl.swift in Sources */,
-				E0A6BB0027FBD3F500F00575 /* Column.swift in Sources */,
 				E0A6BAFE27FBD3AF00F00575 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

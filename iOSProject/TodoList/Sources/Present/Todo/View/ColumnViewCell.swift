@@ -20,7 +20,6 @@ class ColumnViewCell: UITableViewCell {
     let title: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "GitHub 공부하기"
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .black
         return label
@@ -29,8 +28,6 @@ class ColumnViewCell: UITableViewCell {
     let body: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        let random = Int.random(in: 0..<3)
-        label.text = (0..<random).compactMap { _ in "messagemessagemessagemessagemessagemessagemessagemessagemessage"}.joined()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .black
         label.lineBreakMode = .byTruncatingTail
@@ -41,7 +38,6 @@ class ColumnViewCell: UITableViewCell {
     let caption: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "author by iOS"
         label.font = .systemFont(ofSize: 12)
         label.textColor = .gray4
         return label

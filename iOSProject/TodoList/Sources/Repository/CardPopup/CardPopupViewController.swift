@@ -115,13 +115,13 @@ class CardPopupViewController: UIViewController {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: CardPopupViewModelBinding & CardPopupViewModelProperty = CardPopupViewModel()
-    
-    var delegate: CardPopupViewDeletegate?
+    private let model: CardPopupViewModelBinding = CardPopupViewModel()
     
     private var baseTitleText: String = ""
     private var baseBodyText: String = ""
     private var cardIndex: Int?
+    
+    var delegate: CardPopupViewDeletegate?
     
     init(card: Card? = nil) {
         super.init(nibName: nil, bundle: nil)

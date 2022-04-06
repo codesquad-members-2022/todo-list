@@ -21,7 +21,6 @@ protocol ColumnViewModelProperty {
 class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     struct Action {
         let loadColumn = PassthroughSubject<Card.Status, Never>()
-        let newCard = PassthroughSubject<(String, String), Never>()
         let moveCard = PassthroughSubject<(Int, Card.Status), Never>()
         let deleteCard = PassthroughSubject<Int, Never>()
         let addCard = PassthroughSubject<Card, Never>()
@@ -37,12 +36,11 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     }
     
     private var cancellables = Set<AnyCancellable>()
+    private let todoRepository: TodoRepository = TodoRepositoryImpl()
+    private var cards: [Card] = []
+    
     let action = Action()
     let state = State()
-    
-    private let todoRepository: TodoRepository = TodoRepositoryImpl()
-    
-    private var cards: [Card] = []
     
     var cardCount: Int {
         cards.count
@@ -65,14 +63,6 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
                     print(error)
                 }
             }.store(in: &cancellables)
-        
-        action.newCard
-            .map{ Card(title: $0, body: $1, caption: "author by iOS", orderIndex: 0)}
-            .sink {
-                self.cards.insert($0, at: 0)
-                self.state.insertedCard.send(0)
-            }
-            .store(in: &cancellables)
         
         action.moveCard
             .map { self.todoRepository.moveCard($0, $1)}

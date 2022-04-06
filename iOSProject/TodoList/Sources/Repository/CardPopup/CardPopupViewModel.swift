@@ -13,10 +13,7 @@ protocol CardPopupViewModelBinding {
     var state: CardPopupViewModel.State { get }
 }
 
-protocol CardPopupViewModelProperty {
-}
-
-class CardPopupViewModel: CardPopupViewModelBinding, CardPopupViewModelProperty {
+class CardPopupViewModel: CardPopupViewModelBinding {
     struct Action {
         let addCard = PassthroughSubject<(String, String), Never>()
         let editCard = PassthroughSubject<(Int, String, String), Never>()
@@ -28,10 +25,10 @@ class CardPopupViewModel: CardPopupViewModelBinding, CardPopupViewModelProperty 
     }
     
     private var cancellables = Set<AnyCancellable>()
+    private let todoRepository: TodoRepository = TodoRepositoryImpl()
+    
     let action = Action()
     let state = State()
-    
-    private let todoRepository: TodoRepository = TodoRepositoryImpl()
     
     init() {
         self.action.addCard
