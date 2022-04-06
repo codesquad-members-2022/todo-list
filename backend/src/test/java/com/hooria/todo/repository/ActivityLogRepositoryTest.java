@@ -23,7 +23,7 @@ class ActivityLogRepositoryTest {
     }
 
     @Test
-    @DisplayName("인자로 주어진 활동로그(ActivityLog 타입의 객체)를 저장소에 저장한다.")
+    @DisplayName("인자로 주어진 활동로그를 저장소에 저장한다.")
     void insertSuccess() {
 
         // given
@@ -47,7 +47,7 @@ class ActivityLogRepositoryTest {
     }
 
     @Test
-    @DisplayName("저장소에 저장되어 있는 모든 활동로그(ActivityLog)를 조회한다.")
+    @DisplayName("저장소에 저장되어 있는 모든 활동로그를 조회한다.")
     void findAllSuccess() {
 
         // given
@@ -79,7 +79,7 @@ class ActivityLogRepositoryTest {
     }
 
     @Test
-    @DisplayName("인자로 주어진 'id'를 가진 활동로그(ActivityLog)를 저장소에서 삭제한다.")
+    @DisplayName("인자로 주어진 'id'를 가진 활동로그를 저장소에서 삭제한다.")
     void deleteByIdSuccess() {
 
         // given

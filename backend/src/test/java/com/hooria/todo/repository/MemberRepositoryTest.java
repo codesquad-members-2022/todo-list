@@ -45,7 +45,7 @@ class MemberRepositoryTest {
     }
 
     @Test
-    @DisplayName("저장소에 저장되어 있는 전체 사용자 목록(List<Member)을 읽어 반환한다.")
+    @DisplayName("저장소에 저장되어 있는 전체 사용자 목록을 읽어 반환한다.")
     void findAllSuccess() {
 
         // given
