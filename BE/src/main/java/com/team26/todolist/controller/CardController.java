@@ -45,7 +45,7 @@ public class CardController {
 
     @PatchMapping("/{newStatus}")
     public ResponseEntity<CardResponse> moveCard(@RequestBody CardMoveRequest cardMoveRequest, @PathVariable String newStatus) {
-        CardResponse movedCard = cardService.move(cardMoveRequest);
+        CardResponse movedCard = cardService.move(cardMoveRequest, newStatus);
 
         return ResponseEntity.ok()
                 .body(movedCard);
