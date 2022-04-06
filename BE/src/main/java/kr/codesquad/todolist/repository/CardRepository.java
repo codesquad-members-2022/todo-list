@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CardRepository {
 
     Card save(Card card);
-    Optional<Card> findById(long id);
+    Optional<Card> findById(Long id);
     List<Card> findAll();
-    boolean delete(long id);
+    boolean delete(Long id);
 }
