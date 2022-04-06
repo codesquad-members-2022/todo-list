@@ -27,18 +27,21 @@ class ColumnViewModel: ColumnViewModelBinding {
     let action = Action()
     let state = State()
     
-    let todoRepository: TodoRepository = TodoRepositoryImpl()
+    let todoRepository: TodoRepositoryImpl = TodoRepositoryImpl()
     
     init() {
         action.loadColumn
             .map { self.todoRepository.loadColumn() }
             .switchToLatest()
             .sink(receiveCompletion: { error in
+                print(error)
             }, receiveValue: { result in
+                print(result)
             }).store(in: &cancellables)
         
         action.newCard
             .sink { _ in
+                print("asdfasdf")
             }.store(in: &cancellables)
     }
 }

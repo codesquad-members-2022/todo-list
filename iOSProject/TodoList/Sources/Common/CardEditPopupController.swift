@@ -119,7 +119,11 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
                 self.confim.isEnabled = isEnable
             }.store(in: &cancellables)
         
-        cancel.publisher(for: .touchUpInside)
+        Publishers
+            .Merge(
+                cancel.publisher(for: .touchUpInside),
+                confim.publisher(for: .touchUpInside)
+            )
             .sink {
                 self.dismiss(animated: false)
             }.store(in: &cancellables)

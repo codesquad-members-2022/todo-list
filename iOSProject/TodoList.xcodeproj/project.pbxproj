@@ -31,6 +31,7 @@
 		E0A6BB1327FC309400F00575 /* UITextFieldView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1227FC309400F00575 /* UITextFieldView+Extension.swift */; };
 		E0A6BB1727FC37B900F00575 /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1627FC37B900F00575 /* PlaceholderTextView.swift */; };
 		E0A6BB1927FC3DA700F00575 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1827FC3DA700F00575 /* UITextView+Extension.swift */; };
+		E0A6BB1B27FC85D400F00575 /* MockNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1A27FC85D400F00575 /* MockNetworkRepository.swift */; };
 		E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */; };
 		E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */; };
 		E0BE4C2627FAAF6E0076403C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2527FAAF6E0076403C /* ViewController.swift */; };
@@ -64,6 +65,7 @@
 		E0A6BB1227FC309400F00575 /* UITextFieldView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFieldView+Extension.swift"; sourceTree = "<group>"; };
 		E0A6BB1627FC37B900F00575 /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
 		E0A6BB1827FC3DA700F00575 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		E0A6BB1A27FC85D400F00575 /* MockNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkRepository.swift; sourceTree = "<group>"; };
 		E0BE4C1E27FAAF6E0076403C /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			children = (
 				E0A6BB0727FBD5E900F00575 /* Todo */,
 				E0A6BB0127FBD49700F00575 /* NetworkRepository.swift */,
+				E0A6BB1A27FC85D400F00575 /* MockNetworkRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				E0A6BAEC27FB255300F00575 /* URLSession+Extension.swift in Sources */,
 				E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */,
 				E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */,
+				E0A6BB1B27FC85D400F00575 /* MockNetworkRepository.swift in Sources */,
 				E0A6BB0D27FBEE5100F00575 /* APIError.swift in Sources */,
 				E0A6BAEE27FB255300F00575 /* UIConrtol+Extension.swift in Sources */,
 				E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */,
