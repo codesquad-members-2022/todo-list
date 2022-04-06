@@ -12,7 +12,9 @@ class ActivityRecordController: UITableViewController {
     
     var tempArray = [String]()
     
-    let dumyData = ["aaa", "bbb", "ccc"]
+    let dumyData = ["HTML/CSS공부하기를 해야할 일에서 하고있는 일로 이동하였습니다.",
+                    "해야할 일에 HTML/CSS 공부하기를 등록하였습니다.",
+                    "해야할 일에 블로글에 포스팅할 것을 등록하였습니다."]
     
     @IBOutlet weak var activityTableView: UITableView!
     
@@ -57,8 +59,13 @@ extension ActivityRecordController{
         
         var config = cell.defaultContentConfiguration()
         config.text = dumyData[indexPath.row]
-        config.secondaryText = "test"
-        config.image = UIImage(named: "pencil")
+        //config.secondaryText = "aaa"
+        
+        config.attributedText = NSAttributedString(string: "@sam", attributes: [ .font: UIFont.systemFont(ofSize: 15, weight: .bold), .foregroundColor: UIColor.black
+        ])
+        config.secondaryAttributedText = NSAttributedString(string: "secondaryText", attributes: [ .font: UIFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: UIColor.systemGreen ])
+        
+        //var emoji = UIImage(named: "Party Face Emoji.png")
         
         cell.contentConfiguration = config
         
