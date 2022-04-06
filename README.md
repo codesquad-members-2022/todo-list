@@ -80,13 +80,18 @@ Lists
 
 TO-DO LIST 기능 정리
 
+- [ ] TODO READ (Jinnie & Muffin)
+
+  - [x] TODO dummy data 화면에 뿌리기
+  - [] client todos 배열 화면에 뿌리기
+
 - [ ] TODO CREATE (Jinnie & Muffin)
 
   - [x] 버튼 마우스 오버시 색상 변경
   - [x] 버튼 클릭 시 카드 생성
   - [x] 카드가 렌더링된 상태인데 + 버튼 한 번더 클릭시 카드 제거
   - [x] 취소 버튼 클릭시 카드 제거
-  - [ ] 내용이 입력될시만 등록버튼 활성화 + 내용없을 시 등록버튼 비활성화
+  - [x] 내용이 입력될시만 등록버튼 활성화 + 내용없을 시 등록버튼 비활성화
     - input addeventListener 에서 `value 값` 유무에 따라 활성화 여부 체크
     - 버튼속성에 `disable 속성` 추가하면 비활성화 버튼으로 됨
   - [ ] 내용 입력 후 등록시 카드가 등록되고, 해당 카드 제거
