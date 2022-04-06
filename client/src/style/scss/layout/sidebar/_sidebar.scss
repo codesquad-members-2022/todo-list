@@ -1,48 +1,59 @@
 aside {
   float: right;
-}
-
-.sidebar__list {
-  width: 452px;
-  height: 1024px;
-  padding: 80px 80px 80px 40px;
-  background-color: $color-white;
   position: absolute;
   right: 0;
   top: 0;
+  @include transform-translateX(452px);
+  transition: $transition-sidebar;
 }
 
-.sidebar__item {
-  @include flex(flex-start);
-  width: 332px;
-  height: 137px;
-  background-color: $color-background-activity;
-  font-size: 16px;
+.show {
+  @include transform-translateX(0px);
+  transition: $transition-sidebar;
+}
 
-  &--profile {
-    width: 40px;
-    height: 40px;
-    margin: 16px;
+.sidebar {
+  &__list {
+    width: 452px;
+    height: 1024px;
+    padding: 80px 80px 80px 40px;
+    background-color: $color-white;
+    @include flex(flex-end);
+    flex-direction: column-reverse;
   }
 
-  section {
-    margin: 16px 16px 16px 0px;
-  }
+  &__item {
+    @include flex(flex-start, flex-start);
+    width: 332px;
+    height: 137px;
+    background-color: $color-background-activity;
+    font-size: 16px;
 
-  &--activity {
-    width: 244px;
-    height: auto;
-    white-space: normal;
-  }
+    &--profile {
+      width: 40px;
+      height: 40px;
+      margin: 16px;
+    }
 
-  &--time-stamp {
-    font-size: 14px;
-    color: $color-light-gray;
-  }
+    section {
+      margin: 16px 16px 16px 0px;
+    }
 
-  &--nickname,
-  &--activity,
-  &--time-stamp {
-    padding: 8px 0px;
+    &--activity {
+      width: 244px;
+      height: auto;
+      white-space: normal;
+    }
+
+    &--time-stamp {
+      font-size: 14px;
+      color: $color-light-gray;
+    }
+
+    &--nickname,
+    &--activity,
+    &--time-stamp {
+      padding: 8px 0px;
+    }
   }
 }
