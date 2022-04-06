@@ -4,11 +4,44 @@ import java.time.LocalDateTime;
 
 public class Card {
 
-    private Integer cardId;                     // 카드 고유 번호 (PK)
-    private String cardTitle;                   // 카드 제목
-    private String cardContent;                 // 카드 내용
-    private LocalDateTime cardAddDateTime;      // 생성 시간
-    private LocalDateTime cardUpdateDateTime;
-    private Integer internalOrder;              // 보드 내부의 카드 순서
-    private String boardName;
+    private final Integer cardId;
+    private final String cardTitle;
+    private final String cardContent;
+    private final LocalDateTime addDateTime;
+    private final Integer internalOrder;
+    private final String boardName;
+
+    public Card(Integer cardId, String cardTitle, String cardContent,
+                LocalDateTime addDateTime, Integer internalOrder, String boardName) {
+        this.cardId = cardId;
+        this.cardTitle = cardTitle;
+        this.cardContent = cardContent;
+        this.addDateTime = addDateTime;
+        this.internalOrder = internalOrder;
+        this.boardName = boardName;
+    }
+
+    public Integer getCardId() {
+        return cardId;
+    }
+
+    public String getCardTitle() {
+        return cardTitle;
+    }
+
+    public String getCardContent() {
+        return cardContent;
+    }
+
+    public LocalDateTime getAddDateTime() {
+        return addDateTime;
+    }
+
+    public Integer getInternalOrder() {
+        return internalOrder;
+    }
+
+    public String getBoardName() {
+        return boardName;
+    }
 }
