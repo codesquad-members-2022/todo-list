@@ -6,34 +6,53 @@
 //
 
 import UIKit
+import Foundation
 
 class ToDoTableViewController: UITableViewController {
     
-    
-    
+    var todoList:Todolist?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        tableView.separatorStyle = .none
         self.tableView.tableHeaderView = TabelViewHeader(titleText: "해야할 일")
-
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadTableView),
+            name: NSNotification.Name("DidFetchToList"),
+            object: nil)
     }
-
     
-    
+    @objc func reloadTableView(notification:Notification) {
+        guard let data = notification.userInfo?["TodoList"] as? Todolist else { return }
+        
+        todoList = data
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
     
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell") as? CardCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell") as? CardCell,
+              let todoList = todoList else { return UITableViewCell() }
+        
+        let title = todoList[indexPath.row].title
+        let body = todoList[indexPath.row].content
+        let author = todoList[indexPath.row].memberLoginId
+        
+        cell.setCardText(title: title, body: body, writer: author)
         return cell
     }
     
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 10
+        guard let todoList = todoList else { return 0 }
+        return todoList.count
     }
 
 }

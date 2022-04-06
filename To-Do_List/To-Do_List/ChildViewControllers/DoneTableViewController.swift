@@ -14,6 +14,7 @@ class DoneTableViewController: UITableViewController {
 
         self.view.backgroundColor = .brown
         self.tableView.tableHeaderView?.backgroundColor = .gray
+        tableView.separatorStyle = .none
         self.tableView.tableHeaderView = TabelViewHeader(titleText: "하고 있는 일")
 
     }

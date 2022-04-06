@@ -24,6 +24,7 @@
 		8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DB27FD642800C13618 /* NetworkManager.swift */; };
 		8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DD27FD646B00C13618 /* NetworkError.swift */; };
 		8DD815E027FD655200C13618 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DF27FD655200C13618 /* HttpMethod.swift */; };
+		8DD815E527FD691E00C13618 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815E427FD691E00C13618 /* Todo.swift */; };
 		B70BD64227FBD1E7001BE68F /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* TableViewHeader.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		8DD815DB27FD642800C13618 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		8DD815DD27FD646B00C13618 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		8DD815DF27FD655200C13618 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		8DD815E427FD691E00C13618 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		B70BD64127FBD1E7001BE68F /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				8DC2282A27FB1CFE002FB533 /* MainViewController.swift */,
+				8DD815E427FD691E00C13618 /* Todo.swift */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
 				8DD815E327FD65F300C13618 /* ChildViewControllers */,
 				B70BD64027FBD1CF001BE68F /* View */,
@@ -328,6 +331,7 @@
 				8D46807727FB3FBB00FA9F34 /* ToDoTableViewController.swift in Sources */,
 				8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */,
 				8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */,
+				8DD815E527FD691E00C13618 /* Todo.swift in Sources */,
 				8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */,
 				8DD815E027FD655200C13618 /* HttpMethod.swift in Sources */,
 				8D2AFD7127FB08AE00307CCB /* AppDelegate.swift in Sources */,

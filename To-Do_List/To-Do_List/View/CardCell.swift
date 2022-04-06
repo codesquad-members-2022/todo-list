@@ -40,6 +40,13 @@ class CardCell: UITableViewCell {
     }()
     
     
+    func setCardText(title:String,body:String,writer:String) {
+        self.headLabel.text = title
+        self.bodyLabel.text = body
+        self.writerLabel.text = writer
+    }
+    
+    
     override func awakeFromNib() {
         addViews()
         setup()

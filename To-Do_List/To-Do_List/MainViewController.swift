@@ -6,17 +6,34 @@
 //
 
 import UIKit
+import OSLog
 
 class MainViewController: UIViewController {
     
+    //View
     @IBOutlet weak var statckView: UIStackView!
-
     @IBOutlet weak var logViewContainer: UIView!
+    
+    //Network
+    private var networkManager = NetworkManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         addChildViewControllers()
+        
+        networkManager.getRequest { (result:Result<Todolist,NetworkError>)  in
+            switch result {
+            case .success(let data):
+                NotificationCenter.default.post(
+                    name: NSNotification.Name("DidFetchToList"),
+                    object: self,
+                    userInfo: ["TodoList":data])
+                
+            case .failure(let error):
+                os_log(.error, "\(error.localizedDescription)")
+            }
+        }
 }
     
     @IBAction func TapLogViewButton(_ sender: UIButton) {
@@ -33,7 +50,6 @@ class MainViewController: UIViewController {
         
         [todoViewController,doingTableViewController,doneTableViewController].forEach {
             addChild($0)
-            $0.tableView.separatorStyle = .none
             self.statckView.addArrangedSubview($0.view)
             
             self.logViewContainer.isHidden = true
