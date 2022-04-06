@@ -6,14 +6,15 @@ module.exports = {
   entry: './src/js/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: './js/bundle.js',
+    filename: './src/js/bundle.js',
+    publicPath: './img/',
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: './css/style.css',
+      filename: './src/css/style.css',
     }),
   ],
   devtool: 'inline-source-map',
@@ -24,7 +25,7 @@ module.exports = {
     client: {
       overlay: true,
     },
-    port: 8081,
+    port: 8080,
     historyApiFallback: true,
   },
   module: {
@@ -39,6 +40,13 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: './src/img/[contenthash].[ext]',
+        },
       },
     ],
   },
