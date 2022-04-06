@@ -29,9 +29,8 @@ class TabelViewHeader: UIView {
     
     
     convenience init(titleText: String) {
-        self.init(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+        self.init(frame: CGRect(x: 0, y: 0, width: 256, height: 26))
         self.title.text = titleText
-        title.frame = self.bounds
         setupView()
     }
 
@@ -44,15 +43,18 @@ class TabelViewHeader: UIView {
     }
  
     private func setTitle() {
-        title.frame = self.bounds
+        title.font = UIFont(name:"Noto Sans Kannada Bold", size: 18)
+        title.textAlignment = .center
+        title.sizeToFit()
+        title.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setBadge() {
-        badge.translatesAutoresizingMaskIntoConstraints = false
-        badge.layer.cornerRadius = 30 / 2
-        badge.setTitleColor(.white, for: .normal)
-        badge.backgroundColor = .systemBlue
+        badge.layer.cornerRadius = 26 / 2
+        badge.setTitleColor(.black, for: .normal)
+        badge.backgroundColor = .systemGray
         badge.setTitle("0", for: .normal)
+        badge.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setaddButton() {
@@ -69,11 +71,17 @@ class TabelViewHeader: UIView {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            badge.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: 8),
-            badge.centerYAnchor.constraint(equalTo: title.centerYAnchor),
             
-            addButton.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: 73.11),
-            addButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            title.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 8),
+            title.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 4),
+            
+            badge.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: 8),
+            badge.topAnchor.constraint(equalTo: self.topAnchor),
+            badge.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            badge.widthAnchor.constraint(equalToConstant: 26),
+            
+            addButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -13.11),
+            addButton.centerYAnchor.constraint(equalTo: title.centerYAnchor, constant: -3),
 
             
         ])

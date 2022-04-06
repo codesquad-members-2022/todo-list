@@ -9,17 +9,27 @@ import UIKit
 
 class ToDoTableViewController: UITableViewController {
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.separatorStyle = .none
+        self.view.backgroundColor = .white
+        self.tableView.tableHeaderView = TabelViewHeader(titleText: "해야할 일")
+
     }
 
+    
+    
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell") as? CardCell else { return UITableViewCell() }
         return cell
     }
+    
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
