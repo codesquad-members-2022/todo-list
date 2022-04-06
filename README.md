@@ -8,6 +8,8 @@
 
 - [eddy](https://github.com/BumgeunSong)
   - ENTJ
+  - 정적을 견디지 못하는 진행병에 걸렸습니다.
+  - 글쓰는 걸 좋아합니다!
 - [jason](https://github.com/JasonLee0223)
   - ENFJ
 
