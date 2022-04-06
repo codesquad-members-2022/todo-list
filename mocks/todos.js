@@ -1,4 +1,4 @@
-const todos = [
+export const dummyTodos = [
   {
     id: 1,
     title: 'GitHub 공부하기',
