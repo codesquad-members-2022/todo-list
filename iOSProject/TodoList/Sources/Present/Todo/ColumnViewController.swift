@@ -93,9 +93,14 @@ class ColumnViewController: UIViewController, CardsColumnView {
             }.store(in: &cancellables)
         
         self.model.state.loadedColumn
-            .sink { cards in
+            .sink {
                 self.cardTable.reloadData()
-                self.count.text = String(cards?.count ?? 0 )
+                self.count.text = String(self.model.cardCount)
+            }.store(in: &cancellables)
+        
+        self.model.state.insertedCard
+            .sink {
+                self.cardTable.insertRows(at: [IndexPath(item: $0, section: 0)], with: .none)
             }.store(in: &cancellables)
     }
     

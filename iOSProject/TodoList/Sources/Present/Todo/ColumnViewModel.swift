@@ -27,7 +27,8 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     }
     
     struct State {
-        let loadedColumn = CurrentValueSubject<[Card]?, Never>(nil)
+        let loadedColumn = PassthroughSubject<Void, Never>()
+        let insertedCard = PassthroughSubject<Int, Never>()
     }
     
     private var cancellables = Set<AnyCancellable>()
@@ -36,12 +37,14 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
     
+    private var cards: [Card] = []
+    
     var cardCount: Int {
-        state.loadedColumn.value?.count ?? 0
+        cards.count
     }
     
     subscript(index: Int) -> Card? {
-        state.loadedColumn.value?[index]
+        cards[index]
     }
     
     init() {
@@ -51,16 +54,20 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
             .sink {
                 switch $0 {
                 case .success(let column):
-                    self.state.loadedColumn.send(column)
+                    self.cards = column
+                    self.state.loadedColumn.send()
                 case .failure(let error):
                     print(error)
                 }
             }.store(in: &cancellables)
         
         action.newCard
-            .sink { _ in
-                print("asdfasdf")
-            }.store(in: &cancellables)
+            .map{ Card(title: $0, body: $1, caption: "author by iOS", orderIndex: 0)}
+            .sink {
+                self.cards.insert($0, at: 0)
+                self.state.insertedCard.send(0)
+            }
+            .store(in: &cancellables)
         
         action.moveCard
             .sink {
