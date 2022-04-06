@@ -29,12 +29,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="stackViewTrailing" destination="zks-zh-1b5" id="lL5-3a-SUS"/>
                         <outlet property="taskListStackView" destination="q3x-H0-srJ" id="b2L-zg-6TB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138.69346733668343" y="137.41007194244605"/>
+            <point key="canvasLocation" x="138.12949640287772" y="137.1859296482412"/>
         </scene>
     </scenes>
 </document>
