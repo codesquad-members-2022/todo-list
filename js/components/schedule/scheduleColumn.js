@@ -13,16 +13,6 @@
 import { ScheduleCard } from "./scheduleCard.js";
 import { ScheduleRegisterCard } from "./scheduleRegisterCard.js";
 
-const state = {
-    "해야할 일": [
-        {
-            title: "git hub 공부",
-            body: "add commit",
-            caption: "author by web",
-        },
-    ],
-};
-
 export class ScheduleColumn {
     constructor(target, title) {
         this.$target = target;
