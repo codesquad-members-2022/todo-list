@@ -8,16 +8,6 @@
 import Foundation
 import Combine
 
-struct MockData {
-    let successData: Data = {
-        Card.mockData()
-    }()
-    
-    let failureData: Data = {
-        "{\"result\":\"id aready exist\", \"status\":\"404\"}".data(using: .utf8)!
-    }()
-}
-
 class MockURLSessionDataTask: URLSessionDataTask {
     var resumeDidCall: () -> Void = {}
 
@@ -43,15 +33,49 @@ class MockURLSession: URLSessionProtocol {
         
         if isRequestSuccess {
             sessionDataTask.resumeDidCall = {
-                completionHandler(MockData().successData, successResponse, nil)
+                completionHandler(MockData().getData(url: request.url), successResponse, nil)
             }
         } else {
             sessionDataTask.resumeDidCall = {
-                completionHandler(MockData().failureData, failureResponse, nil)
+                completionHandler(nil, failureResponse, nil)
             }
         }
         
         self.sessionDataTask = sessionDataTask
         return sessionDataTask
+    }
+}
+
+class MockData {
+    
+    func getData(url: URL?) -> Data {
+        guard let url = url else {
+            return Data()
+        }
+        
+        let loadColumnURL = TodoTarget.loadColumn.baseURL.appendingPathComponent(TodoTarget.loadColumn.path)
+        if loadColumnURL.path == url.path {
+            return columnData()
+        }
+        
+        return Data()
+    }
+    
+    private func columnData() -> Data {
+        let cards = (0..<10).map{ index -> Card in
+            let title = "테스트타이틀"
+            let body = (0..<Int.random(in: 2..<10)).map { _ in "테스트메세지_____테스트메세지_____"}.joined()
+            let caption = "author by iOS"
+
+            return Card(title: title, body: body, caption: caption, orderIndex: index)
+        }
+        
+        let column = Column(title: "타이틀입니다~!", cards: cards)
+
+        guard let body = try? JSONEncoder().encode(column) else {
+            return Data()
+        }
+
+        return body
     }
 }

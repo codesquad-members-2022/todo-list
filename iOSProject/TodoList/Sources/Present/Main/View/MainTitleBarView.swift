@@ -45,24 +45,12 @@ class MainTitleBarView: UIView, MainTitleBar {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        bind()
-        attribute()
         layout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        bind()
-        attribute()
         layout()
-    }
-    
-    private func bind() {
-        
-    }
-    
-    private func attribute() {
-        
     }
     
     private func layout() {

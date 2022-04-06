@@ -89,7 +89,8 @@ class ColumnViewController: UIViewController, CardsColumnView {
         self.model.state.loadedColumn
             .sink { column in
                 self.cardTable.reloadData()
-                self.count.text = String(self.model.cardCount)
+                self.count.text = String(column?.cards.count ?? 0 )
+                self.titleLabel.text = column?.title
             }.store(in: &cancellables)
     }
     
@@ -117,11 +118,7 @@ class ColumnViewController: UIViewController, CardsColumnView {
     }
 }
 
-extension ColumnViewController: UITableViewDelegate {
-    
-}
-
-extension ColumnViewController: UITableViewDataSource {
+extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.model.cardCount
     }

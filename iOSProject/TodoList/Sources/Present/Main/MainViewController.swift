@@ -32,16 +32,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
         attribute()
         layout()
-    }
-    
-    private func bind() {
-        titleBar.menuPublisher
-            .sink {
-                
-            }.store(in: &cancellables)
     }
     
     private func attribute() {
