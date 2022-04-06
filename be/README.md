@@ -16,10 +16,11 @@
 
 |http Method|URL| 역할 |
 | -- | -- | -- |
-| GET | /list    | ToDo-List 전체를 json으로 내려줌   |
+| GET | /list    | 조회 |
 | POST | /list  |  등록  |
 | DELETE  | /list/{id}  |  삭제  |
-| POST | /list/{id}   |  변경  |
+| POST | /list/{id}   |  드래그 앤 드랍 변경  |
+| PATCH | /list/{id} | 제목, 내용 변경 |
 | GET | /list/menu   |  활동 로그  |
 
 
@@ -68,37 +69,40 @@ POST, DELETE /list/{id} 와 response의 API
 
 | type | 값 |
 | -- | -- |
-| move | 1 |
-| post | 2 |
-| delete | 3 |
+| add | 1 |
+| remove | 2 |
+| update | 3 |
+| move | 4 |
 
 <br>
 
-GET /list/menu 요청 시 서버에서 iOS로 내려주는 json 형식
+GET /list/menu 요청 시(활동 로그 요청) 서버에서 iOS로 내려주는 json 형식
 
 ```
 // progress에 있던 카드 done으로 이동 시 response body json
 [
     {
         "title": "제목",
-        "type": 1,      //이동
+        "type": 4,      // 이동
         "previous": 2,  // progress 에서
-        "status": 3     // done 으로
+        "status": 3,     // done 으로
+        "time": "2022-04-05T12:15:00.000+09:00"
     },
 // todo에 카드 등록 시 response body json
     {
         "title": "제목1",
-        "type": 2,      //등록
-        "previous": null
-        "status": 1     //todo
+        "type": 1,      //등록
+        "previous": null,
+        "status": 1,     //todo
+        "time": "2022-04-05T12:15:00.000+09:00"
     },
-
-// todo에 있던 카드 삭제 시 response body json
+// progress에 있던 카드 삭제 시 response body json
     {
         "title": "제목2",
-        "type": 3,      //삭제
-        "previous": 1   //todo
-        "status": null
+        "type": 2,       //삭제
+        "previous": 2,   //progress
+        "status": null,
+        "time": "2022-04-05T12:15:00.000+09:00"
     }
 ]
 ```
