@@ -1,5 +1,7 @@
 package com.todolist.project.web;
 
+import com.todolist.project.domain.Status;
+import com.todolist.project.domain.card.Card;
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.addCardDto;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +20,8 @@ public class CardController {
 
     @PostMapping("/add")
     public String add(addCardDto dto) {
-        return "";
+        cardService.addCard(new Card(dto.getTitle(), dto.getContents(), dto.getWriter(), Status.DO));
+        return "redirect:/";
     }
 
     @DeleteMapping("/remove/{id}")

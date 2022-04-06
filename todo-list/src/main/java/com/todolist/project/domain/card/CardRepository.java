@@ -9,13 +9,14 @@ import javax.sql.DataSource;
 public class CardRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
     public CardRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    private final static String INSERT_CARD_SQL = "insert into card(title, contents, writer, createTime, status) value (?,?,?,?,?)";
+
     public void add(Card card){
-        //TODO: 카드를 저장하는 쿼리 생성
+        jdbcTemplate.update(INSERT_CARD_SQL, card.getTitle(), card.getContents(), card.getWriter(), card.getCreatedTime(), card.getStatus());
     }
 
     public void remove(int id){

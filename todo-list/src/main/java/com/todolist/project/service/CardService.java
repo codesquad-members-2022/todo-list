@@ -13,7 +13,7 @@ public class CardService {
     }
 
     public void addCard(Card card) {
-
+        cardRepository.add(card);
     }
 
     public void removeCard(int id) {
