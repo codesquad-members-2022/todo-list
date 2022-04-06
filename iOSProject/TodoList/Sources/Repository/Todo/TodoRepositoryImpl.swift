@@ -24,12 +24,24 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
             }.eraseToAnyPublisher()
     }
     
-    func moveCard(cardIndex: Int, toColumn: Card.Status) -> AnyPublisher<Result<(Int, Card.Status), SessionError>, Never> {
-        self.request(.moveCard(cardIndex: cardIndex, toColumn: toColumn), isSucccess: true)
+    func moveCard(_ index: Int, _ toColumn: Card.Status) -> AnyPublisher<Result<(Int, Card.Status), SessionError>, Never> {
+        self.request(.moveCard(index, toColumn: toColumn), isSucccess: true)
             .map { result in
                 switch result {
                 case .success:
-                    return .success((cardIndex, toColumn))
+                    return .success((index, toColumn))
+                case .failure(let error):
+                    return .failure(error)
+                }
+            }.eraseToAnyPublisher()
+    }
+    
+    func deleteCard(_ index: Int) -> AnyPublisher<Result<Int, SessionError>, Never> {
+        self.request(.deleteCard(index), isSucccess: true)
+            .map { result in
+                switch result {
+                case .success:
+                    return .success((index))
                 case .failure(let error):
                     return .failure(error)
                 }

@@ -73,7 +73,7 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
             .store(in: &cancellables)
         
         action.moveCard
-            .map { index, column in self.todoRepository.moveCard(cardIndex: index, toColumn: column)}
+            .map { self.todoRepository.moveCard($0, $1)}
             .switchToLatest()
             .sink {
                 switch $0 {
@@ -87,8 +87,16 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
             }.store(in: &cancellables)
         
         action.deleteCard
+            .map { self.todoRepository.deleteCard($0)}
+            .switchToLatest()
             .sink {
-                print("deleteCard: \($0)")
+                switch $0 {
+                case .success(let index):
+                    self.cards.remove(at: index)
+                    self.state.deletedCard.send(index)
+                case .failure(let error):
+                    print(error)
+                }
             }.store(in: &cancellables)
         
         action.addCard

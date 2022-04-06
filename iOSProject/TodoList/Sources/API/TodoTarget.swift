@@ -9,7 +9,8 @@ import Foundation
 
 enum TodoTarget: BaseTarget {
     case loadColumn
-    case moveCard(cardIndex: Int, toColumn: Card.Status)
+    case moveCard(_ cardIndex: Int, toColumn: Card.Status)
+    case deleteCard(_ cardIndex: Int)
 }
 
 extension TodoTarget {
@@ -19,6 +20,8 @@ extension TodoTarget {
             return "/loadColumn"
         case .moveCard:
             return "/moveCard"
+        case .deleteCard:
+            return "/deleteCard"
         }
     }
     
@@ -27,6 +30,8 @@ extension TodoTarget {
         case .loadColumn: return nil
         case .moveCard(let cardIndex, let toColumn):
             return ["cardIndex": cardIndex, "toColumn": toColumn.rawValue]
+        case .deleteCard(let cardIndex):
+            return ["cardIndex": cardIndex]
         }
     }
     
@@ -34,7 +39,7 @@ extension TodoTarget {
         switch self {
         case .loadColumn:
             return "GET"
-        case .moveCard:
+        case .moveCard, .deleteCard:
             return "POST"
         }
     }
