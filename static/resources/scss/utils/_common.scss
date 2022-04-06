@@ -21,8 +21,12 @@
   }
 }
 
+.button-wrap {
+  @include flex-box(flex-end, center, 8px);
+}
+
 .button {
-  width: 134px;
+  min-width: 134px;
   height: 40px;
   border-radius: 6px;
   color: $button-main-font-color;
@@ -46,7 +50,7 @@
   &:hover {
     background-color: $accent-button-color-hover;
   }
-  
+
   &__disabled {
     @extend .button;
     background-color: $accent-button-color-disabled;
