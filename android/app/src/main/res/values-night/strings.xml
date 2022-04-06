@@ -2,4 +2,5 @@
 <resources>
     <string name="label_to_do_list">TO-DO-LIST</string>
     <string name="label_menu_drawer">menu_drawer</string>
+    <string name="date_format">yyyy-MM-dd HH:mm:ss</string>
 </resources>

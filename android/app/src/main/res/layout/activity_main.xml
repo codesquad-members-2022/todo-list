@@ -52,8 +52,27 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:background="@color/todo_white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp">
 
+            <ImageButton
+                android:id="@+id/btn_close"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_close_32" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="80dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_history" />
 
         </LinearLayout>
     </androidx.drawerlayout.widget.DrawerLayout>
