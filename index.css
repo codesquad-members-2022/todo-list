@@ -151,6 +151,7 @@ table {
   background: #fff;
   padding: 80px 80px 0 40px;
   position: absolute;
+  overflow-y: auto;
   top: 0;
   right: 0;
 }
