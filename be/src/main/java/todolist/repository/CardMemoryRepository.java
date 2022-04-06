@@ -2,7 +2,6 @@ package todolist.repository;
 
 import org.springframework.stereotype.Repository;
 import todolist.domain.Card;
-import todolist.dto.CardDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +33,6 @@ public class CardMemoryRepository implements TodoRepository<Card> {
 
     @Override
     public void delete(Long id) {
-
+        store.remove(id);
     }
 }
