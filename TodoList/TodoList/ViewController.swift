@@ -10,10 +10,10 @@ import UIKit
 class ViewController: UIViewController {
 
     let factory = CardFactory()
+    let cardBoard = CardBoard()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(factory.createRandomCard())
     }
 }
 

@@ -7,51 +7,48 @@
 
 import Foundation
 
-struct Card {
+struct Card: Codable {
     private(set) var status: Status
     private(set) var title: String
     private(set) var contents: String
-    private(set) var date: Date = Date.now
+    private(set) var date: Date
     private(set) var writer: String
     
-    init(section: Status, title: String, contents: String, writer: String) {
-        self.status = section
+    init(status: Status, title: String, contents: String, writer: String) {
+        self.status = status
         self.title = title
         self.contents = contents
         self.writer = writer
+        self.date = Date.now
     }
     
-    enum Status {
+    enum Status: Codable {
         case todo
         case doing
         case done
     }
 }
 
+
+
 extension Card: CardUsable {
     func getSection() -> Status {
         return .todo
     }
-    
+
     func getTitle() -> String {
         return title
     }
-    
+
     func getContents() -> String {
         return contents
     }
-    
+
     func getDate() -> Date {
         return date
     }
-    
+
     func getWriter() -> String {
         return writer
-    }
-}
-
-extension Card: CustomStringConvertible {
-    var description: String {
-        return "status : \(status), title : \(title), contents : \(contents), writer : \(writer), date: \(date)"
     }
 }

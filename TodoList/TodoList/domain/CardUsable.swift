@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CardUsable {
+protocol CardUsable: Codable {
     func getSection() -> Card.Status
     func getTitle() -> String
     func getContents() -> String
