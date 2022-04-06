@@ -27,6 +27,16 @@
   &-button-wrap {
     @include flex-box(space-between, center, 16px);
   }
+
+  &-add-button {
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    background-image: url('../images/fab.png');
+    background-size: 72px 74px;
+    width: 72px;
+    height: 74px;
+  }
 }
 
 .card {
