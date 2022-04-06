@@ -32,6 +32,7 @@ class InProgressViewController: UIViewController {
     private func configureCustomTableView() {
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.indentifier)
         tableView.dataSource = tableViewDataSource
+        tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = 8
         tableView.sectionFooterHeight = 8
         tableView.backgroundColor = .clear
