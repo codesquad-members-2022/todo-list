@@ -141,6 +141,18 @@ input:focus {
   outline: none;
 }
 
+input {
+  padding: 0px;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+textarea {
+  padding: 0px;
+}
+
 button {
   cursor: pointer;
 }
@@ -220,6 +232,131 @@ aside {
 }
 .sidebar__item--nickname, .sidebar__item--activity, .sidebar__item--time-stamp {
   padding: 8px 0px;
+}
+
+.column__list {
+  display: flex;
+  padding-top: 24px;
+  padding-left: 80px;
+}
+.column__item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 308px;
+  padding-right: 16px;
+}
+.column__item--title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  padding: 0px 8px;
+}
+.column__item--title-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex: 1;
+  padding-left: 5px;
+}
+.column__item--title-menu {
+  display: flex;
+}
+.column__item--title-menu img {
+  padding: 10px;
+}
+.column__title {
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 26px;
+  padding-right: 8px;
+}
+
+.column__task--count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 700;
+  font-style: normal;
+  flex-direction: row;
+  width: 26px;
+  height: 26px;
+  padding: 0px;
+  background: #BDBDBD;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 20px;
+}
+.column__task--list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 308px;
+  padding-top: 8px;
+}
+.column__task--item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+  margin-bottom: 16px;
+  width: 280px;
+  min-height: 76px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: 6px;
+}
+.column__task--item section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  border-radius: 8px;
+}
+.column__task--title {
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 700;
+  font-style: normal;
+  width: 100%;
+  border: none;
+  line-height: 23px;
+  color: #010101;
+}
+.column__task--comment {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  width: 100%;
+  height: 20px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: none;
+  color: #010101;
+  line-height: 20px;
+  resize: none;
+  overflow: hidden;
+}
+.column__task--author {
+  font-family: "Noto Sans KR";
+  font-size: 12px;
+  font-weight: 400;
+  font-style: normal;
+  color: #BDBDBD;
+  line-height: 17px;
 }
 
 body {

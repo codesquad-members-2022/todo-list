@@ -66,7 +66,7 @@ const createHTML = () => {
     (acc, cur) =>
       acc +
       `<li class="sidebar__item">
-          <img class="sidebar__item--profile" src="profile.svg" alt="profile" />
+          <img class="sidebar__item--profile" src="./svg/profile.svg" alt="profile" />
           <section>
             <h3 class="sidebar__item--nickname">@sam</h3>
             <p class="sidebar__item--activity">
@@ -88,7 +88,7 @@ const toggleSidebar = () => {
   const sidebar = $("aside");
   const sidebarMenuBtn = $(".sidebar__menu-button img");
   sidebar.classList.toggle("show");
-  sidebarMenuBtn.src = sidebar.classList.contains("show") ? "./icon-delete.svg" : "./icon-menu.svg";
+  sidebarMenuBtn.src = sidebar.classList.contains("show") ? "./svg/icon-delete.svg" : "./svg/icon-menu.svg";
 };
 
 const bindModel = () => {

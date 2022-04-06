@@ -1,0 +1,42 @@
+.column {
+    &__list {
+        display: flex;
+        padding-top: 24px;
+        padding-left: 80px;
+    }
+
+    &__item {
+        @include flex(flex-start);
+        flex-direction: column;
+        width: 308px;
+        padding-right: 16px;
+
+        &--title {
+            @include flex(flex-start);
+            flex-direction: row;
+            width: 100%;
+            padding: 0px 8px;
+
+            &-text {
+                @include flex(flex-start);
+                flex-direction: row;
+                flex: 1;
+                padding-left: 5px;
+            }
+
+            &-menu {
+                display: flex;
+
+                img {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+
+    &__title {
+        @include font(18px, 700);
+        line-height: 26px;
+        padding-right: 8px;
+    }
+}

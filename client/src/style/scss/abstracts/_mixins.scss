@@ -7,3 +7,10 @@
 @mixin transform-translateX($translateX) {
   transform: translateX($translateX);
 }
+
+@mixin font($size, $weight: normal, $style: normal, $font-family: $font-default) {
+  font-family: $font-family;
+  font-size: $size;
+  font-weight: $weight;
+  font-style: $style;
+}

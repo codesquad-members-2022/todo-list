@@ -4,7 +4,7 @@ import { toggleActivation } from "../store/model.js";
 const createHTML = () => {
   return `<h1 class="header__title">TO-DO LIST</h1>
       <button class="sidebar__menu-button">
-        <img src="./icon-menu.svg" alt="icon-delete" />
+        <img src="./svg/icon-menu.svg" alt="icon-delete" />
       </button>`;
 };
 
