@@ -46,6 +46,10 @@ button {
     border: none;
 }
 
+.inactive {
+    background-color: map-get($colors, inactive-blue);
+}
+
 .active {
     background-color: map-get($colors, blue);
 }

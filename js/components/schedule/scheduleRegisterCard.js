@@ -16,8 +16,45 @@ export class ScheduleRegisterCard {
     }
 
     setEvent() {
-        const $cancelBtn = this.$target.querySelector('.schedule-register-card__cancel-btn')
-        $cancelBtn.addEventListener('click', () => this.removeRegisterCard())
+        const $cancelBtn = this.$target.querySelector(
+            ".schedule-register-card__cancel-btn"
+        );
+        $cancelBtn.addEventListener("click", () => this.removeRegisterCard());
+
+        const $cardTitle = this.$target.querySelector(
+            ".schedule-register-card__title"
+        );
+        $cardTitle.addEventListener("input", ({ target }) =>
+            this.activateRegisterBtn(target)
+        );
+
+        const $registerBtn = this.$target.querySelector(
+            ".schedule-register-card__register-btn"
+        );
+        $registerBtn.addEventListener("click", ({ target }) =>
+            this.registerBtnClickEventHandler(target)
+        );
+    }
+
+    registerBtnClickEventHandler(target) {
+        if (target.classList.contains("inactive")) {
+            return;
+        }
+
+        console.log("register click");
+    }
+
+    activateRegisterBtn(target) {
+        const cardTitle = target.value;
+        const $registerBtn = this.$target.querySelector(
+            ".schedule-register-card__register-btn"
+        );
+
+        if (cardTitle.length) {
+            $registerBtn.classList.replace("inactive", "active");
+        } else {
+            $registerBtn.classList.replace("active", "inactive");
+        }
     }
 
     template() {
@@ -40,7 +77,7 @@ export class ScheduleRegisterCard {
                     <button class="schedule-register-card__cancel-btn">
                         취소
                     </button>
-                    <button class="schedule-register-card__register-btn">
+                    <button class="schedule-register-card__register-btn inactive">
                         등록
                     </button>
                 </div>
