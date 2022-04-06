@@ -23,7 +23,7 @@
 ## Controller
 - [x] 할 일 추가 컨트롤러 생성
 - [x] Work 수정 컨틀로러 만들기
-- [ ] Service 계층 분리하기
+- [x] Service 계층 분리하기
 
 ## 흐름
 - 생성 요청 post -> dto(title, content, 작성자)
