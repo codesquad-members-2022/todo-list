@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EditCardView" customModule="TodoList" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="175"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbn-me-TEU">
+                    <rect key="frame" x="16" y="16" width="368" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="23" id="9rO-uA-gKY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목을 입력하세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gBo-ia-khY">
+                    <rect key="frame" x="16" y="60" width="368" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="wKh-xI-NYj"/>
+                    </constraints>
+                    <color key="textColor" systemColor="systemGray3Color"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="내용을 입력하세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L9r-Qn-qYV">
+                    <rect key="frame" x="16" y="88" width="368" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="xlS-pv-DBo"/>
+                    </constraints>
+                    <color key="textColor" systemColor="systemGray3Color"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AsX-pi-UNx">
+                    <rect key="frame" x="160" y="119" width="108" height="40"/>
+                    <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="108" id="j9Z-dd-1qS"/>
+                        <constraint firstAttribute="height" constant="40" id="l5U-mo-wA1"/>
+                    </constraints>
+                    <color key="tintColor" systemColor="systemGray3Color"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" cornerStyle="small">
+                        <attributedString key="attributedTitle">
+                            <fragment content="취소">
+                                <attributes>
+                                    <color key="NSColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <font key="NSFont" size="14" name=".AppleSDGothicNeoI-Bold"/>
+                                    <font key="NSOriginalFont" size="14" name="Helvetica-Bold"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </buttonConfiguration>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kt7-TL-hNl">
+                    <rect key="frame" x="276" y="119" width="108" height="40"/>
+                    <color key="backgroundColor" red="0.0" green="0.45882352941176469" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="WI5-rK-cFq"/>
+                        <constraint firstAttribute="width" constant="108" id="v71-Bh-N0v"/>
+                    </constraints>
+                    <color key="tintColor" systemColor="systemBackgroundColor"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" cornerStyle="small">
+                        <attributedString key="attributedTitle">
+                            <fragment content="Button">
+                                <attributes>
+                                    <font key="NSFont" size="14" name="Helvetica-Bold"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </buttonConfiguration>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="L9r-Qn-qYV" secondAttribute="trailing" constant="16" id="1us-dh-jHc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kt7-TL-hNl" secondAttribute="bottom" constant="16" id="5xs-Qv-XzP"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kt7-TL-hNl" secondAttribute="trailing" constant="16" id="7cd-EB-uId"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="AsX-pi-UNx" secondAttribute="bottom" constant="16" id="JsL-rU-e7w"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gBo-ia-khY" secondAttribute="trailing" constant="16" id="MF0-O3-sS0"/>
+                <constraint firstItem="wbn-me-TEU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="gOD-29-p1L"/>
+                <constraint firstItem="kt7-TL-hNl" firstAttribute="leading" secondItem="AsX-pi-UNx" secondAttribute="trailing" constant="8" id="gfM-UI-r0C"/>
+                <constraint firstItem="L9r-Qn-qYV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="iAT-c5-h1L"/>
+                <constraint firstItem="gBo-ia-khY" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="kOX-bw-eWt"/>
+                <constraint firstAttribute="trailing" secondItem="wbn-me-TEU" secondAttribute="trailing" constant="16" id="ohs-Wj-y4n"/>
+                <constraint firstItem="wbn-me-TEU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="rQ5-oF-GaH"/>
+                <constraint firstItem="gBo-ia-khY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="sJG-2u-6ui"/>
+                <constraint firstItem="L9r-Qn-qYV" firstAttribute="top" secondItem="gBo-ia-khY" secondAttribute="bottom" constant="8" id="wYo-sY-Mbj"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="31.884057971014496" y="-60.602678571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
