@@ -13,7 +13,12 @@ protocol ColumnViewModelBinding {
     var state: ColumnViewModel.State { get }
 }
 
-class ColumnViewModel: ColumnViewModelBinding {
+protocol ColumnViewModelProperty {
+    subscript(index: Int) -> Card? { get }
+    var cardCount: Int { get }
+}
+
+class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     struct Action {
         let loadColumn = PassthroughSubject<Void, Never>()
         let newCard = PassthroughSubject<(String, String), Never>()
@@ -23,21 +28,32 @@ class ColumnViewModel: ColumnViewModelBinding {
         let loadedColumn = CurrentValueSubject<Column?, Never>(nil)
     }
     
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     let action = Action()
     let state = State()
     
-    let todoRepository: TodoRepositoryImpl = TodoRepositoryImpl()
+    private let todoRepository: TodoRepository = TodoRepositoryImpl()
+    
+    var cardCount: Int {
+        state.loadedColumn.value?.cards.count ?? 0
+    }
+    
+    subscript(index: Int) -> Card? {
+        state.loadedColumn.value?.cards[index]
+    }
     
     init() {
         action.loadColumn
             .map { self.todoRepository.loadColumn() }
             .switchToLatest()
-            .sink(receiveCompletion: { error in
-                print(error)
-            }, receiveValue: { result in
-                print(result)
-            }).store(in: &cancellables)
+            .sink {
+                switch $0 {
+                case .success(let column):
+                    self.state.loadedColumn.send(column)
+                case .failure(let error):
+                    print(error)
+                }
+            }.store(in: &cancellables)
         
         action.newCard
             .sink { _ in

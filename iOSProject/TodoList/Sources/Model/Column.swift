@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Column: Decodable {
-    let title: String
+struct Column: Codable {
+    let title: String?
     let cards: [Card]
 }

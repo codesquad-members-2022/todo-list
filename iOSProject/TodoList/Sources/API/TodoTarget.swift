@@ -15,17 +15,13 @@ extension TodoTarget {
     var path: String {
         switch self {
         case .loadColumn:
-            return "/signup"
+            return "/loadColumn"
         }
     }
     
     var parameter: [String:Any]? {
         switch self {
-        case .loadColumn:
-            return [
-                "id":"jkhome",
-                "password":"asdfasdf"
-            ]
+        case .loadColumn: return nil
         }
     }
     

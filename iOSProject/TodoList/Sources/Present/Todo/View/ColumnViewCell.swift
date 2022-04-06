@@ -49,20 +49,14 @@ class ColumnViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        bind()
         attribute()
         layout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        bind()
         attribute()
         layout()
-    }
-    
-    private func bind() {
-        
     }
     
     private func attribute() {
@@ -92,5 +86,11 @@ class ColumnViewCell: UITableViewCell {
         
         cellBackgroundView.bottomAnchor.constraint(equalTo: caption.bottomAnchor, constant: 16).isActive = true
         self.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16).isActive = true
+    }
+    
+    func setCard(_ card: Card) {
+        self.title.text = card.title
+        self.body.text = card.body
+        self.caption.text = card.caption
     }
 }
