@@ -46,17 +46,12 @@
 .accent-button {
   @extend .button;
   background-color: $accent-button-color-default;
-  
+
   &:hover {
     background-color: $accent-button-color-hover;
   }
-  &.disabled {
-    background-color: $accent-button-color-disabled;
-  }
-}
 
-  &__disabled {
-    @extend .button;
+  &.disabled {
     background-color: $accent-button-color-disabled;
   }
 }
