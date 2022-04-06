@@ -26,6 +26,41 @@ class KanbanViewController: UIViewController {
         todoTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
     }
     
+    @IBAction func todoAddTouched(_ sender: UIButton) {
+        let alert = UIAlertController(title: "새로운 카드 추가", message: nil, preferredStyle: .alert)
+        
+        alert.addTextField { titleTextField in
+            titleTextField.font = UIFont.boldSystemFont(ofSize: 14)
+            titleTextField.placeholder = "제목을 입력하세요"
+        }
+        
+        alert.addTextField { contentTextField in
+            contentTextField.placeholder = "내용을 입력하세요"
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .destructive) { _ in
+            print("취소")
+        }
+        
+        let add = UIAlertAction(title: "등록", style: .default) { _ in
+            let title = alert.textFields?[0].text ?? "nil"
+            let content = alert.textFields?[1].text ?? "nil"
+            print("제목: \(title)")
+            print("내용: \(content)")
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(add)
+        
+        present(alert, animated: true)
+    }
+    
+    @IBAction func inProgressAddTouched(_ sender: UIButton) {
+    }
+    
+    @IBAction func doneAddTouched(_ sender: UIButton) {
+    }
+    
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
