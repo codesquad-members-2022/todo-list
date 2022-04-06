@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./resources/scss/main.css">
+    <link rel="stylesheet" href="./resources/css/main.css" />
   </head>
   <body>
     <div class="wrap">
@@ -36,7 +36,13 @@
               <li class="card write">
                 <form action="">
                   <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" class="card__title" />
-                  <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요" class="card__content"></textarea>
+                  <textarea
+                    name=""
+                    id=""
+                    maxlength="500"
+                    placeholder="내용을 입력하세요"
+                    class="card__content"
+                  ></textarea>
                   <span class="card__writer">도니</span>
                   <div class="card__button-wrap">
                     <button type="button" class="normal-button card__save-button">취소</button>
@@ -46,7 +52,9 @@
               </li>
               <li class="card">
                 <input type="text" value="포키랑 놀기" placeholder="제목을 입력하세요" class="card__title" readonly />
-                <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요" class="card__content" readonly>뛰어 놀기</textarea>
+                <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요" class="card__content" readonly>
+뛰어 놀기</textarea
+                >
                 <span class="card__writer">도니</span>
                 <div class="card__button-wrap">
                   <button type="button" class="delete-button card__delete-button">
@@ -105,6 +113,7 @@
             </div>
           </div>
         </div>
-    </main>
+      </main>
+    </div>
   </body>
 </html>
