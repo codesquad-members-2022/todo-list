@@ -18,6 +18,8 @@
 		D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */; };
 		D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299330927FBD83000D79C87 /* HeaderViewController.swift */; };
 		D299331227FC07FB00D79C87 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299331127FC07FB00D79C87 /* TodoCell.swift */; };
+		D299331C27FC372600D79C87 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299331B27FC372600D79C87 /* CollectionCell.swift */; };
+		D299331E27FC3A9400D79C87 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299331D27FC3A9400D79C87 /* CollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		D299330927FBD83000D79C87 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		D299331127FC07FB00D79C87 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
+		D299331B27FC372600D79C87 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
+		D299331D27FC3A9400D79C87 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,11 +95,29 @@
 		D299331027FC064C00D79C87 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B3BAE28527FBE3DE005E7ED2 /* TodoTableView.swift */,
 				D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */,
-				D299331127FC07FB00D79C87 /* TodoCell.swift */,
+				D299331A27FC371100D79C87 /* Table */,
+				D299331927FC370800D79C87 /* Collection */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D299331927FC370800D79C87 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				D299331B27FC372600D79C87 /* CollectionCell.swift */,
+				D299331D27FC3A9400D79C87 /* CollectionView.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		D299331A27FC371100D79C87 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				B3BAE28527FBE3DE005E7ED2 /* TodoTableView.swift */,
+				D299331127FC07FB00D79C87 /* TodoCell.swift */,
+			);
+			path = Table;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,7 +195,9 @@
 				B39BFEB427FADA8700B28376 /* AppDelegate.swift in Sources */,
 				D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */,
 				B3BAE28627FBE3DE005E7ED2 /* TodoTableView.swift in Sources */,
+				D299331C27FC372600D79C87 /* CollectionCell.swift in Sources */,
 				B39BFEB627FADA8700B28376 /* SceneDelegate.swift in Sources */,
+				D299331E27FC3A9400D79C87 /* CollectionView.swift in Sources */,
 				B3BAE28427FBE132005E7ED2 /* ContentViewController.swift in Sources */,
 				D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */,
 				D299331227FC07FB00D79C87 /* TodoCell.swift in Sources */,

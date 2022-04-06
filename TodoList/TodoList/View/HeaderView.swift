@@ -16,12 +16,14 @@ class HeaderView: UIView{
         super.init(frame: frame)
         setHeaderLabel()
         setMenuButton()
+        self.backgroundColor = .systemGray5
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setHeaderLabel()
         setMenuButton()
+        self.backgroundColor = .systemGray
     }
     
     func setHeaderLabel(){
@@ -33,8 +35,8 @@ class HeaderView: UIView{
         self.addSubview(headerLabel)
         
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50).isActive = true
-        headerLabel.centerYAnchor.constraint(equalTo:self.centerYAnchor).isActive = true
+        headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        headerLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
     }
     
     func setMenuButton(){
@@ -49,8 +51,7 @@ class HeaderView: UIView{
         self.addSubview(menuButton)
         
         menuButton.translatesAutoresizingMaskIntoConstraints = false
-        menuButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50).isActive = true
-        menuButton.centerYAnchor.constraint(equalTo:self.centerYAnchor).isActive = true
-        
+        menuButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        menuButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
     }
 }

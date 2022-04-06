@@ -8,55 +8,58 @@
 import UIKit
 
 class ContentViewController: UIViewController {
-    let todoList = [["Github공부하기","add,push,commit"],
-                    ["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit"],
-                    ["Github공부하기","add,push,commit"]]
-    private var todoListTable: TodoTableView!
+    private var collectionView: CollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setTodoTableView()
-        setTableViewDelegate()
-        setCellHeight()
-        todoListTable.register(TodoCell.classForCoder(), forCellReuseIdentifier: "todo")
+        setCollectionViewDelegate()
+        collectionView.register(CollectionCell.classForCoder(), forCellWithReuseIdentifier: "collectionCell")
     }
     
     func setTodoTableView(){
-        todoListTable = TodoTableView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: (view.frame.height)*(5/6)))
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         
-        self.view = todoListTable
+        collectionView = CollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: (view.frame.height)*(5/6)), collectionViewLayout: layout)
+        
+        self.view.addSubview(collectionView)
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
     }
     
-    func setTableViewDelegate(){
-        todoListTable.delegate = self
-        todoListTable.dataSource = self
+    func setCollectionViewDelegate(){
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
 }
 
-
-
-
-extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
-    private func setCellHeight(){
-        todoListTable.rowHeight = UITableView.automaticDimension
-        todoListTable.estimatedRowHeight = 200
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ContentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
     }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "todo") as? TodoCell else { return UITableViewCell() }
-        
-        let data = todoList[indexPath.row]
-        cell.setLabelText(title: data[0], contents: data[1])
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CollectionCell else { return UICollectionViewCell() }
         
         return cell
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // 3등분해서 배치하고 옆 간격인 10을 빼주기
+        let size = CGSize(width: self.view.frame.width / 3 - 25, height: self.view.frame.height)
+        return size
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 30)
+    }
 }
