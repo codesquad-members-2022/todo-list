@@ -23,7 +23,9 @@
     "@babel/plugin-proposal-function-bind": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.4",
-    "html-webpack-plugin": "^5.5.0"
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1"
   },
   "dependencies": {
     "core-js": "^3.21.1",
