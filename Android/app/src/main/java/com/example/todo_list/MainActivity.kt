@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navigationView = findViewById(R.id.navi_view)
         navigationView.setNavigationItemSelectedListener(this)
+
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
