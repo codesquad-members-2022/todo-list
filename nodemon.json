@@ -1,0 +1,4 @@
+{
+  "ignore":["webpack.config.cjs", "src/*", "db.json"],
+  "exec": "babel-node server.js"
+}
