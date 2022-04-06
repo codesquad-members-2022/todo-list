@@ -4,20 +4,21 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Card {
+
     private Long id;
-    private final String userName;
-    private final Integer column;
+    private final String userId;
+    private final Integer columnId;
     private final String subject;
     private final String contents;
     private final LocalDateTime createTime;
     private final LocalDateTime updateTime;
     private final boolean deleted;
 
-    public Card(Long id, String userName, Integer column, String subject, String contents,
+    private Card(Long id, String userId, Integer columnId, String subject, String contents,
                 LocalDateTime createTime, LocalDateTime updateTime, boolean deleted) {
         this.id = id;
-        this.userName = userName;
-        this.column = column;
+        this.userId = userId;
+        this.columnId = columnId;
         this.subject = subject;
         this.contents = contents;
         this.createTime = createTime;
@@ -25,16 +26,25 @@ public class Card {
         this.deleted = deleted;
     }
 
+    public static Card of(String userId, Integer columnId, String subject, String contents) {
+        return new Card(null, userId, columnId, subject, contents, LocalDateTime.now(), LocalDateTime.now(), false);
+    }
+
+    public static Card of(Long id, String userId, Integer columnId, String subject, String contents,
+                          LocalDateTime createTime, LocalDateTime updateTime, boolean deleted) {
+        return new Card(id, userId, columnId, subject, contents, createTime, updateTime, deleted);
+    }
+
     public Long getId() {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserId() {
+        return userId;
     }
 
-    public Integer getColumn() {
-        return column;
+    public Integer getColumnId() {
+        return columnId;
     }
 
     public String getSubject() {
@@ -62,7 +72,7 @@ public class Card {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return getId() == card.getId();
+        return getId().equals(card.getId());
     }
 
     @Override
