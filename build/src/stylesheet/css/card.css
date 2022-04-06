@@ -1,39 +1,45 @@
 .card {
-    box-sizing: border-box;
-    padding: 16px;
-    width: 308px;
-    background-color: var(--white);
-    margin-top: 16px;
+  box-sizing: border-box;
+  padding: 16px;
+  width: 308px;
+  background-color: var(--white);
+  margin-top: 16px;
 }
-.card-text-area > *{
-    width:252px;
-    margin: 8px 0px;
+
+.card-text-area > * {
+  width: 252px;
+  margin: 8px 0px;
 }
-.card-cross-button{
-    margin: 8px 0px;
+
+.card-cross-button {
+  margin: 8px 0px;
 }
 
 .card-details {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
 }
-.card-buttons-wrapper{
-    width:276px; 
-    height: 40px;
-    gap: 8px;
-    display: none;
+
+.card-buttons-wrapper {
+  width: 276px;
+  height: 40px;
+  gap: 8px;
+  display: none;
 }
-.card-buttons-wrapper > *{
-    width:134px;
-    border-radius: 6px;
-    box-sizing: border-box;
-    padding:10px;
+
+.card-buttons-wrapper > * {
+  width: 134px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 10px;
 }
-.cancel-button{
-    background: #e0e0e0;
+
+.cancel-button {
+  background: #e0e0e0;
 }
-.edit-and-register-button{
-    background:#0075DE; 
-    color:var(--white)
+
+.edit-and-register-button {
+  background: #0075de;
+  color: var(--white);
 }
