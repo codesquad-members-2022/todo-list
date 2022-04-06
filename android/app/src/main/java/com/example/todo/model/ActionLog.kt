@@ -18,15 +18,12 @@ data class ActionLog(val title:String, val actionType:ActionType, val time:Local
             ActionType.REMOVE->{
                 "${nowProgressType.value}에서 ${title}을 ${actionType.value}합니다"
             }
-
             ActionType.MOVE->{
                 "${title}을 ${prevProgressType?.value}에서 ${nowProgressType.value}로 ${actionType.value}합니다"
             }
             ActionType.UPDATE->{
                 "${title}을 ${actionType.value}합니다"
             }
-
-
         }
     }
 }
