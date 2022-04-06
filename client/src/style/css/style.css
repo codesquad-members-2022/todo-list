@@ -1,0 +1,219 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  /* font-size: 100%; */
+  /* font: inherit; */
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: black;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 80px;
+}
+
+.header__title {
+  font-size: 32px;
+  margin: 33px 0px;
+}
+
+.sidebar__menu-button {
+  height: max-content;
+  border: none;
+  background-color: transparent;
+  z-index: 2;
+}
+
+aside {
+  float: right;
+}
+
+.sidebar__list {
+  width: 452px;
+  height: 1024px;
+  padding: 80px 80px 80px 40px;
+  background-color: #fff;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.sidebar__item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 332px;
+  height: 137px;
+  background-color: #edf9e7;
+  font-size: 16px;
+}
+.sidebar__item--profile {
+  width: 40px;
+  height: 40px;
+  margin: 16px;
+}
+.sidebar__item section {
+  margin: 16px 16px 16px 0px;
+}
+.sidebar__item--activity {
+  width: 244px;
+  height: auto;
+  white-space: normal;
+}
+.sidebar__item--time-stamp {
+  font-size: 14px;
+  color: #828282;
+}
+.sidebar__item--nickname, .sidebar__item--activity, .sidebar__item--time-stamp {
+  padding: 8px 0px;
+}
+
+body {
+  background-color: #e5e5e5;
+}
+
+/*# sourceMappingURL=style.css.map */

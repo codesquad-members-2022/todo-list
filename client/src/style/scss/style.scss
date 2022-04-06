@@ -1,0 +1,14 @@
+//abstracts
+@import "./abstracts/mixins";
+@import "./abstracts/variables";
+
+//base
+@import "./base/reset";
+
+//layout
+@import "./layout/header/header";
+@import "./layout/sidebar/sidebar";
+
+body {
+  background-color: $color-background-body;
+}
