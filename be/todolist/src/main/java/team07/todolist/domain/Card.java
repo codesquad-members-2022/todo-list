@@ -52,6 +52,10 @@ public class Card {
 		return new ResponseCard(id, userId, title, content, row, status);
 	}
 
+	public boolean isDifferentStatus(Integer status) {
+		return !this.status.equals(status);
+	}
+
 	@Override
 	public String toString() {
 		return "Card{" +

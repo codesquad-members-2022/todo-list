@@ -2,7 +2,6 @@ package team07.todolist.repository;
 
 import java.util.List;
 import team07.todolist.domain.Card;
-import team07.todolist.dto.RequestCard;
 
 public interface CardRepository {
 
@@ -12,7 +11,7 @@ public interface CardRepository {
 
 	Card delete(Long id);
 
-	Card updateStatus(Long id);
+	Card updateStatusAndRow(Long id, Integer status);
 
 	Card updateRow(Long id);
 

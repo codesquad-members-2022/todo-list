@@ -1,7 +1,6 @@
 package team07.todolist.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import team07.todolist.domain.Card;
+import team07.todolist.dto.PatchCard;
 import team07.todolist.dto.RequestCard;
 import team07.todolist.dto.ResponseCard;
 import team07.todolist.service.CardService;
@@ -45,21 +45,17 @@ public class CardController {
 	}
 
 	@PostMapping("/{id}")
-	public RequestCard update(@RequestParam Long id, @RequestBody RequestCard requestCard) {
+	public String dragAndDrop(@RequestParam Long id, @RequestBody RequestCard requestCard) {
 
-		Card card = cardService.changeRow(id, requestCard);
-
-//		return new ResponseCard();
-		return null;
+		cardService.dragAndDrop(id, requestCard);
+		return "redirect:/list";
 	}
 
 	@PatchMapping("/{id}")
-	public RequestCard modifyCard(@RequestParam Long id, @RequestBody RequestCard requestCard) {
+	public String modifyCard(@RequestParam Long id, @RequestBody PatchCard patchCard) {
 
-		Card card = cardService.changeRow(id, requestCard);
-
-//		return new ResponseCard();
-		return null;
+		cardService.changeText(id, patchCard);
+		return "redirect:/list";
 	}
 
 	@DeleteMapping("/{id}")

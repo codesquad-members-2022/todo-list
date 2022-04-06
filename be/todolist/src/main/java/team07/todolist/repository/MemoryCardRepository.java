@@ -75,17 +75,27 @@ public class MemoryCardRepository implements CardRepository {
 	}
 
 	@Override
-	public Card updateStatus(Long id) {
+	public Card updateStatusAndRow(Long id, Integer status) {
+		//todo
+		// status가 다름
+		// 이전에 있던 status에서 id의 카드보다 row값이 큰 카드들의 row값들을 -1 해주고
+		// 바뀐 status에서 id의 카드보다 row값이 큰 카드들의 row값을 +1 해준다.
+
 		return null;
 	}
 
 	@Override
 	public Card updateRow(Long id) {
+		//todo
+		// status는 동일하고 row만 변함
+		// 변한 row를 기반으로 row값이 사이에 들어 있는 Card들은 row값을 -1 해준다.
+
 		return null;
 	}
 
 	@Override
 	public Card updateText(Long id) {
+
 		return null;
 	}
 
