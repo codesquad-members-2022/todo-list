@@ -23,4 +23,34 @@ export const sidebarData = [
     title: "HTML/CSS공부하기",
     writeTime: "Wed Apr 06 2022 12:16:00 GMT+0900",
   },
+  {
+    action: "이동",
+    category: ["해야할 일", "하고 있는 일"],
+    title: "HTML/CSS공부하기",
+    writeTime: "Wed Apr 06 2022 12:16:00 GMT+0900",
+  },
+  {
+    action: "이동",
+    category: ["해야할 일", "하고 있는 일"],
+    title: "HTML/CSS공부하기",
+    writeTime: "Wed Apr 06 2022 12:16:00 GMT+0900",
+  },
+  {
+    action: "이동",
+    category: ["해야할 일", "하고 있는 일"],
+    title: "HTML/CSS공부하기",
+    writeTime: "Wed Apr 06 2022 12:16:00 GMT+0900",
+  },
+  {
+    action: "이동",
+    category: ["해야할 일", "하고 있는 일"],
+    title: "HTML/CSS공부하기",
+    writeTime: "Wed Apr 06 2022 12:16:00 GMT+0900",
+  },
+  {
+    action: "이동",
+    category: ["해야할 일", "하고 있는 일"],
+    title: "HTML/CSS공부하기",
+    writeTime: "Wed Apr 06 2022 12:16:00 GMT+0900",
+  },
 ];

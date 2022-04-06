@@ -1,4 +1,4 @@
-import { $ } from "../utils/utils.js";
+import { $, debounce } from "../utils/utils.js";
 import { toggleActivation } from "../store/model.js";
 
 const createHTML = () => {
@@ -18,7 +18,10 @@ const handleSideBarMenuBtn = () => {
 
 const setEvents = () => {
   const sidebarMenuBtn = $(".sidebar__menu-button");
-  sidebarMenuBtn.addEventListener("click", handleSideBarMenuBtn);
+  sidebarMenuBtn.addEventListener(
+    "click",
+    debounce(() => handleSideBarMenuBtn(), 250)
+  );
 };
 
 export const headInit = (parent) => {

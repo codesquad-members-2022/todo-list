@@ -185,18 +185,25 @@ aside {
   position: absolute;
   right: 0;
   top: 0;
+  opacity: 0;
+  pointer-events: none;
   transform: translateX(452px);
-  transition: 0.4s ease-out;
+  transition: 0.2s ease-out;
 }
 
 .show {
+  opacity: 1;
+  pointer-events: auto;
   transform: translateX(0px);
-  transition: 0.4s ease-out;
+  transition: 0.2s ease-out;
 }
 
+.sidebar__scroll {
+  overflow-y: scroll;
+}
 .sidebar__list {
   width: 452px;
-  height: 1024px;
+  height: 100vh;
   padding: 80px 80px 80px 40px;
   background-color: #fff;
   display: flex;
@@ -290,7 +297,7 @@ aside {
   width: 26px;
   height: 26px;
   padding: 0px;
-  background: #BDBDBD;
+  background: #bdbdbd;
   border-radius: 20px;
   text-align: center;
   line-height: 20px;
@@ -355,12 +362,13 @@ aside {
   font-size: 12px;
   font-weight: 400;
   font-style: normal;
-  color: #BDBDBD;
+  color: #bdbdbd;
   line-height: 17px;
 }
 
 body {
   background-color: #e5e5e5;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=style.css.map */

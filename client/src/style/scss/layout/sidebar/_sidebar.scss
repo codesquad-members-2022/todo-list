@@ -3,19 +3,27 @@ aside {
   position: absolute;
   right: 0;
   top: 0;
+  opacity: 0;
+  pointer-events: none;
   @include transform-translateX(452px);
   transition: $transition-sidebar;
 }
 
 .show {
+  opacity: 1;
+  pointer-events: auto;
   @include transform-translateX(0px);
   transition: $transition-sidebar;
 }
 
 .sidebar {
+  &__scroll {
+    overflow-y: scroll;
+  }
+
   &__list {
     width: 452px;
-    height: 1024px;
+    height: 100vh;
     padding: 80px 80px 80px 40px;
     background-color: $color-white;
     @include flex(flex-end);
