@@ -1,5 +1,6 @@
 
 export class Store {
+<<<<<<< HEAD
     private _state;
     protected state;
     constructor(state) {
@@ -15,3 +16,13 @@ export class Store {
         }
     }
 }
+=======
+  private _state;
+  protected state;
+  constructor(state) {
+    this._state = state;
+  }
+  observer(state) {
+  }
+}
+>>>>>>> f6aa78c (FEAT: mockdata 렌더링)

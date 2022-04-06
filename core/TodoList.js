@@ -1,4 +1,5 @@
 import Component from "./Component";
+import { TodoCard } from "./TodoCard";
 
 export class TodoList extends Component {
   template() {
@@ -7,7 +8,6 @@ export class TodoList extends Component {
       idx,
     } = this.$props;
     console.log(todos);
-
     return `
 <div class="todo-title">
             <span class="todo-name">${title}
@@ -39,6 +39,7 @@ export class TodoList extends Component {
       )
       .join("")}`;
   }
+
   mount() {
     const {
       list: { todos },

@@ -4,7 +4,7 @@ export class Header extends Component {
   template() {
     const { isOpened } = this.state;
 
-    return `   
+    return `
         <h2 class="todo-header-title">TO-DO List</h2>
         <span class="menu-sidebar-icon"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -15,9 +15,8 @@ export class Header extends Component {
             }>
             </span>
         </span>
+   
 
-    </header>
-        </span>   
     `;
   }
 }

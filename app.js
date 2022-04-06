@@ -18,12 +18,11 @@ class App extends Component {
 
   template() {
     const { lists } = this.state;
-    return `
-        <header class="todo-header">
+    return `<header class="todo-header" >
           </header>
-          <main>        
-          </main>
-        `;
+          ${lists
+            .map((list, idx) => `<section data-idx=${idx}></section>`)
+            .join("")}`;
   }
   mount() {
     const { lists } = this.state;

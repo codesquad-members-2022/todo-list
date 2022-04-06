@@ -1,5 +1,6 @@
 export default class Component {
   state;
+  #el;
   $props;
   #target;
   constructor(target, props = {}) {
@@ -12,11 +13,10 @@ export default class Component {
 
   setState(newState) {
     this.state = { ...this.state, ...newState };
-    this.render();
   }
-
+  setup() {}
   render() {
-    this.#el.innerHTML = this.template();
+    this.#target.innerHTML = this.template();
     this.mount();
   }
   mount() {}
@@ -27,10 +27,10 @@ export default class Component {
   setEvent() {}
 
   select(selector) {
-    return this.#el.querySelector(selector);
+    return this.#target.querySelector(selector);
   }
 
   selectAll(selector) {
-    return this.#el.querySelectorAll(selector);
+    return this.#target.querySelectorAll(selector);
   }
 }
