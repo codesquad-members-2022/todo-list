@@ -1,9 +1,11 @@
 package com.example.todo.ui.toDo
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -13,8 +15,11 @@ import com.example.todo.R
 import com.example.todo.common.ActionDiffCallback
 import com.example.todo.common.ProgressType
 import com.example.todo.common.TodoDiffCallback
+import com.example.todo.model.ActionLog
+import com.example.todo.model.ActionType
 import com.example.todo.model.TodoItem
 import com.example.todo.ui.action.ActionAdapter
+import java.time.LocalDateTime
 
 class ToDoActivity : AppCompatActivity() {
     private lateinit var todoRecyclerView: RecyclerView
@@ -29,6 +34,7 @@ class ToDoActivity : AppCompatActivity() {
 
     lateinit var drawerLayout: DrawerLayout
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo)
@@ -47,24 +53,31 @@ class ToDoActivity : AppCompatActivity() {
         addDummyDataInRecyclerView()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun addDummyDataInRecyclerView() {
         val todoList = mutableListOf<TodoItem>()
         val inProgressList = mutableListOf<TodoItem>()
         val doneList = mutableListOf<TodoItem>()
+        val actionList = mutableListOf<ActionLog>()
 
         val todo1 = TodoItem("one", "title", "content", ProgressType.TO_DO)
         val todo2 = TodoItem("two", "title2", "content2\ncontentcontent", ProgressType.TO_DO)
         val todo3 = TodoItem(
             "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
         )
+        val action1 = ActionLog("one", ActionType.ADD, LocalDateTime.now(), ProgressType.TO_DO)
+        val action2 = ActionLog("one", ActionType.ADD, LocalDateTime.now(), ProgressType.TO_DO)
+        val action3 = ActionLog("one", ActionType.ADD, LocalDateTime.now(), ProgressType.TO_DO)
 
         todoList.addAll(mutableListOf(todo1, todo2, todo3))
         inProgressList.addAll(mutableListOf(todo2, todo3, todo1))
         doneList.addAll(mutableListOf(todo1, todo3, todo1))
+        actionList.addAll(mutableListOf(action1, action2, action3))
 
         todoAdapter.submitList(todoList)
         inProgressAdapter.submitList(inProgressList)
         doneAdapter.submitList(doneList)
+        actionAdapter.submitList(actionList)
     }
 
     private fun initializeTodoRecyclerViews() {
