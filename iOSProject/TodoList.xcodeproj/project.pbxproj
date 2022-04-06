@@ -24,7 +24,7 @@
 		E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0527FBD4BE00F00575 /* TodoRepository.swift */; };
 		E0A6BB0927FBD5FE00F00575 /* TodoRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0827FBD5FE00F00575 /* TodoRepositoryImpl.swift */; };
 		E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0A27FBD63F00F00575 /* TodoTarget.swift */; };
-		E0A6BB0F27FC0DF200F00575 /* CardEditPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0E27FC0DF200F00575 /* CardEditPopupController.swift */; };
+		E0A6BB0F27FC0DF200F00575 /* CardPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0E27FC0DF200F00575 /* CardPopupController.swift */; };
 		E0A6BB1327FC309400F00575 /* UITextFieldView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1227FC309400F00575 /* UITextFieldView+Extension.swift */; };
 		E0A6BB1727FC37B900F00575 /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1627FC37B900F00575 /* PlaceholderTextView.swift */; };
 		E0A6BB1927FC3DA700F00575 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1827FC3DA700F00575 /* UITextView+Extension.swift */; };
@@ -32,6 +32,7 @@
 		E0A6BB1E27FD211C00F00575 /* URLSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1D27FD211C00F00575 /* URLSessionProvider.swift */; };
 		E0A6BB2027FD213700F00575 /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1F27FD213700F00575 /* URLSessionProtocol.swift */; };
 		E0A6BB2227FD214E00F00575 /* SessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2127FD214E00F00575 /* SessionError.swift */; };
+		E0A6BB2527FD9E6400F00575 /* CardPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */; };
 		E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */; };
 		E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */; };
 		E0BE4C2627FAAF6E0076403C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2527FAAF6E0076403C /* ViewController.swift */; };
@@ -58,7 +59,7 @@
 		E0A6BB0527FBD4BE00F00575 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
 		E0A6BB0827FBD5FE00F00575 /* TodoRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepositoryImpl.swift; sourceTree = "<group>"; };
 		E0A6BB0A27FBD63F00F00575 /* TodoTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTarget.swift; sourceTree = "<group>"; };
-		E0A6BB0E27FC0DF200F00575 /* CardEditPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEditPopupController.swift; sourceTree = "<group>"; };
+		E0A6BB0E27FC0DF200F00575 /* CardPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPopupController.swift; sourceTree = "<group>"; };
 		E0A6BB1227FC309400F00575 /* UITextFieldView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFieldView+Extension.swift"; sourceTree = "<group>"; };
 		E0A6BB1627FC37B900F00575 /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
 		E0A6BB1827FC3DA700F00575 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 		E0A6BB1D27FD211C00F00575 /* URLSessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProvider.swift; sourceTree = "<group>"; };
 		E0A6BB1F27FD213700F00575 /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 		E0A6BB2127FD214E00F00575 /* SessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionError.swift; sourceTree = "<group>"; };
+		E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPopupViewModel.swift; sourceTree = "<group>"; };
 		E0BE4C1E27FAAF6E0076403C /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +144,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		E0A6BB2327FD9E0700F00575 /* CardPopup */ = {
+			isa = PBXGroup;
+			children = (
+				E0A6BB0E27FC0DF200F00575 /* CardPopupController.swift */,
+				E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */,
+			);
+			path = CardPopup;
+			sourceTree = "<group>";
+		};
 		E0BE4C1527FAAF6E0076403C = {
 			isa = PBXGroup;
 			children = (
@@ -215,7 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				E0A6BAF627FB3C0B00F00575 /* PaddingLabel.swift */,
-				E0A6BB0E27FC0DF200F00575 /* CardEditPopupController.swift */,
 				E0A6BB1627FC37B900F00575 /* PlaceholderTextView.swift */,
 			);
 			path = Common;
@@ -237,6 +247,7 @@
 		E0BE4C3B27FAAFFB0076403C /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				E0A6BB2327FD9E0700F00575 /* CardPopup */,
 				E0A6BB1C27FD210A00F00575 /* Base */,
 				E0A6BB0727FBD5E900F00575 /* Todo */,
 				E0A6BB0127FBD49700F00575 /* NetworkRepository.swift */,
@@ -335,7 +346,7 @@
 			files = (
 				E0A6BB2027FD213700F00575 /* URLSessionProtocol.swift in Sources */,
 				E0A6BB2227FD214E00F00575 /* SessionError.swift in Sources */,
-				E0A6BB0F27FC0DF200F00575 /* CardEditPopupController.swift in Sources */,
+				E0A6BB0F27FC0DF200F00575 /* CardPopupController.swift in Sources */,
 				E0A6BB0227FBD49700F00575 /* NetworkRepository.swift in Sources */,
 				E0A6BB1327FC309400F00575 /* UITextFieldView+Extension.swift in Sources */,
 				E0A6BB1727FC37B900F00575 /* PlaceholderTextView.swift in Sources */,
@@ -348,6 +359,7 @@
 				E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */,
 				E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */,
 				E0A6BB1E27FD211C00F00575 /* URLSessionProvider.swift in Sources */,
+				E0A6BB2527FD9E6400F00575 /* CardPopupViewModel.swift in Sources */,
 				E0A6BB1B27FC85D400F00575 /* MockURLSession.swift in Sources */,
 				E0A6BAEE27FB255300F00575 /* UIConrtol+Extension.swift in Sources */,
 				E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */,

@@ -61,6 +61,7 @@ class ColumnViewCell: UITableViewCell {
     
     private func attribute() {
         self.backgroundColor = .clear
+        self.selectionStyle = .none
     }
     
     private func layout() {

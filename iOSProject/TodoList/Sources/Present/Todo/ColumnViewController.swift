@@ -78,6 +78,7 @@ class ColumnViewController: UIViewController, CardsColumnView {
         bind()
         attribute()
         layout()
+        gesture()
         
         model.action.loadColumn.send(self.status)
     }
@@ -87,16 +88,9 @@ class ColumnViewController: UIViewController, CardsColumnView {
         cardTable.dataSource = self
         
         add.publisher(for: .touchUpInside)
-            .sink {
-                let popup = CardEditPopupController()
-                popup.modalPresentationStyle = .overCurrentContext
-                self.present(popup, animated: false)
-                
-                popup.confimPublisher
-                    .sink(receiveValue: self.model.action.newCard.send(_:))
-                    .store(in: &self.cancellables)
-            }
-            .store(in: &cancellables)
+            .sink{
+                self.showCardPopup(card: nil)
+            }.store(in: &cancellables)
         
         self.model.state.loadedColumn
             .sink { cards in
@@ -131,6 +125,19 @@ class ColumnViewController: UIViewController, CardsColumnView {
         cardTable.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         cardTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10).isActive = true
     }
+    
+    private func gesture() {
+    }
+    
+    private func showCardPopup(card: Card? = nil) {
+        let popup = CardPopupController(card: card)
+        popup.modalPresentationStyle = .overCurrentContext
+        self.present(popup, animated: false)
+        
+        popup.confimPublisher
+            .sink(receiveValue: self.model.action.newCard.send(_:))
+            .store(in: &self.cancellables)
+    }
 }
 
 extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
@@ -145,6 +152,25 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.setCard(card)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let moveDone = UIAction(title: "완료한 일로 이동") { _ in
+                self.model.action.moveCard.send(indexPath.item)
+            }
+            
+            let edit = UIAction(title: "수정하기") { _ in
+                self.showCardPopup(card: self.model[indexPath.item])
+            }
+            
+            let delete = UIAction(title: "삭제하기", attributes: .destructive) { _ in
+                self.model.action.deleteCard.send(indexPath.item)
+            }
+            
+            return UIMenu(title: "", children: [moveDone, edit, delete])
+        }
     }
 }
 

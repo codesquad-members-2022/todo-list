@@ -22,6 +22,8 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     struct Action {
         let loadColumn = PassthroughSubject<Card.Status, Never>()
         let newCard = PassthroughSubject<(String, String), Never>()
+        let moveCard = PassthroughSubject<Int, Never>()
+        let deleteCard = PassthroughSubject<Int, Never>()
     }
     
     struct State {
@@ -58,6 +60,16 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
         action.newCard
             .sink { _ in
                 print("asdfasdf")
+            }.store(in: &cancellables)
+        
+        action.moveCard
+            .sink {
+                print("moveCard: \($0)")
+            }.store(in: &cancellables)
+        
+        action.deleteCard
+            .sink {
+                print("deleteCard: \($0)")
             }.store(in: &cancellables)
     }
 }
