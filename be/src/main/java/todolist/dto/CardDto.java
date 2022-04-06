@@ -14,11 +14,6 @@ public class CardDto {
     private String content;
 
     public CardDto(String section, String title, String content) {
-        this(-1L, section, title, content);
-    }
-
-    public CardDto(Long id, String section, String title, String content) {
-        this.id = id;
         this.section = section;
         this.title = title;
         this.content = content;
@@ -26,5 +21,15 @@ public class CardDto {
 
     public Card toCard() {
         return new Card(section, title, content);
+    }
+
+    @Override
+    public String toString() {
+        return "CardDto{" +
+                "id=" + id +
+                ", section='" + section + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

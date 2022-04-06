@@ -20,7 +20,18 @@ public class Card {
     }
 
     public CardDto toCardDto() {
-        return new CardDto(section, title, content);
+        CardDto cardDto = new CardDto(section, title, content);
+        cardDto.setId(id);
+        return cardDto;
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", section='" + section + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
