@@ -20,6 +20,8 @@ class CardHTTPRequest: SessionConfiguration {
     /// - completionHandler: 요청 후 Data객체를 (혹은 nil인) 호출하는 클로저입니다.
     func doGetRequest(url: URL, parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
 
+        httpMethod = .GET
+        
         guard let urlComp = getURLComponents(parameter) else {
             completionHandler(nil)
             return
@@ -46,6 +48,8 @@ class CardHTTPRequest: SessionConfiguration {
     /// - parameter: Request 뒤에 파라미터로 보낼 딕셔너리 입니다. (예: https://getRequest.com?objectKey=myKey 의 objectKey:myKey)
     /// - completionHandler: 요청 후 Data객체를 (혹은 nil인) 호출하는 클로저입니다.
     func doGetRequest(parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
+        
+        httpMethod = .GET
         
         guard let urlComp = getURLComponents(from: urlString, parameter) else {
             completionHandler(nil)
@@ -100,6 +104,9 @@ class CardHTTPRequest: SessionConfiguration {
     /// - parameter: Request body에 보낼 이진 데이터(Data 구조체)입니다.
     /// - completionHandler: 요청 후 Data객체를 (혹은 nil인) 호출하는 클로저입니다.
     func doPostRequest(url: URL, _ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
+        
+        httpMethod = .POST
+        
         getRequestHandler(url: url) { request in
             self.session.uploadTask(with: request, from: paramData) { data, response, error in
                 guard let data = data else {
@@ -117,6 +124,9 @@ class CardHTTPRequest: SessionConfiguration {
     /// - parameter: Request body에 보낼 이진 데이터(Data 구조체)입니다.
     /// - completionHandler: 요청 후 Data객체를 (혹은 nil인) 호출하는 클로저입니다.
     func doPostRequest(_ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
+        
+        httpMethod = .POST
+        
         getCurrentRequestHandler { request in
             self.session.uploadTask(with: request, from: paramData) { data, response, error in
                 guard let data = data else {
