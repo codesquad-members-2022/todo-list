@@ -70,7 +70,11 @@ class CustomTableViewCell: UITableViewCell {
         stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
     }
-    
+}
+
+// MARK: - functions
+
+extension CustomTableViewCell {
     func changeTitleLabel(text: String) {
         titleLabel.text = text
     }

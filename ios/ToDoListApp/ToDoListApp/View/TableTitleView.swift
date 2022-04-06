@@ -75,7 +75,11 @@ class TableTitleView: UIView {
         addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         addButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
-    
+}
+
+// MARK: - functions
+
+extension TableTitleView {
     func currentNumberOfItem(item: Int){
         badgeLabel.text = "\(item)"
     }
