@@ -34,7 +34,7 @@
 		B5EC66ED27FC0D3F0042EFCF /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
 		B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCanvasView.swift; sourceTree = "<group>"; };
 		B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewTableViewCell.swift; sourceTree = "<group>"; };
-		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Views/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
+		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
 		D0B5676427FC267B002AE51E /* HistoryStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,9 +68,9 @@
 		B5EC66D127FADD9C0042EFCF /* TODOList */ = {
 			isa = PBXGroup;
 			children = (
-				B5EC66EA27FC0BBB0042EFCF /* Controllers */,
+				D0B4198E27FD636500DBAFDB /* Models */,
 				B5EC66E927FC0BB70042EFCF /* Views */,
-				B5EC66E827FC0BAB0042EFCF /* Models */,
+				B5EC66EA27FC0BBB0042EFCF /* Controllers */,
 				B5EC66E627FC0B380042EFCF /* Application */,
 				B5EC66D827FADD9C0042EFCF /* Main.storyboard */,
 				B5EC66DD27FADD9E0042EFCF /* LaunchScreen.storyboard */,
@@ -87,14 +87,6 @@
 				B5EC66DB27FADD9E0042EFCF /* Assets.xcassets */,
 			);
 			path = Application;
-			sourceTree = "<group>";
-		};
-		B5EC66E827FC0BAB0042EFCF /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		B5EC66E927FC0BB70042EFCF /* Views */ = {
@@ -115,6 +107,14 @@
 				B5EC66D627FADD9C0042EFCF /* ViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D0B4198E27FD636500DBAFDB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
