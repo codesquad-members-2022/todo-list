@@ -1,0 +1,35 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "|Geon|Owl| |-|-| |[@ldldz](https://github.com/ldldz)|[@bukim0329](https://github.com/bukim0329)|",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ldldz/todo-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ldldz/todo-list/issues"
+  },
+  "homepage": "https://github.com/ldldz/todo-list#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "7.17",
+    "@babel/plugin-proposal-function-bind": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.4",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1"
+  },
+  "dependencies": {
+    "core-js": "^3.21.1",
+    "webpack": "5.7",
+    "webpack-cli": "^4.9.2"
+  }
+}
