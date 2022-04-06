@@ -18,8 +18,7 @@ public class CardRepository {
     }
 
     public List<Card> findAllCards() {
-        String sql = "SELECT * from card";
-
+        String sql = "SELECT * FROM card WHERE remove = 0";
         return jdbcTemplate.query(sql, cardRowMapper());
     }
 
@@ -33,7 +32,6 @@ public class CardRepository {
                     resultSet.getInt("internalOrder"),
                     resultSet.getString("boardName")
                     );
-
             return card;
         };
     }

@@ -4,15 +4,16 @@ import java.time.LocalDateTime;
 
 public class Card {
 
-    private final Integer cardId;
-    private final String cardTitle;
-    private final String cardContent;
-    private final LocalDateTime addDateTime;
-    private final Integer internalOrder;
-    private final String boardName;
+    private Integer cardId;
+    private String cardTitle;
+    private String cardContent;
+    private LocalDateTime addDateTime;
+    private Integer internalOrder;
+    private String boardName;
+    private boolean remove;
 
     public Card(Integer cardId, String cardTitle, String cardContent,
-                LocalDateTime addDateTime, Integer internalOrder, String boardName) {
+        LocalDateTime addDateTime, Integer internalOrder, String boardName) {
         this.cardId = cardId;
         this.cardTitle = cardTitle;
         this.cardContent = cardContent;
