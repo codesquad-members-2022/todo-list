@@ -10,21 +10,21 @@ import UIKit
 import Combine
 
 extension UITextView {
-    func changePublisher() -> AnyPublisher<String, Never> {
+    func changePublisher() -> AnyPublisher<UITextView, Never> {
         NotificationCenter.default.publisher(for: UITextView.textDidChangeNotification, object: self )
-            .map { _ in self.text}
+            .map { _ in self}
             .eraseToAnyPublisher()
     }
     
-    func beginEditingPublisher() -> AnyPublisher<Void, Never> {
+    func beginEditingPublisher() -> AnyPublisher<UITextView, Never> {
         NotificationCenter.default.publisher(for: UITextView.textDidBeginEditingNotification, object: self )
-            .map { _ in }
+            .map { _ in self}
             .eraseToAnyPublisher()
     }
     
-    func endEditingPublisher() -> AnyPublisher<Void, Never> {
+    func endEditingPublisher() -> AnyPublisher<UITextView, Never> {
         NotificationCenter.default.publisher(for: UITextView.textDidBeginEditingNotification, object: self )
-            .map { _ in }
+            .map { _ in self}
             .eraseToAnyPublisher()
     }
 }

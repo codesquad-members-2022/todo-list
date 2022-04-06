@@ -10,9 +10,9 @@ import Combine
 import UIKit
 
 extension UITextField {
-    func changedPublisher() -> AnyPublisher<String, Never> {
-        EventPublisher<String>(control: self, event: .editingChanged, receiveClosure: {
-            return self.text ?? ""
+    func changedPublisher() -> AnyPublisher<UITextField, Never> {
+        EventPublisher<UITextField>(control: self, event: .editingChanged, receiveClosure: {
+            return self
         }).eraseToAnyPublisher()
     }
     

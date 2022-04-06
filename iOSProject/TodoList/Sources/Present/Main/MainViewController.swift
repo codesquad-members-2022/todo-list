@@ -18,7 +18,11 @@ class MainViewController: UIViewController {
     }()
     
     let columnTableViews: [CardsColumnView] = {
-        return [ColumnViewController(), ColumnViewController(), ColumnViewController()]
+        return [
+            ColumnViewController(status: .todo),
+            ColumnViewController(status: .progress),
+            ColumnViewController(status: .done)
+        ]
     }()
     
     let columnStackView: UIStackView = {

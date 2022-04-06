@@ -20,3 +20,22 @@ struct Card: Codable {
         case orderIndex = "order_index"
     }
 }
+
+extension Card {
+    enum Status: String, Decodable {
+        case todo = "to_do"
+        case progress = "in_progress"
+        case done = "done"
+        
+        var titleName: String {
+            switch self {
+            case .todo:
+                return "해야할 일"
+            case .progress:
+                return "하고 있는 일"
+            case .done:
+                return "완료한 일"
+            }
+        }
+    }
+}

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
-    func loadColumn() -> AnyPublisher<Result<Column, SessionError>, Never> {
+    func loadColumn() -> AnyPublisher<Result<[Card], SessionError>, Never> {
         self.request(.loadColumn, isSucccess: true)
     }
 }

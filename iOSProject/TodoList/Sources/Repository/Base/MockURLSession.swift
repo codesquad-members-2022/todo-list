@@ -47,7 +47,6 @@ class MockURLSession: URLSessionProtocol {
 }
 
 class MockData {
-    
     func getData(url: URL?) -> Data {
         guard let url = url else {
             return Data()
@@ -62,15 +61,15 @@ class MockData {
     }
     
     private func columnData() -> Data {
-        let cards = (0..<10).map{ index -> Card in
+        let cards = (0..<Int.random(in: 2..<20)).map{ index -> Card in
             let title = "테스트타이틀"
-            let body = (0..<Int.random(in: 2..<10)).map { _ in "테스트메세지_____테스트메세지_____"}.joined()
+            let body = (0..<Int.random(in: 2..<5)).map { _ in "테스트메세지_____테스트메세지_____"}.joined()
             let caption = "author by iOS"
 
             return Card(title: title, body: body, caption: caption, orderIndex: index)
         }
         
-        let column = Column(title: "타이틀입니다~!", cards: cards)
+        let column = cards
 
         guard let body = try? JSONEncoder().encode(column) else {
             return Data()

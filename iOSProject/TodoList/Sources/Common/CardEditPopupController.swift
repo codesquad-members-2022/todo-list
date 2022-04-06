@@ -18,6 +18,8 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
         static let titlePlaceHolder = "제목을 입력하세요"
         static let bodyPlaceHolder = "내용을 입력하세요"
         static let placeHolderColor = UIColor.gray3
+        static let maxBodyHeight = 300.0
+        static let maxBodyLength = 100
     }
     
     private let popupBackground: UIView = {
@@ -60,6 +62,16 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
         textView.placeholder = Constants.bodyPlaceHolder
         textView.isScrollEnabled = false
         return textView
+    }()
+    
+    private let maxBodyLength: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "(0/\(Constants.maxBodyLength))"
+        label.font = .systemFont(ofSize: 14)
+        label.textAlignment = .right
+        label.textColor = .gray3
+        return label
     }()
     
     private let cancel: UIButton = {
@@ -105,6 +117,19 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
     }
     
     private func bind() {
+        self.bodyTextView.delegate = self
+        self.bodyTextView.changePublisher()
+            .sink { textView in
+                let size = CGSize(width: textView.frame.width, height: .infinity)
+                let estimatedSize = textView.sizeThatFits(size)
+                textView.constraints.forEach { constraint in
+                    if constraint.firstAttribute == .height {
+                        constraint.constant = estimatedSize.height > Constants.maxBodyHeight ? Constants.maxBodyHeight : estimatedSize.height
+                        textView.isScrollEnabled = estimatedSize.height > Constants.maxBodyHeight
+                    }
+                }
+            }.store(in: &cancellables)
+        
         Publishers
             .Merge(
                 self.titleTextField.changedPublisher().map { _ in },
@@ -162,10 +187,17 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
             bodyTextView.trailingAnchor.constraint(equalTo: popupBackground.trailingAnchor, constant: -16),
             bodyTextView.heightAnchor.constraint(equalToConstant: 40)
         ].forEach{ $0.isActive = true}
-
+        
+        popupBackground.addSubview(maxBodyLength)
+        [
+            maxBodyLength.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 8),
+            maxBodyLength.leadingAnchor.constraint(equalTo: popupBackground.leadingAnchor, constant: 16),
+            maxBodyLength.trailingAnchor.constraint(equalTo: popupBackground.trailingAnchor, constant: -16),
+        ].forEach{ $0.isActive = true}
+        
         popupBackground.addSubview(confim)
         [
-            confim.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 16),
+            confim.topAnchor.constraint(equalTo: maxBodyLength.bottomAnchor, constant: 16),
             confim.rightAnchor.constraint(equalTo: popupBackground.rightAnchor, constant: -16),
             confim.widthAnchor.constraint(equalToConstant: 108),
             confim.heightAnchor.constraint(equalToConstant: 40)
@@ -180,5 +212,16 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
         ].forEach{ $0.isActive = true}
           
         popupBackground.bottomAnchor.constraint(equalTo: confim.bottomAnchor, constant: 16).isActive = true
+    }
+}
+
+extension CardEditPopupController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = textView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
+        maxBodyLength.text = "(\(changedText.count)/\(Constants.maxBodyLength))  "
+        return changedText.count < Constants.maxBodyLength
     }
 }

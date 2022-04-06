@@ -60,14 +60,26 @@ class ColumnViewController: UIViewController, CardsColumnView {
     }
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: ColumnViewModelBinding & ColumnViewModelProperty  = ColumnViewModel()
+    private let model: ColumnViewModelBinding & ColumnViewModelProperty = ColumnViewModel()
+    private let status: Card.Status
+    
+    init(status: Card.Status) {
+        self.status = status
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.status = .todo
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
+        attribute()
         layout()
         
-        model.action.loadColumn.send()
+        model.action.loadColumn.send(self.status)
     }
     
     private func bind() {
@@ -87,11 +99,14 @@ class ColumnViewController: UIViewController, CardsColumnView {
             .store(in: &cancellables)
         
         self.model.state.loadedColumn
-            .sink { column in
+            .sink { cards in
                 self.cardTable.reloadData()
-                self.count.text = String(column?.cards.count ?? 0 )
-                self.titleLabel.text = column?.title
+                self.count.text = String(cards?.count ?? 0 )
             }.store(in: &cancellables)
+    }
+    
+    private func attribute() {
+        self.titleLabel.text = status.titleName
     }
     
     private func layout() {

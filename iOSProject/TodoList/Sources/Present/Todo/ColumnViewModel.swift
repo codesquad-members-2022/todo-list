@@ -20,12 +20,12 @@ protocol ColumnViewModelProperty {
 
 class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     struct Action {
-        let loadColumn = PassthroughSubject<Void, Never>()
+        let loadColumn = PassthroughSubject<Card.Status, Never>()
         let newCard = PassthroughSubject<(String, String), Never>()
     }
     
     struct State {
-        let loadedColumn = CurrentValueSubject<Column?, Never>(nil)
+        let loadedColumn = CurrentValueSubject<[Card]?, Never>(nil)
     }
     
     private var cancellables = Set<AnyCancellable>()
@@ -35,16 +35,16 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
     
     var cardCount: Int {
-        state.loadedColumn.value?.cards.count ?? 0
+        state.loadedColumn.value?.count ?? 0
     }
     
     subscript(index: Int) -> Card? {
-        state.loadedColumn.value?.cards[index]
+        state.loadedColumn.value?[index]
     }
     
     init() {
         action.loadColumn
-            .map { self.todoRepository.loadColumn() }
+            .map { _ in self.todoRepository.loadColumn() }
             .switchToLatest()
             .sink {
                 switch $0 {
