@@ -12,20 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
-
-    <style name="AppTitle" parent="TextAppearance.MaterialComponents.Headline5"/>
-
-    <style name="Todo.RecyclerViewTitle" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="Todo.CardTitle" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="Todo.CardContent" parent="TextAppearance.MaterialComponents.Body2"/>
-
-    <style name="Todo.History" parent="TextAppearance.MaterialComponents.Body2" />
 
 </resources>

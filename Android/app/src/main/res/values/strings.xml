@@ -2,4 +2,5 @@
     <string name="app_name">Todo-list</string>
     <string name="history_move_string"><b>%s</b>에서 <b>%s</b>로 <b>%s</b>하였습니다.</string>
     <string name="history_add_string"><b>%s를</b> <b>%s</b>하였습니다.</string>
+    <string name="app_bar_title">TO-DO LIST</string>
 </resources>
