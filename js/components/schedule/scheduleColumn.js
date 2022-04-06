@@ -3,7 +3,7 @@
 //     - [x] +버튼을 클릭하면 새 카드 등록 박스가 생성된다.
 //         - [x] 카드 등록 박스에 제목을 입력하세요, 내용을 입력하세요가 적혀있다.
 //     - [x] +버튼을 다시 클릭하면 카드 등록 박스가 사라진다.
-//     - [ ] 취소 버튼을 누르면 카드 등록 박스가 사라진다.
+//     - [x] 취소 버튼을 누르면 카드 등록 박스가 사라진다.
 //     - [ ] 내용 입력이 없는 상태에서 등록 버튼은 누를 수 없다. (비활성화)
 //     - [ ] 내용을 입력하면 등록 버튼을 누를 수 있다.
 //         - [ ] 내용 입력 글자수는 500자로 제한한다.
@@ -19,7 +19,7 @@ export class ScheduleColumn {
         this.$cardsContainer;
         this.title = title;
         this.id = new Date().getTime();
-        this.registerState = false;
+        this.registerCardState = false;
         this.init();
     }
 
@@ -38,7 +38,7 @@ export class ScheduleColumn {
     }
 
     addBtnClickEventHandler() {
-        if (this.registerState) {
+        if (this.registerCardState) {
             this.removeRegisterCard();
         } else {
             this.showRegisterCard();
@@ -46,7 +46,7 @@ export class ScheduleColumn {
     }
 
     removeRegisterCard() {
-        this.registerState = false;
+        this.registerCardState = false;
         const $registerCard = this.$cardsContainer.querySelector(
             ".schedule-register-card"
         );
@@ -54,7 +54,7 @@ export class ScheduleColumn {
     }
 
     showRegisterCard() {
-        this.registerState = true;
+        this.registerCardState = true;
         const registerCard = new ScheduleRegisterCard(this.$cardsContainer, this.id);
         registerCard.removeRegisterCard = this.removeRegisterCard.bind(this)
     }
