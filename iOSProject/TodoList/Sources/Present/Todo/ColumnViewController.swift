@@ -7,12 +7,9 @@
 
 import Foundation
 import UIKit
+import Combine
 
-protocol ColumnView {
-    var view: UIView! { get }
-}
-
-class ColumnViewController: UIViewController, ColumnView {
+class ColumnViewController: UIViewController{
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -54,26 +51,24 @@ class ColumnViewController: UIViewController, ColumnView {
         return button
     }()
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        bind()
-        attribute()
-        layout()
-    }
+    var cancellables = Set<AnyCancellable>()
+    private let model: ColumnViewModelBinding = ColumnViewModel()
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         bind()
-        attribute()
         layout()
+        
+        model.action.loadColumn.send()
     }
     
     private func bind() {
         cardTable.delegate = self
         cardTable.dataSource = self
-    }
-    
-    private func attribute() {
+        
+        add.publisher(for: .touchUpInside)
+            .sink(receiveValue: self.model.action.loadColumn.send(_:))
+            .store(in: &cancellables)
     }
     
     private func layout() {
@@ -103,6 +98,7 @@ class ColumnViewController: UIViewController, ColumnView {
 extension ColumnViewController: UITableViewDelegate {
     
 }
+
 extension ColumnViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3

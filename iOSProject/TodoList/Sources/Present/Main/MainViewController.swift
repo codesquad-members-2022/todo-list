@@ -17,11 +17,8 @@ class MainViewController: UIViewController {
         return titleBarView
     }()
     
-    let columnTableViews: [ColumnView] = {
-        let TodoViewController = ColumnViewController()
-        let doindViewController = ColumnViewController()
-        let complateViewController = ColumnViewController()
-        return [TodoViewController, doindViewController, complateViewController]
+    let columnTableViews: [ColumnViewController] = {
+        return [ColumnViewController(), ColumnViewController(), ColumnViewController()]
     }()
     
     let columnStackView: UIStackView = {
@@ -52,8 +49,9 @@ class MainViewController: UIViewController {
     }
     
     private func layout() {
+        columnTableViews.forEach{ self.embed($0) }
         let safeArea = self.view.safeAreaLayoutGuide
-        
+
         self.view.addSubview(titleBar.view)
         titleBar.view.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
         titleBar.view.heightAnchor.constraint(equalToConstant: 72).isActive = true
