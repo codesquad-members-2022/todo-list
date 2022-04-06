@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
         return titleBarView
     }()
     
-    let columnTableViews: [ColumnViewController] = {
+    let columnTableViews: [CardsColumnView] = {
         return [ColumnViewController(), ColumnViewController(), ColumnViewController()]
     }()
     
@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
     }
     
     private func layout() {
-        columnTableViews.forEach{ self.embed($0) }
+        columnTableViews.forEach{ self.embed($0.controller) }
         let safeArea = self.view.safeAreaLayoutGuide
 
         self.view.addSubview(titleBar.view)
@@ -65,8 +65,8 @@ class MainViewController: UIViewController {
         columnStackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -48).isActive = true
         
         columnTableViews.forEach {
-            $0.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
-            columnStackView.addArrangedSubview($0.view)
+            $0.controller.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
+            columnStackView.addArrangedSubview($0.controller.view)
         }
         columnStackView.addArrangedSubview(UIView())
     }
