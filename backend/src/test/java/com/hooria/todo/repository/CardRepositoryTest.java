@@ -72,7 +72,7 @@ class CardRepositoryTest {
     @DisplayName("카드를 추가하고 추가된 카드의 id를 반환한다.")
     void add() {
         //given
-        Card card = new Card(1, "title4", "content4", "userId1", 1, 4);
+        Card card = Card.of(1, "title4", "content4", "userId1", 1, 4);
 
         //when
         long addedCardId = cardRepository.add(card);
