@@ -12,53 +12,93 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.common.ActionDiffCallback
+import com.example.todo.common.ProgressType
 import com.example.todo.common.TodoDiffCallback
+import com.example.todo.model.ActionLog
+import com.example.todo.model.ActionType
 import com.example.todo.model.TodoItem
-import java.time.Duration
+import com.example.todo.ui.action.ActionAdapter
 import java.time.LocalDateTime
-import java.time.ZoneId
 
 class ToDoActivity : AppCompatActivity() {
-    lateinit var rv: RecyclerView
-    lateinit var rv2:RecyclerView
-    lateinit var draw:DrawerLayout
+    private lateinit var todoRecyclerView: RecyclerView
+    private lateinit var inProgressRecyclerView: RecyclerView
+    lateinit var doneRecyclerView: RecyclerView
+    lateinit var actionLogRecyclerView: RecyclerView
 
+    private lateinit var todoAdapter: TodoAdapter
+    private lateinit var inProgressAdapter: TodoAdapter
+    lateinit var doneAdapter: TodoAdapter
+    private lateinit var actionAdapter: ActionAdapter
+
+    lateinit var drawerLayout: DrawerLayout
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo)
-        val toolbar= findViewById<Toolbar>(R.id.tb_main)
+
+        todoRecyclerView = findViewById(R.id.rv_todo)
+        inProgressRecyclerView = findViewById(R.id.rv_in_progress)
+        doneRecyclerView = findViewById(R.id.rv_done)
+
+        actionLogRecyclerView = findViewById(R.id.rv_action_log)
+        val toolbar = findViewById<Toolbar>(R.id.tb_main)
+        drawerLayout = findViewById(R.id.draw)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        draw= findViewById(R.id.draw)
 
-        val adapter = TodoAdapter(TodoDiffCallback())
-        rv = findViewById(R.id.rv)
-        rv2= findViewById(R.id.rv2)
-        rv.adapter = adapter
-        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rv2.adapter=adapter
-        rv2.layoutManager=  LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        initializeTodoRecyclerViews()
+        addDummyDataInRecyclerView()
+    }
 
-        val list = mutableListOf<TodoItem>()
-        list.add(
-            TodoItem(
-                "one", "title", "content"
-            )
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun addDummyDataInRecyclerView() {
+        val todoList = mutableListOf<TodoItem>()
+        val inProgressList = mutableListOf<TodoItem>()
+        val doneList = mutableListOf<TodoItem>()
+        val actionList = mutableListOf<ActionLog>()
+
+        val todo1 = TodoItem("one", "title", "content", ProgressType.TO_DO)
+        val todo2 = TodoItem("two", "title2", "content2\ncontentcontent", ProgressType.TO_DO)
+        val todo3 = TodoItem(
+            "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
         )
-        list.add(
-            TodoItem(
-                "two", "title2", "content2\ncontentcontent"
-            )
-        )
-        list.add(
-            TodoItem(
-                "two", "title2", "content2\ncontentcontent\n sdfsd"
-            )
-        )
+        val action1 = ActionLog("one", ActionType.ADD, LocalDateTime.now(), ProgressType.TO_DO)
+        val action2 = ActionLog("one", ActionType.ADD, LocalDateTime.now(), ProgressType.TO_DO)
+        val action3 = ActionLog("one", ActionType.ADD, LocalDateTime.now(), ProgressType.TO_DO)
 
-        adapter.submitList(list)
+        todoList.addAll(mutableListOf(todo1, todo2, todo3))
+        inProgressList.addAll(mutableListOf(todo2, todo3, todo1))
+        doneList.addAll(mutableListOf(todo1, todo3, todo1))
+        actionList.addAll(mutableListOf(action1, action2, action3))
 
+        todoAdapter.submitList(todoList)
+        inProgressAdapter.submitList(inProgressList)
+        doneAdapter.submitList(doneList)
+        actionAdapter.submitList(actionList)
+    }
 
+    private fun initializeTodoRecyclerViews() {
+        todoAdapter = TodoAdapter(TodoDiffCallback())
+        inProgressAdapter = TodoAdapter(TodoDiffCallback())
+        doneAdapter = TodoAdapter(TodoDiffCallback())
+        actionAdapter = ActionAdapter(ActionDiffCallback())
+
+        todoRecyclerView.adapter = todoAdapter
+        inProgressRecyclerView.adapter = inProgressAdapter
+        doneRecyclerView.adapter = doneAdapter
+        actionLogRecyclerView.adapter = actionAdapter
+
+        todoRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        inProgressRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        doneRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        actionLogRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
 
 
@@ -68,13 +108,11 @@ class ToDoActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.action_menu-> {
-                draw.openDrawer(GravityCompat.END)
+        when (item.itemId) {
+            R.id.action_menu -> {
+                drawerLayout.openDrawer(GravityCompat.END)
             }
-
         }
-
         return super.onOptionsItemSelected(item)
     }
 }
