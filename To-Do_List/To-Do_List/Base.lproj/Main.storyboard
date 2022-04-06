@@ -24,11 +24,11 @@
                                 <rect key="frame" x="0.0" y="24" width="1194" height="72"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6N-h6-r5S">
-                                        <rect key="frame" x="48" y="13" width="175.5" height="46"/>
+                                        <rect key="frame" x="48" y="13" width="169.5" height="46"/>
                                         <attributedString key="attributedText">
                                             <fragment content="TO">
                                                 <attributes>
-                                                    <font key="NSFont" size="32" name=".SFNS-Light"/>
+                                                    <font key="NSFont" metaFont="system" size="32"/>
                                                 </attributes>
                                             </fragment>
                                             <fragment content="-">
@@ -38,7 +38,7 @@
                                             </fragment>
                                             <fragment content="DO">
                                                 <attributes>
-                                                    <font key="NSFont" size="32" name=".SFNS-Light"/>
+                                                    <font key="NSFont" metaFont="system" size="32"/>
                                                 </attributes>
                                             </fragment>
                                             <fragment content=" ">
@@ -48,7 +48,7 @@
                                             </fragment>
                                             <fragment content="LIST">
                                                 <attributes>
-                                                    <font key="NSFont" size="32" name=".SFNS-Light"/>
+                                                    <font key="NSFont" metaFont="system" size="32"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>

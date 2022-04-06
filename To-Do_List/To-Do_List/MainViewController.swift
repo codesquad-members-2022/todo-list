@@ -30,8 +30,10 @@ class MainViewController: UIViewController {
               let doingTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoingTableViewController") as? DoingTableViewController,
               let doneTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoneTableViewController") as? DoneTableViewController else { return }
         
+        
         [todoViewController,doingTableViewController,doneTableViewController].forEach {
             addChild($0)
+            $0.tableView.separatorStyle = .none
             self.statckView.addArrangedSubview($0.view)
             
             self.logViewContainer.isHidden = true
