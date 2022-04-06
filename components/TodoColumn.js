@@ -40,8 +40,14 @@ export default class TodoColumn {
     }
   };
 
-  onInputContent = () => {
-    document.querySelector(`.input-${this.title} .input--register`).style.background = '#0075DE';
+  onInputContent = event => {
+    if (event.target.value.length === 0) {
+      document.querySelector(`.input-${this.title} .input--register`).disabled = true;
+      document.querySelector(`.input-${this.title} .input--register`).style.background = '#86c6ff';
+    } else {
+      document.querySelector(`.input-${this.title} .input--register`).disabled = false;
+      document.querySelector(`.input-${this.title} .input--register`).style.background = '#0075DE';
+    }
   };
 
   onCloseBtn = () => {
@@ -62,6 +68,7 @@ export default class TodoColumn {
             <div class="column__delete">x</div>
             </div>
         </nav>
+        
     </article>
       `;
     this.target.insertAdjacentHTML('beforeend', columnListHTML);

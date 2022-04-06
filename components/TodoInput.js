@@ -11,7 +11,7 @@ export default class TodoInput {
             <input class="input-content" placeholder="내용을 입력하세요" maxlength ='500' />
             <div class="input-button-wrapper">
                 <button class="input__button input--cancel">취소</button>
-                <button class="input__button input--register">등록</button>
+                <button class="input__button input--register" disabled>등록</button>
             </div>
         </article>
     `;
