@@ -47,4 +47,33 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
                 }
             }.eraseToAnyPublisher()
     }
+    func editCard(_ index: Int, title: String, body: String) -> AnyPublisher<Result<Card, SessionError>, Never> {
+        self.request(.editCard(index, title: title, body: body), isSucccess: true)
+            .map { result in
+                switch result {
+                case .success(let data):
+                    guard let card = try? JSONDecoder().decode(Card.self, from: data) else {
+                        return .failure(.pasingError)
+                    }
+                    return .success(card)
+                case .failure(let error):
+                    return .failure(error)
+                }
+            }.eraseToAnyPublisher()
+    }
+    
+    func addCard(title: String, body: String) -> AnyPublisher<Result<Card, SessionError>, Never> {
+        self.request(.addCard(title: title, body: body), isSucccess: true)
+            .map { result in
+                switch result {
+                case .success(let data):
+                    guard let card = try? JSONDecoder().decode(Card.self, from: data) else {
+                        return .failure(.pasingError)
+                    }
+                    return .success(card)
+                case .failure(let error):
+                    return .failure(error)
+                }
+            }.eraseToAnyPublisher()
+    }
 }

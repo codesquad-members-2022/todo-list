@@ -24,7 +24,7 @@
 		E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0527FBD4BE00F00575 /* TodoRepository.swift */; };
 		E0A6BB0927FBD5FE00F00575 /* TodoRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0827FBD5FE00F00575 /* TodoRepositoryImpl.swift */; };
 		E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0A27FBD63F00F00575 /* TodoTarget.swift */; };
-		E0A6BB0F27FC0DF200F00575 /* CardPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0E27FC0DF200F00575 /* CardPopupController.swift */; };
+		E0A6BB0F27FC0DF200F00575 /* CardPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB0E27FC0DF200F00575 /* CardPopupViewController.swift */; };
 		E0A6BB1327FC309400F00575 /* UITextFieldView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1227FC309400F00575 /* UITextFieldView+Extension.swift */; };
 		E0A6BB1727FC37B900F00575 /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1627FC37B900F00575 /* PlaceholderTextView.swift */; };
 		E0A6BB1927FC3DA700F00575 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1827FC3DA700F00575 /* UITextView+Extension.swift */; };
@@ -59,7 +59,7 @@
 		E0A6BB0527FBD4BE00F00575 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
 		E0A6BB0827FBD5FE00F00575 /* TodoRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepositoryImpl.swift; sourceTree = "<group>"; };
 		E0A6BB0A27FBD63F00F00575 /* TodoTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTarget.swift; sourceTree = "<group>"; };
-		E0A6BB0E27FC0DF200F00575 /* CardPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPopupController.swift; sourceTree = "<group>"; };
+		E0A6BB0E27FC0DF200F00575 /* CardPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPopupViewController.swift; sourceTree = "<group>"; };
 		E0A6BB1227FC309400F00575 /* UITextFieldView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFieldView+Extension.swift"; sourceTree = "<group>"; };
 		E0A6BB1627FC37B900F00575 /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
 		E0A6BB1827FC3DA700F00575 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		E0A6BB2327FD9E0700F00575 /* CardPopup */ = {
 			isa = PBXGroup;
 			children = (
-				E0A6BB0E27FC0DF200F00575 /* CardPopupController.swift */,
+				E0A6BB0E27FC0DF200F00575 /* CardPopupViewController.swift */,
 				E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */,
 			);
 			path = CardPopup;
@@ -346,7 +346,7 @@
 			files = (
 				E0A6BB2027FD213700F00575 /* URLSessionProtocol.swift in Sources */,
 				E0A6BB2227FD214E00F00575 /* SessionError.swift in Sources */,
-				E0A6BB0F27FC0DF200F00575 /* CardPopupController.swift in Sources */,
+				E0A6BB0F27FC0DF200F00575 /* CardPopupViewController.swift in Sources */,
 				E0A6BB0227FBD49700F00575 /* NetworkRepository.swift in Sources */,
 				E0A6BB1327FC309400F00575 /* UITextFieldView+Extension.swift in Sources */,
 				E0A6BB1727FC37B900F00575 /* PlaceholderTextView.swift in Sources */,

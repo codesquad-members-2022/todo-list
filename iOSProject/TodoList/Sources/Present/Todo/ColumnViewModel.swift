@@ -25,6 +25,7 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
         let moveCard = PassthroughSubject<(Int, Card.Status), Never>()
         let deleteCard = PassthroughSubject<Int, Never>()
         let addCard = PassthroughSubject<Card, Never>()
+        let editCard = PassthroughSubject<Card, Never>()
     }
     
     struct State {
@@ -32,6 +33,7 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
         let insertedCard = PassthroughSubject<Int, Never>()
         let movedCard = PassthroughSubject<(Card, Card.Status), Never>()
         let deletedCard = PassthroughSubject<Int, Never>()
+        let reloadCard = PassthroughSubject<Int, Never>()
     }
     
     private var cancellables = Set<AnyCancellable>()
@@ -103,6 +105,12 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
             .sink {
                 self.cards.insert($0, at: 0)
                 self.state.insertedCard.send(0)
+            }.store(in: &cancellables)
+        
+        action.editCard
+            .sink { card in
+                self.cards[card.orderIndex] = card
+                self.state.reloadCard.send(card.orderIndex)
             }.store(in: &cancellables)
     }
 }

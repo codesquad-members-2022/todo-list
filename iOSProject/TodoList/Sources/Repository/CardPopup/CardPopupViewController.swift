@@ -9,7 +9,12 @@ import Foundation
 import UIKit
 import Combine
 
-class CardPopupController: UIViewController {
+protocol CardPopupViewDeletegate {
+    func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card)
+    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card)
+}
+
+class CardPopupViewController: UIViewController {
     enum Constants {
         static let newCardStatusLabel = "새로운 카드 추가"
         static let editCardStatusLabel = "카드수정"
@@ -96,17 +101,27 @@ class CardPopupController: UIViewController {
         return button
     }()
     
+    private let edit: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("수정", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white.withAlphaComponent(0.4), for: .disabled)
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 6
+        button.isEnabled = false
+        return button
+    }()
+    
     private var cancellables = Set<AnyCancellable>()
     private let model: CardPopupViewModelBinding & CardPopupViewModelProperty = CardPopupViewModel()
     
-    var confimPublisher: AnyPublisher<(String, String), Never> {
-        self.confim.publisher(for: .touchUpInside)
-            .map { _ -> (String, String) in
-                let titleText = self.titleTextField.text ?? ""
-                let bodyText = self.bodyTextView.text ?? ""
-                return (titleText, bodyText)
-            }.eraseToAnyPublisher()
-    }
+    var delegate: CardPopupViewDeletegate?
+    
+    private var baseTitleText: String = ""
+    private var baseBodyText: String = ""
+    private var cardIndex: Int?
     
     init(card: Card? = nil) {
         super.init(nibName: nil, bundle: nil)
@@ -119,10 +134,16 @@ class CardPopupController: UIViewController {
     }
     
     private func initialize(card: Card?) {
+        self.baseTitleText = card?.title ?? ""
+        self.baseBodyText = card?.title ?? ""
+        self.cardIndex = card?.orderIndex
+        
         self.statusLabel.text = card == nil ? Constants.newCardStatusLabel : Constants.editCardStatusLabel
-        self.titleTextField.text = card?.title ?? ""
-        self.bodyTextView.text = card?.body ?? ""
+        self.titleTextField.text = self.baseTitleText
+        self.bodyTextView.text = self.baseBodyText
         self.maxBodyLength.text = "(\(self.bodyTextView.text.count)/\(Constants.maxBodyLength))"
+        self.confim.isHidden = card != nil
+        self.edit.isHidden = card == nil
     }
     
     override func viewDidLoad() {
@@ -152,10 +173,14 @@ class CardPopupController: UIViewController {
             .map { _ -> Bool in
                 let titleText = self.titleTextField.text ?? ""
                 let bodyText = self.bodyTextView.text ?? ""
-                return !titleText.isEmpty && !bodyText.isEmpty
+                
+                let equalBaseText = self.baseTitleText == titleText && self.baseBodyText == bodyText
+                let isEmpty = titleText.isEmpty || bodyText.isEmpty
+                return (!equalBaseText && !isEmpty)
             }
             .sink{ isEnable in
                 self.confim.isEnabled = isEnable
+                self.edit.isEnabled = isEnable
             }.store(in: &cancellables)
         
         Publishers
@@ -164,6 +189,37 @@ class CardPopupController: UIViewController {
                 confim.publisher(for: .touchUpInside)
             )
             .sink {
+                self.dismiss(animated: false)
+            }.store(in: &cancellables)
+        
+        confim.publisher(for: .touchUpInside)
+            .sink {
+                guard let titleText = self.titleTextField.text,
+                      let bodyText = self.bodyTextView.text else {
+                    return
+                }
+                self.model.action.addCard.send((titleText, bodyText))
+            }.store(in: &cancellables)
+        
+        self.model.state.addedCard
+            .sink {
+                self.delegate?.cardPopupView(self, addedCard: $0)
+                self.dismiss(animated: false)
+            }.store(in: &cancellables)
+        
+        edit.publisher(for: .touchUpInside)
+            .sink {
+                guard let titleText = self.titleTextField.text,
+                      let bodyText = self.bodyTextView.text,
+                      let cardIndex = self.cardIndex else {
+                    return
+                }
+                self.model.action.editCard.send((cardIndex, titleText, bodyText))
+            }.store(in: &cancellables)
+        
+        self.model.state.editedCard
+            .sink {
+                self.delegate?.cardPopupView(self, editedCard: $0)
                 self.dismiss(animated: false)
             }.store(in: &cancellables)
     }
@@ -209,6 +265,14 @@ class CardPopupController: UIViewController {
             maxBodyLength.trailingAnchor.constraint(equalTo: popupBackground.trailingAnchor, constant: -16),
         ].forEach{ $0.isActive = true}
         
+        popupBackground.addSubview(edit)
+        [
+            edit.topAnchor.constraint(equalTo: maxBodyLength.bottomAnchor, constant: 16),
+            edit.rightAnchor.constraint(equalTo: popupBackground.rightAnchor, constant: -16),
+            edit.widthAnchor.constraint(equalToConstant: 108),
+            edit.heightAnchor.constraint(equalToConstant: 40)
+        ].forEach{ $0.isActive = true}
+        
         popupBackground.addSubview(confim)
         [
             confim.topAnchor.constraint(equalTo: maxBodyLength.bottomAnchor, constant: 16),
@@ -240,7 +304,7 @@ class CardPopupController: UIViewController {
     }
 }
 
-extension CardPopupController: UITextViewDelegate {
+extension CardPopupViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentText = textView.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
@@ -251,7 +315,7 @@ extension CardPopupController: UITextViewDelegate {
     }
 }
 
-extension CardPopupController: UITextFieldDelegate {
+extension CardPopupViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }

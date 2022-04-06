@@ -21,7 +21,7 @@ protocol ColumnViewInput {
     func addCard(_ card: Card)
 }
 
-class ColumnViewController: UIViewController, ColumnViewProperty, ColumnViewInput {
+class ColumnViewController: UIViewController, ColumnViewProperty {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -124,6 +124,11 @@ class ColumnViewController: UIViewController, ColumnViewProperty, ColumnViewInpu
                 self.delegate?.columnView(self, fromCard: card, toColumn: toColumn)
                 self.count.text = String(self.model.cardCount)
             }.store(in: &cancellables)
+        
+        self.model.state.reloadCard
+            .sink {
+                self.cardTable.reloadRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+            }.store(in: &cancellables)
     }
     
     private func attribute() {
@@ -157,17 +162,10 @@ class ColumnViewController: UIViewController, ColumnViewProperty, ColumnViewInpu
     }
     
     private func showCardPopup(card: Card? = nil) {
-        let popup = CardPopupController(card: card)
+        let popup = CardPopupViewController(card: card)
         popup.modalPresentationStyle = .overCurrentContext
         self.present(popup, animated: false)
-        
-        popup.confimPublisher
-            .sink(receiveValue: self.model.action.newCard.send(_:))
-            .store(in: &self.cancellables)
-    }
-    
-    func addCard(_ card: Card) {
-        self.model.action.addCard.send(card)
+        popup.delegate = self
     }
 }
 
@@ -205,3 +203,18 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension ColumnViewController: ColumnViewInput {
+    func addCard(_ card: Card) {
+        self.model.action.addCard.send(card)
+    }
+}
+
+extension ColumnViewController: CardPopupViewDeletegate {
+    func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card) {
+        self.model.action.editCard.send(editedCard)
+    }
+    
+    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card) {
+        self.model.action.addCard.send(addedCard)
+    }
+}

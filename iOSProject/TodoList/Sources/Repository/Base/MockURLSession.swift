@@ -57,15 +57,24 @@ class MockData {
             return columnData()
         }
         
-        let moveCardURL = TodoTarget.moveCard(1, toColumn: .done).baseURL.appendingPathComponent(TodoTarget.loadColumn.path)
+        let moveCardTarget = TodoTarget.moveCard(1, toColumn: .done)
+        let moveCardURL = moveCardTarget.baseURL.appendingPathComponent(moveCardTarget.path)
         if moveCardURL.path == url.path {
             return Data()
         }
         
-        let deleteCardURL = TodoTarget.deleteCard(1).baseURL.appendingPathComponent(TodoTarget.loadColumn.path)
-        if deleteCardURL.path == url.path {
-            return Data()
+        let addCardTarget = TodoTarget.addCard(title: "", body: "")
+        let addCardURL = addCardTarget.baseURL.appendingPathComponent(addCardTarget.path)
+        if addCardURL.path == url.path {
+            return addCardData()
         }
+        
+        let editCardTarget = TodoTarget.editCard(0, title: "", body: "")
+        let editCardURL = editCardTarget.baseURL.appendingPathComponent(editCardTarget.path)
+        if editCardURL.path == url.path {
+            return editCardData()
+        }
+        
         return Data()
     }
     
@@ -85,5 +94,25 @@ class MockData {
         }
 
         return body
+    }
+    
+    private func addCardData() -> Data {
+        let card = Card(title: "새로만든 카드입니다", body: "새로만든 카드 내용입니다", caption: "author by iOS", orderIndex: 0)
+        
+        guard let data = try? JSONEncoder().encode(card) else {
+            return Data()
+        }
+
+        return data
+    }
+    
+    private func editCardData() -> Data {
+        let card = Card(title: "수정된 카드입니다", body: "수정된 카드 내용입니다", caption: "author by iOS", orderIndex: 0)
+        
+        guard let data = try? JSONEncoder().encode(card) else {
+            return Data()
+        }
+
+        return data
     }
 }
