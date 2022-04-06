@@ -1,9 +1,9 @@
-import { TodoList } from "./TodoList";
-import { MainSection } from "./core/TodoList";
+import Component from "./core/Component.js";
+import { MainSection } from "./core/MainSection.js";
+import { Header } from "./core/Header.js";
 
-class App {
+class App extends Component {
   template() {
-    const { lists } = this.state;
     return `
           <header class="todo-header">
           </header>
@@ -12,39 +12,8 @@ class App {
         `;
   }
   mount() {
-    new Header();
-    new MainSection();
+    new Header(this.select(".todo-header"));
+    new MainSection(this.select("main"));
   }
 }
 new App(document.body);
-
-
-
-MainSection
-this.state = {
-  list: [
-    TodoList:{
-      selected: -1,
-      title: "해야할 일",
-      todos: [
-        TodoCard:{
-          title: "",
-          contents: "",
-          caption: "",
-        },
-      ],
-    },
-    {
-      selected: -1,
-      title: "하고 있는 일",
-      todos: [
-        {
-          title: "",
-          contents: "",
-          caption: "",
-        },
-      ],
-    },
-    {},
-  ],
-};
