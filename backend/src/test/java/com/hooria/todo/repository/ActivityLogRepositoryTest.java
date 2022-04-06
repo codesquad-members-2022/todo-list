@@ -1,7 +1,6 @@
 package com.hooria.todo.repository;
 
 import com.hooria.todo.domain.ActivityLog;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ class ActivityLogRepositoryTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("인자로 주어진 활동로그를 저장소에 저장한다.")
     void insertSuccess() {
 
         // given
@@ -40,11 +39,15 @@ class ActivityLogRepositoryTest {
         assertThat(result.getActivityType()).isEqualTo(activityLog.getActivityType());
         assertThat(result.getFromStatus()).isEqualTo(activityLog.getFromStatus());
         assertThat(result.getToStatus()).isEqualTo(activityLog.getToStatus());
+//        assertThat(result.getCreatedAt()).isEqualTo(activityLog.getCreatedAt());
+        /*
+            LocalDateTime 과 같은 날짜 값 검증에 대한 팁을 알 수 있을까요? @Riako
+        */
         assertThat(result.isReadYn()).isEqualTo(activityLog.isReadYn());
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("저장소에 저장되어 있는 모든 활동로그를 조회한다.")
     void findAllSuccess() {
 
         // given
@@ -61,20 +64,22 @@ class ActivityLogRepositoryTest {
         // then
         assertThat(results.size()).isEqualTo(members.size());
 
-        int idx = 0;
-        for (ActivityLog result : results) {
-            AssertionsForClassTypes.assertThat(result.getId()).isEqualTo(members.get(idx).getId());
-            assertThat(result.getUserId()).isEqualTo(members.get(idx).getUserId());
-            assertThat(result.getActivityType()).isEqualTo(members.get(idx).getActivityType());
-            assertThat(result.getFromStatus()).isEqualTo(members.get(idx).getFromStatus());
-            assertThat(result.getToStatus()).isEqualTo(members.get(idx).getToStatus());
-            assertThat(result.isReadYn()).isEqualTo(members.get(idx).isReadYn());
-            ++idx;
+        int size = results.size();
+        for (int index = 0; index < size; ++index) {
+            ActivityLog activityLog1 = results.get(index);
+            ActivityLog activityLog2 = members.get(index);
+
+            assertThat(activityLog1.getId()).isEqualTo(activityLog2.getId());
+            assertThat(activityLog1.getUserId()).isEqualTo(activityLog2.getUserId());
+            assertThat(activityLog1.getActivityType()).isEqualTo(activityLog2.getActivityType());
+            assertThat(activityLog1.getFromStatus()).isEqualTo(activityLog2.getFromStatus());
+            assertThat(activityLog1.getToStatus()).isEqualTo(activityLog2.getToStatus());
+            assertThat(activityLog1.isReadYn()).isEqualTo(activityLog2.isReadYn());
         }
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("인자로 주어진 'id'를 가진 활동로그를 저장소에서 삭제한다.")
     void deleteByIdSuccess() {
 
         // given

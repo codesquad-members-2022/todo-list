@@ -15,4 +15,8 @@ public class Member {
     public static Member of(long id, String userId, String password, String name) {
         return new Member(id, userId, password, name);
     }
+
+    public static Member of(String userId, String password) {
+        return new Member(0, userId, password, null);
+    }
 }
