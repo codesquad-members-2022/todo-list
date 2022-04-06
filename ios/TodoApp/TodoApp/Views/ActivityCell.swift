@@ -35,21 +35,15 @@ class ActivityCell: UITableViewCell {
         return label
     }()
     
-    private let nameLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        return label
-    }()
+    private let headerLabel = UILabel()
     
-    private let messageLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 0
         return label
     }()
     
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
+    private let footerLabel = UILabel()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -69,13 +63,13 @@ class ActivityCell: UITableViewCell {
     private func configureCell() {
         self.contentView.backgroundColor = UIColor(red: 109/255, green: 208/255, blue: 40/255, alpha: 0.1)
         
-        self.nameLabel.text = "@Alex"
-        self.messageLabel.text = "HTML/CSS 공부하기를 해야할 일에서 하고 있는 일로 이동하였습니다."
-        self.dateLabel.text = "1분 전"
-
-        self.verticalStackView.addArrangedSubview(self.nameLabel)
-        self.verticalStackView.addArrangedSubview(self.messageLabel)
-        self.verticalStackView.addArrangedSubview(self.dateLabel)
+        self.headerLabel.text = "@Alex"
+        self.bodyLabel.text = "HTML/CSS 공부하기를 해야할 일에서 하고 있는 일로 이동하였습니다."
+        self.footerLabel.text = "1분 전"
+        
+        self.verticalStackView.addArrangedSubview(self.headerLabel)
+        self.verticalStackView.addArrangedSubview(self.bodyLabel)
+        self.verticalStackView.addArrangedSubview(self.footerLabel)
         
         self.horizontalStackView.addArrangedSubview(self.thumnail)
         self.horizontalStackView.addArrangedSubview(self.verticalStackView)
@@ -87,16 +81,16 @@ class ActivityCell: UITableViewCell {
         self.horizontalStackView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:  20).isActive = true
     }
     
-    private func setHeaderText(_ text: String) {
-        self.nameLabel = text
+    func setHeaderText(_ text: String) {
+        self.headerLabel.text = text
     }
     
-    private func setFooterText(_ text: String) {
-        self.nameLabel = text
+    func setFooterText(_ text: String) {
+        self.bodyLabel.text = text
     }
     
-    private func setBodyText(_ text: String) {
-        self.nameLabel = text
+    func setBodyText(_ text: String) {
+        self.footerLabel.text = text
     }
     
 }

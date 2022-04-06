@@ -18,20 +18,28 @@ class TodoListContainerViewController: UIViewController {
         super.viewDidLoad()
         self.configureUI()
     }
-    
+
     private func configureUI() {
-        self.drawerView.frame.origin.x = self.view.frame.width
+        self.drawerView.frame.origin.x = self.view.frame.maxX
         self.menuButton.addAction(UIAction(handler: self.toggleMenuButton(_:)), for: .touchUpInside)
         self.closeButton.addAction(UIAction(handler: self.toggleMenuButton(_:)), for: .touchUpInside)
     }
     
+    
     private func toggleMenuButton(_ action: UIAction) {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-            if self.drawerView.frame.origin.x == self.view.frame.width {
-                self.drawerView.frame.origin = CGPoint(x: self.drawerView.frame.origin.x - self.drawerView.frame.width, y: 0)
+        let x = self.drawerView.frame.origin.x
+        let width = self.drawerView.frame.width
+        var point = CGPoint(x: self.drawerView.frame.origin.x, y: 0)
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) { [weak self] in
+            
+            if x == self?.view.frame.width {
+                point.x = x - width
             } else {
-                self.drawerView.frame.origin = CGPoint(x: self.drawerView.frame.origin.x + self.drawerView.frame.width, y: 0)
+                point.x = x + width
             }
+
+            self?.drawerView.frame.origin = point
         }
     }
 
