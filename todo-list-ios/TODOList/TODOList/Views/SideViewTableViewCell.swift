@@ -20,7 +20,7 @@ class SideViewTableViewCell: UITableViewCell {
         let view = HistoryStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
-        view.spacing = 3
+        view.spacing = 8
         view.alignment = .leading
         view.distribution = .equalSpacing
         return view
@@ -56,15 +56,15 @@ class SideViewTableViewCell: UITableViewCell {
         self.stackView.trailingAnchor.constraint(equalTo: self.historyView.trailingAnchor).isActive = true
         self.stackView.bottomAnchor.constraint(equalTo: self.historyView.bottomAnchor).isActive = true
         
-        emojiView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
-        emojiView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        emojiView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        emojiView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        emojiView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16).isActive = true
+        emojiView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16).isActive = true
+        emojiView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        emojiView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        historyView.leadingAnchor.constraint(equalTo: self.emojiView.trailingAnchor).isActive = true
-        historyView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        historyView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
-        historyView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+        historyView.leadingAnchor.constraint(equalTo: self.emojiView.trailingAnchor, constant: 16).isActive = true
+        historyView.topAnchor.constraint(equalTo: self.emojiView.topAnchor).isActive = true
+        historyView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16).isActive = true
+        historyView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16).isActive = true
     }
     
 }
