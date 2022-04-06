@@ -95,7 +95,8 @@ class CardRepositoryTest {
     @DisplayName("DB에 수정사항을 반영하고 변경된 Card를 반환한다.")
     void update() {
         //given
-        Card existingCard = cardRepository.findById(1).get();
+        long id = 1;
+        Card existingCard = cardRepository.findById(id).get();
         Card card = new Card(existingCard.getId(),
             2,
             existingCard.getTitle(),
