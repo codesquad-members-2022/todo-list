@@ -9,6 +9,7 @@ import UIKit
 
 class KanbanViewController: UIViewController {
 
+
     let dummyTitle = ["Github 공부하기", "테이블 뷰 Dummy Data로 세팅 및 구현", "알고리즘 문제 풀기", "iOS 면담 form 사전 작성"]
     let dummyContents = [
         "Vestibulum ac porttitor nulla. Nullam ultrices cursus convallis.",
@@ -18,16 +19,29 @@ class KanbanViewController: UIViewController {
     ]
     let dummyAuthored = "Authored by iOS"
     
+    @IBOutlet var columns: [UITableView]!
+    
+    @IBOutlet weak var todoTableView: UITableView!
+    @IBOutlet weak var doingTableView: UITableView!
+    @IBOutlet weak var doneTableView: UITableView!
+    
+    
+    @IBOutlet var countBadges: [UILabel]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setupUI()
         
-        todoTableView.rowHeight = UITableView.automaticDimension
-        todoTableView.estimatedRowHeight = 150
-        todoTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
+        countBadges.forEach { badge in
+            badge.layer.cornerRadius = badge.layer.bounds.width / 2
+            badge.clipsToBounds = true
+        }
+        
+        columns.forEach { column in
+            column.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
+        }
     }
     
-    @IBAction func todoAddTouched(_ sender: UIButton) {
+    @IBAction func AddButtonTouched(_ sender: UIButton) {
         let alert = UIAlertController(title: "새로운 카드 추가", message: nil, preferredStyle: .alert)
         
         alert.addTextField { titleTextField in
@@ -56,18 +70,7 @@ class KanbanViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    @IBAction func inProgressAddTouched(_ sender: UIButton) {
-    }
-    
-    @IBAction func doneAddTouched(_ sender: UIButton) {
-    }
-    
-    @IBOutlet weak var todoTableView: UITableView!
-    @IBOutlet weak var doingTableView: UITableView!
-    @IBOutlet weak var doneTableView: UITableView!
-    
 }
-
 
 extension KanbanViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,26 +81,19 @@ extension KanbanViewController: UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell else { return UITableViewCell() }
         
         var config = cell.defaultContentConfiguration()
-        config.text = dummyTitle[indexPath.row]
-        config.secondaryAttributedText = makeSecondaryText(contents: dummyContents[indexPath.row], authored: dummyAuthored)
+        
+        config.attributedText = cell.makePrimaryText(title: dummyTitle[indexPath.row])
+        config.secondaryAttributedText = cell.makeSecondaryText(contents: dummyContents[indexPath.row], authored: dummyAuthored)
+        
         cell.contentConfiguration = config
         
         var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
+        
         backgroundConfig.cornerRadius = 10
+        
         cell.backgroundConfiguration = backgroundConfig
         
         return cell
-    }
-    
-    private func makeSecondaryText(contents: String, authored: String) -> NSAttributedString {
-        let attributes: [NSMutableAttributedString.Key: Any] = [
-            .foregroundColor : UIColor.gray
-        ]
-        
-        let contentText = NSMutableAttributedString.init(string: "\(contents)\n\n")
-        let authoredText = NSMutableAttributedString.init(string: "\(authored)", attributes: attributes)
-        contentText.append(authoredText)
-        return contentText
     }
     
     

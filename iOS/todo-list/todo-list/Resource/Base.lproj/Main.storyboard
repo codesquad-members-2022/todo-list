@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="NotoSansKR-Bold.otf">
+            <string>NotoSansKR-Bold</string>
+        </array>
         <array key="NotoSansKR-Regular.otf">
             <string>NotoSansKR-Regular</string>
         </array>
@@ -64,17 +67,17 @@
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeB-66-GFH">
                                         <rect key="frame" x="125" y="12" width="24" height="24"/>
-                                        <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                        <color key="backgroundColor" systemColor="systemGray2Color"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="Yke-gN-KW0"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="zNN-Xs-MfY"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZE-tC-dbn">
-                                        <rect key="frame" x="196.5" y="8.5" width="43.5" height="31"/>
+                                        <rect key="frame" x="204.5" y="8.5" width="43.5" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="HWT-qG-Edn"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="N4H-Kz-FCs"/>
@@ -82,16 +85,16 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                                         <connections>
-                                            <action selector="todoAddTouched:" destination="muI-jk-wQG" eventType="touchUpInside" id="U4F-cY-Hx3"/>
+                                            <action selector="AddButtonTouched:" destination="muI-jk-wQG" eventType="touchUpInside" id="jop-3u-KE2"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="JZE-tC-dbn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oeB-66-GFH" secondAttribute="trailing" constant="16" id="0OE-tq-Ur6"/>
                                     <constraint firstItem="oeB-66-GFH" firstAttribute="leading" secondItem="kjL-Z8-tpe" secondAttribute="trailing" constant="16" id="1nE-6V-pCV"/>
                                     <constraint firstItem="kjL-Z8-tpe" firstAttribute="leading" secondItem="Cmg-Av-9Gh" secondAttribute="leading" constant="16" id="7Wj-9h-8xg"/>
-                                    <constraint firstAttribute="trailing" secondItem="JZE-tC-dbn" secondAttribute="trailing" constant="16" id="AJJ-ap-yIg"/>
+                                    <constraint firstAttribute="trailing" secondItem="JZE-tC-dbn" secondAttribute="trailing" constant="8" id="AJJ-ap-yIg"/>
                                     <constraint firstAttribute="height" constant="48" id="AhJ-M8-Nka"/>
                                     <constraint firstItem="kjL-Z8-tpe" firstAttribute="centerY" secondItem="Cmg-Av-9Gh" secondAttribute="centerY" id="Dzm-9b-u7e"/>
                                     <constraint firstAttribute="width" constant="256" id="Kv4-of-i7b"/>
@@ -119,19 +122,19 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7NY-Bk-A39">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7NY-Bk-A39">
                                         <rect key="frame" x="125" y="12" width="24" height="24"/>
-                                        <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                        <color key="backgroundColor" systemColor="systemGray2Color"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="5N7-w3-HQF"/>
                                             <constraint firstAttribute="height" constant="24" id="wIA-7k-ury"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1t-eo-Cy5">
-                                        <rect key="frame" x="196.5" y="8.5" width="43.5" height="31"/>
+                                        <rect key="frame" x="204.5" y="8.5" width="43.5" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="IQS-8v-ORA"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="K4V-yO-nyC"/>
@@ -139,11 +142,11 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                                         <connections>
-                                            <action selector="inProgressAddTouched:" destination="muI-jk-wQG" eventType="touchUpInside" id="Lfh-K1-gOz"/>
+                                            <action selector="AddButtonTouched:" destination="muI-jk-wQG" eventType="touchUpInside" id="fGl-zx-Fzy"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="7NY-Bk-A39" firstAttribute="centerY" secondItem="yM5-cD-dLn" secondAttribute="centerY" id="1lS-oK-tZa"/>
                                     <constraint firstItem="64G-uP-VQw" firstAttribute="leading" secondItem="yM5-cD-dLn" secondAttribute="leading" constant="16" id="96g-FQ-qh2"/>
@@ -151,7 +154,7 @@
                                     <constraint firstItem="F1t-eo-Cy5" firstAttribute="centerY" secondItem="yM5-cD-dLn" secondAttribute="centerY" id="Emg-hZ-ZhZ"/>
                                     <constraint firstAttribute="width" constant="256" id="HDq-TJ-pQN"/>
                                     <constraint firstItem="F1t-eo-Cy5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7NY-Bk-A39" secondAttribute="trailing" constant="16" id="gAc-He-Gtx"/>
-                                    <constraint firstAttribute="trailing" secondItem="F1t-eo-Cy5" secondAttribute="trailing" constant="16" id="mif-uJ-q6X"/>
+                                    <constraint firstAttribute="trailing" secondItem="F1t-eo-Cy5" secondAttribute="trailing" constant="8" id="mif-uJ-q6X"/>
                                     <constraint firstItem="7NY-Bk-A39" firstAttribute="leading" secondItem="64G-uP-VQw" secondAttribute="trailing" constant="16" id="yGz-d6-83i"/>
                                 </constraints>
                             </view>
@@ -184,19 +187,19 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmx-AK-Pnk">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmx-AK-Pnk">
                                         <rect key="frame" x="103.5" y="12" width="24" height="24"/>
-                                        <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                        <color key="backgroundColor" systemColor="systemGray2Color"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="EaU-P4-nKZ"/>
                                             <constraint firstAttribute="height" constant="24" id="gmQ-Q1-yee"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qnd-44-CVn">
-                                        <rect key="frame" x="196.5" y="8.5" width="43.5" height="31"/>
+                                        <rect key="frame" x="204.5" y="8.5" width="43.5" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="TKu-N3-sFk"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="xbY-YH-THJ"/>
@@ -204,11 +207,11 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                                         <connections>
-                                            <action selector="doneAddTouched:" destination="muI-jk-wQG" eventType="touchUpInside" id="6dr-Mm-WfM"/>
+                                            <action selector="AddButtonTouched:" destination="muI-jk-wQG" eventType="touchUpInside" id="rzY-YW-uFl"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="s1S-RQ-are" firstAttribute="centerY" secondItem="Ocv-UD-iFU" secondAttribute="centerY" id="08a-RC-17j"/>
                                     <constraint firstItem="s1S-RQ-are" firstAttribute="leading" secondItem="Ocv-UD-iFU" secondAttribute="leading" constant="16" id="ACf-ot-m1x"/>
@@ -218,7 +221,7 @@
                                     <constraint firstItem="Qnd-44-CVn" firstAttribute="centerY" secondItem="Ocv-UD-iFU" secondAttribute="centerY" id="chd-kb-kre"/>
                                     <constraint firstItem="jmx-AK-Pnk" firstAttribute="leading" secondItem="s1S-RQ-are" secondAttribute="trailing" constant="16" id="eTx-K6-WIM"/>
                                     <constraint firstAttribute="height" constant="48" id="qjH-rT-for"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qnd-44-CVn" secondAttribute="trailing" constant="16" id="vQA-yV-Z1k"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qnd-44-CVn" secondAttribute="trailing" constant="8" id="vQA-yV-Z1k"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -254,7 +257,13 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="todoTableView" destination="ByC-h1-Sf7" id="nQo-Z5-hgR"/>
+                        <outletCollection property="countBadges" destination="oeB-66-GFH" collectionClass="NSMutableArray" id="ZAw-1j-5Qg"/>
+                        <outletCollection property="countBadges" destination="7NY-Bk-A39" collectionClass="NSMutableArray" id="TVP-35-D7O"/>
+                        <outletCollection property="countBadges" destination="jmx-AK-Pnk" collectionClass="NSMutableArray" id="M2G-VW-etM"/>
+                        <outletCollection property="columns" destination="ByC-h1-Sf7" collectionClass="NSMutableArray" id="zE7-EM-622"/>
+                        <outletCollection property="columns" destination="ByC-h1-Sf7" collectionClass="NSMutableArray" id="YHU-DU-4KH"/>
+                        <outletCollection property="columns" destination="8ol-N5-aSs" collectionClass="NSMutableArray" id="Hnc-Cc-in6"/>
+                        <outletCollection property="columns" destination="HFg-ew-nNp" collectionClass="NSMutableArray" id="HKR-YJ-C1L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAV-8g-2rJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -295,8 +304,8 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
