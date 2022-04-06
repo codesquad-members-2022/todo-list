@@ -7,20 +7,14 @@ class TaskCardViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layoutSubviews()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        layoutSubviews()
     }
     
     func setColor(to color: UIColor) {
         self.backgroundColor = color
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-    }
 }
