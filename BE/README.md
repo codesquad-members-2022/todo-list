@@ -22,8 +22,9 @@
 
 ## Controller
 - [x] 할 일 추가 컨트롤러 생성
-- [x] Work 수정 컨틀로러 만들기
+- [x] Work 수정 컨트롤러 만들기
 - [x] Service 계층 분리하기
+- [x] Work 목록 API 응답 기능
 
 ## 흐름
 - 생성 요청 post -> dto(title, content, 작성자)

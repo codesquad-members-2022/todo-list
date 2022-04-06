@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -38,6 +39,10 @@ public class WorkService {
         workRepository.update(work);
         log.debug("[UPDATE AFTER] : {}", work);
         return BaseResponse.ok();
+    }
+
+    public List<Work> findAll() {
+        return workRepository.findAll();
     }
 
 }
