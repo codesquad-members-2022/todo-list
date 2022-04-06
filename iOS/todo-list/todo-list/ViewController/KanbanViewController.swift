@@ -16,6 +16,7 @@ class KanbanViewController: UIViewController {
         "Nullam eget nibh at nulla venenatis laoreet eu sit amet risus.",
         "Quisque fringilla magna non diam commodo, ac posuere enim ultrices. Donec a convallis dui. Mauris suscipit ipsum sit amet neque bibendum, ut mattis ante egestas. Morbi commodo nulla eget ante finibus, vestibulum maximus odio dapibus."
     ]
+    let dummyAuthored = "Authored by iOS"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,14 +79,25 @@ extension KanbanViewController: UITableViewDelegate {
         
         var config = cell.defaultContentConfiguration()
         config.text = dummyTitle[indexPath.row]
-        config.secondaryText = dummyContents[indexPath.row]
+        config.secondaryAttributedText = makeSecondaryText(contents: dummyContents[indexPath.row], authored: dummyAuthored)
         cell.contentConfiguration = config
         
-        var bgConfig = UIBackgroundConfiguration.listPlainCell()
-        bgConfig.cornerRadius = 10
-        cell.backgroundConfiguration = bgConfig
+        var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
+        backgroundConfig.cornerRadius = 10
+        cell.backgroundConfiguration = backgroundConfig
         
         return cell
+    }
+    
+    private func makeSecondaryText(contents: String, authored: String) -> NSAttributedString {
+        let attributes: [NSMutableAttributedString.Key: Any] = [
+            .foregroundColor : UIColor.gray
+        ]
+        
+        let contentText = NSMutableAttributedString.init(string: "\(contents)\n\n")
+        let authoredText = NSMutableAttributedString.init(string: "\(authored)", attributes: attributes)
+        contentText.append(authoredText)
+        return contentText
     }
     
     
