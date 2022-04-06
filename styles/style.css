@@ -167,6 +167,22 @@ body {
   width: 0px;
 }
 
+input {
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  border: none;
+}
+
+.active {
+  background-color: #0075de;
+}
+
 #header {
   height: 112px;
   display: flex;
@@ -198,7 +214,7 @@ body {
   padding: 24px 80px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 16px;
+  gap: 16px;
 }
 
 .schedule-column {
@@ -244,6 +260,10 @@ body {
   text-align: center;
   color: #010101;
   margin: 0px 10px;
+}
+
+.schedule-column__add-btn:hover path {
+  fill: #0075de;
 }
 
 .schedule-column__cards-container {
@@ -313,6 +333,80 @@ body {
   margin-left: auto;
   width: 12px;
   height: 12px;
+}
+
+.schedule-register-card {
+  display: flex;
+  justify-content: auto;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 16px;
+  width: 308px;
+  min-height: 108px;
+  background: #ffffff;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: 6px;
+  margin: 16px 0px;
+  border: 1px solid #0075de;
+}
+
+.schedule-register-card__text-container {
+  flex-direction: column;
+  display: flex;
+  justify-content: auto;
+  align-items: flex-start;
+  width: 252px;
+  min-height: 76px;
+}
+
+.schedule-register-card__title {
+  min-height: 23px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 23px;
+  color: #010101;
+}
+
+.schedule-register-card__body {
+  min-height: 20px;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 20px;
+  color: #010101;
+  margin: 8px 0px;
+}
+
+.schedule-register-card__btns-container {
+  display: flex;
+  justify-content: unset;
+  align-items: unset;
+}
+
+.schedule-register-card__cancel-btn {
+  padding: 10px;
+  width: 134px;
+  height: 40px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #828282;
+}
+
+.schedule-register-card__register-btn {
+  padding: 10px;
+  width: 134px;
+  height: 40px;
+  background: #86c6ff;
+  border-radius: 6px;
+  margin-left: 8px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
 }
 
 #history {

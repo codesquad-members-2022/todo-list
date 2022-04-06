@@ -2,7 +2,7 @@
     padding: 24px 80px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 16px;
+    gap: 16px;
 }
 
 .schedule-column {
@@ -41,6 +41,11 @@
             text-align: center;
             color: map-get($colors, black);
             margin: 0px 10px;
+        }
+    }
+    &__add-btn:hover {
+        path {
+            fill: map-get($colors, blue);
         }
     }
 
@@ -105,5 +110,73 @@
         margin-left: auto;
         width: 12px;
         height: 12px;
+    }
+}
+
+.schedule-register-card {
+    @include flex-layout(auto, flex-start);
+    flex-direction: column;
+    padding: 16px;
+    width: 308px;
+    min-height: 108px;
+    background: map-get($colors, white);
+    box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+    border-radius: 6px;
+    margin: 16px 0px;
+    border: 1px solid map-get($colors, blue);
+
+    &__text-container {
+        flex-direction: column;
+        @include flex-layout(auto, flex-start);
+        width: 252px;
+        min-height: 76px;
+    }
+
+    &__title {
+        min-height: 23px;
+        font-weight: 700;
+        font-size: 1.6rem;
+        line-height: 23px;
+        color: map-get($colors, black);
+    }
+
+    &__body {
+        min-height: 20px;
+        font-weight: 400;
+        font-size: 1.4rem;
+        line-height: 20px;
+        color: map-get($colors, black);
+        margin: 8px 0px;
+    }
+
+    &__btns-container {
+        @include flex-layout();
+    }
+
+    &__cancel-btn {
+        padding: 10px;
+        width: 134px;
+        height: 40px;
+        background: map-get($colors, light-gray);
+        border-radius: 6px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: map-get($colors, dark-gray);
+    }
+
+    &__register-btn {
+        padding: 10px;
+        width: 134px;
+        height: 40px;
+        background: map-get($colors, inactive-blue);
+        border-radius: 6px;
+        margin-left: 8px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: map-get($colors, white);
     }
 }

@@ -17,9 +17,12 @@ body {
 $colors: (
     black: #010101,
     gray: #bdbdbd,
+    light-gray: #e0e0e0,
     white: #ffffff,
     dark-gray: #828282,
     merona: #f4fce3,
+    blue: #0075de,
+    inactive-blue: #86c6ff,
 );
 
 .show {
@@ -30,4 +33,19 @@ $colors: (
 .hide {
     visibility: hidden;
     width: 0px;
+}
+
+input {
+    border: none;
+    &:focus {
+        outline: none;
+    }
+}
+
+button {
+    border: none;
+}
+
+.active {
+    background-color: map-get($colors, blue);
 }
