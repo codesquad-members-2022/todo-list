@@ -7,6 +7,8 @@ const app = () => {
   const 해야할일TodoColumn = new TodoColumn('todo');
   const 하고있는일TodoColumn = new TodoColumn('ing');
   const 완료할일TodoColumn = new TodoColumn('complete');
+
+  new TodoHeader();
 };
 
 app();
