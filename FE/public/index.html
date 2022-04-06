@@ -8,123 +8,107 @@
   <body>
     <header>
       <h1>TO-DO LIST</h1>
-      <input type="checkbox" id="menu-icon"/>
+      <input type="checkbox" id="menu-icon" />
       <label for="menu-icon">
-      <span></span>
-      <span></span>
-      <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </label>
-      <div class="sidebar">
-        hi
-      </div>
+      <div class="sidebar">hi</div>
     </header>
     <main>
       <section class="column-list">
-        <ul class="column-item">
+        <div class="column-item">
           <div class="column-item--header">
             <h2>
               <span>해야할 일</span>
               <span class="itemCount">1</span>
             </h2>
             <div class="column-item--buttons">
-              <input type="button" class="addBtn" value="add">
-              <input type="button" class="deleteBtn" value="del">
+              <input type="button" class="addBtn" value="add" />
+              <input type="button" class="deleteBtn" value="del" />
             </div>
           </div>
-          <li class="column-item--card">
-            <div class="card-header">
-              <h3>할 일 없음</h3>
-              <input type="button" class="delete-btn" value="del">
-            </div>
-            <span class="card-content">꾸짖을 갈(喝)!!</span>
-            <span class="card-author">arthor by web</span>
-          </li>
-        </ul>
-        <ul class="column-item">
+          <ul class="container">
+            <li class="column-item--card" draggable="true">
+              <div class="card-header">
+                <h3>할 일 없음</h3>
+                <input type="button" class="delete-btn" value="del" />
+              </div>
+              <span class="card-content">꾸짖을 갈(喝)!!</span>
+              <span class="card-author">Author by web</span>
+            </li>
+          </ul>
+        </div>
+        <div class="column-item">
           <div class="column-item--header">
             <h2>
               <span>하기 싫은일</span>
               <span class="itemCount">2</span>
             </h2>
             <div class="column-item--buttons">
-              <input type="button" class="addBtn" value="add">
-              <input type="button" class="deleteBtn" value="del">
+              <input type="button" class="addBtn" value="add" />
+              <input type="button" class="deleteBtn" value="del" />
             </div>
           </div>
-          <li class="column-item--card">
-            <div class="card-header">
-              <h3>모든 것</h3>
-              <input type="button" class="delete-btn" value="del">
-            </div>
-            <span class="card-content">이 밤 그날의 반딧불을 당신의
-              창 가까이 보낼게요
-              사랑한다는 말이에요</span>
-            <span class="card-author">arthor by web</span>
-          </li>
-          <li class="column-item--card">
-            <div class="card-header">
-              <h3>잘못된 만남</h3>
-              <input type="button" class="delete-btn" value="del">
-            </div>
-            <span class="card-content">난 너를 믿었던만큼 난 내 친구도 믿었기에
-              난 아무런 부담없이 널 내 친구에게 소개시켜 줬고</span>
-            <span class="card-author">arthor by web</span>
-          </li>
-        </ul>
-        <ul class="column-item">
+          <ul class="container">
+            <li class="column-item--card" draggable="true">
+              <div class="card-header">
+                <h3>모든 것</h3>
+                <input type="button" class="delete-btn" value="del" />
+              </div>
+              <span class="card-content"
+                >이 밤 그날의 반딧불을 당신의 창 가까이 보낼게요 사랑한다는
+                말이에요</span
+              >
+              <span class="card-author">Author by web</span>
+            </li>
+            <li class="column-item--card" draggable="true">
+              <div class="card-header">
+                <h3>잘못된 만남</h3>
+                <input type="button" class="delete-btn" value="del" />
+              </div>
+              <span class="card-content"
+                >난 너를 믿었던만큼 난 내 친구도 믿었기에 난 아무런 부담없이 널
+                내 친구에게 소개시켜 줬고</span
+              >
+              <span class="card-author">Author by web</span>
+            </li>
+          </ul>
+        </div>
+        <div class="column-item">
           <div class="column-item--header">
             <h2>
               <span>어제 먹은 것</span>
               <span class="itemCount">5</span>
             </h2>
             <div class="column-item--buttons">
-              <input type="button" class="addBtn" value="add">
-              <input type="button" class="deleteBtn" value="del">
+              <input type="button" class="addBtn" value="add" />
+              <input type="button" class="deleteBtn" value="del" />
             </div>
           </div>
-          <li class="column-item--card">
-            <div class="card-header">
-              <h3>피자</h3>
-              <input type="button" class="delete-btn" value="del">
-            </div>
-            <span class="card-content">별로 먹지 못했다</span>
-            <span class="card-author">arthor by web</span>
-          </li>
-          <li class="column-item--card">
-            <div class="card-header">
-              <h3>뭘 봐</h3>
-              <input type="button" class="delete-btn" value="del">
-            </div>
-            <span class="card-content">널 봐</span>
-            <span class="card-author">arthor by web</span>
-          </li>
-          <li class="column-item--card">
-            <div class="card-header">
-              <h3>어쩔티비</h3>
-              <input type="button" class="delete-btn" value="del">
-            </div>
-            <span class="card-content">저쩔티비</span>
-            <span class="card-author">arthor by web</span>
-          </li>
-          <li class="column-item--card">
-            <div class="card-header">
-              <h3>우</h3>
-              <input type="button" class="delete-btn" value="del">
-            </div>
-            <span class="card-content">와</span>
-            <span class="card-author">arthor by web</span>
-          </li>
-          <li class="column-item--card">
-            <div class="card-header">
-              <h3>쿨피스</h3>
-              <input type="button" class="delete-btn" value="del">
-            </div>
-            <span class="card-content">너무 달콤해~</span>
-            <span class="card-author">arthor by web</span>
-          </li>
-        </ul>
+          <ul class="container">
+            <li class="column-item--card" draggable="true">
+              <div class="card-header">
+                <h3>피자</h3>
+                <input type="button" class="delete-btn" value="del" />
+              </div>
+              <span class="card-content">별로 먹지 못했다</span>
+              <span class="card-author">Author by web</span>
+            </li>
+            <li class="column-item--card" draggable="true">
+              <div class="card-header">
+                <h3>뭘 봐</h3>
+                <input type="button" class="delete-btn" value="del" />
+              </div>
+              <span class="card-content">널 봐</span>
+              <span class="card-author">Author by web</span>
+            </li>
+          </ul>
+        </div>
       </section>
     </main>
     <footer></footer>
   </body>
+  <script src="../src/js/app.js" type="module"></script>
 </html>
