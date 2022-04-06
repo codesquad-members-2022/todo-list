@@ -50,6 +50,7 @@ class CardCell: UITableViewCell {
         let inset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         self.contentView.frame = contentView.frame.inset(by: inset)
         self.contentView.backgroundColor = .white
+        self.contentView.layer.cornerRadius = 10
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
