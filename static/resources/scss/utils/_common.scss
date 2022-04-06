@@ -50,10 +50,13 @@
   &:hover {
     background-color: $accent-button-color-hover;
   }
+  &.disabled {
+    background-color: $accent-button-color-disabled;
+  }
+}
 
   &__disabled {
     @extend .button;
     background-color: $accent-button-color-disabled;
   }
 }
-

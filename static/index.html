@@ -18,9 +18,12 @@
       <main>
         <div class="column-wrap">
           <div class="column">
-            <div class="column-top-wrap">
-              <h2 class="column-title">해야할 일<span class="card-num">2</span></h2>
-              <div class="column-button-wrap">
+            <div class="column__top-wrap">
+              <div class="column__title-wrap">
+                <input type="text" value="해야할 일" class="column__title" readonly />
+                <span class="card-num">2</span>
+              </div>
+              <div class="column__button-wrap">
                 <button type="button" class="add-button card-add-button">
                   <span class="hidden-text">컬럼 추가 버튼</span>
                 </button>
@@ -30,25 +33,26 @@
               </div>
             </div>
             <ul class="cards">
-              <li class="card">
+              <li class="card write">
                 <form action="">
-                  <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" />
-                  <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요"></textarea>
-                  <div class="button-wrap">
-                    <button type="button" class="normal-button card-cancle-button">취소</button>
-                    <button type="button" class="accent-button card-regist-button">등록</button>
+                  <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" class="card__title" />
+                  <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요" class="card__content"></textarea>
+                  <span class="card__writer">도니</span>
+                  <div class="card__button-wrap">
+                    <button type="button" class="normal-button card__save-button">취소</button>
+                    <button type="button" class="accent-button disabled card__accent-button">등록</button>
                   </div>
                 </form>
               </li>
               <li class="card">
-                <h3 class="card-title">포키랑 놀기</h3>
-                <div class="card-content">
-                  <p>뛰어놀기</p>
+                <input type="text" value="포키랑 놀기" placeholder="제목을 입력하세요" class="card__title" readonly />
+                <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요" class="card__content" readonly>뛰어 놀기</textarea>
+                <span class="card__writer">도니</span>
+                <div class="card__button-wrap">
+                  <button type="button" class="delete-button card__delete-button">
+                    <span class="hidden-text">카드 삭제 버튼</span>
+                  </button>
                 </div>
-                <p class="card-writter">도니</p>
-                <button type="button" class="delete-button card-delete-button">
-                  <span class="hidden-text">카드 삭제 버튼</span>
-                </button>
               </li>
             </ul>
           </div>
