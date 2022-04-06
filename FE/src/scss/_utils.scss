@@ -1,0 +1,70 @@
+@mixin button {
+  width: 13.4rem;
+  height: 4rem;
+  font-size: $font-medium;
+  font-weight: $wgt-large;
+}
+
+@mixin button-blue($active) {
+  @include button;
+  @if $active {
+    background-color: $blue;
+    color: $white;
+  } @else {
+    background-color: $btn-accent-disabled;
+    color: $lightgray;
+  }
+}
+
+@mixin button-gray {
+  @include button;
+  background-color: $btn-normal-default;
+  color: $btn-normal-hover;
+}
+
+@mixin card($color: false, $box-sizing: false, $opactiy: 1, $background-color: $card-default) {
+  display: flex;
+  padding: 16rem;
+  opacity: $opactiy;
+  background-color: $background-color;
+  border-radius: 0.6rem;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+
+  @if $box-sizing {
+    box-sizing: border-box;
+  } @else {
+    box-sizing: content-box;
+  }
+
+  @if $color {
+    border: 1px solid $color;
+  } @else {
+    border: 0;
+  }
+}
+
+@mixin card-default {
+  @include card;
+}
+
+@mixin card-active {
+  @include card($blue, true);
+}
+
+@mixin card-delete {
+  @include card($red, true);
+}
+
+@mixin card-drag {
+  @include card(false, .8);
+  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+}
+
+@mixin card-place {
+  @include card($blue, true, .4);
+}
+
+@mixin card-deactivate {
+  @include card($blue, true);
+}
