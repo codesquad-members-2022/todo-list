@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">todo-list</string>
     <string name="label_to_do_list">TO-DO-LIST</string>
+    <string name="label_menu_drawer">menu_drawer</string>
+    <string name="label_item_emoji">🥰</string>
+    <string name="label_team04">Team04</string>
+
+    <string name="action_default">&lt;b>%s&lt;/b>에 &lt;b>%s&lt;/b>를 &lt;b>%s&lt;/b>하였습니다.</string>
+    <string name="action_move">&lt;b>%s&lt;/b>를 &lt;b>%s&lt;/b>에서 &lt;b>%s&lt;/b>로 &lt;b>%s&lt;/b>하였습니다.</string>
+    <string name="date_format">yyyy-MM-dd HH:mm:ss</string>
 </resources>
