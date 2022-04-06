@@ -19,38 +19,52 @@ class SideViewTableViewCell: UITableViewCell {
     var stackView: HistoryStackView = {
         let view = HistoryStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        view.spacing = 3
+        view.alignment = .leading
+        view.distribution = .equalSpacing
         return view
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        setLayout()
+        addViews()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        
+        addViews()
+        setConstraints()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    private func setLayout(){
+    private func addViews() {
         self.contentView.addSubview(emojiView)
+        self.historyView.addSubview(stackView)
         self.contentView.addSubview(historyView)
+    }
+    
+    private func setConstraints() {
+        self.stackView.topAnchor.constraint(equalTo: self.historyView.topAnchor).isActive = true
+        self.stackView.leadingAnchor.constraint(equalTo: self.historyView.leadingAnchor).isActive = true
+        self.stackView.trailingAnchor.constraint(equalTo: self.historyView.trailingAnchor).isActive = true
+        self.stackView.bottomAnchor.constraint(equalTo: self.historyView.bottomAnchor).isActive = true
         
-        NSLayoutConstraint.activate([
-            emojiView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            emojiView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            emojiView.widthAnchor.constraint(equalToConstant: 50),
-            emojiView.heightAnchor.constraint(equalToConstant: 50),
-            
-            historyView.leadingAnchor.constraint(equalTo: self.emojiView.trailingAnchor),
-            historyView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            historyView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            historyView.heightAnchor.constraint(equalToConstant: 300)
-        ])
+        emojiView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
+        emojiView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+        emojiView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        emojiView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        historyView.leadingAnchor.constraint(equalTo: self.emojiView.trailingAnchor).isActive = true
+        historyView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+        historyView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
+        historyView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
     }
     
 }

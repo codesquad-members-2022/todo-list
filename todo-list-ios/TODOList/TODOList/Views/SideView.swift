@@ -19,27 +19,32 @@ class SideView: UIView {
     
     required override init(frame: CGRect) {
         super.init(frame: frame)
-        setLayout()
+        
+        addViews()
+        setConstraints()
     }
     
     override required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setLayout()
+        
+        addViews()
+        setConstraints()
     }
     
-    private func setLayout() {
+    private func addViews() {
         self.addSubview(closeButton)
         self.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            closeButton.widthAnchor.constraint(equalToConstant: 60),
-            closeButton.heightAnchor.constraint(equalToConstant: 60),
-            closeButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            
-            tableView.topAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: 20),
-            tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0)
-        ])
+    }
+    
+    private func setConstraints() {
+        closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        closeButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        closeButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        closeButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        
+        tableView.topAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: 20).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
     }
 }
