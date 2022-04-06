@@ -26,6 +26,9 @@ class CardsFetchingDataTask: CardHTTPRequest
         super.init(as: string, using: delegate, in: queue, type: type)
     }
     
+    /// Card를 모두 요청할 때 쓰입니다.
+    ///
+    /// - completionHandler: REST-API 요청 후 CardData 옵셔널 파라미터를 전달하는 클로저입니다.
     func fetchCardsAll(completionHandler: @escaping ([[CardData]]?)->Void)
     {
         do {
@@ -44,6 +47,9 @@ class CardsFetchingDataTask: CardHTTPRequest
         }
     }
     
+    /// 특정 Board의 Card를 모두 요청할 때 쓰입니다.
+    ///
+    /// - completionHandler: REST-API 요청 후 CardData 옵셔널 파라미터를 전달하는 클로저입니다.
     func fetchCardsInBoard(completionHandler: @escaping ([CardData]?)->Void)
     {
         do {

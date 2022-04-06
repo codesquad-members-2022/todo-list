@@ -16,7 +16,11 @@ import Foundation
 /// - sessionQueue: delegate 메소드가 실행될 Queue입니다. 업데이트 되면 자동으로 session도 새로 생성됩니다.
 class SessionConfiguration: SessionCommonAttributes {
     
+    // MARK: - Session Need to handle
     private(set) var session: URLSession
+    
+    // MARK: - Session properties
+    
     var config = URLSessionConfiguration.default {
         didSet {
             resetSession()
@@ -42,6 +46,7 @@ class SessionConfiguration: SessionCommonAttributes {
         }
     }
     
+    // MARK: - Initializer
     init?(
         as string: String,
         using delegate: URLSessionDelegate?,
@@ -57,6 +62,7 @@ class SessionConfiguration: SessionCommonAttributes {
         super.init(as: string)
     }
     
+    // MARK: - Utility
     private func resetSession()
     {
         config.networkServiceType = networkServiceType

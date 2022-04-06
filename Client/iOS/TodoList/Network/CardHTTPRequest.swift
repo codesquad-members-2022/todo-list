@@ -41,6 +41,10 @@ class CardHTTPRequest: SessionConfiguration {
         }
     }
     
+    /// HTTP GET 요청을 보냅니다.
+    ///
+    /// - parameter: Request 뒤에 파라미터로 보낼 딕셔너리 입니다. (예: https://getRequest.com?objectKey=myKey 의 objectKey:myKey)
+    /// - completionHandler: 요청 후 Data객체를 (혹은 nil인) 호출하는 클로저입니다.
     func doGetRequest(parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
         
         guard let urlComp = getURLComponents(from: urlString, parameter) else {
@@ -65,6 +69,12 @@ class CardHTTPRequest: SessionConfiguration {
         }
     }
     
+    /// HTTP 요청 시 사용할 URLComponents를 생성하는 메소드입니다.
+    ///
+    /// 중복을 피하기 위해 따로 구현하였습니다.
+    /// - from: URL로 생성할
+    /// - parameter: 파라미터로 보낼 딕셔너리 입니다.
+    /// - completionHandler: 요청 후 Data객체를 (혹은 nil인) 호출하는 클로저입니다.
     private func getURLComponents(from string: String? = nil, _ parameter: [String: String]? = nil) -> URLComponents? {
         
         if let string = string {
@@ -102,6 +112,10 @@ class CardHTTPRequest: SessionConfiguration {
         }
     }
     
+    /// HTTP POST 요청을 보냅니다.
+    ///
+    /// - parameter: Request body에 보낼 이진 데이터(Data 구조체)입니다.
+    /// - completionHandler: 요청 후 Data객체를 (혹은 nil인) 호출하는 클로저입니다.
     func doPostRequest(_ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
         getCurrentRequestHandler { request in
             self.session.uploadTask(with: request, from: paramData) { data, response, error in

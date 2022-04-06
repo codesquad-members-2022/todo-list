@@ -8,11 +8,6 @@
 import Foundation
 
 /// 화면 내 카드를 업데이트하는 작업을 수행한다.
-///
-/// - createCard(:ScreenCardParameter,completionHandler:(CardData?)->Void) : 파라미터에 따라 카드 생성을 요청한다.
-/// - readCard(from:String,completionHandler:(CardData?)->Void) : 전달한 ID와 일치하는 카드를 가져온다.
-/// - updateCard(:CardData,completionHandler:(CardData?)->Void) : 카드 데이터를 업데이트 한다.
-/// - deleteCard(from:String,completionHandler:(CardData?)->Void) : 전달한 ID와 일치하는 카드를 삭제한다.
 class CardsUpdateDataTask: CardHTTPRequest
 {
     
@@ -23,6 +18,12 @@ class CardsUpdateDataTask: CardHTTPRequest
         super.init(as: string, using: nil, in: nil, type: .responsiveData)
     }
     
+    /// 사용자가 입력한 카드의 내용을 토대로 서버에 카드 생성을 요청합니다.
+    ///
+    /// 현재 카드 생성 후 생성된 카드를 response 받을 수 있는지 부분 합의되지 않았지만,
+    /// 생성된 카드를 response 받는다는 가정 하에 함수를 생성하였습니다.
+    /// - param: 카드를 생성하는 데에 필요한 데이터를 가진 구조체입니다.
+    /// - completionHandler: 카드 생성 API 요청 후 실행되는 클로저입니다.
     func createCard(_ param: ScreenCardParameter, completionHandler: @escaping (CardData?)->Void)
     {
         do {
@@ -41,6 +42,10 @@ class CardsUpdateDataTask: CardHTTPRequest
         }
     }
     
+    /// 특정 키의 카드 정보를 요청합니다.
+    ///
+    /// - objectId: 요청하려는 카드의 키 값입니다.
+    /// - completionHandler: 카드 데이터 불러오기 API 요청 후 실행되는 클로저입니다.
     func readCard(from objectId: String, completionHandler: @escaping (CardData?)->Void)
     {
         do {
@@ -59,10 +64,16 @@ class CardsUpdateDataTask: CardHTTPRequest
         }
     }
     
-    func updateCard(_ data: CardData, completionHandler: @escaping (CardData?)->Void)
+    /// 카드의 데이터를 전달하여 서버에 업데이트 요청합니다.
+    ///
+    /// 현재 카드 생성 후 생성된 카드를 response 받을 수 있는지 부분 합의되지 않았지만,
+    /// 생성된 카드를 response 받는다는 가정 하에 함수를 생성하였습니다.
+    /// - paramData: 업데이트 하려는 정보가 담긴 CardData 구조체 입니다.
+    /// - completionHandler: 카드 업데이트 API 요청 후 실행되는 클로저입니다.
+    func updateCard(_ paramData: CardData, completionHandler: @escaping (CardData?)->Void)
     {
         do {
-            doPostRequest(url: try CardManagingURL.update.toURL(), try encoder.encode(data)) { data in
+            doPostRequest(url: try CardManagingURL.update.toURL(), try encoder.encode(paramData)) { data in
                 
                 guard let data = data else {
                     completionHandler(nil)
@@ -77,6 +88,12 @@ class CardsUpdateDataTask: CardHTTPRequest
         }
     }
     
+    /// 카드의 데이터를 전달하여 서버에 삭제를 요청합니다.
+    ///
+    /// 현재 카드 생성 후 생성된 카드를 response 받을 수 있는지 부분 합의되지 않았지만,
+    /// 생성된 카드를 response 받는다는 가정 하에 함수를 생성하였습니다.
+    /// - objectId: 삭제하려는 카드의 키 값입니다.
+    /// - completionHandler: 카드 삭제 API 요청 후 실행되는 클로저입니다.
     func deleteCard(from objectId: String, completionHandler: @escaping (CardData?)->Void)
     {
         do {

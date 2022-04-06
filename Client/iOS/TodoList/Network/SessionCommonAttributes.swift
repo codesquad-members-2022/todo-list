@@ -22,13 +22,19 @@ class SessionCommonAttributes {
     var httpMethod: HTTPMethod = .POST
     {
         didSet {
-            self.request.httpMethod = httpMethod.rawValue
+            request.httpMethod = httpMethod.rawValue
         }
     }
     var mimeType: MIMEType = .applicationJSON
     {
         didSet {
-            self.request.setValue(MIMEType.applicationJSON.rawValue, forHTTPHeaderField: "Content-Type")
+            request.setValue(MIMEType.applicationJSON.rawValue, forHTTPHeaderField: httpHeaderField.rawValue)
+        }
+    }
+    var httpHeaderField: ReservedHTTPHeader = .contentLength
+    {
+        didSet {
+            request.setValue(MIMEType.applicationJSON.rawValue, forHTTPHeaderField: httpHeaderField.rawValue)
         }
     }
     
@@ -58,7 +64,7 @@ class SessionCommonAttributes {
     private func reloadRequestURL(_ url: URL) {
         request = URLRequest(url: url, cachePolicy: cachePolicy, timeoutInterval: timeoutInterval)
         request.httpMethod = httpMethod.rawValue
-        request.setValue(mimeType.rawValue, forHTTPHeaderField: "Content-Type")
+        request.setValue(mimeType.rawValue, forHTTPHeaderField: httpHeaderField.rawValue)
     }
     
     // MARK: - HTTPMethod Types
@@ -84,5 +90,15 @@ class SessionCommonAttributes {
         case imageGIF = "image/gif"
         
         case textPlain = "text/plain"
+    }
+    
+    enum ReservedHTTPHeader: String {
+        case contentLength = "Content-Length"
+        case authorization = "Authorization"
+        case connection = "Connection"
+        case host = "Host"
+        case proxyAuthenticate = "Proxy-Authenticate"
+        case proxyAuthorization = "Proxy-Authorization"
+        case wwwAuthenticate = "WWW-Authenticate"
     }
 }
