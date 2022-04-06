@@ -17,26 +17,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0LX-WL-3Nz">
-                                <rect key="frame" x="50" y="24" width="800" height="790"/>
+                                <rect key="frame" x="50" y="149" width="800" height="675"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M8d-7J-U4l">
-                                        <rect key="frame" x="0.0" y="0.0" width="800" height="790"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="800" height="675"/>
                                         <connections>
                                             <segue destination="kPe-RN-aAh" kind="embed" id="wFG-hu-rDy"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="800" id="Nzw-Ud-gfp"/>
+                                    <constraint firstAttribute="height" constant="675" id="2Zi-Vy-mxb"/>
+                                    <constraint firstAttribute="width" constant="800" id="8B3-DA-Dv5"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TO-DO LIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGs-gn-uk3">
+                                <rect key="frame" x="50" y="63" width="213" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QuC-Bg-dsl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="0LX-WL-3Nz" firstAttribute="top" secondItem="QuC-Bg-dsl" secondAttribute="top" id="EX9-ab-JvH"/>
-                            <constraint firstItem="0LX-WL-3Nz" firstAttribute="bottom" secondItem="QuC-Bg-dsl" secondAttribute="bottom" id="dXJ-WQ-5c1"/>
-                            <constraint firstItem="0LX-WL-3Nz" firstAttribute="leading" secondItem="QuC-Bg-dsl" secondAttribute="leading" constant="50" id="iZq-zr-spO"/>
+                            <constraint firstItem="0LX-WL-3Nz" firstAttribute="leading" secondItem="QuC-Bg-dsl" secondAttribute="leading" constant="50" id="483-46-pet"/>
+                            <constraint firstItem="0LX-WL-3Nz" firstAttribute="top" secondItem="QuC-Bg-dsl" secondAttribute="top" constant="125" id="E14-Sj-aXw"/>
                         </constraints>
                     </view>
                     <connections>
@@ -53,8 +60,9 @@
             <objects>
                 <viewController id="kPe-RN-aAh" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OcP-Yz-Sqr">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="675"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="kAd-Gd-hhi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
