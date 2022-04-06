@@ -1,6 +1,5 @@
 .history-wrap {
   @include box-shadow;
-
   display: none;
   position: absolute;
   padding: 80px 80px 0 40px;
@@ -15,16 +14,16 @@
 .history {
   display: flex;
   padding: 16px;
-  
-  &__user-image{
+
+  &__user-image {
     margin-right: 16px;
     width: 40px;
   }
-  
+
   &__description {
     font-size: $size-medium;
   }
-  
+
   &__content {
     margin: 8px 0;
   }

@@ -26,30 +26,30 @@
   height: 40px;
   border-radius: 6px;
   color: $button-main-font-color;
-  cursor: pointer;
 }
 
 .normal-button {
   @extend .button;
   background-color: $normal-button-color-default;
   color: $button-sub-font-color;
-}
 
-.normal-button:hover {
-  background-color: $normal-button-color-hover;
-  color: $button-main-font-color;
+  &:hover {
+    background-color: $normal-button-color-hover;
+    color: $button-main-font-color;
+  }
 }
 
 .accent-button {
   @extend .button;
   background-color: $accent-button-color-default;
+  
+  &:hover {
+    background-color: $accent-button-color-hover;
+  }
+  
+  &__disabled {
+    @extend .button;
+    background-color: $accent-button-color-disabled;
+  }
 }
 
-.accent-button:hover {
-  background-color: $accent-button-color-hover;
-}
-
-.disabled-accent-button {
-  @extend .button;
-  background-color: $accent-button-color-disabled;
-}
