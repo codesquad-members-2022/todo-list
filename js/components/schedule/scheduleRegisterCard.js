@@ -15,20 +15,18 @@ export class ScheduleRegisterCard {
     }
 
     template() {
-        return `<div class="schedule-register-card">
+        return `<div class="schedule-register-card" data-id="${this.id}">
                 <form class="schedule-register-card__text-container">
                     <input 
                         class="schedule-register-card__title" 
                         type="text" 
                         placeholder="제목을 입력하세요"
-                        data-id="${this.id}"
                     >
                     </input>
                     <input 
                         class="schedule-register-card__body" 
                         type="text" 
                         placeholder="내용을 입력하세요"
-                        data-id="${this.id}"
                     >
                     </input>
                 </form>

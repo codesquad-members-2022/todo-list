@@ -1,8 +1,8 @@
 //- [ ] 유저가 스케줄 칼럼의 +버튼을 클릭하면 새로운 카드를 등록할 수 있다.
 //     - [x] +버튼에 마우스가 올라가면 +버튼의 색이 변한다.
 //     - [x] +버튼을 클릭하면 새 카드 등록 박스가 생성된다.
-//         - [ ] 카드 등록 박스에 제목을 입력하세요, 내용을 입력하세요가 적혀있다.
-//     - [ ] +버튼을 다시 클릭하면 카드 등록 박스가 사라진다.
+//         - [x] 카드 등록 박스에 제목을 입력하세요, 내용을 입력하세요가 적혀있다.
+//     - [x] +버튼을 다시 클릭하면 카드 등록 박스가 사라진다.
 //     - [ ] 취소 버튼을 누르면 카드 등록 박스가 사라진다.
 //     - [ ] 내용 입력이 없는 상태에서 등록 버튼은 누를 수 없다. (비활성화)
 //     - [ ] 내용을 입력하면 등록 버튼을 누를 수 있다.
@@ -16,44 +16,60 @@ import { ScheduleRegisterCard } from "./scheduleRegisterCard.js";
 export class ScheduleColumn {
     constructor(target, title) {
         this.$target = target;
+        this.$cardsContainer;
         this.title = title;
         this.id = new Date().getTime();
+        this.registerState = false;
         this.init();
     }
 
     init() {
         this.render();
+        this.$cardsContainer = this.$target.querySelector(
+            `[data-id="${this.id}"]`
+        );
+        this.addCard();
         this.setEvent();
     }
 
     setEvent() {
         const $addBtn = this.$target.querySelector(".schedule-column__add-btn");
-        $addBtn.addEventListener("click", this.showRegisterCard.bind(this));
+        $addBtn.addEventListener("click", () => this.addBtnClickEventHandler());
+    }
+
+    addBtnClickEventHandler() {
+        if (this.registerState) {
+            this.removeRegisterCard();
+        } else {
+            this.showRegisterCard();
+        }
+    }
+
+    removeRegisterCard() {
+        this.registerState = false;
+        const $registerCard = this.$cardsContainer.querySelector(
+            ".schedule-register-card"
+        );
+        $registerCard.remove();
     }
 
     showRegisterCard() {
-        const $cardsContainer = this.$target.querySelector(
-            `[data-id="${this.id}"]`
-        );
-        new ScheduleRegisterCard($cardsContainer, this.id);
+        this.registerState = true;
+        new ScheduleRegisterCard(this.$cardsContainer, this.id);
     }
 
     render() {
         const $scheduleColumn = this.template();
         this.$target.insertAdjacentHTML("beforeend", $scheduleColumn);
-        this.addCard();
     }
 
     addCard() {
-        const $cardsContainer = this.$target.querySelector(
-            `[data-id="${this.id}"]`
-        );
         const cardData = {
             title: "git hub 공부",
             body: "add commit",
             caption: "author by web",
         };
-        new ScheduleCard($cardsContainer, cardData);
+        new ScheduleCard(this.$cardsContainer, cardData);
     }
 
     template() {
