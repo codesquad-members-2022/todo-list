@@ -1,0 +1,63 @@
+{
+    "sidebar": [
+        {
+            "action": "등록",
+            "category": [
+                "해야할 일"
+            ],
+            "title": "GitHub 공부하기",
+            "writeTime": "Wed Apr 06 2022 12:16:00 GMT+0900"
+        },
+        {
+            "action": "등록",
+            "category": [
+                "해야할 일"
+            ],
+            "title": "블로그에 포스팅할 것",
+            "writeTime": "Wed Apr 06 2022 12:16:00 GMT+0900"
+        },
+        {
+            "action": "등록",
+            "category": [
+                "해야할 일"
+            ],
+            "title": "HTML/CSS공부하기",
+            "writeTime": "Wed Apr 06 2022 12:16:00 GMT+0900"
+        },
+        {
+            "action": "이동",
+            "category": [
+                "해야할 일",
+                "하고 있는 일"
+            ],
+            "title": "HTML/CSS공부하기",
+            "writeTime": "Wed Apr 06 2022 12:16:00 GMT+0900"
+        }
+    ],
+    "todo": [
+        {
+            "title": "GitHub 공부",
+            "comment": "add, commit, push",
+            "author": "web"
+        },
+        {
+            "title": "블로그에 포스팅할 것",
+            "comment": "* GitHub 공부내용\n* CSS transition",
+            "author": "mobile"
+        }
+    ],
+    "progress": [
+        {
+            "title": "HTML/CSS 공부하기",
+            "comment": "input 태그 실습",
+            "author": "web"
+        }
+    ],
+    "done": [],
+    "user": [
+        {
+            "nickname": "sam",
+            "profile": "./svg/profile.svg"
+        }
+    ]
+}
