@@ -1,5 +1,7 @@
 import TodoHeader from './components/TodoHeader.js';
 import TodoColumn from './components/TodoColumn.js';
+import { dummyTodos } from './constants/todos.js';
+import Todo from './components/Todo.js';
 
 const app = () => {
   // 하나의 객체
@@ -9,6 +11,17 @@ const app = () => {
   const 완료할일TodoColumn = new TodoColumn('complete');
 
   new TodoHeader();
+
+  dummyTodos.forEach(e => {
+    const newTodo = new Todo(e);
+    if (e.status == 'ing') {
+      document.querySelector(`.ing`).insertAdjacentHTML('afterend', newTodo.render());
+    } else if (e.status == 'todo') {
+      document.querySelector(`.todo`).insertAdjacentHTML('afterend', newTodo.render());
+    } else if (e.status == 'complete') {
+      document.querySelector(`.complete`).insertAdjacentHTML('afterend', newTodo.render());
+    }
+  });
 };
 
 app();
