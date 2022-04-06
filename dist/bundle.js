@@ -19,7 +19,7 @@
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mainService_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mainService.js */ \"./src/mainService.js\");\n\n\nwindow.addEventListener(\"DOMContentLoaded\", ()=> {\n    const targetEl = document.querySelector(\"#log\");\n\n    const service = new _mainService_js__WEBPACK_IMPORTED_MODULE_0__.default({targetEl})\n    const datalist = [1,2,3,4,[5,6,[7]]];\n    const subHtml = service.init(datalist);\n\n    targetEl.innerHTML += `datalist is ${subHtml}`;\n})\n\n\n//# sourceURL=webpack://todo-list/./src/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mainService_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mainService.js */ \"./src/mainService.js\");\n\nwindow.addEventListener(\"DOMContentLoaded\", () => {\n  const targetEl = document.querySelector(\"#log\");\n  const service = new _mainService_js__WEBPACK_IMPORTED_MODULE_0__.default({\n    targetEl\n  });\n  const datalist = [1, 2, 3, 4, [5, 6, [7]]];\n  const subHtml = service.init(datalist);\n  targetEl.innerHTML += `datalist is ${subHtml}`;\n});\n\n//# sourceURL=webpack://todo-list/./src/app.js?");
 
 /***/ }),
 
@@ -33,7 +33,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mai
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => /* binding */ MainService\n/* harmony export */ });\nclass MainService  {\n  constructor({targetEl}) {\n      this.targetEl = targetEl;\n      this.dataList = \"\";\n  }\n\n  init(dataList) {\n      this.dataList = dataList.flat(2).join('');\n      return this.render(this.dataList);\n  }\n\n  render(data) {\n      return `<span>${data}</span>`\n  }\n\n}\n\n//# sourceURL=webpack://todo-list/./src/mainService.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => /* binding */ MainService\n/* harmony export */ });\nclass MainService {\n  constructor(_ref) {\n    let {\n      targetEl\n    } = _ref;\n    this.targetEl = targetEl;\n    this.dataList = \"\";\n  }\n\n  init(dataList) {\n    this.dataList = dataList.flat(2).join('');\n    return this.render(this.dataList);\n  }\n\n  render(data) {\n    return `<span>${data}</span>`;\n  }\n\n}\nconst box = {\n  weight: 2,\n\n  getWeight() {\n    return this.weight;\n  }\n\n};\nconst {\n  getWeight\n} = box;\nconsole.log(box.getWeight()); // prints '2'\n\nconst bigBox = {\n  weight: 10\n};\nconsole.log(getWeight.call(bigBox)); // prints '10'\n\n//# sourceURL=webpack://todo-list/./src/mainService.js?");
 
 /***/ })
 
