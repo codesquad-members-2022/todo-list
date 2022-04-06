@@ -23,6 +23,7 @@ public class CardController {
 
     @DeleteMapping("/remove/{id}")
     public String remove(int id) {
-        return "";
+        cardService.removeCard(id);
+        return "redirect:/";
     }
 }

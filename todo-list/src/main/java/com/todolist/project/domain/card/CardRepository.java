@@ -14,11 +14,13 @@ public class CardRepository {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    private final static String DELETE_CARD_SQL = "delete from card where id = ?";
+
     public void add(Card card){
         //TODO: 카드를 저장하는 쿼리 생성
     }
 
     public void remove(int id){
-        //TODO: 카드 아이디로 카드 삭제
+        jdbcTemplate.update(DELETE_CARD_SQL, id);
     }
 }
