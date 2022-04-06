@@ -53,6 +53,7 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     private func setUpView() {
+        configureView()
         contentView.addSubview(stackView)
         
         stackView.addArrangedSubview(titleLabel)
@@ -60,6 +61,11 @@ class CustomTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(authorLabel)
         
         layoutStackView()
+    }
+    
+    private func configureView() {
+        self.layer.cornerRadius = 7
+        self.clipsToBounds = true
     }
     
     private func layoutStackView() {
@@ -75,6 +81,11 @@ class CustomTableViewCell: UITableViewCell {
 // MARK: - functions
 
 extension CustomTableViewCell {
+    func changCustomTableViewCell() {
+        self.layer.cornerRadius = 7
+        self.clipsToBounds = true
+    }
+    
     func changeTitleLabel(text: String) {
         titleLabel.text = text
     }
