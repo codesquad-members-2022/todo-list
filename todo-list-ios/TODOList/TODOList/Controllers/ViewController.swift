@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.sideView.delegate = self
         self.sideView.tableView.dataSource = self
         self.sideView.tableView.delegate = self
         
@@ -58,8 +59,17 @@ class ViewController: UIViewController {
         }
         
         self.view.addSubview(sideMenuButton)
+        setLayout()
     }
 }
+
+
+extension ViewController: SideViewDelegate {
+    func sideViewCloseButtonDidTap() {
+        hideSideView()
+    }
+}
+
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
