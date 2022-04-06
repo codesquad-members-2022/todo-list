@@ -25,7 +25,9 @@ class HeaderView: UIView{
         setMenuButton()
         self.backgroundColor = .systemGray
     }
-    
+}
+
+private extension HeaderView{
     func setHeaderLabel(){
         headerLabel = UILabel()
         headerLabel.text = "To-Do List"

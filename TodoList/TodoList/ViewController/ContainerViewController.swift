@@ -17,8 +17,10 @@ class ContainerViewController: UIViewController {
         self.view.backgroundColor = .systemGray5
         addChildViewController()
     }
-    
-    private func addChildViewController(){
+}
+
+private extension ContainerViewController{
+    func addChildViewController(){
         headerVC = HeaderViewController()
         self.addChild(headerVC)
         self.view.addSubview(headerVC.view)
