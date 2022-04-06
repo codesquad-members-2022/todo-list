@@ -1,12 +1,11 @@
-package com.example.todo.ui
+package com.example.todo.ui.toDo
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -15,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.common.TodoDiffCallback
 import com.example.todo.model.TodoItem
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 class ToDoActivity : AppCompatActivity() {
     lateinit var rv: RecyclerView
@@ -55,7 +57,10 @@ class ToDoActivity : AppCompatActivity() {
         )
 
         adapter.submitList(list)
+
+
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_action, menu)
