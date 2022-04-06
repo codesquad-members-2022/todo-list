@@ -27,30 +27,31 @@ class CardRepositoryTest {
     @DisplayName("전체 카드 목록을 반환한다.")
     void findAll() {
         //given
+        LocalDateTime now = LocalDateTime.now();
+        List<Card> cards = List.of(
+            new Card(1, 1, "title1", "content1", "userId1", 1, now, now, false, 1),
+            new Card(2, 1, "title2", "content2", "userId1", 1, now, now, false, 2)
+        );
 
         //when
         List<Card> result = cardRepository.findAll();
 
         //then
-        assertThat(result).hasSize(2);
+        assertThat(result).hasSize(cards.size());
 
-        assertThat(result.get(0).getId()).isEqualTo(1);
-        assertThat(result.get(0).getStatus()).isEqualTo(1);
-        assertThat(result.get(0).getTitle()).isEqualTo("title1");
-        assertThat(result.get(0).getContent()).isEqualTo("content1");
-        assertThat(result.get(0).getUserId()).isEqualTo("userId1");
-        assertThat(result.get(0).getApplianceInfo()).isEqualTo(1);
-        assertThat(result.get(0).isDeletedYn()).isFalse();
-        assertThat(result.get(0).getIndex()).isEqualTo(1);
-
-        assertThat(result.get(1).getId()).isEqualTo(2);
-        assertThat(result.get(1).getStatus()).isEqualTo(1);
-        assertThat(result.get(1).getTitle()).isEqualTo("title2");
-        assertThat(result.get(1).getContent()).isEqualTo("content2");
-        assertThat(result.get(1).getUserId()).isEqualTo("userId1");
-        assertThat(result.get(1).getApplianceInfo()).isEqualTo(1);
-        assertThat(result.get(1).isDeletedYn()).isFalse();
-        assertThat(result.get(1).getIndex()).isEqualTo(2);
+        int size = result.size();
+        for (int i = 0; i < size; i++) {
+            Card actual = result.get(i);
+            Card expected = cards.get(i);
+            assertThat(actual.getId()).isEqualTo(expected.getId());
+            assertThat(actual.getStatus()).isEqualTo(expected.getStatus());
+            assertThat(actual.getTitle()).isEqualTo(expected.getTitle());
+            assertThat(actual.getContent()).isEqualTo(expected.getContent());
+            assertThat(actual.getUserId()).isEqualTo(expected.getUserId());
+            assertThat(actual.getApplianceInfo()).isEqualTo(expected.getApplianceInfo());
+            assertThat(actual.isDeletedYn()).isFalse();
+            assertThat(actual.getIndex()).isEqualTo(expected.getIndex());
+        }
     }
 
     @Test
