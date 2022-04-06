@@ -1,4 +1,5 @@
 {
+  "userId": "ikjo",
   "workList": [
     {
       "categoryName": "TODO",
@@ -8,7 +9,6 @@
           "categoryId": 1,
           "title": "자바공부",
           "content": "클래스와 객체의 차이",
-          "userId": "ikjo",
           "date": "2022-04-06 15:34"
         }
       ]
@@ -21,7 +21,6 @@
           "categoryId": 2,
           "title": "MySQL 공부",
           "content": "데이터 베이스 설계",
-          "userId": "ikjo",
           "date": "2022-04-06 16:45"
         }
       ]
@@ -34,7 +33,6 @@
           "categoryId": 3,
           "title": "깃 공부",
           "content": "rebase와 merge의 차이",
-          "userId": "ikjo",
           "date": "2022-04-06 16:45"
         }
       ]
