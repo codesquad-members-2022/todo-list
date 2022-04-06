@@ -2,6 +2,9 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var taskListStackView: UIStackView!
+    
+    @IBOutlet weak var stackViewTrailing: NSLayoutConstraint!
+    
     private let todoViewController = TaskListBoardViewController()
     private let doingViewController = TaskListBoardViewController()
     private let doneViewController = TaskListBoardViewController()
@@ -10,7 +13,7 @@ class ViewController: UIViewController {
         addChild(todoViewController)
         addChild(doingViewController)
         addChild(doneViewController)
-        todoViewController.add()
+        
         layout()
     }
     
@@ -26,7 +29,18 @@ class ViewController: UIViewController {
         self.taskListStackView.distribution = .fillEqually
         self.taskListStackView.spacing = 22
     }
-
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        resizeConstant()
+    }
+    
+    private func resizeConstant() {
+        if UIDevice.current.orientation.isPortrait {
+            stackViewTrailing.constant = 48
+        }else {
+            stackViewTrailing.constant = 330
+        }
+    }
 }
 
 
