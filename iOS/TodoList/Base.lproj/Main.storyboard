@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,17 +19,44 @@
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q3x-H0-srJ">
                                 <rect key="frame" x="48" y="147" width="816" height="637"/>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xjx-qt-nUY">
+                                <rect key="frame" x="1147" y="55" width="17" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="17" id="YZE-D9-g8k"/>
+                                    <constraint firstAttribute="height" constant="11" id="drV-Lw-9Od"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="line.horizontal.3" catalog="system"/>
+                                <connections>
+                                    <action selector="actionFlowButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qhZ-eb-zu8"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TO-DO LIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JvC-rN-hhd">
+                                <rect key="frame" x="48" y="37" width="171" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="MOq-Ud-5sp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Xjx-qt-nUY" secondAttribute="trailing" constant="30" id="BSi-tT-Tsa"/>
+                            <constraint firstItem="JvC-rN-hhd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="13" id="Kmw-pK-CWi"/>
                             <constraint firstItem="q3x-H0-srJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="SBh-xI-koj"/>
                             <constraint firstItem="q3x-H0-srJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="123" id="YAa-7k-4oZ"/>
+                            <constraint firstItem="Xjx-qt-nUY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="31" id="a1E-GN-Hqa"/>
+                            <constraint firstItem="JvC-rN-hhd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="o3J-Oe-iig"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="q3x-H0-srJ" secondAttribute="bottom" constant="30" id="r0p-ZZ-XtZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q3x-H0-srJ" secondAttribute="trailing" constant="330" id="zks-zh-1b5"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="actionFlowButton" destination="Xjx-qt-nUY" id="igO-MJ-sCW"/>
                         <outlet property="stackViewTrailing" destination="zks-zh-1b5" id="lL5-3a-SUS"/>
                         <outlet property="taskListStackView" destination="q3x-H0-srJ" id="b2L-zg-6TB"/>
                     </connections>
@@ -37,5 +65,36 @@
             </objects>
             <point key="canvasLocation" x="138.12949640287772" y="137.1859296482412"/>
         </scene>
+        <!--Edit Card View Controller-->
+        <scene sceneID="xs8-kx-v8s">
+            <objects>
+                <viewController storyboardIdentifier="popVC" id="wYC-pF-Ein" customClass="EditCardViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ia6-xm-5ws">
+                        <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70t-Qa-EDn">
+                                <rect key="frame" x="397" y="330" width="400" height="175"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="uec-tf-4EG"/>
+                        <color key="backgroundColor" red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="displayP3"/>
+                    </view>
+                    <connections>
+                        <outlet property="centerView" destination="70t-Qa-EDn" id="a5i-Yj-ute"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4zZ-Fi-tA0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="830" y="137"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

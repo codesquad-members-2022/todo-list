@@ -3,6 +3,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var taskListStackView: UIStackView!
     
+    @IBOutlet weak var actionFlowButton: UIButton!
     @IBOutlet weak var stackViewTrailing: NSLayoutConstraint!
     
     private let todoViewController = TaskListBoardViewController()
@@ -17,6 +18,9 @@ class ViewController: UIViewController {
         layout()
     }
     
+    @IBAction func actionFlowButtonTapped(_ sender: UIButton) {
+        editCardButtonTapped()
+    }
     private func layout() {
         self.taskListStackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -41,7 +45,20 @@ class ViewController: UIViewController {
             stackViewTrailing.constant = 330
         }
     }
+    
+    private func editCardButtonTapped() {
+        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "popVC") as? EditCardViewController else { return }
+        
+        popVC.modalPresentationStyle = .overFullScreen
+        
+        self.present(popVC, animated: false)
+    }
 }
 
+extension ViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+               return .none
+           }
+}
 
     

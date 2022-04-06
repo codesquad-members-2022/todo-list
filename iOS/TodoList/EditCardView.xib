@@ -39,7 +39,7 @@
                     </constraints>
                     <color key="textColor" systemColor="systemGray3Color"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" smartInsertDeleteType="no"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AsX-pi-UNx">
                     <rect key="frame" x="160" y="119" width="108" height="40"/>
@@ -86,22 +86,22 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="L9r-Qn-qYV" secondAttribute="trailing" constant="16" id="1us-dh-jHc"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kt7-TL-hNl" secondAttribute="bottom" constant="16" id="5xs-Qv-XzP"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kt7-TL-hNl" secondAttribute="trailing" constant="16" id="7cd-EB-uId"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="AsX-pi-UNx" secondAttribute="bottom" constant="16" id="JsL-rU-e7w"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gBo-ia-khY" secondAttribute="trailing" constant="16" id="MF0-O3-sS0"/>
+                <constraint firstAttribute="trailing" secondItem="L9r-Qn-qYV" secondAttribute="trailing" constant="16" id="1us-dh-jHc"/>
+                <constraint firstAttribute="bottom" secondItem="kt7-TL-hNl" secondAttribute="bottom" constant="16" id="5xs-Qv-XzP"/>
+                <constraint firstAttribute="trailing" secondItem="kt7-TL-hNl" secondAttribute="trailing" constant="16" id="7cd-EB-uId"/>
+                <constraint firstAttribute="bottom" secondItem="AsX-pi-UNx" secondAttribute="bottom" constant="16" id="JsL-rU-e7w"/>
+                <constraint firstAttribute="trailing" secondItem="gBo-ia-khY" secondAttribute="trailing" constant="16" id="MF0-O3-sS0"/>
                 <constraint firstItem="wbn-me-TEU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="gOD-29-p1L"/>
                 <constraint firstItem="kt7-TL-hNl" firstAttribute="leading" secondItem="AsX-pi-UNx" secondAttribute="trailing" constant="8" id="gfM-UI-r0C"/>
-                <constraint firstItem="L9r-Qn-qYV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="iAT-c5-h1L"/>
-                <constraint firstItem="gBo-ia-khY" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="kOX-bw-eWt"/>
+                <constraint firstItem="L9r-Qn-qYV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="iAT-c5-h1L"/>
+                <constraint firstItem="gBo-ia-khY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="60" id="kOX-bw-eWt"/>
                 <constraint firstAttribute="trailing" secondItem="wbn-me-TEU" secondAttribute="trailing" constant="16" id="ohs-Wj-y4n"/>
                 <constraint firstItem="wbn-me-TEU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="rQ5-oF-GaH"/>
-                <constraint firstItem="gBo-ia-khY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="sJG-2u-6ui"/>
+                <constraint firstItem="gBo-ia-khY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="sJG-2u-6ui"/>
                 <constraint firstItem="L9r-Qn-qYV" firstAttribute="top" secondItem="gBo-ia-khY" secondAttribute="bottom" constant="8" id="wYo-sY-Mbj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="31.884057971014496" y="-60.602678571428569"/>
+            <point key="canvasLocation" x="1" y="-61"/>
         </view>
     </objects>
     <resources>
