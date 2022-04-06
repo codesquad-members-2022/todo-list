@@ -19,4 +19,24 @@ public class Card {
         this.status = status;
         this.createdTime = LocalDateTime.now();
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
 }

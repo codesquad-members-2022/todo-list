@@ -6,12 +6,23 @@ public class addCardDto {
     private String title;
     private String contents;
     private String writer;
-    private Status status;
 
-    public addCardDto(String title, String contents, String writer, Status status) {
+    public addCardDto(String title, String contents, String writer) {
         this.title = title;
         this.contents = contents;
         this.writer = writer;
-        this.status = status;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
 }
