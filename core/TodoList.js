@@ -3,8 +3,11 @@ import Component from "./Component";
 export class TodoList extends Component {
   template() {
     const {
-      lists: { title, todos },
-    } = this.state;
+      list: { title, todos, selected },
+      idx,
+    } = this.$props;
+    console.log(todos);
+
     return `
 <div class="todo-title">
             <span class="todo-name">${title}
@@ -37,8 +40,14 @@ export class TodoList extends Component {
       .join("")}`;
   }
   mount() {
-    for (let i = 0; i < todos.length; i++) {
-      new TodoCard(this.select(`.todo-card[data-idx='${i}']`));
-    }
+    const {
+      list: { todos },
+    } = this.$props;
+    const card = this.select(`.todo-card[data-idx="0"]`);
+    for (let i = 0; i < todos.length; i++)
+      new TodoCard(this.select(`.todo-card[data-idx="${i}"]`), {
+        todo: todos[i],
+        idx: i,
+      });
   }
 }
