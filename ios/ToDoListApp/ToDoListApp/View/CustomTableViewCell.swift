@@ -53,6 +53,7 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     private func setUpView() {
+        configureView()
         contentView.addSubview(stackView)
         
         stackView.addArrangedSubview(titleLabel)
@@ -62,6 +63,11 @@ class CustomTableViewCell: UITableViewCell {
         layoutStackView()
     }
     
+    private func configureView() {
+        self.layer.cornerRadius = 7
+        self.clipsToBounds = true
+    }
+    
     private func layoutStackView() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -69,6 +75,15 @@ class CustomTableViewCell: UITableViewCell {
         stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16).isActive = true
         stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
+    }
+}
+
+// MARK: - functions
+
+extension CustomTableViewCell {
+    func changCustomTableViewCell() {
+        self.layer.cornerRadius = 7
+        self.clipsToBounds = true
     }
     
     func changeTitleLabel(text: String) {

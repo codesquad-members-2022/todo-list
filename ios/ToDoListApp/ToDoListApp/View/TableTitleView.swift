@@ -31,7 +31,6 @@ class TableTitleView: UIView {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "addButton"), for: .normal)
         button.tintColor = .gray
-        button.backgroundColor = .clear
         return button
     }()
     
@@ -58,12 +57,14 @@ class TableTitleView: UIView {
     
     private func layoutTitleLabel() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
     }
     
     private func layoutBadgeLabel() {
         badgeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         badgeLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         badgeLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8).isActive = true
         badgeLabel.widthAnchor.constraint(equalToConstant: 26).isActive = true
@@ -72,10 +73,15 @@ class TableTitleView: UIView {
     
     private func layoutAddButton() {
         addButton.translatesAutoresizingMaskIntoConstraints = false
+        
         addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         addButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
-    
+}
+
+// MARK: - functions
+
+extension TableTitleView {
     func currentNumberOfItem(item: Int){
         badgeLabel.text = "\(item)"
     }
