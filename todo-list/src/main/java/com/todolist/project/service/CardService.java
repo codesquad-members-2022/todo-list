@@ -17,6 +17,6 @@ public class CardService {
     }
 
     public void removeCard(int id) {
-
+        cardRepository.remove(id);
     }
 }
