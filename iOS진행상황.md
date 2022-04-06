@@ -7,10 +7,53 @@
 
 | 시작날짜   | 번호  | 내용                                   | 비고 |
 | ---------- | :---- | -------------------------------------- | ---- |
+| 2022.04.06 | Step5 | 네트워크 테스트를 사용한 UI 연결       |      |
 | 2022.04.05 | Step4 | 네트워크 테스트를 위한 MockSession구현 |      |
 | 2022.04.05 | Step3 | 새로운 카드 등록 팝업 구현             |      |
 | 2022.04.05 | Step2 | 메인화면 기능 구현                     |      |
 | 2022.04.04 | Step1 | 메인화면 레이아웃 구성                 |      |
+
+------
+
+## [Step4] 네트워크 테스트를 사용한 UI 연결
+
+### 체크리스트 
+
+- [x] 네트워크 테스트 시 사용할 데이터 모델 정의
+
+  ```swift
+  struct Card: Codable {
+      let title: String
+      let body: String
+      let caption: String
+      let orderIndex: Int
+      
+      enum CodingKeys: String, CodingKey {
+          case title
+          case body = "content"
+          case caption = "author_system"
+          case orderIndex = "order_index"
+      }
+  }
+  
+  struct Column: Codable {
+      let title: String?
+      let cards: [Card]
+  }
+  ```
+
+- [x] 임의로 생성한 데이터 모델을 사용하여 MockSession을 통해 네트워크 통신 테스트
+
+- [x] 모델과 View의 연결
+
+
+### 핵심기능
+
+* 임의로 생성한 데이터모델을 사용하여, 실제 UI와 연결하여 결과를 볼 수 있다
+
+### 결과화면
+
+<img src="https://user-images.githubusercontent.com/5019378/161911818-29e61e1c-88b7-456f-92e3-c847194ed1c9.png" alt="Simulator Screen Shot - iPad Pro (12 9-inch) (5th generation) - 2022-04-06 at 15 43 34" style="zoom:30%;" />
 
 ------
 
@@ -19,13 +62,13 @@
 ### 체크리스트 
 
 - [x] 서버가 준비 되기 전 네트워크 테스트를 위한 MockSession 구현
-- [ ] URLSessionProtocol을 준비하고, 채택하여 사용
-- [ ] 테스트 시, 임의로 성공과 실패를 결정 할 수 있고, 원하는 데이터를 받아 
+- [x] URLSessionProtocol을 준비하고, 채택하여 사용
+- [x] 테스트 시, 임의로 성공과 실패를 결정 할 수 있고, 원하는 데이터를 받아 
   실제 네트워크 통신하듯이 사용가능
 
 ### 핵심기능
 
-* 실제 서버와 연결 전 서버없이 테스트를 할 수 있
+* 실제 서버와 연결 전 서버없이 테스트를 할 수 있다
 
 ------
 
@@ -83,4 +126,3 @@
   - [x] 상단 타이틀 바
   - [x] ColumnViewController 제작
   - [x] CardView 제작
-  
