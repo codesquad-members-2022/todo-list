@@ -42,8 +42,6 @@ class MainActivity : AppCompatActivity() {
             override fun onDrawerOpened(drawerView: View) {
                 Log.d("AppTest", "onDrawerOpened called")
 
-                binding.tvInDrawer?.text = "change success"
-
             }
 
             override fun onDrawerClosed(drawerView: View) {
