@@ -6,7 +6,7 @@ public enum CardStatus {
     DONE("완료한 일");
 
     private String name;
-스
+
     CardStatus(String name) {
         this.name = name;
     }
