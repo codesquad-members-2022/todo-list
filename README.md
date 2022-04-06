@@ -72,32 +72,45 @@ Lists
 - [x] esLint & pritter 설정
 - [x] babel & webpack 설정
 - [x] HTML 마크업 진행
-- [ ] 기능 분리 논의
+- [x] 기능 분리 논의
   - ADD ? 어떻게 할건지..
   - Remove ? 등등
-- [ ] TODO 데이터 논의
+- [x] TODO 데이터 논의
 - [x] 폴더 분리 (어떤 폴더들이 필요할지?)
 
 TO-DO LIST 기능 정리
 
-- [ ] TODO CREATE
+- [ ] TODO CREATE (Jinnie & Muffin)
 
   - [x] 버튼 마우스 오버시 색상 변경
   - [x] 버튼 클릭 시 카드 생성
   - [x] 카드가 렌더링된 상태인데 + 버튼 한 번더 클릭시 카드 제거
   - [x] 취소 버튼 클릭시 카드 제거
   - [ ] 내용이 입력될시만 등록버튼 활성화 + 내용없을 시 등록버튼 비활성화
+    - input addeventListener 에서 `value 값` 유무에 따라 활성화 여부 체크
+    - 버튼속성에 `disable 속성` 추가하면 비활성화 버튼으로 됨
   - [ ] 내용 입력 후 등록시 카드가 등록되고, 해당 카드 제거
-  - [x] 글자수 제한 500자 이내
+    - 전체 todo를 관리하는 todos 배열에 카드가 등록
+    - 서버 반영은 차후에...
+    - 해당 카드 remove.
+  - [ ] 글자수 제한 500자 이내
   - [ ] 글의 길이에 맞춰 박스가 아래로 늘어나도록 구현 + input height값도 함께 늘어난다.
+    - div태그로 input태그처럼 구현? input(hidden 속성)을 사용 -> value만 관리하는 녀석, div가 view를 관리하는 녀석
+  - [ ] 카드 등록 완료 후 해당 Column에 맞는 Count 증가
+    - TodoColumn 클래스에서 할지? TodoCount 클래스 만들어서 할지 고민
+    - count data를 column 마다 계속 가지고 있어서 카드 등록 시 count + 1 해주기
 
-- [ ] TODO UPDATE
+- [ ] TODO UPDATE (Jinnie)
 
   - [ ] 카드 더블클릭시 수정이 가능한 상태로 변경
+    - dbclick addeventlistener 에서 수정 변경 가능하도록 구현
+    - state 값을 두어서 현재 카드가 수정상태인지 판별
   - [ ] 취소 버튼 클릭시 수정 취소. 변경사항 반영 X
+    - 수정 여부의 데이터 state값을 false로 하여 카드 원복
   - [ ] 내용을 모두 삭제시 수정 버튼 비활성화, 내용을 수정한 후 수정버튼 클릭시 변경사항 반영
+    - content 내용이 없을 시 버튼 비활성화
 
-- [ ] TODO DELETE
+- [ ] TODO DELETE (Jinnie)
 
   - [ ] 칼럼 X 버튼은 마우스 오버시에만 색변경, 클릭은 아무 이벤트 X
   - [ ] 카드 X 버튼 마우스 오버시 카드색 변경
@@ -105,14 +118,14 @@ TO-DO LIST 기능 정리
   - [ ] 알럿창 취소 버튼 클릭시 삭제 팝업창 닫힘
   - [ ] 알럿창 삭제 버튼 클릭시 해당 카드 삭제 + 삭제 팝업창 닫힘
 
-- [ ] MENU 버튼 클릭 시 화면 노출
+- [ ] MENU 버튼 클릭 시 화면 노출 (Muffin)
 
   - [ ] 애니메이션 효과 추가
-  - [ ] X 버튼 클릭 시 MENU 화면 없어짐
+  - [x] X 버튼 클릭 시 MENU 화면 없어짐
   - [ ] 최신순으로 보여주기
-  - [ ] 기록이 많아지면 스크롤 생성
+  - [x] 기록이 많아지면 스크롤 생성
 
-- [ ] TODO DRAG & DROP
+- [ ] TODO DRAG & DROP (Muffin)
 
   - [ ] 위 아래로 같은 칼럼내, 다른 컬럼으로도 이동 가능
   - [ ] 드래그앤드랍 시 원래 카드 잔상이 생김
