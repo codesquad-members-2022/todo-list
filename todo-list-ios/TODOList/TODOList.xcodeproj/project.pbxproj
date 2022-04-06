@@ -19,6 +19,7 @@
 		B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */; };
 		D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */; };
 		D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */; };
+		D0B4199527FD7AB100DBAFDB /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4199427FD7AB100DBAFDB /* UIColor+Extension.swift */; };
 		D0B5676527FC267B002AE51E /* HistoryStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B5676427FC267B002AE51E /* HistoryStackView.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewTableViewCell.swift; sourceTree = "<group>"; };
 		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
 		D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewDelegate.swift; sourceTree = "<group>"; };
+		D0B4199427FD7AB100DBAFDB /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		D0B5676427FC267B002AE51E /* HistoryStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +72,7 @@
 		B5EC66D127FADD9C0042EFCF /* TODOList */ = {
 			isa = PBXGroup;
 			children = (
+				D0B4199327FD7AA900DBAFDB /* Extension */,
 				D0B4198E27FD636500DBAFDB /* Models */,
 				B5EC66E927FC0BB70042EFCF /* Views */,
 				B5EC66EA27FC0BBB0042EFCF /* Controllers */,
@@ -118,6 +121,14 @@
 				D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D0B4199327FD7AA900DBAFDB /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D0B4199427FD7AB100DBAFDB /* UIColor+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +205,7 @@
 				D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */,
 				B5EC66EE27FC0D3F0042EFCF /* SideView.swift in Sources */,
 				B5EC66D727FADD9C0042EFCF /* ViewController.swift in Sources */,
+				D0B4199527FD7AB100DBAFDB /* UIColor+Extension.swift in Sources */,
 				B5EC66D327FADD9C0042EFCF /* AppDelegate.swift in Sources */,
 				B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */,
 				D0B5676527FC267B002AE51E /* HistoryStackView.swift in Sources */,
