@@ -79,6 +79,15 @@
   .item-content {
     color: $gray3-color;
   }
+
+  input {
+    width: 100%;
+    border: none;
+  }
+
+  input:focus {
+    outline: none;
+  }
 }
 
 /* 버튼 상태별 style */
@@ -114,7 +123,15 @@
   background-color: $darkblue-color;
 }
 
-.accent-btn:disabled {
+.accent-btn[disabled='false']:hover {
+  background-color: $darkblue-color;
+}
+
+.accent-btn[disabled='false'] {
+  background-color: $blue-color;
+}
+
+.accent-btn[disabled='true'] {
   background-color: $lightblue-color;
   color: rgba(255, 255, 255, 0.4);
 }

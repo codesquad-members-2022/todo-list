@@ -75,6 +75,16 @@ main {
   .item-info {
     width: 100%;
 
+    input {
+      width: 100%;
+      border: none;
+      background-color: none;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
     .item-title {
       @include font_style(700, 16px, 23px);
       margin-bottom: 8px;

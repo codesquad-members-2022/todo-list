@@ -58,6 +58,15 @@
   color: #828282;
 }
 
+.deactivate input {
+  width: 100%;
+  border: none;
+}
+
+.deactivate input:focus {
+  outline: none;
+}
+
 /* 버튼 상태별 style */
 .active-btns button {
   width: 134px;
@@ -93,7 +102,15 @@
   background-color: #00529b;
 }
 
-.accent-btn:disabled {
+.accent-btn[disabled='false']:hover {
+  background-color: #00529b;
+}
+
+.accent-btn[disabled='false'] {
+  background-color: #0075de;
+}
+
+.accent-btn[disabled='true'] {
   background-color: #86c6ff;
   color: rgba(255, 255, 255, 0.4);
 }
@@ -201,6 +218,15 @@ main {
 
 .column-list .item-info {
   width: 100%;
+}
+
+.column-list .item-info input {
+  width: 100%;
+  border: none;
+}
+
+.column-list .item-info input:focus {
+  outline: none;
 }
 
 .column-list .item-info .item-title {
