@@ -1,7 +1,9 @@
 package todolist.domain;
 
+import lombok.Getter;
 import todolist.dto.CardDto;
 
+@Getter
 public class Card {
 
     private Long id;
