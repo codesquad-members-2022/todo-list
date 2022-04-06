@@ -21,7 +21,8 @@ class ContentViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
-        collectionView = CollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: (view.frame.height)*(5/6)), collectionViewLayout: layout)
+        
+        collectionView = CollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
         
         self.view.addSubview(collectionView)
         
