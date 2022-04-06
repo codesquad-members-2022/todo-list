@@ -18,12 +18,14 @@ class CollectionCell: UICollectionViewCell{
         super.init(frame: frame)
         setTodoTableView()
         addDelegate()
+        setCellHeight()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setTodoTableView()
         addDelegate()
+        setCellHeight()
     }
     
     func setTodoTableView(){
