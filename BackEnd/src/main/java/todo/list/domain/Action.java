@@ -1,14 +1,26 @@
 package todo.list.domain;
 
 public enum Action {
-    ADD("등록"),
-    REMOVE("삭제"),
-    UPDATE("변경"),
-    MOVE("이동");
+    ADD,
+    REMOVE,
+    UPDATE,
+    MOVE;
 
-    public final String string;
-
-    Action(String string) {
-        this.string = string;
+    public static Action from(String string) {
+        string = string.toUpperCase();
+        if (ADD.toString().equals(string)) {
+            return ADD;
+        }
+        if (REMOVE.toString().equals(string)) {
+            return REMOVE;
+        }
+        if (UPDATE.toString().equals(string)) {
+            return UPDATE;
+        }
+        if (MOVE.toString().equals(string)) {
+            return MOVE;
+        }
+        return null;
     }
+
 }
