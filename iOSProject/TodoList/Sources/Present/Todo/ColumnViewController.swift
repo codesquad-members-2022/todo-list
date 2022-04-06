@@ -9,12 +9,19 @@ import Foundation
 import UIKit
 import Combine
 
-protocol CardsColumnView {
-    var controller: UIViewController { get }
+protocol ColumnViewDelegate {
+    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Status)
 }
 
-class ColumnViewController: UIViewController, CardsColumnView {
-    
+protocol ColumnViewProperty {
+    var controller: ColumnViewController { get }
+}
+
+protocol ColumnViewInput {
+    func addCard(_ card: Card)
+}
+
+class ColumnViewController: UIViewController, ColumnViewProperty, ColumnViewInput {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,13 +62,15 @@ class ColumnViewController: UIViewController, CardsColumnView {
         return button
     }()
     
-    var controller: UIViewController {
+    var controller: ColumnViewController {
         self
     }
     
     private var cancellables = Set<AnyCancellable>()
     private let model: ColumnViewModelBinding & ColumnViewModelProperty = ColumnViewModel()
     private let status: Card.Status
+    
+    var delegate: ColumnViewDelegate?
     
     init(status: Card.Status) {
         self.status = status
@@ -101,6 +110,11 @@ class ColumnViewController: UIViewController, CardsColumnView {
         self.model.state.insertedCard
             .sink {
                 self.cardTable.insertRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+            }.store(in: &cancellables)
+        
+        self.model.state.movedCard
+            .sink { card, toColumn in
+                self.delegate?.columnView(self, fromCard: card, toColumn: toColumn)
             }.store(in: &cancellables)
     }
     
@@ -143,6 +157,10 @@ class ColumnViewController: UIViewController, CardsColumnView {
             .sink(receiveValue: self.model.action.newCard.send(_:))
             .store(in: &self.cancellables)
     }
+    
+    func addCard(_ card: Card) {
+        
+    }
 }
 
 extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
@@ -163,7 +181,7 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let moveDone = UIAction(title: "완료한 일로 이동") { _ in
-                self.model.action.moveCard.send(indexPath.item)
+                self.model.action.moveCard.send((indexPath.item, .done))
             }
             
             let edit = UIAction(title: "수정하기") { _ in
