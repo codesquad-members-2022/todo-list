@@ -1,0 +1,32 @@
+.work {
+  &__header {
+    display: flex;
+    width: 30.8rem;
+    justify-content: space-between;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: $column-title-fs;
+    font-weight: $column-title-wgt;
+    color: $column-title-color;
+    margin-right: .8rem;
+  }
+
+  &__counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 2rem;
+    background-color: $column-cnt;
+    font-size: $column-cnt-fs;
+    font-weight: $column-cnt-wgt;
+    color: $column-cnt-color;
+  }
+}

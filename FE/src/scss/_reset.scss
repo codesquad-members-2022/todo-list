@@ -89,7 +89,6 @@ video {
   font-size: 10px;
   vertical-align: baseline;
 }
-
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -104,60 +103,25 @@ nav,
 section {
   display: block;
 }
-
 body {
   line-height: 1;
 }
-
 ol,
 ul {
   list-style: none;
 }
-
 blockquote,
 q {
   quotes: none;
 }
-
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
-
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-.work__header {
-  display: flex;
-  width: 30.8rem;
-  justify-content: space-between;
-}
-.work__left {
-  display: flex;
-  align-items: center;
-}
-.work__title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #010101;
-  margin-right: 0.8rem;
-}
-.work__counter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 2.6rem;
-  height: 2.6rem;
-  border-radius: 2rem;
-  background-color: #bdbdbd;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #010101;
-}
-
-/*# sourceMappingURL=main.css.map */
