@@ -15,42 +15,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6N-Cf-0Uc">
-                                <rect key="frame" x="48" y="147" width="816" height="642"/>
-                                <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <segue destination="r1y-LQ-nwm" kind="embed" id="vby-Nt-F2Z"/>
-                                </connections>
-                            </containerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q3x-H0-srJ">
+                                <rect key="frame" x="48" y="147" width="816" height="637"/>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="i6N-Cf-0Uc" secondAttribute="trailing" constant="330" id="Api-3i-Ku8"/>
-                            <constraint firstItem="i6N-Cf-0Uc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="fsb-p8-Q91"/>
-                            <constraint firstItem="i6N-Cf-0Uc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="123" id="qDz-ow-Qht"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="i6N-Cf-0Uc" secondAttribute="bottom" constant="25" id="sfP-wX-UFr"/>
+                            <constraint firstItem="q3x-H0-srJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="SBh-xI-koj"/>
+                            <constraint firstItem="q3x-H0-srJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="123" id="YAa-7k-4oZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="q3x-H0-srJ" secondAttribute="bottom" constant="30" id="r0p-ZZ-XtZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q3x-H0-srJ" secondAttribute="trailing" constant="330" id="zks-zh-1b5"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="taskListStackView" destination="q3x-H0-srJ" id="b2L-zg-6TB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="138.69346733668343" y="137.41007194244605"/>
-        </scene>
-        <!--Task List Board View Controller-->
-        <scene sceneID="ZjA-Dt-iZ0">
-            <objects>
-                <viewController id="r1y-LQ-nwm" customClass="TaskListBoardViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qNF-ro-SWM">
-                        <rect key="frame" x="0.0" y="0.0" width="816" height="642"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="n4q-Dp-ew9"/>
-                        <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IRI-WL-E10" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-17.08542713567839" y="786.33093525179856"/>
         </scene>
     </scenes>
 </document>
