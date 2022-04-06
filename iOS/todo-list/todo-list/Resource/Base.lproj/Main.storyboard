@@ -19,7 +19,7 @@
         <!--Split View Controller-->
         <scene sceneID="uK2-PN-Zj4">
             <objects>
-                <splitViewController allowDoubleColumnStyle="YES" behavior="overlay" primaryEdge="trailing" id="mBE-x1-Blz" sceneMemberID="viewController">
+                <splitViewController allowDoubleColumnStyle="YES" behavior="overlay" primaryEdge="trailing" id="mBE-x1-Blz" customClass="SplitViewController" customModule="todo_list" sceneMemberID="viewController">
                     <connections>
                         <segue destination="ykt-wd-AVl" kind="relationship" relationship="masterViewController" id="6Rk-md-WOS"/>
                         <segue destination="muI-jk-wQG" kind="relationship" relationship="detailViewController" id="jgH-Vr-Zw3"/>
@@ -273,17 +273,17 @@
         <!--활동기록-->
         <scene sceneID="ckI-e3-ur3">
             <objects>
-                <tableViewController title="활동기록" id="ykt-wd-AVl" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="K4N-RQ-u2P">
+                <tableViewController title="활동기록" id="ykt-wd-AVl" customClass="ActivityRecordController" customModule="todo_list" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="K4N-RQ-u2P" userLabel="activity Table View">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="71l-c0-WYz">
-                                <rect key="frame" x="0.0" y="44.5" width="420" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Active" rowHeight="44" id="71l-c0-WYz">
+                                <rect key="frame" x="0.0" y="44.5" width="420" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="71l-c0-WYz" id="3tM-Z9-eqf">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -293,6 +293,9 @@
                             <outlet property="delegate" destination="ykt-wd-AVl" id="03t-FP-cFi"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="ActivityTableView" destination="K4N-RQ-u2P" id="B74-Ee-w7x"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wsX-Kh-O6B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
