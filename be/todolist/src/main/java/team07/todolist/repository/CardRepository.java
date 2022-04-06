@@ -12,7 +12,11 @@ public interface CardRepository {
 
 	Card delete(Long id);
 
-	Card update(Long id, RequestCard requestCard);
+	Card updateStatus(Long id);
+
+	Card updateRow(Long id);
+
+	Card updateText(Long id);
 
 	List<Card> findAll();
 

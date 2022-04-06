@@ -75,21 +75,17 @@ public class MemoryCardRepository implements CardRepository {
 	}
 
 	@Override
-	public Card update(Long id, RequestCard requestCard) {
-		Card card = store.get(id);
+	public Card updateStatus(Long id) {
+		return null;
+	}
 
-		Card newCard = new Card(requestCard.getUserId(), requestCard.getTitle(),
-			requestCard.getContent(), requestCard.getRow(),
-			requestCard.getStatus());
-		newCard.setId(id);
+	@Override
+	public Card updateRow(Long id) {
+		return null;
+	}
 
-		//todo 비교
-		// 만약 status가 다르다면 -> 왼쪽 오른쪽으로 드래그 앤 드랍 progress -> done
-		// 만약 row만 다르다면 -> progress -> progress로 이동한 경우 (row가 낮은 곳에서 높은 곳으로 이동 // row가 높은 곳에서 낮은 곳으로 이동)
-
-		//todo
-		// title or content가 바뀌었다면 드래그 앤 드랍이 아닌 내용만 수정한 상황
-
+	@Override
+	public Card updateText(Long id) {
 		return null;
 	}
 
