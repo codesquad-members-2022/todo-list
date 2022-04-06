@@ -11,11 +11,11 @@
     |   |
     |   |--📁js
     |       |
-    |       |--💾app.js
+    |       |--💾index.js
     |       |
-    |       |--📁category
+    |       |--📁todo
     |       |
-    |       |--📁card
+    |       |--📁drag-drop
     |       |
     |       |--📁sideMenu
     |
