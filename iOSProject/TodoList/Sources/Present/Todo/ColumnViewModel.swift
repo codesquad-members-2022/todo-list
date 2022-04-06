@@ -16,6 +16,7 @@ protocol ColumnViewModelBinding {
 class ColumnViewModel: ColumnViewModelBinding {
     struct Action {
         let loadColumn = PassthroughSubject<Void, Never>()
+        let newCard = PassthroughSubject<(String, String), Never>()
     }
     
     struct State {
@@ -33,11 +34,11 @@ class ColumnViewModel: ColumnViewModelBinding {
             .map { self.todoRepository.loadColumn() }
             .switchToLatest()
             .sink(receiveCompletion: { error in
-                print("error")
-                print(error)
             }, receiveValue: { result in
-                print("result")
-                print(result)
             }).store(in: &cancellables)
+        
+        action.newCard
+            .sink { _ in
+            }.store(in: &cancellables)
     }
 }

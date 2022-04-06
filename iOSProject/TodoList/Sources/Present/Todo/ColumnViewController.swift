@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 import Combine
 
-class ColumnViewController: UIViewController{
+protocol CardsColumnView {
+    var controller: UIViewController { get }
+}
+
+class ColumnViewController: UIViewController, CardsColumnView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -51,7 +55,11 @@ class ColumnViewController: UIViewController{
         return button
     }()
     
-    var cancellables = Set<AnyCancellable>()
+    var controller: UIViewController {
+        self
+    }
+    
+    private var cancellables = Set<AnyCancellable>()
     private let model: ColumnViewModelBinding = ColumnViewModel()
     
     override func viewDidLoad() {
@@ -67,7 +75,15 @@ class ColumnViewController: UIViewController{
         cardTable.dataSource = self
         
         add.publisher(for: .touchUpInside)
-            .sink(receiveValue: self.model.action.loadColumn.send(_:))
+            .sink {
+                let popup = CardEditPopupController()
+                popup.modalPresentationStyle = .overCurrentContext
+                self.present(popup, animated: false)
+                
+                popup.confimPublisher
+                    .sink(receiveValue: self.model.action.newCard.send(_:))
+                    .store(in: &self.cancellables)
+            }
             .store(in: &cancellables)
     }
     
@@ -112,3 +128,4 @@ extension ColumnViewController: UITableViewDataSource {
         return cell
     }
 }
+
