@@ -5,7 +5,7 @@ import {createMainTemplate} from './views/main.js';
 (() => {
   const headerTemplate = createHeaderTemplate(icons.menu);
   document.body.insertAdjacentHTML('afterbegin', headerTemplate);
-  const mainNode = createMainTemplate();
+  const mainNode = createMainTemplate(icons);
 
   // 데이터 처리 로직 테스트
   // [...mainNode.children].forEach(cur => {
