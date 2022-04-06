@@ -1,17 +1,26 @@
 import TodoHeader from './components/TodoHeader.js';
 import TodoColumn from './components/TodoColumn.js';
-import { dummyTodos } from './constants/todos.js';
+import { dummyTodos } from './mocks/todos.js';
 import Todo from './components/Todo.js';
 
 const app = () => {
   // 하나의 객체
-  // 각자 다른 메모리주소를 가지고 있는 데이터가 이벤트리스너를 달고있다.
-  const 해야할일TodoColumn = new TodoColumn('todo');
-  const 하고있는일TodoColumn = new TodoColumn('ing');
-  const 완료할일TodoColumn = new TodoColumn('complete');
+  const todos = JSON.parse(localStorage.getItem('todos')) ? JSON.parse(localStorage.getItem('todos')) : [];
+
+  if (todos !== null) {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
+  new TodoColumn('todo');
+  new TodoColumn('ing');
+  new TodoColumn('complete');
 
   new TodoHeader();
 
+  dummyDataload();
+};
+
+const dummyDataload = () => {
   dummyTodos.forEach(e => {
     const newTodo = new Todo(e);
     if (e.status == 'ing') {
