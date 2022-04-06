@@ -12,6 +12,7 @@
   - 글쓰는 걸 좋아합니다!
 - [jason](https://github.com/JasonLee0223)
   - ENFJ
+  - 등산 다니는 걸 좋아합니다 ⛰
 
 #### BE
 
