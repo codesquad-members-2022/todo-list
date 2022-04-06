@@ -3,10 +3,11 @@ import UIKit
 
 class SideView: UIView {
     
+    weak var delegate: SideViewDelegate?
+    
     let closeButton: UIButton = {
         let button = UIButton(type: .close)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .white
         return button
     }()
     
@@ -22,13 +23,15 @@ class SideView: UIView {
         
         addViews()
         setConstraints()
+        addButtonActions()
     }
     
-    override required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
         
         addViews()
         setConstraints()
+        addButtonActions()
     }
     
     private func addViews() {
@@ -46,5 +49,11 @@ class SideView: UIView {
         tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+    }
+    
+    private func addButtonActions() {
+        closeButton.addAction(UIAction(handler: { _ in
+            self.delegate?.sideViewCloseButtonDidTap()
+        }), for: .touchUpInside)
     }
 }
