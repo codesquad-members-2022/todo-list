@@ -81,13 +81,13 @@ class CardRepositoryTest {
         assertThat(addedCard).isNotEmpty()
             .get()
             .hasFieldOrPropertyWithValue("id", 4L)
-            .hasFieldOrPropertyWithValue("status", 1)
-            .hasFieldOrPropertyWithValue("title", "title4")
-            .hasFieldOrPropertyWithValue("content", "content4")
-            .hasFieldOrPropertyWithValue("userId", "userId1")
-            .hasFieldOrPropertyWithValue("applianceInfo", 1)
-            .hasFieldOrPropertyWithValue("deletedYn", false)
-            .hasFieldOrPropertyWithValue("index", 4);
+            .hasFieldOrPropertyWithValue("status", card.getStatus())
+            .hasFieldOrPropertyWithValue("title", card.getTitle())
+            .hasFieldOrPropertyWithValue("content", card.getContent())
+            .hasFieldOrPropertyWithValue("userId", card.getUserId())
+            .hasFieldOrPropertyWithValue("applianceInfo", card.getApplianceInfo())
+            .hasFieldOrPropertyWithValue("deletedYn", card.isDeletedYn())
+            .hasFieldOrPropertyWithValue("index", card.getIndex());
     }
 
     @Test
