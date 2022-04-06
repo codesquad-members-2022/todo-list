@@ -53,12 +53,12 @@ public class CardRepository {
 
     public Optional<Card> findById(long id) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-        List<Card> result = jdbc.query(
-            "select id, status, title, content, user_id, appliance_info, created_at, modified_at, deleted_yn, index "
+        Card card = DataAccessUtils.singleResult(jdbc.query(
+                "select id, status, title, content, user_id, appliance_info, created_at, modified_at, deleted_yn, index "
                 + "from todo_card where id = :id",
-            namedParameters, cardRowMapper
-        );
-        return result.stream().findAny();
+                namedParameters, cardRowMapper));
+
+        return Optional.ofNullable(member);
     }
 
     public int countByStatus(int status) {
