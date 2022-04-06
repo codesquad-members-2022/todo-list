@@ -1,11 +1,13 @@
 package com.todolist.service;
 
 import com.todolist.domain.Category;
-import com.todolist.dto.ColumnList;
-import com.todolist.dto.WorkList;
+import com.todolist.domain.Work;
+import com.todolist.dto.ColumnListDto;
+import com.todolist.dto.WorkListDto;
 import com.todolist.repository.WorkRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,18 +19,20 @@ public class WorkService {
         this.workRepository = workRepository;
     }
 
-    public ColumnList getColumnList() {
+    public ColumnListDto getColumnList(String userId) {
 
-        List<WorkList> workLists = new ArrayList<>();
+        List<WorkListDto> workLists = new ArrayList<>();
 
         List<Category> categoryList = workRepository.findAllCategories();
         for (Category category : categoryList) {
-            workLists.add(new WorkList(
-                    category.getName(), workRepository.findAllWorksByCategoryId(category.getId())
+            workLists.add(new WorkListDto(
+                category.getName(),
+                workRepository.findAllWorksByCategoryId(category.getId(), userId)
+                    .stream().map(Work::convertToDto).collect(Collectors.toList())
                 )
             );
         }
 
-        return new ColumnList(workLists);
+        return new ColumnListDto(workLists);
     }
 }

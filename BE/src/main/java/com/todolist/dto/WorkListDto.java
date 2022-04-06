@@ -1,16 +1,15 @@
 package com.todolist.dto;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.todolist.domain.Work;
 import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class WorkList {
+public class WorkListDto {
 
     private String categoryName;
-    private List<Work> works;
+    private List<WorkDto> works;
 
-    public WorkList(String categoryName, List<Work> works) {
+    public WorkListDto(String categoryName, List<WorkDto> works) {
         this.categoryName = categoryName;
         this.works = works;
     }

@@ -3,7 +3,9 @@ package com.todolist.repository;
 import com.todolist.domain.Category;
 import com.todolist.domain.Work;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,19 +24,26 @@ public class WorkRepository {
         return jdbc.query("SELECT id, name FROM category", categoryRowMapper());
     }
 
-    public List<Work> findAllWorksByCategoryId(int categoryId) {
-        return jdbc.query("SELECT id, category_id, title, content, user_id, created_date FROM work WHERE category_id = :id ORDER BY created_date DESC",
-            Collections.singletonMap("id", categoryId), workRowMapper());
+    public List<Work> findAllWorksByCategoryId(int categoryId, String userId) {
+        Map<String, String> params = new HashMap<>();
+        params.put("categoryId", String.valueOf(categoryId));
+        params.put("userId", userId);
+
+        return jdbc.query("SELECT id, category_id, title, content, user_id, delete_flag, created_date "
+                + "FROM work WHERE delete_flag = 0 AND category_id = :categoryId AND user_id = :userId ORDER BY created_date DESC",
+            params, workRowMapper());
     }
 
     private RowMapper<Work> workRowMapper() {
         return (rs, rowNum) -> {
-            Work work = new Work(rs.getObject("id", Integer.class),
+            Work work = new Work(
+                rs.getObject("id", Integer.class),
                 rs.getObject("category_id", Integer.class),
                 rs.getString("title"),
                 rs.getString("content"),
                 rs.getString("user_id"),
-                rs.getTimestamp("created_date").toLocalDateTime());
+                rs.getTimestamp("created_date").toLocalDateTime()
+            );
 
             return work;
         };
@@ -42,7 +51,10 @@ public class WorkRepository {
 
     private RowMapper<Category> categoryRowMapper() {
         return (rs, rowNum) -> {
-            Category category = new Category(rs.getObject("id", Integer.class), rs.getString("name"));
+            Category category = new Category(
+                rs.getObject("id", Integer.class),
+                rs.getString("name")
+            );
 
             return category;
         };

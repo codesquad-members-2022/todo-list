@@ -1,15 +1,14 @@
 package com.todolist.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.todolist.domain.Work;
 import java.util.List;
 
-public class ColumnList {
+public class ColumnListDto {
 
     @JsonProperty
-    private List<WorkList> workList;
+    private List<WorkListDto> workList;
 
-    public ColumnList(List<WorkList> workList) {
+    public ColumnListDto(List<WorkListDto> workList) {
         this.workList = workList;
     }
 }
