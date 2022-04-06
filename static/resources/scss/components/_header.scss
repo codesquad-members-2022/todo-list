@@ -1,6 +1,6 @@
 .header {
   @include flex-box(space-between, center);
-  min-height: 112px;
+  min-height: $header-height;
 }
 
 .logo {

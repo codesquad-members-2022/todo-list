@@ -29,3 +29,7 @@ $size-large: 1.285rem; // 18px
 // font-weight
 $weight-regular: 400;
 $weight-bold: 700;
+
+// height
+$header-height: 112px;
+$column-wrap-height: calc(100vh - 112px);

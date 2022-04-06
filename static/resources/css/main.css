@@ -351,7 +351,6 @@ b {
 .wrap {
   max-width: 1440px;
   min-width: 1025px;
-  min-height: 100vh;
   margin: 0 auto;
   padding: 0 80px;
 }
@@ -399,6 +398,8 @@ b {
       -ms-flex-align: start;
           align-items: flex-start;
   gap: 16px;
+  min-height: calc(100vh - 112px);
+  overflow-y: auto;
 }
 
 .column__top-wrap {
