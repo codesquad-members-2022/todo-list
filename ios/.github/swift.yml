@@ -1,0 +1,27 @@
+name: Swift
+
+on:
+  push:
+    branches:
+      - ios
+      - feature-*
+      - fix-*
+      - refactor-*
+      - test-*
+  pull_request:
+    branches:
+      - ios
+      - feature-*
+      - fix-*
+      - refactor-*
+      - test-*
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Tests
+        run: |
+          xcodebuild test -project $PWD/ios/TodoApp/TodoApp.xcodeproj -scheme TodoApp -destination 'platform=iOS Simulator,name=iPad Pro (11-inch) (3rd generation)'
