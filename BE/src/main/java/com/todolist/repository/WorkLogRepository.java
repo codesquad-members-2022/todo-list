@@ -1,6 +1,7 @@
 package com.todolist.repository;
 
 import com.todolist.domain.WorkLog;
+import java.util.Collections;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,9 +17,10 @@ public class WorkLogRepository {
         jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<WorkLog> findAllWorkLogs() {
+    public List<WorkLog> findAllWorkLogs(String userId) {
         return jdbc.query("SELECT user_id, title, action, previous_status, changed_status, updated_date "
-            + "FROM work AS A JOIN work_log AS B ON A.id = B.work_id ORDER BY updated_date DESC", workLogRowMapper());
+            + "FROM work AS A JOIN work_log AS B ON A.id = B.work_id WHERE user_id = :userId ORDER BY updated_date DESC",
+            Collections.singletonMap("userId", userId), workLogRowMapper());
     }
 
     private RowMapper<WorkLog> workLogRowMapper() {

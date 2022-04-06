@@ -15,8 +15,8 @@ public class WorkLogService {
         this.workLogRepository = workLogRepository;
     }
 
-    public WorkLogListDto getWorkLogList() {
-        return new WorkLogListDto(workLogRepository.findAllWorkLogs()
+    public WorkLogListDto getWorkLogList(String userId) {
+        return new WorkLogListDto(workLogRepository.findAllWorkLogs(userId)
             .stream().map(WorkLog::convertToDto).collect(Collectors.toList()));
     }
 }
