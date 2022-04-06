@@ -1,6 +1,10 @@
-import Component from "./Component";
+import Component from "./Component.js";
+import { TodoList } from "./TodoList.js";
 
 export class MainSection extends Component {
+  setup() {
+    this.state = { lists: [{ title: "오늘 할 일" }] };
+  }
   template() {
     const { lists } = this.state;
     return `
@@ -8,9 +12,10 @@ export class MainSection extends Component {
     `;
   }
   mount() {
-    const { list } = this.state;
+    const { lists } = this.state;
+    console.log(this.select("section[data-idx]"));
     for (let i = 0; i < lists.length; i++) {
-      new TodoList(this.select(`todo-column[data-idx='${i}']`));
+      new TodoList(this.select(`section[data-idx="${i}"]`));
     }
   }
   setEvent() {}

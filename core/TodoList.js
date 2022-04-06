@@ -1,8 +1,17 @@
-import Component from "./Component";
+import Component from "./Component.js";
+import { TodoCard } from "./TodoCard.js";
 
 export class TodoList extends Component {
+  setup() {
+    this.state = {
+      title: "오늘할 일",
+      selected: -1,
+      todos: [{ title: "report", contents: "운영체제", caption: "과제" }],
+    };
+  }
   template() {
-    const { lists } = this.state;
+    const { todos, title, selected } = this.state;
+    console.log(todos);
     return `
 <div class="todo-title">
             <span class="todo-name">${title}
@@ -28,15 +37,15 @@ export class TodoList extends Component {
       </div>
     </div>
     ${todos
-      .map(
-        (todo, idx) => `<div class="todo-card" data-idx=${idx}>    
-  </div>`
-      )
+      .map((todo, idx) => `<div class="todo-card" data-idx=${idx}></div>>`)
       .join("")}`;
   }
+
   mount() {
+    const { todos } = this.state;
+    console.log(this.select(`[data-idx="0"]`));
     for (let i = 0; i < todos.length; i++) {
-      new TodoCard(this.select(`.todo-card[data-idx='${i}']`));
+      new TodoCard(this.select(`div[data-idx="${i}"]`));
     }
   }
 }

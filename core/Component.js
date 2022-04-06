@@ -1,12 +1,15 @@
 export default class Component {
   state;
+  $props;
   #el;
-  constructor(el) {
+  constructor(el, props = {}) {
     this.#el = el;
+    this.$props = props;
+    this.setup();
     this.setEvent();
     this.render();
   }
-
+  setup() {}
   setState(newState) {
     this.state = { ...this.state, ...newState };
     this.render();
