@@ -1,16 +1,21 @@
 @mixin button {
   width: 13.4rem;
   height: 4rem;
+  border-radius: 0.6rem;
+  border: 0;
   font-size: $font-medium;
   font-weight: $wgt-large;
 }
 
 @mixin button-blue($active) {
   @include button;
+
   @if $active {
     background-color: $blue;
     color: $white;
-  } @else {
+  }
+
+  @else {
     background-color: $btn-accent-disabled;
     color: $lightgray;
   }
@@ -32,13 +37,17 @@
 
   @if $box-sizing {
     box-sizing: border-box;
-  } @else {
+  }
+
+  @else {
     box-sizing: content-box;
   }
 
   @if $color {
     border: 1px solid $color;
-  } @else {
+  }
+
+  @else {
     border: 0;
   }
 }
