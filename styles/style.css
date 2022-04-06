@@ -167,11 +167,13 @@ body {
   width: 0px;
 }
 
-input {
+textarea {
   border: none;
+  resize: none;
+  overflow-y: hidden;
 }
 
-input:focus {
+textarea:focus {
   outline: none;
 }
 
@@ -359,7 +361,7 @@ button {
   display: flex;
   justify-content: auto;
   align-items: flex-start;
-  width: 252px;
+  width: 100%;
   min-height: 76px;
 }
 
@@ -369,6 +371,7 @@ button {
   font-size: 1.6rem;
   line-height: 23px;
   color: #010101;
+  width: 100%;
 }
 
 .schedule-register-card__body {
@@ -378,6 +381,7 @@ button {
   line-height: 20px;
   color: #010101;
   margin: 8px 0px;
+  width: 100%;
 }
 
 .schedule-register-card__btns-container {

@@ -128,7 +128,7 @@
     &__text-container {
         flex-direction: column;
         @include flex-layout(auto, flex-start);
-        width: 252px;
+        width: 100%;
         min-height: 76px;
     }
 
@@ -138,6 +138,7 @@
         font-size: 1.6rem;
         line-height: 23px;
         color: map-get($colors, black);
+        width: 100%;
     }
 
     &__body {
@@ -147,6 +148,7 @@
         line-height: 20px;
         color: map-get($colors, black);
         margin: 8px 0px;
+        width: 100%;
     }
 
     &__btns-container {

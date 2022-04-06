@@ -35,8 +35,10 @@ $colors: (
     width: 0px;
 }
 
-input {
+textarea {
     border: none;
+    resize: none;
+    overflow-y: hidden;
     &:focus {
         outline: none;
     }

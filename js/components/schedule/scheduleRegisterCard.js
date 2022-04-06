@@ -1,4 +1,5 @@
 export class ScheduleRegisterCard {
+    LIMIT = 500;
     constructor(target, id) {
         this.$target = target;
         this.id = id;
@@ -25,7 +26,7 @@ export class ScheduleRegisterCard {
             ".schedule-register-card__title"
         );
         $cardTitle.addEventListener("input", ({ target }) =>
-            this.activateRegisterBtn(target)
+            this.cardTitleInputEventHandler(target)
         );
 
         const $registerBtn = this.$target.querySelector(
@@ -34,44 +35,62 @@ export class ScheduleRegisterCard {
         $registerBtn.addEventListener("click", ({ target }) =>
             this.registerBtnClickEventHandler(target)
         );
+
+        const $cardBody = this.$target.querySelector(
+            ".schedule-register-card__body"
+        );
+        $cardBody.addEventListener("input", ({ target }) =>
+            this.cardBodyInputEventHandler(target)
+        );
+    }
+
+    adjustInputHeight($input) {
+        $input.style.height = $input.scrollHeight + "px";
+    }
+
+    cardBodyInputEventHandler($cardBody) {
+        this.adjustInputHeight($cardBody);
     }
 
     registerBtnClickEventHandler(target) {
         if (target.classList.contains("inactive")) {
             return;
         }
-
-        console.log("register click");
     }
 
-    activateRegisterBtn(target) {
-        const cardTitle = target.value;
-        const $registerBtn = this.$target.querySelector(
-            ".schedule-register-card__register-btn"
-        );
-
-        if (cardTitle.length) {
+    toggleRegisterBtn(booleanValue, $registerBtn) {
+        if (booleanValue) {
             $registerBtn.classList.replace("inactive", "active");
         } else {
             $registerBtn.classList.replace("active", "inactive");
         }
     }
 
+    cardTitleInputEventHandler($cardTitle) {
+        const cardTitle = $cardTitle.value;
+        const $registerBtn = this.$target.querySelector(
+            ".schedule-register-card__register-btn"
+        );
+
+        this.toggleRegisterBtn(cardTitle, $registerBtn);
+        this.adjustInputHeight($cardTitle);
+    }
+
     template() {
         return `<div class="schedule-register-card" data-id="${this.id}">
                 <form class="schedule-register-card__text-container">
-                    <input 
-                        class="schedule-register-card__title" 
-                        type="text" 
+                    <textarea 
+                        class="schedule-register-card__title"  
                         placeholder="제목을 입력하세요"
-                    >
-                    </input>
-                    <input 
+                        rows="1"
+                        maxLength="${this.LIMIT}"
+                    ></textarea>
+                    <textarea 
                         class="schedule-register-card__body" 
-                        type="text" 
                         placeholder="내용을 입력하세요"
-                    >
-                    </input>
+                        rows="1"
+                        maxLength="${this.LIMIT}"
+                    ></textarea>
                 </form>
                 <div class=schedule-register-card__btns-container>
                     <button class="schedule-register-card__cancel-btn">
