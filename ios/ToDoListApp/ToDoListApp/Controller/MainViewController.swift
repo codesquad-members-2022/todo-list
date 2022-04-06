@@ -14,46 +14,72 @@ class MainViewController: UIViewController {
     private let inProgressViewController = InProgressViewController()
     private let doneViewController = DoneViewController()
     
+    private let tableStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 22
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
     }
     
     private func setUpView() {
-        view.backgroundColor = .systemGray6
+        configureView()
         
-        guard let toDoView = toDoViewController.view else { return }
-        guard let inProgressView = inProgressViewController.view else { return }
-        guard let doneView = doneViewController.view else { return }
+        setChildViewControllers()
         
         view.addSubview(titleView)
-        view.addSubview(toDoView)
-        view.addSubview(inProgressView)
-        view.addSubview(doneView)
+        view.addSubview(tableStackView)
+        configureTableStackView()
         
+        layoutTitleView()
+        layoutTableStackView()
+    }
+    
+    private func configureView() {
+        view.backgroundColor = .systemGray6
+    }
+    
+    private func setChildViewControllers() {
+        addChildViewController(child: toDoViewController, parent: self)
+        addChildViewController(child: inProgressViewController, parent: self)
+        addChildViewController(child: doneViewController, parent: self)
+    }
+    
+    private func addChildViewController(child: UIViewController, parent: UIViewController) {
+        addChild(child)
+        child.didMove(toParent: parent)
+    }
+    
+    private func layoutTitleView() {
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        toDoView.translatesAutoresizingMaskIntoConstraints = false
-        inProgressView.translatesAutoresizingMaskIntoConstraints = false
-        doneView.translatesAutoresizingMaskIntoConstraints = false
         
         titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         titleView.heightAnchor.constraint(equalToConstant: 72).isActive = true
+    }
+    
+    private func configureTableStackView() {
+        guard let toDoView = toDoViewController.view else { return }
+        guard let inProgressView = inProgressViewController.view else { return }
+        guard let doneView = doneViewController.view else { return }
         
-        toDoView.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 100).isActive = true
-        toDoView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
-        toDoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
-        toDoView.widthAnchor.constraint(equalToConstant: 258).isActive = true
+        tableStackView.addArrangedSubview(toDoView)
+        tableStackView.addArrangedSubview(inProgressView)
+        tableStackView.addArrangedSubview(doneView)
+    }
+    
+    private func layoutTableStackView() {
+        tableStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        inProgressView.topAnchor.constraint(equalTo: toDoView.topAnchor).isActive = true
-        inProgressView.bottomAnchor.constraint(equalTo: toDoView.bottomAnchor).isActive = true
-        inProgressView.leadingAnchor.constraint(equalTo: toDoView.trailingAnchor, constant: 22).isActive = true
-        inProgressView.widthAnchor.constraint(equalToConstant: 258).isActive = true
-        
-        doneView.topAnchor.constraint(equalTo: toDoView.topAnchor).isActive = true
-        doneView.bottomAnchor.constraint(equalTo: toDoView.bottomAnchor).isActive = true
-        doneView.leadingAnchor.constraint(equalTo: inProgressView.trailingAnchor, constant: 22).isActive = true
-        doneView.widthAnchor.constraint(equalToConstant: 258).isActive = true
+        tableStackView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 64).isActive = true
+        tableStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
+        tableStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
+        tableStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -343).isActive = true
     }
 }
