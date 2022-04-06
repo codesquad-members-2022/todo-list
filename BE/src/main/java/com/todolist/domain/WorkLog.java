@@ -15,17 +15,6 @@ public class WorkLog {
 
     private WorkLog() { }
 
-    public WorkLog(Integer workId, String userId, String title, String action, // WorkLog 생성용
-        String previousStatus, String changedStatus, LocalDateTime updatedDate) {
-        this.workId = workId;
-        this.userId = userId;
-        this.title = title;
-        this.action = action;
-        this.previousStatus = previousStatus;
-        this.changedStatus = changedStatus;
-        this.updatedDate = updatedDate;
-    }
-
     public WorkLog(String userId, String title, String action,
         String previousStatus, String changedStatus, LocalDateTime updatedDate) {
         this.userId = userId;

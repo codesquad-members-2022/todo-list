@@ -20,7 +20,6 @@ public class WorkService {
     }
 
     public ColumnListDto getColumnList(String userId) {
-
         List<WorkListDto> workLists = new ArrayList<>();
 
         List<Category> categoryList = workRepository.findAllCategories();
@@ -33,6 +32,6 @@ public class WorkService {
             );
         }
 
-        return new ColumnListDto(workLists);
+        return new ColumnListDto(userId, workLists);
     }
 }

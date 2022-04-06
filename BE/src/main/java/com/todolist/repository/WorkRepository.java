@@ -2,7 +2,6 @@ package com.todolist.repository;
 
 import com.todolist.domain.Category;
 import com.todolist.domain.Work;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class WorkRepository {
         params.put("categoryId", String.valueOf(categoryId));
         params.put("userId", userId);
 
-        return jdbc.query("SELECT id, category_id, title, content, user_id, delete_flag, created_date "
+        return jdbc.query("SELECT id, category_id, title, content, delete_flag, created_date "
                 + "FROM work WHERE delete_flag = 0 AND category_id = :categoryId AND user_id = :userId ORDER BY created_date DESC",
             params, workRowMapper());
     }
@@ -41,7 +40,6 @@ public class WorkRepository {
                 rs.getObject("category_id", Integer.class),
                 rs.getString("title"),
                 rs.getString("content"),
-                rs.getString("user_id"),
                 rs.getTimestamp("created_date").toLocalDateTime()
             );
 

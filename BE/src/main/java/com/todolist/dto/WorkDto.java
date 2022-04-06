@@ -10,16 +10,13 @@ public class WorkDto {
     private Integer categoryId;
     private String title;
     private String content;
-    private String userId;
     private LocalDateTime createdDate;
 
-    public WorkDto(Integer id, Integer categoryId, String title, String content,
-        String userId, LocalDateTime createdDate) {
+    public WorkDto(Integer id, Integer categoryId, String title, String content, LocalDateTime createdDate) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
         this.content = content;
-        this.userId = userId;
         this.createdDate = createdDate;
     }
 }

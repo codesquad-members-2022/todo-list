@@ -15,26 +15,15 @@ public class Work {
 
     private Work() { }
 
-    public Work(Integer categoryId, String title, String content, String userId,
-        Integer deleteFlag, LocalDateTime createdDate) {
-        this.categoryId = categoryId;
-        this.title = title;
-        this.content = content;
-        this.userId = userId;
-        this.deleteFlag = deleteFlag;
-        this.createdDate = createdDate;
-    }
-
-    public Work(Integer id, Integer categoryId, String title, String content, String userId, LocalDateTime createdDate) {
+    public Work(Integer id, Integer categoryId, String title, String content, LocalDateTime createdDate) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
         this.content = content;
-        this.userId = userId;
         this.createdDate = createdDate;
     }
 
     public WorkDto convertToDto() {
-        return new WorkDto(id, categoryId, title, content, userId, createdDate);
+        return new WorkDto(id, categoryId, title, content, createdDate);
     }
 }
