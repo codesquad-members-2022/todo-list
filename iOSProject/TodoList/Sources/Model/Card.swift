@@ -37,5 +37,16 @@ extension Card {
                 return "완료한 일"
             }
         }
+        
+        var index: Int {
+            switch self {
+            case .todo:
+                return 0
+            case .progress:
+                return 1
+            case .done:
+                return 2
+            }
+        }
     }
 }

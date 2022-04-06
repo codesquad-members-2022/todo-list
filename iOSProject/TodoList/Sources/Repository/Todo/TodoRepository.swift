@@ -10,4 +10,5 @@ import Combine
 
 protocol TodoRepository {
     func loadColumn() -> AnyPublisher<Result<[Card], SessionError>, Never>
+    func moveCard(cardIndex: Int, toColumn: Card.Status) -> AnyPublisher<Result<(Int, Card.Status), SessionError>, Never>
 }

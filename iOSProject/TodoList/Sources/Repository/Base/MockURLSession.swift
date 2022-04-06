@@ -57,6 +57,10 @@ class MockData {
             return columnData()
         }
         
+        let moveCardURL = TodoTarget.moveCard(cardIndex: 1, toColumn: .done).baseURL.appendingPathComponent(TodoTarget.loadColumn.path)
+        if moveCardURL.path == url.path {
+            return Data()
+        }
         return Data()
     }
     

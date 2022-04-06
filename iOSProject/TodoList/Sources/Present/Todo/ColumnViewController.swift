@@ -110,11 +110,19 @@ class ColumnViewController: UIViewController, ColumnViewProperty, ColumnViewInpu
         self.model.state.insertedCard
             .sink {
                 self.cardTable.insertRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+                self.count.text = String(self.model.cardCount)
+            }.store(in: &cancellables)
+        
+        self.model.state.deletedCard
+            .sink {
+                self.cardTable.deleteRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+                self.count.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         self.model.state.movedCard
             .sink { card, toColumn in
                 self.delegate?.columnView(self, fromCard: card, toColumn: toColumn)
+                self.count.text = String(self.model.cardCount)
             }.store(in: &cancellables)
     }
     
@@ -159,7 +167,7 @@ class ColumnViewController: UIViewController, ColumnViewProperty, ColumnViewInpu
     }
     
     func addCard(_ card: Card) {
-        
+        self.model.action.addCard.send(card)
     }
 }
 

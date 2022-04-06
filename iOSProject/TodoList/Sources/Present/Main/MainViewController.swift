@@ -17,11 +17,11 @@ class MainViewController: UIViewController {
         return titleBarView
     }()
     
-    let columnTableViews: [Card.Status:ColumnViewProperty&ColumnViewInput] = {
+    let columnTableViews: [ColumnViewProperty&ColumnViewInput] = {
         return [
-            .todo:ColumnViewController(status: .todo),
-            .progress:ColumnViewController(status: .progress),
-            .done:ColumnViewController(status: .done)
+            ColumnViewController(status: .todo),
+            ColumnViewController(status: .progress),
+            ColumnViewController(status: .done)
         ]
     }()
     
@@ -42,7 +42,7 @@ class MainViewController: UIViewController {
     }
     
     private func bind() {
-        columnTableViews.forEach{ key, value in
+        columnTableViews.forEach{ value in
             value.controller.delegate = self
         }
     }
@@ -52,7 +52,7 @@ class MainViewController: UIViewController {
     }
     
     private func layout() {
-        columnTableViews.forEach{ self.embed($0.value.controller) }
+        columnTableViews.forEach{ self.embed($0.controller) }
         let safeArea = self.view.safeAreaLayoutGuide
 
         self.view.addSubview(titleBar.view)
@@ -68,8 +68,8 @@ class MainViewController: UIViewController {
         columnStackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -48).isActive = true
         
         columnTableViews.forEach {
-            $0.value.controller.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
-            columnStackView.addArrangedSubview($0.value.controller.view)
+            $0.controller.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
+            columnStackView.addArrangedSubview($0.controller.view)
         }
         columnStackView.addArrangedSubview(UIView())
     }
@@ -77,10 +77,6 @@ class MainViewController: UIViewController {
 
 extension MainViewController: ColumnViewDelegate {
     func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Status) {
-        guard let toColumnView = self.columnTableViews[toColumn] else {
-            return
-        }
-        
-        toColumnView.addCard(fromCard)
+        self.columnTableViews[toColumn.index].addCard(fromCard)
     }
 }

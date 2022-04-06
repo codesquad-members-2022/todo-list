@@ -24,12 +24,14 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
         let newCard = PassthroughSubject<(String, String), Never>()
         let moveCard = PassthroughSubject<(Int, Card.Status), Never>()
         let deleteCard = PassthroughSubject<Int, Never>()
+        let addCard = PassthroughSubject<Card, Never>()
     }
     
     struct State {
         let loadedColumn = PassthroughSubject<Void, Never>()
         let insertedCard = PassthroughSubject<Int, Never>()
         let movedCard = PassthroughSubject<(Card, Card.Status), Never>()
+        let deletedCard = PassthroughSubject<Int, Never>()
     }
     
     private var cancellables = Set<AnyCancellable>()
@@ -71,13 +73,28 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
             .store(in: &cancellables)
         
         action.moveCard
-            .sink { _ in 
-                
+            .map { index, column in self.todoRepository.moveCard(cardIndex: index, toColumn: column)}
+            .switchToLatest()
+            .sink {
+                switch $0 {
+                case .success((let cardIndex, let toColumn)):
+                    let card = self.cards.remove(at: cardIndex)
+                    self.state.deletedCard.send(cardIndex)
+                    self.state.movedCard.send((card, toColumn))
+                case .failure(let error):
+                    print(error)
+                }
             }.store(in: &cancellables)
         
         action.deleteCard
             .sink {
                 print("deleteCard: \($0)")
+            }.store(in: &cancellables)
+        
+        action.addCard
+            .sink {
+                self.cards.insert($0, at: 0)
+                self.state.insertedCard.send(0)
             }.store(in: &cancellables)
     }
 }
