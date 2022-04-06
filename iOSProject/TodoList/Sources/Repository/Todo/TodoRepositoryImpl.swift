@@ -14,7 +14,7 @@ struct ResponseResult: Decodable {
 }
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
-    func loadColumn() -> AnyPublisher<ResponseResult, SessionError> {
-        self.request(.loadColumn)
+    func loadColumn() -> AnyPublisher<Result<Column, SessionError>, Never> {
+        self.request(.loadColumn, isSucccess: true)
     }
 }

@@ -9,9 +9,15 @@ import Foundation
 import Combine
 
 class NetworkRepository<Target: BaseTarget> {
-    private let provider = URLSessionProvider(session: MockURLSession(isRequestSuccess: true))
+    private var provider: URLSessionProvider?
     
-    func request<T: Decodable>(_ target: Target) -> AnyPublisher<T, SessionError> {
+    func request<T: Decodable>(_ target: Target, isSucccess: Bool) -> AnyPublisher<Result<T, SessionError>, Never> {
+        self.request(target, session: MockURLSession(isRequestSuccess: isSucccess))
+    }
+    
+    func request<T: Decodable>(_ target: Target, session: URLSessionProtocol = URLSession.shared ) -> AnyPublisher<Result<T, SessionError>, Never> {
+        provider = URLSessionProvider(session: session)
+        
         var url = target.baseURL
         url = url.appendingPathComponent(target.path)
         
@@ -23,17 +29,17 @@ class NetworkRepository<Target: BaseTarget> {
             urlRequest.httpBody = body
         }
         
-        return Future<T, SessionError> { promise in
-            self.provider.dataTask(request: urlRequest) { result in
+        return Future<Result<T, SessionError>, Never> { promise in
+            self.provider?.dataTask(request: urlRequest) { result in
                 switch result {
                 case .success(let data):
                     guard let dto = try? JSONDecoder().decode(T.self, from: data) else {
-                        promise(.failure(.pasingError))
                         return
                     }
-                    promise(.success(dto))
+                    promise(.success(.success(dto)))
                 case .failure(let error):
-                    promise(.failure(error))
+                    promise(.success(.failure(error)))
+                    return
                 }
             }
         }.eraseToAnyPublisher()

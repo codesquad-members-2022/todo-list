@@ -7,8 +7,36 @@
 
 import Foundation
 
-struct Card: Decodable {
+struct Card: Codable {
     let title: String
-    let body: String?
-    let caption: String?
+    let body: String
+    let caption: String
+    let orderIndex: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case body = "content"
+        case caption = "author_system"
+        case orderIndex = "order_index"
+    }
+}
+
+extension Card {
+    static func mockData() -> Data {
+        let cards = (0..<10).map{ index -> Card in
+            let title = "MockTitle"
+            let body = (0..<Int.random(in: 2..<10)).map { _ in "MockBody__MockBody__MockBody__"}.joined()
+            let caption = "author by iOS"
+            
+            return Card(title: title, body: body, caption: caption, orderIndex: index)
+        }
+        
+        let keyCards = ["cards": cards]
+        
+        guard let body = try? JSONEncoder().encode(keyCards) else {
+            return Data()
+        }
+        
+        return body
+    }
 }

@@ -60,7 +60,7 @@ class ColumnViewController: UIViewController, CardsColumnView {
     }
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: ColumnViewModelBinding = ColumnViewModel()
+    private let model: ColumnViewModelBinding & ColumnViewModelProperty  = ColumnViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +85,12 @@ class ColumnViewController: UIViewController, CardsColumnView {
                     .store(in: &self.cancellables)
             }
             .store(in: &cancellables)
+        
+        self.model.state.loadedColumn
+            .sink { column in
+                self.cardTable.reloadData()
+                self.count.text = String(self.model.cardCount)
+            }.store(in: &cancellables)
     }
     
     private func layout() {
@@ -117,14 +123,15 @@ extension ColumnViewController: UITableViewDelegate {
 
 extension ColumnViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        self.model.cardCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ColumnViewCell") as? ColumnViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ColumnViewCell") as? ColumnViewCell,
+              let card = self.model[indexPath.item] else {
             return UITableViewCell()
         }
-        
+        cell.setCard(card)
         return cell
     }
 }

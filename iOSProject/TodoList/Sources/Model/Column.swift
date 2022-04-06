@@ -8,6 +8,6 @@
 import Foundation
 
 struct Column: Decodable {
-    let title: String
+    let title: String?
     let cards: [Card]
 }

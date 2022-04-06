@@ -93,4 +93,10 @@ class ColumnViewCell: UITableViewCell {
         cellBackgroundView.bottomAnchor.constraint(equalTo: caption.bottomAnchor, constant: 16).isActive = true
         self.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16).isActive = true
     }
+    
+    func setCard(_ card: Card) {
+        self.title.text = card.title
+        self.body.text = card.body
+        self.caption.text = card.caption
+    }
 }

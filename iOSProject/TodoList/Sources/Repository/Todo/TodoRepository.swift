@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol TodoRepository {
-    func loadColumn() -> AnyPublisher<ResponseResult, SessionError>
+    func loadColumn() -> AnyPublisher<Result<Column, SessionError>, Never>
 }
