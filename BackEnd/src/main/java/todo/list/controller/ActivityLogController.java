@@ -18,7 +18,6 @@ public class ActivityLogController {
 
     @GetMapping("/activity-logs")
     public List<ActivityLogDto> showActivityLogs() {
-        List<ActivityLogDto> activityLogs = activityLogService.findActivityLogs();
-        return activityLogs;
+        return activityLogService.findActivityLogs();
     }
 }
