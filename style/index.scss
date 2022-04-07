@@ -41,12 +41,11 @@ body {
     height: 42px;
     @include flexbox(space-between);
     &__left {
-      display: flex;
-      align-items: center;
+      gap: 5px;
+      @include flexbox(inherit, center);
     }
     &__title {
       font-size: $font-18;
-      margin-right: 5px;
       font-weight: $font-700;
     }
     &--count {
@@ -59,12 +58,11 @@ body {
     }
     &__right {
       color: $color-grey;
-      display: flex;
-      align-items: center;
+      gap: 5px;
+      @include flexbox(inherit, center);
     }
     &__add {
       font-size: $font-20;
-      margin-right: 5px;
       cursor: pointer;
     }
     &__delete {
