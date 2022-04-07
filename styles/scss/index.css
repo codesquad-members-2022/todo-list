@@ -151,10 +151,6 @@ input:focus {
   background: #FFFFFF;
 }
 
-.todo-title .todo-name .count, .todo-column .todo-card .wrapper .card-caption, .todo-title .delete svg, .todo-column .todo-card .delete-card, .todo-title .add svg {
-  color: #bdbdbd;
-}
-
 .todo-column .todo-card {
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
   border-radius: 6px;
@@ -166,6 +162,7 @@ input:focus {
   right: 21.27%;
   top: 21.27%;
   bottom: 21.27%;
+  color: #bdbdbd;
 }
 
 .todo-title .delete svg, .todo-column .todo-card .delete-card {
@@ -174,6 +171,7 @@ input:focus {
   right: 28.12%;
   top: 28.12%;
   bottom: 28.12%;
+  color: #bdbdbd;
 }
 
 .todo-header {
@@ -240,10 +238,6 @@ input:focus {
   background: #FFFFFF;
 }
 
-.todo-column .todo-card .wrapper .card-caption, .todo-title .todo-name .count, .todo-column .todo-card .delete-card, .todo-title .delete svg, .todo-title .add svg {
-  color: #bdbdbd;
-}
-
 .todo-column .todo-card {
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
   border-radius: 6px;
@@ -255,6 +249,7 @@ input:focus {
   right: 21.27%;
   top: 21.27%;
   bottom: 21.27%;
+  color: #bdbdbd;
 }
 
 .todo-column .todo-card .delete-card, .todo-title .delete svg {
@@ -263,14 +258,14 @@ input:focus {
   right: 28.12%;
   top: 28.12%;
   bottom: 28.12%;
+  color: #bdbdbd;
 }
 
 .todo-column {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0;
-  position: absolute;
+  position: relative;
   top: 136px;
   width: 308px;
   height: auto;
@@ -280,7 +275,7 @@ input:focus {
   flex-direction: row;
   align-items: flex-start;
   padding: 16px;
-  position: absolute;
+  position: static;
   left: 20px;
   top: 20px;
   width: 308px;
@@ -300,7 +295,7 @@ input:focus {
   flex: none;
   flex-grow: 0;
   order: 0;
-  margin: 0px, 0px;
+  margin: 0px 0px;
 }
 .todo-column .todo-card .wrapper .card-title {
   position: static;
@@ -316,7 +311,7 @@ input:focus {
   flex: none;
   flex-grow: 0;
   order: 0;
-  margin: 0px, 8px;
+  margin: 8px 0px;
 }
 .todo-column .todo-card .wrapper .card-content {
   position: static;
@@ -332,7 +327,7 @@ input:focus {
   flex: none;
   flex-grow: 0;
   order: 1;
-  margin: 0px, 8px;
+  margin: 8px 0px;
 }
 .todo-column .todo-card .wrapper .card-caption {
   position: static;
@@ -345,10 +340,11 @@ input:focus {
   font-weight: 400;
   font-size: 12px;
   line-height: 17px;
+  color: #bdbdbd;
   flex: none;
   flex-grow: 0;
   order: 2;
-  margin: 0px, 8px;
+  margin: 0px 8px;
 }
 .todo-column .todo-card .delete-card {
   position: static;
@@ -359,21 +355,20 @@ input:focus {
   flex: none;
   flex-grow: 0;
   order: 1;
-  margin: 0px, 0px;
+  margin: 0px 0px;
 }
 
 .todo-title {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  position: relative;
+  left: 0;
+  top: 0;
   flex: none;
   flex-grow: 0;
   order: 0;
-  margin: 16px, 0px;
-  position: absolute;
-  left: 20px;
-  top: 20px;
+  margin: 16px 0px;
   padding: 0px 8px;
   width: 308px;
   height: 26px;
@@ -391,7 +386,7 @@ input:focus {
   flex: none;
   flex-grow: 0;
   order: 0;
-  margin: 0px, 8px;
+  margin: 0px 8px;
 }
 .todo-title .todo-name .count {
   display: flex;
@@ -404,14 +399,15 @@ input:focus {
   top: 0px;
   width: 26px;
   height: 26px;
+  background-color: #bdbdbd;
   border-radius: 20px;
   flex: none;
   flex-grow: 0;
   order: 1;
-  margin: 0px, 8px;
+  margin: 0px 8px;
 }
 .todo-title .add {
-  position: static;
+  position: absolute;
   left: 244px;
   top: 1px;
   width: 24px;
@@ -419,10 +415,10 @@ input:focus {
   flex: none;
   flex-grow: 0;
   order: 1;
-  margin: 0px, 8px;
+  margin: 0px 8px;
 }
 .todo-title .delete {
-  position: static;
+  position: absolute;
   left: 276px;
   top: 1px;
   width: 24px;
@@ -430,7 +426,7 @@ input:focus {
   flex: none;
   flex-grow: 0;
   order: 2;
-  margin: 0px, 8px;
+  margin: 0px 8px;
 }
 body {
   /* 01 메인 */

@@ -3,8 +3,8 @@
 
 .todo-column {
   @include shared.custom_flex(column, center);
-  padding: 0;
-  @include shared.custom_absolute($top: 136);
+  position: relative;
+  top: 136px;
   width: 308px;
   height: auto;
 
@@ -15,9 +15,11 @@
 
 
 .todo-title {
-  @include shared.custom_flex(row, center, center);
+  @include shared.custom_flex(row, center);
+  position: relative;
+  left: 0;
+  top: 0;
   @include shared.flex_none(0, 16, 0);
-  @include shared.custom_absolute($left: 20, $top: 20);
   padding: 0px 8px;
   width: 308px;
   height: 26px;
@@ -38,14 +40,15 @@
       @include shared.custom_static($left: 79, $top: 0);
       width: 26px;
       height: 26px;
-      @extend %Gray_4;
+      background-color: shared.$Gray_4;
       border-radius: 20px;
       @include shared.flex_none(1, 0, 8);
+
     }
   }
 
   .add {
-    @include shared.custom_static($left: 244, $top: 1);
+    @include shared.custom_absolute($left: 244, $top: 1);
     width: 24px;
     height: 24px;
     @include shared.flex_none(1, 0, 8);
@@ -56,7 +59,7 @@
   }
 
   .delete {
-    @include shared.custom_static($left: 276, $top: 1);
+    @include shared.custom_absolute($left: 276, $top: 1);
     width: 24px;
     height: 24px;
     @include shared.flex_none(2, 0, 8);

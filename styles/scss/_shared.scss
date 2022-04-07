@@ -29,9 +29,6 @@
   background: #FFFFFF;
 }
 
-%Gray_4 {
-  color: #bdbdbd;
-}
 
 %Blue_svg {
   background: #0075DE;
@@ -70,11 +67,12 @@
   box-sizing: border-box;
 }
 
+$Gray_4: #bdbdbd;
 @mixin flex_none($order:0, $margin-x,$margin-y ) {
   flex: none;
   flex-grow: 0;
   order: $order;
-  margin: #{$margin-x}px, #{$margin-y}px;
+  margin: #{$margin-x}px #{$margin-y}px;
 }
 
 %add_svg {
@@ -84,7 +82,7 @@
   right: 21.27%;
   top: 21.27%;
   bottom: 21.27%;
-  @extend %Gray_4;
+  color: $Gray_4;
 }
 
 %delete_svg {
@@ -94,7 +92,7 @@
   right: 28.12%;
   top: 28.12%;
   bottom: 28.12%;
-  @extend %Gray_4;
+  color: $Gray_4;
 }
 
 @mixin width_height_bypx($width:null, $height:null) {
@@ -103,11 +101,11 @@
 }
 
 @mixin padding_bypx($ptop:null, $pbttom:null, $pleft:null, $pright:null) {
-  padding: #{$ptop}px, #{$pbttom}px, #{$pleft}px, #{$pright}px;
+  padding: #{$ptop}px #{$pbttom}px #{$pleft}px #{$pright}px;
 }
 
 @mixin margin_bypx($mtop:null, $mbottom:null, $mleft:null, $mright:null) {
-  margin: #{$mtop}px, #{$mbottom}px, #{$mleft}px, #{$mright}px;
+  margin: #{$mtop}px #{$mbottom}px #{$mleft}px #{$mright}px;
 }
 
 @mixin custom_flex($dir:null, $align:null, $justify:null) {
@@ -123,7 +121,7 @@
   @include custom_flex(row, flex-start);
   padding: 16px;
 
-  @include custom_absolute($left: 20, $top: 20);
+  @include custom_static($left: 20, $top: 20);
   width: 308px;
   height: 108px;
   @extend %#{$background};
@@ -149,7 +147,7 @@
       @include custom_font($family: 'Noto Sans KR', $style: normal, $weight: 700, $size: 16px);
       line-height: 23px;
       @extend %Black;
-      @include flex_none(0, 0, 8);
+      @include flex_none(0, 8, 0);
     }
 
     .card-content {
@@ -159,7 +157,7 @@
       height: 20px;
       line-height: 20px;
       @extend %Black;
-      @include flex_none(1, 0, 8);
+      @include flex_none(1, 8, 0);
     }
 
     .card-caption {
@@ -174,7 +172,7 @@
       font-size: 12px;
       line-height: 17px;
 
-      @extend %Gray_4;
+      color: $Gray_4;
       @include flex_none(2, 0, 8);
     }
   }
