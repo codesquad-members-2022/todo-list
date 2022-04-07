@@ -15,6 +15,17 @@ public class Work {
 
     private Work() { }
 
+    public Work(Integer id, Integer categoryId, String title, String content, String userId,
+        boolean deleteFlag) {
+        this.id = id;
+        this.categoryId = categoryId;
+        this.title = title;
+        this.content = content;
+        this.userId = userId;
+        this.deleteFlag = deleteFlag;
+        this.createdDateTime = LocalDateTime.now();
+    }
+
     public Work(Integer id, Integer categoryId, String title, String content, LocalDateTime createdDateTime) {
         this.id = id;
         this.categoryId = categoryId;
@@ -24,6 +35,16 @@ public class Work {
     }
 
     public WorkDto convertToDto() {
-        return new WorkDto(id, categoryId, title, content, createdDateTime);
+        return WorkDto.builder()
+            .id(id)
+            .categoryId(categoryId)
+            .title(title)
+            .content(content)
+            .createdDateTime(createdDateTime)
+            .build();
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

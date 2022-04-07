@@ -5,29 +5,31 @@ import java.time.LocalDateTime;
 
 public class WorkLog {
 
-    private Integer workId;
-    private String userId;
     private String title;
     private Action action;
-    private String previousStatus;
-    private String changedStatus;
+    private String previousColumn;
+    private String changedColumn;
     private LocalDateTime updatedDateTime;
 
     private WorkLog() { }
 
-    public WorkLog(String userId, String title, String action,
-        String previousStatus, String changedStatus, LocalDateTime updatedDateTime) {
-        this.userId = userId;
+    public WorkLog(String title, String action,
+        String previousColumn, String changedColumn, LocalDateTime updatedDateTime) {
         this.title = title;
         this.action = Action.valueOf(action);
-        this.previousStatus = previousStatus;
-        this.changedStatus = changedStatus;
+        this.previousColumn = previousColumn;
+        this.changedColumn = changedColumn;
         this.updatedDateTime = updatedDateTime;
     }
 
     public WorkLogDto convertToDto() {
-        return new WorkLogDto(userId, title, action.getValue(), previousStatus, changedStatus,
-            updatedDateTime);
+        return WorkLogDto.builder()
+            .title(title)
+            .action(action.getValue())
+            .previousColumn(previousColumn)
+            .changedColumn(changedColumn)
+            .updatedDateTime(updatedDateTime)
+            .build();
     }
 
     public enum Action {

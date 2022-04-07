@@ -1,14 +1,13 @@
 package com.todolist.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
+import lombok.Builder;
+import lombok.Getter;
 
+@Builder
+@Getter
 public class WorkLogListDto {
 
-    @JsonProperty
+    private String userId;
     private List<WorkLogDto> workLogList;
-
-    public WorkLogListDto(List<WorkLogDto> workLogList) {
-        this.workLogList = workLogList;
-    }
 }

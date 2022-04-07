@@ -5,6 +5,7 @@ import com.todolist.domain.Work;
 import com.todolist.dto.ColumnListDto;
 import com.todolist.dto.WorkDto;
 import com.todolist.dto.WorkListDto;
+import com.todolist.repository.CategoryRepository;
 import com.todolist.repository.WorkRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +15,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class WorkService {
 
+    private final CategoryRepository categoryRepository;
     private final WorkRepository workRepository;
 
-    public WorkService(WorkRepository workRepository) {
+    public WorkService(WorkRepository workRepository, CategoryRepository categoryRepository) {
         this.workRepository = workRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public ColumnListDto getColumnList(String userId) {
         List<WorkListDto> workLists = new ArrayList<>();
 
-        List<Category> categoryList = workRepository.findAllCategories();
+        List<Category> categoryList = categoryRepository.findAllCategories();
         for (Category category : categoryList) {
 
             int categoryId = category.getId();
@@ -31,9 +34,14 @@ public class WorkService {
             List<WorkDto> workDtoList = workRepository.findAllWorksByCategoryId(categoryId, userId)
                 .stream().map(Work::convertToDto).collect(Collectors.toList());
 
-            workLists.add(new WorkListDto(categoryName, workDtoList));
+            workLists.add(
+                WorkListDto.builder()
+                    .categoryName(categoryName)
+                    .works(workDtoList)
+                    .build()
+            );
         }
 
-        return new ColumnListDto(userId, workLists);
+        return ColumnListDto.builder().userId(userId).workList(workLists).build();
     }
 }

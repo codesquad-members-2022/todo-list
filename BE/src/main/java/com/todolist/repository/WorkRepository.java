@@ -1,13 +1,17 @@
 package com.todolist.repository;
 
-import com.todolist.domain.Category;
 import com.todolist.domain.Work;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.sql.DataSource;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,10 +21,6 @@ public class WorkRepository {
 
     public WorkRepository(DataSource dataSource) {
         jdbc = new NamedParameterJdbcTemplate(dataSource);
-    }
-
-    public List<Category> findAllCategories() {
-        return jdbc.query("SELECT id, name FROM category", categoryRowMapper());
     }
 
     public List<Work> findAllWorksByCategoryId(int categoryId, String userId) {
@@ -44,17 +44,6 @@ public class WorkRepository {
             );
 
             return work;
-        };
-    }
-
-    private RowMapper<Category> categoryRowMapper() {
-        return (rs, rowNum) -> {
-            Category category = new Category(
-                rs.getObject("id", Integer.class),
-                rs.getString("name")
-            );
-
-            return category;
         };
     }
 }
