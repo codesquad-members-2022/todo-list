@@ -1,10 +1,16 @@
 package team03.todoapp.controller;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team03.todoapp.controller.dto.CardResponse;
 import team03.todoapp.controller.dto.CardsResponse;
+import team03.todoapp.controller.dto.HistoriesResponse;
+import team03.todoapp.controller.dto.HistoryResponse;
 
 @RestController
 public class MockController {
@@ -31,5 +37,40 @@ public class MockController {
 
         return cardsResponse;
     }
+
+    @PostMapping("/card")
+    public Object add() {
+        class card_id_DTO {
+            public final int cardId = 5;
+        }
+        return new card_id_DTO();
+    }
+
+    @DeleteMapping("/card/{card_id}")
+    public void delete(@PathVariable int card_id) {
+        // Card card = jdbcRepository.findById(card_id);
+    }
+
+    @PatchMapping("/card/move/{card_id}")
+    public void move() {
+
+    }
+
+    @PatchMapping("/card/{card_id}")
+    public void update() {
+
+    }
+
+    @GetMapping("/histories")
+    public HistoriesResponse getHistories() {
+        HistoriesResponse historiesResponse = new HistoriesResponse();
+        HistoryResponse historyResponse1 = new HistoryResponse(1L, "move", "android-zzang", "ing", "done", "2020-04-07 12:00:01");
+        HistoryResponse historyResponse2 = new HistoryResponse(2L, "add", "backend-zzang", "", "", "2022-04-07 12:00:01");
+
+        historiesResponse.addHistory(historyResponse1);
+        historiesResponse.addHistory(historyResponse2);
+        return historiesResponse;
+    }
+
 
 }
