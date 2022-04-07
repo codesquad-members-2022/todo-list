@@ -15,14 +15,14 @@ class HeaderView: UIView{
         super.init(frame: frame)
         setHeaderLabel()
         setMenuButton()
-        self.backgroundColor = .systemGray5
+        self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setHeaderLabel()
         setMenuButton()
-        self.backgroundColor = .systemGray
+        self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
     }
 }
 
@@ -30,8 +30,8 @@ private extension HeaderView{
     func setHeaderLabel(){
         headerLabel = UILabel()
         headerLabel.text = "To-Do List"
-        headerLabel.font = UIFont.systemFont(ofSize: 45)
-        headerLabel.textColor = .black
+        headerLabel.font = UIFont(name: "NotoSansKR-Regular", size: 32)
+        headerLabel.textColor = UIColor(red: 0.004, green: 0.004, blue: 0.004, alpha: 1)
         
         self.addSubview(headerLabel)
         

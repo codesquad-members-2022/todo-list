@@ -9,6 +9,7 @@ import UIKit
 
 class ContentViewController: UIViewController {
     private var collectionView: CollectionView!
+    let tableViewHeaders = ["해야할 일", "하고 있는 일", "완료한 일"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,15 +42,16 @@ class ContentViewController: UIViewController {
 
 extension ContentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CollectionCell else { return UICollectionViewCell() }
+        cell.headerTitle = tableViewHeaders[indexPath.row]
         
         return cell
     }

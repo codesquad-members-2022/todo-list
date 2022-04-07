@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class HeaderViewController: UIViewController{
-    
     var header: HeaderView!
     
     override func viewDidLoad() {

@@ -8,7 +8,6 @@
 import UIKit
 
 class ContainerViewController: UIViewController {
-    
     var headerVC: HeaderViewController!
     var contentVC: ContentViewController!
     
