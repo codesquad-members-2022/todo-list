@@ -1,4 +1,5 @@
 export const $ = (selector) => document.querySelector(selector);
+export const $$ = (selector) => document.querySelectorAll(selector);
 export const debounce = (callback, delay) => {
   let timerId;
   return (event) => {
