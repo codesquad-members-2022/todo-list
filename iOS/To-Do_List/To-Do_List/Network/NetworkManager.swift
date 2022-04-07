@@ -2,7 +2,7 @@
 import Foundation
 
 final class NetworkManager {
-    private var signUpURL = URL(string:"http://13.125.161.84:8082/api/columns/readonly")
+    private var signUpURL = URL(string:"http://13.125.161.84:8082/api/read/cards")
     private var config = URLSessionConfiguration.default
     private var session = URLSession(configuration:.default)
     

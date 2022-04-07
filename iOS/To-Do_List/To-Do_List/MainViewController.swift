@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
         self.view.backgroundColor = .white
         addChildViewControllers()
         
-        networkManager.getRequest { (result:Result<Todolist,NetworkError>)  in
+        networkManager.getRequest { (result:Result<Todoitems,NetworkError>)  in
             switch result {
             case .success(let data):
                 NotificationCenter.default.post(
@@ -46,9 +46,6 @@ class MainViewController: UIViewController {
         guard let todoViewController = storyBoard.instantiateViewController(withIdentifier: "ToDoTableViewController") as? ToDoTableViewController,
               let doingTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoingTableViewController") as? DoingTableViewController,
               let doneTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoneTableViewController") as? DoneTableViewController else { return }
-        
-        
-        
         
         [todoViewController,doingTableViewController,doneTableViewController].forEach {
             addChild($0)
