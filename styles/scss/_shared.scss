@@ -6,11 +6,21 @@
   }
 }
 
-@mixin custom_position($args...) {
+
+@mixin custom_absolute($args...) {
+  position: absolute;
   @each $pos, $num in meta.keywords($args) {
     #{$pos}: $num;
   }
 }
+
+@mixin custom_static($args...) {
+  position: static;
+  @each $pos, $num in meta.keywords($args) {
+    #{$pos} : $num;
+  }
+}
+
 
 @mixin width_height($args...) {
   @each $pos, $num in meta.keywords($args) {
@@ -18,23 +28,54 @@
   }
 }
 
+
 %Black {
   color: #010101;
+}
+
+@mixin color($color) {
+  @extend %Black;
+  background-color: $color;
 }
 
 %Gray_4 {
   color: #bdbdbd;
 }
 
-%Card_flex {
-  flex: none;
-  flex-grow: 0;
-  margin: 0px 8px;
+%Blue_svg {
+  background: #0075DE;
 }
 
-@mixin flex_none($x:0px,$y:8px,$order) {
+@mixin flex_none($order:0, $margin-x,$margin-y ) {
   flex: none;
-  order: $order;
   flex-grow: 0;
-  margin: $x $y;
+  order: $order;
+  margin: $margin-x, $margin-y;
+}
+
+%card_flex {
+  flex: none;
+  flex-grow: 0;
+  margin: 8px 0px;
+}
+
+
+%add_svg {
+
+  position: absolute;
+  left: 21.27%;
+  right: 21.27%;
+  top: 21.27%;
+  bottom: 21.27%;
+  @extend %Gray_4;
+}
+
+%delete_svg {
+
+  position: absolute;
+  left: 28.12%;
+  right: 28.12%;
+  top: 28.12%;
+  bottom: 28.12%;
+  @extend %Gray_4;
 }

@@ -38,4 +38,10 @@ class App extends Component {
   }
 }
 
+function add(x = 0) {
+  return x + 3;
+}
+
+add(3);
+add();
 new App(document.body);

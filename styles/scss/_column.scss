@@ -1,5 +1,6 @@
 @use "shared";
 
+
 .todo-column {
   display: flex;
   flex-direction: column;
@@ -71,7 +72,7 @@
 
 .wrapper {
   .card-title {
-    @include shared.custom_position($position: static, $left: 0, $top: 0);
+    @include shared.custom_static($position: static, $left: 0, $top: 0);
     width: 252px;
     height: 23px;
     @include shared.custom_font($family: 'Noto Sans KR', $style: normal, $weight: 700, $size: 16px);
@@ -81,14 +82,11 @@
 
     /* Inside auto layout */
 
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin: 8px 0px;
+    @include shared.flex_none(0, 0px, 8px);
   }
 
   .card-content {
-    @include shared.custom_position($position: static, $left: 0px, $top: 31px);
+    @include shared.custom_static($left: 0px, $top: 31px);
     @include shared.custom_font($family: "Noto Sans KR", $style: normal, $weight: 400, $size: 14px);
     width: 252px;
     height: 20px;
@@ -99,11 +97,8 @@
     @extend %Black;
 
     /* Inside auto layout */
-    @extend %Card_flex;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-    margin: 8px 0px;
+
+    @include shared.flex_none(1, 0, 8px);
   }
 
   .card-caption {
@@ -124,10 +119,7 @@
 
     /* Inside auto layout */
 
-    flex: none;
-    order: 2;
-    flex-grow: 0;
-    margin: 8px 0px;
+    @include shared.flex_none(2, 0, 8px);
   }
 }
 
@@ -145,30 +137,20 @@
   top: 0px;
 
   /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 16px 0px;
+  @include shared.flex_none(0, 16px, 0px);
 
   .todo-name {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 0px;
-
-    position: static;
+    @include shared.custom_static($top: 0px, $left: 8px);
     width: 250px;
     height: 26px;
-    left: 8px;
-    top: 0px;
+
 
     /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin: 0px 8px;
+    @include shared.flex_none(0, 0px, 8px);
 
     .count {
       display: flex;
@@ -176,32 +158,34 @@
       justify-content: center;
       align-items: center;
       padding: 0px;
-
-      position: static;
+      @include shared.custom_static($left: 79px, $top: 0px);
       width: 26px;
       height: 26px;
-      left: 79px;
-      top: 0px;
+
 
       /* Gray 4 */
 
-      background: #bdbdbd;
+      @extend %Gray_4;
       border-radius: 20px;
 
       /* Inside auto layout */
-
-      flex: none;
-      order: 1;
-      flex-grow: 0;
-      margin: 0px 8px;
+      @include shared.flex_none(1, 0px, 8px);
     }
   }
 
+  .add {
+    @include shared.custom_static($left: 244px, $top: 1px);
+    width: 24px;
+    height: 24px;
+    @include shared.flex_none(1, 0, 8px);
+    @extend %add_svg;
+  }
 
-  .todo-title-btn {
-    width: 50px;
-    display: flex;
-    justify-content: space-between;
-
+  .delete {
+    @include shared.custom_static($left: 276px, $top: 1px);
+    width: 24px;
+    height: 24px;
+    @include shared.flex_none(2, 0px, 8px);
+    @extend %delete_svg;
   }
 }

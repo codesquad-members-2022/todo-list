@@ -204,14 +204,24 @@ input:focus {
   color: #010101;
 }
 
-.wrapper .card-caption {
+.wrapper .card-caption, .todo-title .todo-name .count, .todo-title .delete, .todo-title .add {
   color: #bdbdbd;
 }
 
-.wrapper .card-content {
-  flex: none;
-  flex-grow: 0;
-  margin: 0px 8px;
+.todo-title .add {
+  position: absolute;
+  left: 21.27%;
+  right: 21.27%;
+  top: 21.27%;
+  bottom: 21.27%;
+}
+
+.todo-title .delete {
+  position: absolute;
+  left: 28.12%;
+  right: 28.12%;
+  top: 28.12%;
+  bottom: 28.12%;
 }
 
 .todo-column {
@@ -270,6 +280,7 @@ input:focus {
 
 .wrapper .card-title {
   position: static;
+  position: static;
   left: 0;
   top: 0;
   width: 252px;
@@ -282,9 +293,9 @@ input:focus {
   /* Black */
   /* Inside auto layout */
   flex: none;
-  order: 0;
   flex-grow: 0;
-  margin: 8px 0px;
+  order: 0;
+  margin: 0px, 8px;
 }
 .wrapper .card-content {
   position: static;
@@ -300,9 +311,9 @@ input:focus {
   /* Black */
   /* Inside auto layout */
   flex: none;
-  order: 1;
   flex-grow: 0;
-  margin: 8px 0px;
+  order: 1;
+  margin: 0, 8px;
 }
 .wrapper .card-caption {
   position: static;
@@ -318,9 +329,9 @@ input:focus {
   /* Gray 4 */
   /* Inside auto layout */
   flex: none;
-  order: 2;
   flex-grow: 0;
-  margin: 8px 0px;
+  order: 2;
+  margin: 0, 8px;
 }
 
 .todo-title {
@@ -335,9 +346,9 @@ input:focus {
   top: 0px;
   /* Inside auto layout */
   flex: none;
-  order: 0;
   flex-grow: 0;
-  margin: 16px 0px;
+  order: 0;
+  margin: 16px, 0px;
 }
 .todo-title .todo-name {
   display: flex;
@@ -345,15 +356,15 @@ input:focus {
   align-items: center;
   padding: 0px;
   position: static;
+  top: 0px;
+  left: 8px;
   width: 250px;
   height: 26px;
-  left: 8px;
-  top: 0px;
   /* Inside auto layout */
   flex: none;
-  order: 0;
   flex-grow: 0;
-  margin: 0px 8px;
+  order: 0;
+  margin: 0px, 8px;
 }
 .todo-title .todo-name .count {
   display: flex;
@@ -362,23 +373,39 @@ input:focus {
   align-items: center;
   padding: 0px;
   position: static;
-  width: 26px;
-  height: 26px;
   left: 79px;
   top: 0px;
+  width: 26px;
+  height: 26px;
   /* Gray 4 */
-  background: #bdbdbd;
   border-radius: 20px;
   /* Inside auto layout */
   flex: none;
-  order: 1;
   flex-grow: 0;
-  margin: 0px 8px;
+  order: 1;
+  margin: 0px, 8px;
 }
-.todo-title .todo-title-btn {
-  width: 50px;
-  display: flex;
-  justify-content: space-between;
+.todo-title .add {
+  position: static;
+  left: 244px;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  flex-grow: 0;
+  order: 1;
+  margin: 0, 8px;
+}
+.todo-title .delete {
+  position: static;
+  left: 276px;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  flex-grow: 0;
+  order: 2;
+  margin: 0px, 8px;
 }
 
 body {
