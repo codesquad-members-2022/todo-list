@@ -15,7 +15,7 @@ export class ScheduleCard {
     }
 
     template() {
-        return `<div class="schedule-card">
+        return `<div class="schedule-card" data-card-id="${this.cardData.id}">
                     <div class="schedule-card__text-container">
                         <h3 class="schedule-card__title">
                             ${this.cardData.title}

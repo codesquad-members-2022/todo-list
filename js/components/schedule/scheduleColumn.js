@@ -83,10 +83,8 @@ export class ScheduleColumn {
     }
 
     addCard(cardData) {
-        new ScheduleCard(this.$cardsContainer, cardData);
         this.scheduleModel.addScheduleCard(cardData);
-
-        console.log(this.scheduleModel.getScheduleCards());
+        new ScheduleCard(this.$cardsContainer, cardData);
     }
 
     template() {

@@ -12,6 +12,7 @@ export class ScheduleModel {
     }
 
     addScheduleCard(cardData) {
+        cardData.id = new Date().getTime();
         this.scheduleColumnData.cards.push(cardData);
     }
 }
