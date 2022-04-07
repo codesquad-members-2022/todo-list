@@ -151,7 +151,7 @@ input:focus {
   background: #FFFFFF;
 }
 
-.todo-title .todo-name .count, .todo-column .todo-card .wrapper .card-caption, .todo-title .delete, .todo-column .todo-card .delete-card, .todo-title .add {
+.todo-title .todo-name .count, .todo-column .todo-card .wrapper .card-caption, .todo-title .delete svg, .todo-column .todo-card .delete-card, .todo-title .add svg {
   color: #bdbdbd;
 }
 
@@ -160,7 +160,7 @@ input:focus {
   border-radius: 6px;
 }
 
-.todo-title .add {
+.todo-title .add svg {
   position: absolute;
   left: 21.27%;
   right: 21.27%;
@@ -168,7 +168,7 @@ input:focus {
   bottom: 21.27%;
 }
 
-.todo-title .delete, .todo-column .todo-card .delete-card {
+.todo-title .delete svg, .todo-column .todo-card .delete-card {
   position: absolute;
   left: 28.12%;
   right: 28.12%;
@@ -240,7 +240,7 @@ input:focus {
   background: #FFFFFF;
 }
 
-.todo-column .todo-card .wrapper .card-caption, .todo-title .todo-name .count, .todo-column .todo-card .delete-card, .todo-title .delete, .todo-title .add {
+.todo-column .todo-card .wrapper .card-caption, .todo-title .todo-name .count, .todo-column .todo-card .delete-card, .todo-title .delete svg, .todo-title .add svg {
   color: #bdbdbd;
 }
 
@@ -249,7 +249,7 @@ input:focus {
   border-radius: 6px;
 }
 
-.todo-title .add {
+.todo-title .add svg {
   position: absolute;
   left: 21.27%;
   right: 21.27%;
@@ -257,7 +257,7 @@ input:focus {
   bottom: 21.27%;
 }
 
-.todo-column .todo-card .delete-card, .todo-title .delete {
+.todo-column .todo-card .delete-card, .todo-title .delete svg {
   position: absolute;
   left: 28.12%;
   right: 28.12%;
@@ -274,15 +274,6 @@ input:focus {
   top: 136px;
   width: 308px;
   height: auto;
-}
-.todo-column.first {
-  left: 80px;
-}
-.todo-column.second {
-  left: 404px;
-}
-.todo-column.third {
-  left: 728px;
 }
 .todo-column .todo-card {
   display: flex;
@@ -380,9 +371,9 @@ input:focus {
   flex-grow: 0;
   order: 0;
   margin: 16px, 0px;
-  position: static;
-  left: 0px;
-  top: 0px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
   padding: 0px 8px;
   width: 308px;
   height: 26px;
@@ -441,7 +432,6 @@ input:focus {
   order: 2;
   margin: 0px, 8px;
 }
-
 body {
   /* 01 메인 */
   position: relative;

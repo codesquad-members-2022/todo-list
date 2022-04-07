@@ -8,18 +8,6 @@
   width: 308px;
   height: auto;
 
-  &.first {
-    left: 80px;
-  }
-
-  &.second {
-    left: 404px;
-  }
-
-  &.third {
-    left: 728px;
-  }
-
   .todo-card {
     @include shared.todo-card($background: "White", $border: "shadow_normal");
   }
@@ -29,7 +17,7 @@
 .todo-title {
   @include shared.custom_flex(row, center, center);
   @include shared.flex_none(0, 16, 0);
-  @include shared.custom_static($left: 0, $top: 0);
+  @include shared.custom_absolute($left: 20, $top: 20);
   padding: 0px 8px;
   width: 308px;
   height: 26px;
@@ -61,7 +49,10 @@
     width: 24px;
     height: 24px;
     @include shared.flex_none(1, 0, 8);
-    @extend %add_svg;
+
+    svg {
+      @extend %add_svg;
+    }
   }
 
   .delete {
@@ -69,7 +60,10 @@
     width: 24px;
     height: 24px;
     @include shared.flex_none(2, 0, 8);
-    @extend %delete_svg;
+
+    svg {
+      @extend %delete_svg;
+    }
   }
 }
 

@@ -10,9 +10,9 @@ export class TodoList extends Component {
     return `
 <div class="todo-title">
             <span class="todo-name">${title}
-              <div class="count"><span class="number">${
+              <span class="count"><span class="number">${
                 todos.length
-              }</span></div>
+              }</span></span>
             </span>
                 <span class="add">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">

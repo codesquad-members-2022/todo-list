@@ -6,14 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1f6056d3-9b5f-4659-a140-8ebb55713e45" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/TodoList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/scss/_column.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_column.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/_header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_header.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/_reset.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_reset.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/_shared.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_shared.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/scss/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/index.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
