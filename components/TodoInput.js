@@ -1,24 +1,29 @@
 import Todo from './Todo.js';
 
 export default class TodoInput {
-  constructor(title) {
-    this.title = title;
+  constructor(status) {
+    this.status = status;
+    this.title = '';
     this.content = '';
   }
 
-  onInputContent = event => {
-    if (event.target.value.length === 0) {
-      document.querySelector(`.input-${this.title} .input--register`).disabled = true;
-      document.querySelector(`.input-${this.title} .input--register`).style.background = '#86c6ff';
+  onInputContent = ({ target }) => {
+    if (target.value.length === 0) {
+      document.querySelector(`.input-${this.status} .input--register`).disabled = true;
+      document.querySelector(`.input-${this.status} .input--register`).style.background = '#86c6ff';
     } else {
-      this.content = event.target.value;
-      document.querySelector(`.input-${this.title} .input--register`).disabled = false;
-      document.querySelector(`.input-${this.title} .input--register`).style.background = '#0075DE';
+      this.content = target.value;
+      document.querySelector(`.input-${this.status} .input--register`).disabled = false;
+      document.querySelector(`.input-${this.status} .input--register`).style.background = '#0075DE';
     }
   };
 
+  onInputHeader = ({ target }) => {
+    this.title = target.value;
+  };
+
   onCloseBtn = () => {
-    document.querySelector(`.input-${this.title}`)?.remove();
+    document.querySelector(`.input-${this.status}`)?.remove();
     this.onInput = false;
   };
 
@@ -26,7 +31,7 @@ export default class TodoInput {
     const todo = {};
     todo.title = this.title;
     todo.content = this.content;
-    todo.status = 'todo';
+    todo.status = this.status;
     todo.userId = 1;
     const todos = JSON.parse(localStorage.getItem('todos'));
     todos.push(todo);
@@ -34,12 +39,12 @@ export default class TodoInput {
 
     const newTodo = new Todo(todo);
     document.querySelector(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
-    document.querySelector(`.input-${todo.title}`)?.remove();
+    document.querySelector(`.input-${todo.status}`)?.remove();
   };
 
   render = () => {
     return /*html*/ `
-        <article class="input-wrapper input-${this.title}">
+        <article class="input-wrapper input-${this.status}">
             <input class="input-header"placeholder="제목을 입력하세요" />
             <input class="input-content" placeholder="내용을 입력하세요" maxlength ='500' />
             <div class="input-button-wrapper">
@@ -51,8 +56,9 @@ export default class TodoInput {
   };
 
   run = () => {
-    document.querySelector(`.input-${this.title} .input--cancel`).addEventListener('click', this.onCloseBtn);
-    document.querySelector(`.input-${this.title} .input-content`).addEventListener('input', this.onInputContent);
-    document.querySelector(`.input-${this.title} .input--register`).addEventListener('click', this.onRegisterBtn);
+    document.querySelector(`.input-${this.status} .input--cancel`).addEventListener('click', this.onCloseBtn);
+    document.querySelector(`.input-${this.status} .input-header`).addEventListener('input', this.onInputHeader);
+    document.querySelector(`.input-${this.status} .input-content`).addEventListener('input', this.onInputContent);
+    document.querySelector(`.input-${this.status} .input--register`).addEventListener('click', this.onRegisterBtn);
   };
 }
