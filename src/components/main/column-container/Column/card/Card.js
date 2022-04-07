@@ -1,5 +1,7 @@
 import "./Card.scss";
 
+export const renderCard = () => {};
+
 function renderNormalCard(cardID) {}
 
 function handleDoubleClick() {}
