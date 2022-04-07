@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 public class CardService {
     private final CardRepository cardRepository;
 
-    public void addCard(Card card) {
-        cardRepository.add(card);
+    public int addCard(Card card) {
+        return cardRepository.add(card);
     }
 
-    public void removeCard(int id) {
-        cardRepository.remove(id);
+    public int removeCard(int id) {
+        return cardRepository.remove(id);
     }
 }

@@ -15,16 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CardController {
     private final CardService cardService;
+    private static int RESULT;
 
-    @PostMapping("/add")
+    @PostMapping()
     public String add(CardAddDto dto) {
-        cardService.addCard(new Card(dto.getTitle(), dto.getContents(), dto.getWriter(), CardStatus.DO));
+        RESULT = cardService.addCard(new Card(dto.getTitle(), dto.getContents(), dto.getWriter(), CardStatus.DO));
+        if (RESULT == 0) {
+            //TODO: 에러 페이지나 경고창으로 처리하게끔
+        }
         return "redirect:/";
     }
 
-    @DeleteMapping("/remove/{id}")
+    @DeleteMapping("/{id}")
     public String remove(int id) {
-        cardService.removeCard(id);
+        RESULT = cardService.removeCard(id);
+        if (RESULT == 0) {
+            //TODO: 에러 페이지나 경고창으로 처리하게끔
+        }
         return "redirect:/";
     }
 }
