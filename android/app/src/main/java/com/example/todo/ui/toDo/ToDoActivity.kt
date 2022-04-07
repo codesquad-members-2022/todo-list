@@ -25,17 +25,16 @@ import java.time.LocalDateTime
 class ToDoActivity : AppCompatActivity() {
     private lateinit var todoRecyclerView: RecyclerView
     private lateinit var inProgressRecyclerView: RecyclerView
-    lateinit var doneRecyclerView: RecyclerView
+    private lateinit var doneRecyclerView: RecyclerView
     lateinit var actionLogRecyclerView: RecyclerView
 
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var inProgressAdapter: TodoAdapter
-    lateinit var doneAdapter: TodoAdapter
+    private lateinit var doneAdapter: TodoAdapter
     private lateinit var actionAdapter: ActionAdapter
 
-    lateinit var drawerLayout: DrawerLayout
+    private lateinit var drawerLayout: DrawerLayout
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo)
@@ -54,7 +53,7 @@ class ToDoActivity : AppCompatActivity() {
         addDummyDataInRecyclerView()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun addDummyDataInRecyclerView() {
         val todoList = mutableListOf<TodoItem>()
         val inProgressList = mutableListOf<TodoItem>()
@@ -66,9 +65,10 @@ class ToDoActivity : AppCompatActivity() {
         val todo3 = TodoItem(
             "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
         )
-        val action1 = ActionLog("one", ActionType.ADD, LocalDateTime.now(), ProgressType.TO_DO)
-        val action2 = ActionLog("one", ActionType.ADD, LocalDateTime.now(), ProgressType.TO_DO)
-        val action3 = ActionLog("one", ActionType.ADD, LocalDateTime.now(), ProgressType.TO_DO)
+
+        val action1 = ActionLog("one", ActionType.ADD, "2022-04-07 12:00:01", ProgressType.TO_DO)
+        val action2 = ActionLog("one", ActionType.ADD, "2022-04-07 10:00:01", ProgressType.TO_DO)
+        val action3 = ActionLog("one", ActionType.ADD, "2022-04-05 09:00:01", ProgressType.TO_DO)
 
         todoList.addAll(mutableListOf(todo1, todo2, todo3))
         inProgressList.addAll(mutableListOf(todo2, todo3, todo1))
@@ -91,7 +91,7 @@ class ToDoActivity : AppCompatActivity() {
         inProgressRecyclerView.adapter = inProgressAdapter
         doneRecyclerView.adapter = doneAdapter
         actionLogRecyclerView.adapter = actionAdapter
-
+        //actionAdapter.notifyDataSetChanged()
         todoRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         inProgressRecyclerView.layoutManager =
@@ -101,7 +101,6 @@ class ToDoActivity : AppCompatActivity() {
         actionLogRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_action, menu)
