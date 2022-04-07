@@ -5,14 +5,14 @@ class HistoryStackView: UIStackView {
     var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 16)
+        label.font = UIFont(name: FontFactory.normal, size: 16)
         return label
     }()
     
     var contentLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 16)
+        label.font = UIFont(name: FontFactory.bold, size: 16)
         label.numberOfLines = 0
         return label
     }()
@@ -20,8 +20,8 @@ class HistoryStackView: UIStackView {
     var timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
-        label.textColor = UIColor(named: "Gray3")
+        label.font = UIFont(name: FontFactory.normal, size: 14)
+        label.textColor = UIColor(named: ColorFactory.gray3)
         return label
     }()
     
@@ -38,8 +38,8 @@ class HistoryStackView: UIStackView {
     }
     
     private func addViews() {
-        self.addArrangedSubview(nameLabel)
-        self.addArrangedSubview(contentLabel)
-        self.addArrangedSubview(timeLabel)
+        addArrangedSubview(nameLabel)
+        addArrangedSubview(contentLabel)
+        addArrangedSubview(timeLabel)
     }
 }

@@ -45,26 +45,26 @@ class SideViewTableViewCell: UITableViewCell {
     }
     
     private func addViews() {
-        self.contentView.addSubview(emojiView)
-        self.historyView.addSubview(stackView)
-        self.contentView.addSubview(historyView)
+        contentView.addSubview(emojiView)
+        historyView.addSubview(stackView)
+        contentView.addSubview(historyView)
     }
     
     private func setConstraints() {
-        self.stackView.topAnchor.constraint(equalTo: self.historyView.topAnchor).isActive = true
-        self.stackView.leadingAnchor.constraint(equalTo: self.historyView.leadingAnchor).isActive = true
-        self.stackView.trailingAnchor.constraint(equalTo: self.historyView.trailingAnchor).isActive = true
-        self.stackView.bottomAnchor.constraint(equalTo: self.historyView.bottomAnchor).isActive = true
+        stackView.topAnchor.constraint(equalTo: historyView.topAnchor).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: historyView.leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: historyView.trailingAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: historyView.bottomAnchor).isActive = true
         
-        emojiView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16).isActive = true
-        emojiView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16).isActive = true
+        emojiView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
+        emojiView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16).isActive = true
         emojiView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         emojiView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        historyView.leadingAnchor.constraint(equalTo: self.emojiView.trailingAnchor, constant: 16).isActive = true
-        historyView.topAnchor.constraint(equalTo: self.emojiView.topAnchor).isActive = true
-        historyView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16).isActive = true
-        historyView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16).isActive = true
+        historyView.leadingAnchor.constraint(equalTo: emojiView.trailingAnchor, constant: 16).isActive = true
+        historyView.topAnchor.constraint(equalTo: emojiView.topAnchor).isActive = true
+        historyView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
+        historyView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16).isActive = true
     }
     
     func updateStackView(history: HistoryInfo) {
