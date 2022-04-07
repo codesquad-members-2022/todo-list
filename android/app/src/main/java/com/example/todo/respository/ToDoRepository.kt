@@ -1,4 +1,6 @@
 package com.example.todo.respository
 
-class ToDoRepository {
+import android.content.Context
+
+class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
 }
