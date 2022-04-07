@@ -1,1 +1,4 @@
-const css = require('../styles/main.scss');
+import { renderColumns } from './todos';
+export const init = () => {
+  renderColumns();
+};
