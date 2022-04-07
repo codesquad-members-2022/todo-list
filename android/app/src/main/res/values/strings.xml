@@ -2,4 +2,8 @@
     <string name="app_name">TodoList</string>
     <string name="appbar_title">TO-DO LIST</string>
     <string name="open_menu">open_menu</string>
+    <string name="new_view">new view</string>
+    <string name="description_todo">해야할 일</string>
+    <string name="description_progress">하고 있는 일</string>
+    <string name="description_complete">완료한 일</string>
 </resources>
