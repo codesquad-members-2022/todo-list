@@ -80,4 +80,11 @@ public class CardController {
 	public List<ActivityLog> menu() {
 		return activityLogRepository.findAll();
 	}
+
+	@GetMapping("/reset")
+	public String reset() {
+		cardService.reset();
+
+		return "redirect:/list";
+	}
 }

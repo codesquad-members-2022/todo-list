@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 import team07.todolist.domain.Card;
+import team07.todolist.dto.RequestCard;
 
 @Repository
 public class MemoryCardRepository implements CardRepository {
@@ -131,6 +132,23 @@ public class MemoryCardRepository implements CardRepository {
 	@Override
 	public List<Card> findAll() {
 		return new ArrayList<>(store.values());
+	}
+
+	@Override
+	public void reset() {
+		store.clear();
+
+		store.put(1L, new Card.Builder().id(1L).userId("iOS").title("제목1").content("내용1").row(1).status(1).build());
+		store.put(2L, new Card.Builder().id(2L).userId("iOS").title("제목2").content("내용2").row(2).status(1).build());
+		store.put(3L, new Card.Builder().id(3L).userId("iOS").title("제목3").content("내용3").row(3).status(1).build());
+		store.put(4L, new Card.Builder().id(4L).userId("iOS").title("제목4").content("내용4").row(1).status(2).build());
+		store.put(5L, new Card.Builder().id(5L).userId("iOS").title("제목5").content("내용5").row(2).status(2).build());
+		store.put(6L, new Card.Builder().id(6L).userId("iOS").title("제목6").content("내용6").row(3).status(2).build());
+		store.put(7L, new Card.Builder().id(7L).userId("iOS").title("제목7").content("내용7").row(1).status(3).build());
+		store.put(8L, new Card.Builder().id(8L).userId("iOS").title("제목8").content("내용8").row(2).status(3).build());
+		store.put(9L, new Card.Builder().id(9L).userId("iOS").title("제목9").content("내용9").row(3).status(3).build());
+
+		sequence.set(9L);
 	}
 
 }

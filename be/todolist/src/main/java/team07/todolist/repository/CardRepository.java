@@ -19,4 +19,5 @@ public interface CardRepository {
 
 	List<Card> findAll();
 
+	void reset();
 }
