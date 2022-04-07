@@ -1,0 +1,51 @@
+@import '../scss/variable.scss';
+
+.log {
+    display: flex;
+    width: 332px;
+    height: 137px;
+    padding-bottom: 16px;
+
+    &-container {
+        background-color: $white;
+        width: 450px;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+    
+    &-list {
+        margin: 80px 80px 0px 40px;
+    }
+
+    &__close-btn{
+      width: 24px;
+      height: 24px;
+      background: url(../images/close.png);
+      position: absolute;
+      right: 80px;
+      top: 40px;
+    }
+    
+    &__emoji {
+        width: 40px;
+        text-align: center;
+        font-size: 1.25rem;
+        margin-right: 10px;
+    }
+    
+    &-contents {
+        &__description {
+            font-size: 0.875rem;
+            width: 244px;
+            margin: 8px 0px;
+            font-weight: 600;
+        }
+
+        &__time {
+            font-size: 0.75rem;
+            color: $gray;
+        }
+    }
+}
