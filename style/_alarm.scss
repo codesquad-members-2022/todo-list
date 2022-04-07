@@ -1,0 +1,49 @@
+.alarm {
+  width: 452px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-white;
+  padding: 80px 80px 0 40px;
+  position: absolute;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+
+  &__closeBtn {
+    font-size: $font-20;
+    position: absolute;
+    top: 50px;
+    right: 25%;
+    cursor: pointer;
+  }
+  .alarm__inner {
+    display: flex;
+    padding: 16px;
+  }
+  &__icon {
+    margin-right: 16px;
+  }
+
+  &__icon,
+  &__contents {
+    margin-top: 30px;
+  }
+
+  &__icon {
+    font-size: 30px;
+  }
+  &__writer {
+    font-size: $font-16;
+    color: $color-black;
+  }
+  &__content {
+    width: 244px;
+    font-size: $font-16;
+    color: $color-black;
+    margin: 10px 0;
+  }
+  &__time {
+    color: $color-grey-dark;
+  }
+}

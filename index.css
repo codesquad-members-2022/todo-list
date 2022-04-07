@@ -1,0 +1,334 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.no-display {
+  display: none;
+}
+
+.sky-blue {
+  color: #0075de;
+}
+
+.alarm {
+  width: 452px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 80px 80px 0 40px;
+  position: absolute;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+}
+.alarm__closeBtn {
+  font-size: 20px;
+  position: absolute;
+  top: 50px;
+  right: 25%;
+  cursor: pointer;
+}
+.alarm .alarm__inner {
+  display: flex;
+  padding: 16px;
+}
+.alarm__icon {
+  margin-right: 16px;
+}
+.alarm__icon, .alarm__contents {
+  margin-top: 30px;
+}
+.alarm__icon {
+  font-size: 30px;
+}
+.alarm__writer {
+  font-size: 16px;
+  color: #010101;
+}
+.alarm__content {
+  width: 244px;
+  font-size: 16px;
+  color: #010101;
+  margin: 10px 0;
+}
+.alarm__time {
+  color: #828282;
+}
+
+.input-wrapper {
+  width: 308px;
+  height: 140px;
+  padding: 16px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #0075de;
+}
+.input-wrapper .input-header {
+  color: #828282;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 8px;
+  border: none;
+  outline: none;
+}
+.input-wrapper .input-content {
+  width: 100%;
+  height: 20px;
+  margin-bottom: 16px;
+  border: none;
+  outline: none;
+}
+.input-wrapper .input-button-wrapper {
+  display: flex;
+}
+.input-wrapper .input-button-wrapper .input__button {
+  width: 134px;
+  height: 40px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+.input-wrapper .input-button-wrapper .input--cancel {
+  background: #e0e0e0;
+  color: #828282;
+  margin-right: 8px;
+}
+.input-wrapper .input-button-wrapper .input--register {
+  background: #86c6ff;
+  color: #fff;
+}
+
+body {
+  background: #f5f5f7;
+}
+
+.header {
+  position: relative;
+  width: 1440px;
+  height: 112px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+.header__title {
+  font-size: 32px;
+}
+.header__menu {
+  cursor: pointer;
+}
+.header__menu div {
+  width: 25px;
+  height: 3px;
+  background: #010101;
+  margin: 5px 0;
+}
+
+.column-section {
+  width: 1440px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.column-list {
+  margin-right: 30px;
+}
+.column-list .column {
+  width: 308px;
+  height: 42px;
+  display: flex;
+  justify-content: space-between;
+}
+.column-list .column__left {
+  display: flex;
+  align-items: center;
+}
+.column-list .column__title {
+  font-size: 18px;
+  margin-right: 5px;
+  font-weight: 700;
+}
+.column-list .column--count {
+  width: 26px;
+  height: 26px;
+  background: #bdbdbd;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 26px;
+}
+.column-list .column__right {
+  color: #bdbdbd;
+  display: flex;
+  align-items: center;
+}
+.column-list .column__add {
+  font-size: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.column-list .column__delete {
+  font-size: 20px;
+  cursor: pointer;
+}
+.column-list .card {
+  width: 308px;
+  background: #fff;
+  border-radius: 5px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+.column-list .card header {
+  display: flex;
+  justify-content: space-between;
+}
+.column-list .card header h3 {
+  font-weight: bold;
+  color: #010101;
+}
+.column-list .card__content {
+  margin: 8px 0;
+}
+.column-list .card__content-text {
+  margin-bottom: 5px;
+}
+.column-list .card__author-text {
+  color: #bdbdbd;
+}
+
+/*# sourceMappingURL=index.css.map */
