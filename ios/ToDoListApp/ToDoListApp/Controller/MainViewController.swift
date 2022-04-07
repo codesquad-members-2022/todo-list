@@ -9,10 +9,11 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    private let kanbanViewControllers: [UIViewController] = {
+        return [ToDoViewController(), InProgressViewController(), DoneViewController()]
+    }()
+    
     private let titleView = TitleView()
-    private let toDoViewController = ToDoViewController()
-    private let inProgressViewController = InProgressViewController()
-    private let doneViewController = DoneViewController()
     
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
@@ -45,9 +46,9 @@ class MainViewController: UIViewController {
     }
     
     private func setChildViewControllers() {
-        addChildViewController(child: toDoViewController, parent: self)
-        addChildViewController(child: inProgressViewController, parent: self)
-        addChildViewController(child: doneViewController, parent: self)
+        kanbanViewControllers.forEach { kanbanViewController in
+            addChildViewController(child: kanbanViewController, parent: self)
+        }
     }
     
     private func addChildViewController(child: UIViewController, parent: UIViewController) {
@@ -65,13 +66,9 @@ class MainViewController: UIViewController {
     }
     
     private func configureTableStackView() {
-        guard let toDoView = toDoViewController.view else { return }
-        guard let inProgressView = inProgressViewController.view else { return }
-        guard let doneView = doneViewController.view else { return }
-        
-        tableStackView.addArrangedSubview(toDoView)
-        tableStackView.addArrangedSubview(inProgressView)
-        tableStackView.addArrangedSubview(doneView)
+        kanbanViewControllers.forEach { kanbanViewController in
+            tableStackView.addArrangedSubview(kanbanViewController.view)
+        }
     }
     
     private func layoutTableStackView() {
