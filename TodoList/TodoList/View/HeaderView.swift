@@ -36,8 +36,9 @@ private extension HeaderView{
         self.addSubview(headerLabel)
         
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        headerLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 48).isActive = true
+        headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 13).isActive = true
+        headerLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -13).isActive = true
     }
     
     func setMenuButton(){
@@ -45,14 +46,14 @@ private extension HeaderView{
         menuButton.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
         menuButton.tintColor = .black
         
-        let largeConfigure = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .large)
+        let largeConfigure = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .large)
         let menuButtonImage = UIImage(systemName: "line.3.horizontal", withConfiguration: largeConfigure)
         menuButton.setImage(menuButtonImage, for: .normal)
         
         self.addSubview(menuButton)
         
         menuButton.translatesAutoresizingMaskIntoConstraints = false
-        menuButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
-        menuButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
+        menuButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -52).isActive = true
+        menuButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 }

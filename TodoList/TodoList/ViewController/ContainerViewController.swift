@@ -13,7 +13,7 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemGray5
+        self.view.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
         addChildViewController()
     }
 }
@@ -32,9 +32,7 @@ private extension ContainerViewController{
     }
     
     func configureChildViewLayout(){
-        
-        let headerHeight = view.frame.height / 9
-        let contentWidth =  self.view.frame.width * (5/7)
+        let headerHeight: CGFloat = 72
         
         headerVC.view.translatesAutoresizingMaskIntoConstraints = false
         headerVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -46,7 +44,7 @@ private extension ContainerViewController{
         contentVC.view.topAnchor.constraint(equalTo: headerVC.view.bottomAnchor).isActive = true
         contentVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         contentVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        contentVC.view.widthAnchor.constraint(equalToConstant: contentWidth).isActive = true
+        contentVC.view.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
     }
 }
 

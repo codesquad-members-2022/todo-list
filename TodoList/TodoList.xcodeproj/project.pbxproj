@@ -88,11 +88,11 @@
 				D299331027FC064C00D79C87 /* View */,
 				B39BFEB327FADA8700B28376 /* AppDelegate.swift */,
 				B39BFEB527FADA8700B28376 /* SceneDelegate.swift */,
+				D25BF80A27FE7D690010DE50 /* Font */,
 				B39BFEB927FADA8700B28376 /* Main.storyboard */,
 				B39BFEBC27FADA8E00B28376 /* Assets.xcassets */,
 				B39BFEBE27FADA8E00B28376 /* LaunchScreen.storyboard */,
 				B39BFEC127FADA8E00B28376 /* Info.plist */,
-				D25BF80A27FE7D690010DE50 /* Font */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
