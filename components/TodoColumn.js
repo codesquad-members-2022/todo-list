@@ -3,6 +3,7 @@ export default class TodoColumn {
   constructor(title) {
     this.target = document.querySelector('.column-section');
     this.title = title;
+    this.todoInput = new TodoInput(this.title);
     this.onInput = false;
     this.render();
   }
@@ -31,22 +32,11 @@ export default class TodoColumn {
     }
 
     if (target.classList.contains('column__add')) {
-      const newInput = new TodoInput(this.title);
-      document.querySelector(`.${this.title}`).insertAdjacentHTML('afterend', newInput.template());
-      document.querySelector(`.input-${this.title} .input--cancel`).addEventListener('click', this.onCloseBtn);
-      document.querySelector(`.input-${this.title} .input-content`).addEventListener('input', this.onInputContent);
+      document.querySelector(`.${this.title}`).insertAdjacentHTML('afterend', this.todoInput.render());
+      this.todoInput.run();
       this.onInput = true;
       return;
     }
-  };
-
-  onInputContent = () => {
-    document.querySelector(`.input-${this.title} .input--register`).style.background = '#0075DE';
-  };
-
-  onCloseBtn = () => {
-    document.querySelector(`.input-${this.title}`)?.remove();
-    this.onInput = false;
   };
 
   render = () => {
@@ -62,6 +52,7 @@ export default class TodoColumn {
             <div class="column__delete">x</div>
             </div>
         </nav>
+        
     </article>
       `;
     this.target.insertAdjacentHTML('beforeend', columnListHTML);
