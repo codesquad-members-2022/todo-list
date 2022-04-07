@@ -20,7 +20,9 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.indentifier, for: indexPath) as! CustomTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.indentifier, for: indexPath) as? CustomTableViewCell else {
+            return UITableViewCell()
+        }
         
         let target = cellData[indexPath.section]
         cell.changeTitleLabel(text: target.title)

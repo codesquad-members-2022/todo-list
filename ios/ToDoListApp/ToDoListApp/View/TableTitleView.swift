@@ -29,7 +29,7 @@ class TableTitleView: UIView {
     
     private let addButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "addButton"), for: .normal)
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = .gray
         return button
     }()
