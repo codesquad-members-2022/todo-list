@@ -19,6 +19,10 @@ export async function putData(URL, updatedData) {
   return data;
 }
 
+export async function deleteData(URL) {
+  await axios.delete(URL);
+}
+
 export async function axiosRequest(request, dataName, data = {}) {
   const URL = `http://localhost:5000/${dataName}`;
   const idURL = URL + `/${data.id}`;
@@ -26,17 +30,17 @@ export async function axiosRequest(request, dataName, data = {}) {
   switch (request) {
     case "get":
       response = await getData(URL);
-      break;
+      return response;
     case "post":
-      response = await postData(URL, data);
+      await postData(URL, data);
       break;
     case "put":
-      response = await putData(idURL, data);
+      await putData(idURL, data);
       break;
     case "delete":
+      await deleteData(idURL);
       break;
   }
-  return response;
 }
 
 //putData
