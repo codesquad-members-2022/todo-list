@@ -19,9 +19,13 @@ public class CardService {
 	}
 
 	public void save(RequestCard requestCard) {
-		Card newCard = new Card(requestCard.getUserId(), requestCard.getTitle(),
-			requestCard.getContent(), requestCard.getRow(),
-			requestCard.getStatus());
+		Card newCard = new Card.Builder().userId(requestCard.getUserId())
+			.title(requestCard.getTitle())
+			.content(requestCard.getContent())
+			.row(requestCard.getRow())
+			.status(requestCard.getStatus())
+			.build();
+
 		int status = requestCard.getStatus();
 		cardRepository.save(newCard, status);
 	}
@@ -42,16 +46,24 @@ public class CardService {
 		}
 
 		// 만약 row만 다르다면 -> progress -> progress로 이동한 경우
-		Card updateCard = cardRepository.updateRow(id);
+
+		Card changedCard = new Card.Builder(cardRepository.findById(id))
+			.row(requestCard.getRow())
+			.build();
+
+		Card updateCard = cardRepository.updateRow(id, changedCard);
 		return updateCard.createResponseCard();
 	}
 
 	public ResponseCard changeText(Long id, PatchCard patchCard) {
-		//todo
-		// title or content가 바뀌었다면 드래그 앤 드랍이 아닌 내용만 수정한 상황
-		cardRepository.updateText(id);
+		Card card = new Card.Builder(cardRepository.findById(id))
+			.title(patchCard.getTitle())
+			.content(patchCard.getContent())
+			.build();
 
-		return null;
+		Card updateCard = cardRepository.updateText(id, card);
+
+		return updateCard.createResponseCard();
 	}
 
 	public List<ResponseCard> findAll() {

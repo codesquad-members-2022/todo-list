@@ -16,13 +16,78 @@ public class Card {
 	private Integer status;
 	private boolean isDeleted;
 
-	public Card(String userId, String title, String content, Integer row, Integer status) {
-		this.userId = userId;
-		this.title = title;
-		this.content = content;
-		this.row = row;
-		this.status = status;
+	public static class Builder {
+
+		private String userId;
+		private String title;
+		private String content;
+		private Integer row;
+		private Integer status;
+		private boolean isDeleted;
+
+		public Builder() {
+		}
+
+		public Builder(Card card) {
+			this.userId = card.userId;
+			this.title = card.title;
+			this.content = card.content;
+			this.row = card.row;
+			this.status = card.status;
+			this.isDeleted = card.isDeleted;
+		}
+
+		public Builder userId(String userId) {
+			this.userId = userId;
+			return this;
+		}
+
+		public Builder title(String title) {
+			this.title = title;
+			return this;
+		}
+
+		public Builder content(String content) {
+			this.content = content;
+			return this;
+		}
+
+		public Builder row(Integer row) {
+			this.row = row;
+			return this;
+		}
+
+		public Builder status(Integer status) {
+			this.status = status;
+			return this;
+		}
+
+		public Builder isDeleted(boolean isDeleted) {
+			this.isDeleted = isDeleted;
+			return this;
+		}
+
+		public Card build() {
+			return new Card(this);
+		}
 	}
+
+	public Card(Builder builder) {
+		this.userId = builder.userId;
+		this.title = builder.title;
+		this.content = builder.content;
+		this.row = builder.row;
+		this.status = builder.status;
+		this.isDeleted = builder.isDeleted;
+	}
+
+//	public Card(String userId, String title, String content, Integer row, Integer status) {
+//		this.userId = userId;
+//		this.title = title;
+//		this.content = content;
+//		this.row = row;
+//		this.status = status;
+//	}
 
 	public void delete() {
 		isDeleted = true;
@@ -42,6 +107,10 @@ public class Card {
 
 	public void decreaseRow() {
 		this.row = this.row - 1;
+	}
+
+	public void increaseRow() {
+		this.row = this.row + 1;
 	}
 
 	public boolean isValid() {

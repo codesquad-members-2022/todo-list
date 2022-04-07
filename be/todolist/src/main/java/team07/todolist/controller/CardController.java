@@ -45,14 +45,14 @@ public class CardController {
 	}
 
 	@PostMapping("/{id}")
-	public String dragAndDrop(@RequestParam Long id, @RequestBody RequestCard requestCard) {
+	public String dragAndDrop(@PathVariable Long id, @RequestBody RequestCard requestCard) {
 
 		cardService.dragAndDrop(id, requestCard);
 		return "redirect:/list";
 	}
 
 	@PatchMapping("/{id}")
-	public String modifyCard(@RequestParam Long id, @RequestBody PatchCard patchCard) {
+	public String modifyCard(@PathVariable Long id, @RequestBody PatchCard patchCard) {
 
 		cardService.changeText(id, patchCard);
 		return "redirect:/list";

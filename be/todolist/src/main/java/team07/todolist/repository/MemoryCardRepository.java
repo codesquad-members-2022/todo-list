@@ -85,18 +85,55 @@ public class MemoryCardRepository implements CardRepository {
 	}
 
 	@Override
-	public Card updateRow(Long id) {
+	public Card updateRow(Long id, Card card) {
 		//todo
 		// status는 동일하고 row만 변함
 		// 변한 row를 기반으로 row값이 사이에 들어 있는 Card들은 row값을 -1 해준다.
+		//card.setId(id);
+		//Integer row = card.getRow();
 
-		return null;
+		// 결국 높은쪽에서 낮은 쪽으로 가면, 그 사이 값들은 ++가 되고
+		//     낮은쪽에서 높은 쪽으로 가면, 그 사이 값들은 --가 된다.
+//		1
+//		2
+//		3 -> 4
+//		4 -> 5
+//		5 -> 6
+//		6 -> 7
+//		7 -> 3
+		//3-> 6
+		//기존 4~6이였던 것들은 마이너스
+		//6-> 3
+		//기존 3~5는 플러스가 된다
+
+		// 기존 열의 카드
+		Card oldCard = store.get(id);
+		// 바뀐 열의 카드
+		Card newCard = card;
+		int oldRow = oldCard.getRow();
+		int newRow = newCard.getRow();
+		boolean isHeight = oldRow < newRow;
+
+		if (isHeight) {
+			store.values().stream()
+				.filter(c -> c.getRow() > oldRow && c.getRow() <= newRow)
+				.forEach(Card::decreaseRow);
+		} else {
+			store.values().stream()
+				.filter(c -> c.getRow() < oldRow && c.getRow() >= newRow)
+				.forEach(Card::increaseRow);
+		}
+		newCard.setId(id);
+		store.put(id, newCard);
+
+		return newCard;
 	}
 
 	@Override
-	public Card updateText(Long id) {
-
-		return null;
+	public Card updateText(Long id, Card card) {
+		card.setId(id);
+		store.put(id, card);
+		return card;
 	}
 
 	@Override

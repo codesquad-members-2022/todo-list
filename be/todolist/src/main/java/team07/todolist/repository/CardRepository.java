@@ -13,9 +13,9 @@ public interface CardRepository {
 
 	Card updateStatusAndRow(Long id, Integer status);
 
-	Card updateRow(Long id);
+	Card updateRow(Long id, Card card);
 
-	Card updateText(Long id);
+	Card updateText(Long id, Card card);
 
 	List<Card> findAll();
 
