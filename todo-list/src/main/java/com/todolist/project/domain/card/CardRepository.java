@@ -14,15 +14,15 @@ public class CardRepository {
     }
 
 
-    private final static String DELETE_CARD_SQL = "delete from card where id = ?";
-    private final static String INSERT_CARD_SQL = "insert into card(title, contents, writer, createTime, status) value (?,?,?,?,?)";
+    private final static String DELETE_CARD_SQL = "DELETE FROM card WHERE id = ?";
+    private final static String INSERT_CARD_SQL = "INSERT INTO card(title, contents, writer, createTime, status) VALUE (?,?,?,?,?)";
 
-
-    public void add(Card card){
-        jdbcTemplate.update(INSERT_CARD_SQL, card.getTitle(), card.getContents(), card.getWriter(), card.getCreatedTime(), card.getStatus());
+    //TODO: ID값만 반환 -> simpleJDBC
+    public int add(Card card){
+        return jdbcTemplate.update(INSERT_CARD_SQL, card.getTitle(), card.getContents(), card.getWriter(), card.getCreatedTime(), card.getCardStatus());
     }
 
-    public void remove(int id){
-        jdbcTemplate.update(DELETE_CARD_SQL, id);
+    public int remove(int id){
+        return jdbcTemplate.update(DELETE_CARD_SQL, id);
     }
 }
