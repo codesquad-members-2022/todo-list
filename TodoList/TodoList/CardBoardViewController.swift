@@ -21,6 +21,7 @@ class CardBoardViewController: UIViewController {
         guard let todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {
             return
         }
+        todoViewController.setUIProperties(title: "해야 할 일")
         addChild(todoViewController)
         todoContainerView.addSubview(todoViewController.view)
         todoViewController.view.translatesAutoresizingMaskIntoConstraints = false

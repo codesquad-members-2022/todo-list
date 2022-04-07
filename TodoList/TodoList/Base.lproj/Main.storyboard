@@ -12,7 +12,7 @@
         <scene sceneID="de1-LX-csN">
             <objects>
                 <viewController id="YWR-An-40L" customClass="CardBoardViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="6It-qz-Dbx">
+                    <view key="view" contentMode="scaleToFill" id="6It-qz-Dbx" customClass="CardBoardView" customModule="TodoList" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

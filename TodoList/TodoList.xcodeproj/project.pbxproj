@@ -13,6 +13,7 @@
 		00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A14F5D27FC07AB00474097 /* CardUsable.swift */; };
 		00A14F6027FC07C700474097 /* CardFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A14F5F27FC07C700474097 /* CardFactory.swift */; };
 		00A14F7127FC19EB00474097 /* CardBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A14F7027FC19EB00474097 /* CardBoard.swift */; };
+		00D13F1D27FEBE950031E8DA /* CardBoardVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D13F1C27FEBE950031E8DA /* CardBoardVIew.swift */; };
 		72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1827FBE2DE00A29350 /* AppDelegate.swift */; };
 		72695E1B27FBE2DE00A29350 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1A27FBE2DE00A29350 /* SceneDelegate.swift */; };
 		72695E1D27FBE2DE00A29350 /* CardBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1C27FBE2DE00A29350 /* CardBoardViewController.swift */; };
@@ -49,6 +50,7 @@
 		00A14F5D27FC07AB00474097 /* CardUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardUsable.swift; sourceTree = "<group>"; };
 		00A14F5F27FC07C700474097 /* CardFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFactory.swift; sourceTree = "<group>"; };
 		00A14F7027FC19EB00474097 /* CardBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoard.swift; sourceTree = "<group>"; };
+		00D13F1C27FEBE950031E8DA /* CardBoardVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoardVIew.swift; sourceTree = "<group>"; };
 		72695E1527FBE2DE00A29350 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72695E1827FBE2DE00A29350 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72695E1A27FBE2DE00A29350 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				72695E1827FBE2DE00A29350 /* AppDelegate.swift */,
 				72695E1A27FBE2DE00A29350 /* SceneDelegate.swift */,
 				72695E1C27FBE2DE00A29350 /* CardBoardViewController.swift */,
+				00D13F1C27FEBE950031E8DA /* CardBoardVIew.swift */,
 				0077FD4E27FD68680046AB60 /* TodoViewController.swift */,
 				72695E1E27FBE2DE00A29350 /* Main.storyboard */,
 				0077FD5027FD68A90046AB60 /* TodoStoryboard.storyboard */,
@@ -301,6 +304,7 @@
 				00A14F6027FC07C700474097 /* CardFactory.swift in Sources */,
 				72695E1D27FBE2DE00A29350 /* CardBoardViewController.swift in Sources */,
 				00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */,
+				00D13F1D27FEBE950031E8DA /* CardBoardVIew.swift in Sources */,
 				0047A15F27FE805400FAF019 /* CardStatus.swift in Sources */,
 				72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */,
 				72695E1B27FBE2DE00A29350 /* SceneDelegate.swift in Sources */,
