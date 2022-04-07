@@ -6,6 +6,7 @@ create table card (
     title varchar(500) not null,
     content varchar(500),
     card_status varchar(20) not null,
+    author varchar(10) not null,
     create_date timestamp not null default current_timestamp,
     primary key (id)
 );

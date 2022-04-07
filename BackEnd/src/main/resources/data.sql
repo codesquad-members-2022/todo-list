@@ -1,5 +1,5 @@
 insert into activity_log
-    (action, title, now_status, before_status) values
+    (activity_log_action, title, now_status, before_status) values
     ("ADD", "title1", "TODO", null),
     ("ADD", "title2", "TODO", null),
     ("REMOVE", "title3", "IN_PROGRESS", null),
