@@ -1,7 +1,7 @@
 import UIKit
 
 class TaskListBoardViewController: UIViewController {
-    var foo: [UIColor] = [.red,.gray,.green,.brown]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpStackView()
@@ -24,23 +24,15 @@ class TaskListBoardViewController: UIViewController {
         }
     }
     
-    func add() {
-        self.foo.append(UIColor.brown)
-    }
 }
-           
-
-
-
 
 extension TaskListBoardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.foo.count
+        return 15
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cardCell", for: indexPath) as! TaskCardViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskCardViewCell.identifier, for: indexPath) as? TaskCardViewCell else { return UITableViewCell() }
         return cell
     }
     
