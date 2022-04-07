@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codesquad.aos.todolist.R
 import com.codesquad.aos.todolist.common.utils.VerticalItemDecorator
@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressCardListAdapter: TodoCardListAdapter
     private lateinit var completeCardListAdapter: TodoCardListAdapter
 
+    private val viewModel : TodoViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         setMenuClick()
         setDrawerListener()
         setDrawerClose()
+        setViewModel()
 
         setTodoRecyclerView()
         setProgressRecyclerView()
@@ -37,22 +40,15 @@ class MainActivity : AppCompatActivity() {
         setDialogFragmentView()
     }
 
+
     fun setTodoRecyclerView() {
         todoCardListAdapter = TodoCardListAdapter()
         binding.rvTodo.adapter = todoCardListAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
-        var testList = listOf(
-            Card(1, "hihi", "byebye", "author by android"),
-            Card(
-                2,
-                "zoozoo",
-                "icecream icecream icecream icecream icecream icecream",
-                "author by iOS"
-            )
-        )
-        todoCardListAdapter.submitList(testList.toList())
+        viewModel.addTodo("hihi", "hihihi")
+        viewModel.addTodo("byebye", "byebyebye")
     }
 
     fun setProgressRecyclerView() {
@@ -62,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvProgress.addItemDecoration(VerticalItemDecorator(15))
 
         var testList = listOf(
-            Card(1, "hello josh", "byebye", "author by android"),
+            Card(1, "hihi", "byebye", "author by android"),
             Card(
                 2,
                 "zoozoo",
@@ -89,6 +85,12 @@ class MainActivity : AppCompatActivity() {
             )
         )
         completeCardListAdapter.submitList(testList.toList())
+    }
+
+    fun setViewModel(){
+        viewModel.todo_list_ld.observe(this){
+            todoCardListAdapter.submitList(it.toList())
+        }
     }
 
     fun setMenuClick() {
