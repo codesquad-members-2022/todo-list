@@ -8,22 +8,6 @@ export default class TodoColumn {
     this.render();
   }
 
-  onMouseOver = ({ target }) => {
-    if (target.classList.contains('column__add')) {
-      if (!target.classList.contains('sky-blue')) {
-        target.classList.add('sky-blue');
-      }
-    }
-  };
-
-  onMouseOut = ({ target }) => {
-    if (target.classList.contains('column__add')) {
-      if (target.classList.contains('sky-blue')) {
-        target.classList.remove('sky-blue');
-      }
-    }
-  };
-
   onAddClick = ({ target }) => {
     if (this.onInput) {
       document.querySelector(`.input-${this.status}`)?.remove();
@@ -56,9 +40,6 @@ export default class TodoColumn {
     </article>
       `;
     this.target.insertAdjacentHTML('beforeend', columnListHTML);
-    // 이슈사항 정리 예정
-    document.querySelector(`.${this.status}`).addEventListener('mouseover', this.onMouseOver);
-    document.querySelector(`.${this.status}`).addEventListener('mouseout', this.onMouseOut);
     document.querySelector(`.${this.status}`).addEventListener('click', this.onAddClick);
   };
 }

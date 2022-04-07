@@ -314,6 +314,9 @@ body {
   font-size: 20px;
   cursor: pointer;
 }
+.column-list .column__add:hover {
+  color: #86c6ff;
+}
 .column-list .column__delete {
   font-size: 20px;
   cursor: pointer;

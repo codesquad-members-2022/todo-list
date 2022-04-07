@@ -63,6 +63,9 @@ body {
     &__add {
       font-size: $font-20;
       cursor: pointer;
+      &:hover {
+        color: $color-blue-light;
+      }
     }
     &__delete {
       font-size: $font-20;
