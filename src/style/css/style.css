@@ -1,0 +1,48 @@
+.column {
+  width: 308px;
+}
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.column-title {
+  margin: 0 8px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+}
+.column .card-count {
+  width: 26px;
+  height: 26px;
+  border-radius: 20px;
+  background-color: #bdbdbd;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 28px;
+}
+.column-plus-button {
+  width: 10.5px;
+  height: 10.5px;
+  margin: 0 10px;
+  background-repeat: no-repeat;
+  background-image: url(../images/plus.png);
+  background-size: 10.5px;
+}
+.column-delete-button {
+  width: 10.5px;
+  height: 10.5px;
+  margin: 0 10px;
+  background-repeat: no-repeat;
+  background-image: url(../images/delete.png);
+  background-size: 10.5px;
+}
+
+.flex {
+  display: flex;
+}
+
+/*# sourceMappingURL=style.css.map */

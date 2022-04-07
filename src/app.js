@@ -1,6 +1,3 @@
-for (let i = 0; j <= 10; i++) {
-  console.log(i);
-  while (1) {
-    asdfasdf;
-  }
-}
+import Column from "./components/Column.js";
+const app = document.querySelector(".column");
+const column = new Column(app);
