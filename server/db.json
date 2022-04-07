@@ -1,0 +1,31 @@
+{
+  "company": [
+    {
+      "id": 2,
+      "name": "Samsung",
+      "country": "Korea"
+    },
+    {
+      "id": 3,
+      "name": "Xiaomi",
+      "country": "China"
+    },
+    {
+      "id": 4,
+      "name": "Apple",
+      "country": "USA"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Lee",
+      "role": "developer"
+    },
+    {
+      "id": 2,
+      "name": "Kim",
+      "role": "producer"
+    }
+  ]
+}

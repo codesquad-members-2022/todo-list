@@ -1,5 +1,5 @@
-@import './_variables', './_common', './body/_body', './header/_headerBar',
-  './reset.scss';
+@import './_variables', './_reset', './_common', './body/_body',
+  './header/_headerBar';
 
 body {
   box-sizing: border-box;

@@ -15,7 +15,7 @@
 
   & > .menu-bar {
     @include position(absolute, 0, 0);
-    display: none;
+    // display: none;
     z-index: 1;
     height: 100vh;
     padding: 80px 40px 0 40px;

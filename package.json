@@ -4,7 +4,8 @@
   "description": "그룹 프로젝트 #1",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "json-server --watch ./server/db.json --port 3001"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   },
   "dependencies": {
     "core-js": "^3.21.1",
+    "json-server": "^0.17.0",
     "source-map": "^0.7.3",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2"
