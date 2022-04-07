@@ -21,7 +21,7 @@ class HistoryStackView: UIStackView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
-        label.textColor = UIColor(hex: "#828282")
+        label.textColor = UIColor(named: "Gray3")
         return label
     }()
     
