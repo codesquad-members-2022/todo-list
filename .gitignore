@@ -1,19 +1,4 @@
-### macOS template
-*.DS_Store
-.AppleDouble
-.LSOverride
-
-# IntelliJ project files
-.idea
-.idea/*.xml
-*.iml
-out
-gen
-build
-rebel.xml
-
-/express-server
-
+.idea 
 *.css.map
 /node_modules
 /dist
