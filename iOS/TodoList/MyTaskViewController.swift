@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+class MyTaskViewController: UIViewController {
     
     @IBOutlet weak var taskListStackView: UIStackView!
     
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UIPopoverPresentationControllerDelegate {
+extension MyTaskViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
