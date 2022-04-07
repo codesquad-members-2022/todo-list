@@ -136,25 +136,29 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
     
     private func layout() {
         self.view.addSubview(titleLabel)
-        titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true
-        
         self.view.addSubview(countLabel)
-        countLabel.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8).isActive = true
-        countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-        countLabel.heightAnchor.constraint(equalToConstant: 26).isActive = true
-        
         self.view.addSubview(addButton)
-        addButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-        addButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true
-        addButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        
         self.view.addSubview(cardTableView)
-        cardTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16).isActive = true
-        cardTableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        cardTableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        cardTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10).isActive = true
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8),
+            
+            countLabel.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8),
+            countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            countLabel.heightAnchor.constraint(equalToConstant: 26),
+            
+            addButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            addButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8),
+            addButton.widthAnchor.constraint(equalToConstant: 24),
+            addButton.heightAnchor.constraint(equalToConstant: 24),
+            
+            cardTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            cardTableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            cardTableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            cardTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10)
+
+        ])
     }
     
     private func showCardPopup(card: Card? = nil) {

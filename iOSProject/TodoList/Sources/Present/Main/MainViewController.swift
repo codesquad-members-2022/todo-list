@@ -52,22 +52,25 @@ class MainViewController: UIViewController {
     }
     
     private func layout() {
-        columnTableViews.forEach{ self.embed($0.controller) }
         let safeArea = self.view.safeAreaLayoutGuide
 
         self.view.addSubview(titleBar.view)
-        titleBar.view.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
-        titleBar.view.heightAnchor.constraint(equalToConstant: 72).isActive = true
-        titleBar.view.leftAnchor.constraint(equalTo: safeArea.leftAnchor).isActive = true
-        titleBar.view.rightAnchor.constraint(equalTo: safeArea.rightAnchor).isActive = true
-        
         self.view.addSubview(columnStackView)
-        columnStackView.topAnchor.constraint(equalTo: titleBar.view.bottomAnchor, constant: 51).isActive = true
-        columnStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
-        columnStackView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 48).isActive = true
-        columnStackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -48).isActive = true
+        
+        NSLayoutConstraint.activate([
+            titleBar.view.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            titleBar.view.heightAnchor.constraint(equalToConstant: 72),
+            titleBar.view.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
+            titleBar.view.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
+            
+            columnStackView.topAnchor.constraint(equalTo: titleBar.view.bottomAnchor, constant: 51),
+            columnStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            columnStackView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 48),
+            columnStackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -48)
+        ])
         
         columnTableViews.forEach {
+            self.embed($0.controller)
             $0.controller.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
             columnStackView.addArrangedSubview($0.controller.view)
         }

@@ -62,27 +62,30 @@ class ColumnViewCell: UITableViewCell {
     
     private func layout() {
         self.addSubview(cellBackgroundView)
-        cellBackgroundView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        cellBackgroundView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        cellBackgroundView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        
         self.addSubview(titleLabel)
-        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-        
         self.addSubview(bodyLabel)
-        bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
-        bodyLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        bodyLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-        
         self.addSubview(captionLabel)
-        captionLabel.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 8).isActive = true
-        captionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        captionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
         
-        cellBackgroundView.bottomAnchor.constraint(equalTo: captionLabel.bottomAnchor, constant: 16).isActive = true
-        self.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16).isActive = true
+        NSLayoutConstraint.activate([
+            cellBackgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            cellBackgroundView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            cellBackgroundView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
+            titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            
+            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            bodyLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
+            bodyLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            
+            captionLabel.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 8),
+            captionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
+            captionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            
+            cellBackgroundView.bottomAnchor.constraint(equalTo: captionLabel.bottomAnchor, constant: 16),
+            self.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16)
+        ])
     }
     
     func setCard(_ card: Card) {

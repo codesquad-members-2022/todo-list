@@ -230,66 +230,53 @@ class CardPopupViewController: UIViewController {
     
     private func layout() {
         self.view.addSubview(popupBackgroundView)
-        [
+        popupBackgroundView.addSubview(columnLabel)
+        popupBackgroundView.addSubview(titleTextField)
+        popupBackgroundView.addSubview(bodyTextView)
+        popupBackgroundView.addSubview(maxBodyLengthLabel)
+        popupBackgroundView.addSubview(editButton)
+        popupBackgroundView.addSubview(confimButton)
+        popupBackgroundView.addSubview(cancelButton)
+        
+        NSLayoutConstraint.activate([
             popupBackgroundView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             popupBackgroundView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            popupBackgroundView.widthAnchor.constraint(equalToConstant: 400)
-        ].forEach{ $0.isActive = true}
-        
-        popupBackgroundView.addSubview(columnLabel)
-        [
+            popupBackgroundView.widthAnchor.constraint(equalToConstant: 400),
+            
             columnLabel.topAnchor.constraint(equalTo: popupBackgroundView.topAnchor, constant: 16),
             columnLabel.leadingAnchor.constraint(equalTo: popupBackgroundView.leadingAnchor, constant: 16),
-            columnLabel.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16)
-        ].forEach{ $0.isActive = true}
-        
-        popupBackgroundView.addSubview(titleTextField)
-        [
+            columnLabel.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
+            
             titleTextField.topAnchor.constraint(equalTo: columnLabel.bottomAnchor, constant: 16),
             titleTextField.leadingAnchor.constraint(equalTo: popupBackgroundView.leadingAnchor, constant: 16),
-            titleTextField.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16)
-        ].forEach{ $0.isActive = true}
-
-        popupBackgroundView.addSubview(bodyTextView)
-        [
+            titleTextField.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
+            
             bodyTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 8),
             bodyTextView.leadingAnchor.constraint(equalTo: popupBackgroundView.leadingAnchor, constant: 16),
             bodyTextView.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
-            bodyTextView.heightAnchor.constraint(equalToConstant: 40)
-        ].forEach{ $0.isActive = true}
-        
-        popupBackgroundView.addSubview(maxBodyLengthLabel)
-        [
+            bodyTextView.heightAnchor.constraint(equalToConstant: 40),
+            
             maxBodyLengthLabel.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 8),
             maxBodyLengthLabel.leadingAnchor.constraint(equalTo: popupBackgroundView.leadingAnchor, constant: 16),
             maxBodyLengthLabel.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
-        ].forEach{ $0.isActive = true}
-        
-        popupBackgroundView.addSubview(editButton)
-        [
+            
             editButton.topAnchor.constraint(equalTo: maxBodyLengthLabel.bottomAnchor, constant: 16),
             editButton.rightAnchor.constraint(equalTo: popupBackgroundView.rightAnchor, constant: -16),
             editButton.widthAnchor.constraint(equalToConstant: 108),
-            editButton.heightAnchor.constraint(equalToConstant: 40)
-        ].forEach{ $0.isActive = true}
-        
-        popupBackgroundView.addSubview(confimButton)
-        [
+            editButton.heightAnchor.constraint(equalToConstant: 40),
+            
             confimButton.topAnchor.constraint(equalTo: maxBodyLengthLabel.bottomAnchor, constant: 16),
             confimButton.rightAnchor.constraint(equalTo: popupBackgroundView.rightAnchor, constant: -16),
             confimButton.widthAnchor.constraint(equalToConstant: 108),
-            confimButton.heightAnchor.constraint(equalToConstant: 40)
-        ].forEach{ $0.isActive = true}
-
-        popupBackgroundView.addSubview(cancelButton)
-        [
+            confimButton.heightAnchor.constraint(equalToConstant: 40),
+            
             cancelButton.topAnchor.constraint(equalTo: confimButton.topAnchor),
             cancelButton.rightAnchor.constraint(equalTo: confimButton.leftAnchor, constant: -8),
             cancelButton.widthAnchor.constraint(equalToConstant: 108),
-            cancelButton.heightAnchor.constraint(equalToConstant: 40)
-        ].forEach{ $0.isActive = true}
-          
-        popupBackgroundView.bottomAnchor.constraint(equalTo: confimButton.bottomAnchor, constant: 16).isActive = true
+            cancelButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            popupBackgroundView.bottomAnchor.constraint(equalTo: confimButton.bottomAnchor, constant: 16)
+        ])
     }
     
     private func reSizeTextView(_ textView: UITextView) {
