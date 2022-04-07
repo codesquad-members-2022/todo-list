@@ -1,0 +1,22 @@
+
+.DS_Store
+.prettierrc.js
+# https://github.com/github/gitignore/blob/main/Sass.gitignore
+.sass-cache/
+*.css.map
+*.sass.map
+
+# npm
+node_modules
+*.log
+*.gz
+
+# Coveralls
+.nyc_output
+coverage
+
+# Benchmarking
+benchmarks/graphs
+
+# ignore additional files using core.excludesFile
+# https://git-scm.com/docs/gitignore

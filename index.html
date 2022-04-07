@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TO DO LIST</title>
+        <link rel="stylesheet" href="./styles/style.css" />
+    </head>
+    <body>
+        <header id="header">
+            <h1 id="header__title">TO DO LIST</h1>
+            <div id="header__menu-btn">
+                <svg
+                    width="17"
+                    height="11"
+                    viewBox="0 0 17 11"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M0 1V0H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z"
+                        fill="black"
+                    />
+                </svg>
+            </div>
+        </header>
+        <main id="main"></main>
+        <div>
+            <section id="history" class="history hide">
+                <div class="history__close-btn">
+                    <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
+                            fill="black"
+                        />
+                    </svg>
+                </div>
+                <div class="history__item-list">
+                    <div class="history__item-container">
+                        <div class="history__user-img-container">
+                            <img
+                                class="history__user-img"
+                                src="./styles/user-img-sample.jpg"
+                            />
+                        </div>
+                        <div class="history__text-container">
+                            <p class="history__user-name">@sam</p>
+                            <p class="history__body">
+                                Gib Hub 공부하기를 생성하였습니다.
+                            </p>
+                            <p class="history__time-stamp">1분 전</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- <script src="./dist/bundle.js"></script> -->
+        <script type="module" src="./js/index.js"></script>
+    </body>
+</html>
