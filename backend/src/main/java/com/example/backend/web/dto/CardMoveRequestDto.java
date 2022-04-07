@@ -8,18 +8,18 @@ public class CardMoveRequestDto {
     @ApiModelProperty(example = "현재 카드의 행 위치")
     private Long currentIndex;
     @ApiModelProperty(example = "현재 카드의 column")
-    private String currentStatus;
+    private String currentColumnName;
     @ApiModelProperty(example = "카드가 이동할 행 위치")
     private Long newIndex;
     @ApiModelProperty(example = "카드가 이동할 column")
-    private String newStatus;
+    private String newColumnName;
 
-    public CardMoveRequestDto(Long id, Long currentIndex, String currentStatus, Long newIndex, String newStatus) {
+    public CardMoveRequestDto(Long id, Long currentIndex, String currentColumnName, Long newIndex, String newColumnName) {
         this.id = id;
         this.currentIndex = currentIndex;
-        this.currentStatus = currentStatus;
+        this.currentColumnName = currentColumnName;
         this.newIndex = newIndex;
-        this.newStatus = newStatus;
+        this.newColumnName = newColumnName;
     }
 
     public Long getId() {
@@ -30,15 +30,15 @@ public class CardMoveRequestDto {
         return currentIndex;
     }
 
-    public String getCurrentStatus() {
-        return currentStatus;
+    public String getCurrentColumnName() {
+        return currentColumnName;
     }
 
     public Long getNewIndex() {
         return newIndex;
     }
 
-    public String getNewStatus() {
-        return newStatus;
+    public String getNewColumnName() {
+        return newColumnName;
     }
 }

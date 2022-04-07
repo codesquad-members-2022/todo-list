@@ -5,15 +5,15 @@ public class Card {
     private String title;
     private String content;
     private String authorSystem;
-    private String status;
+    private String columnName;
     private Long orderIndex;
 
-    public Card(Long id, String title, String content, String authorSystem, String status, Long orderIndex) {
+    public Card(Long id, String title, String content, String authorSystem, String columnName, Long orderIndex) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.authorSystem = authorSystem;
-        this.status = status;
+        this.columnName = columnName;
         this.orderIndex = orderIndex;
     }
 
@@ -27,7 +27,7 @@ public class Card {
         private String title;
         private String content;
         private String authorSystem;
-        private String status;
+        private String columnName;
         private Long orderIndex;
 
         public Builder id(Long id) {
@@ -50,8 +50,8 @@ public class Card {
             return this;
         }
 
-        public Builder status(String status) {
-            this.status = status;
+        public Builder columnName(String columnName) {
+            this.columnName = columnName;
             return this;
         }
 
@@ -61,7 +61,7 @@ public class Card {
         }
 
         public Card build() {
-            return new Card(id, title, content, authorSystem, status, orderIndex);
+            return new Card(id, title, content, authorSystem, columnName, orderIndex);
         }
     }
 }

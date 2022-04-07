@@ -11,13 +11,13 @@ public class CardSaveRequestDto {
     @ApiModelProperty(example = "작성된 시스템")
     private String authorSystem;
     @ApiModelProperty(example = "작성된 column명")
-    private String status;
+    private String columnName;
 
-    public CardSaveRequestDto(String title, String content, String authorSystem, String status) {
+    public CardSaveRequestDto(String title, String content, String authorSystem, String columnName) {
         this.title = title;
         this.content = content;
         this.authorSystem = authorSystem;
-        this.status = status;
+        this.columnName = columnName;
     }
 
     public String getTitle() {
@@ -32,8 +32,8 @@ public class CardSaveRequestDto {
         return authorSystem;
     }
 
-    public String getStatus() {
-        return status;
+    public String getColumnName() {
+        return columnName;
     }
 
     public Card toEntity() {
@@ -41,7 +41,7 @@ public class CardSaveRequestDto {
                 .title(title)
                 .content(content)
                 .authorSystem(authorSystem)
-                .status(status)
+                .columnName(columnName)
                 .build();
     }
 }
