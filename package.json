@@ -4,6 +4,7 @@
   "description": "|Geon|Owl| |-|-| |[@ldldz](https://github.com/ldldz)|[@bukim0329](https://github.com/bukim0329)|",
   "main": "index.js",
   "scripts": {
+    "sass": "sass src/scss:src/css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,6 +29,7 @@
     "eslint-config-prettier": "^8.5.0",
     "html-webpack-plugin": "^5.5.0",
     "prettier": "2.6.2",
+    "sass": "^1.50.0",
     "style-loader": "^3.3.1"
   },
   "dependencies": {
