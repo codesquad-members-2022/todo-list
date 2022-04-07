@@ -49,11 +49,12 @@ export default class TodoInput {
     document.querySelector(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
 
     document.querySelector(`.input-${todo.status}`)?.remove();
+    newTodo.run();
   };
 
   render = () => {
     return /*html*/ `
-        <article class="input-wrapper input-${this.status}">
+        <article class="input-wrapper todo-border input-${this.status}">
             <input class="input-header"placeholder="제목을 입력하세요" />
             <input class="input-content" placeholder="내용을 입력하세요" maxlength ='500' />
             <div class="input-button-wrapper">
