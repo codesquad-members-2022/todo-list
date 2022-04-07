@@ -20,13 +20,13 @@ public class ActivityLogRepository {
     }
 
     public List<ActivityLog> findAll() {
-        return jdbcTemplate.query("select * from activity_log order by create_date desc", activityLogLowMapper());
+        return jdbcTemplate.query("select id, action, title, now_status, before_status, create_date from activity_log order by create_date desc", activityLogRowMapper());
     }
 
-    private RowMapper<ActivityLog> activityLogLowMapper() {
+    private RowMapper<ActivityLog> activityLogRowMapper() {
         return (rs, rowNum) -> {
             Long id = rs.getLong("id");
-            Action action = Action.from(rs.getString("action"));
+            Action action = Action.valueOf(rs.getString("action"));
             String title = rs.getString("title");
             CardStatus nowStatus = CardStatus.from(rs.getString("now_status"));
             CardStatus beforeStatus = CardStatus.from(rs.getString("before_status"));
