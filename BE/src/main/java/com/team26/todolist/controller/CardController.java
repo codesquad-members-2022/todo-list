@@ -6,7 +6,6 @@ import com.team26.todolist.dto.request.CardRegistrationRequest;
 import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
 import com.team26.todolist.service.CardService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cards")
-@RequiredArgsConstructor
 public class CardController {
 
     private final CardService cardService;
+
+    public CardController(CardService cardService) {
+        this.cardService = cardService;
+    }
 
     @GetMapping
     public ResponseEntity<List<CardResponse>> getCards(@RequestParam String cardStatus) {
@@ -29,34 +31,33 @@ public class CardController {
 
     @PostMapping
     public ResponseEntity<CardResponse> createCard(@RequestBody CardRegistrationRequest cardRegistrationRequest) {
-        CardResponse savedCard = cardService.join(cardRegistrationRequest);
+        CardResponse savedCard = cardService.addCard(cardRegistrationRequest);
 
         return ResponseEntity.ok()
                 .body(savedCard);
     }
 
-    @PatchMapping
+    @PutMapping
     public ResponseEntity<CardResponse> updateCard(@RequestBody CardUpdateRequest cardUpdateRequest) {
-        CardResponse updatedCard = cardService.update(cardUpdateRequest);
+        CardResponse updatedCard = cardService.modifyCard(cardUpdateRequest);
 
         return ResponseEntity.ok()
                 .body(updatedCard);
     }
 
-    @PatchMapping("/{newStatus}")
-    public ResponseEntity<CardResponse> moveCard(@RequestBody CardMoveRequest cardMoveRequest, @PathVariable String newStatus) {
-        CardResponse movedCard = cardService.move(cardMoveRequest, newStatus);
+    @PatchMapping
+    public ResponseEntity<CardResponse> moveCard(@RequestBody CardMoveRequest cardMoveRequest) {
+        CardResponse movedCard = cardService.moveCard(cardMoveRequest);
 
         return ResponseEntity.ok()
                 .body(movedCard);
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteCard(@RequestBody CardDeleteRequest cardDeleteRequest) {
-        cardService.delete(cardDeleteRequest);
+    public ResponseEntity deleteCard(@RequestBody CardDeleteRequest cardDeleteRequest) {
+        cardService.deleteCard(cardDeleteRequest);
 
         return ResponseEntity.noContent()
                 .build();
     }
-
 }
