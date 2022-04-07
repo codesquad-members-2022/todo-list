@@ -6,7 +6,7 @@ export const renderColumn = (parentEl, columnID) => {
   const columnData = Store.state[columnID];
   parentEl.innerHTML = getColumnTemplate(columnID, columnData);
   const cardListEl = parentEl.querySelector(".card-list");
-  mountCard(cardListEl, columnData);
+  mountCard(cardListEl, columnID, columnData);
 };
 
 const getColumnTemplate = (columnID, columnData) => {
@@ -38,7 +38,7 @@ const getCardListTemplate = () => {
     `;
 };
 
-const mountCard = (cardListEl, columnData) => {
+const mountCard = (cardListEl, columnID, columnData) => {
   const cardOrder = columnData.cardOrder;
-  cardOrder.forEach((cardID) => renderCard(cardListEl, cardID));
+  cardOrder.forEach((cardID) => renderCard(cardListEl, columnID, cardID));
 };
