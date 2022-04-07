@@ -3,7 +3,7 @@ export default class Todo {
     this.todoData = todoData;
   }
   render = () => {
-    return `<div class="card">
+    return /*html*/ `<div class="card" id =${this.todoData.id}>
       <header>
         <h3>${this.todoData.title}</h3>
         <div class="column__delete">x</div>
@@ -15,5 +15,12 @@ export default class Todo {
         <p class="card__author-text">author by ${this.todoData.userId}</p>
       </div>
     </div>`;
+  };
+
+  run = () => {
+    document.getElementById().addEventListener('click', this.makeEdit);
+  };
+  makeEdit = () => {
+    console.log('hi');
   };
 }
