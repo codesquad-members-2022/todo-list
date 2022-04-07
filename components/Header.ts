@@ -1,5 +1,8 @@
 import Component from './Component';
 
+export class Header extends Component {
+  template() {
+    // const { isOpened } = this.state;
 
 export class Header extends View {
   template() {
@@ -9,9 +12,7 @@ export class Header extends View {
                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 1V0H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z" fill="black" />
             </svg>
-            <span class="menu-sidebar" ${
-              isOpened ? 'display:block' : 'display:none'
-            }>
+            <span class="menu-sidebar">
             </span>
         </span> 
     `;
