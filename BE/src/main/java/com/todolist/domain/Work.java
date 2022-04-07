@@ -10,20 +10,20 @@ public class Work {
     private String title;
     private String content;
     private String userId;
-    private Integer deleteFlag;
-    private LocalDateTime createdDate;
+    private boolean deleteFlag;
+    private LocalDateTime createdDateTime;
 
     private Work() { }
 
-    public Work(Integer id, Integer categoryId, String title, String content, LocalDateTime createdDate) {
+    public Work(Integer id, Integer categoryId, String title, String content, LocalDateTime createdDateTime) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
         this.content = content;
-        this.createdDate = createdDate;
+        this.createdDateTime = createdDateTime;
     }
 
     public WorkDto convertToDto() {
-        return new WorkDto(id, categoryId, title, content, createdDate);
+        return new WorkDto(id, categoryId, title, content, createdDateTime);
     }
 }

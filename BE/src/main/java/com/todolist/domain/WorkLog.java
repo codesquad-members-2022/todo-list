@@ -8,24 +8,42 @@ public class WorkLog {
     private Integer workId;
     private String userId;
     private String title;
-    private String action;
+    private Action action;
     private String previousStatus;
     private String changedStatus;
-    private LocalDateTime updatedDate;
+    private LocalDateTime updatedDateTime;
 
     private WorkLog() { }
 
     public WorkLog(String userId, String title, String action,
-        String previousStatus, String changedStatus, LocalDateTime updatedDate) {
+        String previousStatus, String changedStatus, LocalDateTime updatedDateTime) {
         this.userId = userId;
         this.title = title;
-        this.action = action;
+        this.action = Action.valueOf(action);
         this.previousStatus = previousStatus;
         this.changedStatus = changedStatus;
-        this.updatedDate = updatedDate;
+        this.updatedDateTime = updatedDateTime;
     }
 
     public WorkLogDto convertToDto() {
-        return new WorkLogDto(userId, title, action, previousStatus, changedStatus, updatedDate);
+        return new WorkLogDto(userId, title, action.getValue(), previousStatus, changedStatus,
+            updatedDateTime);
+    }
+
+    public enum Action {
+        등록("등록"),
+        삭제("삭제"),
+        변경("변경"),
+        이동("이동");
+
+        private String value;
+
+        Action(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

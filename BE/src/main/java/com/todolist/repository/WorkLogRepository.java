@@ -18,8 +18,8 @@ public class WorkLogRepository {
     }
 
     public List<WorkLog> findAllWorkLogs(String userId) {
-        return jdbc.query("SELECT user_id, title, action, previous_status, changed_status, updated_date "
-            + "FROM work AS A JOIN work_log AS B ON A.id = B.work_id WHERE user_id = :userId ORDER BY updated_date DESC",
+        return jdbc.query("SELECT user_id, title, action, previous_status, changed_status, updated_datetime "
+            + "FROM work AS A JOIN work_log AS B ON A.id = B.work_id WHERE user_id = :userId ORDER BY updated_datetime DESC",
             Collections.singletonMap("userId", userId), workLogRowMapper());
     }
 
@@ -31,7 +31,7 @@ public class WorkLogRepository {
                 rs.getString("action"),
                 rs.getString("previous_status"),
                 rs.getString("changed_status"),
-                rs.getTimestamp("updated_date").toLocalDateTime()
+                rs.getTimestamp("updated_datetime").toLocalDateTime()
             );
 
             return workLog;

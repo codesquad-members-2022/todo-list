@@ -28,8 +28,8 @@ public class WorkRepository {
         params.put("categoryId", String.valueOf(categoryId));
         params.put("userId", userId);
 
-        return jdbc.query("SELECT id, category_id, title, content, delete_flag, created_date "
-                + "FROM work WHERE delete_flag = 0 AND category_id = :categoryId AND user_id = :userId ORDER BY created_date DESC",
+        return jdbc.query("SELECT id, category_id, title, content, delete_flag, created_datetime "
+                + "FROM work WHERE delete_flag = 0 AND category_id = :categoryId AND user_id = :userId ORDER BY created_datetime DESC",
             params, workRowMapper());
     }
 
@@ -40,7 +40,7 @@ public class WorkRepository {
                 rs.getObject("category_id", Integer.class),
                 rs.getString("title"),
                 rs.getString("content"),
-                rs.getTimestamp("created_date").toLocalDateTime()
+                rs.getTimestamp("created_datetime").toLocalDateTime()
             );
 
             return work;

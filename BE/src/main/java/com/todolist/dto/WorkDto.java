@@ -10,13 +10,13 @@ public class WorkDto {
     private Integer categoryId;
     private String title;
     private String content;
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDateTime;
 
-    public WorkDto(Integer id, Integer categoryId, String title, String content, LocalDateTime createdDate) {
+    public WorkDto(Integer id, Integer categoryId, String title, String content, LocalDateTime createdDateTime) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
         this.content = content;
-        this.createdDate = createdDate;
+        this.createdDateTime = createdDateTime;
     }
 }

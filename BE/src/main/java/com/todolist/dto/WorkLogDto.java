@@ -11,15 +11,15 @@ public class WorkLogDto {
     private String action;
     private String previousStatus;
     private String changedStatus;
-    private LocalDateTime updatedDate;
+    private LocalDateTime updatedDateTime;
 
     public WorkLogDto(String userId, String title, String action, String previousStatus,
-        String changedStatus, LocalDateTime updatedDate) {
+        String changedStatus, LocalDateTime updatedDateTime) {
         this.userId = userId;
         this.title = title;
         this.action = action;
         this.previousStatus = previousStatus;
         this.changedStatus = changedStatus;
-        this.updatedDate = updatedDate;
+        this.updatedDateTime = updatedDateTime;
     }
 }

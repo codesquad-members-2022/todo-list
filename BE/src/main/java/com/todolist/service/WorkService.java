@@ -3,6 +3,7 @@ package com.todolist.service;
 import com.todolist.domain.Category;
 import com.todolist.domain.Work;
 import com.todolist.dto.ColumnListDto;
+import com.todolist.dto.WorkDto;
 import com.todolist.dto.WorkListDto;
 import com.todolist.repository.WorkRepository;
 import java.util.ArrayList;
@@ -24,12 +25,13 @@ public class WorkService {
 
         List<Category> categoryList = workRepository.findAllCategories();
         for (Category category : categoryList) {
-            workLists.add(new WorkListDto(
-                category.getName(),
-                workRepository.findAllWorksByCategoryId(category.getId(), userId)
-                    .stream().map(Work::convertToDto).collect(Collectors.toList())
-                )
-            );
+
+            int categoryId = category.getId();
+            String categoryName = category.getName();
+            List<WorkDto> workDtoList = workRepository.findAllWorksByCategoryId(categoryId, userId)
+                .stream().map(Work::convertToDto).collect(Collectors.toList());
+
+            workLists.add(new WorkListDto(categoryName, workDtoList));
         }
 
         return new ColumnListDto(userId, workLists);

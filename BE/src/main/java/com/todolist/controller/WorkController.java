@@ -25,7 +25,7 @@ public class WorkController {
         return workService.getColumnList(userId);
     }
 
-    @GetMapping("/logs")
+    @GetMapping("/work-logs")
     public WorkLogListDto getWorkLogList(@RequestParam("userId") String userId) {
         return workLogService.getWorkLogList(userId);
     }
