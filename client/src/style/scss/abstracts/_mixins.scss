@@ -1,0 +1,16 @@
+@mixin flex($justify-content: center, $align-items: center) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin transform-translateX($translateX) {
+  transform: translateX($translateX);
+}
+
+@mixin font($size, $weight: normal, $style: normal, $font-family: $font-default) {
+  font-family: $font-family;
+  font-size: $size;
+  font-weight: $weight;
+  font-style: $style;
+}

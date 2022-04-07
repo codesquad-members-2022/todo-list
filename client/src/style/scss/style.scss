@@ -1,0 +1,17 @@
+//abstracts
+@import "./abstracts/mixins";
+@import "./abstracts/variables";
+
+//base
+@import "./base/reset";
+
+//layout
+@import "./layout/header/header";
+@import "./layout/sidebar/sidebar";
+@import "./layout/main/column-list";
+@import "./layout/main/column-task-list";
+
+body {
+  background-color: $color-background-body;
+  overflow: hidden;
+}

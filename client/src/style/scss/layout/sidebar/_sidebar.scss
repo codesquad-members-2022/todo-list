@@ -1,0 +1,67 @@
+aside {
+  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+  @include transform-translateX(452px);
+  transition: $transition-sidebar;
+}
+
+.show {
+  opacity: 1;
+  pointer-events: auto;
+  @include transform-translateX(0px);
+  transition: $transition-sidebar;
+}
+
+.sidebar {
+  &__scroll {
+    overflow-y: scroll;
+  }
+
+  &__list {
+    width: 452px;
+    height: 100vh;
+    padding: 80px 80px 80px 40px;
+    background-color: $color-white;
+    @include flex(flex-end);
+    flex-direction: column-reverse;
+  }
+
+  &__item {
+    @include flex(flex-start, flex-start);
+    width: 332px;
+    height: 137px;
+    background-color: $color-background-activity;
+    font-size: 16px;
+
+    &--profile {
+      width: 40px;
+      height: 40px;
+      margin: 16px;
+    }
+
+    section {
+      margin: 16px 16px 16px 0px;
+    }
+
+    &--activity {
+      width: 244px;
+      height: auto;
+      white-space: normal;
+    }
+
+    &--time-stamp {
+      font-size: 14px;
+      color: $color-light-gray;
+    }
+
+    &--nickname,
+    &--activity,
+    &--time-stamp {
+      padding: 8px 0px;
+    }
+  }
+}

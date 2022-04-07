@@ -1,0 +1,16 @@
+header {
+  @include flex(space-between);
+  margin: 0px 80px;
+}
+
+.header__title {
+  font-size: 32px;
+  margin: 33px 0px;
+}
+
+.sidebar__menu-button {
+  height: max-content;
+  border: none;
+  background-color: transparent;
+  z-index: 2;
+}
