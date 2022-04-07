@@ -21,13 +21,12 @@ class CardBoardViewController: UIViewController {
         guard let todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {
             return
         }
-        todoViewController.setUIProperties(title: "해야 할 일")
         addChild(todoViewController)
         todoContainerView.addSubview(todoViewController.view)
-        todoViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        todoViewController.view.heightAnchor.constraint(equalTo: todoContainerView.heightAnchor, constant: 0).isActive = true
-        todoViewController.view.widthAnchor.constraint(equalTo: todoContainerView.widthAnchor, constant: 0).isActive = true
-        todoViewController.view.centerXAnchor.constraint(equalTo: todoContainerView.centerXAnchor, constant: 0).isActive = true
+//        todoViewController.view.translatesAutoresizingMaskIntoConstraints = false
+//        todoViewController.view.heightAnchor.constraint(equalTo: todoContainerView.heightAnchor, constant: 0).isActive = true
+//        todoViewController.view.widthAnchor.constraint(equalTo: todoContainerView.widthAnchor, constant: 0).isActive = true
+//        todoViewController.view.centerXAnchor.constraint(equalTo: todoContainerView.centerXAnchor, constant: 0).isActive = true
         
     }
 }
