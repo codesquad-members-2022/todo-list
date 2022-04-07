@@ -10,6 +10,10 @@ final class MainViewController: UIViewController {
             self.showSideView()
         }), for: .touchUpInside)
         return button
+    private var headerView: HeaderView = {
+        let view = HeaderView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let sideView: SideView = {
@@ -39,6 +43,10 @@ final class MainViewController: UIViewController {
         sideMenuButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
         sideMenuButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         sideMenuButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        headerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.08).isActive = true
     }
     
     /// sideMenuButton 클릭 시 SideView를 보여준다. 
