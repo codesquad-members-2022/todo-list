@@ -6,16 +6,28 @@ export default class Controller {
   }
 
   init() {
-    const workListData = this.model.setData();
-    console.log(workListData);
-    this.parseData(workListData);
+    const workListData = this.model.workList;
+    this.parseCategoryData(workListData);
+    this.parseCardData(workListData);
   }
 
-  parseData(workListData) {
-    const userId = workListData.userId;
+  parseCategoryData(workListData) {
+    for (const categoryName in workListData) {
+      this.view.renderTodoCategory(categoryName);
+    }
+  }
 
-    for (const a of workListData.workList) {
-      this.view.renderTodoItem(a.categoryName, a.works, userId);
+  parseCardData(workListData) {
+    const todoInfo = {
+      id: this.model.userId,
+      category: null,
+    };
+
+    for (const categoryName in workListData) {
+      todoInfo.category = categoryName;
+      for (const data of workListData[categoryName]) {
+        this.view.renderTodoCard(todoInfo, data);
+      }
     }
   }
 }
