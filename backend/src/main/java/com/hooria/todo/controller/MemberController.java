@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Api(tags = "Member(사용자) Controller")
@@ -18,7 +19,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping
-    public Member addMember(@RequestBody Member member) {
+    public Member addMember(@RequestBody Member member, HttpServletResponse response) {
         return memberService.add(member);
     }
 

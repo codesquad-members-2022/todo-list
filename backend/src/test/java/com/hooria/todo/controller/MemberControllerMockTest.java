@@ -2,6 +2,7 @@ package com.hooria.todo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hooria.todo.domain.Member;
+import com.hooria.todo.interceptor.EncodingInterceptor;
 import com.hooria.todo.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,10 +32,13 @@ class MemberControllerMockTest {
     @MockBean
     MemberService memberService;
 
+    @MockBean
+    EncodingInterceptor encodingInterceptor;
+
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    @DisplayName("")
+    @DisplayName("인자로 주어진 신규 가입자를 저장소에 저장한다.")
     void addMember() throws Exception {
 
         // given
@@ -51,7 +55,7 @@ class MemberControllerMockTest {
 
         // then
         resultActions.andExpectAll(
-                content().contentType(MediaType.APPLICATION_JSON_VALUE),
+                content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE),
                 content().encoding(StandardCharsets.UTF_8),
                 status().isOk()
         );
@@ -60,7 +64,7 @@ class MemberControllerMockTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("저장소에 저장되어 있는 전체 사용자 목록을 읽어 반환한다.")
     void getAllMembers() throws Exception {
 
         // given
@@ -72,8 +76,8 @@ class MemberControllerMockTest {
 
         // then
         resultActions.andExpectAll(
-                content().contentType(MediaType.APPLICATION_JSON),
-//                content().encoding(StandardCharsets.UTF_8),
+                content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON),
+                content().encoding(StandardCharsets.UTF_8),
                 status().isOk()
         );
 
@@ -81,7 +85,7 @@ class MemberControllerMockTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("인자로 주어진 'userId'를 가진 사용자를 저장소에서 찾아 반환한다.")
     void getMember() throws Exception {
 
         // given
@@ -94,8 +98,8 @@ class MemberControllerMockTest {
 
         // then
         resultActions.andExpectAll(
-                content().contentType(MediaType.APPLICATION_JSON),
-//                content().encoding(StandardCharsets.UTF_8),
+                content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON),
+                content().encoding(StandardCharsets.UTF_8),
                 status().isOk()
         );
 
