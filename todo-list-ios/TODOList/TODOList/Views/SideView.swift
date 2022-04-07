@@ -5,9 +5,12 @@ class SideView: UIView {
     
     weak var delegate: SideViewDelegate?
     
-    private let closeButton: UIButton = {
+    private lazy var closeButton: UIButton = {
         let button = UIButton(type: .close)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addAction(UIAction(handler: { _ in
+            self.delegate?.sideViewCloseButtonDidTap()
+        }), for: .touchUpInside)
         return button
     }()
     
@@ -23,7 +26,6 @@ class SideView: UIView {
         
         addViews()
         setConstraints()
-        addButtonActions()
     }
     
     required init?(coder: NSCoder) {
@@ -31,7 +33,6 @@ class SideView: UIView {
         
         addViews()
         setConstraints()
-        addButtonActions()
     }
     
     private func addViews() {
@@ -50,10 +51,5 @@ class SideView: UIView {
         tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
-    
-    private func addButtonActions() {
-        closeButton.addAction(UIAction(handler: { _ in
-            self.delegate?.sideViewCloseButtonDidTap()
-        }), for: .touchUpInside)
-    }
+
 }
