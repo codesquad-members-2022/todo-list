@@ -10,11 +10,11 @@ import UIKit
 class TodoTableView: UITableView {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
-        self.backgroundColor = .systemGray5
+        self.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1)
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.backgroundColor = .systemGray5
+        self.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1)
     }
 }
