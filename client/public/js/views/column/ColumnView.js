@@ -1,7 +1,7 @@
 import { qs } from "../../utils/helpers.js";
 import View from "../View.js";
 
-export default class ColumnsView extends View {
+export default class ColumnView extends View {
   constructor() {
     super(qs("#columns"));
   }

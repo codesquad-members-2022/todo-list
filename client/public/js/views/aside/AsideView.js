@@ -1,5 +1,5 @@
-import { qs } from "../utils/helpers.js";
-import View from "./View.js";
+import { qs } from "../../utils/helpers.js";
+import View from "../View.js";
 
 export default class AsideView extends View {
   constructor() {

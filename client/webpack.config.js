@@ -39,6 +39,7 @@ module.exports = {
             loader: "url-loader",
             options: {
               useRelativePath: true,
+              // name: '[hash].[ext]',
               limit: 10000,
             },
           },

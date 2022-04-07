@@ -1,9 +1,10 @@
+import CSS from "../stylesheet/style.scss";
 import Store from "./model/Store.js";
 import storage from "./tempStorage.js";
 
-import HeaderView from "./views/HeaderView.js";
-import AsideView from "./views/AsideView.js";
-import ColumnsView from "./views/ColumnsView.js";
+import HeaderView from "./views/header/HeaderView.js";
+import AsideView from "./views/aside/AsideView.js";
+import ColumnView from "./views/column/ColumnView.js";
 
 document.addEventListener("DOMContentLoaded", main);
 
