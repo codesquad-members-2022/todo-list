@@ -1,5 +1,6 @@
 import "./app.scss";
-import Header from "./components/header/Header.js";
+import { renderHeader } from "./components/header/Header.js";
+import { renderMain } from "./components/main/Main.js";
 import "./components/header/menu/Menu.js";
 import "./components/main/fab/Fab.js";
 import "./components/main/column-container/Column/Column.js";
@@ -11,8 +12,8 @@ function runApp() {
 }
 
 function renderApp() {
-  const header = new Header();
-  header.render();
+  renderHeader(document.body);
+  renderMain(document.body);
 }
 
 runApp();

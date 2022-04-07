@@ -1,4 +1,15 @@
-import ColumnContainer from "./column-container/ColumnContainer.js";
-import Fab from "./fab/Fab.js";
+import { renderColumnContainer } from "./column-container/ColumnContainer.js";
 
-export default class Main {}
+export const renderMain = (parentEl) => {
+  parentEl.insertAdjacentHTML("beforeend", getMainTemplate());
+  const mainDOM = parentEl.querySelector(".main");
+  mountColumnContainer(mainDOM);
+};
+
+const getMainTemplate = () => {
+  return `<div class='main'></div>`;
+};
+
+const mountColumnContainer = (parentEl) => {
+  renderColumnContainer(parentEl);
+};

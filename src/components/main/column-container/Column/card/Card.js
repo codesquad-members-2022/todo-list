@@ -1,10 +1,10 @@
 import "./Card.scss";
 import { Store } from "../../../../../stores/ColumnStore.js";
 
-export const renderCard = (cardListEl, columnID, cardID) => {
+export const renderCard = (parentEl, columnID, cardID) => {
   const cardData = Store.state[columnID].cards[cardID];
   const cardType = cardData.type;
-  cardListEl.innerHTML = getCardTemplate(cardType, cardData);
+  parentEl.insertAdjacentHTML("beforeend", getCardTemplate(cardType, cardData));
 };
 
 const getCardTemplate = (cardType, cardData) => {

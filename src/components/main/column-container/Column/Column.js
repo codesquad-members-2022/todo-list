@@ -4,17 +4,26 @@ import { renderCard } from "./card/Card.js";
 
 export const renderColumn = (parentEl, columnID) => {
   const columnData = Store.state[columnID];
-  parentEl.innerHTML = getColumnTemplate(columnID, columnData);
-  const cardListEl = parentEl.querySelector(".card-list");
+  const columnNode = getColumnNode(columnID, columnData);
+  parentEl.appendChild(columnNode);
+
+  const cardListEl = columnNode.querySelector(".card-list");
   mountCard(cardListEl, columnID, columnData);
 };
 
-const getColumnTemplate = (columnID, columnData) => {
+const getColumnNode = (columnID, columnData) => {
+  const columnNode = document.createElement("div");
+  columnNode.className = "column";
+  columnNode.dataset.id = columnID;
+  columnNode.innerHTML = getColumnNodeInnerTemplate(columnData);
+  return columnNode;
+};
+
+const getColumnNodeInnerTemplate = (columnData) => {
   return `
-    <div class='column' data-id=${columnID}>
-      ${getHeaderTemplate(columnData)}
-      ${getCardListTemplate()}
-    </div>`;
+    ${getHeaderTemplate(columnData)}
+    ${getCardListTemplate()}
+  `;
 };
 
 const getHeaderTemplate = (columnData) => {
