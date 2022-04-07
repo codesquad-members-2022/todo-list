@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="../dist/bundle.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
+  <script src="../dist/bundle.js"></script>
   <title>TO-DO LIST</title>
 </head>
 <body>
@@ -51,34 +54,65 @@
         </div>
       </div> -->
       <!-- column view -->
-      <!-- <div class="work">
-        <div class="work__header">
-          <div class="work__left">
-            <h2 class="work__title">해야할 일</h2>
-            <strong class="work__counter">2</strong>
+
+      <div class="works">
+        <div class="work">
+          <div class="work__header">
+            <div class="work__left">
+              <h2 class="work__title">해야할 일</h2>
+              <strong class="work__counter">2</strong>
+            </div>
+            <div>
+              <button class="work__btn--add">+</button>
+              <button class="work__btn--remove">x</button>
+            </div>
           </div>
-          <div>
-            <button class="work__btn--add"></button>
-            <button class="work__btn--remove"></button>
+          <div class="work__body">
+            <ul class="work__list">
+              <li class="work__item">
+                <div class="task">
+                  <div class="task__contents">
+                    <h3 class="task__title">GitHub 공부하기</h3>
+                    <p class="task__desc">add, commit, push</p>
+                    <strong class="task__author">author by web</strong>
+                  </div>
+                  <div class="task__btn">
+                    <button class="task__btn--remove">x</button>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="work__body">
-          <ul class="work__list">
-            <li class="work__item">
-              <div class="task">
-                <div class="task__header">
-                  <h3 class="task__title">GitHub 공부하기</h3>
-                  <button class="task__btn--remove"></button>
+        <div class="work">
+          <div class="work__header">
+            <div class="work__left">
+              <h2 class="work__title">해야할 일</h2>
+              <strong class="work__counter">2</strong>
+            </div>
+            <div>
+              <button class="work__btn--add">+</button>
+              <button class="work__btn--remove">x</button>
+            </div>
+          </div>
+          <div class="work__body">
+            <ul class="work__list">
+              <li class="work__item">
+                <div class="task">
+                  <div class="task__contents">
+                    <h3 class="task__title">GitHub 공부하기</h3>
+                    <p class="task__desc">add, commit, push</p>
+                    <strong class="task__author">author by web</strong>
+                  </div>
+                  <div class="task__btn">
+                    <button class="task__btn--remove">x</button>
+                  </div>
                 </div>
-                <div class="task__body">
-                  <p class="task__desc">add, commit, push</p>
-                  <strong class="task__author">author by web</strong>
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div> -->
+      </div>
     </main>
   </div>
 </body>

@@ -1,8 +1,17 @@
+.works {
+  display: flex;
+  background-color: #F5F5F7;
+}
+
 .work {
+  font-size: 1.6rem;
+  width: 30.8rem;
+  margin: 1.6rem;
+
   &__header {
     display: flex;
-    width: 30.8rem;
     justify-content: space-between;
+    margin-bottom: 1.6rem;
   }
 
   &__left {
@@ -15,6 +24,7 @@
     font-weight: $column-title-wgt;
     color: $column-title-color;
     margin-right: .8rem;
+    cursor: pointer;
   }
 
   &__counter {
@@ -29,4 +39,40 @@
     font-weight: $column-cnt-wgt;
     color: $column-cnt-color;
   }
+
+  &__item {
+    background-color: $card-default;
+    box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+    border-radius: 0.6rem;
+  }
+}
+
+.task {
+  @include card;
+
+  &__contents {
+    cursor: pointer;
+    width: 100%;
+  }
+
+  &__title {
+    font-size: $card-title-fs;
+    font-weight: $card-title-wgt;
+    color: $card-title-color;
+    margin-bottom: 0.8rem;
+  }
+
+  &__desc {
+    font-size: $card-body-fs;
+    font-weight: $card-body-wgt;
+    color: $card-body-color;
+    margin-bottom: 0.8rem;
+  }
+
+  &__author {
+    font-size: $card-author-fs;
+    font-weight: $card-author-wgt;
+    color: $card-author-color;
+  }
+
 }
