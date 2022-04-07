@@ -1,5 +1,5 @@
-import Component from "./Component";
-import { TodoCard } from "./TodoCard"; 
+import Component from "./Component.js";
+import { TodoCard } from "./TodoCard.js";
 
 export class TodoList extends Component {
   template() {
@@ -7,7 +7,6 @@ export class TodoList extends Component {
       list: { title, todos, selected },
       idx,
     } = this.$props;
-    console.log(todos);
     return `
 <div class="todo-title">
             <span class="todo-name">${title}
@@ -15,7 +14,6 @@ export class TodoList extends Component {
                 todos.length
               }</span></div>
             </span>
-      <div class="todo-title-btn">
                 <span class="add">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -30,14 +28,13 @@ export class TodoList extends Component {
                           fill="#BDBDBD" />
                     </svg>
                 </span>
-      </div>
     </div>
     ${todos
       .map(
         (todo, idx) => `<div class="todo-card" data-idx=${idx}>    
   </div>`
       )
-      .join('')}`;
+      .join("")}`;
   }
 
   mount() {
@@ -45,10 +42,12 @@ export class TodoList extends Component {
       list: { todos },
     } = this.$props;
     const card = this.select(`.todo-card[data-idx="0"]`);
-    for (let i = 0; i < todos.length; i++)
-      new TodoCard(this.select(`.todo-card[data-idx="${i}"]`), {
-        todo: todos[i],
-        idx: i,
-      });
+    todos.forEach(
+      (todo, idx) =>
+        new TodoCard(this.select(`.todo-card[data-idx="${idx}"]`), {
+          todo,
+          idx,
+        })
+    );
   }
 }
