@@ -27,7 +27,7 @@
             <li class="column__task--item" data-index="0">
               <section>
                 <input readonly type="text" class="column__task--title" value="GitHub 공부하기" />
-                <textarea readonly class="column__task--comment" spellcheck="false">add, commit, push</textarea>
+                <textarea class="column__task--comment" spellcheck="false">add, commit, push</textarea>
                 <span class="column__task--author">author by web</span>
               </section>
               <img src="./svg/icon-delete.svg" class="column__task--delete-button" />
@@ -56,11 +56,26 @@
           <ul class="column__task--list">
             <li class="column__task--item" data-index="0">
               <section>
-                <input readonly type="text" class="column__task--title" value="HTML/CSS 공부하기"/>
+                <div class="section__header">
+                  <input readonly type="text" class="column__task--title" value="HTML/CSS 공부하기"/>
+                  <img src="./svg/icon-delete.svg" class="column__task--delete-button" />
+                </div>
                 <textarea readonly class="column__task--comment" spellcheck="false">input 태그 실습</textarea>
+                <div class="column__task--button">
+                  <button class="column__task--cancle-button">취소</button>
+                  <button class="column__task--accent-button">수정</button>
+                </div>
+              </section>
+            </li>
+            <li class="column__task--item" data-index="0">
+              <section>
+                <div class="section__header">
+                  <input readonly type="text" class="column__task--title" value="GitHub 공부하기" />
+                  <img src="./svg/icon-delete.svg" class="column__task--delete-button" />
+                </div>
+                <textarea readonly class="column__task--comment" spellcheck="false">add, commit, push</textarea>
                 <span class="column__task--author">author by web</span>
               </section>
-              <img src="./svg/icon-delete.svg" class="column__task--delete-button" />
             </li>
           </ul>
         </li>
