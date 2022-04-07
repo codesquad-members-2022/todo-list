@@ -1,6 +1,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
     @IBOutlet weak var taskListStackView: UIStackView!
     
     @IBOutlet weak var actionFlowButton: UIButton!
@@ -9,30 +10,26 @@ class ViewController: UIViewController {
     private let todoViewController = TaskListBoardViewController()
     private let doingViewController = TaskListBoardViewController()
     private let doneViewController = TaskListBoardViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addChild(todoViewController)
-        addChild(doingViewController)
-        addChild(doneViewController)
-        
-        layout()
+        setupChildViewContoller()
     }
     
     @IBAction func actionFlowButtonTapped(_ sender: UIButton) {
         editCardButtonTapped()
     }
-    private func layout() {
-        self.taskListStackView.translatesAutoresizingMaskIntoConstraints = false
+    
+    private func setupChildViewContoller() {
+        self.addChild(todoViewController)
+        self.addChild(doingViewController)
+        self.addChild(doneViewController)
         
         self.children.forEach{
             self.taskListStackView.addArrangedSubview($0.view)
         }
-                
-        self.taskListStackView.axis = .horizontal
-        self.taskListStackView.alignment = .fill
-        self.taskListStackView.distribution = .fillEqually
-        self.taskListStackView.spacing = 22
     }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         resizeConstant()
