@@ -5,8 +5,16 @@ class SideView: UIView {
     
     weak var delegate: SideViewDelegate?
     
+    private let emptyView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
+    
     private lazy var closeButton: UIButton = {
-        let button = UIButton(type: .close)
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "close"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(UIAction(handler: { _ in
             self.delegate?.sideViewCloseButtonDidTap()
@@ -36,15 +44,21 @@ class SideView: UIView {
     }
     
     private func addViews() {
-        addSubview(closeButton)
+        addSubview(emptyView)
+        emptyView.addSubview(closeButton)
         addSubview(tableView)
     }
     
     private func setConstraints() {
-        closeButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        closeButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        closeButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        closeButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        emptyView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        emptyView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        emptyView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        emptyView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        closeButton.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+        closeButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        closeButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        closeButton.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: -50).isActive = true
         
         tableView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 20).isActive = true
         tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
