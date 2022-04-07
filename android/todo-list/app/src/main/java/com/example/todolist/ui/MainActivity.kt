@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setOnClickTodoAdd() {
         binding.btnTodoAdd.setOnClickListener {
             Log.d("AppTest", "click btn")
