@@ -2,7 +2,6 @@ package com.hooria.todo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hooria.todo.domain.Member;
-import com.hooria.todo.interceptor.EncodingInterceptor;
 import com.hooria.todo.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,9 +30,6 @@ class MemberControllerMockTest {
 
     @MockBean
     MemberService memberService;
-
-    @MockBean
-    EncodingInterceptor encodingInterceptor;
 
     ObjectMapper objectMapper = new ObjectMapper();
 

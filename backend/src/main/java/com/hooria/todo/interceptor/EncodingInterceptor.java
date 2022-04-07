@@ -12,8 +12,6 @@ public class EncodingInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-        System.out.println("helloworld");
-
         response.setCharacterEncoding("UTF-8");
 
         return true;
