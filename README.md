@@ -80,10 +80,18 @@ Lists
 
 TO-DO LIST 기능 정리
 
-- [ ] TODO READ (Jinnie & Muffin)
+- [x] TODO READ (Jinnie & Muffin)
 
   - [x] TODO dummy data 화면에 뿌리기
-  - [] client todos 배열 화면에 뿌리기
+  - [x] client todos 배열 화면에 뿌리기
+
+- [ ] TODO COUNT (Muffin)
+
+  - [ ] 맨 처음 로드시 각 Column의 개수만큼 TODO COUNT 셋팅
+  - [ ] 투두 카드 등록 완료 후 해당 Column에 맞는 Count 증가
+    - TodoColumn 클래스에서 할지? TodoCount 클래스 만들어서 할지 고민
+    - count data를 column 마다 계속 가지고 있어서 카드 등록 시 count + 1 해주기
+  - [ ] 투두 카드 삭제 시 해당 todoColumn에 맞는 count 1 감소
 
 - [ ] TODO CREATE (Jinnie & Muffin)
 
@@ -102,9 +110,6 @@ TO-DO LIST 기능 정리
   - [ ] 글자수 제한 500자 이내
   - [ ] 글의 길이에 맞춰 박스가 아래로 늘어나도록 구현 + input height값도 함께 늘어난다.
     - div태그로 input태그처럼 구현? input(hidden 속성)을 사용 -> value만 관리하는 녀석, div가 view를 관리하는 녀석
-  - [ ] 카드 등록 완료 후 해당 Column에 맞는 Count 증가
-    - TodoColumn 클래스에서 할지? TodoCount 클래스 만들어서 할지 고민
-    - count data를 column 마다 계속 가지고 있어서 카드 등록 시 count + 1 해주기
 
 - [ ] TODO UPDATE (Jinnie)
 
