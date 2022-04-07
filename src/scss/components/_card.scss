@@ -1,0 +1,77 @@
+.task__card {
+  @include flexbox(between);
+  width: 308px;
+  padding: 16px;
+  background-color: $white;
+  border-radius: 6px;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.card__contents {
+  &__header {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 23px;
+  }
+  &__main {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 8px 0;
+  }
+  &__footer {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: $gray2;
+  }
+  &__input {
+    &--header {
+      font-weight: 700;
+    }
+
+    &--main {
+      font-weight: 400;
+    }
+  }
+}
+.card__delete-btn {
+  cursor:pointer;
+  position: absolute;
+  right: 5%;
+  top: 13%;
+}
+
+.footer__buttons {
+  @include flexbox(between);
+  font-size: 14px;
+  font-weight: 700;
+
+  &__cancel {
+    line-height: 20px;
+    width: 134px;
+    height: 40px;
+    left: 20px;
+    top: 20px;
+    background: $gray3;
+    border-radius: 6px;
+    margin-right: 8px;
+  }
+
+  &__save {
+    line-height: 20px;
+    width: 134px;
+    height: 40px;
+    left: 20px;
+    top: 20px;
+    color: $white;
+    background: $blue;
+    border-radius: 6px;
+  }
+}
+
+.new-card {
+  border: 1px solid $blue;
+}
