@@ -9,4 +9,5 @@
 struct HttpMethod {
     static let get = "GET"
     static let post = "POST"
+    static let delete = "DELETE"
 }
