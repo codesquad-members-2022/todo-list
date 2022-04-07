@@ -7,8 +7,11 @@
 
 
 enum NetworkError:Error {
-    case responseError
+    case invalidURL
+    case transportError(Error)
+    case serverError(statusCode:Int)
+    case noData
     case encodingError
     case decodingError
-    case otherError
+    case otherError(Error)
 }

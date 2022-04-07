@@ -7,68 +7,94 @@ final class NetworkManager {
     private var session = URLSession(configuration:.default)
     
     func getRequest<T:Decodable>(completion:@escaping (Result<T,NetworkError>) -> Void) {
-        //is URL available?
-        guard let signUpURL = signUpURL else { return }
+        //handling urlError
+        guard let signUpURL = signUpURL else {
+            completion(.failure(.invalidURL))
+            return
+        }
         
         var urlRequest = URLRequest(url: signUpURL)
         urlRequest.httpMethod = HttpMethod.get
         
-        let dataTask = session.dataTask(with: urlRequest) { [weak self] data, response, _ in
+        let dataTask = session.dataTask(with: urlRequest) { [weak self] data, response, error in
             guard let self = self else { return }
-            guard let data = data, self.isResponseClear(response: response) == true
-            else {
-                completion(.failure(.responseError))
+            //handling transportError
+            if let error = error {
+                completion(.failure(.transportError(error)))
+                return
+            }
+            //handling NoDataError
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            //handling ServerError
+            guard let statusCode = self.getStatusCode(response: response) else { return }
+            guard 200..<300 ~= statusCode else {
+                completion(.failure(.serverError(statusCode: statusCode)))
                 return
             }
             
+            //handling DecodingError
             do {
                 let decoder = JSONDecoder()
                 let data = try decoder.decode(T.self, from: data)
                 completion(.success(data))
-                }
+            }
             catch {
                 completion(.failure(.decodingError))
             }
         }
-        
         dataTask.resume()
     }
     
     func postRequest<T:Decodable,U:Encodable>(postBody:U, completion: @escaping((Result<T,NetworkError>) -> Void)) {
-        //is URL available?
-        guard let signUpURL = signUpURL else { return }
+        //handling urlError
+        guard let signUpURL = signUpURL else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
         var urlRequest = URLRequest(url: signUpURL)
         urlRequest.httpMethod = HttpMethod.post
         
+        //handling encodingError
         do {
             urlRequest.httpBody = try JSONEncoder().encode(postBody)
-            
-            //is response clear?
-            let dataTask = session.dataTask(with: urlRequest) { [weak self] data, response, _ in
-                    guard let self = self else { return }
-                    guard let data = data, self.isResponseClear(response: response) == true
-                    else {
-                    completion(.failure(.responseError))
+        }
+        catch {
+            completion(.failure(.encodingError))
+        }
+            let dataTask = session.dataTask(with: urlRequest) { [weak self] data, response, error in
+                guard let self = self else { return }
+                //handling transportError
+                if let error = error  {
+                    completion(.failure(.transportError(error)))
                     return
                 }
-            
-                do {
-                    //then decode
-                    let messageData = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(messageData))
+                //handling NoDataError
+                guard let data = data else {
+                    completion(.failure(.noData))
+                    return
                 }
-                    //else failure
+                //handling ServerError
+                guard let statusCode = self.getStatusCode(response: response) else { return }
+                guard 200..<300 ~= statusCode else {
+                    completion(.failure(.serverError(statusCode: statusCode)))
+                    return
+                }
+                
+                //handling DecodingError
+                do {
+                    let fetchedData = try JSONDecoder().decode(T.self, from: data)
+                    completion(.success(fetchedData))
+                }
                 catch {
                     completion(.failure(.decodingError))
                     
                 }
             }
             dataTask.resume()
-        }
-        
-        catch {
-            completion(.failure(.encodingError))
-        }
         
     }
     
@@ -80,12 +106,8 @@ final class NetworkManager {
         self.signUpURL = url
     }
     
-    private func isResponseClear(response:URLResponse?) -> Bool {
-        guard let httpResponse = response as? HTTPURLResponse else { return false }
-        if (200..<300) ~= httpResponse.statusCode {
-            return true
-        } else {
-            return false
-        }
+    private func getStatusCode(response:URLResponse?) -> Int? {
+        guard let httpResponse = response as? HTTPURLResponse else { return nil }
+        return httpResponse.statusCode
     }
 }
