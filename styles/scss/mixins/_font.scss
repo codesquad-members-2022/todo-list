@@ -1,0 +1,4 @@
+@mixin font($size, $color: inherit) {
+  font-size: $size;
+  color: $color;
+}
