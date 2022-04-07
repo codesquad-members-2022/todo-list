@@ -1,5 +1,6 @@
 package kr.codesquad.todolist.card;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+@Getter
 @Setter
 @AllArgsConstructor
 @Builder
@@ -18,6 +20,7 @@ public class Card {
 	private TodoStatus todoStatus;
 	private Long todoOrder;
 	private boolean deleted;
+	private LocalDateTime createdAt;
 	private Long userId;
 
 	@Getter
@@ -30,35 +33,18 @@ public class Card {
 		private final String text;
 		private final int number;
 
-		public TodoStatus from(int number) {
+		public static TodoStatus from(int number) {
 			return Arrays.stream(values())
 				.filter(v -> v.number == number)
 				.findAny()
 				.orElseThrow(() -> new IllegalArgumentException("잘못된 todoStatus number 입니다."));
 		}
-	}
 
-	public Long getTodoId() {
-		return todoId;
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public TodoStatus getTodoStatus() {
-		return todoStatus;
-	}
-
-	public Long getTodoOrder() {
-		return todoOrder;
-	}
-
-	public Long getUserId() {
-		return userId;
+		public static TodoStatus from(String statusText) {
+			return Arrays.stream(values())
+				.filter(v -> v.text.equals(statusText))
+				.findAny()
+				.orElseThrow(() -> new IllegalArgumentException("잘못된 todoStatus text 입니다."));
+		}
 	}
 }
