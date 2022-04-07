@@ -9,4 +9,7 @@
     <string name="sample_card_title">GitHub 공부하기</string>
     <string name="sample_card_content_1">add, commit, push</string>
     <string name="sample_card_device">author by android</string>
+    <string name="sample_log_user_name">sam</string>
+    <string name="sample_log_content">HTML/CSS공부하기를 해야할 일에서 하고 있는 일로 이동하였습니다.</string>
+    <string name="sample_log_time">1분 전</string>
 </resources>

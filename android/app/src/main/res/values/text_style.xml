@@ -49,7 +49,27 @@
         <item name="android:textSize">12sp</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:textStyle">normal</item>
->>>>>>> f7abf46 ([AOS-Han] feat : todo 리사이클러뷰 아이템 뷰 생성)
+    </style>
+
+    <style name="tvItemLogUserName">
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="tvItemLogContent">
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="tvItemLogTime">
+        <item name="android:textColor">@color/Gray3</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
 
