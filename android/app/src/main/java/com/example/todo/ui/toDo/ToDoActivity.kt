@@ -3,6 +3,7 @@ package com.example.todo.ui.toDo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
@@ -114,5 +115,9 @@ class ToDoActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        const val TAG = "ToDoActivity"
     }
 }
