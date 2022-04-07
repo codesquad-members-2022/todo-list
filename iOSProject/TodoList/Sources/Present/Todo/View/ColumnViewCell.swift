@@ -17,7 +17,7 @@ class ColumnViewCell: UITableViewCell {
         return view
     }()
     
-    let title: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16, weight: .bold)
@@ -25,7 +25,7 @@ class ColumnViewCell: UITableViewCell {
         return label
     }()
     
-    let body: UILabel = {
+    let bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14)
@@ -35,7 +35,7 @@ class ColumnViewCell: UITableViewCell {
         return label
     }()
     
-    let caption: UILabel = {
+    let captionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12)
@@ -66,28 +66,28 @@ class ColumnViewCell: UITableViewCell {
         cellBackgroundView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         cellBackgroundView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
-        self.addSubview(title)
-        title.topAnchor.constraint(equalTo: self.topAnchor, constant: 16).isActive = true
-        title.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        title.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
+        self.addSubview(titleLabel)
+        titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
         
-        self.addSubview(body)
-        body.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8).isActive = true
-        body.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        body.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
+        self.addSubview(bodyLabel)
+        bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
+        bodyLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
+        bodyLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
         
-        self.addSubview(caption)
-        caption.topAnchor.constraint(equalTo: body.bottomAnchor, constant: 8).isActive = true
-        caption.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
-        caption.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
+        self.addSubview(captionLabel)
+        captionLabel.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 8).isActive = true
+        captionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16).isActive = true
+        captionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
         
-        cellBackgroundView.bottomAnchor.constraint(equalTo: caption.bottomAnchor, constant: 16).isActive = true
+        cellBackgroundView.bottomAnchor.constraint(equalTo: captionLabel.bottomAnchor, constant: 16).isActive = true
         self.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16).isActive = true
     }
     
     func setCard(_ card: Card) {
-        self.title.text = card.title
-        self.body.text = card.body
-        self.caption.text = card.caption
+        self.titleLabel.text = card.title
+        self.bodyLabel.text = card.body
+        self.captionLabel.text = card.caption
     }
 }

@@ -30,7 +30,7 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         return label
     }()
     
-    private let count: UILabel = {
+    private let countLabel: UILabel = {
         let label = PaddingLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "100"
@@ -43,7 +43,7 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         return label
     }()
     
-    private let cardTable: UITableView = {
+    private let cardTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ColumnViewCell.self, forCellReuseIdentifier: "ColumnViewCell")
@@ -52,7 +52,7 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         return tableView
     }()
     
-    private let add: UIButton = {
+    private let addButton: UIButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
 
@@ -92,41 +92,41 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
     }
     
     private func bind() {
-        cardTable.delegate = self
-        cardTable.dataSource = self
+        cardTableView.delegate = self
+        cardTableView.dataSource = self
         
-        add.publisher(for: .touchUpInside)
+        addButton.publisher(for: .touchUpInside)
             .sink{
                 self.showCardPopup(card: nil)
             }.store(in: &cancellables)
         
         self.model.state.loadedColumn
             .sink {
-                self.cardTable.reloadData()
-                self.count.text = String(self.model.cardCount)
+                self.cardTableView.reloadData()
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         self.model.state.insertedCard
             .sink {
-                self.cardTable.insertRows(at: [IndexPath(item: $0, section: 0)], with: .none)
-                self.count.text = String(self.model.cardCount)
+                self.cardTableView.insertRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         self.model.state.deletedCard
             .sink {
-                self.cardTable.deleteRows(at: [IndexPath(item: $0, section: 0)], with: .none)
-                self.count.text = String(self.model.cardCount)
+                self.cardTableView.deleteRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         self.model.state.movedCard
             .sink { card, toColumn in
                 self.delegate?.columnView(self, fromCard: card, toColumn: toColumn)
-                self.count.text = String(self.model.cardCount)
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         self.model.state.reloadCard
             .sink {
-                self.cardTable.reloadRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+                self.cardTableView.reloadRows(at: [IndexPath(item: $0, section: 0)], with: .none)
             }.store(in: &cancellables)
     }
     
@@ -139,22 +139,22 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8).isActive = true
         
-        self.view.addSubview(count)
-        count.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8).isActive = true
-        count.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-        count.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        self.view.addSubview(countLabel)
+        countLabel.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8).isActive = true
+        countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+        countLabel.heightAnchor.constraint(equalToConstant: 26).isActive = true
         
-        self.view.addSubview(add)
-        add.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-        add.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true
-        add.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        add.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        self.view.addSubview(addButton)
+        addButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+        addButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8).isActive = true
+        addButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        addButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
-        self.view.addSubview(cardTable)
-        cardTable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16).isActive = true
-        cardTable.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        cardTable.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        cardTable.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10).isActive = true
+        self.view.addSubview(cardTableView)
+        cardTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16).isActive = true
+        cardTableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        cardTableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        cardTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10).isActive = true
     }
     
     private func showCardPopup(card: Card? = nil) {
