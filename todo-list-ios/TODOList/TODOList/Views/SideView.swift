@@ -5,7 +5,7 @@ class SideView: UIView {
     
     weak var delegate: SideViewDelegate?
     
-    let closeButton: UIButton = {
+    private let closeButton: UIButton = {
         let button = UIButton(type: .close)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -35,20 +35,20 @@ class SideView: UIView {
     }
     
     private func addViews() {
-        self.addSubview(closeButton)
-        self.addSubview(tableView)
+        addSubview(closeButton)
+        addSubview(tableView)
     }
     
     private func setConstraints() {
-        closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        closeButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         closeButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        closeButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        closeButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         
-        tableView.topAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: 20).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 20).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
     private func addButtonActions() {
