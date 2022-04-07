@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+final class MainViewController: UIViewController {
     
     lazy var sideMenuButton: UIButton = {
         let button = UIButton()
@@ -64,14 +64,14 @@ class ViewController: UIViewController {
 }
 
 
-extension ViewController: SideViewDelegate {
+extension MainViewController: SideViewDelegate {
     func sideViewCloseButtonDidTap() {
         hideSideView()
     }
 }
 
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 15
