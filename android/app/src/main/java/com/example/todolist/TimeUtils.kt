@@ -2,23 +2,28 @@ package com.example.todolist.ui.common
 
 import java.util.*
 
-const val SEC = 60
-const val MIN = 60
-const val HOUR = 24
-const val DAY = 30
-const val MONTH = 12
+enum class TimeValue(val value: Int, val maximum: Int, val message: String) {
+    SEC(60, 60, "분 전"),
+    MIN(60, 24, "시간 전"),
+    HOUR(24, 30, "일 전"),
+    DAY(30, 12, "달 전"),
+    MONTH(12, Int.MAX_VALUE, "년 전")
+}
 
-fun calculateTime(date: Date): String {
-    val curTime = System.currentTimeMillis()
-    val regTime = date.time
-    var diffTime = (curTime - regTime) / 1000
+fun calculateTime(date: Date): String? {
+    val currentTime = System.currentTimeMillis()
+    val registerTime = date.time
+    var differenceTime = (currentTime - registerTime) / 1000
 
-    return when {
-        diffTime < SEC -> "${diffTime}초 전"
-        SEC.let { diffTime /= it; diffTime } < MIN -> "${diffTime}분 전"
-        MIN.let { diffTime /= it; diffTime } < HOUR -> "${diffTime}시간 전"
-        HOUR.let { diffTime /= it; diffTime } < DAY -> "${diffTime}일 전"
-        DAY.let { diffTime /= it; diffTime } < MONTH -> "${diffTime}달 전"
-        else -> "${diffTime}년 전"
+    if (differenceTime < TimeValue.SEC.value) {
+        return "${differenceTime}초 전"
+    } else {
+        for (timeValue in TimeValue.values()) {
+            differenceTime /= timeValue.value
+            if (differenceTime < timeValue.maximum) {
+                return "${differenceTime}${timeValue.message}"
+            }
+        }
     }
+    return null
 }

@@ -4,6 +4,7 @@ import android.text.Html
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.todolist.R
+import com.example.todolist.model.ActionType.*
 import com.example.todolist.model.History
 import java.text.SimpleDateFormat
 
@@ -11,13 +12,13 @@ import java.text.SimpleDateFormat
 fun stringFormat(view: TextView, history: History) {
     val (_, action, title, nowStatus, beforeStatus, _) = history
     when (action) {
-        "add" -> view.text =
+        ADD -> view.text =
             Html.fromHtml(view.context.getString(R.string.action_default, nowStatus, title, "등록"))
-        "remove" -> view.text =
+        REMOVE -> view.text =
             Html.fromHtml(view.context.getString(R.string.action_default, nowStatus, title, "삭제"))
-        "update" -> view.text =
+        UPDATE -> view.text =
             Html.fromHtml(view.context.getString(R.string.action_default, nowStatus, title, "변경"))
-        "move" -> view.text = Html.fromHtml(view.context.getString(R.string.action_move,
+        MOVE -> view.text = Html.fromHtml(view.context.getString(R.string.action_move,
             title,
             beforeStatus,
             nowStatus,
