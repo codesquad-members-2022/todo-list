@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import team07.todolist.domain.ActivityLog;
 import team07.todolist.domain.Card;
 import team07.todolist.dto.PatchCard;
 import team07.todolist.dto.RequestCard;
 import team07.todolist.dto.ResponseCard;
+import team07.todolist.repository.ActivityLogRepository;
 import team07.todolist.service.CardService;
 
 @Controller
@@ -24,10 +25,12 @@ import team07.todolist.service.CardService;
 public class CardController {
 
 	private Logger log = LoggerFactory.getLogger(CardController.class);
-	private final CardService cardService;
+	private final CardService cardService;;
+	private final ActivityLogRepository activityLogRepository;
 
-	public CardController(CardService cardService) {
+	public CardController(CardService cardService, ActivityLogRepository activityLogRepository) {
 		this.cardService = cardService;
+		this.activityLogRepository = activityLogRepository;
 	}
 
 	@ResponseBody
@@ -70,5 +73,11 @@ public class CardController {
 		Card deletedCard = cardService.delete(id);
 		log.debug("{}", deletedCard);
 		return "redirect:/list";
+	}
+
+	@ResponseBody
+	@GetMapping("/menu")
+	public List<ActivityLog> menu() {
+		return activityLogRepository.findAll();
 	}
 }
