@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="400dp"
+            android:layout_height="175dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_9.1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.091" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_90.9"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.909" />
+
+            <View
+                android:id="@+id/view_1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="400:16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAddCard"
+                style="@style/tvItemCardTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/add_new_card"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_90.9"
+                app:layout_constraintStart_toEndOf="@id/gl_v_9.1"
+                app:layout_constraintTop_toBottomOf="@id/view_1" />
+
+            <View
+                android:id="@+id/view_2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="400:16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAddCard" />
+
+            <EditText
+                android:id="@+id/etEnterTitle"
+                style="@style/tvItemCardContent.newCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/insert_title"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_90.9"
+                app:layout_constraintStart_toStartOf="@id/gl_v_9.1"
+                app:layout_constraintTop_toBottomOf="@id/view_2" />
+
+            <View
+                android:id="@+id/view_3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="400:8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etEnterTitle" />
+
+            <EditText
+                android:id="@+id/etEnterContents"
+                style="@style/tvItemCardContent.newCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/enter_contents"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_90.9"
+                app:layout_constraintStart_toStartOf="@id/gl_v_9.1"
+                app:layout_constraintTop_toBottomOf="@id/view_3" />
+
+            <View
+                android:id="@+id/view_4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="400:16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etEnterContents" />
+
+            <Button
+                android:id="@+id/btEnroll"
+                style="@style/tvItemCardContent.enrollCard"
+                android:layout_width="108dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/LightBlue"
+                android:text="@string/add_contents"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_90.9"
+                app:layout_constraintTop_toBottomOf="@id/view_4" />
+
+
+            <Button
+                android:id="@+id/btCancel"
+                style="@style/tvItemCardContent.cancelCard"
+                android:layout_width="108dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/Gray5"
+                android:text="@string/cancel_card"
+                app:layout_constraintEnd_toStartOf="@id/btEnroll"
+                app:layout_constraintTop_toBottomOf="@id/view_4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

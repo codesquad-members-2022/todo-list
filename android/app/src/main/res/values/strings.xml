@@ -12,4 +12,9 @@
     <string name="sample_log_user_name">sam</string>
     <string name="sample_log_content">HTML/CSS공부하기를 해야할 일에서 하고 있는 일로 이동하였습니다.</string>
     <string name="sample_log_time">1분 전</string>
+    <string name="add_new_card">새로운 카드 추가</string>
+    <string name="insert_title">제목을 입력하세요</string>
+    <string name="enter_contents">내용을 입력하세요</string>
+    <string name="add_contents">등록</string>
+    <string name="cancel_card">취소</string>
 </resources>

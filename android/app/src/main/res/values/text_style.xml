@@ -72,5 +72,17 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="tvItemCardContent.newCard">
+        <item name="android:textColor">@color/Gray3</item>
+    </style>
+
+    <style name="tvItemCardContent.enrollCard">
+        <item name="android:textColor">@color/Gray3</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="tvItemCardContent.cancelCard">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
 
 </resources>

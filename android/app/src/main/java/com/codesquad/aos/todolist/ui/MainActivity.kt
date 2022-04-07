@@ -33,42 +33,65 @@ class MainActivity : AppCompatActivity() {
         setTodoRecyclerView()
         setProgressRecyclerView()
         setCompleteRecyclerView()
+
+        setDialogFragmentView()
     }
 
-    fun setTodoRecyclerView(){
-        todoCardListAdapter  = TodoCardListAdapter()
+    fun setTodoRecyclerView() {
+        todoCardListAdapter = TodoCardListAdapter()
         binding.rvTodo.adapter = todoCardListAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
-        var testList = listOf(Card(1, "hihi", "byebye", "author by android"),
-            Card(2, "zoozoo", "icecream icecream icecream icecream icecream icecream", "author by iOS"))
+        var testList = listOf(
+            Card(1, "hihi", "byebye", "author by android"),
+            Card(
+                2,
+                "zoozoo",
+                "icecream icecream icecream icecream icecream icecream",
+                "author by iOS"
+            )
+        )
         todoCardListAdapter.submitList(testList.toList())
     }
 
-    fun setProgressRecyclerView(){
-        progressCardListAdapter  = TodoCardListAdapter()
+    fun setProgressRecyclerView() {
+        progressCardListAdapter = TodoCardListAdapter()
         binding.rvProgress.adapter = progressCardListAdapter
         binding.rvProgress.layoutManager = LinearLayoutManager(this)
         binding.rvProgress.addItemDecoration(VerticalItemDecorator(15))
 
-        var testList = listOf(Card(1, "hello josh", "byebye", "author by android"),
-            Card(2, "zoozoo", "icecream icecream icecream icecream icecream icecream", "author by iOS"))
+        var testList = listOf(
+            Card(1, "hello josh", "byebye", "author by android"),
+            Card(
+                2,
+                "zoozoo",
+                "icecream icecream icecream icecream icecream icecream",
+                "author by iOS"
+            )
+        )
         progressCardListAdapter.submitList(testList.toList())
     }
 
-    fun setCompleteRecyclerView(){
-        completeCardListAdapter  = TodoCardListAdapter()
+    fun setCompleteRecyclerView() {
+        completeCardListAdapter = TodoCardListAdapter()
         binding.rvComplete.adapter = completeCardListAdapter
         binding.rvComplete.layoutManager = LinearLayoutManager(this)
         binding.rvComplete.addItemDecoration(VerticalItemDecorator(15))
 
-        var testList = listOf(Card(1, "hi Han", "byebye", "author by android"),
-            Card(2, "zoozoo", "icecream icecream icecream icecream icecream icecream", "author by iOS"))
+        var testList = listOf(
+            Card(1, "hi Han", "byebye", "author by android"),
+            Card(
+                2,
+                "zoozoo",
+                "icecream icecream icecream icecream icecream icecream",
+                "author by iOS"
+            )
+        )
         completeCardListAdapter.submitList(testList.toList())
     }
 
-    fun setMenuClick(){
+    fun setMenuClick() {
         binding.toolbarMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.appbar_main_menu -> {
@@ -85,8 +108,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setDrawerListener(){
-        binding.drawerLayout.addDrawerListener(object: DrawerLayout.DrawerListener{
+    fun setDrawerListener() {
+        binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 Log.d("AppTest", "onDrawerSlide called")
             }
@@ -104,10 +127,18 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun setDrawerClose(){
+    fun setDrawerClose() {
         binding.ivCloseDrawer.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
             // 닫는 부분도 close()로만 하면 에러 발생
+        }
+    }
+
+    private fun setDialogFragmentView() {
+        binding.btnAddTodo.setOnClickListener {
+            TodoDialogFragment().show(
+                supportFragmentManager, "DialogFragment"
+            )
         }
     }
 }
