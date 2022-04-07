@@ -34,7 +34,6 @@
 		E0A6BB2527FD9E6400F00575 /* CardPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */; };
 		E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */; };
 		E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */; };
-		E0BE4C2627FAAF6E0076403C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2527FAAF6E0076403C /* ViewController.swift */; };
 		E0BE4C2B27FAAF6F0076403C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0BE4C2A27FAAF6F0076403C /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -67,7 +66,6 @@
 		E0BE4C1E27FAAF6E0076403C /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E0BE4C2527FAAF6E0076403C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E0BE4C2A27FAAF6F0076403C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0BE4C2F27FAAF6F0076403C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -184,7 +182,6 @@
 				E0BE4C3927FAAFEE0076403C /* Common */,
 				E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */,
 				E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */,
-				E0BE4C2527FAAF6E0076403C /* ViewController.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -343,7 +340,6 @@
 				E0A6BAF127FB28CE00F00575 /* ColumnViewController.swift in Sources */,
 				E0A6BAFC27FBCD5800F00575 /* UiViewController+Extension.swift in Sources */,
 				E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */,
-				E0BE4C2627FAAF6E0076403C /* ViewController.swift in Sources */,
 				E0A6BAF527FB325800F00575 /* UIColor+Extension.swift in Sources */,
 				E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */,
 				E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */,
