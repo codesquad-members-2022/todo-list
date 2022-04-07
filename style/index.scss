@@ -8,17 +8,17 @@
 body {
   background: $color-grey-light;
 }
-.header {
+.header__main {
   position: relative;
   width: 1440px;
   height: 112px;
   @include flexbox(space-between);
   align-items: center;
   @include margincenter();
-  &__title {
+  .header__title {
     font-size: $font-32;
   }
-  &__menu {
+  .header__menu {
     cursor: pointer;
     div {
       width: 25px;

@@ -238,7 +238,7 @@ body {
   background: #f5f5f7;
 }
 
-.header {
+.header__main {
   position: relative;
   width: 1440px;
   height: 112px;
@@ -247,13 +247,13 @@ body {
   align-items: center;
   margin: 0 auto;
 }
-.header__title {
+.header__main .header__title {
   font-size: 32px;
 }
-.header__menu {
+.header__main .header__menu {
   cursor: pointer;
 }
-.header__menu div {
+.header__main .header__menu div {
   width: 25px;
   height: 3px;
   background: #010101;
