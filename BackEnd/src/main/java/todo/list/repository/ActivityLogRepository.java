@@ -1,6 +1,5 @@
 package todo.list.repository;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -11,11 +10,14 @@ import todo.list.domain.CardStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Repository
 public class ActivityLogRepository {
 
     private final JdbcTemplate jdbcTemplate;
+
+    public ActivityLogRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<ActivityLog> findAll() {
         return jdbcTemplate.query("select * from activity_log order by create_date desc", activityLogLowMapper());

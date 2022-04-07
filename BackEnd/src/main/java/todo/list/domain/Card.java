@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Card {
     private Long id;
     private String title;
-    private String content;
+    private String contents;
     private CardStatus status;
     private LocalDateTime createDate;
 }
