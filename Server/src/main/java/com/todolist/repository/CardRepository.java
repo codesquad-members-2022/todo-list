@@ -26,8 +26,7 @@ public class CardRepository {
     private final KeyHolderGenerator keyHolderGenerator;
 
     public List<Card> findAll(Integer userId) {
-        // String sql = "SELECT * FROM card WHERE removed = FALSE and userId = ? ORDER BY createdTime";
-        String sql = "SELECT * FROM card WHERE removed = FALSE and userId = ? ORDER BY createdTime DESC";
+        String sql = "SELECT * FROM card WHERE removed = FALSE and userId = ? ORDER BY createdTime";
         return jdbcTemplate.query(sql, cardRowMapper(), userId);
     }
 
@@ -51,9 +50,6 @@ public class CardRepository {
             Arrays.asList(card.getUserId(), card.getCardTitle(), card.getCardContent(), card.getBoardName(), card.getCreatedTime()));
 
         jdbcTemplate.update(psc, keyHolder);
-
-        // jdbcTemplate.update(sql, card.getUserId(), card.getCardTitle(), card.getCardContent(), card.getBoardName(),
-        //     card.getCreatedTime(), keyHolder, new String[] {"cardId"});
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
