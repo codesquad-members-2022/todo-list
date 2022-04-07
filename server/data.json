@@ -1,0 +1,63 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "column": "have-to-do-column",
+      "title": "Github 공부하기",
+      "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
+      "time": "~~~"
+    },
+    {
+      "id": 2,
+      "column": "have-to-do-column",
+      "title": "Github 공부하기",
+      "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
+      "time": "~~~"
+    },
+    {
+      "id": 3,
+      "column": "have-to-do-column",
+      "title": "Github 공부하기",
+      "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
+      "time": "~~~"
+    },
+    {
+      "id": 4,
+      "column": "doing-column",
+      "title": "Github 공부하기",
+      "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
+      "time": "~~~"
+    },
+    {
+      "id": 5,
+      "column": "doing-column",
+      "title": "Github 공부하기",
+      "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
+      "time": "~~~"
+    },
+    {
+      "id": 6,
+      "column": "done-column",
+      "title": "Github 공부하기",
+      "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
+      "time": "~~~"
+    }
+  ],
+  "actions": [
+    {
+      "id": 1,
+      "column": "have-to-do-column",
+      "title": "Github 공부하기",
+      "action": "추가",
+      "time": "~~~"
+    },
+    {
+      "id": 2,
+      "column": "have-to-do-column",
+      "pre-column": "doing-column",
+      "title": "Github 공부하기",
+      "action": "이동",
+      "time": "~~~"
+    }
+  ]
+}

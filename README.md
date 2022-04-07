@@ -1,2 +1,5 @@
-# todo-list
-그룹 프로젝트 #1
+## 멤버
+
+[JS] [S]
+
+[wiki] https://github.com/JS-S-todolist/todo-list/wiki
