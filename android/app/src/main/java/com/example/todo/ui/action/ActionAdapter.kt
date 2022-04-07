@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.common.getTimeDiff
+import com.example.todo.databinding.ActionLogItemBinding
+import com.example.todo.databinding.ActionLogItemBinding.inflate
+import com.example.todo.databinding.TodoItemBinding
 import com.example.todo.model.ActionLog
+import com.example.todo.ui.toDo.TodoAdapter
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
@@ -31,21 +35,15 @@ class ActionAdapter(
 ) :
     ListAdapter<ActionLog, ActionAdapter.ViewHolder>(actionDiffCallback) {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val content: TextView = itemView.findViewById(R.id.tv_action_content)
-        private val time: TextView = itemView.findViewById(R.id.tv_action_time)
-
+    class ViewHolder(private val itemViewBinding: ActionLogItemBinding) : RecyclerView.ViewHolder(itemViewBinding.root) {
         fun bind(actionItem: ActionLog) {
-            content.text = actionItem.toString()
-            time.text = getTimeDiff(actionItem.time)
+            itemViewBinding.actionLog = actionItem
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.action_log_item, parent, false)
-        return ViewHolder(view)
+        val binding= ActionLogItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

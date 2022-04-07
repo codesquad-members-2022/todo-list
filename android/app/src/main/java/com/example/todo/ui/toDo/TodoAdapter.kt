@@ -8,24 +8,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.databinding.TodoItemBinding
 import com.example.todo.model.TodoItem
 
 class TodoAdapter(
     todoDiffCallback: DiffUtil.ItemCallback<TodoItem>
 ) :
     ListAdapter<TodoItem, TodoAdapter.ViewHolder>(todoDiffCallback) {
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val title: TextView = itemView.findViewById(R.id.tv_item_title)
-        private val content: TextView = itemView.findViewById(R.id.tv_item_content)
+    class ViewHolder(private val itemViewBinding: TodoItemBinding) : RecyclerView.ViewHolder(itemViewBinding.root) {
         fun bind(cardItem: TodoItem) {
-            title.text = cardItem.title
-            content.text = cardItem.content
+            itemViewBinding.toDoItem = cardItem
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.todo_item, parent, false)
-        return ViewHolder(view)
+        val binding= TodoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
