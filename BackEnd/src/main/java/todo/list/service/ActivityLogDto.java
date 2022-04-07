@@ -7,15 +7,15 @@ import todo.list.domain.CardStatus;
 import java.time.LocalDateTime;
 
 public class ActivityLogDto {
-    private int index;
+    private Long id;
     private Action action;
     private String title;
     private CardStatus nowStatus;
     private CardStatus beforeStatus;
     private LocalDateTime createDate;
 
-    public ActivityLogDto(int index, ActivityLog activityLog) {
-        this.index = index;
+    public ActivityLogDto(ActivityLog activityLog) {
+        this.id = activityLog.getId();
         this.action = activityLog.getAction();
         this.title = activityLog.getTitle();
         this.nowStatus = activityLog.getNowStatus();
@@ -23,8 +23,8 @@ public class ActivityLogDto {
         this.createDate = activityLog.getCreateDate();
     }
 
-    public int getIndex() {
-        return index;
+    public Long getId() {
+        return id;
     }
 
     public Action getAction() {

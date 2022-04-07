@@ -6,7 +6,6 @@ import todo.list.repository.ActivityLogRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class ActivityLogService {
@@ -19,8 +18,8 @@ public class ActivityLogService {
 
     public List<ActivityLogDto> findActivityLogs() {
         List<ActivityLog> activityLogs = activityLogRepository.findAll();
-        return IntStream.range(0, activityLogs.size())
-                .mapToObj(i -> new ActivityLogDto(i, activityLogs.get(i)))
+        return activityLogs.stream()
+                .map(ActivityLogDto::new)
                 .collect(Collectors.toList());
     }
 }
