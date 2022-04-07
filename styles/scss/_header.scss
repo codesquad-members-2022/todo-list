@@ -1,10 +1,10 @@
+@use "shared";
+
 .todo-header {
   /* background */
-
+  @include shared.custom_absolute($left: 0, $top: 0);
   width: 1440px;
   height: 112px;
-  left: 0px;
-  top: 0px;
 
   /* Gray 6 */
 
@@ -43,6 +43,7 @@
 
   color: #010101;
 }
+
 .menu-sidebar-icon {
   position: absolute;
   width: 24px;
@@ -50,6 +51,7 @@
   left: 1336px;
   top: 44px;
 }
+
 .menu-sidebar {
   display: flex;
   flex-direction: column;

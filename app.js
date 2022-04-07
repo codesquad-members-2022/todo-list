@@ -21,7 +21,12 @@ class App extends Component {
     return `<header class="todo-header" >
           </header>
           ${lists
-            .map((list, idx) => `<section data-idx=${idx}></section>`)
+            .map(
+              (list, idx) =>
+                `<section class="todo-column" data-idx=${idx} style="left:${
+                  80 + idx * 324
+                }px"></section>`
+            )
             .join("")}`;
   }
 

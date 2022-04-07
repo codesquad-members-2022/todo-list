@@ -5,25 +5,18 @@
     font-#{$keyword}: $prop;
   }
 }
- 
+
 @mixin custom_absolute($args...) {
   position: absolute;
   @each $pos, $num in meta.keywords($args) {
-    #{$pos}: $num;
+    #{$pos}: #{$num}px;
   }
 }
 
 @mixin custom_static($args...) {
   position: static;
   @each $pos, $num in meta.keywords($args) {
-    #{$pos} : $num;
-  }
-}
-
-
-@mixin width_height($args...) {
-  @each $pos, $num in meta.keywords($args) {
-    #{$pos}: $num;
+    #{$pos} : #{$num}px;
   }
 }
 
@@ -34,7 +27,7 @@
 
 %White {
   background: #FFFFFF;
-} 
+}
 
 %Gray_4 {
   color: #bdbdbd;
@@ -69,27 +62,21 @@
 
 %remain_color {
   background: #FFFFFF;
-  opacity: 0.4;  
+  opacity: 0.4;
 }
 
 %border_blue {
   border: 1px solid #0075DE;
   box-sizing: border-box;
 }
- 
+
 @mixin flex_none($order:0, $margin-x,$margin-y ) {
   flex: none;
   flex-grow: 0;
   order: $order;
-  margin: $margin-x, $margin-y;
+  margin: #{$margin-x}px, #{$margin-y}px;
 }
 
-%card_flex {
-  flex: none;
-  flex-grow: 0;
-  margin: 8px 0px;
-}
- 
 %add_svg {
 
   position: absolute;
@@ -110,79 +97,96 @@
   @extend %Gray_4;
 }
 
-@mixin todo_card($background, $border) { 
-  .wrapper { 
+@mixin width_height_bypx($width:null, $height:null) {
+  width: #{$width}px;
+  height: #{$height}px;
+}
+
+@mixin padding_bypx($ptop:null, $pbttom:null, $pleft:null, $pright:null) {
+  padding: #{$ptop}px, #{$pbttom}px, #{$pleft}px, #{$pright}px;
+}
+
+@mixin margin_bypx($mtop:null, $mbottom:null, $mleft:null, $mright:null) {
+  margin: #{$mtop}px, #{$mbottom}px, #{$mleft}px, #{$mright}px;
+}
+
+@mixin custom_flex($dir:null, $align:null, $justify:null) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $align;
+  justify-content: $justify;
+
+}
+
+
+@mixin todo_card($background, $border) {
+  @include custom_flex(row, flex-start);
+  padding: 16px;
+
+  @include custom_absolute($left: 20, $top: 20);
+  width: 308px;
+  height: 108px;
+  @extend %#{$background};
+  @extend %#{$border};
+  .wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0px;
- 
-    @include custom_static($left:16px, $top:16px); 
-    width: 252px;
-    height: 76px; 
+    padding: 16px;
 
-    border-radius: 8px; 
-    @include flex_none(0, 0, 0); 
+    @include custom_static($left: 16, $top: 16);
+    width: 252px;
+    height: 76px;
+
+    border-radius: 8px;
+    @include flex_none(0, 0, 0);
 
 
     .card-title {
-      @include shared.custom_static($position: static, $left: 0, $top: 0);
+      @include custom_static($left: 0, $top: 0);
       width: 252px;
       height: 23px;
-      @include shared.custom_font($family: 'Noto Sans KR', $style: normal, $weight: 700, $size: 16px);
-      line-height: 23px; 
+      @include custom_font($family: 'Noto Sans KR', $style: normal, $weight: 700, $size: 16px);
+      line-height: 23px;
       @extend %Black;
-   
-      @include shared.flex_none(0, 0px, 8px);
+      @include flex_none(0, 0, 8);
     }
-  
+
     .card-content {
-      @include shared.custom_static($left: 0px, $top: 31px);
-      @include shared.custom_font($family: "Noto Sans KR", $style: normal, $weight: 400, $size: 14px);
+      @include custom_static($left: 0, $top: 31);
+      @include custom_font($family: "Noto Sans KR", $style: normal, $weight: 400, $size: 14px);
       width: 252px;
-      height: 20px;      line-height: 20px;
-   
+      height: 20px;
+      line-height: 20px;
       @extend %Black;
-     
-      @include shared.flex_none(1, 0, 8px);
+      @include flex_none(1, 0, 8);
     }
-  
+
     .card-caption {
       position: static;
       width: 252px;
       height: 17px;
       left: 0px;
       top: 59px;
-  
       font-family: 'Noto Sans KR';
       font-style: normal;
       font-weight: 400;
       font-size: 12px;
       line-height: 17px;
-   
-      @extend %Gray_4; 
-      @include shared.flex_none(2, 0, 8px);
-    } 
+
+      @extend %Gray_4;
+      @include flex_none(2, 0, 8);
+    }
   }
 
-  .delete-card {  
-    @include custom_static($left:268px, $top:16px); 
+  .delete-card {
+    @include custom_static($left: 268, $top: 16);
     width: 24px;
-    height: 24px; 
- 
-    @include flex_none(1, 0, 0);  
+    height: 24px;
+
+    @include flex_none(1, 0, 0);
     @extend %delete_svg;
   }
 
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 16px;
 
-  @include custom_absolute($left:20px, $top:20px); 
-  width: 308px;
-  height: 108px;  
-
-  @extend %#{$background};
-  @extend %#{$border}; 
 }

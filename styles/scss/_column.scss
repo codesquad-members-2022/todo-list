@@ -1,18 +1,15 @@
-@import "_shared.scss";
+@use "shared";
 
 
 .todo-column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-
-  position: absolute;
-  width: 332px;
+  @include shared.custom_flex(column, center);
+  padding: 0;
+  @include shared.custom_absolute($top: 136);
+  width: 308px;
   height: auto;
 
   &.first {
-    left: 20px;
+    left: 80px;
   }
 
   &.second {
@@ -20,70 +17,58 @@
   }
 
   &.third {
-    left: 800px;
-  } 
+    left: 728px;
+  }
 
-  top: 80px;
-
-  @include todo-card($background:White, $border:shadow_normal);
+  .todo-card {
+    @include shared.todo-card($background: "White", $border: "shadow_normal");
+  }
 }
-  
+
 
 .todo-title {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  @include shared.custom_flex(row, center, center);
+  @include shared.flex_none(0, 16, 0);
+  @include shared.custom_static($left: 0, $top: 0);
   padding: 0px 8px;
- 
-  position: static;
-  width: 340px;
+  width: 308px;
   height: 26px;
-  left: 0px;
-  top: 0px;
- 
-  @include flex_none(0, 16px, 0px);
+
 
   .todo-name {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    @include shared.custom_flex(row, center);
     padding: 0px;
-    @include custom_static($top: 0px, $left: 8px);
-    width: 250px;
+    @include shared.custom_static($top: 0, $left: 8);
+    width: 228px;
     height: 26px;
- 
-    @include flex_none(0, 0px, 8px);
+
+    @include shared.flex_none(0, 0, 8);
 
     .count {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+      @include shared.custom_flex(row, center, center);
       padding: 0px;
-      @include ustom_static($left: 79px, $top: 0px);
+      @include shared.custom_static($left: 79, $top: 0);
       width: 26px;
       height: 26px;
-  
       @extend %Gray_4;
       border-radius: 20px;
- 
-      @include flex_none(1, 0px, 8px);
+      @include shared.flex_none(1, 0, 8);
     }
   }
 
   .add {
-    @include custom_static($left: 244px, $top: 1px);
+    @include shared.custom_static($left: 244, $top: 1);
     width: 24px;
     height: 24px;
-    @include flex_none(1, 0, 8px);
+    @include shared.flex_none(1, 0, 8);
     @extend %add_svg;
   }
 
   .delete {
-    @include custom_static($left: 276px, $top: 1px);
+    @include shared.custom_static($left: 276, $top: 1);
     width: 24px;
     height: 24px;
-    @include flex_none(2, 0px, 8px);
+    @include shared.flex_none(2, 0, 8);
     @extend %delete_svg;
   }
 }
