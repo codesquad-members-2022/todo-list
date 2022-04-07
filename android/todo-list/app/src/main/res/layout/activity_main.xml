@@ -75,7 +75,7 @@
                 tools:text="2" />
 
             <Button
-                android:id="@+id/iv_ic_todo_add"
+                android:id="@+id/btn_todo_add"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:background="@drawable/ic_add"
@@ -128,7 +128,7 @@
                 tools:text="2" />
 
             <Button
-                android:id="@+id/iv_ic_progress_add"
+                android:id="@+id/btn_progress_add"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:background="@drawable/ic_add"
@@ -144,6 +144,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="22dp"
                 android:paddingTop="5dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/rv_done"
                 app:layout_constraintStart_toEndOf="@+id/rv_todo"
@@ -180,7 +181,7 @@
                 tools:text="222" />
 
             <Button
-                android:id="@+id/iv_ic_done_add"
+                android:id="@+id/btn_done_add"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:background="@drawable/ic_add"
@@ -196,6 +197,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="22dp"
                 android:paddingTop="5dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/rv_progress"
