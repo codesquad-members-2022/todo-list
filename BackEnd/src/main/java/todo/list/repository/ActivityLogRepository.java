@@ -26,7 +26,7 @@ public class ActivityLogRepository {
     private RowMapper<ActivityLog> activityLogRowMapper() {
         return (rs, rowNum) -> {
             Long id = rs.getLong("id");
-            Action action = Action.valueOf(rs.getString("action"));
+            Action action = Action.valueOf(rs.getString("activity_log_action"));
             String title = rs.getString("title");
             CardStatus nowStatus = CardStatus.from(rs.getString("now_status"));
             CardStatus beforeStatus = CardStatus.from(rs.getString("before_status"));
