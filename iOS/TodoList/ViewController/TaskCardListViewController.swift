@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskListBoardViewController: UIViewController {
+class TaskCardListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -8,7 +8,7 @@ class TaskListBoardViewController: UIViewController {
     }
     
     func setUpStackView() {
-        if let taskListView = Bundle.main.loadNibNamed(NameSpace.nib.taskListView, owner: nil, options: nil)?.first as? TaskListView {
+        if let taskListView = Bundle.main.loadNibNamed(NameSpace.nib.taskCardListView, owner: nil, options: nil)?.first as? TaskCardListView {
             taskListView.tableView.delegate = self
             taskListView.tableView.dataSource = self
             let nibName = UINib(nibName: NameSpace.nib.taskCardViewCell, bundle: nil)
@@ -26,7 +26,7 @@ class TaskListBoardViewController: UIViewController {
     
 }
 
-extension TaskListBoardViewController: UITableViewDelegate, UITableViewDataSource {
+extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 15
     }
