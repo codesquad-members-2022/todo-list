@@ -41,5 +41,31 @@ class URLManager{
         return decodeData
     }
     
+    //Post // return CardID data
+    static func requestPost(url: String, requestParam: Card) -> Int?{
+        var requestedID: Int?
+        let paramData = [requestParam.title, requestParam.content, requestParam.userID]
+        
+        guard let uploadData = try? JSONEncoder().encode(paramData) else { return nil }
+        
+        guard let validURL = URL(string: url) else { return nil }
+        var urlRequest = URLRequest(url: validURL)
+        urlRequest.httpMethod = HttpMethod.post.getRawValue()
+        
+        URLSession.shared.uploadTask(with: urlRequest, from: uploadData){ data, response, error in
+            guard let data = data else { return }
+            do {
+                guard let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else {
+                    return
+                }
+                let decoder = try JSONDecoder().decode(Int.self,from: data)
+                requestedID = decoder
+            } catch{
+                return
+            }
+        }
+        return requestedID
+    }
+    
 }
 
