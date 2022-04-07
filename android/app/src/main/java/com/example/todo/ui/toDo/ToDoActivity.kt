@@ -10,11 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.R
 import com.example.todo.common.ActionDiffCallback
+import com.example.todo.common.ActionType
 import com.example.todo.common.ProgressType
 import com.example.todo.common.TodoDiffCallback
 import com.example.todo.databinding.ActivityTodoBinding
 import com.example.todo.model.ActionLog
-import com.example.todo.model.ActionType
+
 import com.example.todo.model.TodoItem
 import com.example.todo.ui.action.ActionAdapter
 
@@ -37,7 +38,7 @@ class ToDoActivity : AppCompatActivity() {
         addDummyDataInRecyclerView()
     }
 
-    private fun setToolBar(){
+    private fun setToolBar() {
         setSupportActionBar(binding.tbMain)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
@@ -68,9 +69,27 @@ class ToDoActivity : AppCompatActivity() {
             "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
         )
 
-        val action1 = ActionLog("one", ActionType.ADD, "2022-04-07 12:00:01", ProgressType.TO_DO)
-        val action2 = ActionLog("one", ActionType.ADD, "2022-04-07 10:00:01", ProgressType.TO_DO)
-        val action3 = ActionLog("one", ActionType.ADD, "2022-04-05 09:00:01", ProgressType.TO_DO)
+        val action1 = ActionLog(
+            "one",
+            ActionType.ADD,
+            "2022-04-07 12:00:01",
+            ProgressType.TO_DO,
+            ProgressType.IN_PROGRESS
+        )
+        val action2 = ActionLog(
+            "one",
+            ActionType.ADD,
+            "2022-04-07 10:00:01",
+            ProgressType.TO_DO,
+            ProgressType.IN_PROGRESS
+        )
+        val action3 = ActionLog(
+            "one",
+            ActionType.ADD,
+            "2022-04-05 09:00:01",
+            ProgressType.TO_DO,
+            ProgressType.IN_PROGRESS
+        )
 
         todoList.addAll(mutableListOf(todo1, todo2, todo3))
         inProgressList.addAll(mutableListOf(todo2, todo3, todo1))
@@ -93,24 +112,28 @@ class ToDoActivity : AppCompatActivity() {
         binding.rvInProgress.adapter = inProgressAdapter
         binding.rvDone.adapter = doneAdapter
         binding.rvActionLog.adapter = actionAdapter
-        binding.rvTodo.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvInProgress.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvDone.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvActionLog.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvTodo.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvInProgress.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvDone.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvActionLog.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        toDoViewModel.todoList.observe(this){
+        toDoViewModel.todoList.observe(this) {
             todoAdapter.submitList(it)
         }
 
-        toDoViewModel.inProgressList.observe(this){
+        toDoViewModel.inProgressList.observe(this) {
             inProgressAdapter.submitList(it)
         }
 
-        toDoViewModel.doneList.observe(this){
+        toDoViewModel.doneList.observe(this) {
             doneAdapter.submitList(it)
         }
 
-        toDoViewModel.actionList.observe(this){
+        toDoViewModel.actionList.observe(this) {
             actionAdapter.submitList(it)
         }
     }
