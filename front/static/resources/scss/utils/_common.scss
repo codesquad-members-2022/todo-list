@@ -34,24 +34,24 @@
 
 .normal-button {
   @extend .button;
-  background-color: $normal-button-color-default;
+  background-color: $button-bg-color-light-gray;
   color: $button-sub-font-color;
 
   &:hover {
-    background-color: $normal-button-color-hover;
+    background-color: $button-bg-color-gray;
     color: $button-main-font-color;
   }
 }
 
 .accent-button {
   @extend .button;
-  background-color: $accent-button-color-default;
+  background-color: $button-bg-color-light-gray;
 
   &:hover {
-    background-color: $accent-button-color-hover;
+    background-color: $button-bg-color-dark-blue;
   }
 
   &.disabled {
-    background-color: $accent-button-color-disabled;
+    background-color: $button-bg-color-light-blue;
   }
 }
