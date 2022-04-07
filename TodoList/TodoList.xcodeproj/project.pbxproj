@@ -15,6 +15,9 @@
 		B39BFEC027FADA8E00B28376 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B39BFEBE27FADA8E00B28376 /* LaunchScreen.storyboard */; };
 		B3BAE28427FBE132005E7ED2 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE28327FBE132005E7ED2 /* ContentViewController.swift */; };
 		B3BAE28627FBE3DE005E7ED2 /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE28527FBE3DE005E7ED2 /* TodoTableView.swift */; };
+		B3BAE2C127FF2905005E7ED2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE2C027FF2905005E7ED2 /* Card.swift */; };
+		B3BAE2C327FF2987005E7ED2 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE2C227FF2987005E7ED2 /* URLManager.swift */; };
+		B3BAE2C527FF2A3C005E7ED2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE2C427FF2A3C005E7ED2 /* Board.swift */; };
 		D25BF7FD27FE794D0010DE50 /* TableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25BF7FC27FE794D0010DE50 /* TableHeader.swift */; };
 		D25BF7FF27FE7D3C0010DE50 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF7FE27FE7D3C0010DE50 /* NotoSansKR-Light.otf */; };
 		D25BF80527FE7D5A0010DE50 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80027FE7D590010DE50 /* NotoSansKR-Thin.otf */; };
@@ -40,6 +43,9 @@
 		B39BFEC127FADA8E00B28376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3BAE28327FBE132005E7ED2 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		B3BAE28527FBE3DE005E7ED2 /* TodoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
+		B3BAE2C027FF2905005E7ED2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		B3BAE2C227FF2987005E7ED2 /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
+		B3BAE2C427FF2A3C005E7ED2 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		D25BF7FC27FE794D0010DE50 /* TableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeader.swift; sourceTree = "<group>"; };
 		D25BF7FE27FE7D3C0010DE50 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		D25BF80027FE7D590010DE50 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
@@ -84,6 +90,7 @@
 		B39BFEB227FADA8700B28376 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				B3BAE2BF27FF28FA005E7ED2 /* Model */,
 				D299330F27FC063E00D79C87 /* ViewController */,
 				D299331027FC064C00D79C87 /* View */,
 				B39BFEB327FADA8700B28376 /* AppDelegate.swift */,
@@ -95,6 +102,16 @@
 				B39BFEC127FADA8E00B28376 /* Info.plist */,
 			);
 			path = TodoList;
+			sourceTree = "<group>";
+		};
+		B3BAE2BF27FF28FA005E7ED2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3BAE2C027FF2905005E7ED2 /* Card.swift */,
+				B3BAE2C227FF2987005E7ED2 /* URLManager.swift */,
+				B3BAE2C427FF2A3C005E7ED2 /* Board.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D25BF80A27FE7D690010DE50 /* Font */ = {
@@ -229,10 +246,13 @@
 				B39BFEB827FADA8700B28376 /* ContainerViewController.swift in Sources */,
 				B39BFEB427FADA8700B28376 /* AppDelegate.swift in Sources */,
 				D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */,
+				B3BAE2C327FF2987005E7ED2 /* URLManager.swift in Sources */,
+				B3BAE2C527FF2A3C005E7ED2 /* Board.swift in Sources */,
 				B3BAE28627FBE3DE005E7ED2 /* TodoTableView.swift in Sources */,
 				D299331C27FC372600D79C87 /* CollectionCell.swift in Sources */,
 				B39BFEB627FADA8700B28376 /* SceneDelegate.swift in Sources */,
 				D299331E27FC3A9400D79C87 /* CollectionView.swift in Sources */,
+				B3BAE2C127FF2905005E7ED2 /* Card.swift in Sources */,
 				D25BF7FD27FE794D0010DE50 /* TableHeader.swift in Sources */,
 				B3BAE28427FBE132005E7ED2 /* ContentViewController.swift in Sources */,
 				D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */,
