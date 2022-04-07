@@ -16,8 +16,6 @@
 		02DF5FAE27FD6F020064FEC8 /* ToDoListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DF5FAD27FD6F020064FEC8 /* ToDoListTests.swift */; };
 		02DF5FB827FD6F020064FEC8 /* ToDoListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DF5FB727FD6F020064FEC8 /* ToDoListUITests.swift */; };
 		02DF5FBA27FD6F020064FEC8 /* ToDoListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DF5FB927FD6F020064FEC8 /* ToDoListUITestsLaunchTests.swift */; };
-		02DF5FC727FD73B00064FEC8 /* CardListTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DF5FC627FD73B00064FEC8 /* CardListTableViewHeaderView.swift */; };
-		02DF5FC927FD73C10064FEC8 /* CardListTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02DF5FC827FD73C10064FEC8 /* CardListTableViewHeaderView.xib */; };
 		F5164AB027FD7A0F00C32212 /* CardListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5164AAE27FD7A0F00C32212 /* CardListTableViewCell.swift */; };
 		F5164AB127FD7A0F00C32212 /* CardListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5164AAF27FD7A0F00C32212 /* CardListTableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -53,8 +51,6 @@
 		02DF5FB327FD6F020064FEC8 /* ToDoListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02DF5FB727FD6F020064FEC8 /* ToDoListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListUITests.swift; sourceTree = "<group>"; };
 		02DF5FB927FD6F020064FEC8 /* ToDoListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		02DF5FC627FD73B00064FEC8 /* CardListTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewHeaderView.swift; sourceTree = "<group>"; };
-		02DF5FC827FD73C10064FEC8 /* CardListTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardListTableViewHeaderView.xib; sourceTree = "<group>"; };
 		F5164AAE27FD7A0F00C32212 /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
 		F5164AAF27FD7A0F00C32212 /* CardListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardListTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,8 +107,6 @@
 				02DF5F9827FD6EFF0064FEC8 /* SceneDelegate.swift */,
 				02DF5F9A27FD6EFF0064FEC8 /* ViewController.swift */,
 				02DF5F9C27FD6EFF0064FEC8 /* Main.storyboard */,
-				02DF5FC627FD73B00064FEC8 /* CardListTableViewHeaderView.swift */,
-				02DF5FC827FD73C10064FEC8 /* CardListTableViewHeaderView.xib */,
 				02DF5F9F27FD6F020064FEC8 /* Assets.xcassets */,
 				02DF5FA127FD6F020064FEC8 /* LaunchScreen.storyboard */,
 				02DF5FA427FD6F020064FEC8 /* Info.plist */,
@@ -244,7 +238,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				02DF5FA327FD6F020064FEC8 /* LaunchScreen.storyboard in Resources */,
-				02DF5FC927FD73C10064FEC8 /* CardListTableViewHeaderView.xib in Resources */,
 				02DF5FA027FD6F020064FEC8 /* Assets.xcassets in Resources */,
 				02DF5F9E27FD6EFF0064FEC8 /* Main.storyboard in Resources */,
 				F5164AB127FD7A0F00C32212 /* CardListTableViewCell.xib in Resources */,
@@ -275,7 +268,6 @@
 				02DF5F9B27FD6EFF0064FEC8 /* ViewController.swift in Sources */,
 				02DF5F9727FD6EFF0064FEC8 /* AppDelegate.swift in Sources */,
 				02DF5F9927FD6EFF0064FEC8 /* SceneDelegate.swift in Sources */,
-				02DF5FC727FD73B00064FEC8 /* CardListTableViewHeaderView.swift in Sources */,
 				F5164AB027FD7A0F00C32212 /* CardListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
