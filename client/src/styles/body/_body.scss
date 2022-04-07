@@ -36,29 +36,20 @@ main {
     vertical-align: bottom;
   }
 
-  .plus-icon {
+  .icon-plus {
     margin-right: 12px;
+    color: $gray4-color;
 
-    path {
-      fill: $gray4-color;
+    &:hover {
+      color: $blue-color;
     }
   }
 
-  .plus-icon:hover {
-    path {
-      fill: $blue-color;
-    }
-  }
+  .icon-close {
+    color: $gray4-color;
 
-  .close-icon {
-    path {
-      fill: $gray4-color;
-    }
-  }
-
-  .close-icon:hover {
-    path {
-      fill: $red-color;
+    &:hover {
+      color: $red-color;
     }
   }
 }
@@ -78,11 +69,15 @@ main {
     input {
       width: 100%;
       border: none;
-      background-color: none;
-    }
+      background-color: transparent;
 
-    input:focus {
-      outline: none;
+      &:focus {
+        outline: none;
+      }
+
+      &:read-only {
+        cursor: move;
+      }
     }
 
     .item-title {

@@ -8,68 +8,69 @@
     line-height: 46px;
     color: #010101;
   }
+}
 
-  & > .menu-icon {
-    @include size(24px, 24px);
+.menu-btn {
+  @include size(24px, 24px);
+}
+
+.menu-bar {
+  @include position(absolute, 0, 0);
+  display: none;
+  z-index: 1;
+  height: 100vh;
+  padding: 80px 40px 0 40px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
+    0px 2px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+
+  .close-btn {
+    @include position(absolute, 4%, 20px);
   }
+}
 
-  & > .menu-bar {
-    @include position(absolute, 0, 0);
-    display: none;
-    z-index: 1;
-    height: 100vh;
-    padding: 80px 40px 0 40px;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
-      0px 2px 4px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(4px);
+.notification-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
-    & > .close-icon {
-      @include position(absolute, 4%, 20px);
-    }
-  }
-
-  .notification-list {
+  li {
+    @include size(332px, 137px);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
+    padding: 16px;
 
-    li {
-      @include size(332px, 137px);
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      padding: 16px;
-
-      .user-img {
-        @include size(40px, 40px);
-        margin-right: 16px;
-        background: url('../../assets/imoge/user\ img.png');
-      }
-
-      > .user-action {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-
-        > .user-name {
-          margin-bottom: 8px;
-          @include font_style(400, 16px, 23px);
-          color: $black-color;
-        }
-        > .event-info {
-          margin-bottom: 8px;
-          @include font_style(700, 16px, 23px);
-          color: $black-color;
-        }
-
-        > .update-time {
-          @include font_style(400, 14px, 20px);
-          height: 20px;
-          color: $gray3-color;
-        }
-      }
+    .user-img {
+      @include size(40px, 40px);
+      margin-right: 16px;
+      background: url('../../assets/imoge/user\ img.png');
     }
+  }
+}
+
+.user-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  .user-name {
+    margin-bottom: 8px;
+    @include font_style(400, 16px, 23px);
+    color: $black-color;
+  }
+
+  .event-info {
+    margin-bottom: 8px;
+    @include font_style(700, 16px, 23px);
+    color: $black-color;
+  }
+
+  .update-time {
+    @include font_style(400, 14px, 20px);
+    height: 20px;
+    color: $gray3-color;
   }
 }
