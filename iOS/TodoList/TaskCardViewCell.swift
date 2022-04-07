@@ -1,6 +1,8 @@
 import UIKit
 
 class TaskCardViewCell: UITableViewCell {
+    static let nibName: String = "TaskCardViewCell"
+    static let identifier: String = "cardCell"
     
     @IBOutlet weak var cardTitle: UILabel!
     @IBOutlet weak var cardContents: UILabel!
