@@ -61,30 +61,32 @@ class ColumnViewCell: UITableViewCell {
     }
     
     private func layout() {
-        self.addSubview(cellBackgroundView)
-        self.addSubview(titleLabel)
-        self.addSubview(bodyLabel)
-        self.addSubview(captionLabel)
+        let contentView = self.contentView
+        
+        contentView.addSubview(cellBackgroundView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(bodyLabel)
+        contentView.addSubview(captionLabel)
         
         NSLayoutConstraint.activate([
-            cellBackgroundView.topAnchor.constraint(equalTo: self.topAnchor),
-            cellBackgroundView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            cellBackgroundView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            cellBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            cellBackgroundView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            cellBackgroundView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-            titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             
             bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            bodyLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-            bodyLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            bodyLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            bodyLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             
             captionLabel.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 8),
-            captionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
-            captionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
+            captionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            captionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             
             cellBackgroundView.bottomAnchor.constraint(equalTo: captionLabel.bottomAnchor, constant: 16),
-            self.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16)
+            contentView.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16)
         ])
     }
     
