@@ -39,8 +39,8 @@ class InProgressViewController: UIViewController {
     }
     
     private func configureTableTitleView() {
-        tableTitleView.currentNumberOfItem(item: CellData.dataList.count)
-        tableTitleView.changeTitleLable(text: "하고 있는 일")
+        tableTitleView.changeBadgeLabel(text: CellData.dataList.count)
+        tableTitleView.changeTitleLabel(text: "하고 있는 일")
     }
     
     private func layoutTableTitleView() {

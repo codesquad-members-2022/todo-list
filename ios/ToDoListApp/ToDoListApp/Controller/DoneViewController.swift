@@ -39,8 +39,8 @@ class DoneViewController: UIViewController {
     }
     
     private func configureTableTitleView() {
-        tableTitleView.currentNumberOfItem(item: CellData.dataList.count)
-        tableTitleView.changeTitleLable(text: "완료한 일")
+        tableTitleView.changeBadgeLabel(text: CellData.dataList.count)
+        tableTitleView.changeTitleLabel(text: "완료한 일")
     }
     
     private func layoutTableTitleView() {

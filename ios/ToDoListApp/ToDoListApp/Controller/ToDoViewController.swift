@@ -39,8 +39,8 @@ class ToDoViewController: UIViewController {
     }
     
     private func configureTableTitleView() {
-        tableTitleView.currentNumberOfItem(item: CellData.dataList.count)
-        tableTitleView.changeTitleLable(text: "해야할 일")
+        tableTitleView.changeBadgeLabel(text: CellData.dataList.count)
+        tableTitleView.changeTitleLabel(text: "해야할 일")
     }
     
     private func layoutTableTitleView() {
