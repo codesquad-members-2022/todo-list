@@ -8,11 +8,11 @@ class TaskListBoardViewController: UIViewController {
     }
     
     func setUpStackView() {
-        if let taskListView = Bundle.main.loadNibNamed("TaskListView", owner: nil, options: nil)?.first as? TaskListView {
+        if let taskListView = Bundle.main.loadNibNamed(TaskListView.nibName, owner: nil, options: nil)?.first as? TaskListView {
             taskListView.tableView.delegate = self
             taskListView.tableView.dataSource = self
-            let nibName = UINib(nibName: "TaskCardViewCell", bundle: nil)
-            taskListView.tableView.register(nibName, forCellReuseIdentifier: "cardCell")
+            let nibName = UINib(nibName: TaskCardViewCell.nibName, bundle: nil)
+            taskListView.tableView.register(nibName, forCellReuseIdentifier: TaskCardViewCell.identifier)
             self.view.addSubview(taskListView)
             taskListView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
