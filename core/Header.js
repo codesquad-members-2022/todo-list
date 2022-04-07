@@ -1,4 +1,4 @@
-import Component from './Component';
+import Component from './Component.js';
 
 export class Header extends Component {
   template() {
@@ -12,9 +12,7 @@ export class Header extends Component {
             </svg>
             <span class="menu-sidebar">
             </span>
-        </span>
-   
-
+        </span> 
     `;
   }
 }
