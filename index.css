@@ -135,6 +135,12 @@ table {
   border-spacing: 0;
 }
 
+button {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
 .no-display {
   display: none;
 }

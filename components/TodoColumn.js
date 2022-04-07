@@ -48,8 +48,8 @@ export default class TodoColumn {
                 <div class="column__count">0</div>
             </div>
             <div class="column__right">
-            <div class="column__add">+</div>
-            <div class="column__delete">x</div>
+            <button class="column__add">+</button>
+            <button class="column__delete">x</button>
             </div>
         </nav>
         
