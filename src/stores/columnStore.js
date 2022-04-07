@@ -8,8 +8,8 @@ export const Store = {
     this.observers[interest].push(observer);
   },
 
-  notify(interest, param) {
-    this.observers[interest].forEach((observer) => observer(param));
+  notify(interest) {
+    this.observers[interest].forEach((observer) => observer());
   },
 
   state: {
@@ -68,15 +68,26 @@ export const Store = {
     this.notify("column", columnID);
   },
 
-  addNewCardState(columnID) {
+  addNewCard(columnID) {
     const newCardID = this.getNewCardID();
     this.state[columnID].cardOrder.unshift(newCardID);
     this.state[columnID].cards[newCardID] = { columnID, type: "new" };
-    this.notify("column", columnID);
-    console.log(this);
+    this.notify("column");
+    console.log(this.state);
   },
 
   getNewCardID() {
     return new Date().getUTCMilliseconds();
+  },
+
+  deleteCard(columnID, cardID) {
+    delete this.state[columnID].cards[cardID];
+    this.state[columnID].cardOrder = this.state[columnID].cardOrder.filter((e) => e !== cardID);
+    this.notify("column");
+  },
+
+  changeCard(columnID, changedCardData) {
+    this.state[columnID].cards = { ...this.state[columnID].cards, ...changedCardData };
+    this.notify("card");
   },
 };

@@ -1,6 +1,6 @@
 import "./Column.scss";
 import { Store } from "../../../../stores/ColumnStore.js";
-import { renderCard } from "./card/Card.js";
+import { Card } from "./card/Card.js";
 
 export class Column {
   constructor(columnID) {
@@ -20,7 +20,7 @@ export class Column {
   makeColumnNode() {
     const columnNode = document.createElement("div");
     columnNode.className = "column";
-    columnNode.dataset.id = this.columnID;
+    columnNode.dataset.columnid = this.columnID;
     return columnNode;
   }
 
@@ -63,7 +63,7 @@ export class Column {
     const cardOrder = columnData.cardOrder;
     const cardListEl = this.columnNode.querySelector(".card-list");
     cardListEl.innerHTML = "";
-    cardOrder.forEach((cardID) => renderCard(cardListEl, this.columnID, cardID));
+    cardOrder.forEach((cardID) => new Card(this.columnID, cardID));
   }
 
   setEvents() {
@@ -77,7 +77,7 @@ export class Column {
 
   handleAddBtnClick(addBtn) {
     this.toggleActivation(addBtn);
-    Store.addNewCardState(this.columnID);
+    Store.addNewCard(this.columnID);
   }
 
   toggleActivation(addBtn) {
