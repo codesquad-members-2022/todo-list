@@ -13,9 +13,11 @@ import team07.todolist.repository.CardRepository;
 public class CardService {
 
 	private CardRepository cardRepository;
+	private ActivityLogService activityLogService;
 
-	public CardService(CardRepository cardRepository) {
+	public CardService(CardRepository cardRepository, ActivityLogService activityLogService) {
 		this.cardRepository = cardRepository;
+		this.activityLogService = activityLogService;
 	}
 
 	public void save(RequestCard requestCard) {
@@ -28,26 +30,30 @@ public class CardService {
 
 		int status = requestCard.getStatus();
 		cardRepository.save(newCard, status);
+		activityLogService.saveLog(requestCard);
 	}
 
 	public Card delete(Long id) {
+		activityLogService.deleteLog(cardRepository.findById(id));
 		return cardRepository.delete(id);
 	}
 
 	public ResponseCard dragAndDropHorizon(Long id, RequestCard requestCard) {
 		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getRow(),
 			requestCard.getStatus());
-
+		activityLogService.dragAndDropLog(cardRepository.findById(id), requestCard);
 		return updateCard.createResponseCard();
 	}
 
 	public ResponseCard dragAndDropVertical(Long id, RequestCard requestCard) {
 
-		Card changedCard = new Card.Builder(cardRepository.findById(id))
-			.row(requestCard.getRow())
-			.build();
-
-		Card updateCard = cardRepository.updateRow(id, changedCard);
+//		Card changedCard = new Card.Builder(cardRepository.findById(id))
+//			.row(requestCard.getRow())
+//			.status(requestCard.getStatus())
+//			.build();
+		Card originCard = cardRepository.findById(id);
+		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getRow(), requestCard.getStatus());
+		activityLogService.dragAndDropLog(originCard, requestCard);
 		return updateCard.createResponseCard();
 	}
 
@@ -57,7 +63,9 @@ public class CardService {
 			.content(patchCard.getContent())
 			.build();
 
+		Card originCard = cardRepository.findById(id);
 		Card updateCard = cardRepository.updateText(id, card);
+		activityLogService.changeTextLog(originCard, patchCard);
 
 		return updateCard.createResponseCard();
 	}

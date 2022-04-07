@@ -76,11 +76,6 @@ public class MemoryCardRepository implements CardRepository {
 
 	@Override
 	public Card updateStatusAndRow(Long id, Integer row, Integer status) {
-		//todo
-		// status가 다름
-		// 이전에 있던 status에서 id의 카드보다 row값이 큰 카드들의 row값들을 -1 해주고
-		// 바뀐 status에서 id의 카드보다 row값이 큰 카드들의 row값을 +1 해준다.
-
 		Card originCard = store.get(id);
 		Integer originRow = originCard.getRow();
 		Integer originStatus = originCard.getStatus();
@@ -95,7 +90,6 @@ public class MemoryCardRepository implements CardRepository {
 			.filter(c -> c.getRow() >= row)
 			.forEach(Card::increaseRow);
 
-		//todo originCard에서 row, status 매개변수 값으로 변경 후 return
 		Card updateCard = new Card.Builder(originCard).id(id).row(row).status(status).build();
 
 		store.put(id, updateCard);
@@ -106,9 +100,7 @@ public class MemoryCardRepository implements CardRepository {
 	@Override
 	public Card updateRow(Long id, Card card) {
 
-		// 기존 열의 카드
 		Card oldCard = store.get(id);
-		// 바뀐 열의 카드
 		Card newCard = card;
 		int oldRow = oldCard.getRow();
 		int newRow = newCard.getRow();

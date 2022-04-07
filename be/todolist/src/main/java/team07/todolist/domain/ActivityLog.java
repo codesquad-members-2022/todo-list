@@ -6,17 +6,41 @@ public class ActivityLog {
 
 	private Long id;
 	private String title;
-	private String type;
+	private Integer type;
 	private Integer previous;
 	private Integer status;
 	private LocalDateTime time;
 
-	public ActivityLog(String title, String type, Integer previous, Integer status) {
+	public ActivityLog(String title, Integer type, Integer previous, Integer status) {
 		this.title = title;
 		this.type = type;
 		this.previous = previous;
 		this.status = status;
 		this.time = LocalDateTime.now();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public Integer getPrevious() {
+		return previous;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public LocalDateTime getTime() {
+		return time;
 	}
 
 	public void setId(Long id) {
