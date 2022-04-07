@@ -17,7 +17,12 @@ public class Card {
         this.orderIndex = orderIndex;
     }
 
-    static class Builder {
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public static class Builder {
         private Long id;
         private String title;
         private String content;
