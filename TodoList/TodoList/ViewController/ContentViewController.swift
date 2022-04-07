@@ -9,7 +9,7 @@ import UIKit
 
 class ContentViewController: UIViewController {
     private var collectionView: CollectionView!
-    let tableViewHeaders = ["해야할 일", "하고 있는 일", "완료한 일"]
+    let todo = ["해야할 일", "하고있는 일", "끝난 일"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,8 @@ extension ContentViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CollectionCell else { return UICollectionViewCell() }
-        cell.headerTitle = tableViewHeaders[indexPath.row]
+        
+        cell.changeHeaderText(text: todo[indexPath.row])
         
         return cell
     }
