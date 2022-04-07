@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.example.backend.utils.TimeUtils.dateTimeOf;
+
 @Repository
 public class CardReadRepository {
 
@@ -20,7 +22,7 @@ public class CardReadRepository {
     private Long columnId;
 
     public List<TodoItem> findItemsTodoItems(CardType todo) {
-        String query = "SELECT id, title, content, card_type, created_at, last_modified_at, column_id FROM CARDS WHERE "
+        String query = "SELECT id, title, content, card_type, created_at, last_modified_at FROM CARDS WHERE "
         return null;
     }
 
@@ -38,7 +40,9 @@ public class CardReadRepository {
                     rs.getLong("id"),
                     rs.getString("title"),
                     rs.getString("content"),
-                    rs.getString("card_type"),
+                    rs.getInt("card_type"),
+                    dateTimeOf(rs.getTimestamp("created_at")),
+                    dateTimeOf(rs.getTimestamp("last_modified_at"))
 
     );
 //            new new TodoItem(
