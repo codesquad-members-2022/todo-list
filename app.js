@@ -28,11 +28,13 @@ class App extends Component {
   mount() {
     const { lists } = this.state;
     new Header(this.select(".todo-header"));
-    for (let i = 0; i < lists.length; i++)
-      new TodoList(this.select(`section[data-idx="${i}"`), {
-        list: lists[i],
-        idx: i,
-      });
+    lists.forEach(
+      (list, idx) =>
+        new TodoList(this.select(`section[data-idx="${idx}"`), {
+          list,
+          idx,
+        })
+    );
   }
 }
 
