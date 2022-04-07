@@ -10,11 +10,13 @@ export default class TodoInput {
   onInputContent = ({ target }) => {
     if (target.value.length === 0) {
       document.querySelector(`.input-${this.status} .input--register`).disabled = true;
-      document.querySelector(`.input-${this.status} .input--register`).style.background = '#86c6ff';
+      document.querySelector(`.input-${this.status} .input--register`).classList.remove('bg-blue');
+      document.querySelector(`.input-${this.status} .input--register`).classList.add('bg-sky-blue');
     } else {
       this.content = target.value;
       document.querySelector(`.input-${this.status} .input--register`).disabled = false;
-      document.querySelector(`.input-${this.status} .input--register`).style.background = '#0075DE';
+      document.querySelector(`.input-${this.status} .input--register`).classList.remove('bg-sky-blue');
+      document.querySelector(`.input-${this.status} .input--register`).classList.add('bg-blue');
     }
   };
 
@@ -49,7 +51,7 @@ export default class TodoInput {
             <input class="input-content" placeholder="내용을 입력하세요" maxlength ='500' />
             <div class="input-button-wrapper">
                 <button class="input__button input--cancel">취소</button>
-                <button class="input__button input--register" disabled>등록</button>
+                <button class="input__button input--register bg-sky-blue" disabled>등록</button>
             </div>
         </article>
     `;

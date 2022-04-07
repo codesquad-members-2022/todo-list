@@ -145,8 +145,12 @@ button {
   display: none;
 }
 
-.sky-blue {
-  color: #0075de;
+.bg-sky-blue {
+  background: #86c6ff;
+}
+
+.bg-blue {
+  background: #0075de;
 }
 
 .alarm {
@@ -236,7 +240,6 @@ button {
   margin-right: 8px;
 }
 .input-wrapper .input-button-wrapper .input--register {
-  background: #86c6ff;
   color: #fff;
 }
 
