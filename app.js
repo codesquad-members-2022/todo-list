@@ -17,34 +17,3 @@ class App {
   }
 }
 new App(document.body);
-
-
-
-MainSection
-this.state = {
-  list: [
-    TodoList:{
-      selected: -1,
-      title: "해야할 일",
-      todos: [
-        TodoCard:{
-          title: "",
-          contents: "",
-          caption: "",
-        },
-      ],
-    },
-    {
-      selected: -1,
-      title: "하고 있는 일",
-      todos: [
-        {
-          title: "",
-          contents: "",
-          caption: "",
-        },
-      ],
-    },
-    {},
-  ],
-};

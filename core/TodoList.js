@@ -2,7 +2,9 @@ import Component from "./Component";
 
 export class TodoList extends Component {
   template() {
-    const { lists } = this.state;
+    const {
+      lists: { title, todos },
+    } = this.state;
     return `
 <div class="todo-title">
             <span class="todo-name">${title}
