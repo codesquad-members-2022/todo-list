@@ -87,7 +87,10 @@ TO-DO LIST 기능 정리
 
 - [ ] TODO COUNT (Muffin)
 
-  - [ ] 맨 처음 로드시 각 Column의 개수만큼 TODO COUNT 셋팅
+  - [x] 맨 처음 로드시 각 Column의 개수만큼 TODO COUNT 셋팅
+    - TodoColumn을 만듬과 동시에 TodoColumn이 TodoCount를 알고 있게 한다?
+    - TodoColumn 생성자에서 TodoInput을 만들때, onRegisterBtn에 대한 콜백함수를 넘겨줘야할까 ?
+    - 그 이전에, TodoColumn 클래스는 TodoColumn만 관리하는 데이터만 있어야할텐데. TodoInput을 알아도 될까?
   - [ ] 투두 카드 등록 완료 후 해당 Column에 맞는 Count 증가
     - TodoColumn 클래스에서 할지? TodoCount 클래스 만들어서 할지 고민
     - count data를 column 마다 계속 가지고 있어서 카드 등록 시 count + 1 해주기
@@ -113,11 +116,11 @@ TO-DO LIST 기능 정리
 
 - [ ] TODO UPDATE (Jinnie)
 
-  - [ ] 카드 더블클릭시 수정이 가능한 상태로 변경
+  - [x] 카드 더블클릭시 수정이 가능한 상태로 변경
     - dbclick addeventlistener 에서 수정 변경 가능하도록 구현
-    - state 값을 두어서 현재 카드가 수정상태인지 판별
+    - ~state 값을 두어서 현재 카드가 수정상태인지 판별~
   - [ ] 취소 버튼 클릭시 수정 취소. 변경사항 반영 X
-    - 수정 여부의 데이터 state값을 false로 하여 카드 원복
+    - ~수정 여부의 데이터 state값을 false로 하여 카드 원복~
   - [ ] 내용을 모두 삭제시 수정 버튼 비활성화, 내용을 수정한 후 수정버튼 클릭시 변경사항 반영
     - content 내용이 없을 시 버튼 비활성화
 
@@ -131,10 +134,13 @@ TO-DO LIST 기능 정리
 
 - [ ] MENU 버튼 클릭 시 화면 노출 (Muffin)
 
-  - [ ] 애니메이션 효과 추가
+  - [x] 애니메이션 효과 추가
   - [x] X 버튼 클릭 시 MENU 화면 없어짐
-  - [ ] 최신순으로 보여주기
+  - [x] 사용자 액션 최신순으로 보여주기
   - [x] 기록이 많아지면 스크롤 생성
+  - [x] 이동, 추가, 수정, 삭제시 Alarm Class가 알 수 있도록 TodoNotice 클래스 구현
+  - [x] title, content, status 값은 bold 처리해서 렌더링
+  - [ ] 코드 리팩토링
 
 - [ ] TODO DRAG & DROP (Muffin)
 
