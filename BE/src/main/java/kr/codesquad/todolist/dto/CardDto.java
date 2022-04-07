@@ -2,21 +2,19 @@ package kr.codesquad.todolist.dto;
 
 import kr.codesquad.todolist.domain.Card;
 
-import java.time.LocalDateTime;
 
 public class CardDto {
 
-    private final String author;
-    private final Integer columnId;
-    private final String subject;
-    private final String contents;
+    private String author;
+    private Integer columnId;
+    private String subject;
+    private String contents;
 
+    private CardDto() {
+    }
 
-    public CardDto(String author, Integer columnId, String subject, String contents) {
-        this.author = author;
-        this.columnId = columnId;
-        this.subject = subject;
-        this.contents = contents;
+    public Card toEntity() {
+        return Card.of(this.author, this.columnId, this.subject, this.contents);
     }
 
     public String getAuthor() {
@@ -35,7 +33,13 @@ public class CardDto {
         return contents;
     }
 
-    public Card toEntity() {
-        return Card.of(this.author, this.columnId, this.subject, this.contents);
+    @Override
+    public String toString() {
+        return "CardDto{" +
+                "author='" + author + '\'' +
+                ", columnId=" + columnId +
+                ", subject='" + subject + '\'' +
+                ", contents='" + contents + '\'' +
+                '}';
     }
 }

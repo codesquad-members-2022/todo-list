@@ -1,41 +1,53 @@
 package kr.codesquad.todolist.controller;
 
-import kr.codesquad.todolist.domain.Card;
 import kr.codesquad.todolist.dto.CardDto;
 import kr.codesquad.todolist.dto.CardResponse;
 import kr.codesquad.todolist.service.CardService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/mockup")
 public class mockupController {
-
+    private final Logger log = LoggerFactory.getLogger(mockupController.class);
     private final CardService cardService;
 
     public mockupController(CardService cardService) {
         this.cardService = cardService;
     }
 
+    @PostMapping("/card")
+    public ResponseEntity<CardResponse> create(@RequestBody CardDto cardDto) {
+        log.info(cardDto.toString());
+        CardResponse cardResponse = cardService.create(cardDto);
+
+        return new ResponseEntity<>(cardResponse, HttpStatus.OK);
+    }
+
     @GetMapping("/cards")
-    public ResponseEntity<List<CardResponse>> findOne() {
-        CardResponse card1 = new CardResponse(1L, 1, "ron2", "subject", "contents", LocalDateTime.now());
-        CardResponse card2 = new CardResponse(2L,  2,"vans", "subject", "contents", LocalDateTime.now());
-        ResponseEntity<List<CardResponse>> cardResponseEntity = new ResponseEntity<>(List.of(card1, card2), HttpStatus.OK);
+    public ResponseEntity<List<CardResponse>> findAll() {
+        List<CardResponse> cards = cardService.findAll();
 
-        return cardResponseEntity;
+        return new ResponseEntity<>(cards, HttpStatus.OK);
     }
 
-    @PostMapping("/card/new")
-    public ResponseEntity<CardDto> create(@RequestBody CardDto cardDto) {
-        System.out.println(cardDto.toString());
+    @GetMapping("/card/{id}")
+    public ResponseEntity<CardResponse> findOne(@PathVariable Long id) {
+        CardResponse card = cardService.findOne(id);
 
-        return new ResponseEntity<>(cardDto, HttpStatus.OK);
+        return new ResponseEntity<>(card, HttpStatus.OK);
     }
 
+    @DeleteMapping("/card/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable Long id) {
+        boolean isDeleted = cardService.delete(id);
+
+        return new ResponseEntity<>(isDeleted, HttpStatus.OK);
+    }
 
 }
