@@ -13,8 +13,8 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public void create(CardCreateRequest createRequest) {
+    public Card create(CardCreateRequest createRequest) {
         Card card = DtoConverter.dtoToEntity(createRequest);
-        cardRepository.create(card);
+        return cardRepository.create(card);
     }
 }

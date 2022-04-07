@@ -24,7 +24,28 @@ public class Card {
         this.deleted = builder.deleted;
     }
 
+    public Integer getCardId() {
+        return cardId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
     public static class Builder {
+
         private final Integer columnId;
         private final String title;
         private final String author;
@@ -63,5 +84,6 @@ public class Card {
         public Card build() {
             return new Card(this);
         }
+
     }
 }

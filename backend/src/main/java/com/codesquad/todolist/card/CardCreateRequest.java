@@ -32,4 +32,5 @@ public class CardCreateRequest {
     public Optional<String> getContent() {
         return Optional.ofNullable(content);
     }
+
 }

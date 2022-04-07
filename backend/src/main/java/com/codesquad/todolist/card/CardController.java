@@ -17,7 +17,7 @@ public class CardController {
     }
 
     @PostMapping
-    public void createCards(CardCreateRequest createRequest) {
+    public void create(CardCreateRequest createRequest) {
         cardService.create(createRequest);
     }
 }

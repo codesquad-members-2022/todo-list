@@ -12,6 +12,7 @@ public class CardRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    void create(Card card) {
+    public Card create(Card newCard) {
+        return newCard;
     }
 }
