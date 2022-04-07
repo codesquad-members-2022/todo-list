@@ -1,10 +1,10 @@
-package com.example.todo_list.model
+package com.example.todo_list.history.data
 
 import com.google.gson.annotations.SerializedName
 
 data class HistoryCard(
     val id: Int,
-    val todo: todo,
+    val todo: Todo,
 
     val action: String,
     @SerializedName("from status")
@@ -14,17 +14,7 @@ data class HistoryCard(
     val createdDateTime: String
 )
 
-data class todo(
-    val id: Int,
-    val title: String,
-    val contents: String,
-    val user: String,
-    val status: String,
-    val createdDateTime: String,
-    val updatedDateTime: String
-)
-
-data class Todos(
+data class Todo(
     val id: Int,
     val title: String,
     val contents: String,

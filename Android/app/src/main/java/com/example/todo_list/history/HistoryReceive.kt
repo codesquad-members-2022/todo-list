@@ -1,7 +1,7 @@
-package com.example.todo_list.model
+package com.example.todo_list.history
 
+import com.example.todo_list.history.data.HistoryCard
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -21,7 +21,4 @@ class HistoryReceive {
 interface HistoryApi {
     @GET("api/{todos}") // 어노테이션
     fun getHistory(@Path("todos") variable: String): Call<List<HistoryCard>>
-
-    @GET("api/{todos}")
-    fun getTodos(@Path("todos") variable: String): Call<List<Todos>>
 }
