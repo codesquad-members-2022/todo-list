@@ -11,9 +11,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codesquad.aos.todolist.R
 import com.codesquad.aos.todolist.common.utils.VerticalItemDecorator
-import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ActivityMainBinding
+import com.codesquad.aos.todolist.ui.adapter.LogCardListAdapter
 import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
+import com.codesquad.aos.todolist.ui.dialog.CompleteDialogFragment
+import com.codesquad.aos.todolist.ui.dialog.ProgressDialogFragment
+import com.codesquad.aos.todolist.ui.dialog.TodoDialogFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -21,8 +24,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var todoCardListAdapter: TodoCardListAdapter
     private lateinit var progressCardListAdapter: TodoCardListAdapter
     private lateinit var completeCardListAdapter: TodoCardListAdapter
+    private lateinit var logCardListAdapter: LogCardListAdapter
 
-    private val viewModel : TodoViewModel by viewModels()
+    private val viewModel: TodoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +40,13 @@ class MainActivity : AppCompatActivity() {
         setTodoRecyclerView()
         setProgressRecyclerView()
         setCompleteRecyclerView()
+        setLogRecyclerView()
 
         setDialogFragmentView()
     }
 
 
-    fun setTodoRecyclerView() {
+    private fun setTodoRecyclerView() {
         todoCardListAdapter = TodoCardListAdapter()
         binding.rvTodo.adapter = todoCardListAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
@@ -51,49 +56,57 @@ class MainActivity : AppCompatActivity() {
         viewModel.addTodo("byebye", "byebyebye")
     }
 
-    fun setProgressRecyclerView() {
+    private fun setProgressRecyclerView() {
         progressCardListAdapter = TodoCardListAdapter()
         binding.rvProgress.adapter = progressCardListAdapter
         binding.rvProgress.layoutManager = LinearLayoutManager(this)
         binding.rvProgress.addItemDecoration(VerticalItemDecorator(15))
 
-        var testList = listOf(
-            Card(1, "hihi", "byebye", "author by android"),
-            Card(
-                2,
-                "zoozoo",
-                "icecream icecream icecream icecream icecream icecream",
-                "author by iOS"
-            )
-        )
-        progressCardListAdapter.submitList(testList.toList())
+        viewModel.addProgress("han-todo", "오늘은 조시랑 같이 코딩하기")
     }
 
-    fun setCompleteRecyclerView() {
+    private fun setCompleteRecyclerView() {
         completeCardListAdapter = TodoCardListAdapter()
         binding.rvComplete.adapter = completeCardListAdapter
         binding.rvComplete.layoutManager = LinearLayoutManager(this)
         binding.rvComplete.addItemDecoration(VerticalItemDecorator(15))
 
-        var testList = listOf(
-            Card(1, "hi Han", "byebye", "author by android"),
-            Card(
-                2,
-                "zoozoo",
-                "icecream icecream icecream icecream icecream icecream",
-                "author by iOS"
-            )
-        )
-        completeCardListAdapter.submitList(testList.toList())
+        viewModel.addComplete("AOS-todo", "회의록 작성하기")
     }
 
-    fun setViewModel(){
-        viewModel.todo_list_ld.observe(this){
+    private fun setLogRecyclerView() {
+        logCardListAdapter = LogCardListAdapter()
+        binding.rvLog.adapter = logCardListAdapter
+        binding.rvLog.layoutManager = LinearLayoutManager(this)
+
+        viewModel.addLog("오늘 할일을 추가했습니다", "1분전")
+        viewModel.addLog("오늘 할일을 추가했습니다", "2분전")
+        viewModel.addLog("오늘 할일을 추가했습니다", "3분전")
+    }
+
+
+    private fun setViewModel() {
+        viewModel.todoListId.observe(this) {
+            binding.tvTodoBadgeCount.text = it.size.toString()
             todoCardListAdapter.submitList(it.toList())
+        }
+
+        viewModel.progressListId.observe(this) {
+            binding.tvProgressBadgeCount.text = it.size.toString()
+            progressCardListAdapter.submitList(it.toList())
+        }
+
+        viewModel.completeListId.observe(this) {
+            binding.tvCompleteBadgeCount.text = it.size.toString()
+            completeCardListAdapter.submitList(it.toList())
+        }
+
+        viewModel.LogListId.observe(this) {
+            logCardListAdapter.submitList(it.toList())
         }
     }
 
-    fun setMenuClick() {
+    private fun setMenuClick() {
         binding.toolbarMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.appbar_main_menu -> {
@@ -110,7 +123,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setDrawerListener() {
+    private fun setDrawerListener() {
         binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 Log.d("AppTest", "onDrawerSlide called")
@@ -129,7 +142,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun setDrawerClose() {
+    private fun setDrawerClose() {
         binding.ivCloseDrawer.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
             // 닫는 부분도 close()로만 하면 에러 발생
@@ -139,6 +152,18 @@ class MainActivity : AppCompatActivity() {
     private fun setDialogFragmentView() {
         binding.btnAddTodo.setOnClickListener {
             TodoDialogFragment().show(
+                supportFragmentManager, "DialogFragment"
+            )
+        }
+
+        binding.btnAddProgress.setOnClickListener {
+            ProgressDialogFragment().show(
+                supportFragmentManager, "DialogFragment"
+            )
+        }
+
+        binding.btnAddComplete.setOnClickListener {
+            CompleteDialogFragment().show(
                 supportFragmentManager, "DialogFragment"
             )
         }

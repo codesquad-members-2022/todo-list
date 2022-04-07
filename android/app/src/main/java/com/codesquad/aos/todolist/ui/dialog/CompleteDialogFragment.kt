@@ -1,4 +1,4 @@
-package com.codesquad.aos.todolist.ui
+package com.codesquad.aos.todolist.ui.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.codesquad.aos.todolist.R
 import com.codesquad.aos.todolist.databinding.FragmentCardDialogBinding
+import com.codesquad.aos.todolist.ui.TodoViewModel
 
-class TodoDialogFragment : DialogFragment() {
+class CompleteDialogFragment : DialogFragment() {
 
     private lateinit var binding: FragmentCardDialogBinding
     private val viewModel: TodoViewModel by activityViewModels()
@@ -30,15 +32,25 @@ class TodoDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btEnroll.setOnClickListener {
-            if(binding.etEnterContents.text.isNotEmpty() && binding.etEnterTitle.text.isNotEmpty()){
-                viewModel.addTodo(binding.etEnterTitle.text.toString(), binding.etEnterContents.text.toString())
+            if (binding.etEnterContents.text.isNotEmpty() && binding.etEnterTitle.text.isNotEmpty()) {
+                viewModel.addComplete(
+                    binding.etEnterTitle.text.toString(),
+                    binding.etEnterContents.text.toString()
+                )
+                dismiss()
+            } else if (binding.etEnterTitle.text.isNotEmpty()) {
+                viewModel.addComplete(binding.etEnterTitle.text.toString(), "")
+                dismiss()
+            } else if (binding.etEnterContents.text.isNotEmpty()) {
+                viewModel.addComplete(getString(R.string.new_todo), binding.etEnterContents.text.toString())
+                dismiss()
+            } else {
                 dismiss()
             }
         }
+
+        binding.btCancel.setOnClickListener {
+            dismiss()
+        }
     }
-
-
-
-
-
 }
