@@ -3,10 +3,10 @@ package com.example.todo.ui.toDo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.R
 import com.example.todo.common.ActionDiffCallback
@@ -25,18 +25,36 @@ class ToDoActivity : AppCompatActivity() {
     private lateinit var inProgressAdapter: TodoAdapter
     private lateinit var doneAdapter: TodoAdapter
     private lateinit var actionAdapter: ActionAdapter
-    private lateinit var drawerLayout: DrawerLayout
+    private val toDoViewModel: ToDoViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_todo)
-        setSupportActionBar(binding.tbMain)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        initializeTodoRecyclerViews()
+        setToolBar()
+        initializeRecyclerViews()
         addDummyDataInRecyclerView()
     }
 
+    private fun setToolBar(){
+        setSupportActionBar(binding.tbMain)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_action, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_menu -> {
+                binding.draw.openDrawer(GravityCompat.END)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     private fun addDummyDataInRecyclerView() {
         val todoList = mutableListOf<TodoItem>()
@@ -65,7 +83,7 @@ class ToDoActivity : AppCompatActivity() {
         actionAdapter.submitList(actionList)
     }
 
-    private fun initializeTodoRecyclerViews() {
+    private fun initializeRecyclerViews() {
         todoAdapter = TodoAdapter(TodoDiffCallback())
         inProgressAdapter = TodoAdapter(TodoDiffCallback())
         doneAdapter = TodoAdapter(TodoDiffCallback())
@@ -75,28 +93,26 @@ class ToDoActivity : AppCompatActivity() {
         binding.rvInProgress.adapter = inProgressAdapter
         binding.rvDone.adapter = doneAdapter
         binding.rvActionLog.adapter = actionAdapter
-        binding.rvTodo.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvInProgress.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvDone.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvActionLog.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-    }
+        binding.rvTodo.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvInProgress.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvDone.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvActionLog.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_action, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_menu -> {
-                binding.draw.openDrawer(GravityCompat.END)
-            }
+        toDoViewModel.todoList.observe(this){
+            todoAdapter.submitList(it)
         }
-        return super.onOptionsItemSelected(item)
+
+        toDoViewModel.inProgressList.observe(this){
+            inProgressAdapter.submitList(it)
+        }
+
+        toDoViewModel.doneList.observe(this){
+            doneAdapter.submitList(it)
+        }
+
+        toDoViewModel.actionList.observe(this){
+            actionAdapter.submitList(it)
+        }
     }
 
     companion object {
