@@ -1,1 +1,5 @@
-import "./column.scss";
+import "./Column.scss";
+
+export default class Column {
+  constructor() {}
+}

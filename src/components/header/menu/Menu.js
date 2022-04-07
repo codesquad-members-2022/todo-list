@@ -1,1 +1,1 @@
-import "./menu.scss";
+import "./Menu.scss";
