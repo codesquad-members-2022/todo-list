@@ -60,10 +60,10 @@ class SideView: UIView {
         closeButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         closeButton.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: -50).isActive = true
         
-        tableView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 20).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 20).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 
 }
