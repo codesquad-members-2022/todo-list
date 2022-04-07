@@ -25,7 +25,7 @@
   width: 276px;
   height: 40px;
   gap: 8px;
-  display: none;
+  display: flex;
 }
 
 .card-buttons-wrapper > * {
@@ -39,7 +39,7 @@
   background: #e0e0e0;
 }
 
-.edit-and-register-button {
+.register-button {
   background: #0075de;
   color: var(--white);
 }
