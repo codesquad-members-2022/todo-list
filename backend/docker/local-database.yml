@@ -2,8 +2,7 @@ version: "3"
 
 services:
   database:
-    image: mysql:latest
-    restart: always
+    image: mysql:8.0
     container_name: mysql-todolist
     ports:
       - "3306:3306"
