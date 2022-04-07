@@ -1,5 +1,10 @@
-package com.example.backend.controller.card;
+package com.example.backend.service.card;
 
+import com.example.backend.repository.card.jdbc.CardReadRepository;
+import com.example.backend.controller.card.dto.DailyPlan;
+import com.example.backend.controller.card.dto.DoingItem;
+import com.example.backend.controller.card.dto.HaveDoneItem;
+import com.example.backend.controller.card.dto.TodoItem;
 import com.example.backend.domain.card.CardType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

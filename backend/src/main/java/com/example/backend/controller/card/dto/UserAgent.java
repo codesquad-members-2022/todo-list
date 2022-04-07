@@ -1,4 +1,4 @@
-package com.example.backend.controller.card;
+package com.example.backend.controller.card.dto;
 
 public class UserAgent {
 

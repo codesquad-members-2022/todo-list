@@ -1,6 +1,9 @@
 package com.example.backend.controller.card;
 
 import com.example.backend.controller.ApiResult;
+import com.example.backend.controller.card.dto.DailyPlan;
+import com.example.backend.controller.card.dto.UserAgent;
+import com.example.backend.service.card.CardReadService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

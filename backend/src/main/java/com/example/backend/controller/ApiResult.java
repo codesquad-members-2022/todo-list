@@ -1,6 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.controller.card.UserAgent;
+import com.example.backend.controller.card.dto.UserAgent;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.http.HttpStatus;
 

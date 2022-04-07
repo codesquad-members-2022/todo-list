@@ -1,8 +1,8 @@
-package com.example.backend.controller.card;
+package com.example.backend.controller.card.dto;
 
 import java.time.LocalDateTime;
 
-public class DoingItem {
+public class TodoItem {
     private Long id;
     private String title;
     private String content;
@@ -10,7 +10,7 @@ public class DoingItem {
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
 
-    public DoingItem(Long id, String title, String content, String cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt) {
+    public TodoItem(Long id, String title, String content, String cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -42,4 +42,5 @@ public class DoingItem {
     public LocalDateTime getLastModifiedAt() {
         return lastModifiedAt;
     }
+
 }
