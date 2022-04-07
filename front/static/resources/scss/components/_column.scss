@@ -83,27 +83,43 @@
     top: 17px;
     right: 17px;
   }
-}
 
-.card--success {
-  border: 1px solid $button-bg-color-dark-blue;
+  &--success {
+    border: 1px solid $button-bg-color-dark-blue;
 
-  .card {
-    &__writer {
-      display: none;
-    }
+    .card {
+      &__writer {
+        display: none;
+      }
 
-    &__button-wrap {
-      margin-top: 16px;
+      &__button-wrap {
+        margin-top: 16px;
+      }
     }
   }
-}
 
-.card--write {
-  @extend .card--success;
-  border: 1px solid $button-bg-color-blue;
+  &--write {
+    @extend .card--success;
+    border: 1px solid $button-bg-color-blue;
 
-  .card__button--submit {
-    @extend .button--disabled;
+    .card__button--submit {
+      @extend .button--disabled;
+    }
+  }
+
+  &--delete {
+    background: #ffeeec;
+    border: 1px solid #ff4343;
+  }
+
+  &--translucence {
+    padding: 15px;
+    border: 1px solid $button-bg-color-blue;
+    opacity: 60%;
+  }
+
+  &--move {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
   }
 }

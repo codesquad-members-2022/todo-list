@@ -523,6 +523,23 @@ b {
   border: 1px solid #0075de;
 }
 
+.card--delete {
+  background: #ffeeec;
+  border: 1px solid #ff4343;
+}
+
+.card--translucence {
+  padding: 15px;
+  border: 1px solid #0075de;
+  opacity: 60%;
+}
+
+.card--move {
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+}
+
 .history-wrap {
   -webkit-box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
