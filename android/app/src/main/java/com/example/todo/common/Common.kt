@@ -1,5 +1,7 @@
 package com.example.todo.common
 
-enum class ProgressType(val value:String){
-    TO_DO("해야 할일"), IN_PROGRESS("하고 있는일"), DONE("한 일")
+import com.example.todo.R
+
+enum class ProgressType(val value: Int) {
+    TO_DO(R.string.progress_todo), IN_PROGRESS(R.string.progress_ing), DONE(R.string.progress_done)
 }
