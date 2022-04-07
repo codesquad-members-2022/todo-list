@@ -15,8 +15,6 @@ class TodoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.gray
-        setUIProperties(title: "해야 할 일")
     }
 
     func setUIProperties(title: String) {

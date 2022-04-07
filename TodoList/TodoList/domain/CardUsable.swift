@@ -7,10 +7,13 @@
 
 import Foundation
 
-protocol CardUsable: Codable {
-    func getSection() -> Card.Status
+protocol CardUsable: TableCardUsable {
+    func getDate() -> Date
+}
+
+protocol TableCardUsable {
+    func getSection() -> CardStatus
     func getTitle() -> String
     func getContents() -> String
-    func getDate() -> Date
     func getWriter() -> String
 }
