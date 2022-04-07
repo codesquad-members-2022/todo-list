@@ -32,6 +32,8 @@
 		E0A6BB2027FD213700F00575 /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB1F27FD213700F00575 /* URLSessionProtocol.swift */; };
 		E0A6BB2227FD214E00F00575 /* SessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2127FD214E00F00575 /* SessionError.swift */; };
 		E0A6BB2527FD9E6400F00575 /* CardPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */; };
+		E0A6BB2A27FE91B100F00575 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2927FE91B100F00575 /* LogViewController.swift */; };
+		E0A6BB2C27FE91BA00F00575 /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2B27FE91BA00F00575 /* LogViewModel.swift */; };
 		E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */; };
 		E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */; };
 		E0BE4C2B27FAAF6F0076403C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0BE4C2A27FAAF6F0076403C /* Assets.xcassets */; };
@@ -63,6 +65,8 @@
 		E0A6BB1F27FD213700F00575 /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 		E0A6BB2127FD214E00F00575 /* SessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionError.swift; sourceTree = "<group>"; };
 		E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPopupViewModel.swift; sourceTree = "<group>"; };
+		E0A6BB2927FE91B100F00575 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
+		E0A6BB2B27FE91BA00F00575 /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
 		E0BE4C1E27FAAF6E0076403C /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +149,15 @@
 			path = CardPopup;
 			sourceTree = "<group>";
 		};
+		E0A6BB2827FE91A400F00575 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				E0A6BB2927FE91B100F00575 /* LogViewController.swift */,
+				E0A6BB2B27FE91BA00F00575 /* LogViewModel.swift */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
 		E0BE4C1527FAAF6E0076403C = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +218,7 @@
 		E0BE4C3827FAAFE10076403C /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				E0A6BB2827FE91A400F00575 /* Log */,
 				E0A6BAEF27FB28B700F00575 /* Todo */,
 				E0A6BAE227FB1FAE00F00575 /* Main */,
 			);
@@ -339,6 +353,7 @@
 				E0A6BAFA27FB3DE300F00575 /* ColumnViewCell.swift in Sources */,
 				E0A6BAF127FB28CE00F00575 /* ColumnViewController.swift in Sources */,
 				E0A6BAFC27FBCD5800F00575 /* UiViewController+Extension.swift in Sources */,
+				E0A6BB2C27FE91BA00F00575 /* LogViewModel.swift in Sources */,
 				E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */,
 				E0A6BAF527FB325800F00575 /* UIColor+Extension.swift in Sources */,
 				E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */,
@@ -349,6 +364,7 @@
 				E0A6BAEE27FB255300F00575 /* UIConrtol+Extension.swift in Sources */,
 				E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */,
 				E0A6BAED27FB255300F00575 /* Date+Extension.swift in Sources */,
+				E0A6BB2A27FE91B100F00575 /* LogViewController.swift in Sources */,
 				E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */,
 				E0A6BAF727FB3C0B00F00575 /* PaddingLabel.swift in Sources */,
 				E0A6BAF327FB292900F00575 /* ColumnViewModel.swift in Sources */,

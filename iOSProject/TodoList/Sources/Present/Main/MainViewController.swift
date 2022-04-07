@@ -25,6 +25,13 @@ class MainViewController: UIViewController {
         ]
     }()
     
+    private let logViewController: LogViewController = {
+        let viewController = LogViewController()
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        viewController.view.isHidden = true
+        return viewController
+    }()
+    
     private let columnStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,6 +52,11 @@ class MainViewController: UIViewController {
         columnTableViews.forEach{ value in
             value.controller.delegate = self
         }
+        
+        self.titleBar.menuPublisher
+            .sink {
+                self.logViewController.view.isHidden = false
+            }.store(in: &cancellables)
     }
     
     private func attribute() {
@@ -54,8 +66,11 @@ class MainViewController: UIViewController {
     private func layout() {
         let safeArea = self.view.safeAreaLayoutGuide
 
+        self.embed(logViewController)
+        
         self.view.addSubview(titleBar.view)
         self.view.addSubview(columnStackView)
+        self.view.addSubview(logViewController.view)
         
         NSLayoutConstraint.activate([
             titleBar.view.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -66,7 +81,12 @@ class MainViewController: UIViewController {
             columnStackView.topAnchor.constraint(equalTo: titleBar.view.bottomAnchor, constant: 51),
             columnStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             columnStackView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 48),
-            columnStackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -48)
+            columnStackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -48),
+            
+            logViewController.view.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            logViewController.view.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            logViewController.view.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
+            logViewController.view.widthAnchor.constraint(equalToConstant: 428)
         ])
         
         columnTableViews.forEach {
