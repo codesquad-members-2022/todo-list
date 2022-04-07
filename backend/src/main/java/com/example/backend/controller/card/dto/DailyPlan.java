@@ -5,38 +5,47 @@ import java.util.List;
 public class DailyPlan {
 
     private List<TodoItem> todoItems;
-    private List<HaveDoneItem> haveDoneItems;
-    private List<DoingItem> doingItems;
-    private UserAgent userAgent;
+    private List<ProgressingItem> progressingItems;
+    private List<CompletedItem> completedItems;
+    private Author author;
 
     public DailyPlan (){};
 
-    public DailyPlan(List<TodoItem> todoItems, List<HaveDoneItem> haveDoneItems, List<DoingItem> doingItems) {
+    public DailyPlan(List<TodoItem> todoItems, List<ProgressingItem> progressingItems, List<CompletedItem> completedItems) {
         this.todoItems = todoItems;
-        this.haveDoneItems = haveDoneItems;
-        this.doingItems = doingItems;
+        this.progressingItems = progressingItems;
+        this.completedItems = completedItems;
     }
 
     public List<TodoItem> getTodoItems() {
         return todoItems;
     }
 
-    public List<HaveDoneItem> getHaveDoneItems() {
-        return haveDoneItems;
+    public void setTodoItems(List<TodoItem> todoItems) {
+        this.todoItems = todoItems;
     }
 
-    public List<DoingItem> getDoingItems() {
-        return doingItems;
+    public List<ProgressingItem> getProgressingItems() {
+        return progressingItems;
     }
 
-    public void setUserAgent(UserAgent userAgent) {
-        this.userAgent = userAgent;
+    public void setProgressingItems(List<ProgressingItem> progressingItems) {
+        this.progressingItems = progressingItems;
     }
 
-    @Override
-    public String toString() {
-        return "DailyPlan{" +
-                "userAgent=" + userAgent +
-                '}';
+    public List<CompletedItem> getCompletedItems() {
+        return completedItems;
+    }
+
+    public void setCompletedItems(List<CompletedItem> completedItems) {
+        this.completedItems = completedItems;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

@@ -2,19 +2,17 @@ package com.example.backend.controller.card.dto;
 
 import java.time.LocalDateTime;
 
-public class HaveDoneItem {
+public class ProgressingItem {
     private Long id;
     private String title;
     private String content;
-    private String cardType;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
 
-    public HaveDoneItem(Long id, String title, String content, String cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt) {
+    public ProgressingItem(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime lastModifiedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.cardType = cardType;
         this.createdAt = createdAt;
         this.lastModifiedAt = lastModifiedAt;
     }
@@ -41,14 +39,6 @@ public class HaveDoneItem {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getCardType() {
-        return cardType;
-    }
-
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
     }
 
     public LocalDateTime getCreatedAt() {

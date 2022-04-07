@@ -1,10 +1,10 @@
 package com.example.backend.controller.card.dto;
 
-public class UserAgent {
+public class Author {
 
     private String userAgent;
 
-    public UserAgent(String userAgent){
+    public Author(String userAgent){
         this.userAgent = userAgent;
     }
 
