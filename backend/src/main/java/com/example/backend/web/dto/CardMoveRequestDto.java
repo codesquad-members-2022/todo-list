@@ -1,13 +1,13 @@
 package com.example.backend.web.dto;
 
-public class CardsMoveRequestDto {
+public class CardMoveRequestDto {
     private Long id;
     private Long currentIndex;
     private String currentStatus;
     private Long newIndex;
     private String newStatus;
 
-    public CardsMoveRequestDto(Long id, Long currentIndex, String currentStatus, Long newIndex, String newStatus) {
+    public CardMoveRequestDto(Long id, Long currentIndex, String currentStatus, Long newIndex, String newStatus) {
         this.id = id;
         this.currentIndex = currentIndex;
         this.currentStatus = currentStatus;

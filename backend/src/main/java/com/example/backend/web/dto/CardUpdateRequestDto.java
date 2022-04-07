@@ -1,10 +1,10 @@
 package com.example.backend.web.dto;
 
-public class CardsUpdateRequestDto {
+public class CardUpdateRequestDto {
     private String title;
     private String content;
 
-    public CardsUpdateRequestDto(String title, String content) {
+    public CardUpdateRequestDto(String title, String content) {
         this.title = title;
         this.content = content;
     }

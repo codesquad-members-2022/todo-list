@@ -1,43 +1,43 @@
 package com.example.backend.web.controller;
 
 import com.example.backend.domain.Column;
-import com.example.backend.service.CardsService;
+import com.example.backend.service.CardService;
 import com.example.backend.web.dto.CardSaveRequestDto;
-import com.example.backend.web.dto.CardsMoveRequestDto;
-import com.example.backend.web.dto.CardsUpdateRequestDto;
+import com.example.backend.web.dto.CardMoveRequestDto;
+import com.example.backend.web.dto.CardUpdateRequestDto;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CardsController {
 
-    private final CardsService cardsService;
+    private final CardService cardService;
 
-    public CardsController(CardsService cardsService) {
-        this.cardsService = cardsService;
+    public CardsController(CardService cardService) {
+        this.cardService = cardService;
     }
 
     @GetMapping("/cards")
     public Column cardList() {
-        return cardsService.findAll();
+        return cardService.findAll();
     }
 
     @PostMapping("/cards")
     public Long save(@RequestBody CardSaveRequestDto dto) {
-        return cardsService.save(dto);
+        return cardService.save(dto);
     }
 
     @PutMapping("/cards/{id}")
-    public Long update(@PathVariable Long id, @RequestBody CardsUpdateRequestDto dto) {
-        return cardsService.update(id, dto);
+    public Long update(@PathVariable Long id, @RequestBody CardUpdateRequestDto dto) {
+        return cardService.update(id, dto);
     }
 
     @DeleteMapping("/cards/{id}")
     public Long delete(@PathVariable Long id) {
-        return cardsService.delete(id);
+        return cardService.delete(id);
     }
 
     @PutMapping("/cards")
-    public Long move(@RequestBody CardsMoveRequestDto dto) {
-        return cardsService.move(dto);
+    public Long move(@RequestBody CardMoveRequestDto dto) {
+        return cardService.move(dto);
     }
 }

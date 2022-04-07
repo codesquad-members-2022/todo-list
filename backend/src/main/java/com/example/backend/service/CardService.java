@@ -4,18 +4,18 @@ import com.example.backend.domain.Card;
 import com.example.backend.domain.repository.CardRepository;
 import com.example.backend.domain.Column;
 import com.example.backend.web.dto.CardSaveRequestDto;
-import com.example.backend.web.dto.CardsMoveRequestDto;
-import com.example.backend.web.dto.CardsUpdateRequestDto;
+import com.example.backend.web.dto.CardMoveRequestDto;
+import com.example.backend.web.dto.CardUpdateRequestDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class CardsService {
+public class CardService {
 
     private final CardRepository cardRepository;
 
-    public CardsService(CardRepository cardRepository) {
+    public CardService(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
 
@@ -27,7 +27,7 @@ public class CardsService {
         return cardRepository.save(dto.toEntity());
     }
 
-    public Long update(Long id, CardsUpdateRequestDto dto) {
+    public Long update(Long id, CardUpdateRequestDto dto) {
         // 해당 id로 조회한 카드의 entity에 내용을 반영하여 전달
         Card card = findById(id);
         card.update(dto.getTitle(), dto.getTitle());
@@ -38,7 +38,7 @@ public class CardsService {
         return cardRepository.deleteById(id);
     }
 
-    public Long move(CardsMoveRequestDto dto) {
+    public Long move(CardMoveRequestDto dto) {
         return cardRepository.move(dto);
     }
 

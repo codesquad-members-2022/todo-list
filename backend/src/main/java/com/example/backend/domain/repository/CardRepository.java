@@ -2,7 +2,7 @@ package com.example.backend.domain.repository;
 
 import com.example.backend.domain.Card;
 import com.example.backend.domain.Column;
-import com.example.backend.web.dto.CardsMoveRequestDto;
+import com.example.backend.web.dto.CardMoveRequestDto;
 
 import java.util.Optional;
 
@@ -16,5 +16,5 @@ public interface CardRepository {
 
     Long deleteById(Long id);
 
-    Long move(CardsMoveRequestDto dto);
+    Long move(CardMoveRequestDto dto);
 }
