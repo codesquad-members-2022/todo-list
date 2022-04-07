@@ -19,7 +19,6 @@ class CardBoard {
     
     func addCard(title: String, content: String) {
         let card = cardFactory.createCard(title: title, contents: content)
-        // let data = try? JSONEncoder().encode(card)
-        todoCards.insert(card, at: 0) // 항상 맨 위에 추가
+        todoCards.insert(card, at: 0)
     }
 }

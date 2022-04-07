@@ -21,7 +21,7 @@ class CardBoardViewController: UIViewController {
         guard let todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {
             return
         }
-        addChild(todoViewController) // (embed) CardBoardVC의 child로 todoVC를 설정
+        addChild(todoViewController)
         todoContainerView.addSubview(todoViewController.view)
         todoViewController.view.frame = todoContainerView.frame
     }
