@@ -31,6 +31,7 @@ class CustomTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
         label.textColor = .black
+        label.numberOfLines = 3
         return label
     }()
     
