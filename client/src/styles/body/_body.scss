@@ -1,0 +1,134 @@
+$margin: 16px;
+$list-width: 308px;
+
+main {
+  display: flex;
+  padding: 0 80px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: $list-width;
+  margin-right: $margin;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: $margin;
+
+  .column-title {
+    @include font_style(700, 18px, 26px);
+    display: inline-block;
+    padding-right: 8px;
+  }
+
+  .item-count {
+    @include size(24px, 24px);
+    @include font_style(700, 14px, 20px);
+    display: inline-block;
+    border-radius: 50%;
+    background-color: $gray4-color;
+    text-align: center;
+    vertical-align: bottom;
+  }
+
+  .plus-icon {
+    margin-right: 12px;
+
+    path {
+      fill: $gray4-color;
+    }
+  }
+
+  .plus-icon:hover {
+    path {
+      fill: $blue-color;
+    }
+  }
+
+  .close-icon {
+    path {
+      fill: $gray4-color;
+    }
+  }
+
+  .close-icon:hover {
+    path {
+      fill: $red-color;
+    }
+  }
+}
+
+.column-list {
+  .list_item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: $margin;
+    padding: 16px;
+    border-radius: 6px;
+  }
+
+  .item-info {
+    width: 100%;
+
+    input {
+      width: 100%;
+      border: none;
+      background-color: none;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .item-title {
+      @include font_style(700, 16px, 23px);
+      margin-bottom: 8px;
+    }
+
+    .item-content {
+      @include font_style(400, 14px, 20px);
+      margin-bottom: 8px;
+    }
+
+    .item-caption {
+      @include font_style(400, 12px, 17px);
+      color: $gray4-color;
+    }
+  }
+}
+
+.layer {
+  @include size(100%, 100%);
+  position: fixed;
+  top: 0%;
+
+  .alert {
+    @include font_style(400, 18px, 26px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 400px;
+    padding: 24px;
+    border-radius: 6px;
+    transform: translate(-50%, -50%);
+    background-color: $white-color;
+    box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
+      0px 2px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+
+    .alert_message {
+      width: 100%;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+  }
+}
