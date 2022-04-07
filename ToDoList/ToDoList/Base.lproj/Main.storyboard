@@ -3,6 +3,7 @@
     <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,9 +40,36 @@
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X1P-eL-nXY">
                                 <rect key="frame" x="0.0" y="0.0" width="1194" height="72"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPZ-hO-hoZ">
+                                        <rect key="frame" x="48" y="13" width="169" height="46"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="6kC-LD-dKc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbQ-OZ-NhV">
+                                        <rect key="frame" x="1125" y="31" width="17" height="11"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="11" id="26h-6h-3YS"/>
+                                            <constraint firstAttribute="width" constant="17" id="3eV-Z1-fSf"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <imageReference key="image" image="line.3.horizontal" catalog="system" symbolScale="large"/>
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.96272128820000002" green="0.95925337079999995" blue="0.97011226419999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="ZPZ-hO-hoZ" firstAttribute="leading" secondItem="X1P-eL-nXY" secondAttribute="leading" constant="48" id="Akk-gd-ZKF"/>
+                                    <constraint firstAttribute="trailing" secondItem="mbQ-OZ-NhV" secondAttribute="trailing" constant="52" id="PPA-Xi-etM"/>
+                                    <constraint firstItem="mbQ-OZ-NhV" firstAttribute="top" secondItem="X1P-eL-nXY" secondAttribute="top" constant="31" id="TRD-m0-BNy"/>
                                     <constraint firstAttribute="height" constant="72" id="cWJ-yI-Ncd"/>
+                                    <constraint firstItem="ZPZ-hO-hoZ" firstAttribute="top" secondItem="X1P-eL-nXY" secondAttribute="top" constant="13" id="hOd-Qc-WkQ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -132,6 +160,7 @@
                                 <sections/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Hel-pG-Thb"/>
                     </stackView>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VM1-Oe-W0G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -200,6 +229,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="cJ7-V6-gMJ"/>
                     </stackView>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JzU-QP-8kh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -268,6 +298,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="c08-mJ-cba"/>
                     </stackView>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bwl-Ar-Sgr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -276,6 +307,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="line.3.horizontal" catalog="system" width="128" height="64"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
