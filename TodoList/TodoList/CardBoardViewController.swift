@@ -23,9 +23,12 @@ class CardBoardViewController: UIViewController {
         }
         addChild(todoViewController)
         todoContainerView.addSubview(todoViewController.view)
-        todoViewController.view.frame = todoContainerView.frame
+        todoViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        todoViewController.view.heightAnchor.constraint(equalTo: todoContainerView.heightAnchor, constant: 0).isActive = true
+        todoViewController.view.widthAnchor.constraint(equalTo: todoContainerView.widthAnchor, constant: 0).isActive = true
+        todoViewController.view.centerXAnchor.constraint(equalTo: todoContainerView.centerXAnchor, constant: 0).isActive = true
+        
+        
     }
-    
-    
 }
 
