@@ -8,16 +8,15 @@
 import Foundation
 
 struct Card: Codable {
+    let id: Int
     let title: String
     let body: String
     let caption: String
-    let orderIndex: Int
     
     enum CodingKeys: String, CodingKey {
-        case title
+        case title, id
         case body = "content"
         case caption = "author_system"
-        case orderIndex = "order_index"
     }
 }
 

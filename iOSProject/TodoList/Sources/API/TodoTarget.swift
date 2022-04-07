@@ -8,11 +8,11 @@
 import Foundation
 
 enum TodoTarget: BaseTarget {
-    case loadColumn
-    case moveCard(_ cardIndex: Int, toColumn: Card.Status)
-    case deleteCard(_ cardIndex: Int)
-    case editCard(_ cardIndex: Int, title: String, body: String)
-    case addCard(title: String, body: String)
+    case loadColumn(_ column: Card.Status)
+    case moveCard(_ cardId: Int, fromColumn: Card.Status, toColumn: Card.Status)
+    case deleteCard(_ cardId: Int)
+    case editCard(_ cardId: Int, title: String, body: String)
+    case addCard(title: String, body: String, column: Card.Status)
 }
 
 extension TodoTarget {
@@ -33,15 +33,16 @@ extension TodoTarget {
     
     var parameter: [String:Any]? {
         switch self {
-        case .loadColumn: return nil
-        case .moveCard(let cardIndex, let toColumn):
-            return ["cardIndex": cardIndex, "toColumn": toColumn.rawValue]
-        case .deleteCard(let cardIndex):
-            return ["cardIndex": cardIndex]
-        case .editCard(let cardIndex, let title, let body):
-            return ["cardIndex": cardIndex, "title": title, "body":body]
-        case .addCard(let title, let body):
-            return ["title": title, "body":body]
+        case .loadColumn(let column):
+            return ["column": column.rawValue]
+        case .addCard(let title, let body, let column):
+            return ["title": title, "content":body, "column":column.rawValue]
+        case .moveCard(let cardId, let fromColumn, let toColumn):
+            return ["id": cardId, "from_column": fromColumn.rawValue, "to_column": toColumn.rawValue]
+        case .editCard(let cardId, let title, let body):
+            return ["id": cardId, "title": title, "content":body]
+        case .deleteCard(let cardId):
+            return ["id": cardId]
         }
     }
     

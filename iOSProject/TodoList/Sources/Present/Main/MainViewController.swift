@@ -19,9 +19,9 @@ class MainViewController: UIViewController {
     
     private let columnTableViews: [ColumnViewProperty&ColumnViewInput] = {
         return [
-            ColumnViewController(status: .todo),
-            ColumnViewController(status: .progress),
-            ColumnViewController(status: .done)
+            ColumnViewController(model: ColumnViewModel(columnType: .todo)),
+            ColumnViewController(model: ColumnViewModel(columnType: .progress)),
+            ColumnViewController(model: ColumnViewModel(columnType: .done))
         ]
     }()
     
