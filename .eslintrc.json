@@ -18,6 +18,7 @@
         "singleQuote": true,
         "arrowParens": "avoid"
       }
-    ]
+    ],
+    "import/no-unresolved": "off"
   }
 }
