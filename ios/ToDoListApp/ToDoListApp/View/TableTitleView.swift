@@ -82,11 +82,11 @@ class TableTitleView: UIView {
 // MARK: - functions
 
 extension TableTitleView {
-    func currentNumberOfItem(item: Int){
-        badgeLabel.text = "\(item)"
+    func changeBadgeLabel(text count: Int){
+        badgeLabel.text = "\(count)"
     }
     
-    func changeTitleLable(text: String) {
+    func changeTitleLabel(text: String) {
         titleLabel.text = text
     }
 }

@@ -39,12 +39,13 @@ class DoneViewController: UIViewController {
     }
     
     private func configureTableTitleView() {
-        tableTitleView.currentNumberOfItem(item: CellData.dataList.count)
-        tableTitleView.changeTitleLable(text: "완료한 일")
+        tableTitleView.changeBadgeLabel(text: CellData.dataList.count)
+        tableTitleView.changeTitleLabel(text: "완료한 일")
     }
     
     private func layoutTableTitleView() {
         tableTitleView.translatesAutoresizingMaskIntoConstraints = false
+        
         tableTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableTitleView.bottomAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
         tableTitleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -54,6 +55,7 @@ class DoneViewController: UIViewController {
     
     private func layoutTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         tableView.topAnchor.constraint(equalTo: tableTitleView.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
