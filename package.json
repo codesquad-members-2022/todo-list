@@ -109,7 +109,8 @@
     "wildcard": "^2.0.0"
   },
   "scripts": {
-    "build": "webpack -w"
+    "build": "webpack -w",
+    "server": "json-server server/db.json -w"
   },
   "repository": {
     "type": "git",
