@@ -1,4 +1,4 @@
-export default function TodoHeader() {
+export default function TodoNoticeAnimation() {
   this.headerMenuElement = document.querySelector('.header__menu');
   this.alarmElement = document.querySelector('.alarm-wrapper');
   this.closeBtnElement = document.querySelector('.alarm__closeBtn');

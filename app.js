@@ -1,4 +1,4 @@
-import TodoHeader from './components/TodoHeader.js';
+import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
 import TodoCount from './components/TodoCount.js';
@@ -8,7 +8,7 @@ const app = () => {
   new TodoColumn('ing');
   new TodoColumn('complete');
 
-  new TodoHeader();
+  new TodoNoticeAnimation();
 
   // 하나의 객체
   const todos = JSON.parse(localStorage.getItem('todos')) ? JSON.parse(localStorage.getItem('todos')) : [];

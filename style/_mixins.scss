@@ -1,6 +1,7 @@
-@mixin flexbox($horizon) {
+@mixin flexbox($horizon: 'inherit', $vertical: 'stretch') {
   display: flex;
   justify-content: $horizon;
+  align-items: $vertical;
 }
 
 @mixin margincenter {

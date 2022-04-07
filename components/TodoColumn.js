@@ -1,28 +1,12 @@
 import TodoInput from './TodoInput.js';
 export default class TodoColumn {
   constructor(status) {
-    this.target = document.querySelector('.column-section');
+    this.parentTarget = document.querySelector('.column-section');
     this.status = status;
     this.todoInput = new TodoInput(this.status);
     this.onInput = false;
     this.render();
   }
-
-  onMouseOver = ({ target }) => {
-    if (target.classList.contains('column__add')) {
-      if (!target.classList.contains('sky-blue')) {
-        target.classList.add('sky-blue');
-      }
-    }
-  };
-
-  onMouseOut = ({ target }) => {
-    if (target.classList.contains('column__add')) {
-      if (target.classList.contains('sky-blue')) {
-        target.classList.remove('sky-blue');
-      }
-    }
-  };
 
   onAddClick = ({ target }) => {
     if (this.onInput) {
@@ -48,17 +32,14 @@ export default class TodoColumn {
                 <div class="column__count">0</div>
             </div>
             <div class="column__right">
-            <div class="column__add">+</div>
-            <div class="column__delete">x</div>
+            <button class="column__add">+</button>
+            <button class="column__delete">x</button>
             </div>
         </nav>
         
     </article>
       `;
-    this.target.insertAdjacentHTML('beforeend', columnListHTML);
-    // 이슈사항 정리 예정
-    document.querySelector(`.${this.status}`).addEventListener('mouseover', this.onMouseOver);
-    document.querySelector(`.${this.status}`).addEventListener('mouseout', this.onMouseOut);
+    this.parentTarget.insertAdjacentHTML('beforeend', columnListHTML);
     document.querySelector(`.${this.status}`).addEventListener('click', this.onAddClick);
   };
 }

@@ -135,12 +135,22 @@ table {
   border-spacing: 0;
 }
 
+button {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
 .no-display {
   display: none;
 }
 
-.sky-blue {
-  color: #0075de;
+.bg-sky-blue {
+  background: #86c6ff;
+}
+
+.bg-blue {
+  background: #0075de;
 }
 
 .alarm {
@@ -230,7 +240,6 @@ table {
   margin-right: 8px;
 }
 .input-wrapper .input-button-wrapper .input--register {
-  background: #86c6ff;
   color: #fff;
 }
 
@@ -238,22 +247,22 @@ body {
   background: #f5f5f7;
 }
 
-.header {
-  position: relative;
+.header__main {
   width: 1440px;
   height: 112px;
   display: flex;
   justify-content: space-between;
+  align-items: "stretch";
   align-items: center;
   margin: 0 auto;
 }
-.header__title {
+.header__main .header__title {
   font-size: 32px;
 }
-.header__menu {
+.header__main .header__menu {
   cursor: pointer;
 }
-.header__menu div {
+.header__main .header__menu div {
   width: 25px;
   height: 3px;
   background: #010101;
@@ -274,14 +283,16 @@ body {
   height: 42px;
   display: flex;
   justify-content: space-between;
+  align-items: "stretch";
 }
 .column-list .column__left {
+  gap: 5px;
   display: flex;
+  justify-content: inherit;
   align-items: center;
 }
 .column-list .column__title {
   font-size: 18px;
-  margin-right: 5px;
   font-weight: 700;
 }
 .column-list .column--count {
@@ -294,13 +305,17 @@ body {
 }
 .column-list .column__right {
   color: #bdbdbd;
+  gap: 5px;
   display: flex;
+  justify-content: inherit;
   align-items: center;
 }
 .column-list .column__add {
   font-size: 20px;
-  margin-right: 5px;
   cursor: pointer;
+}
+.column-list .column__add:hover {
+  color: #86c6ff;
 }
 .column-list .column__delete {
   font-size: 20px;
@@ -316,6 +331,7 @@ body {
 .column-list .card header {
   display: flex;
   justify-content: space-between;
+  align-items: "stretch";
 }
 .column-list .card header h3 {
   font-weight: bold;

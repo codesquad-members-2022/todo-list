@@ -8,17 +8,16 @@
 body {
   background: $color-grey-light;
 }
-.header {
-  position: relative;
+.header__main {
   width: 1440px;
   height: 112px;
   @include flexbox(space-between);
   align-items: center;
   @include margincenter();
-  &__title {
+  .header__title {
     font-size: $font-32;
   }
-  &__menu {
+  .header__menu {
     cursor: pointer;
     div {
       width: 25px;
@@ -41,12 +40,11 @@ body {
     height: 42px;
     @include flexbox(space-between);
     &__left {
-      display: flex;
-      align-items: center;
+      gap: 5px;
+      @include flexbox(inherit, center);
     }
     &__title {
       font-size: $font-18;
-      margin-right: 5px;
       font-weight: $font-700;
     }
     &--count {
@@ -59,13 +57,15 @@ body {
     }
     &__right {
       color: $color-grey;
-      display: flex;
-      align-items: center;
+      gap: 5px;
+      @include flexbox(inherit, center);
     }
     &__add {
       font-size: $font-20;
-      margin-right: 5px;
       cursor: pointer;
+      &:hover {
+        color: $color-blue-light;
+      }
     }
     &__delete {
       font-size: $font-20;
