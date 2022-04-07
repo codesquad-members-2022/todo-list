@@ -153,6 +153,10 @@ button {
   background: #0075de;
 }
 
+.todo-border {
+  border: 1px solid #0075de;
+}
+
 .alarm {
   width: 452px;
   height: 100vh;
@@ -199,15 +203,14 @@ button {
   color: #828282;
 }
 
-.input-wrapper {
-  width: 308px;
-  height: 140px;
+.input-wrapper,
+.edit-input-wrapper {
   padding: 16px;
   border-radius: 6px;
   background: #fff;
-  border: 1px solid #0075de;
 }
-.input-wrapper .input-header {
+.input-wrapper .input-header,
+.edit-input-wrapper .input-header {
   color: #828282;
   font-weight: 700;
   font-size: 16px;
@@ -215,17 +218,19 @@ button {
   border: none;
   outline: none;
 }
-.input-wrapper .input-content {
-  width: 100%;
-  height: 20px;
+.input-wrapper .input-content,
+.edit-input-wrapper .input-content {
+  display: block;
   margin-bottom: 16px;
   border: none;
   outline: none;
 }
-.input-wrapper .input-button-wrapper {
+.input-wrapper .input-button-wrapper,
+.edit-input-wrapper .input-button-wrapper {
   display: flex;
 }
-.input-wrapper .input-button-wrapper .input__button {
+.input-wrapper .input-button-wrapper .input__button,
+.edit-input-wrapper .input-button-wrapper .input__button {
   width: 134px;
   height: 40px;
   border-radius: 6px;
@@ -234,12 +239,18 @@ button {
   border: none;
   outline: none;
 }
-.input-wrapper .input-button-wrapper .input--cancel {
+.input-wrapper .input-button-wrapper .input--cancel,
+.input-wrapper .input-button-wrapper .edit-input--cancel,
+.edit-input-wrapper .input-button-wrapper .input--cancel,
+.edit-input-wrapper .input-button-wrapper .edit-input--cancel {
   background: #e0e0e0;
   color: #828282;
   margin-right: 8px;
 }
-.input-wrapper .input-button-wrapper .input--register {
+.input-wrapper .input-button-wrapper .input--register,
+.input-wrapper .input-button-wrapper .edit-input--register,
+.edit-input-wrapper .input-button-wrapper .input--register,
+.edit-input-wrapper .input-button-wrapper .edit-input--register {
   color: #fff;
 }
 
