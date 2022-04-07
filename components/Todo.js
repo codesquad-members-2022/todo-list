@@ -1,3 +1,5 @@
+import TodoEdit from './TodoEdit.js';
+
 export default class Todo {
   constructor(todoData) {
     this.todoData = todoData;
@@ -18,9 +20,15 @@ export default class Todo {
   };
 
   run = () => {
-    document.getElementById().addEventListener('click', this.makeEdit);
+    document.getElementById(this.todoData.id).addEventListener('dblclick', this.makeEdit);
   };
+
   makeEdit = () => {
-    console.log('hi');
+    //수정폼 판별...
+
+    const todoEdit = new TodoEdit(this.todoData.id, this.todoData.content);
+    //document.getElementById(this.todoData.id).remove();
+    document.getElementById(this.todoData.id).classList.add('todo-border');
+    document.getElementById(this.todoData.id).innerHTML = todoEdit.render();
   };
 }
