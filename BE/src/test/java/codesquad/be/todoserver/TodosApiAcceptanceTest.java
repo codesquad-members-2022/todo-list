@@ -13,18 +13,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-/**
- * 인수 테스트 : 클라이언트가 Todo를 특정 id로 조회할 수 있게 해주세요.
- * 성공
- * • GET /api/todos/{id} 요청 값을 받는다.
- * • DB 에서 요청 받은 id 로 해당 todo 를 찾아 보낸다
- * • 응답은 반드시 todo 형태로 간다. (200 OK)
- *
- * 실패
- * • GET /api/todos/{id} 요청 값을 받는다.
- * • DB 에서 요청 받은 id 로 해당 todo 를 찾아 보낸다
- * • todo가 없는 경우 에러를 응답한다. (404 NOT FOUND)
- */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @DisplayName("API /api/todos/* 인수 테스트")
 class TodosApiAcceptanceTest {
@@ -42,10 +30,10 @@ class TodosApiAcceptanceTest {
         given()
             .accept(MediaType.APPLICATION_JSON_VALUE)
 
-            .when()
+        .when()
             .get("/api/todos/1")
 
-            .then()
+        .then()
             .statusCode(HttpStatus.OK.value())
             .assertThat()
             .body("id", equalTo(1))
@@ -60,10 +48,10 @@ class TodosApiAcceptanceTest {
         given()
             .accept(MediaType.APPLICATION_JSON_VALUE)
 
-            .when()
+        .when()
             .get("/api/todos/4444")
 
-            .then()
+        .then()
             .statusCode(HttpStatus.NOT_FOUND.value());
     }
 }
