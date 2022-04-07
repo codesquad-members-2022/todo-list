@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		378533AC27FEB45400E86BDC /* LogViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378533AB27FEB45400E86BDC /* LogViewCell.swift */; };
 		E0A6BAE127FB1F9F00F00575 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAE027FB1F9F00F00575 /* MainViewController.swift */; };
 		E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAE727FB20DE00F00575 /* MainTitleBarView.swift */; };
 		E0A6BAED27FB255300F00575 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAEA27FB255300F00575 /* Date+Extension.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		378533AB27FEB45400E86BDC /* LogViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewCell.swift; sourceTree = "<group>"; };
 		E0A6BAE027FB1F9F00F00575 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E0A6BAE727FB20DE00F00575 /* MainTitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleBarView.swift; sourceTree = "<group>"; };
 		E0A6BAEA27FB255300F00575 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				E0A6BB2927FE91B100F00575 /* LogViewController.swift */,
+				378533AB27FEB45400E86BDC /* LogViewCell.swift */,
 				E0A6BB2B27FE91BA00F00575 /* LogViewModel.swift */,
 			);
 			path = Log;
@@ -361,6 +364,7 @@
 				E0A6BB1E27FD211C00F00575 /* URLSessionProvider.swift in Sources */,
 				E0A6BB2527FD9E6400F00575 /* CardPopupViewModel.swift in Sources */,
 				E0A6BB1B27FC85D400F00575 /* MockURLSession.swift in Sources */,
+				378533AC27FEB45400E86BDC /* LogViewCell.swift in Sources */,
 				E0A6BAEE27FB255300F00575 /* UIConrtol+Extension.swift in Sources */,
 				E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */,
 				E0A6BAED27FB255300F00575 /* Date+Extension.swift in Sources */,
@@ -430,7 +434,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -485,7 +489,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -500,15 +504,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = H2FTMY38H7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -529,15 +534,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = H2FTMY38H7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
