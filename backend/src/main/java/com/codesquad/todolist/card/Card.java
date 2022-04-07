@@ -59,5 +59,9 @@ public class Card {
             this.deleted = deleted;
             return this;
         }
+
+        public Card build() {
+            return new Card(this);
+        }
     }
 }
