@@ -88,6 +88,7 @@ video {
   border: 0;
   font-size: 10px;
   vertical-align: baseline;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -132,10 +133,65 @@ table {
   border-spacing: 0;
 }
 
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background-color: #F5F5F7;
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  border-radius: 0.6rem;
+}
+.modal__container {
+  box-sizing: border-box;
+  width: 40rem;
+  height: 13.8rem;
+  padding: 2.4rem;
+  background-color: #fff;
+  margin: auto;
+  font-size: 1.8rem;
+}
+.modal__btns {
+  position: relative;
+  top: 2rem;
+  left: 8rem;
+}
+.modal__btn--cancel {
+  width: 13.4rem;
+  height: 4rem;
+  border-radius: 0.6rem;
+  border: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background-color: #e0e0e0;
+  color: #828282;
+}
+.modal__btn--remove {
+  width: 13.4rem;
+  height: 4rem;
+  border-radius: 0.6rem;
+  border: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background-color: #0075de;
+  color: #fff;
+}
+
+.works {
+  display: flex;
+  background-color: #F5F5F7;
+}
+
+.work {
+  font-size: 1.6rem;
+  width: 30.8rem;
+  margin: 1.6rem;
+}
 .work__header {
   display: flex;
-  width: 30.8rem;
   justify-content: space-between;
+  margin-bottom: 1.6rem;
 }
 .work__left {
   display: flex;
@@ -146,6 +202,7 @@ table {
   font-weight: 700;
   color: #010101;
   margin-right: 0.8rem;
+  cursor: pointer;
 }
 .work__counter {
   display: flex;
@@ -158,6 +215,45 @@ table {
   font-size: 1.4rem;
   font-weight: 700;
   color: #010101;
+}
+.work__item {
+  background-color: #fff;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: 0.6rem;
+}
+
+.task {
+  display: flex;
+  padding: 1.6rem;
+  opacity: 1;
+  background-color: #fff;
+  border-radius: 0.6rem;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  justify-content: space-between;
+  margin-bottom: 1.6rem;
+  box-sizing: content-box;
+  border: 0;
+}
+.task__contents {
+  cursor: pointer;
+  width: 100%;
+}
+.task__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #010101;
+  margin-bottom: 0.8rem;
+}
+.task__desc {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #010101;
+  margin-bottom: 0.8rem;
+}
+.task__author {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #bdbdbd;
 }
 
 /*# sourceMappingURL=main.css.map */
