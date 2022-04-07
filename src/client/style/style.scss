@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+@import './reset';
+@import './mixin';
+@import './variables';
+@import './extends';
+
+/* Common */
+
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background-color: $gray-6;
+}
+
+/* Button */
+
+.btn {
+  &-normal {
+    @extend %btn;
+    color: $gray-3;
+    background-color: $gray-5;
+
+    &:hover {
+      color: $white;
+      background-color: $gray-3;
+    }
+
+    &:disabled {
+      color: $gray-3;
+      background-color: $gray-5;
+    }
+  }
+
+  &-accent {
+    @extend %btn;
+    color: $white;
+    font-weight: 700;
+    background-color: $blue;
+
+    &:hover {
+      background-color: $dark-blue;
+    }
+
+    &:disabled {
+      color: rgba(255, 255, 255, 0.4);
+      background-color: $light-blue;
+    }
+  }
+}
+
+/* Card */
+
+.card {
+  @extend %card;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-title {
+    font-size: 1.14rem;
+  }
+
+  &-author {
+    font-size: 0.85rem;
+    color: $gray-4;
+  }
+
+  &-btn-group {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &.active {
+    border: 1px solid $blue;
+  }
+
+  &.delete {
+    border: 1px solid $red;
+    background-color: $white-red;
+
+    .delete-btn path {
+      fill: $red;
+    }
+  }
+
+  &.drag {
+    box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
+      0px 2px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0.8;
+  }
+
+  &.place {
+    border: 1px solid $blue;
+    opacity: 0.4;
+  }
+
+  &.deactivate {
+    color: $gray-3;
+    border: 1px solid $blue;
+  }
+}
+
+/* Header */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+  padding: 0 5vw;
+
+  .title {
+    font-size: 2.28rem;
+    font-weight: 400;
+  }
+}
+
+/* Main */
+
+main {
+  margin: 0 5vw;
+  overflow: hidden;
+}
+
+.wrapper {
+  display: flex;
+  gap: 16px;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Column */
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 308px;
+  height: 80vh;
+  overflow: hidden;
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 0;
+
+    .badge {
+      width: 26px;
+      height: 26px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 24px;
+      background-color: $gray-4;
+      border-radius: 50%;
+    }
+
+    &-left {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &-right {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      * {
+        margin: 0 6px;
+      }
+    }
+
+    &-title {
+      font-size: 1.28rem;
+    }
+  }
+
+  &-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: scroll;
+  }
+}
+
+/* Action Layer */
+
+.action {
+  &-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 31vw;
+    max-width: 450px;
+    height: 100vh;
+    background-color: $white;
+    padding: 0 58px;
+  }
+
+  &-btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 10vh;
+  }
+
+  &-list {
+    height: 80vh;
+    overflow: scroll;
+  }
+
+  &-list-item {
+    display: flex;
+    gap: 16px;
+    font-size: 1.14rem;
+    padding: 16px;
+
+    .user-profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+
+  &-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    * {
+      font-size: 1.14rem;
+      line-height: 23px;
+    }
+
+    .executed-time {
+      color: $gray-3;
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+  }
+}

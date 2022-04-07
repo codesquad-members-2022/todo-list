@@ -1,6 +1,6 @@
 {
   "arrowParens": "avoid",
-  "bracketSpacing": false,
+  "bracketSpacing": true,
   "endOfLine": "auto",
   "htmlWhitespaceSensitivity": "css",
   "jsxBracketSameLine": false,
@@ -13,11 +13,6 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "useTabs": false,
-  "vueIndentScriptAndStyle": true,
-  "parser": "",
-  "filepath": "",
-  "requirePragma": false,
-  "insertPragma": false,
   "overrides": [ 
     {
       "files": "*.json",

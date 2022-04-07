@@ -1,16 +1,21 @@
 {
   "tasks": [
     {
-      "title":"eefeef",
-      "contents":"test",
-      "column":1,
-      "author": 1
+      "title": "블로그에 포스팅",
+      "contents": "Github 공부내용\n모던 자바스크립트 공부내용",
+      "column": 2,
+      "author": 1,
+      "id": 1
     }
   ],
   "columns": [
     {
-      "id": 1,
-      "name": "해야 할 일"
+      "name": "Have To Do",
+      "id": 1
+    },
+    {
+      "name": "In Progress",
+      "id": 2
     }
   ],
   "users": [
@@ -24,12 +29,13 @@
   "action": [
     {
       "user": 1,
-      "type": "POST",
-      "contents": [
-        1,
-        "eefeef"
-      ],
-      "executedTime": "2022-04-06T08:25:51.609Z"
+      "contents": "<p><b>Have To Do</b>에 <b>블로그에 포스팅</b>을(를) <b>등록</b>하였습니다.</p>",
+      "executedTime": "2022-04-06T21:24:55.381Z"
+    },
+    {
+      "user": 1,
+      "contents": "<p><b>블로그에 포스팅</b>을(를) <b>Have To Do</b>에서 <b>In Progress</b>(으)로 <b>등록</b>하였습니다.</p>",
+      "executedTime": "2022-04-06T21:25:18.174Z"
     }
   ]
 }
