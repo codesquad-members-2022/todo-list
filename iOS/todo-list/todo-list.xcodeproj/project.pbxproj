@@ -129,9 +129,7 @@
 			children = (
 				BC3D4A1527FD6F11009B37FB /* Model */,
 				BC3D4A1327FD6F02009B37FB /* View */,
-				5B349DD827FA9DBD00AA602E /* View */,
 				5B349DD727FA9DAA00AA602E /* ViewController */,
-				5B349DD627FA9D9F00AA602E /* Model */,
 				5B349DD527FA9D9400AA602E /* configuration */,
 				5B349DD427FA9D5F00AA602E /* Resource */,
 				5B349DA427FA9AFE00AA602E /* AppDelegate.swift */,
@@ -176,13 +174,6 @@
 			path = configuration;
 			sourceTree = "<group>";
 		};
-		5B349DD627FA9D9F00AA602E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		5B349DD727FA9DAA00AA602E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,13 +182,6 @@
 				5B349DE127FD7FF600AA602E /* ActivityRecoderController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		5B349DD827FA9DBD00AA602E /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		BC3D4A1327FD6F02009B37FB /* View */ = {
