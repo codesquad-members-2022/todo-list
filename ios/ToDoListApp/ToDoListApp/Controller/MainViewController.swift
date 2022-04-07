@@ -9,8 +9,10 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    private let kanbanViewControllers: [UIViewController] = {
-        return [ToDoViewController(), InProgressViewController(), DoneViewController()]
+    private let kanbanColumnViewControllers: [KanbanColumnViewController] = {
+        return [KanbanColumnViewController(type: .toDo),
+                KanbanColumnViewController(type: .inProgress),
+                KanbanColumnViewController(type: .done)]
     }()
     
     private let titleView = TitleView()
@@ -46,8 +48,8 @@ class MainViewController: UIViewController {
     }
     
     private func setChildViewControllers() {
-        kanbanViewControllers.forEach { kanbanViewController in
-            addChildViewController(child: kanbanViewController, parent: self)
+        kanbanColumnViewControllers.forEach { kanbanColumnViewController in
+            addChildViewController(child: kanbanColumnViewController, parent: self)
         }
     }
     
@@ -57,8 +59,8 @@ class MainViewController: UIViewController {
     }
     
     private func configureTableStackView() {
-        kanbanViewControllers.forEach { kanbanViewController in
-            tableStackView.addArrangedSubview(kanbanViewController.view)
+        kanbanColumnViewControllers.forEach { kanbanColumnViewController in
+            tableStackView.addArrangedSubview(kanbanColumnViewController.view)
         }
     }
     
