@@ -6,3 +6,7 @@ export const fetchData = async url => {
     console.log(err);
   }
 };
+
+export const appendElementsToBody = (...elements) => {
+  elements.forEach(element => document.body.appendChild(element));
+};
