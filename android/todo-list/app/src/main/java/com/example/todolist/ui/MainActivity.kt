@@ -22,16 +22,23 @@ class MainActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
 
+    private val viewModel: TaskViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val adapter = TodoAdapter()
         binding.rvTodo.adapter = adapter
         setOnClickMenu()
-        val viewModel: TaskViewModel by viewModels()
+        setOnClickTodoAdd()
+
         viewModel.todoTaskList.observe(this) {
-            adapter.submitList(it)
+            Log.d("AppTest", "observer")
+            adapter.submitList(it) {
+                binding.rvTodo.smoothScrollToPosition(0)
+            }
         }
+
 
     }
 
@@ -40,6 +47,13 @@ class MainActivity : AppCompatActivity() {
             binding.dloAppbar.closeDrawers()
         }else{
             super.onBackPressed()
+        }
+    }
+
+    private fun setOnClickTodoAdd() {
+        binding.btnTodoAdd.setOnClickListener {
+            Log.d("AppTest", "click btn")
+            viewModel.addTodo()
         }
     }
 

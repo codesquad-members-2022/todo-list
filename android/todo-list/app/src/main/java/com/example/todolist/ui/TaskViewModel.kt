@@ -1,5 +1,6 @@
 package com.example.todolist.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,6 +29,7 @@ class TaskViewModel : ViewModel() {
     }
 
     fun addTodo() {
+        Log.d("AppTest", "add todo")
         repository.testAdd()
         _todoTaskList.value = repository.getTaskList()
     }
