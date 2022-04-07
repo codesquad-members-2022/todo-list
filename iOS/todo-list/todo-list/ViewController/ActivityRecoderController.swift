@@ -30,16 +30,16 @@ class ActivityRecordController: UITableViewController {
 extension ActivityRecordController {
     
     // 데이터가 앞에 추가되었을때
-    fileprivate func prependData() {
+    private func prependData() {
         print("#fileID", "#function", "#line", "")
         self.activityTableView.reloadDataAndKeepOffset()
     }
     
-    fileprivate func appendData() {
+    private func appendData() {
         // 데이터 추가
     }
     
-    fileprivate func resetData() {
+    private func resetData() {
         print("#fileID", "#function", "#line", "")
     }
 }
