@@ -15,7 +15,6 @@ public class CardRepository {
 
 
     private final static String DELETE_CARD_SQL = "delete from card where id = ?";
-
     private final static String INSERT_CARD_SQL = "insert into card(title, contents, writer, createTime, status) value (?,?,?,?,?)";
 
 
