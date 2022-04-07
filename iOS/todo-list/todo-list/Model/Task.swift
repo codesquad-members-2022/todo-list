@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Task {
+struct Task: Decodable {
     let id: Int
     var status: TaskStatus
     var title: String
@@ -15,13 +15,13 @@ struct Task {
     var authoredDevice: Device
 }
 
-enum TaskStatus {
+enum TaskStatus: Decodable {
     case todo
     case inProgress
     case done
 }
 
-enum Device {
+enum Device: Decodable {
     case iOS
     case android
     case web
