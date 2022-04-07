@@ -7,13 +7,22 @@
 
 import Foundation
 
-struct Todo:Codable {
-    let memberLoginId:String
-    let id:Int
-    let createdAt:String
-    let title:String
-    let content:String
+//TODO: 타입명 변경
+struct Todoitems:Codable {
+    let response:CardType
 }
 
-typealias Todolist = [Todo]
+struct CardType:Codable {
+    let todoItems:[Todo]
+    let doingItems:[Todo]
+    let haveDoneItems:[Todo]
+}
+
+struct Todo:Codable {
+    let id:Int
+    let title:String
+    let content:String
+    let createdAt:String
+    let lastModifiedAt:String
+}
 

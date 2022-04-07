@@ -5,6 +5,8 @@
 //  Created by 박진섭 on 2022/04/05.
 //
 
+typealias Todolist = [Todo]
+
 import UIKit
 import Foundation
 
@@ -26,9 +28,9 @@ class ToDoTableViewController: UITableViewController {
     }
     
     @objc func reloadTableView(notification:Notification) {
-        guard let data = notification.userInfo?["TodoList"] as? Todolist else { return }
+        guard let data = notification.userInfo?["TodoList"] as? Todoitems else { return }
+        todoList =  data.response.todoItems
         
-        todoList = data
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -42,9 +44,8 @@ class ToDoTableViewController: UITableViewController {
         
         let title = todoList[indexPath.row].title
         let body = todoList[indexPath.row].content
-        let author = todoList[indexPath.row].memberLoginId
         
-        cell.setCardText(title: title, body: body, writer: author)
+        cell.setCardText(title: title, body: body)
         return cell
     }
     
