@@ -248,7 +248,6 @@ body {
 }
 
 .header__main {
-  position: relative;
   width: 1440px;
   height: 112px;
   display: flex;

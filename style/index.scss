@@ -9,7 +9,6 @@ body {
   background: $color-grey-light;
 }
 .header__main {
-  position: relative;
   width: 1440px;
   height: 112px;
   @include flexbox(space-between);
