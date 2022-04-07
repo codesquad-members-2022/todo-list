@@ -35,6 +35,11 @@ public class Card {
         return new Card(id, userId, columnId, subject, contents, createTime, updateTime, deleted);
     }
 
+    public static Card instanceWithId(Long id, Card card) {
+        card.id = id;
+        return card;
+    }
+
     public Long getId() {
         return id;
     }
@@ -65,10 +70,6 @@ public class Card {
 
     public boolean isDeleted() {
         return deleted;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override

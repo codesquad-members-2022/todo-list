@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Repository
-public class JdbcCardRepository implements CardRepository{
+public class JdbcCardRepository implements CardRepository {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -31,9 +31,9 @@ public class JdbcCardRepository implements CardRepository{
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card), keyHolder);
-        card.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
+        Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
 
-        return card;
+        return Card.instanceWithId(id, card);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class JdbcCardRepository implements CardRepository{
 
     @Override
     public boolean delete(Long id) {
-        String sql = "update card set deleted = false where id = :id";
+        String sql = "update card set deleted = true where id = :id";
 
         return namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("id", id)) == 1;
     }
