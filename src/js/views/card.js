@@ -21,7 +21,7 @@ export const createNewCardTemplate = icons => {
       <input class="card__contents__input--header" type="text" placeholder="제목을 입력하세요" />
     </header>
     <main class="card__contents__main">
-      <input class="card__contents__input--main" type="text" placeholder="내용을 입력하세요" />
+      <textarea class="card__contents__input--main" maxlength="500" placeholder="내용을 입력하세요"></textarea>
     </main>
     <footer class="card__contents__footer footer__buttons">
       <button class="footer__buttons__cancel">취소</button>
