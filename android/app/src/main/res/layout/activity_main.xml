@@ -140,6 +140,7 @@
                     android:layout_weight="16" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTodo"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="669" />
@@ -234,6 +235,7 @@
                     android:layout_weight="16" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvProgress"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="669" />
@@ -328,6 +330,7 @@
                     android:layout_weight="16" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvComplete"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="669" />
@@ -390,6 +393,7 @@
                         android:layout_weight="48" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvLog"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="332" />
