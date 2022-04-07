@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CardUsable: Codable {
-    func getSection() -> Card.Status
+    func getSection() -> CardStatus
     func getTitle() -> String
     func getContents() -> String
     func getDate() -> Date
