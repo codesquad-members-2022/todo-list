@@ -1,4 +1,5 @@
 import Todo from './Todo.js';
+import TodoNotice from './TodoNotice.js';
 
 export default class TodoInput {
   constructor(status) {
@@ -34,21 +35,41 @@ export default class TodoInput {
     const lastNum = JSON.parse(localStorage.getItem('todos'));
     return lastNum.length;
   };
-  onRegisterBtn = () => {
+
+  createTodo = () => {
     const todo = {};
     todo.id = this.getLastId() + 1;
     todo.title = this.title;
     todo.content = this.content;
     todo.status = this.status;
     todo.userId = 1;
+
     const todos = JSON.parse(localStorage.getItem('todos'));
     todos.push(todo);
     localStorage.setItem('todos', JSON.stringify(todos));
 
-    const newTodo = new Todo(todo);
-    document.querySelector(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
+    return todo;
+  };
 
-    document.querySelector(`.input-${todo.status}`)?.remove();
+  createNotice = () => {
+    const notice = {};
+    // notice.id
+    notice.title = this.title;
+    notice.status = this.status;
+    notice.userId = 1;
+    // localStorage Setting
+
+    return notice;
+  };
+
+  onRegisterBtn = () => {
+    this.createTodo();
+
+    const newTodo = new Todo(this.createTodo());
+    new TodoNotice(this.createNotice());
+    document.querySelector(`.${this.status}`).insertAdjacentHTML('afterend', newTodo.render());
+
+    document.querySelector(`.input-${this.status}`)?.remove();
     newTodo.run();
   };
 
