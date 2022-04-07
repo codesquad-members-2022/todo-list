@@ -1,4 +1,4 @@
-import Component from "./Component";
+import Component from './Component';
 
 export class Header extends Component {
   template() {
@@ -11,7 +11,7 @@ export class Header extends Component {
                 <path d="M0 1V0H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z" fill="black" />
             </svg>
             <span class="menu-sidebar" ${
-              isOpened ? "display:block" : "display:none"
+              isOpened ? 'display:block' : 'display:none'
             }>
             </span>
         </span>
