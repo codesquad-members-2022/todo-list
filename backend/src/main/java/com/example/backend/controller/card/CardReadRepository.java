@@ -1,6 +1,7 @@
 package com.example.backend.controller.card;
 
 import com.example.backend.domain.card.CardType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,22 +13,25 @@ import static com.example.backend.utils.TimeUtils.dateTimeOf;
 @Repository
 public class CardReadRepository {
 
-    private Long id;
-    private String title;
-    private String content;
-    private CardType cardType;
-    private LocalDateTime createdAt;
-    private LocalDateTime lastModifiedAt;
-    private boolean visible;
-    private Long columnId;
+    private final JdbcTemplate jdbcTemplate;
+
+    public CardReadRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<TodoItem> findItemsTodoItems(CardType todo) {
-        String query = "SELECT id, title, content, card_type, created_at, last_modified_at FROM CARDS WHERE "
-        return null;
+        String query = "SELECT id, title, content, card_type, created_at, last_modified_at FROM cards WHERE card_type = ?";
+        return jdbcTemplate.query(query, mapper, todo.name());
     }
 
     public List<HaveDoneItem> findHaveDoneItems(CardType done) {
-        return null;
+        String query = "SELECT id, title, content, card_type, created_at, last_modified_at FROM cards WHERE card_type = ?";
+        return jdbcTemplate.query(query, todoItem, done.name());
+    }
+
+    public List<DoingItem> findHaveDoingItems(CardType done) {
+        String query = "SELECT id, title, content, card_type, created_at, last_modified_at FROM cards WHERE card_type = ?";
+        return jdbcTemplate.query(query, todo, done.name());
     }
 
     public List<DoingItem> findDoingItems(CardType doing) {
@@ -40,16 +44,31 @@ public class CardReadRepository {
                     rs.getLong("id"),
                     rs.getString("title"),
                     rs.getString("content"),
-                    rs.getInt("card_type"),
+                    rs.getString("card_type"),
                     dateTimeOf(rs.getTimestamp("created_at")),
                     dateTimeOf(rs.getTimestamp("last_modified_at"))
 
-    );
-//            new new TodoItem(
-//                    rs.getString("member_login_id"),
-//                    rs.getLong("id"),
-//                    dateTimeOf(rs.getTimestamp("created_at")),
-//                    rs.getString("content"),
-//                    rs.getString("title")
-//            );
+            );
+
+    private static final RowMapper<HaveDoneItem> todoItem = (rs, rowNum) ->
+            new HaveDoneItem(
+                    rs.getLong("id"),
+                    rs.getString("title"),
+                    rs.getString("content"),
+                    rs.getString("card_type"),
+                    dateTimeOf(rs.getTimestamp("created_at")),
+                    dateTimeOf(rs.getTimestamp("last_modified_at"))
+
+            );
+
+    private static final RowMapper<DoingItem> todo = (rs, rowNum) ->
+            new DoingItem(
+                    rs.getLong("id"),
+                    rs.getString("title"),
+                    rs.getString("content"),
+                    rs.getString("card_type"),
+                    dateTimeOf(rs.getTimestamp("created_at")),
+                    dateTimeOf(rs.getTimestamp("last_modified_at"))
+
+            );
 }

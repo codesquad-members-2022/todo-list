@@ -20,8 +20,7 @@ public class CardReadService {
     public DailyPlan getDailyPlan() {
         List<TodoItem> todoItems = cardReadRepository.findItemsTodoItems(CardType.TODO);
         List<HaveDoneItem> haveDoneItems = cardReadRepository.findHaveDoneItems(CardType.DONE);
-        List<DoingItem> doingItems = cardReadRepository.findDoingItems(CardType.DOING);
-
-        return null;
+        List<DoingItem> doingItems = cardReadRepository.findHaveDoingItems(CardType.DOING);
+        return new DailyPlan(todoItems, haveDoneItems, doingItems);
     }
 }

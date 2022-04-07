@@ -19,6 +19,7 @@ public class CardReadController {
 
     @GetMapping("")
     public ApiResult<DailyPlan> getDailyTodoItems() {
+        cardReadService.getDailyPlan();
         return OK(new DailyPlan());
     }
 }
