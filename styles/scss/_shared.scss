@@ -1,0 +1,40 @@
+@use "sass:meta";
+
+@mixin custom_font($args...) {
+  @each $keyword, $prop in meta.keywords($args) {
+    font-#{$keyword}: $prop;
+  }
+}
+
+@mixin custom_position($args...) {
+  @each $pos, $num in meta.keywords($args) {
+    #{$pos}: $num;
+  }
+}
+
+@mixin width_height($args...) {
+  @each $pos, $num in meta.keywords($args) {
+    #{$pos}: $num;
+  }
+}
+
+%Black {
+  color: #010101;
+}
+
+%Gray_4 {
+  color: #bdbdbd;
+}
+
+%Card_flex {
+  flex: none;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
+
+@mixin flex_none($x:0px,$y:8px,$order) {
+  flex: none;
+  order: $order;
+  flex-grow: 0;
+  margin: $x $y;
+}
