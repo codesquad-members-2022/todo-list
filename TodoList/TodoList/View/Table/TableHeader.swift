@@ -14,11 +14,13 @@ class TableHeader: UITableViewHeaderFooterView{
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
+        self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
         setAttributes()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
         setAttributes()
     }
 }

@@ -32,6 +32,7 @@ class CollectionCell: UICollectionViewCell{
     func setTodoTableView(){
         todoTable = TodoTableView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height))
         todoTable.register(TableHeader.self, forHeaderFooterViewReuseIdentifier: "tableHeader")
+        todoTable.sectionHeaderTopPadding = 0
         
         self.contentView.addSubview(todoTable)
     }
@@ -46,31 +47,46 @@ class CollectionCell: UICollectionViewCell{
 
 extension CollectionCell: UITableViewDataSource, UITableViewDelegate{
     private func setCellHeight(){
+        todoTable.estimatedRowHeight = 108
         todoTable.rowHeight = UITableView.automaticDimension
-        todoTable.estimatedRowHeight = 200
     }
     
     // Header 관련 메서드
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 26
+        if section == 0{
+            return 26
+        } else{
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = todoTable.dequeueReusableHeaderFooterView(withIdentifier: "tableHeader") as? TableHeader else{ return nil}
-        
-        header.titleLabel.text = headerTitle
-        header.numberLabel.text = "0"
-        
-        return header
+        if let header = todoTable.dequeueReusableHeaderFooterView(withIdentifier: "tableHeader") as? TableHeader, section == 0{
+            header.titleLabel.text = headerTitle
+            header.numberLabel.text = "0"
+            
+            return header
+        } else{
+            return nil
+        }
+    }
+    
+    // Footer 관련 메서드(셀 간격용)
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 16
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
     }
     
     // cell 관련 메서드
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,7 +94,6 @@ extension CollectionCell: UITableViewDataSource, UITableViewDelegate{
         
         let data = todoList[indexPath.row]
         cell.setLabelText(title: data[0], contents: data[1])
-        cell.backgroundColor = .systemGray5
         
         return cell
     }

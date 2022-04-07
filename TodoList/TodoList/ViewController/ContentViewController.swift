@@ -23,7 +23,6 @@ class ContentViewController: UIViewController {
         layout.scrollDirection = .horizontal
         
         collectionView = CollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
-        collectionView.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
         
         self.view.addSubview(collectionView)
         
