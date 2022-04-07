@@ -8,6 +8,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.todolist.R
 import com.google.android.material.appbar.MaterialToolbar
 
+// 해야할 일 뷰 어뎁터, 뷰모델
+
 class MainActivity : AppCompatActivity() {
 
     private val mDrawerLayout : DrawerLayout by lazy {
