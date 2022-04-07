@@ -11,13 +11,13 @@ import Combine
 
 class MainViewController: UIViewController {
     
-    let titleBar: MainTitleBar = {
+    private let titleBar: MainTitleBar = {
         let titleBarView = MainTitleBarView()
         titleBarView.translatesAutoresizingMaskIntoConstraints = false
         return titleBarView
     }()
     
-    let columnTableViews: [CardsColumnView] = {
+    private let columnTableViews: [ColumnViewProperty&ColumnViewInput] = {
         return [
             ColumnViewController(status: .todo),
             ColumnViewController(status: .progress),
@@ -25,19 +25,26 @@ class MainViewController: UIViewController {
         ]
     }()
     
-    let columnStackView: UIStackView = {
+    private let columnStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 22
         return stackView
     }()
     
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
         attribute()
         layout()
+    }
+    
+    private func bind() {
+        columnTableViews.forEach{ value in
+            value.controller.delegate = self
+        }
     }
     
     private func attribute() {
@@ -65,5 +72,11 @@ class MainViewController: UIViewController {
             columnStackView.addArrangedSubview($0.controller.view)
         }
         columnStackView.addArrangedSubview(UIView())
+    }
+}
+
+extension MainViewController: ColumnViewDelegate {
+    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Status) {
+        self.columnTableViews[toColumn.index].addCard(fromCard)
     }
 }

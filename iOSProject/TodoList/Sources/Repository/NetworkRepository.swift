@@ -11,11 +11,11 @@ import Combine
 class NetworkRepository<Target: BaseTarget> {
     private var provider: URLSessionProvider?
     
-    func request<T: Decodable>(_ target: Target, isSucccess: Bool) -> AnyPublisher<Result<T, SessionError>, Never> {
+    func request(_ target: Target, isSucccess: Bool) -> AnyPublisher<Result<Data, SessionError>, Never> {
         self.request(target, session: MockURLSession(isRequestSuccess: isSucccess))
     }
     
-    func request<T: Decodable>(_ target: Target, session: URLSessionProtocol = URLSession.shared ) -> AnyPublisher<Result<T, SessionError>, Never> {
+    func request(_ target: Target, session: URLSessionProtocol = URLSession.shared ) -> AnyPublisher<Result<Data, SessionError>, Never> {
         provider = URLSessionProvider(session: session)
         
         var url = target.baseURL
@@ -29,18 +29,9 @@ class NetworkRepository<Target: BaseTarget> {
             urlRequest.httpBody = body
         }
         
-        return Future<Result<T, SessionError>, Never> { promise in
+        return Future<Result<Data, SessionError>, Never> { promise in
             self.provider?.dataTask(request: urlRequest) { result in
-                switch result {
-                case .success(let data):
-                    guard let dto = try? JSONDecoder().decode(T.self, from: data) else {
-                        return
-                    }
-                    promise(.success(.success(dto)))
-                case .failure(let error):
-                    promise(.success(.failure(error)))
-                    return
-                }
+                promise(.success(result))
             }
         }.eraseToAnyPublisher()
     }

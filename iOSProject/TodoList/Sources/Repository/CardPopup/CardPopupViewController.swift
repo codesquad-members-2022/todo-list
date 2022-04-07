@@ -9,12 +9,15 @@ import Foundation
 import UIKit
 import Combine
 
-protocol CardEditPopupBinding {
-    var confimPublisher: AnyPublisher<(String, String), Never> { get }
+protocol CardPopupViewDeletegate {
+    func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card)
+    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card)
 }
 
-class CardEditPopupController: UIViewController, CardEditPopupBinding {
+class CardPopupViewController: UIViewController {
     enum Constants {
+        static let newCardStatusLabel = "새로운 카드 추가"
+        static let editCardStatusLabel = "카드수정"
         static let titlePlaceHolder = "제목을 입력하세요"
         static let bodyPlaceHolder = "내용을 입력하세요"
         static let placeHolderColor = UIColor.gray3
@@ -40,7 +43,6 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
         label.textColor = .black
         label.textAlignment = .left
         label.numberOfLines = 1
-        label.text = "새로운 카드 추가"
         return label
     }()
     
@@ -99,15 +101,49 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
         return button
     }()
     
-    private var cancellables = Set<AnyCancellable>()
+    private let edit: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("수정", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white.withAlphaComponent(0.4), for: .disabled)
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 6
+        button.isEnabled = false
+        return button
+    }()
     
-    var confimPublisher: AnyPublisher<(String, String), Never> {
-        self.confim.publisher(for: .touchUpInside)
-            .map { _ -> (String, String) in
-                let titleText = self.titleTextField.text ?? ""
-                let bodyText = self.bodyTextView.text ?? ""
-                return (titleText, bodyText)
-            }.eraseToAnyPublisher()
+    private var cancellables = Set<AnyCancellable>()
+    private let model: CardPopupViewModelBinding = CardPopupViewModel()
+    
+    private var baseTitleText: String = ""
+    private var baseBodyText: String = ""
+    private var cardIndex: Int?
+    
+    var delegate: CardPopupViewDeletegate?
+    
+    init(card: Card? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        initialize(card: card)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialize(card: nil)
+    }
+    
+    private func initialize(card: Card?) {
+        self.baseTitleText = card?.title ?? ""
+        self.baseBodyText = card?.title ?? ""
+        self.cardIndex = card?.orderIndex
+        
+        self.statusLabel.text = card == nil ? Constants.newCardStatusLabel : Constants.editCardStatusLabel
+        self.titleTextField.text = self.baseTitleText
+        self.bodyTextView.text = self.baseBodyText
+        self.maxBodyLength.text = "(\(self.bodyTextView.text.count)/\(Constants.maxBodyLength))"
+        self.confim.isHidden = card != nil
+        self.edit.isHidden = card == nil
     }
     
     override func viewDidLoad() {
@@ -117,20 +153,17 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
         layout()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        NotificationCenter.default.post(name: UITextView.textDidChangeNotification, object: self.bodyTextView)
+    }
+    
     private func bind() {
         self.titleTextField.delegate = self
         self.bodyTextView.delegate = self
         self.bodyTextView.changePublisher()
-            .sink { textView in
-                let size = CGSize(width: textView.frame.width, height: .infinity)
-                let estimatedSize = textView.sizeThatFits(size)
-                textView.constraints.forEach { constraint in
-                    if constraint.firstAttribute == .height {
-                        constraint.constant = estimatedSize.height > Constants.maxBodyHeight ? Constants.maxBodyHeight : estimatedSize.height
-                        textView.isScrollEnabled = estimatedSize.height > Constants.maxBodyHeight
-                    }
-                }
-            }.store(in: &cancellables)
+            .sink(receiveValue: self.reSizeTextView)
+            .store(in: &cancellables)
         
         Publishers
             .Merge(
@@ -140,10 +173,14 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
             .map { _ -> Bool in
                 let titleText = self.titleTextField.text ?? ""
                 let bodyText = self.bodyTextView.text ?? ""
-                return !titleText.isEmpty && !bodyText.isEmpty
+                
+                let equalBaseText = self.baseTitleText == titleText && self.baseBodyText == bodyText
+                let isEmpty = titleText.isEmpty || bodyText.isEmpty
+                return (!equalBaseText && !isEmpty)
             }
             .sink{ isEnable in
                 self.confim.isEnabled = isEnable
+                self.edit.isEnabled = isEnable
             }.store(in: &cancellables)
         
         Publishers
@@ -152,6 +189,37 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
                 confim.publisher(for: .touchUpInside)
             )
             .sink {
+                self.dismiss(animated: false)
+            }.store(in: &cancellables)
+        
+        confim.publisher(for: .touchUpInside)
+            .sink {
+                guard let titleText = self.titleTextField.text,
+                      let bodyText = self.bodyTextView.text else {
+                    return
+                }
+                self.model.action.addCard.send((titleText, bodyText))
+            }.store(in: &cancellables)
+        
+        self.model.state.addedCard
+            .sink {
+                self.delegate?.cardPopupView(self, addedCard: $0)
+                self.dismiss(animated: false)
+            }.store(in: &cancellables)
+        
+        edit.publisher(for: .touchUpInside)
+            .sink {
+                guard let titleText = self.titleTextField.text,
+                      let bodyText = self.bodyTextView.text,
+                      let cardIndex = self.cardIndex else {
+                    return
+                }
+                self.model.action.editCard.send((cardIndex, titleText, bodyText))
+            }.store(in: &cancellables)
+        
+        self.model.state.editedCard
+            .sink {
+                self.delegate?.cardPopupView(self, editedCard: $0)
                 self.dismiss(animated: false)
             }.store(in: &cancellables)
     }
@@ -197,6 +265,14 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
             maxBodyLength.trailingAnchor.constraint(equalTo: popupBackground.trailingAnchor, constant: -16),
         ].forEach{ $0.isActive = true}
         
+        popupBackground.addSubview(edit)
+        [
+            edit.topAnchor.constraint(equalTo: maxBodyLength.bottomAnchor, constant: 16),
+            edit.rightAnchor.constraint(equalTo: popupBackground.rightAnchor, constant: -16),
+            edit.widthAnchor.constraint(equalToConstant: 108),
+            edit.heightAnchor.constraint(equalToConstant: 40)
+        ].forEach{ $0.isActive = true}
+        
         popupBackground.addSubview(confim)
         [
             confim.topAnchor.constraint(equalTo: maxBodyLength.bottomAnchor, constant: 16),
@@ -215,9 +291,20 @@ class CardEditPopupController: UIViewController, CardEditPopupBinding {
           
         popupBackground.bottomAnchor.constraint(equalTo: confim.bottomAnchor, constant: 16).isActive = true
     }
+    
+    private func reSizeTextView(_ textView: UITextView) {
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        textView.constraints.forEach { constraint in
+            if constraint.firstAttribute == .height {
+                constraint.constant = estimatedSize.height > Constants.maxBodyHeight ? Constants.maxBodyHeight : estimatedSize.height
+                textView.isScrollEnabled = estimatedSize.height > Constants.maxBodyHeight
+            }
+        }
+    }
 }
 
-extension CardEditPopupController: UITextViewDelegate {
+extension CardPopupViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentText = textView.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
@@ -228,7 +315,7 @@ extension CardEditPopupController: UITextViewDelegate {
     }
 }
 
-extension CardEditPopupController: UITextFieldDelegate {
+extension CardPopupViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
