@@ -72,29 +72,28 @@ main {
       background-color: transparent;
     }
 
-      &:focus {
-        outline: none;
-      }
-
-      &:read-only {
-        cursor: move;
-      }
+    &:focus {
+      outline: none;
     }
 
-    .item-title {
-      @include font_style(700, 16px, 23px);
-      margin-bottom: 8px;
+    &:read-only {
+      cursor: move;
     }
+  }
 
-    .item-content {
-      @include font_style(400, 14px, 20px);
-      margin-bottom: 8px;
-    }
+  .item-title {
+    @include font_style(700, 16px, 23px);
+    margin-bottom: 8px;
+  }
 
-    .item-caption {
-      @include font_style(400, 12px, 17px);
-      color: $gray4-color;
-    }
+  .item-content {
+    @include font_style(400, 14px, 20px);
+    margin-bottom: 8px;
+  }
+
+  .item-caption {
+    @include font_style(400, 12px, 17px);
+    color: $gray4-color;
   }
 }
 
