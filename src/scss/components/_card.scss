@@ -34,11 +34,13 @@
 
     &--main {
       font-weight: 400;
+      width: 100%;
+      overflow: hidden;
     }
   }
 }
 .card__delete-btn {
-  cursor:pointer;
+  cursor: pointer;
   position: absolute;
   right: 5%;
   top: 13%;
