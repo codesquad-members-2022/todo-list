@@ -14,17 +14,17 @@ export const createMainElement = icons => {
 
 const createColumnTemplate = (className, title, icons) => {
   return `
-  <div class="box ${className}">
-    <div class="title-box">
-      <div class="title-box__title">
-        <div class="title-box__title__text">${title}</div>
-        <div class="title-box__title__count">0</div>
+  <div class="column ${className}">
+    <div class="title-column">
+      <div class="title-column__title">
+        <div class="title-column__title__text">${title}</div>
+        <div class="title-column__title__count">0</div>
       </div>
-      <div class="title-box__btn">
-        <div class="title-box__btn__add">
+      <div class="title-column__btn">
+        <div class="title-column__btn__add" data-classname=${className}>
           ${icons.add}
         </div>
-        <div class="title-box__btn__delete">
+        <div class="title-column__btn__delete">
           ${icons.delete}
         </div>
       </div>
