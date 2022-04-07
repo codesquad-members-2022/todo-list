@@ -41,12 +41,11 @@ public class CardService {
 		if (card.isDifferentStatus(requestCard.getStatus())) {
 			// 만약 status가 다르다면
 			// -> 왼쪽 오른쪽으로 드래그 앤 드랍 progress -> done    update status를 실행시킨다.
-			Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getStatus());
+			Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getRow(), requestCard.getStatus());
 			return updateCard.createResponseCard();
 		}
 
 		// 만약 row만 다르다면 -> progress -> progress로 이동한 경우
-
 		Card changedCard = new Card.Builder(cardRepository.findById(id))
 			.row(requestCard.getRow())
 			.build();

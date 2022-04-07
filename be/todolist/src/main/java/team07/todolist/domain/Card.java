@@ -18,6 +18,7 @@ public class Card {
 
 	public static class Builder {
 
+		private Long id;
 		private String userId;
 		private String title;
 		private String content;
@@ -29,12 +30,18 @@ public class Card {
 		}
 
 		public Builder(Card card) {
+			this.id = id;
 			this.userId = card.userId;
 			this.title = card.title;
 			this.content = card.content;
 			this.row = card.row;
 			this.status = card.status;
 			this.isDeleted = card.isDeleted;
+		}
+
+		public Builder id(Long id) {
+			this.id = id;
+			return this;
 		}
 
 		public Builder userId(String userId) {

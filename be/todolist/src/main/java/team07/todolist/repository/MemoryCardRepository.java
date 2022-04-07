@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 import team07.todolist.domain.Card;
-import team07.todolist.dto.RequestCard;
+import team07.todolist.domain.Card.Builder;
 
 @Repository
 public class MemoryCardRepository implements CardRepository {
@@ -42,8 +42,8 @@ public class MemoryCardRepository implements CardRepository {
 		Long id = sequence.incrementAndGet();
 
 		// Card 등록
-		card.setId(id);
-		store.put(id, card);
+		Card cardWithId = new Builder(card).id(id).build();
+		store.put(id, cardWithId);
 	}
 
 	@Override
@@ -75,36 +75,33 @@ public class MemoryCardRepository implements CardRepository {
 	}
 
 	@Override
-	public Card updateStatusAndRow(Long id, Integer status) {
+	public Card updateStatusAndRow(Long id, Integer row, Integer status) {
 		//todo
 		// status가 다름
 		// 이전에 있던 status에서 id의 카드보다 row값이 큰 카드들의 row값들을 -1 해주고
 		// 바뀐 status에서 id의 카드보다 row값이 큰 카드들의 row값을 +1 해준다.
+
+		Card originCard = store.get(id);
+		Integer originRow = originCard.getRow();
+		Integer originStatus = originCard.getStatus();
+
+		store.values().stream()
+			.filter(c -> c.getStatus().equals(originStatus))
+			.filter(c -> c.getRow() > originRow)
+			.forEach(Card::decreaseRow);
+
+		store.values().stream()
+			.filter(c -> c.getStatus().equals(status))
+			.filter(c -> c.getRow() >= row)
+			.forEach(Card::increaseRow);
+
+		//todo originCard에서 row, status 매개변수 값으로 변경 후 return
 
 		return null;
 	}
 
 	@Override
 	public Card updateRow(Long id, Card card) {
-		//todo
-		// status는 동일하고 row만 변함
-		// 변한 row를 기반으로 row값이 사이에 들어 있는 Card들은 row값을 -1 해준다.
-		//card.setId(id);
-		//Integer row = card.getRow();
-
-		// 결국 높은쪽에서 낮은 쪽으로 가면, 그 사이 값들은 ++가 되고
-		//     낮은쪽에서 높은 쪽으로 가면, 그 사이 값들은 --가 된다.
-//		1
-//		2
-//		3 -> 4
-//		4 -> 5
-//		5 -> 6
-//		6 -> 7
-//		7 -> 3
-		//3-> 6
-		//기존 4~6이였던 것들은 마이너스
-		//6-> 3
-		//기존 3~5는 플러스가 된다
 
 		// 기존 열의 카드
 		Card oldCard = store.get(id);

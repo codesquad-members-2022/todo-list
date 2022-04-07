@@ -11,7 +11,7 @@ public interface CardRepository {
 
 	Card delete(Long id);
 
-	Card updateStatusAndRow(Long id, Integer status);
+	Card updateStatusAndRow(Long id, Integer row, Integer status);
 
 	Card updateRow(Long id, Card card);
 
