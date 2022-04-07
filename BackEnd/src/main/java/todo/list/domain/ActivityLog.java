@@ -1,26 +1,46 @@
 package todo.list.domain;
 
-import lombok.Getter;
-
 import java.time.LocalDateTime;
 
-@Getter
 public class ActivityLog {
     private Long id;
     private Action action;
     private String title;
     private CardStatus nowStatus;
     private CardStatus beforeStatus;
-    private LocalDateTime createDate;
+    private LocalDateTime createDateTime;
 
     public ActivityLog(Long id, Action action, String title, CardStatus nowStatus,
-                       CardStatus beforeStatus, LocalDateTime createDate) {
+                       CardStatus beforeStatus, LocalDateTime createDateTime) {
         this.id = id;
         this.action = action;
         this.title = title;
         this.nowStatus = nowStatus;
         this.beforeStatus = beforeStatus;
-        this.createDate = createDate;
+        this.createDateTime = createDateTime;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public CardStatus getNowStatus() {
+        return nowStatus;
+    }
+
+    public CardStatus getBeforeStatus() {
+        return beforeStatus;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
 }
