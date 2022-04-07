@@ -7,11 +7,18 @@ import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.paging.PagingData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.codesquad.aos.todolist.R
+import com.codesquad.aos.todolist.common.utils.VerticalItemDecorator
+import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ActivityMainBinding
+import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var todoCardListAdapter: TodoCardListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +60,17 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+
+        ////
+        todoCardListAdapter  = TodoCardListAdapter()
+        binding.rvTodo?.adapter = todoCardListAdapter
+        binding.rvTodo?.layoutManager = LinearLayoutManager(this)
+        binding.rvTodo?.addItemDecoration(VerticalItemDecorator(15))
+
+        var testList = listOf(Card(1, "hihi", "byebye", "author by android"),
+                              Card(2, "zoozoo", "icecream icecream icecream icecream icecream icecream", "author by iOS"))
+        todoCardListAdapter.submitList(testList.toList())
 
     }
 }

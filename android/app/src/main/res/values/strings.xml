@@ -6,4 +6,7 @@
     <string name="description_todo">해야할 일</string>
     <string name="description_progress">하고 있는 일</string>
     <string name="description_complete">완료한 일</string>
+    <string name="sample_card_title">GitHub 공부하기</string>
+    <string name="sample_card_content_1">add, commit, push</string>
+    <string name="sample_card_device">author by android</string>
 </resources>
