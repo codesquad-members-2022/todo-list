@@ -9,8 +9,8 @@ import java.util.Map;
 public class Column {
     private final Map<String, List<CardListResponseDto>> cardMap = new HashMap<>();
 
-    public void addByStatus(String status, CardListResponseDto dto) {
-        List<CardListResponseDto> cardList = cardMap.get(status);
+    public void addByColumnName(String columnName, CardListResponseDto dto) {
+        List<CardListResponseDto> cardList = cardMap.get(columnName);
         cardList.add(dto);
     }
 
