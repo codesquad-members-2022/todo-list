@@ -63,7 +63,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6I-rc-ba6">
-                                <rect key="frame" x="882" y="0.0" width="312" height="834"/>
+                                <rect key="frame" x="880" y="0.0" width="314" height="834"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpj-db-2Yk">
@@ -76,7 +76,7 @@
                                         </buttonConfiguration>
                                     </button>
                                     <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NV2-Jd-E9z">
-                                        <rect key="frame" x="24" y="103" width="263" height="694"/>
+                                        <rect key="frame" x="24" y="103" width="265" height="694"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <connections>
                                             <segue destination="KSp-Il-wTC" kind="embed" id="WNr-np-ufK"/>
@@ -163,28 +163,28 @@
             <objects>
                 <viewController id="KSp-Il-wTC" customClass="ActivityListViewController" customModule="TodoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="GUx-Sh-GtT">
-                        <rect key="frame" x="0.0" y="0.0" width="263" height="694"/>
+                        <rect key="frame" x="0.0" y="0.0" width="265" height="694"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="D7n-r4-KkZ">
-                                <rect key="frame" x="0.0" y="44.5" width="263" height="142.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="265" height="142.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D7n-r4-KkZ" id="J1M-xa-My5">
-                                    <rect key="frame" x="0.0" y="0.0" width="263" height="142.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="265" height="142.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="amR-hq-K44">
-                                            <rect key="frame" x="20" y="20" width="223" height="102.5"/>
+                                            <rect key="frame" x="20" y="20" width="225" height="102.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🥳" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="715-3o-CU7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="69.5" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="71.5" height="43"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e9x-Gr-4gH">
-                                                    <rect key="frame" x="85.5" y="0.0" width="137.5" height="102"/>
+                                                    <rect key="frame" x="87.5" y="0.0" width="137.5" height="102"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@Alex" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMe-ji-9Yh">
                                                             <rect key="frame" x="0.0" y="0.0" width="137.5" height="20.5"/>

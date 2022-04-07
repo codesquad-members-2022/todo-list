@@ -25,7 +25,6 @@ class TodoListContainerViewController: UIViewController {
         self.closeButton.addAction(UIAction(handler: self.toggleMenuButton(_:)), for: .touchUpInside)
     }
     
-    
     private func toggleMenuButton(_ action: UIAction) {
         let x = self.drawerView.frame.origin.x
         let width = self.drawerView.frame.width

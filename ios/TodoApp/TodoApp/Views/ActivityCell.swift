@@ -61,8 +61,7 @@ class ActivityCell: UITableViewCell {
     }
 
     private func configureCell() {
-        self.contentView.backgroundColor = UIColor(red: 109/255, green: 208/255, blue: 40/255, alpha: 0.1)
-        
+        self.setBackgroundColor(UIColor(red: 109/255, green: 208/255, blue: 40/255, alpha: 0.1))
         self.headerLabel.text = "@Alex"
         self.bodyLabel.text = "HTML/CSS 공부하기를 해야할 일에서 하고 있는 일로 이동하였습니다."
         self.footerLabel.text = "1분 전"
@@ -93,4 +92,7 @@ class ActivityCell: UITableViewCell {
         self.footerLabel.text = text
     }
     
+    func setBackgroundColor(_ color: UIColor) {
+        self.contentView.backgroundColor = color
+    }
 }

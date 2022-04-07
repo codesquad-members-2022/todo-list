@@ -111,8 +111,8 @@
 				E4D1B16D27FC0D0F00525BA2 /* Utilities */,
 				E43E2E0227FADA2100A841E3 /* Supporting Files */,
 				E43E2E0127FADA0100A841E3 /* Resources */,
-				E43E2DFF27FAD9F000A841E3 /* Models */,
 				E43E2E0027FAD9F300A841E3 /* Views */,
+				E43E2DFF27FAD9F000A841E3 /* Models */,
 				E43E2DFE27FAD9EA00A841E3 /* Controllers */,
 			);
 			path = TodoApp;
