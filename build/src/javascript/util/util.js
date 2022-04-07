@@ -12,8 +12,16 @@ export async function postData(URL, updatedData) {
   return data;
 }
 
+export async function putData(URL, updatedData) {
+  const data = await axios
+    .put(URL, updatedData)
+    .then((response) => response.data);
+  return data;
+}
+
 export async function axiosRequest(request, dataName, data = {}) {
   const URL = `http://localhost:5000/${dataName}`;
+  const idURL = URL + `/${data.id}`;
   let response;
   switch (request) {
     case "get":
@@ -23,6 +31,7 @@ export async function axiosRequest(request, dataName, data = {}) {
       response = await postData(URL, data);
       break;
     case "put":
+      response = await putData(idURL, data);
       break;
     case "delete":
       break;
