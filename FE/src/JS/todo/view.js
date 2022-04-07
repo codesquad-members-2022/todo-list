@@ -1,37 +1,26 @@
 import { $ } from '../utility/util.js';
+import { makeCategory, makeCard } from './view-template.js';
 
 export default class View {
-  constructor() {}
-
-  renderTodoItem(categoryName, works, userId) {
-    const columnList = $('.column-list');
-    const container = $('container');
+  constructor() {
+    this.columnList = $('.column-list');
   }
 
-  makeCategory(categoryName) {
-    return `<div class="column-item">
-<div class="column-item--header">
-  <h2>
-    <span>${categoryName}</span>
-    <span class="itemCount">1</span>
-  </h2>
-  <div class="column-item--buttons">
-    <input type="button" class="addBtn" value="add" />
-    <input type="button" class="deleteBtn" value="del" />
-  </div>
-</div>
-<ul class="container"></ul>
-</div>`;
+  renderTodoCategory(categoryName) {
+    this.columnList.insertAdjacentHTML('beforeend', makeCategory(categoryName));
   }
 
-  makeCard({ title, content }, userId) {
-    return `<li class="column-item--card" draggable="true">
-    <div class="card-header">
-      <h3>${title}</h3>
-      <input type="button" class="delete-btn" value="del" />
-    </div>
-    <span class="card-content">${content}</span>
-    <span class="card-author">Author by ${userId}</span>
-  </li>`;
+  renderTodoCard(todoInfo, data) {
+    const container = this.findCategoryName(todoInfo.category);
+
+    container.insertAdjacentHTML('beforeend', makeCard(todoInfo, data));
+
+    this.changeCategoryCount(todoInfo, container);
+  }
+
+  findCategoryName = (categoryName) => $(`.container${categoryName}`);
+
+  changeCategoryCount(todoInfo, container) {
+    $(`.itemCount${todoInfo.category}`).innerHTML = container.childElementCount;
   }
 }
