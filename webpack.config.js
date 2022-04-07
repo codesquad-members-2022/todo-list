@@ -1,8 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
-  entry: './test.js',
+  mode: 'production',
+  entry: './app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -18,4 +18,5 @@ module.exports = {
       },
     ],
   },
+  devtool: 'source-map',
 };
