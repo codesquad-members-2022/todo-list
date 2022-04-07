@@ -78,13 +78,13 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SideViewTableViewCell.identifier, for: indexPath) as! SideViewTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SideViewTableViewCell.identifier, for: indexPath) as? SideViewTableViewCell else {
+            return UITableViewCell()
+        }
         cell.emojiView.image = UIImage(named: "emoji")
         
         let history = HistoryInfo(name: "Selina", content: "이제 자러갑니당", time: "0")
-        cell.stackView.nameLabel.text = "@\(history.name)"
-        cell.stackView.contentLabel.text = history.content
-        cell.stackView.timeLabel.text = "\(history.time)분 전"
+        cell.updateStackView(history: history)
         return cell
     }
 }

@@ -67,4 +67,9 @@ class SideViewTableViewCell: UITableViewCell {
         historyView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16).isActive = true
     }
     
+    func updateStackView(history: HistoryInfo) {
+        stackView.nameLabel.text = "@\(history.name)"
+        stackView.contentLabel.text = history.content
+        stackView.timeLabel.text = "\(history.time)분 전"
+    }
 }
