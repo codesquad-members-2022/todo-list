@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskListBoardViewController: UIViewController {
+class TaskCardListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -8,11 +8,11 @@ class TaskListBoardViewController: UIViewController {
     }
     
     func setUpStackView() {
-        if let taskListView = Bundle.main.loadNibNamed(TaskListView.nibName, owner: nil, options: nil)?.first as? TaskListView {
+        if let taskListView = Bundle.main.loadNibNamed(NameSpace.nib.taskCardListView, owner: nil, options: nil)?.first as? TaskCardListView {
             taskListView.tableView.delegate = self
             taskListView.tableView.dataSource = self
-            let nibName = UINib(nibName: TaskCardViewCell.nibName, bundle: nil)
-            taskListView.tableView.register(nibName, forCellReuseIdentifier: TaskCardViewCell.identifier)
+            let nibName = UINib(nibName: NameSpace.nib.taskCardViewCell, bundle: nil)
+            taskListView.tableView.register(nibName, forCellReuseIdentifier: NameSpace.identifier.taskCardViewCell)
             self.view.addSubview(taskListView)
             taskListView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
@@ -26,13 +26,13 @@ class TaskListBoardViewController: UIViewController {
     
 }
 
-extension TaskListBoardViewController: UITableViewDelegate, UITableViewDataSource {
+extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 15
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskCardViewCell.identifier, for: indexPath) as? TaskCardViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: NameSpace.identifier.taskCardViewCell, for: indexPath) as? TaskCardViewCell else { return UITableViewCell() }
         return cell
     }
     
