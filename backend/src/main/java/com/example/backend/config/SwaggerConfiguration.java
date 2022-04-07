@@ -29,5 +29,4 @@ public class SwaggerConfiguration {
                 .title(applicationName)
                 .build();
     }
-
 }

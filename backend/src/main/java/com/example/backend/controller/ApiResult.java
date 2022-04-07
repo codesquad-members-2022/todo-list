@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.controller.card.UserAgent;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.http.HttpStatus;
 
@@ -13,6 +14,8 @@ public class ApiResult<T> {
 
     @ApiModelProperty(value = "success가 false라면, API 요청 처리 응답값")
     private final ApiError error;
+
+    private UserAgent userAgent;
 
     private ApiResult(boolean success, T response, ApiError error) {
         this.success = success;
@@ -44,4 +47,7 @@ public class ApiResult<T> {
         return response;
     }
 
+    public void setUserAgent(UserAgent userAgent) {
+        this.userAgent = userAgent;
+    }
 }

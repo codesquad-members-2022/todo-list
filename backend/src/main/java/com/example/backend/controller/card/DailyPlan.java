@@ -7,6 +7,7 @@ public class DailyPlan {
     private List<TodoItem> todoItems;
     private List<HaveDoneItem> haveDoneItems;
     private List<DoingItem> doingItems;
+    private UserAgent userAgent;
 
     public DailyPlan (){};
 
@@ -26,5 +27,16 @@ public class DailyPlan {
 
     public List<DoingItem> getDoingItems() {
         return doingItems;
+    }
+
+    public void setUserAgent(UserAgent userAgent) {
+        this.userAgent = userAgent;
+    }
+
+    @Override
+    public String toString() {
+        return "DailyPlan{" +
+                "userAgent=" + userAgent +
+                '}';
     }
 }
