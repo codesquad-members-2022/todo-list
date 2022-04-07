@@ -1,0 +1,102 @@
+.column {
+  max-width: 308px;
+
+  &-wrap {
+    @include flex-box(flex-start, flex-start, 16px);
+    min-height: $column-wrap-height;
+    overflow-y: auto;
+  }
+
+  &__top-wrap {
+    @include flex-box(flex-start, center, 16px);
+    padding: 0 8px;
+  }
+
+  &__title-wrap {
+    @include flex-box(flex-start, center, 8px);
+    width: calc(100% - 78px);
+  }
+
+  &__title {
+    width: calc(100% - 34px);
+    font-size: $size-large;
+    font-weight: $weight-bold;
+  }
+
+  .card-num {
+    display: block;
+    width: 26px;
+    line-height: 26px;
+    font-size: $size-base;
+    text-align: center;
+    background: $light-gray;
+    border-radius: 50%;
+  }
+
+  &__button-wrap {
+    @include flex-box(space-between, center, 16px);
+  }
+
+  &-add-button {
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    background-image: url('../images/fab.png');
+    background-size: 72px 74px;
+    width: 72px;
+    height: 74px;
+  }
+}
+
+.card {
+  position: relative;
+  margin-top: 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+
+  &__title {
+    padding-right: 40px;
+    font-size: $size-medium;
+    font-weight: $weight-bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__content {
+    height: 20px;
+    margin: 8px 0;
+  }
+
+  &__writer {
+    font-size: $size-small;
+    color: $light-gray;
+  }
+
+  &__button-wrap {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+  }
+
+  &__delete-button {
+    background-image: url('../images/common/icon-close.png');
+  }
+}
+
+.card.write {
+  border: 1px solid $accent-button-color-default;
+
+  .card {
+    &__writer {
+      display: none;
+    }
+
+    &__button-wrap {
+      position: static;
+      margin-top: 16px;
+    }
+  }
+}

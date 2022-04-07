@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./resources/css/main.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="header">
+        <h1 class="logo">TO-DO LIST</h1>
+        <button type="button" class="aside-button history-button"></button>
+      </header>
+      <main>
+        <div class="column-wrap">
+          <div class="column">
+            <div class="column__top-wrap">
+              <div class="column__title-wrap">
+                <input type="text" value="해야할 일" class="column__title" readonly />
+                <span class="card-num">2</span>
+              </div>
+              <div class="column__button-wrap">
+                <button type="button" class="add-button card-add-button">
+                  <span class="hidden-text">컬럼 추가 버튼</span>
+                </button>
+                <button type="button" class="delete-button column-delete-button">
+                  <span class="hidden-text">컬럭 삭제 버튼</span>
+                </button>
+              </div>
+            </div>
+            <ul class="cards">
+              <li class="card write">
+                <form action="">
+                  <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" class="card__title" />
+                  <textarea
+                    name=""
+                    id=""
+                    maxlength="500"
+                    placeholder="내용을 입력하세요"
+                    class="card__content"
+                  ></textarea>
+                  <span class="card__writer">도니</span>
+                  <div class="button-wrap card__button-wrap">
+                    <button type="button" class="normal-button card__save-button">취소</button>
+                    <button type="button" class="accent-button disabled card__accent-button">등록</button>
+                  </div>
+                </form>
+              </li>
+              <li class="card">
+                <input type="text" value="포키랑 놀기" placeholder="제목을 입력하세요" class="card__title" readonly />
+                <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요" class="card__content" readonly>
+뛰어 놀기</textarea
+                >
+                <span class="card__writer">도니</span>
+                <div class="button-wrap card__button-wrap">
+                  <button type="button" class="delete-button card__delete-button">
+                    <span class="hidden-text">카드 삭제 버튼</span>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="column-add-button">
+          <button type="button"><span class="hidden-text">컬럼 추가 버튼</span></button>
+        </div>
+
+        <div class="history-wrap">
+          <ul class="histories">
+            <li class="history">
+              <div class="history__user-image">
+                <img src="" alt="" />
+              </div>
+              <div class="history__description">
+                <span class="history__user-name">@dony</span>
+                <p class="history__content">
+                  <storng>포키와 놀기</storng>를 <storng>해야할 일</storng>에서 <storng>하고 있는 일</storng>로
+                  <storng>이동</storng>하였습니다.
+                </p>
+                <span class="history__time">1분 전</span>
+              </div>
+            </li>
+            <li class="history">
+              <div class="history__user-image">
+                <img src="" alt="" />
+              </div>
+              <div class="history__description">
+                <span class="history__user-name">@dony</span>
+                <p class="history__content">
+                  <storng>포키와 놀기</storng>를 <storng>해야할 일</storng>에서 <storng>하고 있는 일</storng>로
+                  <storng>이동</storng>하였습니다.
+                </p>
+                <span class="history__time">1분 전</span>
+              </div>
+            </li>
+          </ul>
+          <button type="button" class="close-button history__close-button">
+            <span class="hidden-text">히스토리 닫기 버튼</span>
+          </button>
+        </div>
+
+        <div class="popup-wrap">
+          <div class="popup card-delete-pop">
+            <p class="popup__description">선택한 카드를 삭제할까요?</p>
+            <div class="button-wrap">
+              <button type="button" class="normal-button cancle-button">취소</button>
+              <button type="button" class="accent-button submit-button">확인</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

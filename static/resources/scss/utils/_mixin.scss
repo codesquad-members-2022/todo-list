@@ -1,0 +1,18 @@
+@mixin box-shadow {
+  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+@mixin flex-box($justufy-content, $align-items, $gap: 0) {
+  display: flex;
+  justify-content: $justufy-content;
+  align-items: $align-items;
+  gap: $gap;
+}
+
+@mixin icon-button($width, $height, $padding, $background-image) {
+  width: $width;
+  height: $height;
+  padding: $padding;
+  background: url($background-image) no-repeat center / $width $height;
+  box-sizing: content-box;
+}
