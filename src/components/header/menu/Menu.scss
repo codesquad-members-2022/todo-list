@@ -1,4 +1,4 @@
-@import '../scss/variable.scss';
+@import '../../../scss/variable.scss';
 
 .log {
     display: flex;
@@ -22,7 +22,7 @@
     &__close-btn{
       width: 24px;
       height: 24px;
-      background: url(../images/close.png);
+      background: url(../../../images/close.png);
       position: absolute;
       right: 80px;
       top: 40px;

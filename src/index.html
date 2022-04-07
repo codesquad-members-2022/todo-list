@@ -23,7 +23,7 @@
           </div>
           <ul class="card-list">
             <!-- 일반 카드 상태 -->
-            <li class="card">
+            <li class="card card--normal">
               <div class="card-contents">
                 <div class="card-contents__title">GitHub 공부하기</div>
                 <div class="card-contents__description">add, commit, push</div>
@@ -32,14 +32,24 @@
               <div class="card__delete-btn"></div>
             </li>
             <!-- editing 카드 상태 -->
-            <li class="card">
+            <li class="card card--editing">
               <div class="card-contents">
-                <div class="card-contents__title">GitHub 공부하기</div>
-                <div class="card-contents__description">add, commit, push</div>
+                <div class="card-contents__title"><input placeholder="제목을 입력하세요"/></div>
+                <div class="card-contents__description"><input placeholder="내용을 입력하세요"></div>
               </div>
-              <div class="card__util-btn">
-                <div class="card__util-btn--cancel">취소</div>
-                <div class="card__util-btn--regist">등록</div>
+              <div class="card__util-btns">
+                <div class="card__util-btn card__util-btn--cancel">취소</div>
+                <div class="card__util-btn card__util-btn--regist">등록</div>
+              </div>
+            </li>
+            <li class="card card--editing">
+              <div class="card-contents">
+                <div class="card-contents__title"><input placeholder="제목을 입력하세요"/></div>
+                <div class="card-contents__description"><input placeholder="내용을 입력하세요"></div>
+              </div>
+              <div class="card__util-btns">
+                <div class="card__util-btn card__util-btn--cancel">취소</div>
+                <div class="card__util-btn card__util-btn--regist activated">등록</div>
               </div>
             </li>
           </ul>
@@ -80,7 +90,7 @@
           </ul>
         </div>
       </div>
-      <div class="log-container">
+      <!-- <div class="log-container">
         <div class="log__close-btn"></div>
         <ul class="log-list">
           <li class="log">
@@ -100,7 +110,7 @@
             </div>
           </li>
         </ul>
-      </div>
+      </div> -->
 
     </div>
     <script src="../dist/main.js"></script>
