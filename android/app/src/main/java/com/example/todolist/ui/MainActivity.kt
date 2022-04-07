@@ -23,6 +23,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.history.observe(this) { histories ->
             historyAdapter.submitList(histories)
         }
+
+        binding.includeTodo?.btnTodoAdd?.setOnClickListener {
+            val dialog = Dialog()
+            dialog.show(supportFragmentManager, "Dialog")
+        }
     }
 
     private fun onDrawerEvent() {
