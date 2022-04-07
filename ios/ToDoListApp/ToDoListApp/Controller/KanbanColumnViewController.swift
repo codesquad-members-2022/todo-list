@@ -1,18 +1,29 @@
 //
-//  ToDoViewController.swift
+//  KanbanColumnViewController.swift
 //  ToDoListApp
 //
-//  Created by 김상혁 on 2022/04/05.
+//  Created by 김상혁 on 2022/04/07.
 //
 
 import UIKit
 
-class ToDoViewController: UIViewController {
+class KanbanColumnViewController: UIViewController {
     
     private let tableTitleView = TableTitleView()
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let tableViewDataSource = TableViewDataSource()
     
+    private let type: KanbanType
+    
+    init(type: KanbanType) {
+        self.type = type
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable) required init?(coder: NSCoder) {
+        fatalError("Init with coder is unavailable")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
@@ -40,7 +51,7 @@ class ToDoViewController: UIViewController {
     
     private func configureTableTitleView() {
         tableTitleView.changeBadgeLabel(text: CellData.dataList.count)
-        tableTitleView.changeTitleLabel(text: "해야할 일")
+        tableTitleView.changeTitleLabel(text: type.title)
     }
     
     private func layoutTableTitleView() {
