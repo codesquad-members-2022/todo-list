@@ -4,10 +4,11 @@
   background-color: #fff;
   -webkit-box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
           box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  cursor: move;
 }
 
-.default .close-icon path {
-  fill: #828282;
+.default .icon-close {
+  color: #828282;
 }
 
 .drag {
@@ -18,8 +19,8 @@
           backdrop-filter: blur(4px);
 }
 
-.drag .close-icon path {
-  fill: #828282;
+.drag .icon-close {
+  color: #828282;
 }
 
 .place {
@@ -30,8 +31,8 @@
           box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
 }
 
-.place .close-icon path {
-  fill: #828282;
+.place .icon-close {
+  color: #828282;
 }
 
 .delete {
@@ -41,15 +42,17 @@
           box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
 }
 
-.delete .close-icon path {
-  fill: #ff4343;
+.delete .icon-close {
+  color: #ff4343;
 }
 
 .active {
+  background-color: #fff;
   border: 1px solid #0075de;
 }
 
 .deactivate {
+  background-color: #fff;
   border: 1px solid #0075de;
 }
 
@@ -102,17 +105,17 @@
   background-color: #00529b;
 }
 
-.accent-btn[disabled='false']:hover {
-  background-color: #00529b;
+.accent-btn[disabled='true'] {
+  background-color: #86c6ff;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .accent-btn[disabled='false'] {
   background-color: #0075de;
 }
 
-.accent-btn[disabled='true'] {
-  background-color: #86c6ff;
-  color: rgba(255, 255, 255, 0.4);
+.accent-btn[disabled='false']:hover {
+  background-color: #00529b;
 }
 
 .normal-btn {
@@ -184,24 +187,21 @@ main {
   vertical-align: bottom;
 }
 
-.column-header .plus-icon {
+.column-header .icon-plus {
   margin-right: 12px;
+  color: #bdbdbd;
 }
 
-.column-header .plus-icon path {
-  fill: #bdbdbd;
+.column-header .icon-plus:hover {
+  color: #0075de;
 }
 
-.column-header .plus-icon:hover path {
-  fill: #0075de;
+.column-header .icon-close {
+  color: #bdbdbd;
 }
 
-.column-header .close-icon path {
-  fill: #bdbdbd;
-}
-
-.column-header .close-icon:hover path {
-  fill: #ff4343;
+.column-header .icon-close:hover {
+  color: #ff4343;
 }
 
 .column-list .list_item {
@@ -223,10 +223,19 @@ main {
 .column-list .item-info input {
   width: 100%;
   border: none;
+  background-color: transparent;
 }
 
 .column-list .item-info input:focus {
   outline: none;
+}
+
+.column-list .item-info input:-moz-read-only {
+  cursor: move;
+}
+
+.column-list .item-info input:read-only {
+  cursor: move;
 }
 
 .column-list .item-info .item-title {
@@ -311,12 +320,12 @@ main {
   color: #010101;
 }
 
-.header > .menu-icon {
+.menu-btn {
   width: 24px;
   height: 24px;
 }
 
-.header > .menu-bar {
+.menu-bar {
   position: absolute;
   top: 0;
   right: 0;
@@ -331,13 +340,13 @@ main {
           backdrop-filter: blur(4px);
 }
 
-.header > .menu-bar > .close-icon {
+.menu-bar .close-btn {
   position: absolute;
   top: 4%;
   right: 20px;
 }
 
-.header .notification-list {
+.notification-list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -350,7 +359,7 @@ main {
           align-items: flex-start;
 }
 
-.header .notification-list li {
+.notification-list li {
   width: 332px;
   height: 137px;
   display: -webkit-box;
@@ -366,14 +375,14 @@ main {
   padding: 16px;
 }
 
-.header .notification-list li .user-img {
+.notification-list li .user-img {
   width: 40px;
   height: 40px;
   margin-right: 16px;
   background: url("../../assets/imoge/user img.png");
 }
 
-.header .notification-list li > .user-action {
+.user-action {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -387,7 +396,7 @@ main {
   width: 100%;
 }
 
-.header .notification-list li > .user-action > .user-name {
+.user-action .user-name {
   margin-bottom: 8px;
   font-weight: 400;
   font-size: 16px;
@@ -395,7 +404,7 @@ main {
   color: #000;
 }
 
-.header .notification-list li > .user-action > .event-info {
+.user-action .event-info {
   margin-bottom: 8px;
   font-weight: 700;
   font-size: 16px;
@@ -403,7 +412,7 @@ main {
   color: #000;
 }
 
-.header .notification-list li > .user-action > .update-time {
+.user-action .update-time {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
