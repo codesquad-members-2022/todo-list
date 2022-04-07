@@ -1,14 +1,15 @@
-export const createMainTemplate = icons => {
-  const classNames = [{todo: '해야할 일'}, {doing: '하고 있는 일'}, {done: '완료한 일'}];
-  const columns = classNames.map(classNameObj =>
-    createColumnTemplate(Object.keys(classNameObj)[0], Object.values(classNameObj)[0], icons)
-  );
-  const mainNode = document.createElement('main');
-  mainNode.classList.add('main');
-  columns.forEach(column => {
-    mainNode.insertAdjacentHTML('beforeend', column);
+export const createMainElement = icons => {
+  const classNames = [{ todo: '해야할 일' }, { doing: '하고 있는 일' }, { done: '완료한 일' }];
+  const columns = classNames.map(classNameObj => {
+    const [className, title] = Object.entries(classNameObj)[0];
+    return createColumnTemplate(className, title, icons);
   });
-  return mainNode;
+  const mainElement = document.createElement('main');
+  mainElement.classList.add('main');
+  columns.forEach(column => {
+    mainElement.insertAdjacentHTML('beforeend', column);
+  });
+  return mainElement;
 };
 
 const createColumnTemplate = (className, title, icons) => {
