@@ -12,7 +12,7 @@ export default class Todo {
         <p class="card__content-text">${this.todoData.content}</p>
       </div>
       <div class="card__author">
-        <p class="card__author-text">${this.todoData.userId}</p>
+        <p class="card__author-text">author by ${this.todoData.userId}</p>
       </div>
     </div>`;
   };

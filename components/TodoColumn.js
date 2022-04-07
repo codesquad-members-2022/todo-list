@@ -1,9 +1,9 @@
 import TodoInput from './TodoInput.js';
 export default class TodoColumn {
-  constructor(title) {
+  constructor(status) {
     this.target = document.querySelector('.column-section');
-    this.title = title;
-    this.todoInput = new TodoInput(this.title);
+    this.status = status;
+    this.todoInput = new TodoInput(this.status);
     this.onInput = false;
     this.render();
   }
@@ -26,13 +26,13 @@ export default class TodoColumn {
 
   onAddClick = ({ target }) => {
     if (this.onInput) {
-      document.querySelector(`.input-${this.title}`)?.remove();
+      document.querySelector(`.input-${this.status}`)?.remove();
       this.onInput = false;
       return;
     }
 
     if (target.classList.contains('column__add')) {
-      document.querySelector(`.${this.title}`).insertAdjacentHTML('afterend', this.todoInput.render());
+      document.querySelector(`.${this.status}`).insertAdjacentHTML('afterend', this.todoInput.render());
       this.todoInput.run();
       this.onInput = true;
       return;
@@ -42,9 +42,9 @@ export default class TodoColumn {
   render = () => {
     const columnListHTML = /* html */ `
     <article class="column-list">
-        <nav class="column ${this.title}">
+        <nav class="column ${this.status}">
             <div class="column__left">
-                <span class="column__title">${this.title}</span>
+                <span class="column__title">${this.status}</span>
                 <div class="column__count">0</div>
             </div>
             <div class="column__right">
@@ -57,8 +57,8 @@ export default class TodoColumn {
       `;
     this.target.insertAdjacentHTML('beforeend', columnListHTML);
     // 이슈사항 정리 예정
-    document.querySelector(`.${this.title}`).addEventListener('mouseover', this.onMouseOver);
-    document.querySelector(`.${this.title}`).addEventListener('mouseout', this.onMouseOut);
-    document.querySelector(`.${this.title}`).addEventListener('click', this.onAddClick);
+    document.querySelector(`.${this.status}`).addEventListener('mouseover', this.onMouseOver);
+    document.querySelector(`.${this.status}`).addEventListener('mouseout', this.onMouseOut);
+    document.querySelector(`.${this.status}`).addEventListener('click', this.onAddClick);
   };
 }
