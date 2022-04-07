@@ -28,7 +28,7 @@ public class CardsController {
 
     @PutMapping("/cards/{id}")
     public Long update(@PathVariable Long id, @RequestBody CardsUpdateRequestDto dto) {
-        return cardsService.update(dto);
+        return cardsService.update(id, dto);
     }
 
     @DeleteMapping("/cards/{id}")
