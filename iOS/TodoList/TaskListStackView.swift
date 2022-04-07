@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskBoardView: UIStackView {
+class TaskListStackView: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
