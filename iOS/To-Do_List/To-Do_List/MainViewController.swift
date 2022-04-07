@@ -48,6 +48,8 @@ class MainViewController: UIViewController {
               let doneTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoneTableViewController") as? DoneTableViewController else { return }
         
         
+        
+        
         [todoViewController,doingTableViewController,doneTableViewController].forEach {
             addChild($0)
             self.statckView.addArrangedSubview($0.view)
@@ -57,3 +59,5 @@ class MainViewController: UIViewController {
     }
 
 }
+
+
