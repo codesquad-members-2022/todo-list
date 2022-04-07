@@ -10,6 +10,15 @@ class HeaderView: UIView {
         return label
     }()
     
+    private lazy var sideMenuButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(named: "menu"), for: .normal)
+        button.addAction(UIAction(handler: { _ in
+            self.delegate?.headerViewButtonDidTap()
+        }), for: .touchUpInside)
+        return button
+    }()
     
     weak var delegate: HeaderViewDelegate?
     
@@ -29,6 +38,7 @@ class HeaderView: UIView {
     
     private func addViews() {
         addSubview(titleLabel)
+        addSubview(sideMenuButton)
     }
     
     private func setConstraints() {
@@ -37,5 +47,9 @@ class HeaderView: UIView {
         titleLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7).isActive = true
         
+        sideMenuButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        sideMenuButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        sideMenuButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        sideMenuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50).isActive = true
     }
 }

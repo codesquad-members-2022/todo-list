@@ -2,21 +2,13 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    lazy var sideMenuButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(systemName: "list.bullet.circle.fill"), for: .normal)
-        button.addAction(UIAction(handler: { _ in
-            self.showSideView()
-        }), for: .touchUpInside)
-        return button
     private var headerView: HeaderView = {
         let view = HeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let sideView: SideView = {
+    private var sideView: SideView = {
         let view = SideView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -24,6 +16,9 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.headerView.delegate = self
+        
         self.sideView.delegate = self
         self.sideView.tableView.dataSource = self
         self.sideView.tableView.delegate = self
@@ -34,15 +29,10 @@ final class MainViewController: UIViewController {
     
     /// 초기 뷰 설정. 초기 뷰는 sideMenuButton이 보여지는 상태.
     private func addViews() {
-        self.view.addSubview(sideMenuButton)
+        self.view.addSubview(headerView)
     }
     
-    /// sideMenuButton Layout 설정
     private func setLayout(){
-        sideMenuButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        sideMenuButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        sideMenuButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        sideMenuButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -51,7 +41,6 @@ final class MainViewController: UIViewController {
     
     /// sideMenuButton 클릭 시 SideView를 보여준다. 
     private func showSideView() {
-        self.sideMenuButton.removeFromSuperview()
         self.view.addSubview(sideView)
         
         sideView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -65,9 +54,14 @@ final class MainViewController: UIViewController {
         UIView.transition(with: self.sideView, duration: 0.25) {
             self.sideView.removeFromSuperview()
         }
-        
-        self.view.addSubview(sideMenuButton)
+    
         setLayout()
+    }
+}
+
+extension MainViewController: HeaderViewDelegate{
+    func headerViewButtonDidTap() {
+        showSideView()
     }
 }
 
@@ -77,7 +71,6 @@ extension MainViewController: SideViewDelegate {
         hideSideView()
     }
 }
-
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
