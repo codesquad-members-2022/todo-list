@@ -1,8 +1,9 @@
 export class ScheduleRegisterCard {
     LIMIT = 500;
-    constructor(target, id) {
+    constructor({ target, id, delegatedEventHandler }) {
         this.$target = target;
         this.id = id;
+        this.passedEventHandler = delegatedEventHandler;
         this.init();
     }
 
@@ -20,7 +21,9 @@ export class ScheduleRegisterCard {
         const $cancelBtn = this.$target.querySelector(
             ".schedule-register-card__cancel-btn"
         );
-        $cancelBtn.addEventListener("click", () => this.removeRegisterCard());
+        $cancelBtn.addEventListener("click", () =>
+            this.passedEventHandler.removeRegisterCard()
+        );
 
         const $cardTitle = this.$target.querySelector(
             ".schedule-register-card__title"
@@ -92,7 +95,7 @@ export class ScheduleRegisterCard {
                         maxLength="${this.LIMIT}"
                     ></textarea>
                 </form>
-                <div class=schedule-register-card__btns-container>
+                <div class="schedule-register-card__btns-container">
                     <button class="schedule-register-card__cancel-btn">
                         취소
                     </button>

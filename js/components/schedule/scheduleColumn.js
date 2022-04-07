@@ -34,10 +34,10 @@ export class ScheduleColumn {
 
     setEvent() {
         const $addBtn = this.$target.querySelector(".schedule-column__add-btn");
-        $addBtn.addEventListener("click", () => this.addBtnClickEventHandler());
+        $addBtn.addEventListener("click", () => this.cardAddBtnClickEventHandler());
     }
 
-    addBtnClickEventHandler() {
+    cardAddBtnClickEventHandler() {
         if (this.registerCardState) {
             this.removeRegisterCard();
         } else {
@@ -55,11 +55,14 @@ export class ScheduleColumn {
 
     showRegisterCard() {
         this.registerCardState = true;
-        const registerCard = new ScheduleRegisterCard(
-            this.$cardsContainer,
-            this.id
-        );
-        registerCard.removeRegisterCard = this.removeRegisterCard.bind(this);
+        const scheduleRegisterCardParams = {
+            target: this.$cardsContainer,
+            id: this.id,
+            passedEventHandler: {
+                removeRegisterCard: this.removeRegisterCard.bind(this),
+            },
+        };
+        new ScheduleRegisterCard(scheduleRegisterCardParams);
     }
 
     render() {
