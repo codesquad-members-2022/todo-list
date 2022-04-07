@@ -9,12 +9,12 @@ public class CompletedItem {
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
 
-    public CompletedItem(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime lastModifiedAt) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.createdAt = createdAt;
-        this.lastModifiedAt = lastModifiedAt;
+    public CompletedItem(Task task) {
+        this.id = task.getId();
+        this.title = task.getTitle();
+        this.content = task.getContent();
+        this.createdAt = task.getCreatedAt();
+        this.lastModifiedAt = task.getLastModifiedAt();
     }
 
     public Long getId() {

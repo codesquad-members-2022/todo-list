@@ -9,7 +9,7 @@ public class DailyPlan {
     private List<CompletedItem> completedItems;
     private Author author;
 
-    public DailyPlan (){};
+    public DailyPlan() {};
 
     public DailyPlan(List<TodoItem> todoItems, List<ProgressingItem> progressingItems, List<CompletedItem> completedItems) {
         this.todoItems = todoItems;
@@ -21,31 +21,19 @@ public class DailyPlan {
         return todoItems;
     }
 
-    public void setTodoItems(List<TodoItem> todoItems) {
-        this.todoItems = todoItems;
-    }
-
     public List<ProgressingItem> getProgressingItems() {
         return progressingItems;
-    }
-
-    public void setProgressingItems(List<ProgressingItem> progressingItems) {
-        this.progressingItems = progressingItems;
     }
 
     public List<CompletedItem> getCompletedItems() {
         return completedItems;
     }
 
-    public void setCompletedItems(List<CompletedItem> completedItems) {
-        this.completedItems = completedItems;
-    }
-
     public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void acquire(Author author) {
         this.author = author;
     }
 }

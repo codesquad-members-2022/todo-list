@@ -18,6 +18,14 @@ public class TodoItem {
         this.lastModifiedAt = lastModifiedAt;
     }
 
+    public TodoItem(Task task) {
+        this.id = task.getId();
+        this.title = task.getTitle();
+        this.content = task.getContent();
+        this.createdAt = task.getCreatedAt();
+        this.lastModifiedAt = task.getLastModifiedAt();
+    }
+
     public Long getId() {
         return id;
     }

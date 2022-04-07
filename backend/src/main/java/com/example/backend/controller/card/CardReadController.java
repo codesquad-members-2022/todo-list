@@ -30,7 +30,7 @@ public class CardReadController {
     public ApiResult<DailyPlan> getDailyTodoItems(HttpServletRequest request) {
         Author author = new Author(request.getHeader("user-agent"));
         DailyPlan dailyPlan = cardReadService.getDailyPlan();
-        dailyPlan.setAuthor(author);
+        dailyPlan.acquire(author);
         return OK(dailyPlan);
     }
 }
