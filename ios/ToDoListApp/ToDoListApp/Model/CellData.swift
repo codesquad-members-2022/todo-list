@@ -16,8 +16,8 @@ class CellData {
         self.content = content
     }
     
-    static var dataList = [CellData(title: "Team 07-member 1", content: "Mase"),
-                           CellData(title: "Team 07-member 2", content: "Jee"),
-                           CellData(title: "Team 07-member 3", content: "제리"),
-                           CellData(title: "Team 07-member 4", content: "선을로")]
+    static var dataList = [CellData(title: "GitHub 공부하기", content: "* add \n* commit \n* push \n* 코드스쿼드 짱"),
+                           CellData(title: "블로그에 포스팅할 것", content: "* GitHub 공부내용 \n* 모던 자바스크립트 1장 공부 내용 \n* Todo List 만들기"),
+                           CellData(title: "백엔드", content: "제리 \n선을로"),
+                           CellData(title: "iOS", content: "메이스, 지")]
 }
