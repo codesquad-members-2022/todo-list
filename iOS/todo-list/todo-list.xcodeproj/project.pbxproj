@@ -19,7 +19,7 @@
 		5B349DE227FD7FF600AA602E /* ActivityRecoderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE127FD7FF600AA602E /* ActivityRecoderController.swift */; };
 		5B349DE627FECB4700AA602E /* LogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE527FECB4700AA602E /* LogTableViewCell.swift */; };
 		5B349DE827FECD0C00AA602E /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE727FECD0C00AA602E /* Log.swift */; };
-		5B349DEA27FECDC500AA602E /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE927FECDC500AA602E /* Activity.swift */; };
+		5B349DEA27FECDC500AA602E /* Activate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE927FECDC500AA602E /* Activate.swift */; };
 		BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
 		BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
 		BC5880DE27FC297C002E3A1D /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */; };
@@ -72,7 +72,7 @@
 		5B349DE127FD7FF600AA602E /* ActivityRecoderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityRecoderController.swift; path = "todo-list/ViewController/ActivityRecoderController.swift"; sourceTree = SOURCE_ROOT; };
 		5B349DE527FECB4700AA602E /* LogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewCell.swift; sourceTree = "<group>"; };
 		5B349DE727FECD0C00AA602E /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		5B349DE927FECDC500AA602E /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		5B349DE927FECDC500AA602E /* Activate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activate.swift; sourceTree = "<group>"; };
 		BC3D4A1627FD6F1C009B37FB /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
@@ -204,8 +204,8 @@
 			children = (
 				BC3D4A1627FD6F1C009B37FB /* Task.swift */,
 				BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */,
+				5B349DE927FECDC500AA602E /* Activate.swift */,
 				5B349DE727FECD0C00AA602E /* Log.swift */,
-				5B349DE927FECDC500AA602E /* Activity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -375,7 +375,7 @@
 				BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */,
 				5B349DA727FA9AFE00AA602E /* SceneDelegate.swift in Sources */,
 				BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */,
-				5B349DEA27FECDC500AA602E /* Activity.swift in Sources */,
+				5B349DEA27FECDC500AA602E /* Activate.swift in Sources */,
 				BCC6641027FC10F10078C1E2 /* KanbanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
