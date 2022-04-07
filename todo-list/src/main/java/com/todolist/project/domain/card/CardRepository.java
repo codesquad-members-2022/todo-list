@@ -1,5 +1,6 @@
 package com.todolist.project.domain.card;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ public class CardRepository {
 
 
     public void add(Card card){
-        jdbcTemplate.update(INSERT_CARD_SQL, card.getTitle(), card.getContents(), card.getWriter(), card.getCreatedTime(), card.getStatus());
+        jdbcTemplate.update(INSERT_CARD_SQL, card.getTitle(), card.getContents(), card.getWriter(), card.getCreatedTime(), card.getCardStatus());
     }
 
     public void remove(int id){
