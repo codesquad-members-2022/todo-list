@@ -5,22 +5,6 @@
 }
 
 // button
-.add-button {
-  @include icon-button(14px, 14px, 5px, '../images/common/icon-add-gray.png');
-
-  &:hover {
-    background-image: url('../images/common/icon-add-blue.png');
-  }
-}
-
-.delete-button {
-  @include icon-button(12px, 12px, 5px, '../images/common/icon-close-gray.png');
-
-  &:hover {
-    background-image: url('../images/common/icon-close-red.png');
-  }
-}
-
 .button-wrap {
   @include flex-box(flex-end, center, 8px);
 }
@@ -30,28 +14,44 @@
   height: 40px;
   border-radius: 6px;
   color: $button-main-font-color;
-}
 
-.normal-button {
-  @extend .button;
-  background-color: $button-bg-color-light-gray;
-  color: $button-sub-font-color;
+  &--add {
+    @include icon-button(14px, 14px, 5px, '../images/common/icon-add-gray.png');
 
-  &:hover {
-    background-color: $button-bg-color-gray;
-    color: $button-main-font-color;
-  }
-}
-
-.accent-button {
-  @extend .button;
-  background-color: $button-bg-color-light-gray;
-
-  &:hover {
-    background-color: $button-bg-color-dark-blue;
+    &:hover {
+      background-image: url('../images/common/icon-add-blue.png');
+    }
   }
 
-  &.disabled {
+  &--delete {
+    @include icon-button(12px, 12px, 5px, '../images/common/icon-close.png');
+
+    &:hover {
+      background-image: url('../images/common/icon-close-red.png');
+    }
+  }
+
+  &--cancle {
+    @extend .button;
+    background-color: $button-bg-color-light-gray;
+    color: $button-sub-font-color;
+
+    &:hover {
+      background-color: $button-bg-color-gray;
+      color: $button-main-font-color;
+    }
+  }
+
+  &--submit {
+    @extend .button;
+    background-color: $button-bg-color-blue;
+
+    &:hover {
+      background-color: $button-bg-color-dark-blue;
+    }
+  }
+
+  &--disabled {
     background-color: $button-bg-color-light-blue;
   }
 }

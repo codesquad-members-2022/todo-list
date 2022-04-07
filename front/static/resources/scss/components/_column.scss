@@ -18,7 +18,6 @@
   }
 
   &__title {
-    width: calc(100% - 34px);
     font-size: $size-large;
     font-weight: $weight-bold;
   }
@@ -37,7 +36,7 @@
     @include flex-box(space-between, center, 16px);
   }
 
-  &-add-button {
+  &-button--add {
     position: absolute;
     right: 50px;
     bottom: 50px;
@@ -45,6 +44,10 @@
     background-size: 72px 74px;
     width: 72px;
     height: 74px;
+  }
+
+  &__button--delete {
+    background-image: url('../images/common/icon-close-gray.png');
   }
 }
 
@@ -75,19 +78,15 @@
     color: $light-gray;
   }
 
-  &__button-wrap {
+  &__button--delete {
     position: absolute;
     top: 17px;
     right: 17px;
   }
-
-  &__delete-button {
-    background-image: url('../images/common/icon-close.png');
-  }
 }
 
-.card.write {
-  border: 1px solid $button-bg-color-blue;
+.card--success {
+  border: 1px solid $button-bg-color-dark-blue;
 
   .card {
     &__writer {
@@ -95,8 +94,16 @@
     }
 
     &__button-wrap {
-      position: static;
       margin-top: 16px;
     }
+  }
+}
+
+.card--write {
+  @extend .card--success;
+  border: 1px solid $button-bg-color-blue;
+
+  .card__button--submit {
+    @extend .button--disabled;
   }
 }
