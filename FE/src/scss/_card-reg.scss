@@ -1,0 +1,32 @@
+.card-reg {
+  @include card-deactivate;
+  flex-direction: column;
+
+  &__title {
+    margin-bottom: 0.8rem;
+  }
+
+  &__desc {
+    margin-bottom: 1.6rem;
+  }
+
+  input[type=text] {
+    border: 0;
+  }
+
+  input[type=text]:focus {
+    outline: none;
+  }
+
+  &__btns {
+    display: flex;
+  }
+
+  &__cancel {
+    @include button-gray;
+  }
+
+  &__confirm {
+    @include button-blue(false);
+  }
+}
