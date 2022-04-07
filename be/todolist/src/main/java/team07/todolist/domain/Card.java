@@ -16,6 +16,52 @@ public class Card {
 	private Integer status;
 	private boolean isDeleted;
 
+	public Card(Builder builder) {
+		this.id = builder.id;
+		this.userId = builder.userId;
+		this.title = builder.title;
+		this.content = builder.content;
+		this.row = builder.row;
+		this.status = builder.status;
+		this.isDeleted = builder.isDeleted;
+	}
+
+	public void delete() {
+		isDeleted = true;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getRow() {
+		return row;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void decreaseRow() {
+		this.row = this.row - 1;
+	}
+
+	public void increaseRow() {
+		this.row = this.row + 1;
+	}
+
+	public boolean isValid() {
+		return !isDeleted;
+	}
+
+	public ResponseCard createResponseCard() {
+		return new ResponseCard(id, userId, title, content, row, status);
+	}
+
+	public boolean isDifferentStatus(Integer status) {
+		return !this.status.equals(status);
+	}
+
 	public static class Builder {
 
 		private Long id;
@@ -30,7 +76,6 @@ public class Card {
 		}
 
 		public Builder(Card card) {
-			this.id = id;
 			this.userId = card.userId;
 			this.title = card.title;
 			this.content = card.content;
@@ -77,59 +122,6 @@ public class Card {
 		public Card build() {
 			return new Card(this);
 		}
-	}
-
-	public Card(Builder builder) {
-		this.userId = builder.userId;
-		this.title = builder.title;
-		this.content = builder.content;
-		this.row = builder.row;
-		this.status = builder.status;
-		this.isDeleted = builder.isDeleted;
-	}
-
-//	public Card(String userId, String title, String content, Integer row, Integer status) {
-//		this.userId = userId;
-//		this.title = title;
-//		this.content = content;
-//		this.row = row;
-//		this.status = status;
-//	}
-
-	public void delete() {
-		isDeleted = true;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Integer getRow() {
-		return row;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void decreaseRow() {
-		this.row = this.row - 1;
-	}
-
-	public void increaseRow() {
-		this.row = this.row + 1;
-	}
-
-	public boolean isValid() {
-		return !isDeleted;
-	}
-
-	public ResponseCard createResponseCard() {
-		return new ResponseCard(id, userId, title, content, row, status);
-	}
-
-	public boolean isDifferentStatus(Integer status) {
-		return !this.status.equals(status);
 	}
 
 	@Override

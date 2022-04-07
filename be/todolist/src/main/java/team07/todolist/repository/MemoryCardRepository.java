@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 import team07.todolist.domain.Card;
-import team07.todolist.domain.Card.Builder;
 
 @Repository
 public class MemoryCardRepository implements CardRepository {
@@ -42,7 +41,8 @@ public class MemoryCardRepository implements CardRepository {
 		Long id = sequence.incrementAndGet();
 
 		// Card 등록
-		Card cardWithId = new Builder(card).id(id).build();
+		Card cardWithId = new Card.Builder(card).id(id).build();
+
 		store.put(id, cardWithId);
 	}
 
@@ -96,8 +96,11 @@ public class MemoryCardRepository implements CardRepository {
 			.forEach(Card::increaseRow);
 
 		//todo originCard에서 row, status 매개변수 값으로 변경 후 return
+		Card updateCard = new Card.Builder(originCard).id(id).row(row).status(status).build();
 
-		return null;
+		store.put(id, updateCard);
+
+		return updateCard;
 	}
 
 	@Override
@@ -120,7 +123,7 @@ public class MemoryCardRepository implements CardRepository {
 				.filter(c -> c.getRow() < oldRow && c.getRow() >= newRow)
 				.forEach(Card::increaseRow);
 		}
-		newCard.setId(id);
+		newCard = new Card.Builder(newCard).id(id).build();
 		store.put(id, newCard);
 
 		return newCard;

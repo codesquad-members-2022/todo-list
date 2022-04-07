@@ -38,16 +38,23 @@ public class CardController {
 
 	@PostMapping
 	public String save(@RequestBody RequestCard requestCard) {
-		log.debug("{}", requestCard.toString());
+		log.debug("{}", requestCard);
 		cardService.save(requestCard);
 
 		return "redirect:/list";
 	}
 
-	@PostMapping("/{id}")
-	public String dragAndDrop(@PathVariable Long id, @RequestBody RequestCard requestCard) {
+	@PostMapping("/move/horizon/{id}")
+	public String dragAndDropHorizon(@PathVariable Long id, @RequestBody RequestCard requestCard) {
 
-		cardService.dragAndDrop(id, requestCard);
+		cardService.dragAndDropHorizon(id, requestCard);
+		return "redirect:/list";
+	}
+
+	@PostMapping("/move/vertical/{id}")
+	public String dragAndDropVertical(@PathVariable Long id, @RequestBody RequestCard requestCard) {
+
+		cardService.dragAndDropVertical(id, requestCard);
 		return "redirect:/list";
 	}
 
