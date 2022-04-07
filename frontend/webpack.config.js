@@ -1,21 +1,27 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 const path = require('path');
 module.exports = {
   mode: 'development',
   entry: './src/js/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: './src/js/bundle.js',
-    publicPath: './img/',
+    filename: './bundle.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: './src/css/style.css',
+      filename: './style.css',
     }),
+    new CopyPlugin({
+      patterns: [{ from: './src/img', to: './src/img' }],
+    }),
+    new CleanWebpackPlugin(),
   ],
   devtool: 'inline-source-map',
   devServer: {
@@ -40,13 +46,6 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        loader: 'file-loader',
-        options: {
-          name: './src/img/[contenthash].[ext]',
-        },
       },
     ],
   },
