@@ -8,15 +8,16 @@ export default class TodoInput {
   }
 
   onInputContent = ({ target }) => {
+    const inputRegisterElement = document.querySelector(`.input-${this.status} .input--register`);
     if (target.value.length === 0) {
-      document.querySelector(`.input-${this.status} .input--register`).disabled = true;
-      document.querySelector(`.input-${this.status} .input--register`).classList.remove('bg-blue');
-      document.querySelector(`.input-${this.status} .input--register`).classList.add('bg-sky-blue');
+      inputRegisterElement.disabled = true;
+      inputRegisterElement.classList.remove('bg-blue');
+      inputRegisterElement.classList.add('bg-sky-blue');
     } else {
       this.content = target.value;
-      document.querySelector(`.input-${this.status} .input--register`).disabled = false;
-      document.querySelector(`.input-${this.status} .input--register`).classList.remove('bg-sky-blue');
-      document.querySelector(`.input-${this.status} .input--register`).classList.add('bg-blue');
+      inputRegisterElement.disabled = false;
+      inputRegisterElement.classList.remove('bg-sky-blue');
+      inputRegisterElement.classList.add('bg-blue');
     }
   };
 

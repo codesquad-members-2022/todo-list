@@ -1,7 +1,7 @@
 import TodoInput from './TodoInput.js';
 export default class TodoColumn {
   constructor(status) {
-    this.target = document.querySelector('.column-section');
+    this.parentTarget = document.querySelector('.column-section');
     this.status = status;
     this.todoInput = new TodoInput(this.status);
     this.onInput = false;
@@ -39,7 +39,7 @@ export default class TodoColumn {
         
     </article>
       `;
-    this.target.insertAdjacentHTML('beforeend', columnListHTML);
+    this.parentTarget.insertAdjacentHTML('beforeend', columnListHTML);
     document.querySelector(`.${this.status}`).addEventListener('click', this.onAddClick);
   };
 }
