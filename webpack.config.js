@@ -13,14 +13,14 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {loader: 'babel-loader'},
+        use: { loader: 'babel-loader' },
       },
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.s[ac]ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
   devtool: 'source-map',
-  plugins: [new HtmlWebpackPlugin({filename: 'index.html', template: './src/index.html'})],
+  plugins: [new HtmlWebpackPlugin({ filename: 'index.html', template: './src/index.html' })],
 };
