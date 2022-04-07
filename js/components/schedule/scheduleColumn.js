@@ -1,41 +1,50 @@
-//- [ ] 유저가 스케줄 칼럼의 +버튼을 클릭하면 새로운 카드를 등록할 수 있다.
-//     - [x] +버튼에 마우스가 올라가면 +버튼의 색이 변한다.
-//     - [x] +버튼을 클릭하면 새 카드 등록 박스가 생성된다.
-//         - [x] 카드 등록 박스에 제목을 입력하세요, 내용을 입력하세요가 적혀있다.
-//     - [x] +버튼을 다시 클릭하면 카드 등록 박스가 사라진다.
-//     - [x] 취소 버튼을 누르면 카드 등록 박스가 사라진다.
-//     - [x] 내용 입력이 없는 상태에서 등록 버튼은 누를 수 없다. (비활성화)
-//     - [x] 내용을 입력하면 등록 버튼을 누를 수 있다.
-//         - [x] 내용 입력 글자수는 500자로 제한한다.
-//         - [x] 글의 길이에 맞춰 박스 크기가 늘어난다.
-//     - [ ] 등록 버튼을 누르면 새로운 카드가 등록된다.
-//     - [ ] 카드 등록 박스는 사라진다.
 import { ScheduleCard } from "./scheduleCard.js";
 import { ScheduleRegisterCard } from "./scheduleRegisterCard.js";
+import { ScheduleModel } from "../model/scheduleModel.js";
 
 export class ScheduleColumn {
-    constructor(target, title) {
+    constructor(target, scheduleColumnData) {
         this.$target = target;
+        this.$scheduleColumn;
         this.$cardsContainer;
-        this.title = title;
+        this.scheduleModel = new ScheduleModel(scheduleColumnData);
+        this.title = this.scheduleModel.getScheduleColumnTitle();
         this.id = new Date().getTime();
         this.registerCardState = false;
+
         this.init();
     }
 
     init() {
         this.render();
-        this.$cardsContainer = this.$target.querySelector(
-            `[data-id="${this.id}"]`
-        );
-        this.addCard();
+        this.setDOMElement();
+        this.renderCards();
         this.setEvent();
     }
 
+    setDOMElement() {
+        this.$scheduleColumn = this.$target.querySelector(
+            `[data-id="${this.id}"]`
+        );
+        this.$cardsContainer = this.$scheduleColumn.querySelector(
+            ".schedule-column__cards-container"
+        );
+    }
+
+    renderCards() {
+        const cards = this.scheduleModel.getScheduleCards();
+        cards.forEach((cardData) => {
+            new ScheduleCard(this.$cardsContainer, cardData);
+        });
+    }
+
     setEvent() {
-        const $addBtn = this.$target.querySelector(".schedule-column__add-btn");
-        $addBtn.addEventListener("click", () =>
-            this.cardAddBtnClickEventHandler()
+        const $addBtn = this.$scheduleColumn.querySelector(
+            ".schedule-column__add-btn"
+        );
+        $addBtn.addEventListener(
+            "click",
+            this.cardAddBtnClickEventHandler.bind(this)
         );
     }
 
@@ -62,6 +71,7 @@ export class ScheduleColumn {
             id: this.id,
             passedEventHandler: {
                 removeRegisterCard: this.removeRegisterCard.bind(this),
+                addCard: this.addCard.bind(this),
             },
         };
         new ScheduleRegisterCard(scheduleRegisterCardParams);
@@ -72,17 +82,15 @@ export class ScheduleColumn {
         this.$target.insertAdjacentHTML("beforeend", $scheduleColumn);
     }
 
-    addCard() {
-        const cardData = {
-            title: "git hub 공부",
-            body: "add commit",
-            caption: "author by web",
-        };
+    addCard(cardData) {
         new ScheduleCard(this.$cardsContainer, cardData);
+        this.scheduleModel.addScheduleCard(cardData);
+
+        console.log(this.scheduleModel.getScheduleCards());
     }
 
     template() {
-        return `<div class="schedule-column">
+        return `<div class="schedule-column" data-id="${this.id}">
             <div class="schedule-column__header">
                 <h2 class="schedule-column__title">${this.title}</h2>
                 <div class="schedule-column__count-box">
@@ -115,7 +123,7 @@ export class ScheduleColumn {
                     />
                 </svg>
             </div>
-            <div class="schedule-column__cards-container" data-id="${this.id}"></div>
+            <div class="schedule-column__cards-container"></div>
         </div>`;
     }
 }

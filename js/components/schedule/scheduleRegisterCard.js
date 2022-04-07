@@ -76,6 +76,22 @@ export class ScheduleRegisterCard {
         if (target.classList.contains("inactive")) {
             return;
         }
+
+        const $cardTitle = this.$target.querySelector(
+            ".schedule-register-card__title"
+        );
+        const $cardBody = this.$target.querySelector(
+            ".schedule-register-card__body"
+        );
+
+        const cardData = {
+            title: $cardTitle.value,
+            body: $cardBody.value,
+            caption: "author by web",
+        };
+
+        this.passedEventHandler.addCard(cardData);
+        this.passedEventHandler.removeRegisterCard();
     }
 
     toggleRegisterBtn(booleanValue, $registerBtn) {
