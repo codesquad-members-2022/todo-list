@@ -68,7 +68,7 @@
         <!--Edit Card View Controller-->
         <scene sceneID="xs8-kx-v8s">
             <objects>
-                <viewController storyboardIdentifier="popVC" id="wYC-pF-Ein" customClass="EditCardViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="popupViewController" id="wYC-pF-Ein" customClass="EditCardViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ia6-xm-5ws">
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
