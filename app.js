@@ -24,6 +24,7 @@ class App extends Component {
             .map((list, idx) => `<section data-idx=${idx}></section>`)
             .join("")}`;
   }
+
   mount() {
     const { lists } = this.state;
     new Header(this.select(".todo-header"));
@@ -34,4 +35,5 @@ class App extends Component {
       });
   }
 }
+
 new App(document.body);
