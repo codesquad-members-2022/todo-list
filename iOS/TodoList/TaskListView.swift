@@ -1,7 +1,6 @@
 import UIKit
 
 class TaskListView: UIView {
-    static let nibName: String = "TaskListView"
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var taskCountBadge: UILabel!
