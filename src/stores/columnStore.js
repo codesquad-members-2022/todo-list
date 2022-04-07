@@ -1,8 +1,19 @@
-const Store = {
-  observers: new Set(),
+export const Store = {
+  observers: {},
+
+  subscribe(interest, observer) {
+    if (!this.observers[interest]) {
+      this.observers[interest] = [];
+    }
+    this.observers[interest].push(observer);
+  },
+
+  notify(interest) {
+    this.observers[interest].forEach((observer) => observer());
+  },
 
   state: {
-    colmnOrder: [0, 1],
+    columnOrder: [0, 1],
     0: {
       title: "해야할 일",
       cardOrder: [111, 333, 222],
@@ -62,6 +73,6 @@ const Store = {
   setCardState(cardState) {
     const columnID = cardState.columnID;
     this.state[columnID].cards = { ...this.state[columnID].cards, ...cardState };
-    this.observers.forEach((observer) => observer());
+    this.notify("card");
   },
 };
