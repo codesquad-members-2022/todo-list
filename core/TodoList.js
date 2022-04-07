@@ -1,4 +1,4 @@
-import Component from "./Component";
+import Component from './Component';
 
 export class TodoList extends Component {
   template() {
@@ -32,7 +32,7 @@ export class TodoList extends Component {
         (todo, idx) => `<div class="todo-card" data-idx=${idx}>    
   </div>`
       )
-      .join("")}`;
+      .join('')}`;
   }
   mount() {
     for (let i = 0; i < todos.length; i++) {
