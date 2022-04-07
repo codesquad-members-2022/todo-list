@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.sql.DataSource;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -58,7 +59,7 @@ public class CardRepository {
                 + "from todo_card where id = :id",
                 namedParameters, cardRowMapper));
 
-        return Optional.ofNullable(member);
+        return Optional.ofNullable(card);
     }
 
     public int countByStatus(int status) {
