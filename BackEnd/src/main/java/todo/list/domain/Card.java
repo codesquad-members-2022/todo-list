@@ -8,4 +8,6 @@ public class Card {
     private String contents;
     private CardStatus status;
     private LocalDateTime createDateTime;
+    private Author author;
+
 }
