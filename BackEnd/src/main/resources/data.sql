@@ -8,3 +8,16 @@ insert into activity_log
     ("UPDATE", "title6", "DONE", null),
     ("MOVE", "title7", "TODO", "IN_PROGRESS"),
     ("MOVE", "title8", "IN_PROGRESS", "DONE");
+
+insert into card
+    (title, contents, card_status, author) values
+    ("title1", "contents1", "TODO", "ANDROID"),
+    ("title2", "contents2", "IN_PROGRESS", "ANDROID"),
+    ("title3", "contents3", "TODO", "ANDROID"),
+    ("title4", "contents4", "DONE", "ANDROID"),
+    ("title5", "contents5", "IN_PROGRESS", "ANDROID"),
+    ("title6", "contents6", "TODO", "ANDROID"),
+    ("title7", "contents7", "DONE", "ANDROID"),
+    ("title8", "contents8", "DONE", "ANDROID"),
+    ("title9", "contents9", "IN_PROGRESS", "ANDROID"),
+    ("title10", "contents10", "DONE", "ANDROID");
