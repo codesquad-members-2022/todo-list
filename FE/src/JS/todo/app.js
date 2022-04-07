@@ -1,7 +1,6 @@
 import Model from './Model.js';
 import View from './view.js';
 import Controller from './Controller.js';
-import { getData } from '../mok-data/data.js';
 import Drag from '../drag-drop/drag-drop.js';
 import { fetchRequest } from '../utility/fetchRequest.js';
 
