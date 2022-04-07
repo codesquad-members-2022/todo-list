@@ -18,7 +18,6 @@ const app = () => {
     dataLoad(todos);
   }
 };
-
 const dataLoad = todos => {
   // todos 배열에서 status(ing,todo,complete)를 각각 필터링하여 그에 맞는 배열에 넣는다.
 
@@ -29,16 +28,19 @@ const dataLoad = todos => {
   ingArr.forEach(todo => {
     const newTodo = new Todo(todo);
     document.querySelector(`.ing`).insertAdjacentHTML('afterend', newTodo.render());
+    newTodo.run();
   });
 
   todoArr.forEach(todo => {
     const newTodo = new Todo(todo);
     document.querySelector(`.todo`).insertAdjacentHTML('afterend', newTodo.render());
+    newTodo.run();
   });
 
   completeArr.forEach(todo => {
     const newTodo = new Todo(todo);
     document.querySelector(`.complete`).insertAdjacentHTML('afterend', newTodo.render());
+    newTodo.run();
   });
 
   new TodoCount(ingArr.length);

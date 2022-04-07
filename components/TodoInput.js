@@ -30,8 +30,13 @@ export default class TodoInput {
     this.onInput = false;
   };
 
+  getLastId = () => {
+    const lastNum = JSON.parse(localStorage.getItem('todos'));
+    return lastNum.length;
+  };
   onRegisterBtn = () => {
     const todo = {};
+    todo.id = this.getLastId() + 1;
     todo.title = this.title;
     todo.content = this.content;
     todo.status = this.status;
@@ -42,6 +47,7 @@ export default class TodoInput {
 
     const newTodo = new Todo(todo);
     document.querySelector(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
+
     document.querySelector(`.input-${todo.status}`)?.remove();
   };
 
