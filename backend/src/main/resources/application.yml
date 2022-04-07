@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url:
+    url: jdbc:mysql://todolist.cvzpkqdwzwik.ap-northeast-2.rds.amazonaws.com:3306/todolist
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username:
-    password:
+    username: jun
+    password: 12341234
 server:
-  port:
+  port: 8082
