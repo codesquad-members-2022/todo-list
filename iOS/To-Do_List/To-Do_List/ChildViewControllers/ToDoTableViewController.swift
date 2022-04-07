@@ -19,33 +19,32 @@ class ToDoTableViewController: UITableViewController {
         self.view.backgroundColor = .white
         tableView.separatorStyle = .none
         self.tableView.tableHeaderView = TabelViewHeader(titleText: "해야할 일")
-        
+        addObserver()
+    }
+    
+    
+    private func addObserver() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reloadTableView),
-            name: NSNotification.Name("DidFetchToList"),
+            name: .didFetchInfo,
             object: nil)
     }
     
     @objc func reloadTableView(notification:Notification) {
-        guard let data = notification.userInfo?["TodoList"] as? Todoitems else { return }
+        guard let data = notification.userInfo?[userInfo.taskData] as? Todoitems else { return }
         todoList =  data.response.todoItems
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell") as? CardCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier) as? CardCell,
               let todoList = todoList else { return UITableViewCell() }
-        
-        let title = todoList[indexPath.row].title
-        let body = todoList[indexPath.row].content
-        
-        cell.setCardText(title: title, body: body)
+        cell.loadCardInfo(info: todoList[indexPath.row])
         return cell
     }
     

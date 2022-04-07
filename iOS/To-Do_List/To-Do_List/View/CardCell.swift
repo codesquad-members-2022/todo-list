@@ -9,6 +9,7 @@ import UIKit
 
 class CardCell: UITableViewCell {
 
+    static let identifier = "CardCell"
     private let inset:CGFloat = 24.0
     
     lazy var stackView:UIStackView = {
@@ -40,9 +41,9 @@ class CardCell: UITableViewCell {
     }()
     
     
-    func setCardText(title:String,body:String) {
-        self.headLabel.text = title
-        self.bodyLabel.text = body
+    func loadCardInfo(info : Todo) {
+        self.headLabel.text = info.title
+        self.bodyLabel.text = info.content
     }
     
     
