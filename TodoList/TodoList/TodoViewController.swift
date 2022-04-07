@@ -22,12 +22,16 @@ class TodoViewController: UIViewController {
     
     func setUIProperties() {
         cardTableView.backgroundColor = .gray
-        addCardButton.backgroundColor = .blue
+        todoCountLabel.backgroundColor = .lightGray
+        
+        todoCountLabel.layer.cornerRadius = 15
+        todoCountLabel.layer.masksToBounds = true
     }
     
     func setUIPropertiesConstraint() {
         
         self.view.translatesAutoresizingMaskIntoConstraints = false
+        self.cardTableView.translatesAutoresizingMaskIntoConstraints = false
         self.todoLabel.translatesAutoresizingMaskIntoConstraints = false
         self.todoCountLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addCardButton.translatesAutoresizingMaskIntoConstraints = false
@@ -38,13 +42,14 @@ class TodoViewController: UIViewController {
         self.cardTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         self.cardTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
         
-        self.todoLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 10).isActive = true
+        self.todoLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
         self.todoLabel.bottomAnchor.constraint(equalTo: self.cardTableView.topAnchor, constant: -10).isActive = true
         
         self.todoCountLabel.leftAnchor.constraint(equalTo: self.todoLabel.rightAnchor, constant: 15).isActive = true
         self.todoCountLabel.centerYAnchor.constraint(equalTo: self.todoLabel.centerYAnchor, constant: 0).isActive = true
+        self.todoCountLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
-        self.addCardButton.leftAnchor.constraint(equalTo: self.todoCountLabel.rightAnchor, constant: 80).isActive = true
+        self.addCardButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
         self.addCardButton.bottomAnchor.constraint(equalTo: self.cardTableView.topAnchor, constant: -10).isActive = true
     }
 }
