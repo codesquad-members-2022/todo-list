@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo list</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <h1 class="header_title">TO-DO LIST</h1>
+      <button class="menu_btn">
+        <img src="./src/img/menu_icon.png" alt="활동기록 메뉴" />
+      </button>
+    </header>
+    <main>
+      <article class="todo_container">
+        <section class="todo_column_box">
+          <div class="column_title_box">
+            <div class="title_content">
+              <h2 class="title">해야할 일</h2>
+              <span class="card_count">2</span>
+            </div>
+            <div class="column_control_btn">
+              <button type="button" class="control_btn add">카드등록</button>
+              <button type="button" class="control_btn delete">삭제</button>
+            </div>
+          </div>
+          <ul class="card_list">
+            <li class="card"></li>
+          </ul>
+        </section>
+      </article>
+    </main>
+  </body>
 </html>
