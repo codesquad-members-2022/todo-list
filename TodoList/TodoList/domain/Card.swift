@@ -21,11 +21,8 @@ struct Card: Codable {
         self.writer = writer
         self.date = Date.now
     }
-    
 
 }
-
-
 
 extension Card: CardUsable {
     func getSection() -> CardStatus {

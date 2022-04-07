@@ -11,14 +11,14 @@ class CardBoard {
     private(set) var selectedCard: Card?
     private(set) var selectedIndex: Int?
     
-    private(set) var todoCards: [CardUsable] = []
-    private(set) var doingCards: [CardUsable] = []
-    private(set) var doneCards: [CardUsable] = []
+    private(set) var todoCards: [TableCardUsable] = []
+    private(set) var doingCards: [TableCardUsable] = []
+    private(set) var doneCards: [TableCardUsable] = []
     
     private let cardFactory = CardFactory()
     
     func addCard(title: String, content: String) {
-        let card = cardFactory.createCard(title: title, contents: content)
+        let card = cardFactory.createTableCard(title: title, contents: content)
         todoCards.insert(card, at: 0)
     }
 }

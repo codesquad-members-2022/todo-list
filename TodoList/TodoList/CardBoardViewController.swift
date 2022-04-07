@@ -28,7 +28,6 @@ class CardBoardViewController: UIViewController {
         todoViewController.view.widthAnchor.constraint(equalTo: todoContainerView.widthAnchor, constant: 0).isActive = true
         todoViewController.view.centerXAnchor.constraint(equalTo: todoContainerView.centerXAnchor, constant: 0).isActive = true
         
-        
     }
 }
 
