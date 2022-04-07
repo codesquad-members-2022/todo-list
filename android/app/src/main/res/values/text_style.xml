@@ -22,5 +22,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="tvCategoryDescription.for_small_device">
+        <item name="android:textSize">7sp</item>
+    </style>
+
+    <style name="tvBadgeStyle.for_small_device">
+        <item name="android:textSize">5sp</item>
+    </style>
+
 
 </resources>

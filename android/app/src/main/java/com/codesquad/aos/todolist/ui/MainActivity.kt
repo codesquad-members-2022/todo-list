@@ -3,8 +3,8 @@ package com.codesquad.aos.todolist.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.View
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import com.codesquad.aos.todolist.R
@@ -17,11 +17,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.toolbarMenu?.setOnMenuItemClickListener { menuItem ->
+        binding.toolbarMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.appbar_main_menu -> {
                     Log.d("AppTest", "appbar-menu")
-                    binding.drawerLayout?.openDrawer(Gravity.RIGHT)
+                    binding.drawerLayout.openDrawer(GravityCompat.END)
 
                     // binding.drawerLaytout?.open()
                     // 위 방식으로 하면 안드로이드 자체에서 gravity가 left 인 드로어를 필요로 하는 것으로 이해
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.drawerLayout?.addDrawerListener(object: DrawerLayout.DrawerListener{
+        binding.drawerLayout.addDrawerListener(object: DrawerLayout.DrawerListener{
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 Log.d("AppTest", "onDrawerSlide called")
 

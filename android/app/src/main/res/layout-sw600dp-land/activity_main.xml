@@ -302,7 +302,6 @@
                             android:paddingHorizontal="8dp"
                             android:paddingTop="2dp"
                             android:text="0"
-
                             app:layout_constraintStart_toStartOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
