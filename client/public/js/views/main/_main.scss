@@ -1,0 +1,46 @@
+.column-list {
+  display: flex;
+  gap: 16px;
+}
+
+.column {
+  &__header {
+    @include flex(space-between);
+    padding-bottom: 16px;
+
+    &__content {
+      @include flex();
+    }
+
+    &--title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    &--card-count {
+      @include flex();
+      border-radius: 100%;
+      width: 26px;
+      height: 26px;
+      background-color: $gray-strong;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+
+    &__btn {
+      @include flex();
+      gap: 20px;
+    }
+
+    &--add-card {
+      cursor: pointer;
+    }
+
+    &--delete-card {
+      cursor: pointer;
+      &:hover {
+        filter: invert(80%) saturate(500%);
+      }
+    }
+  }
+}
