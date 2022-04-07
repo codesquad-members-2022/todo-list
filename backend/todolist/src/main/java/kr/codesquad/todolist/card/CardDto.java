@@ -1,14 +1,17 @@
 package kr.codesquad.todolist.card;
 
+import static kr.codesquad.todolist.card.Card.TodoStatus.from;
+
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
 public class CardDto {
 	@Data
-	@AllArgsConstructor
+	@NoArgsConstructor
 	public static class WriteRequest {
 		@NotBlank(message = "제목은 필수 값입니다.")
 		@Size(min = 1, max = 50, message = "50자 미안으로 작성 하세요.")
@@ -18,16 +21,18 @@ public class CardDto {
 		private String content;
 		@NotBlank(message = "todo list 카테고리 정보는 필수 값입니다.")
 		private String todoStatus;
-		@NotBlank(message = "순서는 필수 값입니다.")
+		@NotNull(message = "순서는 필수 값입니다.")
+		@Min(1)
 		private Long order;
-		@NotBlank(message = "사용자 id는 필수 값입니다.")
+		@NotNull(message = "사용자 id는 필수 값입니다.")
+		@Min(1)
 		private Long userId;
 
 		public Card toEntity() {
 			return Card.builder()
 				.subject(subject)
 				.content(content)
-				.todoStatus(Card.TodoStatus.valueOf(todoStatus))
+				.todoStatus(from(todoStatus))
 				.todoOrder(order)
 				.userId(userId)
 				.build();
