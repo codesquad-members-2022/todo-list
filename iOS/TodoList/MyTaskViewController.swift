@@ -44,7 +44,7 @@ class MyTaskViewController: UIViewController {
     }
     
     private func editCardButtonTapped() {
-        guard let popupViewController = storyboard?.instantiateViewController(withIdentifier: "popupViewController") as? EditCardViewController else { return }
+        guard let popupViewController = storyboard?.instantiateViewController(withIdentifier: NameSpace.identifier.popupViewController) as? EditCardViewController else { return }
         
         popupViewController.modalPresentationStyle = .overFullScreen
         
