@@ -7,9 +7,9 @@ class MyTaskViewController: UIViewController {
     @IBOutlet weak var actionFlowButton: UIButton!
     @IBOutlet weak var stackViewTrailing: NSLayoutConstraint!
     
-    private let todoViewController = TaskListBoardViewController()
-    private let doingViewController = TaskListBoardViewController()
-    private let doneViewController = TaskListBoardViewController()
+    private let todoViewController = TaskCardListViewController()
+    private let doingViewController = TaskCardListViewController()
+    private let doneViewController = TaskCardListViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()

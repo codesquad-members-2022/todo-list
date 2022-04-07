@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskListView: UIView {
+class TaskCardListView: UIView {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var taskCountBadge: UILabel!
