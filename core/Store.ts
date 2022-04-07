@@ -5,7 +5,8 @@ export class Store {
     this._state = state;
   }
   observer(state) {
-    const handler: ProxyHandler<any> = {
+ 
+    const handler = { 
       get: (target, name) => {
         const prop = target[name];
         if (!prop) return undefined;
