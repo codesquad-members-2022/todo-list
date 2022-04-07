@@ -8,9 +8,28 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>To do list</title>
-     <link rel="stylesheet" href="./dist/css/style.css" />
+    <link rel="stylesheet" href="./assets/icons/style.css">
+    <link rel="stylesheet" href="./styles/bootstrap-grid.min.css" />
+    <!--    <link rel="stylesheet" href="./dist/css/style.css" />-->
+    <style>
+      .row > div {
+          border: 1px solid tomato;
+      }
+    </style>
   </head>
   <body>
-    <script src="./dist/main.js"></script>
+    <div class="container">
+      <div class="row gx-3">
+        <div class="col-6">컬럼6</div>
+        <div class="col-6">컬럼6</div>
+      </div>
+      <div class="row gx-3">
+        <div class="col-3">컬럼3</div>
+        <div class="col-4">컬럼4</div>
+        <div class="col-3">컬럼3</div>
+        <div class="col-2">컬럼2</div>
+      </div>
+    </div>
+    <!--    <script src="./dist/main.js"></script>-->
   </body>
 </html>
