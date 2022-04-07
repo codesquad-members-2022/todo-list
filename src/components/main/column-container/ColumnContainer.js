@@ -1,10 +1,10 @@
 import { Store } from "../../../stores/ColumnStore.js";
-import { renderColumn } from "./Column/Column.js";
+import { Column } from "./Column/Column.js";
 
 export const renderColumnContainer = (parentEl) => {
   const columnContainerNode = getColumnContainerNode();
   parentEl.appendChild(columnContainerNode);
-  mountColumn(columnContainerNode);
+  mountColumn();
 };
 
 const getColumnContainerNode = () => {
@@ -13,7 +13,7 @@ const getColumnContainerNode = () => {
   return columnContainerNode;
 };
 
-const mountColumn = (parentEl) => {
+const mountColumn = () => {
   const columnOrder = Store.state.columnOrder;
-  columnOrder.forEach((columnID) => renderColumn(parentEl, columnID));
+  columnOrder.forEach((columnID) => new Column(columnID));
 };

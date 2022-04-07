@@ -44,8 +44,16 @@
         &__add-btn{
             width: 24px;
             height: 24px;
-            background: url(../../../../images/column-plus.png) no-repeat center;
             margin-right: 5px;
+            background: url(../../../../images/column-plus.png) no-repeat center;
+            
+            &--activated {
+                background: url(../../../../images/column-plus-activated.png) no-repeat center;
+            }
+
+            &:hover {
+                background: url(../../../../images/column-plus-activated.png) no-repeat center;
+            }
         }
         
         
@@ -53,10 +61,11 @@
             width: 24px;
             height: 24px;
             background-image: url(../../../../images/column-close.png);
+
+            &:hover {
+                background-image: url(../../../../images/column-close-activated.png);
+            }
         }
-
-        
     }
-
 }
 
