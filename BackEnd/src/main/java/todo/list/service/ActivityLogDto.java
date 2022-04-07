@@ -12,7 +12,7 @@ public class ActivityLogDto {
     private String title;
     private CardStatus nowStatus;
     private CardStatus beforeStatus;
-    private LocalDateTime createDate;
+    private LocalDateTime createDateTime;
 
     public ActivityLogDto(ActivityLog activityLog) {
         this.id = activityLog.getId();
@@ -20,7 +20,7 @@ public class ActivityLogDto {
         this.title = activityLog.getTitle();
         this.nowStatus = activityLog.getNowStatus();
         this.beforeStatus = activityLog.getBeforeStatus();
-        this.createDate = activityLog.getCreateDate();
+        this.createDateTime = activityLog.getCreateDateTime();
     }
 
     public Long getId() {
@@ -43,7 +43,7 @@ public class ActivityLogDto {
         return beforeStatus;
     }
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
     }
 }

@@ -20,7 +20,7 @@ public class ActivityLogRepository {
     }
 
     public List<ActivityLog> findAll() {
-        return jdbcTemplate.query("select id, action, title, now_status, before_status, create_date from activity_log order by create_date desc", activityLogRowMapper());
+        return jdbcTemplate.query("select id, activity_log_action, title, now_status, before_status, create_date from activity_log order by create_date desc", activityLogRowMapper());
     }
 
     private RowMapper<ActivityLog> activityLogRowMapper() {

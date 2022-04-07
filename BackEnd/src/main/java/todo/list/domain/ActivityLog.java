@@ -8,16 +8,16 @@ public class ActivityLog {
     private String title;
     private CardStatus nowStatus;
     private CardStatus beforeStatus;
-    private LocalDateTime createDate;
+    private LocalDateTime createDateTime;
 
     public ActivityLog(Long id, Action action, String title, CardStatus nowStatus,
-                       CardStatus beforeStatus, LocalDateTime createDate) {
+                       CardStatus beforeStatus, LocalDateTime createDateTime) {
         this.id = id;
         this.action = action;
         this.title = title;
         this.nowStatus = nowStatus;
         this.beforeStatus = beforeStatus;
-        this.createDate = createDate;
+        this.createDateTime = createDateTime;
     }
 
     public Long getId() {
@@ -40,7 +40,7 @@ public class ActivityLog {
         return beforeStatus;
     }
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
     }
 }

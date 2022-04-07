@@ -7,5 +7,5 @@ public class Card {
     private String title;
     private String contents;
     private CardStatus status;
-    private LocalDateTime createDate;
+    private LocalDateTime createDateTime;
 }
