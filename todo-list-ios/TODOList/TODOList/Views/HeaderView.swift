@@ -48,8 +48,8 @@ class HeaderView: UIView {
         titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7).isActive = true
         
         sideMenuButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        sideMenuButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        sideMenuButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        sideMenuButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        sideMenuButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         sideMenuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50).isActive = true
     }
 }
