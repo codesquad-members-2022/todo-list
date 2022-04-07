@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist.model.ActionType.*
 import com.example.todolist.model.History
+import com.example.todolist.model.Task
 
 class ViewModel : ViewModel() {
 
@@ -12,8 +13,18 @@ class ViewModel : ViewModel() {
     val history: LiveData<List<History>>
         get() = _history
 
+    private val todoItems: MutableList<Task> = mutableListOf()
+    private var _todoTask = MutableLiveData<MutableList<Task>>()
+    val todoTask: LiveData<MutableList<Task>>
+        get() = _todoTask
+
     fun loadDummyData() {
         _history.value = getDummyData()
+    }
+
+    fun addTask(task: Task) {
+        todoItems.add(task)
+        _todoTask.value = todoItems
     }
 
     private fun getDummyData(): List<History> {

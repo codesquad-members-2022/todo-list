@@ -7,6 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="todo_black01">#010101</color>
     <color name="todo_grey01">#E5E5E5</color>
+    <color name="todo_gray02">#BDBDBD</color>
     <color name="todo_grey03">#828282</color>
+    <color name="todo_grey04">#E0E0E0</color>
+    <color name="todo_grey05">#66FFFFFF</color>
     <color name="todo_white">#FFFFFFFF</color>
+    <color name="todo_blue">#0075DE</color>
+    <color name="todo_light_blue">#86C6FF</color>
 </resources>
