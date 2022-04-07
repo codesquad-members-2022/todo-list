@@ -1,5 +1,7 @@
 package kr.codesquad.todolist.dto;
 
+import kr.codesquad.todolist.domain.Card;
+
 import java.time.LocalDateTime;
 
 public class CardResponse {
@@ -18,6 +20,10 @@ public class CardResponse {
         this.subject = subject;
         this.contents = contents;
         this.createTime = createTime;
+    }
+
+    public static CardResponse from(Card saved) {
+        return new CardResponse(saved.getId(), saved.getColumnId(), saved.getUserId(), saved.getSubject(), saved.getContents(), saved.getCreateTime());
     }
 
     public Long getId() {
