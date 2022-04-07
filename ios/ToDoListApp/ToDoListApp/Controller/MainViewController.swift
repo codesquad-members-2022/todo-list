@@ -56,6 +56,12 @@ class MainViewController: UIViewController {
         child.didMove(toParent: parent)
     }
     
+    private func configureTableStackView() {
+        kanbanViewControllers.forEach { kanbanViewController in
+            tableStackView.addArrangedSubview(kanbanViewController.view)
+        }
+    }
+    
     private func layoutTitleView() {
         titleView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -63,12 +69,6 @@ class MainViewController: UIViewController {
         titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         titleView.heightAnchor.constraint(equalToConstant: 72).isActive = true
-    }
-    
-    private func configureTableStackView() {
-        kanbanViewControllers.forEach { kanbanViewController in
-            tableStackView.addArrangedSubview(kanbanViewController.view)
-        }
     }
     
     private func layoutTableStackView() {
