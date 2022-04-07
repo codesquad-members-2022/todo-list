@@ -1,10 +1,6 @@
 package com.example.backend.repository.card.jdbc;
 
-import com.example.backend.controller.card.dto.CompletedItem;
-import com.example.backend.controller.card.dto.ProgressingItem;
 import com.example.backend.controller.card.dto.Task;
-import com.example.backend.controller.card.dto.TodoItem;
-import com.example.backend.domain.card.CardType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -22,9 +18,9 @@ public class CardReadRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Task> findItemsByCardType(CardType todo) {
-        String query = "SELECT id, title, card_type, content, created_at, last_modified_at FROM cards WHERE card_type = ?";
-        return jdbcTemplate.query(query, mapper, todo.name());
+    public List<Task> findItems() {
+        String query = "SELECT id, title, card_type, content, created_at, last_modified_at FROM cards";
+        return jdbcTemplate.query(query, mapper);
     }
 
     private static final RowMapper<Task> mapper = (rs, rowNum) ->
@@ -36,5 +32,4 @@ public class CardReadRepository {
                     dateTimeOf(rs.getTimestamp("created_at")),
                     dateTimeOf(rs.getTimestamp("last_modified_at"))
             );
-
 }

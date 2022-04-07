@@ -1,12 +1,14 @@
 package com.example.backend.controller.card.dto;
 
+import com.example.backend.domain.card.CardType;
+
 import java.time.LocalDateTime;
 
 public class Task {
     private Long id;
     private String title;
     private String content;
-    private String cardType;
+    private CardType cardType;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
 
@@ -14,7 +16,7 @@ public class Task {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.cardType = cardType;
+        this.cardType = CardType.valueOf(cardType);
         this.createdAt = createdAt;
         this.lastModifiedAt = lastModifiedAt;
     }
@@ -31,7 +33,7 @@ public class Task {
         return content;
     }
 
-    public String getCardType() {
+    public CardType getCardType() {
         return cardType;
     }
 
@@ -42,4 +44,5 @@ public class Task {
     public LocalDateTime getLastModifiedAt() {
         return lastModifiedAt;
     }
+
 }
