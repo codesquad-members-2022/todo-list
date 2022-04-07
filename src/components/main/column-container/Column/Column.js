@@ -28,6 +28,7 @@ export class Column {
     const columnData = Store.state[this.columnID];
     this.columnNode.innerHTML = this.getContentTemplate(columnData);
     this.mountCards(columnData);
+    this.setEvents();
   }
 
   getContentTemplate(columnData) {
@@ -65,12 +66,11 @@ export class Column {
     cardOrder.forEach((cardID) => renderCard(cardListEl, this.columnID, cardID));
   }
 
-  activate() {
-    this.activateAddBtn();
-    Store.subscribe("column", () => this.renderContent());
+  setEvents() {
+    this.setAddBtnEvent();
   }
 
-  activateAddBtn() {
+  setAddBtnEvent() {
     const addBtn = this.columnNode.querySelector(".column-header__add-btn");
     addBtn.addEventListener("click", () => this.handleAddBtnClick(addBtn));
   }
@@ -82,5 +82,9 @@ export class Column {
 
   toggleActivation(addBtn) {
     addBtn.classList.toggle("column-header__add-btn--activated");
+  }
+
+  activate() {
+    Store.subscribe("column", () => this.renderContent());
   }
 }
