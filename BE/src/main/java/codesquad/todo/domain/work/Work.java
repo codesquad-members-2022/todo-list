@@ -1,12 +1,10 @@
 package codesquad.todo.domain.work;
 
 
-import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-@Getter
 @ToString
 public class Work {
 
@@ -44,5 +42,33 @@ public class Work {
     public void changeStatus(WorkStatus workStatus) {
         this.workStatus = workStatus;
         this.lastModifiedDateTime = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public WorkStatus getWorkStatus() {
+        return workStatus;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public LocalDateTime getLastModifiedDateTime() {
+        return lastModifiedDateTime;
     }
 }
