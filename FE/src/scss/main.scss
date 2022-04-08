@@ -7,3 +7,10 @@
 @import './work';
 @import './task';
 @import './history';
+@import './header';
+
+.wrap {
+  background-color: $wrap;
+  padding: 3.3rem 8rem 0 8.4rem;
+  width: 144rem;
+}
