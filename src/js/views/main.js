@@ -1,5 +1,7 @@
-export const createMainElement = data => {
-  const store = data;
+import { fetchData } from '../utils/util.js';
+
+export const createMainObj = async url => {
+  const store = await fetchData(url);
   const getStore = () => {
     return store;
   };
@@ -10,8 +12,6 @@ export const createMainElement = data => {
     const element = document.createElement('main');
     const main = { element, getStore };
     main.element.classList.add('main');
-    // createColumns(mainElement, store, icons);
-    // createCards(mainElement, store, icons);
     return main;
   })();
 };
