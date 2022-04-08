@@ -55,6 +55,7 @@ class CardBoardViewController: UIViewController {
         todoViewController?.setCardTitleLabel(title: "해야 할 일")
         doingViewController?.setCardTitleLabel(title: "하고 있는 일")
         doneViewController?.setCardTitleLabel(title: "완료한 일")
+        todoViewController?.appendCard(factory.createRandomCard())
     }
     
     private func setUIPropertiesAutoLayout() {
