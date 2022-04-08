@@ -46,7 +46,7 @@ public class MockController {
         return new card_id_DTO();
     }
 
-    @DeleteMapping("/card/{card_id}")
+   // @DeleteMapping("/card/{card_id}")
     public void delete(@PathVariable int card_id) {
         // Card card = jdbcRepository.findById(card_id);
     }
