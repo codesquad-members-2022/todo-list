@@ -95,7 +95,7 @@ export class Card {
         break;
       case "new":
       case "editing":
-        this.setCancelBtnEvent();
+        this.setCancelBtnEvent(cardType);
         this.setConfirmBtnEvent();
         this.setInputEvent();
     }
@@ -111,8 +111,8 @@ export class Card {
     this.cardNode.addEventListener("dblclick", () => this.handleDoubleClickEvent());
   }
 
-  setCancelBtnEvent() {
-    this.cancelBtn.addEventListener("click", () => this.handleCancelBtnEvent());
+  setCancelBtnEvent(cardType) {
+    this.cancelBtn.addEventListener("click", () => this.handleCancelBtnEvent(cardType));
   }
 
   setConfirmBtnEvent() {
@@ -134,12 +134,15 @@ export class Card {
   }
 
   handleDoubleClickEvent() {
-    this.switchToEditMode();
+    this.changeCardType("editing");
   }
 
-  handleCancelBtnEvent() {
-    this.deleteCard();
-    //todo: edit 모드면 기존 카드가 나오게 해야함.
+  handleCancelBtnEvent(cardType) {
+    if (cardType === "new") {
+      this.deleteCard();
+    } else if (cardType === "editing") {
+      this.changeCardType("normal");
+    }
   }
 
   handleConfirmBtnEvent(e) {
@@ -157,8 +160,8 @@ export class Card {
     Store.deleteCard(this.parentColumnID, this.cardID);
   }
 
-  switchToEditMode() {
-    Store.chageToEditState(this.parentColumnID, this.cardID);
+  changeCardType(type) {
+    Store.changeCardType(this.parentColumnID, this.cardID, type);
   }
 
   changeCardData() {

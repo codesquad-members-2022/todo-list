@@ -63,8 +63,8 @@ export const Store = {
     this.notify("column");
   },
 
-  chageToEditState(columnID, cardID) {
-    this.state[columnID].cards[cardID].type = "editing";
+  changeCardType(columnID, cardID, type) {
+    this.state[columnID].cards[cardID].type = type;
     this.notify("column");
   },
 };
