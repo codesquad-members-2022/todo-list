@@ -10,7 +10,7 @@ import Combine
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     func loadColumn(_ column: Card.Column) -> AnyPublisher<Result<[Card], SessionError>, Never> {
-        self.request(.loadColumn(column), isSucccess: true)
+        request(.loadColumn(column), isSucccess: true)
             .map { result in
                 switch result {
                 case .success(let data):
@@ -25,7 +25,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     }
     
     func addCard(title: String, body: String, column: Card.Column) -> AnyPublisher<Result<Card, SessionError>, Never> {
-        self.request(.addCard(title: title, body: body, column: column), isSucccess: true)
+        request(.addCard(title: title, body: body, column: column), isSucccess: true)
             .map { result in
                 switch result {
                 case .success(let data):
@@ -40,7 +40,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     }
     
     func moveCard(_ cardId: Int, from: Card.Column, to: Card.Column) -> AnyPublisher<Result<(Int, Card.Column), SessionError>, Never> {
-        self.request(.moveCard(cardId, fromColumn: from, toColumn: to), isSucccess: true)
+        request(.moveCard(cardId, fromColumn: from, toColumn: to), isSucccess: true)
             .map { result in
                 switch result {
                 case .success:
@@ -52,7 +52,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     }
     
     func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<Result<Card, SessionError>, Never> {
-        self.request(.editCard(cardId, title: title, body: body), isSucccess: true)
+        request(.editCard(cardId, title: title, body: body), isSucccess: true)
             .map { result in
                 switch result {
                 case .success(let data):
@@ -67,7 +67,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     }
     
     func deleteCard(_ cardId: Int) -> AnyPublisher<Result<Int, SessionError>, Never> {
-        self.request(.deleteCard(cardId), isSucccess: true)
+        request(.deleteCard(cardId), isSucccess: true)
             .map { result in
                 switch result {
                 case .success:

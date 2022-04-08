@@ -14,7 +14,7 @@ class NetworkRepository<Target: BaseTarget> {
     func request(_ target: Target, isSucccess: Bool) -> AnyPublisher<Result<Data, SessionError>, Never> {
         let session = MockURLSession.shared
         session.isRequestSuccess = isSucccess
-        return self.request(target, session: session)
+        return request(target, session: session)
     }
     
     func request(_ target: Target, session: URLSessionProtocol = URLSession.shared ) -> AnyPublisher<Result<Data, SessionError>, Never> {

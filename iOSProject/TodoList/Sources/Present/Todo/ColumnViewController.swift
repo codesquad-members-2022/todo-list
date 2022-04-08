@@ -133,28 +133,28 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
     }
     
     private func layout() {
-        self.view.addSubview(titleLabel)
-        self.view.addSubview(countLabel)
-        self.view.addSubview(addButton)
-        self.view.addSubview(cardTableView)
+        view.addSubview(titleLabel)
+        view.addSubview(countLabel)
+        view.addSubview(addButton)
+        view.addSubview(cardTableView)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor),
-            titleLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
             
             countLabel.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8),
             countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             countLabel.heightAnchor.constraint(equalToConstant: 26),
             
             addButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            addButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8),
+            addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
             addButton.widthAnchor.constraint(equalToConstant: 24),
             addButton.heightAnchor.constraint(equalToConstant: 24),
             
             cardTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-            cardTableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            cardTableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            cardTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10)
+            cardTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            cardTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            cardTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -10)
 
         ])
     }
@@ -162,19 +162,19 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
     private func showCardPopup(_ popupData: CardPopupData) {
         let popup = CardPopupViewController(model: CardPopupViewModel(popupData: popupData) )
         popup.modalPresentationStyle = .overCurrentContext
-        self.present(popup, animated: false)
+        present(popup, animated: false)
         popup.delegate = self
     }
 }
 
 extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.model.cardCount ?? 0
+        model.cardCount ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ColumnViewCell") as? ColumnViewCell,
-              let card = self.model[indexPath.item] else {
+              let card = model[indexPath.item] else {
             return UITableViewCell()
         }
         cell.setCard(card)
@@ -202,16 +202,16 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ColumnViewController: ColumnViewInput {
     func addCard(_ card: Card) {
-        self.model.action.addCard.send(card)
+        model.action.addCard.send(card)
     }
 }
 
 extension ColumnViewController: CardPopupViewDeletegate {
     func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card) {
-        self.model.action.editCard.send(editedCard)
+        model.action.editCard.send(editedCard)
     }
     
     func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card) {
-        self.model.action.addCard.send(addedCard)
+        model.action.addCard.send(addedCard)
     }
 }

@@ -17,7 +17,7 @@ class LogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LogViewCell.self, forCellReuseIdentifier: "LogViewCell")
@@ -25,9 +25,14 @@ class LogViewController: UIViewController {
     }
     
     private func setConstraint(){
-        self.view.addSubview(tableView)
+        view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 72), tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48), tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48), tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)])
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 72),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ])
     }
 }
 
