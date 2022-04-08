@@ -1,5 +1,2 @@
-import { handleClickRegisterBtn } from "./updateRegisterCard.js";
-
-const $registerBtn = document.querySelector(".register-button");
-
-$registerBtn.addEventListener("click", handleClickRegisterBtn);
+import { renderingTodos } from "./updateRegisterCard.js";
+window.addEventListener("DOMContentLoaded", renderingTodos);
