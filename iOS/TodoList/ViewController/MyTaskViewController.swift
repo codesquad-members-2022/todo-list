@@ -1,8 +1,7 @@
 import UIKit
 
 class MyTaskViewController: UIViewController {
-    
-    @IBOutlet weak var taskListStackView: UIStackView!
+    @IBOutlet weak var taskListStackView: TaskBoardView!
     
     @IBOutlet weak var actionFlowButton: UIButton!
     @IBOutlet weak var stackViewTrailing: NSLayoutConstraint!

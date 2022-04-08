@@ -1,7 +1,6 @@
 import UIKit
 
-class TaskListStackView: UIStackView {
-    
+class TaskBoardView: UIStackView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -19,5 +18,4 @@ class TaskListStackView: UIStackView {
         self.distribution = .fillEqually
         self.spacing = 22
     }
-
 }

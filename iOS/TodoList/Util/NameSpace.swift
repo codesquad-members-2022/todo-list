@@ -2,7 +2,7 @@ import Foundation
 
 struct NameSpace {
     enum nib {
-        static let taskCardListView: String = "TaskListView"
+        static let taskCardListView: String = "TaskCardListView"
         static let taskCardViewCell: String = "TaskCardViewCell"
     }
     

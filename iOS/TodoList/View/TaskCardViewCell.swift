@@ -1,7 +1,6 @@
 import UIKit
 
 class TaskCardViewCell: UITableViewCell {
-    
     @IBOutlet weak var cardTitle: UILabel!
     @IBOutlet weak var cardContents: UILabel!
     
@@ -16,5 +15,4 @@ class TaskCardViewCell: UITableViewCell {
     func setColor(to color: UIColor) {
         self.backgroundColor = color
     }
-    
 }
