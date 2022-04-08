@@ -1,0 +1,99 @@
+.card-list {
+  @include flex();
+  flex-direction: column;
+  width: 308px;
+  max-height: 100%;
+  gap: 20px;
+}
+
+.card {
+  @include flex(flex-start, flex-start);
+  width: inherit;
+  // min-height: 113px;
+  background-color: $card-body;
+  box-shadow: 0px 1px 30px $box-shadow;
+  border-radius: 6px;
+  gap: 5px;
+
+  &__content {
+    @include flex(flex-start, flex-start);
+    flex-direction: column;
+    margin: 16px;
+    gap: 8px;
+
+    &--title {
+      width: 100%;
+      background-color: transparent;
+      font-size: 16px;
+      font-weight: 700;
+
+      &::placeholder {
+        color: $gray-cement;
+      }
+    }
+
+    &--text {
+      width: 100%;
+      background-color: transparent;
+      font-size: 14px;
+      height: auto;
+      vertical-align: middle;
+      padding: 0;
+
+      &::placeholder {
+        color: $gray-cement;
+      }
+    }
+
+    &--author {
+      width: 100%;
+      color: $gray-light;
+      font-size: 12px;
+    }
+  }
+
+  &--delete-card {
+    margin-top: 16px;
+
+    &:hover {
+      filter: $filter-red;
+      cursor: pointer;
+    }
+  }
+
+  // card-box: 카드생성창
+  &-box {
+    @extend .card;
+    flex-direction: column;
+
+    border: 1px solid $box-blue;
+    min-height: 135px;
+  }
+
+  &__btn {
+    @include flex();
+    gap: 8px;
+    margin: 0 auto 16px;
+
+    &--cancel {
+      width: 134px;
+      height: 40px;
+      background-color: $box-cancel;
+      color: $gray-cement;
+      border-radius: 6px;
+    }
+
+    &--regist {
+      width: 134px;
+      height: 40px;
+      background-color: $box-lightblue;
+      color: $white-light;
+      border-radius: 6px;
+
+      &.actㅗive {
+        background-color: $box-blue;
+        color: $white;
+      }
+    }
+  }
+}

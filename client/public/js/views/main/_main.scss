@@ -1,0 +1,13 @@
+body {
+  background-color: $gray-body;
+  margin: 0 auto;
+
+  .todo-container {
+    position: relative;
+    max-width: 1440px;
+    min-width: 600px;
+    max-height: 1024px;
+    margin: 0 auto;
+    padding: 33px 80px;
+  }
+}

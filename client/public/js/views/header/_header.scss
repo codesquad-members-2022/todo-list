@@ -1,0 +1,15 @@
+.header {
+  @include flex(space-between);
+  margin-bottom: 33px;
+
+  & h1 {
+    font-size: 32px;
+    font-weight: 400;
+  }
+
+  &--history-btn {
+    position: relative;
+    background-color: transparent;
+    cursor: pointer;
+  }
+}
