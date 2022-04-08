@@ -15,26 +15,6 @@ export const renderColumns = async () => {
   });
 };
 
-// export function cardAdder() {
-// let addBtnState = false;
-// return function addCardEvent() {
-//   $('main').addEventListener('click', (e) => {
-//     const columnList = e.target
-//       .closest('.column')
-//       .querySelector('.column-list');
-
-//     if (e.target.closest('.plus-btn')) {
-//       if (!addBtnState) {
-//         columnList.insertAdjacentHTML('afterbegin', CreateCardTemplate());
-//         addBtnState = true;
-//       } else {
-//         columnList.firstElementChild.remove();
-//         addBtnState = false;
-//       }
-//     }
-//   });
-// };
-
 const addCardHandler = (e) => {
   const columnList = e.target.closest('.column').querySelector('.column-list');
   !columnList.querySelector('.active')
