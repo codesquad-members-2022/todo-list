@@ -1,6 +1,7 @@
 package team07.todolist.controller;
 
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -40,39 +41,39 @@ public class CardController {
 	}
 
 	@PostMapping
-	public String save(@RequestBody RequestCard requestCard) {
+	public void save(@RequestBody RequestCard requestCard, HttpServletResponse response) {
 		log.debug("{}", requestCard);
 		cardService.save(requestCard);
 
-		return "redirect:/list";
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@PostMapping("/move/horizon/{id}")
-	public String dragAndDropHorizon(@PathVariable Long id, @RequestBody RequestCard requestCard) {
+	public void dragAndDropHorizon(@PathVariable Long id, @RequestBody RequestCard requestCard, HttpServletResponse response) {
 
 		cardService.dragAndDropHorizon(id, requestCard);
-		return "redirect:/list";
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@PostMapping("/move/vertical/{id}")
-	public String dragAndDropVertical(@PathVariable Long id, @RequestBody RequestCard requestCard) {
+	public void dragAndDropVertical(@PathVariable Long id, @RequestBody RequestCard requestCard, HttpServletResponse response) {
 
 		cardService.dragAndDropVertical(id, requestCard);
-		return "redirect:/list";
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@PatchMapping("/{id}")
-	public String modifyCard(@PathVariable Long id, @RequestBody PatchCard patchCard) {
+	public void modifyCard(@PathVariable Long id, @RequestBody PatchCard patchCard, HttpServletResponse response) {
 
 		cardService.changeText(id, patchCard);
-		return "redirect:/list";
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public String delete(@PathVariable Long id) {
+	public void delete(@PathVariable Long id, HttpServletResponse response) {
 		Card deletedCard = cardService.delete(id);
 		log.debug("{}", deletedCard);
-		return "redirect:/list";
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@ResponseBody
@@ -82,9 +83,9 @@ public class CardController {
 	}
 
 	@GetMapping("/reset")
-	public String reset() {
+	public void reset(HttpServletResponse response) {
 		cardService.reset();
 
-		return "redirect:/list";
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 }
