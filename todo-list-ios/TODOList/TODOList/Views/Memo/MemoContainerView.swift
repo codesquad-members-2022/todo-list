@@ -23,6 +23,38 @@ class MemoContainerView: UIView {
         return label
     }()
     
+    let countView: UIView = {
+        let label = UIView()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let countLabel: UILabel = {
+        let label = UILabel()
+        label.text = "3"
+        label.font = UIFont(name: FontFactory.bold, size: 14)
+        label.textColor = UIColor(named: ColorAsset.black)
+        label.backgroundColor = UIColor(named: ColorAsset.gray4)
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 15
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let buttonView: UIView = {
+        let label = UIView()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let button: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(named: "add"), for: .normal)
+        return button
+    }()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,8 +78,12 @@ class MemoContainerView: UIView {
     
     private func addViews() {
         
+        countView.addSubview(countLabel)
+        buttonView.addSubview(button)
+        horizontalStackView.addArrangedSubview(categoryLabel)
         horizontalStackView.addArrangedSubview(countView)
         horizontalStackView.addArrangedSubview(buttonView)
+        horizontalStackView.setCustomSpacing(100, after: countLabel)
         
         addSubview(horizontalStackView)
         addSubview(tableView)
@@ -55,6 +91,13 @@ class MemoContainerView: UIView {
     
     private func setConstraints() {
         
+        button.centerYAnchor.constraint(equalTo: buttonView.centerYAnchor).isActive = true
+        button.trailingAnchor.constraint(equalTo: buttonView.trailingAnchor, constant: -20).isActive = true
+        
+        countLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        countLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        countLabel.leadingAnchor.constraint(equalTo: countView.leadingAnchor, constant: 15).isActive = true
+        countLabel.centerYAnchor.constraint(equalTo: countView.centerYAnchor).isActive = true
         
         horizontalStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
