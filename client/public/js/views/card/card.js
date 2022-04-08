@@ -1,6 +1,5 @@
 export function createItem({ id, title, content }) {
   return `
-  <ul class="card-list">
   <li class="card" data-card="${id}">
     <div class="card__content">
       <input class="card__content--title" required readonly value="${title}" />
@@ -9,6 +8,5 @@ export function createItem({ id, title, content }) {
     </div>
     <img class="card--delete-card" src="./asset/icon/icon-card-delete-button-strong.svg" />
   </li>
-</ul>
   `;
 }

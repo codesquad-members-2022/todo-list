@@ -17,8 +17,8 @@ const renderer = {
   },
 
   item: ({ id, columnId, title, content }) => {
-    const columnEl = qs(`[data-column='${columnId}'`);
-    insertElement(columnEl, "beforeend", createItem({ id, title, content }));
+    const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
+    insertElement(itemListEl, "beforeend", createItem({ id, title, content }));
   },
 };
 
