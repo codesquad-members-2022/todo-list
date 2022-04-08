@@ -2,6 +2,8 @@ package kr.codesquad.todolist.card;
 
 import static kr.codesquad.todolist.card.Card.TodoStatus.from;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -20,7 +22,7 @@ public class CardDto {
 		@Size(min = 1, max = 500, message = "500자 미안으로 작성 하세요.")
 		private String content;
 		@NotBlank(message = "todo list 카테고리 정보는 필수 값입니다.")
-		private String todoStatus;
+		private String status;
 		@NotNull(message = "순서는 필수 값입니다.")
 		@Min(1)
 		private Long order;
@@ -32,8 +34,9 @@ public class CardDto {
 			return Card.builder()
 				.subject(subject)
 				.content(content)
-				.todoStatus(from(todoStatus))
-				.todoOrder(order)
+				.status(from(status))
+				.order(order)
+				.createdAt(LocalDateTime.now())
 				.userId(userId)
 				.build();
 		}
@@ -44,7 +47,7 @@ public class CardDto {
 		private Long todoId;
 		private String subject;
 		private String content;
-		private String todoStatus;
+		private String status;
 		private Long order;
 		private Long userId;
 
@@ -52,8 +55,8 @@ public class CardDto {
 			this.todoId = card.getTodoId();
 			this.subject = card.getSubject();
 			this.content = card.getContent();
-			this.todoStatus = card.getTodoStatus().getText();
-			this.order = card.getTodoOrder();
+			this.status = card.getStatus().getText();
+			this.order = card.getOrder();
 			this.userId = card.getUserId();
 		}
 	}

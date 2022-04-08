@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -77,8 +76,8 @@ public class CardDao {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put(CARD_SUBJECT, card.getSubject());
 		parameters.put(CARD_CONTENT, card.getContent());
-		parameters.put(CARD_TODO_STATUS, card.getTodoStatus().getNumber());
-		parameters.put(CARD_TODO_ORDER, card.getTodoOrder());
+		parameters.put(CARD_TODO_STATUS, card.getStatus().getCode());
+		parameters.put(CARD_TODO_ORDER, card.getOrder());
 		parameters.put(CARD_WRITING_DATE, card.getCreatedAt());
 		parameters.put(CARD_TODO_USER_ID, card.getUserId());
 		return parameters;
@@ -87,13 +86,14 @@ public class CardDao {
 
 	private RowMapper<Card> cardRowMapper() {
 		return (rs, rowNum) -> {
-			Card article = new Card(rs.getLong(CARD_KEY_COLUMN_NAME),
+			Card article = new Card(
+				rs.getLong(CARD_KEY_COLUMN_NAME),
 				rs.getString(CARD_SUBJECT),
 				rs.getString(CARD_CONTENT),
 				from(rs.getInt(CARD_TODO_STATUS)),
 				rs.getLong(CARD_TODO_ORDER),
 				rs.getBoolean("deleted"),
-				rs.getObject(CARD_WRITING_DATE, LocalDateTime.class),
+				rs.getTimestamp(5).toLocalDateTime(),
 				rs.getLong(CARD_TODO_USER_ID));
 			return article;
 		};
