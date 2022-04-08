@@ -10,6 +10,8 @@ import UIKit
 
 class ActivityRecordController: UITableViewController {
     
+    private var log = Log(userName: "@sam", title: "HTML/CSS공부하기")
+    
     var tempArray = [String]()
     
     let dumyData = ["HTML/CSS공부하기를 해야할 일에서 하고있는 일로 이동하였습니다.",
@@ -59,13 +61,9 @@ extension ActivityRecordController{
         
         var config = cell.defaultContentConfiguration()
         config.text = dumyData[indexPath.row]
-        //config.secondaryText = "aaa"
         
-        config.attributedText = NSAttributedString(string: "@sam", attributes: [ .font: UIFont.systemFont(ofSize: 15, weight: .bold), .foregroundColor: UIColor.black
-        ])
-        config.secondaryAttributedText = NSAttributedString(string: "secondaryText", attributes: [ .font: UIFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: UIColor.systemGreen ])
-        
-        //var emoji = UIImage(named: "Party Face Emoji.png")
+        config.attributedText = NSAttributedString(string: log.userName, attributes: [ .font: UIFont.systemFont(ofSize: 15, weight: .bold), .foregroundColor: UIColor.black])
+        config.secondaryAttributedText = NSAttributedString(string: log.title, attributes: [ .font: UIFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: UIColor.systemGreen ])
         
         cell.contentConfiguration = config
         
