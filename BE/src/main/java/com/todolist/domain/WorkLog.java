@@ -25,12 +25,11 @@ public class WorkLog {
         this.updatedDateTime = updatedDateTime;
     }
 
-    public WorkLog(Integer workId, String action, String previousColumn,
-        LocalDateTime updatedDateTime) {
+    public WorkLog(Integer workId, String action, String previousColumn) {
         this.workId = workId;
         this.action = action;
         this.previousColumn = previousColumn;
-        this.updatedDateTime = updatedDateTime;
+        this.updatedDateTime = LocalDateTime.now();
     }
 
     public WorkLogDto convertToDto() {

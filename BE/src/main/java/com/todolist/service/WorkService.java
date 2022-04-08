@@ -10,7 +10,6 @@ import com.todolist.dto.WorkRequestFormDto;
 import com.todolist.repository.CategoryRepository;
 import com.todolist.repository.WorkLogRepository;
 import com.todolist.repository.WorkRepository;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class WorkService {
 
     private static final String CREATION = "등록";
+
     private final CategoryRepository categoryRepository;
     private final WorkRepository workRepository;
     private final WorkLogRepository workLogRepository;
@@ -36,7 +36,6 @@ public class WorkService {
 
         List<Category> categoryList = categoryRepository.findAll();
         for (Category category : categoryList) {
-
             int categoryId = category.getId();
             String categoryName = category.getName();
             List<WorkDto> workDtoList = workRepository.findAllByCategoryId(categoryId, userId)
@@ -51,7 +50,10 @@ public class WorkService {
             );
         }
 
-        return ColumnListDto.builder().userId(userId).workList(workLists).build();
+        return ColumnListDto.builder()
+            .userId(userId)
+            .workList(workLists)
+            .build();
     }
 
     @Transactional
@@ -64,7 +66,7 @@ public class WorkService {
         Integer workId = workDto.getId();
         String categoryName = categoryRepository.findNameById(categoryId);
 
-        WorkLog workLog = new WorkLog(workId, CREATION, categoryName, LocalDateTime.now());
+        WorkLog workLog = new WorkLog(workId, CREATION, categoryName);
         workLogRepository.save(workLog);
 
         return workDto;

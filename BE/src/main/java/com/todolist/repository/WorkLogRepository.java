@@ -28,10 +28,8 @@ public class WorkLogRepository {
 
     public void save(WorkLog workLog) {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(workLog);
-
         jdbc.update("INSERT INTO work_log (work_id, action, previous_column, updated_datetime)"
             + " VALUES (:workId, :action, :previousColumn, :updatedDateTime)", parameters);
-
     }
 
     private RowMapper<WorkLog> workLogRowMapper() {
