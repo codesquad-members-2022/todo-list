@@ -5,7 +5,6 @@ export default class TodoColumn {
     this.status = status;
     this.todoInput = new TodoInput(this.status);
     this.onInput = false;
-    this.render();
   }
 
   onAddClick = ({ target }) => {

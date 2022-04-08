@@ -63,10 +63,8 @@ export default class TodoInput {
   };
 
   onRegisterBtn = () => {
-    this.createTodo();
-
     const newTodo = new Todo(this.createTodo());
-    new TodoNotice(this.createNotice());
+    new TodoNotice(this.createNotice()).render();
     document.querySelector(`.${this.status}`).insertAdjacentHTML('afterend', newTodo.render());
 
     document.querySelector(`.input-${this.status}`)?.remove();

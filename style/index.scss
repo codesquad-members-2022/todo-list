@@ -19,6 +19,7 @@ body {
   }
   .header__menu {
     cursor: pointer;
+    z-index: 99;
     div {
       width: 25px;
       height: 3px;
