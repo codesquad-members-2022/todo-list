@@ -13,6 +13,10 @@ class ActivityListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.configureTableView()
+    }
+    
+    private func configureTableView() {
         self.tableView.register(ActivityCell.self, forCellReuseIdentifier: ActivityCell.identifier)
         self.tableView.showsVerticalScrollIndicator = false
         self.tableView.allowsSelection = false
