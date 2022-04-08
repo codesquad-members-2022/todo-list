@@ -100,4 +100,3 @@ private extension TodoCell{
         contents.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -16).isActive = true
     }
 }
-
