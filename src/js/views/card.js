@@ -1,4 +1,4 @@
-export const createCard = (column, icons, parent = document) => {
+export const insertCardToColumn = (column, icons, parent = document) => {
   const columnElement = parent.querySelector(`.${column.className}`);
   const cardList = columnElement.querySelector('.task__cards');
   const taskCount = columnElement.querySelector('.title-column__title__count');
