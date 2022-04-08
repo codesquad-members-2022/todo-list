@@ -3,6 +3,7 @@ import CSS from "../stylesheet/style.scss";
 import Store from "./model/Store.js";
 import usersData from "./tempStorage.js";
 
+import { subscribeEvents } from "./handler/handler.js";
 import { renderer } from "./views/renderer.js";
 
 document.addEventListener("DOMContentLoaded", app);
@@ -15,6 +16,8 @@ function app() {
   renderer.allColumns(store.columns);
   renderer.allItems(store.items);
   renderer.allHistory(store.history);
+
+  subscribeEvents();
 }
 
 function getUserData(userId) {
