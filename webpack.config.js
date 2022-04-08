@@ -1,9 +1,10 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
   entry: "./src/app.js",
-  devtool: "eval-source-map",
+  devtool: "eval-cheap-module-source-map",
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "bundle.js",
@@ -12,23 +13,19 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        use: "babel-loader",
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
-        test: /\.scss$/,
-        use: [
-          { loader: "style-loader" },
-          { loader: "css-loader" },
-          { loader: "sass-loader" },
-        ],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },
-  watch: true,
-  watchOptions: {
-    aggregateTimeout: 200,
-    ignored: /node_modules/,
-    poll: 1000,
-  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "src/app.html",
+      inject: "body",
+    }),
+  ],
 };

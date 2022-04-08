@@ -1,4 +1,5 @@
 import * as domUtil from "./util/domUtil.js";
+import "./style/style.scss";
 
 function initService() {
   서버에서_데이터_가져와서;
