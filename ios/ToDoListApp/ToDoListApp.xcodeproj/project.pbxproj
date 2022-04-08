@@ -20,6 +20,8 @@
 		1E7432F727FD27B300B908E4 /* TableTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432F627FD27B300B908E4 /* TableTitleView.swift */; };
 		1EF0291F27FEB9BD001AA033 /* KanbanType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0291E27FEB9BD001AA033 /* KanbanType.swift */; };
 		1EF0292127FEBE34001AA033 /* KanbanColumnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292027FEBE34001AA033 /* KanbanColumnViewController.swift */; };
+		1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */; };
+		1EF0292E280023A5001AA033 /* MainViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */; };
 		7380B0D927FFC84500B5D052 /* TaskTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0D827FFC84500B5D052 /* TaskTableViewDataSource.swift */; };
 		7380B0DB27FFC84F00B5D052 /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DA27FFC84F00B5D052 /* TaskData.swift */; };
 		7380B0DD27FFC85800B5D052 /* ExtensionCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DC27FFC85800B5D052 /* ExtensionCALayer.swift */; };
@@ -45,6 +47,8 @@
 		1E7432F627FD27B300B908E4 /* TableTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTitleView.swift; sourceTree = "<group>"; };
 		1EF0291E27FEB9BD001AA033 /* KanbanType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanType.swift; sourceTree = "<group>"; };
 		1EF0292027FEBE34001AA033 /* KanbanColumnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanColumnViewController.swift; sourceTree = "<group>"; };
+		1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerDelegate.swift; sourceTree = "<group>"; };
 		7380B0D827FFC84500B5D052 /* TaskTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewDataSource.swift; sourceTree = "<group>"; };
 		7380B0DA27FFC84F00B5D052 /* TaskData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 		7380B0DC27FFC85800B5D052 /* ExtensionCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionCALayer.swift; sourceTree = "<group>"; };
@@ -113,9 +117,10 @@
 		1E7432E327FD17BE00B908E4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7380B0DE27FFC86A00B5D052 /* InspectorViewController.swift */,
+				1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */,
 				1E7432E627FD269300B908E4 /* MainViewController.swift */,
 				1EF0292027FEBE34001AA033 /* KanbanColumnViewController.swift */,
+				7380B0DE27FFC86A00B5D052 /* InspectorViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 		1E7432E527FD184E00B908E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1EF0292A28001B77001AA033 /* Delegate */,
 				1E7432F027FD26DF00B908E4 /* TableViewDataSource.swift */,
 				7380B0D827FFC84500B5D052 /* TaskTableViewDataSource.swift */,
 				1E7432F427FD271A00B908E4 /* CellData.swift */,
@@ -131,6 +137,14 @@
 				1EF0291E27FEB9BD001AA033 /* KanbanType.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		1EF0292A28001B77001AA033 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */,
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EF0292E280023A5001AA033 /* MainViewControllerDelegate.swift in Sources */,
 				7380B0E127FFC87300B5D052 /* InspectorViewCell.swift in Sources */,
 				7380B0DF27FFC86A00B5D052 /* InspectorViewController.swift in Sources */,
 				1E7432EF27FD26C600B908E4 /* CustomTableViewCell.swift in Sources */,
@@ -220,6 +235,7 @@
 				7380B0D927FFC84500B5D052 /* TaskTableViewDataSource.swift in Sources */,
 				1EF0291F27FEB9BD001AA033 /* KanbanType.swift in Sources */,
 				1E7432ED27FD26B000B908E4 /* TitleView.swift in Sources */,
+				1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */,
 				1EF0292127FEBE34001AA033 /* KanbanColumnViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

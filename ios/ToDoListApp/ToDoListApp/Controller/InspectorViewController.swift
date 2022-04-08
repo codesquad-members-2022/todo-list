@@ -52,7 +52,7 @@ class InspectorViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48).isActive = true
     }
@@ -61,10 +61,8 @@ class InspectorViewController: UIViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         
         closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
-        closeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -767).isActive = true
-        closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 362).isActive = true
-        closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -54).isActive = true
+        closeButton.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -39).isActive = true
+        closeButton.centerXAnchor.constraint(equalTo: tableView.centerXAnchor, constant: 170).isActive = true
+        closeButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }
-
-

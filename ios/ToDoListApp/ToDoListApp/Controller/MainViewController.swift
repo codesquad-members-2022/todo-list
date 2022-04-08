@@ -9,15 +9,18 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    private let inspectorViewController = InspectorViewController()
-    
     private let kanbanColumnViewControllers: [KanbanColumnViewController] = {
         return [KanbanColumnViewController(type: .toDo),
                 KanbanColumnViewController(type: .inProgress),
                 KanbanColumnViewController(type: .done)]
     }()
     
-    private let titleView = TitleView()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "TO-DO LIST"
+        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 32)
+        return label
+    }()
     
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
@@ -27,9 +30,12 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
+    weak var delegate: MainViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        setNavigationBarButtonItems()
     }
     
     private func setUpView() {
@@ -37,15 +43,17 @@ class MainViewController: UIViewController {
         
         setChildViewControllers()
         
-        view.addSubview(titleView)
         view.addSubview(tableStackView)
-        view.addSubview(inspectorViewController.view)
-        
         configureTableStackView()
-        
-        layoutTitleView()
         layoutTableStackView()
-        setUpInspectorView()
+    }
+    
+    private func setNavigationBarButtonItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal"),
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(didTapInspectorButton))
     }
     
     private func configureView() {
@@ -56,7 +64,6 @@ class MainViewController: UIViewController {
         kanbanColumnViewControllers.forEach { kanbanColumnViewController in
             addChildViewController(child: kanbanColumnViewController, parent: self)
         }
-        addChildViewController(child: inspectorViewController, parent: self)
     }
     
     private func addChildViewController(child: UIViewController, parent: UIViewController) {
@@ -70,32 +77,20 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func layoutTitleView() {
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-        
-        titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        titleView.heightAnchor.constraint(equalToConstant: 72).isActive = true
-    }
-    
     private func layoutTableStackView() {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableStackView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 64).isActive = true
+        tableStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64).isActive = true
         tableStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
         tableStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
-        tableStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -343).isActive = true
+        tableStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7).isActive = true
     }
-    
-    private func setUpInspectorView() {
-        inspectorViewController.view.translatesAutoresizingMaskIntoConstraints = false
+}
 
-        inspectorViewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        inspectorViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        inspectorViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 766).isActive = true
-        inspectorViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        
+//MARK: - selector functions
+
+extension MainViewController {
+    @objc func didTapInspectorButton() {
+        delegate?.didTapInspectorButton()
     }
 }
