@@ -12,7 +12,7 @@ protocol CardUsable: TableCardUsable {
 }
 
 protocol TableCardUsable {
-    func getSection() -> CardStatus
+    func getStatus() -> CardStatus
     func getTitle() -> String
     func getContents() -> String
     func getWriter() -> String

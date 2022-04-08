@@ -14,7 +14,7 @@ class CardTableViewController: UIViewController {
     @IBOutlet weak var addCardButton: UIButton!
     @IBOutlet weak var cardTableView: UITableView!
     private let tableViewDelegate = CardTableDelegate()
-    private(set) var cards = [TableCardUsable]()
+    private var cards = [TableCardUsable]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,16 @@ class CardTableViewController: UIViewController {
     
     func setCardTitleLabel(title: String){
         cardLabel.text = title
+    }
+    
+    func appendCard(_ card: TableCardUsable) {
+        self.cards.append(card)
+        self.tableViewDelegate.appendCards(card: card)
+    }
+    
+    func setCards(_ cards: [TableCardUsable]) {
+        self.cards = cards
+        self.tableViewDelegate.setCards(cards: cards)
     }
     
     private func setCardCountLabel() {

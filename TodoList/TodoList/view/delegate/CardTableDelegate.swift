@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 
 class CardTableDelegate: NSObject{
-    private(set) var cards: [TableCardUsable] = []
+    private var cards: [TableCardUsable] = []
+    
+    func appendCards(card: TableCardUsable) {
+        self.cards.append(card)
+    }
     
     func setCards(cards: [TableCardUsable]){
         self.cards = cards
