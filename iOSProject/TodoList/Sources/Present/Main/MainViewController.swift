@@ -53,7 +53,7 @@ class MainViewController: UIViewController {
             value.controller.delegate = self
         }
         
-        self.titleBar.menuPublisher
+        titleBar.menuPublisher
             .sink {
                 self.logViewController.view.isHidden = false
             }.store(in: &cancellables)
@@ -64,13 +64,13 @@ class MainViewController: UIViewController {
     }
     
     private func layout() {
-        let safeArea = self.view.safeAreaLayoutGuide
+        let safeArea = view.safeAreaLayoutGuide
 
-        self.embed(logViewController)
+        embed(logViewController)
         
-        self.view.addSubview(titleBar.view)
-        self.view.addSubview(columnStackView)
-        self.view.addSubview(logViewController.view)
+        view.addSubview(titleBar.view)
+        view.addSubview(columnStackView)
+        view.addSubview(logViewController.view)
         
         NSLayoutConstraint.activate([
             titleBar.view.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -100,6 +100,6 @@ class MainViewController: UIViewController {
 
 extension MainViewController: ColumnViewDelegate {
     func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Column) {
-        self.columnTableViews[toColumn.index].addCard(fromCard)
+        columnTableViews[toColumn.index].addCard(fromCard)
     }
 }

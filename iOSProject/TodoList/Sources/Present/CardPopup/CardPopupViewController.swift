@@ -136,7 +136,7 @@ class CardPopupViewController: UIViewController {
         attribute()
         layout()
         
-        self.model.action.loadModel.send()
+        model.action.loadModel.send()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -145,8 +145,8 @@ class CardPopupViewController: UIViewController {
     }
     
     private func bind() {
-        self.titleTextField.delegate = self
-        self.bodyTextView.delegate = self
+        titleTextField.delegate = self
+        bodyTextView.delegate = self
         
         model.state.loadedModel
             .sink {
@@ -158,7 +158,7 @@ class CardPopupViewController: UIViewController {
                 self.editButton.isHidden = $0.id == nil
             }.store(in: &cancellables)
         
-        self.bodyTextView.changePublisher()
+        bodyTextView.changePublisher()
             .sink(receiveValue: self.reSizeTextView)
             .store(in: &cancellables)
         
@@ -178,7 +178,7 @@ class CardPopupViewController: UIViewController {
             }.store(in: &cancellables)
         
 
-        self.confimButton.publisher(for: .touchUpInside)
+        confimButton.publisher(for: .touchUpInside)
             .map { (self.titleTextField.text ?? "", self.bodyTextView.text ?? "") }
             .sink(receiveValue: model.action.tappedAddButton.send(_:))
             .store(in: &cancellables)
@@ -189,7 +189,7 @@ class CardPopupViewController: UIViewController {
                 self.dismiss(animated: false)
             }.store(in: &cancellables)
         
-        self.editButton.publisher(for: .touchUpInside)
+        editButton.publisher(for: .touchUpInside)
             .map { (self.titleTextField.text ?? "", self.bodyTextView.text ?? "") }
             .sink(receiveValue: model.action.tappedEditButton.send(_:))
             .store(in: &cancellables)
@@ -202,11 +202,11 @@ class CardPopupViewController: UIViewController {
     }
     
     private func attribute() {
-        self.view.backgroundColor = .black.withAlphaComponent(0.4)
+        view.backgroundColor = .black.withAlphaComponent(0.4)
     }
     
     private func layout() {
-        self.view.addSubview(popupBackgroundView)
+        view.addSubview(popupBackgroundView)
         popupBackgroundView.addSubview(popupTitleLabel)
         popupBackgroundView.addSubview(titleTextField)
         popupBackgroundView.addSubview(bodyTextView)
@@ -216,8 +216,8 @@ class CardPopupViewController: UIViewController {
         popupBackgroundView.addSubview(cancelButton)
         
         NSLayoutConstraint.activate([
-            popupBackgroundView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            popupBackgroundView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            popupBackgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popupBackgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             popupBackgroundView.widthAnchor.constraint(equalToConstant: 400),
             
             popupTitleLabel.topAnchor.constraint(equalTo: popupBackgroundView.topAnchor, constant: 16),

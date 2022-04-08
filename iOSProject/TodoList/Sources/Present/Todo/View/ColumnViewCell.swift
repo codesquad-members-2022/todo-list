@@ -56,12 +56,12 @@ class ColumnViewCell: UITableViewCell {
     }
     
     private func attribute() {
-        self.backgroundColor = .clear
-        self.selectionStyle = .none
+        backgroundColor = .clear
+        selectionStyle = .none
     }
     
     private func layout() {
-        let contentView = self.contentView
+        let contentView = contentView
         
         contentView.addSubview(cellBackgroundView)
         contentView.addSubview(titleLabel)
@@ -91,8 +91,8 @@ class ColumnViewCell: UITableViewCell {
     }
     
     func setCard(_ card: Card) {
-        self.titleLabel.text = card.title
-        self.bodyLabel.text = card.body
-        self.captionLabel.text = card.caption
+        titleLabel.text = card.title
+        bodyLabel.text = card.body
+        captionLabel.text = card.caption
     }
 }

@@ -48,12 +48,12 @@ class CardPopupViewModel: CardPopupViewModelBinding {
     init(popupData: CardPopupData) {
         self.popupData = popupData
         
-        self.action.loadModel
+        action.loadModel
             .map{ self.popupData }
             .sink(receiveValue: self.state.loadedModel.send(_:))
             .store(in: &cancellables)
         
-        self.action.changeText
+        action.changeText
             .map { title, body in
                 let equalBaseText = self.popupData.title == title && self.popupData.body == body
                 let isEmpty = title.isEmpty || body.isEmpty
@@ -62,7 +62,7 @@ class CardPopupViewModel: CardPopupViewModelBinding {
             .sink(receiveValue: self.state.isEnableButton.send(_:))
             .store(in: &cancellables)
         
-        self.action.tappedAddButton
+        action.tappedAddButton
             .map { self.todoRepository.addCard(title: $0, body: $1, column: self.popupData.column) }
             .switchToLatest()
             .sink {
@@ -74,7 +74,7 @@ class CardPopupViewModel: CardPopupViewModelBinding {
                 }
             }.store(in: &cancellables)
         
-        self.action.tappedEditButton
+        action.tappedEditButton
             .compactMap{
                 guard let id = self.popupData.id else { return nil }
                 return (id, $0, $1)
