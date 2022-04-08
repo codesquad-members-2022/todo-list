@@ -251,9 +251,13 @@ button {
 .input-wrapper .input-content,
 .edit-input-wrapper .input-content {
   display: block;
+  width: 100%;
+  height: auto;
   margin-bottom: 16px;
   border: none;
   outline: none;
+  resize: none;
+  overflow: hidden;
 }
 .input-wrapper .input-button-wrapper,
 .edit-input-wrapper .input-button-wrapper {
