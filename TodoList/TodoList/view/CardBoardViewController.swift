@@ -20,16 +20,16 @@ class CardBoardViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGray5
         boardStackView.backgroundColor = .systemGray5
-        let todoStoryBoard = UIStoryboard(name: "TodoStoryboard", bundle: Bundle(for: TodoViewController.self))
-        guard let todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {
+        let todoStoryBoard = UIStoryboard(name: "TodoStoryboard", bundle: Bundle(for: CardTableViewController.self))
+        guard let todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController else {
             return
         }
         
-        guard let doingViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {
+        guard let doingViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController else {
             return
         }
         
-        guard let doneViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {
+        guard let doneViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController else {
             return
         }
         

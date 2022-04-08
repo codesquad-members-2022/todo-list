@@ -8,7 +8,9 @@
 import UIKit
 
 class CardTableViewCell: UITableViewCell {
+    
     lazy var view = UIView()
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "title"
@@ -43,6 +45,7 @@ class CardTableViewCell: UITableViewCell {
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        // viewDidLoad같은 함수
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(view)
         view.addSubview(titleLabel)
@@ -63,6 +66,7 @@ class CardTableViewCell: UITableViewCell {
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
         view.backgroundColor = .white
+        writerLabel.textColor = .systemGray2
     }
     
     private func setPropertiesAutoLayout() {
@@ -73,11 +77,17 @@ class CardTableViewCell: UITableViewCell {
         view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
+        contentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         
+        writerLabel.translatesAutoresizingMaskIntoConstraints = false
+        writerLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 10).isActive = true
+        writerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
+        writerLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
     }
 }
