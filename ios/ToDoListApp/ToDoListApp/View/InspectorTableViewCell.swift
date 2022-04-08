@@ -1,5 +1,5 @@
 //
-//  InspectorViewCell.swift
+//  InspectorTableViewCell.swift
 //  ToDoListApp
 //
 //  Created by Jihee hwang on 2022/04/07.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InspectorViewCell: UITableViewCell {
+class InspectorTableViewCell: UITableViewCell {
     
     static let indentifier = Constant.TableViewCellIdentifier.inspector
     
@@ -89,7 +89,7 @@ class InspectorViewCell: UITableViewCell {
         emojiLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }
-extension InspectorViewCell {
+extension InspectorTableViewCell {
     func changeEmojiLabel(text: String) {
         emojiLabel.text = text
     }

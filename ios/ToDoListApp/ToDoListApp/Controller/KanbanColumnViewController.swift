@@ -50,7 +50,7 @@ class KanbanColumnViewController: UIViewController {
     }
     
     private func configureTableTitleView() {
-        tableTitleView.changeBadgeLabel(text: CellData.dataList.count)
+        tableTitleView.changeBadgeLabel(text: KanbanTableCellData.dataList.count)
         tableTitleView.changeTitleLabel(text: type.title)
     }
     

@@ -9,7 +9,7 @@ import UIKit
 
 class KanbanTableViewDataSource: NSObject, UITableViewDataSource {
     
-    let cellData = CellData.dataList
+    let cellData = KanbanTableCellData.dataList
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return cellData.count

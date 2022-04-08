@@ -42,7 +42,7 @@ class InspectorViewController: UIViewController {
     }
     
     private func configureCustomTableView() {
-        tableView.register(InspectorViewCell.self, forCellReuseIdentifier: InspectorViewCell.indentifier)
+        tableView.register(InspectorTableViewCell.self, forCellReuseIdentifier: InspectorTableViewCell.indentifier)
         tableView.dataSource = tableViewDataSource
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear

@@ -9,7 +9,7 @@ import UIKit
 
 class InspectorTableViewDataSource: NSObject, UITableViewDataSource {
     
-    let cellData = TaskData.dataList
+    let cellData = InspectorTableCellData.dataList
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return cellData.count
@@ -20,7 +20,7 @@ class InspectorTableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: InspectorViewCell.indentifier, for: indexPath) as? InspectorViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: InspectorTableViewCell.indentifier, for: indexPath) as? InspectorTableViewCell else {
             return UITableViewCell()
         }
         
