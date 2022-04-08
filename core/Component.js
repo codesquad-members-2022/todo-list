@@ -13,18 +13,17 @@ export default class Component {
 
   setState(newState) {
     this.state = { ...this.state, ...newState };
+    this.render();
   }
 
-  setup() {
-  }
+  setup() {}
 
   render() {
     this.#target.innerHTML = this.template();
     this.mount();
   }
 
-  mount() {
-  }
+  mount() {}
 
   template() {
     return ``;
@@ -32,15 +31,15 @@ export default class Component {
 
   addEvent(eventType, selector, callback) {
     const children = [...this.#target.querySelectorAll(selector)];
-    const isTarget = target => children.includes(target) || target.closest(selector);
-    this.#target.addEventListener(eventType, e => {
+    const isTarget = (target) =>
+      children.includes(target) || target.closest(selector);
+    this.#target.addEventListener(eventType, (e) => {
       if (!isTarget(e.target)) return false;
       callback(e);
     });
   }
 
-  setEvent() {
-  }
+  setEvent() {}
 
   select(selector) {
     return this.#target.querySelector(selector);
