@@ -1,11 +1,11 @@
 export default class Component {
-  constructor($target, $props) {
+  constructor($target, $props, state) {
     console.log($target);
     this.$target = $target;
     this.$props = $props;
     this.setup();
     this.setEvent();
-    this.render();
+    this.setState(state);
   }
   setup() {}
 
@@ -24,7 +24,7 @@ export default class Component {
   }
 
   template() {
-    return "";
+    return '';
   }
 
   addEvent(type, selector, callback) {
