@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: white;
+  background-color: #ececec;
   width: 90%;
   padding: 16px;
   margin-bottom: 15px;
@@ -30,8 +30,9 @@
 
 .card-header .delete-btn {
   border: none;
-  background-color: white;
-  color: #828282;
+  background-color: #fd565f;
+  color: #fff;
+  border-radius: 5px;
 }
 .card-content {
   font-size: 14px;
