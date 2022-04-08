@@ -56,7 +56,7 @@ public class CardDao {
 			throw new IllegalArgumentException("error of todoId");
 		}
 		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_KEY_COLUMN_NAME, todoId);
-		String sql = "select * from todo_list_table where todo_id = :todoId;";
+		String sql = "select * from todo_list_table where todo_id = :todo_id;";
 		Card card = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, cardRowMapper());
 		return Optional.ofNullable(card);
 	}
@@ -95,5 +95,17 @@ public class CardDao {
 				rs.getLong(CARD_TODO_USER_ID));
 			return article;
 		};
+	}
+
+	public Optional<Card> findByIdAndUserId(Long todoId, Long userId) {
+		if (todoId < 1 || userId < 1) {
+			throw new IllegalArgumentException("error of todoId");
+		}
+		final SqlParameterSource namedParameters = new MapSqlParameterSource()
+			.addValue(CARD_KEY_COLUMN_NAME, todoId)
+			.addValue(CARD_TODO_USER_ID, userId);
+		String sql = "select * from todo_list_table where todo_id = :todo_id and todo_user_id = :todo_user_id;";
+		Card card = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, cardRowMapper());
+		return Optional.ofNullable(card);
 	}
 }
