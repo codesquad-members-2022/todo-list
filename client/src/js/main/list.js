@@ -1,17 +1,31 @@
 import { $$ } from "../utils/utils.js";
+import { Task } from "./task.js";
+import * as TodoListStore from "../store/todoListStore.js";
 
 export class List {
-  constructor(parent, title, task) {
+  constructor(parent, listData) {
+    this.task = [];
     this.parent = parent;
-    this.title = title;
-    this.task = task;
+    [[this.title, this.tasksData]] = Object.entries(listData);
     this.init();
   }
 
   init() {
     this.render(this.parent);
+    this.createTask(this.tasksData);
     this.setEvents();
-    this.task.setEvents();
+    TodoListStore.subscribe("registration", this.notify.bind(this));
+  }
+
+  notify(value, title) {
+    if (title !== this.title) return;
+    value ? this.addRegistrationCard() : this.removeRegistrationCard();
+  }
+
+  createTask(tasksData) {
+    for (const task of tasksData) {
+      this.task.push(new Task(this.title, task));
+    }
   }
 
   render(parent) {
@@ -31,9 +45,7 @@ export class List {
               <img src="./svg/icon-delete.svg" class="column__list--delete-button" />
             </div>
           </div>
-          <ul class="column__task--list">
-              ${this.task.createHTML()}
-          </ul>
+          <ul class="column__task--list"></ul>
         </li>`;
   }
 
@@ -43,33 +55,30 @@ export class List {
   }
 
   setTarget() {
-    const columnMenus = $$(".column__item--title-menu");
-    this.columnMenu = columnMenus[columnMenus.length - 1];
+    const lists = $$(".column__item");
+    for (const list of lists) {
+      if (list.dataset.title === this.title) {
+        this.target = list;
+      }
+    }
   }
 
   setClickEvent() {
-    this.columnMenu.addEventListener("click", ({ target }) => {
-      this.handleClickEvent(target);
-    });
+    this.target.addEventListener("click", ({ target }) => this.handleClickEvent(target));
   }
 
   handleClickEvent(target) {
-    const list = target.closest(".column__item").querySelector(".column__task--list");
     const isAddButton = target.classList.contains("column__task--add-button");
     if (!isAddButton) return;
-    this.task.registerationActivation ? this.removeRegisterationCard(list) : this.addRegisterationCard(list);
+    TodoListStore.update("registration", this.title);
   }
 
-  addRegisterationCard(list) {
-    this.task.registerationActivation = true;
-    list.insertAdjacentHTML("afterbegin", this.task.createRegisterationCardHTML());
-    this.task.setClickEvent();
+  addRegistrationCard() {
+    this.task.unshift(new Task(this.title));
   }
 
-  removeRegisterationCard(list) {
-    if (!this.task.registerationActivation) return;
-    const firstTask = list.querySelector(".column__task--item");
-    this.task.registerationActivation = false;
+  removeRegistrationCard() {
+    const firstTask = this.target.querySelector(".column__task--item");
     firstTask.remove();
   }
 }

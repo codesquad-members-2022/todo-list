@@ -1,6 +1,5 @@
 import { $, debounce } from "../utils/utils.js";
 import { iconMenu, iconDelete } from "../constants/imagePath.js";
-import { subscribe, update } from "../store/activationStore.js";
 import * as ActivationStore from "../store/activationStore.js";
 
 const createHTML = () => {
@@ -15,7 +14,7 @@ const render = (parent) => {
 };
 
 const handleSideBarMenuBtn = () => {
-  update("sidebar");
+  ActivationStore.update("sidebar");
 };
 
 const setEvents = () => {

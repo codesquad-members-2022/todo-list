@@ -237,7 +237,9 @@ aside {
   font-size: 14px;
   color: #828282;
 }
-.sidebar__item--nickname, .sidebar__item--activity, .sidebar__item--time-stamp {
+.sidebar__item--nickname,
+.sidebar__item--activity,
+.sidebar__item--time-stamp {
   padding: 8px 0px;
 }
 
@@ -390,7 +392,7 @@ aside {
   border-radius: 6px;
   padding: 10px;
 }
-.column__task--cancle-button {
+.column__task--cancel-button {
   background-color: #e0e0e0;
   margin-right: 8px;
 }
@@ -403,6 +405,15 @@ aside {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.registration-card {
+  border: 1px solid #0075de;
+  box-shadow: 0px 1px 30px 0px #e0e0e04d;
+}
+
+.inactivation .column__task--accent-button {
+  background-color: #86c6ff;
 }
 
 body {

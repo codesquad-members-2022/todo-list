@@ -86,7 +86,7 @@
     }
   }
 
-  &--cancle-button {
+  &--cancel-button {
     background-color: $color-silver;
     margin-right: 8px;
   }
@@ -99,4 +99,15 @@
 .section__header {
   width: 100%;
   @include flex(space-between);
+}
+
+.registration-card {
+  border: 1px solid $color-blue;
+  box-shadow: 0px 1px 30px 0px #e0e0e04d;
+}
+
+.inactivation {
+  .column__task--accent-button {
+    background-color: $color-light-blue;
+  }
 }
