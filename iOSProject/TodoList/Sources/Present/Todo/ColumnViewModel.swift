@@ -5,9 +5,7 @@
 //  Created by seongha shin on 2022/04/04.
 //
 
-import Foundation
 import Combine
-import UIKit
 
 protocol ColumnViewModelBinding {
     var action: ColumnViewModel.Action { get }

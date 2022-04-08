@@ -5,9 +5,8 @@
 //  Created by seongha shin on 2022/04/05.
 //
 
-import Foundation
-import UIKit
 import Combine
+import UIKit
 
 protocol CardPopupViewDeletegate {
     func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card)

@@ -5,9 +5,8 @@
 //  Created by seongha shin on 2022/04/04.
 //
 
-import Foundation
-import UIKit
 import Combine
+import UIKit
 
 protocol ColumnViewDelegate {
     func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Column)
