@@ -1,6 +1,5 @@
 package com.codesquad.todolist.card.unit;
 
-import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.*;
 
 import org.junit.jupiter.api.DisplayName;
@@ -25,24 +24,21 @@ public class CardServiceTest {
     private CardRepository cardRepository;
 
     @Test
-    @DisplayName("카드를 생성하면 저장소에 저장한다")
-    public void createTest() {
+    @DisplayName("카드를 생성하면 저장소에 저장된다")
+    public void cardCreateTest() {
         // given
         CardCreateRequest createRequest = new CardCreateRequest(1, "제목", "bc", "내용");
         Card dummyCard = new Card.Builder(1, "제목", "bc")
             .content("내용")
             .build();
 
-        given(cardRepository.create(any(Card.class)))
-            .willReturn(dummyCard);
+        given(cardRepository.countByColumn(anyInt())).willReturn(0);
+        given(cardRepository.create(any(Card.class))).willReturn(dummyCard);
 
         // when
         Card createdCard = cardService.create(createRequest);
 
         // then
-        then(createdCard.getAuthor()).isEqualTo(dummyCard.getAuthor());
-        then(createdCard.getContent()).isEqualTo(createdCard.getContent());
-        then(createdCard.getTitle()).isEqualTo(createdCard.getTitle());
-        then(createdCard.getCreatedDate()).isEqualTo(createdCard.getCreatedDate());
+        then(cardRepository).should(times(1)).create(any(Card.class));
     }
 }

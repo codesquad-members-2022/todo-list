@@ -9,9 +9,24 @@ public class Card {
     private final String author;
     private Integer cardId;
     private String content;
-    private Integer cardOrder;
+    private Integer order;
     private LocalDateTime createdDate;
     private Boolean deleted;
+
+    public Card(Integer columnId, String title, String content, String author, Integer order) {
+        this(null, columnId, title, content, author, order, LocalDateTime.now());
+    }
+
+    public Card(Integer cardId, Integer columnId, String title, String content, String author,
+        Integer order, LocalDateTime createdDate) {
+        this.cardId = cardId;
+        this.columnId = columnId;
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.order = order;
+        this.createdDate = createdDate;
+    }
 
     public Card(Builder builder) {
         this.cardId = builder.cardId;
@@ -19,13 +34,17 @@ public class Card {
         this.title = builder.title;
         this.author = builder.author;
         this.content = builder.content;
-        this.cardOrder = builder.cardOrder;
+        this.order = builder.order;
         this.createdDate = builder.createdDate;
         this.deleted = builder.deleted;
     }
 
     public Integer getCardId() {
         return cardId;
+    }
+
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
     }
 
     public String getTitle() {
@@ -51,7 +70,7 @@ public class Card {
         private final String author;
         private Integer cardId;
         private String content;
-        private Integer cardOrder = 1;
+        private Integer order;
         private LocalDateTime createdDate;
         private Boolean deleted = false;
 
@@ -71,13 +90,13 @@ public class Card {
             return this;
         }
 
-        public Builder cardOrder(Integer cardOrder) {
-            this.cardOrder = cardOrder;
+        public Builder deleted(Boolean deleted) {
+            this.deleted = deleted;
             return this;
         }
 
-        public Builder deleted(Boolean deleted) {
-            this.deleted = deleted;
+        public Builder order(int order) {
+            this.order = order;
             return this;
         }
 

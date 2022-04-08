@@ -2,8 +2,6 @@ package com.codesquad.todolist.card;
 
 import org.springframework.stereotype.Service;
 
-import com.codesquad.todolist.Util.DtoConverter;
-
 @Service
 public class CardService {
 
@@ -14,7 +12,8 @@ public class CardService {
     }
 
     public Card create(CardCreateRequest createRequest) {
-        Card card = DtoConverter.dtoToEntity(createRequest);
+        int count = cardRepository.countByColumn(createRequest.getColumnId());
+        Card card = createRequest.toEntity(count + 1);
         return cardRepository.create(card);
     }
 }
