@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class WorkService {
@@ -53,6 +54,7 @@ public class WorkService {
         return ColumnListDto.builder().userId(userId).workList(workLists).build();
     }
 
+    @Transactional
     public WorkDto create(WorkRequestFormDto workRequestFormDto, String userId, Integer categoryId) {
         // 카드 저장
         Work work = workRequestFormDto.convertToDomain(categoryId, userId);
