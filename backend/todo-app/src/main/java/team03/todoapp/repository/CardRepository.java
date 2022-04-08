@@ -3,16 +3,21 @@ package team03.todoapp.repository;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import team03.todoapp.domain.Card;
 
 @Repository
 public class CardRepository {
 
+    private final Logger log = LoggerFactory.getLogger(CardRepository.class);
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
     @Autowired
@@ -24,10 +29,10 @@ public class CardRepository {
     }
 
     @Transactional
-    public Long add() {
+    public Long insert(Card card) {
         /**
          *
-         * select card_id from card where next_id = null and current_location = "done";
+         * select card_id from card where next_id = null and current_location = "Todo";
          * int lastCardId = cardId; if lastCardId==null; insert 후 return returnKey;
          *
          * insert한 후의 키값을 반환받아서 -> int thisCardId = returnKey;
@@ -38,28 +43,26 @@ public class CardRepository {
          * where card_id=lastCardId;
          */
 
-        String getLastCardIdSQL = "select card_id from card where next_id is null and current_location = 'done'";
+        String getLastCardIdSQL = "select card_id from card where next_id is null and current_location ="+card.getCurrentLocation();
         String updateNextCardOfLastCardSQL = "update card set next_id = ? where card_id = ?";
-        Integer lastCardId;
+        Integer lastCardId = null;
 
         try {
             lastCardId = jdbcTemplate.queryForObject(getLastCardIdSQL, Integer.class);
-            System.out.println("lastCardId = " + lastCardId);
+            log.debug("lastCardId: {}", lastCardId);
         } catch(EmptyResultDataAccessException e) {
-            lastCardId = null;
-            System.out.println("e = " + e);
+            log.debug("e: {}", e);
         }
 
         Map<String, String> params = new HashMap<>();
-        params.put("title", "title1");
-        params.put("content", "content1");
-        params.put("writer", "writer1");
-        params.put("current_location", "done");
-        params.put("upload_date", "2020-02-02 12:00:00");
-        params.put("deleted", "0");
+        params.put("title", card.getTitle());
+        params.put("content", card.getContent());
+        params.put("writer", card.getWriter());
+        params.put("current_location", card.getCurrentLocation());
+        params.put("upload_date", card.getUploadDate());
+        params.put("deleted", card.getDeleted());
         params.put("next_id", null);
         Long thisCardId = simpleJdbcInsert.executeAndReturnKey(params).longValue();
-        System.out.println("thisCardId = " + thisCardId);
 
         if (lastCardId != null) {
             jdbcTemplate.update(updateNextCardOfLastCardSQL, thisCardId, lastCardId);
@@ -67,6 +70,53 @@ public class CardRepository {
         return thisCardId;
     }
 
+    @Transactional
+    public void delete(Long cardId) {
+        /**
+         * 연결리스트 형식 테이블의 삭제 과정
+         *  1. select로 cardId를 next_id로 갖고있는 column의 card_id를 Long prevId에 저장
+         *  2. select로 cardId column의 next_id를 Long nextId에 저장
+         *  3. delete로 cardId column 삭제
+         *  4. prevId column의 next_id를 nextId로 할당
+         *
+         *  edge-cases :
+         *  1. 마지막 원소를 삭제하는 경우 (문제있음)
+         *  2. 첫번째 원소를 삭제하는경우 (if prevId!=null: update하기)
+         *  3. 중간 원소를 삭제하는 경우 (문제없음)
+         *  4. 원소가 하나일 때 삭제하는 경우 (prevId=null, nextId=null)->(if prevId!=null: update하기)
+         */
+
+        Long prevId = null;
+        Long nextId = null;
+        String SQL1 = "select card_id from card where next_id =" + cardId;
+        String SQL2 = "select next_id from card where card_id =" + cardId;
+        String SQL3 = "delete from card where card_id =" + cardId;
+        String SQL4 = "update card set next_id = ? where card_id= ?";
+
+        try {
+            prevId = jdbcTemplate.queryForObject(SQL1, Long.class);
+            log.debug("prevId: {}", prevId);
+        } catch(EmptyResultDataAccessException e) {
+            log.debug("e: {}", e);
+        }
+
+        try {
+            nextId = jdbcTemplate.queryForObject(SQL2, Long.class);
+            log.debug("nextId: {}", nextId);
+        } catch(EmptyResultDataAccessException e) {
+            log.debug("e: {}", e);
+        }
+
+        jdbcTemplate.update(SQL3);
+
+        if (prevId != null) {
+            log.debug("prev{} next{}",prevId,nextId);
+            jdbcTemplate.update(SQL4, nextId, prevId);
+        }
+
+        log.debug("cardId: {} deleted", cardId);
+
+    }
 
 
 }
