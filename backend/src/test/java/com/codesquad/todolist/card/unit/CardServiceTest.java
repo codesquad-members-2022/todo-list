@@ -1,5 +1,7 @@
 package com.codesquad.todolist.card.unit;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
@@ -7,8 +9,10 @@ import static org.mockito.Mockito.times;
 import com.codesquad.todolist.card.Card;
 import com.codesquad.todolist.card.CardRepository;
 import com.codesquad.todolist.card.CardService;
+import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,10 +36,10 @@ public class CardServiceTest {
         // given
         CardUpdateRequest request = new CardUpdateRequest("제목", "내용", "작성자");
         Card card = new Card(1, 1, "제목", "내용", "작성자", 1, LocalDateTime.now());
-        given(cardRepository.findById(1)).willReturn(card);
+        given(cardRepository.findById(1)).willReturn(Optional.of(card));
 
         // when
-        cardService.updateCard(1, request);
+        cardService.update(1, request);
 
         // then
         then(cardRepository).should(times(1)).update(card);
