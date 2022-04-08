@@ -1,11 +1,5 @@
-// webpack test entry 파일
-import { axios } from 'axios';
+import { init } from "./view/cardView.js";
+import { renderTodos } from "./controller/cardController.js";
 
-async function getData(dataName) {
-  const URL = `http://localhost:5000/${dataName}`;
-  const response = await axios.get(URL);
-  return response;
-}
-
-const todoData = getData('todos');
-console.log(todoData);
+window.addEventListener("DOMContentLoaded", renderTodos);
+init();

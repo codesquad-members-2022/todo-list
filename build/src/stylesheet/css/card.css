@@ -4,6 +4,7 @@
   width: 308px;
   background-color: var(--white);
   margin-top: 16px;
+  border-radius: 6px;
 }
 
 .card-text-area > * {

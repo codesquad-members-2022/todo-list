@@ -7,6 +7,7 @@
   box-sizing: border-box;
   padding: 80px 80px 0 40px;
   background-color: var(--white);
+  display: none; /*완료한 칼럼을 보기 위해 숨겨놓음 */
 }
 
 .action-cross-button {
