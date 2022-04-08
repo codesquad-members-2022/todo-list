@@ -45,4 +45,20 @@ public class CardControllerTest {
 
         then(cardService).should(times(1)).create(any(CardCreateRequest.class));
     }
+
+    @Test
+    @DisplayName("카드 업데이트를 요청하면 200 OK 를 응답으로 받게 된다")
+    public void cardUpdateTest() throws Exception {
+        // given
+        CardUpdateRequest request = new CardUpdateRequest("제목", "내용", "작성자");
+
+        // when
+        ResultActions actions = mockMvc.perform(put("/cards/{id}", 1)
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(request))
+        );
+
+        // then
+        actions.andExpect(status().isOk());
+    }
 }
