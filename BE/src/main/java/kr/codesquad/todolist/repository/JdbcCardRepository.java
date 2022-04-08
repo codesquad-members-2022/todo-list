@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class JdbcCardRepository implements CardRepository {
         namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card), keyHolder);
         Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
 
-        return Card.instanceWithId(id, card);
+        return findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     @Override

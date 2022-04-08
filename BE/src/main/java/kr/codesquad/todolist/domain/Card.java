@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Card {
 
-    private Long id;
+    private final Long id;
     private final String userId;
     private final Integer columnId;
     private final String subject;
@@ -33,11 +33,6 @@ public class Card {
     public static Card of(Long id, String userId, Integer columnId, String subject, String contents,
                           LocalDateTime createTime, LocalDateTime updateTime, boolean deleted) {
         return new Card(id, userId, columnId, subject, contents, createTime, updateTime, deleted);
-    }
-
-    public static Card instanceWithId(Long id, Card card) {
-        card.id = id;
-        return card;
     }
 
     public Long getId() {
