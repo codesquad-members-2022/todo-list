@@ -1,6 +1,6 @@
 import { qs, insertElement } from "../utils/helpers.js";
 import { createColumn } from "./column/column.js";
-import { createItem } from "./card/item.js";
+import { createItem } from "./card/card.js";
 
 const renderer = {
   allColumns: (columnList) => {
