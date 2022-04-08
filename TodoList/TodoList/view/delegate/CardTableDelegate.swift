@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CardBoardTableDelegate: NSObject{
+class CardTableDelegate: NSObject{
     private(set) var cards: [TableCardUsable] = []
     
     func setCards(cards: [TableCardUsable]){
@@ -16,7 +16,7 @@ class CardBoardTableDelegate: NSObject{
     }
 }
 
-extension CardBoardTableDelegate: UITableViewDataSource, UITableViewDelegate{
+extension CardTableDelegate: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cards.count
     }
@@ -24,7 +24,7 @@ extension CardBoardTableDelegate: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardTableViewCell") as? CardTableViewCell else { return UITableViewCell() }
         let card = cards[indexPath.row]
-        cell.setCellUIData(title: card.getTitle(), content: card.getContents(), writer: card.getWriter())
+        cell.setCellUIData(title: card.getTitle(), content: card.getContents(), writer: "author by " + card.getWriter())
         return cell
     }
     
