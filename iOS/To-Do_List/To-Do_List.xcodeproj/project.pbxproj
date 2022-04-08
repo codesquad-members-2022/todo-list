@@ -17,13 +17,14 @@
 		8D2AFD9427FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AFD9327FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift */; };
 		8D46807727FB3FBB00FA9F34 /* ToDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807627FB3FBB00FA9F34 /* ToDoTableViewController.swift */; };
 		8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */; };
+		8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */; };
 		8DBB584827FB416D00D129E2 /* DoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */; };
 		8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB585127FBD8F500D129E2 /* CardCell.swift */; };
 		8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */; };
 		8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282A27FB1CFE002FB533 /* MainViewController.swift */; };
 		8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DB27FD642800C13618 /* NetworkManager.swift */; };
 		8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DD27FD646B00C13618 /* NetworkError.swift */; };
-		8DD815E027FD655200C13618 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DF27FD655200C13618 /* HttpMethod.swift */; };
+		8DD815E027FD655200C13618 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DF27FD655200C13618 /* HTTPMethod.swift */; };
 		8DD815E527FD691E00C13618 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815E427FD691E00C13618 /* Todo.swift */; };
 		B70BD64227FBD1E7001BE68F /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* TableViewHeader.swift */; };
 /* End PBXBuildFile section */
@@ -60,13 +61,14 @@
 		8D2AFD9327FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_ListUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8D46807627FB3FBB00FA9F34 /* ToDoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewController.swift; sourceTree = "<group>"; };
 		8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableViewController.swift; sourceTree = "<group>"; };
+		8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewController.swift; sourceTree = "<group>"; };
 		8DBB585127FBD8F500D129E2 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewController.swift; sourceTree = "<group>"; };
 		8DC2282A27FB1CFE002FB533 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8DD815DB27FD642800C13618 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		8DD815DD27FD646B00C13618 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		8DD815DF27FD655200C13618 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		8DD815DF27FD655200C13618 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		8DD815E427FD691E00C13618 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		B70BD64127FBD1E7001BE68F /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,9 +173,10 @@
 		8DD815E127FD655C00C13618 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */,
 				8DD815DB27FD642800C13618 /* NetworkManager.swift */,
 				8DD815DD27FD646B00C13618 /* NetworkError.swift */,
-				8DD815DF27FD655200C13618 /* HttpMethod.swift */,
+				8DD815DF27FD655200C13618 /* HTTPMethod.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -333,13 +336,14 @@
 				8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */,
 				8DD815E527FD691E00C13618 /* Todo.swift in Sources */,
 				8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */,
-				8DD815E027FD655200C13618 /* HttpMethod.swift in Sources */,
+				8DD815E027FD655200C13618 /* HTTPMethod.swift in Sources */,
 				8D2AFD7127FB08AE00307CCB /* AppDelegate.swift in Sources */,
 				B70BD64227FBD1E7001BE68F /* TableViewHeader.swift in Sources */,
 				8DBB584827FB416D00D129E2 /* DoneTableViewController.swift in Sources */,
 				8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */,
 				8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */,
 				8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */,
+				8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */,
 				8D2AFD7327FB08AE00307CCB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

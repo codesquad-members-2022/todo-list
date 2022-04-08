@@ -45,11 +45,18 @@ class CardCell: UITableViewCell {
         self.bodyLabel.text = body
     }
     
-    
-    override func awakeFromNib() {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         addViews()
         setup()
     }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        addViews()
+        setup()
+    }
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -57,6 +64,7 @@ class CardCell: UITableViewCell {
         self.contentView.frame = contentView.frame.inset(by: inset)
         self.contentView.backgroundColor = .white
         self.contentView.layer.cornerRadius = 10
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -76,11 +84,11 @@ class CardCell: UITableViewCell {
         }
         stackView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(stackView)
+        
     }
     
     
     private func setup() {
-        
         let spacing:CGFloat = 8.0
         
         stackView.spacing = spacing

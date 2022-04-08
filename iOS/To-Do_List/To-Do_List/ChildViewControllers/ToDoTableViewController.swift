@@ -23,13 +23,14 @@ class ToDoTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reloadTableView),
-            name: NSNotification.Name("DidFetchToList"),
+            name: NSNotification.Name("DidFetchToDoList"),
             object: nil)
     }
     
     @objc func reloadTableView(notification:Notification) {
         guard let data = notification.userInfo?["TodoList"] as? Todoitems else { return }
         todoList =  data.response.todoItems
+        
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -39,12 +40,12 @@ class ToDoTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell") as? CardCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell") as? CardCell ,
               let todoList = todoList else { return UITableViewCell() }
         
         let title = todoList[indexPath.row].title
         let body = todoList[indexPath.row].content
-        
+
         cell.setCardText(title: title, body: body)
         return cell
     }

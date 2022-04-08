@@ -2,19 +2,24 @@
 import Foundation
 
 final class NetworkManager {
-    private var signUpURL = URL(string:"http://13.125.161.84:8082/api/read/cards")
     private var config = URLSessionConfiguration.default
     private var session = URLSession(configuration:.default)
     
-    func getRequest<T:Decodable>(completion:@escaping (Result<T,NetworkError>) -> Void) {
+    func getRequest<T:Decodable>(endpoint:Endpoint, completion:@escaping (Result<T,NetworkError>) -> Void) {
         //handling urlError
-        guard let signUpURL = signUpURL else {
+        guard let url = URL(string:endpoint.url) else {
             completion(.failure(.invalidURL))
             return
         }
+        var urlRequest = URLRequest(url: url)
         
-        var urlRequest = URLRequest(url: signUpURL)
-        urlRequest.httpMethod = HttpMethod.get
+        //HTTP Method
+        urlRequest.httpMethod = endpoint.httpMethod
+        
+        //HTTP Headers
+        endpoint.headers?.forEach({ (key: String, value: Any) in
+            urlRequest.setValue(value as? String , forHTTPHeaderField: key)
+        })
         
         let dataTask = session.dataTask(with: urlRequest) { [weak self] data, response, error in
             guard let self = self else { return }
@@ -48,19 +53,20 @@ final class NetworkManager {
         dataTask.resume()
     }
     
-    func postRequest<T:Decodable,U:Encodable>(postBody:U, completion: @escaping((Result<T,NetworkError>) -> Void)) {
+    func postRequest<T:Decodable>(endpoint:Endpoint, completion: @escaping((Result<T,NetworkError>) -> Void)) {
         //handling urlError
-        guard let signUpURL = signUpURL else {
+        guard let url = URL(string:endpoint.url) else {
             completion(.failure(.invalidURL))
             return
         }
+        var urlRequest = URLRequest(url: url)
         
-        var urlRequest = URLRequest(url: signUpURL)
-        urlRequest.httpMethod = HttpMethod.post
+        //HTTP Method
+        urlRequest.httpMethod = endpoint.httpMethod
         
         //handling encodingError
         do {
-            urlRequest.httpBody = try JSONEncoder().encode(postBody)
+            urlRequest.httpBody = try JSONEncoder().encode(endpoint.body as? Todoitems)
         }
         catch {
             completion(.failure(.encodingError))
@@ -100,10 +106,6 @@ final class NetworkManager {
     
     func session(_ urlSession: URLSession) {
         self.session = urlSession
-    }
-    
-    func url(_ url:URL) {
-        self.signUpURL = url
     }
     
     private func getStatusCode(response:URLResponse?) -> Int? {

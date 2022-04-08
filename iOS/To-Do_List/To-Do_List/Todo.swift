@@ -14,8 +14,8 @@ struct Todoitems:Codable {
 
 struct CardType:Codable {
     let todoItems:[Todo]
-    let doingItems:[Todo]
-    let haveDoneItems:[Todo]
+    let progressingItems:[Todo]
+    let completedItems:[Todo]
 }
 
 struct Todo:Codable {

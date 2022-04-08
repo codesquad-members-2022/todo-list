@@ -22,11 +22,11 @@ class MainViewController: UIViewController {
         self.view.backgroundColor = .white
         addChildViewControllers()
         
-        networkManager.getRequest { (result:Result<Todoitems,NetworkError>)  in
+        networkManager.getRequest(endpoint:EndPointCases.getTodoList) { (result:Result<Todoitems,NetworkError>) in
             switch result {
             case .success(let data):
                 NotificationCenter.default.post(
-                    name: NSNotification.Name("DidFetchToList"),
+                    name: NSNotification.Name("DidFetchToDoList"),
                     object: self,
                     userInfo: ["TodoList":data])
                 
