@@ -39,6 +39,22 @@
 <img width="640" src="https://user-images.githubusercontent.com/45891045/162131159-9d1c7ba4-2e51-4f21-b91e-0de937bc5ce7.png">
 
 
+## 고민과 해결과정
+### xib 이름 변경 과정에서 다음과 같은 오류가 발생
+```bash
+- 'NSInternalInconsistencyException', reason: '-[UIViewController _loadViewFromNibNamed:bundle:] loaded the TaskCardListView nib but the view outlet was not set
+- this class is not key value coding-compliant for the key tableView.' [duplicate]
+```
+
+1. .xib 파일 이름변경 및 nib name 변경
+2. .xib 파일의 file's owner 커스텀 클래스 -> UIView 가 아닌 UIViewController 로 변경
+3. file's owner -> TaskCardListView outlet 연결
+4. file's owner 커스텀 클래스 삭제
+5. nib 불러오는 Bundle.name의 owner를 nil -> self 로 변경 (UIViewController)
+6. Addsubview 삭제
+-> 해결은 했으나 이유를 아직 모르는 상태
+
+
 ## Document
 
 - [기획서](https://www.figma.com/proto/vYGeE8xND8ZRkesKHLIc1b/%EB%AA%A8%EB%B0%94%EC%9D%BC_%ED%88%AC%EB%91%90%-EB%A6%AC%EC%8A%A4%ED%8A%B8?node-id=94%3A418&scaling=contain&page-id=94%3A414)
