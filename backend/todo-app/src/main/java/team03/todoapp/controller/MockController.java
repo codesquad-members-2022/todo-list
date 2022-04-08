@@ -9,6 +9,11 @@ import team03.todoapp.controller.dto.CardResponse;
 import team03.todoapp.controller.dto.CardsResponse;
 import team03.todoapp.controller.dto.HistoriesResponse;
 import team03.todoapp.controller.dto.HistoryResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MockController {
@@ -145,6 +150,5 @@ public class MockController {
 
         return historiesResponse;
     }
-
 
 }

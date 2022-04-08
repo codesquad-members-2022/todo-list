@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--HeadLine: toolbar 제목-->
+    <style name="HeadLine4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Headline : recyclerview 제목 -->
+    <style name="HeadLine" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="HeadLine.White" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="HeadLine.White.Bold" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="HeadLine.Bold" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Headline : recyclerview 내부 제목 -->
+    <style name="HeadLine6.Bold" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="HeadLine6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Headline : recyclerview 내용 -->
+    <style name="body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="body.white" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="body.gray" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/todo_background_color</item>
+    </style>
+
+    <style name="body.white.bold" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="body.bold" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
