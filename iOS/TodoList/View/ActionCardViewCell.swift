@@ -6,4 +6,5 @@ class ActionCardViewCell: UITableViewCell {
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var timeStamp: UILabel!
     
+    
 }
