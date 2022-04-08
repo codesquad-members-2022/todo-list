@@ -13,7 +13,7 @@ import Foundation
 class NetworkManager {
     let urlSession = URLSession.shared
     
-    func get<T: Decodable>(to url: URL, then completion: @escaping ([T]?) -> Void) {
+    func getAll<T: Decodable>(to url: URL, then completion: @escaping ([T]?) -> Void) {
         let task = urlSession.dataTask(with: url) { (data, response, error) -> Void in
             guard let data = data else {
                 DispatchQueue.main.async { completion(nil) }

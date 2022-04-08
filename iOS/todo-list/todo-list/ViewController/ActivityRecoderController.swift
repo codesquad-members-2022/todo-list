@@ -11,9 +11,9 @@ import UIKit
 class ActivityRecordController: UITableViewController {
     
     var dummylog = Log(userId: "@sam", action: Action.Move, created: Date.now,
-                  task: Task(id: 0, status: TaskStatus.inProgress, title: "HTML/CSS공부하기", content: "input 태그 실습", authoredDevice: Device.iOS),
+                       task:Task(id: 0, rowPosition: 0, status: .inProgress, title: "HTML/CSS공부하기", content: "input 태그 실습", device: .iOS, createdAt: .now, modifiedAt: .now),
                   from: TaskStatus.todo, to: TaskStatus.inProgress)
-    
+
     var tempArray = [String]()
     
     let dumyData = ["HTML/CSS공부하기를 해야할 일에서 하고있는 일로 이동하였습니다.",
