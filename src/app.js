@@ -1,4 +1,5 @@
 import Column from "./components/Column.js";
+import Header from "./components/Header.js";
 import Component from "./core/Component.js";
 
 export default class App extends Component {
@@ -9,6 +10,7 @@ export default class App extends Component {
   }
   template() {
     return `
+      <header></header>
       <main class="flex">
         <div class="column"></div>
         <div class="column"></div>
@@ -18,7 +20,9 @@ export default class App extends Component {
     `;
   }
   mounted() {
+    const $header = this.$target.querySelector("header");
     const $columns = this.$target.querySelectorAll(".column");
+    new Header($header);
     $columns.forEach(($column, index) => {
       new Column($column, null, this.state.columns[index]);
     });

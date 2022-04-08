@@ -1,7 +1,10 @@
-@import "Column";
+@import "Column", "Header";
 
 body {
   background-color: #e5e5e5;
+}
+main {
+  padding: 0 80px;
 }
 .flex {
   display: flex;
