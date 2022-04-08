@@ -1,5 +1,5 @@
 // webpack test entry 파일
-import { axios } from 'axios';
+import { axios } from "axios";
 
 async function getData(dataName) {
   const URL = `http://localhost:5000/${dataName}`;
@@ -7,5 +7,5 @@ async function getData(dataName) {
   return response;
 }
 
-const todoData = getData('todos');
+const todoData = getData("todos");
 console.log(todoData);
