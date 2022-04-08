@@ -22,6 +22,7 @@
 		6F41D5C127FC085C00EA3FA8 /* TaskCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41D5C027FC085C00EA3FA8 /* TaskCardListViewController.swift */; };
 		6F77E26127FECCED0036B6E1 /* NameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F77E26027FECCED0036B6E1 /* NameSpace.swift */; };
 		6F77E27127FED8150036B6E1 /* TaskCardListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F77E27027FED8150036B6E1 /* TaskCardListView.xib */; };
+		6F77E27327FFD6240036B6E1 /* ActionBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F77E27227FFD6240036B6E1 /* ActionBoardViewController.swift */; };
 		6FC4ABD527FE7B0F00231F9E /* TaskBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC4ABD427FE7B0F00231F9E /* TaskBoardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		6F41D5C027FC085C00EA3FA8 /* TaskCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardListViewController.swift; sourceTree = "<group>"; };
 		6F77E26027FECCED0036B6E1 /* NameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSpace.swift; sourceTree = "<group>"; };
 		6F77E27027FED8150036B6E1 /* TaskCardListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskCardListView.xib; sourceTree = "<group>"; };
+		6F77E27227FFD6240036B6E1 /* ActionBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBoardViewController.swift; sourceTree = "<group>"; };
 		6FC4ABD427FE7B0F00231F9E /* TaskBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 				6F41D5A627FAE04A00EA3FA8 /* MyTaskViewController.swift */,
 				6F41D5C027FC085C00EA3FA8 /* TaskCardListViewController.swift */,
 				6C22959A27FD698000381DA2 /* EditCardViewController.swift */,
+				6F77E27227FFD6240036B6E1 /* ActionBoardViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				6F41D5A527FAE04A00EA3FA8 /* SceneDelegate.swift in Sources */,
 				6C22959B27FD698000381DA2 /* EditCardViewController.swift in Sources */,
 				6CF3C10927FC2907003B4803 /* TaskCardViewCell.swift in Sources */,
+				6F77E27327FFD6240036B6E1 /* ActionBoardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
