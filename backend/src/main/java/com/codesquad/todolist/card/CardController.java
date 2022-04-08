@@ -27,7 +27,7 @@ public class CardController {
     @PutMapping("/{id}")
     public void updateCard(@PathVariable(value = "id") Integer cardId,
         @RequestBody CardUpdateRequest request) {
-        cardService.updateCard(cardId, request);
+        cardService.update(cardId, request);
     }
 
 }

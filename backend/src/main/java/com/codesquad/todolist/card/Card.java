@@ -9,7 +9,6 @@ public class Card {
     private String title;
     private String content;
     private String author;
-    private Integer cardOrder;
     private Integer order;
     private LocalDateTime createdDate;
     private Boolean deleted;
@@ -55,8 +54,8 @@ public class Card {
         return author;
     }
 
-    public Integer getCardOrder() {
-        return cardOrder;
+    public Integer getOrder() {
+        return order;
     }
 
     public LocalDateTime getCreatedDate() {

@@ -27,7 +27,7 @@ public class CardRepository {
         KeyHolder keyHolder = keyHolderFactory.newKeyHolder();
 
         jdbcTemplate.update(
-            "insert into card (column_id, title, content, author, card_order, created_date) values (:columnId, :title, :content, :author, :cardOrder, :createdDate)",
+            "insert into card (column_id, title, content, author, card_order, created_date) values (:columnId, :title, :content, :author, :order, :createdDate)",
             new BeanPropertySqlParameterSource(card), keyHolder);
 
         if (keyHolder.getKey() != null) {
@@ -44,7 +44,7 @@ public class CardRepository {
         return Optional.ofNullable(card);
     }
 
-    public int countByColumn(int columnId) {
+    public Integer countByColumn(int columnId) {
         String sql = "select count(*) from card where column_id = :columnId";
         return jdbcTemplate.queryForObject(sql, new MapSqlParameterSource("columnId", columnId), Integer.class);
     }
@@ -53,7 +53,7 @@ public class CardRepository {
         jdbcTemplate.update(
             "update card set title = :title, content = :content, author = :author where card_id = :cardId and deleted = false",
             new BeanPropertySqlParameterSource(card));
-
+    }
 
     private RowMapper<Card> getCardRowMapper() {
         return (rs, rowNum) -> new Card(
