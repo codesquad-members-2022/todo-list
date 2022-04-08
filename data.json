@@ -1,0 +1,41 @@
+{
+  "data": [
+    {
+      "user": {
+        "id": "sam123",
+        "name": "sam"
+      },
+      "columns": [
+        {
+          "title": "해야할 일",
+          "cards": [
+            {
+              "title": "github 공부하기",
+              "content": "add commit push study",
+              "author": "나"
+            },
+            {
+              "title": "블로그 포스팅",
+              "content": "* 깃허브 공부내용\n*모던자바스크립트 1장",
+              "author": "나"
+            }
+          ]
+        },
+        {
+          "title": "하고있는 일",
+          "cards": [
+            {
+              "title": "html css",
+              "content": "study html css",
+              "author": "나"
+            }
+          ]
+        },
+        {
+          "title": "완료한 일",
+          "cards": []
+        }
+      ]
+    }
+  ]
+}
