@@ -33,15 +33,7 @@ class MemberRepositoryTest {
         Member result = repository.insert(member);
 
         // then
-        assertThat(result.getId()).isEqualTo(member.getId());
-        assertThat(result.getUserId()).isEqualTo(member.getUserId());
-        assertThat(result.getPassword()).isEqualTo(member.getPassword());
-        assertThat(result.getName()).isEqualTo(member.getName());
-
-        /*
-            assertThat(result).usingRecursiveComparison().isEqualTo(member);
-            객체 비교 시 usingRecursiveComparison() 메서드를 사용하는 검증도 괜찮은 지 궁금합니다! - @Riako
-        */
+        assertThat(result).usingRecursiveComparison().isEqualTo(member);
     }
 
     @Test
@@ -66,16 +58,8 @@ class MemberRepositoryTest {
             Member member1 = result.get(index);
             Member member2 = members.get(index);
 
-            assertThat(member1.getId()).isEqualTo(member2.getId());
-            assertThat(member1.getUserId()).isEqualTo(member2.getUserId());
-            assertThat(member1.getPassword()).isEqualTo(member2.getPassword());
-            assertThat(member1.getName()).isEqualTo(member2.getName());
+            assertThat(member1).usingRecursiveComparison().isEqualTo(member2);
         }
-
-        /*
-            assertThat(result).usingRecursiveComparison().isEqualTo(members);
-            Collection 의 경우에도 usingRecursiveComparison() 메서드를 사용하는 검증도 괜찮은 지 궁금합니다! - @Riako
-        */
     }
 
     @Test
@@ -92,10 +76,6 @@ class MemberRepositoryTest {
         assertThat(result).isNotEmpty();
 
         Member resultMember = result.get();
-
-        assertThat(resultMember.getId()).isEqualTo(member.getId());
-        assertThat(resultMember.getUserId()).isEqualTo(member.getUserId());
-        assertThat(resultMember.getName()).isEqualTo(member.getName());
-        assertThat(resultMember.getPassword()).isEqualTo(member.getPassword());
+        assertThat(resultMember).usingRecursiveComparison().isEqualTo(member);
     }
 }
