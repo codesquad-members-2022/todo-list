@@ -43,6 +43,6 @@ export async function axiosRequest(request, dataName, data = {}) {
   }
 }
 
-//putData
-
-//deleteData
+export function removeText($) {
+  $.innerText = "";
+}

@@ -1,13 +1,13 @@
 import { handleClickRegisterBtn } from "./updateRegisterCard.js";
-import { axiosRequest } from "./util/util.js";
-export function renderRegister() {
+import { removeText } from "./util/util.js";
+export function addRegisterCard() {
   const $plusBtn = document.querySelector("#have-to-do-plus");
-  $plusBtn.addEventListener("click", function () {
-    handleRegister();
+  $plusBtn.addEventListener("click", () => {
+    renderRegisterCard();
   });
 }
 
-async function handleRegister() {
+async function renderRegisterCard() {
   const $cards = document.querySelector("#have-to-do-cards");
   const todoCount = $cards.children.length;
   const registerBoxTemp = `
@@ -41,30 +41,25 @@ async function handleRegister() {
   $cards.insertAdjacentHTML("afterbegin", registerBoxTemp);
   const cardId = `#card${todoCount + 1}`;
   const $card = document.querySelector(cardId);
-  const $registerTitle = $card.querySelector(".card-title");
-  const $registerDetail = $card.querySelector(".card-details");
-  const $cancelBtn = $card.querySelector(".cancel-button");
+  handleRegisterCard($cards, $card);
+}
+
+function handleRegisterCard($cards, $card) {
+  const $cardTextArea = $card.querySelector(".card-text-area");
   const $registerBtn = $card.querySelector(".register-button");
   changeRegisterBoxStyle($cards);
-  $registerDetail.addEventListener("click", ({ target }) => {
+  $cardTextArea.addEventListener("click", ({ target }) => {
     removeText(target);
   });
-  $registerTitle.addEventListener("click", ({ target }) => {
-    removeText(target);
-  });
-  $cancelBtn.addEventListener("click", () => {});
   $registerBtn.addEventListener("click", ({ target }) => {
     handleClickRegisterBtn(target);
   });
 }
+
 function changeRegisterBoxStyle($cards) {
   const $registerCard = $cards.firstElementChild;
   Object.assign($registerCard.style, {
     border: "1px solid var(--blue)",
     opacity: 0.5,
   });
-}
-// util로 빼기!
-function removeText($) {
-  $.innerText = "";
 }

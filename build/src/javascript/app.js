@@ -1,8 +1,5 @@
-import { renderRegister } from "./createRegister.js";
-import {
-  handleClickRegisterBtn,
-  renderingTodos,
-} from "./updateRegisterCard.js";
+import { init } from "./view/cardView.js";
+import { renderTodos } from "./controller/cardController.js";
 
-window.addEventListener("DOMContentLoaded", renderingTodos);
-renderRegister();
+window.addEventListener("DOMContentLoaded", renderTodos);
+init();

@@ -41,27 +41,6 @@
       "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
       "time": "~~~",
       "id": 6
-    },
-    {
-      "column": "have-to-do-column",
-      "title": "ㅁㄴㅇㄹ",
-      "detail": "ㅁㄴㅇㄹ",
-      "time": 1649397286433,
-      "id": 7
-    },
-    {
-      "column": "have-to-do-column",
-      "title": "ㅁㄻㄴㅇㄹㄴㅇㅁ",
-      "detail": "ㅁㄴㅇㄻㄴㅇㄹ",
-      "time": 1649398219320,
-      "id": 8
-    },
-    {
-      "column": "have-to-do-column",
-      "title": "ㅇㄴㄹㄴㅇㄹ",
-      "detail": "ㅁㄴㅇㄹ",
-      "time": 1649398483641,
-      "id": 9
     }
   ],
   "actions": [
