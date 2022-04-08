@@ -14,5 +14,8 @@ function main() {
 }
 
 function getUserData(userId) {
-  return storage[userId];
+  const [userData] = usersData.filter((data) => data.id === userId);
+  if (!userData) throw "no user";
+
+  return userData;
 }
