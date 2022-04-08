@@ -2,9 +2,12 @@ package com.team05.todolist.controller;
 
 import com.team05.todolist.domain.Card;
 import com.team05.todolist.domain.Event;
+import com.team05.todolist.domain.Log;
 import com.team05.todolist.domain.dto.CardDTO;
 import com.team05.todolist.domain.dto.LogDTO;
 import com.team05.todolist.domain.dto.ResponseDTO;
+import com.team05.todolist.service.CardService;
+import com.team05.todolist.service.LogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +30,11 @@ public class CardController {
 	}
 
 	@PostMapping("/cards")
-	public ResponseEntity<ResponseDTO> create(CardDTO cardDto) {
-		CardDTO card = cardService.save(cardDto);
+	public ResponseEntity<LogDTO> create(CardDTO cardDto) {
+		cardService.save(cardDto);
 		LogDTO log = logService.save(Event.CREATE, cardDto);
-		ResponseDTO responseDTO = new ResponseDTO(card, log);
-		logger.debug("card-{}: {}, log: {}({})", card.getCardId(), card.getTitle(),
-			log.getLogEvent(), log.getLogTime());
-		return ResponseEntity.ok().body(responseDTO);
+
+		logger.debug("card: {}, log: {}({})", cardDto.getTitle(), log.getLogEvent(), log.getLogTime());
+		return ResponseEntity.ok().body(log);
 	}
 }

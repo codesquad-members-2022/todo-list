@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface LogRepository {
 
-    void save(Log log);
+    int save(Log log);
     List<Log> findAll();
 
 }
