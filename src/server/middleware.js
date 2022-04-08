@@ -5,7 +5,7 @@ const contents = {
     UPDATE: ({ column, title }) =>
       `<p><b>${column}</b>의 <b>${title}</b>을(를) <b>변경</b>하였습니다.</p>`,
     MOVE: ({ title, prevColumn, column }) =>
-      `<p><b>${title}</b>을(를) <b>${prevColumn}</b>에서 <b>${column}</b>(으)로 <b>등록</b>하였습니다.</p>`,
+      `<p><b>${title}</b>을(를) <b>${prevColumn}</b>에서 <b>${column}</b>(으)로 <b>이동</b>하였습니다.</p>`,
     REMOVE: ({ column, title }) =>
       `<p><b>${column}</b>의 <b>${title}</b>을(를) <b>삭제</b>하였습니다.</p>`,
   },
@@ -57,9 +57,10 @@ const addAction = (router) => ({ method, path, body }, res, next) => {
   }
 
   router.db
-    .get('action')
+    .get('actions')
     .push({
-      user: 1,
+      id: router.db.get('actions').value().length + 1,
+      userId: 1,
       contents: createActionContents(url, method, newBody),
       executedTime: new Date(),
     })

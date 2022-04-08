@@ -92,8 +92,8 @@ body {
   }
 
   &.drag {
-    box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
-      0px 2px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 4px rgba(204, 204, 204, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.25);
     opacity: 0.8;
   }
 
@@ -205,12 +205,17 @@ main {
   &-layer {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -32%;
     width: 31vw;
     max-width: 450px;
     height: 100vh;
     background-color: $white;
     padding: 0 58px;
+    transition: all 700ms ease-in-out;
+
+    &.active {
+      right: 0;
+    }
   }
 
   &-btn-wrapper {

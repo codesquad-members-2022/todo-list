@@ -3,8 +3,8 @@
     {
       "title": "블로그에 포스팅",
       "contents": "Github 공부내용\n모던 자바스크립트 공부내용",
-      "column": 2,
-      "author": 1,
+      "columnId": 2,
+      "userId": 1,
       "id": 1
     }
   ],
@@ -14,28 +14,30 @@
       "id": 1
     },
     {
-      "name": "In Progress",
+      "name": "Done",
       "id": 2
     }
   ],
   "users": [
     {
       "id": 1,
-      "userName": "web",
+      "name": "web",
       "password": "1234",
       "profile": "https://avatars.githubusercontent.com/u/67730358?v=4"
     }
   ],
-  "action": [
+  "actions": [
     {
-      "user": 1,
-      "contents": "<p><b>Have To Do</b>에 <b>블로그에 포스팅</b>을(를) <b>등록</b>하였습니다.</p>",
-      "executedTime": "2022-04-06T21:24:55.381Z"
+      "id": 1,
+      "userId": 1,
+      "contents": "<p><b>끝</b> 컬럼의 이름을 <b>Done</b>(으)로 <b>변경</b>하였습니다.</p>",
+      "executedTime": "2022-04-07T16:41:55.826Z"
     },
     {
-      "user": 1,
-      "contents": "<p><b>블로그에 포스팅</b>을(를) <b>Have To Do</b>에서 <b>In Progress</b>(으)로 <b>등록</b>하였습니다.</p>",
-      "executedTime": "2022-04-06T21:25:18.174Z"
+      "id": 2,
+      "userId": 1,
+      "contents": "<p><b>Have To Do</b>에 <b>블로그에 포스팅</b>을(를) <b>등록</b>하였습니다.</p>",
+      "executedTime": "2022-04-07T17:41:55.826Z"
     }
   ]
 }
