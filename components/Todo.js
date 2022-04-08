@@ -21,6 +21,14 @@ export default class Todo {
 
   run = () => {
     document.getElementById(this.todoData.id).addEventListener('dblclick', this.makeEdit);
+    document.getElementById(this.todoData.id).addEventListener('click', this.editCloseBtn);
+  };
+
+  editCloseBtn = ({ target }) => {
+    if (target.classList.contains('input--cancel')) {
+      document.getElementById(this.todoData.id).outerHTML = this.render();
+      this.run();
+    }
   };
 
   makeEdit = () => {
