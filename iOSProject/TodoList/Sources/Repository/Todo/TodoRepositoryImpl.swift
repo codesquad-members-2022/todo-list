@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
-    func loadColumn(_ column: Card.Status) -> AnyPublisher<Result<[Card], SessionError>, Never> {
+    func loadColumn(_ column: Card.Column) -> AnyPublisher<Result<[Card], SessionError>, Never> {
         self.request(.loadColumn(column), isSucccess: true)
             .map { result in
                 switch result {
@@ -24,7 +24,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
             }.eraseToAnyPublisher()
     }
     
-    func addCard(title: String, body: String, column: Card.Status) -> AnyPublisher<Result<Card, SessionError>, Never> {
+    func addCard(title: String, body: String, column: Card.Column) -> AnyPublisher<Result<Card, SessionError>, Never> {
         self.request(.addCard(title: title, body: body, column: column), isSucccess: true)
             .map { result in
                 switch result {
@@ -39,7 +39,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
             }.eraseToAnyPublisher()
     }
     
-    func moveCard(_ cardId: Int, from: Card.Status, to: Card.Status) -> AnyPublisher<Result<(Int, Card.Status), SessionError>, Never> {
+    func moveCard(_ cardId: Int, from: Card.Column, to: Card.Column) -> AnyPublisher<Result<(Int, Card.Column), SessionError>, Never> {
         self.request(.moveCard(cardId, fromColumn: from, toColumn: to), isSucccess: true)
             .map { result in
                 switch result {

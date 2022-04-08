@@ -17,7 +17,7 @@ struct CardPopupData {
     let id: Int?
     let title: String
     let body: String
-    let column: Card.Status
+    let column: Card.Column
 }
 
 class CardPopupViewModel: CardPopupViewModelBinding {

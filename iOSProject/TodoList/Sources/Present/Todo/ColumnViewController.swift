@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 protocol ColumnViewDelegate {
-    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Status)
+    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Column)
 }
 
 protocol ColumnViewProperty {

@@ -21,7 +21,7 @@ struct Card: Codable {
 }
 
 extension Card {
-    enum Status: String, Decodable {
+    enum Column: String, Decodable {
         case todo = "to_do"
         case progress = "in_progress"
         case done = "done"

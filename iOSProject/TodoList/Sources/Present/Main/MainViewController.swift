@@ -99,7 +99,7 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: ColumnViewDelegate {
-    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Status) {
+    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Column) {
         self.columnTableViews[toColumn.index].addCard(fromCard)
     }
 }

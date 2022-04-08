@@ -8,11 +8,11 @@
 import Foundation
 
 enum TodoTarget: BaseTarget {
-    case loadColumn(_ column: Card.Status)
-    case moveCard(_ cardId: Int, fromColumn: Card.Status, toColumn: Card.Status)
+    case loadColumn(_ column: Card.Column)
+    case moveCard(_ cardId: Int, fromColumn: Card.Column, toColumn: Card.Column)
     case deleteCard(_ cardId: Int)
     case editCard(_ cardId: Int, title: String, body: String)
-    case addCard(title: String, body: String, column: Card.Status)
+    case addCard(title: String, body: String, column: Card.Column)
 }
 
 extension TodoTarget {

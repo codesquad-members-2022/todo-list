@@ -32,9 +32,9 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     }
     
     struct State {
-        let loadedColumn = PassthroughSubject<(Int, Card.Status), Never>()
+        let loadedColumn = PassthroughSubject<(Int, Card.Column), Never>()
         let insertedCard = PassthroughSubject<Int, Never>()
-        let movedCard = PassthroughSubject<(Card, Card.Status), Never>()
+        let movedCard = PassthroughSubject<(Card, Card.Column), Never>()
         let deletedCard = PassthroughSubject<Int, Never>()
         let reloadCard = PassthroughSubject<Int, Never>()
         
@@ -45,7 +45,7 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
     private var sortIds: [Int] = []
     private var cards: [Int:Card] = [:]
-    private let columnType: Card.Status
+    private let columnType: Card.Column
     
     let action = Action()
     let state = State()
@@ -58,7 +58,7 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
         cards[sortIds[index]]
     }
     
-    init(columnType: Card.Status) {
+    init(columnType: Card.Column) {
         self.columnType = columnType
         
         action.loadColumn
