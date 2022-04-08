@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.codesquad.todolist.card.Card;
-import com.codesquad.todolist.card.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.CardRepository;
 import com.codesquad.todolist.card.CardService;
 
@@ -27,13 +27,11 @@ public class CardServiceTest {
     @DisplayName("카드를 생성하면 저장소에 저장된다")
     public void cardCreateTest() {
         // given
-        CardCreateRequest createRequest = new CardCreateRequest(1, "제목", "bc", "내용");
-        Card dummyCard = new Card.Builder(1, "제목", "bc")
-            .content("내용")
-            .build();
+        CardCreateRequest createRequest = new CardCreateRequest(1, "제목", "작성자", "내용");
+        Card card = new Card(1, "제목", "내용", "작성자", 1);
 
         given(cardRepository.countByColumn(anyInt())).willReturn(0);
-        given(cardRepository.create(any(Card.class))).willReturn(dummyCard);
+        given(cardRepository.create(any(Card.class))).willReturn(card);
 
         // when
         Card createdCard = cardService.create(createRequest);
