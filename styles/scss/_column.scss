@@ -22,12 +22,8 @@
 
 
   .todo-card {
-    @include shared.todo-card($background: White, $border: shadow_normal);
-  }
-  .selected {
-    @include shared.selected();
-  }
-
+    @include shared.todo-card($background: White, $border: shadow_normal); 
+  } 
 }
 
 
@@ -39,7 +35,7 @@
   @include shared.flex_none(0, 16, 0);
   padding: 0px 8px;
   width: 308px;
-  height: 26px;
+  height: 26px; 
 
   .todo-name {
     @include shared.custom_flex(row, center);
