@@ -59,4 +59,15 @@ public class CardDto {
 			this.userId = card.getUserId();
 		}
 	}
+
+	@Data
+	public static class RedirectInfo {
+		private Long todoId;
+		private Long userId;
+
+		public RedirectInfo(Long todoId, Long userId) {
+			this.todoId = todoId;
+			this.userId = userId;
+		}
+	}
 }
