@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Component</title>
+    <link rel="stylesheet" href="./assets/icons/style.css" />
+    <link rel="stylesheet" href="./styles/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="./dist/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body style="height: 100vh; width: 100vw; margin: 50px; background-color: #eee">
+    <!-- 버튼 종류 -->
+    <button type="button" class="button-normal">Button</button>
+    <button type="button" class="button-accent">Button</button>
+    <button type="button" class="button-accent" disabled="disabled">Button</button>
+
+    <br /><br />
+
+    <!-- 버튼 두개 묶음 -->
+    <div class="">
+      <button type="button" class="button-normal">Content</button
+      ><!--
+   --><button type="button" class="button-accent">Content</button>
+    </div>
+
+    <br /><br />
+
+    <!-- 카드 종류 -->
+    <div class="todo-columns">
+      <div class="todo-column">
+        <div class="todo-column-body">
+          <ol class="todo-list">
+            <!-- 제목, 내용 입력 전 -->
+            <li class="todo-item active-item">
+              <div class="todo-form">
+                <div class="todo-item-textarea">
+                  <header class="todo-item-title">
+                    <textarea placeholder="제목을 입력하세요" rows="1"></textarea>
+                  </header>
+                  <div class="todo-item-desc">
+                    <textarea placeholder="내용을 입력하세요" rows="1"></textarea>
+                  </div>
+                  <footer class="todo-item-author">
+                    author by
+                    <span class="author">web</span>
+                  </footer>
+                </div>
+                <button type="button" class="delete-button">
+                  <i class="ic-close"></i>
+                </button>
+              </div>
+              <footer class="todo-buttons">
+                <button type="button" class="cancel-button button-normal">취소</button>
+                <button type="button" class="register-button button-accent" disabled="disabled">등록</button>
+              </footer>
+            </li>
+
+            <!-- 제목, 내용 입력 후 -->
+            <li class="todo-item active-item">
+              <div class="todo-form">
+                <div class="todo-item-textarea">
+                  <header class="todo-item-title">
+                    <textarea placeholder="제목을 입력하세요" rows="1"></textarea>
+                  </header>
+                  <div class="todo-item-desc">
+                    <textarea placeholder="내용을 입력하세요" rows="1"></textarea>
+                  </div>
+                  <footer class="todo-item-author">
+                    author by
+                    <span class="author">web</span>
+                  </footer>
+                </div>
+                <button type="button" class="delete-button">
+                  <i class="ic-close"></i>
+                </button>
+              </div>
+              <footer class="todo-buttons">
+                <button type="button" class="cancel-button button-normal">취소</button>
+                <button type="button" class="register-button button-accent">등록</button>
+              </footer>
+            </li>
+
+            <!-- 삭제 버튼에 hover -->
+            <li class="todo-item delete-item">
+              <div class="todo-form">
+                <div class="todo-item-textarea">
+                  <header class="todo-item-title">
+                    <textarea placeholder="제목을 입력하세요" rows="1"></textarea>
+                  </header>
+                  <div class="todo-item-desc">
+                    <textarea placeholder="내용을 입력하세요" rows="1"></textarea>
+                  </div>
+                  <footer class="todo-item-author">
+                    author by
+                    <span class="author">web</span>
+                  </footer>
+                </div>
+                <button type="button" class="delete-button">
+                  <i class="ic-close"></i>
+                </button>
+              </div>
+              <footer class="todo-buttons">
+                <button type="button" class="cancel-button button-normal">취소</button>
+                <button type="button" class="register-button button-accent">등록</button>
+              </footer>
+            </li>
+
+            <!-- 드래그 할 때 초기 위치에 남아있는 잔상 -->
+            <li class="todo-item drag-item">
+              <div class="todo-form">
+                <div class="todo-item-textarea">
+                  <header class="todo-item-title">
+                    <textarea placeholder="제목을 입력하세요" rows="1"></textarea>
+                  </header>
+                  <div class="todo-item-desc">
+                    <textarea placeholder="내용을 입력하세요" rows="1"></textarea>
+                  </div>
+                  <footer class="todo-item-author">
+                    author by
+                    <span class="author">web</span>
+                  </footer>
+                </div>
+                <button type="button" class="delete-button">
+                  <i class="ic-close"></i>
+                </button>
+              </div>
+              <footer class="todo-buttons">
+                <button type="button" class="cancel-button button-normal">취소</button>
+                <button type="button" class="register-button button-accent">등록</button>
+              </footer>
+            </li>
+
+            <!-- 놓일 위치를 미리 보여주는 카드 -->
+            <li class="todo-item place-item">
+              <div class="todo-form">
+                <div class="todo-item-textarea">
+                  <header class="todo-item-title">
+                    <textarea placeholder="제목을 입력하세요" rows="1"></textarea>
+                  </header>
+                  <div class="todo-item-desc">
+                    <textarea placeholder="내용을 입력하세요" rows="1"></textarea>
+                  </div>
+                  <footer class="todo-item-author">
+                    author by
+                    <span class="author">web</span>
+                  </footer>
+                </div>
+                <button type="button" class="delete-button">
+                  <i class="ic-close"></i>
+                </button>
+              </div>
+              <footer class="todo-buttons">
+                <button type="button" class="cancel-button button-normal">취소</button>
+                <button type="button" class="register-button button-accent">등록</button>
+              </footer>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

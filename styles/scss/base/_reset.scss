@@ -1,5 +1,6 @@
 * {
   margin: 0;
+  font-family: 'Noto Sans KR', serif;
   box-sizing: border-box;
 }
 
@@ -16,6 +17,10 @@ button,
 input,
 select,
 textarea {
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
   background-color: transparent;
   border: 0;
 

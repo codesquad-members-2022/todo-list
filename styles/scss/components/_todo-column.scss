@@ -1,0 +1,78 @@
+.todo-columns {
+  @include flexbox(flex-start, flex-start);
+  height: 100%;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.todo-column {
+  $main-wrapper-width: 1280px;
+  $column-margin: 16px;
+  $column-width: calc((#{$main-wrapper-width} - #{$column-margin * 3}) / 4);
+  @include column-flexbox(flex-start, flex-start);
+  width: $column-width;
+  min-width: $column-width;
+
+  textarea {
+    @include scrollbar-hidden;
+    width: 100%;
+    resize: none;
+  }
+
+  &:not(:last-child) {
+    margin-right: $column-margin;
+  }
+
+  &-header {
+    @include flexbox(flex-start);
+    width: 100%;
+    padding: 0 8px;
+    margin-bottom: 16px;
+  }
+
+  &-textarea {
+    @include flexbox(flex-start);
+    flex-grow: 1;
+    margin-right: 8px;
+  }
+
+  &-title {
+    @include font(18px, $black);
+    margin-right: 4px;
+  }
+
+  &-buttons {
+    @include flexbox(flex-start);
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    .add-button,
+    .delete-button {
+      @include flexbox;
+      width: 24px;
+      height: 24px;
+      color: $gray4;
+    }
+
+    .add-button {
+      margin-right: 8px;
+
+      &:hover {
+        color: $blue;
+      }
+    }
+
+    .delete-button {
+      &:hover {
+        color: $red;
+      }
+    }
+  }
+
+  &-body {
+    width: 100%;
+  }
+}
