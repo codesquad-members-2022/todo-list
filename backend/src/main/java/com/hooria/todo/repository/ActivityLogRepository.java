@@ -32,6 +32,7 @@ public class ActivityLogRepository {
                         rs.getLong("id"),
                         rs.getString("user_id"),
                         rs.getString("activity_type"),
+                        rs.getString("task_title"),
                         rs.getString("from_status"),
                         rs.getString("to_status"),
                         rs.getObject("created_at", LocalDateTime.class),
