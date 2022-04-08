@@ -1,0 +1,15 @@
+.titleArea {
+  padding: 30px 80px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: 400;
+  font-size: 32px;
+  color: var(--text-color);
+}
+
+.menu {
+  cursor: pointer;
+}

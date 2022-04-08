@@ -1,0 +1,23 @@
+.actions {
+  width: 450px;
+  height: 100vh;
+  display: none;
+  padding: var(--padding-top);
+  transition: all 1s;
+}
+
+.active {
+  display: block;
+}
+
+.menu {
+  display: flex;
+  cursor: pointer;
+  justify-content: end;
+  margin-bottom: 18px;
+}
+
+.actionWrap {
+  max-height: calc(100vh - 100px);
+  overflow: auto;
+}

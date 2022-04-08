@@ -1,0 +1,23 @@
+.action {
+  display: flex;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 16px;
+  background-color: #fff;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 16px;
+}
+
+strong {
+  flex-grow: 1;
+  font-weight: 700;
+}
+
+.time {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--dark-gray);
+}

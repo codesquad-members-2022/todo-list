@@ -1,12 +1,13 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: ["./src/app.js"],
+  entry: ["./src/index.js"],
   devtool: "source-map",
   output: {
     path: path.resolve(__dirname, "dist"),
