@@ -1,6 +1,4 @@
-package com.example.backend.domain;
-
-import com.example.backend.web.dto.CardListResponseDto;
+package com.example.backend.web.dto;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,8 +7,8 @@ import java.util.Map;
 public class Column {
     private final Map<String, List<CardListResponseDto>> cardMap = new HashMap<>();
 
-    public void addByStatus(String status, CardListResponseDto dto) {
-        List<CardListResponseDto> cardList = cardMap.get(status);
+    public void addByColumnName(String columnName, CardListResponseDto dto) {
+        List<CardListResponseDto> cardList = cardMap.get(columnName);
         cardList.add(dto);
     }
 
