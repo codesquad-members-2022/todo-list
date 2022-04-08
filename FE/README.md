@@ -17,13 +17,19 @@
     |       |
     |       |--📁drag-drop
     |       |
-    |       |--📁sideMenu
+    |       |--📁side-menu
     |
     |   |--📁style
     |       |
-    |       |--💾main.css
+    |       |--💾style.css
     |       |
-    |       |--💾main.scss
+    |       |--📁header
+    |       |
+    |       |--📁main
+    |       |
+    |       |--📁reset
+    |
+    |
     |--📁build
         |
         |--💾babel.config.json
