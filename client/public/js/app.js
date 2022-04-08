@@ -3,13 +3,17 @@ import CSS from "../stylesheet/style.scss";
 import Store from "./model/Store.js";
 import usersData from "./tempStorage.js";
 
+import { renderer } from "./views/renderer.js";
 
-  const userStorage = getUserData("mansaout");
 document.addEventListener("DOMContentLoaded", app);
 
-  const store = new Store(userStorage);
+function app() {
+  const userData = getUserData("mansaout");
 
+  const store = new Store(userData);
 
+  renderer.allColumns(store.columns);
+  renderer.allItems(store.items);
 }
 
 function getUserData(userId) {
