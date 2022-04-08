@@ -3,8 +3,8 @@ package todo.list.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import todo.list.service.CardResponse;
-import todo.list.service.CardSaveDto;
+import todo.list.service.dto.CardResponse;
+import todo.list.service.dto.CardSaveDto;
 import todo.list.service.CardService;
 
 @RestController

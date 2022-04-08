@@ -1,4 +1,4 @@
-package todo.list.service;
+package todo.list.service.dto;
 
 import java.util.List;
 

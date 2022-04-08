@@ -3,6 +3,7 @@ package todo.list.service;
 import org.springframework.stereotype.Service;
 import todo.list.domain.ActivityLog;
 import todo.list.repository.ActivityLogRepository;
+import todo.list.service.dto.ActivityLogDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
