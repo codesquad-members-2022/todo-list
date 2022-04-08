@@ -12,7 +12,7 @@ class TitleView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "ToDo-List"
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 32)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 32)
         return label
     }()
     

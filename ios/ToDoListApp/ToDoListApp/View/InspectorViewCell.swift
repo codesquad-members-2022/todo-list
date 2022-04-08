@@ -23,20 +23,20 @@ class InspectorViewCell: UITableViewCell {
     private let emojiLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 28)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 28)
         return label
     }()
     
     private let userLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 16)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 16)
         label.textColor = .darkGray
         return label
     }()
     
     private let contentsLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 16)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 16)
         label.textColor = .black
         label.numberOfLines = 2
         return label
@@ -44,7 +44,7 @@ class InspectorViewCell: UITableViewCell {
     
     private let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
         label.textColor = .gray
         return label
     }()
@@ -68,7 +68,7 @@ class InspectorViewCell: UITableViewCell {
         inspectorStackView.addArrangedSubview(timeLabel)
         
         layoutInspectorStackView()
-        layoutLabel()
+        layoutEmojiLabel()
     }
 
     private func layoutInspectorStackView() {
@@ -76,15 +76,15 @@ class InspectorViewCell: UITableViewCell {
         
         inspectorStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16).isActive = true
         inspectorStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16).isActive = true
-        inspectorStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 72).isActive = true
+        inspectorStackView.leadingAnchor.constraint(equalTo: emojiLabel.trailingAnchor, constant: 16).isActive = true
         inspectorStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
     }
     
-    private func layoutLabel() {
+    private func layoutEmojiLabel() {
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
     
-        emojiLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
-        emojiLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+        emojiLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16).isActive = true
+        emojiLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         emojiLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         emojiLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
