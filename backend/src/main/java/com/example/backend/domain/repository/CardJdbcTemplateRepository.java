@@ -1,7 +1,7 @@
 package com.example.backend.domain.repository;
 
 import com.example.backend.domain.Card;
-import com.example.backend.domain.Column;
+import com.example.backend.web.dto.Column;
 import com.example.backend.web.dto.CardMoveRequestDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;

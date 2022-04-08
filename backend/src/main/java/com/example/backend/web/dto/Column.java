@@ -1,6 +1,4 @@
-package com.example.backend.domain;
-
-import com.example.backend.web.dto.CardListResponseDto;
+package com.example.backend.web.dto;
 
 import java.util.HashMap;
 import java.util.List;
