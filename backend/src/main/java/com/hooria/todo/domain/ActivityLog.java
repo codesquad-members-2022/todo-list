@@ -13,13 +13,13 @@ public class ActivityLog {
 
     private long id;
     private String userId;
-    private int activityType;
+    private String activityType; // 1: add, 2: remove, 3: update, 4: move
     private int fromStatus;
     private int toStatus;
     private LocalDateTime createdAt;
     private boolean readYn;
 
-    public static ActivityLog of(String userId, int activityType, int fromStatus, int toStatus,
+    public static ActivityLog of(String userId, String activityType, int fromStatus, int toStatus,
                                  LocalDateTime createdAt, boolean readYn) {
 
         return new ActivityLog(0, userId, activityType, fromStatus, toStatus, createdAt, readYn);
