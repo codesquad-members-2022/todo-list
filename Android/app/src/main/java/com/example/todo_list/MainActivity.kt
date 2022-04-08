@@ -1,47 +1,48 @@
 package com.example.todo_list
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.widget.ImageButton
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo_list.databinding.ActivityMainBinding
+import com.example.todo_list.history.HistoryAdapter
+import com.example.todo_list.history.HistoryViewModel
 import com.example.todo_list.history.data.HistoryRepository
-import com.example.todo_list.model.HistoryCard
-import com.example.todo_list.model.HistoryReceive
-import com.example.todo_list.model.Todos
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.JsonArray
-import kotlinx.coroutines.CoroutineScope
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    lateinit var navigationView: NavigationView
-    lateinit var drawerLayout: DrawerLayout
-
     private lateinit var binding: ActivityMainBinding
+    private lateinit var historyViewModel: HistoryViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        drawerLayout = findViewById(R.id.main_layout)
+        historyViewModel = ViewModelProvider(this, ViewModelFactory(HistoryRepository())).get(HistoryViewModel::class.java)
 
+        val adapter = HistoryAdapter()
+        binding.recyclerviewHistory.adapter = adapter
+        binding.recyclerviewHistory.layoutManager = LinearLayoutManager(this)
         binding.btnMenu.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.END)
+            binding.mainLayout.openDrawer(GravityCompat.END)
+            historyViewModel.getHistory()
         }
+        binding.btnClose.setOnClickListener { binding.mainLayout.closeDrawer(GravityCompat.END) }
+        binding.naviView.setNavigationItemSelectedListener(this)
 
-        navigationView = findViewById(R.id.navi_view)
-        navigationView.setNavigationItemSelectedListener(this)
-
-        val str = HistoryRepository().getHistory()
-        str.observe(this) {
-            Log.d("LIVE", it.toString())
+        historyViewModel.historyList.observe(this) { adapter.submitList(it) }
+        historyViewModel.checkLoading.observe(this) {
+            if (it) {
+                binding.spinner.visibility = View.VISIBLE
+                binding.recyclerviewHistory.visibility = View.GONE
+            } else {
+                binding.spinner.visibility = View.GONE
+                binding.recyclerviewHistory.visibility = View.VISIBLE
+            }
         }
     }
 
