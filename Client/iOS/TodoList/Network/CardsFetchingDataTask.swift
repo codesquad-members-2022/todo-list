@@ -7,10 +7,6 @@
 
 import Foundation
 
-/// 화면 내 카드를 불러오는 여러 작업을 수행한다.
-///
-/// - fetchCardsAll(): 모든 보드의 카드를 가져온다.
-/// - fetchCardsInBoard(in:BoardData): 특정 보드의 카드를 가져온다.
 class CardsFetchingDataTask: CardHTTPRequest
 {
     
@@ -26,9 +22,6 @@ class CardsFetchingDataTask: CardHTTPRequest
         super.init(as: string, using: delegate, in: queue, type: type)
     }
     
-    /// Card를 모두 요청할 때 쓰입니다.
-    ///
-    /// - completionHandler: REST-API 요청 후 CardData 옵셔널 파라미터를 전달하는 클로저입니다.
     func fetchCardsAll(completionHandler: @escaping ([[CardData]]?)->Void)
     {
         do {
@@ -47,9 +40,6 @@ class CardsFetchingDataTask: CardHTTPRequest
         }
     }
     
-    /// 특정 Board의 Card를 모두 요청할 때 쓰입니다.
-    ///
-    /// - completionHandler: REST-API 요청 후 CardData 옵셔널 파라미터를 전달하는 클로저입니다.
     func fetchCardsInBoard(completionHandler: @escaping ([CardData]?)->Void)
     {
         do {
