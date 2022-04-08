@@ -1,16 +1,15 @@
 package com.codesquad.todolist.card;
 
+import com.codesquad.todolist.util.KeyHolderFactory;
 import java.time.LocalDateTime;
 import java.util.Optional;
-
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 
-import com.codesquad.todolist.util.KeyHolderFactory;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class CardRepository {
@@ -50,6 +49,12 @@ public class CardRepository {
         return jdbcTemplate.queryForObject(sql, new MapSqlParameterSource("columnId", columnId), Integer.class);
     }
 
+    public void update(Card card) {
+        jdbcTemplate.update(
+            "update card set title = :title, content = :content, author = :author where card_id = :cardId and deleted = false",
+            new BeanPropertySqlParameterSource(card));
+
+
     private RowMapper<Card> getCardRowMapper() {
         return (rs, rowNum) -> new Card(
             rs.getInt("card_id"),
@@ -60,4 +65,5 @@ public class CardRepository {
             rs.getInt("card_order"),
             rs.getObject("created_date", LocalDateTime.class));
     }
+
 }
