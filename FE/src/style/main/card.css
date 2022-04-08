@@ -5,6 +5,7 @@
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.5);
   border-radius: 6px;
 }
+
 .column-item--card {
   display: flex;
   flex-direction: column;
