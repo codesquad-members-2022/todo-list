@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mysql://13.209.125.64:3306/todolist
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: minri
+    password: 1234
+server:
+  port: 8080
