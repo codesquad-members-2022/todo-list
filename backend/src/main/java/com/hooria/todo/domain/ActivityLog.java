@@ -20,8 +20,8 @@ public class ActivityLog {
     private LocalDateTime createdAt;
     private boolean readYn;
 
-    public static ActivityLog of(String userId, String activityType, String taskTitle, String fromStatus, String toStatus,
-                                 LocalDateTime createdAt, boolean readYn) {
+    public static ActivityLog of(String userId, String activityType, String taskTitle, String fromStatus,
+                                 String toStatus, LocalDateTime createdAt, boolean readYn) {
 
         return new ActivityLog(0, userId, activityType, taskTitle, fromStatus, toStatus, createdAt, readYn);
     }

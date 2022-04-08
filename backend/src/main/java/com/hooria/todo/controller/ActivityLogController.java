@@ -1,9 +1,10 @@
 package com.hooria.todo.controller;
 
-import com.hooria.todo.domain.ActivityLog;
+import com.hooria.todo.dto.ActivityLogsResponse;
 import com.hooria.todo.service.ActivityLogService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +34,9 @@ class ActivityLogController {
             )
     })
     @GetMapping
-    public List<ActivityLog> getActivities() {
-        return activityLogService.selectAll();
+    public ResponseEntity<ActivityLogsResponse> getActivities() {
+        ActivityLogsResponse response = ActivityLogsResponse.of(activityLogService.selectAll());
+        return ResponseEntity.ok().body(response);
     }
     
     @ApiOperation(
