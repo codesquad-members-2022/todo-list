@@ -22,10 +22,31 @@ const addCardHandler = (e) => {
     : columnList.firstElementChild.remove();
 };
 
-export function addCardEvent() {
+export const cancelAddHandler = (e) => {
+  const columnList = e.target.closest('.column').querySelector('.column-list');
+  columnList.firstElementChild.remove();
+};
+
+export const addCardEvent = () => {
   $('main').addEventListener('click', (e) => {
     if (e.target.closest('.plus-btn')) {
       addCardHandler(e);
     }
+
+    if (e.target.classList.contains('normal-btn')) {
+      cancelAddHandler(e);
+    }
+
+    if (e.target.classList.contains('item-title')) {
+      e.target.addEventListener('input', () => inputFocusHandler(e.target));
+    }
   });
-}
+};
+
+const inputFocusHandler = (target) => {
+  const accentBtn = target.closest('.list_item').querySelector('.accent-btn');
+
+  !target.value
+    ? (accentBtn.disabled = 'true')
+    : accentBtn.removeAttribute('disabled');
+};

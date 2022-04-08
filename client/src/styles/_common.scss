@@ -112,22 +112,15 @@
   color: $white-color;
   font-weight: 700;
   font-size: 14px;
+  background-color: $blue-color;
 
   &:hover {
     background-color: $darkblue-color;
   }
 
-  &[disabled='true'] {
+  &:disabled {
     background-color: $lightblue-color;
     color: rgba(255, 255, 255, 0.4);
-  }
-
-  &[disabled='false'] {
-    background-color: $blue-color;
-
-    &:hover {
-      background-color: $darkblue-color;
-    }
   }
 }
 
