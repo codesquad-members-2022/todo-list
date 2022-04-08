@@ -9,8 +9,7 @@ class TodoViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        let nibName = UINib(nibName: "TodoTableViewCell", bundle: nil)
-        tableView.register(nibName, forCellReuseIdentifier: "todoCell")
+        tableView.register(TodoTableViewCell.nib, forCellReuseIdentifier: TodoTableViewCell.cellName)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -18,7 +17,7 @@ class TodoViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath) as! TodoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.cellName, for: indexPath) as! TodoTableViewCell
         return cell
     }
 }
