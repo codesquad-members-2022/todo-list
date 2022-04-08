@@ -5,7 +5,7 @@ final class NetworkManager {
     private var config = URLSessionConfiguration.default
     private var session = URLSession(configuration:.default)
     
-    func getRequest<T:Decodable>(endpoint:Endpoint, completion:@escaping (Result<T,NetworkError>) -> Void) {
+    func getRequest<T:Decodable>(endpoint:Endpointable, completion:@escaping (Result<T,NetworkError>) -> Void) {
         //handling urlError
         guard let url = URL(string:endpoint.url) else {
             completion(.failure(.invalidURL))
@@ -53,7 +53,7 @@ final class NetworkManager {
         dataTask.resume()
     }
     
-    func postRequest<T:Decodable>(endpoint:Endpoint, completion: @escaping((Result<T,NetworkError>) -> Void)) {
+    func postRequest<T:Decodable>(endpoint:Endpointable, completion: @escaping((Result<T,NetworkError>) -> Void)) {
         //handling urlError
         guard let url = URL(string:endpoint.url) else {
             completion(.failure(.invalidURL))

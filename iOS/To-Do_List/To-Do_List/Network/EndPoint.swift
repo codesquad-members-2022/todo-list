@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Endpoint {
+protocol Endpointable {
     var httpMethod: String { get }
     var baseURL: String { get }
     var path: String { get }
@@ -15,13 +15,13 @@ protocol Endpoint {
     var body: Encodable? { get }
 }
 
-extension Endpoint {
+extension Endpointable {
     var url:String {
         return baseURL + path
     }
 }
 
-enum EndPointCases:Endpoint {
+enum EndPointCases:Endpointable {
     
     case getTodoList
     case postTodoList(todoList:Todoitems)
