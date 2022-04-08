@@ -16,4 +16,6 @@ public interface CardRepository {
     List<Card> findByType(CardType cardType);
 
     Optional<Card> findById(Long id);
+
+    Card update(Card card);
 }

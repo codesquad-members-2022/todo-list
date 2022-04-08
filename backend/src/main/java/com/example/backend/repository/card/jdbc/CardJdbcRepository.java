@@ -63,6 +63,14 @@ public class CardJdbcRepository implements CardRepository {
         return Optional.ofNullable(jdbcTemplate.queryForObject(query, params, mapper));
     }
 
+    @Override
+    public Card update(Card card) {
+        String query = "update cards set title=:title, content=:content, card_type=:cardType where id=:id";
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(toParamMap(card));
+        jdbcTemplate.update(query, mapSqlParameterSource);
+        return null;
+    }
+
     private Map<String, List<Card>> cardTypeClassification(String query) {
         Map<String, List<Card>> cardMap = new HashMap<>();
         CardType[] type = CardType.values();

@@ -52,4 +52,11 @@ public class CardController {
         Card card = cardService.findById(id);
         return new CardDto(card);
     }
+
+    @PostMapping({"/cards/{id}"})
+    public CardDto updateCard(@PathVariable Long id) {
+        Card card = cardService.findById(id);
+        cardService.updateCard(id);
+        return new CardDto(card);
+    }
 }

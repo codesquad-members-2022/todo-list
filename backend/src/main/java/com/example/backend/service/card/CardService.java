@@ -35,4 +35,10 @@ public class CardService {
     public Card findById(Long id) {
         return cardRepository.findById(id).orElseThrow();
     }
+
+    public Card updateCard(Long id) {
+        Card card = findById(id);
+        cardRepository.update(card);
+        return null;
+    }
 }
