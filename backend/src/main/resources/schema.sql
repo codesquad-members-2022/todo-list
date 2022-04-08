@@ -5,7 +5,7 @@ CREATE TABLE CARD (
     content varchar(500),
     author_system varchar(20) NOT NULL,
     column_name ENUM('to_do', 'in_progress', 'done'),
-    deleted tinyint(1) DEFAULT 0,
+    deleted tinyint DEFAULT 0,
     order_index int NOT NULL
 );
 CREATE TABLE ACTION_LOG
