@@ -37,6 +37,15 @@
         width: 24px;
         height: 24px;
         background-image: url(../../../../../images/close.png);
+
+        &:hover {
+            background-image: url(../../../../../images/close-activated.png);
+        }
+    }
+
+    &--deleting {
+        background-color: $white-red;
+        border: solid 1px $red;
     }
 
     &__btns {

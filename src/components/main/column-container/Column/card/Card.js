@@ -78,7 +78,7 @@ export class Card {
 
   cacheDOM(cardType) {
     if (cardType === "normal") {
-      this.deletBtn = this.cardNode.querySelector(".card__delete-btn");
+      this.deleteBtn = this.cardNode.querySelector(".card__delete-btn");
     } else {
       this.cancelBtn = this.cardNode.querySelector(".card__cancel-btn");
       this.confirmBtn = this.cardNode.querySelector(".card__confirm-btn");
@@ -102,7 +102,9 @@ export class Card {
   }
 
   setDeleteBtnEvent() {
-    this.deletBtn.addEventListener("click", () => this.handleDeleteBtnEvent());
+    this.deleteBtn.addEventListener("click", () => this.handleDeleteBtnClickEvent());
+    this.deleteBtn.addEventListener("mouseenter", () => this.handleDeleteBtnMounseEvent());
+    this.deleteBtn.addEventListener("mouseleave", () => this.handleDeleteBtnMounseEvent());
   }
 
   setDoubleClickEvent() {
@@ -122,9 +124,13 @@ export class Card {
     this.descriptionInput.addEventListener("input", (e) => this.handelInputEvent(e));
   }
 
-  handleDeleteBtnEvent() {
+  handleDeleteBtnClickEvent() {
     //todo: alert창 뜬 후에 삭제하도록 기능 추가해야함
     this.deleteCard();
+  }
+
+  handleDeleteBtnMounseEvent() {
+    this.cardNode.classList.toggle("card--deleting");
   }
 
   handleDoubleClickEvent() {
