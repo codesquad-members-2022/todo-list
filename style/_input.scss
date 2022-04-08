@@ -1,6 +1,13 @@
+.edit-input-wrapper {
+  padding: 0;
+}
+
+.input-wrapper {
+  padding: 16px;
+}
+
 .input-wrapper,
 .edit-input-wrapper {
-  padding: 16px;
   border-radius: 6px;
   background: $color-white;
 

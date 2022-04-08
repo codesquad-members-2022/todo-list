@@ -226,9 +226,16 @@ button {
     transform: translateX(0px);
   }
 }
+.edit-input-wrapper {
+  padding: 0;
+}
+
+.input-wrapper {
+  padding: 16px;
+}
+
 .input-wrapper,
 .edit-input-wrapper {
-  padding: 16px;
   border-radius: 6px;
   background: #fff;
 }
@@ -295,6 +302,7 @@ body {
 }
 .header__main .header__menu {
   cursor: pointer;
+  z-index: 99;
 }
 .header__main .header__menu div {
   width: 25px;
