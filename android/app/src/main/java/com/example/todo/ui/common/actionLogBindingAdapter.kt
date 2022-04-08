@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.example.todo.common.getTimeDiff
 import java.text.DecimalFormat
 
-@BindingAdapter("time")
+@BindingAdapter("actionLogTime")
 fun getAfterTime(textView: TextView, time: String) {
     textView.text = getTimeDiff(time)
 }

@@ -25,10 +25,10 @@ fun getTimeDiff(dateTimeInfo: String): String {
         val actionDateTime = org.joda.time.LocalDateTime.parse(dateTimeInfo, dataFormatter)
         Seconds.secondsBetween(actionDateTime, nowDateTime).seconds
     }
-    return secondsToDuration(seconds)
+    return secondsToActionLogTime(seconds)
 }
 
-fun secondsToDuration(seconds: Int): String {
+fun secondsToActionLogTime(seconds: Int): String {
     return when {
         seconds > SECONDS_OF_DAY -> "${seconds / SECONDS_OF_DAY}일 전"
         seconds > SECONDS_OF_HOUR -> "${seconds / SECONDS_OF_HOUR}시간 전"
