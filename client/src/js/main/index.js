@@ -1,6 +1,7 @@
 import { $ } from "../utils/utils.js";
 import { List } from "./list.js";
 import * as TodoListStore from "../store/todoListStore.js";
+import { setTaskDragEvent } from "./taskDragHandler.js";
 
 const createTodoList = async () => {
   const todoListData = await TodoListStore.getTodoListData();
