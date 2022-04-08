@@ -2,7 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.domain.Card;
 import com.example.backend.domain.repository.CardRepository;
-import com.example.backend.domain.Column;
+import com.example.backend.web.dto.Column;
 import com.example.backend.web.dto.CardSaveRequestDto;
 import com.example.backend.web.dto.CardMoveRequestDto;
 import com.example.backend.web.dto.CardUpdateRequestDto;

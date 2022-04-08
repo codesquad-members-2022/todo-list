@@ -1,6 +1,6 @@
 package com.example.backend.web.controller;
 
-import com.example.backend.domain.Column;
+import com.example.backend.web.dto.Column;
 import com.example.backend.service.CardService;
 import com.example.backend.web.dto.CardMoveRequestDto;
 import com.example.backend.web.dto.CardSaveRequestDto;
