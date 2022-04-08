@@ -1,11 +1,8 @@
-
 spring:
+  config:
+    import: optional:secret.yml
   datasource:
     url:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username:
     password:
-  config:
-    import: secret.yml
-server:
-  port: 8080
