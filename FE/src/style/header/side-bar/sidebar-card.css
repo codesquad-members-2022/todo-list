@@ -1,0 +1,29 @@
+.sidebar-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #ececec;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.5);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sidebar-card span {
+  padding: 10px;
+}
+
+.sidebar-card--id {
+  font-size: 14px;
+}
+
+.side-card--content {
+  font-size: 15px;
+}
+
+.sidebar-card--minute {
+  color: #bdbdbd;
+  font-size: 12px;
+}
