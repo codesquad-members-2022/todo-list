@@ -20,13 +20,9 @@ class MyTaskViewController: UIViewController {
     }
     
     private func setupChildViewContoller() {
-        self.addChild(todoViewController)
-        self.addChild(doingViewController)
-        self.addChild(doneViewController)
-        
-        self.children.forEach{
-            self.taskListStackView.addArrangedSubview($0.view)
-        }
+        self.taskListStackView.addArrangedSubview(todoViewController.view)
+        self.taskListStackView.addArrangedSubview(doingViewController.view)
+        self.taskListStackView.addArrangedSubview(doneViewController.view)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
