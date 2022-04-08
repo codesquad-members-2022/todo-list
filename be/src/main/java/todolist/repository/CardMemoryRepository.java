@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import todolist.domain.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
@@ -23,12 +24,12 @@ public class CardMemoryRepository implements TodoRepository<Card> {
 
     @Override
     public Optional<Card> findById(Long id) {
-        return Optional.empty();
+        return store.stream().filter(card -> card.getId() == id).findAny();
     }
 
     @Override
     public List<Card> findAll() {
-        return null;
+        return Collections.unmodifiableList(store);
     }
 
     @Override
