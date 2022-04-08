@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/label_todo_title"
+            android:text="@string/label_done_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,7 @@
             android:background="@drawable/badge_background_gray"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:text="@{String.valueOf(viewModel.todoTask.size())}"
+            android:text="@{String.valueOf(viewModel.doneTask.size())}"
             app:layout_constraintBottom_toBottomOf="@id/tv_title"
             app:layout_constraintStart_toEndOf="@+id/tv_title"
             app:layout_constraintTop_toTopOf="parent"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_todo"
+            android:id="@+id/rv_done"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"

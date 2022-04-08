@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">todo-list</string>
     <string name="label_to_do_list">TO-DO-LIST</string>
     <string name="label_menu_drawer">menu_drawer</string>
+    <string name="label_item_emoji">🥰</string>
+    <string name="label_team04">Team04</string>
+
+    <string name="action_default">&lt;b>%s&lt;/b>에 &lt;b>%s&lt;/b>를 &lt;b>%s&lt;/b>하였습니다.</string>
+    <string name="action_move">&lt;b>%s&lt;/b>를 &lt;b>%s&lt;/b>에서 &lt;b>%s&lt;/b>로 &lt;b>%s&lt;/b>하였습니다.</string>
     <string name="date_format">yyyy-MM-dd HH:mm:ss</string>
+
     <string name="label_todo_title">해야 할 일</string>
     <string name="description_add_button">add_button</string>
     <string name="label_add_new_card">새로운 카드 추가</string>
@@ -10,4 +17,6 @@
     <string name="label_dialog_cancel">취소</string>
     <string name="label_dialog_add_title">제목을 입력하세요</string>
     <string name="label_dialog_add_contents">내용을 입력하세요</string>
+
+    <string name="author">author by %s</string>
 </resources>
