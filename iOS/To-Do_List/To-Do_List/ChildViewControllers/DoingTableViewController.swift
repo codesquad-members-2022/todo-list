@@ -14,7 +14,7 @@ class DoingTableViewController: UITableViewController {
 
         self.view.backgroundColor = .lightGray
         tableView.separatorStyle = .none
-        self.tableView.tableHeaderView = TabelViewHeader(titleText: "완료한 일")
+        self.tableView.tableHeaderView = BoardHeader(titleText: "완료한 일")
 
     }
 

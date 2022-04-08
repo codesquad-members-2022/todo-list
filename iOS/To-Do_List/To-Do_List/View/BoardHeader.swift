@@ -1,5 +1,5 @@
 //
-//  TabelViewHeader.swift
+//  BoardHeader.swift
 //  To-Do_List
 //
 //  Created by Kai Kim on 2022/04/05.
@@ -11,7 +11,7 @@ protocol headerDisplayable {
     func setUp(title : String)
 }
 
-class TabelViewHeader: UIView {
+class BoardHeader: UIView {
 
     private (set) var title = UILabel()
     private (set) var badge = UIButton()

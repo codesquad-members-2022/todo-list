@@ -24,7 +24,7 @@ extension Endpointable {
 enum EndPointCases:Endpointable {
     
     case getTodoList
-    case postTodoList(todoList:Todoitems)
+    case postTodoList(todoList:NetworkResult)
     
     var httpMethod:String {
         switch self {

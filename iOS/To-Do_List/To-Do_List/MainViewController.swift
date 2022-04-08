@@ -9,7 +9,6 @@ import UIKit
 import OSLog
 
 class MainViewController: UIViewController {
-    
     //View
     @IBOutlet weak var statckView: UIStackView!
     @IBOutlet weak var logViewContainer: UIView!
@@ -30,7 +29,7 @@ class MainViewController: UIViewController {
     
     
     private func propagateData() {
-        networkManager.getRequest { (result:Result<Todoitems,NetworkError>)  in
+        networkManager.getRequest(endpoint: EndPointCases.getTodoList) { (result:Result<NetworkResult,NetworkError>)  in
             switch result {
             case .success(let data):
                 self.postNotification(data: data)
@@ -40,16 +39,16 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func postNotification(data: Todoitems) {
+    private func postNotification(data: NetworkResult) {
         NotificationCenter.default.post(
             name: .didFetchInfo,
             object: self,
-            userInfo: [userInfo.taskData:data])
+            userInfo: [userInfo.BoardData:data])
     }
     
     private func addChildViewControllers() {
         let storyBoard = UIStoryboard(name: "Main", bundle: .main)
-        guard let todoViewController = storyBoard.instantiateViewController(withIdentifier: "ToDoTableViewController") as? ToDoTableViewController,
+        guard let todoViewController = storyBoard.instantiateViewController(withIdentifier: "ToDoTableViewController") as? ToDoViewController,
               let doingTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoingTableViewController") as? DoingTableViewController,
               let doneTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoneTableViewController") as? DoneTableViewController else { return }
         

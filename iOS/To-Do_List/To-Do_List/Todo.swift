@@ -8,7 +8,7 @@
 import Foundation
 
 //TODO: 타입명 변경
-struct Todoitems:Codable {
+struct NetworkResult:Codable {
     let response:Board
 }
 
@@ -23,6 +23,5 @@ struct Todo:Codable {
     let title:String
     let content:String
     let createdAt:String
-    let lastModifiedAt:String
 }
 

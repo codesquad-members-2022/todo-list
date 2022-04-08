@@ -66,7 +66,7 @@ final class NetworkManager {
         
         //handling encodingError
         do {
-            urlRequest.httpBody = try JSONEncoder().encode(endpoint.body as? Todoitems)
+            urlRequest.httpBody = try JSONEncoder().encode(endpoint.body as? NetworkResult)
         }
         catch {
             completion(.failure(.encodingError))

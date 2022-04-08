@@ -47,18 +47,6 @@ class CardCell: UITableViewCell {
         self.bodyLabel.text = info.content
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addViews()
-        setup()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        addViews()
-        setup()
-    }
-        
     override func layoutSubviews() {
         super.layoutSubviews()
         addViews()
@@ -81,10 +69,10 @@ class CardCell: UITableViewCell {
     
     private func addViews() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(stackView)
         [headLabel,bodyLabel,authorLabel].forEach {
             stackView.addArrangedSubview($0)
         }
+        self.contentView.addSubview(stackView)
     }
     
     
@@ -97,22 +85,11 @@ class CardCell: UITableViewCell {
         self.selectionStyle = .none
         self.backgroundColor = .secondarySystemBackground
         
-    
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: inset),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -inset),
-//            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -inset),
-//            stackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 108),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -inset),
             stackView.topAnchor.constraint(equalTo: self.topAnchor,constant: inset)
         ])
-        
-        
-//        self.heightAnchor.constraint(equalToConstant: stackView.frame.height).isActive = true
-//        self.contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: stackView.frame.height).isActive = true
-//        self.contentView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
-//        self.contentView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
-
     }
-    
-    
 }
