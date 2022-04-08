@@ -12,7 +12,7 @@ class CardTableViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "title"
-        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
@@ -49,24 +49,35 @@ class CardTableViewCell: UITableViewCell {
         view.addSubview(contentLabel)
         view.addSubview(writerLabel)
         setPropertiesAutoLayout()
-        
+        setCellUIProperty()
     }
     
-    func setCellUIProperty(title: String, content: String, writer: String){
+    func setCellUIData(title: String, content: String, writer: String){
         titleLabel.text = title
         contentLabel.text = content
         writerLabel.text = writer
     }
     
+    func setCellUIProperty(){
+        contentView.backgroundColor = .systemGray5
+        view.layer.cornerRadius = 5
+        view.layer.masksToBounds = true
+        view.backgroundColor = .white
+    }
+    
     private func setPropertiesAutoLayout() {
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        view.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        view.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        view.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: 0).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
     }
 }

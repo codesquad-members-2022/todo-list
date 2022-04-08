@@ -24,11 +24,11 @@ extension CardBoardTableDelegate: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CardTableViewCell") as? CardTableViewCell else { return UITableViewCell() }
         let card = cards[indexPath.row]
-        cell.setCellUIProperty(title: card.getTitle(), content: card.getContents(), writer: card.getWriter())
+        cell.setCellUIData(title: card.getTitle(), content: card.getContents(), writer: card.getWriter())
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(120)
+        return CGFloat(150)
     }
 }

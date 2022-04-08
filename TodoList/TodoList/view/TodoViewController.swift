@@ -24,6 +24,7 @@ class TodoViewController: UIViewController {
         cardTableView.delegate = tableViewDelegate
         cardTableView.dataSource = tableViewDelegate
         tableViewDelegate.setCards(cards: [Card(status: .todo, title: "firstCard", contents: "firstContents", writer: "ebony")])
+        view.backgroundColor = .systemGray5
     }
     
     func setTitleLabel(title: String){
@@ -31,7 +32,7 @@ class TodoViewController: UIViewController {
     }
     
     private func setUIProperties() {
-        cardTableView.backgroundColor = .gray
+        cardTableView.backgroundColor = .systemGray5
         todoCountLabel.backgroundColor = .lightGray
         todoCountLabel.layer.cornerRadius = 13.5
         todoCountLabel.layer.masksToBounds = true
