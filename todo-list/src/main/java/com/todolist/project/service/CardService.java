@@ -5,6 +5,8 @@ import com.todolist.project.domain.card.CardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class CardService {
@@ -17,4 +19,6 @@ public class CardService {
     public int removeCard(int id) {
         return cardRepository.remove(id);
     }
+
+    public List<Card> findAll() { return cardRepository.findAll(); }
 }
