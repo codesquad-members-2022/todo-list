@@ -7,7 +7,7 @@ class MemoContainerView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = 5
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
         return stackView
@@ -21,24 +21,6 @@ class MemoContainerView: UIView {
         label.text = "해야 할 일"
         label.textAlignment = .center
         return label
-    }()
-    
-    let countLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: FontFactory.bold, size: 14)
-        label.textColor = UIColor(named: ColorAsset.black)
-        label.backgroundColor = UIColor(named: ColorAsset.gray4)
-        label.text = "3"
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let button: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(named: "add"), for: .normal)
-        return button
     }()
     
     let tableView: UITableView = {
@@ -63,14 +45,17 @@ class MemoContainerView: UIView {
     }
     
     private func addViews() {
-        horizontalStackView.addArrangedSubview(categoryLabel)
-        horizontalStackView.addArrangedSubview(countLabel)
-        horizontalStackView.addArrangedSubview(button)
+        
+        horizontalStackView.addArrangedSubview(countView)
+        horizontalStackView.addArrangedSubview(buttonView)
+        
         addSubview(horizontalStackView)
         addSubview(tableView)
     }
     
     private func setConstraints() {
+        
+        
         horizontalStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         horizontalStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true

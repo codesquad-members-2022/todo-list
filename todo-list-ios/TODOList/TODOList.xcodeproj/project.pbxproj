@@ -47,7 +47,7 @@
 		D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCanvasViewController.swift; sourceTree = "<group>"; };
 		D0850A7727FEB294009C60E5 /* ResourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceFactory.swift; sourceTree = "<group>"; };
 		D0850A7927FFB545009C60E5 /* MemoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerView.swift; sourceTree = "<group>"; };
-		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
+		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/History/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
 		D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewDelegate.swift; sourceTree = "<group>"; };
 		D0B5676427FC267B002AE51E /* HistoryStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +63,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B58D8338280047C7008A811C /* Memo */ = {
+			isa = PBXGroup;
+			children = (
+				B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */,
+				B58D833428001988008A811C /* MemoTableViewCell.swift */,
+				D0850A7927FFB545009C60E5 /* MemoContainerView.swift */,
+			);
+			path = Memo;
+			sourceTree = "<group>";
+		};
+		B58D8339280047E0008A811C /* History */ = {
+			isa = PBXGroup;
+			children = (
+				B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */,
+				D0B5676427FC267B002AE51E /* HistoryStackView.swift */,
+				B5EC66ED27FC0D3F0042EFCF /* SideView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		B58D833A280047FC008A811C /* History */ = {
+			isa = PBXGroup;
+			children = (
+				D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		B58D833B28004802008A811C /* Memo */ = {
+			isa = PBXGroup;
+			children = (
+				B58D833628001A9C008A811C /* Memo.swift */,
+			);
+			path = Memo;
+			sourceTree = "<group>";
+		};
 		B5EC66C627FADD9C0042EFCF = {
 			isa = PBXGroup;
 			children = (
@@ -108,13 +144,9 @@
 		B5EC66E927FC0BB70042EFCF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B58D8339280047E0008A811C /* History */,
+				B58D8338280047C7008A811C /* Memo */,
 				B5EC66EB27FC0CD10042EFCF /* HeaderView.swift */,
-				B5EC66ED27FC0D3F0042EFCF /* SideView.swift */,
-				B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */,
-				B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */,
-				D0B5676427FC267B002AE51E /* HistoryStackView.swift */,
-				D0850A7927FFB545009C60E5 /* MemoContainerView.swift */,
-				B58D833428001988008A811C /* MemoTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -148,8 +180,8 @@
 		D0B4198E27FD636500DBAFDB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */,
-				B58D833628001A9C008A811C /* Memo.swift */,
+				B58D833B28004802008A811C /* Memo */,
+				B58D833A280047FC008A811C /* History */,
 			);
 			path = Models;
 			sourceTree = "<group>";
