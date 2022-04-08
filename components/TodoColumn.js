@@ -1,10 +1,12 @@
 import TodoInput from './TodoInput.js';
+
 export default class TodoColumn {
   constructor(status) {
     this.parentTarget = document.querySelector('.column-section');
     this.status = status;
-    this.todoInput = new TodoInput(this.status);
+    this.todoInput = new TodoInput(this.status, this.handleCount);
     this.onInput = false;
+    this.count = 0;
   }
 
   onAddClick = ({ target }) => {
@@ -20,6 +22,19 @@ export default class TodoColumn {
       this.onInput = true;
       return;
     }
+  };
+
+  handleCount = () => {
+    this.onAddCount();
+    this.renderCount();
+  };
+
+  onAddCount = () => {
+    this.count++;
+  };
+
+  renderCount = () => {
+    document.querySelector(`.${this.status} .column__count`).innerText = this.count;
   };
 
   render = () => {

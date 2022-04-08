@@ -3,10 +3,11 @@ import TodoNotice from './TodoNotice.js';
 import { TEXTAREA_DEFAULT_HEIGHT, TEXTAREA_RESIZE_HEIGHT } from '../constants/constants.js';
 
 export default class TodoInput {
-  constructor(status) {
+  constructor(status, onAddCount) {
     this.status = status;
     this.title = '';
     this.content = '';
+    this.onAddCount = onAddCount;
   }
 
   onInputContent = ({ target }) => {
@@ -73,6 +74,7 @@ export default class TodoInput {
 
     document.querySelector(`.input-${this.status}`)?.remove();
     newTodo.run();
+    this.onAddCount();
   };
 
   render = () => {
