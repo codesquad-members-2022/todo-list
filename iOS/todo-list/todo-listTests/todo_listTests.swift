@@ -10,8 +10,14 @@ import XCTest
 
 class todo_listTests: XCTestCase {
     
-    let dummyJSONData: Data? = {
+    let dummyTaskJSONData: Data? = {
         guard let url = Bundle.main.url(forResource: "dummyTaskResponse", withExtension: "json") else { return nil }
+        guard let dummyJSONData = try? Data(contentsOf: url) else { return nil }
+        return dummyJSONData
+    }()
+    
+    let dummyLogJSONData: Data? = {
+        guard let url = Bundle.main.url(forResource: "dummyLogResponse", withExtension: "json") else { return nil }
         guard let dummyJSONData = try? Data(contentsOf: url) else { return nil }
         return dummyJSONData
     }()
@@ -33,7 +39,7 @@ class todo_listTests: XCTestCase {
     }()
     
     func testTaskJSONParsing() throws {
-        guard let dummyJSONData = dummyJSONData else { return }
+        guard let dummyJSONData = dummyTaskJSONData else { return }
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = fractionalSecondsStrategy
@@ -60,5 +66,19 @@ class todo_listTests: XCTestCase {
         XCTAssertEqual(tasks[0].device, Device.android)
         XCTAssertEqual(tasks[1].device, Device.iOS)
     }
+    
+    func testLogJSONParsing() throws {
+        guard let dummyLogJSONData = dummyLogJSONData else { return }
 
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = fractionalSecondsStrategy
+
+        let logs = try decoder.decode([Log].self, from: dummyLogJSONData)
+
+        XCTAssertEqual(logs.count, 1)
+        
+        XCTAssertEqual(logs[0].userId, "string")
+        
+
+    }
 }

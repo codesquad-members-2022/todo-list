@@ -8,22 +8,27 @@
 import Foundation
 import UIKit
 
-struct Log {
-    internal init(userId: String, action: Action, created: Date, task: Task, from: TaskStatus?, to: TaskStatus?) {
+struct Log: Decodable {
+    internal init(userId: String, action: Action, created: Date, taskId: Int, from: TaskStatus?, to: TaskStatus?) {
         self.userId = userId
-        self.action = action
-        self.created = created
-        self.task = task
+        self.activityType = action
+        self.createdAt = created
+        self.taskId = taskId
         self.from = from
         self.to = to
     }
     
     
     let userId: String
-    private let action: Action
-    private let created: Date
-    private let task: Task
+    private let activityType: Action
+    private let createdAt: Date
+    private let taskId: Int
     private let from: TaskStatus?
     private let to: TaskStatus?
+    
+    enum Codingkeys: String, CodingKey {
+        case from = "fromStatus"
+        case to = "toStatus"
+    }
     
 }

@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum Action {
-    case Move
-    case Add
-    case Delete
-    case Update
+enum Action: String, Decodable {
+    case Move = "MOVE"
+    case Add = "ADD"
+    case Delete = "DELETE"
+    case Update = "UPDATE"
 }
