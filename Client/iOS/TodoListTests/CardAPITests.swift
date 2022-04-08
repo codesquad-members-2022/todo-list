@@ -17,18 +17,20 @@ class CardAPITests: XCTestCase {
         type: .default
     )
     
-    func testConnectionInterface() throws {
+    func test_requestInterfaceConnected_getData() throws {
         
         // 현재 API가 전달되지 않아서 URLProtocol로 대신합니다.
         httpRequest?.config.protocolClasses = [MockURLProtocol.self]
         
         let expectation = XCTestExpectation(description: "Wait")
         httpRequest?.doGetRequest(parameter: nil, completionHandler: { data in
-            expectation.fulfill()
+            
             guard let _ = data else {
                 XCTFail("doGetRequest Failed")
                 return
             }
+            
+            expectation.fulfill()
         })
         
         wait(for: [expectation], timeout: 3.0)
