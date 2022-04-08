@@ -10,4 +10,8 @@ public enum Event {
 	Event(String eventType) {
 		this.eventType = eventType;
 	}
+
+	public String getEventType() {
+		return this.eventType;
+	}
 }
