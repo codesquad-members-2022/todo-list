@@ -13,7 +13,7 @@ class MemoCanvasView: UIView {
         return stackView
     }()
     
-    private let todoContainerView: MemoContainerView = {
+    let todoContainerView: MemoContainerView = {
         let view = MemoContainerView()
         view.backgroundColor = .blue
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -47,14 +47,21 @@ class MemoCanvasView: UIView {
     }
     
     private func addViews() {
+        addSubview(stackView)
         stackView.addArrangedSubview(todoContainerView)
         stackView.addArrangedSubview(progressContainerView)
         stackView.addArrangedSubview(doneContainerView)
-        addSubview(stackView)
-        
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+      
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48).isActive = true
         stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -48).isActive = true
+        stackView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        
+        todoContainerView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
+        todoContainerView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
+        progressContainerView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
+        progressContainerView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
+        doneContainerView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
+        doneContainerView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
     }
 }
