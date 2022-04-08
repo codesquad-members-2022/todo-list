@@ -3,7 +3,6 @@ package team03.todoapp.repository;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +19,13 @@ public class CardRepository {
     private final Logger log = LoggerFactory.getLogger(CardRepository.class);
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
+
     @Autowired
     public CardRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
             .withTableName("card")
-            .usingGeneratedKeyColumns("card_id");;
+            .usingGeneratedKeyColumns("card_id");
     }
 
     @Transactional
@@ -43,14 +43,16 @@ public class CardRepository {
          * where card_id=lastCardId;
          */
 
-        String getLastCardIdSQL = "select card_id from card where next_id is null and current_location ="+card.getCurrentLocation();
+        String getLastCardIdSQL =
+            "select card_id from card where next_id is null and current_location =" + "'"
+                + card.getCurrentLocation() + "'";
         String updateNextCardOfLastCardSQL = "update card set next_id = ? where card_id = ?";
         Integer lastCardId = null;
 
         try {
             lastCardId = jdbcTemplate.queryForObject(getLastCardIdSQL, Integer.class);
             log.debug("lastCardId: {}", lastCardId);
-        } catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             log.debug("e: {}", e);
         }
 
@@ -96,21 +98,21 @@ public class CardRepository {
         try {
             prevId = jdbcTemplate.queryForObject(SQL1, Long.class);
             log.debug("prevId: {}", prevId);
-        } catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             log.debug("e: {}", e);
         }
 
         try {
             nextId = jdbcTemplate.queryForObject(SQL2, Long.class);
             log.debug("nextId: {}", nextId);
-        } catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             log.debug("e: {}", e);
         }
 
         jdbcTemplate.update(SQL3);
 
         if (prevId != null) {
-            log.debug("prev{} next{}",prevId,nextId);
+            log.debug("prev{} next{}", prevId, nextId);
             jdbcTemplate.update(SQL4, nextId, prevId);
         }
 
