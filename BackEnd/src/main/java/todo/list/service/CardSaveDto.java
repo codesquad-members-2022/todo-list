@@ -26,7 +26,7 @@ public class CardSaveDto {
         return author;
     }
 
-    public Card toEntity() {
-        return new Card();
-    }
+//    public Card toEntity() {
+////        return new Card();
+//    }
 }
