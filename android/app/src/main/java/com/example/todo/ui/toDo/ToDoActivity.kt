@@ -3,6 +3,7 @@ package com.example.todo.ui.toDo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -26,8 +27,7 @@ class ToDoActivity : AppCompatActivity() {
     private lateinit var inProgressAdapter: TodoAdapter
     private lateinit var doneAdapter: TodoAdapter
     private lateinit var actionAdapter: ActionAdapter
-    private val toDoViewModel: ToDoViewModel by viewModels()
-
+    private val toDoViewModel: ToDoViewModel by viewModels { ViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

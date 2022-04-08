@@ -8,3 +8,7 @@ data class JsonActionLog(
     val nowLocation: String,
     val historyDate: String
 )
+
+data class ActionLogResponse(
+    val histories: List<JsonActionLog>
+)

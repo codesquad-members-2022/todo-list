@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="actionLog"
             type="com.example.todo.model.ActionLog" />
@@ -12,10 +13,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="20dp"
         android:paddingRight="10dp"
-        android:layout_margin="10dp"
         android:paddingBottom="20dp">
 
 
@@ -30,12 +31,12 @@
 
         <TextView
             android:id="@+id/tv_action_time"
+            time="@{actionLog.time}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@{actionLog.time}"
-            app:layout_constraintTop_toBottomOf="@id/tv_action_content"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_action_content" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,14 +5,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 interface RetrofitClient {
-    @GET("/cards")
+    @GET("cards")
     suspend fun getTodos(): List<JsonTodo>
 
-    @GET("/histories")
-    suspend fun getActionLog(): List<JsonActionLog>
+    @GET("histories")
+    suspend fun getActionLog(): ActionLogResponse
 
     companion object {
-        private const val baseUrl = "http://52.78.46.69"
+        private const val baseUrl = "http://52.78.46.69/"
 
         fun create(): RetrofitClient {
             return Retrofit.Builder().baseUrl(baseUrl)
