@@ -50,7 +50,7 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         parameters.put("card_status_before", history.getCardStatusBefore().name());
         parameters.put("created_at", history.getCreatedAt());
 
-        Long key = (Long)jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+        Long key = (Long) jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
         history.initId(key);
         return history;
     }
@@ -58,10 +58,11 @@ public class HistoryRepositoryImpl implements HistoryRepository {
     private RowMapper<History> historyRowMapper() {
         return (rs, rowNum) ->
                 History.builder(CardAction.valueOf(rs.getString("card_action")),
-                                rs.getString("user_id"), rs.getString("card_title"),
-                                CardStatus.valueOf(rs.getString("card_status")),
+                                rs.getString("user_id"),
                                 rs.getTimestamp("created_at").toLocalDateTime())
+                        .cardTitle(rs.getString("card_title"))
                         .cardTitleBefore(rs.getString("card_title_before"))
+                        .cardStatus(CardStatus.valueOf(rs.getString("card_status")))
                         .cardStatusBefore(CardStatus.valueOf(rs.getString("card_status_before")))
                         .build();
     }

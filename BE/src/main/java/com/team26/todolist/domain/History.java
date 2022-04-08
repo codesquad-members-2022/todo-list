@@ -27,12 +27,13 @@ public class History {
         this.createdAt = historyBuilder.createdAt;
     }
 
-    public static HistoryBuilder builder(CardAction cardAction, String userId, String cardTitle,
-            CardStatus cardStatus, LocalDateTime createdAt) {
-        return new HistoryBuilder(cardAction, userId, cardTitle, cardStatus, createdAt);
+    public static HistoryBuilder builder(CardAction cardAction, String userId,
+            LocalDateTime createdAt) {
+        return new HistoryBuilder(cardAction, userId, createdAt);
     }
 
     public static class HistoryBuilder {
+
         private CardAction cardAction;
         private String userId;
         private String cardTitle;
@@ -41,17 +42,24 @@ public class History {
         private CardStatus cardStatusBefore;
         private LocalDateTime createdAt;
 
-        public HistoryBuilder(CardAction cardAction, String userId, String cardTitle,
-                CardStatus cardStatus, LocalDateTime createdAt) {
+        public HistoryBuilder(CardAction cardAction, String userId, LocalDateTime createdAt) {
             this.cardAction = cardAction;
             this.userId = userId;
-            this.cardTitle = cardTitle;
-            this.cardStatus = cardStatus;
             this.createdAt = createdAt;
         }
 
         public HistoryBuilder cardTitleBefore(String cardTitleBefore) {
             this.cardTitleBefore = cardTitleBefore;
+            return this;
+        }
+
+        public HistoryBuilder cardTitle(String cardTitle) {
+            this.cardTitle = cardTitle;
+            return this;
+        }
+
+        public HistoryBuilder cardStatus(CardStatus cardStatus) {
+            this.cardStatus = cardStatus;
             return this;
         }
 

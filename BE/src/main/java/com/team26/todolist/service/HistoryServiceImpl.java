@@ -26,13 +26,28 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public void saveHistory(CardAction cardAction, Card cardBefore, Card cardNow) {
+    public void saveHistory(CardAction cardAction, String userId, Card cardBefore, Card cardNow) {
         // TODO : Card 클래스에 getter 필요
-        History history = History.builder(cardAction, cardNow.getUserId(), cardNow.getCardTitle(),
-                        cardNow.getCardStatus(), LocalDateTime.now())
-                .cardStatusBefore(cardBefore.getCardStatus())
-                .cardTitleBefore(cardBefore.getCardTitle())
-                .build();
+        History history;
+        if (cardAction == CardAction.ADD) {
+            history = History.builder(cardAction, userId, LocalDateTime.now())
+                    .cardTitle(cardNow.getCardTitle())
+                    .cardStatus(cardNow.getCardStatus().name())
+                    .build();
+        } else if (cardAction == CardAction.DELETE) {
+            history = History.builder(cardAction, userId, LocalDateTime.now())
+                    .cardTitleBefore(cardBefore.getCardTitle())
+                    .cardStatusBefore(cardBefore.getCardStatus().name())
+                    .build();
+
+        } else { // UPDATE, MOVE
+            history = History.builder(cardAction, userId, LocalDateTime.now())
+                    .cardTitle(cardNow.getCardTitle())
+                    .cardTitleBefore(cardBefore.getCardTitle())
+                    .cardStatus(cardNow.getCardStatus().name())
+                    .cardStatusBefore(cardBefore.getCardStatus().name())
+                    .build();
+        }
         historyRepository.save(history);
     }
 }

@@ -59,9 +59,10 @@ public class HistoryResponse {
     }
 
     public History toEntity() {
-        return History.builder(this.cardAction, this.userId, this.cardTitle,
-                        this.cardStatus, this.createdAt)
+        return History.builder(this.cardAction, this.userId, this.createdAt)
+                .cardStatus(this.cardStatus)
                 .cardStatusBefore(this.cardStatusBefore)
+                .cardStatus(this.cardStatus)
                 .cardTitleBefore(this.cardTitleBefore)
                 .build();
     }
