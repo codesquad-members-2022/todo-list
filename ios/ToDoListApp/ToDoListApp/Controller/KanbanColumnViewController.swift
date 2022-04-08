@@ -23,7 +23,7 @@ class KanbanColumnViewController: UIViewController {
     @available(*, unavailable) required init?(coder: NSCoder) {
         fatalError("Init with coder is unavailable")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()

@@ -8,7 +8,7 @@
 import UIKit
 
 class InspectorViewController: UIViewController {
-
+    
     private let tableView = UITableView(frame: .zero, style: .plain)
     private let taskTableViewDataSource = TaskTableViewDataSource()
     

@@ -48,7 +48,7 @@ class InspectorViewCell: UITableViewCell {
         label.textColor = .gray
         return label
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpView()
@@ -70,7 +70,7 @@ class InspectorViewCell: UITableViewCell {
         layoutInspectorStackView()
         layoutEmojiLabel()
     }
-
+    
     private func layoutInspectorStackView() {
         inspectorStackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -82,7 +82,7 @@ class InspectorViewCell: UITableViewCell {
     
     private func layoutEmojiLabel() {
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
-    
+        
         emojiLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16).isActive = true
         emojiLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         emojiLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
