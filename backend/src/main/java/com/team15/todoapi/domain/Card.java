@@ -1,4 +1,4 @@
-package com.example.todo.domain;
+package com.team15.todoapi.domain;
 
 import java.time.LocalDateTime;
 

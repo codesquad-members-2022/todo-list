@@ -1,8 +1,7 @@
-package com.example.todo.controller;
+package com.team15.todoapi.controller;
 
-import com.example.todo.controller.card.CardDto;
-import com.example.todo.domain.Card;
-import com.example.todo.service.CardService;
+import com.team15.todoapi.domain.Card;
+import com.team15.todoapi.service.CardService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
