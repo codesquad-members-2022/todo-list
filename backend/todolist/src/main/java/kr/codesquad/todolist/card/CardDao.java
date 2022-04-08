@@ -80,14 +80,14 @@ public class CardDao {
 	}
 
 	private Long getMaxTodoOrder(Long userId) {
-		Integer maxOrder = null;
+		Long maxOrder = null;
 		if (userId < ADDED_NEXT_ORDER) {
 			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
 		}
 		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_TODO_USER_ID, userId);
-		String sql = "select * from max(a.todo_order) where todo_user_id = :todo_user_id;";
+		String sql = "select max(todo_order) from todo_list_table where todo_user_id = :todo_user_id;";
 		try {
-			maxOrder = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Integer.class);
+			maxOrder = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Long.class);
 		} catch (DataAccessException exception) {
 			log.error("result of null with userId");
 		} finally {

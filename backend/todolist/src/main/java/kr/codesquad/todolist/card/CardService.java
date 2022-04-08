@@ -1,6 +1,7 @@
 package kr.codesquad.todolist.card;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class CardService {
 	private final CardDao cardDao;
 
+	@Transactional
 	public CardDto.RedirectInfo createCard(CardDto.WriteRequest request) {
 		Card card = request.toEntity();
 		Card cardInfo = cardDao.save(card);
