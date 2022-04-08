@@ -22,9 +22,6 @@ public class CardDto {
 		private String content;
 		@NotBlank(message = "todo list 카테고리 정보는 필수 값입니다.")
 		private String status;
-		@NotNull(message = "순서는 필수 값입니다.")
-		@Min(1)
-		private Long order;
 		@NotNull(message = "사용자 id는 필수 값입니다.")
 		@Min(1)
 		private Long userId;
@@ -34,7 +31,6 @@ public class CardDto {
 				.subject(subject)
 				.content(content)
 				.status(Card.TodoStatus.from(status))
-				.order(order)
 				.createdAt(LocalDateTime.now())
 				.userId(userId)
 				.build();
