@@ -31,7 +31,7 @@ public class CardController {
         value = "새로운 타스크 등록",
         notes = "새로운 타스크를 등록한다.",
         produces = "application/json",
-        response = Long.class
+        response = Card.class
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
@@ -44,8 +44,9 @@ public class CardController {
         @ApiResponse(code = 500, message = "서버 에러"),
     })
     @PostMapping
-    public long addCard(@RequestBody Card card) {
-        return cardRepository.add(card);
+    public Card addCard(@RequestBody Card card) {
+        long addedCardId = cardRepository.add(card);
+        return cardRepository.findById(addedCardId).orElseThrow();
     }
 
     @ApiOperation(
