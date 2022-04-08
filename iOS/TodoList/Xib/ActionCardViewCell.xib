@@ -70,7 +70,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="137.68115942028987" y="111.83035714285714"/>
+            <connections>
+                <outlet property="content" destination="2FB-gb-F4E" id="5Wt-p4-7XG"/>
+                <outlet property="timeStamp" destination="zb1-b7-U3W" id="MXe-SC-UmB"/>
+                <outlet property="userName" destination="akj-tn-OfP" id="KdZ-82-a2f"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="111.49553571428571"/>
         </tableViewCell>
     </objects>
 </document>

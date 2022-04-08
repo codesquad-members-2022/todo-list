@@ -8,10 +8,10 @@ class TaskCardListViewController: UIViewController {
         
     func setUpStackView() {
         if let taskListView = Bundle.main.loadNibNamed(NameSpace.nib.taskCardListView, owner: self, options: nil)?.first as? TaskCardListView {
-            taskListView.cardListTable.delegate = self
-            taskListView.cardListTable.dataSource = self
+            taskListView.table.delegate = self
+            taskListView.table.dataSource = self
             let nibName = UINib(nibName: NameSpace.nib.taskCardViewCell, bundle: nil)
-            taskListView.cardListTable.register(nibName, forCellReuseIdentifier: NameSpace.identifier.taskCardViewCell)
+            taskListView.table.register(nibName, forCellReuseIdentifier: NameSpace.identifier.taskCardViewCell)
             taskListView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 taskListView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),

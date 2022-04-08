@@ -77,9 +77,9 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="cardListTable" destination="oul-8H-180" id="Thf-2V-tsq"/>
+                <outlet property="table" destination="oul-8H-180" id="Thf-2V-tsq"/>
                 <outlet property="taskCountBadge" destination="HBY-PI-YWR" id="7mY-rT-ZtY"/>
-                <outlet property="titleLabel" destination="0sR-f9-J2x" id="9RU-mD-gzR"/>
+                <outlet property="title" destination="0sR-f9-J2x" id="9RU-mD-gzR"/>
             </connections>
             <point key="canvasLocation" x="319.56521739130437" y="228.01339285714283"/>
         </view>
