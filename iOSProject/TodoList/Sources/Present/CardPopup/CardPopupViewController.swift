@@ -115,7 +115,7 @@ class CardPopupViewController: UIViewController {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: CardPopupViewModelBinding?
+    private let model: CardPopupViewModelBinding
     
     var delegate: CardPopupViewDeletegate?
     
@@ -126,7 +126,7 @@ class CardPopupViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.model = nil
+        self.model = CardPopupViewModel(popupData: CardPopupData(id: nil, title: "", body: "", column: .todo))
         super.init(coder: coder)
     }
     
@@ -136,7 +136,7 @@ class CardPopupViewController: UIViewController {
         attribute()
         layout()
         
-        self.model?.action.loadModel.send()
+        self.model.action.loadModel.send()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -147,10 +147,6 @@ class CardPopupViewController: UIViewController {
     private func bind() {
         self.titleTextField.delegate = self
         self.bodyTextView.delegate = self
-        
-        guard let model = self.model else {
-            return
-        }
         
         model.state.loadedModel
             .sink {

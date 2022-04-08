@@ -63,7 +63,7 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: (ColumnViewModelBinding & ColumnViewModelProperty)?
+    private let model: ColumnViewModelBinding & ColumnViewModelProperty
     
     var controller: ColumnViewController {
         self
@@ -77,7 +77,7 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
     }
     
     required init?(coder: NSCoder) {
-        self.model = nil
+        self.model = ColumnViewModel(columnType: .todo)
         super.init(coder: coder)
     }
     
@@ -86,16 +86,12 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         bind()
         layout()
         
-        model?.action.loadColumn.send()
+        model.action.loadColumn.send()
     }
     
     private func bind() {
         cardTableView.delegate = self
         cardTableView.dataSource = self
-        
-        guard let model = self.model else {
-            return
-        }
         
         addButton.publisher(for: .touchUpInside)
             .sink(receiveValue: model.action.tappedAddButton.send(_:))
@@ -115,19 +111,19 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         model.state.insertedCard
             .sink {
                 self.cardTableView.insertRows(at: [IndexPath(item: $0, section: 0)], with: .none)
-                self.countLabel.text = String(model.cardCount)
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         model.state.deletedCard
             .sink {
                 self.cardTableView.deleteRows(at: [IndexPath(item: $0, section: 0)], with: .none)
-                self.countLabel.text = String(model.cardCount)
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         model.state.movedCard
             .sink { card, toColumn in
                 self.delegate?.columnView(self, fromCard: card, toColumn: toColumn)
-                self.countLabel.text = String(model.cardCount)
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         model.state.reloadCard
@@ -173,12 +169,12 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
 
 extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.model?.cardCount ?? 0
+        self.model.cardCount ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ColumnViewCell") as? ColumnViewCell,
-              let card = self.model?[indexPath.item] else {
+              let card = self.model[indexPath.item] else {
             return UITableViewCell()
         }
         cell.setCard(card)
@@ -189,15 +185,15 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let moveDone = UIAction(title: "완료한 일로 이동") { _ in
-                self.model?.action.tappedMoveCardButton.send(indexPath.item)
+                self.model.action.tappedMoveCardButton.send(indexPath.item)
             }
             
             let edit = UIAction(title: "수정하기") { _ in
-                self.model?.action.tappedEditButton.send(indexPath.item)
+                self.model.action.tappedEditButton.send(indexPath.item)
             }
             
             let delete = UIAction(title: "삭제하기", attributes: .destructive) { _ in
-                self.model?.action.tappedDeleteButton.send(indexPath.item)
+                self.model.action.tappedDeleteButton.send(indexPath.item)
             }
             return UIMenu(title: "", children: [moveDone, edit, delete])
         }
@@ -206,16 +202,16 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ColumnViewController: ColumnViewInput {
     func addCard(_ card: Card) {
-        self.model?.action.addCard.send(card)
+        self.model.action.addCard.send(card)
     }
 }
 
 extension ColumnViewController: CardPopupViewDeletegate {
     func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card) {
-        self.model?.action.editCard.send(editedCard)
+        self.model.action.editCard.send(editedCard)
     }
     
     func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card) {
-        self.model?.action.addCard.send(addedCard)
+        self.model.action.addCard.send(addedCard)
     }
 }
