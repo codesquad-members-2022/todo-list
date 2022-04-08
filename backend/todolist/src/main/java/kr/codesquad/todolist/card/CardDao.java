@@ -27,7 +27,6 @@ public class CardDao {
 	public static final String CARD_TODO_ORDER = "todo_order";
 	public static final String CARD_WRITING_DATE = "writing_date";
 	public static final String CARD_TODO_USER_ID = "todo_user_id";
-	public static final int COLUMN_INDEX_DELETED = 5;
 	public static final String CARD_DELETED = "deleted";
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private final JdbcTemplate jdbcTemplate;
@@ -83,7 +82,6 @@ public class CardDao {
 		return parameters;
 	}
 
-
 	private RowMapper<Card> cardRowMapper() {
 		return (rs, rowNum) -> {
 			Card article = new Card(
@@ -93,7 +91,7 @@ public class CardDao {
 				Card.TodoStatus.from(rs.getString(CARD_TODO_STATUS)),
 				rs.getLong(CARD_TODO_ORDER),
 				rs.getBoolean(CARD_DELETED),
-				rs.getTimestamp(COLUMN_INDEX_DELETED).toLocalDateTime(),
+				rs.getTimestamp(CARD_WRITING_DATE).toLocalDateTime(),
 				rs.getLong(CARD_TODO_USER_ID));
 			return article;
 		};
