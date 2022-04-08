@@ -1,6 +1,6 @@
 import { qs, insertElement } from "../utils/helpers.js";
 import { createColumn } from "./column/column.js";
-import { createItem } from "./card/card.js";
+import { createItem, createItemBox } from "./card/card.js";
 import { createHistory } from "./aside/history.js";
 
 const renderer = {
@@ -21,6 +21,11 @@ const renderer = {
     const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
     insertElement(itemListEl, "beforeend", createItem({ id, title, content }));
   },
+
+  itemBox: (columnId) => {
+    const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
+    insertElement(itemListEl, "afterbegin", createItemBox());
+  }
 
   allHistory: (historyList) => {
     historyList.forEach(renderer.history);

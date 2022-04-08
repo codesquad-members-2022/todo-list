@@ -16,7 +16,10 @@ function app() {
   renderer.allColumns(store.columns);
   renderer.allItems(store.items);
   renderer.allHistory(store.history);
-
+  
+  // test itembox
+  renderer.itemBox(1);
+  
   subscribeEvents();
 }
 

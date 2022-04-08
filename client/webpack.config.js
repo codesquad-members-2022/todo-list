@@ -8,7 +8,7 @@ module.exports = {
     app: ["./public/js/app.js"],
   },
 
-  devtool: "source-map",
+  devtool: "source-map", // 개발용 | 배포용: cheap-module-source-map
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].bundle.js",
