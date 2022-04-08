@@ -9,6 +9,7 @@ class MemoCanvasView: UIView {
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.alignment = .top
+        stackView.distribution = .fillEqually
         return stackView
     }()
     
@@ -28,7 +29,7 @@ class MemoCanvasView: UIView {
     
     private let doneContainerView: MemoContainerView = {
         let view = MemoContainerView()
-        view.backgroundColor = .green
+        view.backgroundColor = .systemPink
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -51,7 +52,6 @@ class MemoCanvasView: UIView {
         stackView.addArrangedSubview(doneContainerView)
         addSubview(stackView)
         
-        stackView.widthAnchor.constraint(equalToConstant: 300).isActive = true
         stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true

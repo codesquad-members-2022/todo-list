@@ -9,6 +9,7 @@ class MemoContainerView: UIView {
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.alignment = .fill
+        stackView.distribution = .fillEqually
         return stackView
     }()
     
@@ -36,10 +37,31 @@ class MemoContainerView: UIView {
         return button
     }()
     
+    required override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addViews()
+        setConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        addViews()
+        setConstraints()
+    }
+    
     private func addViews() {
         horizontalStackView.addArrangedSubview(categoryLabel)
         horizontalStackView.addArrangedSubview(countLabel)
         horizontalStackView.addArrangedSubview(button)
         addSubview(horizontalStackView)
+    }
+    
+    private func setConstraints() {
+        horizontalStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        horizontalStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        horizontalStackView.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
 }
