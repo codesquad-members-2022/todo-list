@@ -13,8 +13,6 @@ public interface CardRepository {
 
     Map<String, List<Card>> findAll();
 
-    List<Card> findByType(CardType cardType);
-
     Optional<Card> findById(Long id);
 
     Card update(Card card);

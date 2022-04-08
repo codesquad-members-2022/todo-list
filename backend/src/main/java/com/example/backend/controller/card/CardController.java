@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,20 +33,17 @@ public class CardController {
         return new CardDto(card);
     }
 
+    @GetMapping("/cards/{id}")
+    public CardDto cardDetailInquiry(@PathVariable Long id) {
+        Card card = cardService.findById(id);
+        return new CardDto(card);
+    }
+
     @GetMapping("/cards")
     public Map<String, List<Card>> getCards() {
         return cardService.findAll();
     }
 
-    @GetMapping("/cards/{type}")
-    public List<CardDto> getCard(@PathVariable CardType type) {
-        List<Card> cards = cardService.findByType(type);
-        List<CardDto> cardDtos = new ArrayList<>();
-        for (Card card : cards) {
-            cardDtos.add(new CardDto(card));
-        }
-        return cardDtos;
-    }
 
     @DeleteMapping("/cards/{id}")
     public CardDto delete(@PathVariable Long id) {

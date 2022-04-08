@@ -56,21 +56,6 @@ public class CardJdbcRepository implements CardRepository {
     }
 
     @Override
-    public List<Card> findByType(CardType cardType) {
-        String query = "select todo_list.card.id, " +
-                "todo_list.card.title, " +
-                "todo_list.card.content, " +
-                "todo_list.card.card_type, " +
-                "todo_list.card.created_at, " +
-                "todo_list.card.last_modified_at, " +
-                "todo_list.card.visible, " +
-                "todo_list.card.column_id " +
-                "from todo_list.card where todo_list.card.card_type = :cardType";
-        Map<String, Object> params = Collections.singletonMap("cardType", cardType.toString());
-        return jdbcTemplate.query(query, params, mapper);
-    }
-
-    @Override
     public Optional<Card> findById(Long id) {
         String query = "select todo_list.card.id, " +
                 "todo_list.card.title, " +
