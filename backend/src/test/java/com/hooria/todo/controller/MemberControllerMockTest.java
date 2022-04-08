@@ -52,7 +52,7 @@ class MemberControllerMockTest {
         resultActions.andExpectAll(
                 content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE),
                 content().encoding(StandardCharsets.UTF_8),
-                status().isOk()
+                status().is2xxSuccessful()
         );
 
         verify(memberService).add(ArgumentMatchers.refEq(newMember));
@@ -94,7 +94,7 @@ class MemberControllerMockTest {
         given(memberService.selectById(userId)).willReturn(member);
 
         // when
-        ResultActions resultActions = mvc.perform(get("/api/users/" + userId));
+        ResultActions resultActions = mvc.perform(get("/api/users/{userId}", userId));
 
         // then
         resultActions.andExpectAll(

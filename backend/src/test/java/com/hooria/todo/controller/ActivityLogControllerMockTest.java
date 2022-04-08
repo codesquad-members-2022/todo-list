@@ -74,7 +74,7 @@ class ActivityLogControllerMockTest {
         given(activityLogService.removeById(id)).willReturn(1 /* 반영된 row 수 */);
 
         // when
-        ResultActions resultActions = mvc.perform(delete("/api/activities/" + id));
+        ResultActions resultActions = mvc.perform(delete("/api/activities/{id}", id));
 
         // then
         resultActions.andExpectAll(
