@@ -1,4 +1,4 @@
-import { removeText } from "../util/util.js";
+import { removeText, axiosRequest } from "../util/util.js";
 
 function init() {
   const $plusBtn = document.querySelector("#have-to-do-plus");
@@ -71,6 +71,7 @@ function updateCard(target) {
   const card = updateCardContents(target);
   applyCardStyle($selectedCard);
   preventModification($cardTitle, $cardDetails);
+  axiosRequest("post", "todos", card);
   return card;
 }
 
@@ -125,7 +126,7 @@ function renderColumn(columnId, todos) {
     <div class="card-contents-wrapper row-sort">
       <div class="card-text-area">
         <div class="card-title title-font">${todo.title}</div>
-        <div class="card-details">${todo.detail}</div>
+        <div class="card-details" contenteditable="true">${todo.detail}</div>
       </div>
       <figure class="card-cross-button">
         <img
@@ -150,7 +151,7 @@ function addRegisterBtnsListener() {
   const $registerBtns = document.querySelectorAll(".register-button");
   for (const $registerBtn of $registerBtns) {
     $registerBtn.addEventListener("click", (event) => {
-      console.log(event.target);
+      updateCard(event.target);
     });
   }
 }

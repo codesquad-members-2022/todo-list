@@ -1,5 +1,5 @@
-import { getTodos, postTodos } from "../model/cardModel.js";
-import { renderColumn, updateCard } from "../view/cardView.js";
+import { getTodos } from "../model/cardModel.js";
+import { renderColumn } from "../view/cardView.js";
 
 async function renderTodos() {
   const todos = await getTodos();
@@ -8,9 +8,4 @@ async function renderTodos() {
   renderColumn("#done-column", todos.doneColumn);
 }
 
-async function handleClickRegisterBtn(target) {
-  const card = updateCard(target);
-  await postTodos(card);
-}
-
-export { renderTodos, handleClickRegisterBtn };
+export { renderTodos };
