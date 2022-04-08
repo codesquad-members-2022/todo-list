@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="P36-ET-pQ7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="P36-ET-pQ7">
     <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qsL-gl-oqr">
-                                <rect key="frame" x="40" y="96" width="766" height="718"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="qsL-gl-oqr">
+                                <rect key="frame" x="48" y="96" width="816" height="718"/>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzU-m8-3QM">
                                 <rect key="frame" x="0.0" y="24" width="1194" height="72"/>
@@ -65,7 +65,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="U6N-h6-r5S" firstAttribute="leading" secondItem="hzU-m8-3QM" secondAttribute="leading" constant="48" id="1vT-l1-TMW"/>
                                     <constraint firstAttribute="trailing" secondItem="ILv-VI-uUx" secondAttribute="trailing" constant="42" id="LvW-he-sRV"/>
@@ -136,6 +136,36 @@
             </objects>
             <point key="canvasLocation" x="-784" y="418"/>
         </scene>
+        <!--To Do Table View Controller-->
+        <scene sceneID="oOg-Em-Mf1">
+            <objects>
+                <viewController storyboardIdentifier="ToDoTableViewController" id="ync-er-aKz" customClass="ToDoTableViewController" customModule="To_Do_List" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ykh-fl-Dyx">
+                        <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="maU-bX-j3b" customClass="CustomTableView" customModule="To_Do_List" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="24" width="1194" height="790"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="IY1-7O-qGY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IY1-7O-qGY" firstAttribute="trailing" secondItem="maU-bX-j3b" secondAttribute="trailing" id="D9G-cC-YE2"/>
+                            <constraint firstItem="IY1-7O-qGY" firstAttribute="bottom" secondItem="maU-bX-j3b" secondAttribute="bottom" id="bsc-DT-5dK"/>
+                            <constraint firstItem="maU-bX-j3b" firstAttribute="top" secondItem="IY1-7O-qGY" secondAttribute="top" id="fsx-zq-FId"/>
+                            <constraint firstItem="maU-bX-j3b" firstAttribute="leading" secondItem="IY1-7O-qGY" secondAttribute="leading" id="hlB-uA-eRY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="maU-bX-j3b" id="vmf-sO-cXg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cje-1g-zdN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="22" y="37"/>
+        </scene>
         <!--Doing Table View Controller-->
         <scene sceneID="r9u-1p-Bxn">
             <objects>
@@ -163,34 +193,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wly-fm-Emc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="665" y="-662"/>
-        </scene>
-        <!--To Do Table View Controller-->
-        <scene sceneID="Cfk-mA-eP4">
-            <objects>
-                <tableViewController storyboardIdentifier="ToDoTableViewController" id="Dob-a7-FWm" customClass="ToDoTableViewController" customModule="To_Do_List" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="FJs-Q5-LDv">
-                        <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CardCell" id="qKb-qs-qgV" customClass="CardCell" customModule="To_Do_List" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="1194" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qKb-qs-qgV" id="ZsO-nU-dq9">
-                                    <rect key="frame" x="0.0" y="0.0" width="1194" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Dob-a7-FWm" id="iJc-bf-BP2"/>
-                            <outlet property="delegate" destination="Dob-a7-FWm" id="2uh-nw-uD6"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ppJ-Pu-Dz6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="663.30935251798564" y="60.804020100502512"/>
         </scene>
         <!--Done Table View Controller-->
         <scene sceneID="kH4-a8-qtp">
@@ -223,6 +225,9 @@
     </scenes>
     <resources>
         <image name="line.3.horizontal" catalog="system" width="128" height="64"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

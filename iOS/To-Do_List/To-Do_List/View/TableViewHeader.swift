@@ -31,6 +31,7 @@ class TabelViewHeader: UIView {
     convenience init(titleText: String) {
         self.init(frame: CGRect(x: 0, y: 0, width: 256, height: 26))
         self.title.text = titleText
+        self.backgroundColor = .secondarySystemBackground
         setupView()
     }
 

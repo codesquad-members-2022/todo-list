@@ -27,6 +27,7 @@
 		8DD815E527FD691E00C13618 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815E427FD691E00C13618 /* Todo.swift */; };
 		B70BD64227FBD1E7001BE68F /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* TableViewHeader.swift */; };
 		B730BBAE27FECB33006DC969 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAD27FECB33006DC969 /* constants.swift */; };
+		B730BBB027FED3BE006DC969 /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAF27FED3BE006DC969 /* CustomTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		8DD815E427FD691E00C13618 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		B70BD64127FBD1E7001BE68F /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
 		B730BBAD27FECB33006DC969 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		B730BBAF27FED3BE006DC969 /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 			children = (
 				B70BD64127FBD1E7001BE68F /* TableViewHeader.swift */,
 				8DBB585127FBD8F500D129E2 /* CardCell.swift */,
+				B730BBAF27FED3BE006DC969 /* CustomTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */,
 				B730BBAE27FECB33006DC969 /* constants.swift in Sources */,
 				8DD815E527FD691E00C13618 /* Todo.swift in Sources */,
+				B730BBB027FED3BE006DC969 /* CustomTableView.swift in Sources */,
 				8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */,
 				8DD815E027FD655200C13618 /* HttpMethod.swift in Sources */,
 				8D2AFD7127FB08AE00307CCB /* AppDelegate.swift in Sources */,

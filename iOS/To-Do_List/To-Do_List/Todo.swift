@@ -9,13 +9,13 @@ import Foundation
 
 //TODO: 타입명 변경
 struct Todoitems:Codable {
-    let response:CardType
+    let response:Board
 }
 
-struct CardType:Codable {
+struct Board:Codable {
     let todoItems:[Todo]
-    let doingItems:[Todo]
-    let haveDoneItems:[Todo]
+    let progressingItems:[Todo]
+    let completedItems:[Todo]
 }
 
 struct Todo:Codable {
