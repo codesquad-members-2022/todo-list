@@ -32,7 +32,7 @@ public class CardJdbcRepository implements CardRepository {
     }
     @Override
     public Card save(Card card) {
-        String query = "insert cards (id, title, content, card_type, created_at, last_modified_at, `visible`, column_id)" +
+        String query = "insert todo_list.card (id, title, content, card_type, created_at, last_modified_at, `visible`, column_id)" +
                 "values (:id, :title, :content, :cardType, :createdAt, :lastModifiedAt, :visible, :columnId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(toParamMap(card));
@@ -42,30 +42,51 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Map<String, List<Card>> findAll() {
-        String query = "select id, title, content, card_type, created_at, last_modified_at,visible, column_id " +
-                "from cards where card_type = :cardType";
+        String query = "select todo_list.card.id, " +
+                "todo_list.card.title, " +
+                "todo_list.card.content, " +
+                "todo_list.card.card_type, " +
+                "todo_list.card.created_at, " +
+                "todo_list.card.last_modified_at, " +
+                "todo_list.card.visible, " +
+                "todo_list.card.column_id " +
+                "from todo_list.card where todo_list.card.card_type = :cardType";
         return cardTypeClassification(query);
     }
 
     @Override
     public List<Card> findByType(CardType cardType) {
-        String query = "select id, title, content, card_type, created_at, last_modified_at,visible, column_id " +
-                "from cards where card_type = :cardType";
+        String query = "select todo_list.card.id, " +
+                "todo_list.card.title, " +
+                "todo_list.card.content, " +
+                "todo_list.card.card_type, " +
+                "todo_list.card.created_at, " +
+                "todo_list.card.last_modified_at, " +
+                "todo_list.card.visible, " +
+                "todo_list.card.column_id " +
+                "from todo_list.card where todo_list.card.card_type = :cardType";
         Map<String, Object> params = Collections.singletonMap("cardType", cardType.toString());
         return jdbcTemplate.query(query, params, mapper);
     }
 
     @Override
     public Optional<Card> findById(Long id) {
-        String query = "select id, title, content, card_type, created_at, last_modified_at,visible, column_id " +
-                "from cards where id = :id";
+        String query = "select todo_list.card.id, " +
+                "todo_list.card.title, " +
+                "todo_list.card.content, " +
+                "todo_list.card.card_type, " +
+                "todo_list.card.created_at, " +
+                "todo_list.card.last_modified_at, " +
+                "todo_list.card.visible, " +
+                "todo_list.card.column_id " +
+                "from todo_list.card where todo_list.card.id = :id";
         Map<String, Object> params = Collections.singletonMap("id", id);
         return Optional.ofNullable(jdbcTemplate.queryForObject(query, params, mapper));
     }
 
     @Override
     public Card update(Card card) {
-        String query = "update cards set title=:title, content=:content, card_type=:cardType where id=:id";
+        String query = "update todo_list.card set title=:title, content=:content, card_type=:cardType where id=:id";
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(toParamMap(card));
         jdbcTemplate.update(query, mapSqlParameterSource);
         return null;
