@@ -83,8 +83,8 @@ class MainViewController: UIViewController {
             columnStackView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 48),
             columnStackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -48),
             
-            logViewController.view.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            logViewController.view.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            logViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            logViewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             logViewController.view.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
             logViewController.view.widthAnchor.constraint(equalToConstant: 428)
         ])

@@ -34,7 +34,6 @@
 		E0A6BB2227FD214E00F00575 /* SessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2127FD214E00F00575 /* SessionError.swift */; };
 		E0A6BB2527FD9E6400F00575 /* CardPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */; };
 		E0A6BB2A27FE91B100F00575 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2927FE91B100F00575 /* LogViewController.swift */; };
-		E0A6BB2C27FE91BA00F00575 /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2B27FE91BA00F00575 /* LogViewModel.swift */; };
 		E0A6BB2F27FEF2A400F00575 /* MockDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2E27FEF2A400F00575 /* MockDatabase.swift */; };
 		E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */; };
 		E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */; };
@@ -69,7 +68,6 @@
 		E0A6BB2127FD214E00F00575 /* SessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionError.swift; sourceTree = "<group>"; };
 		E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPopupViewModel.swift; sourceTree = "<group>"; };
 		E0A6BB2927FE91B100F00575 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
-		E0A6BB2B27FE91BA00F00575 /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
 		E0A6BB2E27FEF2A400F00575 /* MockDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDatabase.swift; sourceTree = "<group>"; };
 		E0BE4C1E27FAAF6E0076403C /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -158,7 +156,6 @@
 			children = (
 				E0A6BB2927FE91B100F00575 /* LogViewController.swift */,
 				378533AB27FEB45400E86BDC /* LogViewCell.swift */,
-				E0A6BB2B27FE91BA00F00575 /* LogViewModel.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -367,7 +364,6 @@
 				E0A6BAFA27FB3DE300F00575 /* ColumnViewCell.swift in Sources */,
 				E0A6BAF127FB28CE00F00575 /* ColumnViewController.swift in Sources */,
 				E0A6BAFC27FBCD5800F00575 /* UiViewController+Extension.swift in Sources */,
-				E0A6BB2C27FE91BA00F00575 /* LogViewModel.swift in Sources */,
 				E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */,
 				E0A6BAF527FB325800F00575 /* UIColor+Extension.swift in Sources */,
 				E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */,
@@ -519,7 +515,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H2FTMY38H7;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -549,7 +545,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H2FTMY38H7;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

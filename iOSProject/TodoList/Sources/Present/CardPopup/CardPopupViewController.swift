@@ -130,19 +130,6 @@ class CardPopupViewController: UIViewController {
         super.init(coder: coder)
     }
     
-//    private func initialize(card: Card?) {
-//        self.baseTitleText = card?.title ?? ""
-//        self.baseBodyText = card?.title ?? ""
-////        self.cardIndex = card?.orderIndex
-//
-//        self.columnLabel.text = card == nil ? Constants.newCardStatusLabel : Constants.editCardStatusLabel
-//        self.titleTextField.text = self.baseTitleText
-//        self.bodyTextView.text = self.baseBodyText
-//        self.maxBodyLengthLabel.text = "(\(self.bodyTextView.text.count)/\(Constants.maxBodyLength))"
-//        self.confimButton.isHidden = card != nil
-//        self.editButton.isHidden = card == nil
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
