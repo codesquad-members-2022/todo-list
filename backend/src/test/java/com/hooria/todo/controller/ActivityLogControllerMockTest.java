@@ -43,9 +43,9 @@ class ActivityLogControllerMockTest {
         // given
         LocalDateTime now = LocalDateTime.now();
         List<ActivityLog> activityLogs = List.of(
-                ActivityLog.of("userId1", 1, 1, 2, now, false),
-                ActivityLog.of("userId2", 2, 2, 3, now, false),
-                ActivityLog.of("userId3", 3, 1, 2, now, false)
+                ActivityLog.of("userId1", "add", "taskTitle1", "TODO", "IN_PROGRESS", now, false),
+                ActivityLog.of("userId2", "remove", "taskTitle2", "IN_PROGRESS", "DONE", now, false),
+                ActivityLog.of("userId3", "update", "taskTitle3", "TODO", "IN_PROGRESS", now, false)
         );
 
         given(activityLogService.selectAll()).willReturn(activityLogs);
