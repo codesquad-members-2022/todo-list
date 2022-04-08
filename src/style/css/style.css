@@ -41,6 +41,10 @@
   background-size: 10.5px;
 }
 
+body {
+  background-color: #e5e5e5;
+}
+
 .flex {
   display: flex;
 }
