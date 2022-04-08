@@ -1,7 +1,7 @@
 import { axiosRequest } from "./util/util.js";
 
-export async function handleClickRegisterBtn(event) {
-  const $selectedCard = event.target.closest(".card");
+export async function handleClickRegisterBtn(target) {
+  const $selectedCard = target.closest(".card");
   const $cardDetails = $selectedCard.querySelector(".card-details");
   if (isLengthExceeded($cardDetails)) {
     alert("글자 수가 초과했습니다 (500자)");
@@ -60,7 +60,7 @@ function renderingColumn(columnId, todos) {
   const $column = document.querySelector(columnId);
   const $cards = $column.querySelector(".cards");
   const cardTemplate = todos.reduce((template, todo) => {
-    template += `<div class="card">
+    template += `<div class="card" id="card${todo.id}">
     <div class="card-contents-wrapper row-sort">
       <div class="card-text-area">
         <div class="card-title title-font" contenteditable="true">${todo.title}</div>
