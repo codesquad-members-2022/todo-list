@@ -1,7 +1,7 @@
 import UIKit
 
 class TaskCardListView: UIView {
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var cardListTable: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var taskCountBadge: UILabel!
     
@@ -12,7 +12,7 @@ class TaskCardListView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     @IBAction func addTaskButtonTouched(_ sender: UIButton) {
     }
 }
