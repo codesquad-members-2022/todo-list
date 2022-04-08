@@ -13,7 +13,7 @@ class TodoViewController: UIViewController {
     @IBOutlet weak var todoCountLabel: UILabel!
     @IBOutlet weak var addCardButton: UIButton!
     @IBOutlet weak var cardTableView: UITableView!
-    private let tableViewDelegate = BoardTableDelegate()
+    private let tableViewDelegate = CardBoardTableDelegate()
     
     
     override func viewDidLoad() {
@@ -23,6 +23,7 @@ class TodoViewController: UIViewController {
         cardTableView.register(CardTableViewCell.self, forCellReuseIdentifier: "CardTableViewCell")
         cardTableView.delegate = tableViewDelegate
         cardTableView.dataSource = tableViewDelegate
+        tableViewDelegate.setCards(cards: [Card(status: .todo, title: "firstCard", contents: "firstContents", writer: "ebony")])
     }
     
     func setTitleLabel(title: String){

@@ -21,4 +21,7 @@ class CardBoard {
         let card = cardFactory.createTableCard(title: title, contents: content)
         todoCards.insert(card, at: 0)
     }
+    
+    
+    
 }

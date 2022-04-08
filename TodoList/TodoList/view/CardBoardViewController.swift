@@ -18,6 +18,7 @@ class CardBoardViewController: UIViewController {
     @IBOutlet weak var doingContainerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemGray5
         let todoStoryBoard = UIStoryboard(name: "TodoStoryboard", bundle: Bundle(for: TodoViewController.self))
         guard let todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {
             return
@@ -40,7 +41,7 @@ class CardBoardViewController: UIViewController {
         
         todoViewController.setTitleLabel(title: "해야 할 일")
         doingViewController.setTitleLabel(title: "하고 있는 일")
-        doneViewController.setTitleLabel(title: "끝낸 일")
+        doneViewController.setTitleLabel(title: "완료한 일")
         
         todoViewController.view.translatesAutoresizingMaskIntoConstraints = false
         todoViewController.view.heightAnchor.constraint(equalTo: todoContainerView.heightAnchor, constant: 0).isActive = true
@@ -58,4 +59,3 @@ class CardBoardViewController: UIViewController {
         doneViewController.view.centerXAnchor.constraint(equalTo: doneContainerView.centerXAnchor, constant: 0).isActive = true
     }
 }
-

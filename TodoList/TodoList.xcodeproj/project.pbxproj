@@ -24,7 +24,7 @@
 		72695E3A27FBE2E000A29350 /* TodoListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E3927FBE2E000A29350 /* TodoListUITests.swift */; };
 		72695E3C27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E3B27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift */; };
 		72695E4A27FBE79C00A29350 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E4927FBE79C00A29350 /* Card.swift */; };
-		72877BEE27FF22EB000CF68E /* BoardTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72877BED27FF22EB000CF68E /* BoardTableDelegate.swift */; };
+		72877BEE27FF22EB000CF68E /* CardBoardTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72877BED27FF22EB000CF68E /* CardBoardTableDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +66,7 @@
 		72695E3927FBE2E000A29350 /* TodoListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUITests.swift; sourceTree = "<group>"; };
 		72695E3B27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		72695E4927FBE79C00A29350 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		72877BED27FF22EB000CF68E /* BoardTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableDelegate.swift; sourceTree = "<group>"; };
+		72877BED27FF22EB000CF68E /* CardBoardTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoardTableDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +97,7 @@
 		00A14F6927FC180400474097 /* delegate */ = {
 			isa = PBXGroup;
 			children = (
-				72877BED27FF22EB000CF68E /* BoardTableDelegate.swift */,
+				72877BED27FF22EB000CF68E /* CardBoardTableDelegate.swift */,
 			);
 			path = delegate;
 			sourceTree = "<group>";
@@ -313,7 +313,7 @@
 				0077FD4F27FD68680046AB60 /* TodoViewController.swift in Sources */,
 				00A14F7127FC19EB00474097 /* CardBoard.swift in Sources */,
 				00A14F6027FC07C700474097 /* CardFactory.swift in Sources */,
-				72877BEE27FF22EB000CF68E /* BoardTableDelegate.swift in Sources */,
+				72877BEE27FF22EB000CF68E /* CardBoardTableDelegate.swift in Sources */,
 				72695E1D27FBE2DE00A29350 /* CardBoardViewController.swift in Sources */,
 				00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */,
 				00D13F1F27FED6200031E8DA /* CardTableViewCell.swift in Sources */,
