@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 README.md
 .gradle
 build/
@@ -20,7 +19,6 @@ bin/
 
 ### IntelliJ IDEA ###
 .idea
-=======
 Translate
 
 # Created by https://www.toptal.com/developers/gitignore/api/jetbrains,macos,intellij,java
@@ -77,12 +75,10 @@ cmake-build-*/
 .idea/**/mongoSettings.xml
 
 # File-based project format
->>>>>>> Feature/bong
 *.iws
 
 # IntelliJ
 out/
-<<<<<<< HEAD
 !**/src/main/**/out/
 !**/src/test/**/out/
 
@@ -98,7 +94,6 @@ out/
 
 ### yml 경로설정
 src/main/resources/application-local.yml
-=======
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -282,7 +277,3 @@ Temporary Items
 .apdisk
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains,macos,intellij,java
-
-# yml
-/src/main/resources/application-local.yml
->>>>>>> Feature/bong
