@@ -6,7 +6,6 @@ import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Api(tags = "Member(사용자) Controller")
@@ -18,7 +17,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping
-    public Member addMember(@RequestBody Member member, HttpServletResponse response) {
+    public Member addMember(@RequestBody Member member) {
         return memberService.add(member);
     }
 
