@@ -8,6 +8,7 @@ const createTodoList = async () => {
   for (const list of todoListData) {
     new List(parent, list);
   }
+  setTaskDragEvent();
 };
 
 const createHTML = () => {

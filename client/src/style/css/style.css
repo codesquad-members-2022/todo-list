@@ -237,9 +237,7 @@ aside {
   font-size: 14px;
   color: #828282;
 }
-.sidebar__item--nickname,
-.sidebar__item--activity,
-.sidebar__item--time-stamp {
+.sidebar__item--nickname, .sidebar__item--activity, .sidebar__item--time-stamp {
   padding: 8px 0px;
 }
 
@@ -258,6 +256,7 @@ aside {
   align-items: center;
   flex-direction: column;
   width: 308px;
+  height: 786px;
   margin-right: 16px;
 }
 .column__item--title {
@@ -314,6 +313,7 @@ aside {
   align-items: center;
   flex-direction: column;
   width: 308px;
+  height: 100%;
   padding-top: 8px;
 }
 .column__task--item {
@@ -328,6 +328,7 @@ aside {
   background: #fff;
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
   border-radius: 6px;
+  cursor: grab;
 }
 .column__task--item section {
   display: flex;
@@ -337,6 +338,7 @@ aside {
   flex: 1;
   height: 100%;
   border-radius: 8px;
+  cursor: inherit;
 }
 .column__task--title {
   font-family: "Noto Sans KR";
@@ -347,6 +349,7 @@ aside {
   border: none;
   line-height: 23px;
   color: #010101;
+  cursor: inherit;
 }
 .column__task--comment {
   font-family: "Noto Sans KR";
@@ -362,6 +365,7 @@ aside {
   line-height: 20px;
   resize: none;
   overflow: hidden;
+  cursor: inherit;
 }
 .column__task--author {
   font-family: "Noto Sans KR";
@@ -370,6 +374,7 @@ aside {
   font-style: normal;
   color: #bdbdbd;
   line-height: 17px;
+  cursor: inherit;
 }
 .column__task--add-button:hover {
   cursor: pointer;
@@ -399,12 +404,34 @@ aside {
 .column__task--accent-button {
   background-color: #0075de;
 }
+.column__task--delete-button {
+  cursor: pointer;
+}
 
 .section__header {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.dragging {
+  position: absolute;
+  z-index: 1000;
+  cursor: grabbing;
+}
+
+.grabbing {
+  cursor: grabbing;
+}
+
+.hidden {
+  display: none;
+}
+
+.blur {
+  opacity: 0.5;
+  border: 1px solid #0075de;
 }
 
 .registration-card {
