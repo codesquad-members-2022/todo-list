@@ -61,6 +61,9 @@
                                     <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system">
                                         <color key="baseForegroundColor" systemColor="systemGray4Color"/>
                                     </buttonConfiguration>
+                                    <connections>
+                                        <action selector="addCardButtonTouched:" destination="-1" eventType="touchUpInside" id="31X-dw-yJP"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>

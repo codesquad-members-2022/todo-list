@@ -34,6 +34,10 @@ class CardListViewController: UIViewController {
         
         cardManager.add()
     }
+    
+    @IBAction func addCardButtonTouched(_ sender: UIButton) {
+        cardManager.add()
+        self.tableView.reloadData()
     }
 }
 
