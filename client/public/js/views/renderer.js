@@ -4,7 +4,6 @@ import { createItem } from "./card/card.js";
 
 const renderer = {
   allColumns: (columnList) => {
-    console.log(columnList);
     columnList.forEach(renderer.column);
   },
 
