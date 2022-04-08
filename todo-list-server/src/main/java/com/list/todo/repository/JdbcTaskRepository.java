@@ -30,10 +30,12 @@ public class JdbcTaskRepository implements TaskRepository {
         parameters.put("title", task.getTitle());
         parameters.put("author_nickname", task.getAuthorNickname());
         parameters.put("content", task.getContent());
-        parameters.put("create_at", LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        parameters.put("create_at", now);
         parameters.put("status", task.getStatus());
         int key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters)).intValue();
         task.setIdx(key);
+        task.setCreateAt(now);
 
         return task;
     }

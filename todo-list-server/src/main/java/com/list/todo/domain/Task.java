@@ -2,6 +2,7 @@ package com.list.todo.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
 
@@ -26,12 +27,14 @@ public class Task {
             value = "작성자 닉네임",
             example = "sample"
     )
+    @NonNull
     private String authorNickname;
 
     @ApiModelProperty(
             value = "태스크 상태",
             example = "doing"
     )
+    @NonNull
     private String status;
 
     @ApiModelProperty(hidden = true)
