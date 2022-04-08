@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Activate {
+enum Action {
     case Move
     case Add
     case Delete
