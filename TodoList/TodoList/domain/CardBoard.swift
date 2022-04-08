@@ -11,15 +11,25 @@ class CardBoard {
     private(set) var selectedCard: Card?
     private(set) var selectedIndex: Int?
     
-    private(set) var todoCards: [CardUsable] = []
-    private(set) var doingCards: [CardUsable] = []
-    private(set) var doneCards: [CardUsable] = []
+    private(set) var cards: [CardUsable] = []
     
     private let cardFactory = CardFactory()
     
     func addCard(title: String, content: String) {
         let card = cardFactory.createCard(title: title, contents: content)
-        // let data = try? JSONEncoder().encode(card)
-        todoCards.insert(card, at: 0) // 항상 맨 위에 추가
+        cards.insert(card, at: 0)
     }
+    
+    func todoTableCards() -> [TableCardUsable] {
+        return cards.filter { $0.getStatus() == .todo }
+    }
+    
+    func doingTableCards() -> [TableCardUsable] {
+        return cards.filter { $0.getStatus() == .doing }
+    }
+    
+    func doneTableCards() -> [TableCardUsable] {
+        return cards.filter { $0.getStatus() == .done }
+    }
+    
 }
