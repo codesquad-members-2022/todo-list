@@ -11,13 +11,13 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/todo")
 public class CardApiController {
 	private final CardService cardService;
-	@PostMapping()
+
+	@PostMapping
 	public ResponseEntity write(@RequestBody @Valid CardDto.WriteRequest request) {
 		CardDto.WriteResponse response = cardService.createCard(request);
 		return ResponseEntity.ok().body(response);

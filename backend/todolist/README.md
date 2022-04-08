@@ -3,7 +3,7 @@
 
 [swagger 실행 URL](http://localhost:8080/swagger-ui/index.html)
 
-### URL convention
+### Api 정의서
 
 | URL                | 기능      |
 |--------------------|---------|

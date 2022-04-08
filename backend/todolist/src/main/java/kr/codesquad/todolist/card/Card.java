@@ -17,8 +17,8 @@ public class Card {
 	private Long todoId;
 	private String subject;
 	private String content;
-	private TodoStatus todoStatus;
-	private Long todoOrder;
+	private TodoStatus status;
+	private Long order;
 	private boolean deleted;
 	private LocalDateTime createdAt;
 	private Long userId;
@@ -31,11 +31,11 @@ public class Card {
 		COMPLETED("completed",3);
 
 		private final String text;
-		private final int number;
+		private final int code;
 
-		public static TodoStatus from(int number) {
+		public static TodoStatus from(int StatusCode) {
 			return Arrays.stream(values())
-				.filter(v -> v.number == number)
+				.filter(v -> v.code == StatusCode)
 				.findAny()
 				.orElseThrow(() -> new IllegalArgumentException("잘못된 todoStatus number 입니다."));
 		}
