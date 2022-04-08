@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		02AC445B27FF318A009CF050 /* CardListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AC445927FF318A009CF050 /* CardListView.xib */; };
+		02AC446027FFDCF1009CF050 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC445F27FFDCF1009CF050 /* Card.swift */; };
+		02AC446227FFDD53009CF050 /* Caption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC446127FFDD53009CF050 /* Caption.swift */; };
+		02AC446427FFDE07009CF050 /* ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC446327FFDE07009CF050 /* ID.swift */; };
+		02AC446627FFE155009CF050 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC446527FFE155009CF050 /* CardManager.swift */; };
+		02AC446827FFE1F1009CF050 /* CardFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC446727FFE1F1009CF050 /* CardFactory.swift */; };
 		02DF5F9727FD6EFF0064FEC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DF5F9627FD6EFF0064FEC8 /* AppDelegate.swift */; };
 		02DF5F9927FD6EFF0064FEC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DF5F9827FD6EFF0064FEC8 /* SceneDelegate.swift */; };
 		02DF5F9B27FD6EFF0064FEC8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DF5F9A27FD6EFF0064FEC8 /* MainViewController.swift */; };
@@ -41,6 +46,11 @@
 
 /* Begin PBXFileReference section */
 		02AC445927FF318A009CF050 /* CardListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardListView.xib; sourceTree = "<group>"; };
+		02AC445F27FFDCF1009CF050 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		02AC446127FFDD53009CF050 /* Caption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caption.swift; sourceTree = "<group>"; };
+		02AC446327FFDE07009CF050 /* ID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID.swift; sourceTree = "<group>"; };
+		02AC446527FFE155009CF050 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
+		02AC446727FFE1F1009CF050 /* CardFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFactory.swift; sourceTree = "<group>"; };
 		02DF5F9327FD6EFF0064FEC8 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02DF5F9627FD6EFF0064FEC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02DF5F9827FD6EFF0064FEC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +108,11 @@
 		02AC445D27FFDC58009CF050 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				02AC446527FFE155009CF050 /* CardManager.swift */,
+				02AC445F27FFDCF1009CF050 /* Card.swift */,
+				02AC446127FFDD53009CF050 /* Caption.swift */,
+				02AC446327FFDE07009CF050 /* ID.swift */,
+				02AC446727FFE1F1009CF050 /* CardFactory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,10 +311,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02AC446427FFDE07009CF050 /* ID.swift in Sources */,
 				02DF5FD527FEAD530064FEC8 /* CardListViewController.swift in Sources */,
+				02AC446027FFDCF1009CF050 /* Card.swift in Sources */,
 				02DF5F9B27FD6EFF0064FEC8 /* MainViewController.swift in Sources */,
 				02DF5F9727FD6EFF0064FEC8 /* AppDelegate.swift in Sources */,
+				02AC446627FFE155009CF050 /* CardManager.swift in Sources */,
+				02AC446227FFDD53009CF050 /* Caption.swift in Sources */,
 				02DF5F9927FD6EFF0064FEC8 /* SceneDelegate.swift in Sources */,
+				02AC446827FFE1F1009CF050 /* CardFactory.swift in Sources */,
 				F5164AB027FD7A0F00C32212 /* CardListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -3,7 +3,7 @@ import UIKit
 class CardListViewController: UIViewController {
     
     var headerTitle = ""
-    var data = ["1", "2", "3"]
+    private let cardManager: CardManager
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -11,11 +11,15 @@ class CardListViewController: UIViewController {
     @IBOutlet weak var addCardButton: UIButton!
     
     init(title: String) {
-        super.init(nibName: "CardListView", bundle: nil)
         self.headerTitle = title
+        self.cardManager = CardManager(listName: title)
+        super.init(nibName: "CardListView", bundle: nil)
     }
     
     required init?(coder: NSCoder) {
+        let title = "unknown"
+        self.headerTitle = title
+        self.cardManager = CardManager(listName: title)
         super.init(coder: coder)
     }
     
@@ -28,12 +32,17 @@ class CardListViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: CardListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: CardListTableViewCell.identifier)
     }
+    
+    @IBAction func addCardButtonTouched(_ sender: UIButton) {
+        cardManager.add()
+        self.tableView.reloadData()
+    }
 }
 
 extension CardListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.countBadgeLabel.text = "\(self.data.count)"
-        return self.data.count
+        self.countBadgeLabel.text = "\(self.cardManager.count)"
+        return self.cardManager.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,8 +50,10 @@ extension CardListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.setTitle(title: data[indexPath.item])
-        cell.setBody(body: data[indexPath.item])
+        let newCardModel = cardManager[indexPath.item]
+        
+        cell.setTitle(title: newCardModel.title)
+        cell.setBody(body: newCardModel.body)
         cell.setCaption(caption: "iOS")
         
         return cell
