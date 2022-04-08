@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hooria.todo.domain.ActivityLog;
+import com.hooria.todo.dto.ActivityLogsResponse;
 import com.hooria.todo.service.ActivityLogService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,7 +58,7 @@ class ActivityLogControllerMockTest {
         resultActions.andExpectAll(
                 content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON),
                 content().encoding(StandardCharsets.UTF_8),
-                content().string(objectMapper.writeValueAsString(activityLogs)),
+                content().string(objectMapper.writeValueAsString(ActivityLogsResponse.of(activityLogs))),
                 status().isOk()
         );
 
