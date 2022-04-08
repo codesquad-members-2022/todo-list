@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.OptionalLong;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +31,7 @@ public class CardDao {
 	public static final String CARD_WRITING_DATE = "writing_date";
 	public static final String CARD_TODO_USER_ID = "todo_user_id";
 	public static final String CARD_DELETED = "deleted";
-	public static final int ADDED_NEXT_ORDER = 1;
+	public static final long ADDED_NEXT_ORDER = 1L;
 	public static final String ERROR_OF_TODO_ID = "error of todoId";
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private final JdbcTemplate jdbcTemplate;
@@ -67,9 +66,13 @@ public class CardDao {
 		return Optional.ofNullable(card);
 	}
 
+	/*
+		userId 조회 결과가 없으면 - order = 1
+		userId 조회 결과 있으면 - order = max(order) + 1
+	 */
 	private Card insert(Card card) {
-		Long maxTodoOrder = getMaxTodoOrder(card.getUserId()) + ADDED_NEXT_ORDER;
-		card.nextOrder(maxTodoOrder);   // 객체의 maxTodoOrder ? or DB 조회결과 ?
+		long nextTodoOrder = getMaxTodoOrder(card.getUserId(), card.getStatus().getText());
+		card.nextOrder(nextTodoOrder);
 		SimpleJdbcInsert simpleJdbcInsert =  new SimpleJdbcInsert(jdbcTemplate);
 		simpleJdbcInsert.withTableName(CARD_TABLE_NAME).usingGeneratedKeyColumns(CARD_KEY_COLUMN_NAME);
 
@@ -79,20 +82,21 @@ public class CardDao {
 		return card;
 	}
 
-	private Long getMaxTodoOrder(Long userId) {
-		Long maxOrder = null;
+	private long getMaxTodoOrder(Long userId, String todoStatus) {
+		long maxOrder = ADDED_NEXT_ORDER;
 		if (userId < ADDED_NEXT_ORDER) {
 			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
 		}
-		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_TODO_USER_ID, userId);
-		String sql = "select max(todo_order) from todo_list_table where todo_user_id = :todo_user_id;";
+		final SqlParameterSource namedParameters = new MapSqlParameterSource()
+			.addValue(CARD_TODO_USER_ID, userId)
+			.addValue(CARD_TODO_STATUS, todoStatus);
+		String sql = "select max(todo_order) from todo_list_table where todo_user_id = :todo_user_id and todo_status = :todo_status and deleted = 0;";
 		try {
-			maxOrder = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Long.class);
+			maxOrder = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Long.class) + ADDED_NEXT_ORDER;
 		} catch (DataAccessException exception) {
 			log.error("result of null with userId");
 		} finally {
-			return OptionalLong.of(maxOrder)
-				.orElseThrow(() -> new IllegalArgumentException("card 조회시 잘못된 사용자 정보 파라미터로 인한 오류"));
+			return maxOrder;  // NPE 발생
 		}
 	}
 
