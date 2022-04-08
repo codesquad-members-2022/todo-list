@@ -1,3 +1,26 @@
+export const createCard = (column, icons, parent = document) => {
+  const columnElement = parent.querySelector(`.${column.className}`);
+  const cardList = columnElement.querySelector('.task__cards');
+  const taskCount = columnElement.querySelector('.title-column__title__count');
+  taskCount.textContent = column.total;
+  column.tasks.forEach(task => {
+    cardList.insertAdjacentHTML('beforeend', createCardTemplate(task, icons));
+  });
+};
+
+// export const createCards = (mainElement, store, icons) => {
+//   store.forEach(cur => {
+//     const columnClassName = cur.className;
+//     const column = mainElement.querySelector(`.${columnClassName}`);
+//     const cardList = column.querySelector('.task__cards');
+//     const taskCount = column.querySelector('.title-column__title__count');
+//     taskCount.textContent = cur.total;
+//     cur.tasks.forEach(task => {
+//       cardList.insertAdjacentHTML('beforeend', createCardTemplate(task, icons));
+//     });
+//   });
+// };
+
 export const createCardTemplate = (task, icons) => {
   return `
     <li class="task__card" data-datetime=${task.datetime}>
