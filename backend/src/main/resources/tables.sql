@@ -1,35 +1,35 @@
 ## MEMBER
 CREATE TABLE member
 (
-    id              BIGINT AUTO_INCREMENT
-        PRIMARY KEY,
-    created_at      DATETIME(6)  NOT NULL,
-    member_login_id VARCHAR(10)  NOT NULL,
-    password        VARCHAR(15)  NOT NULL,
-    nick_name       VARCHAR(255) NOT NULL,
-    visible         BIT
+    id               BIGINT      NOT NULL PRIMARY KEY,
+    member_login_id  VARCHAR(10) NOT NULL,
+    password         VARCHAR(15) NOT NULL,
+    email            VARCHAR(20) NOT NULL,
+    created_at       DATETIME,
+    last_modified_at DATETIME
 );
 
-## CARD
 CREATE TABLE card
 (
-    id               BIGINT       NOT NULL PRIMARY KEY,
+    id               BIGINT       NOT NULL PRIMARY KEY auto_increment,
     title            VARCHAR(255) NOT NULL,
     content          VARCHAR(500) NOT NULL,
-    card_type        VARCHAR(10)  NOT NULL,
+    card_type        VARCHAR(50)  NOT NULL,
     created_at       DATETIME,
-    column_id        BIGINT,
-    visible          BIT
+    last_modified_at DATETIME,
+    visible          BIT,
+    column_id        BIGINT
 );
 
 ## COLUMN
-CREATE TABLE columns
+CREATE TABLE `column`
 (
-    id               BIGINT NOT NULL PRIMARY KEY,
+    id               BIGINT       NOT NULL PRIMARY KEY auto_increment,
     writer           VARCHAR(10),
     created_at       DATETIME,
-    member_id        BIGINT NOT NULL,
-    visible          BIT
+    last_modified_at DATETIME,
+    visible          BIT,
+    member_id        BIGINT NOT NULL
 );
 
 
