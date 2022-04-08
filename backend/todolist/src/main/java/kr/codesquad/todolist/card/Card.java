@@ -35,6 +35,10 @@ public class Card {
 		}
 	}
 
+	public void nextOrder(Long maxTodoOrder) {
+		this.order = maxTodoOrder;
+	}
+
 	protected Long getTodoId() {
 		return todoId;
 	}

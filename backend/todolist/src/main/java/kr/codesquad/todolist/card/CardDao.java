@@ -1,5 +1,6 @@
 package kr.codesquad.todolist.card;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -15,7 +16,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 @Repository
 public class CardDao {
@@ -28,6 +31,8 @@ public class CardDao {
 	public static final String CARD_WRITING_DATE = "writing_date";
 	public static final String CARD_TODO_USER_ID = "todo_user_id";
 	public static final String CARD_DELETED = "deleted";
+	public static final long ADDED_NEXT_ORDER = 1L;
+	public static final String ERROR_OF_TODO_ID = "error of todoId";
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private final JdbcTemplate jdbcTemplate;
 
@@ -35,7 +40,7 @@ public class CardDao {
 		if (Objects.isNull(card.getTodoId())) {
 			return insert(card);
 		}
-		if (update(card) < 1) {
+		if (update(card) < ADDED_NEXT_ORDER) {
 			throw new IllegalArgumentException("error of CardDao - update");
 		}
 		return card;
@@ -52,16 +57,22 @@ public class CardDao {
 	}
 
 	private Optional<Card> findById(Long todoId) {
-		if (todoId < 1) {
-			throw new IllegalArgumentException("error of todoId");
+		if (todoId < ADDED_NEXT_ORDER) {
+			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
 		}
 		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_KEY_COLUMN_NAME, todoId);
-		String sql = "select * from todo_list_table where todo_id = :todoId;";
+		String sql = "select * from todo_list_table where todo_id = :todo_id;";
 		Card card = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, cardRowMapper());
 		return Optional.ofNullable(card);
 	}
 
+	/*
+		userId 조회 결과가 없으면 - order = 1
+		userId 조회 결과 있으면 - order = max(order) + 1
+	 */
 	private Card insert(Card card) {
+		long nextTodoOrder = getMaxTodoOrder(card.getUserId(), card.getStatus().getText());
+		card.nextOrder(nextTodoOrder);
 		SimpleJdbcInsert simpleJdbcInsert =  new SimpleJdbcInsert(jdbcTemplate);
 		simpleJdbcInsert.withTableName(CARD_TABLE_NAME).usingGeneratedKeyColumns(CARD_KEY_COLUMN_NAME);
 
@@ -69,6 +80,24 @@ public class CardDao {
 		Number key = simpleJdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
 		card.setTodoId(key.longValue());
 		return card;
+	}
+
+	private long getMaxTodoOrder(Long userId, String todoStatus) {
+		long maxOrder = ADDED_NEXT_ORDER;
+		if (userId < ADDED_NEXT_ORDER) {
+			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
+		}
+		final SqlParameterSource namedParameters = new MapSqlParameterSource()
+			.addValue(CARD_TODO_USER_ID, userId)
+			.addValue(CARD_TODO_STATUS, todoStatus);
+		String sql = "select max(todo_order) from todo_list_table where todo_user_id = :todo_user_id and todo_status = :todo_status and deleted = 0;";
+		try {
+			maxOrder = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Long.class) + ADDED_NEXT_ORDER;
+		} catch (DataAccessException exception) {
+			log.error("result of null with userId");
+		} finally {
+			return maxOrder;  // NPE 발생
+		}
 	}
 
 	private Map<String, Object> getCardMap(Card card) {
@@ -95,5 +124,17 @@ public class CardDao {
 				rs.getLong(CARD_TODO_USER_ID));
 			return article;
 		};
+	}
+
+	public Optional<Card> findByIdAndUserId(Long todoId, Long userId) {
+		if (todoId < ADDED_NEXT_ORDER || userId < ADDED_NEXT_ORDER) {
+			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
+		}
+		final SqlParameterSource namedParameters = new MapSqlParameterSource()
+			.addValue(CARD_KEY_COLUMN_NAME, todoId)
+			.addValue(CARD_TODO_USER_ID, userId);
+		String sql = "select * from todo_list_table where todo_id = :todo_id and todo_user_id = :todo_user_id;";
+		Card card = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, cardRowMapper());
+		return Optional.ofNullable(card);
 	}
 }
