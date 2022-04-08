@@ -1,5 +1,5 @@
 export function makeCategory(categoryName) {
-  return `<div class="column-item">
+  return `<div id=${categoryName} class="column-item">
 <div class="column-item--header">
 <h2>
   <span>${categoryName}</span>
