@@ -141,7 +141,7 @@ TO-DO LIST 기능 정리
   - [x] 기록이 많아지면 스크롤 생성
   - [x] 이동, 추가, 수정, 삭제시 Alarm Class가 알 수 있도록 TodoNotice 클래스 구현
   - [x] title, content, status 값은 bold 처리해서 렌더링
-  - [ ] 모든 화면 크기에서 동일하게 동작되도록 코드 수정
+  - [x] 모든 화면 크기에서 동일하게 동작되도록 코드 수정
   - [ ] 코드 리팩토링
 
 - [ ] TODO DRAG & DROP (Muffin)
