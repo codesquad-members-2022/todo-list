@@ -9,6 +9,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    private let inspectorViewController = InspectorViewController()
+    
     private let kanbanColumnViewControllers: [KanbanColumnViewController] = {
         return [KanbanColumnViewController(type: .toDo),
                 KanbanColumnViewController(type: .inProgress),
@@ -37,10 +39,13 @@ class MainViewController: UIViewController {
         
         view.addSubview(titleView)
         view.addSubview(tableStackView)
+        view.addSubview(inspectorViewController.view)
+        
         configureTableStackView()
         
         layoutTitleView()
         layoutTableStackView()
+        setUpInspectorView()
     }
     
     private func configureView() {
@@ -51,6 +56,7 @@ class MainViewController: UIViewController {
         kanbanColumnViewControllers.forEach { kanbanColumnViewController in
             addChildViewController(child: kanbanColumnViewController, parent: self)
         }
+        addChildViewController(child: inspectorViewController, parent: self)
     }
     
     private func addChildViewController(child: UIViewController, parent: UIViewController) {
@@ -80,5 +86,16 @@ class MainViewController: UIViewController {
         tableStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
         tableStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
         tableStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -343).isActive = true
+    }
+    
+    private func setUpInspectorView() {
+        inspectorViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+        inspectorViewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        inspectorViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        inspectorViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 766).isActive = true
+        inspectorViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        
     }
 }
