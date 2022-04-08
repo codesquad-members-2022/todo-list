@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TodoList</title>
+    <link rel="stylesheet" href="./stylesheet/css/reset.css" />
+    <link rel="stylesheet" href="./stylesheet/css/index.css" />
+    <link rel="stylesheet" href="./stylesheet/css/header.css" />
+    <link rel="stylesheet" href="./stylesheet/css/column.css" />
+    <link rel="stylesheet" href="./stylesheet/css/card.css" />
+    <link rel="stylesheet" href="./stylesheet/css/action.css" />
+  </head>
 
   <body>
     <header class="row-between">
@@ -16,7 +27,7 @@
             <div class="count colunm-sort title-font center-sort">2</div>
           </div>
           <div class="menu-buttons center-sort">
-            <figure class="plus-button">
+            <figure class="plus-button" id="have-to-do-plus">
               <img
                 src="./image/plusBtn.svg"
                 alt="plus-button-img"
@@ -32,48 +43,7 @@
             </figure>
           </div>
         </div>
-        <div class="card">
-          <div class="card-contents-wrapper row-sort">
-            <div class="card-text-area">
-              <div class="card-title title-font">Github 공부하기</div>
-              <div class="card-details">
-                GitHub 공부 내용<br />모던 자바스크립트 1장 공부내용
-              </div>
-            </div>
-            <figure class="card-cross-button">
-              <img
-                src="./image/crossBtn.svg"
-                alt="cross-button-img"
-                class="cross-button-img"
-              />
-            </figure>
-          </div>
-          <div class="card-buttons-wrapper">
-            <button class="cancel-button center-sort">취소</button>
-            <button class="register-button center-sort">등록</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-contents-wrapper row-sort">
-            <div class="card-text-area">
-              <div class="card-title title-font">Github 공부하기</div>
-              <div class="card-details">
-                GitHub 공부 내용<br />모던 자바스크립트 1장 공부내용
-              </div>
-            </div>
-            <figure class="card-cross-button">
-              <img
-                src="./image/crossBtn.svg"
-                alt="cross-button-img"
-                class="cross-button-img"
-              />
-            </figure>
-          </div>
-          <div class="card-buttons-wrapper">
-            <button class="cancel-button center-sort">취소</button>
-            <button class="register-button center-sort">등록</button>
-          </div>
-        </div>
+        <div class="cards" id="have-to-do-cards"></div>
       </article>
       <article id="doing-column" class="column">
         <div class="column-menu row-between">
@@ -98,27 +68,7 @@
             </figure>
           </div>
         </div>
-        <div class="card">
-          <div class="card-contents-wrapper row-sort">
-            <div class="card-text-area">
-              <div class="card-title title-font">Github 공부하기</div>
-              <div class="card-details">
-                GitHub 공부 내용<br />모던 자바스크립트 1장 공부내용
-              </div>
-            </div>
-            <figure class="card-cross-button">
-              <img
-                src="./image/crossBtn.svg"
-                alt="cross-button-img"
-                class="cross-button-img"
-              />
-            </figure>
-          </div>
-          <div class="card-buttons-wrapper">
-            <button class="cancel-button center-sort">취소</button>
-            <button class="register-button center-sort">등록</button>
-          </div>
-        </div>
+        <div class="cards" id="doing-cards"></div>
       </article>
       <article id="done-column" class="column">
         <div class="column-menu row-between">
@@ -143,27 +93,7 @@
             </figure>
           </div>
         </div>
-        <div class="card">
-          <div class="card-contents-wrapper row-sort">
-            <div class="card-text-area">
-              <div class="card-title title-font">Github 공부하기</div>
-              <div class="card-details">
-                GitHub 공부 내용<br />모던 자바스크립트 1장 공부내용
-              </div>
-            </div>
-            <figure class="card-cross-button">
-              <img
-                src="./image/crossBtn.svg"
-                alt="cross-button-img"
-                class="cross-button-img"
-              />
-            </figure>
-          </div>
-          <div class="card-buttons-wrapper">
-            <button class="cancel-button center-sort">취소</button>
-            <button class="register-button center-sort">등록</button>
-          </div>
-        </div>
+        <div class="cards" id="done-cards"></div>
       </article>
     </section>
     <div class="action-bar">
@@ -224,22 +154,13 @@
               <strong>하고 있는 일</strong>로 <strong>이동</strong>하였습니다.
             </div>
             <div class="action-time">1분전</div>
+            >>>>>>> 2cc2b5d01fd6be443faa82e34365ccd8443c1604 >>>>>>>
+            e4c5ac880d6db3e571366beba27afead79e71199
           </div>
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-    <!-- <script src="https://npmcdn.com/axios/dist/axios.min.js"></script> -->
-    <script type="module" src="/build/src/javascript/app.js"></script>
+    <script type="module" src="./javascript/app.js"></script>
     <!-- <script src="../dist/bundle.js"></script> -->
   </body>
 </html>
-=======
-  </div>
-  <!-- <script src="https://npmcdn.com/axios/dist/axios.min.js"></script> -->
-  <script type="module" src="./javascript/app.js"></script>
-  <!-- <script src="../dist/bundle.js"></script> -->
-</body>
-
-</html>
->>>>>>> c053177edeacc9b2260f2dc71745ff13c2166c90
