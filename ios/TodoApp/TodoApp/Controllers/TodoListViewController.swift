@@ -10,14 +10,14 @@ import UIKit
 class TodoListViewController: UIViewController {
     // TODO: Todo 모델 정의 & 소유
 
+    @IBOutlet weak var badgeView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addToDoButton: UIButton!
-    @IBOutlet weak var badge: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        addDelegates()
+        self.configureUI()
+        self.addDelegates()
     }
 
     private func addDelegates() {
@@ -25,7 +25,9 @@ class TodoListViewController: UIViewController {
     }
     
     private func configureUI() {
-        self.badge?.layer.cornerRadius = self.badge.frame.size.height / 2
+        self.badgeView.clipsToBounds = true
+        self.badgeView.layer.cornerRadius = self.badgeView.frame.size.height / 2
+        
         self.addToDoButton.addAction(UIAction(handler: self.editCard(_:)), for: .touchUpInside)
     }
     
@@ -40,7 +42,8 @@ extension TodoListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCell") else { fatalError() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ToDoCell.identifier) as? ToDoCell else { fatalError() }
+        
         return cell
     }
 }
