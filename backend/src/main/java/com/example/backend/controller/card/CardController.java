@@ -5,7 +5,9 @@ import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.service.card.CardService;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,16 +49,15 @@ public class CardController {
         return cardDtos;
     }
 
-    @GetMapping("/cards/card/{id}")
+    @DeleteMapping("/cards/{id}")
     public CardDto delete(@PathVariable Long id) {
         Card card = cardService.findById(id);
         return new CardDto(card);
     }
 
-    @PostMapping({"/cards/{id}"})
-    public CardDto updateCard(@PathVariable Long id) {
-        Card card = cardService.findById(id);
-        cardService.updateCard(id);
-        return new CardDto(card);
+    @PatchMapping({"/cards/{id}"})
+    public CardDto updateCard(@PathVariable Long id, @RequestBody CardDto cardDto) {
+        cardService.updateCard(id, cardDto);
+        return null;
     }
 }

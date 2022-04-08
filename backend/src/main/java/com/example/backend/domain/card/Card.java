@@ -12,6 +12,13 @@ public class Card {
     private boolean visible;
     private Long columnId;
 
+    public Card(Long id, String title, String content, CardType cardType) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.cardType = cardType;
+    }
+
     public Card(String title, String content, CardType cardType) {
         this.title = title;
         this.content = content;

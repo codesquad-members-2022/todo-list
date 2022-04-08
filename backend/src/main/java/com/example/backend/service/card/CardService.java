@@ -36,8 +36,8 @@ public class CardService {
         return cardRepository.findById(id).orElseThrow();
     }
 
-    public Card updateCard(Long id) {
-        Card card = findById(id);
+    public Card updateCard(Long id, CardDto cardDto) {
+        Card card = new Card(id, cardDto.getTitle(), cardDto.getContent(), cardDto.getCardType());
         cardRepository.update(card);
         return null;
     }
