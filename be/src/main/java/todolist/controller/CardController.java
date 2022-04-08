@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import todolist.dto.CardDto;
+import todolist.dto.RequestCardDto;
+import todolist.dto.ResponseCardDto;
 import todolist.service.CardService;
 
 @RestController
@@ -14,7 +15,7 @@ public class CardController {
     private final CardService cardService;
 
     @PostMapping("/todo")
-    public CardDto add(@RequestBody CardDto cardDto) {
-        return cardService.addCard(cardDto);
+    public ResponseCardDto add(@RequestBody RequestCardDto requestCardDto) {
+        return cardService.addCard(requestCardDto);
     }
 }

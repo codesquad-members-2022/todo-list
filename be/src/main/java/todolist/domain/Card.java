@@ -1,7 +1,7 @@
 package todolist.domain;
 
 import lombok.Getter;
-import todolist.dto.CardDto;
+import todolist.dto.ResponseCardDto;
 
 @Getter
 public class Card {
@@ -21,10 +21,9 @@ public class Card {
         this.id = id;
     }
 
-    public CardDto toCardDto() {
-        CardDto cardDto = new CardDto(section, title, content);
-        cardDto.setId(id);
-        return cardDto;
+    public ResponseCardDto toResponseCardDto() {
+        ResponseCardDto responseCardDto = new ResponseCardDto(id,section, title, content);
+        return responseCardDto;
     }
 
     @Override
