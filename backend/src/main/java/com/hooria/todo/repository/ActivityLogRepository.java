@@ -48,7 +48,7 @@ public class ActivityLogRepository {
 
     public List<ActivityLog> findAll() {
         return jdbc.query(
-                "select id, user_id, activity_type, from_status, to_status, created_at, read_yn from activity_log",
+                "select id, user_id, activity_type, task_title, from_status, to_status, created_at, read_yn from activity_log",
                 Collections.emptyMap(), rowMapper
         );
     }
