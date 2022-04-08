@@ -28,14 +28,14 @@ class PopUpView: UIView {
     private let popUpHeadLineLabel: UILabel = {
         let label = UILabel()
         label.text = "새로운 카드 추가"
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 18)
+        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 18)
         return label
     }()
     
     private let popUpTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "제목을 입력하세요."
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 15)
+        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 15)
         label.textColor = .darkGray
         return label
     }()
@@ -43,7 +43,7 @@ class PopUpView: UIView {
     private let popUpContentsLabel: UILabel = {
         let label = UILabel()
         label.text = "내용을 입력하세요."
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 15)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 15)
         label.textColor = .darkGray
         return label
     }()
@@ -52,7 +52,7 @@ class PopUpView: UIView {
         let button = UIButton()
         button.setTitle("취소", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
+        button.titleLabel?.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
         button.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         button.layer.cornerRadius = 5
         return button
@@ -61,7 +61,7 @@ class PopUpView: UIView {
     private let submitButton: UIButton = {
         let button = UIButton()
         button.setTitle("등록", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
+        button.titleLabel?.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 5
         return button

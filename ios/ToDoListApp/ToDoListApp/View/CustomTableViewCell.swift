@@ -22,14 +22,14 @@ class CustomTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 16)
+        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 16)
         label.textColor = .black
         return label
     }()
     
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
         label.textColor = .black
         label.numberOfLines = 3
         return label
@@ -38,7 +38,7 @@ class CustomTableViewCell: UITableViewCell {
     private let authorLabel: UILabel = {
         let label = UILabel()
         label.text = "author by iOS"
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 12)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 12)
         label.textColor = .lightGray
         return label
     }()

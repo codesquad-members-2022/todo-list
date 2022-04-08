@@ -11,7 +11,7 @@ class TableTitleView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 18)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 18)
         label.textColor = .black
         return label
     }()
@@ -20,7 +20,7 @@ class TableTitleView: UIView {
         let label = UILabel()
         label.backgroundColor = .lightGray
         label.textColor = .black
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 14)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
         label.layer.cornerRadius = 13
         label.layer.masksToBounds = true
         label.textAlignment = .center
