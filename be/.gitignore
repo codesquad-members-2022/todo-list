@@ -3,3 +3,6 @@
 /out/
 /build/
 .DS_Store
+
+gradlew
+/gradle/wrapper/gradle-wrapper.properties
