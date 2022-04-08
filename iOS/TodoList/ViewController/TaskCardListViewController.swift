@@ -1,18 +1,21 @@
 import UIKit
 
 class TaskCardListViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpStackView()
+        setupCell()
     }
         
-    func setUpStackView() {
+    private func setupCell() {
         if let taskListView = Bundle.main.loadNibNamed(NameSpace.nib.taskCardListView, owner: self, options: nil)?.first as? TaskCardListView {
+            let nibName = UINib(nibName: NameSpace.nib.taskCardViewCell, bundle: nil)
+            
             taskListView.table.delegate = self
             taskListView.table.dataSource = self
-            let nibName = UINib(nibName: NameSpace.nib.taskCardViewCell, bundle: nil)
             taskListView.table.register(nibName, forCellReuseIdentifier: NameSpace.identifier.taskCardViewCell)
             taskListView.translatesAutoresizingMaskIntoConstraints = false
+            
             NSLayoutConstraint.activate([
                 taskListView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
                 taskListView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
@@ -21,6 +24,7 @@ class TaskCardListViewController: UIViewController {
             ])
         }
     }
+    
 }
 
 extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource {

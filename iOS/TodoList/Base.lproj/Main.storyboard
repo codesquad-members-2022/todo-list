@@ -40,7 +40,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="At7-Pe-Txa">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="At7-Pe-Txa">
                                 <rect key="frame" x="766" y="0.0" width="428" height="834"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="428" id="1Kw-1d-Brm"/>
@@ -69,6 +69,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="actionBoard" destination="At7-Pe-Txa" id="vTj-FS-rtr"/>
                         <outlet property="actionFlowButton" destination="Xjx-qt-nUY" id="igO-MJ-sCW"/>
                         <outlet property="stackViewTrailing" destination="zks-zh-1b5" id="lL5-3a-SUS"/>
                         <outlet property="taskListStackView" destination="q3x-H0-srJ" id="b2L-zg-6TB"/>
@@ -103,10 +104,10 @@
             </objects>
             <point key="canvasLocation" x="1125" y="137"/>
         </scene>
-        <!--View Controller-->
+        <!--Action Board View Controller-->
         <scene sceneID="xEt-ac-OLo">
             <objects>
-                <viewController id="q74-Dl-fkz" sceneMemberID="viewController">
+                <viewController id="q74-Dl-fkz" customClass="ActionBoardViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zCW-hw-ic4">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -119,12 +120,16 @@
                                 <color key="tintColor" red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="q74-Dl-fkz" eventType="touchUpInside" id="ZYg-zp-uU6"/>
+                                </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="k7u-Xf-nzg">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="k7u-Xf-nzg">
                                 <rect key="frame" x="68" y="104" width="312" height="630"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="S01-Re-vFd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Qkr-hH-wtR" firstAttribute="top" secondItem="zCW-hw-ic4" secondAttribute="topMargin" constant="30.75" id="7Hh-cY-wWp"/>
@@ -136,6 +141,9 @@
                             <constraint firstAttribute="trailing" secondItem="k7u-Xf-nzg" secondAttribute="trailing" constant="48" id="xY6-o6-bXo"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="table" destination="k7u-Xf-nzg" id="Feo-b7-tFP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kJV-ZZ-MF4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
