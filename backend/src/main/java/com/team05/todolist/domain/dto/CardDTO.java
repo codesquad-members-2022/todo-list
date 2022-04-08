@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class CardDTO {
 
 	private Integer cardId;
@@ -12,10 +11,13 @@ public class CardDTO {
 	private String title;
 	private String content;
 
-	public CardDTO(Integer cardId, Integer orderIndex, String title, String content) {
-		this.cardId = cardId;
+	public CardDTO(Integer orderIndex, String title, String content) {
 		this.orderIndex = orderIndex;
 		this.title = title;
 		this.content = content;
+	}
+
+	public void setCardId(Integer cardId) {
+		this.cardId = cardId;
 	}
 }
