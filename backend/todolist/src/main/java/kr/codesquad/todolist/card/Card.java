@@ -21,7 +21,7 @@ public class Card {
 	@Getter
 	@RequiredArgsConstructor
 	public enum TodoStatus {
-		TODO("todo" ),
+		TODO("todo"),
 		ONGOING("ongoing"),
 		COMPLETED("completed");
 
