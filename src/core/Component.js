@@ -1,6 +1,5 @@
 export default class Component {
   constructor($target, $props, state) {
-    console.log($target);
     this.$target = $target;
     this.$props = $props;
     this.setup();
@@ -24,7 +23,7 @@ export default class Component {
   }
 
   template() {
-    return '';
+    return "";
   }
 
   addEvent(type, selector, callback) {

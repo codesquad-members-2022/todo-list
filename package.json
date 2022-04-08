@@ -4,7 +4,7 @@
   "description": "|Geon|Owl| |-|-| |[@ldldz](https://github.com/ldldz)|[@bukim0329](https://github.com/bukim0329)|",
   "main": "index.js",
   "scripts": {
-    "sass": "sass src/scss:src/css",
+    "sass": "sass src/style/scss:src/style/css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
