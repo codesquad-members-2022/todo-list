@@ -41,6 +41,13 @@ class MemoContainerView: UIView {
         return button
     }()
     
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(MemoTableViewCell.self, forCellReuseIdentifier: MemoTableViewCell.identifier)
+        return tableView
+    }()
+    
     required override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -60,6 +67,7 @@ class MemoContainerView: UIView {
         horizontalStackView.addArrangedSubview(countLabel)
         horizontalStackView.addArrangedSubview(button)
         addSubview(horizontalStackView)
+        addSubview(tableView)
     }
     
     private func setConstraints() {
