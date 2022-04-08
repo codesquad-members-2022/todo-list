@@ -16,16 +16,8 @@ export const Store = {
     columnOrder: [0, 1, 2],
     0: {
       title: "해야할 일",
-      cardOrder: [111],
-      cards: {
-        111: {
-          columnID: 0,
-          type: "normal",
-          title: "dfdfdf",
-          description: "nmnmnmn",
-          author: "author by web",
-        },
-      },
+      cardOrder: [],
+      cards: {},
     },
     1: {
       title: "하고 있는 일",
