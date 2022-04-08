@@ -1,11 +1,10 @@
-package com.example.todo.repository;
+package com.team15.todoapi.repository;
 
-import com.example.todo.domain.Card;
+import com.team15.todoapi.domain.Card;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 @Repository

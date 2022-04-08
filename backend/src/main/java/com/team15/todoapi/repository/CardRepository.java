@@ -1,6 +1,6 @@
-package com.example.todo.repository;
+package com.team15.todoapi.repository;
 
-import com.example.todo.domain.Card;
+import com.team15.todoapi.domain.Card;
 import java.util.List;
 
 public interface CardRepository {
