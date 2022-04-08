@@ -17,6 +17,22 @@ public class Card {
         this.orderIndex = orderIndex;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getAuthorSystem() {
+        return authorSystem;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
     public void update(String title, String content) {
         this.title = title;
         this.content = content;

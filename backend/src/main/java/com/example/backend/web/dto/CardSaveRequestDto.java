@@ -13,6 +13,10 @@ public class CardSaveRequestDto {
     @ApiModelProperty(example = "작성된 column명")
     private String columnName;
 
+    public CardSaveRequestDto() {
+
+    }
+
     public CardSaveRequestDto(String title, String content, String authorSystem, String columnName) {
         this.title = title;
         this.content = content;
