@@ -1,5 +1,6 @@
 import Todo from './Todo.js';
 import TodoNotice from './TodoNotice.js';
+import { TEXTAREA_DEFAULT_HEIGHT, TEXTAREA_RESIZE_HEIGHT } from '../constants/constants.js';
 
 export default class TodoInput {
   constructor(status) {
@@ -9,6 +10,9 @@ export default class TodoInput {
   }
 
   onInputContent = ({ target }) => {
+    target.style.height = TEXTAREA_DEFAULT_HEIGHT + 'px';
+    target.style.height = TEXTAREA_RESIZE_HEIGHT + target.scrollHeight + 'px';
+
     const inputRegisterElement = document.querySelector(`.input-${this.status} .input--register`);
     if (target.value.length === 0) {
       inputRegisterElement.disabled = true;
@@ -75,7 +79,7 @@ export default class TodoInput {
     return /*html*/ `
         <article class="input-wrapper todo-border input-${this.status}">
             <input class="input-header"placeholder="제목을 입력하세요" />
-            <input class="input-content" placeholder="내용을 입력하세요" maxlength ='500' />
+            <textarea class="input-content" placeholder="내용을 입력하세요" maxlength ='500' ></textarea>
             <div class="input-button-wrapper">
                 <button class="input__button input--cancel">취소</button>
                 <button class="input__button input--register bg-sky-blue" disabled>등록</button>
