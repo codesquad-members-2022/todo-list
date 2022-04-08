@@ -1,14 +1,17 @@
 package com.codesquad.todolist.card.unit;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.codesquad.todolist.card.CardController;
 import com.codesquad.todolist.card.CardService;
 import com.codesquad.todolist.card.dto.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,5 +47,23 @@ public class CardControllerTest {
         actions.andExpect(status().is2xxSuccessful());
 
         then(cardService).should(times(1)).create(any(CardCreateRequest.class));
+    }
+
+    @Test
+    @DisplayName("카드 업데이트를 요청하면 200 OK 를 응답으로 받게 된다")
+    public void cardUpdateTest() throws Exception {
+        // given
+        CardUpdateRequest request = new CardUpdateRequest("제목", "내용", "작성자");
+
+        // when
+        ResultActions actions = mockMvc.perform(put("/cards/{id}", 1)
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(request))
+        );
+
+        // then
+        actions.andExpect(status().isOk());
+
+        then(cardService).should(times(1)).update(anyInt(), any(CardUpdateRequest.class));
     }
 }
