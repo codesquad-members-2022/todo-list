@@ -17,29 +17,35 @@ class MainViewController: UIViewController {
     //Network
     private var networkManager = NetworkManager()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .white
-        addChildViewControllers()
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            self.view.backgroundColor = .secondarySystemBackground
+            addChildViewControllers()
+            propagateData()
+    }
         
-        networkManager.getRequest(endpoint:EndPointCases.getTodoList) { (result:Result<Todoitems,NetworkError>) in
-            switch result {
-            case .success(let data):
-                NotificationCenter.default.post(
-                    name: NSNotification.Name("DidFetchToDoList"),
-                    object: self,
-                    userInfo: ["TodoList":data])
-                
-            case .failure(let error):
-                os_log(.error, "\(error.localizedDescription)")
-            }
-        }
-}
-    
     @IBAction func TapLogViewButton(_ sender: UIButton) {
         self.logViewContainer.isHidden = !logViewContainer.isHidden
     }
     
+    
+    private func propagateData() {
+        networkManager.getRequest { (result:Result<Todoitems,NetworkError>)  in
+            switch result {
+            case .success(let data):
+                self.postNotification(data: data)
+            case .failure(let error):
+                os_log(.error, "\(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func postNotification(data: Todoitems) {
+        NotificationCenter.default.post(
+            name: .didFetchInfo,
+            object: self,
+            userInfo: [userInfo.taskData:data])
+    }
     
     private func addChildViewControllers() {
         let storyBoard = UIStoryboard(name: "Main", bundle: .main)

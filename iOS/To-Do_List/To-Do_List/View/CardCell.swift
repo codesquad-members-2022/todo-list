@@ -9,40 +9,42 @@ import UIKit
 
 class CardCell: UITableViewCell {
 
-    private let inset:CGFloat = 24.0
+    static let identifier = "CardCell"
     
-    lazy var stackView:UIStackView = {
+     var stackView:UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         return stackView
     }()
     
-    lazy private var headLabel:UILabel = {
+     private var headLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"Noto Sans Kannada", size: 16.0)
         label.text = "오늘 할일"
         return label
     }()
     
-    lazy private var bodyLabel:UILabel = {
+     private var bodyLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"Noto Sans Kannada", size: 14.0)
-        label.text = "끝내 주게 쉬기."
+        label.text = "끝내 주게 쉬기  asdadasdaqwdwdzsdas.m,nz.bvmz lrngvlmr vlkjrb vlkj"
+        label.numberOfLines = 3
         return label
     }()
 
-    lazy private var writerLabel:UILabel = {
+
+     private var authorLabel:UILabel = {
         let label = UILabel()
-        label.font = UIFont(name:"Noto Sans Kannada", size: 14.0)
-        label.text = "ahthor by iOS"
+        label.font = UIFont(name:"Noto Sans Kannada", size: 12.0)
+        label.text = "author by iOS"
         label.textColor = .lightGray
         return label
     }()
     
     
-    func setCardText(title:String,body:String) {
-        self.headLabel.text = title
-        self.bodyLabel.text = body
+    func loadCardInfo(info : Todo) {
+        self.headLabel.text = info.title
+        self.bodyLabel.text = info.content
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -50,21 +52,21 @@ class CardCell: UITableViewCell {
         addViews()
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         addViews()
         setup()
     }
-    
-    
+        
     override func layoutSubviews() {
         super.layoutSubviews()
-        let inset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        addViews()
+        setup()
+        let inset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         self.contentView.frame = contentView.frame.inset(by: inset)
+        self.contentView.layer.cornerRadius = 8
         self.contentView.backgroundColor = .white
-        self.contentView.layer.cornerRadius = 10
-        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -78,28 +80,38 @@ class CardCell: UITableViewCell {
     }
     
     private func addViews() {
-        [headLabel,bodyLabel,writerLabel].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(stackView)
+        [headLabel,bodyLabel,authorLabel].forEach {
             stackView.addArrangedSubview($0)
         }
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(stackView)
-        
     }
     
     
     private func setup() {
+        
         let spacing:CGFloat = 8.0
-        
+        let inset:CGFloat = 16
+    
         stackView.spacing = spacing
-        
         self.selectionStyle = .none
         self.backgroundColor = .secondarySystemBackground
         
-        stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: inset).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: inset).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -inset).isActive = true
-        stackView.topAnchor.constraint(equalTo: self.topAnchor,constant: inset).isActive = true
+    
+        NSLayoutConstraint.activate([
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: inset),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -inset),
+//            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -inset),
+//            stackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 108),
+            stackView.topAnchor.constraint(equalTo: self.topAnchor,constant: inset)
+        ])
+        
+        
+//        self.heightAnchor.constraint(equalToConstant: stackView.frame.height).isActive = true
+//        self.contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: stackView.frame.height).isActive = true
+//        self.contentView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
+//        self.contentView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
+
     }
     
     
