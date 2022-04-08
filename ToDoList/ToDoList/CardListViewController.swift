@@ -28,16 +28,12 @@ class CardListViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: CardListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: CardListTableViewCell.identifier)
     }
-
 }
 
 extension CardListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.data.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        self.countBadgeLabel.text = "\(self.data.count)"
+        return self.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,6 +42,8 @@ extension CardListViewController: UITableViewDataSource {
         }
         
         cell.setTitle(title: data[indexPath.item])
+        cell.setBody(body: data[indexPath.item])
+        cell.setCaption(caption: "iOS")
         
         return cell
     }
