@@ -19,4 +19,8 @@
     <string name="label_dialog_add_contents">내용을 입력하세요</string>
 
     <string name="author">author by %s</string>
+
+    <string name="label_go_to_done">완료한 일로 이동</string>
+    <string name="label_popup_modify">수정하기</string>
+    <string name="label_popup_deliete">삭제하기</string>
 </resources>

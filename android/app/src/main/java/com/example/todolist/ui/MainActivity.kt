@@ -2,7 +2,9 @@ package com.example.todolist.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
+import android.view.*
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.todolist.R
@@ -10,7 +12,7 @@ import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.model.Status
 import com.example.todolist.ui.common.ViewModelFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
     private val viewModel: TaskViewModel by viewModels { ViewModelFactory() }
     private lateinit var binding: ActivityMainBinding
     private val historyAdapter: HistoryAdapter by lazy { HistoryAdapter() }
@@ -70,5 +72,22 @@ class MainActivity : AppCompatActivity() {
         binding.btnClose.setOnClickListener {
             binding.dlDrawer.closeDrawer(Gravity.RIGHT)
         }
+    }
+
+    private fun showPopup(view: View) {
+        val wrapper = ContextThemeWrapper(this, R.style.PopupWindow)
+        val popup = PopupMenu(wrapper, view)
+        popup.menuInflater.inflate(R.menu.popup, popup.menu)
+        popup.setOnMenuItemClickListener(this)
+        popup.show()
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.popup_go_done -> Toast.makeText(this, "popup_go_done", Toast.LENGTH_LONG).show()
+            R.id.popup_modify -> Toast.makeText(this, "popup_modify", Toast.LENGTH_LONG).show()
+            R.id.popup_delete -> Toast.makeText(this, "popup_delete", Toast.LENGTH_LONG).show()
+        }
+        return item != null
     }
 }
