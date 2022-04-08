@@ -15,21 +15,18 @@ class MemoCanvasView: UIView {
     
     let todoContainerView: MemoContainerView = {
         let view = MemoContainerView()
-        view.backgroundColor = .blue
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let progressContainerView: MemoContainerView = {
         let view = MemoContainerView()
-        view.backgroundColor = .green
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let doneContainerView: MemoContainerView = {
         let view = MemoContainerView()
-        view.backgroundColor = .systemPink
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
