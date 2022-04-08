@@ -4,7 +4,6 @@ import com.hooria.todo.domain.Member;
 import com.hooria.todo.service.MemberService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;

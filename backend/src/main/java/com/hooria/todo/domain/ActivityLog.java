@@ -18,4 +18,10 @@ public class ActivityLog {
     private int toStatus;
     private LocalDateTime createdAt;
     private boolean readYn;
+
+    public static ActivityLog of(String userId, int activityType, int fromStatus, int toStatus,
+                                 LocalDateTime createdAt, boolean readYn) {
+
+        return new ActivityLog(0, userId, activityType, fromStatus, toStatus, createdAt, readYn);
+    }
 }

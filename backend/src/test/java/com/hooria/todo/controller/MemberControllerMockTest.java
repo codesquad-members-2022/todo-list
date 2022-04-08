@@ -18,8 +18,7 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(MemberController.class)
@@ -64,7 +63,11 @@ class MemberControllerMockTest {
     void getAllMembers() throws Exception {
 
         // given
-        List<Member> members = List.of();
+        List<Member> members = List.of(
+                Member.of("userId1", "password1", "name1"),
+                Member.of("userId2", "password2", "name2"),
+                Member.of("userId3", "password3", "name3")
+        );
         given(memberService.selectAll()).willReturn(members);
 
         // when
@@ -74,6 +77,7 @@ class MemberControllerMockTest {
         resultActions.andExpectAll(
                 content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON),
                 content().encoding(StandardCharsets.UTF_8),
+                content().string(objectMapper.writeValueAsString(members)),
                 status().isOk()
         );
 

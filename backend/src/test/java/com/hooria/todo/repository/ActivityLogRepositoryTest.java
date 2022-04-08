@@ -1,6 +1,7 @@
 package com.hooria.todo.repository;
 
 import com.hooria.todo.domain.ActivityLog;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -16,6 +18,8 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 class ActivityLogRepositoryTest {
 
     ActivityLogRepository repository;
+
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Autowired
     ActivityLogRepositoryTest(DataSource dataSource) {
@@ -39,10 +43,7 @@ class ActivityLogRepositoryTest {
         assertThat(result.getActivityType()).isEqualTo(activityLog.getActivityType());
         assertThat(result.getFromStatus()).isEqualTo(activityLog.getFromStatus());
         assertThat(result.getToStatus()).isEqualTo(activityLog.getToStatus());
-//        assertThat(result.getCreatedAt()).isEqualTo(activityLog.getCreatedAt());
-        /*
-            LocalDateTime 과 같은 날짜 값 검증에 대한 팁을 알 수 있을까요? @Riako
-        */
+        assertThat(dateTimeFormatter.format(result.getCreatedAt())).isEqualTo(dateTimeFormatter.format(activityLog.getCreatedAt()));
         assertThat(result.isReadYn()).isEqualTo(activityLog.isReadYn());
     }
 
@@ -69,12 +70,13 @@ class ActivityLogRepositoryTest {
             ActivityLog activityLog1 = results.get(index);
             ActivityLog activityLog2 = members.get(index);
 
-            assertThat(activityLog1.getId()).isEqualTo(activityLog2.getId());
-            assertThat(activityLog1.getUserId()).isEqualTo(activityLog2.getUserId());
-            assertThat(activityLog1.getActivityType()).isEqualTo(activityLog2.getActivityType());
-            assertThat(activityLog1.getFromStatus()).isEqualTo(activityLog2.getFromStatus());
-            assertThat(activityLog1.getToStatus()).isEqualTo(activityLog2.getToStatus());
-            assertThat(activityLog1.isReadYn()).isEqualTo(activityLog2.isReadYn());
+            AssertionsForClassTypes.assertThat(activityLog1.getId()).isEqualTo(activityLog2.getId());
+            AssertionsForClassTypes.assertThat(activityLog1.getUserId()).isEqualTo(activityLog2.getUserId());
+            AssertionsForClassTypes.assertThat(activityLog1.getActivityType()).isEqualTo(activityLog2.getActivityType());
+            AssertionsForClassTypes.assertThat(activityLog1.getFromStatus()).isEqualTo(activityLog2.getFromStatus());
+            AssertionsForClassTypes.assertThat(activityLog1.getToStatus()).isEqualTo(activityLog2.getToStatus());
+            assertThat(dateTimeFormatter.format(activityLog1.getCreatedAt())).isEqualTo(dateTimeFormatter.format(activityLog2.getCreatedAt()));
+            AssertionsForClassTypes.assertThat(activityLog1.isReadYn()).isEqualTo(activityLog2.isReadYn());
         }
     }
 
