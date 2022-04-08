@@ -9,7 +9,6 @@ import lombok.Getter;
 public class WorkDto {
 
     private Integer id;
-    private Integer categoryId;
     private String title;
     private String content;
     private LocalDateTime createdDateTime;

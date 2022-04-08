@@ -2,11 +2,14 @@ package com.todolist.domain;
 
 import com.todolist.dto.WorkLogDto;
 import java.time.LocalDateTime;
+import lombok.Getter;
 
+@Getter
 public class WorkLog {
 
+    private Integer workId;
     private String title;
-    private Action action;
+    private String action;
     private String previousColumn;
     private String changedColumn;
     private LocalDateTime updatedDateTime;
@@ -16,36 +19,27 @@ public class WorkLog {
     public WorkLog(String title, String action,
         String previousColumn, String changedColumn, LocalDateTime updatedDateTime) {
         this.title = title;
-        this.action = Action.valueOf(action);
+        this.action = action;
         this.previousColumn = previousColumn;
         this.changedColumn = changedColumn;
+        this.updatedDateTime = updatedDateTime;
+    }
+
+    public WorkLog(Integer workId, String action, String previousColumn,
+        LocalDateTime updatedDateTime) {
+        this.workId = workId;
+        this.action = action;
+        this.previousColumn = previousColumn;
         this.updatedDateTime = updatedDateTime;
     }
 
     public WorkLogDto convertToDto() {
         return WorkLogDto.builder()
             .title(title)
-            .action(action.getValue())
+            .action(action)
             .previousColumn(previousColumn)
             .changedColumn(changedColumn)
             .updatedDateTime(updatedDateTime)
             .build();
-    }
-
-    public enum Action {
-        등록("등록"),
-        삭제("삭제"),
-        변경("변경"),
-        이동("이동");
-
-        private String value;
-
-        Action(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
     }
 }

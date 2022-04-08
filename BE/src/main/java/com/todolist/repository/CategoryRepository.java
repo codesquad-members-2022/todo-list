@@ -1,6 +1,7 @@
 package com.todolist.repository;
 
 import com.todolist.domain.Category;
+import java.util.Collections;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,8 +17,12 @@ public class CategoryRepository {
         jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<Category> findAllCategories() {
+    public List<Category> findAll() {
         return jdbc.query("SELECT id, name FROM category", categoryRowMapper());
+    }
+
+    public String findNameById(Integer id) {
+        return jdbc.queryForObject("SELECT name FROM category WHERE id = :id", Collections.singletonMap("id", id), String.class);
     }
 
     private RowMapper<Category> categoryRowMapper() {

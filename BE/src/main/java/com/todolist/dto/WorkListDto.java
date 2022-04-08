@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 public class WorkListDto {
 
+    private Integer categoryId;
     private String categoryName;
     private List<WorkDto> works;
 }

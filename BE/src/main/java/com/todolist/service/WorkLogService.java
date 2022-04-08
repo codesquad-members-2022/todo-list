@@ -18,7 +18,7 @@ public class WorkLogService {
     }
 
     public WorkLogListDto getWorkLogList(String userId) {
-        List<WorkLogDto> workLogDtoList = workLogRepository.findAllWorkLogs(userId)
+        List<WorkLogDto> workLogDtoList = workLogRepository.findAllByUserId(userId)
             .stream().map(WorkLog::convertToDto).collect(Collectors.toList());
 
         return WorkLogListDto.builder().userId(userId).workLogList(workLogDtoList).build();
