@@ -126,7 +126,7 @@
 		1E7432E527FD184E00B908E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1EF0292A28001B77001AA033 /* Delegate */,
+				1EF0292A28001B77001AA033 /* Delegate & DataSource */,
 				1E7432F427FD271A00B908E4 /* CellData.swift */,
 				7380B0DA27FFC84F00B5D052 /* TaskData.swift */,
 				1EF0291E27FEB9BD001AA033 /* KanbanType.swift */,
@@ -134,14 +134,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		1EF0292A28001B77001AA033 /* Delegate */ = {
+		1EF0292A28001B77001AA033 /* Delegate & DataSource */ = {
 			isa = PBXGroup;
 			children = (
 				1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */,
 				1E7432F027FD26DF00B908E4 /* TableViewDataSource.swift */,
 				7380B0D827FFC84500B5D052 /* TaskTableViewDataSource.swift */,
 			);
-			path = Delegate;
+			path = "Delegate & DataSource";
 			sourceTree = "<group>";
 		};
 		1EF0292F28002814001AA033 /* Constant */ = {
