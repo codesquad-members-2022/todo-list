@@ -1,7 +1,13 @@
 package com.team05.todolist.domain;
 
 public enum Event {
-	CREATE,
-	MOVE,
-	DELETE
+	CREATE("create"),
+	MOVE("move"),
+	DELETE("delete");
+
+	private final String eventType;
+
+	Event(String eventType) {
+		this.eventType = eventType;
+	}
 }

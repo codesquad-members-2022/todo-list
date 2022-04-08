@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class Card {
 
 	private Integer id;
@@ -15,12 +14,15 @@ public class Card {
 	private String content;
 	private Section section;
 
-	public Card(Integer orderIndex, Integer delete, String title, String content, Section section) {
+	public Card(Integer orderIndex, Integer delete, String title, String content, String section) {
 		this.orderIndex = orderIndex;
 		this.delete = delete;
 		this.title = title;
 		this.content = content;
-		this.section = section;
+		this.section = Section.valueOf(section);
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }
