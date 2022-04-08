@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PopupCardView" customModule="TODOList" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="175"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GVn-dv-u0h">
+                    <rect key="frame" x="16" y="55.5" width="368" height="42"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목을 입력하세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ram-Xx-9Ay">
+                            <rect key="frame" x="0.0" y="0.0" width="368" height="17"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="textColor" name="Gray3"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용을 입력하세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmF-KT-n2R">
+                            <rect key="frame" x="0.0" y="25" width="368" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" name="Gray3"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rLA-ej-t6C">
+                    <rect key="frame" x="160" y="113.5" width="224" height="45.5"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A94-uB-oUW">
+                            <rect key="frame" x="0.0" y="0.0" width="107" height="45.5"/>
+                            <color key="backgroundColor" name="Gray5"/>
+                            <color key="tintColor" name="Gray3"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="취소"/>
+                            <buttonConfiguration key="configuration" style="plain" title="취소"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emS-6C-bvV">
+                            <rect key="frame" x="117" y="0.0" width="107" height="45.5"/>
+                            <color key="backgroundColor" name="Blue"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="등록"/>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="224" id="0b4-fk-J6k"/>
+                    </constraints>
+                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="새로운 카드 추가" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNQ-iv-3Ja">
+                    <rect key="frame" x="16" y="16" width="368" height="19.5"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="WNQ-iv-3Ja" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="1xc-g7-aR0"/>
+                <constraint firstItem="WNQ-iv-3Ja" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="B2l-Aw-sIW"/>
+                <constraint firstItem="GVn-dv-u0h" firstAttribute="leading" secondItem="WNQ-iv-3Ja" secondAttribute="leading" id="F6v-pu-npo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rLA-ej-t6C" secondAttribute="trailing" constant="16" id="I6o-3W-Fzg"/>
+                <constraint firstItem="rLA-ej-t6C" firstAttribute="top" secondItem="GVn-dv-u0h" secondAttribute="bottom" constant="16" id="Z6e-i1-ozL"/>
+                <constraint firstAttribute="trailing" secondItem="WNQ-iv-3Ja" secondAttribute="trailing" constant="16" id="bf9-Hv-KdN"/>
+                <constraint firstItem="rLA-ej-t6C" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="160" id="eB9-EG-bRi"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rLA-ej-t6C" secondAttribute="bottom" constant="16" id="fzj-at-QCc"/>
+                <constraint firstItem="GVn-dv-u0h" firstAttribute="trailing" secondItem="WNQ-iv-3Ja" secondAttribute="trailing" id="hZh-sa-S6h"/>
+                <constraint firstItem="GVn-dv-u0h" firstAttribute="top" secondItem="WNQ-iv-3Ja" secondAttribute="bottom" constant="20" id="sB0-LQ-SQt"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="alertLabel" destination="WNQ-iv-3Ja" id="gGj-g8-ulB"/>
+                <outlet property="cancelButton" destination="A94-uB-oUW" id="AmZ-mV-ri4"/>
+                <outlet property="contentLabel" destination="JmF-KT-n2R" id="I6w-C4-zLV"/>
+                <outlet property="okButton" destination="emS-6C-bvV" id="xok-Kk-lLH"/>
+                <outlet property="titleLabel" destination="ram-Xx-9Ay" id="xiJ-dg-eag"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="138.95089285714286"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="Blue">
+            <color red="0.0" green="0.45882352941176469" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Gray3">
+            <color red="0.50999999046325684" green="0.50999999046325684" blue="0.50999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Gray5">
+            <color red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
