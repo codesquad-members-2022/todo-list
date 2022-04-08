@@ -1,20 +1,19 @@
 import { axiosRequest } from "./util/util.js";
-export function register() {
+export function renderRegister() {
   const $plusBtn = document.querySelector("#have-to-do-plus");
   $plusBtn.addEventListener("click", function () {
-    renderRegister();
+    handleRegister();
   });
 }
 
-function renderRegister() {
+function handleRegister() {
   const $cards = document.querySelector("#have-to-do-cards");
   const $registerBox = `
     <div class="card">
       <div class="card-contents-wrapper row-sort">
         <div class="card-text-area">
-          <div class="card-title title-font"></div>
-          <div class="card-details">
-            <br />
+          <div class="card-title title-font" contentEditable = "true">제목을 입력하세요</div>
+          <div class="card-details" contentEditable = "true">내용을 입력하세요
           </div>
         </div>
         <figure class="card-cross-button">
