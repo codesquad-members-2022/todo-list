@@ -30,17 +30,9 @@ fun getTimeDiff(dateTimeInfo: String): String {
 
 fun secondsToDuration(seconds: Int): String {
     return when {
-        seconds > SECONDS_OF_DAY -> {
-            "${seconds / SECONDS_OF_DAY}일 전"
-        }
-        seconds > SECONDS_OF_HOUR -> {
-            "${seconds / SECONDS_OF_HOUR}시간 전"
-        }
-        seconds > SECONDS_OF_MINUTE -> {
-            "${seconds / SECONDS_OF_MINUTE}분 전"
-        }
-        else -> {
-            "${seconds}초 전"
-        }
+        seconds > SECONDS_OF_DAY -> "${seconds / SECONDS_OF_DAY}일 전"
+        seconds > SECONDS_OF_HOUR -> "${seconds / SECONDS_OF_HOUR}시간 전"
+        seconds > SECONDS_OF_MINUTE -> "${seconds / SECONDS_OF_MINUTE}분 전"
+        else -> "${seconds}초 전"
     }
 }
