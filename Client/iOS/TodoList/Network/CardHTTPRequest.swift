@@ -9,14 +9,14 @@ import Foundation
 
 class CardHTTPRequest: SessionDataTask {
     
-    func doGetRequest(url: URL, parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
+    func doGetRequest(url: URL, parameter: [String:String]?, completionHandler: @escaping (Result<Data, SessionTaskError>)->Void) {
 
         guard let urlComp = makeURLComponents(from: url.absoluteString, using: parameter), let url = urlComp.url else {
-            completionHandler(nil)
+            completionHandler(Result.failure(.dataTask))
             return
         }
         
-        httpMethod = .GET
+        httpMethod = .get
         urlString = url.absoluteString
         
         requestSessionDataTask(
@@ -25,14 +25,14 @@ class CardHTTPRequest: SessionDataTask {
         )
     }
     
-    func doGetRequest(parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
+    func doGetRequest(parameter: [String:String]?, completionHandler: @escaping (Result<Data, SessionTaskError>)->Void) {
         
         guard let urlComp = makeURLComponents(using: parameter), let url = urlComp.url else {
-            completionHandler(nil)
+            completionHandler(Result.failure(.dataTask))
             return
         }
         
-        httpMethod = .GET
+        httpMethod = .get
         urlString = url.absoluteString
         
         requestSessionDataTask(
@@ -40,9 +40,9 @@ class CardHTTPRequest: SessionDataTask {
         )
     }
     
-    func doPostRequest(url: URL, _ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
+    func doPostRequest(url: URL, _ paramData: Data? = nil, completionHandler: @escaping (Result<Data, SessionTaskError>)->Void) {
         
-        httpMethod = .POST
+        httpMethod = .post
         
         requestSessionUploadTask(
             to: url,
@@ -51,9 +51,9 @@ class CardHTTPRequest: SessionDataTask {
         )
     }
     
-    func doPostRequest(_ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
+    func doPostRequest(_ paramData: Data? = nil, completionHandler: @escaping (Result<Data, SessionTaskError>)->Void) {
         
-        httpMethod = .POST
+        httpMethod = .post
         
         requestSessionUploadTask(
             using: paramData,

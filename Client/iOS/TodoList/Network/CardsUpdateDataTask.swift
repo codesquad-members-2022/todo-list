@@ -20,9 +20,9 @@ class CardsUpdateDataTask: CardHTTPRequest
     func createCard(_ param: ScreenCardParameter, completionHandler: @escaping (CardData?)->Void)
     {
         do {
-            doPostRequest(url: try CardManagingURL.create.toURL(), try encoder.encode(param)) { [weak self] data in
+            doPostRequest(url: try CardManagingURL.create.toURL(), try encoder.encode(param)) { [weak self] taskResult in
                 
-                guard let data = data else {
+                guard let data = try? taskResult.get() else {
                     completionHandler(nil)
                     return
                 }
@@ -38,9 +38,9 @@ class CardsUpdateDataTask: CardHTTPRequest
     func readCard(from objectId: String, completionHandler: @escaping (CardData?)->Void)
     {
         do {
-            doGetRequest(url: try CardManagingURL.read.toURL(), parameter: ["objectId": objectId]) { [weak self] data in
+            doGetRequest(url: try CardManagingURL.read.toURL(), parameter: ["objectId": objectId]) { [weak self] taskResult in
                 
-                guard let data = data else {
+                guard let data = try? taskResult.get() else {
                     completionHandler(nil)
                     return
                 }
@@ -56,9 +56,9 @@ class CardsUpdateDataTask: CardHTTPRequest
     func updateCard(_ paramData: CardData, completionHandler: @escaping (CardData?)->Void)
     {
         do {
-            doPostRequest(url: try CardManagingURL.update.toURL(), try encoder.encode(paramData)) { [weak self] data in
+            doPostRequest(url: try CardManagingURL.update.toURL(), try encoder.encode(paramData)) { [weak self] taskResult in
                 
-                guard let data = data else {
+                guard let data = try? taskResult.get() else {
                     completionHandler(nil)
                     return
                 }
@@ -74,9 +74,9 @@ class CardsUpdateDataTask: CardHTTPRequest
     func deleteCard(from objectId: String, completionHandler: @escaping (CardData?)->Void)
     {
         do {
-            doGetRequest(url: try CardManagingURL.delete.toURL(), parameter: ["objectId":objectId]) { [weak self] data in
+            doGetRequest(url: try CardManagingURL.delete.toURL(), parameter: ["objectId":objectId]) { [weak self] taskResult in
                 
-                guard let data = data else {
+                guard let data = try? taskResult.get() else {
                     completionHandler(nil)
                     return
                 }

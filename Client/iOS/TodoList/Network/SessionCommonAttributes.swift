@@ -14,7 +14,7 @@ class SessionCommonAttributes {
     
     var urlString: String
     
-    var httpMethod: HTTPMethod = .POST
+    var httpMethod: HTTPMethod = .post
     {
         didSet {
             request.httpMethod = httpMethod.getValue()
@@ -66,14 +66,14 @@ class SessionCommonAttributes {
     
     enum HTTPMethod: String
     {
-        case POST
-        case GET
+        case post
+        case get
         
         func getValue() -> String {
             switch self {
-            case .GET:
+            case .get:
                 return "GET"
-            case .POST:
+            case .post:
                 return "POST"
             }
         }

@@ -23,9 +23,9 @@ class CardAPITests: XCTestCase {
         httpRequest?.config.protocolClasses = [MockURLProtocol.self]
         
         let expectation = XCTestExpectation(description: "Wait")
-        httpRequest?.doGetRequest(parameter: nil, completionHandler: { data in
+        httpRequest?.doGetRequest(parameter: nil, completionHandler: { taskResult in
             
-            guard let _ = data else {
+            guard let _ = try? taskResult.get() else {
                 XCTFail("doGetRequest Failed")
                 return
             }

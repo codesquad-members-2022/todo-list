@@ -25,9 +25,9 @@ class CardsFetchingDataTask: CardHTTPRequest
     func fetchCardsAll(completionHandler: @escaping ([[CardData]]?)->Void)
     {
         do {
-            doGetRequest(url: try FetchingURL.fetchAll.toURL(), parameter: nil) { [weak self] data in
+            doGetRequest(url: try FetchingURL.fetchAll.toURL(), parameter: nil) { [weak self] taskResult in
                 
-                guard let data = data else {
+                guard let data = try? taskResult.get() else {
                     completionHandler(nil)
                     return
                 }
@@ -43,9 +43,9 @@ class CardsFetchingDataTask: CardHTTPRequest
     func fetchCardsInBoard(completionHandler: @escaping ([CardData]?)->Void)
     {
         do {
-            doGetRequest(url: try FetchingURL.oneFetch.toURL(), parameter: nil) { [weak self] data in
+            doGetRequest(url: try FetchingURL.oneFetch.toURL(), parameter: nil) { [weak self] taskResult in
                 
-                guard let data = data else {
+                guard let data = try? taskResult.get() else {
                     completionHandler(nil)
                     return
                 }
