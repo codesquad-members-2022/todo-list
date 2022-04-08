@@ -27,8 +27,8 @@ public class Card {
         this.title = title;
         this.contents = contents;
         this.writer = writer;
-        this.cardStatus = cardStatus;
         this.createdTime = createdTime;
+        this.cardStatus = cardStatus;
     }
 
 }
