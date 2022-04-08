@@ -8,41 +8,51 @@ import com.codesquad.aos.todolist.data.model.Log
 
 class TodoViewModel: ViewModel() {
 
-    private val _todoListId = MutableLiveData<MutableList<Card>>()
+    private val _todoListLd = MutableLiveData<MutableList<Card>>()
     private var todolist = mutableListOf<Card>()
-    val todoListId: LiveData<MutableList<Card>> get() = _todoListId
+    val todoListLd: LiveData<MutableList<Card>> get() = _todoListLd
 
-    private val _progressListId = MutableLiveData<MutableList<Card>>()
+    private val _progressListLd = MutableLiveData<MutableList<Card>>()
     private var progresslist = mutableListOf<Card>()
-    val progressListId: LiveData<MutableList<Card>> get() = _progressListId
+    val progressListLd: LiveData<MutableList<Card>> get() = _progressListLd
 
-    private val _completeListId = MutableLiveData<MutableList<Card>>()
+    private val _completeListLd = MutableLiveData<MutableList<Card>>()
     private var completelist = mutableListOf<Card>()
-    val completeListId: LiveData<MutableList<Card>> get() = _completeListId
+    val completeListLd: LiveData<MutableList<Card>> get() = _completeListLd
 
-    private val _LogListId = MutableLiveData<MutableList<Log>>()
+    private val _LogListLd = MutableLiveData<MutableList<Log>>()
     private var LogList = mutableListOf<Log>()
-    val LogListId: LiveData<MutableList<Log>> get() = _LogListId
+    val LogListLd: LiveData<MutableList<Log>> get() = _LogListLd
+
+    private var todoId = 1
+    private var progressId = 1
+    private var completeId = 1
 
     // 해야할 일 추가
     fun addTodo(title: String, content: String){
-        todolist.add(0, Card((todolist.size + 1), title, content, "author by android"))
-        _todoListId.value = todolist
+        todolist.add(0, Card(todoId++, title, content, "author by android"))
+        _todoListLd.value = todolist
     }
 
     fun addProgress(title: String, content: String){
-        progresslist.add(0, Card((progresslist.size + 1), title, content, "author by android"))
-        _progressListId.value = progresslist
+        progresslist.add(0, Card(progressId++, title, content, "author by android"))
+        _progressListLd.value = progresslist
     }
 
     fun addComplete(title: String, content: String){
-        completelist.add(0, Card((completelist.size + 1), title, content, "author by android"))
-        _completeListId.value = completelist
+        completelist.add(0, Card(completeId++, title, content, "author by android"))
+        _completeListLd.value = completelist
     }
 
     fun addLog(log: String, time: String){
         LogList.add(Log("@Han", log, time))
-        _LogListId.value = LogList
+        _LogListLd.value = LogList
+    }
+
+    // 삭제
+    fun deleteTodo(inx: Int){
+        todolist.removeAt(inx)
+        _todoListLd.value = todolist
     }
 
 }

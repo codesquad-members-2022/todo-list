@@ -105,8 +105,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_card_device"
             app:layout_constraintDimensionRatio="258:16"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </com.google.android.material.card.MaterialCardView>
 </layout>

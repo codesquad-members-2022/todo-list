@@ -1,5 +1,9 @@
 package com.codesquad.aos.todolist.ui
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +12,9 @@ import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.codesquad.aos.todolist.R
 import com.codesquad.aos.todolist.common.utils.VerticalItemDecorator
 import com.codesquad.aos.todolist.databinding.ActivityMainBinding
@@ -41,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         setProgressRecyclerView()
         setCompleteRecyclerView()
         setLogRecyclerView()
+
+        setItemTouchCallback()
 
         setDialogFragmentView()
     }
@@ -86,22 +94,22 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setViewModel() {
-        viewModel.todoListId.observe(this) {
+        viewModel.todoListLd.observe(this) {
             binding.tvTodoBadgeCount.text = it.size.toString()
             todoCardListAdapter.submitList(it.toList())
         }
 
-        viewModel.progressListId.observe(this) {
+        viewModel.progressListLd.observe(this) {
             binding.tvProgressBadgeCount.text = it.size.toString()
             progressCardListAdapter.submitList(it.toList())
         }
 
-        viewModel.completeListId.observe(this) {
+        viewModel.completeListLd.observe(this) {
             binding.tvCompleteBadgeCount.text = it.size.toString()
             completeCardListAdapter.submitList(it.toList())
         }
 
-        viewModel.LogListId.observe(this) {
+        viewModel.LogListLd.observe(this) {
             logCardListAdapter.submitList(it.toList())
         }
     }
@@ -167,5 +175,54 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager, "DialogFragment"
             )
         }
+    }
+
+    fun setItemTouchCallback(){
+        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT
+        ){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                // viewModel.deleteTodo(viewHolder.layoutPosition)
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+
+                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+                    val paint = Paint()
+                    paint.color = Color.parseColor("#FF0000")
+                    val background = RectF(viewHolder.itemView.right.toFloat() + dX/4, viewHolder.itemView.top.toFloat(),
+                                           viewHolder.itemView.right.toFloat(), viewHolder.itemView.bottom.toFloat())
+                    c.drawRect(background, paint)
+                }
+
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX / 4,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
+        }
+
+        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(binding.rvTodo)
     }
 }
