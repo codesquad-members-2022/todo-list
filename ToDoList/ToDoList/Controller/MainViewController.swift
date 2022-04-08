@@ -2,6 +2,11 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    enum mainConstant {
+        static let serviceName = "TO-DO LIST - team10"
+    }
+    
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cardListStackView: UIStackView!
     
     private let todoViewController = CardListViewController(title: "해야할 일")
@@ -11,7 +16,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        self.titleLabel.text = mainConstant.serviceName
+        
         self.addChild(todoViewController)
         self.addChild(inProgressViewController)
         self.addChild(doneViewController)

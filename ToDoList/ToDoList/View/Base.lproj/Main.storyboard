@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -12,11 +13,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X1P-eL-nXY">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="72"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1194" height="72"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPZ-hO-hoZ">
                                         <rect key="frame" x="48" y="13" width="169" height="46"/>
@@ -28,7 +29,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbQ-OZ-NhV">
-                                        <rect key="frame" x="531" y="31" width="17" height="11"/>
+                                        <rect key="frame" x="1125" y="31" width="17" height="11"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="11" id="26h-6h-3YS"/>
                                             <constraint firstAttribute="width" constant="17" id="3eV-Z1-fSf"/>
@@ -50,7 +51,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="1qn-8I-mSP">
-                                <rect key="frame" x="48" y="123" width="222" height="426"/>
+                                <rect key="frame" x="48" y="123" width="816" height="640"/>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -67,6 +68,7 @@
                     </view>
                     <connections>
                         <outlet property="cardListStackView" destination="1qn-8I-mSP" id="P6k-QN-Pcs"/>
+                        <outlet property="titleLabel" destination="ZPZ-hO-hoZ" id="4eY-0b-fpb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
