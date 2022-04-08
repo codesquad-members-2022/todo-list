@@ -29,20 +29,23 @@
             <ul class="card-list">
               <li class="card" data-card="1">
                 <div class="card__content">
-                  <input class="card__content--title" required readonly value="블로그에 포스팅할 것" />
-                  <textarea class="card__content--text">* GitHub 공부내용&#10* 모던 자바스크립트 1장 공부내용</textarea>
+                  <input class="card__content--title" readonly placeholder="제목을 입력하세요" value="GitHub 공부하기" />
+                  <textarea class="card__content--text" readonly placeholder="내용을 입력하세요" maxlength="500">add, commit, push, rebase, squash, merge</textarea>
                   <span class="card__content--author">author by web</span>
                 </div>
                 <img class="card--delete-card" src="./asset/icon/icon-card-delete-button-strong.svg" />
               </li>
               <li class="card" data-card="0">
                 <div class="card__content">
-                  <input class="card__content--title" required readonly value="GitHub 공부하기" />
-                  <textarea class="card__content--text">add, commit, push</textarea>
+                  <input class="card__content--title" readonly placeholder="제목을 입력하세요" value="블로그에 포스팅할 것" />
+                  <textarea class="card__content--text" readonly placeholder="내용을 입력하세요" maxlength="500">*GitHub 공부내용
+*모던 자바스크립트 1장 공부내용
+*리팩토링 2판</textarea>
                   <span class="card__content--author">author by web</span>
                 </div>
                 <img class="card--delete-card" src="./asset/icon/icon-card-delete-button-strong.svg" />
               </li>
+              
             </ul>
           </li>
           <li class="column" data-column="1">
@@ -59,17 +62,99 @@
             <ul class="card-list">
               <li class="card" data-card="0">
                 <div class="card__content">
-                  <input class="card__content--title" required readonly value="HTML/CSS 공부하기" />
-                  <textarea class="card__content--text">input 태그 실습</textarea>
+                  <input class="card__content--title" readonly placeholder="제목을 입력하세요" value="HTML/CSS 공부하기" />
+                  <textarea class="card__content--text" readonly placeholder="내용을 입력하세요" maxlength="500">input 태그 실습</textarea>
                   <span class="card__content--author">author by web</span>
                 </div>
                 <img class="card--delete-card" src="./asset/icon/icon-card-delete-button-strong.svg" />
               </li>
             </ul>
           </li>
+          <li class="column" data-column="2">
+            <div class="column__header">
+              <div class="column__header__content">
+                <h2 class="column__header--title">완료한 일</h2>
+                <div class="column__header--card-count">0</div>
+              </div>
+              <div class="column__header__btn">
+                <img class="column__header--add-card" src="./asset/icon/icon-card-add-button.svg" />
+                <img class="column__header--delete-card" src="./asset/icon/icon-card-delete-button.svg" />
+              </div>
+            </div>
+            <ul class="card-list">
+            </ul>
+          </li>
         </ul>
       </main>
     </div>
-    <aside class="history"></aside>
+    <aside class="history__bar">
+      <img class="history--close-btn" src="./asset/icon/icon-delete-button-bold.svg" />
+      <ul class="history-list">
+        <li class="history" data-history="6">
+          <img class="history--profile-img" src="./asset/icon/icon-history-user-img.png" alt="">
+          <div class="history__item">
+            <h3 class="history__item--name">@Yellow</h3>
+            <p class="history__item--activity">해야할 일에 HTML/CSS공부하기를 등록하였습니다.</p>
+            <p class="history__item--time-record">10분 전</p>
+          </div>
+        </li>
+        <li class="history" data-history="0">
+          <img class="history--profile-img" src="./asset/icon/icon-history-user-img.png" alt="">
+          <div class="history__item">
+            <h3 class="history__item--name">@Yellow</h3>
+            <p class="history__item--activity">해야할 일에 HTML/CSS공부하기를 등록하였습니다.</p>
+            <p class="history__item--time-record">10분 전</p>
+          </div>
+        </li>
+        <li class="history" data-history="0">
+          <img class="history--profile-img" src="./asset/icon/icon-history-user-img.png" alt="">
+          <div class="history__item">
+            <h3 class="history__item--name">@Yellow</h3>
+            <p class="history__item--activity">해야할 일에 HTML/CSS공부하기를 등록하였습니다.</p>
+            <p class="history__item--time-record">10분 전</p>
+          </div>
+        </li>
+        <li class="history" data-history="0">
+          <img class="history--profile-img" src="./asset/icon/icon-history-user-img.png" alt="">
+          <div class="history__item">
+            <h3 class="history__item--name">@Yellow</h3>
+            <p class="history__item--activity">해야할 일에 HTML/CSS공부하기를 등록하였습니다.</p>
+            <p class="history__item--time-record">10분 전</p>
+          </div>
+        </li>
+        <li class="history" data-history="0">
+          <img class="history--profile-img" src="./asset/icon/icon-history-user-img.png" alt="">
+          <div class="history__item">
+            <h3 class="history__item--name">@Yellow</h3>
+            <p class="history__item--activity">해야할 일에 HTML/CSS공부하기를 등록하였습니다.</p>
+            <p class="history__item--time-record">10분 전</p>
+          </div>
+        </li>
+        <li class="history" data-history="2">
+          <img class="history--profile-img" src="./asset/icon/icon-history-user-img.png" alt="">
+          <div class="history__item">
+            <h3 class="history__item--name">@Yellow</h3>
+            <p class="history__item--activity">해야할 일에 HTML/CSS공부하기를 등록하였습니다.</p>
+            <p class="history__item--time-record">10분 전</p>
+          </div>
+        </li>
+        <li class="history" data-history="1">
+          <img class="history--profile-img" src="./asset/icon/icon-history-user-img.png" alt="">
+          <div class="history__item">
+            <h3 class="history__item--name">@Yellow</h3>
+            <p class="history__item--activity">해야할 일에 HTML/CSS공부하기를 등록하였습니다.</p>
+            <p class="history__item--time-record">10분 전</p>
+          </div>
+        </li>
+        <li class="history" data-history="0">
+          <img class="history--profile-img" src="./asset/icon/icon-history-user-img.png" alt="">
+          <div class="history__item">
+            <h3 class="history__item--name">@Yellow</h3>
+            <p class="history__item--activity">해야할 일에 HTML/CSS공부하기를 등록하였습니다.</p>
+            <p class="history__item--time-record">10분 전</p>
+          </div>
+        </li>
+      </ul>
+    </aside>
   </body>
 </html>
