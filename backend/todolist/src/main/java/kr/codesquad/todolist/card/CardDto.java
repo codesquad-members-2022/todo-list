@@ -1,7 +1,5 @@
 package kr.codesquad.todolist.card;
 
-import static kr.codesquad.todolist.card.Card.TodoStatus.from;
-
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.Min;
@@ -11,6 +9,7 @@ import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 public class CardDto {
 	@Data
 	@NoArgsConstructor
@@ -34,7 +33,7 @@ public class CardDto {
 			return Card.builder()
 				.subject(subject)
 				.content(content)
-				.status(from(status))
+				.status(Card.TodoStatus.from(status))
 				.order(order)
 				.createdAt(LocalDateTime.now())
 				.userId(userId)

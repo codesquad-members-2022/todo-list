@@ -1,7 +1,5 @@
 package kr.codesquad.todolist.card;
 
-import static kr.codesquad.todolist.card.Card.TodoStatus.from;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -29,6 +27,8 @@ public class CardDao {
 	public static final String CARD_TODO_ORDER = "todo_order";
 	public static final String CARD_WRITING_DATE = "writing_date";
 	public static final String CARD_TODO_USER_ID = "todo_user_id";
+	public static final int COLUMN_INDEX_DELETED = 5;
+	public static final String CARD_DELETED = "deleted";
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private final JdbcTemplate jdbcTemplate;
 
@@ -76,7 +76,7 @@ public class CardDao {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put(CARD_SUBJECT, card.getSubject());
 		parameters.put(CARD_CONTENT, card.getContent());
-		parameters.put(CARD_TODO_STATUS, card.getStatus().getCode());
+		parameters.put(CARD_TODO_STATUS, card.getStatus().getText());
 		parameters.put(CARD_TODO_ORDER, card.getOrder());
 		parameters.put(CARD_WRITING_DATE, card.getCreatedAt());
 		parameters.put(CARD_TODO_USER_ID, card.getUserId());
@@ -90,10 +90,10 @@ public class CardDao {
 				rs.getLong(CARD_KEY_COLUMN_NAME),
 				rs.getString(CARD_SUBJECT),
 				rs.getString(CARD_CONTENT),
-				from(rs.getInt(CARD_TODO_STATUS)),
+				Card.TodoStatus.from(rs.getString(CARD_TODO_STATUS)),
 				rs.getLong(CARD_TODO_ORDER),
-				rs.getBoolean("deleted"),
-				rs.getTimestamp(5).toLocalDateTime(),
+				rs.getBoolean(CARD_DELETED),
+				rs.getTimestamp(COLUMN_INDEX_DELETED).toLocalDateTime(),
 				rs.getLong(CARD_TODO_USER_ID));
 			return article;
 		};

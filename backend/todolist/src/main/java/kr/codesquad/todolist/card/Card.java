@@ -3,15 +3,10 @@ package kr.codesquad.todolist.card;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
 @Builder
 public class Card {
 	private Long todoId;
@@ -26,19 +21,11 @@ public class Card {
 	@Getter
 	@RequiredArgsConstructor
 	public enum TodoStatus {
-		TODO("todo", 1),
-		ONGOING("ongoing",2),
-		COMPLETED("completed",3);
+		TODO("todo" ),
+		ONGOING("ongoing"),
+		COMPLETED("completed");
 
 		private final String text;
-		private final int code;
-
-		public static TodoStatus from(int StatusCode) {
-			return Arrays.stream(values())
-				.filter(v -> v.code == StatusCode)
-				.findAny()
-				.orElseThrow(() -> new IllegalArgumentException("잘못된 todoStatus number 입니다."));
-		}
 
 		public static TodoStatus from(String statusText) {
 			return Arrays.stream(values())
@@ -46,5 +33,37 @@ public class Card {
 				.findAny()
 				.orElseThrow(() -> new IllegalArgumentException("잘못된 todoStatus text 입니다."));
 		}
+	}
+
+	protected Long getTodoId() {
+		return todoId;
+	}
+
+	protected void setTodoId(Long todoId) {
+		this.todoId = todoId;
+	}
+
+	protected String getSubject() {
+		return subject;
+	}
+
+	protected String getContent() {
+		return content;
+	}
+
+	protected TodoStatus getStatus() {
+		return status;
+	}
+
+	protected Long getOrder() {
+		return order;
+	}
+
+	protected LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	protected Long getUserId() {
+		return userId;
 	}
 }
