@@ -20,27 +20,19 @@
   }
 }
 
+$Gray_3: #828282;
+$Gray_5: #E0E0E0;
+$Black: #010101;
 
-%Black {
-  color: #010101;
-}
+$White: #FFFFFF;
 
-%White {
-  background: #FFFFFF;
-}
+$Blue: #0075DE;
 
-
-%Blue_svg {
-  background: #0075DE;
-}
+$White_red: #FFEEEC;
 
 %shadow_normal {
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
   border-radius: 6px;
-}
-
-%White_red {
-  background: #FFEEEC;
 }
 
 %border_red {
@@ -116,16 +108,47 @@ $Gray_4: #bdbdbd;
 
 }
 
+%card-title {
+  @include custom_static($left: 0, $top: 0);
+  width: 252px;
+  height: 23px;
+  @include custom_font($family: 'Noto Sans KR', $style: normal, $weight: 700, $size: 16px);
+  line-height: 23px;
+  color: $Black;
+  @include flex_none(0, 8, 0);
+}
 
-@mixin todo_card($background, $border) {
+%card-content {
+  @include custom_static($left: 0, $top: 31);
+  @include custom_font($family: "Noto Sans KR", $style: normal, $weight: 400, $size: 14px);
+  width: 252px;
+  height: 20px;
+  line-height: 20px;
+  color: $Black;
+  @include flex_none(1, 8, 0);
+}
+
+%card-caption {
+  @include custom_static($left: 0, $top: 59);
+  @include custom_font($family: 'Noto Sans KR', $style: normal, $weight: 400, $size: 12px);
+  width: 252px;
+  height: 17px;
+  line-height: 17px;
+  color: $Gray_4;
+  @include flex_none(2, 0, 8);
+}
+
+@mixin todo_card($background:null, $border:null, $shadow:null) {
   @include custom_flex(row, flex-start);
   padding: 16px;
 
   @include custom_static($left: 20, $top: 20);
   width: 308px;
   height: 108px;
-  @extend %#{$background};
-  @extend %#{$border};
+  background: $background;
+  border: $border;
+  box-shadow: $shadow;
+
   .wrapper {
     display: flex;
     flex-direction: column;
@@ -139,42 +162,18 @@ $Gray_4: #bdbdbd;
     border-radius: 8px;
     @include flex_none(0, 0, 0);
 
-
     .card-title {
-      @include custom_static($left: 0, $top: 0);
-      width: 252px;
-      height: 23px;
-      @include custom_font($family: 'Noto Sans KR', $style: normal, $weight: 700, $size: 16px);
-      line-height: 23px;
-      @extend %Black;
-      @include flex_none(0, 8, 0);
+      @extend %card-title;
     }
 
     .card-content {
-      @include custom_static($left: 0, $top: 31);
-      @include custom_font($family: "Noto Sans KR", $style: normal, $weight: 400, $size: 14px);
-      width: 252px;
-      height: 20px;
-      line-height: 20px;
-      @extend %Black;
-      @include flex_none(1, 8, 0);
+      @extend %card-content;
     }
 
     .card-caption {
-      position: static;
-      width: 252px;
-      height: 17px;
-      left: 0px;
-      top: 59px;
-      font-family: 'Noto Sans KR';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 17px;
-
-      color: $Gray_4;
-      @include flex_none(2, 0, 8);
+      @extend %card-caption;
     }
+
   }
 
   .delete-card {
@@ -185,6 +184,74 @@ $Gray_4: #bdbdbd;
     @include flex_none(1, 0, 0);
     @extend %delete_svg;
   }
-
-
 }
+
+@mixin Button($background, $color, $right:false) {
+  @include custom_flex(row, flex-start);
+  padding: 10px;
+  @include custom_absolute($left: 0, $top: 0);
+  width: 134px;
+  height: 40px;
+  @if $right {
+    left: 142px;
+  }
+  background: $background;
+  border-radius: 6px;
+  span {
+    @include custom_static($left: 10, $top: 10);
+    width: 114px;
+    height: 20px;
+    @include custom_font($family: "Noto Sans KR", $style: normal, $weight: 700, $size: 14px);
+    line-height: 20px;
+    text-align: center;
+    color: $color;
+    @include flex_none(0, 0, 10);
+  }
+}
+
+@mixin selected {
+  flex-direction: column;
+
+  .frame {
+    @include custom_flex(row, flex-start);
+    padding: 0px;
+    @include custom_static($left: 16, $top: 83);
+    width: 276px;
+    height: 40px;
+    @include flex_none(1, 16, 0);
+
+    .button-left {
+      @include Button($Gray_5, $Gray_3);
+    }
+
+    .button-right {
+      @include Button($Blue, $White, true);
+    }
+  }
+
+  .wrapper {
+    @include custom_flex(column, flex-start);
+    @include custom_static($left: 0, $top: 0);
+    padding: 0px;
+    width: 276px;
+    height: 51px;
+    border-radius: 8px;
+
+    @include flex_none(0, 0, 0);
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 0px;
+
+    .title {
+      @extend %card-title;
+      width: 276px;
+    }
+
+    .content {
+      @extend %card-content;
+      width: 276px;
+    }
+  }
+}
+

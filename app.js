@@ -1,19 +1,34 @@
-import Component from "./core/Component.js";
+import Component from './core/Component.js';
 
-import { Header } from "./core/Header.js";
-import { TodoList } from "./core/TodoList.js";
+import { Header } from './core/Header.js';
+import { TodoList } from './core/TodoList.js';
 
 class App extends Component {
   setup() {
     this.state = {
       lists: [
         {
-          title: "오늘 할 일",
-          todos: [{ title: "코드스쿼드", content: "수업듣기", caption: "" }],
-          selected: -1,
+          title: '오늘 할 일',
+          todos: [
+            {
+              title: '코드스쿼드',
+              content: '수업듣기',
+              caption: '',
+              selected: false,
+            },
+          ],
+          editting: false,
         },
       ],
     };
+  }
+
+  toggleSelected(listIdx, cardIdx) {
+    const { lists } = this.state;
+    const newList = [...lists];
+    const boolean = newList[listIdx].todos[cardIdx].selected;
+    newList[listIdx].todos[cardIdx].selected = !boolean;
+    this.setState({ lists: newList });
   }
 
   template() {
@@ -23,16 +38,16 @@ class App extends Component {
           ${lists
             .map(
               (list, idx) =>
-                `<section class="todo-column" data-idx=${idx} style="left:${
+                `<section class="todo-column" data-idx="${idx}" style="left:${
                   80 + idx * 324
                 }px"></section>`
             )
-            .join("")}`;
+            .join('')}`;
   }
 
   mount() {
     const { lists } = this.state;
-    new Header(this.select(".todo-header"));
+    new Header(this.select('.todo-header'));
     lists.forEach(
       (list, idx) =>
         new TodoList(this.select(`section[data-idx="${idx}"`), {
@@ -43,10 +58,4 @@ class App extends Component {
   }
 }
 
-function add(x = 0) {
-  return x + 3;
-}
-
-add(3);
-add();
 new App(document.body);

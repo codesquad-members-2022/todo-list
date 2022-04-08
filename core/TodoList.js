@@ -1,14 +1,14 @@
-import Component from "./Component.js";
-import { TodoCard } from "./TodoCard.js";
+import Component from './Component.js';
+import { TodoCard } from './TodoCard.js';
 
 export class TodoList extends Component {
   template() {
     const {
-      list: { title, todos, selected },
+      list: { title, todos, editting },
       idx,
     } = this.$props;
     return `
-<div class="todo-title">
+          <div class="todo-title">
             <span class="todo-name">${title}
               <span class="count"><span class="number">${
                 todos.length
@@ -28,13 +28,26 @@ export class TodoList extends Component {
                           fill="#BDBDBD" />
                     </svg>
                 </span>
-    </div>
+          </div>
+        ${
+          editting
+            ? `<div class="wrapper">
+            <span class="title"></span><span class="content"></span>
+            </div>
+            <div class="frame">
+              <div class="button-left"><span>취소</span></div>
+              <div class="button-right"><span>등록</span></div>
+            </div>`
+            : ''
+        }
     ${todos
       .map(
-        (todo, idx) => `<div class="todo-card" data-idx=${idx}>    
-  </div>`
+        (todo, idx) =>
+          `<div class="${
+            todo.selected ? 'selected' : 'todo-card'
+          }" data-idx="${idx}"></div>`
       )
-      .join("")}`;
+      .join('')}`;
   }
 
   mount() {
