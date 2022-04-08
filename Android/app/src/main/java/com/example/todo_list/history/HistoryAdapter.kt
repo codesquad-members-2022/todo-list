@@ -11,10 +11,7 @@ import com.example.todo_list.databinding.HistoryItemBinding
 import com.example.todo_list.history.data.HistoryCard
 
 class HistoryAdapter : ListAdapter<HistoryCard, HistoryAdapter.HistoryViewHolder>(diffUtil) {
-
-    inner class HistoryViewHolder(private val binding: HistoryItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
+    inner class HistoryViewHolder(private val binding: HistoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(card: HistoryCard) {
             binding.historyCard = card
         }
@@ -27,7 +24,6 @@ class HistoryAdapter : ListAdapter<HistoryCard, HistoryAdapter.HistoryViewHolder
             parent,
             false
         ).let { HistoryViewHolder(it) }
-
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val item = getItem(position)
