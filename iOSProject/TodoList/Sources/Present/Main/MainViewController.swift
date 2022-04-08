@@ -19,9 +19,9 @@ class MainViewController: UIViewController {
     
     private let columnTableViews: [ColumnViewProperty&ColumnViewInput] = {
         return [
-            ColumnViewController(status: .todo),
-            ColumnViewController(status: .progress),
-            ColumnViewController(status: .done)
+            ColumnViewController(model: ColumnViewModel(columnType: .todo)),
+            ColumnViewController(model: ColumnViewModel(columnType: .progress)),
+            ColumnViewController(model: ColumnViewModel(columnType: .done))
         ]
     }()
     
@@ -83,8 +83,8 @@ class MainViewController: UIViewController {
             columnStackView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 48),
             columnStackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -48),
             
-            logViewController.view.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            logViewController.view.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            logViewController.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            logViewController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             logViewController.view.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
             logViewController.view.widthAnchor.constraint(equalToConstant: 428)
         ])
@@ -99,7 +99,7 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: ColumnViewDelegate {
-    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Status) {
+    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Column) {
         self.columnTableViews[toColumn.index].addCard(fromCard)
     }
 }

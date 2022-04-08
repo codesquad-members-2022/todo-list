@@ -36,7 +36,7 @@ class CardPopupViewController: UIViewController {
         return view
     }()
     
-    private let columnLabel: UILabel = {
+    private let popupTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16, weight: .bold)
@@ -115,35 +115,19 @@ class CardPopupViewController: UIViewController {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: CardPopupViewModelBinding = CardPopupViewModel()
-    
-    private var baseTitleText: String = ""
-    private var baseBodyText: String = ""
-    private var cardIndex: Int?
+    private let model: CardPopupViewModelBinding?
     
     var delegate: CardPopupViewDeletegate?
     
-    init(card: Card? = nil) {
+    
+    init(model: CardPopupViewModelBinding) {
+        self.model = model
         super.init(nibName: nil, bundle: nil)
-        initialize(card: card)
     }
     
     required init?(coder: NSCoder) {
+        self.model = nil
         super.init(coder: coder)
-        initialize(card: nil)
-    }
-    
-    private func initialize(card: Card?) {
-        self.baseTitleText = card?.title ?? ""
-        self.baseBodyText = card?.title ?? ""
-        self.cardIndex = card?.orderIndex
-        
-        self.columnLabel.text = card == nil ? Constants.newCardStatusLabel : Constants.editCardStatusLabel
-        self.titleTextField.text = self.baseTitleText
-        self.bodyTextView.text = self.baseBodyText
-        self.maxBodyLengthLabel.text = "(\(self.bodyTextView.text.count)/\(Constants.maxBodyLength))"
-        self.confimButton.isHidden = card != nil
-        self.editButton.isHidden = card == nil
     }
     
     override func viewDidLoad() {
@@ -151,6 +135,8 @@ class CardPopupViewController: UIViewController {
         bind()
         attribute()
         layout()
+        
+        self.model?.action.loadModel.send()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -161,6 +147,21 @@ class CardPopupViewController: UIViewController {
     private func bind() {
         self.titleTextField.delegate = self
         self.bodyTextView.delegate = self
+        
+        guard let model = self.model else {
+            return
+        }
+        
+        model.state.loadedModel
+            .sink {
+                self.popupTitleLabel.text = $0.id == nil ? Constants.newCardStatusLabel : Constants.editCardStatusLabel
+                self.titleTextField.text = $0.title
+                self.bodyTextView.text = $0.body
+                self.maxBodyLengthLabel.text = "(\($0.body.count)/\(Constants.maxBodyLength))"
+                self.confimButton.isHidden = $0.id != nil
+                self.editButton.isHidden = $0.id == nil
+            }.store(in: &cancellables)
+        
         self.bodyTextView.changePublisher()
             .sink(receiveValue: self.reSizeTextView)
             .store(in: &cancellables)
@@ -170,56 +171,36 @@ class CardPopupViewController: UIViewController {
                 self.titleTextField.changedPublisher().map { _ in },
                 self.bodyTextView.changePublisher().map { _ in }
             )
-            .map { _ -> Bool in
-                let titleText = self.titleTextField.text ?? ""
-                let bodyText = self.bodyTextView.text ?? ""
-                
-                let equalBaseText = self.baseTitleText == titleText && self.baseBodyText == bodyText
-                let isEmpty = titleText.isEmpty || bodyText.isEmpty
-                return (!equalBaseText && !isEmpty)
-            }
-            .sink{ isEnable in
+            .map { (self.titleTextField.text ?? "", self.bodyTextView.text ?? "")}
+            .sink(receiveValue: model.action.changeText.send(_:))
+            .store(in: &cancellables)
+        
+        model.state.isEnableButton
+            .sink { isEnable in
                 self.confimButton.isEnabled = isEnable
                 self.editButton.isEnabled = isEnable
             }.store(in: &cancellables)
         
-        Publishers
-            .Merge(
-                cancelButton.publisher(for: .touchUpInside),
-                confimButton.publisher(for: .touchUpInside)
-            )
-            .sink {
+
+        self.confimButton.publisher(for: .touchUpInside)
+            .map { (self.titleTextField.text ?? "", self.bodyTextView.text ?? "") }
+            .sink(receiveValue: model.action.tappedAddButton.send(_:))
+            .store(in: &cancellables)
+        
+        model.state.addedCard
+            .sink { card in
+                self.delegate?.cardPopupView(self, addedCard: card)
                 self.dismiss(animated: false)
             }.store(in: &cancellables)
         
-        confimButton.publisher(for: .touchUpInside)
-            .sink {
-                guard let titleText = self.titleTextField.text,
-                      let bodyText = self.bodyTextView.text else {
-                    return
-                }
-                self.model.action.addCard.send((titleText, bodyText))
-            }.store(in: &cancellables)
+        self.editButton.publisher(for: .touchUpInside)
+            .map { (self.titleTextField.text ?? "", self.bodyTextView.text ?? "") }
+            .sink(receiveValue: model.action.tappedEditButton.send(_:))
+            .store(in: &cancellables)
         
-        self.model.state.addedCard
-            .sink {
-                self.delegate?.cardPopupView(self, addedCard: $0)
-                self.dismiss(animated: false)
-            }.store(in: &cancellables)
-        
-        editButton.publisher(for: .touchUpInside)
-            .sink {
-                guard let titleText = self.titleTextField.text,
-                      let bodyText = self.bodyTextView.text,
-                      let cardIndex = self.cardIndex else {
-                    return
-                }
-                self.model.action.editCard.send((cardIndex, titleText, bodyText))
-            }.store(in: &cancellables)
-        
-        self.model.state.editedCard
-            .sink {
-                self.delegate?.cardPopupView(self, editedCard: $0)
+        model.state.editedCard
+            .sink { card in
+                self.delegate?.cardPopupView(self, editedCard: card)
                 self.dismiss(animated: false)
             }.store(in: &cancellables)
     }
@@ -230,7 +211,7 @@ class CardPopupViewController: UIViewController {
     
     private func layout() {
         self.view.addSubview(popupBackgroundView)
-        popupBackgroundView.addSubview(columnLabel)
+        popupBackgroundView.addSubview(popupTitleLabel)
         popupBackgroundView.addSubview(titleTextField)
         popupBackgroundView.addSubview(bodyTextView)
         popupBackgroundView.addSubview(maxBodyLengthLabel)
@@ -243,11 +224,11 @@ class CardPopupViewController: UIViewController {
             popupBackgroundView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             popupBackgroundView.widthAnchor.constraint(equalToConstant: 400),
             
-            columnLabel.topAnchor.constraint(equalTo: popupBackgroundView.topAnchor, constant: 16),
-            columnLabel.leadingAnchor.constraint(equalTo: popupBackgroundView.leadingAnchor, constant: 16),
-            columnLabel.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
+            popupTitleLabel.topAnchor.constraint(equalTo: popupBackgroundView.topAnchor, constant: 16),
+            popupTitleLabel.leadingAnchor.constraint(equalTo: popupBackgroundView.leadingAnchor, constant: 16),
+            popupTitleLabel.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
             
-            titleTextField.topAnchor.constraint(equalTo: columnLabel.bottomAnchor, constant: 16),
+            titleTextField.topAnchor.constraint(equalTo: popupTitleLabel.bottomAnchor, constant: 16),
             titleTextField.leadingAnchor.constraint(equalTo: popupBackgroundView.leadingAnchor, constant: 16),
             titleTextField.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
             

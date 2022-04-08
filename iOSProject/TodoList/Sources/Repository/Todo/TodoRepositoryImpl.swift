@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
-    func loadColumn() -> AnyPublisher<Result<[Card], SessionError>, Never> {
-        self.request(.loadColumn, isSucccess: true)
+    func loadColumn(_ column: Card.Column) -> AnyPublisher<Result<[Card], SessionError>, Never> {
+        self.request(.loadColumn(column), isSucccess: true)
             .map { result in
                 switch result {
                 case .success(let data):
@@ -24,31 +24,8 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
             }.eraseToAnyPublisher()
     }
     
-    func moveCard(_ index: Int, _ toColumn: Card.Status) -> AnyPublisher<Result<(Int, Card.Status), SessionError>, Never> {
-        self.request(.moveCard(index, toColumn: toColumn), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success:
-                    return .success((index, toColumn))
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
-    }
-    
-    func deleteCard(_ index: Int) -> AnyPublisher<Result<Int, SessionError>, Never> {
-        self.request(.deleteCard(index), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success:
-                    return .success((index))
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
-    }
-    func editCard(_ index: Int, title: String, body: String) -> AnyPublisher<Result<Card, SessionError>, Never> {
-        self.request(.editCard(index, title: title, body: body), isSucccess: true)
+    func addCard(title: String, body: String, column: Card.Column) -> AnyPublisher<Result<Card, SessionError>, Never> {
+        self.request(.addCard(title: title, body: body, column: column), isSucccess: true)
             .map { result in
                 switch result {
                 case .success(let data):
@@ -62,8 +39,20 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
             }.eraseToAnyPublisher()
     }
     
-    func addCard(title: String, body: String) -> AnyPublisher<Result<Card, SessionError>, Never> {
-        self.request(.addCard(title: title, body: body), isSucccess: true)
+    func moveCard(_ cardId: Int, from: Card.Column, to: Card.Column) -> AnyPublisher<Result<(Int, Card.Column), SessionError>, Never> {
+        self.request(.moveCard(cardId, fromColumn: from, toColumn: to), isSucccess: true)
+            .map { result in
+                switch result {
+                case .success:
+                    return .success((cardId, to))
+                case .failure(let error):
+                    return .failure(error)
+                }
+            }.eraseToAnyPublisher()
+    }
+    
+    func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<Result<Card, SessionError>, Never> {
+        self.request(.editCard(cardId, title: title, body: body), isSucccess: true)
             .map { result in
                 switch result {
                 case .success(let data):
@@ -71,6 +60,18 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
                         return .failure(.pasingError)
                     }
                     return .success(card)
+                case .failure(let error):
+                    return .failure(error)
+                }
+            }.eraseToAnyPublisher()
+    }
+    
+    func deleteCard(_ cardId: Int) -> AnyPublisher<Result<Int, SessionError>, Never> {
+        self.request(.deleteCard(cardId), isSucccess: true)
+            .map { result in
+                switch result {
+                case .success:
+                    return .success(cardId)
                 case .failure(let error):
                     return .failure(error)
                 }
