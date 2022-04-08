@@ -4,34 +4,28 @@ import com.todolist.project.domain.CardStatus;
 import com.todolist.project.domain.card.Card;
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.CardAddDto;
+import com.todolist.project.web.dto.CardUpdateDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/card")
 @RestController
 public class CardController {
     private final CardService cardService;
-    private static int RESULT;
 
-    @PostMapping()
-    public String add(CardAddDto dto) {
-        RESULT = cardService.addCard(new Card(dto.getTitle(), dto.getContents(), dto.getWriter(), CardStatus.DO));
-        if (RESULT == 0) {
-            //TODO: 에러 페이지나 경고창으로 처리하게끔
-        }
-        return "redirect:/";
+    @PostMapping
+    public int add(@RequestBody CardAddDto dto) {
+        return cardService.addCard(new Card(dto.getTitle(), dto.getContents(), dto.getWriter(), CardStatus.TODO));
     }
 
     @DeleteMapping("/{id}")
-    public String remove(int id) {
-        RESULT = cardService.removeCard(id);
-        if (RESULT == 0) {
-            //TODO: 에러 페이지나 경고창으로 처리하게끔
-        }
-        return "redirect:/";
+    public int remove(@PathVariable Long id) {
+        return cardService.removeCard(id);
+    }
+
+    @PutMapping("/{id}")
+    public int update(@PathVariable Long id, @RequestBody CardUpdateDto dto) {
+        return cardService.updateCard(id, dto);
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class Card {
-    private int id;
+    private Long id;
     private String title;
     private String contents;
     private String writer;
@@ -21,4 +21,14 @@ public class Card {
         this.cardStatus = cardStatus;
         this.createdTime = LocalDateTime.now();
     }
+
+    public Card(Long id, String title, String contents, String writer, LocalDateTime createdTime, CardStatus cardStatus) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+        this.writer = writer;
+        this.createdTime = createdTime;
+        this.cardStatus = cardStatus;
+    }
+
 }
