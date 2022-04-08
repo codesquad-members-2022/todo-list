@@ -143,19 +143,6 @@ input:focus {
   outline: none;
 }
 
-.todo-column .todo-card .wrapper .card-content, .todo-column .todo-card .wrapper .card-title {
-  color: #010101;
-}
-
-.todo-column .todo-card {
-  background: #FFFFFF;
-}
-
-.todo-column .todo-card {
-  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
-  border-radius: 6px;
-}
-
 .todo-title .add svg {
   position: absolute;
   left: 21.27%;
@@ -230,19 +217,6 @@ input:focus {
   top: 80px;
 }
 
-.todo-column .todo-card .wrapper .card-title, .todo-column .todo-card .wrapper .card-content {
-  color: #010101;
-}
-
-.todo-column .todo-card {
-  background: #FFFFFF;
-}
-
-.todo-column .todo-card {
-  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
-  border-radius: 6px;
-}
-
 .todo-title .add svg {
   position: absolute;
   left: 21.27%;
@@ -280,6 +254,8 @@ input:focus {
   top: 20px;
   width: 308px;
   height: 108px;
+  background: White;
+  boder: shadow_normal;
 }
 .todo-column .todo-card .wrapper {
   display: flex;
@@ -308,6 +284,7 @@ input:focus {
   font-weight: 700;
   font-size: 16px;
   line-height: 23px;
+  color: #010101;
   flex: none;
   flex-grow: 0;
   order: 0;
@@ -324,6 +301,7 @@ input:focus {
   width: 252px;
   height: 20px;
   line-height: 20px;
+  color: #010101;
   flex: none;
   flex-grow: 0;
   order: 1;
