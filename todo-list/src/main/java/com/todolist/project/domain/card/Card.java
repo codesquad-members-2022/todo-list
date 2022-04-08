@@ -14,14 +14,6 @@ public class Card {
     private LocalDateTime createdTime;
     private CardStatus cardStatus;
 
-    public Card(String title, String contents, String writer, CardStatus cardStatus) {
-        this.title = title;
-        this.contents = contents;
-        this.writer = writer;
-        this.cardStatus = cardStatus;
-        this.createdTime = LocalDateTime.now();
-    }
-
     public Card(Long id, String title, String contents, String writer, LocalDateTime createdTime, CardStatus cardStatus) {
         this.id = id;
         this.title = title;

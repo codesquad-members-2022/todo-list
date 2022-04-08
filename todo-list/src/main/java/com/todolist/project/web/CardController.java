@@ -24,7 +24,7 @@ public class CardController {
 
     @PostMapping
     public int add(@RequestBody CardAddDto dto) {
-        return cardService.addCard(new Card(dto.getTitle(), dto.getContents(), dto.getWriter(), CardStatus.TODO));
+        return cardService.addCard(dto);
     }
 
     @DeleteMapping("/{id}")

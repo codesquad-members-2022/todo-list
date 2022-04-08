@@ -2,6 +2,7 @@ package com.todolist.project.service;
 
 import com.todolist.project.domain.card.Card;
 import com.todolist.project.domain.card.CardRepository;
+import com.todolist.project.web.dto.CardAddDto;
 import com.todolist.project.web.dto.CardUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class CardService {
         return new CardUpdateDto(card.getTitle(), card.getContents(), card.getCardStatus());
     }
 
-    public int addCard(Card card) {
-        return cardRepository.add(card);
+    public int addCard(CardAddDto cardAddDto) {
+        return cardRepository.add(cardAddDto);
     }
 
     public int removeCard(Long id) {
