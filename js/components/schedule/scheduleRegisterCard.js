@@ -85,11 +85,10 @@ export class ScheduleRegisterCard {
         );
 
         const cardData = {
-            title: $cardTitle.value,
-            body: $cardBody.value,
+            title: $cardTitle.value.replace(/\n/g,'<br>'),
+            body: $cardBody.value.replace(/\n/g,'<br>'),
             caption: "author by web",
         };
-
         this.passedEventHandler.addCard(cardData);
         this.passedEventHandler.removeRegisterCard();
     }

@@ -1,17 +1,65 @@
+import { ScheduleDeleteConfirm } from "./scheduleDeleteConfirm.js";
+
 export class ScheduleCard {
-    constructor(target, cardData) {
+    constructor({ target, cardData, passedEventHandler }) {
         this.$target = target;
+        this.$scheduleCard;
         this.cardData = cardData;
+        this.passedEventHander = passedEventHandler;
         this.init();
     }
 
     init() {
         this.render();
+        this.setDOMElement();
+        this.setEvent();
     }
 
     render() {
-        const $scheduleCard = this.template();
-        this.$target.insertAdjacentHTML("afterbegin", $scheduleCard);
+        const scheduleCardTemplate = this.template();
+        this.$target.insertAdjacentHTML("afterbegin", scheduleCardTemplate);
+    }
+
+    setDOMElement() {
+        this.$scheduleCard = this.$target.querySelector(
+            `[data-card-id="${this.cardData.id}"]`
+        );
+    }
+
+    setEvent() {
+        const $scheduleCardDeleteBtn = this.$target.querySelector(
+            ".schedule-card__delete-btn"
+        );
+        $scheduleCardDeleteBtn.addEventListener(
+            "mouseenter",
+            this.cardDeleteBtnMouseenterEventHandler.bind(this)
+        );
+        $scheduleCardDeleteBtn.addEventListener(
+            "mouseleave",
+            this.cardDeleteBtnMouseleaveEventHandler.bind(this)
+        );
+        $scheduleCardDeleteBtn.addEventListener(
+            "click",
+            this.cardDeleteBtnClickEventHandler.bind(this)
+        );
+    }
+
+    cardDeleteBtnClickEventHandler() {
+        const scheduleDeleteConfirmParams = {
+            target: this.$scheduleCard,
+            passedEventHandler: {
+                removeCard: this.passedEventHander.removeCard.bind(this),
+            },
+        };
+        new ScheduleDeleteConfirm(scheduleDeleteConfirmParams);
+    }
+
+    cardDeleteBtnMouseenterEventHandler() {
+        this.$scheduleCard.classList.toggle("schedule-card--active-red");
+    }
+
+    cardDeleteBtnMouseleaveEventHandler() {
+        this.$scheduleCard.classList.toggle("schedule-card--active-red");
     }
 
     template() {
@@ -33,7 +81,6 @@ export class ScheduleCard {
                     >
                         <path
                             d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-                            fill="#828282"
                         />
                     </svg>
                 </div>`;

@@ -110,6 +110,20 @@
         margin-left: auto;
         width: 12px;
         height: 12px;
+
+        path {
+            fill: map-get($colors, dark-gray);
+        }
+    }
+
+    &--active-red {
+        background: map-get($colors, white-red);
+        border: 1px solid map-get($colors, red);
+        box-sizing: border-box;
+
+        path {
+            fill: map-get($colors, red);
+        }
     }
 }
 
@@ -179,5 +193,62 @@
         line-height: 20px;
         text-align: center;
         color: map-get($colors, white);
+    }
+}
+
+.schedule-delete-confirm {
+    flex-direction: column;
+    padding: 24px;
+    position: absolute;
+    width: 400px;
+    height: 138px;
+    left: 520px;
+    top: 443px;
+    background: map-get($colors, white);
+    box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
+        0px 2px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
+
+    p {
+        font-weight: 400;
+        font-size: 1.8rem;
+        line-height: 26px;
+        color: map-get($colors, black);
+    }
+
+    &__btns-container {
+        @include flex-layout(unset, flex-start);
+        width: 276px;
+        height: 40px;
+        margin-top: 24px;
+        margin-left: 76px;
+    }
+
+    &__cancel-btn {
+        padding: 10px;
+        width: 134px;
+        height: 40px;
+        background: map-get($colors, light-gray);
+        border-radius: 6px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: map-get($colors, dark-gray);
+    }
+
+    &__delete-btn {
+        padding: 10px;
+        width: 134px;
+        height: 40px;
+        border-radius: 6px;
+        margin-left: 8px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: map-get($colors, white);
+        background-color: map-get($colors, blue);
     }
 }
