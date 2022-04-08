@@ -34,8 +34,6 @@ public class WorkController {
                           @RequestParam("userId") String userId,
                           @RequestParam("categoryId") Integer categoryId) {
 
-        System.out.println(userId);
-
         return workService.create(workRequestFormDto, userId, categoryId);
     }
 
