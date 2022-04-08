@@ -22,9 +22,13 @@
 
   .input-content {
     display: block;
+    width: 100%;
+    height: auto;
     margin-bottom: 16px;
     border: none;
     outline: none;
+    resize: none;
+    overflow: hidden;
   }
 
   .input-button-wrapper {
