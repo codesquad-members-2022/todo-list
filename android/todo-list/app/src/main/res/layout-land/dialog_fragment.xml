@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_white">
+
+    <TextView
+        android:id="@+id/tv_create_card"
+        style="@style/TextSubtitle.Black.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:includeFontPadding="false"
+        android:text="@string/create_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_input_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:privateImeOptions="defaultInputmode=korean"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
+        app:hintEnabled="false"
+        app:layout_constraintBottom_toTopOf="@id/layout_input_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_create_card">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/input_title"
+            android:includeFontPadding="false"
+            android:maxLength="50"
+            android:privateImeOptions="defaultInputmode=korean"
+            android:textColor="@color/todo_black"
+            android:textColorHint="@color/todo_grey_04"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_input_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="500"
+        app:hintEnabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/btn_dialog_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_input_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/input_content"
+            android:maxLength="500"
+            android:textColor="@color/todo_black"
+            android:textColorHint="@color/todo_grey_04"
+            android:textSize="14sp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_dialog_register"
+        style="@style/TextBody.White.Light.Bold"
+        android:layout_width="108dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/selector_register_btn"
+        android:enabled="true"
+        android:includeFontPadding="false"
+        android:padding="10dp"
+        android:text="@string/dialog_register"
+        android:textColor="@drawable/selector_register_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btn_dialog_cancel"
+        style="@style/TextBody.Grey"
+        android:layout_width="108dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/background_btn_grey_r6"
+        android:includeFontPadding="false"
+        android:padding="10dp"
+        android:text="@string/dialog_cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_dialog_register" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
