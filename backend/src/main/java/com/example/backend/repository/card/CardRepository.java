@@ -18,4 +18,6 @@ public interface CardRepository {
     Optional<Card> findById(Long id);
 
     Card update(Card card);
+
+    Card delete(Long id);
 }

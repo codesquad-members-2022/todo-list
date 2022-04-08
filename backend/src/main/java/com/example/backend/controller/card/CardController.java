@@ -51,8 +51,8 @@ public class CardController {
 
     @DeleteMapping("/cards/{id}")
     public CardDto delete(@PathVariable Long id) {
-        Card card = cardService.findById(id);
-        return new CardDto(card);
+        cardService.delete(id);
+        return null;
     }
 
     @PatchMapping({"/cards/{id}"})

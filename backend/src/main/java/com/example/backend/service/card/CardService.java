@@ -41,4 +41,9 @@ public class CardService {
         cardRepository.update(card);
         return null;
     }
+
+    public Card delete(Long id) {
+        cardRepository.delete(id);
+        return null;
+    }
 }

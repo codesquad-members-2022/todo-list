@@ -9,6 +9,7 @@ import com.example.backend.repository.card.CardRepository;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -89,6 +90,14 @@ public class CardJdbcRepository implements CardRepository {
         String query = "update todo_list.card set title=:title, content=:content, card_type=:cardType where id=:id";
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(toParamMap(card));
         jdbcTemplate.update(query, mapSqlParameterSource);
+        return null;
+    }
+
+    @Override
+    public Card delete(Long id) {
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
+        String query = "update todo_list.card set visible=false where id=:id";
+        jdbcTemplate.update(query, namedParameters);
         return null;
     }
 
