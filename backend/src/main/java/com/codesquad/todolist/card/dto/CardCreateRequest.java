@@ -1,5 +1,6 @@
-package com.codesquad.todolist.card;
+package com.codesquad.todolist.card.dto;
 
+import com.codesquad.todolist.card.Card;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -13,16 +14,12 @@ public class CardCreateRequest {
     public CardCreateRequest(Integer columnId, String title, String author, String content) {
         this.columnId = columnId;
         this.title = title;
-        this.author = author;
         this.content = content;
+        this.author = author;
     }
 
     public Card toEntity(int order) {
-        return new Card.Builder(this.getColumnId(), this.getTitle(), this.getAuthor())
-            .content(this.getContent().orElse(""))
-            .date(LocalDateTime.now())
-            .order(order)
-            .build();
+        return new Card(columnId, title, content, author, order);
     }
 
     public Integer getColumnId() {
@@ -33,12 +30,13 @@ public class CardCreateRequest {
         return title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
     // 카드 생성시 content는 필수값이 아님
     public Optional<String> getContent() {
         return Optional.ofNullable(content);
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
 }

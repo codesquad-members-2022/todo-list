@@ -1,5 +1,6 @@
 package com.codesquad.todolist.card;
 
+import com.codesquad.todolist.card.dto.CardCreateRequest;
 import org.springframework.stereotype.Service;
 
 @Service
