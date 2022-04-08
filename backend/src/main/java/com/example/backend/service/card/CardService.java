@@ -2,6 +2,7 @@ package com.example.backend.service.card;
 
 import com.example.backend.controller.card.dto.CardDto;
 import com.example.backend.domain.card.Card;
+import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
 
 import org.springframework.stereotype.Service;
@@ -25,5 +26,9 @@ public class CardService {
 
     public Map<String, List<Card>> findAll() {
         return cardRepository.findAll();
+    }
+
+    public List<Card> findByType(CardType cardType) {
+        return cardRepository.findByType(cardType);
     }
 }

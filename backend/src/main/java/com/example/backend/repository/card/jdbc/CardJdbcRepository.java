@@ -39,10 +39,19 @@ public class CardJdbcRepository implements CardRepository {
         return null;
     }
 
+    @Override
     public Map<String, List<Card>> findAll() {
         String query = "select id, title, content, card_type, created_at, last_modified_at,visible, column_id " +
-                "from todo_list.cards where todo_list.cards.card_type = :cardType";
+                "from cards where card_type = :cardType";
         return cardTypeClassification(query);
+    }
+
+    @Override
+    public List<Card> findByType(CardType cardType) {
+        String query = "select id, title, content, card_type, created_at, last_modified_at,visible, column_id " +
+                "from cards where card_type = :cardType";
+        Map<String, Object> params = Collections.singletonMap("cardType", cardType.toString());
+        return jdbcTemplate.query(query, params, mapper);
     }
 
     private Map<String, List<Card>> cardTypeClassification(String query) {

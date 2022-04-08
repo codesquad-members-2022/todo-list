@@ -2,14 +2,17 @@ package com.example.backend.controller.card;
 
 import com.example.backend.controller.card.dto.CardDto;
 import com.example.backend.domain.card.Card;
+import com.example.backend.domain.card.CardType;
 import com.example.backend.service.card.CardService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,5 +35,15 @@ public class CardController {
     @GetMapping("/cards")
     public Map<String, List<Card>> getCards() {
         return cardService.findAll();
+    }
+
+    @GetMapping("/cards/{type}")
+    public List<CardDto> getCard(@PathVariable CardType type) {
+        List<Card> cards = cardService.findByType(type);
+        List<CardDto> cardDtos = new ArrayList<>();
+        for (Card card : cards) {
+            cardDtos.add(new CardDto(card));
+        }
+        return cardDtos;
     }
 }
