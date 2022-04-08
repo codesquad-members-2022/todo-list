@@ -96,7 +96,7 @@ TO-DO LIST 기능 정리
     - count data를 column 마다 계속 가지고 있어서 카드 등록 시 count + 1 해주기
   - [ ] 투두 카드 삭제 시 해당 todoColumn에 맞는 count 1 감소
 
-- [ ] TODO CREATE (Jinnie & Muffin)
+- [x] TODO CREATE (Jinnie & Muffin)
 
   - [x] 버튼 마우스 오버시 색상 변경
   - [x] 버튼 클릭 시 카드 생성
@@ -110,9 +110,10 @@ TO-DO LIST 기능 정리
     - 🤔 시간 데이터 추가 필요
     - 서버 반영은 차후에...
     - ~해당 카드 remove.~
-  - [ ] 글자수 제한 500자 이내
-  - [ ] 글의 길이에 맞춰 박스가 아래로 늘어나도록 구현 + input height값도 함께 늘어난다.
-    - div태그로 input태그처럼 구현? input(hidden 속성)을 사용 -> value만 관리하는 녀석, div가 view를 관리하는 녀석
+  - [x] 글자수 제한 500자 이내
+  - [x] 글의 길이에 맞춰 박스가 아래로 늘어나도록 구현 + input height값도 함께 늘어난다.
+    - ~div태그로 input태그처럼 구현? input(hidden 속성)을 사용 -> value만 관리하는 녀석, div가 view를 관리하는 녀석~
+    - textarea 속성을 사용하여 해결
 
 - [ ] TODO UPDATE (Jinnie)
 
