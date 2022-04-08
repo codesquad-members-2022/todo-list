@@ -25,9 +25,7 @@ export default class Todo {
 
   makeEdit = () => {
     //수정폼 판별...
-
-    const todoEdit = new TodoEdit(this.todoData.id, this.todoData.content);
-    //document.getElementById(this.todoData.id).remove();
+    const todoEdit = new TodoEdit(this.todoData.id, this.todoData.title, this.todoData.content);
     document.getElementById(this.todoData.id).classList.add('todo-border');
     document.getElementById(this.todoData.id).innerHTML = todoEdit.render();
   };
