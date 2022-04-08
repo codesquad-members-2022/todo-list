@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class WorkLogRepository {
 
+    private static final String CREATION = "등록";
+
     private final NamedParameterJdbcTemplate jdbc;
 
     public WorkLogRepository(DataSource dataSource) {
@@ -26,7 +28,8 @@ public class WorkLogRepository {
             Collections.singletonMap("userId", userId), workLogRowMapper());
     }
 
-    public void save(WorkLog workLog) {
+    public void saveCreationLog(Integer workId, String categoryName) {
+        WorkLog workLog = new WorkLog(workId, CREATION, categoryName);
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(workLog);
         jdbc.update("INSERT INTO work_log (work_id, action, previous_column, updated_datetime)"
             + " VALUES (:workId, :action, :previousColumn, :updatedDateTime)", parameters);

@@ -1,5 +1,8 @@
 package com.todolist.domain;
 
+import lombok.Getter;
+
+@Getter
 public class Category {
 
     private Integer id;
@@ -10,13 +13,5 @@ public class Category {
     public Category(Integer id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
     }
 }

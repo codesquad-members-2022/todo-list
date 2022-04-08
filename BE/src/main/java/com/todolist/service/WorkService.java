@@ -19,8 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class WorkService {
 
-    private static final String CREATION = "등록";
-
     private final CategoryRepository categoryRepository;
     private final WorkRepository workRepository;
     private final WorkLogRepository workLogRepository;
@@ -65,9 +63,7 @@ public class WorkService {
         // 활동 기록 저장
         Integer workId = workDto.getId();
         String categoryName = categoryRepository.findNameById(categoryId);
-
-        WorkLog workLog = new WorkLog(workId, CREATION, categoryName);
-        workLogRepository.save(workLog);
+        workLogRepository.saveCreationLog(workId, categoryName);
 
         return workDto;
     }
