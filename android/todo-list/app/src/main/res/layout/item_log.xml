@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:id="@+id/iv_log_image"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:contentDescription="log_image"
+            android:src="@drawable/ic_menu_24"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:text="sam"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@id/iv_log_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_log_body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="해야할 일에 코틀린 공부를 등록하였습니다."
+            android:textSize="25dp"
+            app:layout_constraintStart_toEndOf="@id/iv_log_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_user" />
+
+        <TextView
+            android:id="@+id/log_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1분전"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/iv_log_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_log_body" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

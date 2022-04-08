@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Test</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="start">시작</string>
+    <string name="card_todo">해야할 일</string>
+    <string name="card_progress">하고 있는 일</string>
+    <string name="card_done">완료한 일</string>
+    <string name="dialog_create_card">등록</string>
+    <string name="cancel">취소</string>
+    <string name="create_card">새로운 카드 추가</string>
+    <string name="input_title">제목을 입력하세요</string>
+    <string name="input_content">내용을 입력하세요</string>
+    <string name="dialog_register">등록</string>
+    <string name="dialog_cancel">취소</string>
+</resources>
