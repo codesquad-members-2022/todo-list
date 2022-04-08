@@ -25,7 +25,7 @@ class CardsFetchingDataTask: CardHTTPRequest
     func fetchCardsAll(completionHandler: @escaping ([[CardData]]?)->Void)
     {
         do {
-            doGetRequest(url: try CardFetchingURL.fetchAll.toURL(), parameter: nil) { [weak self] data in
+            doGetRequest(url: try FetchingURL.fetchAll.toURL(), parameter: nil) { [weak self] data in
                 
                 guard let data = data else {
                     completionHandler(nil)
@@ -43,7 +43,7 @@ class CardsFetchingDataTask: CardHTTPRequest
     func fetchCardsInBoard(completionHandler: @escaping ([CardData]?)->Void)
     {
         do {
-            doGetRequest(url: try CardFetchingURL.oneFetch.toURL(), parameter: nil) { [weak self] data in
+            doGetRequest(url: try FetchingURL.oneFetch.toURL(), parameter: nil) { [weak self] data in
                 
                 guard let data = data else {
                     completionHandler(nil)
@@ -60,7 +60,7 @@ class CardsFetchingDataTask: CardHTTPRequest
 }
 
 extension CardsFetchingDataTask {
-    enum CardFetchingURL: String {
+    enum FetchingURL: String {
         case fetchAll = "https://fetchAll.com"
         case oneFetch = "https://oneFetch.com"
         
