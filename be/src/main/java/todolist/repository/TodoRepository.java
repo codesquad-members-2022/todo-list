@@ -6,9 +6,11 @@ import java.util.Optional;
 public interface TodoRepository<T> {
     T save(T entity);
 
-    Optional<T> findById(Long id);
+    T findById(Long id);
 
     List<T> findAll();
+
+    void update(T t);
 
     void delete(Long id);
 }

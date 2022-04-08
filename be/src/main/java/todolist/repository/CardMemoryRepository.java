@@ -2,6 +2,7 @@ package todolist.repository;
 
 import org.springframework.stereotype.Repository;
 import todolist.domain.Card;
+import todolist.dto.RequestCardDto;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,8 +24,8 @@ public class CardMemoryRepository implements TodoRepository<Card> {
     }
 
     @Override
-    public Optional<Card> findById(Long id) {
-        return store.stream().filter(card -> card.getId() == id).findAny();
+    public Card findById(Long id) {
+        return store.stream().filter(card -> card.getId() == id).findAny().orElseThrow(()-> new IllegalArgumentException());
     }
 
     @Override
@@ -33,7 +34,15 @@ public class CardMemoryRepository implements TodoRepository<Card> {
     }
 
     @Override
-    public void delete(Long id) {
-        store.remove(id);
+    public void update(Card updatedCard) {
+        //쿼리에 updatedCard.getId, updatedCard.getContent....
     }
+
+    @Override
+    public void delete(Long id) {
+        Card card = findById(id);
+        store.remove(card);
+    }
+
+
 }

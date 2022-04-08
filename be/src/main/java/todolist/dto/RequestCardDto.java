@@ -24,4 +24,13 @@ public class RequestCardDto {
     public Card toCard() {
         return new Card(section, title, content);
     }
+
+    @Override
+    public String toString() {
+        return "RequestCardDto{" +
+                "section='" + section + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
