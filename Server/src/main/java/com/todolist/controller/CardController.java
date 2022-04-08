@@ -29,6 +29,15 @@ public class CardController {
         this.cardService = cardService;
     }
 
+    // TODO : 데이터 저장 시 타입 체크 수행
+    /**
+     * 제목, 내용은 필수값
+     * 타이틀 글자 수 30자 제한
+     * 내용 글자수 500자 제한
+     * 특수문자 가능
+     */
+    // TODO : EC2 배포, API 공유
+
     @GetMapping
     public Map<String, List<CardInformationDto>> read() {
         return cardService.findAllCards(1);
