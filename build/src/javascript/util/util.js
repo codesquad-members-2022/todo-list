@@ -1,4 +1,4 @@
-import axios from "https://cdn.skypack.dev/axios";
+// import axios from "https://cdn.skypack.dev/axios";
 
 export async function getData(URL) {
   const data = await axios.get(URL).then((response) => response.data);
