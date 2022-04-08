@@ -93,10 +93,10 @@ class CardsUpdateDataTask: CardHTTPRequest
 extension CardsUpdateDataTask {
     struct ScreenCardParameter: Encodable
     {
-        var title: String
-        var contents: String
-        var status: Int
-        var updateDate: String
+        let title: String
+        let contents: String
+        let status: Int
+        let updateDate: String
         
         func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: ScreenCardParameterCodingKey.self)

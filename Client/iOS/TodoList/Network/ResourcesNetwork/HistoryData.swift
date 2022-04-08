@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct HistoryData: Codable
+struct HistoryData: Codable, Identifiable
 {
-    var objectId: String
-    var activityType: String
+    let id: String
+    let activityType: String
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: HistoryDataJsonKeys.self)
@@ -23,7 +23,7 @@ struct HistoryData: Codable
             throw HistoryDataDecodedError.objectIdError
         }
         
-        self.objectId = objectId
+        self.id = objectId
         self.activityType = activityType
     }
     

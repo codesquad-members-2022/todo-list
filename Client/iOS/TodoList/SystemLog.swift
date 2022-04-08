@@ -90,7 +90,6 @@ struct Log {
         } else {
             let extraMessage: String = arguments.map({ String(describing: $0) }).joined(separator: " ")
             os_log("%{public}@", log: level.osLog, type: level.osLogType, "\(message) \(extraMessage)")
-            log("asd")
         }
 //        #endif
     }

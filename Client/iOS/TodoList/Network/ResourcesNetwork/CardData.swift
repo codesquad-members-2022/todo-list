@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct CardData: Codable
+struct CardData: Codable, Identifiable
 {
-    var objectId: String
-    var title: String
-    var contents: String
-    var creationDate: String
-    var index: Int
-    var status: Int
-    var updateDate: String
+    let id: String // Identifiable required property
+    let title: String
+    let contents: String
+    let creationDate: String
+    let index: Int
+    let status: Int
+    let updateDate: String
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CardDataJsonKeys.self)
@@ -48,7 +48,7 @@ struct CardData: Codable
             throw CardDataDecodedError.updateDateError
         }
         
-        self.objectId = objectId
+        self.id = objectId
         self.title = title
         self.contents = contents
         self.creationDate = creationDate
@@ -59,7 +59,7 @@ struct CardData: Codable
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CardDataJsonKeys.self)
-        try container.encode(objectId, forKey: .objectId)
+        try container.encode(id, forKey: .objectId)
         try container.encode(title, forKey: .title)
         try container.encode(contents, forKey: .contents)
         try container.encode(creationDate, forKey: .creationDate)
