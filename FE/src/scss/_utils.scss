@@ -1,7 +1,7 @@
 @mixin button {
   width: 13.4rem;
   height: 4rem;
-  border-radius: 0.6rem;
+  border-radius: .6rem;
   border: 0;
   font-size: $font-medium;
   font-weight: $wgt-large;
@@ -13,9 +13,7 @@
   @if $active {
     background-color: $blue;
     color: $white;
-  }
-
-  @else {
+  } @else {
     background-color: $btn-accent-disabled;
     color: $lightgray;
   }
@@ -27,55 +25,113 @@
   color: $btn-normal-hover;
 }
 
-@mixin card($color: false, $box-sizing: false, $opactiy: 1, $background-color: $card-default) {
+@mixin task($color: false, $box-sizing: false, $opactiy: 1, $background-color: $task-default) {
   display: flex;
   padding: 1.6rem;
   opacity: $opactiy;
   background-color: $background-color;
-  border-radius: 0.6rem;
-  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: .6rem;
+  box-shadow: 0 .1rem 3rem $task-box-shadow;
   justify-content: space-between;
   margin-bottom: 1.6rem;
 
   @if $box-sizing {
     box-sizing: border-box;
-  }
-
-  @else {
+  } @else {
     box-sizing: content-box;
   }
 
   @if $color {
-    border: 1px solid $color;
-  }
-
-  @else {
+    border: .1rem solid $color;
+  } @else {
     border: 0;
   }
 }
 
-@mixin card-default {
-  @include card;
+@mixin task-input-exclude($btn-remove-img: true) {
+  &__contents {
+    cursor: pointer;
+    width: 100%;
+  }
+
+  &__title {
+    color: $task-title-color;
+    font-size: $task-title-fs;
+    font-weight: $task-title-wgt;
+    margin-bottom: .8rem;
+  }
+
+  &__desc {
+    color: $task-body-color;
+    font-size: $task-body-fs;
+    font-weight: $task-body-wgt;
+    margin-bottom: .8rem;
+  }
+
+  &__author {
+    color: $task-author-color;
+    font-size: $task-author-fs;
+    font-weight: $task-author-wgt;
+  }
+
+  @if $btn-remove-img {
+    &__btn--remove {
+      background-image: url('../assets/task-remove-default.svg');
+      background-repeat: no-repeat;
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+  } @else {
+    &__btn--remove {
+      background-image: url('../assets/task-remove-delete.svg');
+      background-repeat: no-repeat;
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+  }
 }
 
-@mixin card-active {
-  @include card($blue, true);
+@mixin task-input-include($background-color: true) {
+  flex-direction: column;
+
+  &__title {
+    margin-bottom: .8rem;
+  }
+
+  &__desc {
+    margin-bottom: 1.6rem;
+  }
+
+  input[type=text] {
+    border: 0;
+  }
+
+  input[type=text]:focus {
+    outline: none;
+  }
+
+  &__btns {
+    display: flex;
+  }
+
+  &__cancel {
+    @include button-gray;
+  }
+
+  @if $background-color {
+    &__confirm {
+      @include button-blue(true);
+    }
+  } @else {
+    &__confirm {
+      @include button-blue(false);
+    }
+  }
 }
 
-@mixin card-delete {
-  @include card($red, true);
-}
-
-@mixin card-drag {
-  @include card(false, .8);
-  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(4px);
-}
-
-@mixin card-place {
-  @include card($blue, true, .4);
-}
-
-@mixin card-deactivate {
-  @include card($blue, true);
+@mixin worklist-task-btn($background-img-url) {
+  background-image: url($background-img-url);
+  background-repeat: no-repeat;
+  height: 1.5rem;
+  width: 1.5rem;
 }

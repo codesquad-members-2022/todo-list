@@ -1,0 +1,31 @@
+.task-idle {
+  @include task;
+  @include task-input-exclude;
+}
+
+.task-drag {
+  @include task(false, .8);
+  @include task-input-exclude;
+  backdrop-filter: blur(.4rem);
+  box-shadow: 0 0 .4rem $task-drag-box-shadow-top-left, 0 .2rem .4rem $task-drag-box-shadow-btm-right;
+}
+
+.task-place {
+  @include task($blue, true, .4);
+  @include task-input-exclude;
+}
+
+.task-active {
+  @include task($blue, true);
+  @include task-input-include;
+}
+
+.task-deactivate {
+  @include task($blue, true);
+  @include task-input-include(false);
+}
+
+.task-delete {
+  @include task($red, true, 1, $task-delete);
+  @include task-input-exclude(false);
+}
