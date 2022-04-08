@@ -3,7 +3,8 @@ package todolist.service;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import todolist.domain.Card;
-import todolist.dto.CardDto;
+import todolist.dto.RequestCardDto;
+import todolist.dto.ResponseCardDto;
 import todolist.repository.CardMemoryRepository;
 import todolist.repository.TodoRepository;
 
@@ -17,9 +18,9 @@ class CardServiceTest {
     @Test
     @DisplayName("요청으로 들어온 CardDto 객체를 넘기면 Id값을 가진 CardDto를 반환한다.")
     void addCard() {
-        CardDto cardDto = new CardDto("해야할 일", "제목", "내용");
+        RequestCardDto cardDto = new RequestCardDto("해야할 일", "제목", "내용");
 
-        CardDto result = service.addCard(cardDto);
+        ResponseCardDto result = service.addCard(cardDto);
 
         assertThat(result.getId()).isEqualTo(1L);
         assertThat(result.getSection()).isEqualTo("해야할 일");
