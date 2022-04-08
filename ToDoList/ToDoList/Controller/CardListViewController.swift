@@ -31,8 +31,6 @@ class CardListViewController: UIViewController {
 
         self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: CardListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: CardListTableViewCell.identifier)
-        
-        cardManager.add()
     }
     
     @IBAction func addCardButtonTouched(_ sender: UIButton) {
