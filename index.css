@@ -160,7 +160,7 @@ button {
 .alarm-wrapper {
   position: absolute;
   top: 0;
-  right: 0;
+  right: -20%;
   opacity: 0;
 }
 
@@ -213,17 +213,17 @@ button {
   }
   to {
     opacity: 1;
-    transform: translateX(-500px);
+    right: 0;
   }
 }
 @keyframes fadeInRight {
   from {
     opacity: 1;
-    transform: translateX(-500px);
+    right: 0;
   }
   to {
     opacity: 0;
-    transform: translateX(0px);
+    right: -20%;
   }
 }
 .edit-input-wrapper {
@@ -295,10 +295,11 @@ button {
 
 body {
   background: #f5f5f7;
+  overflow-x: hidden;
 }
 
 .header__main {
-  width: 1440px;
+  max-width: 1440px;
   height: 112px;
   display: flex;
   justify-content: space-between;
