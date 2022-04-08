@@ -37,31 +37,41 @@
         width: 24px;
         height: 24px;
         background-image: url(../../../../../images/close.png);
+
+        &:hover {
+            background-image: url(../../../../../images/close-activated.png);
+        }
     }
 
-    &__util-btns {
+    &--deleting {
+        background-color: $white-red;
+        border: solid 1px $red;
+    }
+
+    &__btns {
         display: flex;
         justify-content: space-between;
+
+        .activated {
+            background-color: $blue;
+        }
     }
 
-    &__util-btn {
+    &__btn {
         width: 134px;
         height: 40px;
         border-radius: 6px;
         padding: 10px;
         text-align: center;
+    }
 
-        &--cancel {
-            background-color: $light-gray;
-            color: $dark-gray;
-            
-        }
+    &__cancel-btn {
+        background-color: $light-gray;
+        color: $dark-gray;
+    }
 
-        &--regist {
-            background-color: $light-blue;
-            color: $white;
-            width: 134px;
-            height: 40px;
-        }
+    &__confirm-btn {
+        background-color: $light-blue;
+        color: $white;
     }
 }
