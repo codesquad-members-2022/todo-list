@@ -1,8 +1,8 @@
 import UIKit
 
 class TaskCardListView: UIView {
-    @IBOutlet weak var cardListTable: UITableView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var title: UILabel!
     @IBOutlet weak var taskCountBadge: UILabel!
     
     override init(frame: CGRect) {

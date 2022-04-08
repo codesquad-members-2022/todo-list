@@ -78,8 +78,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="cardContents" destination="2EQ-cA-m9k" id="sGC-lN-fqb"/>
-                <outlet property="cardTitle" destination="0Kn-E6-Ytx" id="Abw-Li-Z4i"/>
+                <outlet property="contents" destination="2EQ-cA-m9k" id="sGC-lN-fqb"/>
+                <outlet property="title" destination="0Kn-E6-Ytx" id="Abw-Li-Z4i"/>
             </connections>
             <point key="canvasLocation" x="221.73913043478262" y="147.99107142857142"/>
         </tableViewCell>
