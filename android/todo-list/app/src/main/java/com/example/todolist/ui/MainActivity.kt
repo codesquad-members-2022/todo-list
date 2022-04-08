@@ -49,8 +49,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOnClickTodoAdd() {
         binding.btnTodoAdd.setOnClickListener {
-            Log.d("AppTest", "click btn")
-            viewModel.addTodo()
+            val dialog = CreateCardDialogFragment(binding.rvTodo)
+            dialog.show(supportFragmentManager, null)
+            /*Log.d("AppTest", "click btn")
+            viewModel.addTodo()*/
+
         }
     }
 
