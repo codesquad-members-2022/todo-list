@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct BoardData: Codable
+struct BoardData: Codable, Identifiable
 {
-    var objectId: String
-    var boardName: String
+    let id: String
+    let boardName: String
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: BoardDataJsonKeys.self)
@@ -23,7 +23,7 @@ struct BoardData: Codable
             throw BoardDataDecodedError.boardNameError
         }
         
-        self.objectId = objectId
+        self.id = objectId
         self.boardName = boardName
     }
     

@@ -7,10 +7,6 @@
 
 import Foundation
 
-/// 화면 내 카드를 불러오는 여러 작업을 수행한다.
-///
-/// - fetchCardsAll(): 모든 보드의 카드를 가져온다.
-/// - fetchCardsInBoard(in:BoardData): 특정 보드의 카드를 가져온다.
 class CardsFetchingDataTask: CardHTTPRequest
 {
     
@@ -26,51 +22,45 @@ class CardsFetchingDataTask: CardHTTPRequest
         super.init(as: string, using: delegate, in: queue, type: type)
     }
     
-    /// Card를 모두 요청할 때 쓰입니다.
-    ///
-    /// - completionHandler: REST-API 요청 후 CardData 옵셔널 파라미터를 전달하는 클로저입니다.
     func fetchCardsAll(completionHandler: @escaping ([[CardData]]?)->Void)
     {
         do {
-            doGetRequest(url: try CardFetchingURL.fetchAll.toURL(), parameter: nil) { data in
+            doGetRequest(url: try FetchingURL.fetchAll.toURL(), parameter: nil) { [weak self] taskResult in
                 
-                guard let data = data else {
+                guard let data = try? taskResult.get() else {
                     completionHandler(nil)
                     return
                 }
                 
-                completionHandler(try? self.decoder.decode([[CardData]].self, from: data))
+                completionHandler(try? self?.decoder.decode([[CardData]].self, from: data))
             }
         } catch {
-            print(error)
+            Log.error(error)
             completionHandler(nil)
         }
     }
     
-    /// 특정 Board의 Card를 모두 요청할 때 쓰입니다.
-    ///
-    /// - completionHandler: REST-API 요청 후 CardData 옵셔널 파라미터를 전달하는 클로저입니다.
     func fetchCardsInBoard(completionHandler: @escaping ([CardData]?)->Void)
     {
         do {
-            doGetRequest(url: try CardFetchingURL.oneFetch.toURL(), parameter: nil) { data in
+            doGetRequest(url: try FetchingURL.oneFetch.toURL(), parameter: nil) { [weak self] taskResult in
                 
-                guard let data = data else {
+                guard let data = try? taskResult.get() else {
                     completionHandler(nil)
                     return
                 }
                 
-                completionHandler(try? self.decoder.decode([CardData].self, from: data))
+                completionHandler(try? self?.decoder.decode([CardData].self, from: data))
             }
         } catch {
-            print(error)
+            Log.error(error)
             completionHandler(nil)
         }
     }
 }
 
 extension CardsFetchingDataTask {
-    enum CardFetchingURL: String {
+    enum FetchingURL: String {
         case fetchAll = "https://fetchAll.com"
         case oneFetch = "https://oneFetch.com"
         
