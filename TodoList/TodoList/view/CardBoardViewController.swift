@@ -12,37 +12,58 @@ class CardBoardViewController: UIViewController {
     let factory = CardFactory()
     let cardBoard = CardBoard()
     
+    private var todoViewController: CardTableViewController?
+    private var doingViewController: CardTableViewController?
+    private var doneViewController: CardTableViewController?
+    
     @IBOutlet weak var boardStackView: UIStackView!
     @IBOutlet weak var todoContainerView: UIView!
     @IBOutlet weak var doneContainerView: UIView!
     @IBOutlet weak var doingContainerView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray5
-        boardStackView.backgroundColor = .systemGray5
+        initChildViewControllers()
+        setUIProperties()
+        setUIPropertiesAutoLayout()
+    }
+    
+    private func initChildViewControllers() {
         let todoStoryBoard = UIStoryboard(name: "TodoStoryboard", bundle: Bundle(for: CardTableViewController.self))
-        guard let todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController else {
-            return
-        }
+        self.todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController
+        self.doingViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController
+        self.doneViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController
         
-        guard let doingViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController else {
-            return
-        }
-        
-        guard let doneViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController else {
+        guard let todoViewController = self.todoViewController,
+              let doingViewController = self.doingViewController,
+              let doneViewController = self.doneViewController else {
             return
         }
         
         addChild(todoViewController)
         addChild(doingViewController)
         addChild(doneViewController)
+        
         todoContainerView.addSubview(todoViewController.view)
         doingContainerView.addSubview(doingViewController.view)
         doneContainerView.addSubview(doneViewController.view)
+    }
+    
+    private func setUIProperties() {
+        view.backgroundColor = .systemGray5
+        boardStackView.backgroundColor = .systemGray5
+        todoViewController?.setCardTitleLabel(title: "해야 할 일")
+        doingViewController?.setCardTitleLabel(title: "하고 있는 일")
+        doneViewController?.setCardTitleLabel(title: "완료한 일")
+    }
+    
+    private func setUIPropertiesAutoLayout() {
         
-        todoViewController.setTitleLabel(title: "해야 할 일")
-        doingViewController.setTitleLabel(title: "하고 있는 일")
-        doneViewController.setTitleLabel(title: "완료한 일")
+        guard let todoViewController = self.todoViewController,
+              let doingViewController = self.doingViewController,
+              let doneViewController = self.doneViewController else {
+            return
+        }
         
         todoViewController.view.translatesAutoresizingMaskIntoConstraints = false
         todoViewController.view.heightAnchor.constraint(equalTo: todoContainerView.heightAnchor, constant: 0).isActive = true

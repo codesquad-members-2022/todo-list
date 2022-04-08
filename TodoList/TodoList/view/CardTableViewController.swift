@@ -14,23 +14,27 @@ class CardTableViewController: UIViewController {
     @IBOutlet weak var addCardButton: UIButton!
     @IBOutlet weak var cardTableView: UITableView!
     private let tableViewDelegate = CardTableDelegate()
-    
+    private(set) var cards = [TableCardUsable]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setUIProperties()
-        setUIPropertiesConstraint()
         
         cardTableView.register(CardTableViewCell.self, forCellReuseIdentifier: "CardTableViewCell")
         cardTableView.delegate = tableViewDelegate
         cardTableView.dataSource = tableViewDelegate
         
-        tableViewDelegate.setCards(cards: [Card(status: .todo, title: "firstCard", contents: "firstContents", writer: "ebony")])
+        tableViewDelegate.setCards(cards: cards)
+        
+        setUIProperties()
+        setUIPropertiesConstraint()
     }
     
-    func setTitleLabel(title: String){
+    func setCardTitleLabel(title: String){
         cardLabel.text = title
+    }
+    
+    private func setCardCountLabel() {
+        cardCountLabel.text = "\(cards.count)"
     }
     
     private func setUIProperties() {
