@@ -7,7 +7,6 @@ export default class TodoNotice {
     this.time = notice.time;
     this.user = notice.userId;
     this.action = notice.action;
-    this.render();
     // this.setNotices(notice);
   }
 

@@ -1,7 +1,7 @@
 export default class TodoCount {
-  constructor(count) {
+  constructor(status, count) {
+    this.status = status;
     this.count = count;
-    this.render();
   }
 
   addCount = () => {
@@ -16,5 +16,7 @@ export default class TodoCount {
     return this.count;
   };
 
-  render = () => {};
+  render = () => {
+    document.querySelector(`.${this.status} .column__count`).innerText = this.count;
+  };
 }
