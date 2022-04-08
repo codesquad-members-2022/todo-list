@@ -18,7 +18,9 @@
 		B5EC66F027FC0D5D0042EFCF /* MemoCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */; };
 		B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */; };
 		B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66F427FEC3F90042EFCF /* HeaderViewDelegate.swift */; };
+		D019328E27FFD12E00A9CE20 /* MemoCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */; };
 		D0850A7827FEB294009C60E5 /* ResourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7727FEB294009C60E5 /* ResourceFactory.swift */; };
+		D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7927FFB545009C60E5 /* MemoContainerView.swift */; };
 		D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */; };
 		D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */; };
 		D0B5676527FC267B002AE51E /* HistoryStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B5676427FC267B002AE51E /* HistoryStackView.swift */; };
@@ -38,7 +40,9 @@
 		B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCanvasView.swift; sourceTree = "<group>"; };
 		B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewTableViewCell.swift; sourceTree = "<group>"; };
 		B5EC66F427FEC3F90042EFCF /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
+		D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCanvasViewController.swift; sourceTree = "<group>"; };
 		D0850A7727FEB294009C60E5 /* ResourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceFactory.swift; sourceTree = "<group>"; };
+		D0850A7927FFB545009C60E5 /* MemoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerView.swift; sourceTree = "<group>"; };
 		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
 		D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewDelegate.swift; sourceTree = "<group>"; };
 		D0B5676427FC267B002AE51E /* HistoryStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStackView.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 				B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */,
 				B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */,
 				D0B5676427FC267B002AE51E /* HistoryStackView.swift */,
+				D0850A7927FFB545009C60E5 /* MemoContainerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -113,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				B5EC66D627FADD9C0042EFCF /* MainViewController.swift */,
+				D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -224,7 +230,9 @@
 				D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */,
 				B5EC66D527FADD9C0042EFCF /* SceneDelegate.swift in Sources */,
 				B5EC66F027FC0D5D0042EFCF /* MemoCanvasView.swift in Sources */,
+				D019328E27FFD12E00A9CE20 /* MemoCanvasViewController.swift in Sources */,
 				B5EC66EC27FC0CD10042EFCF /* HeaderView.swift in Sources */,
+				D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +379,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TODOList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -399,6 +408,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TODOList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

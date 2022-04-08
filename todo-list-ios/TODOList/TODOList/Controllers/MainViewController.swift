@@ -14,8 +14,18 @@ final class MainViewController: UIViewController {
         return view
     }()
     
+    private var memoCanvasViewController: MemoCanvasViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor(named: ColorAsset.gray6)
+        
+        let memoCanvasViewController = MemoCanvasViewController()
+        addChild(memoCanvasViewController)
+        view.addSubview(memoCanvasViewController.view) // 안하면 뷰 안 보임
+        memoCanvasViewController.didMove(toParent: self) // 종속관계만 생김
+        self.memoCanvasViewController = memoCanvasViewController
         
         self.headerView.delegate = self
         
@@ -37,6 +47,11 @@ final class MainViewController: UIViewController {
         headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         headerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.08).isActive = true
+        
+        memoCanvasViewController?.view.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        memoCanvasViewController?.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor).isActive = true
+        memoCanvasViewController?.view.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
+        memoCanvasViewController?.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
     /// sideMenuButton 클릭 시 SideView를 보여준다. 
