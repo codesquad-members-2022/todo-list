@@ -9,7 +9,7 @@ import UIKit
 
 class InspectorViewCell: UITableViewCell {
     
-    static let indentifier = "TodoTableViewCell"
+    static let indentifier = Constant.TableViewCellIdentifier.inspector
     
     private let inspectorStackView: UIStackView = {
         let stackView = UIStackView()

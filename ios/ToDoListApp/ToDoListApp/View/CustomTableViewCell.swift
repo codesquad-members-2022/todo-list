@@ -9,7 +9,7 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
     
-    static let indentifier = "TodoTableViewCell"
+    static let indentifier = Constant.TableViewCellIdentifier.custom
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -37,7 +37,7 @@ class CustomTableViewCell: UITableViewCell {
     
     private let authorLabel: UILabel = {
         let label = UILabel()
-        label.text = "author by iOS"
+        label.text = Constant.Text.authorByIOS
         label.font = UIFont(name: Constant.Font.gothicNeo, size: 12)
         label.textColor = .lightGray
         return label

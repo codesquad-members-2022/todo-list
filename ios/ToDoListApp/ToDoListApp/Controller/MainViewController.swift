@@ -17,8 +17,8 @@ class MainViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "TO-DO LIST"
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 32)
+        label.text = Constant.Text.mainViewControllerNavigationTitle
+        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 32)
         return label
     }()
     
@@ -50,7 +50,7 @@ class MainViewController: UIViewController {
     
     private func setNavigationBarButtonItems() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal"),
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constant.SFSymbol.lineThreeHorizontal),
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(didTapInspectorButton))

@@ -15,11 +15,11 @@ enum KanbanType: String {
     var title: String {
         switch self {
         case .toDo:
-            return "해야 할 일"
+            return Constant.KanbanTitle.toDo
         case .inProgress:
-            return "하고 있는 일"
+            return Constant.KanbanTitle.inProgress
         case .done:
-            return "완료한 일"
+            return Constant.KanbanTitle.done
         }
     }
 }
