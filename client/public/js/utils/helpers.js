@@ -5,3 +5,7 @@ export function qs(selector, scope = document) {
 export function qsAll(selector, scope = document) {
   return Array.from(scope.querySelectorAll(selector));
 } // querySelectorAll and convert Array for easy to control
+
+export function insertElement(target, option, element) {
+  target.insertAdjacentHTML(option, element);
+}
