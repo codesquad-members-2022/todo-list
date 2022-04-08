@@ -82,12 +82,14 @@ body {
     header {
       @include flexbox(space-between);
       h3 {
+        word-break: break-all;
         font-weight: bold;
         color: $color-black;
       }
     }
     &__content {
       margin: 8px 0;
+      word-break: break-all;
       &-text {
         margin-bottom: 5px;
       }

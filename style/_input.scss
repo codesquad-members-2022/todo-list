@@ -11,7 +11,9 @@
   border-radius: 6px;
   background: $color-white;
 
-  .input-header {
+  .input-header,
+  .edit-input-header {
+    width: 100%;
     color: $color-grey-dark;
     font-weight: $font-700;
     font-size: $font-16;
@@ -20,7 +22,8 @@
     outline: none;
   }
 
-  .input-content {
+  .input-content,
+  .edit-input-content {
     display: block;
     width: 100%;
     height: auto;
@@ -44,14 +47,14 @@
     }
 
     .input--cancel,
-    .edit-input--cancel {
+    .input--cancel {
       background: $color-grey-mlight;
       color: $color-grey-dark;
       margin-right: 8px;
     }
 
     .input--register,
-    .edit-input--register {
+    .input--update {
       color: $color-white;
     }
   }

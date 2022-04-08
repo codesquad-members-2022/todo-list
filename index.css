@@ -240,7 +240,10 @@ button {
   background: #fff;
 }
 .input-wrapper .input-header,
-.edit-input-wrapper .input-header {
+.input-wrapper .edit-input-header,
+.edit-input-wrapper .input-header,
+.edit-input-wrapper .edit-input-header {
+  width: 100%;
   color: #828282;
   font-weight: 700;
   font-size: 16px;
@@ -249,7 +252,9 @@ button {
   outline: none;
 }
 .input-wrapper .input-content,
-.edit-input-wrapper .input-content {
+.input-wrapper .edit-input-content,
+.edit-input-wrapper .input-content,
+.edit-input-wrapper .edit-input-content {
   display: block;
   width: 100%;
   height: auto;
@@ -274,17 +279,17 @@ button {
   outline: none;
 }
 .input-wrapper .input-button-wrapper .input--cancel,
-.input-wrapper .input-button-wrapper .edit-input--cancel,
+.input-wrapper .input-button-wrapper .input--cancel,
 .edit-input-wrapper .input-button-wrapper .input--cancel,
-.edit-input-wrapper .input-button-wrapper .edit-input--cancel {
+.edit-input-wrapper .input-button-wrapper .input--cancel {
   background: #e0e0e0;
   color: #828282;
   margin-right: 8px;
 }
 .input-wrapper .input-button-wrapper .input--register,
-.input-wrapper .input-button-wrapper .edit-input--register,
+.input-wrapper .input-button-wrapper .input--update,
 .edit-input-wrapper .input-button-wrapper .input--register,
-.edit-input-wrapper .input-button-wrapper .edit-input--register {
+.edit-input-wrapper .input-button-wrapper .input--update {
   color: #fff;
 }
 
@@ -380,11 +385,13 @@ body {
   align-items: "stretch";
 }
 .column-list .card header h3 {
+  word-break: break-all;
   font-weight: bold;
   color: #010101;
 }
 .column-list .card__content {
   margin: 8px 0;
+  word-break: break-all;
 }
 .column-list .card__content-text {
   margin-bottom: 5px;
