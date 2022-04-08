@@ -31,4 +31,8 @@ public class CardService {
     public List<Card> findByType(CardType cardType) {
         return cardRepository.findByType(cardType);
     }
+
+    public Card findById(Long id) {
+        return cardRepository.findById(id).orElseThrow();
+    }
 }

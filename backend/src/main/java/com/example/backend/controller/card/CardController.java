@@ -46,4 +46,10 @@ public class CardController {
         }
         return cardDtos;
     }
+
+    @GetMapping("/cards/{id}")
+    public CardDto delete(@PathVariable Long id) {
+        Card card = cardService.findById(id);
+        return new CardDto(card);
+    }
 }
