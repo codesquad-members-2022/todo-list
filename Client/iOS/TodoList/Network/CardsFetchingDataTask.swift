@@ -25,14 +25,14 @@ class CardsFetchingDataTask: CardHTTPRequest
     func fetchCardsAll(completionHandler: @escaping ([[CardData]]?)->Void)
     {
         do {
-            doGetRequest(url: try CardFetchingURL.fetchAll.toURL(), parameter: nil) { data in
+            doGetRequest(url: try CardFetchingURL.fetchAll.toURL(), parameter: nil) { [weak self] data in
                 
                 guard let data = data else {
                     completionHandler(nil)
                     return
                 }
                 
-                completionHandler(try? self.decoder.decode([[CardData]].self, from: data))
+                completionHandler(try? self?.decoder.decode([[CardData]].self, from: data))
             }
         } catch {
             print(error)
@@ -43,14 +43,14 @@ class CardsFetchingDataTask: CardHTTPRequest
     func fetchCardsInBoard(completionHandler: @escaping ([CardData]?)->Void)
     {
         do {
-            doGetRequest(url: try CardFetchingURL.oneFetch.toURL(), parameter: nil) { data in
+            doGetRequest(url: try CardFetchingURL.oneFetch.toURL(), parameter: nil) { [weak self] data in
                 
                 guard let data = data else {
                     completionHandler(nil)
                     return
                 }
                 
-                completionHandler(try? self.decoder.decode([CardData].self, from: data))
+                completionHandler(try? self?.decoder.decode([CardData].self, from: data))
             }
         } catch {
             print(error)

@@ -18,8 +18,8 @@ class CardHTTPRequest: SessionConfiguration {
         
         httpMethod = .GET
         
-        getRequestHandler(url: url) { request in
-            self.session.dataTask(with: request) { data, response, error in
+        getRequestHandler(url: url) { [weak self] request in
+            self?.session.dataTask(with: request) { data, response, error in
                 guard let data = data else {
                     completionHandler(nil)
                     return
@@ -40,8 +40,8 @@ class CardHTTPRequest: SessionConfiguration {
         httpMethod = .GET
         urlString = url.absoluteString
         
-        getCurrentRequestHandler { request in
-            self.session.dataTask(with: request) { data, response, error in
+        getCurrentRequestHandler { [weak self] request in
+            self?.session.dataTask(with: request) { data, response, error in
                 guard let data = data else {
                     completionHandler(nil)
                     return
@@ -75,8 +75,8 @@ class CardHTTPRequest: SessionConfiguration {
         
         httpMethod = .POST
         
-        getRequestHandler(url: url) { request in
-            self.session.uploadTask(with: request, from: paramData) { data, response, error in
+        getRequestHandler(url: url) { [weak self] request in
+            self?.session.uploadTask(with: request, from: paramData) { data, response, error in
                 guard let data = data else {
                     completionHandler(nil)
                     return
@@ -91,8 +91,8 @@ class CardHTTPRequest: SessionConfiguration {
         
         httpMethod = .POST
         
-        getCurrentRequestHandler { request in
-            self.session.uploadTask(with: request, from: paramData) { data, response, error in
+        getCurrentRequestHandler { [weak self] request in
+            self?.session.uploadTask(with: request, from: paramData) { data, response, error in
                 guard let data = data else {
                     completionHandler(nil)
                     return

@@ -17,7 +17,7 @@ class SessionCommonAttributes {
     var httpMethod: HTTPMethod = .POST
     {
         didSet {
-            request.httpMethod = httpMethod.rawValue
+            request.httpMethod = httpMethod.getValue()
         }
     }
     var mimeType: MIMEType = .applicationJSON
@@ -66,8 +66,17 @@ class SessionCommonAttributes {
     
     enum HTTPMethod: String
     {
-        case POST = "POST"
-        case GET = "GET"
+        case POST
+        case GET
+        
+        func getValue() -> String {
+            switch self {
+            case .GET:
+                return "GET"
+            case .POST:
+                return "POST"
+            }
+        }
     }
     
     // MARK: - MIMEType Types
