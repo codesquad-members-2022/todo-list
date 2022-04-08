@@ -7,32 +7,11 @@
 
 import Foundation
 
-class CardHTTPRequest: SessionConfiguration {
+class CardHTTPRequest: SessionDataTask {
     
     func doGetRequest(url: URL, parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
 
-        guard let urlComp = getURLComponents(parameter), let url = urlComp.url else {
-            completionHandler(nil)
-            return
-        }
-        
-        httpMethod = .GET
-        
-        getRequestHandler(url: url) { [weak self] request in
-            self?.session.dataTask(with: request) { data, response, error in
-                guard let data = data else {
-                    completionHandler(nil)
-                    return
-                }
-                
-                completionHandler(data)
-            }.resume()
-        }
-    }
-    
-    func doGetRequest(parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
-        
-        guard let urlComp = getURLComponents(from: urlString, parameter), let url = urlComp.url else {
+        guard let urlComp = makeURLComponents(from: url.absoluteString, using: parameter), let url = urlComp.url else {
             completionHandler(nil)
             return
         }
@@ -40,19 +19,49 @@ class CardHTTPRequest: SessionConfiguration {
         httpMethod = .GET
         urlString = url.absoluteString
         
-        getCurrentRequestHandler { [weak self] request in
-            self?.session.dataTask(with: request) { data, response, error in
-                guard let data = data else {
-                    completionHandler(nil)
-                    return
-                }
-                
-                completionHandler(data)
-            }.resume()
-        }
+        requestSessionDataTask(
+            to: url,
+            completionHandler: completionHandler
+        )
     }
     
-    private func getURLComponents(from string: String? = nil, _ parameter: [String: String]? = nil) -> URLComponents? {
+    func doGetRequest(parameter: [String:String]?, completionHandler: @escaping (Data?)->Void) {
+        
+        guard let urlComp = makeURLComponents(using: parameter), let url = urlComp.url else {
+            completionHandler(nil)
+            return
+        }
+        
+        httpMethod = .GET
+        urlString = url.absoluteString
+        
+        requestSessionDataTask(
+            completionHandler: completionHandler
+        )
+    }
+    
+    func doPostRequest(url: URL, _ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
+        
+        httpMethod = .POST
+        
+        requestSessionUploadTask(
+            to: url,
+            using: paramData,
+            completionHandler: completionHandler
+        )
+    }
+    
+    func doPostRequest(_ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
+        
+        httpMethod = .POST
+        
+        requestSessionUploadTask(
+            using: paramData,
+            completionHandler: completionHandler
+        )
+    }
+    
+    private func makeURLComponents(from string: String? = nil, using parameter: [String: String]? = nil) -> URLComponents? {
         
         if let string = string {
             urlString = string
@@ -61,45 +70,15 @@ class CardHTTPRequest: SessionConfiguration {
         guard let url = URL(string: urlString) else { return nil }
         
         var queryItems = [URLQueryItem]()
+        
         if let parameter = parameter {
             for param in parameter {
                 queryItems.append(URLQueryItem(name: param.key, value: param.value))
             }
         }
+        
         var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false)
         urlComp?.queryItems = queryItems
         return urlComp
-    }
-    
-    func doPostRequest(url: URL, _ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
-        
-        httpMethod = .POST
-        
-        getRequestHandler(url: url) { [weak self] request in
-            self?.session.uploadTask(with: request, from: paramData) { data, response, error in
-                guard let data = data else {
-                    completionHandler(nil)
-                    return
-                }
-                
-                completionHandler(data)
-            }.resume()
-        }
-    }
-    
-    func doPostRequest(_ paramData: Data? = nil, completionHandler: @escaping (Data?)->Void) {
-        
-        httpMethod = .POST
-        
-        getCurrentRequestHandler { [weak self] request in
-            self?.session.uploadTask(with: request, from: paramData) { data, response, error in
-                guard let data = data else {
-                    completionHandler(nil)
-                    return
-                }
-                
-                completionHandler(data)
-            }.resume()
-        }
     }
 }
