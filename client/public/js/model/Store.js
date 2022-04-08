@@ -1,21 +1,25 @@
 export default class Store {
-  constructor(userData) {
-    this.storage = userData;
-    this.logs = [];
+  constructor({ columns, items, history }) {
+    this.columns = columns;
+    this.items = items;
+    this.history = history;
   }
 
-  getColumnList() {
-    return this.storage.columns;
+  getColumns() {
+    return this.columns;
   }
-  getItemList() {
-    return this.storage.items;
+
+  getItems() {
+    return this.items;
   }
 
   addColumn() {}
   removeColumn() {}
+  setColumn() {}
 
-  additem() {}
-  removeitem() {}
+  addItem() {}
+  removeItem() {}
+  setItem() {}
 }
 
 // 컬럼과 아이템 데이터를 관리(가져오기, 생성하기, 삭제하기, 변경하기)
