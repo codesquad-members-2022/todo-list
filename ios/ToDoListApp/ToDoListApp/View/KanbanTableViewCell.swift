@@ -1,5 +1,5 @@
 //
-//  ToDoTableViewCell.swift
+//  KanbanTableViewCell.swift
 //  ToDoListApp
 //
 //  Created by Jihee hwang on 2022/04/05.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
+class KanbanTableViewCell: UITableViewCell {
     
-    static let indentifier = Constant.TableViewCellIdentifier.custom
+    static let indentifier = Constant.TableViewCellIdentifier.kanban
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -81,11 +81,7 @@ class CustomTableViewCell: UITableViewCell {
 
 // MARK: - functions
 
-extension CustomTableViewCell {
-    func changCustomTableViewCell() {
-        self.layer.cornerRadius = 7
-        self.clipsToBounds = true
-    }
+extension KanbanTableViewCell {
     
     func changeTitleLabel(text: String) {
         titleLabel.text = text

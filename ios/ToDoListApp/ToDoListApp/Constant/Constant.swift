@@ -10,7 +10,7 @@ import Foundation
 enum Constant {
     
     enum TableViewCellIdentifier {
-        static let custom = "CustomTableViewCell"
+        static let kanban = "KanbanTableViewCell"
         static let inspector = "InspectorTableViewCell"
     }
     

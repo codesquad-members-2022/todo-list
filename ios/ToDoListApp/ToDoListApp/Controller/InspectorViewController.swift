@@ -10,7 +10,7 @@ import UIKit
 class InspectorViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .plain)
-    private let taskTableViewDataSource = TaskTableViewDataSource()
+    private let tableViewDataSource = InspectorTableViewDataSource()
     
     private let closeButton: UIButton = {
         let button = UIButton()
@@ -43,7 +43,7 @@ class InspectorViewController: UIViewController {
     
     private func configureCustomTableView() {
         tableView.register(InspectorViewCell.self, forCellReuseIdentifier: InspectorViewCell.indentifier)
-        tableView.dataSource = taskTableViewDataSource
+        tableView.dataSource = tableViewDataSource
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
     }

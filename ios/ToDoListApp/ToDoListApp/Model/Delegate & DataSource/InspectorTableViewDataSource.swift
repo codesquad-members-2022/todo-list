@@ -1,5 +1,5 @@
 //
-//  TaskTableViewDataSource.swift
+//  InspectorTableViewDataSource.swift
 //  ToDoListApp
 //
 //  Created by Jihee hwang on 2022/04/07.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskTableViewDataSource: NSObject, UITableViewDataSource {
+class InspectorTableViewDataSource: NSObject, UITableViewDataSource {
     
     let cellData = TaskData.dataList
     

@@ -1,5 +1,5 @@
 //
-//  TableViewDataSource.swift
+//  KanbanTableViewDataSource.swift
 //  ToDoListApp
 //
 //  Created by Jihee hwang on 2022/04/05.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewDataSource: NSObject, UITableViewDataSource {
+class KanbanTableViewDataSource: NSObject, UITableViewDataSource {
     
     let cellData = CellData.dataList
     
@@ -20,7 +20,7 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.indentifier, for: indexPath) as? CustomTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: KanbanTableViewCell.indentifier, for: indexPath) as? KanbanTableViewCell else {
             return UITableViewCell()
         }
         

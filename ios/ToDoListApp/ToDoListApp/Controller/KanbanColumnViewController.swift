@@ -11,7 +11,7 @@ class KanbanColumnViewController: UIViewController {
     
     private let tableTitleView = TableTitleView()
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    private let tableViewDataSource = TableViewDataSource()
+    private let tableViewDataSource = KanbanTableViewDataSource()
     
     private let type: KanbanType
     
@@ -41,7 +41,7 @@ class KanbanColumnViewController: UIViewController {
     }
     
     private func configureCustomTableView() {
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.indentifier)
+        tableView.register(KanbanTableViewCell.self, forCellReuseIdentifier: KanbanTableViewCell.indentifier)
         tableView.dataSource = tableViewDataSource
         tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = 8

@@ -1,5 +1,5 @@
 //
-//  InspectorView.swift
+//  InspectorViewCell.swift
 //  ToDoListApp
 //
 //  Created by Jihee hwang on 2022/04/07.
