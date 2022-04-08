@@ -44,7 +44,6 @@ public class CardController {
         return cardService.findAll();
     }
 
-
     @DeleteMapping("/cards/{id}")
     public CardDto delete(@PathVariable Long id) {
         cardService.delete(id);
