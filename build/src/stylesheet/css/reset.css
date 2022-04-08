@@ -14,7 +14,7 @@ h4,
 h5,
 h6,
 form,
-header {
+header,figure,button {
   margin: 0;
   padding: 0;
   border: 0;
@@ -23,7 +23,7 @@ header {
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-header {
+header, section, article, figure {
   display: block;
 }
 body {
