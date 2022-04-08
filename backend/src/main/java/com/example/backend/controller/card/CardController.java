@@ -4,10 +4,14 @@ import com.example.backend.controller.card.dto.CardDto;
 import com.example.backend.domain.card.Card;
 import com.example.backend.service.card.CardService;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -23,5 +27,10 @@ public class CardController {
     public CardDto writeCard(@RequestBody CardDto cardDto) {
         Card card = cardService.writeCard(cardDto);
         return new CardDto(card);
+    }
+
+    @GetMapping("/cards")
+    public Map<String, List<Card>> getCards() {
+        return cardService.findAll();
     }
 }

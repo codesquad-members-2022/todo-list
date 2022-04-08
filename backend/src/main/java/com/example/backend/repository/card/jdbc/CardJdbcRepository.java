@@ -1,8 +1,12 @@
 package com.example.backend.repository.card.jdbc;
 
+import static com.example.backend.utils.TimeUtils.dateTimeOf;
+
 import com.example.backend.domain.card.Card;
+import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
 
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -10,7 +14,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -33,6 +39,23 @@ public class CardJdbcRepository implements CardRepository {
         return null;
     }
 
+    public Map<String, List<Card>> findAll() {
+        String query = "select id, title, content, card_type, created_at, last_modified_at,visible, column_id " +
+                "from todo_list.cards where todo_list.cards.card_type = :cardType";
+        return cardTypeClassification(query);
+    }
+
+    private Map<String, List<Card>> cardTypeClassification(String query) {
+        Map<String, List<Card>> cardMap = new HashMap<>();
+        CardType[] type = CardType.values();
+        for (CardType cardType : type) {
+            Map<String, Object> params = Collections.singletonMap("cardType", cardType.toString());
+            List<Card> cards = jdbcTemplate.query(query, params, mapper);
+            cardMap.put(cardType.toString(), cards);
+        }
+        return cardMap;
+    }
+
     private Map<String, Object> toParamMap(Card card) {
         return new HashMap<>() {{
             put("id", card.getId());
@@ -45,4 +68,16 @@ public class CardJdbcRepository implements CardRepository {
             put("columnId", card.getColumnId());
         }};
     }
+
+    private static RowMapper<Card> mapper = (rs, rowNum) ->
+            new Card(
+                    rs.getLong("id"),
+                    rs.getString("title"),
+                    rs.getString("content"),
+                    rs.getString("card_type"),
+                    dateTimeOf(rs.getTimestamp("created_at")),
+                    dateTimeOf(rs.getTimestamp("last_modified_at")),
+                    rs.getBoolean("visible"),
+                    rs.getLong("column_id")
+            );
 }

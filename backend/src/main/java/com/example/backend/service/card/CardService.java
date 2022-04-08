@@ -6,6 +6,9 @@ import com.example.backend.repository.card.CardRepository;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class CardService {
 
@@ -18,5 +21,9 @@ public class CardService {
     public Card writeCard(CardDto cardDto) {
         Card card = new Card(cardDto.getTitle(), cardDto.getContent(), cardDto.getCardType());
         return cardRepository.save(card);
+    }
+
+    public Map<String, List<Card>> findAll() {
+        return cardRepository.findAll();
     }
 }
