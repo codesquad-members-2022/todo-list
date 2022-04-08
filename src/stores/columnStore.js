@@ -56,24 +56,11 @@ export const Store = {
     },
   },
 
-  setState(type, state) {
-    if (type === "card") {
-      this.setCardState(state);
-    }
-  },
-
-  setCardState(cardState) {
-    const columnID = Object.values(cardState);
-    this.state[columnID].cards = { ...this.state[columnID].cards, ...cardState };
-    this.notify("column", columnID);
-  },
-
   addNewCard(columnID) {
     const newCardID = this.getNewCardID();
     this.state[columnID].cardOrder.unshift(newCardID);
     this.state[columnID].cards[newCardID] = { columnID, type: "new" };
     this.notify("column");
-    console.log(this.state);
   },
 
   getNewCardID() {
@@ -86,8 +73,15 @@ export const Store = {
     this.notify("column");
   },
 
-  changeCard(columnID, changedCardData) {
+  changeCard(columnID, cardID, cardData) {
+    const changedCardData = {};
+    changedCardData[cardID] = cardData;
     this.state[columnID].cards = { ...this.state[columnID].cards, ...changedCardData };
-    this.notify("card");
+    this.notify("column");
+  },
+
+  chageToEditState(columnID, cardID) {
+    this.state[columnID].cards[cardID].type = "editing";
+    this.notify("column");
   },
 };

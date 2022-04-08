@@ -10,6 +10,10 @@ export class Card {
     this.activate();
   }
 
+  activate() {
+    Store.subscribe("card", () => this.renderContent());
+  }
+
   setNode() {
     const parentColumnDOM = document.querySelector(`[data-columnid="${this.parentColumnID}"]`);
     const cardNode = this.makeCardNode();
@@ -87,6 +91,7 @@ export class Card {
     switch (cardType) {
       case "normal":
         this.setDeleteBtnEvent();
+        this.setDoubleClickEvent();
         break;
       case "new":
       case "editing":
@@ -97,20 +102,38 @@ export class Card {
   }
 
   setDeleteBtnEvent() {
-    this.deletBtn.addEventListener("click", () => this.deleteCard());
+    this.deletBtn.addEventListener("click", () => this.handleDeleteBtnEvent());
   }
 
-  deleteCard() {
-    Store.deleteCard(this.parentColumnID, this.cardID);
+  setDoubleClickEvent() {
+    this.cardNode.addEventListener("dblclick", () => this.handleDoubleClickEvent());
   }
 
   setCancelBtnEvent() {
-    //todo: alert창 뜬 후에 삭제하도록 기능 추가해야함
-    this.cancelBtn.addEventListener("click", () => this.deleteCard());
+    this.cancelBtn.addEventListener("click", () => this.handleCancelBtnEvent());
   }
 
   setConfirmBtnEvent() {
     this.confirmBtn.addEventListener("click", () => this.handleConfirmBtnEvent());
+  }
+
+  setInputEvent() {
+    this.titleInput.addEventListener("input", (e) => this.handelInputEvent(e));
+    this.descriptionInput.addEventListener("input", (e) => this.handelInputEvent(e));
+  }
+
+  handleDeleteBtnEvent() {
+    //todo: alert창 뜬 후에 삭제하도록 기능 추가해야함
+    this.deleteCard();
+  }
+
+  handleDoubleClickEvent() {
+    this.switchToEditMode();
+  }
+
+  handleCancelBtnEvent() {
+    this.deleteCard();
+    //todo: edit 모드면 기존 카드가 나오게 해야함.
   }
 
   handleConfirmBtnEvent(e) {
@@ -120,21 +143,27 @@ export class Card {
     this.changeCardData();
   }
 
+  handelInputEvent(e) {
+    this.toggleConfrimBtn(e);
+  }
+
+  deleteCard() {
+    Store.deleteCard(this.parentColumnID, this.cardID);
+  }
+
+  switchToEditMode() {
+    Store.chageToEditState(this.parentColumnID, this.cardID);
+  }
+
   changeCardData() {
-    const changedCardData = {};
-    changedCardData[this.cardID] = {
+    const cardData = {
       columnID: this.parentColumnID,
       type: "normal",
       title: this.titleInput.value,
       description: this.descriptionInput.value,
       author: "author by web",
     };
-    Store.changeCard(this.parentColumnID, changedCardData);
-  }
-
-  setInputEvent() {
-    this.titleInput.addEventListener("input", (e) => this.toggleConfrimBtn(e));
-    this.descriptionInput.addEventListener("input", (e) => this.toggleConfrimBtn(e));
+    Store.changeCard(this.parentColumnID, this.cardID, cardData);
   }
 
   toggleConfrimBtn(e) {
@@ -143,9 +172,5 @@ export class Card {
     } else {
       this.confirmBtn.classList.add("activated");
     }
-  }
-
-  activate() {
-    Store.subscribe("card", () => this.renderContent());
   }
 }
