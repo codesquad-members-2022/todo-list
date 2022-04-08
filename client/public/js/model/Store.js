@@ -15,11 +15,11 @@ export default class Store {
 
   addColumn() {}
   removeColumn() {}
-  setColumn() {}
+  updateColumn() {}
 
   addItem() {}
   removeItem() {}
-  setItem() {}
+  updateItem() {}
 }
 
 // 컬럼과 아이템 데이터를 관리(가져오기, 생성하기, 삭제하기, 변경하기)
