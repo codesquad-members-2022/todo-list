@@ -12,13 +12,9 @@ import java.util.stream.Collectors;
 
 @Repository
 public class MemoryWorkRepository implements WorkRepository {
-    private final Map<Long, Work> store;
-    private final AtomicLong sequence;
 
-    public MemoryWorkRepository() {
-        this.store = new ConcurrentHashMap<>();
-        sequence = new AtomicLong();
-    }
+    private final Map<Long, Work> store = new ConcurrentHashMap<>();
+    private final AtomicLong sequence = new AtomicLong();
 
     @Override
     public Work save(Work work) {
