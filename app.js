@@ -9,10 +9,10 @@ class App extends Component {
       lists: [
         {
           title: "오늘 할 일",
-          todos: [{ title: "코드스쿼드", content: "수업듣기", caption: "" }],
-          selected: -1,
-        },
-      ],
+          todos: [{ title: "코드스쿼드", content: "수업듣기", caption: "", selected: false }],
+          editting: false
+        }
+      ]
     };
   }
 
@@ -21,13 +21,13 @@ class App extends Component {
     return `<header class="todo-header" >
           </header>
           ${lists
-            .map(
-              (list, idx) =>
-                `<section class="todo-column" data-idx=${idx} style="left:${
-                  80 + idx * 324
-                }px"></section>`
-            )
-            .join("")}`;
+      .map(
+        (list, idx) =>
+          `<section class="todo-column" data-idx="${idx}" style="left:${
+            80 + idx * 324
+          }px"></section>`
+      )
+      .join("")}`;
   }
 
   mount() {
@@ -37,7 +37,7 @@ class App extends Component {
       (list, idx) =>
         new TodoList(this.select(`section[data-idx="${idx}"`), {
           list,
-          idx,
+          idx
         })
     );
   }

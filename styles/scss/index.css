@@ -161,6 +161,60 @@ input:focus {
   color: #bdbdbd;
 }
 
+.todo-column .selected .wrapper .title, .todo-column .todo-card .wrapper .card-title {
+  position: static;
+  left: 0px;
+  top: 0px;
+  width: 252px;
+  height: 23px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+  color: #010101;
+  flex: none;
+  flex-grow: 0;
+  order: 0;
+  margin: 8px 0px;
+}
+
+.todo-column .selected .wrapper .content, .todo-column .todo-card .wrapper .card-content {
+  position: static;
+  left: 0px;
+  top: 31px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  width: 252px;
+  height: 20px;
+  line-height: 20px;
+  color: #010101;
+  flex: none;
+  flex-grow: 0;
+  order: 1;
+  margin: 8px 0px;
+}
+
+.todo-column .todo-card .wrapper .card-caption {
+  position: static;
+  left: 0px;
+  top: 59px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  width: 252px;
+  height: 17px;
+  line-height: 17px;
+  color: #bdbdbd;
+  flex: none;
+  flex-grow: 0;
+  order: 2;
+  margin: 0px 8px;
+}
+
 .todo-header {
   /* background */
   position: absolute;
@@ -235,6 +289,60 @@ input:focus {
   color: #bdbdbd;
 }
 
+.todo-column .todo-card .wrapper .card-title, .todo-column .selected .wrapper .title {
+  position: static;
+  left: 0px;
+  top: 0px;
+  width: 252px;
+  height: 23px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+  color: #010101;
+  flex: none;
+  flex-grow: 0;
+  order: 0;
+  margin: 8px 0px;
+}
+
+.todo-column .todo-card .wrapper .card-content, .todo-column .selected .wrapper .content {
+  position: static;
+  left: 0px;
+  top: 31px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  width: 252px;
+  height: 20px;
+  line-height: 20px;
+  color: #010101;
+  flex: none;
+  flex-grow: 0;
+  order: 1;
+  margin: 8px 0px;
+}
+
+.todo-column .todo-card .wrapper .card-caption {
+  position: static;
+  left: 0px;
+  top: 59px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  width: 252px;
+  height: 17px;
+  line-height: 17px;
+  color: #bdbdbd;
+  flex: none;
+  flex-grow: 0;
+  order: 2;
+  margin: 0px 8px;
+}
+
 .todo-column {
   display: flex;
   flex-direction: column;
@@ -255,7 +363,7 @@ input:focus {
   width: 308px;
   height: 108px;
   background: White;
-  boder: shadow_normal;
+  border: shadow_normal;
 }
 .todo-column .todo-card .wrapper {
   display: flex;
@@ -273,57 +381,6 @@ input:focus {
   order: 0;
   margin: 0px 0px;
 }
-.todo-column .todo-card .wrapper .card-title {
-  position: static;
-  left: 0px;
-  top: 0px;
-  width: 252px;
-  height: 23px;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 23px;
-  color: #010101;
-  flex: none;
-  flex-grow: 0;
-  order: 0;
-  margin: 8px 0px;
-}
-.todo-column .todo-card .wrapper .card-content {
-  position: static;
-  left: 0px;
-  top: 31px;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  width: 252px;
-  height: 20px;
-  line-height: 20px;
-  color: #010101;
-  flex: none;
-  flex-grow: 0;
-  order: 1;
-  margin: 8px 0px;
-}
-.todo-column .todo-card .wrapper .card-caption {
-  position: static;
-  width: 252px;
-  height: 17px;
-  left: 0px;
-  top: 59px;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 17px;
-  color: #bdbdbd;
-  flex: none;
-  flex-grow: 0;
-  order: 2;
-  margin: 0px 8px;
-}
 .todo-column .todo-card .delete-card {
   position: static;
   left: 268px;
@@ -334,6 +391,113 @@ input:focus {
   flex-grow: 0;
   order: 1;
   margin: 0px 0px;
+}
+.todo-column .selected {
+  flex-direction: column;
+}
+.todo-column .selected .frame {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  position: static;
+  left: 16px;
+  top: 83px;
+  width: 276px;
+  height: 40px;
+  flex: none;
+  flex-grow: 0;
+  order: 1;
+  margin: 16px 0px;
+}
+.todo-column .selected .frame .button-left {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 134px;
+  height: 40px;
+  background: #E0E0E0;
+  border-radius: 6px;
+}
+.todo-column .selected .frame .button-left span {
+  position: static;
+  left: 10px;
+  top: 10px;
+  width: 114px;
+  height: 20px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #828282;
+  flex: none;
+  flex-grow: 0;
+  order: 0;
+  margin: 0px 10px;
+}
+.todo-column .selected .frame .button-right {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 134px;
+  height: 40px;
+  left: 142px;
+  background: #0075DE;
+  border-radius: 6px;
+}
+.todo-column .selected .frame .button-right span {
+  position: static;
+  left: 10px;
+  top: 10px;
+  width: 114px;
+  height: 20px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #FFFFFF;
+  flex: none;
+  flex-grow: 0;
+  order: 0;
+  margin: 0px 10px;
+}
+.todo-column .selected .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: static;
+  left: 0px;
+  top: 0px;
+  padding: 0px;
+  width: 276px;
+  height: 51px;
+  border-radius: 8px;
+  flex: none;
+  flex-grow: 0;
+  order: 0;
+  margin: 0px 0px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 0px;
+}
+.todo-column .selected .wrapper .title {
+  width: 276px;
+}
+.todo-column .selected .wrapper .content {
+  width: 276px;
 }
 
 .todo-title {
