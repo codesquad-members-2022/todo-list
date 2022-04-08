@@ -1,9 +1,8 @@
 import UIKit
 
-class ViewController: UIViewController {
+class ProgressTodoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
-
