@@ -15,17 +15,17 @@ import com.example.todolist.databinding.DialogNewCardBinding
 import com.example.todolist.model.Status
 import com.example.todolist.model.Task
 
-class Dialog : DialogFragment() {
+class Dialog(private val status: Status) : DialogFragment() {
     private var _binding: DialogNewCardBinding? = null
     private val binding get() = _binding
-    private val viewModel: ViewModel by activityViewModels()
+    private val viewModel: TaskViewModel by activityViewModels()
     private var titleFlag = false
     private var contentsFlag = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = DialogNewCardBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 다이얼로그의 곡선 주변에 배경색을 맞춰주는 코드
@@ -42,12 +42,32 @@ class Dialog : DialogFragment() {
         binding?.etContents?.addTextChangedListener(contentsListener)
 
         binding?.btnRegister?.setOnClickListener {
-            val task = Task(
-                binding?.etTitle?.text?.toString(),
-                binding?.etContents?.text?.toString(),
-                Status.TODO
-            )
-            viewModel.addTask(task)
+            when (status) {
+                Status.TODO -> {
+                    val task = Task(
+                        binding?.etTitle?.text?.toString(),
+                        binding?.etContents?.text?.toString(),
+                        Status.TODO
+                    )
+                    viewModel.addTodoTask(task)
+                }
+                Status.IN_PROGRESS -> {
+                    val task = Task(
+                        binding?.etTitle?.text?.toString(),
+                        binding?.etContents?.text?.toString(),
+                        Status.IN_PROGRESS
+                    )
+                    viewModel.addInProgressTask(task)
+                }
+                else -> {
+                    val task = Task(
+                        binding?.etTitle?.text?.toString(),
+                        binding?.etContents?.text?.toString(),
+                        Status.DONE
+                    )
+                    viewModel.addDoneTask(task)
+                }
+            }
             dismiss()
         }
     }

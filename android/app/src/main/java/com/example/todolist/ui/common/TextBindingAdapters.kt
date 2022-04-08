@@ -33,3 +33,8 @@ fun dateFormat(view: TextView, stringDate: String) {
     val result = date?.let { calculateTime(date) } ?: ""
     view.text = result
 }
+
+@BindingAdapter("author")
+fun authorFormat(view: TextView, author: String) {
+    view.text = view.context.getString(R.string.author, author)
+}
