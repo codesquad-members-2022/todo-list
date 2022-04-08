@@ -29,6 +29,7 @@ final class MainViewController: UIViewController {
         
         self.headerView.delegate = self
         
+        self.sideView.backgroundColor = .white
         self.sideView.delegate = self
         self.sideView.tableView.dataSource = self
         self.sideView.tableView.delegate = self
@@ -44,14 +45,14 @@ final class MainViewController: UIViewController {
     
     private func setLayout(){
         headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
         headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         headerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.08).isActive = true
         
         memoCanvasViewController?.view.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         memoCanvasViewController?.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor).isActive = true
         memoCanvasViewController?.view.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
-        memoCanvasViewController?.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        memoCanvasViewController?.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
     }
     
     /// sideMenuButton 클릭 시 SideView를 보여준다. 

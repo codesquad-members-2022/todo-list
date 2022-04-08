@@ -56,9 +56,12 @@ class MemoContainerView: UIView {
     }()
     
     let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.separatorStyle = .none
+        tableView.contentInset.left = 0
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(MemoTableViewCell.self, forCellReuseIdentifier: MemoTableViewCell.identifier)
+        tableView.backgroundColor = .clear
         return tableView
     }()
     

@@ -24,6 +24,7 @@ class SideView: UIView {
     
     let tableView: UITableView = {
         let view = UITableView()
+        view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         view.register(SideViewTableViewCell.self, forCellReuseIdentifier: SideViewTableViewCell.identifier)
         return view
