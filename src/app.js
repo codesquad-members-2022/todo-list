@@ -6,7 +6,7 @@ function initService() {
   domUtil.$(".메뉴버튼").addEventListener("click", 메뉴토글함수);
 }
 
-const Model = createModel(getTodoData());
+const handleModel = createModel(getTodoData());
 
 function createModel(initState) {
   let state = initState;
@@ -18,7 +18,7 @@ function createModel(initState) {
 }
 
 function createCard() {
-  const newCardState = createCardState(Model()); // 이부분 전역변수
+  const newCardState = createCardState(handleModel());
   renderCard(this, newCardState);
 }
 
