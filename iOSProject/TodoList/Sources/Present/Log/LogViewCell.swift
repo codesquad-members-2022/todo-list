@@ -47,9 +47,7 @@ class LogViewCell: UITableViewCell{
         attribute()
         layout()
     }
-        //(240,255,240)
-//(112,128,144)
-
+    
     private func attribute(){
         self.contentView.backgroundColor = UIColor(red: (240/255), green: (255/255), blue: (240/255), alpha: 1)
     }
@@ -76,7 +74,3 @@ class LogViewCell: UITableViewCell{
         ])
     }
 }
-
-//애니메이션
-//x표시 선택시 꺼지게
-

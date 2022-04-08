@@ -26,7 +26,6 @@ class LogViewController: UIViewController {
     
     private func setConstraint(){
         self.view.addSubview(tableView)
-//        tableView.backgroundColor = .red
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 72), tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48), tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48), tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)])
     }
