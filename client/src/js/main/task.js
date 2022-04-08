@@ -5,6 +5,7 @@ export class Task {
     this.title = title;
     this.taskData = taskData;
     this.init();
+    this.setEvents();
   }
 
   init() {
@@ -32,6 +33,7 @@ export class Task {
   createHTML(taskData) {
     taskData = taskData || this.taskData;
     const { title, comment, author } = taskData;
+    this.taskTitle = title;
     return taskData
       ? `<li class="column__task--item" data-title="${title}">
               <section>
@@ -66,16 +68,24 @@ export class Task {
   }
 
   setEvents() {
+    this.setTarget();
     this.setClickEvent();
     this.setInputEvent();
     this.setKeyupEvent();
   }
 
-  setInputEvent() {
-    const columnTaskComments = $$(".column__task--comment");
-    for (const element of columnTaskComments) {
-      element.addEventListener("input", ({ target }) => this.autosizeTextArea(target));
+  setTarget() {
+    const tasks = $$(".column__task--item");
+    for (const task of tasks) {
+      if (task.dataset.title === this.taskTitle) {
+        this.target = task;
+      }
     }
+  }
+
+  setInputEvent() {
+    const columnTaskComment = this.target.querySelector(".column__task--comment");
+    columnTaskComment.addEventListener("input", ({ target }) => this.autosizeTextArea(target));
   }
 
   setDragAndDropEvent() {}
@@ -86,8 +96,7 @@ export class Task {
   }
 
   setClickEvent() {
-    this.registrationCard &&
-      this.registrationCard.addEventListener("click", ({ target }) => this.handleClickEvent(target));
+    this.target.addEventListener("click", ({ target }) => this.handleClickEvent(target));
   }
 
   handleClickEvent(target) {
@@ -104,15 +113,14 @@ export class Task {
   }
 
   setKeyupEvent() {
-    this.registrationCard &&
-      this.registrationCard.addEventListener("keyup", () => this.handleKeyupEvent(registrationCard));
+    this.target.addEventListener("keyup", this.handleKeyupEvent.bind(this));
   }
 
-  handleKeyupEvent(registrationCard) {
-    const title = registrationCard.querySelector("input");
-    const comment = registrationCard.querySelector("textarea");
+  handleKeyupEvent() {
+    const title = this.target.querySelector("input");
+    const comment = this.target.querySelector("textarea");
     if (comment.value.length > 500) comment.disabled = true;
-    if (title.value || comment.value) registrationCard.classList.remove("inactivation");
-    else registrationCard.classList.add("inactivation");
+    if (title.value || comment.value) this.target.classList.remove("inactivation");
+    else this.target.classList.add("inactivation");
   }
 }

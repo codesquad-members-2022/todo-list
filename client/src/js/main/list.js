@@ -1,4 +1,4 @@
-import { $$ } from "../utils/utils.js";
+import { $, $$ } from "../utils/utils.js";
 import { Task } from "./task.js";
 import * as TodoListStore from "../store/todoListStore.js";
 
@@ -19,6 +19,11 @@ export class List {
 
   notify(value, title) {
     if (title !== this.title) return;
+    if (!value && !this.target.querySelector(".registration-card")) {
+      const originRegistrationCard = $(".registration-card");
+      originRegistrationCard && originRegistrationCard.remove();
+      return TodoListStore.update("registration", this.title);
+    }
     value ? this.addRegistrationCard() : this.removeRegistrationCard();
   }
 
