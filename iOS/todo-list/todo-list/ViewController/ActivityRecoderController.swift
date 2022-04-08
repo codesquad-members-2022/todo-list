@@ -57,13 +57,18 @@ extension ActivityRecordController{
     
     // TableView 각 셀에 대한 설정
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let temp = log.showTaskStatus()
+        let from = temp[0]
+        let to = temp[1]
+        let contents:String = "\(log.title)를 \(from)에서 \(to)로 \(log.showActivity())하였습니다."
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Active") else { return UITableViewCell() }
         
         var config = cell.defaultContentConfiguration()
         config.text = dumyData[indexPath.row]
         
-        config.attributedText = NSAttributedString(string: log.userName, attributes: [ .font: UIFont.systemFont(ofSize: 15, weight: .bold), .foregroundColor: UIColor.black])
-        config.secondaryAttributedText = NSAttributedString(string: log.title, attributes: [ .font: UIFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: UIColor.systemGreen ])
+        config.attributedText = NSAttributedString(string: log.userName, attributes: [ .font: UIFont.systemFont(ofSize: 15, weight: .regular), .foregroundColor: UIColor.black])
+        config.secondaryAttributedText = NSAttributedString(string: contents, attributes: [ .font: UIFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: UIColor.systemGreen ])
         
         cell.contentConfiguration = config
         
