@@ -32,7 +32,7 @@ class ActivityLogRepositoryTest {
 
         // given
         LocalDateTime now = LocalDateTime.now();
-        ActivityLog activityLog = new ActivityLog(1, "userId1", "add", 1, 2, now, true);
+        ActivityLog activityLog = new ActivityLog(1, "userId1", "add", "TODO", "IN_PROGRESS", now, true);
 
         // when
         ActivityLog result = repository.insert(activityLog);
@@ -54,9 +54,9 @@ class ActivityLogRepositoryTest {
         // given
         LocalDateTime now = LocalDateTime.now();
         List<ActivityLog> members = List.of(
-                new ActivityLog(1, "userId1", "add", 1, 2, now, true),
-                new ActivityLog(2, "userId2", "remove", 2, 3, now, false),
-                new ActivityLog(3, "userId3", "update", 1, 2, now, true)
+                new ActivityLog(1, "userId1", "add", "TODO", "IN_PROGRESS", now, true),
+                new ActivityLog(2, "userId2", "remove", "IN_PROGRESS", "DONE", now, false),
+                new ActivityLog(3, "userId3", "update", "TODO", "IN_PROGRESS", now, true)
         );
 
         // when

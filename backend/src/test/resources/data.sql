@@ -3,13 +3,13 @@ INSERT INTO MEMBER (user_id, password, name) VALUES ('userId2', 'password2', 'na
 INSERT INTO MEMBER (user_id, password, name) VALUES ('userId3', 'password3', 'name3');
 
 INSERT INTO ACTIVITY_LOG (user_id, activity_type, from_status, to_status, created_at, read_yn)
-VALUES ('userId1', 'add', 1, 2, SYSDATE, true);
+VALUES ('userId1', 'add', 'TODO', 'IN_PROGRESS', SYSDATE, true);
 
 INSERT INTO ACTIVITY_LOG (user_id, activity_type, from_status, to_status, created_at, read_yn)
-VALUES ('userId2', 'remove', 2, 3, SYSDATE, false);
+VALUES ('userId2', 'remove', 'IN_PROGRESS', 'DONE', SYSDATE, false);
 
 INSERT INTO ACTIVITY_LOG (user_id, activity_type, from_status, to_status, created_at, read_yn)
-VALUES ('userId3', 'update', 1, 2, SYSDATE, true);
+VALUES ('userId3', 'update', 'TODO', 'IN_PROGRESS', SYSDATE, true);
 
 INSERT INTO TASK_CARD (status, title, content, user_id, device, created_at, modified_at, deleted_yn, row_position)
 VALUES (1, 'title1', 'content1', 'userId1', 1, SYSDATE, SYSDATE, FALSE, 1);
