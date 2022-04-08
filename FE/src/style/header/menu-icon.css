@@ -7,8 +7,10 @@
   width: 25px;
   height: 20px;
   margin-right: 10px;
-  position: relative;
+  position: fixed;
   cursor: pointer;
+  z-index: 10;
+  right: 0;
 }
 
 #menu-icon + label span {
