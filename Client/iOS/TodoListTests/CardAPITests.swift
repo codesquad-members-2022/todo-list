@@ -25,11 +25,10 @@ class CardAPITests: XCTestCase {
         let expectation = XCTestExpectation(description: "Wait")
         httpRequest?.doGetRequest(parameter: nil, completionHandler: { data in
             expectation.fulfill()
-            guard let data = data else {
+            guard let _ = data else {
                 XCTFail("doGetRequest Failed")
                 return
             }
-            print(data)
         })
         
         wait(for: [expectation], timeout: 3.0)

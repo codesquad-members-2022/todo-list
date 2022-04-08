@@ -30,7 +30,7 @@ class CardsUpdateDataTask: CardHTTPRequest
                 completionHandler(try? self?.decoder.decode(CardData.self, from: data))
             }
         } catch {
-            print(error)
+            Log.error(error)
             completionHandler(nil)
         }
     }
@@ -48,7 +48,7 @@ class CardsUpdateDataTask: CardHTTPRequest
                 completionHandler(try? self?.decoder.decode(CardData.self, from: data))
             }
         } catch {
-            print(error)
+            Log.error(error)
             completionHandler(nil)
         }
     }
@@ -66,7 +66,7 @@ class CardsUpdateDataTask: CardHTTPRequest
                 completionHandler(try? self?.decoder.decode(CardData.self, from: data))
             }
         } catch {
-            print(error)
+            Log.error(error)
             completionHandler(nil)
         }
     }
@@ -84,7 +84,7 @@ class CardsUpdateDataTask: CardHTTPRequest
                 completionHandler(try? self?.decoder.decode(CardData.self, from: data))
             }
         } catch {
-            print(error)
+            Log.error(error)
             completionHandler(nil)
         }
     }
