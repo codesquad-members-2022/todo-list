@@ -2,10 +2,7 @@ package codesquad.todo.service;
 
 import codesquad.todo.domain.work.Work;
 import codesquad.todo.domain.work.WorkRepository;
-import codesquad.todo.web.works.dto.BaseResponse;
-import codesquad.todo.web.works.dto.WorkSaveRequest;
-import codesquad.todo.web.works.dto.WorkSaveResponse;
-import codesquad.todo.web.works.dto.WorkUpdateRequest;
+import codesquad.todo.web.works.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,18 +28,18 @@ public class WorkService {
         return new WorkSaveResponse(work.getId());
     }
 
-    public BaseResponse workUpdate(Long id, WorkUpdateRequest workUpdateRequest) {
+    public WorkUpdateResponse workUpdate(Long id, WorkUpdateRequest workUpdateRequest) {
         Work work = workRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_WORK_ERROR));
         log.debug("[UPDATE BEFORE] : {}", work);
         work.update(workUpdateRequest.getTitle(), workUpdateRequest.getContent());
         workRepository.update(work);
         log.debug("[UPDATE AFTER] : {}", work);
-        return BaseResponse.ok();
+        return new WorkUpdateResponse(work);
     }
 
-    public List<Work> findAll() {
-        return workRepository.findAll();
+    public WorkListResponse findAll() {
+        return new WorkListResponse(workRepository.findAll());
     }
 
 }
