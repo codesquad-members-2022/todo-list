@@ -21,12 +21,8 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-<<<<<<< Updated upstream
-	runtimeOnly 'com.h2database:h2'
-=======
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	testRuntimeOnly 'com.h2database:h2'
->>>>>>> Stashed changes
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

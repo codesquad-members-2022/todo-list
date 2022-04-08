@@ -6,6 +6,8 @@ import com.team26.todolist.dto.request.CardRegistrationRequest;
 import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
 import com.team26.todolist.service.CardService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @RequestMapping("/cards")
 public class CardController {
 
+    private Logger logger = LoggerFactory.getLogger(CardController.class);
     private final CardService cardService;
 
     public CardController(CardService cardService) {
@@ -23,6 +26,12 @@ public class CardController {
 
     @GetMapping
     public ResponseEntity<List<CardResponse>> getCards(@RequestParam String cardStatus) {
+        //TODO
+        // cardStatus가 null이거나 비어있을 때 예외처리
+        if (cardStatus.equals(" ")) {
+
+        }
+
         List<CardResponse> cards = cardService.findByCardStatus(cardStatus);
 
         return ResponseEntity.ok()
