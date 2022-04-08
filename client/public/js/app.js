@@ -2,7 +2,6 @@ import CSS from "../stylesheet/style.scss";
 
 import Store from "./model/Store.js";
 import usersData from "./tempStorage.js";
-import AsideView from "./views/aside/AsideView";
 
 import { renderer } from "./views/renderer.js";
 
@@ -13,10 +12,9 @@ function app() {
 
   const store = new Store(userData);
 
-  const asideView = new AsideView();
-
   renderer.allColumns(store.columns);
   renderer.allItems(store.items);
+  renderer.allHistory(store.history);
 }
 
 function getUserData(userId) {
