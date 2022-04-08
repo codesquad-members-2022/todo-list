@@ -1,9 +1,12 @@
 @import './_variables', './_reset', './icons', './_common', './body/_body',
   './header/_headerBar';
 
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
 body {
   box-sizing: border-box;
   position: relative;
-  font-family: 'Noto Sans KR', sans-serif;
   background-color: $backbround-color;
 }
