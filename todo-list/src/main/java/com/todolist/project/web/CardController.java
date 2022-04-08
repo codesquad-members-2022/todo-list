@@ -5,10 +5,10 @@ import com.todolist.project.domain.card.Card;
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.CardAddDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/card")
@@ -17,9 +17,15 @@ public class CardController {
     private final CardService cardService;
     private static int RESULT;
 
+    @GetMapping
+    public List<Card> home() {
+        List<Card> cards = cardService.findAll();
+        return cards;
+    }
+
     @PostMapping()
     public String add(CardAddDto dto) {
-        RESULT = cardService.addCard(new Card(dto.getTitle(), dto.getContents(), dto.getWriter(), CardStatus.DO));
+        RESULT = cardService.addCard(new Card(dto.getTitle(), dto.getContents(), dto.getWriter(), CardStatus.TODO));
         if (RESULT == 0) {
             //TODO: 에러 페이지나 경고창으로 처리하게끔
         }

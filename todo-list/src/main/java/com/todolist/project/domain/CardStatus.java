@@ -1,7 +1,7 @@
 package com.todolist.project.domain;
 
 public enum CardStatus {
-    DO("해야할 일"), PROGRESS("하고있는 일"), DONE("완료한 일");
+    TODO("해야할 일"), PROGRESS("하고있는 일"), DONE("완료한 일");
 
     public final String value;
 
