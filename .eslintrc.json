@@ -10,5 +10,16 @@
   },
   "globals": { "_": true },
   "plugins": ["import", "html"],
-  "extends": ["airbnb-base", "plugin:prettier/recommended"]
+  "extends": ["eslint:recommended", "airbnb-base", "plugin:prettier/recommended"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "arrowParens": "avoid"
+      }
+    ],
+    "import/no-unresolved": "off",
+    "no-shadow": "off"
+  }
 }

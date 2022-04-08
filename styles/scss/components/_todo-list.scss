@@ -1,0 +1,123 @@
+.todo-list {
+  width: 100%;
+  padding: 1px;
+
+  .todo-item {
+    padding: 16px;
+    background-color: $white;
+    border-radius: 6px;
+    box-shadow: $item-box-shadow;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    &-textarea {
+      @include column-flexbox(flex-start, flex-start);
+      flex-grow: 1;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    &-title {
+      @include font(16px, $black);
+      font-weight: bold;
+    }
+
+    &-desc {
+      @include font(14px, $black);
+      font-weight: normal;
+    }
+
+    &-author {
+      @include font(12px, $gray4);
+    }
+
+    &-title,
+    &-desc,
+    &-author {
+      width: 100%;
+      max-width: 100%;
+      outline: 0;
+    }
+
+    &-desc,
+    &-author {
+      margin-top: 8px;
+    }
+
+    &-title,
+    &-desc {
+      &:empty::before {
+        color: $gray3;
+        content: attr(placeholder);
+      }
+    }
+
+    .delete-button {
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      color: $gray3;
+    }
+
+    &-buttons {
+      @include flexbox;
+    }
+  }
+
+  .todo-form {
+    @include flexbox(flex-start, flex-start);
+  }
+
+  .todo-buttons {
+    @include flexbox;
+    display: none;
+    margin-top: 16px;
+
+    button:first-child {
+      margin-right: 8px;
+    }
+  }
+}
+
+// todo-item 종류
+.todo-item {
+  // disabled -> js
+  &.active-item {
+    margin: -1px;
+    border: 1px solid $blue;
+
+    .todo-item-author,
+    .delete-button {
+      display: none;
+    }
+
+    .todo-buttons {
+      display: flex;
+    }
+  }
+
+  &.delete-item {
+    margin: -1px;
+    background-color: $white-red;
+    border: 1px solid $red;
+
+    .delete-button {
+      color: $red;
+    }
+  }
+
+  &.drag-item {
+    background: rgba($white, 0.8);
+    box-shadow: $drag-item-box-shadow;
+    backdrop-filter: blur(4px);
+  }
+
+  &.place-item {
+    margin: -1px;
+    border: 1px solid $blue;
+    opacity: 0.4;
+  }
+}

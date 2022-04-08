@@ -1,0 +1,34 @@
+%button-base {
+  @include font(14px, $white);
+  width: 134px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.button-accent {
+  @extend %button-base;
+  font-weight: bold;
+  background-color: $blue;
+
+  &:hover {
+    background-color: $dark-blue;
+  }
+
+  &:disabled {
+    cursor: unset;
+    background-color: $light-blue;
+  }
+}
+
+.button-normal {
+  @extend %button-base;
+  font-weight: normal;
+  color: $gray3;
+  background-color: $gray4;
+
+  &:hover {
+    color: $white;
+    background-color: $gray3;
+  }
+}

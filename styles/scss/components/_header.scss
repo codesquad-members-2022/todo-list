@@ -1,0 +1,22 @@
+.header {
+  &-wrapper {
+    @include flexbox(space-between);
+    height: 112px;
+    padding: 0 64px;
+    background-color: $background;
+  }
+
+  .logo {
+    @include font(32px, $black);
+  }
+
+  .menu-button {
+    @include flexbox;
+    width: 24px;
+    height: 24px;
+
+    i {
+      @include font(12px, $black);
+    }
+  }
+}
