@@ -18,8 +18,9 @@ public class CardService {
 	}
 
 	public CardDto.WriteResponse readOf(Long id, Long userId) {
+		String errorMessage = String.format("error of card id: %dor user id: %d", id, userId);
 		Card cardInfo = cardDao.findByIdAndUserId(id, userId)
-			.orElseThrow(() -> new IllegalArgumentException("card id 해당 정보 없습니다."));
+			.orElseThrow(() -> new IllegalArgumentException(errorMessage));
 		return new CardDto.WriteResponse(cardInfo);
 	}
 }
