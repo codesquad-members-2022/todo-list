@@ -1,6 +1,7 @@
 package codesquad.todo.domain.work;
 
 
+import lombok.Builder;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,69 @@ public class Work {
         this.workStatus = WorkStatus.TODO;
         this.createDateTime = LocalDateTime.now();
         this.lastModifiedDateTime = createDateTime;
+    }
+
+    private Work(Builder builder) {
+        this.id = builder.id;
+        this.title = builder.title;
+        this.content = builder.content;
+        this.author = builder.author;
+        this.workStatus = builder.workStatus;
+        this.createDateTime = builder.createDateTime;
+        this.lastModifiedDateTime = builder.lastModifiedDateTime;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Long id;
+        private String title;
+        private String content;
+        private String author;
+        private WorkStatus workStatus;
+        private LocalDateTime createDateTime;
+        private LocalDateTime lastModifiedDateTime;
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder content(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public Builder author(String author) {
+            this.author = author;
+            return this;
+        }
+
+        public Builder workStatus(WorkStatus status) {
+            this. workStatus = status;
+            return this;
+        }
+
+        public Builder createTime(LocalDateTime createDateTime) {
+            this.createDateTime = createDateTime;
+            return this;
+        }
+
+        public Builder lastModifiedDateTime(LocalDateTime lastModifiedDateTime) {
+            this.lastModifiedDateTime = lastModifiedDateTime;
+            return this;
+        }
+
+        public Work build() {
+            return new Work(this);
+        }
     }
 
     public void initId(Long id) {
