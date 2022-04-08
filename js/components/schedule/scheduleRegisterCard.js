@@ -1,5 +1,6 @@
+import { TEXT_LENGTH_LIMIT } from "../../utils.js";
+
 export class ScheduleRegisterCard {
-    LIMIT = 500;
     constructor({ target, id, passedEventHandler }) {
         this.$target = target;
         this.id = id;
@@ -13,8 +14,8 @@ export class ScheduleRegisterCard {
     }
 
     render() {
-        const $registerCard = this.template();
-        this.$target.insertAdjacentHTML("afterbegin", $registerCard);
+        const registerCardTemplate = this.template();
+        this.$target.insertAdjacentHTML("afterbegin", registerCardTemplate);
     }
 
     setEvent() {
@@ -85,8 +86,8 @@ export class ScheduleRegisterCard {
         );
 
         const cardData = {
-            title: $cardTitle.value.replace(/\n/g,'<br>'),
-            body: $cardBody.value.replace(/\n/g,'<br>'),
+            title: $cardTitle.value.replace(/\n/g, "<br>"),
+            body: $cardBody.value.replace(/\n/g, "<br>"),
             caption: "author by web",
         };
         this.passedEventHandler.addCard(cardData);
@@ -118,13 +119,13 @@ export class ScheduleRegisterCard {
                         class="schedule-register-card__title"  
                         placeholder="제목을 입력하세요"
                         rows="1"
-                        maxLength="${this.LIMIT}"
+                        maxLength="${TEXT_LENGTH_LIMIT}"
                     ></textarea>
                     <textarea 
                         class="schedule-register-card__body" 
                         placeholder="내용을 입력하세요"
                         rows="1"
-                        maxLength="${this.LIMIT}"
+                        maxLength="${TEXT_LENGTH_LIMIT}"
                     ></textarea>
                 </form>
                 <div class="schedule-register-card__btns-container">

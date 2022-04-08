@@ -202,8 +202,8 @@
     position: absolute;
     width: 400px;
     height: 138px;
-    left: 520px;
-    top: 443px;
+    left: 40%;
+    top: 40%;
     background: map-get($colors, white);
     box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
         0px 2px 4px rgba(0, 0, 0, 0.25);
@@ -250,5 +250,74 @@
         text-align: center;
         color: map-get($colors, white);
         background-color: map-get($colors, blue);
+    }
+}
+
+.schedule-edit-card {
+    @include flex-layout(auto, flex-start);
+    flex-direction: column;
+    padding: 16px;
+    width: 308px;
+    min-height: 108px;
+    background: map-get($colors, white);
+    box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+    border-radius: 6px;
+    margin: 16px 0px;
+    border: 1px solid map-get($colors, blue);
+
+    &__text-container {
+        flex-direction: column;
+        @include flex-layout(auto, flex-start);
+        width: 100%;
+        min-height: 76px;
+    }
+
+    &__title {
+        min-height: 23px;
+        font-weight: 700;
+        font-size: 1.6rem;
+        line-height: 23px;
+        color: map-get($colors, black);
+        width: 100%;
+    }
+
+    &__body {
+        min-height: 20px;
+        font-weight: 400;
+        font-size: 1.4rem;
+        line-height: 20px;
+        color: map-get($colors, black);
+        margin: 8px 0px;
+        width: 100%;
+    }
+
+    &__btns-container {
+        @include flex-layout();
+    }
+
+    &__cancel-btn {
+        padding: 10px;
+        width: 134px;
+        height: 40px;
+        background: map-get($colors, light-gray);
+        border-radius: 6px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: map-get($colors, dark-gray);
+    }
+
+    &__edit-btn {
+        padding: 10px;
+        width: 134px;
+        height: 40px;
+        border-radius: 6px;
+        margin-left: 8px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: map-get($colors, white);
     }
 }

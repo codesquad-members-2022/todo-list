@@ -1,4 +1,5 @@
 import { ScheduleDeleteConfirm } from "./scheduleDeleteConfirm.js";
+import { ScheduleEditCard } from "./scheduleEditCard.js";
 
 export class ScheduleCard {
     constructor({ target, cardData, passedEventHandler }) {
@@ -27,6 +28,15 @@ export class ScheduleCard {
     }
 
     setEvent() {
+        this.setDeleteCardEvent();
+
+        this.$scheduleCard.addEventListener(
+            "click",
+            this.cardClickEventHandler().bind(this)
+        );
+    }
+
+    setDeleteCardEvent() {
         const $scheduleCardDeleteBtn = this.$target.querySelector(
             ".schedule-card__delete-btn"
         );
@@ -48,7 +58,7 @@ export class ScheduleCard {
         const scheduleDeleteConfirmParams = {
             target: this.$scheduleCard,
             passedEventHandler: {
-                removeCard: this.passedEventHander.removeCard.bind(this),
+                removeCard: this.passedEventHander.removeCard,
             },
         };
         new ScheduleDeleteConfirm(scheduleDeleteConfirmParams);
@@ -60,6 +70,57 @@ export class ScheduleCard {
 
     cardDeleteBtnMouseleaveEventHandler() {
         this.$scheduleCard.classList.toggle("schedule-card--active-red");
+    }
+
+    cardClickEventHandler() {
+        let clickCount = 0;
+        let timerId;
+
+        return ({ target }) => {
+            clickCount += 1;
+            if (clickCount === 1) {
+                timerId = setTimeout(() => {
+                    clickCount = 0;
+                }, 300);
+            } else if (clickCount === 2) {
+                clearTimeout(timerId);
+                clickCount = 0;
+
+                const $selectedCard = target.closest(".schedule-card");
+                const scheduleEditCardParams = {
+                    original: $selectedCard,
+                    passedEventHandler: {
+                        updateCard: this.passedEventHander.updateCard,
+                    },
+                };
+
+                new ScheduleEditCard(scheduleEditCardParams);
+            }
+        };
+    }
+
+    cardClickEventHandler() {
+        let clickCount = 0;
+        let timerId;
+
+        return ({ target }) => {
+            clickCount += 1;
+            if (clickCount === 1) {
+                timerId = setTimeout(() => {
+                    clickCount = 0;
+                }, 300);
+            } else if (clickCount === 2) {
+                clearTimeout(timerId);
+                clickCount = 0;
+
+                const $selectedCard = target.closest(".schedule-card");
+                const scheduleEditCardParams = {
+                    original: $selectedCard,
+                };
+
+                new ScheduleEditCard(scheduleEditCardParams);
+            }
+        };
     }
 
     template() {
