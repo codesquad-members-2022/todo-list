@@ -31,8 +31,8 @@ final class MainViewController: UIViewController {
         
         self.sideView.backgroundColor = .white
         self.sideView.delegate = self
-        self.sideView.tableView.dataSource = self
-        self.sideView.tableView.delegate = self
+        self.sideView.historyTableView.dataSource = self
+        self.sideView.historyTableView.delegate = self
         
         addViews()
         setLayout()

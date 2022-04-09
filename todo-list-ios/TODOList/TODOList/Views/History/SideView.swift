@@ -22,12 +22,13 @@ class SideView: UIView {
         return button
     }()
     
-    let tableView: UITableView = {
-        let view = UITableView()
-        view.backgroundColor = .clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(SideViewTableViewCell.self, forCellReuseIdentifier: SideViewTableViewCell.identifier)
-        return view
+    let historyTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(SideViewTableViewCell.self, forCellReuseIdentifier: SideViewTableViewCell.identifier)
+        return tableView
     }()
     
     required override init(frame: CGRect) {
@@ -47,7 +48,7 @@ class SideView: UIView {
     private func addViews() {
         addSubview(emptyView)
         emptyView.addSubview(closeButton)
-        addSubview(tableView)
+        addSubview(historyTableView)
     }
     
     private func setConstraints() {
@@ -61,10 +62,10 @@ class SideView: UIView {
         closeButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         closeButton.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: -50).isActive = true
         
-        tableView.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 20).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        historyTableView.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: 20).isActive = true
+        historyTableView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        historyTableView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        historyTableView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 
 }
