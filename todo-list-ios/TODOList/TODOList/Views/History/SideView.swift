@@ -55,7 +55,7 @@ class SideView: UIView {
         emptyView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         emptyView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         emptyView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        emptyView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        emptyView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1/8.5) .isActive = true
         
         closeButton.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
         closeButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
