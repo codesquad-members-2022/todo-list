@@ -1,48 +1,37 @@
 .todo-header {
   /* background */
-
   width: 1440px;
   height: 112px;
   left: 0px;
   top: 0px;
-
   /* Gray 6 */
-
   background: #f5f5f7;
-
-  svg {
-    float: right;
-    /* Vector */
-
-    position: absolute;
-    //   left: 12.5%;
-    right: 16.67%;
-    top: 5.17%;
-    bottom: 25%;
-
-    // background: #010101;
-  }
+}
+.todo-header svg {
+  float: right;
+  /* Vector */
+  position: absolute;
+  right: 16.67%;
+  top: 5.17%;
+  bottom: 25%;
 }
 
 .todo-header-title {
   /* logo */
-
   position: absolute;
   width: 171px;
   height: 46px;
   left: 80px;
   top: 33px;
-
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;
   font-size: 32px;
   line-height: 46px;
-
   /* Black */
-
   color: #010101;
 }
+
 .menu-sidebar-icon {
   position: absolute;
   width: 24px;
@@ -50,6 +39,7 @@
   left: 1336px;
   top: 44px;
 }
+
 .menu-sidebar {
   display: flex;
   flex-direction: column;
@@ -62,3 +52,5 @@
   left: 1028px;
   top: 80px;
 }
+
+/*# sourceMappingURL=header.css.map */

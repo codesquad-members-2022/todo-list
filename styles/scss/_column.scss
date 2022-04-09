@@ -1,0 +1,75 @@
+@use "shared";
+
+
+.todo-column {
+  @include shared.custom_flex(column, center);
+  position: relative;
+  top: 136px;
+  width: 308px;
+  height: auto;
+
+  .todo-card {
+    @include shared.todo-card($background: White, $border: shadow_normal);
+  }
+
+  .selected {
+    @include shared.selected();
+  }
+}
+
+
+.todo-title {
+  @include shared.custom_flex(row, center);
+  position: relative;
+  left: 0;
+  top: 0;
+  @include shared.flex_none(0, 16, 0);
+  padding: 0px 8px;
+  width: 308px;
+  height: 26px;
+
+  .todo-name {
+    @include shared.custom_flex(row, center);
+    padding: 0px;
+    @include shared.custom_static($top: 0, $left: 8);
+    width: 228px;
+    height: 26px;
+
+    @include shared.flex_none(0, 0, 8);
+
+    .count {
+      @include shared.custom_flex(row, center, center);
+      padding: 0px;
+      @include shared.custom_static($left: 79, $top: 0);
+      width: 26px;
+      height: 26px;
+      background-color: shared.$Gray_4;
+      border-radius: 20px;
+      @include shared.flex_none(1, 0, 8);
+
+    }
+  }
+
+  .add {
+    @include shared.custom_absolute($left: 244, $top: 1);
+    width: 24px;
+    height: 24px;
+    @include shared.flex_none(1, 0, 8);
+
+    svg {
+      @extend %add_svg;
+    }
+  }
+
+  .delete {
+    @include shared.custom_absolute($left: 276, $top: 1);
+    width: 24px;
+    height: 24px;
+    @include shared.flex_none(2, 0, 8);
+
+    svg {
+      @extend %delete_svg;
+    }
+  }
+}
+
