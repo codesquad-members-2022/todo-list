@@ -2,31 +2,38 @@
 
 ```
 |--📁root
-    |
-    |--📁public
-    |      |
-    |      |--💾index.html
-    |
-    |--📁src
-    |   |
-    |   |--📁js
-    |       |
-    |       |--💾index.js
-    |       |
-    |       |--📁todo
-    |       |
-    |       |--📁drag-drop
-    |       |
-    |       |--📁sideMenu
-    |
-    |   |--📁style
-    |       |
-    |       |--💾main.css
-    |       |
-    |       |--💾main.scss
-    |--📁build
-        |
-        |--💾babel.config.json
-        |
-        |--💾webpack.config.js
+|
+|--📁public
+|   |
+|   |--💾index.html
+|
+|--📁src
+|    |
+|    |--📁js
+|       |
+|       |--💾index.js
+|       |
+|       |--📁todo
+|       |
+|       |--📁drag-drop
+|       |
+|       |--📁side-menu
+|
+|    |--📁style
+|       |
+|       |--💾style.css
+|       |
+|       |--📁header
+|       |
+|       |--📁main
+|       |
+|       |--📁reset
+|
+|
+|--📁build
+|
+|--💾babel.config.json
+|
+|--💾webpack.config.js
+|
 ```
