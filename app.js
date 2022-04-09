@@ -4,9 +4,9 @@ import Todo from './components/Todo.js';
 const columns = ['todo', 'ing', 'complete'];
 
 const app = () => {
-  const todoColumn = new TodoColumn(columns[0]);
-  const ingColumn = new TodoColumn(columns[1]);
-  const completeColumn = new TodoColumn(columns[2]);
+  columns.forEach(value => {
+    new TodoColumn(value).render();
+  });
 
   new TodoNoticeAnimation();
 
