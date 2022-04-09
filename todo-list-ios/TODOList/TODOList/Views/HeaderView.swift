@@ -44,9 +44,7 @@ class HeaderView: UIView {
     private func setConstraints() {
         titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7).isActive = true
-        
+
         sideMenuButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         sideMenuButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
         sideMenuButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
