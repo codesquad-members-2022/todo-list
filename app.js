@@ -1,27 +1,39 @@
 import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
-const columns = ['todo', 'ing', 'complete'];
+import { getLocalStorageByKey } from './utils/localStorage.js';
 
 const app = () => {
-  columns.forEach(value => {
-    new TodoColumn(value).render();
-  });
+  const todos = getLocalStorageByKey('todos') ? getLocalStorageByKey('todos') : [];
+  localStorage.setItem('todos', JSON.stringify(todos));
 
   new TodoNoticeAnimation();
-
-  const todos = JSON.parse(localStorage.getItem('todos')) ? JSON.parse(localStorage.getItem('todos')) : [];
-
-  localStorage.setItem('todos', JSON.stringify(todos));
-  dataLoad(todos);
+  createColumns();
+  createTodos();
 };
 
-const dataLoad = todos => {
-  // todos 배열에서 status(ing,todo,complete)를 각각 필터링하여 그에 맞는 배열에 넣는다.
+const createColumns = () => {
+  const columns = ['todo', 'ing', 'complete'];
+  columns.forEach(status => {
+    const column = new TodoColumn(status);
+    const count = colulmnTodoCount(status);
+    column.setCount(count);
+    column.render();
+  });
+};
+
+const colulmnTodoCount = status => {
+  const todos = getLocalStorageByKey('todos');
+  if (!todos) return;
+  return todos.filter(todo => todo.status === status).length;
+};
+
+const createTodos = () => {
+  const todos = getLocalStorageByKey('todos');
   todos.forEach(todo => {
     const newTodo = new Todo(todo);
     document.querySelector(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
-    newTodo.run(); //** */
+    newTodo.run();
   });
 };
 

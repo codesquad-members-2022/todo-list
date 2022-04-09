@@ -27,6 +27,10 @@ export default class TodoColumn {
     this.renderCount();
   };
 
+  setCount = count => {
+    this.count = count;
+  };
+
   onAddCount = () => {
     this.count++;
   };
@@ -41,7 +45,7 @@ export default class TodoColumn {
         <nav class="column ${this.status}">
             <div class="column__left">
                 <span class="column__title">${this.status}</span>
-                <div class="column__count">0</div>
+                <div class="column__count">${this.count}</div>
             </div>
             <div class="column__right">
             <button class="column__add">+</button>
