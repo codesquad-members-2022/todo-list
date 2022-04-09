@@ -118,14 +118,14 @@ TO-DO LIST 기능 정리
     - ~div태그로 input태그처럼 구현? input(hidden 속성)을 사용 -> value만 관리하는 녀석, div가 view를 관리하는 녀석~
     - textarea 속성을 사용하여 해결
 
-- [ ] TODO UPDATE (Jinnie)
+- [x] TODO UPDATE (Jinnie)
 
   - [x] 카드 더블클릭시 수정이 가능한 상태로 변경
     - dbclick addeventlistener 에서 수정 변경 가능하도록 구현
     - ~state 값을 두어서 현재 카드가 수정상태인지 판별~
   - [x] 취소 버튼 클릭시 수정 취소. 변경사항 반영 X
     - ~수정 여부의 데이터 state값을 false로 하여 카드 원복~
-  - [ ] 내용을 모두 삭제시 수정 버튼 비활성화, 내용을 수정한 후 수정버튼 클릭시 변경사항 반영
+  - [x] 내용을 모두 삭제시 수정 버튼 비활성화, 내용을 수정한 후 수정버튼 클릭시 변경사항 반영
     - content 내용이 없을 시 버튼 비활성화
 
 - [ ] TODO DELETE (Jinnie)
