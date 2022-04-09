@@ -3,7 +3,7 @@ import UIKit
 
 class MemoCanvasView: UIView {
     
-    private let stackView: UIStackView = {
+    private let memoContainerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -44,21 +44,21 @@ class MemoCanvasView: UIView {
     }
     
     private func addViews() {
-        addSubview(stackView)
-        stackView.addArrangedSubview(todoContainerView)
-        stackView.addArrangedSubview(progressContainerView)
-        stackView.addArrangedSubview(doneContainerView)
+        addSubview(memoContainerStackView)
+        memoContainerStackView.addArrangedSubview(todoContainerView)
+        memoContainerStackView.addArrangedSubview(progressContainerView)
+        memoContainerStackView.addArrangedSubview(doneContainerView)
       
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48).isActive = true
-        stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -48).isActive = true
-        stackView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        memoContainerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48).isActive = true
+        memoContainerStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        memoContainerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -48).isActive = true
+        memoContainerStackView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         
-        todoContainerView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
-        todoContainerView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
-        progressContainerView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
-        progressContainerView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
-        doneContainerView.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
-        doneContainerView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
+        todoContainerView.topAnchor.constraint(equalTo: memoContainerStackView.topAnchor).isActive = true
+        todoContainerView.bottomAnchor.constraint(equalTo: memoContainerStackView.bottomAnchor).isActive = true
+        progressContainerView.topAnchor.constraint(equalTo: memoContainerStackView.topAnchor).isActive = true
+        progressContainerView.bottomAnchor.constraint(equalTo: memoContainerStackView.bottomAnchor).isActive = true
+        doneContainerView.topAnchor.constraint(equalTo: memoContainerStackView.topAnchor).isActive = true
+        doneContainerView.bottomAnchor.constraint(equalTo: memoContainerStackView.bottomAnchor).isActive = true
     }
 }
