@@ -24,7 +24,7 @@ class MainViewController: UIViewController {
         self.view.backgroundColor = .secondarySystemBackground
         configureChildViewControllers()
         configureLogView()
-        //propagateData()
+        propagateData()
     }
     
     @IBAction func TapLogViewButton(_ sender: UIButton) {
@@ -48,6 +48,7 @@ class MainViewController: UIViewController {
             name: MainViewController.didFetchInfo,
             object: self,
             userInfo: [MainViewController.BoardData:data])
+
     }
     
     private func configureChildViewControllers() {
@@ -57,9 +58,9 @@ class MainViewController: UIViewController {
               let progressingTableViewController = storyBoard.instantiateViewController(withIdentifier: "ChildViewController") as? ChildViewController,
               let completedTableViewController = storyBoard.instantiateViewController(withIdentifier: "ChildViewController") as? ChildViewController else { return }
         
-        todoViewController.setHeader(title: .todo)
-        progressingTableViewController.setHeader(title: .progressing)
-        completedTableViewController.setHeader(title: .completed)
+        todoViewController.setBoardType(type: .todo)
+        progressingTableViewController.setBoardType(type: .progressing)
+        completedTableViewController.setBoardType(type: .completed)
         
         [todoViewController,progressingTableViewController,completedTableViewController].forEach {
             addChild($0)

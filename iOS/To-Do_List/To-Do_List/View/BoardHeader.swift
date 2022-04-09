@@ -28,8 +28,7 @@ class BoardHeader: UIView {
     }
     
     
-    convenience init(titleText: BoardTitle) {
-//        self.init(frame: CGRect(x: 0, y: 0, width: 256, height: 30))
+    convenience init(titleText: BoardType) {
         self.init(frame: .zero)
         self.title.text = "\(titleText)"
         setupView()
@@ -76,25 +75,18 @@ class BoardHeader: UIView {
         
         NSLayoutConstraint.activate([
             
-//            self.leadingAnchor.constraint(equalTo: superView.leadingAnchor),
-//            self.trailingAnchor.constraint(equalTo: superView.trailingAnchor),
-//            self.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>)
 
             title.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 8),
             
             badge.centerYAnchor.constraint(equalTo: title.centerYAnchor, constant: -3),
-            
             badge.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: 8),
             badge.topAnchor.constraint(equalTo: self.topAnchor),
-//            badge.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             badge.heightAnchor.constraint(equalToConstant: 26),
             badge.widthAnchor.constraint(equalToConstant: 26),
             
             addButton.leadingAnchor.constraint(equalTo: badge.trailingAnchor, constant: 110),
-//            addButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             addButton.centerYAnchor.constraint(equalTo: title.centerYAnchor, constant: -3),
 
-            
         ])
     }
 }

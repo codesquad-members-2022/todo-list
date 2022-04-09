@@ -9,28 +9,34 @@
 import UIKit
 
 
-
 class ChildViewController: UIViewController {
 
     
     @IBOutlet weak private var tableView: BoardTableView!
     @IBOutlet weak private var headerContainer: UIView!
     private var header : BoardHeader!
+    private var boardType : BoardType?
     
-    
-    private var todoList:[Todo]?
+    private var list:[Todo]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
         setTableView()
-        headerContainer.addSubview(header)
-//        addObserver()
-       
+        setHeader()
+        
+        addObserver()
+        
     }
 
-    func setHeader(title: BoardTitle) {
+    func setBoardType(type : BoardType) {
+        self.boardType = type
+    }
+    
+    private func setHeader() {
+        guard let title = boardType else {return}
         self.header = BoardHeader(titleText: title)
+        headerContainer.addSubview(header)
     }
     
     private func setTableView() {
@@ -48,28 +54,25 @@ class ChildViewController: UIViewController {
     }
     
     @objc func reloadTableView(notification:Notification) {
-        guard let data = notification.userInfo?[MainViewController.BoardData] as? NetworkResult else { return }
-        todoList = data.response.todoItems
-        
+        guard let data = notification.userInfo?[MainViewController.BoardData] as? NetworkResult , let boardType = self.boardType else { return }
+        list = boardType.extractList(from: data)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-  
-
 }
 
 // MARK: - Table view data source
 extension ChildViewController : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let todoList = todoList else { return 0 }
-        return 10
+        guard let list = list else { return 0 }
+        return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier) as? CardCell else { return UITableViewCell() }
-//        guard let todoList = self.todoList else { return UITableViewCell() }
-//        cell.loadCardInfo(info: todoList[indexPath.row])
+        guard let list = self.list else { return UITableViewCell() }
+        cell.loadCardInfo(info: list[indexPath.row])
         return cell
     }
     

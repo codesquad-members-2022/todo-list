@@ -128,7 +128,7 @@
 				8DC2282A27FB1CFE002FB533 /* MainViewController.swift */,
 				8DD815E427FD691E00C13618 /* Todo.swift */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
-				B730BBAC27FECAFC006DC969 /* AppInfo */,
+				B730BBAC27FECAFC006DC969 /* Utils */,
 				8DD815E327FD65F300C13618 /* ChildViewControllers */,
 				B70BD64027FBD1CF001BE68F /* View */,
 				8DD815E127FD655C00C13618 /* Network */,
@@ -206,12 +206,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		B730BBAC27FECAFC006DC969 /* AppInfo */ = {
+		B730BBAC27FECAFC006DC969 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				B730BBAD27FECB33006DC969 /* constants.swift */,
 			);
-			path = AppInfo;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -28,7 +28,7 @@ enum BoardType: CustomStringConvertible {
 
 extension BoardType {
     
-    func selectData(data: NetworkResult) -> [Todo] {
+    func extractList(from data: NetworkResult) -> [Todo] {
         switch self {
         case .todo:
             return data.response.todoItems
