@@ -92,6 +92,8 @@ extension MainViewController: SideViewDelegate {
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //직접 테이블 뷰의 셀을 로드하는 시점에 구분선 설정을 해야 적용되고 있음
+        tableView.separatorStyle = .none
         return 15
     }
     

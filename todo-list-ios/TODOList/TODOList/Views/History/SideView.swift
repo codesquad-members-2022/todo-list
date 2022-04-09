@@ -25,6 +25,7 @@ class SideView: UIView {
     let historyTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
+        //현재 아래와 같이 구분선 설정을 없애도 사이드 뷰 내부의 테이블 뷰에 적용되지 않음
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(SideViewTableViewCell.self, forCellReuseIdentifier: SideViewTableViewCell.identifier)
