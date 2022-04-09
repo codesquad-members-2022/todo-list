@@ -18,7 +18,7 @@ class MemoContainerView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: FontFactory.bold, size: 20)
         label.textColor = UIColor(named: ColorAsset.black)
-        label.text = "해야 할 일"
+        label.text = " 해야 할 일"
         label.textAlignment = .left
         return label
     }()
@@ -87,7 +87,7 @@ class MemoContainerView: UIView {
         horizontalStackView.addArrangedSubview(categoryLabel)
         horizontalStackView.addArrangedSubview(countView)
         horizontalStackView.addArrangedSubview(buttonView)
-        horizontalStackView.setCustomSpacing(110, after: countView)
+        horizontalStackView.setCustomSpacing(horizontalStackView.frame.width*0.6, after: countView)
         
         addSubview(horizontalStackView)
         addSubview(tableView)

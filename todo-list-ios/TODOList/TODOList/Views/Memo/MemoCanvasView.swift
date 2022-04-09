@@ -7,7 +7,7 @@ class MemoCanvasView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = 35
         stackView.alignment = .top
         stackView.distribution = .fillEqually
         return stackView
@@ -51,7 +51,7 @@ class MemoCanvasView: UIView {
       
         memoContainerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48).isActive = true
         memoContainerStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        memoContainerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -48).isActive = true
+        memoContainerStackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75).isActive = true
         memoContainerStackView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         
         todoContainerView.topAnchor.constraint(equalTo: memoContainerStackView.topAnchor).isActive = true

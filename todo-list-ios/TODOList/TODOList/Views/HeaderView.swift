@@ -4,7 +4,7 @@ class HeaderView: UIView {
     
     private var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: FontFactory.normal, size: 50)
+        label.font = UIFont(name: FontFactory.normal, size: 40)
         label.text = "TO-DO LIST"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
