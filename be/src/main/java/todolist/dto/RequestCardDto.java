@@ -12,9 +12,6 @@ public class RequestCardDto {
     private String title;
     private String content;
 
-    public RequestCardDto() {
-    }
-
     public RequestCardDto(String section, String title, String content) {
         this.section = section;
         this.title = title;
