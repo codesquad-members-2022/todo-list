@@ -31,3 +31,6 @@ public class ResponseCardDto {
     }
 
 }
+
+//이름
+//id

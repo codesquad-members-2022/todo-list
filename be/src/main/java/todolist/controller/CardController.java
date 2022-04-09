@@ -2,10 +2,13 @@ package todolist.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import todolist.domain.Card;
 import todolist.dto.RequestCardDto;
 import todolist.dto.ResponseCardDto;
-import todolist.dto.ResponseCardsDto;
 import todolist.service.CardService;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CardController {
@@ -18,7 +21,7 @@ public class CardController {
     }
 
     @GetMapping("/todos")
-    public ResponseCardsDto getTodo() {
+    public Map<String, List<Card>> getTodo() {
         return cardService.getCards();
     }
 
