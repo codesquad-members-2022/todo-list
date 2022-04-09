@@ -76,7 +76,10 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yh-mT-u1k">
-                                <rect key="frame" x="766" y="96" width="600" height="908"/>
+                                <rect key="frame" x="2132" y="96" width="428" height="908"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="428" id="dmQ-1J-lWL"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="eo3-WM-S7h" kind="embed" id="HY3-Pb-e0O"/>
                                 </connections>
@@ -89,13 +92,12 @@
                             <constraint firstItem="hzU-m8-3QM" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="leading" id="LCS-93-AMi"/>
                             <constraint firstItem="5yh-mT-u1k" firstAttribute="bottom" secondItem="hNL-ez-bcF" secondAttribute="bottom" id="Oo1-7p-ODo"/>
                             <constraint firstItem="hNL-ez-bcF" firstAttribute="bottom" secondItem="qsL-gl-oqr" secondAttribute="bottom" id="VPW-zU-hNI"/>
-                            <constraint firstItem="5yh-mT-u1k" firstAttribute="trailing" secondItem="hNL-ez-bcF" secondAttribute="trailing" id="Z4N-58-hWW"/>
                             <constraint firstItem="hNL-ez-bcF" firstAttribute="trailing" secondItem="hzU-m8-3QM" secondAttribute="trailing" id="dsI-f4-iOd"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="leading" constant="48" id="e86-Z3-LCu"/>
                             <constraint firstItem="hzU-m8-3QM" firstAttribute="top" secondItem="hNL-ez-bcF" secondAttribute="top" id="fM8-Q7-LJA"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="trailing" secondItem="hNL-ez-bcF" secondAttribute="trailing" constant="-216" id="hNc-EQ-Eg3"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="top" secondItem="hzU-m8-3QM" secondAttribute="bottom" id="oaV-Yo-cEf"/>
-                            <constraint firstItem="5yh-mT-u1k" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="leading" constant="766" id="ow6-0K-ADU"/>
+                            <constraint firstItem="5yh-mT-u1k" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="trailing" constant="766" id="ow6-0K-ADU"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="top" secondItem="hNL-ez-bcF" secondAttribute="top" constant="72" id="xkJ-bl-hAy"/>
                         </constraints>
                     </view>
@@ -113,15 +115,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="LogTableViewController" id="eo3-WM-S7h" customClass="LogTableViewController" customModule="To_Do_List" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="lCa-66-wRt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="908"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="908"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PNd-o6-Vm6">
-                                <rect key="frame" x="0.0" y="44.5" width="600" height="43.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="428" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PNd-o6-Vm6" id="aGZ-Hr-D3j">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -175,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cje-1g-zdN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="22" y="37"/>
+            <point key="canvasLocation" x="230" y="92"/>
         </scene>
         <!--Doing Table View Controller-->
         <scene sceneID="r9u-1p-Bxn">
