@@ -1,38 +1,37 @@
-DROP TABLE IF EXISTS `user`;
+drop table IF EXISTS `user`;
 
-CREATE TABLE `user` (
-    `userId` VARCHAR(50) NOT NULL,
+create TABLE `user` (
+    `userId` INT NOT NULL AUTO_INCREMENT,
     `password` VARCHAR(50) NOT NULL,
-    `remove` TINYINT(1) NOT NULL DEFAULT 0,
+    `removed` TINYINT(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`userId`)
 );
 
-DROP TABLE IF EXISTS `card`;
+drop table IF EXISTS `card`;
 
-CREATE TABLE `card` (
+create TABLE `card` (
     `cardId` INT NOT NULL AUTO_INCREMENT,
-    `userId` VARCHAR(50) NOT NULL,
+    `userId` INT NOT NULL,
     `cardTitle` VARCHAR(50) NOT NULL,
     `cardContent` VARCHAR(255) NOT NULL,
     `boardName` VARCHAR(50) NOT NULL,
-    `internalOrder` INT NOT NULL,
-    `addDateTime` TIMESTAMP NOT NULL,
-    `remove` TINYINT(1) NOT NULL DEFAULT 0,
+    `createdTime` TIMESTAMP NOT NULL,
+    `removed` TINYINT(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`cardId`),
     FOREIGN KEY (`userId`)
         REFERENCES `user` (`userId`)
-        ON UPDATE CASCADE
+        ON update CASCADE
 );
 
-DROP TABLE IF EXISTS `history`;
+drop table IF EXISTS `history`;
 
-CREATE TABLE `history` (
+create TABLE `history` (
     `historyId` INT NOT NULL AUTO_INCREMENT,
-    `userId` VARCHAR(50) NOT NULL,
+    `userId` INT NOT NULL,
     `actionHistory` VARCHAR(100) NOT NULL,
     `actionTime` TIMESTAMP NOT NULL,
     PRIMARY KEY (`historyId`),
     FOREIGN KEY (`userId`)
         REFERENCES `user` (`userId`)
-        ON UPDATE CASCADE
+        ON update CASCADE
 );
