@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -68,6 +69,46 @@ class JdbcCardRepositoryTest {
 
         //then
         assertThat(target).isEmpty();
+    }
+
+    @Test
+    @DisplayName("findAll()를 호출하면, List<Card>를 반환한다.")
+    void findAll_test() {
+
+        Card save = jdbcCardRepository.save(card);
+
+        //when
+        List<Card> all = jdbcCardRepository.findAll();
+
+        //then
+        assertThat(all).contains(save);
+        assertThat(all.size()).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("id를 받아서 상태값 변경을 실행하고, 변경되었다면 true를 변경되지않았다면 false를 반환한다.")
+    void delete_success_test() {
+
+        //when
+        boolean delete = jdbcCardRepository.delete(1L);
+        List<Card> all = jdbcCardRepository.findAll();
+
+        //then
+        assertThat(delete).isTrue();
+        assertThat(all.size()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("id를 받아서 상태값 변경을 실행하고, 변경되었다면 true를 변경되지않았다면 false를 반환한다.")
+    void delete_fail_test() {
+
+        //when
+        boolean delete = jdbcCardRepository.delete(3L);
+        List<Card> all = jdbcCardRepository.findAll();
+
+        //then
+        assertThat(delete).isFalse();
+        assertThat(all.size()).isEqualTo(2);
     }
 
 }

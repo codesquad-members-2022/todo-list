@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Card {
 
-    private Long id;
+    private final Long id;
     private final String userId;
     private final Integer columnId;
     private final String subject;
@@ -65,10 +65,6 @@ public class Card {
 
     public boolean isDeleted() {
         return deleted;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override
