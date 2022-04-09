@@ -10,6 +10,7 @@ final class MainViewController: UIViewController {
     
     private var sideView: SideView = {
         let view = SideView()
+        view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -40,7 +41,8 @@ final class MainViewController: UIViewController {
     
     /// 초기 뷰 설정. 초기 뷰는 sideMenuButton이 보여지는 상태.
     private func addViews() {
-        self.view.addSubview(headerView)
+        view.addSubview(headerView)
+        view.addSubview(sideView)
     }
     
     private func setLayout(){
@@ -53,11 +55,6 @@ final class MainViewController: UIViewController {
         memoCanvasViewController?.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor).isActive = true
         memoCanvasViewController?.view.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
         memoCanvasViewController?.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
-    }
-    
-    /// sideMenuButton 클릭 시 SideView를 보여준다. 
-    private func showSideView() {
-        self.view.addSubview(sideView)
         
         sideView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         sideView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -65,13 +62,17 @@ final class MainViewController: UIViewController {
         sideView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
+    /// sideMenuButton 클릭 시 SideView를 보여준다. 
+    private func showSideView() {
+        self.sideView.isHidden = false
+    }
+    
     /// SideMenu에 있는 닫기 버튼 클릭 시, sideView를 제거하고 SideMenuButton을 보여줌.
     private func hideSideView() {
         UIView.transition(with: self.sideView, duration: 0.25) {
-            self.sideView.removeFromSuperview()
+            self.sideView.isHidden = true
+            
         }
-    
-        setLayout()
     }
 }
 
@@ -98,6 +99,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SideViewTableViewCell.identifier, for: indexPath) as? SideViewTableViewCell else {
             return UITableViewCell()
         }
+        
+        cell.selectionStyle = .none
         cell.emojiView.image = UIImage(named: "emoji")
         
         let history = HistoryInfo(name: "Selina", content: "이제 자러갑니당", time: "0")
