@@ -21,8 +21,8 @@ public class LogService {
         Log log = new Log(event, LocalDateTime.now(), cardDto.getTitle(), null, cardDto.getSection());
         Integer logId = logRepository.save(log);
 
-        return new LogDTO(logId, log.getEvent(), log.getLogTime(), log.getTitle(), log.getPrevSection(),
-            log.getSection());
+        return new LogDTO(logId, log.getEventType(), log.getLogTime(), log.getTitle(), log.getPrevSection(),
+            log.getSectionType());
     }
 
 }
