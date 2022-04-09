@@ -21,11 +21,11 @@ public class Card {
     private boolean deletedYn;
     private int rowPosition;
 
-    public static Card of(Status status, String title, String content, String userId, Device device, int index) {
-        return new Card(0, status, title, content, userId, device, LocalDateTime.now(), LocalDateTime.now(), false, index);
+    public static Card of(Status status, String title, String content, String userId, Device device, int rowPosition) {
+        return new Card(0, status, title, content, userId, device, LocalDateTime.now(), LocalDateTime.now(), false, rowPosition);
     }
 
-    public static Card of(int statusCode, String title, String content, String userId, int deviceCode, int index) {
-        return new Card(0, Status.of(statusCode), title, content, userId, Device.of(deviceCode), LocalDateTime.now(), LocalDateTime.now(), false, index);
+    public static Card of(String status, String title, String content, String userId, String device, int rowPosition) {
+        return new Card(0, Status.of(status), title, content, userId, Device.of(device), LocalDateTime.now(), LocalDateTime.now(), false, rowPosition);
     }
 }
