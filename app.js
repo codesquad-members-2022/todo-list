@@ -1,3 +1,4 @@
+import css from './style/index.scss';
 import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
