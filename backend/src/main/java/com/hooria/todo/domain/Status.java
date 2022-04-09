@@ -21,4 +21,11 @@ public enum Status {
             .findFirst()
             .orElse(NONE);
     }
+
+    public static Status of(String status) {
+        return Arrays.stream(Status.values())
+            .filter(s -> s.name().equals(status))
+            .findFirst()
+            .orElse(NONE);
+    }
 }

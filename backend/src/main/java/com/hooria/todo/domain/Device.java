@@ -22,4 +22,11 @@ public enum Device {
             .findFirst()
             .orElse(NONE);
     }
+
+    public static Device of(String device) {
+        return Arrays.stream(Device.values())
+            .filter(d -> d.name().equals(device))
+            .findFirst()
+            .orElse(NONE);
+    }
 }
