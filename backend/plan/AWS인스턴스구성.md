@@ -4,7 +4,7 @@
 
 <br/>
 
-![aws_instance_architecture](https://user-images.githubusercontent.com/86910955/162484224-e982ad5b-42ca-4a03-a353-c914126db58b.png)
+![aws_instance_architecture](https://user-images.githubusercontent.com/86910955/162560191-5eed8f39-b5f3-4aa6-8d70-da7d131dbe10.png)
 
 <br/>
 
