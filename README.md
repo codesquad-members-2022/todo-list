@@ -16,6 +16,8 @@
 
 3. 기능이 더해진 team-32 브랜치를 다시 각자의 로컬 환경에서 pull로 땡겨와 작업 시행
 
+4. 리뷰어에게 PR보낸후 작업은 어떤식으로 진행 ? PR 보낸 기준에서의 newteam-32 브랜치를 생성이후 작업하여 리뷰어께서 리뷰를 마치면 team-32 브랜치 rebase 설정 이후에 team-32 브랜치에 newteam-32 브랜치에서 작업한 내용들을 merge 해줌으로써 따로 공백기간 없이 개발 진행함
+
 > 최대한 깃 충돌이 나지 않게 하기 위하여 서로 폴더 단위로 작업 진행 예정
 
 ---
@@ -91,10 +93,11 @@ TO-DO LIST 기능 정리
     - TodoColumn을 만듬과 동시에 TodoColumn이 TodoCount를 알고 있게 한다?
     - TodoColumn 생성자에서 TodoInput을 만들때, onRegisterBtn에 대한 콜백함수를 넘겨줘야할까 ?
     - 그 이전에, TodoColumn 클래스는 TodoColumn만 관리하는 데이터만 있어야할텐데. TodoInput을 알아도 될까?
-  - [ ] 투두 카드 등록 완료 후 해당 Column에 맞는 Count 증가
-    - TodoColumn 클래스에서 할지? TodoCount 클래스 만들어서 할지 고민
+  - [x] 투두 카드 등록 완료 후 해당 Column에 맞는 Count 증가
+    - TodoColumn 클래스에서 할지? TodoCount 클래스 만들어서 할지 고민 => TodoColumn 클래스 내에서 count 변수로 관리
     - count data를 column 마다 계속 가지고 있어서 카드 등록 시 count + 1 해주기
   - [ ] 투두 카드 삭제 시 해당 todoColumn에 맞는 count 1 감소
+    - 투두 카드 삭제 구현 완료 시 handleCount 콜백함수만 넣어주면됨.
 
 - [x] TODO CREATE (Jinnie & Muffin)
 
