@@ -4,9 +4,9 @@ import Todo from './components/Todo.js';
 const columns = ['todo', 'ing', 'complete'];
 
 const app = () => {
-  const todoColumn = new TodoColumn(columns[0]).render();
-  const ingColumn = new TodoColumn(columns[1]).render();
-  const completeColumn = new TodoColumn(columns[2]).render();
+  const todoColumn = new TodoColumn(columns[0]);
+  const ingColumn = new TodoColumn(columns[1]);
+  const completeColumn = new TodoColumn(columns[2]);
 
   new TodoNoticeAnimation();
 
@@ -23,7 +23,7 @@ const dataLoad = todos => {
   todos.forEach(todo => {
     const newTodo = new Todo(todo);
     document.querySelector(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
-    newTodo.run();
+    newTodo.run(); //** */
   });
 };
 
