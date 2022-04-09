@@ -9,19 +9,17 @@ export default class TodoColumn {
     this.count = 0;
   }
 
-  onAddClick = ({ target }) => {
+  onAddClick = () => {
     if (this.onInput) {
       document.querySelector(`.input-${this.status}`)?.remove();
       this.onInput = false;
       return;
     }
 
-    if (target.classList.contains('column__add')) {
-      document.querySelector(`.${this.status}`).insertAdjacentHTML('afterend', this.todoInput.render());
-      this.todoInput.run();
-      this.onInput = true;
-      return;
-    }
+    document.querySelector(`.${this.status}`).insertAdjacentHTML('afterend', this.todoInput.render());
+    this.todoInput.run();
+    this.onInput = true;
+    return;
   };
 
   handleCount = () => {
@@ -54,6 +52,6 @@ export default class TodoColumn {
     </article>
       `;
     this.parentTarget.insertAdjacentHTML('beforeend', columnListHTML);
-    document.querySelector(`.${this.status}`).addEventListener('click', this.onAddClick);
+    document.querySelector(`.${this.status} .column__add`).addEventListener('click', this.onAddClick);
   };
 }
