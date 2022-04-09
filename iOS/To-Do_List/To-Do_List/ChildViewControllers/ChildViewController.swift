@@ -66,6 +66,7 @@ class ChildViewController: UIViewController {
 extension ChildViewController : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let list = list else { return 0 }
+        self.header.updateCount(list.count)
         return list.count
     }
     

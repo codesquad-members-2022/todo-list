@@ -34,11 +34,15 @@ class BoardHeader: UIView {
         setupView()
         self.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    func updateCount(_ numberOfCards: Int) {
+        self.badge.setTitle("\(numberOfCards)", for: .normal)
+    }
 
     private func setupView() {
         setTitle()
         setBadge()
-        setaddButton()
+        setAddButton()
         addElement()
         setConstraints()
     }
@@ -58,11 +62,13 @@ class BoardHeader: UIView {
         badge.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setaddButton() {
+    private func setAddButton() {
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.setImage(UIImage(systemName: "plus"), for: .normal)
         
     }
+    
+    
     
     private func addElement() {
         self.addSubview(title)
