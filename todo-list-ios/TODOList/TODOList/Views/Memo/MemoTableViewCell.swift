@@ -27,6 +27,7 @@ class MemoTableViewCell: UITableViewCell {
         label.font = UIFont(name: FontFactory.normal, size: 14)
         label.textColor = .black
         label.text = "content"
+        label.numberOfLines = 0
         return label
     }()
     
