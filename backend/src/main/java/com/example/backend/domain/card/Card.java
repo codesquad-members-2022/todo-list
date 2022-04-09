@@ -3,7 +3,6 @@ package com.example.backend.domain.card;
 import java.time.LocalDateTime;
 
 public class Card {
-
     private Long id;
     private String title;
     private String content;
@@ -12,6 +11,13 @@ public class Card {
     private LocalDateTime lastModifiedAt;
     private boolean visible;
     private Long columnId;
+
+    public Card(Long id, String title, String content, CardType cardType) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.cardType = cardType;
+    }
 
     public Card(String title, String content, CardType cardType) {
         this.title = title;
@@ -28,6 +34,18 @@ public class Card {
         this.lastModifiedAt = lastModifiedAt;
         this.visible = true;
         this.columnId = columnId;
+    }
+
+    public LocalDateTime getLastModifiedAt() {
+        return lastModifiedAt;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public Long getColumnId() {
+        return columnId;
     }
 
     public Long getId() {
