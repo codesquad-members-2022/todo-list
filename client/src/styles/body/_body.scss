@@ -55,6 +55,8 @@ main {
 }
 
 .column-list {
+  width: $list-width;
+
   .list_item {
     display: flex;
     align-items: flex-start;
@@ -67,9 +69,10 @@ main {
     width: 100%;
 
     input {
-      width: 100%;
+      width: 252px;
       border: none;
       background-color: transparent;
+      outline: none;
     }
 
     &:focus {
@@ -83,12 +86,19 @@ main {
 
   .item-title {
     @include font_style(700, 16px, 23px);
+    width: 252px;
     margin-bottom: 8px;
   }
 
   .item-content {
     @include font_style(400, 14px, 20px);
+    width: 252px;
     margin-bottom: 8px;
+    border: none;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    word-wrap: break-word;
   }
 
   .item-caption {

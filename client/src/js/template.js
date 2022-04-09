@@ -21,7 +21,7 @@ const createCardTemplate = () => {
   <li class="list_item active">
     <form class="item-info">
       <input class="item-title" placeholder="제목을 입력하세요"></input>
-      <input class="item-content" placeholder="내용을 입력하세요"></input>
+      <textarea class="item-content" placeholder="내용을 입력하세요"></textarea>
       <div class="active-btns">
         <button type="button" class="normal-btn">취소</button>
         <button type="submit" class="accent-btn" disabled="true">등록</button>
