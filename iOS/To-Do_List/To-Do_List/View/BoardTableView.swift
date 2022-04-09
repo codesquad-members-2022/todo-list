@@ -10,7 +10,7 @@ import UIKit
 class BoardTableView: UITableView {
     
     override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
+        super.init(frame: frame, style: .plain)
         setupStyle()
     }
     
@@ -20,10 +20,11 @@ class BoardTableView: UITableView {
     }
     
     private func setupStyle() {
-        self.separatorStyle = .none
-        self.tableHeaderView = BoardHeader(titleText: "해야할 일")
+        self.separatorStyle = .none        
         self.register(CardCell.self, forCellReuseIdentifier: CardCell.identifier)
         self.backgroundColor = .secondarySystemBackground
         self.rowHeight = UITableView.automaticDimension
     }
+    
+    
 }

@@ -12,7 +12,6 @@ class MainViewController: UIViewController {
     //View
     @IBOutlet weak var statckView: UIStackView!
     @IBOutlet weak var logViewContainer: UIView!
-    
     //Network
     private var networkManager = NetworkManager()
     
@@ -20,13 +19,13 @@ class MainViewController: UIViewController {
             super.viewDidLoad()
             self.view.backgroundColor = .secondarySystemBackground
             addChildViewControllers()
-            propagateData()
+//            propagateData()
     }
         
     @IBAction func TapLogViewButton(_ sender: UIButton) {
         self.logViewContainer.isHidden = !logViewContainer.isHidden
     }
-    
+
     
     private func propagateData() {
         networkManager.getRequest(endpoint: EndPointCases.getTodoList) { (result:Result<NetworkResult,NetworkError>)  in
