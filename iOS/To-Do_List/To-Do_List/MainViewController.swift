@@ -19,13 +19,14 @@ class MainViewController: UIViewController {
     static let didFetchInfo = NSNotification.Name("DidFetchToList")
     static let BoardData = "BoardData"
     
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            self.view.backgroundColor = .secondarySystemBackground
-            addChildViewControllers()
-//            propagateData()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .secondarySystemBackground
+        configureChildViewControllers()
+        configureLogView()
+        //propagateData()
     }
-        
+    
     @IBAction func TapLogViewButton(_ sender: UIButton) {
         self.logViewContainer.isHidden = !logViewContainer.isHidden
     }
@@ -49,20 +50,27 @@ class MainViewController: UIViewController {
             userInfo: [MainViewController.BoardData:data])
     }
     
-    private func addChildViewControllers() {
+    private func configureChildViewControllers() {
         let storyBoard = UIStoryboard(name: "Main", bundle: .main)
-        guard let todoViewController = storyBoard.instantiateViewController(withIdentifier: "ToDoTableViewController") as? ToDoViewController,
-              let doingTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoingTableViewController") as? DoingTableViewController,
-              let doneTableViewController = storyBoard.instantiateViewController(withIdentifier: "DoneTableViewController") as? DoneTableViewController else { return }
         
-        [todoViewController,doingTableViewController,doneTableViewController].forEach {
+        guard let todoViewController = storyBoard.instantiateViewController(withIdentifier: "ChildViewController") as? ChildViewController,
+              let progressingTableViewController = storyBoard.instantiateViewController(withIdentifier: "ChildViewController") as? ChildViewController,
+              let completedTableViewController = storyBoard.instantiateViewController(withIdentifier: "ChildViewController") as? ChildViewController else { return }
+        
+        todoViewController.setHeader(title: .todo)
+        progressingTableViewController.setHeader(title: .progressing)
+        completedTableViewController.setHeader(title: .completed)
+        
+        [todoViewController,progressingTableViewController,completedTableViewController].forEach {
             addChild($0)
             self.statckView.addArrangedSubview($0.view)
-            
-            self.logViewContainer.isHidden = true
         }
+        
     }
-
+    
+    private func configureLogView(){
+        self.logViewContainer.isHidden = true
+    }
 }
 
 

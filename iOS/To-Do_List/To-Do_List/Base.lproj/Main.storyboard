@@ -136,10 +136,10 @@
             </objects>
             <point key="canvasLocation" x="-784" y="418"/>
         </scene>
-        <!--To Do View Controller-->
+        <!--Child View Controller-->
         <scene sceneID="oOg-Em-Mf1">
             <objects>
-                <viewController storyboardIdentifier="ToDoTableViewController" id="ync-er-aKz" customClass="ToDoViewController" customModule="To_Do_List" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChildViewController" id="ync-er-aKz" customClass="ChildViewController" customModule="To_Do_List" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ykh-fl-Dyx">
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

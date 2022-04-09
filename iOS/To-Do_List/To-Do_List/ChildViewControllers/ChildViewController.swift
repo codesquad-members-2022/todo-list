@@ -10,27 +10,27 @@ import UIKit
 
 
 
-class ToDoViewController: UIViewController {
+class ChildViewController: UIViewController {
 
     
     @IBOutlet weak private var tableView: BoardTableView!
     @IBOutlet weak private var headerContainer: UIView!
-    
+    private var header : BoardHeader!
     
     
     private var todoList:[Todo]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .secondarySystemBackground
         setTableView()
+        headerContainer.addSubview(header)
 //        addObserver()
        
     }
-    
-    private func setViewController() {
-        self.view.backgroundColor = .secondarySystemBackground
-        let header = BoardHeader(titleText: "해야할 일")
-        headerContainer.addSubview(header)
+
+    func setHeader(title: BoardTitle) {
+        self.header = BoardHeader(titleText: title)
     }
     
     private func setTableView() {
@@ -60,7 +60,7 @@ class ToDoViewController: UIViewController {
 }
 
 // MARK: - Table view data source
-extension ToDoViewController : UITableViewDelegate , UITableViewDataSource {
+extension ChildViewController : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        guard let todoList = todoList else { return 0 }
         return 10

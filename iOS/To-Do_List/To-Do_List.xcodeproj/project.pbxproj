@@ -15,7 +15,7 @@
 		8D2AFD8827FB08B100307CCB /* To_Do_ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AFD8727FB08B100307CCB /* To_Do_ListTests.swift */; };
 		8D2AFD9227FB08B100307CCB /* To_Do_ListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AFD9127FB08B100307CCB /* To_Do_ListUITests.swift */; };
 		8D2AFD9427FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AFD9327FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift */; };
-		8D46807727FB3FBB00FA9F34 /* ToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807627FB3FBB00FA9F34 /* ToDoViewController.swift */; };
+		8D46807727FB3FBB00FA9F34 /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */; };
 		8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */; };
 		8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */; };
 		8DBB584827FB416D00D129E2 /* DoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */; };
@@ -61,7 +61,7 @@
 		8D2AFD8D27FB08B100307CCB /* To-Do_ListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "To-Do_ListUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D2AFD9127FB08B100307CCB /* To_Do_ListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_ListUITests.swift; sourceTree = "<group>"; };
 		8D2AFD9327FB08B100307CCB /* To_Do_ListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_ListUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		8D46807627FB3FBB00FA9F34 /* ToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewController.swift; sourceTree = "<group>"; };
+		8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
 		8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableViewController.swift; sourceTree = "<group>"; };
 		8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewController.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 				8DC2282A27FB1CFE002FB533 /* MainViewController.swift */,
 				8DD815E427FD691E00C13618 /* Todo.swift */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
-				B730BBAC27FECAFC006DC969 /* Notification  */,
+				B730BBAC27FECAFC006DC969 /* AppInfo */,
 				8DD815E327FD65F300C13618 /* ChildViewControllers */,
 				B70BD64027FBD1CF001BE68F /* View */,
 				8DD815E127FD655C00C13618 /* Network */,
@@ -189,7 +189,7 @@
 		8DD815E327FD65F300C13618 /* ChildViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				8D46807627FB3FBB00FA9F34 /* ToDoViewController.swift */,
+				8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */,
 				8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */,
 				8DBB584727FB416D00D129E2 /* DoneTableViewController.swift */,
 			);
@@ -206,12 +206,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		B730BBAC27FECAFC006DC969 /* Notification  */ = {
+		B730BBAC27FECAFC006DC969 /* AppInfo */ = {
 			isa = PBXGroup;
 			children = (
 				B730BBAD27FECB33006DC969 /* constants.swift */,
 			);
-			path = "Notification ";
+			path = AppInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,7 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D46807727FB3FBB00FA9F34 /* ToDoViewController.swift in Sources */,
+				8D46807727FB3FBB00FA9F34 /* ChildViewController.swift in Sources */,
 				8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */,
 				8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */,
 				B730BBAE27FECB33006DC969 /* constants.swift in Sources */,

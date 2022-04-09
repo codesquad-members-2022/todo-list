@@ -28,10 +28,10 @@ class BoardHeader: UIView {
     }
     
     
-    convenience init(titleText: String) {
+    convenience init(titleText: BoardTitle) {
 //        self.init(frame: CGRect(x: 0, y: 0, width: 256, height: 30))
         self.init(frame: .zero)
-        self.title.text = titleText
+        self.title.text = "\(titleText)"
         setupView()
         self.translatesAutoresizingMaskIntoConstraints = false
     }
