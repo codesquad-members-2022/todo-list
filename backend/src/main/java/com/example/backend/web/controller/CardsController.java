@@ -1,10 +1,7 @@
 package com.example.backend.web.controller;
 
-import com.example.backend.web.dto.Column;
+import com.example.backend.web.dto.*;
 import com.example.backend.service.CardService;
-import com.example.backend.web.dto.CardMoveRequestDto;
-import com.example.backend.web.dto.CardSaveRequestDto;
-import com.example.backend.web.dto.CardUpdateRequestDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +16,7 @@ public class CardsController {
 
     @ApiOperation(value = "Card 조회")
     @GetMapping("/cards")
-    public Column cardList() {
+    public Columns cardList() {
         return cardService.findAll();
     }
 

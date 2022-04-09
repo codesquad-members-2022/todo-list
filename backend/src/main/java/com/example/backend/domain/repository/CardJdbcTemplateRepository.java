@@ -1,16 +1,19 @@
 package com.example.backend.domain.repository;
 
 import com.example.backend.domain.Card;
-import com.example.backend.web.dto.Column;
+import com.example.backend.domain.ColumnName;
+import com.example.backend.web.dto.CardListResponseDto;
 import com.example.backend.web.dto.CardMoveRequestDto;
+import com.example.backend.web.dto.Columns;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 @Repository
 public class CardJdbcTemplateRepository implements CardRepository {
@@ -25,8 +28,25 @@ public class CardJdbcTemplateRepository implements CardRepository {
     }
 
     @Override
-    public Column findAllDesc() {
-        return null;
+    public Columns findAllDesc() {
+        Columns result = new Columns();
+        for (ColumnName column : ColumnName.values()) {
+            String columnName = column.getName();
+            List<CardListResponseDto> cardList = findResponseDtosByColumnName(columnName);
+            result.addCardList(columnName, cardList);
+        }
+        return result;
+    }
+
+    private List<CardListResponseDto> findResponseDtosByColumnName(String columnName) {
+        return jdbcTemplate.query("SELECT * FROM CARD WHERE COLUMN_NAME = '" + columnName + "' ORDER BY order_index",
+                (rs, rowNum) -> {
+                    long id = rs.getLong("id");
+                    String title = rs.getString("title");
+                    String content = rs.getString("content");
+                    String authorSystem = rs.getString("author_system");
+                    return new CardListResponseDto(id, title, content, authorSystem);
+                });
     }
 
     @Override
