@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 33px 80px;
+  //background-color: #F5F5F7;
+
+  .serviceName {
+    font-size: 32px;
+  }
+  .menuButton {
+    cursor: pointer;
+    height: 11px;
+  }
+}
