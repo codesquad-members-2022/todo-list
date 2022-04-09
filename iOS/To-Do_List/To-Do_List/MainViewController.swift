@@ -10,10 +10,14 @@ import OSLog
 
 class MainViewController: UIViewController {
     //View
-    @IBOutlet weak var statckView: UIStackView!
-    @IBOutlet weak var logViewContainer: UIView!
+    @IBOutlet weak private var statckView: UIStackView!
+    @IBOutlet weak private var logViewContainer: UIView!
     //Network
     private var networkManager = NetworkManager()
+    
+    //Notification
+    static let didFetchInfo = NSNotification.Name("DidFetchToList")
+    static let BoardData = "BoardData"
     
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -40,9 +44,9 @@ class MainViewController: UIViewController {
     
     private func postNotification(data: NetworkResult) {
         NotificationCenter.default.post(
-            name: .didFetchInfo,
+            name: MainViewController.didFetchInfo,
             object: self,
-            userInfo: [userInfo.BoardData:data])
+            userInfo: [MainViewController.BoardData:data])
     }
     
     private func addChildViewControllers() {

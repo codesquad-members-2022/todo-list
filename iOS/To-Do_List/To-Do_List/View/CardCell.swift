@@ -58,21 +58,6 @@ class CardCell: UITableViewCell {
         setup()
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        stackView.spacing = 8
-//        let inset:CGFloat = 8
-//        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0))
-//        NSLayoutConstraint.activate([
-////            contentView.topAnchor.constraint(equalTo: stackView.topAnchor),
-////            contentView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
-//            stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: inset),
-//            stackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -inset),
-//            stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -inset),
-//            stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: inset)
-//        ])
-//    }
-//
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         addViews()

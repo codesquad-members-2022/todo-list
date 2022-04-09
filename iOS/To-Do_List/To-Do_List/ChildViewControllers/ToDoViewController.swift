@@ -7,26 +7,30 @@
 
 
 import UIKit
-import Foundation
+
+
 
 class ToDoViewController: UIViewController {
 
     
-    @IBOutlet weak var tableView: BoardTableView!
+    @IBOutlet weak private var tableView: BoardTableView!
+    @IBOutlet weak private var headerContainer: UIView!
     
-    @IBOutlet weak var headerContainer: UIView!
     
-    var todoList:[Todo]?
+    
+    private var todoList:[Todo]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .secondarySystemBackground
         setTableView()
 //        addObserver()
-        var header = BoardHeader(titleText: "해야할 일")
-
+       
+    }
+    
+    private func setViewController() {
+        self.view.backgroundColor = .secondarySystemBackground
+        let header = BoardHeader(titleText: "해야할 일")
         headerContainer.addSubview(header)
-        
     }
     
     private func setTableView() {
@@ -39,12 +43,12 @@ class ToDoViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reloadTableView),
-            name: .didFetchInfo,
+            name: MainViewController.didFetchInfo,
             object: nil)
     }
     
     @objc func reloadTableView(notification:Notification) {
-        guard let data = notification.userInfo?[userInfo.BoardData] as? NetworkResult else { return }
+        guard let data = notification.userInfo?[MainViewController.BoardData] as? NetworkResult else { return }
         todoList = data.response.todoItems
         
         DispatchQueue.main.async {

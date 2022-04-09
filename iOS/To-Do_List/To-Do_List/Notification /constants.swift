@@ -7,10 +7,3 @@
 
 import Foundation
 
-extension Notification.Name {
-    static let didFetchInfo = NSNotification.Name("DidFetchToList")
-}
-
-struct userInfo {
-    static let BoardData = "BoardData"
-}
