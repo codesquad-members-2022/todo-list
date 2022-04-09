@@ -20,21 +20,19 @@ export default class Todo {
   };
 
   run = () => {
-    document.getElementById(this.todoData.id).addEventListener('dblclick', this.makeEdit);
-    document.getElementById(this.todoData.id).addEventListener('click', this.editCloseBtn);
+    document.getElementById(this.todoData.id).addEventListener('dblclick', this.showEditForm);
   };
 
-  editCloseBtn = ({ target }) => {
-    if (target.classList.contains('input--cancel')) {
-      document.getElementById(this.todoData.id).outerHTML = this.render();
-      this.run();
-    }
-  };
-
-  makeEdit = () => {
-    //수정폼 판별...
-    const todoEdit = new TodoEdit(this.todoData.id, this.todoData.title, this.todoData.content);
+  showEditForm = () => {
+    const editObj = {
+      id: this.todoData.id,
+      title: this.todoData.title,
+      content: this.todoData.content,
+      userId: this.todoData.userId,
+    };
+    const todoEdit = new TodoEdit(editObj, this.render, this.run);
     document.getElementById(this.todoData.id).classList.add('todo-border');
     document.getElementById(this.todoData.id).innerHTML = todoEdit.render();
+    todoEdit.run();
   };
 }
