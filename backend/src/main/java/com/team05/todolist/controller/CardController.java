@@ -34,7 +34,7 @@ public class CardController {
 		cardService.save(cardDto);
 		LogDTO log = logService.save(Event.CREATE, cardDto);
 
-		logger.debug("card: {}, log: {}({})", cardDto.getTitle(), log.getLogEventType(), log.getLogTime());
+		logger.debug("[card-title] {}, [log-information] {}({})", cardDto.getTitle(), log.getLogEventType(), log.getLogTime());
 		return ResponseEntity.ok().body(log);
 	}
 }
