@@ -12,6 +12,8 @@ class MemoCanvasViewController: UIViewController {
     override func didMove(toParent parent: UIViewController?) {
         view = memoCanvasView
         memoCanvasView.todoContainerView.tableView.dataSource = self
+        memoCanvasView.progressContainerView.tableView.dataSource = self
+        memoCanvasView.doneContainerView.tableView.dataSource = self
     }
 }
 

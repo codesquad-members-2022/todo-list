@@ -19,13 +19,13 @@ class MemoCanvasView: UIView {
         return view
     }()
     
-    private let progressContainerView: MemoContainerView = {
+    let progressContainerView: MemoContainerView = {
         let view = MemoContainerView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let doneContainerView: MemoContainerView = {
+    let doneContainerView: MemoContainerView = {
         let view = MemoContainerView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
