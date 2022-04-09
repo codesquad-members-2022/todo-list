@@ -89,7 +89,7 @@ class CardRepositoryTest {
             .hasFieldOrPropertyWithValue("userId", card.getUserId())
             .hasFieldOrPropertyWithValue("device", card.getDevice())
             .hasFieldOrPropertyWithValue("deletedYn", card.isDeletedYn())
-            .hasFieldOrPropertyWithValue("row_position", card.getRowPosition());
+            .hasFieldOrPropertyWithValue("rowPosition", card.getRowPosition());
     }
 
     @Test
