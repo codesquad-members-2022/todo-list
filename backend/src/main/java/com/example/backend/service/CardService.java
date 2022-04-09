@@ -2,10 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.domain.Card;
 import com.example.backend.domain.repository.CardRepository;
-import com.example.backend.web.dto.Column;
-import com.example.backend.web.dto.CardSaveRequestDto;
-import com.example.backend.web.dto.CardMoveRequestDto;
-import com.example.backend.web.dto.CardUpdateRequestDto;
+import com.example.backend.web.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,7 +16,7 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public Column findAll() {
+    public Columns findAll() {
         return cardRepository.findAllDesc();
     }
 
