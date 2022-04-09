@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import todolist.domain.Card;
 import todolist.dto.RequestCardDto;
 import todolist.dto.ResponseCardDto;
+import todolist.dto.ResponseCardsDto;
 import todolist.repository.TodoRepository;
+
+import java.util.List;
 
 @Service
 public class CardService {
@@ -15,6 +18,11 @@ public class CardService {
     @Autowired
     public CardService(TodoRepository<Card> repository) {
         this.repository = repository;
+    }
+
+    public ResponseCardsDto getCards() {
+        List<Card> cards = repository.findAll();
+        return new ResponseCardsDto(cards);
     }
 
     public ResponseCardDto addCard(RequestCardDto requestCardDto) {
@@ -39,5 +47,4 @@ public class CardService {
     public void deleteCard(Long id) {
         repository.delete(id);
     }
-
 }

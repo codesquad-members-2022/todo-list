@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import todolist.dto.RequestCardDto;
 import todolist.dto.ResponseCardDto;
+import todolist.dto.ResponseCardsDto;
 import todolist.service.CardService;
 
 @RestController
@@ -14,6 +15,11 @@ public class CardController {
     @Autowired
     public CardController(CardService cardService) {
         this.cardService = cardService;
+    }
+
+    @GetMapping("/todos")
+    public ResponseCardsDto getTodo() {
+        return cardService.getCards();
     }
 
     @PostMapping("/todo")
