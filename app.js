@@ -12,10 +12,8 @@ const app = () => {
 
   const todos = JSON.parse(localStorage.getItem('todos')) ? JSON.parse(localStorage.getItem('todos')) : [];
 
-  if (todos !== null) {
-    localStorage.setItem('todos', JSON.stringify(todos));
-    dataLoad(todos);
-  }
+  localStorage.setItem('todos', JSON.stringify(todos));
+  dataLoad(todos);
 };
 
 const dataLoad = todos => {
