@@ -57,11 +57,11 @@ public class CardDto {
 	}
 
 	@Data
-	public static class RedirectInfo {
+	public static class Redirection {
 		private Long todoId;
 		private Long userId;
 
-		public RedirectInfo(Long todoId, Long userId) {
+		public Redirection(Long todoId, Long userId) {
 			this.todoId = todoId;
 			this.userId = userId;
 		}

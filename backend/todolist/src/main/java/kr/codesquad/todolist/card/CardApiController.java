@@ -19,11 +19,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/todo")
 public class CardApiController {
+	public static final String API_TODO_REDIRECT_URI = "/api/todo/%d/card/%d";
+
 	private final CardService cardService;
 
 	@PostMapping
 	public ResponseEntity write(@RequestBody @Valid CardDto.WriteRequest request) {
-		CardDto.RedirectInfo response = cardService.createCard(request);
+		CardDto.Redirection response = cardService.createCard(request);
 		return ResponseEntity.status(HttpStatus.FOUND)
 			.location(URI.create(getRedirectUri(response)))
 			.build();
@@ -35,7 +37,7 @@ public class CardApiController {
 		return ResponseEntity.ok().body(response);
 	}
 
-	private String getRedirectUri(CardDto.RedirectInfo response) {
-		return String.format("/api/todo/%d/card/%d", response.getUserId(), response.getTodoId());
+	private String getRedirectUri(CardDto.Redirection response) {
+		return String.format(API_TODO_REDIRECT_URI, response.getUserId(), response.getTodoId());
 	}
 }
