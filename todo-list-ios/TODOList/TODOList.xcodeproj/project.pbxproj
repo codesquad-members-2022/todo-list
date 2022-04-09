@@ -23,7 +23,6 @@
 		D019328E27FFD12E00A9CE20 /* MemoCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */; };
 		D019329B2800998600A9CE20 /* PopupCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019329A2800998600A9CE20 /* PopupCardView.swift */; };
 		D019329D28009BC600A9CE20 /* PopupCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D019329C28009BC600A9CE20 /* PopupCardView.xib */; };
-		D019329F2800BDCE00A9CE20 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019329E2800BDCE00A9CE20 /* PopupViewController.swift */; };
 		D0850A7827FEB294009C60E5 /* ResourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7727FEB294009C60E5 /* ResourceFactory.swift */; };
 		D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7927FFB545009C60E5 /* MemoContainerView.swift */; };
 		D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */; };
@@ -50,7 +49,6 @@
 		D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCanvasViewController.swift; sourceTree = "<group>"; };
 		D019329A2800998600A9CE20 /* PopupCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupCardView.swift; sourceTree = "<group>"; };
 		D019329C28009BC600A9CE20 /* PopupCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PopupCardView.xib; path = TODOList/Views/Xib/PopupCardView.xib; sourceTree = SOURCE_ROOT; };
-		D019329E2800BDCE00A9CE20 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		D0850A7727FEB294009C60E5 /* ResourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceFactory.swift; sourceTree = "<group>"; };
 		D0850A7927FFB545009C60E5 /* MemoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerView.swift; sourceTree = "<group>"; };
 		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/History/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
@@ -164,7 +162,6 @@
 			children = (
 				B5EC66D627FADD9C0042EFCF /* MainViewController.swift */,
 				D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */,
-				D019329E2800BDCE00A9CE20 /* PopupViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -280,7 +277,6 @@
 				B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */,
 				B58D833728001A9C008A811C /* Memo.swift in Sources */,
 				B5EC66D727FADD9C0042EFCF /* MainViewController.swift in Sources */,
-				D019329F2800BDCE00A9CE20 /* PopupViewController.swift in Sources */,
 				D0850A7827FEB294009C60E5 /* ResourceFactory.swift in Sources */,
 				B5EC66D327FADD9C0042EFCF /* AppDelegate.swift in Sources */,
 				B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */,
