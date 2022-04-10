@@ -21,6 +21,7 @@
 		1EF0292127FEBE34001AA033 /* KanbanColumnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292027FEBE34001AA033 /* KanbanColumnViewController.swift */; };
 		1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */; };
 		1EF0292E280023A5001AA033 /* MainViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */; };
+		1EF029672802AA62001AA033 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF029662802AA62001AA033 /* TitleView.swift */; };
 		7380B0D927FFC84500B5D052 /* InspectorTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */; };
 		7380B0DB27FFC84F00B5D052 /* InspectorTableCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */; };
 		7380B0DD27FFC85800B5D052 /* CALayer+addBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */; };
@@ -47,6 +48,7 @@
 		1EF0292027FEBE34001AA033 /* KanbanColumnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanColumnViewController.swift; sourceTree = "<group>"; };
 		1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerDelegate.swift; sourceTree = "<group>"; };
+		1EF029662802AA62001AA033 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableViewDataSource.swift; sourceTree = "<group>"; };
 		7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableCellData.swift; sourceTree = "<group>"; };
 		7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+addBorder.swift"; sourceTree = "<group>"; };
@@ -104,8 +106,9 @@
 		1E7432E127FD178D00B908E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7380B0E027FFC87300B5D052 /* InspectorTableViewCell.swift */,
+				1EF029662802AA62001AA033 /* TitleView.swift */,
 				1E7432EE27FD26C600B908E4 /* KanbanTableViewCell.swift */,
+				7380B0E027FFC87300B5D052 /* InspectorTableViewCell.swift */,
 				1E7432F627FD27B300B908E4 /* TableTitleView.swift */,
 				7380B0E627FFFE6600B5D052 /* PopUpView.swift */,
 			);
@@ -249,6 +252,7 @@
 				1EF0291F27FEB9BD001AA033 /* KanbanType.swift in Sources */,
 				1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */,
 				1EF0292127FEBE34001AA033 /* KanbanColumnViewController.swift in Sources */,
+				1EF029672802AA62001AA033 /* TitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

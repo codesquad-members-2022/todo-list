@@ -24,11 +24,17 @@ class InspectorTableViewDataSource: NSObject, UITableViewDataSource {
             return UITableViewCell()
         }
         
+        return setUpCell(cell: cell, indexPath: indexPath)
+    }
+    
+    private func setUpCell(cell: InspectorTableViewCell, indexPath: IndexPath) -> InspectorTableViewCell {
         let target = cellData[indexPath.section]
+        
         cell.changeEmojiLabel(text: target.emoji)
         cell.changeUserLabel(text: target.user)
         cell.changeContentsLabel(text: target.content)
         cell.changeTimeLabel(text: target.time)
+        
         return cell
     }
 }
