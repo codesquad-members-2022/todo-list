@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JdbcCardRepository implements CardRepository {
 
+    private static final int DELETED = 1;
+
     private JdbcTemplate jdbcTemplate;
     private SimpleJdbcInsert simpleJdbcInsert;
 
@@ -41,7 +43,8 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public void delete(int id) {
-
+        jdbcTemplate.update(
+            "UPDATE card SET delete_yn=? WHERE id=?", DELETED, id);
     }
 
     @Override

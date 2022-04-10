@@ -24,6 +24,10 @@ public class CardService {
 
     }
 
+    public void delete(int id) {
+        cardRepository.delete(id);
+    }
+
 //    public List<Card> findCards() {
 //        return cardRepository.findAll();
 //    }
