@@ -6,14 +6,14 @@ import com.example.backend.web.dto.CardListResponseDto;
 import com.example.backend.web.dto.CardMoveRequestDto;
 import com.example.backend.web.dto.Columns;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class CardJdbcTemplateRepository implements CardRepository {
@@ -39,21 +39,20 @@ public class CardJdbcTemplateRepository implements CardRepository {
     }
 
     private List<CardListResponseDto> findResponseDtosByColumnName(String columnName) {
-        return jdbcTemplate.query("SELECT * FROM CARD WHERE COLUMN_NAME = '" + columnName + "' ORDER BY order_index",
+        return jdbcTemplate.query("SELECT * FROM CARD WHERE COLUMN_NAME = ? ORDER BY ORDER_INDEX",
                 (rs, rowNum) -> {
                     long id = rs.getLong("id");
                     String title = rs.getString("title");
                     String content = rs.getString("content");
                     String authorSystem = rs.getString("author_system");
                     return new CardListResponseDto(id, title, content, authorSystem);
-                });
+                }, columnName);
     }
 
     @Override
     public Long save(Card card) {
         String columnName = card.getColumnName();
-        Integer orderIndex = jdbcTemplate.queryForObject(
-                "SELECT count(*) FROM CARD WHERE column_name = '" + columnName + "'", Integer.class);
+        Integer orderIndex = getOrderIndex(columnName);
 
         Map<String, Object> params = new HashMap<>();
         params.put("title", card.getTitle());
@@ -61,8 +60,13 @@ public class CardJdbcTemplateRepository implements CardRepository {
         params.put("column_name", columnName);
         params.put("author_system", card.getAuthorSystem());
         params.put("order_index", orderIndex);
-        params.put("deleted", 0);
+        params.put("deleted", false);
         return simpleJdbcInsert.executeAndReturnKey(params).longValue();
+    }
+
+    private Integer getOrderIndex(String columnName) {
+        return jdbcTemplate.queryForObject(
+                "SELECT count(*) FROM CARD WHERE column_name = ?", Integer.class, columnName);
     }
 
     @Override
