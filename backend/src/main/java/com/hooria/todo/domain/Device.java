@@ -24,9 +24,10 @@ public enum Device {
     }
 
     public static Device of(String device) {
-        return Arrays.stream(Device.values())
-            .filter(d -> d.name().equals(device))
-            .findFirst()
-            .orElse(NONE);
+        try {
+            return Device.valueOf(device);
+        } catch (IllegalArgumentException e) {
+            return NONE;
+        }
     }
 }

@@ -23,9 +23,10 @@ public enum Status {
     }
 
     public static Status of(String status) {
-        return Arrays.stream(Status.values())
-            .filter(s -> s.name().equals(status))
-            .findFirst()
-            .orElse(NONE);
+        try {
+            return Status.valueOf(status);
+        } catch (IllegalArgumentException e) {
+            return NONE;
+        }
     }
 }
