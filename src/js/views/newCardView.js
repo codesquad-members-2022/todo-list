@@ -1,6 +1,6 @@
 import { icons } from '../constants/constant.js';
 
-export const createNewCardTemplate = icons => {
+export const createNewCardTemplate = () => {
   return `
   <li class="task__card new-card">
   <div class="card__contents">
@@ -58,7 +58,7 @@ const toggleNewCard = cardList => {
   if (newCard) {
     newCard.remove();
   } else {
-    const newCardTemplate = createNewCardTemplate(icons);
+    const newCardTemplate = createNewCardTemplate();
     cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
     const textArea = cardList.querySelector('.card__contents__input--main');
     onResizeTextArea(textArea);

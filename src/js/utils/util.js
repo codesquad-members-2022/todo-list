@@ -7,6 +7,6 @@ export const fetchData = async url => {
   }
 };
 
-export const appendElementsToBody = (...elements) => {
-  elements.forEach(element => document.body.appendChild(element));
+export const appendElementsToParent = (parent, ...elements) => {
+  elements.forEach(element => parent.appendChild(element));
 };

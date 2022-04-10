@@ -1,14 +1,15 @@
-export const insertColumns = (parentElement, store, storeTargetName, icons) => {
-  const thisStore = store.getStore(storeTargetName);
-  const columns = thisStore.map(column => {
-    return createColumnTemplate(column.className, column.title, icons);
+import { icons } from '../constants/constant.js';
+
+export const insertColumns = (parentElement, store) => {
+  const columns = store.map(column => {
+    return createColumnTemplate(column.className, column.title);
   });
   columns.forEach(column => {
     parentElement.insertAdjacentHTML('beforeend', column);
   });
 };
 
-const createColumnTemplate = (className, title, icons) => {
+const createColumnTemplate = (className, title) => {
   return `
   <div class="column ${className}">
     <div class="title-column">
