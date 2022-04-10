@@ -9,4 +9,44 @@ const headerTemplate = () => {
   `;
 };
 
-export { headerTemplate };
+const historyTemplate = () => {
+  return `
+  <article class="history_container">
+    <ul class="history_list">
+      <li class="history_card">
+        <div
+          class="user_img"
+          style="background-image: url(./src/img/user.svg)"
+        ></div>
+        <div class="history_text">
+          <span class="user_id">@이든</span>
+          <div class="history_content">
+            <strong>해야할 일</strong>에 <strong>TIL작성하기</strong>를
+            <strong>등록</strong>하였습니다.
+          </div>
+          <span class="history_time">1분전</span>
+        </div>
+      </li>
+      <li class="history_card">
+        <div
+          class="user_img"
+          style="background-image: url(./src/img/user.svg)"
+        ></div>
+        <div class="history_text">
+          <span class="user_id">@J</span>
+          <div class="history_content">
+            <strong>해야할 일</strong>에 <strong>HTML/CSS 작성</strong>를
+            <strong>등록</strong>하였습니다.
+          </div>
+          <span class="history_time">1분전</span>
+        </div>
+      </li>
+    </ul>
+    <button class="close_btn">
+      <img src="./src/img/close.png" alt="close icon" />
+    </button>
+  </article>
+  `;
+};
+
+export { headerTemplate, historyTemplate };
