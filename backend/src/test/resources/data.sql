@@ -12,8 +12,8 @@ INSERT INTO ACTIVITY_LOG (user_id, activity_type, task_title, from_status, to_st
 VALUES ('userId3', 'update', 'taskTitle3', 'TODO', 'IN_PROGRESS', SYSDATE, true);
 
 INSERT INTO TASK_CARD (status, title, content, user_id, device, created_at, modified_at, deleted_yn, row_position)
-VALUES (1, 'title1', 'content1', 'userId1', 1, SYSDATE, SYSDATE, FALSE, 1);
+VALUES (1, 'title1', 'content1', 'userId1', 1, '2022-04-10 00:00:00', '2022-04-10 00:00:00', FALSE, 1);
 INSERT INTO TASK_CARD (status, title, content, user_id, device, created_at, modified_at, deleted_yn, row_position)
-VALUES (1, 'title2', 'content2', 'userId1', 1, SYSDATE, SYSDATE, FALSE, 2);
+VALUES (1, 'title2', 'content2', 'userId1', 1, '2022-04-10 00:00:00', '2022-04-10 00:00:00', FALSE, 2);
 INSERT INTO TASK_CARD (status, title, content, user_id, device, created_at, modified_at, deleted_yn, row_position)
-VALUES (1, 'title3', 'content3', 'userId1', 1, SYSDATE, SYSDATE, TRUE, 3);
+VALUES (1, 'title3', 'content3', 'userId1', 1, '2022-04-10 00:00:00', '2022-04-10 00:00:00', TRUE, 3);
