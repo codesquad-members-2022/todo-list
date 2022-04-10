@@ -1,5 +1,5 @@
 import TodoEdit from './TodoEdit.js';
-
+import { getLocalStorageByKey } from '../utils/localStorage.js';
 export default class Todo {
   constructor(todoData) {
     this.todoData = todoData;
@@ -22,10 +22,10 @@ export default class Todo {
   };
 
   render = () => {
-    return /*html*/ `<div class="card" id =${this.todoData.id}>
+    return /*html*/ `<div class="card original-MouseOver" id =${this.todoData.id}>
       <header>
         <h3>${this.todoData.title}</h3>
-        <div class="column__delete">x</div>
+        <button class="card__delete">x</button>
       </header>
       <div class="card__content">
         <p class="card__content-text">${this.todoData.content}</p>
@@ -40,6 +40,8 @@ export default class Todo {
     document.getElementById(this.todoData.id).addEventListener('dblclick', this.showEditForm);
     document.getElementById(this.todoData.id).addEventListener('click', this.deleteBtn);
     document.getElementById(this.todoData.id).addEventListener('mousedown', this.onMouseDown);
+    document.getElementById(this.todoData.id).addEventListener('mouseover', this.ondeleteOver);
+    document.getElementById(this.todoData.id).addEventListener('mouseout', this.ondeleteOut);
   };
 
   showEditForm = () => {
@@ -55,18 +57,46 @@ export default class Todo {
     todoEdit.run();
   };
 
-  deleteBtn = ({ target }) => {
-    const modelEvent = document.querySelector('.deleteEventModal');
-    console.log(target.id);
+  ondeleteOver = ({ target }) => {
+    const test = document.getElementById(this.todoData.id);
+    if (target.classList.contains('card__delete')) {
+      test.classList.add('deleteBtn-MouseOver');
+      test.classList.remove('original-MouseOver');
+    }
+  };
 
-    if (target.classList.contains('column__delete')) {
+  ondeleteOut = ({ target }) => {
+    const test = document.getElementById(this.todoData.id);
+    if (target.classList.contains('deleteBtn-MouseOver')) {
+      target.classList.remove('deleteBtn-MouseOver');
+      target.classList.add('original-MouseOver');
+    }
+  };
+
+  deleteBtn = ({ target }) => {
+    const test = document.getElementById(this.todoData.id);
+    const modelEvent = document.querySelector('.deleteEventModal');
+
+    if (target.classList.contains('card__delete')) {
       modelEvent.style.display = 'block';
     }
+
     document.querySelector('.closeButton').addEventListener('click', function () {
       modelEvent.style.display = 'none';
     });
+
     document.querySelector('.deletebutton').addEventListener('click', function () {
-      console.log(this.id);
+      console.log(target);
+      const objIndex = getLocalStorageByKey('todos').findIndex(e => e.id === Number(test.id)); //1
+
+      //console.log('@@@', objIndex);
+      const removeData = getLocalStorageByKey('todos').splice(0, 1);
+      console.log(removeData);
+
+      //localStorage.setItem('todos', JSON.stringify(removeData));
+
+      test.remove();
+      modelEvent.style.display = 'none';
     });
   };
 }

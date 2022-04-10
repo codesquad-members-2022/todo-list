@@ -77,25 +77,34 @@ body {
     }
   }
 }
+
 .card {
-  width: 308px;
-  background: $color-white;
-  border-radius: 5px;
-  padding: 16px;
-  margin-bottom: 20px;
-  header {
-    @include flexbox(space-between);
-    h3 {
-      word-break: break-all;
-      font-weight: bold;
-      color: $color-black;
+    width: 308px;
+    background: $color-white;
+    border-radius: 5px;
+    padding: 16px;
+    margin-bottom: 20px;
+
+    header {
+      @include flexbox(space-between);
+      h3 {
+        word-break: break-all;
+        font-weight: bold;
+        color: $color-black;
+      }
     }
-  }
   &__content {
     margin: 8px 0;
     word-break: break-all;
     &-text {
       margin-bottom: 5px;
+    }
+    &__delete {
+      font-size: $font-20;
+      cursor: pointer;
+      &:hover {
+        color: $color-red;
+      }
     }
   }
   &__author-text {

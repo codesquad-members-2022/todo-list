@@ -14,7 +14,15 @@
   border: 1px solid $color-blue;
 }
 
+
 .spectrum {
   opacity: 0.6;
   border: 2px dashed;
+
+.deleteBtn-MouseOver {
+  border: 1px solid $color-red;
+  box-sizing: border-box;
+}
+.original-MouseOver {
+  border: 1px solid #fff;
 }
