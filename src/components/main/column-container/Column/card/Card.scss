@@ -1,16 +1,25 @@
-@import '../scss/variable.scss';
+@import '../../../../../scss/variable.scss';
 
 .card {
-    display: flex;
     padding: 16px;
     margin: 15px 0px;
     border-radius: 6px;
     width: $column-width;
-    height: 108px;
     background-color: $white;
     position: relative;
 
+    &--normal {
+        height: 108px;
+    }
+    
+    &--editing {
+        height: 139px;
+    }
+
     &-contents {
+        margin-bottom: 16px;
+        height: 51px;
+        
         &__title {
             font-size: 1.125rem;
             font-weight: 600;
@@ -20,12 +29,49 @@
             color: $light-gray;
         }
     }
+
     &__delete-btn{
         position: absolute;
         top: 15px;
         right: 15px;
         width: 24px;
         height: 24px;
-        background-image: url(../images/close.png);
+        background-image: url(../../../../../images/close.png);
+
+        &:hover {
+            background-image: url(../../../../../images/close-activated.png);
+        }
+    }
+
+    &--deleting {
+        background-color: $white-red;
+        border: solid 1px $red;
+    }
+
+    &__btns {
+        display: flex;
+        justify-content: space-between;
+
+        .activated {
+            background-color: $blue;
+        }
+    }
+
+    &__btn {
+        width: 134px;
+        height: 40px;
+        border-radius: 6px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    &__cancel-btn {
+        background-color: $light-gray;
+        color: $dark-gray;
+    }
+
+    &__confirm-btn {
+        background-color: $light-blue;
+        color: $white;
     }
 }

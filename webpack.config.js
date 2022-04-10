@@ -20,7 +20,13 @@ module.exports = {
         test: /\.png/,
         type: "asset/inline",
       },
+      {
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /node_modules/,
+      },
     ],
   },
   watch: true,
+  devtool: "eval",
 };
