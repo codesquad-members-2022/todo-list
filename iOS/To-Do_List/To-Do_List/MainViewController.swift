@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak private var statckView: UIStackView!
     @IBOutlet weak private var logViewContainer: UIView!
     //Network
-    private var networkManager = NetworkManager(session: URLSession(configuration: URLSessionConfiguration.default))
+    private var networkManager:NetworkManager?
     
     //Notification
     static let didFetchInfo = NSNotification.Name("DidFetchToList")
@@ -33,7 +33,9 @@ class MainViewController: UIViewController {
 
     
     private func propagateData() {
-        networkManager.request(endpoint: EndPointCase.getBoard.endpoint) { (result:Result<NetworkResult,NetworkError>)  in
+        networkManager = NetworkManager(session: URLSession(configuration: URLSessionConfiguration.default))
+        
+        networkManager?.request(endpoint: EndPointCase.getBoard.endpoint) { (result:Result<NetworkResult,NetworkError>)  in
             switch result {
             case .success(let data):
                 self.postNotification(data: data)
