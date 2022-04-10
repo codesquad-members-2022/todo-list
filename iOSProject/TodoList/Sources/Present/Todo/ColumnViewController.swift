@@ -9,18 +9,16 @@ import Combine
 import UIKit
 
 protocol ColumnViewDelegate {
-    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Column)
-}
-
-protocol ColumnViewProperty {
-    var controller: ColumnViewController { get }
+    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Column.ColumnType)
 }
 
 protocol ColumnViewInput {
-    func addCard(_ card: Card)
+    func addCard(_ card: Card, at toIndex: Int)
 }
 
-class ColumnViewController: UIViewController, ColumnViewProperty {
+typealias ColumnViewControllerProtocol = UIViewController & ColumnViewInput
+
+class ColumnViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -62,21 +60,17 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: ColumnViewModelBinding & ColumnViewModelProperty
-    
-    var controller: ColumnViewController {
-        self
-    }
+    private let model: ColumnViewModelProtocol
     
     var delegate: ColumnViewDelegate?
     
-    init(model: ColumnViewModelBinding & ColumnViewModelProperty) {
+    init(model: ColumnViewModelProtocol) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
-        self.model = ColumnViewModel(columnType: .todo)
+        self.model = ColumnViewModel(column: Column(type: .todo, cards: []))
         super.init(coder: coder)
     }
     
@@ -85,7 +79,7 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         bind()
         layout()
         
-        model.action.loadColumn.send()
+        model.action.viewDidLoad.send()
     }
     
     private func bind() {
@@ -101,9 +95,9 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
             .store(in: &cancellables)
         
         model.state.loadedColumn
-            .sink { count, colunm in
+            .sink { colunm in
                 self.titleLabel.text = colunm.titleName
-                self.countLabel.text = String(count)
+                self.countLabel.text = String(self.model.cardCount)
                 self.cardTableView.reloadData()
             }.store(in: &cancellables)
         
@@ -154,7 +148,6 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
             cardTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             cardTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             cardTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -10)
-
         ])
     }
     
@@ -168,7 +161,7 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
 
 extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        model.cardCount ?? 0
+        model.cardCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -200,17 +193,30 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ColumnViewController: ColumnViewInput {
-    func addCard(_ card: Card) {
-        model.action.addCard.send(card)
+    func addCard(_ card: Card, at toIndex: Int) {
+        model.action.addCard.send((card, toIndex))
     }
 }
 
 extension ColumnViewController: CardPopupViewDeletegate {
+    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card, toIndex: Int) {
+        model.action.addCard.send((addedCard, toIndex))
+    }
+    
     func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card) {
         model.action.editCard.send(editedCard)
     }
-    
-    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card) {
-        model.action.addCard.send(addedCard)
+}
+
+extension Column.ColumnType {
+    var titleName: String {
+        switch self {
+        case .todo:
+            return "해야할 일"
+        case .progress:
+            return "하고 있는 일"
+        case .done:
+            return "완료한 일"
+        }
     }
 }

@@ -9,8 +9,8 @@ import Combine
 import UIKit
 
 protocol CardPopupViewDeletegate {
+    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card, toIndex: Int)
     func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card)
-    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card)
 }
 
 class CardPopupViewController: UIViewController {
@@ -114,12 +114,12 @@ class CardPopupViewController: UIViewController {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: CardPopupViewModelBinding
+    private let model: CardPopupViewModelProtocol
     
     var delegate: CardPopupViewDeletegate?
     
     
-    init(model: CardPopupViewModelBinding) {
+    init(model: CardPopupViewModelProtocol) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
@@ -184,7 +184,7 @@ class CardPopupViewController: UIViewController {
         
         model.state.addedCard
             .sink { card in
-                self.delegate?.cardPopupView(self, addedCard: card)
+                self.delegate?.cardPopupView(self, addedCard: card, toIndex: 0)
                 self.dismiss(animated: false)
             }.store(in: &cancellables)
         

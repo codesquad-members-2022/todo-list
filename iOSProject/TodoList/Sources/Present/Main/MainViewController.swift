@@ -16,14 +16,6 @@ class MainViewController: UIViewController {
         return titleBarView
     }()
     
-    private let columnTableViews: [ColumnViewProperty&ColumnViewInput] = {
-        return [
-            ColumnViewController(model: ColumnViewModel(columnType: .todo)),
-            ColumnViewController(model: ColumnViewModel(columnType: .progress)),
-            ColumnViewController(model: ColumnViewModel(columnType: .done))
-        ]
-    }()
-    
     private let logViewController: LogViewController = {
         let viewController = LogViewController()
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -38,20 +30,34 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
+    private var columnTableViews: [Column.ColumnType:ColumnViewControllerProtocol] = [:]
+    
     private var cancellables = Set<AnyCancellable>()
+    private let model: MainViewModelProtocol = MainViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
         attribute()
         layout()
+        
+        model.action.loadColumns.send()
     }
     
     private func bind() {
-        columnTableViews.forEach{ value in
-            value.controller.delegate = self
-        }
-        
+        model.state.loadedColumns
+            .sink { columnPair in
+                columnPair.forEach { type, model in
+                    let viewController = ColumnViewController(model: model)
+                    viewController.delegate = self
+                    viewController.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
+                    self.embed(viewController)
+                    self.columnStackView.addArrangedSubview(viewController.view)
+                    self.columnTableViews[type] = viewController
+                }
+                self.columnStackView.addArrangedSubview(UIView())
+            }.store(in: &cancellables)
+                
         titleBar.menuPublisher
             .sink {
                 self.logViewController.view.isHidden = false
@@ -87,18 +93,11 @@ class MainViewController: UIViewController {
             logViewController.view.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
             logViewController.view.widthAnchor.constraint(equalToConstant: 428)
         ])
-        
-        columnTableViews.forEach {
-            self.embed($0.controller)
-            $0.controller.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
-            columnStackView.addArrangedSubview($0.controller.view)
-        }
-        columnStackView.addArrangedSubview(UIView())
     }
 }
 
 extension MainViewController: ColumnViewDelegate {
-    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Column) {
-        columnTableViews[toColumn.index].addCard(fromCard)
+    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Column.ColumnType) {
+        columnTableViews[toColumn]?.addCard(fromCard, at: 0)
     }
 }

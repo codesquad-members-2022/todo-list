@@ -9,72 +9,33 @@ import Foundation
 import Combine
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
-    func loadColumn(_ column: Card.Column) -> AnyPublisher<Result<[Card], SessionError>, Never> {
-        request(.loadColumn(column), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success(let data):
-                    guard let cards = try? JSONDecoder().decode([Card].self, from: data) else {
-                        return .failure(.pasingError)
-                    }
-                    return .success(cards)
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+    func loadColumns() -> AnyPublisher<ApiResult<[Column], SessionError>, Never> {
+        request(.loadColumns, isSucccess: true)
+            .map { $0.decode([Column].self) }
+            .eraseToAnyPublisher()
     }
     
-    func addCard(title: String, body: String, column: Card.Column) -> AnyPublisher<Result<Card, SessionError>, Never> {
+    func addCard(title: String, body: String, column: Column.ColumnType) -> AnyPublisher<ApiResult<Card, SessionError>, Never> {
         request(.addCard(title: title, body: body, column: column), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success(let data):
-                    guard let card = try? JSONDecoder().decode(Card.self, from: data) else {
-                        return .failure(.pasingError)
-                    }
-                    return .success(card)
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+            .map { $0.decode(Card.self) }
+            .eraseToAnyPublisher()
     }
     
-    func moveCard(_ cardId: Int, from: Card.Column, to: Card.Column) -> AnyPublisher<Result<(Int, Card.Column), SessionError>, Never> {
-        request(.moveCard(cardId, fromColumn: from, toColumn: to), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success:
-                    return .success((cardId, to))
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+    func moveCard(_ cardId: Int, to column: Column.ColumnType, index: Int) -> AnyPublisher<ApiResult<(Int, Column.ColumnType, Int), SessionError>, Never> {
+        request(.moveCard(cardId, toColumn: column, toIndex: index), isSucccess: true)
+            .map { result in result.mapValue((cardId, column, index)) }
+            .eraseToAnyPublisher()
     }
     
-    func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<Result<Card, SessionError>, Never> {
+    func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<ApiResult<Card, SessionError>, Never> {
         request(.editCard(cardId, title: title, body: body), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success(let data):
-                    guard let card = try? JSONDecoder().decode(Card.self, from: data) else {
-                        return .failure(.pasingError)
-                    }
-                    return .success(card)
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+            .map { $0.decode(Card.self) }
+            .eraseToAnyPublisher()
     }
     
-    func deleteCard(_ cardId: Int) -> AnyPublisher<Result<Int, SessionError>, Never> {
+    func deleteCard(_ cardId: Int) -> AnyPublisher<ApiResult<Int, SessionError>, Never> {
         request(.deleteCard(cardId), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success:
-                    return .success(cardId)
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+            .map { result in result.mapValue(cardId) }
+            .eraseToAnyPublisher()
     }
 }

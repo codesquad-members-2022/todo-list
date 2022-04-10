@@ -25,7 +25,7 @@ class MockURLSession: URLSessionProtocol {
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let sessionDataTask = MockURLSessionDataTask()
         
-        let result = dataBase.databaseProcess(urlRequest: request)
+        let result = dataBase.databaseProcess(urlRequest: request, isRequestSuccess: isRequestSuccess)
         
         sessionDataTask.resumeDidCall = {
             completionHandler(result.0, result.1, nil)

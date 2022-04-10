@@ -16,23 +16,24 @@ protocol ColumnViewModelProperty {
     subscript(index: Int) -> Card? { get }
     var cardCount: Int { get }
 }
+typealias ColumnViewModelProtocol = ColumnViewModelBinding & ColumnViewModelProperty
 
-class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
+class ColumnViewModel: ColumnViewModelProtocol {
     struct Action {
-        let loadColumn = PassthroughSubject<Void, Never>()
+        let viewDidLoad = PassthroughSubject<Void, Never>()
         let tappedAddButton = PassthroughSubject<Void, Never>()
         let tappedMoveCardButton = PassthroughSubject<Int, Never>()
         let tappedEditButton = PassthroughSubject<Int, Never>()
         let tappedDeleteButton = PassthroughSubject<Int, Never>()
         
-        let addCard = PassthroughSubject<Card, Never>()
+        let addCard = PassthroughSubject<(Card, Int), Never>()
         let editCard = PassthroughSubject<Card, Never>()
     }
     
     struct State {
-        let loadedColumn = PassthroughSubject<(Int, Card.Column), Never>()
+        let loadedColumn = PassthroughSubject<Column.ColumnType, Never>()
         let insertedCard = PassthroughSubject<Int, Never>()
-        let movedCard = PassthroughSubject<(Card, Card.Column), Never>()
+        let movedCard = PassthroughSubject<(Card, Column.ColumnType), Never>()
         let deletedCard = PassthroughSubject<Int, Never>()
         let reloadCard = PassthroughSubject<Int, Never>()
         
@@ -41,9 +42,8 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     
     private var cancellables = Set<AnyCancellable>()
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
-    private var sortIds: [Int] = []
-    private var cards: [Int:Card] = [:]
-    private let columnType: Card.Column
+    private var cards: [Card]
+    private let columnType: Column.ColumnType
     
     let action = Action()
     let state = State()
@@ -53,24 +53,16 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
     }
     
     subscript(index: Int) -> Card? {
-        cards[sortIds[index]]
+        cards[index]
     }
     
-    init(columnType: Card.Column) {
-        self.columnType = columnType
+    init(column: Column) {
+        columnType = column.type
+        cards = column.cards
         
-        action.loadColumn
-            .map { _ in self.todoRepository.loadColumn(columnType) }
-            .switchToLatest()
+        action.viewDidLoad
             .sink {
-                switch $0 {
-                case .success(let column):
-                    self.sortIds = column.map{ $0.id }
-                    self.cards = column.reduce(into: [Int:Card]()) { $0[$1.id] = $1}
-                    self.state.loadedColumn.send((self.cards.count, self.columnType))
-                case .failure(let error):
-                    print(error)
-                }
+                self.state.loadedColumn.send(self.columnType)
             }.store(in: &cancellables)
         
         action.tappedAddButton
@@ -78,63 +70,71 @@ class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
             .sink(receiveValue: self.state.showCardPopup.send(_:))
             .store(in: &cancellables)
         
-        action.tappedMoveCardButton
-            .map { self.todoRepository.moveCard(self.sortIds[$0], from: self.columnType, to: .done )}
-            .switchToLatest()
-            .sink {
-                switch $0 {
-                case .success((let cardId, let toColumn)):
-                    guard let cardIndex = self.sortIds.firstIndex(of: cardId),
-                          let removedCard = self.cards.removeValue(forKey: cardId) else {
-                        return
-                    }
-                    self.sortIds.remove(at: cardIndex)
-                    self.state.deletedCard.send(cardIndex)
-                    self.state.movedCard.send((removedCard, toColumn))
-                case .failure(let error):
-                    print(error)
-                }
-            }.store(in: &cancellables)
-        
         action.tappedEditButton
-            .map {
-                let cardId = self.sortIds[$0]
-                let card = self.cards[cardId]
-                return CardPopupData(id: cardId, title: card?.title ?? "", body: card?.body ?? "", column: self.columnType)
+            .map { index in
+                let card = self.cards[index]
+                return CardPopupData(id: card.id, title: card.title, body: card.content, column: self.columnType)
             }
             .sink(receiveValue: self.state.showCardPopup.send(_:))
             .store(in: &cancellables)
         
-        action.tappedDeleteButton
-            .map { self.todoRepository.deleteCard(self.sortIds[$0]) }
+        let requestMoveCard = action.tappedMoveCardButton
+            .map { index in self.todoRepository.moveCard(self.cards[index].id, to: .done, index: 0) }
             .switchToLatest()
-            .sink {
-                switch $0 {
-                case .success(let cardId):
-                    guard let index = self.sortIds.firstIndex(of: cardId) else {
-                        return
-                    }
-                    self.cards.removeValue(forKey: cardId)
-                    self.sortIds.remove(at: index)
-                    self.state.deletedCard.send(index)
-                case .failure(let error):
-                    print(error)
-                }
-            }.store(in: &cancellables)
+            .share()
         
-        action.addCard
-            .sink { card in
-                self.sortIds.insert(card.id, at: 0)
-                self.cards[card.id] = card
-                self.state.insertedCard.send(0)
-            }.store(in: &cancellables)
-        
-        action.editCard
-            .sink { card in
-                guard let index = self.sortIds.firstIndex(of: card.id) else {
+        requestMoveCard
+            .compactMap{ $0.value }
+            .sink { cardId, toColumn, toIndex in
+                guard let card = self.cards.first(where: { $0.id == cardId}),
+                      let index = self.cards.firstIndex(of: card) else {
                     return
                 }
-                self.cards[card.id] = card
+                self.cards.remove(at: index)
+                self.state.deletedCard.send(index)
+                self.state.movedCard.send((card, .done))
+            }
+            .store(in: &cancellables)
+        
+        let requestDeleateCard = action.tappedDeleteButton
+            .map{ index in self.todoRepository.deleteCard(self.cards[index].id) }
+            .switchToLatest()
+            .share()
+        
+        requestDeleateCard
+            .compactMap{ $0.value }
+            .sink { cardId in
+                guard let card = self.cards.first(where: { $0.id == cardId}),
+                      let index = self.cards.firstIndex(of: card) else {
+                    return
+                }
+                self.cards.remove(at: index)
+                self.state.deletedCard.send(index)
+            }
+            .store(in: &cancellables)
+        
+        Publishers
+            .Merge(
+                requestMoveCard.compactMap{ $0.error },
+                requestDeleateCard.compactMap{ $0.error }
+            )
+            .sink { error in
+                
+            }.store(in: &cancellables)
+
+        action.addCard
+            .sink { card, index in
+                self.cards.insert(card, at: index)
+                self.state.insertedCard.send(0)
+            }.store(in: &cancellables)
+
+        action.editCard
+            .sink { newCard in
+                guard let card = self.cards.first(where: { $0.id == newCard.id}),
+                      let index = self.cards.firstIndex(of: card) else {
+                    return
+                }
+                self.cards[index] = newCard
                 self.state.reloadCard.send(index)
             }.store(in: &cancellables)
     }
