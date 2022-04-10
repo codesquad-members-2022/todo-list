@@ -6,22 +6,18 @@ export const $$ = (selector, base = document) => {
   return [...base.querySelectorAll(selector)];
 };
 
-export const on = ({ target, eventName, handler }) => {
-  target.addEventListener(eventName, handler);
-};
-
-export const delegate = ({ target, eventName, selector, handler }) => {
+export const eventDelegate = ({ target, eventName, selector, handler }) => {
   const emitEvent = event => {
     const potentialElements = $$(selector, target);
 
     for (const potentialElement of potentialElements) {
-      if (potentialElement === event.target) {
+      if (potentialElement === event.target.closest(selector)) {
         return handler.call(event.target, event);
       }
     }
   };
-  console.log(target);
-  on({ target, eventName, handler: emitEvent });
+
+  target.addEventListener(eventName, emitEvent);
 };
 
 export const emit = (target, eventName, detail) => {

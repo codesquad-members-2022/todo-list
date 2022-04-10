@@ -1,3 +1,4 @@
+import './index.js';
 import '../styles/main.scss';
 import db from './store';
 
