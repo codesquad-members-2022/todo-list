@@ -45,6 +45,10 @@ class MockDataBase {
             return addCard(urlRequest)
         }
         
+        if lastPath == "cards" && urlRequest.httpMethod == "PUT" {
+            return moveCard(urlRequest)
+        }
+        
         if Int(lastPath) != nil && urlRequest.httpMethod == "PUT" {
             return editCard(urlRequest)
         }
