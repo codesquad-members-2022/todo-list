@@ -1,6 +1,8 @@
 package com.hooria.todo.domain;
 
+import com.hooria.todo.dto.CardResponse;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -27,5 +29,20 @@ public class Card {
 
     public static Card of(String status, String title, String content, String userId, String device, int rowPosition) {
         return new Card(0, Status.of(status), title, content, userId, Device.of(device), LocalDateTime.now(), LocalDateTime.now(), false, rowPosition);
+    }
+
+    public CardResponse toCardResponse() {
+        return new CardResponse(
+            id,
+            status.name(),
+            title,
+            content,
+            userId,
+            device.name(),
+            createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+            modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+            deletedYn,
+            rowPosition
+        );
     }
 }
