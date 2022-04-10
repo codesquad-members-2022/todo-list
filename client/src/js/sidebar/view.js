@@ -38,7 +38,6 @@ const calcTimeForToday = (timeStampValue) => {
 
   const minuteDifference = Math.floor(timeDifference / milliSecond / minute);
   if (minuteDifference < second) return "방금전";
-
   if (minuteDifference < hour) return `${minuteDifference}분전`;
 
   const HourDifference = Math.floor(minuteDifference / hour);
@@ -46,7 +45,6 @@ const calcTimeForToday = (timeStampValue) => {
 
   const DayDifference = Math.floor(HourDifference / day);
   if (DayDifference < year) return `${DayDifference}일전`;
-
   return `${DayDifference}년전`;
 };
 

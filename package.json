@@ -1,7 +1,7 @@
 {
   "name": "builder",
   "version": "1.0.0",
-  "description": "",
+  "description": "코드스쿼드 첫번째 그룹 프로젝트",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,5 +21,13 @@
     "core-js": "^3.21.1",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hemtori/todo-list.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hemtori/todo-list/issues"
+  },
+  "homepage": "https://github.com/hemtori/todo-list#readme"
 }

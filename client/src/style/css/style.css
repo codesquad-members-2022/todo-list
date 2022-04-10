@@ -256,6 +256,7 @@ aside {
   align-items: center;
   flex-direction: column;
   width: 308px;
+  height: 786px;
   margin-right: 16px;
 }
 .column__item--title {
@@ -312,6 +313,7 @@ aside {
   align-items: center;
   flex-direction: column;
   width: 308px;
+  height: 100%;
   padding-top: 8px;
 }
 .column__task--item {
@@ -326,6 +328,7 @@ aside {
   background: #fff;
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
   border-radius: 6px;
+  cursor: grab;
 }
 .column__task--item section {
   display: flex;
@@ -335,6 +338,7 @@ aside {
   flex: 1;
   height: 100%;
   border-radius: 8px;
+  cursor: inherit;
 }
 .column__task--title {
   font-family: "Noto Sans KR";
@@ -345,6 +349,7 @@ aside {
   border: none;
   line-height: 23px;
   color: #010101;
+  cursor: inherit;
 }
 .column__task--comment {
   font-family: "Noto Sans KR";
@@ -360,6 +365,7 @@ aside {
   line-height: 20px;
   resize: none;
   overflow: hidden;
+  cursor: inherit;
 }
 .column__task--author {
   font-family: "Noto Sans KR";
@@ -368,6 +374,7 @@ aside {
   font-style: normal;
   color: #bdbdbd;
   line-height: 17px;
+  cursor: inherit;
 }
 .column__task--add-button:hover {
   cursor: pointer;
@@ -390,12 +397,15 @@ aside {
   border-radius: 6px;
   padding: 10px;
 }
-.column__task--cancle-button {
+.column__task--cancel-button {
   background-color: #e0e0e0;
   margin-right: 8px;
 }
 .column__task--accent-button {
   background-color: #0075de;
+}
+.column__task--delete-button {
+  cursor: pointer;
 }
 
 .section__header {
@@ -403,6 +413,34 @@ aside {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.dragging {
+  position: absolute;
+  z-index: 1000;
+  cursor: grabbing;
+}
+
+.grabbing {
+  cursor: grabbing;
+}
+
+.hidden {
+  display: none;
+}
+
+.blur {
+  opacity: 0.5;
+  border: 1px solid #0075de;
+}
+
+.registration-card {
+  border: 1px solid #0075de;
+  box-shadow: 0px 1px 30px 0px #e0e0e04d;
+}
+
+.inactivation .column__task--accent-button {
+  background-color: #86c6ff;
 }
 
 body {
