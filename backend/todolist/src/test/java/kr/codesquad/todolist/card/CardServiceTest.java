@@ -2,6 +2,7 @@ package kr.codesquad.todolist.card;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -18,11 +19,29 @@ import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 class CardServiceTest {
+	public static final String CARD_TEST_SUBJECT = "테스트 제목";
+	public static final String CARD_TEST_CONTENT = "테스트 내용";
+	public static final Card.TodoStatus CARD_TEST_STATUS = Card.TodoStatus.ONGOING;
+	public static final long CARD_TEST_USER_ID = 1L;
+
 	@InjectMocks
 	private CardService cardService;
 
 	@Mock
 	private CardDao cardDao;
+
+	@DisplayName("카드 등록 요청시 전달받은 카드정보를 DB에 저장되고, 생성된 card-id를 확인한다.")
+	@Test
+	void create_card_ok() {
+		CardDto.WriteRequest expected = getWriteRequestDto();
+		when(cardDao.save(any()))
+			.thenReturn(getCard());
+
+		CardDto.Redirection actual = cardService.create(expected);
+
+		assertThat(actual.getCardId()).isNotZero();
+	}
+
 
 	/**
 	 * cardId 조회 결과 확인 내용
@@ -39,7 +58,7 @@ class CardServiceTest {
 		when(cardDao.findById(anyLong()))
 			.thenReturn(Optional.of(expected));
 
-		CardDto.WriteResponse actual = cardService.readOf(1L);
+		CardDto.WriteResponse actual = cardService.readOf(CARD_TEST_USER_ID);
 
 		assertAll(
 			() -> assertThat(actual.getCardId()).isEqualTo(expected.getCardId()),
@@ -59,6 +78,16 @@ class CardServiceTest {
 	}
 
 	private Card getCard() {
-		return new Card(1L, "테스트 제목", "테스트 내용", Card.TodoStatus.ONGOING, 1L, false, LocalDateTime.now(), 1L);
+		return new Card(CARD_TEST_USER_ID, CARD_TEST_SUBJECT, CARD_TEST_CONTENT, CARD_TEST_STATUS,1L, false, LocalDateTime.now(),
+			CARD_TEST_USER_ID);
+	}
+
+	private CardDto.WriteRequest getWriteRequestDto() {
+		CardDto.WriteRequest request = new CardDto.WriteRequest();
+		request.setSubject(CARD_TEST_SUBJECT);
+		request.setContent(CARD_TEST_CONTENT);
+		request.setStatus(CARD_TEST_STATUS.getText());
+		request.setUserId(CARD_TEST_USER_ID);
+		return request;
 	}
 }
