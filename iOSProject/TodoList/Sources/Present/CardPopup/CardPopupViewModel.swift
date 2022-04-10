@@ -33,6 +33,20 @@ struct CardPopupData {
     let title: String
     let body: String
     let column: Column.ColumnType
+    
+    init(card: Card, columnType: Column.ColumnType) {
+        id = card.id
+        title = card.title
+        body = card.content
+        column = columnType
+    }
+    
+    init(columnType: Column.ColumnType) {
+        id = nil
+        title = ""
+        body = ""
+        column = columnType
+    }
 }
 
 typealias CardPopupViewModelProtocol = CardPopupViewModelBinding
