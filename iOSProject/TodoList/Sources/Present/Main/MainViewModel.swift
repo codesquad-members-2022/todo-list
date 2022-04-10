@@ -8,17 +8,17 @@
 import Combine
 import Foundation
 
-protocol MainViewModelBinding {
-    var action: MainViewModelAction { get }
-    var state: MainViewModelState { get }
-}
-
 struct MainViewModelAction {
     let loadColumns = PassthroughSubject<Void, Never>()
 }
 
 struct MainViewModelState {
     let loadedColumns = PassthroughSubject<[(Column.ColumnType, ColumnViewModelProtocol)], Never>()
+}
+
+protocol MainViewModelBinding {
+    var action: MainViewModelAction { get }
+    var state: MainViewModelState { get }
 }
 
 typealias MainViewModelProtocol = MainViewModelBinding

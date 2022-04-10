@@ -125,7 +125,7 @@ class CardPopupViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.model = CardPopupViewModel(popupData: CardPopupData(id: nil, title: "", body: "", column: .todo))
+        self.model = CardPopupViewModel(popupData: CardPopupData(columnType: .todo))
         super.init(coder: coder)
     }
     

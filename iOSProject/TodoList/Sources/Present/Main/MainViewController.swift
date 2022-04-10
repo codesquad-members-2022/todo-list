@@ -46,8 +46,8 @@ class MainViewController: UIViewController {
     
     private func bind() {
         model.state.loadedColumns
-            .sink { columnPair in
-                columnPair.forEach { type, model in
+            .sink { columns in
+                columns.forEach { type, model in
                     let viewController = ColumnViewController(model: model)
                     viewController.delegate = self
                     viewController.view.widthAnchor.constraint(equalToConstant: 256).isActive = true

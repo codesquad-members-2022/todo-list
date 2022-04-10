@@ -46,11 +46,6 @@ extension NetworkResult {
     }
     
     func mapValue<V>(_ value: V) -> ApiResult<V, SessionError> {
-        if error != nil {
-            return ApiResult(value: value, error: nil)
-            
-        } else {
-            return ApiResult(value: nil, error: error)
-        }
+        ApiResult(value: error == nil ? value : nil, error: error)
     }
 }
