@@ -19,4 +19,12 @@ export default class HistoryView {
 
     closeBtn.addEventListener('click', closeBtnHandler);
   }
+
+  animation(menuStatus) {
+    if (menuStatus) {
+      this.historyContainer.classList.add('show');
+      return;
+    }
+    this.historyContainer.classList.remove('show');
+  }
 }
