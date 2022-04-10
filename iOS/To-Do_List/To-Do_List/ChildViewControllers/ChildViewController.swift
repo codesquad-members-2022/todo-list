@@ -65,15 +65,15 @@ class ChildViewController: UIViewController {
 // MARK: - Table view data source
 extension ChildViewController : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let list = list else { return 0 }
-        self.header.updateCount(list.count)
-        return list.count
+//        guard let list = list else { return 0 }
+//        self.header.updateCount(list.count)
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier) as? CardCell else { return UITableViewCell() }
-        guard let list = self.list else { return UITableViewCell() }
-        cell.loadCardInfo(info: list[indexPath.row])
+//        guard let list = self.list else { return UITableViewCell() }
+//        cell.loadCardInfo(info: list[indexPath.row])
         return cell
     }
     

@@ -11,11 +11,19 @@ class CardCell: UITableViewCell {
 
     static let identifier = "CardCell"
     
-     var stackView:UIStackView = {
+    private var container : UIView = {
+        let label = UIView()
+        label.backgroundColor = .white
+        label.layer.cornerRadius = 8
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+     private var stackView:UIStackView = {
         let stackView = UIStackView()
          stackView.axis = .vertical
          stackView.backgroundColor = .white
-         stackView.layer.cornerRadius = 8
+        
          stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -24,7 +32,6 @@ class CardCell: UITableViewCell {
          let label = UILabel()
          label.font = UIFont(name:"Noto Sans Kannada", size: 16.0)
          label.text = "오늘 할일"
-       
         return label
     }()
     
@@ -68,10 +75,10 @@ class CardCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            stackView.layer.borderWidth = 2.0
-            stackView.layer.borderColor = UIColor.blue.cgColor
+            container.layer.borderWidth = 2.0
+            container.layer.borderColor = UIColor.blue.cgColor
         } else {
-            stackView.layer.borderWidth = 0.0
+            container.layer.borderWidth = 0.0
         }
     }
     
@@ -80,7 +87,8 @@ class CardCell: UITableViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
             stackView.addArrangedSubview($0)
         }
-        self.contentView.addSubview(stackView)
+        container.addSubview(stackView)
+        self.contentView.addSubview(container)
     }
     
     
@@ -96,15 +104,16 @@ class CardCell: UITableViewCell {
         
 
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: inset/2),
-            stackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -inset/2),
-            stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -inset/2),
-            stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: inset/2),
             
-            headLabel.topAnchor.constraint(equalTo: stackView.topAnchor, constant: inset),
-            headLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: inset),
-            headLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -inset),
-            authorLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -inset - 8)
+            container.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: inset/2),
+            container.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -inset/2),
+            container.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -inset/2),
+            container.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: inset/2),
+            
+            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor,constant: inset/2),
+            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor,constant: -inset/2),
+            stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor,constant: -inset/2),
+            stackView.topAnchor.constraint(equalTo: container.topAnchor,constant: inset/2)
         ])
     }
 }
