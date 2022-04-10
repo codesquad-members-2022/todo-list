@@ -21,6 +21,10 @@ public class Card {
 		this.id = id;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
 	public Integer getOrder() {
 		return order;
 	}
@@ -39,5 +43,21 @@ public class Card {
 
 	public String getSectionType() {
 		return section.getSectionType();
+	}
+
+	public void changeTitle(String title) {
+		this.title = title;
+	}
+
+	public void changeOrder(Integer order) {
+		this.order = order;
+	}
+
+	public void changeContent(String content) {
+		this.content = content;
+	}
+
+	public void changeSection(String section) {
+		this.section = Section.getSection(section);
 	}
 }

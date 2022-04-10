@@ -3,6 +3,8 @@ package com.team05.todolist.service;
 import com.team05.todolist.domain.Card;
 import com.team05.todolist.domain.dto.CardDTO;
 import com.team05.todolist.repository.CardRepository;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,30 +26,24 @@ public class CardService {
 
     }
 
-//    public List<Card> findCards() {
-//        return cardRepository.findAll();
-//    }
 
-//    public List<Log> findLogs() {
-//        return logRepository.findAll();
-//    }
+    public Card findOne(int id) throws NoSuchElementException {
+        Optional<Card> card = cardRepository.findById(id);
+        return card.orElseThrow();
+    }
 
-//    public ResponseCardDto findOne(int id) throws NoSuchElementException {
-//        Optional<Card> card = cardRepository.findById(id);
-//        return card.orElseThrow();
-//    }
-//
-//    public void update(RequestCardDto updateCardDto) {
-//        Card updateTargetCard = findOne(updateCardDto.getId());
-//        updateTargetCard.changeSection(updateCardDto.getSection());
-//        updateTargetCard.changeTitle(updateCardDto.getTitle());
-//        updateTargetCard.changeContent(updateCardDto.getContent());
-//        updateTargetCard.changeOrderIndex(updateCardDto.getOrderIndex());
-//
-//        cardRepository.save(updateTargetCard);
-//    }
-//
-//    public void delete(RequestCardDto requestCardDto) {
-//
-//    }
+    public void update(int id, CardDTO cardDto) {
+        Card updateTargetCard = findOne(id);
+
+        updateTargetCard.changeTitle(cardDto.getTitle());
+        updateTargetCard.changeOrder(cardDto.getOrder());
+        updateTargetCard.changeContent(cardDto.getContent());
+        updateTargetCard.changeSection(cardDto.getSection());
+
+        cardRepository.save(updateTargetCard);
+    }
+
+    public void delete(int id) {
+        cardRepository.delete(id);
+    }
 }
