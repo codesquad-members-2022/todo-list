@@ -7,12 +7,14 @@
 
 import Foundation
 
-enum KanbanType: String, CaseIterable {
+enum KanbanType: CaseIterable, CustomStringConvertible {
+    
     case toDo
     case inProgress
     case done
     
-    var title: String {
+    
+    var description: String {
         switch self {
         case .toDo:
             return Constant.KanbanTitle.toDo
