@@ -7,24 +7,41 @@
 
 import UIKit
 
-class LogTableViewController: UITableViewController {
-
+class LogViewController: UIViewController {
+        
+    @IBOutlet weak var logView: BoardTableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .gray
+        setTableView()
     }
 
-    // MARK: - Table view data source
+    private func setTableView() {
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        self.logView.delegate = self
+        self.logView.dataSource = self
+    }    
+    @IBAction func test(_ sender: Any) {
+
+        guard let mainVC = self.parent as? MainViewController else{ return }
+        mainVC.TapCloseLogViewButton()
     }
+}
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+// MARK: - Table view data source
+extension LogViewController : UITableViewDelegate , UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        guard let list = list else { return 0 }
+//        self.header.updateCount(list.count)
+        return 1
     }
-
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier) as? CardCell else { return UITableViewCell() }
+//        guard let list = self.list else { return UITableViewCell() }
+//        cell.loadCardInfo(info: list[indexPath.row])
+        return cell
+    }
+    
 }

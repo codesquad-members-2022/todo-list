@@ -61,7 +61,7 @@
                                             <imageReference key="image" image="line.3.horizontal" catalog="system" symbolScale="large"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="TapLogViewButton:" destination="P36-ET-pQ7" eventType="touchUpInside" id="8WM-yP-di4"/>
+                                            <action selector="TapShowLogViewButton:" destination="P36-ET-pQ7" eventType="touchUpInside" id="Qc0-jC-V61"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -76,28 +76,28 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yh-mT-u1k">
-                                <rect key="frame" x="2132" y="96" width="428" height="908"/>
+                                <rect key="frame" x="1366" y="24" width="314" height="980"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="428" id="dmQ-1J-lWL"/>
+                                    <constraint firstAttribute="width" priority="900" constant="314" id="Pi7-43-MHA"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="eo3-WM-S7h" kind="embed" id="HY3-Pb-e0O"/>
+                                    <segue destination="S12-PW-vXJ" kind="embed" id="7ae-LI-zGa"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hNL-ez-bcF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="5yh-mT-u1k" firstAttribute="top" secondItem="hzU-m8-3QM" secondAttribute="bottom" id="0OU-fw-2DS"/>
+                            <constraint firstItem="5yh-mT-u1k" firstAttribute="top" secondItem="hzU-m8-3QM" secondAttribute="top" priority="900" id="0OU-fw-2DS"/>
                             <constraint firstItem="hzU-m8-3QM" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="leading" id="LCS-93-AMi"/>
-                            <constraint firstItem="5yh-mT-u1k" firstAttribute="bottom" secondItem="hNL-ez-bcF" secondAttribute="bottom" id="Oo1-7p-ODo"/>
+                            <constraint firstItem="5yh-mT-u1k" firstAttribute="bottom" secondItem="hNL-ez-bcF" secondAttribute="bottom" priority="900" id="Oo1-7p-ODo"/>
                             <constraint firstItem="hNL-ez-bcF" firstAttribute="bottom" secondItem="qsL-gl-oqr" secondAttribute="bottom" id="VPW-zU-hNI"/>
                             <constraint firstItem="hNL-ez-bcF" firstAttribute="trailing" secondItem="hzU-m8-3QM" secondAttribute="trailing" id="dsI-f4-iOd"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="leading" constant="48" id="e86-Z3-LCu"/>
                             <constraint firstItem="hzU-m8-3QM" firstAttribute="top" secondItem="hNL-ez-bcF" secondAttribute="top" id="fM8-Q7-LJA"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="trailing" secondItem="hNL-ez-bcF" secondAttribute="trailing" constant="-216" id="hNc-EQ-Eg3"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="top" secondItem="hzU-m8-3QM" secondAttribute="bottom" id="oaV-Yo-cEf"/>
-                            <constraint firstItem="5yh-mT-u1k" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="trailing" constant="766" id="ow6-0K-ADU"/>
+                            <constraint firstItem="5yh-mT-u1k" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="trailing" priority="900" id="ow6-0K-ADU"/>
                             <constraint firstItem="qsL-gl-oqr" firstAttribute="top" secondItem="hNL-ez-bcF" secondAttribute="top" constant="72" id="xkJ-bl-hAy"/>
                         </constraints>
                     </view>
@@ -109,34 +109,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Uv-pN-zJC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-988.4422110552764" y="-282.01438848920867"/>
-        </scene>
-        <!--Log Table View Controller-->
-        <scene sceneID="X35-iV-27I">
-            <objects>
-                <tableViewController storyboardIdentifier="LogTableViewController" id="eo3-WM-S7h" customClass="LogTableViewController" customModule="To_Do_List" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="lCa-66-wRt">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="908"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PNd-o6-Vm6">
-                                <rect key="frame" x="0.0" y="44.5" width="428" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PNd-o6-Vm6" id="aGZ-Hr-D3j">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="eo3-WM-S7h" id="eFr-Ly-dNe"/>
-                            <outlet property="delegate" destination="eo3-WM-S7h" id="V5S-HI-0ds"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jd7-YE-myy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-784" y="418"/>
         </scene>
         <!--Child View Controller-->
         <scene sceneID="oOg-Em-Mf1">
@@ -177,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cje-1g-zdN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="230" y="92"/>
+            <point key="canvasLocation" x="49" y="65"/>
         </scene>
         <!--Doing Table View Controller-->
         <scene sceneID="r9u-1p-Bxn">
@@ -233,11 +205,57 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gz5-ej-Nhi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="665" y="770"/>
+            <point key="canvasLocation" x="679" y="769"/>
+        </scene>
+        <!--Log View Controller-->
+        <scene sceneID="UDY-Dl-elz">
+            <objects>
+                <viewController storyboardIdentifier="LogViewController" id="S12-PW-vXJ" customClass="LogViewController" customModule="To_Do_List" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="R2X-HM-lwd">
+                        <rect key="frame" x="0.0" y="0.0" width="314" height="980"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3te-PT-MvN" customClass="BoardTableView" customModule="To_Do_List" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="104" width="314" height="846"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iux-hy-Vce">
+                                <rect key="frame" x="283.5" y="53" width="10.5" height="10.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10.5" id="GyC-69-lXt"/>
+                                    <constraint firstAttribute="width" constant="10.5" id="RhJ-er-wcK"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="multiply" catalog="system" title=""/>
+                                <connections>
+                                    <action selector="test:" destination="S12-PW-vXJ" eventType="touchUpInside" id="h5Z-SJ-vdS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="f8C-Ww-DVW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Iux-hy-Vce" firstAttribute="top" secondItem="f8C-Ww-DVW" secondAttribute="top" constant="30" id="PNC-SN-N2S"/>
+                            <constraint firstItem="f8C-Ww-DVW" firstAttribute="bottom" secondItem="3te-PT-MvN" secondAttribute="bottom" priority="900" constant="30" id="XjK-Sj-fZ8"/>
+                            <constraint firstItem="f8C-Ww-DVW" firstAttribute="trailing" secondItem="3te-PT-MvN" secondAttribute="trailing" priority="900" id="YlS-vZ-sSG"/>
+                            <constraint firstItem="3te-PT-MvN" firstAttribute="top" secondItem="f8C-Ww-DVW" secondAttribute="top" priority="900" constant="80" id="aMz-cH-coQ"/>
+                            <constraint firstItem="3te-PT-MvN" firstAttribute="leading" secondItem="f8C-Ww-DVW" secondAttribute="leading" priority="900" id="aua-xN-uPa"/>
+                            <constraint firstItem="f8C-Ww-DVW" firstAttribute="trailing" secondItem="Iux-hy-Vce" secondAttribute="trailing" constant="20" id="fzS-qx-ene"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="314" height="980"/>
+                    <connections>
+                        <outlet property="logView" destination="3te-PT-MvN" id="22l-H9-Ewl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SE0-SX-Oqz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-899.99999999999989" y="410.7421875"/>
         </scene>
     </scenes>
     <resources>
         <image name="line.3.horizontal" catalog="system" width="128" height="64"/>
+        <image name="multiply" catalog="system" width="128" height="111"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

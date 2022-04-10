@@ -9,9 +9,11 @@ import UIKit
 import OSLog
 
 class MainViewController: UIViewController {
+    
     //View
     @IBOutlet weak private var statckView: UIStackView!
     @IBOutlet weak private var logViewContainer: UIView!
+    
     //Network
     private var networkManager:NetworkManager?
     
@@ -19,19 +21,18 @@ class MainViewController: UIViewController {
     static let didFetchInfo = NSNotification.Name("DidFetchToList")
     static let BoardData = "BoardData"
     
+    //Constraint
+    private var logViewConstaints : [NSLayoutConstraint] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
         configureChildViewControllers()
-        configureLogView()
         propagateData()
     }
     
-    @IBAction func TapLogViewButton(_ sender: UIButton) {
-        self.logViewContainer.isHidden = !logViewContainer.isHidden
-    }
-
     
+
     private func propagateData() {
         networkManager = NetworkManager(session: URLSession(configuration: URLSessionConfiguration.default))
         
@@ -70,10 +71,35 @@ class MainViewController: UIViewController {
         }
         
     }
-    
-    private func configureLogView(){
-        self.logViewContainer.isHidden = true
-    }
+
 }
 
+//MARK: Handeling Logview animation.
+extension MainViewController {
+    @IBAction func TapShowLogViewButton(_ sender: UIButton) {
+        UIView.animate(withDuration: 1) {
+            NSLayoutConstraint.deactivate(self.logViewConstaints)
+            self.logViewConstaints.removeAll()
+            
+            let constraint = self.logViewContainer.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 766)
 
+            self.logViewConstaints.append(constraint)
+            NSLayoutConstraint.activate(self.logViewConstaints)
+            self.logViewContainer.frame = .zero
+        }
+    }
+    
+   func TapCloseLogViewButton() {
+        UIView.animate(withDuration: 1) {
+            NSLayoutConstraint.deactivate(self.logViewConstaints)
+            self.logViewConstaints.removeAll()
+
+            let constraint = self.logViewContainer.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+            
+            self.logViewConstaints.append(constraint)
+            NSLayoutConstraint.activate(self.logViewConstaints)
+            
+            self.logViewContainer.frame = CGRect(x: self.view.frame.maxX, y: self.view.safeAreaInsets.top, width: self.logViewContainer.frame.width, height: self.logViewContainer.frame.height)
+        }
+    }
+}
