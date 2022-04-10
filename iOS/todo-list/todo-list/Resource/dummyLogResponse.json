@@ -1,0 +1,13 @@
+[
+  {
+    "activityType": "MOVE",
+    "createdAt": "2022-04-08T04:49:05.384Z",
+    "fromStatus": "TODO",
+    "id": 0,
+    "taskId": 0,
+    "readYn": true,
+    "toStatus": "IN_PROGRESS",
+    "userId": "string"
+  }
+]
+ 

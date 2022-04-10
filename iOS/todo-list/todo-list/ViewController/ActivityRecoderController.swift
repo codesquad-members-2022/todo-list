@@ -10,6 +10,8 @@ import UIKit
 
 class ActivityRecordController: UITableViewController {
     
+    var dummylog = Log(userId: "@sam", action: .Move, created: Date.now, taskId: 0, from: .todo, to: .inProgress)
+
     var tempArray = [String]()
     
     let dumyData = ["HTML/CSS공부하기를 해야할 일에서 하고있는 일로 이동하였습니다.",
@@ -30,16 +32,16 @@ class ActivityRecordController: UITableViewController {
 extension ActivityRecordController {
     
     // 데이터가 앞에 추가되었을때
-    fileprivate func prependData() {
+    private func prependData() {
         print("#fileID", "#function", "#line", "")
         self.activityTableView.reloadDataAndKeepOffset()
     }
     
-    fileprivate func appendData() {
+    private func appendData() {
         // 데이터 추가
     }
     
-    fileprivate func resetData() {
+    private func resetData() {
         print("#fileID", "#function", "#line", "")
     }
 }
@@ -55,17 +57,14 @@ extension ActivityRecordController{
     
     // TableView 각 셀에 대한 설정
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Active") else { return UITableViewCell() }
         
         var config = cell.defaultContentConfiguration()
         config.text = dumyData[indexPath.row]
-        //config.secondaryText = "aaa"
         
-        config.attributedText = NSAttributedString(string: "@sam", attributes: [ .font: UIFont.systemFont(ofSize: 15, weight: .bold), .foregroundColor: UIColor.black
-        ])
-        config.secondaryAttributedText = NSAttributedString(string: "secondaryText", attributes: [ .font: UIFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: UIColor.systemGreen ])
-        
-        //var emoji = UIImage(named: "Party Face Emoji.png")
+        config.attributedText = NSAttributedString(string: dummylog.userId, attributes: [ .font: UIFont.systemFont(ofSize: 15, weight: .regular), .foregroundColor: UIColor.black])
+        config.secondaryAttributedText = NSAttributedString(string: "SubText", attributes: [ .font: UIFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: UIColor.systemGreen ])
         
         cell.contentConfiguration = config
         

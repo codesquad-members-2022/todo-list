@@ -17,7 +17,13 @@
 		5B349DC627FA9AFF00AA602E /* todo_listUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DC527FA9AFF00AA602E /* todo_listUITests.swift */; };
 		5B349DC827FA9AFF00AA602E /* todo_listUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DC727FA9AFF00AA602E /* todo_listUITestsLaunchTests.swift */; };
 		5B349DE227FD7FF600AA602E /* ActivityRecoderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE127FD7FF600AA602E /* ActivityRecoderController.swift */; };
+		5B349DE627FECB4700AA602E /* LogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE527FECB4700AA602E /* LogTableViewCell.swift */; };
+		5B349DE827FECD0C00AA602E /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE727FECD0C00AA602E /* Log.swift */; };
+		5B349DEA27FECDC500AA602E /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE927FECDC500AA602E /* Action.swift */; };
+		5B349DEC27FFFB1500AA602E /* dummyLogResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */; };
+		5B349DED27FFFB1500AA602E /* dummyLogResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */; };
 		BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
+		BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
 		BC5880DE27FC297C002E3A1D /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */; };
 		BC5880DF27FC297C002E3A1D /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */; };
 		BC5880E027FC297C002E3A1D /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880D927FC297C002E3A1D /* NotoSansKR-Medium.otf */; };
@@ -30,6 +36,12 @@
 		BC5880E727FC297C002E3A1D /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880DC27FC297C002E3A1D /* NotoSansKR-Light.otf */; };
 		BC5880E827FC297C002E3A1D /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880DD27FC297C002E3A1D /* NotoSansKR-Regular.otf */; };
 		BC5880E927FC297C002E3A1D /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880DD27FC297C002E3A1D /* NotoSansKR-Regular.otf */; };
+		BCC3729127FFEB6000774933 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
+		BCC3729227FFEB6300774933 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
+		BCC3729327FFEB6500774933 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE927FECDC500AA602E /* Action.swift */; };
+		BCC3729427FFEB6900774933 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE727FECD0C00AA602E /* Log.swift */; };
+		BCC3729627FFF3CD00774933 /* dummyTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = BCC3729527FFF3CD00774933 /* dummyTaskResponse.json */; };
+		BCC3729727FFF3CD00774933 /* dummyTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = BCC3729527FFF3CD00774933 /* dummyTaskResponse.json */; };
 		BCC6641027FC10F10078C1E2 /* KanbanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC6640F27FC10F10078C1E2 /* KanbanViewController.swift */; };
 		BCC6641227FC14370078C1E2 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC6641127FC14370078C1E2 /* TaskTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -66,13 +78,19 @@
 		5B349DC527FA9AFF00AA602E /* todo_listUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_listUITests.swift; sourceTree = "<group>"; };
 		5B349DC727FA9AFF00AA602E /* todo_listUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_listUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5B349DE127FD7FF600AA602E /* ActivityRecoderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityRecoderController.swift; path = "todo-list/ViewController/ActivityRecoderController.swift"; sourceTree = SOURCE_ROOT; };
+		5B349DE527FECB4700AA602E /* LogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewCell.swift; sourceTree = "<group>"; };
+		5B349DE727FECD0C00AA602E /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		5B349DE927FECDC500AA602E /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dummyLogResponse.json; sourceTree = "<group>"; };
 		BC3D4A1627FD6F1C009B37FB /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
 		BC5880D927FC297C002E3A1D /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		BC5880DA27FC297C002E3A1D /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		BC5880DB27FC297C002E3A1D /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
 		BC5880DC27FC297C002E3A1D /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		BC5880DD27FC297C002E3A1D /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		BCC3729527FFF3CD00774933 /* dummyTaskResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dummyTaskResponse.json; sourceTree = "<group>"; };
 		BCC6640F27FC10F10078C1E2 /* KanbanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanViewController.swift; sourceTree = "<group>"; };
 		BCC6641127FC14370078C1E2 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskTableViewCell.swift; path = "todo-list/View/TaskTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -127,9 +145,7 @@
 			children = (
 				BC3D4A1527FD6F11009B37FB /* Model */,
 				BC3D4A1327FD6F02009B37FB /* View */,
-				5B349DD827FA9DBD00AA602E /* View */,
 				5B349DD727FA9DAA00AA602E /* ViewController */,
-				5B349DD627FA9D9F00AA602E /* Model */,
 				5B349DD527FA9D9400AA602E /* configuration */,
 				5B349DD427FA9D5F00AA602E /* Resource */,
 				5B349DA427FA9AFE00AA602E /* AppDelegate.swift */,
@@ -162,6 +178,8 @@
 				5B349DAA27FA9AFE00AA602E /* Main.storyboard */,
 				5B349DAD27FA9AFF00AA602E /* Assets.xcassets */,
 				5B349DAF27FA9AFF00AA602E /* LaunchScreen.storyboard */,
+				BCC3729527FFF3CD00774933 /* dummyTaskResponse.json */,
+				5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -174,13 +192,6 @@
 			path = configuration;
 			sourceTree = "<group>";
 		};
-		5B349DD627FA9D9F00AA602E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		5B349DD727FA9DAA00AA602E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,17 +202,11 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		5B349DD827FA9DBD00AA602E /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		BC3D4A1327FD6F02009B37FB /* View */ = {
 			isa = PBXGroup;
 			children = (
 				BCC6641127FC14370078C1E2 /* TaskTableViewCell.swift */,
+				5B349DE527FECB4700AA602E /* LogTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,6 +215,9 @@
 			isa = PBXGroup;
 			children = (
 				BC3D4A1627FD6F1C009B37FB /* Task.swift */,
+				BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */,
+				5B349DE927FECDC500AA602E /* Action.swift */,
+				5B349DE727FECD0C00AA602E /* Log.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -332,11 +340,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC5880DE27FC297C002E3A1D /* NotoSansKR-Thin.otf in Resources */,
+				5B349DEC27FFFB1500AA602E /* dummyLogResponse.json in Resources */,
 				BC5880E827FC297C002E3A1D /* NotoSansKR-Regular.otf in Resources */,
 				5B349DB127FA9AFF00AA602E /* LaunchScreen.storyboard in Resources */,
 				BC5880E627FC297C002E3A1D /* NotoSansKR-Light.otf in Resources */,
 				BC5880E027FC297C002E3A1D /* NotoSansKR-Medium.otf in Resources */,
 				5B349DAE27FA9AFF00AA602E /* Assets.xcassets in Resources */,
+				BCC3729627FFF3CD00774933 /* dummyTaskResponse.json in Resources */,
 				BC5880E227FC297C002E3A1D /* NotoSansKR-Bold.otf in Resources */,
 				BC5880E427FC297C002E3A1D /* NotoSansKR-Black.otf in Resources */,
 				5B349DAC27FA9AFE00AA602E /* Main.storyboard in Resources */,
@@ -347,7 +357,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCC3729727FFF3CD00774933 /* dummyTaskResponse.json in Resources */,
 				BC5880E127FC297C002E3A1D /* NotoSansKR-Medium.otf in Resources */,
+				5B349DED27FFFB1500AA602E /* dummyLogResponse.json in Resources */,
 				BC5880E727FC297C002E3A1D /* NotoSansKR-Light.otf in Resources */,
 				BC5880E327FC297C002E3A1D /* NotoSansKR-Bold.otf in Resources */,
 				BC5880DF27FC297C002E3A1D /* NotoSansKR-Thin.otf in Resources */,
@@ -370,12 +382,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B349DE627FECB4700AA602E /* LogTableViewCell.swift in Sources */,
 				5B349DA927FA9AFE00AA602E /* SplitViewController.swift in Sources */,
+				5B349DE827FECD0C00AA602E /* Log.swift in Sources */,
 				5B349DA527FA9AFE00AA602E /* AppDelegate.swift in Sources */,
 				BCC6641227FC14370078C1E2 /* TaskTableViewCell.swift in Sources */,
 				5B349DE227FD7FF600AA602E /* ActivityRecoderController.swift in Sources */,
+				BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */,
 				5B349DA727FA9AFE00AA602E /* SceneDelegate.swift in Sources */,
 				BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */,
+				5B349DEA27FECDC500AA602E /* Action.swift in Sources */,
 				BCC6641027FC10F10078C1E2 /* KanbanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +400,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCC3729227FFEB6300774933 /* NetworkManager.swift in Sources */,
+				BCC3729327FFEB6500774933 /* Action.swift in Sources */,
+				BCC3729427FFEB6900774933 /* Log.swift in Sources */,
+				BCC3729127FFEB6000774933 /* Task.swift in Sources */,
 				5B349DBC27FA9AFF00AA602E /* todo_listTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,8 +575,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "todo-list/configuration/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "todo-list";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -567,7 +589,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Jason.todo-list";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eddysong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -582,8 +604,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "todo-list/configuration/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "todo-list";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -594,7 +618,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Jason.todo-list";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eddysong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

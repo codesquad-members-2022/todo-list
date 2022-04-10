@@ -7,22 +7,25 @@
 
 import Foundation
 
-struct Task {
+struct Task: Decodable {
     let id: Int
-    var status: TaskStatus
-    var title: String
-    var content: String
-    var authoredDevice: Device
+    let rowPosition: Int
+    let status: TaskStatus
+    let title: String
+    let content: String
+    let device: Device
+    let createdAt: Date
+    let modifiedAt: Date
 }
 
-enum TaskStatus {
-    case todo
-    case inProgress
-    case done
+enum TaskStatus: String, Decodable {
+    case todo = "TODO"
+    case inProgress = "IN_PROGRESS"
+    case done = "DONE"
 }
 
-enum Device {
-    case iOS
-    case android
-    case web
+enum Device: String, Decodable {
+    case iOS = "IOS"
+    case android = "ANDROID"
+    case web = "WEB"
 }
