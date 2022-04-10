@@ -1,73 +1,61 @@
 import TodoInput from './TodoInput.js';
+
 export default class TodoColumn {
-  constructor(title) {
-    this.target = document.querySelector('.column-section');
-    this.title = title;
+  constructor(status) {
+    this.parentTarget = document.querySelector('.column-section');
+    this.status = status;
+    this.todoInput = new TodoInput(this.status, this.handleCount);
     this.onInput = false;
-    this.render();
+    this.count = 0;
   }
 
-  onMouseOver = ({ target }) => {
-    if (target.classList.contains('column__add')) {
-      if (!target.classList.contains('sky-blue')) {
-        target.classList.add('sky-blue');
-      }
-    }
-  };
-
-  onMouseOut = ({ target }) => {
-    if (target.classList.contains('column__add')) {
-      if (target.classList.contains('sky-blue')) {
-        target.classList.remove('sky-blue');
-      }
-    }
-  };
-
-  onAddClick = ({ target }) => {
+  onAddClick = () => {
     if (this.onInput) {
-      document.querySelector(`.input-${this.title}`)?.remove();
+      document.querySelector(`.input-${this.status}`)?.remove();
       this.onInput = false;
       return;
     }
 
-    if (target.classList.contains('column__add')) {
-      const newInput = new TodoInput(this.title);
-      document.querySelector(`.${this.title}`).insertAdjacentHTML('afterend', newInput.template());
-      document.querySelector(`.input-${this.title} .input--cancel`).addEventListener('click', this.onCloseBtn);
-      document.querySelector(`.input-${this.title} .input-content`).addEventListener('input', this.onInputContent);
-      this.onInput = true;
-      return;
-    }
+    document.querySelector(`.${this.status}`).insertAdjacentHTML('afterend', this.todoInput.render());
+    this.todoInput.run();
+    this.onInput = true;
+    return;
   };
 
-  onInputContent = () => {
-    document.querySelector(`.input-${this.title} .input--register`).style.background = '#0075DE';
+  handleCount = () => {
+    this.onAddCount();
+    this.renderCount();
   };
 
-  onCloseBtn = () => {
-    document.querySelector(`.input-${this.title}`)?.remove();
-    this.onInput = false;
+  setCount = count => {
+    this.count = count;
+  };
+
+  onAddCount = () => {
+    this.count++;
+  };
+
+  renderCount = () => {
+    document.querySelector(`.${this.status} .column__count`).innerText = this.count;
   };
 
   render = () => {
     const columnListHTML = /* html */ `
     <article class="column-list">
-        <nav class="column ${this.title}">
+        <nav class="column ${this.status}">
             <div class="column__left">
-                <span class="column__title">${this.title}</span>
-                <div class="column__count">0</div>
+                <span class="column__title">${this.status}</span>
+                <div class="column__count">${this.count}</div>
             </div>
             <div class="column__right">
-            <div class="column__add">+</div>
-            <div class="column__delete">x</div>
+            <button class="column__add">+</button>
+            <button class="column__delete">x</button>
             </div>
         </nav>
+        
     </article>
       `;
-    this.target.insertAdjacentHTML('beforeend', columnListHTML);
-    // 이슈사항 정리 예정
-    document.querySelector(`.${this.title}`).addEventListener('mouseover', this.onMouseOver);
-    document.querySelector(`.${this.title}`).addEventListener('mouseout', this.onMouseOut);
-    document.querySelector(`.${this.title}`).addEventListener('click', this.onAddClick);
+    this.parentTarget.insertAdjacentHTML('beforeend', columnListHTML);
+    document.querySelector(`.${this.status} .column__add`).addEventListener('click', this.onAddClick);
   };
 }

@@ -1,14 +1,41 @@
-import TodoHeader from './components/TodoHeader.js';
+import css from './style/index.scss';
+import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
+import Todo from './components/Todo.js';
+import { getLocalStorageByKey } from './utils/localStorage.js';
 
 const app = () => {
-  // 하나의 객체
-  // 각자 다른 메모리주소를 가지고 있는 데이터가 이벤트리스너를 달고있다.
-  const 해야할일TodoColumn = new TodoColumn('todo');
-  const 하고있는일TodoColumn = new TodoColumn('ing');
-  const 완료할일TodoColumn = new TodoColumn('complete');
+  const todos = getLocalStorageByKey('todos') ? getLocalStorageByKey('todos') : [];
+  localStorage.setItem('todos', JSON.stringify(todos));
 
-  new TodoHeader();
+  new TodoNoticeAnimation();
+  createColumns();
+  createTodos();
+};
+
+const createColumns = () => {
+  const columns = ['todo', 'ing', 'complete'];
+  columns.forEach(status => {
+    const column = new TodoColumn(status);
+    const count = colulmnTodoCount(status);
+    column.setCount(count);
+    column.render();
+  });
+};
+
+const colulmnTodoCount = status => {
+  const todos = getLocalStorageByKey('todos');
+  if (!todos) return;
+  return todos.filter(todo => todo.status === status).length;
+};
+
+const createTodos = () => {
+  const todos = getLocalStorageByKey('todos');
+  todos.forEach(todo => {
+    const newTodo = new Todo(todo);
+    document.querySelector(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
+    newTodo.run();
+  });
 };
 
 app();

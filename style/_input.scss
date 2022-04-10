@@ -1,11 +1,19 @@
+.edit-input-wrapper {
+  padding: 0;
+}
+
 .input-wrapper {
-  width: 308px;
-  height: 140px;
   padding: 16px;
+}
+
+.input-wrapper,
+.edit-input-wrapper {
   border-radius: 6px;
   background: $color-white;
-  border: 1px solid $color-blue;
-  .input-header {
+
+  .input-header,
+  .edit-input-header {
+    width: 100%;
     color: $color-grey-dark;
     font-weight: $font-700;
     font-size: $font-16;
@@ -14,12 +22,16 @@
     outline: none;
   }
 
-  .input-content {
+  .input-content,
+  .edit-input-content {
+    display: block;
     width: 100%;
-    height: 20px;
+    height: auto;
     margin-bottom: 16px;
     border: none;
     outline: none;
+    resize: none;
+    overflow: hidden;
   }
 
   .input-button-wrapper {
@@ -34,14 +46,15 @@
       outline: none;
     }
 
+    .input--cancel,
     .input--cancel {
       background: $color-grey-mlight;
       color: $color-grey-dark;
       margin-right: 8px;
     }
 
-    .input--register {
-      background: $color-blue-light;
+    .input--register,
+    .input--update {
       color: $color-white;
     }
   }
