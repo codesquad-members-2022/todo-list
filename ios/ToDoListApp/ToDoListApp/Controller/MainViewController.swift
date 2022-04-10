@@ -10,17 +10,13 @@ import UIKit
 class MainViewController: UIViewController {
     
     private let kanbanColumnViewControllers: [KanbanColumnViewController] = {
+        
         return [KanbanColumnViewController(type: .toDo),
                 KanbanColumnViewController(type: .inProgress),
                 KanbanColumnViewController(type: .done)]
     }()
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constant.Text.mainViewControllerNavigationTitle
-        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 32)
-        return label
-    }()
+    private let titleView = TitleView()
     
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
@@ -35,7 +31,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-        setNavigationBarButtonItems()
     }
     
     private func setUpView() {
@@ -43,17 +38,16 @@ class MainViewController: UIViewController {
         
         setChildViewControllers()
         
+        view.addSubview(titleView)
+        layoutTitleView()
+        
         view.addSubview(tableStackView)
         configureTableStackView()
         layoutTableStackView()
-    }
-    
-    private func setNavigationBarButtonItems() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constant.SFSymbol.lineThreeHorizontal),
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(didTapInspectorButton))
+        
+        titleView.inspectorButton.addTarget(self,
+                                            action: #selector(didTapInspectorButton),
+                                            for: .touchUpInside)
     }
     
     private func configureView() {
@@ -77,13 +71,22 @@ class MainViewController: UIViewController {
         }
     }
     
+    private func layoutTitleView() {
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        
+        titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        titleView.heightAnchor.constraint(equalToConstant: 72).isActive = true
+    }
+    
     private func layoutTableStackView() {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64).isActive = true
+        tableStackView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 64).isActive = true
         tableStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
         tableStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
-        tableStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7).isActive = true
+        tableStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -343).isActive = true
     }
 }
 

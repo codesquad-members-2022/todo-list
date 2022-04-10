@@ -22,11 +22,10 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         
         mainViewController.delegate = self
-        
+
         setUpInspectorView()
-        
-        let navigationViewController = UINavigationController(rootViewController: mainViewController)
-        addChildViewController(child: navigationViewController, parent: self)
+
+        addChildViewController(child: mainViewController, parent: self)
         addChildViewController(child: inspectorViewController, parent: self)
     }
     

@@ -61,8 +61,6 @@ class InspectorViewController: UIViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         
         closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
-        closeButton.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -39).isActive = true
-        closeButton.centerXAnchor.constraint(equalTo: tableView.centerXAnchor, constant: 170).isActive = true
-        closeButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -54).isActive = true
     }
 }

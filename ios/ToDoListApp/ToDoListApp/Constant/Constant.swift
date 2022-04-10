@@ -15,7 +15,7 @@ enum Constant {
     }
     
     enum Text {
-        static let mainViewControllerNavigationTitle = "TO-DO LIST"
+        static let mainViewControllerTitle = "TO-DO LIST"
         static let authorByIOS = "author by iOS"
     }
     
