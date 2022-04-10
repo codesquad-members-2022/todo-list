@@ -129,7 +129,6 @@
 			children = (
 				8DC2282A27FB1CFE002FB533 /* MainViewController.swift */,
 				8DD815E427FD691E00C13618 /* Todo.swift */,
-				8DDD3A3E2803079500203BB9 /* MockJsonData.json */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
 				B730BBAC27FECAFC006DC969 /* Utils */,
 				8DD815E327FD65F300C13618 /* ChildViewControllers */,
@@ -181,6 +180,7 @@
 		8DD815E127FD655C00C13618 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				8DDD3A3E2803079500203BB9 /* MockJsonData.json */,
 				8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */,
 				8DD815DB27FD642800C13618 /* NetworkManager.swift */,
 				8DD815DD27FD646B00C13618 /* NetworkError.swift */,

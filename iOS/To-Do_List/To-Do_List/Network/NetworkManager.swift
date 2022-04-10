@@ -1,13 +1,20 @@
 
 import Foundation
 
-final class NetworkManager {
-    private var session:URLSession
+protocol URLSessionDataTaskable {
+        func dataTask(with request: URLRequest,
+                          completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
+}
 
-    init(session:URLSession) {
+extension URLSession:URLSessionDataTaskable {}
+
+
+final class NetworkManager {
+    private var session:URLSessionDataTaskable
+
+    init(session:URLSessionDataTaskable) {
         self.session = session
     }
-    
     
     func request<T:Decodable>(endpoint:Endpointable, completion: @escaping((Result<T,NetworkError>) -> Void)) {
         //handling urlError
@@ -31,7 +38,11 @@ final class NetworkManager {
                 completion(.failure(.encodingError))
             }
         }
+        dataTask(urlRequest: urlRequest, completion: completion)
+    }
     
+    func dataTask<T:Decodable>(urlRequest: URLRequest, completion: @escaping((Result<T,NetworkError>) -> Void)) {
+        
         let dataTask = session.dataTask(with: urlRequest) { [weak self] data, response, error in
             guard let self = self else { return }
             //handling transportError
