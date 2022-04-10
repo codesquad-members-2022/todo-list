@@ -13,3 +13,11 @@
 .todo-border {
   border: 1px solid $color-blue;
 }
+
+.deleteBtn-MouseOver {
+  border: 1px solid $color-red;
+  box-sizing: border-box;
+}
+.original-MouseOver {
+  border: 1px solid #fff;
+}

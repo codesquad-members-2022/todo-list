@@ -157,6 +157,15 @@ button {
   border: 1px solid #0075de;
 }
 
+.deleteBtn-MouseOver {
+  border: 1px solid #ff4343;
+  box-sizing: border-box;
+}
+
+.original-MouseOver {
+  border: 1px solid #fff;
+}
+
 .alarm-wrapper {
   position: absolute;
   top: 0;
@@ -439,6 +448,13 @@ body {
 }
 .column-list .card__author-text {
   color: #bdbdbd;
+}
+.column-list .card__delete {
+  font-size: 20px;
+  cursor: pointer;
+}
+.column-list .card__delete:hover {
+  color: #ff4343;
 }
 
 /*# sourceMappingURL=index.css.map */
