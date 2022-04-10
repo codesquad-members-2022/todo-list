@@ -10,10 +10,7 @@ import UIKit
 class MainViewController: UIViewController {
     
     private let kanbanColumnViewControllers: [KanbanColumnViewController] = {
-        
-        return [KanbanColumnViewController(type: .toDo),
-                KanbanColumnViewController(type: .inProgress),
-                KanbanColumnViewController(type: .done)]
+        return KanbanType.allCases.map{ KanbanColumnViewController(type: $0) }
     }()
     
     private let titleView = TitleView()

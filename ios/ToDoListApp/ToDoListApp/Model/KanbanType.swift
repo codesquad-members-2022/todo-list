@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum KanbanType: String {
+enum KanbanType: String, CaseIterable {
     case toDo
     case inProgress
     case done
