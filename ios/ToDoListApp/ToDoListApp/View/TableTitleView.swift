@@ -11,7 +11,7 @@ class TableTitleView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 18)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 18)
         label.textColor = .black
         return label
     }()
@@ -20,7 +20,7 @@ class TableTitleView: UIView {
         let label = UILabel()
         label.backgroundColor = .lightGray
         label.textColor = .black
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 14)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
         label.layer.cornerRadius = 13
         label.layer.masksToBounds = true
         label.textAlignment = .center
@@ -29,11 +29,10 @@ class TableTitleView: UIView {
     
     private let addButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "addButton"), for: .normal)
+        button.setImage(UIImage(systemName: Constant.SFSymbol.plus), for: .normal)
         button.tintColor = .gray
         return button
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,11 +81,11 @@ class TableTitleView: UIView {
 // MARK: - functions
 
 extension TableTitleView {
-    func currentNumberOfItem(item: Int){
-        badgeLabel.text = "\(item)"
+    func changeBadgeLabel(text count: Int){
+        badgeLabel.text = "\(count)"
     }
     
-    func changeTitleLable(text: String) {
+    func changeTitleLabel(text: String) {
         titleLabel.text = text
     }
 }

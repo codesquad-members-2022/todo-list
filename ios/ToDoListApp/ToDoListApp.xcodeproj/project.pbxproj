@@ -13,14 +13,22 @@
 		1E74323727FA94AD00B908E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E74323627FA94AD00B908E4 /* Assets.xcassets */; };
 		1E74323A27FA94AD00B908E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E74323827FA94AD00B908E4 /* LaunchScreen.storyboard */; };
 		1E7432E727FD269300B908E4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432E627FD269300B908E4 /* MainViewController.swift */; };
-		1E7432E927FD269B00B908E4 /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432E827FD269B00B908E4 /* DoneViewController.swift */; };
-		1E7432EB27FD26A000B908E4 /* InProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432EA27FD26A000B908E4 /* InProgressViewController.swift */; };
-		1E7432ED27FD26B000B908E4 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432EC27FD26B000B908E4 /* TitleView.swift */; };
-		1E7432EF27FD26C600B908E4 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432EE27FD26C600B908E4 /* CustomTableViewCell.swift */; };
-		1E7432F127FD26DF00B908E4 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432F027FD26DF00B908E4 /* TableViewDataSource.swift */; };
-		1E7432F527FD271A00B908E4 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432F427FD271A00B908E4 /* CellData.swift */; };
+		1E7432EF27FD26C600B908E4 /* KanbanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432EE27FD26C600B908E4 /* KanbanTableViewCell.swift */; };
+		1E7432F127FD26DF00B908E4 /* KanbanTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432F027FD26DF00B908E4 /* KanbanTableViewDataSource.swift */; };
+		1E7432F527FD271A00B908E4 /* KanbanTableCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432F427FD271A00B908E4 /* KanbanTableCellData.swift */; };
 		1E7432F727FD27B300B908E4 /* TableTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432F627FD27B300B908E4 /* TableTitleView.swift */; };
-		1E7432F927FD284800B908E4 /* ToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7432F827FD284800B908E4 /* ToDoViewController.swift */; };
+		1EF0291F27FEB9BD001AA033 /* KanbanType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0291E27FEB9BD001AA033 /* KanbanType.swift */; };
+		1EF0292127FEBE34001AA033 /* KanbanColumnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292027FEBE34001AA033 /* KanbanColumnViewController.swift */; };
+		1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */; };
+		1EF0292E280023A5001AA033 /* MainViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */; };
+		1EF029672802AA62001AA033 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF029662802AA62001AA033 /* TitleView.swift */; };
+		7380B0D927FFC84500B5D052 /* InspectorTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */; };
+		7380B0DB27FFC84F00B5D052 /* InspectorTableCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */; };
+		7380B0DD27FFC85800B5D052 /* CALayer+addBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */; };
+		7380B0DF27FFC86A00B5D052 /* InspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DE27FFC86A00B5D052 /* InspectorViewController.swift */; };
+		7380B0E127FFC87300B5D052 /* InspectorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0E027FFC87300B5D052 /* InspectorTableViewCell.swift */; };
+		7380B0E727FFFE6600B5D052 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0E627FFFE6600B5D052 /* PopUpView.swift */; };
+		7380B0E928001EC500B5D052 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0E828001EC500B5D052 /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,14 +40,22 @@
 		1E74323927FA94AD00B908E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E74323B27FA94AD00B908E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E7432E627FD269300B908E4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		1E7432E827FD269B00B908E4 /* DoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
-		1E7432EA27FD26A000B908E4 /* InProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InProgressViewController.swift; sourceTree = "<group>"; };
-		1E7432EC27FD26B000B908E4 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
-		1E7432EE27FD26C600B908E4 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		1E7432F027FD26DF00B908E4 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
-		1E7432F427FD271A00B908E4 /* CellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
+		1E7432EE27FD26C600B908E4 /* KanbanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanTableViewCell.swift; sourceTree = "<group>"; };
+		1E7432F027FD26DF00B908E4 /* KanbanTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanTableViewDataSource.swift; sourceTree = "<group>"; };
+		1E7432F427FD271A00B908E4 /* KanbanTableCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanTableCellData.swift; sourceTree = "<group>"; };
 		1E7432F627FD27B300B908E4 /* TableTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTitleView.swift; sourceTree = "<group>"; };
-		1E7432F827FD284800B908E4 /* ToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewController.swift; sourceTree = "<group>"; };
+		1EF0291E27FEB9BD001AA033 /* KanbanType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanType.swift; sourceTree = "<group>"; };
+		1EF0292027FEBE34001AA033 /* KanbanColumnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanColumnViewController.swift; sourceTree = "<group>"; };
+		1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerDelegate.swift; sourceTree = "<group>"; };
+		1EF029662802AA62001AA033 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableViewDataSource.swift; sourceTree = "<group>"; };
+		7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableCellData.swift; sourceTree = "<group>"; };
+		7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+addBorder.swift"; sourceTree = "<group>"; };
+		7380B0DE27FFC86A00B5D052 /* InspectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
+		7380B0E027FFC87300B5D052 /* InspectorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableViewCell.swift; sourceTree = "<group>"; };
+		7380B0E627FFFE6600B5D052 /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
+		7380B0E828001EC500B5D052 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +90,8 @@
 			children = (
 				1E74322D27FA94AC00B908E4 /* AppDelegate.swift */,
 				1E74322F27FA94AC00B908E4 /* SceneDelegate.swift */,
+				1EF0292F28002814001AA033 /* Constant */,
+				1EF0293028002831001AA033 /* Extension */,
 				1E7432E527FD184E00B908E4 /* Model */,
 				1E7432E327FD17BE00B908E4 /* Controller */,
 				1E7432E127FD178D00B908E4 /* View */,
@@ -88,9 +106,11 @@
 		1E7432E127FD178D00B908E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1E7432EC27FD26B000B908E4 /* TitleView.swift */,
+				1EF029662802AA62001AA033 /* TitleView.swift */,
+				1E7432EE27FD26C600B908E4 /* KanbanTableViewCell.swift */,
+				7380B0E027FFC87300B5D052 /* InspectorTableViewCell.swift */,
 				1E7432F627FD27B300B908E4 /* TableTitleView.swift */,
-				1E7432EE27FD26C600B908E4 /* CustomTableViewCell.swift */,
+				7380B0E627FFFE6600B5D052 /* PopUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -98,10 +118,10 @@
 		1E7432E327FD17BE00B908E4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */,
 				1E7432E627FD269300B908E4 /* MainViewController.swift */,
-				1E7432F827FD284800B908E4 /* ToDoViewController.swift */,
-				1E7432EA27FD26A000B908E4 /* InProgressViewController.swift */,
-				1E7432E827FD269B00B908E4 /* DoneViewController.swift */,
+				1EF0292027FEBE34001AA033 /* KanbanColumnViewController.swift */,
+				7380B0DE27FFC86A00B5D052 /* InspectorViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -109,10 +129,38 @@
 		1E7432E527FD184E00B908E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1E7432F027FD26DF00B908E4 /* TableViewDataSource.swift */,
-				1E7432F427FD271A00B908E4 /* CellData.swift */,
+				1EF0292A28001B77001AA033 /* Delegate & DataSource */,
+				1E7432F427FD271A00B908E4 /* KanbanTableCellData.swift */,
+				7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */,
+				1EF0291E27FEB9BD001AA033 /* KanbanType.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		1EF0292A28001B77001AA033 /* Delegate & DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */,
+				1E7432F027FD26DF00B908E4 /* KanbanTableViewDataSource.swift */,
+				7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */,
+			);
+			path = "Delegate & DataSource";
+			sourceTree = "<group>";
+		};
+		1EF0292F28002814001AA033 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				7380B0E828001EC500B5D052 /* Constant.swift */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
+		1EF0293028002831001AA033 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,17 +234,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E7432EF27FD26C600B908E4 /* CustomTableViewCell.swift in Sources */,
-				1E7432E927FD269B00B908E4 /* DoneViewController.swift in Sources */,
-				1E7432F527FD271A00B908E4 /* CellData.swift in Sources */,
-				1E7432F927FD284800B908E4 /* ToDoViewController.swift in Sources */,
+				1EF0292E280023A5001AA033 /* MainViewControllerDelegate.swift in Sources */,
+				7380B0E127FFC87300B5D052 /* InspectorTableViewCell.swift in Sources */,
+				7380B0DF27FFC86A00B5D052 /* InspectorViewController.swift in Sources */,
+				1E7432EF27FD26C600B908E4 /* KanbanTableViewCell.swift in Sources */,
+				7380B0E928001EC500B5D052 /* Constant.swift in Sources */,
+				7380B0DD27FFC85800B5D052 /* CALayer+addBorder.swift in Sources */,
+				1E7432F527FD271A00B908E4 /* KanbanTableCellData.swift in Sources */,
+				7380B0DB27FFC84F00B5D052 /* InspectorTableCellData.swift in Sources */,
 				1E7432E727FD269300B908E4 /* MainViewController.swift in Sources */,
 				1E7432F727FD27B300B908E4 /* TableTitleView.swift in Sources */,
 				1E74322E27FA94AC00B908E4 /* AppDelegate.swift in Sources */,
-				1E7432F127FD26DF00B908E4 /* TableViewDataSource.swift in Sources */,
+				7380B0E727FFFE6600B5D052 /* PopUpView.swift in Sources */,
+				1E7432F127FD26DF00B908E4 /* KanbanTableViewDataSource.swift in Sources */,
 				1E74323027FA94AC00B908E4 /* SceneDelegate.swift in Sources */,
-				1E7432EB27FD26A000B908E4 /* InProgressViewController.swift in Sources */,
-				1E7432ED27FD26B000B908E4 /* TitleView.swift in Sources */,
+				7380B0D927FFC84500B5D052 /* InspectorTableViewDataSource.swift in Sources */,
+				1EF0291F27FEB9BD001AA033 /* KanbanType.swift in Sources */,
+				1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */,
+				1EF0292127FEBE34001AA033 /* KanbanColumnViewController.swift in Sources */,
+				1EF029672802AA62001AA033 /* TitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +401,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6Y9V523M6R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToDoListApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -372,6 +429,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6Y9V523M6R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToDoListApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

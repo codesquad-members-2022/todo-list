@@ -11,12 +11,12 @@ class TitleView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "ToDo-List"
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 32)
+        label.text = Constant.Text.mainViewControllerTitle
+        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 32)
         return label
     }()
     
-    private let inspectorButton: UIButton = {
+    private(set) var inspectorButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "InspectorButton"), for: .normal)
         button.tintColor = .black

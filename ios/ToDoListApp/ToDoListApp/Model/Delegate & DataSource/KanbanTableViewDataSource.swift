@@ -1,5 +1,5 @@
 //
-//  TableViewDataSource.swift
+//  KanbanTableViewDataSource.swift
 //  ToDoListApp
 //
 //  Created by Jihee hwang on 2022/04/05.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class TableViewDataSource: NSObject, UITableViewDataSource {
+class KanbanTableViewDataSource: NSObject, UITableViewDataSource {
     
-    let cellData = CellData.dataList
+    let cellData = KanbanTableCellData.dataList
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return cellData.count
@@ -20,7 +20,9 @@ class TableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.indentifier, for: indexPath) as! CustomTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: KanbanTableViewCell.indentifier, for: indexPath) as? KanbanTableViewCell else {
+            return UITableViewCell()
+        }
         
         let target = cellData[indexPath.section]
         cell.changeTitleLabel(text: target.title)

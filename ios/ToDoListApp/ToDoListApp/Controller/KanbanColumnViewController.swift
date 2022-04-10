@@ -1,17 +1,28 @@
 //
-//  ToDoViewController.swift
+//  KanbanColumnViewController.swift
 //  ToDoListApp
 //
-//  Created by 김상혁 on 2022/04/05.
+//  Created by 김상혁 on 2022/04/07.
 //
 
 import UIKit
 
-class ToDoViewController: UIViewController {
+class KanbanColumnViewController: UIViewController {
     
     private let tableTitleView = TableTitleView()
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    private let tableViewDataSource = TableViewDataSource()
+    private let tableViewDataSource = KanbanTableViewDataSource()
+    
+    private let type: KanbanType
+    
+    init(type: KanbanType) {
+        self.type = type
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable) required init?(coder: NSCoder) {
+        fatalError("Init with coder is unavailable")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +41,7 @@ class ToDoViewController: UIViewController {
     }
     
     private func configureCustomTableView() {
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.indentifier)
+        tableView.register(KanbanTableViewCell.self, forCellReuseIdentifier: KanbanTableViewCell.indentifier)
         tableView.dataSource = tableViewDataSource
         tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = 8
@@ -39,12 +50,13 @@ class ToDoViewController: UIViewController {
     }
     
     private func configureTableTitleView() {
-        tableTitleView.currentNumberOfItem(item: CellData.dataList.count)
-        tableTitleView.changeTitleLable(text: "해야할 일")
+        tableTitleView.changeBadgeLabel(text: KanbanTableCellData.dataList.count)
+        tableTitleView.changeTitleLabel(text: type.title)
     }
     
     private func layoutTableTitleView() {
         tableTitleView.translatesAutoresizingMaskIntoConstraints = false
+        
         tableTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableTitleView.bottomAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
         tableTitleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -54,6 +66,7 @@ class ToDoViewController: UIViewController {
     
     private func layoutTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         tableView.topAnchor.constraint(equalTo: tableTitleView.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true

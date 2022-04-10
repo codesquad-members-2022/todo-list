@@ -1,5 +1,5 @@
 //
-//  ToDoTableViewCell.swift
+//  KanbanTableViewCell.swift
 //  ToDoListApp
 //
 //  Created by Jihee hwang on 2022/04/05.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
+class KanbanTableViewCell: UITableViewCell {
     
-    static let indentifier = "TodoTableViewCell"
+    static let indentifier = Constant.TableViewCellIdentifier.kanban
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -22,22 +22,23 @@ class CustomTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo Bold", size: 16)
+        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 16)
         label.textColor = .black
         return label
     }()
     
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
         label.textColor = .black
+        label.numberOfLines = 3
         return label
     }()
     
     private let authorLabel: UILabel = {
         let label = UILabel()
-        label.text = "author by iOS"
-        label.font = UIFont(name: "Apple SD Gothic Neo", size: 12)
+        label.text = Constant.Text.authorByIOS
+        label.font = UIFont(name: Constant.Font.gothicNeo, size: 12)
         label.textColor = .lightGray
         return label
     }()
@@ -80,11 +81,7 @@ class CustomTableViewCell: UITableViewCell {
 
 // MARK: - functions
 
-extension CustomTableViewCell {
-    func changCustomTableViewCell() {
-        self.layer.cornerRadius = 7
-        self.clipsToBounds = true
-    }
+extension KanbanTableViewCell {
     
     func changeTitleLabel(text: String) {
         titleLabel.text = text
