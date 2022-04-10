@@ -3,14 +3,14 @@ package com.team05.todolist.domain;
 public class Card {
 
 	private Integer id;
-	private Integer orderIndex;
+	private Integer order;
 	private Integer deleteYN;
 	private String title;
 	private String content;
 	private Section section;
 
-	public Card(Integer orderIndex, Integer deleteYN, String title, String content, String section) {
-		this.orderIndex = orderIndex;
+	public Card(Integer order, Integer deleteYN, String title, String content, String section) {
+		this.order = order;
 		this.deleteYN = deleteYN;
 		this.title = title;
 		this.content = content;
@@ -21,8 +21,8 @@ public class Card {
 		this.id = id;
 	}
 
-	public Integer getOrderIndex() {
-		return orderIndex;
+	public Integer getOrder() {
+		return order;
 	}
 
 	public Integer getDeleteYN() {

@@ -31,7 +31,7 @@ public class JdbcCardRepository implements CardRepository {
 
     private Map<String, Object> getSaveParams(Card card) {
         Map<String, Object> params = new HashMap<>();
-        params.put("order_index", card.getOrderIndex());
+        params.put("order_index", card.getOrder());
         params.put("delete_yn", card.getDeleteYN());
         params.put("title", card.getTitle());
         params.put("content", card.getContent());

@@ -17,8 +17,8 @@ public class LogService {
         this.logRepository = logRepository;
     }
 
-    public LogDTO save(Event event, CardDTO cardDto) {
-        Log log = new Log(event, LocalDateTime.now(), cardDto.getTitle(), null, cardDto.getSection());
+    public LogDTO save(Event event, String cardTitle, String section) {
+        Log log = new Log(event, LocalDateTime.now(), cardTitle, null, section);
         Integer logId = logRepository.save(log);
 
         return new LogDTO(logId, log.getEventType(), log.getLogTime(), log.getTitle(), log.getPrevSection(),
