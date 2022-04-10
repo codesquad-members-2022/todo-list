@@ -8,6 +8,8 @@ import com.team05.todolist.domain.dto.LogDTO;
 import com.team05.todolist.domain.dto.ResponseDTO;
 import com.team05.todolist.service.CardService;
 import com.team05.todolist.service.LogService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,7 @@ public class CardController {
 		this.logService = logService;
 	}
 
+	@ApiOperation("카드 등록")
 	@PostMapping("/cards")
 	public ResponseEntity<LogDTO> create(CardDTO cardDto) {
 		cardService.save(cardDto);
