@@ -3,7 +3,7 @@ package todolist.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import todolist.domain.Event;
+import todolist.domain.event.Event;
 import todolist.service.EventService;
 
 import java.util.List;

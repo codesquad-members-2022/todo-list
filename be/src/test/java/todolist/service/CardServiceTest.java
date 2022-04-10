@@ -2,9 +2,9 @@ package todolist.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import todolist.domain.Card;
-import todolist.dto.RequestCardDto;
-import todolist.dto.ResponseCardDto;
+import todolist.domain.card.Card;
+import todolist.dto.card.RequestCardDto;
+import todolist.dto.card.ResponseCardDto;
 import todolist.repository.CardMemoryRepository;
 import todolist.repository.TodoRepository;
 
