@@ -28,17 +28,17 @@ public class JdbcCardRepository implements CardRepository {
     }
 
     @Override
-    public void save(Card card) {
+    public int save(Card card) {
         if (card.getId() != null) {
             jdbcTemplate.update(
                 "UPDATE card SET order_index=?, title=?, content=?, section=? WHERE id=?",
                 card.getOrder(), card.getTitle(), card. getContent(), card.getSectionType(), card.getId());
 
-            return;
+            return card.getId();
         }
 
         Map<String, Object> params = getSaveParams(card);
-        simpleJdbcInsert.executeAndReturnKey(params).intValue();
+        return simpleJdbcInsert.executeAndReturnKey(params).intValue();
     }
 
     private Map<String, Object> getSaveParams(Card card) {

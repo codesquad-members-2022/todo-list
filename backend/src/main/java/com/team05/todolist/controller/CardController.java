@@ -3,6 +3,7 @@ package com.team05.todolist.controller;
 import com.team05.todolist.domain.Event;
 import com.team05.todolist.domain.dto.CardDTO;
 import com.team05.todolist.domain.dto.LogDTO;
+import com.team05.todolist.domain.dto.ResponseDTO;
 import com.team05.todolist.service.CardService;
 import com.team05.todolist.service.LogService;
 import io.swagger.annotations.ApiOperation;
@@ -32,12 +33,12 @@ public class CardController {
 
 	@ApiOperation("카드 등록")
 	@PostMapping("/cards")
-	public ResponseEntity<LogDTO> create(CardDTO cardDto) {
-		cardService.save(cardDto);
+	public ResponseEntity<ResponseDTO> create(CardDTO cardDto) {
+		CardDTO newCardDto = cardService.save(cardDto);
 		LogDTO log = logService.save(Event.CREATE, cardDto.getTitle(), cardDto.getSection());
 
-		logger.debug("[card-title] {}, [log-information] {}({})", cardDto.getTitle(), log.getLogEventType(), log.getLogTime()); // card Id 추가
-		return ResponseEntity.ok().body(log);
+		logger.debug("[card-{}] {}, [log-information] {}-{}({})", newCardDto.getCardId(), newCardDto.getTitle(), log.getSection(), log.getLogEventType(), log.getLogTime());
+		return ResponseEntity.ok().body(new ResponseDTO(newCardDto, log));
 	}
 
 	@PutMapping("/cards/{id}")

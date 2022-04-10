@@ -18,12 +18,15 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public void save(CardDTO cardDto) {
+    public CardDTO save(CardDTO cardDto) {
         Card card = new Card(cardDto.getOrder(), NON_DELETED, cardDto.getTitle(), cardDto.getContent(),
             cardDto.getSection());
 
-        cardRepository.save(card);
-
+        int newCardId = cardRepository.save(card);
+        CardDTO newCardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(),
+            card.getSectionType());
+        newCardDto.setCardId(newCardId);
+        return newCardDto;
     }
 
 

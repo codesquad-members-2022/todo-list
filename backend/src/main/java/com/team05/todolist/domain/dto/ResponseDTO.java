@@ -1,5 +1,8 @@
 package com.team05.todolist.domain.dto;
 
+import lombok.Getter;
+
+@Getter
 public class ResponseDTO {
 
 	private CardDTO card;
