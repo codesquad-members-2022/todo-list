@@ -9,30 +9,30 @@ import UIKit
 
 class PopUpView: UIView {
     
-    private let popUpBackgroundView: UIView = {
+    private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 8
         return view
     }()
     
-    private let popUpStackView: UIStackView = {
+    private let containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fillEqually
         return stackView
     }()
     
-    private let popUpHeadLineLabel: UILabel = {
+    private let containerHeadLineLabel: UILabel = {
         let label = UILabel()
         label.text = "새로운 카드 추가"
         label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 18)
         return label
     }()
     
-    private let popUpTitleLabel: UILabel = {
+    private let containerTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "제목을 입력하세요."
         label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 15)
@@ -40,12 +40,21 @@ class PopUpView: UIView {
         return label
     }()
     
-    private let popUpContentsLabel: UILabel = {
+    private let containerContentsLabel: UILabel = {
         let label = UILabel()
         label.text = "내용을 입력하세요."
         label.font = UIFont(name: Constant.Font.gothicNeo, size: 15)
         label.textColor = .darkGray
         return label
+    }()
+    
+    
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 8
+        return stackView
     }()
     
     private let cancelButton: UIButton = {
@@ -79,69 +88,60 @@ class PopUpView: UIView {
     
     private func setUpView() {
         configureView()
-        addSubview(popUpBackgroundView)
         
-        popUpBackgroundView.addSubview(popUpHeadLineLabel)
-        popUpBackgroundView.addSubview(popUpStackView)
-        popUpBackgroundView.addSubview(cancelButton)
-        popUpBackgroundView.addSubview(submitButton)
+        addSubview(containerView)
+        layoutPopUpView()
         
-        popUpStackView.addArrangedSubview(popUpTitleLabel)
-        popUpStackView.addArrangedSubview(popUpContentsLabel)
+        containerView.addSubview(containerHeadLineLabel)
+        layoutContainerHeadLineLabel()
         
-        layoutPopUpBackgroundView()
-        layoutPopUpHeadLineLabel()
-        layoutPopUpStackView()
-        layoutCancelButton()
-        layoutSubmitButton()
+        containerView.addSubview(containerStackView)
+        containerStackView.addArrangedSubview(containerTitleLabel)
+        containerStackView.addArrangedSubview(containerContentsLabel)
+        layoutContainerStackView()
+        
+        containerStackView.addSubview(buttonStackView)
+        buttonStackView.addArrangedSubview(cancelButton)
+        buttonStackView.addArrangedSubview(submitButton)
+        layoutButtonStackView()
     }
     
     private func configureView() {
-        backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
+        backgroundColor = .black.withAlphaComponent(0.4)
     }
     
-    private func layoutPopUpBackgroundView() {
-        popUpBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+    private func layoutPopUpView() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        popUpBackgroundView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        popUpBackgroundView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        popUpBackgroundView.widthAnchor.constraint(equalToConstant: 400).isActive = true
-        popUpBackgroundView.heightAnchor.constraint(equalToConstant: 175).isActive = true
+        containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        containerView.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 175).isActive = true
     }
     
-    private func layoutPopUpHeadLineLabel() {
-        popUpHeadLineLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func layoutContainerHeadLineLabel() {
+        containerHeadLineLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        popUpHeadLineLabel.topAnchor.constraint(equalTo: popUpBackgroundView.topAnchor, constant: 16).isActive = true
-        popUpHeadLineLabel.bottomAnchor.constraint(equalTo: popUpBackgroundView.bottomAnchor, constant: -136).isActive = true
-        popUpHeadLineLabel.leadingAnchor.constraint(equalTo: popUpBackgroundView.leadingAnchor, constant: 16).isActive = true
-        popUpHeadLineLabel.trailingAnchor.constraint(equalTo: popUpBackgroundView.trailingAnchor, constant: -16).isActive = true
+        containerHeadLineLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16).isActive = true
+        containerHeadLineLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -136).isActive = true
+        containerHeadLineLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16).isActive = true
+        containerHeadLineLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
     }
     
-    private func layoutPopUpStackView() {
-        popUpStackView.translatesAutoresizingMaskIntoConstraints = false
+    private func layoutContainerStackView() {
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        popUpStackView.topAnchor.constraint(equalTo: popUpBackgroundView.topAnchor, constant: 60).isActive = true
-        popUpStackView.bottomAnchor.constraint(equalTo: popUpBackgroundView.bottomAnchor, constant: -72).isActive = true
-        popUpStackView.leadingAnchor.constraint(equalTo: popUpBackgroundView.leadingAnchor, constant: 16).isActive = true
-        popUpStackView.trailingAnchor.constraint(equalTo: popUpBackgroundView.trailingAnchor, constant: -16).isActive = true
+        containerStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 60).isActive = true
+        containerStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -72).isActive = true
+        containerStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16).isActive = true
+        containerStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
     }
     
-    private func layoutCancelButton() {
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        cancelButton.topAnchor.constraint(equalTo: popUpBackgroundView.topAnchor, constant: 119).isActive = true
-        cancelButton.bottomAnchor.constraint(equalTo: popUpBackgroundView.bottomAnchor, constant: -16).isActive = true
-        cancelButton.leadingAnchor.constraint(equalTo: popUpBackgroundView.leadingAnchor, constant: 160).isActive = true
-        cancelButton.trailingAnchor.constraint(equalTo: popUpBackgroundView.trailingAnchor, constant: -132).isActive = true
-    }
-    
-    private func layoutSubmitButton() {
-        submitButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        submitButton.topAnchor.constraint(equalTo: popUpBackgroundView.topAnchor, constant: 119).isActive = true
-        submitButton.bottomAnchor.constraint(equalTo: popUpBackgroundView.bottomAnchor, constant: -16).isActive = true
-        submitButton.leadingAnchor.constraint(equalTo: popUpBackgroundView.leadingAnchor, constant: 276).isActive = true
-        submitButton.trailingAnchor.constraint(equalTo: popUpBackgroundView.trailingAnchor, constant: -16).isActive = true
+    private func layoutButtonStackView() {
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.topAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 16).isActive = true
+        buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
+        buttonStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 160).isActive = true
+        buttonStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
     }
 }
