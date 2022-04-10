@@ -6,9 +6,9 @@
 //
 
 
-struct HTTPMethod {
-    static let get = "GET"
-    static let post = "POST"
-    static let put = "PUT"
-    static let delete = "DELETE"
+enum HTTPMethod:String {
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+    case delete = "DELETE"
 }

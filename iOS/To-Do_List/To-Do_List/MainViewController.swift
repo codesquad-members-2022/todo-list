@@ -33,7 +33,7 @@ class MainViewController: UIViewController {
 
     
     private func propagateData() {
-        networkManager.getRequest(endpoint: EndPointCases.getTodoList) { (result:Result<NetworkResult,NetworkError>)  in
+        networkManager.request(endpoint: EndPointCase.getBoard.endpoint) { (result:Result<NetworkResult,NetworkError>)  in
             switch result {
             case .success(let data):
                 self.postNotification(data: data)
