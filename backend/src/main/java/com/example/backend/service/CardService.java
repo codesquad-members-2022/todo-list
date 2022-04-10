@@ -25,7 +25,6 @@ public class CardService {
     }
 
     public Long update(Long id, CardUpdateRequestDto dto) {
-        // 해당 id로 조회한 카드의 entity에 내용을 반영하여 전달
         Card card = findById(id);
         card.update(dto.getTitle(), dto.getTitle());
         return cardRepository.save(card);
