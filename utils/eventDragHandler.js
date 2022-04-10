@@ -4,6 +4,8 @@ export const onBodyMouseMove = () => {
     if (copyCardElement) {
       copyCardElement.style.left = `${e.pageX}px`;
       copyCardElement.style.top = `${e.pageY}px`;
+      const dataId = copyCardElement.getAttribute('data-id');
+      checkColumnArea(e.pageX, dataId);
     }
   });
 };
@@ -11,8 +13,6 @@ export const onBodyMouseMove = () => {
 export const onBodyMouseUp = () => {
   document.body.addEventListener('mouseup', e => {
     const copyCardElement = document.querySelector('.drag');
-    const dataId = copyCardElement.getAttribute('data-id');
-    checkColumnArea(e.pageX, dataId);
     copyCardElement?.remove();
   });
 };
