@@ -20,4 +20,4 @@ export const icons = {
 </svg>`,
 };
 
-export const todoListUrl = `http://localhost:3000/todoListData`;
+export const TODO_LIST_URL = `http://localhost:3000/todoListData`;
