@@ -2,10 +2,12 @@ package todolist.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import todolist.domain.Action;
 import todolist.domain.Card;
 import todolist.dto.RequestCardDto;
 import todolist.dto.ResponseCardDto;
 import todolist.service.CardService;
+import todolist.service.EventService;
 
 import java.util.List;
 import java.util.Map;
@@ -14,10 +16,12 @@ import java.util.Map;
 public class CardController {
 
     private final CardService cardService;
+    private final EventService eventService;
 
     @Autowired
-    public CardController(CardService cardService) {
+    public CardController(CardService cardService, EventService eventService) {
         this.cardService = cardService;
+        this.eventService = eventService;
     }
 
     @GetMapping("/todos")
@@ -27,7 +31,9 @@ public class CardController {
 
     @PostMapping("/todo")
     public ResponseCardDto add(@RequestBody RequestCardDto requestCardDto) {
-        return cardService.addCard(requestCardDto);
+        ResponseCardDto responseCardDto = cardService.addCard(requestCardDto);
+        eventService.addEvent(responseCardDto, Action.ADD);
+        return responseCardDto;
     }
 
     @PutMapping("/todo/{id}")
