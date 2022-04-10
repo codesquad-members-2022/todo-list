@@ -3,7 +3,30 @@ export const $ = (selector, base = document) => {
 };
 
 export const $$ = (selector, base = document) => {
-  return base.querySelectorAll(selector);
+  return [...base.querySelectorAll(selector)];
+};
+
+export const on = ({ target, eventName, handler }) => {
+  target.addEventListener(eventName, handler);
+};
+
+export const delegate = ({ target, eventName, selector, handler }) => {
+  const emitEvent = event => {
+    const potentialElements = $$(selector, target);
+
+    for (const potentialElement of potentialElements) {
+      if (potentialElement === event.target) {
+        return handler.call(event.target, event);
+      }
+    }
+  };
+  console.log(target);
+  on({ target, eventName, handler: emitEvent });
+};
+
+export const emit = (target, eventName, detail) => {
+  const event = new CustomEvent(eventName, { detail });
+  target.dispatchEvent(event);
 };
 
 export const addClass = (className, element) => {
