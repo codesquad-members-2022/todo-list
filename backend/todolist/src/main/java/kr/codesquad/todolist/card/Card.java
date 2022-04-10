@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @Builder
 public class Card {
-	private Long todoId;
+	private Long cardId;
 	private String subject;
 	private String content;
 	private TodoStatus status;
@@ -36,12 +36,12 @@ public class Card {
 		}
 	}
 
-	protected Long getTodoId() {
-		return todoId;
+	protected Long getCardId() {
+		return cardId;
 	}
 
-	protected void setTodoId(Long todoId) {
-		this.todoId = todoId;
+	protected void setCardId(Long cardId) {
+		this.cardId = cardId;
 	}
 
 	protected String getSubject() {

@@ -39,7 +39,7 @@ public class CardDto {
 
 	@Data
 	public static class WriteResponse {
-		private Long todoId;
+		private Long cardId;
 		private String subject;
 		private String content;
 		private String status;
@@ -47,7 +47,7 @@ public class CardDto {
 		private Long userId;
 
 		public WriteResponse(Card card) {
-			this.todoId = card.getTodoId();
+			this.cardId = card.getCardId();
 			this.subject = card.getSubject();
 			this.content = card.getContent();
 			this.status = card.getStatus().getText();
@@ -58,11 +58,11 @@ public class CardDto {
 
 	@Data
 	public static class Redirection {
-		private Long todoId;
+		private Long cardId;
 		private Long userId;
 
-		public Redirection(Long todoId, Long userId) {
-			this.todoId = todoId;
+		public Redirection(Long cardId, Long userId) {
+			this.cardId = cardId;
 			this.userId = userId;
 		}
 	}

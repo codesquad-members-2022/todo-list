@@ -43,7 +43,7 @@ public class CardDao {
 	private final JdbcTemplate jdbcTemplate;
 
 	public Card save(Card card) {
-		if (Objects.isNull(card.getTodoId())) {
+		if (Objects.isNull(card.getCardId())) {
 			return insert(card);
 		}
 		if (update(card) < ADDED_NEXT_ORDER) {
@@ -53,7 +53,7 @@ public class CardDao {
 	}
 
 	private int update(Card card) {
-		Optional<Card> cardInfo = findById(card.getTodoId());
+		Optional<Card> cardInfo = findById(card.getCardId());
 		if (cardInfo.isEmpty()) {
 			throw new IllegalArgumentException(ERROR_OR_CARD_DAO_UPDATE_NONE);
 		}
@@ -62,7 +62,7 @@ public class CardDao {
 		return namedParameterJdbcTemplate.update(sql, params);
 	}
 
-	private Optional<Card> findById(Long todoId) {
+	protected Optional<Card> findById(Long todoId) {
 		if (todoId < ADDED_NEXT_ORDER) {
 			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
 		}
@@ -86,7 +86,7 @@ public class CardDao {
 
 		Map<String, Object> parameters = getCardMap(card);
 		Number key = simpleJdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-		card.setTodoId(key.longValue());
+		card.setCardId(key.longValue());
 		return card;
 	}
 
@@ -144,5 +144,10 @@ public class CardDao {
 		String sql = "select * from todo_list_table where todo_id = :todo_id and todo_user_id = :todo_user_id;";
 		Card card = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, cardRowMapper());
 		return Optional.ofNullable(card);
+	}
+
+	public void deleteAll() {
+		String sql = "truncate todo_list_table;";
+		jdbcTemplate.update(sql);
 	}
 }
