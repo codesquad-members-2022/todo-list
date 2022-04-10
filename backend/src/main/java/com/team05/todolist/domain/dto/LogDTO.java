@@ -2,9 +2,7 @@ package com.team05.todolist.domain.dto;
 
 import com.team05.todolist.domain.Event;
 import java.time.LocalDateTime;
-import lombok.Getter;
 
-@Getter
 public class LogDTO {
 
 	private Integer logId;
@@ -17,7 +15,7 @@ public class LogDTO {
 	public LogDTO(Integer logId, String logEvent, LocalDateTime logTime, String title,
 		String prevSection, String section) {
 		this.logId = logId;
-		this.logEvent = Event.valueOf(logEvent);
+		this.logEvent = Event.getEvent(logEvent);
 		this.logTime = checkDateTimeNull(logTime);
 		this.title = title;
 		this.prevSection = prevSection;
@@ -30,4 +28,26 @@ public class LogDTO {
 		}
 		return logTime;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getPrevSection() {
+		return prevSection;
+	}
+
+	public String getSection() {
+		return section;
+	}
+
+	public String getLogEventType() {
+		return logEvent.getEventType();
+	}
+
+	public LocalDateTime getLogTime() {
+		return logTime;
+	}
+
+
 }

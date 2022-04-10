@@ -29,12 +29,12 @@ public class JdbcLogRepository implements LogRepository {
     }
 
     private Map<String, Object> getSaveParams(Log log) {
-        Map<String, Object> params = new HashMap();
-        params.put("event", log.getEvent());
+        Map<String, Object> params = new HashMap<>();
+        params.put("event", log.getEventType());
         params.put("log_time", log.getLogTime());
         params.put("title", log.getTitle());
         params.put("prev_section", log.getPrevSection());
-        params.put("section", log.getSection());
+        params.put("section", log.getSectionType());
         return params;
     }
 

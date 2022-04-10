@@ -22,7 +22,7 @@ public class CardController {
 
 	private final CardService cardService;
 	private final LogService logService;
-	private Logger logger = LoggerFactory.getLogger(CardController.class);
+	private final Logger logger = LoggerFactory.getLogger(CardController.class);
 
 	public CardController(CardService cardService, LogService logService) {
 		this.cardService = cardService;
@@ -32,9 +32,9 @@ public class CardController {
 	@PostMapping("/cards")
 	public ResponseEntity<LogDTO> create(CardDTO cardDto) {
 		cardService.save(cardDto);
-		LogDTO log = logService.save(Event.CREATE, cardDto);
+		LogDTO log = logService.save(Event.CREATE, cardDto.getTitle(), cardDto.getSection());
 
-		logger.debug("card: {}, log: {}({})", cardDto.getTitle(), log.getLogEvent(), log.getLogTime());
+		logger.debug("[card-title] {}, [log-information] {}({})", cardDto.getTitle(), log.getLogEventType(), log.getLogTime());
 		return ResponseEntity.ok().body(log);
 	}
 }
