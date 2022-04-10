@@ -1,7 +1,10 @@
 package com.hooria.todo.controller;
 
 import com.hooria.todo.domain.Card;
+import com.hooria.todo.dto.AddCardParam;
+import com.hooria.todo.dto.CardResponse;
 import com.hooria.todo.repository.CardRepository;
+import com.hooria.todo.service.CardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CardController {
 
     private final CardRepository cardRepository;
+    private final CardService cardService;
 
     @ApiOperation(
         value = "새로운 타스크 등록",
@@ -44,9 +48,8 @@ public class CardController {
         @ApiResponse(code = 500, message = "서버 에러"),
     })
     @PostMapping
-    public Card addCard(@RequestBody Card card) {
-        long addedCardId = cardRepository.add(card);
-        return cardRepository.findById(addedCardId).orElseThrow();
+    public CardResponse addCard(@RequestBody AddCardParam addCardParam) {
+        return cardService.add(addCardParam);
     }
 
     @ApiOperation(
@@ -60,8 +63,8 @@ public class CardController {
         @ApiResponse(code = 500, message = "서버 에러"),
     })
     @GetMapping
-    public List<Card> getCards() {
-        return cardRepository.findAll();
+    public List<CardResponse> getCards() {
+        return cardService.selectAll();
     }
 
     @ApiOperation(
