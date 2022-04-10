@@ -1,21 +1,22 @@
-export const insertCardToColumn = (column, icons, parent = document) => {
+import { icons } from '../constants/constant.js';
+
+export const insertCardToColumn = (column, parent = document) => {
   const columnElement = parent.querySelector(`.${column.className}`);
   const cardList = columnElement.querySelector('.task__cards');
   const taskCount = columnElement.querySelector('.title-column__title__count');
   taskCount.textContent = column.total;
   column.tasks.forEach(task => {
-    cardList.insertAdjacentHTML('beforeend', createCardTemplate(task, icons));
+    cardList.insertAdjacentHTML('beforeend', createCardTemplate(task));
   });
 };
 
-export const insertAllCardToColumn = (parent, store, storeTargetName, icons) => {
-  const thisStore = store.getStore(storeTargetName);
-  thisStore.forEach(column => {
-    insertCardToColumn(column, icons, parent);
+export const insertAllCardToColumn = (parent, store) => {
+  store.forEach(column => {
+    insertCardToColumn(column, parent);
   });
 };
 
-export const createCardTemplate = (task, icons) => {
+export const createCardTemplate = task => {
   return `
     <li class="task__card" data-datetime=${task.datetime}>
     <div class="card__contents">

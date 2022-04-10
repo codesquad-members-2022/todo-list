@@ -1,7 +1,9 @@
-export const createHeaderElement = icon => {
+import { icons } from '../constants/constant.js';
+
+export const createHeaderElement = () => {
   const headerTemplate = `
     <div class="header__title">TO-DO LIST</div>
-    <div class="header__layer-button">${icon}</div>
+    <div class="header__layer-button">${icons.menu}</div>
     `;
   const headerElement = document.createElement('header');
   headerElement.classList.add('header');
