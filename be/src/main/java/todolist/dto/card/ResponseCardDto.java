@@ -1,4 +1,4 @@
-package todolist.dto;
+package todolist.dto.card;
 
 public class ResponseCardDto {
 

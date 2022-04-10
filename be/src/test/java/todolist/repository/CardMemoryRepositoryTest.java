@@ -2,7 +2,7 @@ package todolist.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import todolist.domain.Card;
+import todolist.domain.card.Card;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

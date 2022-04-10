@@ -1,7 +1,7 @@
 package todolist.repository;
 
 import org.springframework.stereotype.Repository;
-import todolist.domain.Event;
+import todolist.domain.event.Event;
 
 import java.util.ArrayList;
 import java.util.Collections;
