@@ -3,12 +3,15 @@ import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
 import { getLocalStorageByKey } from './utils/localStorage.js';
+import { onBodyMouseMove, onBodyMouseUp } from './utils/eventDragHandler.js';
 
 const app = () => {
   const todos = getLocalStorageByKey('todos') ? getLocalStorageByKey('todos') : [];
   localStorage.setItem('todos', JSON.stringify(todos));
 
   new TodoNoticeAnimation();
+  onBodyMouseMove();
+  onBodyMouseUp();
   createColumns();
   createTodos();
 };
