@@ -41,7 +41,7 @@ export default class TodoColumn {
 
   render = () => {
     const columnListHTML = /* html */ `
-    <article class="column-list">
+    <article class="column-list ${this.status}-wrapper">
         <nav class="column ${this.status}">
             <div class="column__left">
                 <span class="column__title">${this.status}</span>

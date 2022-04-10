@@ -8,6 +8,7 @@
 
 body {
   background: $color-grey-light;
+  height: 100vh;
   overflow-x: hidden;
 }
 .header__main {
@@ -75,7 +76,9 @@ body {
       cursor: pointer;
     }
   }
-  .card {
+}
+
+.card {
     width: 308px;
     background: $color-white;
     border-radius: 5px;
@@ -90,15 +93,11 @@ body {
         color: $color-black;
       }
     }
-    &__content {
-      margin: 8px 0;
-      word-break: break-all;
-      &-text {
-        margin-bottom: 5px;
-      }
-    }
-    &__author-text {
-      color: $color-grey;
+  &__content {
+    margin: 8px 0;
+    word-break: break-all;
+    &-text {
+      margin-bottom: 5px;
     }
     &__delete {
       font-size: $font-20;
@@ -107,5 +106,11 @@ body {
         color: $color-red;
       }
     }
+  }
+  &__author-text {
+    color: $color-grey;
+  }
+  &:hover {
+    cursor: pointer;
   }
 }
