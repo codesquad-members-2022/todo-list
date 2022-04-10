@@ -8,9 +8,10 @@ export const insertCardToColumn = (column, icons, parent = document) => {
   });
 };
 
-export const insertAllCardToColumn = (parent, icons) => {
-  parent.getStore().forEach(column => {
-    insertCardToColumn(column, icons, parent.element);
+export const insertAllCardToColumn = (parent, store, storeTargetName, icons) => {
+  const thisStore = store.getStore(storeTargetName);
+  thisStore.forEach(column => {
+    insertCardToColumn(column, icons, parent);
   });
 };
 

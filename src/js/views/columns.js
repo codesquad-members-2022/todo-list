@@ -1,5 +1,6 @@
-export const insertColumns = (parentElement, store, icons) => {
-  const columns = store.map(column => {
+export const insertColumns = (parentElement, store, storeTargetName, icons) => {
+  const thisStore = store.getStore(storeTargetName);
+  const columns = thisStore.map(column => {
     return createColumnTemplate(column.className, column.title, icons);
   });
   columns.forEach(column => {
