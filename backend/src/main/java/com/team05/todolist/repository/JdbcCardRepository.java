@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +29,14 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public void save(Card card) {
+        if (card.getId() != null) {
+            jdbcTemplate.update(
+                "UPDATE card SET order_index=?, title=?, content=?, section=? WHERE id=?",
+                card.getOrder(), card.getTitle(), card. getContent(), card.getSectionType(), card.getId());
+
+            return;
+        }
+
         Map<String, Object> params = getSaveParams(card);
         simpleJdbcInsert.executeAndReturnKey(params).intValue();
     }
@@ -54,6 +64,23 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public Optional<Card> findById(int id) {
-        return Optional.empty();
+        List<Card> result = jdbcTemplate.query(
+            "SELECT id, order_index, delete_yn, title, content, section FROM card WHERE id = ?",
+            cardRowMapper(), id);
+        return result.stream().findAny();
+    }
+
+    private RowMapper<Card> cardRowMapper() {
+        return (rs, rowNum) -> {
+            Card card = new Card(
+                rs.getInt("order_index"),
+                rs.getInt("delete_yn"),
+                rs.getString("title"),
+                rs.getString("content"),
+                rs.getString("section")
+            );
+            card.setId(rs.getInt("id"));
+            return card;
+        };
     }
 }

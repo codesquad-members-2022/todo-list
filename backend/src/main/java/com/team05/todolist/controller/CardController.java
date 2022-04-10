@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -39,10 +40,18 @@ public class CardController {
 		return ResponseEntity.ok().body(log);
 	}
 
+	@PutMapping("/cards/{id}")
+	public ResponseEntity update(@PathVariable int id, CardDTO cardDto) {
+		cardService.update(id, cardDto);
+
+		return ResponseEntity.ok(HttpStatus.OK);
+	}
+
 	@DeleteMapping("/cards/{id}")
 	public ResponseEntity delete(@PathVariable int id) {
 		cardService.delete(id);
 
 		return ResponseEntity.ok(HttpStatus.OK);
 	}
+
 }
