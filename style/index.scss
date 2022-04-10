@@ -81,6 +81,7 @@ body {
     border-radius: 5px;
     padding: 16px;
     margin-bottom: 20px;
+
     header {
       @include flexbox(space-between);
       h3 {
@@ -98,6 +99,13 @@ body {
     }
     &__author-text {
       color: $color-grey;
+    }
+    &__delete {
+      font-size: $font-20;
+      cursor: pointer;
+      &:hover {
+        color: $color-red;
+      }
     }
   }
 }
