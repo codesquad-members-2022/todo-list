@@ -59,11 +59,9 @@ public class CardDto {
 	@Data
 	public static class Redirection {
 		private Long cardId;
-		private Long userId;
 
-		public Redirection(Long cardId, Long userId) {
+		public Redirection(Long cardId) {
 			this.cardId = cardId;
-			this.userId = userId;
 		}
 	}
 }
