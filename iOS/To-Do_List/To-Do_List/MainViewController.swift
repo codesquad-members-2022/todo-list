@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak private var statckView: UIStackView!
     @IBOutlet weak private var logViewContainer: UIView!
     //Network
-    private var networkManager = NetworkManager()
+    private var networkManager = NetworkManager(session: URLSession(configuration: URLSessionConfiguration.default))
     
     //Notification
     static let didFetchInfo = NSNotification.Name("DidFetchToList")

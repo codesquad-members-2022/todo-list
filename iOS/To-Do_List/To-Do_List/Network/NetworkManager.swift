@@ -2,9 +2,13 @@
 import Foundation
 
 final class NetworkManager {
-    private var config = URLSessionConfiguration.default
-    private var session = URLSession(configuration:.default)
+    private var session:URLSession
 
+    init(session:URLSession) {
+        self.session = session
+    }
+    
+    
     func request<T:Decodable>(endpoint:Endpointable, completion: @escaping((Result<T,NetworkError>) -> Void)) {
         //handling urlError
         let endpointURL = endpoint.getURL()
