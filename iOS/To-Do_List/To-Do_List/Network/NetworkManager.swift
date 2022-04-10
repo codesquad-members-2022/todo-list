@@ -1,26 +1,18 @@
 
 import Foundation
 
-protocol URLSessionDataTaskable {
-        func dataTask(with request: URLRequest,
-                          completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-}
-
-extension URLSession:URLSessionDataTaskable {}
-
-
 final class NetworkManager {
-    private var session:URLSessionDataTaskable
+    private var session:URLSession
 
-    init(session:URLSessionDataTaskable) {
+    init(session:URLSession) {
         self.session = session
     }
     
-    func request<T:Decodable>(endpoint:Endpointable, completion: @escaping((Result<T,NetworkError>) -> Void)) {
+    func request<T:Decodable>(endpoint:Endpointable, completionHandler: @escaping((Result<T,NetworkError>) -> Void)) {
         //handling urlError
         let endpointURL = endpoint.getURL()
         guard let url = URL(string:endpointURL) else {
-            completion(.failure(.invalidURL))
+            completionHandler(.failure(.invalidURL))
             return
         }
         var urlRequest = URLRequest(url: url)
@@ -35,40 +27,40 @@ final class NetworkManager {
                 urlRequest.httpBody = try JSONEncoder().encode(body as? Board)
             }
             catch {
-                completion(.failure(.encodingError))
+                completionHandler(.failure(.encodingError))
             }
         }
-        dataTask(urlRequest: urlRequest, completion: completion)
+        dataTask(urlRequest: urlRequest, completionHandler: completionHandler)
     }
     
-    func dataTask<T:Decodable>(urlRequest: URLRequest, completion: @escaping((Result<T,NetworkError>) -> Void)) {
+    func dataTask<T:Decodable>(urlRequest: URLRequest, completionHandler: @escaping((Result<T,NetworkError>) -> Void)) {
         
         let dataTask = session.dataTask(with: urlRequest) { [weak self] data, response, error in
             guard let self = self else { return }
             //handling transportError
             if let error = error  {
-                completion(.failure(.transportError(error)))
+                completionHandler(.failure(.transportError(error)))
                 return
             }
             //handling NoDataError
             guard let data = data else {
-                completion(.failure(.noData))
+                completionHandler(.failure(.noData))
                 return
             }
             //handling ServerError
             guard let statusCode = self.getStatusCode(response: response) else { return }
             guard 200..<300 ~= statusCode else {
-                completion(.failure(.serverError(statusCode: statusCode)))
+                completionHandler(.failure(.serverError(statusCode: statusCode)))
                 return
             }
             
             //handling DecodingError
             do {
                 let fetchedData = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(fetchedData))
+                completionHandler(.success(fetchedData))
             }
             catch {
-                completion(.failure(.decodingError))
+                completionHandler(.failure(.decodingError))
                 
             }
         }
