@@ -50,6 +50,7 @@ TODOList 웹 서비스와 모바일앱 서비스 만들기
 ## 📋 커밋 템플릿, 이슈 템플릿 등
 ### Commit Template
 > AngularJS commit conventions를 기반으로 작성합니다.
+[AngularJS commit conventions 링크](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit)
 - - -
 <br>
 
