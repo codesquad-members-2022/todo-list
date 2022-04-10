@@ -13,4 +13,10 @@ export default class HistoryView {
     main.insertAdjacentHTML('afterbegin', historyContainer);
     this.historyContainer = document.querySelector('.history_container');
   }
+
+  eventInit(closeBtnHandler) {
+    const closeBtn = document.querySelector('.history_container .close_btn');
+
+    closeBtn.addEventListener('click', closeBtnHandler);
+  }
 }
