@@ -1,12 +1,19 @@
 # TODO List
 
+------
+
 - 단계별로 미션을 해결하고 리뷰를 받고나면 readme.md 파일에 주요 작업 내용(바뀐 화면 이미지, 핵심 기능 설명)과 완성 날짜시간을 기록한다.
 - 실행한 화면을 캡처해서 readme.md 파일에 포함한다.
+
+------
 
 ## 작업내역
 
 | 시작날짜   | 번호  | 내용                                   | 비고 |
 | ---------- | :---- | -------------------------------------- | ---- |
+| 2022.04.09 | Step8 | 테스트 네트워크 리펙토링               |      |
+| 2022.04.08 | Step7 | 서브메뉴 테스트 네트워크 연결          |      |
+| 2022.04.07 | Step6 | 서브메뉴 기능구현                      |      |
 | 2022.04.06 | Step5 | 네트워크 테스트를 사용한 UI 연결       |      |
 | 2022.04.05 | Step4 | 네트워크 테스트를 위한 MockSession구현 |      |
 | 2022.04.05 | Step3 | 새로운 카드 등록 팝업 구현             |      |
@@ -15,32 +22,111 @@
 
 ------
 
-## [Step4] 네트워크 테스트를 사용한 UI 연결
+## [Step8] 테스트 네트워크 리펙토링
+
+### 체크리스트 
+
+- [x] 테스트 네트워크에 사용할 Database 정의
+
+- [x] API요청을 보내고,  테스트 네트워크를 통해 DB 갱신 및 응답
+
+- [x] 응답값에 따라 클라이언트가 처리되도록 작업
+
+- [x] 실제서버 - 테스트 변경 시 간단한 수정만으로 스위칭되도록 작업
+
+  ```swift
+  //request(.loadColumns, isSucccess: true) - 테스트 네트워크 성공
+  //request(.loadColumns, isSucccess: false) - 테스트 네트워크 실패
+  //request(.loadColumns) - 실제 네트워크 적용
+  func loadColumns() -> AnyPublisher<ApiResult<[Column], SessionError>, Never> {
+    request(.loadColumns, isSucccess: true)
+    .map { $0.decode([Column].self) }
+    .eraseToAnyPublisher()
+  }
+  ```
+
+### 핵심기능
+
+* 실제 서버통신과 같은 API를 호출하여 원하는 결과값을 얻을 수 있다
+  * 성공 & 실패 시 원하는 값이나 원하는 실패처리로 테스트 가능
+* 서버가 아직 준비중인 상태에서도 서로의 Model만 정의되어 있으면 테스트를 할 수 있다
+
+### 결과화면
+
+![Simulator Screen Recording - iPad Pro (12 9-inch) (5th generation) - 2022-04-10 at 19 20 13](https://user-images.githubusercontent.com/5019378/162613679-d61c2713-1aa7-4c2e-9abb-2f958d197f61.gif)
+
+------
+
+## [Step7] 서브메뉴 테스트 네트워크 연결
+
+### 체크리스트 
+
+- [x] ContentMenu 구현
+  - [x] 완료한 일로 이동 테스트 네트워크 구현
+  - [x] 수정하기 테스트 네트워크 구현
+  - [x] 삭제하기 테스트 네트워크 구현
+  - [x] 새카드 추가하기 테스트 네트워크 구현
+
+### 핵심기능
+
+* 테스트 네트워크를 통해 각 컬럼에 새로운 카드를 추가 할 수 있다
+* 테스트 네트워크를 통해 선택한 카드를 완료됨으로 이동할 수 있다
+* 테스트 네트워크를 통해 선택한 카드를 수정, 삭제 할 수 있다
+
+------
+
+## [Step6] 서브메뉴 기능구현
+
+### 체크리스트 
+
+- [x] ContentMenu 구현
+  - [x] 완료한 일로 이동
+  - [x] 수정하기
+  - [x] 삭제하기
+  - [x] 새카드 추가하기
+
+### 핵심기능
+
+* 각 컬럼에 새로운 카드를 추가 할 수 있다
+* 선택한 카드를 완료됨으로 이동할 수 있다
+* 선택한 카드를 수정, 삭제 할 수 있다
+
+------
+
+## [Step5] 네트워크 테스트를 사용한 UI 연결
 
 ### 체크리스트 
 
 - [x] 네트워크 테스트 시 사용할 데이터 모델 정의
 
   ```swift
-  struct Card: Codable {
-      let title: String
-      let body: String
-      let caption: String
-      let orderIndex: Int
-      
-      enum CodingKeys: String, CodingKey {
-          case title
-          case body = "content"
-          case caption = "author_system"
-          case orderIndex = "order_index"
-      }
-  }
-  
-  struct Column: Codable {
-      let title: String?
-      let cards: [Card]
+  //테스트 네트워크에서 사용할 카드 데이터 모델
+  class MockCard: Decodable, CustomStringConvertible, Equatable {
+      let id: Int
+      public private(set) var title: String
+      public private(set) var content: String
+      let author_system: String
+      public private(set) var column_name: MockColumnType
+      public private(set) var order_id: Int
   }
   ```
+
+  ```swift
+  //테스트 네트워크에서 사용 할 클라이언트 데이터 모델
+  struct ClientColumn: Encodable {
+      let type: MockColumnType
+      let cards: [ClientCard]
+  }
+  
+  struct ClientCard: Encodable {
+      let id: Int
+      let title: String
+      let content: String
+      let caption: String
+  }
+  ```
+
+  
 
 - [x] 임의로 생성한 데이터 모델을 사용하여 MockSession을 통해 네트워크 통신 테스트
 
