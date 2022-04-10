@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:cardCornerRadius="6dp"
+    app:cardUseCompatPadding="true"
+    android:elevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_v_6.2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.062"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_v_93.8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.938"/>
+
+        <!-- -->
+
+        <View
+            android:id="@+id/view_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="258:16"/>
+
+        <TextView
+            android:id="@+id/tv_card_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/gl_v_6.2"
+            app:layout_constraintEnd_toEndOf="@id/gl_v_93.8"
+            app:layout_constraintTop_toBottomOf="@id/view_1"
+            android:text="@string/sample_card_title"
+            style="@style/tvItemCardTitle"
+            />
+
+        <View
+            android:id="@+id/view_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_card_title"
+            app:layout_constraintDimensionRatio="258:8"/>
+
+        <TextView
+            android:id="@+id/tv_card_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/gl_v_6.2"
+            app:layout_constraintEnd_toEndOf="@id/gl_v_93.8"
+            app:layout_constraintTop_toBottomOf="@id/view_2"
+            android:text="@string/sample_card_content_1"
+            style="@style/tvItemCardContent"
+            android:maxLines="3"
+            />
+
+        <View
+            android:id="@+id/view_3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_card_content"
+            app:layout_constraintDimensionRatio="258:8"/>
+
+        <TextView
+            android:id="@+id/tv_card_device"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/gl_v_6.2"
+            app:layout_constraintEnd_toEndOf="@id/gl_v_93.8"
+            app:layout_constraintTop_toBottomOf="@id/view_3"
+            android:text="@string/sample_card_device"
+            style="@style/tvItemCardDevice"
+            android:maxLines="1"
+            />
+
+        <View
+            android:id="@+id/view_4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_card_device"
+            app:layout_constraintDimensionRatio="258:16"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
+</layout>
