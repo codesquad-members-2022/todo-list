@@ -39,6 +39,38 @@
 ### 요구사항 및 설계
 
 <details markdown="1">
+<summary>카드 목록 조회</summary>
+
+#### 요구사항
+
+- 사용자는 애플리케이션 접속시, 첫 화면을 통해 카드 조회 요청을 한다.
+- `해야할 일/하고있는 일/완료한 일` 별로 각각의 카드 목록들이 나열된다.
+- `해야할 일/하고있는 일/완료한 일` 별 카드 목록 순서를 갖고 나열된다.
+  - 카드 등록시에는 가장 위에 놓여진다.
+  - 사용자는 카드를 위/아래로 이동시키며 카드 순서를 변경할 수 있다.
+
+
+#### 비즈니스 로직
+
+- **GET /api/todo**
+- 요청 헤더를 통해 userId를 받는다.
+  - 키는 "user" 로 값은 1을 가정한다.
+  - 응답은 data 안에 각각의 status 별로 카드목록이 리스트로 담긴다.
+- DB 조회
+  - todo_status 는`todo, ongoing, completed` 3가지 속성값을 가진다.
+  - user_id에 해당하는 삭제되지 않은 상태의 각 todo_status 별로 todo_order 역순 정렬 조회한다.
+- Service layer
+  - @Transactional(readOnly = true)
+  - CardDto.WriteResponse -> CardDto.CardResponse로 변경
+    - 각각의 Card 정보를 CardDto.CardResponse로 담아서
+    - 각 status 별 data에 담아 반환한다.
+
+#### 비기능
+
+
+</details>
+
+<details markdown="2">
 <summary>카드 생성하기</summary>
 
 #### 요구사항
