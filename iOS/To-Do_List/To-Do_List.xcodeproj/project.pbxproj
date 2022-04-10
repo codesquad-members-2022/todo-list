@@ -26,6 +26,7 @@
 		8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DD27FD646B00C13618 /* NetworkError.swift */; };
 		8DD815E027FD655200C13618 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DF27FD655200C13618 /* HTTPMethod.swift */; };
 		8DD815E527FD691E00C13618 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815E427FD691E00C13618 /* Todo.swift */; };
+		8DDD3A3F2803079500203BB9 /* MockJsonData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD3A3E2803079500203BB9 /* MockJsonData.json */; };
 		B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* BoardHeader.swift */; };
 		B730BBAE27FECB33006DC969 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAD27FECB33006DC969 /* constants.swift */; };
 		B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAF27FED3BE006DC969 /* BoardTableView.swift */; };
@@ -72,6 +73,7 @@
 		8DD815DD27FD646B00C13618 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		8DD815DF27FD655200C13618 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		8DD815E427FD691E00C13618 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		8DDD3A3E2803079500203BB9 /* MockJsonData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockJsonData.json; sourceTree = "<group>"; };
 		B70BD64127FBD1E7001BE68F /* BoardHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeader.swift; sourceTree = "<group>"; };
 		B730BBAD27FECB33006DC969 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		B730BBAF27FED3BE006DC969 /* BoardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				8DC2282A27FB1CFE002FB533 /* MainViewController.swift */,
 				8DD815E427FD691E00C13618 /* Todo.swift */,
+				8DDD3A3E2803079500203BB9 /* MockJsonData.json */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
 				B730BBAC27FECAFC006DC969 /* Utils */,
 				8DD815E327FD65F300C13618 /* ChildViewControllers */,
@@ -320,6 +323,7 @@
 			files = (
 				8D2AFD7D27FB08B100307CCB /* LaunchScreen.storyboard in Resources */,
 				8D2AFD7A27FB08B000307CCB /* Assets.xcassets in Resources */,
+				8DDD3A3F2803079500203BB9 /* MockJsonData.json in Resources */,
 				8D2AFD7827FB08AE00307CCB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
