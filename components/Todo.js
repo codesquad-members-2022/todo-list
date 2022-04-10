@@ -21,6 +21,7 @@ export default class Todo {
 
   run = () => {
     document.getElementById(this.todoData.id).addEventListener('dblclick', this.showEditForm);
+    document.getElementById(this.todoData.id).addEventListener('click', this.deleteBtn);
   };
 
   showEditForm = () => {
@@ -34,5 +35,20 @@ export default class Todo {
     document.getElementById(this.todoData.id).classList.add('todo-border');
     document.getElementById(this.todoData.id).innerHTML = todoEdit.render();
     todoEdit.run();
+  };
+
+  deleteBtn = ({ target }) => {
+    const modelEvent = document.querySelector('.deleteEventModal');
+    console.log(target.id);
+
+    if (target.classList.contains('column__delete')) {
+      modelEvent.style.display = 'block';
+    }
+    document.querySelector('.closeButton').addEventListener('click', function () {
+      modelEvent.style.display = 'none';
+    });
+    document.querySelector('.deletebutton').addEventListener('click', function () {
+      console.log(this.id);
+    });
   };
 }

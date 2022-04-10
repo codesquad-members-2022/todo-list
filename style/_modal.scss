@@ -1,0 +1,42 @@
+.deleteEventModal {
+  width: 400px;
+  height: 138px;
+  padding: 24px;
+  background: #ffffff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 5px;
+  z-index: 200px;
+  display: none;
+
+  .closeButton {
+    width: 134px;
+    height: 40px;
+    padding: 10px;
+    cursor: pointer;
+    color: $color-grey-dark;
+    background: $color-grey-mlight;
+  }
+  .deletebutton {
+    width: 134px;
+    height: 40px;
+    padding: 10px;
+    cursor: pointer;
+    color: $color-white;
+    background: $color-blue;
+  }
+}
+
+.modalBackground {
+  display: none;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+
+  //background: $color-grey-slight;
+  background-color: rgba(0, 0, 0, 0.8);
+}
