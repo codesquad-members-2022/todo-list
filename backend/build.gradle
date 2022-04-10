@@ -22,6 +22,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
 }
 
 tasks.named('test') {
