@@ -1,6 +1,5 @@
 package com.team05.todolist.domain.dto;
 
-import com.team05.todolist.domain.Section;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -12,7 +11,7 @@ public class CardDTO {
 	@ApiModelProperty(hidden = true)
 	private Integer cardId;
 	@ApiModelProperty(value="카드 인덱스", required = true)
-	private Integer orderIndex;
+	private Integer order;
 	@ApiModelProperty(value="카드 제목", required = true)
 	private String title;
 	@ApiModelProperty(value="카드 내용", required = true)
@@ -20,8 +19,8 @@ public class CardDTO {
 	@ApiModelProperty(value="카드 섹션 정보 [todo /doing /done]", required = true)
 	private String section;
 
-	public CardDTO(Integer orderIndex, String title, String content, String section) {
-		this.orderIndex = orderIndex;
+	public CardDTO(Integer order, String title, String content, String section) {
+		this.order = order;
 		this.title = title;
 		this.content = content;
 		this.section = section;

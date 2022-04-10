@@ -17,7 +17,7 @@ public class CardService {
     }
 
     public void save(CardDTO cardDto) {
-        Card card = new Card(cardDto.getOrderIndex(), NON_DELETED, cardDto.getTitle(), cardDto.getContent(),
+        Card card = new Card(cardDto.getOrder(), NON_DELETED, cardDto.getTitle(), cardDto.getContent(),
             cardDto.getSection());
 
         cardRepository.save(card);

@@ -20,7 +20,7 @@ public class SwaggerConfiguration {
             .apiInfo(apiInfo())
             .select()
             .apis(RequestHandlerSelectors.basePackage("com.team05"))
-            .paths(PathSelectors.any())
+            .paths(PathSelectors.ant("/api/**")) // api로 시작되는 URL만 swagger 작동
             .build();
     }
 
