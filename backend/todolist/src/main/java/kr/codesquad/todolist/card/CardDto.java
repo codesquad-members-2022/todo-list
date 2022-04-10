@@ -22,9 +22,6 @@ public class CardDto {
 		private String content;
 		@NotBlank(message = "todo list 카테고리 정보는 필수 값입니다.")
 		private String status;
-		@NotNull(message = "순서는 필수 값입니다.")
-		@Min(1)
-		private Long order;
 		@NotNull(message = "사용자 id는 필수 값입니다.")
 		@Min(1)
 		private Long userId;
@@ -34,7 +31,6 @@ public class CardDto {
 				.subject(subject)
 				.content(content)
 				.status(Card.TodoStatus.from(status))
-				.order(order)
 				.createdAt(LocalDateTime.now())
 				.userId(userId)
 				.build();
@@ -43,7 +39,7 @@ public class CardDto {
 
 	@Data
 	public static class WriteResponse {
-		private Long todoId;
+		private Long cardId;
 		private String subject;
 		private String content;
 		private String status;
@@ -51,12 +47,21 @@ public class CardDto {
 		private Long userId;
 
 		public WriteResponse(Card card) {
-			this.todoId = card.getTodoId();
+			this.cardId = card.getCardId();
 			this.subject = card.getSubject();
 			this.content = card.getContent();
 			this.status = card.getStatus().getText();
 			this.order = card.getOrder();
 			this.userId = card.getUserId();
+		}
+	}
+
+	@Data
+	public static class Redirection {
+		private Long cardId;
+
+		public Redirection(Long cardId) {
+			this.cardId = cardId;
 		}
 	}
 }
