@@ -35,7 +35,16 @@ dependencies {
 
     /* Springfox */
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'}
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+    /* Jackson */
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.2'
+
+    /* Aop */
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.6.4'
+    runtimeOnly group: 'org.aspectj', name: 'aspectjrt', version: '1.9.8'
+    runtimeOnly group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.8'
+}
 
 test {
     useJUnitPlatform()

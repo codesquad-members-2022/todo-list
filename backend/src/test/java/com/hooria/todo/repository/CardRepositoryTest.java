@@ -3,6 +3,8 @@ package com.hooria.todo.repository;
 import static org.assertj.core.api.Assertions.*;
 
 import com.hooria.todo.domain.Card;
+import com.hooria.todo.domain.Device;
+import com.hooria.todo.domain.Status;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +31,8 @@ class CardRepositoryTest {
         //given
         LocalDateTime now = LocalDateTime.now();
         List<Card> cards = List.of(
-            new Card(1, 1, "title1", "content1", "userId1", 1, now, now, false, 1),
-            new Card(2, 1, "title2", "content2", "userId1", 1, now, now, false, 2)
+            new Card(1, Status.TODO, "title1", "content1", "userId1", Device.WEB, now, now, false, 1),
+            new Card(2, Status.TODO, "title2", "content2", "userId1", Device.WEB, now, now, false, 2)
         );
 
         //when
@@ -48,9 +50,9 @@ class CardRepositoryTest {
             assertThat(actual.getTitle()).isEqualTo(expected.getTitle());
             assertThat(actual.getContent()).isEqualTo(expected.getContent());
             assertThat(actual.getUserId()).isEqualTo(expected.getUserId());
-            assertThat(actual.getApplianceInfo()).isEqualTo(expected.getApplianceInfo());
+            assertThat(actual.getDevice()).isEqualTo(expected.getDevice());
             assertThat(actual.isDeletedYn()).isFalse();
-            assertThat(actual.getIndex()).isEqualTo(expected.getIndex());
+            assertThat(actual.getRowPosition()).isEqualTo(expected.getRowPosition());
         }
     }
 
@@ -71,7 +73,7 @@ class CardRepositoryTest {
     @DisplayName("카드를 추가하고 추가된 카드의 id를 반환한다.")
     void add() {
         //given
-        Card card = Card.of(1, "title4", "content4", "userId1", 1, 4);
+        Card card = Card.of(Status.TODO, "title4", "content4", "userId1", Device.WEB, 4);
 
         //when
         long addedCardId = cardRepository.add(card);
@@ -85,9 +87,9 @@ class CardRepositoryTest {
             .hasFieldOrPropertyWithValue("title", card.getTitle())
             .hasFieldOrPropertyWithValue("content", card.getContent())
             .hasFieldOrPropertyWithValue("userId", card.getUserId())
-            .hasFieldOrPropertyWithValue("applianceInfo", card.getApplianceInfo())
+            .hasFieldOrPropertyWithValue("device", card.getDevice())
             .hasFieldOrPropertyWithValue("deletedYn", card.isDeletedYn())
-            .hasFieldOrPropertyWithValue("index", card.getIndex());
+            .hasFieldOrPropertyWithValue("row_position", card.getRowPosition());
     }
 
     @Test
@@ -98,11 +100,11 @@ class CardRepositoryTest {
         long id = 1;
         Card existingCard = cardRepository.findById(id).get();
         Card card = new Card(existingCard.getId(),
-            2,
+            Status.IN_PROGRESS,
             existingCard.getTitle(),
             existingCard.getContent(),
             existingCard.getUserId(),
-            existingCard.getApplianceInfo(),
+            existingCard.getDevice(),
             existingCard.getCreatedAt(),
             LocalDateTime.now(),
             existingCard.isDeletedYn(),
@@ -114,7 +116,7 @@ class CardRepositoryTest {
 
         //then
         assertThat(updatedCard.getId()).isEqualTo(existingCard.getId());
-        assertThat(updatedCard.getStatus()).isEqualTo(2);
+        assertThat(updatedCard.getStatus()).isEqualTo(Status.IN_PROGRESS);
         assertThat(updatedCard.getModifiedAt()).isNotEqualTo(existingCard.getModifiedAt());
     }
 

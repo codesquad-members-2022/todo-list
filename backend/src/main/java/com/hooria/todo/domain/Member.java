@@ -2,8 +2,10 @@ package com.hooria.todo.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 @AllArgsConstructor
 public class Member {
 
@@ -12,8 +14,8 @@ public class Member {
     private String password;
     private String name;
 
-    public static Member of(long id, String userId, String password, String name) {
-        return new Member(id, userId, password, name);
+    public static Member of(String userId, String password, String name) {
+        return new Member(0, userId, password, name);
     }
 
     public static Member of(String userId, String password) {

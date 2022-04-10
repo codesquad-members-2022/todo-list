@@ -1,24 +1,25 @@
 package com.hooria.todo.controller;
 
 import com.hooria.todo.domain.Member;
-import com.hooria.todo.repository.MemberRepository;
+import com.hooria.todo.service.MemberService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Api(tags = "Member(사용자) Controller")
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class MemberController {
 
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
+
+    @PostMapping
+    public Member addMember(@RequestBody Member member) {
+        return memberService.add(member);
+    }
 
     @ApiOperation(
             value = "모든 사용자 목록 조회",
@@ -38,7 +39,7 @@ public class MemberController {
     })
     @GetMapping
     public List<Member> getAllMembers() {
-        return memberRepository.findAll();
+        return memberService.selectAll();
     }
 
     @ApiOperation(
@@ -65,6 +66,6 @@ public class MemberController {
     })
     @GetMapping("/{userId}")
     public Member getMember(@PathVariable String userId) {
-        return memberRepository.findById(userId).orElseThrow(NoSuchElementException::new);
+        return memberService.selectById(userId);
     }
 }
