@@ -25,7 +25,7 @@ public class CardApiController {
 
 	@PostMapping
 	public ResponseEntity write(@RequestBody @Valid CardDto.WriteRequest request) {
-		CardDto.Redirection response = cardService.createCard(request);
+		CardDto.Redirection response = cardService.create(request);
 		return ResponseEntity.status(HttpStatus.FOUND)
 			.location(URI.create(getRedirectUri(response)))
 			.build();

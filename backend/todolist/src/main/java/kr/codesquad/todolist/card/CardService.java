@@ -13,10 +13,10 @@ public class CardService {
 	private final CardDao cardDao;
 
 	@Transactional
-	public CardDto.Redirection createCard(CardDto.WriteRequest request) {
+	public CardDto.Redirection create(CardDto.WriteRequest request) {
 		Card card = request.toEntity();
 		Card cardInfo = cardDao.save(card);
-		return new CardDto.Redirection(cardInfo.getCardId(), cardInfo.getUserId());
+		return new CardDto.Redirection(cardInfo.getCardId());
 	}
 
 	public CardDto.WriteResponse readOf(Long id) {
