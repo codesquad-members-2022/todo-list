@@ -8,18 +8,20 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CardService {
+	public static final String ERROR_OF_CARD_ID = "error of card id: %d";
+
 	private final CardDao cardDao;
 
 	@Transactional
-	public CardDto.RedirectInfo createCard(CardDto.WriteRequest request) {
+	public CardDto.Redirection create(CardDto.WriteRequest request) {
 		Card card = request.toEntity();
 		Card cardInfo = cardDao.save(card);
-		return new CardDto.RedirectInfo(cardInfo.getTodoId(), cardInfo.getUserId());
+		return new CardDto.Redirection(cardInfo.getCardId());
 	}
 
-	public CardDto.WriteResponse readOf(Long id, Long userId) {
-		String errorMessage = String.format("error of card id: %dor user id: %d", id, userId);
-		Card cardInfo = cardDao.findByIdAndUserId(id, userId)
+	public CardDto.WriteResponse readOf(Long id) {
+		String errorMessage = String.format(ERROR_OF_CARD_ID, id);
+		Card cardInfo = cardDao.findById(id)
 			.orElseThrow(() -> new IllegalArgumentException(errorMessage));
 		return new CardDto.WriteResponse(cardInfo);
 	}

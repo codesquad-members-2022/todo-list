@@ -31,32 +31,38 @@ public class CardDao {
 	public static final String CARD_WRITING_DATE = "writing_date";
 	public static final String CARD_TODO_USER_ID = "todo_user_id";
 	public static final String CARD_DELETED = "deleted";
-	public static final long ADDED_NEXT_ORDER = 1L;
+
+	public static final long ADDED_NEXT_ORDER = 1L;   // insert-getMaxTodoOrder() : default or 다음순서 +1 값
+
 	public static final String ERROR_OF_TODO_ID = "error of todoId";
+	public static final String ERROR_OF_CARD_DAO_UPDATE = "error of CardDao - update";
+	public static final String ERROR_OR_CARD_DAO_UPDATE_NONE = "cardDao 없데이트 대상이 아닙니다.";
+	public static final String ERROR_OF_CARD_DAO_BY_FK_USER_ID = "result of null with userId";
+
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private final JdbcTemplate jdbcTemplate;
 
 	public Card save(Card card) {
-		if (Objects.isNull(card.getTodoId())) {
+		if (Objects.isNull(card.getCardId())) {
 			return insert(card);
 		}
 		if (update(card) < ADDED_NEXT_ORDER) {
-			throw new IllegalArgumentException("error of CardDao - update");
+			throw new IllegalArgumentException(ERROR_OF_CARD_DAO_UPDATE);
 		}
 		return card;
 	}
 
 	private int update(Card card) {
-		Optional<Card> cardInfo = findById(card.getTodoId());
+		Optional<Card> cardInfo = findById(card.getCardId());
 		if (cardInfo.isEmpty()) {
-			throw new IllegalArgumentException("cardDao 없데이트 대상이 아닙니다.");
+			throw new IllegalArgumentException(ERROR_OR_CARD_DAO_UPDATE_NONE);
 		}
 		String sql = "update todo_list_table set subject = :subject, contet = :content where todo_id = :todo_id";
 		SqlParameterSource params = new BeanPropertySqlParameterSource(card);
 		return namedParameterJdbcTemplate.update(sql, params);
 	}
 
-	private Optional<Card> findById(Long todoId) {
+	protected Optional<Card> findById(Long todoId) {
 		if (todoId < ADDED_NEXT_ORDER) {
 			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
 		}
@@ -66,19 +72,21 @@ public class CardDao {
 		return Optional.ofNullable(card);
 	}
 
-	/*
-		userId 조회 결과가 없으면 - order = 1
-		userId 조회 결과 있으면 - order = max(order) + 1
+	/**
+	 * userId 조회 결과가 없으면 - order = 1
+	 * userId 조회 결과 있으면 - order = max(order) + 1
+	 * @param card
+	 * @return Card
 	 */
 	private Card insert(Card card) {
 		long nextTodoOrder = getMaxTodoOrder(card.getUserId(), card.getStatus().getText());
-		card.nextOrder(nextTodoOrder);
+		card.setOrder(nextTodoOrder);
 		SimpleJdbcInsert simpleJdbcInsert =  new SimpleJdbcInsert(jdbcTemplate);
 		simpleJdbcInsert.withTableName(CARD_TABLE_NAME).usingGeneratedKeyColumns(CARD_KEY_COLUMN_NAME);
 
 		Map<String, Object> parameters = getCardMap(card);
 		Number key = simpleJdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-		card.setTodoId(key.longValue());
+		card.setCardId(key.longValue());
 		return card;
 	}
 
@@ -94,9 +102,9 @@ public class CardDao {
 		try {
 			maxOrder = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Long.class) + ADDED_NEXT_ORDER;
 		} catch (DataAccessException exception) {
-			log.error("result of null with userId");
+			log.error(ERROR_OF_CARD_DAO_BY_FK_USER_ID);
 		} finally {
-			return maxOrder;  // NPE 발생
+			return maxOrder;
 		}
 	}
 
@@ -124,17 +132,5 @@ public class CardDao {
 				rs.getLong(CARD_TODO_USER_ID));
 			return article;
 		};
-	}
-
-	public Optional<Card> findByIdAndUserId(Long todoId, Long userId) {
-		if (todoId < ADDED_NEXT_ORDER || userId < ADDED_NEXT_ORDER) {
-			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
-		}
-		final SqlParameterSource namedParameters = new MapSqlParameterSource()
-			.addValue(CARD_KEY_COLUMN_NAME, todoId)
-			.addValue(CARD_TODO_USER_ID, userId);
-		String sql = "select * from todo_list_table where todo_id = :todo_id and todo_user_id = :todo_user_id;";
-		Card card = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, cardRowMapper());
-		return Optional.ofNullable(card);
 	}
 }
