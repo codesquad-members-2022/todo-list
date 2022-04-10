@@ -18,7 +18,7 @@ class TitleView: UIView {
     
     private(set) var inspectorButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "InspectorButton"), for: .normal)
+        button.setImage(UIImage(named: Constant.ImageName.inspectorButton), for: .normal)
         button.tintColor = .black
         return button
     }()

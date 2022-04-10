@@ -14,7 +14,7 @@ class InspectorViewController: UIViewController {
     
     private let closeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: Constant.SFSymbol.xmark), for: .normal)
+        button.setImage(UIImage(systemName: Constant.ImageName.xmark), for: .normal)
         button.tintColor = .black
         return button
     }()
