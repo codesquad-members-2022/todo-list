@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol MainViewControllerDelegate: AnyObject {
-    func didTapInspectorButton()
+protocol MainViewControllerDelegate {
+    func didTapInspectorOpenButton()
 }

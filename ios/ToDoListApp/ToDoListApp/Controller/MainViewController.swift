@@ -23,11 +23,12 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
-    weak var delegate: MainViewControllerDelegate?
+    var delegate: MainViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        addTargetActions()
     }
     
     private func setUpView() {
@@ -41,10 +42,6 @@ class MainViewController: UIViewController {
         view.addSubview(tableStackView)
         configureTableStackView()
         layoutTableStackView()
-        
-        titleView.inspectorButton.addTarget(self,
-                                            action: #selector(didTapInspectorButton),
-                                            for: .touchUpInside)
     }
     
     private func configureView() {
@@ -85,12 +82,18 @@ class MainViewController: UIViewController {
         tableStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
         tableStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -343).isActive = true
     }
+    
+    private func addTargetActions() {
+        titleView.inspectorButton.addTarget(self,
+                                            action: #selector(didTapInspectorOpenButton),
+                                            for: .touchUpInside)
+    }
 }
 
 //MARK: - selector functions
 
 extension MainViewController {
-    @objc func didTapInspectorButton() {
-        delegate?.didTapInspectorButton()
+    @objc func didTapInspectorOpenButton() {
+        delegate?.didTapInspectorOpenButton()
     }
 }
