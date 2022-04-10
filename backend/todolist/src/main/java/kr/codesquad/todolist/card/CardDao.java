@@ -133,21 +133,4 @@ public class CardDao {
 			return article;
 		};
 	}
-
-	public Optional<Card> findByIdAndUserId(Long todoId, Long userId) {
-		if (todoId < ADDED_NEXT_ORDER || userId < ADDED_NEXT_ORDER) {
-			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
-		}
-		final SqlParameterSource namedParameters = new MapSqlParameterSource()
-			.addValue(CARD_KEY_COLUMN_NAME, todoId)
-			.addValue(CARD_TODO_USER_ID, userId);
-		String sql = "select * from todo_list_table where todo_id = :todo_id and todo_user_id = :todo_user_id;";
-		Card card = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, cardRowMapper());
-		return Optional.ofNullable(card);
-	}
-
-	public void deleteAll() {
-		String sql = "truncate todo_list_table;";
-		jdbcTemplate.update(sql);
-	}
 }
