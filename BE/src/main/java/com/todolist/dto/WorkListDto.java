@@ -1,16 +1,14 @@
 package com.todolist.dto;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.util.List;
+import lombok.Builder;
+import lombok.Getter;
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@Builder
+@Getter
 public class WorkListDto {
 
+    private Integer categoryId;
     private String categoryName;
     private List<WorkDto> works;
-
-    public WorkListDto(String categoryName, List<WorkDto> works) {
-        this.categoryName = categoryName;
-        this.works = works;
-    }
 }
