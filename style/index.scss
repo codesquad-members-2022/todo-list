@@ -8,6 +8,7 @@
 
 body {
   background: $color-grey-light;
+  height: 100vh;
   overflow-x: hidden;
 }
 .header__main {
@@ -75,29 +76,32 @@ body {
       cursor: pointer;
     }
   }
-  .card {
-    width: 308px;
-    background: $color-white;
-    border-radius: 5px;
-    padding: 16px;
-    margin-bottom: 20px;
-    header {
-      @include flexbox(space-between);
-      h3 {
-        word-break: break-all;
-        font-weight: bold;
-        color: $color-black;
-      }
-    }
-    &__content {
-      margin: 8px 0;
+}
+.card {
+  width: 308px;
+  background: $color-white;
+  border-radius: 5px;
+  padding: 16px;
+  margin-bottom: 20px;
+  header {
+    @include flexbox(space-between);
+    h3 {
       word-break: break-all;
-      &-text {
-        margin-bottom: 5px;
-      }
+      font-weight: bold;
+      color: $color-black;
     }
-    &__author-text {
-      color: $color-grey;
+  }
+  &__content {
+    margin: 8px 0;
+    word-break: break-all;
+    &-text {
+      margin-bottom: 5px;
     }
+  }
+  &__author-text {
+    color: $color-grey;
+  }
+  &:hover {
+    cursor: pointer;
   }
 }
