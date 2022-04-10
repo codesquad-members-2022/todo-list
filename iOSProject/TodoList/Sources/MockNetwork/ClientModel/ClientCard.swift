@@ -1,13 +1,13 @@
 //
-//  Card.swift
+//  ClientCard.swift
 //  TodoList
 //
-//  Created by seongha shin on 2022/04/05.
+//  Created by seongha shin on 2022/04/09.
 //
 
 import Foundation
 
-struct Card: Decodable, Equatable {
+struct ClientCard: Encodable {
     let id: Int
     let title: String
     let content: String

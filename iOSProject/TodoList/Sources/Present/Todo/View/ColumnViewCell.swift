@@ -91,7 +91,7 @@ class ColumnViewCell: UITableViewCell {
     
     func setCard(_ card: Card) {
         titleLabel.text = card.title
-        bodyLabel.text = card.body
+        bodyLabel.text = card.content
         captionLabel.text = card.caption
     }
 }
