@@ -58,7 +58,7 @@ class CardServiceTest {
 		when(cardDao.findById(anyLong()))
 			.thenReturn(Optional.of(expected));
 
-		CardDto.WriteResponse actual = cardService.readOf(CARD_TEST_USER_ID);
+		CardDto.CardResponse actual = cardService.readOf(CARD_TEST_USER_ID);
 
 		assertAll(
 			() -> assertThat(actual.getCardId()).isEqualTo(expected.getCardId()),

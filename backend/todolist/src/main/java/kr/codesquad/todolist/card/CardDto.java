@@ -1,6 +1,9 @@
 package kr.codesquad.todolist.card;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -38,7 +41,7 @@ public class CardDto {
 	}
 
 	@Data
-	public static class WriteResponse {
+	public static class CardResponse {
 		private Long cardId;
 		private String subject;
 		private String content;
@@ -46,7 +49,7 @@ public class CardDto {
 		private Long order;
 		private Long userId;
 
-		public WriteResponse(Card card) {
+		public CardResponse(Card card) {
 			this.cardId = card.getCardId();
 			this.subject = card.getSubject();
 			this.content = card.getContent();
@@ -62,6 +65,16 @@ public class CardDto {
 
 		public Redirection(Long cardId) {
 			this.cardId = cardId;
+		}
+	}
+
+	@Data
+	public static class CardsResponse {
+		private final Map<String, List<CardResponse>> data = new HashMap<>();
+
+		public CardsResponse(List<CardByStatus> cards) {
+			cards.stream()
+				.forEach(card -> this.data.put(card.getStatus().getText(), card.toResponse()));
 		}
 	}
 }
