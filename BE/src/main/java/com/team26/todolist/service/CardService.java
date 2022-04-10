@@ -11,11 +11,11 @@ import java.util.List;
 public interface CardService {
     List<CardResponse> findByCardStatus(String cardStatus);
 
-    CardResponse join(CardRegistrationRequest cardRegistrationRequest);
+    CardResponse addCard(CardRegistrationRequest cardRegistrationRequest);
 
-    CardResponse update(CardUpdateRequest cardUpdateRequest);
+    CardResponse modifyCard(CardUpdateRequest cardUpdateRequest);
 
-    CardResponse move(CardMoveRequest cardMoveRequest, String newStatus);
+    CardResponse moveCard(CardMoveRequest cardMoveRequest);
 
-    void delete(CardDeleteRequest cardDeleteRequest);
+    void deleteCard(CardDeleteRequest cardDeleteRequest);
 }

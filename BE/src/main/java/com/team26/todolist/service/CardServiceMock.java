@@ -33,22 +33,22 @@ public class CardServiceMock implements CardService {
     }
 
     @Override
-    public CardResponse join(CardRegistrationRequest cardRegistrationRequest) {
+    public CardResponse addCard(CardRegistrationRequest cardRegistrationRequest) {
         return cards.get(0);
     }
 
     @Override
-    public CardResponse update(CardUpdateRequest cardUpdateRequest) {
+    public CardResponse modifyCard(CardUpdateRequest cardUpdateRequest) {
         return cards.get(1);
     }
 
     @Override
-    public CardResponse move(CardMoveRequest cardMoveRequest, String newStatus) {
+    public CardResponse moveCard(CardMoveRequest cardMoveRequest) {
         return cards.get(2);
     }
 
     @Override
-    public void delete(CardDeleteRequest cardDeleteRequest) {
+    public void deleteCard(CardDeleteRequest cardDeleteRequest) {
 
     }
 }
