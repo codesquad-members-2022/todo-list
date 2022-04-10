@@ -1,42 +1,26 @@
 package com.todolist.project.domain.card;
 
-import com.todolist.project.domain.Status;
+import com.todolist.project.domain.CardStatus;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class Card {
-    private int id;
+    private Long id;
     private String title;
     private String contents;
     private String writer;
     private LocalDateTime createdTime;
-    private Status status;
+    private CardStatus cardStatus;
 
-    public Card(String title, String contents, String writer, Status status) {
+    public Card(Long id, String title, String contents, String writer, LocalDateTime createdTime, CardStatus cardStatus) {
+        this.id = id;
         this.title = title;
         this.contents = contents;
         this.writer = writer;
-        this.status = status;
-        this.createdTime = LocalDateTime.now();
+        this.createdTime = createdTime;
+        this.cardStatus = cardStatus;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
 }

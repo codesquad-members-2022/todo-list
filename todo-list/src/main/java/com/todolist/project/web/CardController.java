@@ -1,32 +1,39 @@
 package com.todolist.project.web;
 
-import com.todolist.project.domain.Status;
+import com.todolist.project.domain.CardStatus;
 import com.todolist.project.domain.card.Card;
 import com.todolist.project.service.CardService;
-import com.todolist.project.web.dto.addCardDto;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.todolist.project.web.dto.CardAddDto;
+import com.todolist.project.web.dto.CardUpdateDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @RequestMapping("/card")
 @RestController
 public class CardController {
     private final CardService cardService;
 
-    public CardController(CardService cardService) {
-        this.cardService = cardService;
+    @GetMapping
+    public List<Card> home() {
+        List<Card> cards = cardService.findAll();
+        return cards;
     }
 
-    @PostMapping("/add")
-    public String add(addCardDto dto) {
-        cardService.addCard(new Card(dto.getTitle(), dto.getContents(), dto.getWriter(), Status.DO));
-        return "redirect:/";
+    @PostMapping
+    public int add(@RequestBody CardAddDto dto) {
+        return cardService.addCard(dto);
     }
 
-    @DeleteMapping("/remove/{id}")
-    public String remove(int id) {
-        cardService.removeCard(id);
-        return "redirect:/";
+    @DeleteMapping("/{id}")
+    public int remove(@PathVariable Long id) {
+        return cardService.removeCard(id);
+    }
+
+    @PutMapping("/{id}")
+    public int update(@PathVariable Long id, @RequestBody CardUpdateDto dto) {
+        return cardService.updateCard(id, dto);
     }
 }
