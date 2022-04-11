@@ -3,6 +3,7 @@ package com.codesquad.todolist.card;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -39,10 +40,16 @@ public class CardRepository {
 
     public Optional<Card> findById(int cardId) {
         String sql = "select card_id, column_id, title, content, author, card_order, created_date from card where card_id = :cardId and deleted = false";
-        Card card = jdbcTemplate.queryForObject(sql,
-            new MapSqlParameterSource().addValue("cardId", cardId),
-            getCardRowMapper());
-        return Optional.ofNullable(card);
+        Card card = null;
+        try {
+            card = jdbcTemplate.queryForObject(sql, new MapSqlParameterSource().addValue("cardId", cardId),
+                getCardRowMapper());
+
+            return Optional.ofNullable(card);
+
+        } catch (DataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     public Integer countByColumn(int columnId) {

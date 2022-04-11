@@ -1,6 +1,7 @@
 package com.codesquad.todolist.card.integration;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.BDDAssertions.*;
 
 import java.util.Optional;
 
@@ -81,5 +82,19 @@ public class CardRepositoryTest {
             assertThat(findCard.getContent()).isEqualTo("변경된 내용");
             assertThat(findCard.getAuthor()).isEqualTo("변경된 작성자");
         });
+    }
+
+    @Test
+    @DisplayName("삭제 요청된 카드 정보가 저장소에 저장되고, 카드 정보를 조회해 변경되었는지 확인한다")
+    public void cardDeleteTest() {
+        // given
+        cardRepository.create(card);
+        cardRepository.deleteById(card.getCardId());
+
+        // when
+        Optional<Card> foundCard = cardRepository.findById(card.getCardId());
+
+        // then
+        then(foundCard).isEqualTo(Optional.empty());
     }
 }
