@@ -9,17 +9,65 @@ import XCTest
 @testable import TodoList
 
 class CardAPITests: XCTestCase {
+    
+    struct MockAPI: ServerAPI {
+        let endpoint: String = "https://naver.com"
+    }
+    
+    var task: DataTask<CardData>!
+    
+    override func setUpWithError() throws {
+        let task = DataTask(api: Team13API(), dataType: CardData.self)
+        self.task = task
+    }
 
-    let httpRequest = CardHTTPRequest(
-        as: "https://www.naver.com",
-        using: nil,
-        in: OperationQueue.main,
-        type: .default
-    )
+    override func tearDownWithError() throws {
+        self.task = nil
+    }
+    
+    func test_todolistAPI_connectionSuccess_getData() throws {
+        let expectation = XCTestExpectation()
+        task?.fetchCardsAll(completionHandler: { result in
+            switch result {
+            case .success(let data):
+                XCTAssertNotNil(data)
+            case .failure(let error):
+                XCTFail("todolist request Failed \(error.localizedDescription)")
+            }
+            expectation.fulfill()
+        })
+        wait(for: [expectation], timeout: 2.0)
+    }
+    
     
     func test_requestInterfaceConnected_getData() throws {
-        
-        // 현재 API가 전달되지 않아서 URLProtocol로 대신합니다.
+        let request = CardHTTPRequest(
+            as: "http://13.125.216.180:8080/todolist/3",
+            using: nil,
+            in: OperationQueue.main,
+            type: .default
+        )
+
+        let expectation = XCTestExpectation()
+        request?.doGetRequest(parameter: nil, completionHandler: { result in
+            switch result {
+            case .success(let data):
+                XCTAssertNotNil(data)
+            case .failure(let error):
+                XCTFail("todolist request Failed")
+            }
+            expectation.fulfill()
+        })
+        wait(for: [expectation], timeout: 2.0)
+    }
+    
+    func test_requestInterfaceConnected_getMockData() throws {
+        let httpRequest = CardHTTPRequest(
+            as: "https://www.naver.com",
+            using: nil,
+            in: OperationQueue.main,
+            type: .default
+        )
         httpRequest?.config.protocolClasses = [MockURLProtocol.self]
         
         let expectation = XCTestExpectation(description: "Wait")
