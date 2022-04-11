@@ -9,4 +9,3 @@ window.addEventListener('DOMContentLoaded', () => {
   columns.init();
   histories.init();
 });
-
