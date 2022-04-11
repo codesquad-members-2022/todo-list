@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvDialog"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="7dp"
+        app:strokeColor="@color/Blue"
+        app:strokeWidth="1.5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_9.1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.091" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_90.9"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.909" />
+
+            <View
+                android:id="@+id/view_1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="400:16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAddCard"
+                style="@style/tvItemCardTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/add_new_card"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_90.9"
+                app:layout_constraintStart_toEndOf="@id/gl_v_9.1"
+                app:layout_constraintTop_toBottomOf="@id/view_1" />
+
+            <View
+                android:id="@+id/view_2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="400:16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAddCard" />
+
+            <EditText
+                android:id="@+id/etEnterTitle"
+                style="@style/tvItemCardContent.newCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/insert_title"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_90.9"
+                app:layout_constraintStart_toStartOf="@id/gl_v_9.1"
+                app:layout_constraintTop_toBottomOf="@id/view_2" />
+
+            <View
+                android:id="@+id/view_3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="400:8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etEnterTitle" />
+
+            <EditText
+                android:id="@+id/etEnterContents"
+                style="@style/tvItemCardContent.newCard.content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/enter_contents"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_90.9"
+                app:layout_constraintStart_toStartOf="@id/gl_v_9.1"
+                app:layout_constraintTop_toBottomOf="@id/view_3" />
+
+            <View
+                android:id="@+id/view_4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="400:16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etEnterContents" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEnroll"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@color/Blue"
+                android:text="@string/add_contents"
+                android:textColor="@color/white"
+                app:layout_constraintDimensionRatio="108:40"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_90.9"
+                app:layout_constraintTop_toBottomOf="@id/view_4"
+                app:layout_constraintWidth_percent="0.27"
+                app:shapeAppearanceOverlay="@style/buttonRaduisShape" />
+
+            <View
+                android:id="@+id/view_6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="@id/btnEnroll"
+                app:layout_constraintBottom_toBottomOf="@id/btnEnroll"
+                app:layout_constraintEnd_toStartOf="@id/btnEnroll"
+                app:layout_constraintDimensionRatio="1:5"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@color/Gray5"
+                android:text="@string/cancel_card"
+                android:textColor="@color/Gray3"
+                app:layout_constraintDimensionRatio="108:40"
+                app:layout_constraintEnd_toStartOf="@id/view_6"
+                app:layout_constraintTop_toBottomOf="@id/view_4"
+                app:layout_constraintWidth_percent="0.27"
+                app:shapeAppearanceOverlay="@style/buttonRaduisShape" />
+
+            <View
+                android:id="@+id/view_5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/btnCancel"
+                app:layout_constraintDimensionRatio="400:16"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
