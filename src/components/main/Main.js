@@ -1,15 +1,19 @@
-import { renderColumnContainer } from "./column-container/ColumnContainer.js";
+import { initColumnContainer } from "./column-container/ColumnContainer.js";
+import { pipe } from "../../util/util.js";
 
-export const renderMain = (parentEl) => {
-  parentEl.insertAdjacentHTML("beforeend", getMainTemplate());
-  const mainDOM = parentEl.querySelector(".main");
-  mountColumnContainer(mainDOM);
+const makeMainDOM = () => {
+  const mainDOM = document.createElement("div");
+  mainDOM.className = "main";
+  return mainDOM;
 };
 
-const getMainTemplate = () => {
-  return `<div class='main'></div>`;
+const renderMain = (mainDOM) => {
+  document.body.append(mainDOM);
+  return mainDOM;
 };
 
-const mountColumnContainer = (parentEl) => {
-  renderColumnContainer(parentEl);
+const mountColumnContainer = (mainDOM) => {
+  initColumnContainer(mainDOM);
 };
+
+export const initMain = pipe(makeMainDOM, renderMain, mountColumnContainer);

@@ -1,20 +1,15 @@
 import "./app.scss";
+import { columnStore } from "./stores/ColumnStore.js";
 import { renderHeader } from "./components/header/Header.js";
-import { renderMain } from "./components/main/Main.js";
-import "./components/header/menu/Menu.js";
-import "./components/main/fab/Fab.js";
-import "./components/main/column-container/Column/Column.js";
-import "./components/main/column-container/Column/card/Card.js";
-import "./components/main/column-container/Column/card/alert/Alert.js";
+import { initMain } from "./components/main/Main.js";
 
-function runApp() {
-  renderApp();
-}
+(() => {
+  //data fetch 받아와서 Store initial set해주고 함수 실행
+  //여기서부터 데이터 넘겨주기 시작? 아니면 데이터가 필요해지는 columnContainer.js 부터?
+  renderHeader();
+  initMain();
+})();
 
-function renderApp() {
-  renderHeader(document.body);
-  renderMain(document.body);
-}
 
-runApp();
+
 

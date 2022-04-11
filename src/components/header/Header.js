@@ -1,7 +1,7 @@
 import "./Header.scss";
 
-export const renderHeader = (parentEl) => {
-  parentEl.insertAdjacentHTML("beforeend", getHeaderTemplate());
+export const renderHeader = () => {
+  document.body.insertAdjacentHTML("beforeend", getHeaderTemplate());
 };
 
 const getHeaderTemplate = () => {
