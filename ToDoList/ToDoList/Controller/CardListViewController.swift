@@ -11,7 +11,7 @@ class CardListViewController: UIViewController {
     @IBOutlet weak var addCardButton: UIButton!
     private weak var editCardViewModal: EditCardViewController? {
         didSet {
-            addObservers()
+            addEditCardViewObserver()
         }
     }
     
@@ -74,8 +74,9 @@ extension CardListViewController: UITableViewDataSource {
 //MARK: - Handle EditCardView's notification
 extension CardListViewController {
     
-    private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(editCardViewModalDidAddNewData(_:)),
+    private func addEditCardViewObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(editCardViewModalDidAddNewData(_:)),
                                                name: EditCardViewController.Constants.NotificationNames.didAddNewData,
                                                object: self.editCardViewModal)
     }
