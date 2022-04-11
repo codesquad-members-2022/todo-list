@@ -15,6 +15,8 @@ class MemoContainerViewController: UIViewController {
         self.init()
         self.cellCount = cellCount
         self.identifier = identifier
+        memoContainerView.categoryLabel.text = " \(identifier)"
+        memoContainerView.frame.size = memoContainerView.intrinsicContentSize
         view = memoContainerView
     }
 }

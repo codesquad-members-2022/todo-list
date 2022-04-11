@@ -8,18 +8,16 @@ class MemoContainerView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 5
+        stackView.spacing = 10
         stackView.alignment = .fill
-        stackView.distribution = .fillEqually
         return stackView
     }()
     
-    private let categoryLabel: UILabel = {
+    let categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: FontFactory.bold, size: 20)
         label.textColor = UIColor(named: ColorAsset.black)
-        label.text = " 해야 할 일"
         label.textAlignment = .left
         return label
     }()
@@ -81,7 +79,6 @@ class MemoContainerView: UIView {
         setConstraints()
     }
 
-    
     private func addViews() {
         
         countView.addSubview(countLabel)
@@ -89,7 +86,6 @@ class MemoContainerView: UIView {
         horizontalStackView.addArrangedSubview(categoryLabel)
         horizontalStackView.addArrangedSubview(countView)
         horizontalStackView.addArrangedSubview(buttonView)
-        horizontalStackView.setCustomSpacing(horizontalStackView.frame.width*0.6, after: countView)
         
         addSubview(horizontalStackView)
         addSubview(tableView)
