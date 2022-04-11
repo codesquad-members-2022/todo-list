@@ -2,6 +2,12 @@ import Foundation
 
 class CardManager: CardManagable {
     
+    enum Constants {
+        enum NotificationNames {
+            static let didAddNewCard = Notification.Name("CardManagerDidAddNewCard")
+        }
+    }
+    
     private var listName: String
     private var cards = [Cardable]()
     private var selectedCard: Cardable?
@@ -24,10 +30,12 @@ class CardManager: CardManagable {
         let data = [listName]
         let newCard = cardFactory.make(factoriable: Card.self, title: title, body: body, data: data)
         cards.append(newCard)
+        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self)
     }
     
     func add(newCard: Cardable) {
         cards.append(newCard)
+        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self)
     }
     
     func selectCard(index: Int) {
