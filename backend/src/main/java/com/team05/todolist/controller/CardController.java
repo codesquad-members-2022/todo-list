@@ -36,14 +36,6 @@ public class CardController {
 		this.logService = logService;
 	}
 
-	@ApiOperation("전체 카드 조회")
-	@GetMapping("/cards")
-	public ResponseEntity<ListResponseDTO> inquireAll() {
-		ClassifiedCardsDTO classifiedCards = cardService.findCards();
-		List<LogDTO> logs = logService.findLogs();
-		return ResponseEntity.ok().body(new ListResponseDTO(classifiedCards, logs));
-	}
-
 	@ApiOperation("카드 등록")
 	@PostMapping("/cards")
 	public ResponseEntity<ResponseDTO> create(CardDTO cardDto) {

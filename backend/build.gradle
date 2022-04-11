@@ -36,6 +36,7 @@ dependencies {
     implementation "io.swagger:swagger-annotations:1.5.21"
     implementation "io.swagger:swagger-models:1.5.21"
 
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 }
 
 tasks.named('test') {
