@@ -4,6 +4,7 @@ import com.example.backend.domain.Card;
 import com.example.backend.domain.ColumnName;
 import com.example.backend.web.dto.CardListResponseDto;
 import com.example.backend.web.dto.CardMoveRequestDto;
+import com.example.backend.web.dto.Column;
 import com.example.backend.web.dto.Columns;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -29,13 +30,15 @@ public class CardJdbcTemplateRepository implements CardRepository {
 
     @Override
     public Columns findAllDesc() {
-        Columns result = new Columns();
+        Columns columns = new Columns();
         for (ColumnName column : ColumnName.values()) {
             String columnName = column.getName();
-            List<CardListResponseDto> cardList = findResponseDtosByColumnName(columnName);
-            result.addCardList(columnName, cardList);
+            Column resultColumn = new Column(columnName);
+
+            resultColumn.addCards(findResponseDtosByColumnName(columnName));
+            columns.addColumn(resultColumn);
         }
-        return result;
+        return columns;
     }
 
     private List<CardListResponseDto> findResponseDtosByColumnName(String columnName) {
