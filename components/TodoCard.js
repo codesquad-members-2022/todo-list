@@ -1,4 +1,4 @@
-import Component from './Component.js';
+import Component from "../core/Component.js";
 
 export class TodoCard extends Component {
   template() {
@@ -22,7 +22,7 @@ export class TodoCard extends Component {
   }
 
   setEvent() {
-    this.addEvent('dblclick', '.wrapper', (e) => {
+    this.addEvent("dblclick", ".wrapper", (e) => {
       this.setState({ selected: true });
     });
   }

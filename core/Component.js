@@ -16,14 +16,16 @@ export default class Component {
     this.render();
   }
 
-  setup() {}
+  setup() {
+  }
 
   render() {
     this.#target.innerHTML = this.template();
     this.mount();
   }
 
-  mount() {}
+  mount() {
+  }
 
   template() {
     return ``;
@@ -39,7 +41,8 @@ export default class Component {
     });
   }
 
-  setEvent() {}
+  setEvent() {
+  }
 
   select(selector) {
     return this.#target.querySelector(selector);

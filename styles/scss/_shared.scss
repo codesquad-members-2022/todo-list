@@ -6,6 +6,10 @@
   }
 }
 
+@mixin column_left($pos) {
+  left: #{80+$pos*324}px
+}
+
 @mixin custom_absolute($args...) {
   position: absolute;
   @each $pos, $num in meta.keywords($args) {
