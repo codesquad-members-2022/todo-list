@@ -1,5 +1,7 @@
 package team07.todolist.domain;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class ActivityLog {
@@ -26,6 +28,16 @@ public class ActivityLog {
 		this.previous = activityLog.previous;
 		this.status = activityLog.status;
 		this.time = activityLog.time;
+	}
+
+	public ActivityLog(Long id, String title, int type, Integer previous, Integer status,
+		Timestamp time) {
+		this.id = id;
+		this.title = title;
+		this.type = type;
+		this.previous = previous;
+		this.status = status;
+		this.time = time.toLocalDateTime();
 	}
 
 	public Long getId() {

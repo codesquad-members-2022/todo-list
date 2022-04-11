@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS ACTIVITY_LOG;
 CREATE TABLE ACTIVITY_LOG
 (
     id             INT            PRIMARY KEY     AUTO_INCREMENT,
-    userid         VARCHAR(255)   NOT NULL,
+    title         VARCHAR(255)   NOT NULL,
     type           INT            NOT NULL,
     previous       INT            NOT NULL,
     status         INT            NOT NULL,
