@@ -6,6 +6,11 @@ export default class Todo {
   }
 
   onMouseDown = e => {
+    if (e.target.classList.contains('card__delete')) {
+      this.deleteBtn(e.target);
+      this.onDrag = true;
+    }
+
     e.currentTarget.classList.add('spectrum');
     this.createCopyTodo(e.pageX, e.pageY);
   };
@@ -38,7 +43,6 @@ export default class Todo {
 
   run = () => {
     document.getElementById(this.todoData.id).addEventListener('dblclick', this.showEditForm);
-    document.getElementById(this.todoData.id).addEventListener('click', this.deleteBtn);
     document.getElementById(this.todoData.id).addEventListener('mousedown', this.onMouseDown);
     document.getElementById(this.todoData.id).addEventListener('mouseover', this.ondeleteOver);
     document.getElementById(this.todoData.id).addEventListener('mouseout', this.ondeleteOut);
@@ -73,7 +77,7 @@ export default class Todo {
     }
   };
 
-  deleteBtn = ({ target }) => {
+  deleteBtn = target => {
     const test = document.getElementById(this.todoData.id);
     const modelEvent = document.querySelector('.deleteEventModal');
 
@@ -86,10 +90,8 @@ export default class Todo {
     });
 
     document.querySelector('.deletebutton').addEventListener('click', function () {
-      console.log(target);
       const objIndex = getLocalStorageByKey('todos').findIndex(e => e.id === Number(test.id)); //1
 
-      //console.log('@@@', objIndex);
       const removeData = getLocalStorageByKey('todos').splice(0, 1);
       console.log(removeData);
 
