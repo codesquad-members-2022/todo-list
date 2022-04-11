@@ -34,15 +34,15 @@ class MainActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
 
         with(binding) {
             includeTodo.btnAdd.setOnClickListener {
-                Dialog(Status.TODO).show(supportFragmentManager, "todoDialog")
+                TaskDialogFragment(Status.TODO).show(supportFragmentManager, "todoDialog")
             }
 
             includeInProgress.btnAdd.setOnClickListener {
-                Dialog(Status.IN_PROGRESS).show(supportFragmentManager, "inProgressDialog")
+                TaskDialogFragment(Status.IN_PROGRESS).show(supportFragmentManager, "inProgressDialog")
             }
 
             includeDone.btnAdd.setOnClickListener {
-                Dialog(Status.DONE).show(supportFragmentManager, "doneDialog")
+                TaskDialogFragment(Status.DONE).show(supportFragmentManager, "doneDialog")
             }
         }
 

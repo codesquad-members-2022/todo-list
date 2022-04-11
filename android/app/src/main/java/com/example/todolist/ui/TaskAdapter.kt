@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.ItemTaskBinding
-import com.example.todolist.model.TaskResponse
+import com.example.todolist.model.TaskDetailResponse
 
-class TaskAdapter : ListAdapter<TaskResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback) {
+class TaskAdapter : ListAdapter<TaskDetailResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -21,19 +21,19 @@ class TaskAdapter : ListAdapter<TaskResponse, TaskAdapter.TaskViewHolder>(TaskDi
 
     class TaskViewHolder(private val binding: ItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(task: TaskResponse) {
+        fun bind(task: TaskDetailResponse) {
             binding.task = task
             binding.executePendingBindings()
         }
     }
 }
 
-object TaskDiffCallback : DiffUtil.ItemCallback<TaskResponse>() {
-    override fun areItemsTheSame(oldItem: TaskResponse, newItem: TaskResponse): Boolean {
+object TaskDiffCallback : DiffUtil.ItemCallback<TaskDetailResponse>() {
+    override fun areItemsTheSame(oldItem: TaskDetailResponse, newItem: TaskDetailResponse): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: TaskResponse, newItem: TaskResponse): Boolean {
+    override fun areContentsTheSame(oldItem: TaskDetailResponse, newItem: TaskDetailResponse): Boolean {
         return oldItem == newItem
     }
 

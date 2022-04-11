@@ -1,15 +1,15 @@
 package com.example.todolist.model
 
 data class TasksResponse(
-    val todo: MutableList<TaskResponse>,
-    val inProgress: MutableList<TaskResponse>,
-    val done: MutableList<TaskResponse>,
+    val todo: MutableList<TaskDetailResponse>,
+    val inProgress: MutableList<TaskDetailResponse>,
+    val done: MutableList<TaskDetailResponse>,
 )
 
-data class TaskResponse(
+data class TaskDetailResponse(
     val id: Int,
-    val title: String?,
-    val content: String?,
+    val title: String,
+    val content: String,
     val status: Status,
     val author: String = "Android",
 )
