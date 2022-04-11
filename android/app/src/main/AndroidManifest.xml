@@ -12,7 +12,11 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
+<<<<<<< HEAD
            <!--android:screenOrientation="landscape"-->
+=======
+<!--            android:screenOrientation="landscape">-->
+>>>>>>> e5c39d4 ([AOS-josh] feat: itemhelper 삭제 버튼 구현)
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

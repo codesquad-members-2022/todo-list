@@ -49,6 +49,11 @@ class MainActivity : AppCompatActivity() {
         setCompleteRecyclerView()
         setLogRecyclerView()
 
+<<<<<<< HEAD
+=======
+//        setItemTouchCallback()
+
+>>>>>>> e5c39d4 ([AOS-josh] feat: itemhelper 삭제 버튼 구현)
         setDialogFragmentView()
     }
 
@@ -60,7 +65,11 @@ class MainActivity : AppCompatActivity() {
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
+<<<<<<< HEAD
         val touchHelper = TodoTouchHelper(todoCardListAdapter, viewModel).apply {
+=======
+        val touchHelper = TodoTouchHelper(todoCardListAdapter).apply {
+>>>>>>> e5c39d4 ([AOS-josh] feat: itemhelper 삭제 버튼 구현)
             setClamp(170f)
         }
 
