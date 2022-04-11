@@ -16,26 +16,49 @@ export const Store = {
     columnOrder: [0, 1, 2],
     0: {
       title: "해야할 일",
+      addBtnActivated: false,
       cardOrder: [],
       cards: {},
     },
     1: {
       title: "하고 있는 일",
+      addBtnActivated: false,
       cardOrder: [],
       cards: {},
     },
     2: {
       title: "완료된 일",
+      addBtnActivated: false,
       cardOrder: [],
       cards: {},
     },
   },
 
-  addNewCard(columnID) {
+  updateAsAddCardState(columnID) {
+    this.toggleColumnAddBtnActivation(columnID);
+    this.addNewCardForm(columnID);
+    this.notify("column");
+  },
+
+  exitFromAddCardState(columnID) {
+    this.toggleColumnAddBtnActivation(columnID);
+    this.deleteNewCardForm(columnID);
+    this.notify("column");
+  },
+
+  toggleColumnAddBtnActivation(columnID) {
+    this.state[columnID].addBtnActivated = !this.state[columnID].addBtnActivated;
+  },
+
+  addNewCardForm(columnID) {
     const newCardID = this.getNewCardID();
     this.state[columnID].cardOrder.unshift(newCardID);
     this.state[columnID].cards[newCardID] = { columnID, type: "new" };
-    this.notify("column");
+  },
+
+  deleteNewCardForm(columnID) {
+    const newCardID = this.state[columnID].cardOrder.shift();
+    delete this.state[columnID].cards[newCardID];
   },
 
   getNewCardID() {
