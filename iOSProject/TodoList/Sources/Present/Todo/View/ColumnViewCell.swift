@@ -57,6 +57,9 @@ class ColumnViewCell: UITableViewCell {
     private func attribute() {
         backgroundColor = .clear
         selectionStyle = .none
+        clipsToBounds = true
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
     }
     
     private func layout() {
@@ -85,7 +88,7 @@ class ColumnViewCell: UITableViewCell {
             captionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             
             cellBackgroundView.bottomAnchor.constraint(equalTo: captionLabel.bottomAnchor, constant: 16),
-            contentView.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16)
+            contentView.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor),
         ])
     }
     

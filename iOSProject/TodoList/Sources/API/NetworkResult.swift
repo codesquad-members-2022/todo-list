@@ -30,7 +30,7 @@ struct NetworkResult {
 
 extension NetworkResult {
     func decode<T: Decodable>(_ type: T.Type) -> ApiResult<T, SessionError> {
-        guard error != nil else {
+        guard error == nil else {
             return ApiResult(value: nil, error: error)
         }
         

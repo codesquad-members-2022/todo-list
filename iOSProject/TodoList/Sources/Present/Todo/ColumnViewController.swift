@@ -103,13 +103,13 @@ class ColumnViewController: UIViewController {
         
         model.state.insertedCard
             .sink {
-                self.cardTableView.insertRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+                self.cardTableView.insertSections(IndexSet(integer: $0), with: .none)
                 self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         model.state.deletedCard
             .sink {
-                self.cardTableView.deleteRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+                self.cardTableView.deleteSections(IndexSet(integer: $0), with: .none)
                 self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
@@ -121,7 +121,7 @@ class ColumnViewController: UIViewController {
         
         model.state.reloadCard
             .sink {
-                self.cardTableView.reloadRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+                self.cardTableView.reloadRows(at: [IndexPath(item: 0, section: $0)], with: .none)
             }.store(in: &cancellables)
     }
     
@@ -159,33 +159,58 @@ class ColumnViewController: UIViewController {
     }
 }
 
+
+
 extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         model.cardCount
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        16
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        " "
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ColumnViewCell") as? ColumnViewCell,
-              let card = model[indexPath.item] else {
+              let card = model[indexPath.section] else {
             return UITableViewCell()
         }
         cell.setCard(card)
         return cell
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "삭제") { [weak self] action, view, completionHandler in
+            self?.model.action.tappedDeleteButton.send(indexPath.section)
+            completionHandler(true)
+        }
+        let config = UISwipeActionsConfiguration(actions: [action])
+        config.performsFirstActionWithFullSwipe = false
+
+        return config
+    }
+    
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
             let moveDone = UIAction(title: "완료한 일로 이동") { _ in
-                self.model.action.tappedMoveCardButton.send(indexPath.item)
+                self?.model.action.tappedMoveCardButton.send(indexPath.section)
             }
             
             let edit = UIAction(title: "수정하기") { _ in
-                self.model.action.tappedEditButton.send(indexPath.item)
+                self?.model.action.tappedEditButton.send(indexPath.section)
             }
             
             let delete = UIAction(title: "삭제하기", attributes: .destructive) { _ in
-                self.model.action.tappedDeleteButton.send(indexPath.item)
+                self?.model.action.tappedDeleteButton.send(indexPath.section)
             }
             return UIMenu(title: "", children: [moveDone, edit, delete])
         }
