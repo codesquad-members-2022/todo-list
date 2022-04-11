@@ -17,25 +17,25 @@ class TaskRepository {
                 "Android"),
             TaskDetailResponse(3, "HTML/CSS", "input 태그 실습", Status.TODO, "Android")),
         mutableListOf(
-            TaskDetailResponse(1,
+            TaskDetailResponse(4,
                 "GitHub 공부하기",
                 "add, commit, push",
                 Status.IN_PROGRESS,
                 "Android"),
-            TaskDetailResponse(2,
+            TaskDetailResponse(5,
                 "블로그에 포스팅할 것",
                 "• GitHub 공부내용\n• 모던 자바스크립트 1장 공부내용",
                 Status.IN_PROGRESS,
                 "Android"),
-            TaskDetailResponse(3, "HTML/CSS", "input 태그 실습", Status.IN_PROGRESS, "Android")),
+            TaskDetailResponse(6, "HTML/CSS", "input 태그 실습", Status.IN_PROGRESS, "Android")),
         mutableListOf(
-            TaskDetailResponse(1, "GitHub 공부하기", "add, commit, push", Status.DONE, "Android"),
-            TaskDetailResponse(2,
+            TaskDetailResponse(7, "GitHub 공부하기", "add, commit, push", Status.DONE, "Android"),
+            TaskDetailResponse(8,
                 "블로그에 포스팅할 것",
                 "• GitHub 공부내용\n• 모던 자바스크립트 1장 공부내용",
                 Status.DONE,
                 "Android"),
-            TaskDetailResponse(3, "HTML/CSS", "input 태그 실습", Status.DONE, "Android")),
+            TaskDetailResponse(9, "HTML/CSS", "input 태그 실습", Status.DONE, "Android")),
     )
 
     fun getTasks(): TasksResponse {
@@ -61,14 +61,31 @@ class TaskRepository {
         return tasks
     }
 
+    fun updateTask(task: TaskDetailResponse): TasksResponse {
+        when (task.status) {
+            Status.TODO -> {
+                val originalTask = tasks.todo.find { task.id == it.id }
+                val index = tasks.todo.indexOf(originalTask)
+                tasks.todo[index] = task
+            }
+            Status.IN_PROGRESS -> {
+                val originalTask = tasks.inProgress.find { task.id == it.id }
+                val index = tasks.inProgress.indexOf(originalTask)
+                tasks.inProgress[index] = task
+            }
+            Status.DONE -> {
+                val originalTask = tasks.done.find { task.id == it.id }
+                val index = tasks.done.indexOf(originalTask)
+                tasks.done[index] = task
+            }
+        }
+        return tasks
+    }
+
     fun moveDone(task: TaskDetailResponse): TasksResponse {
         deleteTask(task)
-        if (task.status == Status.TODO) {
-            task.status = Status.DONE
-            tasks.done.add(0, task)
-        } else if (task.status == Status.IN_PROGRESS) {
-            task.status = Status.DONE
-            tasks.done.add(0, task)
+        if (task.status != Status.DONE) {
+            tasks.done.add(0, task.copy(status = Status.DONE))
         }
         return tasks
     }

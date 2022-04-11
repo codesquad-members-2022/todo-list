@@ -1,6 +1,5 @@
 package com.example.todolist.ui
 
-import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +9,14 @@ import com.example.todolist.R
 import com.example.todolist.databinding.ItemTaskBinding
 import com.example.todolist.model.TaskDetailResponse
 
-class TaskAdapter(private val viewModel: TaskViewModel) : ListAdapter<TaskDetailResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback) {
+class TaskAdapter(
+    private val viewModel: TaskViewModel,
+    private val listener: DialogListener
+) : ListAdapter<TaskDetailResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback) {
+
+    interface DialogListener {
+        fun updateDialog(task: TaskDetailResponse)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -47,7 +53,7 @@ class TaskAdapter(private val viewModel: TaskViewModel) : ListAdapter<TaskDetail
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             when (item?.itemId) {
                 R.id.popup_go_done -> viewModel.moveDone(task)
-                R.id.popup_modify -> Log.d("test",  "popup_modify")
+                R.id.popup_modify -> listener.updateDialog(task)
                 R.id.popup_delete -> viewModel.deleteTask(task)
             }
             return item != null

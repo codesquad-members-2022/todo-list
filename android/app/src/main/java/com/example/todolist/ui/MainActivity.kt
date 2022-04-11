@@ -8,15 +8,16 @@ import androidx.databinding.DataBindingUtil
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.model.Status
+import com.example.todolist.model.TaskDetailResponse
 import com.example.todolist.ui.common.ViewModelFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
     private val viewModel: TaskViewModel by viewModels { ViewModelFactory() }
     private lateinit var binding: ActivityMainBinding
     private val historyAdapter: HistoryAdapter by lazy { HistoryAdapter() }
-    private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(viewModel) }
-    private val inProgressAdapter: TaskAdapter by lazy { TaskAdapter(viewModel) }
-    private val doneAdapter: TaskAdapter by lazy { TaskAdapter(viewModel) }
+    private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
+    private val inProgressAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
+    private val doneAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,15 +33,15 @@ class MainActivity : AppCompatActivity() {
 
         with(binding) {
             includeTodo.btnAdd.setOnClickListener {
-                TaskDialogFragment(Status.TODO).show(supportFragmentManager, "todoDialog")
+                NewTaskDialogFragment(Status.TODO).show(supportFragmentManager, "todoDialog")
             }
 
             includeInProgress.btnAdd.setOnClickListener {
-                TaskDialogFragment(Status.IN_PROGRESS).show(supportFragmentManager, "inProgressDialog")
+                NewTaskDialogFragment(Status.IN_PROGRESS).show(supportFragmentManager, "inProgressDialog")
             }
 
             includeDone.btnAdd.setOnClickListener {
-                TaskDialogFragment(Status.DONE).show(supportFragmentManager, "doneDialog")
+                NewTaskDialogFragment(Status.DONE).show(supportFragmentManager, "doneDialog")
             }
         }
 
@@ -70,5 +71,9 @@ class MainActivity : AppCompatActivity() {
         binding.btnClose.setOnClickListener {
             binding.dlDrawer.closeDrawer(Gravity.RIGHT)
         }
+    }
+
+    override fun updateDialog(task: TaskDetailResponse) {
+        UpdateTaskDialogFragment(task).show(supportFragmentManager, "updateDialog")
     }
 }

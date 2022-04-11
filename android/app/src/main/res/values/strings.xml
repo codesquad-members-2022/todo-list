@@ -14,7 +14,9 @@
     <string name="label_done_title">완료한 일</string>
     <string name="description_add_button">add_button</string>
     <string name="label_add_new_card">새로운 카드 추가</string>
+    <string name="label_update_card">카드 수정</string>
     <string name="label_dialog_register">등록</string>
+    <string name="label_dialog_update">수정</string>
     <string name="label_dialog_cancel">취소</string>
     <string name="label_dialog_add_title">제목을 입력하세요</string>
     <string name="label_dialog_add_contents">내용을 입력하세요</string>
