@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -30,29 +31,31 @@ public class CardController {
 
 	@ApiOperation("카드 등록")
 	@PostMapping("/cards")
-	public ResponseEntity<ResponseDTO> create(@RequestBody CardDTO cardDto) {
+	public ResponseEntity<ResponseDTO> create(@RequestHeader(value = "user-agent") String userAgent, @RequestBody CardDTO cardDto) {
 		CardDTO newCardDto = cardService.save(cardDto);
 		LogDTO log = logService.save(Event.CREATE, cardDto.getTitle(), null, cardDto.getSection());
 
-		return ResponseEntity.ok().body(new ResponseDTO(newCardDto, log));
+		return ResponseEntity.ok().body(new ResponseDTO(newCardDto, log, userAgent));
 	}
 
 	@ApiOperation("카드 수정")
 	@PutMapping("/cards/{id}")
-	public ResponseEntity<ResponseDTO> update(@PathVariable int id, @RequestBody CardDTO cardDto) {
+	public ResponseEntity<ResponseDTO> update(@RequestHeader(value = "user-agent") String userAgent,
+		@PathVariable int id, @RequestBody CardDTO cardDto) {
 		CardDTO updatedCardDto = cardService.update(id, cardDto);
 		LogDTO log = logService.save(Event.UPDATE, cardDto.getTitle(), null, cardDto.getSection());
 
-		return ResponseEntity.ok().body(new ResponseDTO(updatedCardDto, log));
+		return ResponseEntity.ok().body(new ResponseDTO(updatedCardDto, log, userAgent));
 	}
 
 	@ApiOperation("카드 이동")
 	@PutMapping("/cards/{id}/move")
-	public ResponseEntity<ResponseDTO> move(@PathVariable int id, @RequestBody CardDTO cardDto) {
+	public ResponseEntity<ResponseDTO> move(@RequestHeader(value = "user-agent") String userAgent,
+		@PathVariable int id, @RequestBody CardDTO cardDto) {
 		CardDTO movedCardDto = cardService.update(id, cardDto);
 		LogDTO log = logService.save(Event.MOVE, cardDto.getTitle(), cardDto.getPrevSection(), cardDto.getSection());
 
-		return ResponseEntity.ok().body(new ResponseDTO(movedCardDto, log));
+		return ResponseEntity.ok().body(new ResponseDTO(movedCardDto, log, userAgent));
 	}
 
 	@ApiOperation("카드 삭제")
