@@ -1,0 +1,57 @@
+// display
+.hidden-text {
+  font-size: 0;
+  color: transparent;
+}
+
+// button
+.button-wrap {
+  @include flex-box(flex-end, center, 8px);
+}
+
+.button {
+  min-width: 134px;
+  height: 40px;
+  border-radius: 6px;
+  color: $button-main-font-color;
+
+  &--add {
+    @include icon-button(14px, 14px, 5px, '../images/common/icon-add-gray.png');
+
+    &:hover {
+      background-image: url('../images/common/icon-add-blue.png');
+    }
+  }
+
+  &--delete {
+    @include icon-button(12px, 12px, 5px, '../images/common/icon-close.png');
+
+    &:hover {
+      background-image: url('../images/common/icon-close-red.png');
+    }
+  }
+
+  &--cancle {
+    @extend .button;
+    background-color: $button-bg-color-light-gray;
+    color: $button-sub-font-color;
+
+    &:hover {
+      background-color: $button-bg-color-gray;
+      color: $button-main-font-color;
+    }
+  }
+
+  &--submit {
+    @extend .button;
+    background-color: $button-bg-color-blue;
+
+    &:hover {
+      background-color: $button-bg-color-dark-blue;
+    }
+  }
+
+  &--disabled {
+    background-color: $button-bg-color-light-blue;
+  }
+}

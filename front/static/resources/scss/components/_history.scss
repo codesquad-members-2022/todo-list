@@ -32,4 +32,10 @@
     font-size: $size-base;
     color: $sub-font-color;
   }
+
+  &__button--close {
+    position: absolute;
+    top: 45px;
+    right: 82px;
+  }
 }

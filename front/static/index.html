@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./resources/css/main.css" />
   </head>
   <body>
     <div class="wrap">
@@ -20,20 +19,20 @@
           <div class="column">
             <div class="column__top-wrap">
               <div class="column__title-wrap">
-                <input type="text" value="해야할 일" class="column__title" readonly />
+                <h2 class="column__title">해야할 일</h2>
                 <span class="card-num">2</span>
               </div>
               <div class="column__button-wrap">
-                <button type="button" class="add-button card-add-button">
+                <button type="button" class="button--add card-button--add">
                   <span class="hidden-text">컬럼 추가 버튼</span>
                 </button>
-                <button type="button" class="delete-button column-delete-button">
+                <button type="button" class="button--delete column__button--delete">
                   <span class="hidden-text">컬럭 삭제 버튼</span>
                 </button>
               </div>
             </div>
             <ul class="cards">
-              <li class="card write">
+              <li class="card card--write">
                 <form action="">
                   <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" class="card__title" />
                   <textarea
@@ -45,30 +44,26 @@
                   ></textarea>
                   <span class="card__writer">도니</span>
                   <div class="button-wrap card__button-wrap">
-                    <button type="button" class="normal-button card__save-button">취소</button>
-                    <button type="button" class="accent-button disabled card__accent-button">등록</button>
+                    <button type="button" class="button--cancle card__button--cancle">취소</button>
+                    <button type="button" class="button--submit card__button--submit">등록</button>
                   </div>
                 </form>
               </li>
               <li class="card">
-                <input type="text" value="포키랑 놀기" placeholder="제목을 입력하세요" class="card__title" readonly />
-                <textarea name="" id="" maxlength="500" placeholder="내용을 입력하세요" class="card__content" readonly>
-뛰어 놀기</textarea
-                >
-                <span class="card__writer">도니</span>
-                <div class="button-wrap card__button-wrap">
-                  <button type="button" class="delete-button card__delete-button">
-                    <span class="hidden-text">카드 삭제 버튼</span>
-                  </button>
+                <h3 class="card__title">포키랑 놀기</h3>
+                <div class="card__content">
+                  <p>뛰어놀기</p>
                 </div>
+                <p class="card__writter">도니</p>
+                <button type="button" class="button--delete card__button--delete">
+                  <span class="hidden-text">카드 삭제 버튼</span>
+                </button>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="column-add-button">
-          <button type="button"><span class="hidden-text">컬럼 추가 버튼</span></button>
-        </div>
+        <button type="button" class="column-button--add"><span class="hidden-text">컬럼 추가 버튼</span></button>
 
         <div class="history-wrap">
           <ul class="histories">
@@ -99,7 +94,7 @@
               </div>
             </li>
           </ul>
-          <button type="button" class="close-button history__close-button">
+          <button type="button" class="button--delete history__button--close">
             <span class="hidden-text">히스토리 닫기 버튼</span>
           </button>
         </div>
@@ -108,8 +103,8 @@
           <div class="popup card-delete-pop">
             <p class="popup__description">선택한 카드를 삭제할까요?</p>
             <div class="button-wrap">
-              <button type="button" class="normal-button cancle-button">취소</button>
-              <button type="button" class="accent-button submit-button">확인</button>
+              <button type="button" class="button--cancle">취소</button>
+              <button type="button" class="button--submit">확인</button>
             </div>
           </div>
         </div>
