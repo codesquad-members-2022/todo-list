@@ -1,6 +1,6 @@
-import Model from './Model.js';
-import View from './view.js';
-import Controller from './Controller.js';
+import Model from './todo-model.js';
+import View from './todo-view.js';
+import Controller from './todo-controller.js';
 import Drag from '../drag-drop/drag-drop.js';
 import { fetchRequest } from '../utility/fetchRequest.js';
 
