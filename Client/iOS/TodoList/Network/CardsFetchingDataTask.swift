@@ -40,11 +40,11 @@ class DataTask<T: Codable>: CardHTTPRequest {
         }
         doGetRequest(url: url, parameter: nil) { [weak self] taskResult in
             guard let data = try? taskResult.get() else {
-                completionHandler(.failure(.failureConnect))
+                completionHandler(.failure(.notConnect))
                 return
             }
             guard let decodedData = try? self?.decoder.decode([[T]].self, from: data) else {
-                completionHandler(.failure(.decode))
+                completionHandler(.failure(.notConvertdecode))
                 return
             }
             completionHandler(.success(decodedData))
@@ -58,11 +58,11 @@ class DataTask<T: Codable>: CardHTTPRequest {
         }
         doGetRequest(url: url, parameter: nil) { [weak self] taskResult in
             guard let data = try? taskResult.get() else {
-                completionHandler(.failure(.failureConnect))
+                completionHandler(.failure(.notConnect))
                 return
             }
             guard let decodedData = try? self?.decoder.decode([T].self, from: data) else {
-                completionHandler(.failure(.decode))
+                completionHandler(.failure(.notConvertdecode))
                 return
             }
             completionHandler(.success(decodedData))
@@ -81,9 +81,9 @@ enum URLType: CustomStringConvertible {
 }
 
 enum DataTaskError: Error {
-    case failureConnect
+    case notConnect
     case invalidURL
-    case decode
+    case notConvertdecode
 }
 
 // MARK:- ServerAPI
