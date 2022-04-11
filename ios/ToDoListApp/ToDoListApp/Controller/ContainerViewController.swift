@@ -11,6 +11,7 @@ class ContainerViewController: UIViewController {
     
     private let mainViewController = MainViewController()
     private let inspectorViewController = InspectorViewController()
+    private let popUpViewController = PopUpViewController()
     private lazy var popUpView = PopUpView()
     
     override func viewDidLoad() {
@@ -18,7 +19,6 @@ class ContainerViewController: UIViewController {
         
         addChildViewControllers()
         setUpDelegates()
-        addTargetActions()
         
         setUpView()
     }
@@ -40,11 +40,6 @@ class ContainerViewController: UIViewController {
         mainViewController.kanbanColumnViewControllers.forEach { kanbanColumnViewController in
             kanbanColumnViewController.delegate = self
         }
-    }
-    
-    private func addTargetActions() {
-        popUpView.submitButton.addTarget(self, action: #selector(didTapPopUpViewSubmitButton), for: .touchUpInside)
-        popUpView.cancelButton.addTarget(self, action: #selector(didTapPopUpViewCancelButton), for: .touchUpInside)
     }
 }
 
@@ -97,21 +92,7 @@ extension ContainerViewController: InspectorViewControllerDelegate {
 
 extension ContainerViewController: KanbanColumnViewControllerDelegate {
     func didTapAddButton() {
-        popUpView.resetPlaceholder()
-        popUpView.isHidden = false
-    }
-}
-
-//MARK: - Selector Functions
-
-extension ContainerViewController {
-    
-    @objc func didTapPopUpViewSubmitButton() {
-        //TODO: SubmitButton 액션 구현
-    }
-    
-    @objc func didTapPopUpViewCancelButton() {
-        
-        popUpView.isHidden = true
+        popUpViewController.modalPresentationStyle = .overFullScreen
+        present(popUpViewController, animated: false)
     }
 }
