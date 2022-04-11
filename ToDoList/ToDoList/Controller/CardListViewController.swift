@@ -9,6 +9,7 @@ class CardListViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countBadgeLabel: UILabel!
     @IBOutlet weak var addCardButton: UIButton!
+    private weak var editCardViewModal: EditCardViewController?
     
     init(title: String, cardManager: CardManagable) {
         self.headerTitle = title
@@ -34,6 +35,13 @@ class CardListViewController: UIViewController {
     }
     
     @IBAction func addCardButtonTouched(_ sender: UIButton) {
+        let editCardViewModal = EditCardViewController(nibName: "EditCardView", bundle: nil)
+        self.editCardViewModal = editCardViewModal
+        
+        editCardViewModal.setSubjectLabel("새로운 카드 추가")
+        
+        editCardViewModal.modalPresentationStyle = .formSheet
+        self.present(editCardViewModal, animated: true, completion: nil)
     }
     
     private func updateBadge() {
@@ -57,6 +65,4 @@ extension CardListViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
