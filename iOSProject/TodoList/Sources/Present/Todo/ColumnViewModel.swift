@@ -10,15 +10,16 @@ import Combine
 struct ColumnViewModelAction {
     let viewDidLoad = PassthroughSubject<Void, Never>()
     let tappedAddButton = PassthroughSubject<Void, Never>()
-    let tappedMoveCardButton = PassthroughSubject<Int, Never>()
+    let tappedMoveDoneColumnButton = PassthroughSubject<Int, Never>()
     let tappedEditButton = PassthroughSubject<Int, Never>()
     let tappedDeleteButton = PassthroughSubject<Int, Never>()
     
-    let beginDrag = PassthroughSubject<Card, Never>()
-    let endDrag = PassthroughSubject<Void, Never>()
+    let dropCard = PassthroughSubject<(DragCard, Int), Never>()
     
     let addCard = PassthroughSubject<(Card, Int), Never>()
     let editCard = PassthroughSubject<Card, Never>()
+    
+    let finishDropedCard = PassthroughSubject<Int, Never>()
 }
 
 struct ColumnViewModelState {
@@ -28,6 +29,7 @@ struct ColumnViewModelState {
     let deletedCard = PassthroughSubject<Int, Never>()
     let reloadCard = PassthroughSubject<Int, Never>()
     
+    let notifiyFinishDropedCard = PassthroughSubject<(Int, Column.ColumnType), Never>()
     let showCardPopup = PassthroughSubject<CardPopupData, Never>()
 }
 
@@ -48,7 +50,6 @@ class ColumnViewModel: ColumnViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
     private var cards: [Card]
-    private var dragingCard: Card? = nil
     let columnType: Column.ColumnType
     
     let action = ColumnViewModelAction()
@@ -81,14 +82,14 @@ class ColumnViewModel: ColumnViewModelProtocol {
             .sink(receiveValue: self.state.showCardPopup.send(_:))
             .store(in: &cancellables)
         
-        let requestMoveCard = action.tappedMoveCardButton
-            .map { index in self.todoRepository.moveCard(self.cards[index].id, to: .done, index: 0) }
+        let requestMoveDoneColumn = action.tappedMoveDoneColumnButton
+            .map { index in self.todoRepository.moveCard(self.cards[index], from: self.columnType, to: .done, index: 0) }
             .switchToLatest()
             .share()
         
-        requestMoveCard
+        requestMoveDoneColumn
             .compactMap{ $0.value }
-            .compactMap{ id, _, _ in self.cards.firstIndex(where: { $0.id == id}) }
+            .compactMap{ card, _, _, _ in self.cards.firstIndex(where: { $0.id == card.id}) }
             .sink { index in
                 let card = self.cards.remove(at: index)
                 self.state.deletedCard.send(index)
@@ -112,7 +113,7 @@ class ColumnViewModel: ColumnViewModelProtocol {
         
         Publishers
             .Merge(
-                requestMoveCard.compactMap{ $0.error },
+                requestMoveDoneColumn.compactMap{ $0.error },
                 requestDeleateCard.compactMap{ $0.error }
             )
             .sink { error in
@@ -134,19 +135,29 @@ class ColumnViewModel: ColumnViewModelProtocol {
                 self.state.reloadCard.send(index)
             }.store(in: &cancellables)
         
-        action.beginDrag
-            .sink { card in
-                self.dragingCard = card
-            }.store(in: &cancellables)
+        let requestDropCard = action.dropCard
+            .compactMap{ dropCard, index -> (Card, Column.ColumnType, Column.ColumnType, Int)? in
+                guard let card = dropCard.card else { return nil }
+                return (card, dropCard.fromColumn, self.columnType, index)
+            }
+            .map { (card, from, to, index) in self.todoRepository.moveCard(card, from: from, to: to, index: index) }
+            .switchToLatest()
+            .share()
         
-        action.endDrag
-            .compactMap{ self.dragingCard?.id}
-            .sink { cardId in
-                guard let index = self.cards.firstIndex(where: { $0.id == cardId}) else {
-                    return
-                }
+        requestDropCard
+            .compactMap{ $0.value }
+            .sink { card, from, to, index in
+                self.cards.insert(card, at: index)
+                self.state.insertedCard.send(index)
+                self.state.notifiyFinishDropedCard.send((card.id, from))
+            }
+            .store(in: &cancellables)
+        
+        action.finishDropedCard
+            .compactMap{ cardId in self.cards.firstIndex(where: { $0.id == cardId})}
+            .sink { index in
                 self.cards.remove(at: index)
-                self.state.deletedCard.send(index)
+                self.state.deletedCard.send(index)                
             }.store(in: &cancellables)
     }
 }

@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Column: Decodable {
+struct Column: Codable {
     let type: ColumnType
     let cards: [Card]
 }
 
 extension Column {
-    enum ColumnType: String, CaseIterable, Decodable {
+    enum ColumnType: String, CaseIterable, Codable {
         case todo = "to_do"
         case progress = "in_progress"
         case done = "done"
