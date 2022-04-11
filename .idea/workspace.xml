@@ -7,13 +7,14 @@
     <list default="true" id="7d995f52-4be1-415d-b57f-6d6654aa18a1" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Component.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/Component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/TodoCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/_column.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_column.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/_shared.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_shared.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.dev.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +59,7 @@
       <recent name="$PROJECT_DIR$/components" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript 디버그.index.html">
+  <component name="RunManager" selected="JavaScript 디버그.index.html (1)">
     <configuration name="index.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63343/todo-list/dist/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -67,8 +68,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript 디버그.index.html" />
         <item itemvalue="JavaScript 디버그.index.html (1)" />
+        <item itemvalue="JavaScript 디버그.index.html" />
       </list>
     </recent_temporary>
   </component>
