@@ -3,8 +3,6 @@ import { historyTemplate } from '../Utils/template.js';
 export default class HistoryView {
   constructor() {
     this.historyContainer;
-
-    this.render();
   }
 
   render() {

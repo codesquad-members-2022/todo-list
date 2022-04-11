@@ -1,9 +1,7 @@
 import { headerTemplate } from '../Utils/template.js';
 
 export default class HeaderView {
-  constructor() {
-    this.render();
-  }
+  constructor() {}
 
   render() {
     const body = document.querySelector('body');
