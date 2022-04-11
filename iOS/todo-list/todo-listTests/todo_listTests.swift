@@ -28,7 +28,16 @@ class todo_listTests: XCTestCase {
         return formatter
     }()
     
-    lazy var fractionalSecondsStrategy: JSONDecoder.DateDecodingStrategy = {
+    lazy var fractionalSecondsEncoding: JSONEncoder.DateEncodingStrategy = {
+        return .custom({ date, encoder in
+            var container = encoder.singleValueContainer()
+            
+            let dateString = self.fractionalSecondsFormatter.string(from: date)
+            try container.encode(dateString)
+        })
+    }()
+    
+    lazy var fractionalSecondsDecoding: JSONDecoder.DateDecodingStrategy = {
         return .custom({ decoder in
             let container = try decoder.singleValueContainer()
             let dateString = try container.decode(String.self)
@@ -42,7 +51,7 @@ class todo_listTests: XCTestCase {
         guard let dummyJSONData = dummyTaskJSONData else { return }
         
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = fractionalSecondsStrategy
+        decoder.dateDecodingStrategy = fractionalSecondsDecoding
         
         let tasks = try decoder.decode([Task].self, from: dummyJSONData)
         
@@ -71,7 +80,7 @@ class todo_listTests: XCTestCase {
         guard let dummyLogJSONData = dummyLogJSONData else { return }
 
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = fractionalSecondsStrategy
+        decoder.dateDecodingStrategy = fractionalSecondsDecoding
 
         let logs = try decoder.decode([Log].self, from: dummyLogJSONData)
 
@@ -80,5 +89,22 @@ class todo_listTests: XCTestCase {
         XCTAssertEqual(logs[0].userId, "string")
         
 
+    }
+    
+    func testTaksJSONEncoding() throws {
+        guard let dummyJSONData = dummyTaskJSONData else { return }
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = fractionalSecondsDecoding
+        
+        let tasks = try decoder.decode([Task].self, from: dummyJSONData)
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        encoder.dateEncodingStrategy = fractionalSecondsEncoding
+        guard let encoded = try? encoder.encode(tasks) else { return }
+        
+        print(String(data: encoded, encoding: .utf8)!)
+        
     }
 }

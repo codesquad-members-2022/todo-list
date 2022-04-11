@@ -10,54 +10,116 @@ import Foundation
 
 // API docs - https://hooria.herokuapp.com/swagger-ui/index.html#/
 
+enum NetworkError: Error {
+    case noData
+    case decoding
+    case encoding
+    case delete(Error)
+}
+
 class NetworkManager {
     let urlSession = URLSession.shared
+
+    var components: URLComponents = {
+        var components = URLComponents()
+        components.scheme = "http"
+        components.host = "13.125.248.235"
+        components.port = 8080
+        components.path = "/api/cards"
+        return components
+    }()
     
-    func getAll<T: Decodable>(to url: URL, then completion: @escaping ([T]?) -> Void) {
-        let task = urlSession.dataTask(with: url) { (data, response, error) -> Void in
+    let decoder = JSONDecoder()
+    let encoder = JSONEncoder()
+    
+    func getAllTasks(then completion: @escaping (Result<[Task], NetworkError>) -> Void) {
+        guard let urlString = components.string,
+              let url = URL(string: urlString) else { return }
+        
+        urlSession.dataTask(with: url) { [weak self] data, response, error in
+            
             guard let data = data else {
-                DispatchQueue.main.async { completion(nil) }
-                return
+                return completion(.failure(.noData))
             }
-            let decoded = try? JSONDecoder().decode([T].self, from: data)
-            DispatchQueue.main.async { completion(decoded) }
-        }
-        task.resume()
+            
+            guard let decoded = try? self?.decoder.decode([Task].self, from: data) else {
+                return completion(.failure(.decoding))
+            }
+            
+            completion(.success(decoded))
+            
+        }.resume()
+
     }
     
-    func post(to url: URL, body: Data, then completion: @escaping (Error?) -> Void) {
+    func delete(id: Int, then completion: @escaping (Result<Int, NetworkError>) -> Void) {
+        var components = components
+        components.queryItems = [URLQueryItem(name: "id", value: String(id))]
+        
+        guard let urlString = components.string,
+              let url = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
+        urlSession.dataTask(with: request) { data, response, error in
+            if let error = error {
+                return completion(.failure(.delete(error)))
+            } else {
+                return completion(.success(id))
+            }
+        }.resume()
+    }
+    
+    func post<T: Codable>(item: T, then completion: @escaping (Result<T, NetworkError>) -> Void) {
+        guard let body = try? encoder.encode(item) else {
+            return completion(.failure(.encoding))
+        }
+        
+        guard let urlString = components.string,
+              let url = URL(string: urlString) else { return }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = body
         
-        let dataTask = urlSession.dataTask(with: request) { data, response, error in
-            DispatchQueue.main.async { completion(error) }
-        }
-        
-        dataTask.resume()
+        urlSession.dataTask(with: request) { [weak self] data, response, error in
+            guard let data = data else {
+                return completion(.failure(.noData))
+            }
+            
+            guard let decoded = try? self?.decoder.decode(T.self, from: data) else {
+                return completion(.failure(.decoding))
+            }
+            
+            completion(.success(decoded))
+            
+        }.resume()
     }
     
-    func delete(to url: URL, then completion: @escaping (Error?) -> Void) {
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        
-        let dataTask = urlSession.dataTask(with: request) { data, response, error in
-            DispatchQueue.main.async { completion(error) }
+    func patch<T: Codable>(item: T, then completion: @escaping (Result<T, NetworkError>) -> Void) {
+        guard let body = try? encoder.encode(item) else {
+            return completion(.failure(.encoding))
         }
         
-        dataTask.resume()
-    }
-    
-    func patch(to url: URL, body: Data, then completion: @escaping (Error?) -> Void) {
-        var request = URLRequest(url: url)
+        guard let urlString = components.string,
+              let url = URL(string: urlString) else { return }
         
+        var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.httpBody = body
         
-        let dataTask = urlSession.dataTask(with: request) { data, response, error in
-            DispatchQueue.main.async { completion(error) }
-        }
-        
-        dataTask.resume()
+        urlSession.dataTask(with: request) { [weak self] data, response, error in
+            guard let data = data else {
+                return completion(.failure(.noData))
+            }
+            
+            guard let decoded = try? self?.decoder.decode(T.self, from: data) else {
+                return completion(.failure(.decoding))
+            }
+            
+            completion(.success(decoded))
+            
+        }.resume()
     }
 }
