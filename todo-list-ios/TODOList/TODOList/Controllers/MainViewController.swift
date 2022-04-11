@@ -10,7 +10,6 @@ final class MainViewController: UIViewController {
     
     private var sideView: SideView = {
         let view = SideView()
-        view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -39,6 +38,13 @@ final class MainViewController: UIViewController {
         setLayout()
     }
     
+    override func viewDidLayoutSubviews() {
+        // 처음 화면 실행 시 Sideview 숨기기
+        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut) {
+            self.sideView.transform = CGAffineTransform(translationX: self.sideView.frame.width, y: 0)
+        }
+    }
+    
     /// 초기 뷰 설정. 초기 뷰는 sideMenuButton이 보여지는 상태.
     private func addViews() {
         view.addSubview(headerView)
@@ -62,16 +68,17 @@ final class MainViewController: UIViewController {
         sideView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
-    /// sideMenuButton 클릭 시 SideView를 보여준다. 
+    /// sideMenuButton 클릭 시 SideView를 보여준다.
     private func showSideView() {
-        self.sideView.isHidden = false
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
+            self.sideView.transform = .identity // sideView 위치를 defaultValue로 돌려줌.
+        }
     }
     
     /// SideMenu에 있는 닫기 버튼 클릭 시, sideView를 제거하고 SideMenuButton을 보여줌.
     private func hideSideView() {
-        UIView.transition(with: self.sideView, duration: 0.25) {
-            self.sideView.isHidden = true
-            
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
+            self.sideView.transform = CGAffineTransform(translationX: self.sideView.frame.width, y: 0)
         }
     }
 }
