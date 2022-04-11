@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var logCardListAdapter: LogCardListAdapter
 
     private val viewModel: TodoViewModel by viewModels()
+    private val dragListener = DragListener()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +49,6 @@ class MainActivity : AppCompatActivity() {
         setProgressRecyclerView()
         setCompleteRecyclerView()
         setLogRecyclerView()
-
-<<<<<<< HEAD
-=======
-//        setItemTouchCallback()
-
->>>>>>> e5c39d4 ([AOS-josh] feat: itemhelper 삭제 버튼 구현)
-        setDialogFragmentView()
     }
 
     private fun setTodoRecyclerView() {
@@ -65,20 +59,18 @@ class MainActivity : AppCompatActivity() {
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
-<<<<<<< HEAD
         val touchHelper = TodoTouchHelper(todoCardListAdapter, viewModel).apply {
-=======
-        val touchHelper = TodoTouchHelper(todoCardListAdapter).apply {
->>>>>>> e5c39d4 ([AOS-josh] feat: itemhelper 삭제 버튼 구현)
             setClamp(170f)
         }
 
-      /*  ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvTodo)
+        binding.rvTodo.setOnDragListener(dragListener)
+
+        ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvTodo)
 
         binding.rvTodo.setOnTouchListener { _, _ ->
             touchHelper.removePreviousClamp(binding.rvTodo)
             false
-        }*/
+        }
 
         viewModel.addTodo("hihi", "hihihi")
         viewModel.addTodo("byebye", "byebyebye")
@@ -92,6 +84,8 @@ class MainActivity : AppCompatActivity() {
         binding.rvProgress.layoutManager = LinearLayoutManager(this)
         binding.rvProgress.addItemDecoration(VerticalItemDecorator(15))
 
+        binding.rvProgress.setOnDragListener(dragListener)
+
         viewModel.addProgress("han-todo", "오늘은 조시랑 같이 코딩하기")
     }
 
@@ -102,6 +96,8 @@ class MainActivity : AppCompatActivity() {
         binding.rvComplete.adapter = completeCardListAdapter
         binding.rvComplete.layoutManager = LinearLayoutManager(this)
         binding.rvComplete.addItemDecoration(VerticalItemDecorator(15))
+
+        binding.rvComplete.setOnDragListener(dragListener)
 
         viewModel.addComplete("AOS-todo", "회의록 작성하기")
     }

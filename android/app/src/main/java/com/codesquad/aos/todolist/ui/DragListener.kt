@@ -1,5 +1,6 @@
 package com.codesquad.aos.todolist.ui
 
+import android.util.Log
 import android.view.DragEvent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -37,27 +38,28 @@ class DragListener : View.OnDragListener {
                         if (viewSource != null) {
                             val source = viewSource.parent as RecyclerView
                             val adapterSource = source.adapter as TodoCardListAdapter
-                            val positionSource = viewSource.tag as Int
+                            val positionSource = source.getChildAdapterPosition(viewSource)
                             val list = adapterSource.currentList[positionSource]
                             val listSource = adapterSource.currentList.toMutableList().apply {
                                 removeAt(positionSource)
                             }
-                            listSource.let { adapterSource.submitList(listSource) }
+                            listSource.let { adapterSource.submitList(it) }
                             val adapterTarget = target.adapter as TodoCardListAdapter
                             val targetList = adapterTarget.currentList.toMutableList()
-                            if (positionTarget >= 0) {
-                                list.let { targetList.add(positionTarget, it) }
-                            } else {
-                                list.let { targetList.add(it) }
-                            }
+                            list.let { targetList.add(it) }
                             targetList.let { adapterTarget.submitList(it) }
                         }
+                        Log.d("DragListener", "Dropped")
                     }
                 }
             }
+
         }
         if (!isDropped && event.localState != null) {
-            (event.localState as View).visibility = View.VISIBLE
+            Log.d("DragListener", "NotDropped")
+            val shadowCard = event.localState as View
+            shadowCard.visibility = View.VISIBLE
+            shadowCard.alpha = 0.5f
         }
         return true
     }

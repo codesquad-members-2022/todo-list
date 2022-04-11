@@ -5,6 +5,7 @@ import android.os.Build
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.codesquad.aos.todolist.R
@@ -127,12 +128,12 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
 
     private fun setTag(viewHolder: RecyclerView.ViewHolder, isClamped: Boolean) {
         // isClamped를 view의 tag로 관리
-        viewHolder.itemView.tag = isClamped
+        viewHolder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).tag = isClamped
     }
 
     private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean {
         // isClamped를 view의 tag로 관리
-        return viewHolder.itemView.tag as? Boolean ?: false
+        return viewHolder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).tag as? Boolean ?: false
     }
 
     private fun getView(viewHolder: RecyclerView.ViewHolder): View {

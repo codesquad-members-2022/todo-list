@@ -1,8 +1,14 @@
 package com.codesquad.aos.todolist.ui.adapter
 
+import android.content.ClipData
+import android.os.Build
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -11,11 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codesquad.aos.todolist.R
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ItemTodoCardBinding
+import com.codesquad.aos.todolist.ui.DragListener
 import java.util.*
 
 class TodoCardListAdapter(
     private val deleteTextClick: (deleteCardIndex: Int) -> Unit  // 메인 액티비티에서 전달하는 메서드
-) : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil) {
+) : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil), View.OnTouchListener {
 
     inner class CardViewHolder(val binding: ItemTodoCardBinding ) :
         RecyclerView.ViewHolder(binding.root) {
@@ -55,6 +62,9 @@ class TodoCardListAdapter(
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(getItem(position), deleteTextClick)
+        holder.itemView.tag = position
+        holder.itemView.setOnTouchListener(this)
+        holder.itemView.setOnDragListener(DragListener())
         holder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).translationX = 0f
     }
 
@@ -76,5 +86,18 @@ class TodoCardListAdapter(
             }
             // areItemsTheSame 이 참이면 areContentsTheSame 가 호출된다
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        when (event?.action) {
+            MotionEvent.ACTION_DOWN -> {
+                val data = ClipData.newPlainText("", "")
+                val shadowBuilder = View.DragShadowBuilder(v)
+                v?.startDragAndDrop(data, shadowBuilder, v, 0)
+                return true
+            }
+        }
+        return false
     }
 }
