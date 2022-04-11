@@ -26,7 +26,7 @@ CREATE TABLE `history` (
    `user_id` bigint,
    `card_id` bigint,
    `columns_id` bigint,
-   `action` char,
+   `action` char(6),
    `created_date` timestamp,
    `modified_date` timestamp
 );
