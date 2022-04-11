@@ -15,7 +15,19 @@
 		B39BFEC027FADA8E00B28376 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B39BFEBE27FADA8E00B28376 /* LaunchScreen.storyboard */; };
 		B3BAE28427FBE132005E7ED2 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE28327FBE132005E7ED2 /* ContentViewController.swift */; };
 		B3BAE28627FBE3DE005E7ED2 /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE28527FBE3DE005E7ED2 /* TodoTableView.swift */; };
+		B3BAE2C127FF2905005E7ED2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE2C027FF2905005E7ED2 /* Card.swift */; };
+		B3BAE2C327FF2987005E7ED2 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE2C227FF2987005E7ED2 /* URLManager.swift */; };
+		B3BAE2C527FF2A3C005E7ED2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE2C427FF2A3C005E7ED2 /* Board.swift */; };
+		D25BF7FD27FE794D0010DE50 /* TableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25BF7FC27FE794D0010DE50 /* TableHeader.swift */; };
+		D25BF7FF27FE7D3C0010DE50 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF7FE27FE7D3C0010DE50 /* NotoSansKR-Light.otf */; };
+		D25BF80527FE7D5A0010DE50 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80027FE7D590010DE50 /* NotoSansKR-Thin.otf */; };
+		D25BF80627FE7D5A0010DE50 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80127FE7D590010DE50 /* NotoSansKR-Black.otf */; };
+		D25BF80727FE7D5A0010DE50 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80227FE7D5A0010DE50 /* NotoSansKR-Bold.otf */; };
+		D25BF80827FE7D5A0010DE50 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80327FE7D5A0010DE50 /* NotoSansKR-Medium.otf */; };
+		D25BF80927FE7D5A0010DE50 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80427FE7D5A0010DE50 /* NotoSansKR-Regular.otf */; };
 		D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */; };
+		D274DE7F2803C4A9009CD620 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274DE7E2803C4A9009CD620 /* TableViewController.swift */; };
+		D274DE822803C529009CD620 /* TableViewInCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274DE812803C529009CD620 /* TableViewInCollectionCell.swift */; };
 		D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299330927FBD83000D79C87 /* HeaderViewController.swift */; };
 		D299331227FC07FB00D79C87 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299331127FC07FB00D79C87 /* TodoCell.swift */; };
 		D299331C27FC372600D79C87 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299331B27FC372600D79C87 /* CollectionCell.swift */; };
@@ -33,7 +45,19 @@
 		B39BFEC127FADA8E00B28376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3BAE28327FBE132005E7ED2 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		B3BAE28527FBE3DE005E7ED2 /* TodoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
+		B3BAE2C027FF2905005E7ED2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		B3BAE2C227FF2987005E7ED2 /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
+		B3BAE2C427FF2A3C005E7ED2 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		D25BF7FC27FE794D0010DE50 /* TableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeader.swift; sourceTree = "<group>"; };
+		D25BF7FE27FE7D3C0010DE50 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
+		D25BF80027FE7D590010DE50 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
+		D25BF80127FE7D590010DE50 /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
+		D25BF80227FE7D5A0010DE50 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
+		D25BF80327FE7D5A0010DE50 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
+		D25BF80427FE7D5A0010DE50 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
 		D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		D274DE7E2803C4A9009CD620 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		D274DE812803C529009CD620 /* TableViewInCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewInCollectionCell.swift; sourceTree = "<group>"; };
 		D299330927FBD83000D79C87 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		D299331127FC07FB00D79C87 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		D299331B27FC372600D79C87 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
@@ -70,10 +94,13 @@
 		B39BFEB227FADA8700B28376 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				D274DE802803C4FB009CD620 /* Delegate */,
+				B3BAE2BF27FF28FA005E7ED2 /* Model */,
 				D299330F27FC063E00D79C87 /* ViewController */,
 				D299331027FC064C00D79C87 /* View */,
 				B39BFEB327FADA8700B28376 /* AppDelegate.swift */,
 				B39BFEB527FADA8700B28376 /* SceneDelegate.swift */,
+				D25BF80A27FE7D690010DE50 /* Font */,
 				B39BFEB927FADA8700B28376 /* Main.storyboard */,
 				B39BFEBC27FADA8E00B28376 /* Assets.xcassets */,
 				B39BFEBE27FADA8E00B28376 /* LaunchScreen.storyboard */,
@@ -82,12 +109,44 @@
 			path = TodoList;
 			sourceTree = "<group>";
 		};
+		B3BAE2BF27FF28FA005E7ED2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3BAE2C027FF2905005E7ED2 /* Card.swift */,
+				B3BAE2C227FF2987005E7ED2 /* URLManager.swift */,
+				B3BAE2C427FF2A3C005E7ED2 /* Board.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D25BF80A27FE7D690010DE50 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				D25BF7FE27FE7D3C0010DE50 /* NotoSansKR-Light.otf */,
+				D25BF80127FE7D590010DE50 /* NotoSansKR-Black.otf */,
+				D25BF80227FE7D5A0010DE50 /* NotoSansKR-Bold.otf */,
+				D25BF80327FE7D5A0010DE50 /* NotoSansKR-Medium.otf */,
+				D25BF80427FE7D5A0010DE50 /* NotoSansKR-Regular.otf */,
+				D25BF80027FE7D590010DE50 /* NotoSansKR-Thin.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		D274DE802803C4FB009CD620 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				D274DE812803C529009CD620 /* TableViewInCollectionCell.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 		D299330F27FC063E00D79C87 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				B39BFEB727FADA8700B28376 /* ContainerViewController.swift */,
 				D299330927FBD83000D79C87 /* HeaderViewController.swift */,
 				B3BAE28327FBE132005E7ED2 /* ContentViewController.swift */,
+				D274DE7E2803C4A9009CD620 /* TableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -116,6 +175,7 @@
 			children = (
 				B3BAE28527FBE3DE005E7ED2 /* TodoTableView.swift */,
 				D299331127FC07FB00D79C87 /* TodoCell.swift */,
+				D25BF7FC27FE794D0010DE50 /* TableHeader.swift */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -179,8 +239,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B39BFEC027FADA8E00B28376 /* LaunchScreen.storyboard in Resources */,
+				D25BF80927FE7D5A0010DE50 /* NotoSansKR-Regular.otf in Resources */,
+				D25BF80727FE7D5A0010DE50 /* NotoSansKR-Bold.otf in Resources */,
 				B39BFEBD27FADA8E00B28376 /* Assets.xcassets in Resources */,
+				D25BF7FF27FE7D3C0010DE50 /* NotoSansKR-Light.otf in Resources */,
+				D25BF80827FE7D5A0010DE50 /* NotoSansKR-Medium.otf in Resources */,
+				D25BF80627FE7D5A0010DE50 /* NotoSansKR-Black.otf in Resources */,
 				B39BFEBB27FADA8700B28376 /* Main.storyboard in Resources */,
+				D25BF80527FE7D5A0010DE50 /* NotoSansKR-Thin.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,15 +257,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D274DE822803C529009CD620 /* TableViewInCollectionCell.swift in Sources */,
 				B39BFEB827FADA8700B28376 /* ContainerViewController.swift in Sources */,
 				B39BFEB427FADA8700B28376 /* AppDelegate.swift in Sources */,
 				D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */,
+				B3BAE2C327FF2987005E7ED2 /* URLManager.swift in Sources */,
+				B3BAE2C527FF2A3C005E7ED2 /* Board.swift in Sources */,
 				B3BAE28627FBE3DE005E7ED2 /* TodoTableView.swift in Sources */,
 				D299331C27FC372600D79C87 /* CollectionCell.swift in Sources */,
 				B39BFEB627FADA8700B28376 /* SceneDelegate.swift in Sources */,
 				D299331E27FC3A9400D79C87 /* CollectionView.swift in Sources */,
+				B3BAE2C127FF2905005E7ED2 /* Card.swift in Sources */,
+				D25BF7FD27FE794D0010DE50 /* TableHeader.swift in Sources */,
 				B3BAE28427FBE132005E7ED2 /* ContentViewController.swift in Sources */,
 				D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */,
+				D274DE7F2803C4A9009CD620 /* TableViewController.swift in Sources */,
 				D299331227FC07FB00D79C87 /* TodoCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,6 +421,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -361,7 +434,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.team15.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.team15.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -376,6 +449,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -388,7 +462,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.team15.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.team15.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

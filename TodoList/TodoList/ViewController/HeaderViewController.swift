@@ -5,11 +5,9 @@
 //  Created by juntaek.oh on 2022/04/05.
 //
 
-import Foundation
 import UIKit
 
-class HeaderViewController: UIViewController{
-    
+final class HeaderViewController: UIViewController{
     var header: HeaderView!
     
     override func viewDidLoad() {
