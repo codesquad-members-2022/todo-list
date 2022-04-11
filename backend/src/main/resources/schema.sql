@@ -8,6 +8,10 @@ CREATE TABLE CARD (
     deleted         tinyint DEFAULT false,
     order_index     int         NOT NULL
 );
+
+CREATE INDEX order_index ON CARD(order_index);
+CREATE INDEX column_deleted_comp ON CARD(column_name, deleted);
+
 CREATE TABLE ACTION_LOG
 (
     id                  int AUTO_INCREMENT PRIMARY KEY,
