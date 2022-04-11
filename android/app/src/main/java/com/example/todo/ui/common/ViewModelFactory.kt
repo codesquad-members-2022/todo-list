@@ -1,4 +1,4 @@
-package com.example.todo.ui.toDo
+package com.example.todo.ui.common
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todo.network.RetrofitClient
 import com.example.todo.respository.ActionLogRemoteDataSource
 import com.example.todo.respository.ActionLogRepository
+import com.example.todo.ui.toDo.ToDoViewModel
 import java.lang.IllegalArgumentException
 
 class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

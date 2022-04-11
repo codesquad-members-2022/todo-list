@@ -2,9 +2,9 @@ package com.example.todo.respository
 
 import android.content.Context
 import com.example.todo.R
-import com.example.todo.common.ActionType
-import com.example.todo.common.ProgressType
 import com.example.todo.model.ActionLog
+import com.example.todo.model.ActionType
+import com.example.todo.model.ProgressType
 import com.example.todo.network.JsonActionLog
 
 class ActionLogRepository(

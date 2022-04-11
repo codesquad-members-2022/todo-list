@@ -1,7 +1,5 @@
 package com.example.todo.model
 
-import com.example.todo.common.ActionType
-import com.example.todo.common.ProgressType
 
 data class ActionLog(
     val title: String,
