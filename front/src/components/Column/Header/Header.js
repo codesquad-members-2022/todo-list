@@ -1,11 +1,13 @@
 import styles from "./header.module.css";
 
-const Header = () => {
+const Header = ({ column, todos }) => {
+  const todosCount = todos.length;
+
   return `
         <div class="${styles.header}">
                 <div class="${styles.titleWrap}">
-                    <h2 class="${styles.title}">할 일</h2>
-                    <div class="${styles.count}">1</div>
+                    <h2 class="${styles.title}">${column.title}</h2>
+                    <div class="${styles.count}">${todosCount}</div>
                 </div>
                 <div class="${styles.buttonArea}">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">

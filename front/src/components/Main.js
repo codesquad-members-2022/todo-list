@@ -1,11 +1,10 @@
-import Column from "./Column/Column";
+import Columns from "./Column/Columns";
 import styles from "./main.module.css";
 
 const Main = ({ columns, todos }) => {
-  console.log(columns);
   return `
         <div class="${styles.content}">
-            ${Column({ columns, todos })}
+            ${Columns({ columns, todos })}
         </div>
     `;
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/column/";
+const baseURL = "http://localhost:3000/api/column/";
 const client = axios.create({
   baseURL,
 });
@@ -8,7 +8,7 @@ const client = axios.create({
 const columnApi = {
   getColumns: async () => {
     const response = await client.get("");
-    return response.data;
+    return response.data.results;
   },
 };
 
