@@ -39,12 +39,14 @@ class EditCardView:UIView {
         super.init(frame: frame)
         addViews()
         setup()
+        setButton()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         addViews()
         setup()
+        setButton()
     }
     
     func setHeadLineLabel(editStyle:EditStyle) {
@@ -78,8 +80,14 @@ class EditCardView:UIView {
             cancelButton.topAnchor.constraint(equalTo: self.contentInputTextField.bottomAnchor, constant: inset),
             
         ])
-    
     }
+    
+    private func setButton() {
+        [cancelButton,confirmButton].forEach {
+            $0.isEnabled = false
+        }
+    }
+    
     
 }
 
