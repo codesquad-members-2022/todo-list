@@ -46,8 +46,16 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         parameters.put("user_id", history.getUserId());
         parameters.put("card_title", history.getCardTitle());
         parameters.put("card_title_before", history.getCardTitleBefore());
-        parameters.put("card_status", history.getCardStatus().name());
-        parameters.put("card_status_before", history.getCardStatusBefore().name());
+        if (history.getCardStatus() != null) {
+            parameters.put("card_status", history.getCardStatus().name());
+        } else {
+            parameters.put("card_status", CardStatus.UNCLASSIFIED.name());
+        }
+        if (history.getCardStatusBefore() != null) {
+            parameters.put("card_status_before", history.getCardStatusBefore().name());
+        } else {
+            parameters.put("card_status_before", CardStatus.UNCLASSIFIED.name());
+        }
         parameters.put("created_at", history.getCreatedAt());
 
         Long key = (Long) jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
