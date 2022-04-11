@@ -17,14 +17,16 @@ class ToDoCreationViewController: UIViewController {
         headField.borderStyle = .none
         bodyField.borderStyle = .none
         headField.becomeFirstResponder()
+        bodyField.addAction(<#T##action: UIAction##UIAction#>, for: .editingChanged)
         headField.delegate = self
         bodyField.delegate = self
-        registerButton.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
+        cancelButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        hideKeyboardWhenTappedAround()
         configureUI()
     }
 }
@@ -42,12 +44,8 @@ extension ToDoCreationViewController: UITextFieldDelegate {
         return true
     }
     
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        if textField.text != "" {
-            registerButton.isHighlighted = false
-        } else {
-            registerButton.isHighlighted = false
-        }
+    func didBodyFieldChange(_ action: UIAction) {
+        
     }
 }
 
@@ -60,6 +58,10 @@ extension ToDoCreationViewController: UIGestureRecognizerDelegate {
     
     @objc func dismissKeyboard() {
         self.view.endEditing(true)
+    }
+    
+    @objc func dismissView() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
