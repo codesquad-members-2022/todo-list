@@ -1,6 +1,6 @@
-package com.list.todo.repository;
+package kr.codesquad.todo.repository;
 
-import com.list.todo.domain.Task;
+import kr.codesquad.todo.domain.Task;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;

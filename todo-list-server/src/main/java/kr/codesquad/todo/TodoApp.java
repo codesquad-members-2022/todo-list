@@ -1,4 +1,4 @@
-package com.list.todo;
+package kr.codesquad.todo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

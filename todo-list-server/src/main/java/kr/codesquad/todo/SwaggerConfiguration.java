@@ -1,4 +1,4 @@
-package com.list.todo;
+package kr.codesquad.todo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

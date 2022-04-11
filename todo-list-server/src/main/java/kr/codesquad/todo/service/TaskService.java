@@ -1,7 +1,7 @@
-package com.list.todo.service;
+package kr.codesquad.todo.service;
 
-import com.list.todo.domain.Task;
-import com.list.todo.repository.TaskRepository;
+import kr.codesquad.todo.domain.Task;
+import kr.codesquad.todo.repository.TaskRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

@@ -1,22 +1,13 @@
-package com.list.todo.controller;
+package kr.codesquad.todo.controller;
 
-import com.list.todo.domain.Task;
-import com.list.todo.service.TaskService;
+import kr.codesquad.todo.domain.Task;
+import kr.codesquad.todo.service.TaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.v3.oas.annotations.media.Content;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.Objects;
 
 @RestController
 @Api(value = "TaskController v1")

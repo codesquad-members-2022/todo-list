@@ -1,4 +1,4 @@
-package com.list.todo.domain;
+package kr.codesquad.todo.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
