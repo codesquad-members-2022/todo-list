@@ -15,18 +15,14 @@ class TodoRepository {
         Task("sam", 7, "todo", "밥 먹기", "밥. 질문 받는다.", 7)
     )
 
-    fun getTaskList() : List<Task> {
+    fun getTaskList(): List<Task> {
         todoTaskList.sortByDescending { it.order }
         return todoTaskList
     }
 
-    var num = 8
 
-    fun testAdd() {
-        todoTaskList.add(Task("sam", num, "todo", "${num} 먹기", "밥. 질문 받는다.", num))
-        val newList = todoTaskList.map { it.copy() }
-        todoTaskList = newList.toMutableList()
-        num++
+    fun testAdd(title: String, content: String) {
+        todoTaskList.add(Task("sam", todoTaskList.size, "todo", title, content, todoTaskList.size))
     }
 
     fun setTaskList(task: Task) {

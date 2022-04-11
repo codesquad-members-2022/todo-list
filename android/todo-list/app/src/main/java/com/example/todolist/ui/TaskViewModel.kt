@@ -12,13 +12,13 @@ class TaskViewModel : ViewModel() {
     private val repository = TodoRepository()
 
     private val _todoTaskList = MutableLiveData<List<Task>>()
-    val todoTaskList : LiveData<List<Task>> = _todoTaskList
+    val todoTaskList: LiveData<List<Task>> = _todoTaskList
 
     private val _onGoingTaskList = MutableLiveData<List<Task>>()
-    val onGoingTaskList : LiveData<List<Task>> = _todoTaskList
+    val onGoingTaskList: LiveData<List<Task>> = _todoTaskList
 
     private val _completeTaskList = MutableLiveData<List<Task>>()
-    val completeTaskList : LiveData<List<Task>> = _todoTaskList
+    val completeTaskList: LiveData<List<Task>> = _todoTaskList
 
     init {
         loadTodoTask()
@@ -28,9 +28,9 @@ class TaskViewModel : ViewModel() {
         _todoTaskList.value = repository.getTaskList()
     }
 
-    fun addTodo() {
+    fun addTodo(title: String, content: String) {
         Log.d("AppTest", "add todo")
-        repository.testAdd()
+        repository.testAdd(title, content)
         _todoTaskList.value = repository.getTaskList()
     }
 

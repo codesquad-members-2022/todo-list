@@ -1,10 +1,9 @@
 package com.example.todolist.ui
 
-import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.todolist.R
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.todoTaskList.observe(this) {
             Log.d("AppTest", "observer")
-            adapter.submitList(it) {
+            adapter.submitList(it.toList()) {
                 binding.rvTodo.smoothScrollToPosition(0)
             }
         }
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOnClickTodoAdd() {
         binding.btnTodoAdd.setOnClickListener {
-            val dialog = CreateCardDialogFragment(binding.rvTodo)
+            val dialog = CreateCardDialogFragment()
             dialog.show(supportFragmentManager, null)
             /*Log.d("AppTest", "click btn")
             viewModel.addTodo()*/
