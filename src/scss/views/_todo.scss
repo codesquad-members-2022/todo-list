@@ -18,11 +18,11 @@ body {
   height: 100%;
 }
 
-.box {
+.column {
   width: 308px;
   margin-right: 16px;
 }
-.title-box {
+.title-column {
   @include flexbox(between);
   margin-bottom: 16px;
   &__title {

@@ -7,6 +7,8 @@
     "core-js": "^3.21.1",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
+    "json-server": "^0.17.0",
+    "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2"
@@ -108,7 +110,8 @@
     "wildcard": "^2.0.0"
   },
   "scripts": {
-    "sass": "dart-sass --watch ./src/scss/main.scss ./src/css/style.css"
+    "build": "webpack -w",
+    "server": "json-server server/db.json -w"
   },
   "repository": {
     "type": "git",
