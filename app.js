@@ -4,6 +4,7 @@ import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
 import { getLocalStorageByKey } from './utils/localStorage.js';
 import { onBodyMouseMove, onBodyMouseUp } from './utils/eventDragHandler.js';
+import { $ } from './utils/dom.js';
 
 const app = () => {
   const todos = getLocalStorageByKey('todos') ? getLocalStorageByKey('todos') : [];
@@ -36,8 +37,9 @@ const createTodos = () => {
   const todos = getLocalStorageByKey('todos');
   todos.forEach(todo => {
     const newTodo = new Todo(todo);
-    document.querySelector(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
-    newTodo.run();
+    $(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
+    newTodo.setElement();
+    newTodo.handleEventListener();
   });
 };
 
