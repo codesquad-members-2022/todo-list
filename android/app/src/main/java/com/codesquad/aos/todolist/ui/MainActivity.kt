@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 //        setCompleteRecyclerView()
         setLogRecyclerView()
 
-        setItemTouchCallback()
+//        setItemTouchCallback()
 
         setDialogFragmentView()
     }
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
         val touchHelper = TodoTouchHelper(todoCardListAdapter).apply {
-            setClamp(resources.displayMetrics.widthPixels.toFloat() / 4)
+            setClamp(170f)
         }
 
         ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvTodo)

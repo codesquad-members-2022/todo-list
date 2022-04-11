@@ -14,12 +14,18 @@ import java.util.*
 
 class TodoCardListAdapter : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil) {
 
-    class CardViewHolder(val binding: ItemTodoCardBinding ) :
+    inner class CardViewHolder(val binding: ItemTodoCardBinding ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(card: Card?) {
             binding.tvCardTitle?.text = card?.title
             binding.tvCardContent?.text = card?.content
+
+            binding.tvRemove?.setOnClickListener {
+                if(this.itemView.tag == true) {
+                    removeItem(this.layoutPosition)
+                }
+            }
         }
     }
 
@@ -33,6 +39,12 @@ class TodoCardListAdapter : ListAdapter<Card, TodoCardListAdapter.CardViewHolder
     fun moveItem(from: Int, to:Int) {
         val newList = currentList.toMutableList()
         Collections.swap(newList, from, to)
+        submitList(newList)
+    }
+
+    fun removeItem(removeItem: Int) {
+        val newList = currentList.toMutableList()
+        newList.removeAt(removeItem)
         submitList(newList)
     }
 

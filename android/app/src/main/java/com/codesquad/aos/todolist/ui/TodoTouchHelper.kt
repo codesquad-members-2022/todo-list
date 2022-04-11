@@ -9,14 +9,17 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.codesquad.aos.todolist.R
 import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
+import kotlin.math.max
+import kotlin.math.min
 
-class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter): ItemTouchHelper.Callback() {
+class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter) :
+    ItemTouchHelper.Callback() {
 
     private var currentPosition: Int? = null
     private var previousPosition: Int? = null
     private var currentDx = 0f
     private var clamp = 0f
-    //commit
+
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
@@ -32,45 +35,38 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter): Ite
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        val from: Int = viewHolder.absoluteAdapterPosition
-        val to: Int = target.absoluteAdapterPosition
-        recyclerViewAdapter.moveItem(from, to)
         return true
     }
 
-
-    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-        Log.d("TodoTouchHelper", "onSelectedChanged")
-
-        viewHolder?.let {
-            currentPosition = viewHolder.absoluteAdapterPosition
-            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
-                (viewHolder as TodoCardListAdapter.CardViewHolder).itemView.alpha = 0.5f
-            }
-
-            getDefaultUIUtil().onSelected(getView(it))
-        }
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        Log.d("TodoTouchHelper", "clearView")
+        Log.d("helperCallBack", "clearView")
         currentDx = 0f
-        (viewHolder as TodoCardListAdapter.CardViewHolder).itemView.alpha = 1f
         getDefaultUIUtil().clearView(getView(viewHolder))
         previousPosition = viewHolder.absoluteAdapterPosition
     }
 
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        Log.d("helperCallBack", "onSelectedChanged")
+        viewHolder?.let {
+            currentPosition = viewHolder.absoluteAdapterPosition
+            getDefaultUIUtil().onSelected(getView(it))
+        }
+    }
+
+    override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+        return defaultValue * 10
+    }
+
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
         val isClamped = getTag(viewHolder)
-        setTag(viewHolder, !isClamped && currentDx <= -clamp)
+        // 현재 View가 고정되어있지 않고 사용자가 -clamp 이상 swipe시 isClamped true로 변경 아닐시 false로 변경
+        setTag(viewHolder, currentDx <= -clamp)
         return 2f
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
@@ -81,22 +77,17 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter): Ite
         isCurrentlyActive: Boolean
     ) {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-//            Log.d("onChildDraw", "ACTION_STATE_SWIPE")
             val view = getView(viewHolder)
             val isClamped = getTag(viewHolder)
-            val newX = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
+            val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
 
-            if (newX == -clamp) {
-                getView(viewHolder).animate().translationX(-clamp).setDuration(100L).start()
-                return
-            }
 
-            currentDx = newX
-            ItemTouchHelper.Callback.getDefaultUIUtil().onDraw(
+            currentDx = x
+            getDefaultUIUtil().onDraw(
                 c,
                 recyclerView,
                 view,
-                newX,
+                x,
                 dY,
                 actionState,
                 isCurrentlyActive
@@ -104,14 +95,12 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter): Ite
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun clampViewPositionHorizontal(
         view: View,
         dX: Float,
         isClamped: Boolean,
         isCurrentlyActive: Boolean
-    ) : Float {
-        // View의 가로 길이의 절반까지만 swipe 되도록
+    ): Float {
         val max = 0f
 
         // 고정할 수 있으면
@@ -119,24 +108,26 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter): Ite
             // 현재 swipe 중이면 swipe되는 영역 제한
             if (isCurrentlyActive)
             // 오른쪽 swipe일 때
-                if (dX < 0) dX/3 - clamp
+                if (dX < 0) dX / 3 - clamp
                 // 왼쪽 swipe일 때
                 else dX - clamp
             // swipe 중이 아니면 고정시키기
             else -clamp
         }
         // 고정할 수 없으면 newX는 스와이프한 만큼
-        else dX / 2
+        else dX / 3
 
         // newX가 0보다 작은지 확인
-        return java.lang.Float.min(newX, max)
+        return min(newX, max)
     }
 
     private fun setTag(viewHolder: RecyclerView.ViewHolder, isClamped: Boolean) {
+        // isClamped를 view의 tag로 관리
         viewHolder.itemView.tag = isClamped
     }
 
     private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean {
+        // isClamped를 view의 tag로 관리
         return viewHolder.itemView.tag as? Boolean ?: false
     }
 
@@ -149,28 +140,13 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter): Ite
     }
 
     fun removePreviousClamp(recyclerView: RecyclerView) {
-//        Log.d("removePreviousClamp", "removeViewOverStart")
-
-        if (currentPosition == previousPosition) {
-//            Log.d("removePreviousClamp", "removeViewOver")
+        if (currentPosition == previousPosition)
             return
-        }
-
         previousPosition?.let {
             val viewHolder = recyclerView.findViewHolderForAdapterPosition(it) ?: return
             getView(viewHolder).translationX = 0f
             setTag(viewHolder, false)
             previousPosition = null
         }
-
-
-//            previousPosition?.let {
-//                Log.d("removePreviousClamp", "removeView")
-//
-//                val viewHolder = recyclerView.findViewHolderForAdapterPosition(it) ?: return
-//                getView(viewHolder).animate().x(0f).setDuration(100L).start()
-//                setTag(viewHolder, false)
-//                previousPosition = null
-//            }
     }
 }
