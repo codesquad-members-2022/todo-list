@@ -1,20 +1,14 @@
 import UIKit
 
 class MemoCanvasViewController: UIViewController {
-
+    
     private var memoCanvasView: MemoCanvasView = {
         let view = MemoCanvasView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var memoTableViewControllers: [Identifier: MemoTableViewController] {
-        return [
-            .todo : MemoTableViewController(cellCount: 15, identifier: .todo)
-            , .progress : MemoTableViewController(cellCount: 15, identifier: .progress)
-            , .done : MemoTableViewController(cellCount: 15, identifier: .done)
-        ]
-    }
+    private var memoTableViewControllers: [Identifier: MemoTableViewController] = [:]
     
     override func didMove(toParent parent: UIViewController?) {
         view = memoCanvasView
@@ -22,30 +16,42 @@ class MemoCanvasViewController: UIViewController {
         memoCanvasView.todoContainerView.tableView.delegate = self
         memoCanvasView.progressContainerView.tableView.dataSource = self
         memoCanvasView.doneContainerView.tableView.dataSource = self
-    }
-}
-
-extension MemoCanvasViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 15
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoTableViewCell.identifier, for: indexPath) as? MemoTableViewCell else {
-            return UITableViewCell()
-        }
         
-        let memo = Memo(title: "해야 할 일입니당", content: "해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK")
-        cell.updateStackView(memo: memo)
-        cell.updateStyle()
-        return cell
+        addTableViewControllers()
+        setLayout()
     }
     
+    private func addTableViewControllers() {
+        for identifier in Identifier.allCases {
+            let tableViewController = MemoTableViewController(cellCount: 15, identifier: identifier)
+            memoTableViewControllers[identifier] = tableViewController
+            
+            addChild(tableViewController)
+            memoCanvasView.memoContainerStackView.addArrangedSubview(tableViewController.view)
+            tableViewController.didMove(toParent: self)
+            
+            addTableViewConfigurations(tableViewController: tableViewController)
+        }
+    }
+    
+    private func addTableViewConfigurations(tableViewController: MemoTableViewController) {
+        tableViewController.memoContainerView.tableView.dataSource = tableViewController
+        tableViewController.memoContainerView.tableView.dataSource = tableViewController
+        tableViewController.memoContainerView.tableView.register(MemoTableViewCell.self, forCellReuseIdentifier: MemoTableViewCell.identifier)
+    }
+    
+    private func setLayout() {
+        memoCanvasView.addSubview(memoCanvasView.memoContainerStackView)
+        memoCanvasView.memoContainerStackView.leadingAnchor.constraint(equalTo: memoCanvasView.leadingAnchor, constant: 48).isActive = true
+        memoCanvasView.memoContainerStackView.topAnchor.constraint(equalTo: memoCanvasView.topAnchor).isActive = true
+        memoCanvasView.memoContainerStackView.widthAnchor.constraint(equalTo: memoCanvasView.widthAnchor, multiplier: 0.75).isActive = true
+        memoCanvasView.memoContainerStackView.heightAnchor.constraint(equalTo: memoCanvasView.heightAnchor).isActive = true
+        
+        for ( _ , tableViewController ) in memoTableViewControllers {
+            tableViewController.memoContainerView.topAnchor.constraint(equalTo: memoCanvasView.memoContainerStackView.topAnchor).isActive = true
+            tableViewController.memoContainerView.bottomAnchor.constraint(equalTo: memoCanvasView.memoContainerStackView.bottomAnchor).isActive = true
+        }
+    }
 }
 
 
