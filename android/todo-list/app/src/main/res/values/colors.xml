@@ -10,5 +10,5 @@
     <color name="todo_white_40">#66FFFFFF</color>
     <color name="todo_light_blue">#86C6FF</color>
     <color name="todo_blue">#0075DE</color>
-
+    <color name="todo_red">#FF4343</color>
 </resources>
