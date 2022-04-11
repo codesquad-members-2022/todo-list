@@ -1,0 +1,65 @@
+import UIKit
+
+class ToDoCreationViewController: UIViewController {
+    
+    @IBOutlet weak var editView: UIView!
+    @IBOutlet weak var headField: UITextField!
+    @IBOutlet weak var bodyField: UITextField!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
+    
+    private func configureUI() {
+        editView.clipsToBounds = true
+        editView.layer.cornerRadius = 15
+        editView.layer.borderWidth = 0.3
+        editView.layer.borderColor = UIColor.blue.cgColor
+        
+        headField.borderStyle = .none
+        bodyField.borderStyle = .none
+        headField.becomeFirstResponder()
+        headField.delegate = self
+        bodyField.delegate = self
+        registerButton.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureUI()
+    }
+}
+
+extension ToDoCreationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField === headField {
+            headField.resignFirstResponder()
+            bodyField.becomeFirstResponder()
+        }
+        if textField === bodyField {
+            // 등록버튼을 누른 것과 같이 활동
+            bodyField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if textField.text != "" {
+            registerButton.isHighlighted = false
+        } else {
+            registerButton.isHighlighted = false
+        }
+    }
+}
+
+extension ToDoCreationViewController: UIGestureRecognizerDelegate {
+    private func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+}
+

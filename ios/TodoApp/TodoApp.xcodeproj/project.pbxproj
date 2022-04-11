@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		002AB86B28004634002E9E48 /* ToDoCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002AB86A28004634002E9E48 /* ToDoCreationViewController.swift */; };
 		00C0E62927FEB819000EBAAD /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0E62827FEB819000EBAAD /* ToDoCell.swift */; };
 		E40486602803BE7D00217657 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404865F2803BE7D00217657 /* Logger+Extensions.swift */; };
 		E44F93F32803D97800E363D3 /* TodoListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E44F93F22803D97800E363D3 /* TodoListViewController.storyboard */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		002AB86A28004634002E9E48 /* ToDoCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ToDoCreationViewController.swift; path = TodoApp/Controllers/ToDoCreationViewController.swift; sourceTree = SOURCE_ROOT; };
 		00C0E62827FEB819000EBAAD /* ToDoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
 		E404865F2803BE7D00217657 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		E44F93F22803D97800E363D3 /* TodoListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TodoListViewController.storyboard; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				E44F93F42803DA6F00E363D3 /* ActivityListViewController.storyboard */,
 				E4B6096A27FB02BB00268CD8 /* TodoListViewController.swift */,
 				E44F93F22803D97800E363D3 /* TodoListViewController.storyboard */,
+				002AB86A28004634002E9E48 /* ToDoCreationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				E40486602803BE7D00217657 /* Logger+Extensions.swift in Sources */,
 				E4B6096B27FB02BB00268CD8 /* TodoListViewController.swift in Sources */,
 				E4B67F5B27FAAA05009397B2 /* TodoListContainerViewController.swift in Sources */,
+				002AB86B28004634002E9E48 /* ToDoCreationViewController.swift in Sources */,
 				00C0E62927FEB819000EBAAD /* ToDoCell.swift in Sources */,
 				E4D1B17327FC20D200525BA2 /* ActivityListViewController.swift in Sources */,
 				E4B67F5727FAAA05009397B2 /* AppDelegate.swift in Sources */,
