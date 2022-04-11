@@ -43,7 +43,7 @@ public class CardApiController {
 
 	@GetMapping("/card/{id}")
 	public ResponseEntity readOneToWrite(@PathVariable("id") Long cardId) {
-		CardDto.CardResponse response = cardService.readOf(cardId);
+		CardDto.CardResponse response = cardService.readFrom(cardId);
 		return ResponseEntity.ok().body(response);
 	}
 

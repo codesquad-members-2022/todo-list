@@ -26,7 +26,7 @@ public class CardService {
 	}
 
 	@Transactional(readOnly = true)
-	public CardDto.CardResponse readOf(Long id) {
+	public CardDto.CardResponse readFrom(Long id) {
 		String errorMessage = String.format(ERROR_OF_CARD_ID, id);
 		Card cardInfo = cardDao.findById(id)
 			.orElseThrow(() -> new IllegalArgumentException(errorMessage));
