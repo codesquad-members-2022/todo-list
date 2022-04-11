@@ -10,7 +10,7 @@ CREATE TABLE CARD (
 );
 
 CREATE INDEX order_index ON CARD(order_index);
-CREATE INDEX column_name ON CARD(column_name);
+CREATE INDEX column_deleted_comp ON CARD(column_name, deleted);
 
 CREATE TABLE ACTION_LOG
 (
