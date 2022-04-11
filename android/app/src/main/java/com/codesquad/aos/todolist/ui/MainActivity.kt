@@ -35,12 +35,6 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: TodoViewModel by viewModels()
 
-    private var currentPosition: Int? = null
-    private var previousPosition: Int? = null
-    private var currentDx = 0f
-    private var clamp = 0f
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -55,11 +49,8 @@ class MainActivity : AppCompatActivity() {
 //        setCompleteRecyclerView()
         setLogRecyclerView()
 
-//       setItemTouchCallback()
-
         setDialogFragmentView()
     }
-
 
     private fun setTodoRecyclerView() {
         todoCardListAdapter = TodoCardListAdapter()
@@ -67,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
-        val touchHelper = TodoTouchHelper(todoCardListAdapter).apply {
+        val touchHelper = TodoTouchHelper(todoCardListAdapter, viewModel).apply {
             setClamp(170f)
         }
 
@@ -192,111 +183,6 @@ class MainActivity : AppCompatActivity() {
             CompleteDialogFragment().show(
                 supportFragmentManager, "DialogFragment"
             )
-        }
-    }
-
-    fun setItemTouchCallback(){
-        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT
-        ){
-
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                TODO("Not yet implemented")
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                // viewModel.deleteTodo(viewHolder.layoutPosition)
-            }
-
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-
-                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-                    val view = getView(viewHolder)
-                    val isClamped = getTag(viewHolder)
-                    val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
-
-
-                    currentDx = x
-                    getDefaultUIUtil().onDraw(
-                        c,
-                        recyclerView,
-                        view,
-                        x,
-                        dY,
-                        actionState,
-                        isCurrentlyActive
-                    )
-                }
-            }
-        }
-
-        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(binding.rvTodo)
-    }
-
-    private fun clampViewPositionHorizontal(
-        view: View,
-        dX: Float,
-        isClamped: Boolean,
-        isCurrentlyActive: Boolean
-    ): Float {
-        val max = 0f
-
-        // 고정할 수 있으면
-        val newX = if (isClamped) {
-            // 현재 swipe 중이면 swipe되는 영역 제한
-            if (isCurrentlyActive)
-            // 오른쪽 swipe일 때
-                if (dX < 0) dX / 3 - clamp
-                // 왼쪽 swipe일 때
-                else dX - clamp
-            // swipe 중이 아니면 고정시키기
-            else -clamp
-        }
-        // 고정할 수 없으면 newX는 스와이프한 만큼
-        else dX / 3
-
-        // newX가 0보다 작은지 확인
-        return min(newX, max)
-    }
-
-    private fun setTag(viewHolder: RecyclerView.ViewHolder, isClamped: Boolean) {
-        // isClamped를 view의 tag로 관리
-        viewHolder.itemView.tag = isClamped
-    }
-
-    private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean {
-        // isClamped를 view의 tag로 관리
-        return viewHolder.itemView.tag as? Boolean ?: false
-    }
-
-    private fun getView(viewHolder: RecyclerView.ViewHolder): View {
-        return viewHolder.itemView.findViewById(R.id.cvSwipeView)
-    }
-
-    fun setClamp(clamp: Float) {
-        this.clamp = clamp
-    }
-
-    fun removePreviousClamp(recyclerView: RecyclerView) {
-        if (currentPosition == previousPosition)
-            return
-        previousPosition?.let {
-            val viewHolder = recyclerView.findViewHolderForAdapterPosition(it) ?: return
-            getView(viewHolder).translationX = 0f
-            setTag(viewHolder, false)
-            previousPosition = null
         }
     }
 
