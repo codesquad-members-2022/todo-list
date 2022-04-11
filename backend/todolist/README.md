@@ -5,9 +5,10 @@
 
 ### Api 정의서
 
-| URL                | 기능      |
-|--------------------|---------|
-| POST /api/todo     | 새 카드 등록 |
+| URL            | 기능                              |
+|----------------|---------------------------------|
+| GET /api/todo  | `해야할 일/하고있는 일/완료한 일` 별 카드 목록 조회 |
+| POST /api/todo | 새 카드 등록                         |
 
 <br>
 
@@ -35,10 +36,60 @@
   Card cardInfo = cardDao.save(card);
 ```
 
+- 작은단위 분업시, 충돌을 최소화하기 위해서 Controller method 위치 순서에 따라 CardService의 메서드 위치에서 작업합니다.
+  - 분리되어지는 private 메서드들은 해당 public 메서드 하위에 위치 시켜 충돌시에도 묶음으로 처리할 수 있게 합니다.
+- CardDto, CardDao에 추가되어지는 메서드들은 가장 하단에 추가하도록 합니다.
+  - 시작시에 Controller에서 연결되어지는 메서드 명을 주석으로 붙여 알아볼 수 있게 합니다.
+  - pr 전 주석 제거 합니다.
+- 충돌에 대비한 위치 구분 위한 주석 외에, 로직 설명을 위한 주석은 javadocs로 추가합니다.
+  - 간결하게 설명, 핵심 정보를 담도록 노력합니다.
+- CardDto 내 클래스 추가는 static inner class 로 thread-safe 하게 작업합니다.
+- 메서드의 경우 파라미터 개수에 따라 -from/-of 접두어를 붙일 수 있습니다.
+- Naming
+  - 구분되는 상수영역간에는 개행을 추가하여 가독성을 높이고자 합니다.
+    - 상수명은 해당 도메인 명을 `Card-` 접미어로 붙여, 다른 도메인 영역에서 구분되어 사용될 수 있게 합니다.
+    - 에러 상수명의 경우 `ERROR_OF-` 접미어를 붙여줍니다.
+- 테스트 작성
+  - 테스트 영어 메서드명은 간단하기 주요 정보만 표시하고, @Displayname에 BDD 방식으로 작성합니다.
+
 
 ### 요구사항 및 설계
 
 <details markdown="1">
+<summary>카드 목록 조회</summary>
+
+#### 요구사항
+
+- 사용자는 애플리케이션 접속시, 첫 화면을 통해 카드 조회 요청을 한다.
+- `해야할 일/하고있는 일/완료한 일` 별로 각각의 카드 목록들이 나열된다.
+- `해야할 일/하고있는 일/완료한 일` 별 카드 목록 순서를 갖고 나열된다.
+  - 카드 등록시에는 가장 위에 놓여진다.
+  - 사용자는 카드를 위/아래로 이동시키며 카드 순서를 변경할 수 있다.
+
+
+#### 비즈니스 로직
+
+- **GET /api/todo**
+- 요청 헤더를 통해 userId를 받는다.
+  - 키는 "user" 로 값은 1을 가정한다.
+  - 응답은 data 안에 각각의 status 별로 카드목록이 리스트로 담긴다.
+- DB 조회
+  - todo_status 는`todo, ongoing, completed` 3가지 속성값을 가진다.
+  - user_id에 해당하는 삭제되지 않은 상태의 각 todo_status 별로 todo_order 역순 정렬 조회한다.
+- Service layer
+  - @Transactional(readOnly = true)
+  - CardDto.WriteResponse -> CardDto.CardResponse로 변경
+    - 각각의 Card 정보를 CardDto.CardResponse로 담아서
+    - 각 status 별 data에 담아 반환한다.
+
+#### 비기능
+
+
+</details>
+
+
+
+<details markdown="2">
 <summary>카드 생성하기</summary>
 
 #### 요구사항
@@ -73,11 +124,15 @@
 
 
 #### BE todolist
-- 요구사항 분석
-- DB 설계 및 android 팀과 미팅
-- 요구사항 분석 및 설계
-- ec2 배포
-- 카드 등록 기능 구현
+- 1st Week
+  - 요구사항 분석
+  - DB 설계 및 android 팀과 미팅
+  - 요구사항 분석 및 설계
+  - ec2 배포
+  - 카드 등록 기능 구현
+- 2nd Week
+  - 카드 목록 조회 기능 구현
+  - 카드 이동 요청 기능 구현
 
 
 

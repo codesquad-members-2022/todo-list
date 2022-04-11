@@ -58,7 +58,7 @@ class CardServiceTest {
 		when(cardDao.findById(anyLong()))
 			.thenReturn(Optional.of(expected));
 
-		CardDto.WriteResponse actual = cardService.readOf(CARD_TEST_USER_ID);
+		CardDto.CardResponse actual = cardService.readFrom(CARD_TEST_USER_ID);
 
 		assertAll(
 			() -> assertThat(actual.getCardId()).isEqualTo(expected.getCardId()),
@@ -74,7 +74,7 @@ class CardServiceTest {
 		Mockito.lenient().when(cardDao.findById(anyLong()))
 			.thenReturn(Optional.empty());
 
-		assertThrows(IllegalArgumentException.class, () -> cardService.readOf(99999L));
+		assertThrows(IllegalArgumentException.class, () -> cardService.readFrom(99999L));
 	}
 
 	private Card getCard() {

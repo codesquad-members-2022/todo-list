@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -132,5 +133,16 @@ public class CardDao {
 				rs.getLong(CARD_TODO_USER_ID));
 			return article;
 		};
+	}
+
+	public List<Card> findByUserIdAndTodoStatus(Long userId, Card.TodoStatus todo) {
+		if (userId < 1) {
+			throw new IllegalArgumentException("cardDao - userId");
+		}
+		final SqlParameterSource namedParameters = new MapSqlParameterSource()
+			.addValue(CARD_TODO_USER_ID, userId)
+			.addValue(CARD_TODO_STATUS, todo.getText());
+		String sql = "select * from todo_list_table where deleted = 0 and todo_user_id = :todo_user_id and todo_status = :todo_status order by todo_order desc;";
+		return namedParameterJdbcTemplate.query(sql, namedParameters, cardRowMapper());
 	}
 }
