@@ -2,6 +2,7 @@ import {
   htmlString2htmlElement,
   targetQuerySelector,
 } from '../utils/createTemplate.js';
+import { alertBoxTemplate } from '../utils/template.js';
 
 class AlertView {
   constructor({ title, cancel, accept }) {
@@ -13,15 +14,11 @@ class AlertView {
   }
 
   setTemplate() {
-    const htmlString = `
-      <div class="alert_box">
-          <p class="alert_message">${this.title}</p>
-          <div class="alert_btn_box">
-              <button type="button" class="btn normal_btn">${this.cancel}</button>
-              <button type="button" class="btn accent_btn">${this.accept}</button>
-          </div>
-      </div>
-      `;
+    const htmlString = alertBoxTemplate({
+      title: this.title,
+      cancel: this.cancel,
+      accept: this.accept,
+    });
 
     this.$alert_container = htmlString2htmlElement({
       htmlString,
