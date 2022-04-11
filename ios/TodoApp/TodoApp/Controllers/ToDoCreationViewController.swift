@@ -18,16 +18,22 @@ class ToDoCreationViewController: UIViewController {
         bodyField.borderStyle = .none
         headField.becomeFirstResponder()
         bodyField.addTarget(self, action: #selector(didBodyFieldChange(_:)), for: .editingChanged)
-        headField.delegate = self
-        bodyField.delegate = self
         registerButton.isHighlighted.toggle()
         cancelButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
     }
     
+    private func setDelegate() {
+        headField.delegate = self
+        bodyField.delegate = self
+        hideKeyboardWhenTappedAround()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboardWhenTappedAround()
         configureUI()
+        setDelegate()
     }
 }
 
@@ -52,6 +58,14 @@ extension ToDoCreationViewController: UITextFieldDelegate {
         } else {
             registerButton.isHighlighted.toggle()
         }
+    }
+    
+    @objc func keyboardWillShow(_ sender: Notification) {
+        self.view.frame.origin.y = -150
+    }
+    
+    @objc func keyboardWillHide(_ sender: Notification) {
+        self.view.frame.origin.y = 0
     }
 }
 
