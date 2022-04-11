@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 //Getting One
-router.get("/:id", getColumn, (req, res) => {
+router.get("/:columnId", getColumn, (req, res) => {
   res.json(res.column);
 });
 
@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
 });
 
 //Updating One
-router.patch("/:id", getColumn, async (req, res) => {
+router.patch("/:columnId", getColumn, async (req, res) => {
   if (req.body.name !== null) {
     res.column.name = req.body.name;
   }
@@ -48,7 +48,7 @@ router.patch("/:id", getColumn, async (req, res) => {
 });
 
 //Deleting One
-router.delete("/:id", getColumn, async (req, res) => {
+router.delete("/:columnId", getColumn, async (req, res) => {
   try {
     await res.column.remove();
     res.json({ message: "Deleted Column" });
@@ -58,11 +58,10 @@ router.delete("/:id", getColumn, async (req, res) => {
 });
 
 //Add Card
-router.post("/:id/add", getColumn, async (req, res) => {
+router.post("/:columnId/add", getColumn, async (req, res) => {
   const card = new Card({
     title: req.body.title,
     description: req.body.description,
-    column: res.column._id,
   });
 
   try {
@@ -75,17 +74,70 @@ router.post("/:id/add", getColumn, async (req, res) => {
   }
 });
 
+//Get Card
+router.get("/:columnId/:cardId", getColumn, async (req, res) => {
+  const card = res.column.cards.filter((v) => v["_id"] == req.params.cardId);
+  try {
+    res.json(card);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+//Update Card
+router.patch("/:columnId", getColumn, async (req, res) => {
+  if (req.body.name !== null) {
+    res.column.name = req.body.name;
+  }
+
+  try {
+    const updatedColumn = await res.column.save();
+    res.json(updatedColumn);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+router.patch("/:columnId/:cardId/update", getColumn, async (req, res) => {
+  const card = res.column.cards.filter((v) => v["_id"] == req.params.cardId)[0];
+
+  if (req.body.title !== null) {
+    card.title = req.body.title;
+  }
+
+  if (req.body.description !== null) {
+    card.description = req.body.description;
+  }
+
+  try {
+    res.column.save();
+    res.json(res.column);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 //Delete Card
-// router.delete("/:id/delete", getColumn, async(req, res) => {
-//   //column 정보는 있음
-//   //card 정보로 특정을 해서 지워야
-// })
+router.delete("/:columnId/:cardId/delete/", getColumn, async (req, res) => {
+  try {
+    res.column.cards.forEach((v) => {
+      if (v["_id"] == req.params.cardId) {
+        res.column.cards.splice(res.column.cards.indexOf(v), 1);
+      }
+    });
+
+    res.column.save();
+    res.json({ message: "Deleted Card" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 //Middleware
 async function getColumn(req, res, next) {
   let column;
   try {
-    column = await Column.findById(req.params.id);
+    column = await Column.findById(req.params.columnId);
     if (column == null) {
       return res.status(404).json({ message: "Cannot find column" });
     }
@@ -95,6 +147,23 @@ async function getColumn(req, res, next) {
 
   res.column = column;
   next();
+}
+
+function getDocument(doc, collection) {
+  return async (req, res, next) => {
+    let doc;
+    try {
+      doc = await collection.findById(req.params.id);
+      if (doc == null) {
+        return res.status(404).json({ message: `Cannot find ${doc}` });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+
+    res.doc = doc;
+    next();
+  };
 }
 
 module.exports = router;
