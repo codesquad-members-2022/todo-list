@@ -16,7 +16,9 @@ export default class Component {
     this.render();
   }
 
-  setup() {}
+  setup() {
+    this.initState =
+  }
 
   render() {
     this.#target.innerHTML = this.template();
