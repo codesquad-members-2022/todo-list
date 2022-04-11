@@ -42,7 +42,6 @@ public class CardController {
 		CardDTO newCardDto = cardService.save(cardDto);
 		LogDTO log = logService.save(Event.CREATE, cardDto.getTitle(), null, cardDto.getSection());
 
-		logger.debug("[card-{}] {}, [log-information] {}-{}({})", newCardDto.getCardId(), newCardDto.getTitle(), log.getSection(), log.getLogEventType(), log.getLogTime());
 		return ResponseEntity.ok().body(new ResponseDTO(newCardDto, log));
 	}
 

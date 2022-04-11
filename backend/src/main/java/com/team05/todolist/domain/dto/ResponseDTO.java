@@ -8,6 +8,9 @@ public class ResponseDTO {
 	private CardDTO card;
 	private LogDTO log;
 
+	private ResponseDTO() {
+	}
+	
 	public ResponseDTO(CardDTO cardDto, LogDTO logDto) {
 		this.card = cardDto;
 		this.log = logDto;
