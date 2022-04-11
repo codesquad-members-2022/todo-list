@@ -1,6 +1,8 @@
 package com.hooria.todo.domain;
 
+import com.hooria.todo.dto.CardResponse;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -21,11 +23,28 @@ public class Card {
     private boolean deletedYn;
     private int rowPosition;
 
-    public static Card of(Status status, String title, String content, String userId, Device device, int index) {
-        return new Card(0, status, title, content, userId, device, LocalDateTime.now(), LocalDateTime.now(), false, index);
+    public static Card of(Status status, String title, String content, String userId, Device device, int rowPosition) {
+        LocalDateTime now = LocalDateTime.now();
+        return new Card(0, status, title, content, userId, device, now, now, false, rowPosition);
     }
 
-    public static Card of(int statusCode, String title, String content, String userId, int deviceCode, int index) {
-        return new Card(0, Status.of(statusCode), title, content, userId, Device.of(deviceCode), LocalDateTime.now(), LocalDateTime.now(), false, index);
+    public static Card of(String status, String title, String content, String userId, String device, int rowPosition) {
+        LocalDateTime now = LocalDateTime.now();
+        return new Card(0, Status.of(status), title, content, userId, Device.of(device), now, now, false, rowPosition);
+    }
+
+    public CardResponse toCardResponse() {
+        return new CardResponse(
+            id,
+            status.name(),
+            title,
+            content,
+            userId,
+            device.name(),
+            createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+            modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+            deletedYn,
+            rowPosition
+        );
     }
 }

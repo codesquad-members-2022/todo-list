@@ -29,10 +29,10 @@ class CardRepositoryTest {
     @DisplayName("전체 카드 목록을 반환한다.")
     void findAll() {
         //given
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime datetime = LocalDateTime.of(2022, 4, 10, 0, 0);
         List<Card> cards = List.of(
-            new Card(1, Status.TODO, "title1", "content1", "userId1", Device.WEB, now, now, false, 1),
-            new Card(2, Status.TODO, "title2", "content2", "userId1", Device.WEB, now, now, false, 2)
+            new Card(1, Status.TODO, "title1", "content1", "userId1", Device.WEB, datetime, datetime, false, 1),
+            new Card(2, Status.TODO, "title2", "content2", "userId1", Device.WEB, datetime, datetime, false, 2)
         );
 
         //when
@@ -51,6 +51,8 @@ class CardRepositoryTest {
             assertThat(actual.getContent()).isEqualTo(expected.getContent());
             assertThat(actual.getUserId()).isEqualTo(expected.getUserId());
             assertThat(actual.getDevice()).isEqualTo(expected.getDevice());
+            assertThat(actual.getCreatedAt()).isEqualTo(expected.getCreatedAt());
+            assertThat(actual.getModifiedAt()).isEqualTo(expected.getModifiedAt());
             assertThat(actual.isDeletedYn()).isFalse();
             assertThat(actual.getRowPosition()).isEqualTo(expected.getRowPosition());
         }
@@ -89,7 +91,7 @@ class CardRepositoryTest {
             .hasFieldOrPropertyWithValue("userId", card.getUserId())
             .hasFieldOrPropertyWithValue("device", card.getDevice())
             .hasFieldOrPropertyWithValue("deletedYn", card.isDeletedYn())
-            .hasFieldOrPropertyWithValue("row_position", card.getRowPosition());
+            .hasFieldOrPropertyWithValue("rowPosition", card.getRowPosition());
     }
 
     @Test
@@ -98,6 +100,7 @@ class CardRepositoryTest {
     void update() {
         //given
         long id = 1;
+        LocalDateTime datetime = LocalDateTime.of(2022, 4, 10, 1, 0);
         Card existingCard = cardRepository.findById(id).get();
         Card card = new Card(existingCard.getId(),
             Status.IN_PROGRESS,
@@ -106,7 +109,7 @@ class CardRepositoryTest {
             existingCard.getUserId(),
             existingCard.getDevice(),
             existingCard.getCreatedAt(),
-            LocalDateTime.now(),
+            datetime,
             existingCard.isDeletedYn(),
             1
         );
@@ -117,7 +120,7 @@ class CardRepositoryTest {
         //then
         assertThat(updatedCard.getId()).isEqualTo(existingCard.getId());
         assertThat(updatedCard.getStatus()).isEqualTo(Status.IN_PROGRESS);
-        assertThat(updatedCard.getModifiedAt()).isNotEqualTo(existingCard.getModifiedAt());
+        assertThat(updatedCard.getModifiedAt()).isEqualTo(datetime);
     }
 
     @Test
