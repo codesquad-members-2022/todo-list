@@ -20,9 +20,11 @@ class TodoRepository {
         return todoTaskList
     }
 
+    private var num = todoTaskList.size
 
     fun testAdd(title: String, content: String) {
-        todoTaskList.add(Task("sam", todoTaskList.size, "todo", title, content, todoTaskList.size))
+        todoTaskList.add(Task("sam", num, "todo", title, content, num))
+        num++
     }
 
     fun setTaskList(task: Task) {
@@ -30,7 +32,7 @@ class TodoRepository {
     }
 
     fun deleteTask(task: Task) {
-
+        todoTaskList.remove(task)
     }
 
 

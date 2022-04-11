@@ -20,18 +20,25 @@ class TaskViewModel : ViewModel() {
     private val _completeTaskList = MutableLiveData<List<Task>>()
     val completeTaskList: LiveData<List<Task>> = _todoTaskList
 
-    init {
-        loadTodoTask()
-    }
+    private var _state = 0
+    val state: Int
+        get() = _state
 
-    private fun loadTodoTask() {
+    fun loadTodoTask() {
         _todoTaskList.value = repository.getTaskList()
     }
 
     fun addTodo(title: String, content: String) {
         Log.d("AppTest", "add todo")
         repository.testAdd(title, content)
-        _todoTaskList.value = repository.getTaskList()
+        loadTodoTask()
+        _state = 1
+    }
+
+    fun deleteTodoCard(task: Task) {
+        repository.deleteTask(task)
+        loadTodoTask()
+        _state = 0
     }
 
 }
