@@ -1,14 +1,17 @@
 package todolist.domain.event;
 
-import java.time.LocalDate;
+import lombok.Getter;
 
+import java.time.LocalDateTime;
+
+@Getter
 public class Event {
     private Long id;
     private String cardTitle;
     private String prevSection;
     private String currentSection;
     private Action action;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
 
     public Event(String cardTitle, String currentSection, Action action) {
@@ -20,7 +23,7 @@ public class Event {
         this.prevSection = prevSection;
         this.currentSection = currentSection;
         this.action = action;
-        this.createdAt = LocalDate.now();
+        this.createdAt = LocalDateTime.now();
     }
 
     public void setId(Long id) {
