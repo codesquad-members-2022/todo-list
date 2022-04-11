@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d995f52-4be1-415d-b57f-6d6654aa18a1" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/components/TodoForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/Store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Component.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/Component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Store.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,30 +30,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/inust/projects/todo-list&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/inust/projects/todo-list/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/inust/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/221.5080.154/WebStorm 2022.1 EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/inust/projects/todo-list",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "/Users/inust/projects/todo-list/node_modules/prettier",
+    "settings.editor.selected.configurable": "Errors",
+    "ts.external.directory.path": "/Users/inust/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/221.5080.154/WebStorm 2022.1 EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/components" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JavaScript 디버그.index.html (1)">
+}]]></component>
+  <component name="RunManager" selected="JavaScript 디버그.index.html">
     <configuration name="index.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63343/todo-list/dist/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -76,7 +72,6 @@
       <updated>1649639012342</updated>
       <workItem from="1649639018771" duration="598000" />
       <workItem from="1649640028134" duration="904000" />
-      <workItem from="1649662218315" duration="2011000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
