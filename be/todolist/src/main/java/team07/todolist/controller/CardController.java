@@ -1,9 +1,9 @@
 package team07.todolist.controller;
 
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import team07.todolist.domain.ActivityLog;
 import team07.todolist.domain.Card;
 import team07.todolist.dto.PatchCard;
@@ -25,9 +26,10 @@ import team07.todolist.service.CardService;
 @RequestMapping("/list")
 public class CardController {
 
-	private Logger log = LoggerFactory.getLogger(CardController.class);
 	private final CardService cardService;
 	private final ActivityLogService activityLogService;
+
+	private Logger log = LoggerFactory.getLogger(CardController.class);
 
 	public CardController(CardService cardService, ActivityLogService activityLogService) {
 		this.cardService = cardService;
@@ -41,34 +43,31 @@ public class CardController {
 	}
 
 	@PostMapping
-	public void save(@RequestBody RequestCard requestCard, HttpServletResponse response) {
-		log.debug("save requsetCard: {}", requestCard);
+	@ResponseStatus(HttpStatus.OK)
+	public void save(@RequestBody RequestCard requestCard) {
+		log.debug("save requestCard: {}", requestCard);
 		cardService.save(requestCard);
-
-		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@PostMapping("/move/{id}")
-	public void dragAndDrop(@PathVariable Long id, @RequestBody RequestCard requestCard, HttpServletResponse response) {
-
+	@ResponseStatus(HttpStatus.OK)
+	public void dragAndDrop(@PathVariable Long id, @RequestBody RequestCard requestCard) {
 		ResponseCard responseCard = cardService.dragAndDrop(id, requestCard);
 		log.debug("move responseCard: {}", responseCard);
-		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@PatchMapping("/{id}")
-	public void modifyCard(@PathVariable Long id, @RequestBody PatchCard patchCard, HttpServletResponse response) {
-
+	@ResponseStatus(HttpStatus.OK)
+	public void modifyCard(@PathVariable Long id, @RequestBody PatchCard patchCard) {
 		ResponseCard responseCard = cardService.changeText(id, patchCard);
 		log.debug("modify responseCard: {}", responseCard);
-		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id, HttpServletResponse response) {
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@PathVariable Long id) {
 		Card deletedCard = cardService.delete(id);
 		log.debug("{}", deletedCard);
-		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@ResponseBody
