@@ -11,7 +11,7 @@ export class ScheduleColumn {
         this.scheduleModel = new ScheduleModel(scheduleColumnData);
         this.title = this.scheduleModel.getScheduleColumnTitle();
         this.id = getId();
-        this.registerCardState = false;
+        this.registerCard = new ScheduleRegisterCard()
 
         this.init();
     }
@@ -59,7 +59,7 @@ export class ScheduleColumn {
     }
 
     cardAddBtnClickEventHandler() {
-        if (this.registerCardState) {
+        if (this.registerCard.getState()) {
             this.removeRegisterCard();
         } else {
             this.showRegisterCard();
@@ -67,7 +67,7 @@ export class ScheduleColumn {
     }
 
     removeRegisterCard() {
-        this.registerCardState = false;
+        this.registerCard.changeState()
         const $registerCard = this.$cardsContainer.querySelector(
             ".schedule-register-card"
         );
@@ -75,16 +75,15 @@ export class ScheduleColumn {
     }
 
     showRegisterCard() {
-        this.registerCardState = true;
+        this.registerCard.changeState()
         const scheduleRegisterCardParams = {
-            target: this.$cardsContainer,
-            id: this.id,
+            $target: this.$cardsContainer,
             passedEventHandler: {
                 removeRegisterCard: this.removeRegisterCard.bind(this),
                 addCard: this.addCard.bind(this),
             },
         };
-        new ScheduleRegisterCard(scheduleRegisterCardParams);
+        this.registerCard.init(scheduleRegisterCardParams);
     }
 
     render() {

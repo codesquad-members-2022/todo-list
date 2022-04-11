@@ -1,5 +1,5 @@
+import { deleteConfirmInit } from "./scheduleDeleteConfirm.js";
 import { doubleClickEventHandler } from "../../utils.js";
-import { ScheduleDeleteConfirm } from "./scheduleDeleteConfirm.js";
 import { ScheduleEditCard } from "./scheduleEditCard.js";
 
 export class ScheduleCard {
@@ -44,11 +44,11 @@ export class ScheduleCard {
         );
         $scheduleCardDeleteBtn.addEventListener(
             "mouseenter",
-            this.cardDeleteBtnMouseenterEventHandler.bind(this)
+            this.toggleScheduleCardActiveRed.bind(this)
         );
         $scheduleCardDeleteBtn.addEventListener(
             "mouseleave",
-            this.cardDeleteBtnMouseleaveEventHandler.bind(this)
+            this.toggleScheduleCardActiveRed.bind(this)
         );
         $scheduleCardDeleteBtn.addEventListener(
             "click",
@@ -58,19 +58,16 @@ export class ScheduleCard {
 
     cardDeleteBtnClickEventHandler() {
         const scheduleDeleteConfirmParams = {
-            target: this.$scheduleCard,
+            $scheduleCard: this.$scheduleCard,
             passedEventHandler: {
                 removeCard: this.passedEventHandler.removeCard,
+                toggleScheduleCardActiveRed: this.toggleScheduleCardActiveRed.bind(this)
             },
         };
-        new ScheduleDeleteConfirm(scheduleDeleteConfirmParams);
+        deleteConfirmInit(scheduleDeleteConfirmParams)
     }
 
-    cardDeleteBtnMouseenterEventHandler() {
-        this.$scheduleCard.classList.toggle("schedule-card--active-red");
-    }
-
-    cardDeleteBtnMouseleaveEventHandler() {
+    toggleScheduleCardActiveRed() {
         this.$scheduleCard.classList.toggle("schedule-card--active-red");
     }
 

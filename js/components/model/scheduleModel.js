@@ -19,11 +19,7 @@ export class ScheduleModel {
     }
 
     removeScheduleCard(cardId) {
-        const index = this.scheduleColumnData.cards.findIndex(
-            (card) => card.id === cardId
-        );
-
-        this.scheduleColumnData.cards.splice(index, 1);
+        this.scheduleColumnData.cards = this.scheduleColumnData.cards.filter(card => card.id !== cardId)
     }
 
     updateScheduleCard(cardData) {

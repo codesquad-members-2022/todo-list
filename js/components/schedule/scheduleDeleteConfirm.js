@@ -1,66 +1,60 @@
-export class ScheduleDeleteConfirm {
-    constructor({ target, passedEventHandler }) {
-        this.$target = target;
-        this.passedEventHandler = passedEventHandler;
-        this.$deleteConfirm;
-        this.init();
+let $deleteConfirm;
+
+export function deleteConfirmInit({ $scheduleCard, passedEventHandler }) {
+    passedEventHandler.toggleScheduleCardActiveRed();
+
+    render();
+    setDOMElement();
+    setEvent($scheduleCard, passedEventHandler);
+}
+
+function render() {
+    const scheduleDeleteConfirmTemplate = template();
+    document.body.insertAdjacentHTML(
+        "beforeend",
+        scheduleDeleteConfirmTemplate
+    );
+}
+
+function setDOMElement() {
+    $deleteConfirm = document.querySelector(".dim-layer");
+}
+
+function setEvent($scheduleCard, passedEventHandler) {
+    $deleteConfirm.addEventListener("click", (e) =>
+        confirmClickEventHandler(e, $scheduleCard, passedEventHandler)
+    );
+}
+
+function confirmClickEventHandler(event, $scheduleCard, passedEventHandler) {
+    if (
+        event.target.classList.contains("schedule-delete-confirm__cancel-btn")
+    ) {
+        cancelBtnClickEventHandler(passedEventHandler);
     }
-
-    init() {
-        this.render();
-        this.setDOMElement();
-        this.setEvent();
+    if (
+        event.target.classList.contains("schedule-delete-confirm__delete-btn")
+    ) {
+        deleteBtnClickEventHandler($scheduleCard, passedEventHandler);
     }
+}
 
-    render() {
-        this.$target.classList.toggle("schedule-card--active-red");
+function deleteBtnClickEventHandler($scheduleCard, passedEventHandler) {
+    removeDeleteConfirm();
+    passedEventHandler.removeCard($scheduleCard);
+}
 
-        const scheduleDeleteConfirmTemplate = this.template();
-        document.body.insertAdjacentHTML(
-            "beforeend",
-            scheduleDeleteConfirmTemplate
-        );
-    }
+function cancelBtnClickEventHandler(passedEventHandler) {
+    passedEventHandler.toggleScheduleCardActiveRed();
+    removeDeleteConfirm();
+}
 
-    setDOMElement() {
-        this.$deleteConfirm = document.querySelector(".dim-layer");
-    }
+function removeDeleteConfirm() {
+    $deleteConfirm.remove();
+}
 
-    setEvent() {
-        const $confirmCancelBtn = document.querySelector(
-            ".schedule-delete-confirm__cancel-btn"
-        );
-        const $confirmDeleteBtn = document.querySelector(
-            ".schedule-delete-confirm__delete-btn"
-        );
-
-        $confirmCancelBtn.addEventListener(
-            "click",
-            this.confirmCancelBtnClickEventHandler.bind(this)
-        );
-        $confirmDeleteBtn.addEventListener(
-            "click",
-            this.confirmDeleteBtnClickEventHandler.bind(this)
-        );
-    }
-
-    confirmDeleteBtnClickEventHandler() {
-        this.$target.classList.toggle("schedule-card--active-red");
-        this.removeDeleteConfirm();
-        this.passedEventHandler.removeCard(this.$target);
-    }
-
-    confirmCancelBtnClickEventHandler() {
-        this.$target.classList.toggle("schedule-card--active-red");
-        this.removeDeleteConfirm();
-    }
-
-    removeDeleteConfirm() {
-        this.$deleteConfirm.remove();
-    }
-
-    template() {
-        return `<div class="dim-layer">
+function template() {
+    return `<div class="dim-layer">
         <div class="schedule-delete-confirm">
             <p>선택한 카드를 삭제할까요?</p>
             <div class="schedule-delete-confirm__btns-container">
@@ -73,5 +67,4 @@ export class ScheduleDeleteConfirm {
             </div>
         </div>
     </div>`;
-    }
 }
