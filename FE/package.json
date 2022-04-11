@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "sass": "sass -w ./src/scss/main.scss:./src/css/main.css",
     "build": "npx webpack",
     "dev": "webpack serve"
   },
