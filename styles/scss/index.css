@@ -252,12 +252,16 @@ input:focus {
 .todo-column.second {
   left: 404px;
 }
-.todo-column.third {
-  left: 800px;
+.todo-column[data-idx="0"] {
+  left: 80px;
 }
-
-.todo-card {
-  /* Auto layout */
+.todo-column[data-idx="1"] {
+  left: 404px;
+}
+.todo-column[data-idx="2"] {
+  left: 728px;
+}
+.todo-column .todo-card {
   display: flex;
   flex-direction: row;
   align-items: flex-start;

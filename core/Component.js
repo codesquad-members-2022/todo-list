@@ -17,7 +17,6 @@ export default class Component {
   }
 
   setup() {
-    this.initState =
   }
 
   render() {
@@ -25,7 +24,8 @@ export default class Component {
     this.mount();
   }
 
-  mount() {}
+  mount() {
+  }
 
   template() {
     return ``;
@@ -41,7 +41,8 @@ export default class Component {
     });
   }
 
-  setEvent() {}
+  setEvent() {
+  }
 
   select(selector) {
     return this.#target.querySelector(selector);
