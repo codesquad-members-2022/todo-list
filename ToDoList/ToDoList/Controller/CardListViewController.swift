@@ -3,16 +3,16 @@ import UIKit
 class CardListViewController: UIViewController {
     
     private var headerTitle = ""
-    private let cardManager: CardManager
+    private let cardManager: CardManagable
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countBadgeLabel: UILabel!
     @IBOutlet weak var addCardButton: UIButton!
     
-    init(title: String) {
+    init(title: String, cardManager: CardManagable) {
         self.headerTitle = title
-        self.cardManager = CardManager(listName: title, cardFactory: ModelFactory())
+        self.cardManager = cardManager
         super.init(nibName: "CardListView", bundle: nil)
     }
     
@@ -34,9 +34,6 @@ class CardListViewController: UIViewController {
     }
     
     @IBAction func addCardButtonTouched(_ sender: UIButton) {
-        cardManager.add()
-        updateBadge()
-        self.tableView.reloadData()
     }
     
     private func updateBadge() {

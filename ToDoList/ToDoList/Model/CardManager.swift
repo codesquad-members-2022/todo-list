@@ -1,6 +1,7 @@
 import Foundation
 
-class CardManager {
+class CardManager: CardManagable {
+    
     private var listName: String
     private var cards = [Cardable]()
     private var selectedCard: Cardable?
@@ -22,6 +23,10 @@ class CardManager {
     func add(title: String, body: String) {
         let data = [listName]
         let newCard = cardFactory.make(factoriable: Card.self, title: title, body: body, data: data)
+        cards.append(newCard)
+    }
+    
+    func add(newCard: Cardable) {
         cards.append(newCard)
     }
     
