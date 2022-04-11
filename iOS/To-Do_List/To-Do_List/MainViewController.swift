@@ -85,7 +85,7 @@ extension MainViewController {
 
             self.logViewConstaints.append(constraint)
             NSLayoutConstraint.activate(self.logViewConstaints)
-            self.logViewContainer.frame = .zero
+            self.logViewContainer.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         }
     }
     

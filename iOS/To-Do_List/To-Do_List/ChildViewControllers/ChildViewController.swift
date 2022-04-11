@@ -43,9 +43,7 @@ class ChildViewController: UIViewController, UITableViewDelegate {
     }
     
     private func setTableView() {
-
         self.tableView.delegate = self
-//        self.tableView.dataSource = self
     }
     
     private func setTableViewDataSource() {

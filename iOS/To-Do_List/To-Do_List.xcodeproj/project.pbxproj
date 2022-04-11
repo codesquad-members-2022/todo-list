@@ -135,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				8D2AFD8727FB08B100307CCB /* To_Do_ListTests.swift */,
+				8DDD3A4B2803C3AD00203BB9 /* Test */,
 			);
 			path = "To-Do_ListTests";
 			sourceTree = "<group>";
@@ -161,7 +162,6 @@
 		8DD815E127FD655C00C13618 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8DDD3A4B2803C3AD00203BB9 /* Test */,
 				8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */,
 				8DD815DB27FD642800C13618 /* NetworkManager.swift */,
 				8DD815DD27FD646B00C13618 /* NetworkError.swift */,
