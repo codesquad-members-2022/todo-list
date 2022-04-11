@@ -11,8 +11,8 @@ public class Log {
 	private String prevSection;
 	private Section section;
 
-	public Log(Event event, LocalDateTime logTime, String title, String prevSection, String section) {
-		this.event = event;
+	public Log(String event, LocalDateTime logTime, String title, String prevSection, String section) {
+		this.event = Event.getEvent(event);
 		this.logTime = logTime;
 		this.title = title;
 		this.prevSection = prevSection;
@@ -21,6 +21,10 @@ public class Log {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 	public String getEventType() {

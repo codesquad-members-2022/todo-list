@@ -2,7 +2,9 @@ package com.team05.todolist.service;
 
 import com.team05.todolist.domain.Card;
 import com.team05.todolist.domain.dto.CardDTO;
+import com.team05.todolist.domain.dto.ClassifiedCardsDTO;
 import com.team05.todolist.repository.CardRepository;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -48,5 +50,30 @@ public class CardService {
 
     public void delete(int id) {
         cardRepository.delete(id);
+    }
+
+    public ClassifiedCardsDTO findCards() {
+        List<Card> cards = cardRepository.findAll();
+		return classifyBySection(cards);
+    }
+
+	private ClassifiedCardsDTO classifyBySection(List<Card> cards) {
+        ClassifiedCardsDTO classifiedCards = new ClassifiedCardsDTO();
+        List<CardDTO> sectionCards;
+        CardDTO cardDto;
+        for (Card card : cards) {
+            sectionCards = classifiedCards.get(card.getSectionType());
+            if (check10Cards(sectionCards)) {
+                cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(),
+                    card.getSectionType());
+                cardDto.setCardId(card.getId());
+                sectionCards.add(cardDto);
+            }
+        }
+        return classifiedCards;
+    }
+
+    private boolean check10Cards(List<CardDTO> cards) {
+        return cards.size() < 10;
     }
 }

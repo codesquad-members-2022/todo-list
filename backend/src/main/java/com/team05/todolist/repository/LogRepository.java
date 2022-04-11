@@ -6,6 +6,6 @@ import java.util.List;
 public interface LogRepository {
 
     int save(Log log);
-    List<Log> findAll();
 
+    List<Log> findAll();
 }

@@ -6,6 +6,8 @@ import com.team05.todolist.domain.dto.CardDTO;
 import com.team05.todolist.domain.dto.LogDTO;
 import com.team05.todolist.repository.LogRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,11 +20,20 @@ public class LogService {
     }
 
     public LogDTO save(Event event, String cardTitle, String section) {
-        Log log = new Log(event, LocalDateTime.now(), cardTitle, null, section);
+        Log log = new Log(event.getEventType(), LocalDateTime.now(), cardTitle, null, section);
         Integer logId = logRepository.save(log);
 
         return new LogDTO(logId, log.getEventType(), log.getLogTime(), log.getTitle(), log.getPrevSection(),
             log.getSectionType());
     }
 
+    public List<LogDTO> findLogs() {
+        List<Log> logs = logRepository.findAll();
+        List<LogDTO> logDtos = new ArrayList<>();
+        for (Log log : logs) { // log를 10개씩 출력으로 변경해야 한다.
+            logDtos.add(new LogDTO(log.getId(), log.getEventType(), log.getLogTime(),
+                    log.getTitle(), log.getPrevSection(), log.getSectionType()));
+        }
+        return logDtos;
+    }
 }
