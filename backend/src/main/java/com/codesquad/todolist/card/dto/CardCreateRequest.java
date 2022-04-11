@@ -1,8 +1,6 @@
 package com.codesquad.todolist.card.dto;
 
 import com.codesquad.todolist.card.Card;
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 public class CardCreateRequest {
 
@@ -30,13 +28,11 @@ public class CardCreateRequest {
         return title;
     }
 
-    // 카드 생성시 content는 필수값이 아님
-    public Optional<String> getContent() {
-        return Optional.ofNullable(content);
+    public String getContent() {
+        return content;
     }
 
     public String getAuthor() {
         return author;
     }
-
 }
