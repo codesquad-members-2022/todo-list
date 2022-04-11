@@ -18,4 +18,8 @@ public class CardService {
 		List<Card> cards = cardRepository.findAll();
 		return cards.stream().map(CardResponse::from).collect(Collectors.toList());
 	}
+
+	public void add() {
+
+	}
 }

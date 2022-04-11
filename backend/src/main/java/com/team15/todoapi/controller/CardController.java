@@ -1,11 +1,14 @@
 package com.team15.todoapi.controller;
 
+import com.team15.todoapi.controller.card.CardRequest;
 import com.team15.todoapi.controller.card.CardResponse;
 import com.team15.todoapi.service.CardService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +25,8 @@ public class CardController {
 		return cardService.findAll();
 	}
 
-
+	@PostMapping()
+	public void add(@RequestBody CardRequest cardRequest){
+		cardService.add();
+	}
 }
