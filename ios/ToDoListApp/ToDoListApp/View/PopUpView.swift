@@ -48,7 +48,6 @@ class PopUpView: UIView {
         return label
     }()
     
-    
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -90,19 +89,20 @@ class PopUpView: UIView {
         configureView()
         
         addSubview(containerView)
-        layoutPopUpView()
         
         containerView.addSubview(containerHeadLineLabel)
-        layoutContainerHeadLineLabel()
         
         containerView.addSubview(containerStackView)
-        containerStackView.addArrangedSubview(containerTitleLabel)
         containerStackView.addArrangedSubview(containerContentsLabel)
-        layoutContainerStackView()
+        containerStackView.addArrangedSubview(containerTitleLabel)
         
-        containerStackView.addSubview(buttonStackView)
+        containerView.addSubview(buttonStackView)
         buttonStackView.addArrangedSubview(cancelButton)
         buttonStackView.addArrangedSubview(submitButton)
+        
+        layoutContainerView()
+        layoutContainerHeadLineLabel()
+        layoutContainerStackView()
         layoutButtonStackView()
     }
     
@@ -110,7 +110,7 @@ class PopUpView: UIView {
         backgroundColor = .black.withAlphaComponent(0.4)
     }
     
-    private func layoutPopUpView() {
+    private func layoutContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
         containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

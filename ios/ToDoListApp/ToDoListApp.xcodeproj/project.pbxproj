@@ -22,6 +22,7 @@
 		1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */; };
 		1EF0292E280023A5001AA033 /* MainViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */; };
 		1EF029672802AA62001AA033 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF029662802AA62001AA033 /* TitleView.swift */; };
+		1EF029692802CAE3001AA033 /* InspectorViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF029682802CAE3001AA033 /* InspectorViewControllerDelegate.swift */; };
 		7380B0D927FFC84500B5D052 /* InspectorTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */; };
 		7380B0DB27FFC84F00B5D052 /* InspectorTableCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */; };
 		7380B0DD27FFC85800B5D052 /* CALayer+addBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */; };
@@ -49,6 +50,7 @@
 		1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerDelegate.swift; sourceTree = "<group>"; };
 		1EF029662802AA62001AA033 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		1EF029682802CAE3001AA033 /* InspectorViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorViewControllerDelegate.swift; sourceTree = "<group>"; };
 		7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableViewDataSource.swift; sourceTree = "<group>"; };
 		7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableCellData.swift; sourceTree = "<group>"; };
 		7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+addBorder.swift"; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */,
+				1EF029682802CAE3001AA033 /* InspectorViewControllerDelegate.swift */,
 				1E7432F027FD26DF00B908E4 /* KanbanTableViewDataSource.swift */,
 				7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */,
 			);
@@ -243,6 +246,7 @@
 				1E7432F527FD271A00B908E4 /* KanbanTableCellData.swift in Sources */,
 				7380B0DB27FFC84F00B5D052 /* InspectorTableCellData.swift in Sources */,
 				1E7432E727FD269300B908E4 /* MainViewController.swift in Sources */,
+				1EF029692802CAE3001AA033 /* InspectorViewControllerDelegate.swift in Sources */,
 				1E7432F727FD27B300B908E4 /* TableTitleView.swift in Sources */,
 				1E74322E27FA94AC00B908E4 /* AppDelegate.swift in Sources */,
 				7380B0E727FFFE6600B5D052 /* PopUpView.swift in Sources */,

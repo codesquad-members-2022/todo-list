@@ -14,14 +14,17 @@ class InspectorViewController: UIViewController {
     
     private let closeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: Constant.SFSymbol.xmark), for: .normal)
+        button.setImage(UIImage(systemName: Constant.ImageName.xmark), for: .normal)
         button.tintColor = .black
         return button
     }()
     
+    var delegate: InspectorViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        addTargetActions()
     }
     
     private func setUpView() {
@@ -62,5 +65,19 @@ class InspectorViewController: UIViewController {
         
         closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -54).isActive = true
+    }
+    
+    private func addTargetActions() {
+        closeButton.addTarget(self,
+                              action: #selector(didTapInspectorCloseButton),
+                              for: .touchUpInside)
+    }
+}
+
+//MARK: - selector functions
+
+extension InspectorViewController {
+    @objc func didTapInspectorCloseButton() {
+        delegate?.didTapInspectorCloseButton()
     }
 }

@@ -24,11 +24,13 @@ enum Constant {
         static let gothicNeoBold = "Apple SD Gothic Neo Bold"
     }
     
-    enum SFSymbol {
-        static let lineThreeHorizontal = "line.3.horizontal"
+    enum ImageName {
         static let xmark = "xmark"
         static let plus = "plus"
+        static let inspectorButton = "InspectorButton"
     }
+    
+    
     
     enum KanbanTitle {
         static let toDo = "해야 할 일"
