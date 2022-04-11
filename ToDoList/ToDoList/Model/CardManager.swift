@@ -2,14 +2,14 @@ import Foundation
 
 class CardManager {
     private var listName: String
-    private var cards = [Card]()
-    private var selectedCard: Card?
+    private var cards = [Cardable]()
+    private var selectedCard: Cardable?
     
     var count: Int {
         return cards.count
     }
     
-    subscript(_ index: Int) -> Card {
+    subscript(_ index: Int) -> Cardable {
         return cards[index]
     }
     

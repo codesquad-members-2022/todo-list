@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		021F10822803CF22006D8EA1 /* Cardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021F10812803CF22006D8EA1 /* Cardable.swift */; };
 		02AC445B27FF318A009CF050 /* CardListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AC445927FF318A009CF050 /* CardListView.xib */; };
 		02AC446027FFDCF1009CF050 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC445F27FFDCF1009CF050 /* Card.swift */; };
 		02AC446227FFDD53009CF050 /* Caption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC446127FFDD53009CF050 /* Caption.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		021F10812803CF22006D8EA1 /* Cardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardable.swift; sourceTree = "<group>"; };
 		02AC445927FF318A009CF050 /* CardListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardListView.xib; sourceTree = "<group>"; };
 		02AC445F27FFDCF1009CF050 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		02AC446127FFDD53009CF050 /* Caption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caption.swift; sourceTree = "<group>"; };
@@ -94,6 +96,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		021F10802803CF12006D8EA1 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				021F10812803CF22006D8EA1 /* Cardable.swift */,
+			);
+			path = protocols;
+			sourceTree = "<group>";
+		};
 		02AC445C27FFDC2F009CF050 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,7 @@
 		02AC445D27FFDC58009CF050 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				021F10802803CF12006D8EA1 /* protocols */,
 				02AC446527FFE155009CF050 /* CardManager.swift */,
 				02AC445F27FFDCF1009CF050 /* Card.swift */,
 				02AC446127FFDD53009CF050 /* Caption.swift */,
@@ -316,6 +327,7 @@
 				02AC446027FFDCF1009CF050 /* Card.swift in Sources */,
 				02DF5F9B27FD6EFF0064FEC8 /* MainViewController.swift in Sources */,
 				02DF5F9727FD6EFF0064FEC8 /* AppDelegate.swift in Sources */,
+				021F10822803CF22006D8EA1 /* Cardable.swift in Sources */,
 				02AC446627FFE155009CF050 /* CardManager.swift in Sources */,
 				02AC446227FFDD53009CF050 /* Caption.swift in Sources */,
 				02DF5F9927FD6EFF0064FEC8 /* SceneDelegate.swift in Sources */,

@@ -1,11 +1,11 @@
 import Foundation
 
-class Card {
+struct Card: Cardable {
     private let id: ID
-    var title: String
-    var body: String
-    var listName: String
-    var caption: Caption
+    private(set) var title: String
+    private(set) var body: String
+    private(set) var listName: String
+    private(set) var caption: Caption
     private let createdTime: Date
     private var updatedTime: Date
     
@@ -19,7 +19,7 @@ class Card {
         self.updatedTime = Date.now
     }
     
-    func moveList(to newListName: String) {
+    mutating func moveList(to newListName: String) {
         self.listName = newListName
         self.updatedTime = .now
     }
