@@ -37,7 +37,7 @@ public class TaskController {
     public ResponseEntity<Object> add(@RequestBody Task task) {
         try {
             taskService.createTask(task);
-            return ResponseEntity.status(HttpStatus.OK).body(task);
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (DataIntegrityViolationException j) {
             j.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
