@@ -7,39 +7,39 @@
 
 import UIKit
 
-class ActivityMenuViewController: UIViewController {
-
-    private var closeButton: UIButton!
-    private var tableView: UITableView!
+final class ActivityMenuViewController: UIViewController{
+    var activityView = ActivityMenuView()
+    let cellIdentifier = "MenuActivityCell"
     
-    override func viewDidLoad() {
+    let activityLog = [["@푸코","HTML/CSS공부하기를 해야할 일에서 하고 있는 일로 이동하였습니다.","1분 전"],
+                       ["@푸코","해야할 일에 HTML/CSS공부하기를 등록하였습니다.","1분 전"],
+                       ["@푸코","해야할 일에 블로그에 포스팅할 것을 등록하였습니다","1분 전"],
+                       ["@푸코","해야할 일에 GitHub 공부하기를 등록하였습니다","1분 전"]]
+    
+    override func viewDidLoad(){
         super.viewDidLoad()
-        setAttributes()
+        self.view = activityView
+        activityView.tableView.delegate = self
+        activityView.tableView.dataSource = self
+        activityView.tableView.register(MenuActivityCell.classForCoder(), forCellReuseIdentifier: cellIdentifier)
+    }
+}
+
+
+extension ActivityMenuViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return activityLog.count
     }
     
-    func setAttributes(){
-        self.view.backgroundColor = .white
-        configureCloseButton()
-    }
-    
-    func configureCloseButton(){
-        closeButton = UIButton()
-        closeButton.setImage(UIImage(named: "close"), for: .normal)
-        closeButton.tintColor = .black
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? MenuActivityCell else { return UITableViewCell()}
+        let data = activityLog[indexPath.row]
+        cell.setLabelText(author: data[0], content: data[1], time: data[2])
         
-        self.view.addSubview(closeButton)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.heightAnchor.constraint(equalToConstant: 10.5).isActive = true
-        closeButton.widthAnchor.constraint(equalToConstant: 10.5).isActive = true
-        closeButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 80).isActive = true
-        closeButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48).isActive = true
-     
-
+        return cell
     }
     
-
-    
-    
-    
-
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        return UITableView.automaticDimension
+    }
 }
