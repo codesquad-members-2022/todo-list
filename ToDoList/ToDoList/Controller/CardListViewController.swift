@@ -12,14 +12,14 @@ class CardListViewController: UIViewController {
     
     init(title: String) {
         self.headerTitle = title
-        self.cardManager = CardManager(listName: title)
+        self.cardManager = CardManager(listName: title, cardFactory: ModelFactory())
         super.init(nibName: "CardListView", bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         let title = "unknown"
         self.headerTitle = title
-        self.cardManager = CardManager(listName: title)
+        self.cardManager = CardManager(listName: title, cardFactory: ModelFactory())
         super.init(coder: coder)
     }
     

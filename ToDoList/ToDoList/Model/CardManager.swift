@@ -4,6 +4,7 @@ class CardManager {
     private var listName: String
     private var cards = [Cardable]()
     private var selectedCard: Cardable?
+    private var cardFactory: ModelFactoryBase
     
     var count: Int {
         return cards.count
@@ -13,12 +14,14 @@ class CardManager {
         return cards[index]
     }
     
-    init(listName: String) {
+    init(listName: String, cardFactory: ModelFactoryBase) {
         self.listName = listName
+        self.cardFactory = cardFactory
     }
     
-    func add() {
-        let newCard = CardFactory.makeRandomCard(in: self.listName)
+    func add(title: String, body: String) {
+        let data = [listName]
+        let newCard = cardFactory.make(factoriable: Card.self, title: title, body: body, data: data)
         cards.append(newCard)
     }
     
