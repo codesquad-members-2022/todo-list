@@ -1,14 +1,13 @@
 package com.todolist.repository;
 
-import java.sql.Types;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.*;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
@@ -22,47 +21,45 @@ import lombok.AllArgsConstructor;
 @Repository
 public class CardRepository {
 
-    private final JdbcTemplate jdbcTemplate;
-    private final KeyHolderGenerator keyHolderGenerator;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public List<Card> findAll(Integer userId) {
-        String sql = "SELECT * FROM card WHERE removed = FALSE and userId = ? ORDER BY createdTime";
-        return jdbcTemplate.query(sql, cardRowMapper(), userId);
+        String sql = "SELECT * FROM card WHERE removed = FALSE and userId = :userId ORDER BY createdTime";
+        SqlParameterSource namedParameters = new MapSqlParameterSource("userId", userId);
+
+        return namedParameterJdbcTemplate.query(sql, namedParameters, cardRowMapper());
     }
 
     public Integer delete(Integer cardId) {
-        String sql = "UPDATE card Set removed = true WHERE cardId = ?";
-        jdbcTemplate.update(sql, cardId);
-        return cardId;
+        String sql = "UPDATE card SET removed = true WHERE cardId = :cardId";
+        SqlParameterSource namedParameters = new MapSqlParameterSource("cardId", cardId);
+
+        return namedParameterJdbcTemplate.update(sql, namedParameters);
     }
 
     public Integer save(Card card) {
-        String sql = "INSERT INTO card (userId, cardTitle, cardContent, boardName, createdTime) VALUES (?, ?, ?, ?, ?)";
-        KeyHolder keyHolder = keyHolderGenerator.getKeyHolder();
+        String sql = "INSERT INTO card (userId, cardTitle, cardContent, boardName, createdTime) VALUES (:userId, :cardTitle, :cardContent, :boardName, :createdTime)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card), keyHolder, new String[]{"cardId"});
 
-        PreparedStatementCreatorFactory pscFactory = new PreparedStatementCreatorFactory(sql,
-            Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
-            Types.TIMESTAMP);
-
-        pscFactory.setReturnGeneratedKeys(true);
-
-        PreparedStatementCreator psc = pscFactory.newPreparedStatementCreator(
-            Arrays.asList(card.getUserId(), card.getCardTitle(), card.getCardContent(), card.getBoardName(), card.getCreatedTime()));
-
-        jdbcTemplate.update(psc, keyHolder);
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
     public CardInformationDto findCard(Integer cardId) {
-        String sql = "SELECT * FROM card WHERE cardId = ?";
+        String sql = "SELECT * FROM card WHERE cardId = :cardId";
+        SqlParameterSource namedParameter = new MapSqlParameterSource("cardId", cardId);
 
-        // RowMapper<Card> 는 타입이 달라서 사용할 수 없으므로 새로운 RowMapper<CardInformation> 생성해서 사용
-        return jdbcTemplate.queryForObject(sql, cardInformationDtoRowMapper(), cardId);
+        return namedParameterJdbcTemplate.queryForObject(sql, namedParameter, cardInformationDtoRowMapper());
     }
 
     public void patch(Integer cardId, CardPatchDto cardPatchDto) {
-        String sql = "UPDATE card Set cardTitle = ?, cardContent = ? WHERE cardId = ?";
-        jdbcTemplate.update(sql, cardPatchDto.getCardTitle(), cardPatchDto.getCardContent(), cardId);
+        String sql = "UPDATE card SET cardTitle = :cardTitle, cardContent = :cardContent WHERE cardId = :cardId";
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("cardId", cardId);
+        parameterSource.addValue("cardTitle", cardPatchDto.getCardTitle());
+        parameterSource.addValue("cardContent", cardPatchDto.getCardContent());
+
+        namedParameterJdbcTemplate.update(sql, parameterSource);
     }
 
     private RowMapper<CardInformationDto> cardInformationDtoRowMapper() {
