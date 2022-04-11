@@ -7,7 +7,18 @@
     <list default="true" id="7d995f52-4be1-415d-b57f-6d6654aa18a1" name="변경" comment="">
       <change afterPath="$PROJECT_DIR$/components/TodoForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/components/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.js" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Component.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/Component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/TodoCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/_column.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_column.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/_shared.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_shared.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/index.css" afterDir="false" />
+>>>>>>> b1b2b4736e9982fe98c248551f730f9c72c2f8fa
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +63,11 @@
       <recent name="$PROJECT_DIR$/components" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="JavaScript 디버그.index.html (1)">
+=======
+  <component name="RunManager" selected="JavaScript 디버그.index.html">
+>>>>>>> b1b2b4736e9982fe98c248551f730f9c72c2f8fa
     <configuration name="index.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63343/todo-list/dist/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -76,7 +91,10 @@
       <updated>1649639012342</updated>
       <workItem from="1649639018771" duration="598000" />
       <workItem from="1649640028134" duration="904000" />
+<<<<<<< HEAD
       <workItem from="1649662218315" duration="2011000" />
+=======
+>>>>>>> b1b2b4736e9982fe98c248551f730f9c72c2f8fa
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />

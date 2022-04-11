@@ -57,11 +57,13 @@ export class TodoList extends Component {
     const card = this.select(`.todo-card[data-idx="0"]`);
     todos.forEach(
       (todo, idx) =>
+
         todo.selected ? new TodoForm() :
           new TodoCard(this.select(`.todo-card[data-idx="${idx}"]`), {
             todo,
             idx
           })
+
     );
   }
 }
