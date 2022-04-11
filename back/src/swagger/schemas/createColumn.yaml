@@ -1,0 +1,8 @@
+components:
+  schemas:
+    CreateColumn:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Todo 제목

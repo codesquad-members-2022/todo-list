@@ -1,0 +1,71 @@
+.cardWritable {
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  padding: 15px;
+  border: 1px solid #0075de;
+  border-radius: 6px;
+}
+
+.cardWritable:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.headerArea {
+  display: flex;
+  height: 20px;
+  padding: 0;
+  justify-content: space-between;
+}
+
+.cardTitleInput {
+  width: 100%;
+  font-weight: 700;
+  font-size: 16px;
+  background-color: transparent;
+  border: 0;
+}
+
+.cardDescInput {
+  width: 100%;
+  font-size: 14px;
+  color: #828282;
+  background-color: transparent;
+  border: 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  width: 130px;
+  height: 40px;
+}
+
+.cancelButton {
+  font-weight: 400;
+  font-size: 14px;
+  color: #828282;
+  background: #e0e0e0;
+  border: 0;
+  border-radius: 6px;
+}
+
+.confirmButton {
+  font-weight: 700;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  background: #86c6ff;
+  border: 0;
+  border-radius: 6px;
+}
+
+.activeButton {
+  color: #fff;
+  background: #0075de;
+}

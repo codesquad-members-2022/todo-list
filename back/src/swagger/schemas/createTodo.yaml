@@ -1,0 +1,17 @@
+components:
+  schemas:
+    CreateTodo:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Todo 제목
+        desc:
+          type: string
+          description: Todo 설명
+        author:
+          type: string
+          description: Todo 작성자
+        columnId:
+          type: string
+          description: Todo 가 속한 Column 의 Id Todo 가 속한 Column 의 Id (type 은 mongoose 의 objectId)

@@ -3,21 +3,8 @@ module.exports = {
   parserOptions: {
     requireConfigFile: false,
   },
-  env: {
-    browser: true,
-  },
-  extends: [
-    "airbnb-base",
-    "plugin:prettier/recommended",
-    "plugin:import/recommended",
-  ],
+  extends: ["airbnb-base", "prettier"],
   rules: {
-    "prettier/prettier": [
-      "error",
-      {
-        endOfLine: "auto",
-      },
-    ],
     "import/order": [
       "error",
       {
@@ -29,8 +16,5 @@ module.exports = {
         "newlines-between": "always",
       },
     ],
-    "no-bitwise": "off",
-    "consistent-return": "off",
-    "import/prefer-default-export": "off",
   },
 };

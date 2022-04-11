@@ -1,0 +1,7 @@
+.column {
+  width: 300px;
+}
+
+.column:not(:last-child) {
+  margin-right: 15px;
+}
