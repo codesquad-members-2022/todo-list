@@ -1,11 +1,11 @@
 import UIKit
 
 class MyTaskViewController: UIViewController {
-    @IBOutlet weak var taskListStackView: TaskBoardView!
-    @IBOutlet weak var actionBoard: UIView!
+    @IBOutlet private weak var taskListStackView: TaskBoardView!
+    @IBOutlet private weak var actionBoard: UIView!
     
-    @IBOutlet weak var actionFlowButton: UIButton!
-    @IBOutlet weak var stackViewTrailing: NSLayoutConstraint!
+    @IBOutlet private weak var actionFlowButton: UIButton!
+    @IBOutlet private weak var stackViewTrailing: NSLayoutConstraint!
     
     private let todoViewController = TaskCardListViewController()
     private let doingViewController = TaskCardListViewController()

@@ -62,6 +62,9 @@
                             </fragment>
                         </attributedString>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="cancelButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="IFc-lL-GNR"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kt7-TL-hNl">
                     <rect key="frame" x="276" y="119" width="108" height="40"/>
@@ -81,6 +84,9 @@
                             </fragment>
                         </attributedString>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="editButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="a5V-KQ-FLc"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -101,6 +107,13 @@
                 <constraint firstItem="L9r-Qn-qYV" firstAttribute="top" secondItem="gBo-ia-khY" secondAttribute="bottom" constant="8" id="wYo-sY-Mbj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="cancelButton" destination="AsX-pi-UNx" id="a0F-85-eQ9"/>
+                <outlet property="content" destination="L9r-Qn-qYV" id="ELL-k5-5M0"/>
+                <outlet property="editButton" destination="kt7-TL-hNl" id="aPs-Ao-oby"/>
+                <outlet property="instruction" destination="wbn-me-TEU" id="DPk-ja-wQy"/>
+                <outlet property="title" destination="gBo-ia-khY" id="hYz-pQ-jgQ"/>
+            </connections>
             <point key="canvasLocation" x="1" y="-61"/>
         </view>
     </objects>

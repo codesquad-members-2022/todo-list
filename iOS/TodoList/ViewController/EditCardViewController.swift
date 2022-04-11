@@ -1,7 +1,7 @@
 import UIKit
 
 class EditCardViewController: UIViewController {
-    @IBOutlet weak var centerView: UIView!
+    @IBOutlet private weak var centerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

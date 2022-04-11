@@ -9,11 +9,7 @@ class TaskCardListViewController: UIViewController {
         
     private func setupCell() {
         if let taskListView = Bundle.main.loadNibNamed(NameSpace.nib.taskCardListView, owner: self, options: nil)?.first as? TaskCardListView {
-            let nibName = UINib(nibName: NameSpace.nib.taskCardViewCell, bundle: nil)
-            
-            taskListView.table.delegate = self
-            taskListView.table.dataSource = self
-            taskListView.table.register(nibName, forCellReuseIdentifier: NameSpace.identifier.taskCardViewCell)
+            taskListView.setTableView(with: self)
             taskListView.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
