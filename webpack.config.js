@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  devtool: 'eval-cheap-source-map',
   resolve: {
     fallback: { fs: false, path: false },
   },

@@ -1,9 +1,12 @@
+import { $, addClass } from './utils/utils.js';
 import './index.js';
 import '../styles/main.scss';
-import db from './store';
+import db from './webdb.js';
+import { TodoColumns } from './Views/TodoColumns.js';
+import { TodoList } from './Views/TodoList.js';
+import { TodoItem } from './Views/TodoItem.js';
 
-// db.read('store').push(data).write();
+const todoColumns = new TodoColumns($('.todo-columns'));
 
-db.data = { mock: [1, 2, 3] };
-db.write();
-console.log(db.data);
+// 처음에 웹 사이트 접속시 db에있는 데이터를 렌더링 === Read
+todoColumns.init(db.getColumns());

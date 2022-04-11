@@ -1,7 +1,6 @@
-import { $, $$, on, emit, eventDelegate, createElement } from './utils/utils.js';
+import { $, eventDelegate, createElement } from './utils/utils.js';
 
 const $todoColumns = $('.todo-columns');
-console.log($todoColumns);
 
 const template = () => {
   return `
@@ -33,7 +32,6 @@ const handleClick = event => {
   const html = template();
   const $todoColumn = event.target.closest('.todo-column');
   const $todoList = $('.todo-list', $todoColumn);
-  console.log($todoList);
   const $li = createElement('li', ['todo-item', 'active-item']);
   $li.innerHTML = html;
   $todoList.prepend($li);

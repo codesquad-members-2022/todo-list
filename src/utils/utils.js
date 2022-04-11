@@ -8,13 +8,8 @@ export const $$ = (selector, base = document) => {
 
 export const eventDelegate = ({ target, eventName, selector, handler }) => {
   const emitEvent = event => {
-    const potentialElements = $$(selector, target);
-
-    for (const potentialElement of potentialElements) {
-      if (potentialElement === event.target.closest(selector)) {
-        return handler.call(event.target, event);
-      }
-    }
+    const expectedTarget = event.target.closest(selector);
+    if (expectedTarget) handler.call(expectedTarget, event);
   };
 
   target.addEventListener(eventName, emitEvent);
