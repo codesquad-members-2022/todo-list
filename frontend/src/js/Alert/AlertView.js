@@ -1,7 +1,7 @@
 import {
   htmlString2htmlElement,
   targetQuerySelector,
-} from '../../utils/createTemplate.js';
+} from '../utils/createTemplate.js';
 
 class AlertView {
   constructor({ title, cancel, accept }) {
