@@ -17,7 +17,6 @@ export default class Component {
   }
 
   setup() {
-    this.initState =
   }
 
   render() {
