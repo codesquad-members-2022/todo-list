@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
         setViewModel()
 
         setTodoRecyclerView()
-//        setProgressRecyclerView()
-//        setCompleteRecyclerView()
+        setProgressRecyclerView()
+        setCompleteRecyclerView()
         setLogRecyclerView()
 
         setDialogFragmentView()
@@ -64,12 +64,12 @@ class MainActivity : AppCompatActivity() {
             setClamp(170f)
         }
 
-        ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvTodo)
+      /*  ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvTodo)
 
         binding.rvTodo.setOnTouchListener { _, _ ->
             touchHelper.removePreviousClamp(binding.rvTodo)
             false
-        }
+        }*/
 
         viewModel.addTodo("hihi", "hihihi")
         viewModel.addTodo("byebye", "byebyebye")
@@ -191,6 +191,4 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
-
-
 }

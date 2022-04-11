@@ -60,10 +60,11 @@ class TodoViewModel: ViewModel() {
         _progressListLd.value = progresslist
     }
 
-    fun deleteComplete(inx: Int){
+    fun deleteComplete(inx: Int) {
         completelist.removeAt(inx)
         _completeListLd.value = completelist
     }
+
 
     // 한 리사이클러뷰 내에서 순서 변경
     fun changeTodoOrder(fromPos: Int, toPos: Int){
