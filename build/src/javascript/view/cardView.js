@@ -1,10 +1,11 @@
 import { removeText, axiosRequest } from "../util/util.js";
 
 function init() {
+  addPlusBtnEvent();
+}
+function addPlusBtnEvent() {
   const $plusBtn = document.querySelector("#have-to-do-plus");
-  $plusBtn.addEventListener("click", () => {
-    renderRegisterCard();
-  });
+  $plusBtn.addEventListener("click", renderRegisterCard);
 }
 
 async function renderRegisterCard() {
@@ -24,13 +25,13 @@ async function renderRegisterCard() {
             내용을 입력하세요
           </div>
         </div>
-        <figure class="card-cross-button">
+        <button class="card-cross-button">
           <img
             src="./image/crossBtn.svg"
             alt="cross-button-img"
             class="cross-button-img"
           />
-        </figure>
+        </button>
       </div>
       <div class="card-buttons-wrapper">
         <button class="cancel-button center-sort">취소</button>
@@ -48,12 +49,8 @@ function handleRegisterCardEvent($cards, $card) {
   const $cardTextArea = $card.querySelector(".card-text-area");
   const $registerBtn = $card.querySelector(".register-button");
   changeRegisterBoxStyle($cards);
-  $cardTextArea.addEventListener("click", ({ target }) => {
-    removeText(target);
-  });
-  $registerBtn.addEventListener("click", ({ target }) => {
-    updateCard(target);
-  });
+  $cardTextArea.addEventListener("click", removeText);
+  $registerBtn.addEventListener("click", updateCard);
 }
 
 function changeRegisterBoxStyle($cards) {
@@ -64,7 +61,7 @@ function changeRegisterBoxStyle($cards) {
   });
 }
 
-function updateCard(target) {
+function updateCard({ target }) {
   const $selectedCard = target.closest(".card");
   const $cardDetails = $selectedCard.querySelector(".card-details");
   const $cardTitle = $selectedCard.querySelector(".card-title");
@@ -78,14 +75,15 @@ function updateCard(target) {
 function updateCardContents(target) {
   const $selectedCard = target.closest(".card");
   const $cardDetails = $selectedCard.querySelector(".card-details");
-  if (isLengthExceeded($cardDetails)) {
+  const cardDetailsText = $cardDetails.innerText;
+  if (isTextLengthExceeded(cardDetailsText)) {
     alert("글자 수가 초과했습니다 (500자)");
     return;
   }
   const $cardTitle = $selectedCard.querySelector(".card-title");
   const cardColumnName = $selectedCard.closest(".column").id;
   const cardTitleText = $cardTitle.innerText;
-  const cardDetailsText = $cardDetails.innerText;
+
   const cardRegisterTime = Date.now();
   const card = {
     column: cardColumnName,
@@ -96,10 +94,10 @@ function updateCardContents(target) {
   return card;
 }
 
-function isLengthExceeded($cardDetails) {
-  const detailsLength = $cardDetails.innerText.length;
+function isTextLengthExceeded(text) {
+  const textLength = text.length;
   const maxLength = 500;
-  return detailsLength > maxLength;
+  return textLength > maxLength;
 }
 
 function applyCardStyle($card) {
@@ -144,15 +142,13 @@ function renderColumn(columnId, todos) {
     return template;
   }, "");
   $cards.insertAdjacentHTML("afterbegin", cardTemplate);
-  addRegisterBtnsListener();
+  addRegisterBtnsListener($column);
 }
 
-function addRegisterBtnsListener() {
-  const $registerBtns = document.querySelectorAll(".register-button");
+function addRegisterBtnsListener($column) {
+  const $registerBtns = $column.querySelectorAll(".register-button");
   for (const $registerBtn of $registerBtns) {
-    $registerBtn.addEventListener("click", (event) => {
-      updateCard(event.target);
-    });
+    $registerBtn.addEventListener("click", updateCard);
   }
 }
 
