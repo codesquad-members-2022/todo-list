@@ -15,6 +15,8 @@ class KanbanColumnViewController: UIViewController {
     
     private let type: KanbanType
     
+    var delegate: KanbanColumnViewControllerDelegate?
+    
     init(type: KanbanType) {
         self.type = type
         super.init(nibName: nil, bundle: nil)
@@ -38,6 +40,8 @@ class KanbanColumnViewController: UIViewController {
         
         layoutTableTitleView()
         layoutTableView()
+        
+        tableTitleView.addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
     }
     
     private func configureCustomTableView() {
@@ -71,5 +75,11 @@ class KanbanColumnViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+    }
+}
+
+extension KanbanColumnViewController {
+    @objc func didTapAddButton() {
+        delegate?.didTapAddButton()
     }
 }
