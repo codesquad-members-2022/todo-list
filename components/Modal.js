@@ -1,4 +1,5 @@
 import { getLocalStorageByKey } from '../utils/localStorage.js';
+import { $ } from '../utils/dom.js';
 export default class Modal {
   constructor(id) {
     this.id = id;
@@ -15,12 +16,12 @@ export default class Modal {
 
   showModal = () => {
     document.body.insertAdjacentHTML('beforeend', this.render());
-    document.querySelector('.modalBackground').classList.remove('no-display');
+    $('.modalBackground').classList.remove('no-display');
   };
 
   closeButton = () => {
-    document.querySelector('.modal').remove();
-    document.querySelector('.modalBackground').classList.add('no-display');
+    $('.modal').remove();
+    $('.modalBackground').classList.add('no-display');
   };
 
   deleteButton = () => {
@@ -32,7 +33,7 @@ export default class Modal {
   };
 
   handleEventListener = () => {
-    document.querySelector('.modal--close').addEventListener('click', this.closeButton);
-    document.querySelector('.modal--remove').addEventListener('click', this.deleteButton);
+    $('.modal--close').addEventListener('click', this.closeButton);
+    $('.modal--remove').addEventListener('click', this.deleteButton);
   };
 }
