@@ -1,0 +1,53 @@
+
+
+{
+    "success": true,
+    "response": {
+        "todoItems": [
+            {
+                "id": 1,
+                "title": "다이어트",
+                "content": "조깅",
+                "createdAt": "2022-04-08T14:50:16"
+            },
+            {
+                "id": 4,
+                "title": "다이어트",
+                "content": "한강 100바퀴 뛰기(feat. 다음생애)",
+                "createdAt": "2900-04-08T15:03:37"
+            },
+            {
+                "id": 5,
+                "title": "다이어트",
+                "content": "밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)밥 이틀에 한 끼 먹기(feat. 다음생애)",
+                "createdAt": "2900-04-08T15:03:37"
+            }
+        ],
+        "progressingItems": [
+            {
+                "id": 3,
+                "title": "프로그래밍",
+                "content": "iOS 화면개발",
+                "createdAt": "2022-04-09T14:50:16"
+            }
+        ],
+        "completedItems": [
+            {
+                "id": 2,
+                "title": "다이어트",
+                "content": "줄넘기",
+                "createdAt": "2022-04-08T14:50:16"
+            },
+            {
+                "id": 6,
+                "title": "공부",
+                "content": "안 할거야",
+                "createdAt": "2999-04-08T15:03:37"
+            }
+        ],
+        "author": {
+            "userAgent": "PostmanRuntime/7.29.0"
+        }
+    },
+    "error": null
+}
