@@ -24,4 +24,9 @@ public class CardController {
     public CardResponse getAllCards() {
         return cardService.findCollections();
     }
+
+    @PatchMapping("/cards/{cardId}")
+    public void modifyCard(@RequestBody CardModifyDto cardModifyDto) {
+        cardService.modify(cardModifyDto);
+    }
 }

@@ -1,6 +1,7 @@
 package todo.list.service;
 
 import org.springframework.stereotype.Service;
+import todo.list.controller.CardModifyDto;
 import todo.list.domain.Card;
 import todo.list.domain.CardStatus;
 import todo.list.repository.CardRepository;
@@ -46,4 +47,8 @@ public class CardService {
     }
 
 
+    public void modify(CardModifyDto cardModifyDto) {
+        Card card = cardModifyDto.toEntity();
+        cardRepository.update(card);
+    }
 }

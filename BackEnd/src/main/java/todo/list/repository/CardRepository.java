@@ -10,7 +10,9 @@ import todo.list.domain.Card;
 import todo.list.domain.CardStatus;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CardRepository {
@@ -50,5 +52,17 @@ public class CardRepository {
             Author author = Author.valueOf(rs.getString("author"));
             return new Card(id, title, contents, cardStatus, createDateTime, author);
         };
+    }
+
+    public void update(Card card) {
+        String updateSql = "UPDATE card SET title=:title, contents=:contents, author=:author WHERE id=:id";
+        Map<String,Object> params = new HashMap<>();
+
+        params.put("title", card.getTitle());
+        params.put("contents", card.getContents());
+        params.put("author", card.getAuthor().name());
+        params.put("id", card.getId());
+
+        jdbcTemplate.update(updateSql, params);
     }
 }
