@@ -1,13 +1,16 @@
 ---
-name: Feature request
-about: FE feat
+name: "FE - \bReview apply"
+about: FE PR 리뷰 반영
 title: ''
-labels: fe-feat
+labels: fe-리뷰반영
 assignees: ''
 
 ---
 
-## 예상 동작
+### PR 주소
+<a href="주소넣어주세요">주소</a>
+
+## 리뷰에서 어떤 것을 반영할지
 
 -- 이부분은 확인 후 지워주세요 --
 제목은 자유롭게 작성
