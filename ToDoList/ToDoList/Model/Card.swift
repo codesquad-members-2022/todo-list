@@ -24,3 +24,10 @@ struct Card: Cardable {
         self.updatedTime = .now
     }
 }
+
+extension Card: ModelFactoriable {
+    static func make(title: String, body: String, data: [Any]) -> Cardable {
+        let listName: String = data[0] as? String ?? ""
+        return Card.init(title: title, body: body, caption: .iOS, listName: listName)
+    }
+}
