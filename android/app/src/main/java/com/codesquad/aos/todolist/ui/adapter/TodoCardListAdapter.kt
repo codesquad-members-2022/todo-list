@@ -26,12 +26,8 @@ class TodoCardListAdapter(
 
             binding.tvRemove?.setOnClickListener {
                 if(this.itemView.tag == true) {
-<<<<<<< HEAD
                     //removeItem(this.layoutPosition)
                     deleteTextClick.invoke(this.layoutPosition)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
-=======
-                    removeItem(this.layoutPosition)
->>>>>>> e5c39d4 ([AOS-josh] feat: itemhelper 삭제 버튼 구현)
                 }
             }
         }

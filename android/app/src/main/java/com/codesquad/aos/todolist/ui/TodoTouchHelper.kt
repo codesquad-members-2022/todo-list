@@ -12,11 +12,8 @@ import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
 import kotlin.math.max
 import kotlin.math.min
 
-<<<<<<< HEAD
 class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, private val viewModel: TodoViewModel) :
-=======
-class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter) :
->>>>>>> e5c39d4 ([AOS-josh] feat: itemhelper 삭제 버튼 구현)
+
     ItemTouchHelper.Callback() {
 
     private var currentPosition: Int? = null
