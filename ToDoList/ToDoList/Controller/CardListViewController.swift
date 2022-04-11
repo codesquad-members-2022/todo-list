@@ -19,6 +19,8 @@ class CardListViewController: UIViewController {
         self.headerTitle = title
         self.cardManager = cardManager
         super.init(nibName: "CardListView", bundle: nil)
+        
+        addCardManagerObserver()
     }
     
     required init?(coder: NSCoder) {
@@ -26,6 +28,8 @@ class CardListViewController: UIViewController {
         self.headerTitle = title
         self.cardManager = CardManager(listName: title, cardFactory: ModelFactory())
         super.init(coder: coder)
+        
+        addCardManagerObserver()
     }
     
     override func viewDidLoad() {
@@ -85,7 +89,19 @@ extension CardListViewController {
         guard let newData = notification.userInfo?[EditCardViewController.Constants.userInfoKeys.addedData] as? [String] else {return}
         
         cardManager.add(title: newData[0], body: newData[1])
-        
+    }
+}
+
+//MARK: - Handle cardManager's notification
+extension CardListViewController {
+    private func addCardManagerObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(cardManagerDidAddNewCard(_:)),
+                                               name: CardManager.Constants.NotificationNames.didAddNewCard,
+                                               object: self.cardManager)
+    }
+    
+    @objc private func cardManagerDidAddNewCard(_ notification: Notification) {
         updateBadge()
         tableView.reloadData()
     }
