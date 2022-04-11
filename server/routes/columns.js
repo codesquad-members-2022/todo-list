@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Card = require("../models/card");
 const Column = require("../models/column");
+const Log = require("../models/log");
 
 //Getting ALl
 router.get("/", async (req, res) => {
