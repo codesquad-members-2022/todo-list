@@ -42,7 +42,7 @@ public class CardJdbcTemplateRepository implements CardRepository {
     }
 
     private List<CardListResponseDto> findResponseDtosByColumnName(String columnName) {
-        return jdbcTemplate.query("SELECT id, title, content, author_system FROM CARD WHERE COLUMN_NAME = ? ORDER BY ORDER_INDEX",
+        return jdbcTemplate.query("SELECT id, title, content, author_system FROM CARD WHERE COLUMN_NAME = ? ORDER BY ORDER_INDEX DESC",
                 (rs, rowNum) -> {
                     long id = rs.getLong("id");
                     String title = rs.getString("title");
