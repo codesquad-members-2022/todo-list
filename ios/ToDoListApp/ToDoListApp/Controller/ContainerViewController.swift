@@ -11,8 +11,7 @@ class ContainerViewController: UIViewController {
     
     private let mainViewController = MainViewController()
     private let inspectorViewController = InspectorViewController()
-    private let popUpViewController = PopUpViewController()
-    private lazy var popUpView = PopUpView()
+    private lazy var popUpViewController = PopUpViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +46,6 @@ class ContainerViewController: UIViewController {
 
 extension ContainerViewController {
     private func setUpView() {
-        view.addSubview(popUpView)
-        setUpPopUpView()
         setUpInspectorView()
     }
     
@@ -59,16 +56,6 @@ extension ContainerViewController {
         inspectorViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         inspectorViewController.view.leadingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         inspectorViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.35).isActive = true
-    }
-    
-    private func setUpPopUpView() {
-        popUpView.translatesAutoresizingMaskIntoConstraints = false
-        
-        popUpView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        popUpView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        popUpView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        popUpView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        popUpView.isHidden = true
     }
 }
 
