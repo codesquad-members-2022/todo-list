@@ -1,6 +1,5 @@
 package com.todolist.project.web;
 
-import com.todolist.project.domain.CardStatus;
 import com.todolist.project.domain.card.Card;
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.CardAddDto;

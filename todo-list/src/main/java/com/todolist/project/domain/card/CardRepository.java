@@ -3,7 +3,6 @@ package com.todolist.project.domain.card;
 import com.todolist.project.domain.CardStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -79,7 +78,7 @@ public class CardRepository {
         mapSqlParameterSource.addValue("index", card.getCardIndex());
         mapSqlParameterSource.addValue("title", card.getTitle());
         mapSqlParameterSource.addValue("contents", card.getContents());
-        mapSqlParameterSource.addValue("card_status", CardStatus.TODO.name());
+        mapSqlParameterSource.addValue("card_status", card.getCardStatus().name());
         mapSqlParameterSource.addValue("createTime", card.createTime());
         mapSqlParameterSource.addValue("id", id);
         return namedParameterJdbcTemplate.update(UPDATE_CARD_SQL, mapSqlParameterSource);
