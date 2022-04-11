@@ -14,6 +14,9 @@ struct ColumnViewModelAction {
     let tappedEditButton = PassthroughSubject<Int, Never>()
     let tappedDeleteButton = PassthroughSubject<Int, Never>()
     
+    let beginDrag = PassthroughSubject<Card, Never>()
+    let endDrag = PassthroughSubject<Void, Never>()
+    
     let addCard = PassthroughSubject<(Card, Int), Never>()
     let editCard = PassthroughSubject<Card, Never>()
 }
@@ -36,6 +39,7 @@ protocol ColumnViewModelBinding {
 protocol ColumnViewModelProperty {
     subscript(index: Int) -> Card? { get }
     var cardCount: Int { get }
+    var columnType: Column.ColumnType { get }
 }
 
 typealias ColumnViewModelProtocol = ColumnViewModelBinding & ColumnViewModelProperty
@@ -44,7 +48,8 @@ class ColumnViewModel: ColumnViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
     private var cards: [Card]
-    private let columnType: Column.ColumnType
+    private var dragingCard: Card? = nil
+    let columnType: Column.ColumnType
     
     let action = ColumnViewModelAction()
     let state = ColumnViewModelState()
@@ -117,7 +122,7 @@ class ColumnViewModel: ColumnViewModelProtocol {
         action.addCard
             .sink { card, index in
                 self.cards.insert(card, at: index)
-                self.state.insertedCard.send(0)
+                self.state.insertedCard.send(index)
             }.store(in: &cancellables)
 
         action.editCard
@@ -127,6 +132,21 @@ class ColumnViewModel: ColumnViewModelProtocol {
                 }
                 self.cards[index] = newCard
                 self.state.reloadCard.send(index)
+            }.store(in: &cancellables)
+        
+        action.beginDrag
+            .sink { card in
+                self.dragingCard = card
+            }.store(in: &cancellables)
+        
+        action.endDrag
+            .compactMap{ self.dragingCard?.id}
+            .sink { cardId in
+                guard let index = self.cards.firstIndex(where: { $0.id == cardId}) else {
+                    return
+                }
+                self.cards.remove(at: index)
+                self.state.deletedCard.send(index)
             }.store(in: &cancellables)
     }
 }

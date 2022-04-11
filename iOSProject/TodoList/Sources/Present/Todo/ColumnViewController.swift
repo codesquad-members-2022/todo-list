@@ -86,6 +86,10 @@ class ColumnViewController: UIViewController {
         cardTableView.delegate = self
         cardTableView.dataSource = self
         
+        cardTableView.dragInteractionEnabled = true
+        cardTableView.dragDelegate = self
+        cardTableView.dropDelegate = self
+        
         addButton.publisher(for: .touchUpInside)
             .sink(receiveValue: model.action.tappedAddButton.send(_:))
             .store(in: &cancellables)
@@ -159,6 +163,49 @@ class ColumnViewController: UIViewController {
     }
 }
 
+extension ColumnViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let card = model[indexPath.section] else {
+            return []
+        }
+        model.action.beginDrag.send(card)
+        return [UIDragItem(itemProvider: NSItemProvider(object: DragCard(card: card)))]
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        model.action.endDrag.send()
+    }
+}
+
+extension ColumnViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        session.canLoadObjects(ofClass: DragCard.self)
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        guard session.items.count == 1 else { return UITableViewDropProposal(operation: .cancel) }
+        return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        var destinationIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+        if let indexpath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexpath
+        }
+        
+        coordinator.session.loadObjects(ofClass: DragCard.self) { items in
+            let dragCards = items.compactMap{ $0 as? DragCard }
+            
+            dragCards.forEach { dragCard in
+                guard let addCard = dragCard.card else {
+                    return
+                }
+                print(destinationIndexPath.section)
+                self.model.action.addCard.send((addCard, destinationIndexPath.section + destinationIndexPath.item))
+            }
+        }
+    }
+}
 
 
 extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
