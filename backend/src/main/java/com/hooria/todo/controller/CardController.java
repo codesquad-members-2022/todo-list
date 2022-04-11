@@ -35,11 +35,11 @@ public class CardController {
         value = "새로운 타스크 등록",
         notes = "새로운 타스크를 등록한다.",
         produces = "application/json",
-        response = Card.class
+        response = CardResponse.class
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
-            name = "card",
+            name = "addCardParam",
             value = "새로운 타스크"
         )
     })
