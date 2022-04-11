@@ -13,3 +13,11 @@ export const pipe =
   (...func) =>
   (input) =>
     func.reduce((chain, func) => chain.then(func), Promise.resolve(input));
+
+export const debounce = (callback, delay) => {
+  let timerId;
+  return (event) => {
+    if (timerId) clearTimeout(timerId);
+    timerId = setTimeout(callback, delay, event);
+  };
+};

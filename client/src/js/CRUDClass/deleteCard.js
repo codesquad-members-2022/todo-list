@@ -1,4 +1,4 @@
-import { $, closest, containClass } from '../util';
+import { $, closest, containClass, debounce } from '../util';
 
 export class DeleteCard {
   constructor() {
@@ -6,9 +6,13 @@ export class DeleteCard {
     this.layer = $('.layer');
     this.currentCard;
   }
+
   init() {
     document.addEventListener('click', this.deleteCardEventHandler);
-    this.target.addEventListener('mouseover', this.mouseEnterHandler);
+    this.target.addEventListener(
+      'mouseover',
+      debounce(this.mouseEnterHandler, 500)
+    );
     this.target.addEventListener('mouseout', this.mouseLeaveHandler);
   }
 
