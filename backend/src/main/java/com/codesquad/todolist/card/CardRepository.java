@@ -27,7 +27,7 @@ public class CardRepository {
         KeyHolder keyHolder = keyHolderFactory.newKeyHolder();
 
         jdbcTemplate.update(
-            "insert into card (column_id, title, content, author, card_order, created_date) values (:columnId, :title, :content, :author, :order, :createdDate)",
+            "insert into card (column_id, title, content, author, card_order, created_date) values (:columnId, :title, :content, :author, :order, :createdDateTime)",
             new BeanPropertySqlParameterSource(card), keyHolder);
 
         if (keyHolder.getKey() != null) {

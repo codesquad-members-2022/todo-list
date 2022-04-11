@@ -1,15 +1,22 @@
 package com.codesquad.todolist.card.dto;
 
+import javax.validation.constraints.NotNull;
+
 import com.codesquad.todolist.card.Card;
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 public class CardCreateRequest {
 
-    private final Integer columnId;
-    private final String title;
-    private final String author;
-    private final String content;
+    @NotNull(message = "column Id 값이 있어야 합니다.")
+    private Integer columnId;
+    @NotNull(message = "title 값이 있어야 합니다.")
+    private String title;
+    @NotNull(message = "content 값이 있어야 합니다.")
+    private String content;
+    @NotNull(message = "author 값이 있어야 합니다.")
+    private String author;
+
+    private CardCreateRequest() {
+    }
 
     public CardCreateRequest(Integer columnId, String title, String author, String content) {
         this.columnId = columnId;
@@ -30,13 +37,21 @@ public class CardCreateRequest {
         return title;
     }
 
-    // 카드 생성시 content는 필수값이 아님
-    public Optional<String> getContent() {
-        return Optional.ofNullable(content);
+    public String getContent() {
+        return content;
     }
 
     public String getAuthor() {
         return author;
     }
 
+    @Override
+    public String toString() {
+        return "CardCreateRequest{" +
+            "columnId=" + columnId +
+            ", title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", author='" + author + '\'' +
+            '}';
+    }
 }

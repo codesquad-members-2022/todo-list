@@ -10,7 +10,7 @@ public class Card {
     private String content;
     private String author;
     private Integer order;
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDateTime;
     private Boolean deleted;
 
     public Card(Integer columnId, String title, String content, String author, Integer order) {
@@ -18,14 +18,14 @@ public class Card {
     }
 
     public Card(Integer cardId, Integer columnId, String title, String content, String author,
-        Integer order, LocalDateTime createdDate) {
+        Integer order, LocalDateTime createdDateTime) {
         this.cardId = cardId;
         this.columnId = columnId;
         this.title = title;
         this.content = content;
         this.author = author;
         this.order = order;
-        this.createdDate = createdDate;
+        this.createdDateTime = createdDateTime;
     }
 
     public void update(String title, String content, String author) {
@@ -58,8 +58,8 @@ public class Card {
         return order;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
     }
 
     public void setCardId(int cardId) {

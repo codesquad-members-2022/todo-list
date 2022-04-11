@@ -1,11 +1,14 @@
 package com.codesquad.todolist.card.dto;
 
-import com.codesquad.todolist.card.Card;
+import javax.validation.constraints.NotNull;
 
 public class CardUpdateRequest {
 
+    @NotNull(message = "title 값이 있어야 합니다.")
     private String title;
+    @NotNull(message = "content 값이 있어야 합니다.")
     private String content;
+    @NotNull(message = "author 값이 있어야 합니다.")
     private String author;
 
     private CardUpdateRequest() {
