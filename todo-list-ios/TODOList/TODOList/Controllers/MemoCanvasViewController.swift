@@ -34,8 +34,7 @@ extension MemoCanvasViewController: UITableViewDataSource {
         
         let memo = Memo(title: "해야 할 일입니당", content: "해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK")
         cell.updateStackView(memo: memo)
-        cell.clipsToBounds = true
-        cell.layer.cornerRadius = 15
+        cell.updateStyle()
         return cell
     }
     
