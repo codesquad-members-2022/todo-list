@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0036E2FD2803CAF8001E6EA9 /* CardTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */; };
 		0047A15F27FE805400FAF019 /* CardStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0047A15E27FE805400FAF019 /* CardStatus.swift */; };
 		0077FD4F27FD68680046AB60 /* CardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077FD4E27FD68680046AB60 /* CardTableViewController.swift */; };
 		0077FD5127FD68A90046AB60 /* CardTableStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0077FD5027FD68A90046AB60 /* CardTableStoryboard.storyboard */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableDataSource.swift; sourceTree = "<group>"; };
 		0047A15E27FE805400FAF019 /* CardStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStatus.swift; sourceTree = "<group>"; };
 		0077FD4E27FD68680046AB60 /* CardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewController.swift; sourceTree = "<group>"; };
 		0077FD5027FD68A90046AB60 /* CardTableStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CardTableStoryboard.storyboard; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				72877BED27FF22EB000CF68E /* CardTableDelegate.swift */,
+				0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */,
 			);
 			path = delegate;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				00D13F1F27FED6200031E8DA /* CardTableViewCell.swift in Sources */,
 				0047A15F27FE805400FAF019 /* CardStatus.swift in Sources */,
 				72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */,
+				0036E2FD2803CAF8001E6EA9 /* CardTableDataSource.swift in Sources */,
 				72695E1B27FBE2DE00A29350 /* SceneDelegate.swift in Sources */,
 				72695E4A27FBE79C00A29350 /* Card.swift in Sources */,
 			);

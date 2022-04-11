@@ -15,7 +15,9 @@ class CardTableViewController: UIViewController {
     @IBOutlet weak var cardCountLabel: UILabel!
     @IBOutlet weak var addCardButton: UIButton!
     @IBOutlet weak var cardTableView: UITableView!
+    
     private let tableViewDelegate = CardTableDelegate()
+    private let tableViewDataSource = CardTableDataSource()
     private var cards = [TableCardUsable]()
     
     override func viewDidLoad() {
@@ -23,9 +25,9 @@ class CardTableViewController: UIViewController {
         
         cardTableView.register(CardTableViewCell.self, forCellReuseIdentifier: CardTableViewCell.identifier)
         cardTableView.delegate = tableViewDelegate
-        cardTableView.dataSource = tableViewDelegate
+        cardTableView.dataSource = tableViewDataSource
         
-        tableViewDelegate.setCards(cards: cards)
+        tableViewDataSource.setCards(cards: cards)
         
         setUIProperties()
         setUIPropertiesConstraint()
@@ -37,12 +39,12 @@ class CardTableViewController: UIViewController {
     
     func appendCard(_ card: TableCardUsable) {
         self.cards.append(card)
-        self.tableViewDelegate.appendCards(card: card)
+        self.tableViewDataSource.appendCards(card: card)
     }
     
     func setCards(_ cards: [TableCardUsable]) {
         self.cards = cards
-        self.tableViewDelegate.setCards(cards: cards)
+        self.tableViewDataSource.setCards(cards: cards)
     }
     
     private func setCardCountLabel() {
