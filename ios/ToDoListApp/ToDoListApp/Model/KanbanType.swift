@@ -13,7 +13,6 @@ enum KanbanType: CaseIterable, CustomStringConvertible {
     case inProgress
     case done
     
-    
     var description: String {
         switch self {
         case .toDo:
