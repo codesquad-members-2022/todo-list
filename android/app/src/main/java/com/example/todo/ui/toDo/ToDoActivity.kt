@@ -34,8 +34,15 @@ class ToDoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_todo)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_todo)
         setToolBar()
+        setCloseDrawerBtn()
         initializeRecyclerViews()
         addDummyDataInRecyclerView()
+    }
+
+    private fun setCloseDrawerBtn(){
+        binding.ibtnCloseDrawer.setOnClickListener {
+            binding.draw.closeDrawer(GravityCompat.END)
+        }
     }
 
     private fun setToolBar() {

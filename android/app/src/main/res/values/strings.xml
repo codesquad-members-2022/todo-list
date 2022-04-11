@@ -13,4 +13,11 @@
     <string name="action_remove">삭제</string>
     <string name="action_move">이동</string>
     <string name="action_update">수정</string>
+
+
+    <string name="label_addCard_title">새로운 카드 추가</string>
+    <string name="label_addCard_title_hint">제목을 입력해주세요</string>
+    <string name="label_addCard_content_hint">내용을 입력해주세요</string>
+    <string name="label_addCard_addBtn_text">등록</string>
+    <string name="label_addCard_cancleBtn_text">취소</string>
 </resources>

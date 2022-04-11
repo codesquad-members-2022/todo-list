@@ -71,6 +71,16 @@
             android:layout_height="match_parent"
             android:layout_gravity="end">
 
+            <ImageButton
+                android:id="@+id/ibtn_close_drawer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_baseline_close_24"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_action_log"
                 android:layout_width="wrap_content"
