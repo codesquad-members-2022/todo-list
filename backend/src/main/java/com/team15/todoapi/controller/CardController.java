@@ -1,6 +1,6 @@
 package com.team15.todoapi.controller;
 
-import com.team15.todoapi.domain.Card;
+import com.team15.todoapi.controller.card.CardResponse;
 import com.team15.todoapi.service.CardService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class CardController {
 	private final CardService cardService;
 
 	@GetMapping("")
-	public List<Card> cards(){
+	public List<CardResponse> cards(){
 		return cardService.findAll();
 	}
 }
