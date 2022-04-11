@@ -1,4 +1,4 @@
-package com.example.todo.common
+package com.example.todo.ui.action
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.todo.model.ActionLog

@@ -3,22 +3,22 @@ package com.example.todo.ui.toDo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.R
-import com.example.todo.common.ActionDiffCallback
-import com.example.todo.common.ActionType
-import com.example.todo.common.ProgressType
-import com.example.todo.common.TodoDiffCallback
+import com.example.todo.ui.action.ActionDiffCallback
+
 import com.example.todo.databinding.ActivityTodoBinding
 import com.example.todo.model.ActionLog
+import com.example.todo.model.ActionType
+import com.example.todo.model.ProgressType
 
 import com.example.todo.model.TodoItem
 import com.example.todo.ui.action.ActionAdapter
+import com.example.todo.ui.common.ViewModelFactory
 
 class ToDoActivity : AppCompatActivity() {
 
