@@ -33,33 +33,25 @@ export class ScheduleRegisterCard {
     }
 
     registerCardClickEventHandler({ target }) {
-        const $cancelBtn = this.$target.querySelector(
-            ".schedule-register-card__cancel-btn"
-        );
-        const $registerBtn = this.$target.querySelector(
-            ".schedule-register-card__register-btn"
-        );
+        const CANCLE_BTN = "schedule-register-card__cancel-btn";
+        const REGISTER_BTN = "schedule-register-card__register-btn";
 
-        if (target === $cancelBtn) {
+        if (target.classList.contains(CANCLE_BTN)) {
             this.passedEventHandler.removeRegisterCard();
         }
-        if (target === $registerBtn) {
+        if (target.classList.contains(REGISTER_BTN)) {
             this.registerBtnClickEventHandler(target);
         }
     }
 
     registerCardInputEventHandler({ target }) {
-        const $cardTitle = this.$target.querySelector(
-            ".schedule-register-card__title"
-        );
-        const $cardBody = this.$target.querySelector(
-            ".schedule-register-card__body"
-        );
+        const REGISTER_CARD_TITLE = "schedule-register-card__title";
+        const REGISTER_CARD_BODY = "schedule-register-card__body";
 
-        if (target === $cardTitle) {
+        if (target.classList.contains(REGISTER_CARD_TITLE)) {
             this.cardTitleInputEventHandler(target);
         }
-        if (target === $cardBody) {
+        if (target.classList.contains(REGISTER_CARD_BODY)) {
             this.cardBodyInputEventHandler(target);
         }
     }

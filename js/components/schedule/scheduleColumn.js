@@ -41,6 +41,7 @@ export class ScheduleColumn {
                 passedEventHandler: {
                     removeCard: this.removeCard.bind(this),
                     updateCard: this.updateCard.bind(this),
+                    getCardData: this.getCardData.bind(this),
                 },
             };
             new ScheduleCard(scheduleCardParams);
@@ -99,6 +100,7 @@ export class ScheduleColumn {
             passedEventHandler: {
                 removeCard: this.removeCard.bind(this),
                 updateCard: this.updateCard.bind(this),
+                getCardData: this.getCardData.bind(this),
             },
         };
         new ScheduleCard(scheduleCardParams);
@@ -112,6 +114,11 @@ export class ScheduleColumn {
 
     updateCard(cardData) {
         this.scheduleModel.updateScheduleCard(cardData);
+    }
+
+    getCardData(cardId) {
+        const cardData = this.scheduleModel.getScheduleCardDataById(cardId);
+        return cardData;
     }
 
     template() {

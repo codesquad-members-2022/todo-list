@@ -172,6 +172,7 @@ textarea {
   resize: none;
   overflow-y: hidden;
 }
+
 textarea:focus {
   outline: none;
 }
@@ -203,6 +204,7 @@ button {
   justify-content: unset;
   align-items: center;
 }
+
 #header__title {
   width: 171px;
   height: 46px;
@@ -212,6 +214,7 @@ button {
   line-height: 46px;
   color: #010101;
 }
+
 #header__menu-btn {
   display: flex;
   justify-content: center;
@@ -232,11 +235,13 @@ button {
 .schedule-column {
   width: 308px;
 }
+
 .schedule-column__header {
   display: flex;
   justify-content: unset;
   align-items: center;
 }
+
 .schedule-column__title {
   height: 26px;
   font-weight: 700;
@@ -245,6 +250,7 @@ button {
   color: #010101;
   margin: 0px 8px;
 }
+
 .schedule-column__count-box {
   display: flex;
   justify-content: center;
@@ -256,6 +262,7 @@ button {
   border-radius: 20px;
   margin: 0 auto 0 0;
 }
+
 .schedule-column__count-number {
   width: 26px;
   height: 26px;
@@ -269,13 +276,16 @@ button {
   color: #010101;
   margin: 0px 10px;
 }
+
 .schedule-column__add-btn:hover path {
   fill: #0075de;
 }
+
 .schedule-column__cards-container {
   height: 500px;
   overflow-y: scroll;
 }
+
 .schedule-column__cards-container::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Opera*/
@@ -299,6 +309,7 @@ button {
   border-radius: 6px;
   margin: 16px 0px;
 }
+
 .schedule-card__text-container {
   flex-direction: column;
   display: flex;
@@ -307,6 +318,7 @@ button {
   width: 252px;
   min-height: 76px;
 }
+
 .schedule-card__title {
   min-height: 23px;
   font-weight: 700;
@@ -314,6 +326,7 @@ button {
   line-height: 23px;
   color: #010101;
 }
+
 .schedule-card__body {
   min-height: 20px;
   font-weight: 400;
@@ -322,6 +335,7 @@ button {
   color: #010101;
   margin: 8px 0px;
 }
+
 .schedule-card__caption {
   height: 17px;
   font-weight: 400;
@@ -329,19 +343,23 @@ button {
   line-height: 17px;
   color: #bdbdbd;
 }
+
 .schedule-card__delete-btn {
   margin-left: auto;
   width: 12px;
   height: 12px;
 }
+
 .schedule-card__delete-btn path {
   fill: #828282;
 }
+
 .schedule-card--active-red {
   background: #FFEEEC;
   border: 1px solid #FF4343;
   box-sizing: border-box;
 }
+
 .schedule-card--active-red path {
   fill: #FF4343;
 }
@@ -360,6 +378,7 @@ button {
   margin: 16px 0px;
   border: 1px solid #0075de;
 }
+
 .schedule-register-card__text-container {
   flex-direction: column;
   display: flex;
@@ -368,6 +387,7 @@ button {
   width: 100%;
   min-height: 76px;
 }
+
 .schedule-register-card__title {
   min-height: 23px;
   font-weight: 700;
@@ -376,6 +396,7 @@ button {
   color: #010101;
   width: 100%;
 }
+
 .schedule-register-card__body {
   min-height: 20px;
   font-weight: 400;
@@ -385,11 +406,13 @@ button {
   margin: 8px 0px;
   width: 100%;
 }
+
 .schedule-register-card__btns-container {
   display: flex;
   justify-content: unset;
   align-items: unset;
 }
+
 .schedule-register-card__cancel-btn {
   padding: 10px;
   width: 134px;
@@ -402,6 +425,7 @@ button {
   text-align: center;
   color: #828282;
 }
+
 .schedule-register-card__register-btn {
   padding: 10px;
   width: 134px;
@@ -428,12 +452,14 @@ button {
   backdrop-filter: blur(4px);
   border-radius: 6px;
 }
+
 .schedule-delete-confirm p {
   font-weight: 400;
   font-size: 1.8rem;
   line-height: 26px;
   color: #010101;
 }
+
 .schedule-delete-confirm__btns-container {
   display: flex;
   justify-content: unset;
@@ -443,6 +469,7 @@ button {
   margin-top: 24px;
   margin-left: 76px;
 }
+
 .schedule-delete-confirm__cancel-btn {
   padding: 10px;
   width: 134px;
@@ -455,6 +482,7 @@ button {
   text-align: center;
   color: #828282;
 }
+
 .schedule-delete-confirm__delete-btn {
   padding: 10px;
   width: 134px;
@@ -483,6 +511,7 @@ button {
   margin: 16px 0px;
   border: 1px solid #0075de;
 }
+
 .schedule-edit-card__text-container {
   flex-direction: column;
   display: flex;
@@ -491,6 +520,7 @@ button {
   width: 100%;
   min-height: 76px;
 }
+
 .schedule-edit-card__title {
   min-height: 23px;
   font-weight: 700;
@@ -499,6 +529,7 @@ button {
   color: #010101;
   width: 100%;
 }
+
 .schedule-edit-card__body {
   min-height: 20px;
   font-weight: 400;
@@ -508,11 +539,13 @@ button {
   margin: 8px 0px;
   width: 100%;
 }
+
 .schedule-edit-card__btns-container {
   display: flex;
   justify-content: unset;
   align-items: unset;
 }
+
 .schedule-edit-card__cancel-btn {
   padding: 10px;
   width: 134px;
@@ -525,6 +558,7 @@ button {
   text-align: center;
   color: #828282;
 }
+
 .schedule-edit-card__edit-btn {
   padding: 10px;
   width: 134px;
@@ -563,14 +597,17 @@ button {
   margin-left: auto;
   margin-bottom: 18.75px;
 }
+
 .history__item-list {
   height: 100%;
   overflow-y: scroll;
 }
+
 .history__item-list::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Opera*/
 }
+
 .history__item-container {
   display: flex;
   justify-content: unset;
@@ -578,6 +615,7 @@ button {
   padding: 16px;
   background-color: #f4fce3;
 }
+
 .history__user-img-container {
   width: 40px;
   height: 40px;
@@ -585,16 +623,19 @@ button {
   border-radius: 20px;
   overflow: hidden;
 }
+
 .history__user-img {
   width: 100%;
   object-fit: cover;
 }
+
 .history__text-container {
   display: flex;
   justify-content: unset;
   align-items: unset;
   flex-direction: column;
 }
+
 .history__user-name {
   width: 244px;
   height: 23px;
@@ -603,6 +644,7 @@ button {
   line-height: 23px;
   color: #010101;
 }
+
 .history__body {
   width: 244px;
   height: 46px;
@@ -612,6 +654,7 @@ button {
   margin: 8px 0px;
   color: #010101;
 }
+
 .history__time-stamp {
   width: 244px;
   height: 20px;
@@ -620,5 +663,4 @@ button {
   line-height: 20px;
   color: #828282;
 }
-
 /*# sourceMappingURL=style.css.map */

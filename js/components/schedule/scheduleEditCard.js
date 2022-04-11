@@ -3,18 +3,39 @@ import { TEXT_LENGTH_LIMIT } from "../../utils.js";
 export class ScheduleEditCard {
     constructor({ original, passedEventHandler }) {
         this.$originalCard = original;
+        this.$originalCardTitle = this.$originalCard.querySelector(
+            ".schedule-card__title"
+        );
+        this.$originalCardBody = this.$originalCard.querySelector(
+            ".schedule-card__body"
+        );
         this.passedEventHandler = passedEventHandler;
         this.$editCard;
         this.init();
     }
 
     init() {
+        this.createEditCard();
         this.render();
         this.setEvent();
     }
 
+    setDOMElement() {
+        this.$editCardTitle = this.$editCard.querySelector(
+            ".schedule-edit-card__title"
+        );
+        this.$editCardBody = this.$editCard.querySelector(
+            ".schedule-edit-card__body"
+        );
+        this.$editCardEditBtn = this.$editCard.querySelector(
+            ".schedule-edit-card__edit-btn"
+        );
+        this.$editCardCancleBtn = this.$editCard.querySelector(
+            ".schedule-edit-card__cancel-btn"
+        );
+    }
+
     render() {
-        this.createEditCard();
         const parentNode = this.$originalCard.parentNode;
         parentNode.replaceChild(this.$editCard, this.$originalCard);
     }
@@ -31,22 +52,12 @@ export class ScheduleEditCard {
     }
 
     inputEventHandler({ target }) {
-        const $cardTitle = this.$editCard.querySelector(
-            ".schedule-edit-card__title"
-        );
-        const $cardBody = this.$editCard.querySelector(
-            ".schedule-edit-card__body"
-        );
+        if (target === this.$editCardTitle || target === this.$editCardBody) {
+            const cardTitle = this.$editCardTitle.value;
 
-        if (target === $cardTitle || target === $cardBody) {
-            const cardTitle = $cardTitle.value;
-            const $editBtn = this.$editCard.querySelector(
-                ".schedule-edit-card__edit-btn"
-            );
-
-            this.toggleEditBtn(cardTitle, $editBtn);
-            this.adjustInputHeight($cardTitle);
-            this.adjustInputHeight($cardBody);
+            this.toggleEditBtn(cardTitle, this.$editCardEditBtn);
+            this.adjustInputHeight(this.$editCardTitle);
+            this.adjustInputHeight(this.$editCardBody);
         }
     }
 
@@ -64,17 +75,10 @@ export class ScheduleEditCard {
     }
 
     clickEventHandler({ target }) {
-        const $cancelBtn = this.$editCard.querySelector(
-            ".schedule-edit-card__cancel-btn"
-        );
-        const $editBtn = this.$editCard.querySelector(
-            ".schedule-edit-card__edit-btn"
-        );
-
-        if (target === $cancelBtn) {
+        if (target === this.$editCardCancleBtn) {
             this.cancelEdit();
         }
-        if (target === $editBtn) {
+        if (target === this.$editCardEditBtn) {
             this.editBtnClickEventHandler(target);
         }
     }
@@ -84,34 +88,20 @@ export class ScheduleEditCard {
             return;
         }
 
-        const $cardTitle = this.$editCard.querySelector(
-            ".schedule-edit-card__title"
-        );
-        const $cardBody = this.$editCard.querySelector(
-            ".schedule-edit-card__body"
-        );
-
         const cardId = this.$editCard.dataset.cardId;
-
         const cardData = {
-            title: $cardTitle.value,
-            body: $cardBody.value,
+            title: this.$editCardTitle.value,
+            body: this.$editCardBody.value,
             caption: "author by web",
             id: cardId,
         };
+        this.passedEventHandler.updateCard(cardData);
 
-        const $cardTitleOfCardOnEditing = this.$originalCard.querySelector(
-            ".schedule-card__title"
-        );
-        const $cardBodyOfCardOnEditing = this.$originalCard.querySelector(
-            ".schedule-card__body"
-        );
-        $cardTitleOfCardOnEditing.innerText = cardData.title;
-        $cardBodyOfCardOnEditing.innerText = cardData.body;
+        this.$originalCardTitle.innerText = cardData.title;
+        this.$originalCardBody.innerText = cardData.body;
 
         const parentNode = this.$editCard.parentNode;
         parentNode.replaceChild(this.$originalCard, this.$editCard);
-        this.passedEventHandler.updateCard(cardData);
     }
 
     cancelEdit() {
@@ -120,17 +110,15 @@ export class ScheduleEditCard {
     }
 
     createEditCard() {
-        const cardTitle = this.$originalCard.querySelector(
-            ".schedule-card__title"
-        ).innerText;
-        const cardBody = this.$originalCard.querySelector(
-            ".schedule-card__body"
-        ).innerText;
+        const cardId = this.$originalCard.dataset.cardId;
+        const cardData = this.passedEventHandler.getCardData(cardId);
 
         this.$editCard = document.createElement("div");
         this.$editCard.classList.add("schedule-edit-card");
-        this.$editCard.dataset.cardId = this.$originalCard.dataset.cardId;
-        this.$editCard.innerHTML = this.template(cardTitle, cardBody);
+        this.$editCard.dataset.cardId = cardId;
+        this.$editCard.innerHTML = this.template(cardData.title, cardData.body);
+
+        this.setDOMElement();
     }
 
     template(cardTitle, cardBody) {

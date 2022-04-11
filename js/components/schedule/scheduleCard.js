@@ -1,3 +1,4 @@
+import { doubleClickEventHandler } from "../../utils.js";
 import { ScheduleDeleteConfirm } from "./scheduleDeleteConfirm.js";
 import { ScheduleEditCard } from "./scheduleEditCard.js";
 
@@ -6,7 +7,8 @@ export class ScheduleCard {
         this.$target = target;
         this.$scheduleCard;
         this.cardData = cardData;
-        this.passedEventHander = passedEventHandler;
+        this.passedEventHandler = passedEventHandler;
+        this.editCard;
         this.init();
     }
 
@@ -32,7 +34,7 @@ export class ScheduleCard {
 
         this.$scheduleCard.addEventListener(
             "click",
-            this.cardClickEventHandler().bind(this)
+            doubleClickEventHandler(this.createEditCard).bind(this)
         );
     }
 
@@ -58,7 +60,7 @@ export class ScheduleCard {
         const scheduleDeleteConfirmParams = {
             target: this.$scheduleCard,
             passedEventHandler: {
-                removeCard: this.passedEventHander.removeCard,
+                removeCard: this.passedEventHandler.removeCard,
             },
         };
         new ScheduleDeleteConfirm(scheduleDeleteConfirmParams);
@@ -72,55 +74,22 @@ export class ScheduleCard {
         this.$scheduleCard.classList.toggle("schedule-card--active-red");
     }
 
-    cardClickEventHandler() {
-        let clickCount = 0;
-        let timerId;
+    createEditCard(target) {
+        if (!this.editCard) {
+            const $selectedCard = target.closest(".schedule-card");
+            const scheduleEditCardParams = {
+                original: $selectedCard,
+                passedEventHandler: {
+                    updateCard: this.passedEventHandler.updateCard,
+                    getCardData: this.passedEventHandler.getCardData,
+                },
+            };
 
-        return ({ target }) => {
-            clickCount += 1;
-            if (clickCount === 1) {
-                timerId = setTimeout(() => {
-                    clickCount = 0;
-                }, 300);
-            } else if (clickCount === 2) {
-                clearTimeout(timerId);
-                clickCount = 0;
+            this.editCard = new ScheduleEditCard(scheduleEditCardParams);
+            return;
+        }
 
-                const $selectedCard = target.closest(".schedule-card");
-                const scheduleEditCardParams = {
-                    original: $selectedCard,
-                    passedEventHandler: {
-                        updateCard: this.passedEventHander.updateCard,
-                    },
-                };
-
-                new ScheduleEditCard(scheduleEditCardParams);
-            }
-        };
-    }
-
-    cardClickEventHandler() {
-        let clickCount = 0;
-        let timerId;
-
-        return ({ target }) => {
-            clickCount += 1;
-            if (clickCount === 1) {
-                timerId = setTimeout(() => {
-                    clickCount = 0;
-                }, 300);
-            } else if (clickCount === 2) {
-                clearTimeout(timerId);
-                clickCount = 0;
-
-                const $selectedCard = target.closest(".schedule-card");
-                const scheduleEditCardParams = {
-                    original: $selectedCard,
-                };
-
-                new ScheduleEditCard(scheduleEditCardParams);
-            }
-        };
+        this.editCard.render();
     }
 
     template() {

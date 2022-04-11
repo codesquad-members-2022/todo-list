@@ -27,10 +27,20 @@ export class ScheduleModel {
     }
 
     updateScheduleCard(cardData) {
-        const curCardIdx = this.scheduleColumnData.cards.findIndex(
-            (card) => card.id === cardData.id
+        this.scheduleColumnData.cards.find((card, index) => {
+            if (card.id === cardData.id) {
+                this.scheduleColumnData.cards[index] = cardData;
+                return true;
+            }
+            return false;
+        });
+    }
+
+    getScheduleCardDataById(cardId) {
+        const cardData = this.scheduleColumnData.cards.find(
+            (card) => card.id === cardId
         );
 
-        this.scheduleColumnData.cards[curCardIdx] = cardData;
+        return cardData;
     }
 }
