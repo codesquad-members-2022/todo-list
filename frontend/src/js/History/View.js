@@ -1,4 +1,4 @@
-import { historyTemplate } from '../Utils/template.js';
+import { historyTemplate } from '../utils/template.js';
 
 export default class HistoryView {
   constructor() {

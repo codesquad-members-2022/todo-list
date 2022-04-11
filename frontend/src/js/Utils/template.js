@@ -49,4 +49,16 @@ const historyTemplate = () => {
   `;
 };
 
-export { headerTemplate, historyTemplate };
+const alertBoxTemplate = ({ title, cancel, accept }) => {
+  return `
+  <div class="alert_box">
+      <p class="alert_message">${title}</p>
+      <div class="alert_btn_box">
+          <button type="button" class="btn normal_btn">${cancel}</button>
+          <button type="button" class="btn accent_btn">${accept}</button>
+      </div>
+  </div>
+  `;
+};
+
+export { headerTemplate, historyTemplate, alertBoxTemplate };

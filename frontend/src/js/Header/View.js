@@ -1,4 +1,4 @@
-import { headerTemplate } from '../Utils/template.js';
+import { headerTemplate } from '../utils/template.js';
 
 export default class HeaderView {
   constructor() {}
