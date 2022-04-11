@@ -1,61 +1,176 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TodoList</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <header class="header">
-      <h1 class="title">TO-DO LIST</h1>
-      <button class="menu-btn">
-        <span class="icon-menu"></span>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TodoList</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles/css/main.css" />
+</head>
+
+<body>
+  <header class="header">
+    <h1 class="title">TO-DO LIST</h1>
+    <button class="menu-icon">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 1V0H17V1H0ZM17 5V6H0V5H17ZM0 10H17V11H0V10Z" fill="black"/>
+      </svg>
+    </button>
+    <div class="menu-bar">
+      <button class="close-icon">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z" fill="black"/>
+        </svg>
       </button>
-      <div class="menu-bar">
-        <button class="close-btn">
-          <span class="icon-close"></span>
-        </button>
-        <ul class="notification-list">
-          <li>
-            <div class="user-img"></div>
-            <div class="user-action">
-              <p class="user-name">@Jimmy</p>
-              <p class="event-info">
-                ㅎ하하ㅏㅏㅏㅏㅏㅏ핳하하ㅏㅏ하ㅏㅏㅏㅎddddddㅏ
-              </p>
-              <p class="update-time">1분 전</p>
-            </div>
-          </li>
-          <li>
-            <div class="user-img"></div>
-            <div class="user-action">
-              <p class="user-name">@Jimmy</p>
-              <p class="event-info">ㅎ하하ㅏㅎddddddㅏ</p>
-              <p class="update-time">1분 전</p>
-            </div>
-          </li>
-          <li>
-            <div class="user-img"></div>
-            <div class="user-action">
-              <p class="user-name">@Jimmy</p>
-              <p class="event-info">ㅎ하하ㅏㅎddddddㅏ</p>
-              <p class="update-time">1분 전</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </header>
+      <ul class="notification-list">
+        <li>
+          <div class="user-img"></div>
+          <div class="user-action">
+            <p class="user-name">@Jimmy</p>
+            <p class="event-info">
+              ㅎ하하ㅏㅏㅏㅏㅏㅏ핳하하ㅏㅏ하ㅏㅏㅏㅎddddddㅏ
+            </p>
+            <p class="update-time">1분 전</p>
+          </div>
+        </li>
+        <li>
+          <div class="user-img"></div>
+          <div class="user-action">
+            <p class="user-name">@Jimmy</p>
+            <p class="event-info">ㅎ하하ㅏㅎddddddㅏ</p>
+            <p class="update-time">1분 전</p>
+          </div>
+        </li>
+        <li>
+          <div class="user-img"></div>
+          <div class="user-action">
+            <p class="user-name">@Jimmy</p>
+            <p class="event-info">ㅎ하하ㅏㅎddddddㅏ</p>
+            <p class="update-time">1분 전</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
 
-    <main></main>
-    <!-- <div class="layer make-black">
+  <main>
+    <div class="column">
+      <div class="column-header">
+        <div>
+          <h2 class="column-title">해야할 일</h2>
+          <span class="item-count">2</span>
+        </div>
+        <div>
+          <button class="plus-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z" fill="black"/>
+            </svg>
+          </button>
+          <button class="close-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z" fill="black"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <ul class="column-list">
+        <li class="list_item default">
+          <form class="item-info" method="POST" action="#">
+            <input class="item-title" placeholder="제목을 입력하세요" value="Github 공부하기"></input>
+            <input class="item-content" placeholder="내용을 입력하세요" value="Github 공부하기"></input>
+          </form>
+          <button class="close-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z" fill="black"/>
+            </svg>
+          </button>
+        </li>
+        <li class="list_item active default">
+          <form class="item-info" method="POST" action="#">
+            <input class="item-title" placeholder="제목을 입력하세요"></input>
+            <input class="item-content" placeholder="내용을 입력하세요"></input>
+            <div class="active-btns">
+              <button type="button" class="normal-btn">취소</button>
+              <button type="submit" class="accent-btn" disabled="true">등록</button>
+            </div>
+          </form>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="column">
+      <div class="column-header">
+        <div>
+          <h2 class="column-title">해야할 일</h2>
+          <span class="item-count">2</span>
+        </div>
+        <div>
+          <button class="plus-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.105709 7.53033L0.105709 6.46967H6.46967V0.105713H7.53033V6.46967H13.8943V7.53033H7.53033V13.8943H6.46967V7.53033H0.105709Z" fill="black"/>
+            </svg>
+          </button>
+          <button class="close-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z" fill="black"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <ul class="column-list">
+        <li class="list_item delete">
+          <form class="item-info" method="POST" action="#">
+            <input class="item-title" placeholder="제목을 입력하세요" value="Github 공부하기"></input>
+            <input class="item-content" placeholder="내용을 입력하세요" value="Github 공부하기"></input>
+          </form>
+          <button class="close-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z" fill="black"/>
+            </svg>
+          </button>
+        </li>
+        <li class="list_item drag">
+          <form class="item-info" method="POST" action="#">
+            <input class="item-title" placeholder="제목을 입력하세요" value="Github 공부하기"></input>
+            <input class="item-content" placeholder="내용을 입력하세요" value="Github 공부하기"></input>
+          </form>
+          <button class="close-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z" fill="black"/>
+            </svg>
+          </button>
+        </li>
+        <li class="list_item place">
+          <form class="item-info" method="POST" action="#">
+            <input class="item-title" placeholder="제목을 입력하세요" value="Github 공부하기"></input>
+            <input class="item-content" placeholder="내용을 입력하세요" value="Github 공부하기"></input>
+          </form>
+          <button class="close-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z" fill="black"/>
+            </svg>
+          </button>
+        </li>
+        <li class="list_item deactivate default">
+          <form class="item-info" method="POST" action="#">
+            <input class="item-title" placeholder="제목을 입력하세요" value="Github 공부하기"></input>
+            <input class="item-content" placeholder="내용을 입력하세요" value="본문"></input>
+            <div class="active-btns">
+              <button type="button" class="normal-btn">취소</button>
+              <button type="submit" class="accent-btn" disabled="false">등록</button>
+            </div>
+          </form>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+  </main>
+  <!-- <div class="layer make-black">
     <div class="alert">
       <div class="alert_message">선택한 카드를 삭제할까요?</div>
       <div class="active-btns">
@@ -64,5 +179,6 @@
       </div>
     </div>
   </div> -->
-  </body>
+</body>
+
 </html>

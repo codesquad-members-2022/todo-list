@@ -4,11 +4,7 @@
   "description": "그룹 프로젝트 #1",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "json-server --watch ./server/db.json --port 3001",
-    "build": "webpack",
-    "start-server": "webpack serve",
-    "dev": "npm run start & npm run start-server"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -27,21 +23,14 @@
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.4",
     "clean-webpack-plugin": "^4.0.0",
-    "core-js": "^3.21.1",
-    "css-loader": "^6.7.1",
-    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.6.0",
     "prettier": "2.6.2",
-    "sass": "^1.49.11",
-    "sass-loader": "^12.6.0",
-    "style-loader": "^3.3.1",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.71.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1"
+    "sass": "^1.49.11"
   },
   "dependencies": {
-    "json-server": "^0.17.0"
+    "core-js": "^3.21.1",
+    "source-map": "^0.7.3",
+    "webpack": "^5.71.0",
+    "webpack-cli": "^4.9.2"
   }
 }

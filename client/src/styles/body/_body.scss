@@ -36,27 +36,34 @@ main {
     vertical-align: bottom;
   }
 
-  .icon-plus {
+  .plus-icon {
     margin-right: 12px;
-    color: $gray4-color;
 
-    &:hover {
-      color: $blue-color;
+    path {
+      fill: $gray4-color;
     }
   }
 
-  .icon-close {
-    color: $gray4-color;
+  .plus-icon:hover {
+    path {
+      fill: $blue-color;
+    }
+  }
 
-    &:hover {
-      color: $red-color;
+  .close-icon {
+    path {
+      fill: $gray4-color;
+    }
+  }
+
+  .close-icon:hover {
+    path {
+      fill: $red-color;
     }
   }
 }
 
 .column-list {
-  width: $list-width;
-
   .list_item {
     display: flex;
     align-items: flex-start;
@@ -69,41 +76,29 @@ main {
     width: 100%;
 
     input {
-      width: 252px;
+      width: 100%;
       border: none;
-      background-color: transparent;
+      background-color: none;
+    }
+
+    input:focus {
       outline: none;
     }
 
-    &:focus {
-      outline: none;
+    .item-title {
+      @include font_style(700, 16px, 23px);
+      margin-bottom: 8px;
     }
 
-    &:read-only {
-      cursor: move;
+    .item-content {
+      @include font_style(400, 14px, 20px);
+      margin-bottom: 8px;
     }
-  }
 
-  .item-title {
-    @include font_style(700, 16px, 23px);
-    width: 252px;
-    margin-bottom: 8px;
-  }
-
-  .item-content {
-    @include font_style(400, 14px, 20px);
-    width: 252px;
-    margin-bottom: 8px;
-    border: none;
-    background-color: transparent;
-    resize: none;
-    outline: none;
-    word-wrap: break-word;
-  }
-
-  .item-caption {
-    @include font_style(400, 12px, 17px);
-    color: $gray4-color;
+    .item-caption {
+      @include font_style(400, 12px, 17px);
+      color: $gray4-color;
+    }
   }
 }
 
