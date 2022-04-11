@@ -1,12 +1,18 @@
 package com.codesquad.todolist.card.dto;
 
+import javax.validation.constraints.NotNull;
+
 import com.codesquad.todolist.card.Card;
 
 public class CardCreateRequest {
 
+    @NotNull(message = "cloumn must not be null")
     private Integer columnId;
+    @NotNull(message = "title must not be null")
     private String title;
+    @NotNull(message = "content must not be null")
     private String content;
+    @NotNull(message = "author must not be null")
     private String author;
 
     private CardCreateRequest() {

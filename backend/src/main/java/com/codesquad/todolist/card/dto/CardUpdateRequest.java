@@ -1,9 +1,13 @@
 package com.codesquad.todolist.card.dto;
 
-public class CardUpdateRequest {
+import javax.validation.constraints.NotNull;
 
+public class CardUpdateRequest {
+    @NotNull(message = "title must not be null")
     private String title;
+    @NotNull(message = "content must not be null")
     private String content;
+    @NotNull(message = "author must not be null")
     private String author;
 
     private CardUpdateRequest() {
