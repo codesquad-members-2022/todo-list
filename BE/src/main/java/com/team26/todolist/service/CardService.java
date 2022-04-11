@@ -15,7 +15,7 @@ public interface CardService {
 
     CardResponse modifyCard(CardUpdateRequest cardUpdateRequest);
 
-    CardResponse moveCard(CardMoveRequest cardMoveRequest);
+    CardResponse changeCardStatus(CardMoveRequest cardMoveRequest);
 
     void deleteCard(CardDeleteRequest cardDeleteRequest);
 }
