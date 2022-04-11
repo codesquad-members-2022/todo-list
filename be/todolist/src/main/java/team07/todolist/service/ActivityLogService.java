@@ -1,5 +1,6 @@
 package team07.todolist.service;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import team07.todolist.domain.ActivityLog;
 import team07.todolist.domain.Card;
@@ -47,4 +48,7 @@ public class ActivityLogService {
 		activityLogRepository.save(activityLog);
 	}
 
+	public List<ActivityLog> findAll() {
+		return activityLogRepository.findAll();
+	}
 }

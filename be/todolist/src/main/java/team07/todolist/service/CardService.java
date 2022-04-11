@@ -51,6 +51,7 @@ public class CardService {
 //			.row(requestCard.getRow())
 //			.status(requestCard.getStatus())
 //			.build();
+
 		Card originCard = cardRepository.findById(id);
 		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getRow(), requestCard.getStatus());
 		activityLogService.dragAndDropLog(originCard, requestCard);

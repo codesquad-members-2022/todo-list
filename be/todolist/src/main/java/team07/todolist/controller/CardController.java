@@ -19,6 +19,7 @@ import team07.todolist.dto.PatchCard;
 import team07.todolist.dto.RequestCard;
 import team07.todolist.dto.ResponseCard;
 import team07.todolist.repository.ActivityLogRepository;
+import team07.todolist.service.ActivityLogService;
 import team07.todolist.service.CardService;
 
 @Controller
@@ -26,12 +27,12 @@ import team07.todolist.service.CardService;
 public class CardController {
 
 	private Logger log = LoggerFactory.getLogger(CardController.class);
-	private final CardService cardService;;
-	private final ActivityLogRepository activityLogRepository;
+	private final CardService cardService;
+	private final ActivityLogService activityLogService;
 
-	public CardController(CardService cardService, ActivityLogRepository activityLogRepository) {
+	public CardController(CardService cardService, ActivityLogService activityLogService) {
 		this.cardService = cardService;
-		this.activityLogRepository = activityLogRepository;
+		this.activityLogService = activityLogService;
 	}
 
 	@ResponseBody
@@ -79,7 +80,7 @@ public class CardController {
 	@ResponseBody
 	@GetMapping("/menu")
 	public List<ActivityLog> menu() {
-		return activityLogRepository.findAll();
+		return activityLogService.findAll();
 	}
 
 	@GetMapping("/reset")
