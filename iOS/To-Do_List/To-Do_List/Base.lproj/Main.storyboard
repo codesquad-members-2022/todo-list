@@ -88,7 +88,7 @@
                         <viewLayoutGuide key="safeArea" id="hNL-ez-bcF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="5yh-mT-u1k" firstAttribute="top" secondItem="hzU-m8-3QM" secondAttribute="top" priority="900" id="0OU-fw-2DS"/>
+                            <constraint firstItem="5yh-mT-u1k" firstAttribute="top" secondItem="hNL-ez-bcF" secondAttribute="top" priority="900" id="0OU-fw-2DS"/>
                             <constraint firstItem="hzU-m8-3QM" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="leading" id="LCS-93-AMi"/>
                             <constraint firstItem="5yh-mT-u1k" firstAttribute="bottom" secondItem="hNL-ez-bcF" secondAttribute="bottom" priority="900" id="Oo1-7p-ODo"/>
                             <constraint firstItem="hNL-ez-bcF" firstAttribute="bottom" secondItem="qsL-gl-oqr" secondAttribute="bottom" id="VPW-zU-hNI"/>

@@ -29,4 +29,3 @@ class BoardTableView: UITableView {
     
 }
 
-//extension BoardTableView : UITab

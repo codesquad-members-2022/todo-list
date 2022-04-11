@@ -35,8 +35,9 @@ class BoardHeader: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func updateCount(_ numberOfCards: Int) {
-        self.badge.setTitle("\(numberOfCards)", for: .normal)
+    func updateCount(_ numberOfCards: Int?) {
+        guard let count = numberOfCards else {return}
+        self.badge.setTitle("\(count)", for: .normal)
     }
 
     private func setupView() {

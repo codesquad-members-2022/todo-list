@@ -66,10 +66,13 @@ class ChildViewController: UIViewController, UITableViewDelegate {
     @objc func reloadTableView(notification:Notification) {
         guard let data = notification.userInfo?[MainViewController.BoardData] as? NetworkResult , let boardType = self.boardType else { return }
         list = boardType.extractList(from: data)
+        
         DispatchQueue.main.async {
             self.setTableViewDataSource()
+            self.header.updateCount(self.list?.count)
             self.tableView.reloadData()
         }
+        
     }
 }
 

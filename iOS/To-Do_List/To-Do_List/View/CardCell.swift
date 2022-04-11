@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol CellContentModifiable {
+    
+}
+
+
 class CardCell: UITableViewCell {
 
     static let identifier = "CardCell"
