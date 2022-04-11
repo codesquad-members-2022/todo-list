@@ -1,13 +1,13 @@
 import { editLocalStorageById } from '../utils/localStorage.js';
-import TodoEditTemplate from './TodoEditTemplate.js';
+import { activationForm } from '../utils/handleStyle.js';
 export default class TodoEdit {
-  constructor(editObj, todoRender, todoRun) {
+  constructor(editObj, todoRender, todoHandleEventListener) {
     this.id = editObj.id;
     this.title = editObj.title;
     this.content = editObj.content;
     this.userId = editObj.userId;
     this.todoRender = todoRender;
-    this.todoRun = todoRun;
+    this.todoHandleEventListener = todoHandleEventListener;
   }
 
   render = () => {
@@ -23,7 +23,21 @@ export default class TodoEdit {
     `;
   };
 
-  run = () => {
+  editTemplate = editData => {
+    return /*html*/ `
+      <header>
+        <h3>${editData.title}</h3>
+        <button class="column__delete">x</button>
+      </header>
+      <div class="card__content">
+        <p class="card__content-text">${editData.content}</p>
+      </div>
+      <div class="card__author">
+        <p class="card__author-text">author by ${editData.userId}</p>
+      </div>`;
+  };
+
+  handleEventListener = () => {
     document.getElementById(this.id).addEventListener('input', this.onEditInputContent);
     document.getElementById(this.id).addEventListener('click', this.onButtons);
   };
@@ -34,20 +48,17 @@ export default class TodoEdit {
 
     if (target.classList.contains('edit-input-content')) {
       if (target.value.length === 0) {
-        editContentForm.disabled = true;
-        editContentForm.classList.remove('bg-blue');
-        editContentForm.classList.add('bg-sky-blue');
+        activationForm(editContentForm, true);
       } else {
-        editContentForm.disabled = false;
-        editContentForm.classList.remove('bg-sky-blue');
-        editContentForm.classList.add('bg-blue');
+        activationForm(editContentForm, false);
       }
     }
   };
+
   onButtons = ({ target }) => {
     if (target.classList.contains('input--cancel')) {
       document.getElementById(this.id).outerHTML = this.todoRender();
-      this.todoRun();
+      this.todoHandleEventListener();
     }
 
     if (target.classList.contains('input--update')) {
@@ -55,9 +66,10 @@ export default class TodoEdit {
       const editTitle = editFormElement.querySelector('.edit-input-header').value;
       const editContent = editFormElement.querySelector('.edit-input-content').value;
 
-      const editLocalStorageObj = { title: editTitle, content: editContent };
-      editLocalStorageById(editLocalStorageObj, this.id);
-      editFormElement.innerHTML = new TodoEditTemplate(editTitle, editContent, this.userId).render();
+      const editData = { title: editTitle, content: editContent, userId: this.userId };
+      editLocalStorageById(editData, this.id);
+
+      editFormElement.innerHTML = this.editTemplate(editData);
       document.getElementById(this.id).classList.remove('todo-border');
     }
   };
