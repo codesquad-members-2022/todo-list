@@ -16,10 +16,14 @@ class MyTaskViewController: UIViewController {
         resizeConstant()
         actionBoard.moveView()
         setupChildViewContoller()
+        
+        NotificationCenter.default.addObserver(forName: .addTaskButtonTapped, object: nil, queue: .main) { _ in
+            self.editCardButtonTapped()
+        }
     }
     
     @IBAction func actionFlowButtonTapped(_ sender: UIButton) {
-        NotificationCenter.default.post(name: Notification.Name.actionFlowButtonTapped, object: nil)
+        NotificationCenter.default.post(name: .actionFlowButtonTapped, object: nil)
     }
     
     private func setupChildViewContoller() {

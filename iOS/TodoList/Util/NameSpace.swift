@@ -19,5 +19,7 @@ struct NameSpace {
 extension Notification.Name {
     static let actionFlowButtonTapped: Notification.Name = Notification.Name("actionFlowButtonTapped")
     static let actionFlowCloseButtonTapped: Notification.Name = Notification.Name("actionFlowCloseButtonTapped")
-   
+    static let addTaskButtonTapped: Notification.Name = Notification.Name("addTaskButtonTapped")
+    static let editButtonTapped: Notification.Name = Notification.Name("editButtonTapped")
+    static let cancelButtonTapped: Notification.Name = Notification.Name("cancelButtonTapped")
 }

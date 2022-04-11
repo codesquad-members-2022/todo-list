@@ -17,7 +17,7 @@ class ActionBoardViewController: UIViewController {
     }
 
     @IBAction func closeButtonTapped(_ sender: UIButton) {
-        NotificationCenter.default.post(name: Notification.Name.actionFlowCloseButtonTapped, object: nil)
+        NotificationCenter.default.post(name: .actionFlowCloseButtonTapped, object: nil)
     }
 }
 

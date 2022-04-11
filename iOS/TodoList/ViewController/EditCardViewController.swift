@@ -7,5 +7,12 @@ class EditCardViewController: UIViewController {
         super.viewDidLoad()
         guard let editCardView = Bundle.main.loadNibNamed(NameSpace.nib.editCardView, owner: nil, options: nil)?.first as? EditCardView else { return }
         self.centerView.addSubview(editCardView)
+        
+        NotificationCenter.default.addObserver(forName: .cancelButtonTapped, object: nil, queue: .main, using: {_ in
+            self.dismiss(animated: false)
+        })
+        NotificationCenter.default.addObserver(forName: .editButtonTapped, object: nil, queue: .main, using: {_ in
+            self.dismiss(animated: false)
+        })
     }
 }
