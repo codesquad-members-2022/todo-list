@@ -11,4 +11,5 @@ public interface CardRepository {
     Optional<Card> findById(Long id);
     List<Card> findAll();
     boolean delete(Long id);
+    boolean move(Integer targetSectionId, Long targetCardId, Card card);
 }

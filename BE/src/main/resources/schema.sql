@@ -20,11 +20,12 @@ CREATE TABLE member
 
 CREATE TABLE card
 (
-     id BIGINT AUTO_INCREMENT NOT NULL,
+     id          BIGINT AUTO_INCREMENT NOT NULL,
      member_id   VARCHAR(255) NOT NULL,
      section_id  INTEGER NOT NULL,
      subject     VARCHAR(255) NOT NULL,
      contents    VARCHAR(255) NOT NULL,
+     order_index BIGINT NOT NULL,
      created_at  TIMESTAMP NOT NULL,
      updated_at  TIMESTAMP,
      deleted     boolean DEFAULT FALSE,
