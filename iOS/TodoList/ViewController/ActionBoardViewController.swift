@@ -16,9 +16,8 @@ class ActionBoardViewController: UIViewController {
         table.register(nibName, forCellReuseIdentifier: NameSpace.identifier.actionCardViewCell)
     }
 
-    @IBAction func closeButtonTapped(_ sender: Any) {
-        self.view.isHidden = true
-        self.view.superview?.isHidden = true
+    @IBAction func closeButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: Notification.Name.actionFlowCloseButtonTapped, object: nil)
     }
 }
 

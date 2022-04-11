@@ -21,7 +21,7 @@ class TaskCardListView: UIView {
 
     }
 
-    @IBAction func addTaskButtonTouched(_ sender: UIButton) {
+    @IBAction func addTaskButtonTapped(_ sender: UIButton) {
     }
 }
 
