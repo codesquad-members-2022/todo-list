@@ -1,24 +1,29 @@
 import TodoInput from './TodoInput.js';
+import { $ } from '../utils/dom.js';
 
 export default class TodoColumn {
   constructor(status) {
-    this.parentTarget = document.querySelector('.column-section');
+    this.parentTarget = $('.column-section');
     this.status = status;
-    this.todoInput = new TodoInput(this.status, this.handleCount);
+    this.todoInput = new TodoInput(this.status, this.setOnInput, this.handleCount);
     this.onInput = false;
     this.count = 0;
   }
 
+  setOnInput = onInput => {
+    this.onInput = onInput;
+  };
+
   onAddClick = () => {
     if (this.onInput) {
-      document.querySelector(`.input-${this.status}`)?.remove();
-      this.onInput = false;
+      $(`.input-${this.status}`)?.remove();
+      this.setOnInput(false);
       return;
     }
 
-    document.querySelector(`.${this.status}`).insertAdjacentHTML('afterend', this.todoInput.render());
+    $(`.${this.status}`).insertAdjacentHTML('afterend', this.todoInput.render());
     this.todoInput.run();
-    this.onInput = true;
+    this.setOnInput(true);
     return;
   };
 
@@ -36,7 +41,7 @@ export default class TodoColumn {
   };
 
   renderCount = () => {
-    document.querySelector(`.${this.status} .column__count`).innerText = this.count;
+    $(`.${this.status} .column__count`).innerText = this.count;
   };
 
   render = () => {
@@ -56,6 +61,6 @@ export default class TodoColumn {
     </article>
       `;
     this.parentTarget.insertAdjacentHTML('beforeend', columnListHTML);
-    document.querySelector(`.${this.status} .column__add`).addEventListener('click', this.onAddClick);
+    $(`.${this.status} .column__add`).addEventListener('click', this.onAddClick);
   };
 }
