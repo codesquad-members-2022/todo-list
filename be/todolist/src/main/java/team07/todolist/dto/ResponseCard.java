@@ -42,4 +42,16 @@ public class ResponseCard {
 	public Integer getStatus() {
 		return status;
 	}
+
+	@Override
+	public String toString() {
+		return "ResponseCard{" +
+			"id=" + id +
+			", userId='" + userId + '\'' +
+			", title='" + title + '\'' +
+			", content='" + content + '\'' +
+			", row=" + row +
+			", status=" + status +
+			'}';
+	}
 }

@@ -42,7 +42,7 @@ public class CardController {
 
 	@PostMapping
 	public void save(@RequestBody RequestCard requestCard, HttpServletResponse response) {
-		log.debug("{}", requestCard);
+		log.debug("save requsetCard: {}", requestCard);
 		cardService.save(requestCard);
 
 		response.setStatus(HttpServletResponse.SC_OK);
@@ -51,14 +51,16 @@ public class CardController {
 	@PostMapping("/move/{id}")
 	public void dragAndDrop(@PathVariable Long id, @RequestBody RequestCard requestCard, HttpServletResponse response) {
 
-		cardService.dragAndDrop(id, requestCard);
+		ResponseCard responseCard = cardService.dragAndDrop(id, requestCard);
+		log.debug("move responseCard: {}", responseCard);
 		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@PatchMapping("/{id}")
 	public void modifyCard(@PathVariable Long id, @RequestBody PatchCard patchCard, HttpServletResponse response) {
 
-		cardService.changeText(id, patchCard);
+		ResponseCard responseCard = cardService.changeText(id, patchCard);
+		log.debug("modify responseCard: {}", responseCard);
 		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
