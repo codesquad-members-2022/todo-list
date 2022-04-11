@@ -25,7 +25,7 @@ public class CardService {
             cardDto.getSection());
 
         int newCardId = cardRepository.save(card);
-        CardDTO newCardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(),
+        CardDTO newCardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), null,
             card.getSectionType());
         newCardDto.setCardId(newCardId);
         return newCardDto;
@@ -64,7 +64,7 @@ public class CardService {
         for (Card card : cards) {
             sectionCards = classifiedCards.get(card.getSectionType());
             if (check10Cards(sectionCards)) {
-                cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(),
+                cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), null,
                     card.getSectionType());
                 cardDto.setCardId(card.getId());
                 sectionCards.add(cardDto);
