@@ -10,15 +10,16 @@ import UIKit
 final class HeaderView: UIView{
     private var headerLabel: UILabel!
     private var menuButton: UIButton!
+    var delegate: HeaderViewDelegate?
     
-    override init(frame: CGRect) {
+    override init(frame: CGRect){
         super.init(frame: frame)
         setHeaderLabel()
         setMenuButton()
         self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
     }
     
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder){
         super.init(coder: coder)
         setHeaderLabel()
         setMenuButton()
@@ -43,17 +44,19 @@ private extension HeaderView{
     
     func setMenuButton(){
         menuButton = UIButton()
-        menuButton.setImage(UIImage(systemName: "line.3.horizontal"), for: .normal)
         menuButton.tintColor = .black
-        
-        let largeConfigure = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .large)
-        let menuButtonImage = UIImage(systemName: "line.3.horizontal", withConfiguration: largeConfigure)
-        menuButton.setImage(menuButtonImage, for: .normal)
+        menuButton.setImage(UIImage(named: "menu"), for: .normal)
         
         self.addSubview(menuButton)
         
         menuButton.translatesAutoresizingMaskIntoConstraints = false
         menuButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -52).isActive = true
         menuButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        menuButton.addTarget(self, action: #selector(touchedMenuButton(_:)), for: .touchUpInside)
+    }
+    
+    @objc
+    func touchedMenuButton(_ button: UIButton){
+        self.delegate?.headerMenuButtonDidTouched()
     }
 }
