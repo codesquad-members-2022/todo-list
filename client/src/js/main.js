@@ -5,6 +5,7 @@ import {
 } from './template.js';
 import { InitTodos } from './todos';
 import { AddCard } from './CRUDClass/addCard';
+import { DeleteCard } from './CRUDClass/deleteCard';
 
 export const init = () => {
   const initTodos = new InitTodos(createColumnTemplate);
@@ -12,4 +13,7 @@ export const init = () => {
 
   const addCard = new AddCard(createCardTemplate, createPostedCardTemplate);
   addCard.init();
+
+  const deleteCard = new DeleteCard();
+  deleteCard.init();
 };

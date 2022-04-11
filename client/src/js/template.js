@@ -37,7 +37,7 @@ const createPostedCardTemplate = ({ title, content }) => {
       <h3 class="item-title">${title}</h3>
       <p class="item-content">${content}</p>
     </div>
-    <button class="close-btn">
+    <button class="close-btn card-close-btn">
       <span class="icon-close"></span>
     </button>
   `;
