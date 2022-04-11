@@ -9,25 +9,24 @@ import UIKit
 
 class CardTableViewCell: UITableViewCell {
     
+    static let identifier = "CardTableViewCell"
+    
     lazy var view = UIView()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "title"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
     lazy var contentLabel: UILabel = {
         let label = UILabel()
-        label.text = "Content"
         label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
     lazy var writerLabel: UILabel = {
         let label = UILabel()
-        label.text = "writer"
         label.font = UIFont.boldSystemFont(ofSize: 14)
         return label
     }()
@@ -45,7 +44,6 @@ class CardTableViewCell: UITableViewCell {
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        // viewDidLoad같은 함수
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(view)
         view.addSubview(titleLabel)

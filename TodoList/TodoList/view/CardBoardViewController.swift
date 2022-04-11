@@ -9,6 +9,8 @@ import UIKit
 
 class CardBoardViewController: UIViewController {
 
+    static let cardTableStoryBoardIdentifier = "CardTableStoryboard"
+    
     let factory = CardFactory()
     let cardBoard = CardBoard()
     
@@ -29,10 +31,10 @@ class CardBoardViewController: UIViewController {
     }
     
     private func initChildViewControllers() {
-        let todoStoryBoard = UIStoryboard(name: "TodoStoryboard", bundle: Bundle(for: CardTableViewController.self))
-        self.todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController
-        self.doingViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController
-        self.doneViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController
+        let todoStoryBoard = UIStoryboard(name: CardBoardViewController.cardTableStoryBoardIdentifier, bundle: Bundle(for: CardTableViewController.self))
+        self.todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: CardTableViewController.identifier) as? CardTableViewController
+        self.doingViewController = todoStoryBoard.instantiateViewController(withIdentifier: CardTableViewController.identifier) as? CardTableViewController
+        self.doneViewController = todoStoryBoard.instantiateViewController(withIdentifier: CardTableViewController.identifier) as? CardTableViewController
         
         guard let todoViewController = self.todoViewController,
               let doingViewController = self.doingViewController,

@@ -9,6 +9,8 @@ import UIKit
 
 class CardTableViewController: UIViewController {
 
+    static let identifier = "CardTableViewController"
+    
     @IBOutlet weak var cardLabel: UILabel!
     @IBOutlet weak var cardCountLabel: UILabel!
     @IBOutlet weak var addCardButton: UIButton!
@@ -19,7 +21,7 @@ class CardTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cardTableView.register(CardTableViewCell.self, forCellReuseIdentifier: "CardTableViewCell")
+        cardTableView.register(CardTableViewCell.self, forCellReuseIdentifier: CardTableViewCell.identifier)
         cardTableView.delegate = tableViewDelegate
         cardTableView.dataSource = tableViewDelegate
         
