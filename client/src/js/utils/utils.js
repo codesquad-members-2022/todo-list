@@ -24,3 +24,18 @@ export const fetchData = async (url) => {
     throw new Error("Fetch Failed");
   }
 };
+
+export const postData = async (url, data) => {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (response.status === 201) {
+    const data = await response.json();
+    return data;
+  } else {
+    throw new Error("Fetch Failed");
+  }
+};

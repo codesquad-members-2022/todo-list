@@ -1,4 +1,5 @@
 import { $, $$ } from "../utils/utils.js";
+import { iconAdd, iconDelete } from "../constants/imagePath.js";
 import { Task } from "./task.js";
 import * as TodoListStore from "../store/todoListStore.js";
 
@@ -14,17 +15,26 @@ export class List {
     this.render(this.parent);
     this.createTask(this.tasksData);
     this.setEvents();
-    TodoListStore.subscribe("registration", this.notify.bind(this));
+    TodoListStore.subscribe("registration", this.notifyRegistration.bind(this));
+    TodoListStore.subscribe("newTask", this.notifyNewTask.bind(this));
   }
 
-  notify(value, title) {
+  notifyRegistration(activation, title) {
     if (title !== this.title) return;
-    if (!value && !this.target.querySelector(".registration-card")) {
+    if (!activation && !this.target.querySelector(".registration-card")) {
       const originRegistrationCard = $(".registration-card");
       originRegistrationCard && originRegistrationCard.remove();
       return TodoListStore.update("registration", this.title);
     }
-    value ? this.addRegistrationCard() : this.removeRegistrationCard();
+    if (!activation) this.task.shift();
+    activation ? this.addRegistrationCard() : this.removeRegistrationCard();
+  }
+
+  notifyNewTask(newTaskCount, title, newTask) {
+    if (title !== this.title) return;
+    this.task.push(new Task(this.title, newTask));
+    TodoListStore.update("registration", this.title);
+    this.target.querySelector(".column__task--count").innerHTML = this.task.length;
   }
 
   createTask(tasksData) {
@@ -43,11 +53,11 @@ export class List {
           <div class="column__item--title">
             <div class="column__item--title-text">
               <h2 class="column__title">${title}</h2>
-              <div class="column__task--count">2</div>
+              <div class="column__task--count">${this.tasksData.length}</div>
             </div>
             <div class="column__item--title-menu">
-              <img src="./svg/icon-add.svg" class="column__task--add-button" />
-              <img src="./svg/icon-delete.svg" class="column__list--delete-button" />
+              <img src=${iconAdd} class="column__task--add-button" />
+              <img src=${iconDelete} class="column__list--delete-button" />
             </div>
           </div>
           <ul class="column__task--list"></ul>

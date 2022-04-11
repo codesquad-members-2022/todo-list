@@ -1,5 +1,4 @@
 import { iconDelete } from "../constants/imagePath.js";
-import { $$ } from "../utils/utils.js";
 
 const taskItemClassName = "column__task--item";
 const taskListClassName = "column__task--list";
@@ -16,15 +15,9 @@ const taskCreator = (origin) => {
   };
 };
 
-export const setTaskDragEvent = () => {
-  const taskList = [...$$(`.${taskListClassName}`)];
-  taskList.forEach((taskList) => {
-    const taskItems = [...taskList.children];
-    taskItems.forEach(setMouseEvent);
-  });
-};
-
 export const setMouseEvent = (taskItem) => {
+  const isRegistrationCard = taskItem.classList.contains("registration-card");
+  if (isRegistrationCard) return;
   taskItem.addEventListener("mousedown", mouseDownHandler);
 };
 
@@ -62,7 +55,7 @@ const createCopyTask = (taskElement, isMoved = false) => {
   const copyTaskElement = document.createElement("li");
   copyTaskElement.style.width = "308px";
   copyTaskElement.ondragstart = () => false;
-  copyTaskElement.dataset.index = taskElement.dataset.index;
+  copyTaskElement.dataset.title = taskElement.dataset.title;
   copyTaskElement.classList.add(taskItemClassName);
   copyTaskElement.innerHTML = createTaskHTML([...sectionElement.children]);
   copyTaskElement.addEventListener("mouseup", mouseUpHandler);
