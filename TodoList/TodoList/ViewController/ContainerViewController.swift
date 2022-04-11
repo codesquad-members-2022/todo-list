@@ -54,7 +54,7 @@ private extension ContainerViewController{
 }
 
 extension ContainerViewController: TableViewInCollectionCell{
-    func delegateCollectionCell(cell: CollectionCell, index: Int) {
+    func didSetTableView(cell: CollectionCell, index: Int) {
         self.tableVC.setTableAttributes(cell: cell, index: index)
     }
 }
