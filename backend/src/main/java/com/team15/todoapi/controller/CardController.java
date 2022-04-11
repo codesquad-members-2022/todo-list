@@ -18,7 +18,9 @@ public class CardController {
 	private final CardService cardService;
 
 	@GetMapping("")
-	public List<CardResponse> cards(){
+	public List<CardResponse> retrieveList(){
 		return cardService.findAll();
 	}
+
+
 }
