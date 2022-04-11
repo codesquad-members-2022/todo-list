@@ -1,6 +1,6 @@
 package com.hooria.todo.controller;
 
-import com.hooria.todo.dto.ActivityLogsResponse;
+import com.hooria.todo.domain.ActivityLog;
 import com.hooria.todo.service.ActivityLogService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +34,8 @@ class ActivityLogController {
             )
     })
     @GetMapping
-    public ResponseEntity<ActivityLogsResponse> getActivities() {
-        ActivityLogsResponse response = ActivityLogsResponse.of(activityLogService.selectAll());
+    public ResponseEntity<List<ActivityLog>> getActivities() {
+        List<ActivityLog> response = activityLogService.selectAll();
         return ResponseEntity.ok().body(response);
     }
     

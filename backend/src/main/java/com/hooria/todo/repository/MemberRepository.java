@@ -29,7 +29,7 @@ public class MemberRepository {
                 .usingGeneratedKeyColumns("id");
 
         rowMapper = (rs, row) ->
-                new Member(
+                Member.of(
                         rs.getLong("id"),
                         rs.getString("user_id"),
                         rs.getString("password"),

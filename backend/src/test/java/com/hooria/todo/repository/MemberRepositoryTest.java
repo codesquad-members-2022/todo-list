@@ -27,7 +27,7 @@ class MemberRepositoryTest {
     void insertSuccess() {
 
         // given
-        Member member = new Member(0, "userId4", "password4", "name4");
+        Member member = Member.of(0, "userId4", "password4", "name4");
 
         // when
         Member result = repository.insert(member);
@@ -42,9 +42,9 @@ class MemberRepositoryTest {
 
         // given
         List<Member> members = List.of(
-                new Member(1, "userId1", "password1", "name1"),
-                new Member(2, "userId2", "password2", "name2"),
-                new Member(3, "userId3", "password3", "name3")
+                Member.of(1, "userId1", "password1", "name1"),
+                Member.of(2, "userId2", "password2", "name2"),
+                Member.of(3, "userId3", "password3", "name3")
         );
 
         // when
@@ -67,7 +67,7 @@ class MemberRepositoryTest {
     void findByIdSuccess() {
         // given
         String userId = "userId1";
-        Member member = new Member(1, userId, "password1", "name1");
+        Member member = Member.of(1, userId, "password1", "name1");
 
         // when
         Optional<Member> result = repository.findById("userId1");

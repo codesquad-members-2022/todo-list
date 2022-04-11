@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hooria.todo.domain.ActivityLog;
-import com.hooria.todo.dto.ActivityLogsResponse;
 import com.hooria.todo.service.ActivityLogService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
