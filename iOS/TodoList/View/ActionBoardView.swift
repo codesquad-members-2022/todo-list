@@ -29,8 +29,12 @@ class ActionBoardView: UIView {
     }
     
     private func addObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(toggle), name: Notification.Name.actionFlowButtonTapped, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(toggle), name: Notification.Name.actionFlowCloseButtonTapped, object: nil)
+        NotificationCenter.default.addObserver(forName: .actionFlowButtonTapped, object: nil, queue: .main, using: {_ in
+            self.toggle()
+        })
+        NotificationCenter.default.addObserver(forName: .actionFlowCloseButtonTapped, object: nil, queue: .main, using: {_ in
+            self.toggle()
+        })
     }
 
 }

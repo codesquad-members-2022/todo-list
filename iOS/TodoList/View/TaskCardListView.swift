@@ -22,6 +22,7 @@ class TaskCardListView: UIView {
     }
 
     @IBAction func addTaskButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .addTaskButtonTapped, object: nil)
     }
 }
 
