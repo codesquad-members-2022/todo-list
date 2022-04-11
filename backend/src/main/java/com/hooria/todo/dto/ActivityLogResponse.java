@@ -1,6 +1,7 @@
 package com.hooria.todo.dto;
 
 import com.hooria.todo.domain.ActivityLog;
+import java.time.temporal.ChronoUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,7 +28,7 @@ public class ActivityLogResponse {
                 activityLog.getTaskTitle(),
                 activityLog.getFromStatus(),
                 activityLog.getToStatus(),
-                activityLog.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                activityLog.getCreatedAt().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 activityLog.isReadYn()
         );
     }

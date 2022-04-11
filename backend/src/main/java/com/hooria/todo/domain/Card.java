@@ -3,6 +3,7 @@ package com.hooria.todo.domain;
 import com.hooria.todo.dto.CardResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -41,8 +42,8 @@ public class Card {
             content,
             userId,
             device.name(),
-            createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-            modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+            createdAt.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+            modifiedAt.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
             deletedYn,
             rowPosition
         );
