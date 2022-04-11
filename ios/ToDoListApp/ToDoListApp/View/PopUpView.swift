@@ -27,20 +27,26 @@ class PopUpView: UIView {
     
     private let containerHeadLineLabel: UILabel = {
         let label = UILabel()
-        label.text = "새로운 카드 추가"
+        label.text = Constant.PopUpViewText.headLineLabel
         label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 18)
         return label
     }()
     
-    private let containerTitleLabel: UITextField = {
+    private(set) var containerTitleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "내용을 입력하세요"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: Constant.PopUpViewText.titleTextField,
+            attributes: [NSAttributedString.Key.font: UIFont(name: Constant.Font.gothicNeoBold, size: 15) as Any ]
+        )
         return textField
     }()
     
-    private let containerContentsLabel: UITextField = {
+    private let containerContentsTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "제목을 입력하세요"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: Constant.PopUpViewText.contentsTextField,
+            attributes: [NSAttributedString.Key.font: UIFont(name: Constant.Font.gothicNeo, size: 15) as Any ]
+        )
         return textField
     }()
     
@@ -54,7 +60,7 @@ class PopUpView: UIView {
     
     private(set) var cancelButton: UIButton = {
         let button = UIButton()
-        button.setTitle("취소", for: .normal)
+        button.setTitle(Constant.PopUpViewText.cancelButton, for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
         button.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
@@ -64,7 +70,7 @@ class PopUpView: UIView {
     
     private(set) var submitButton: UIButton = {
         let button = UIButton()
-        button.setTitle("등록", for: .normal)
+        button.setTitle(Constant.PopUpViewText.submitButton, for: .normal)
         button.titleLabel?.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 5
@@ -91,8 +97,8 @@ class PopUpView: UIView {
         containerView.addSubview(containerHeadLineLabel)
         
         containerView.addSubview(containerStackView)
-        containerStackView.addArrangedSubview(containerTitleLabel)
-        containerStackView.addArrangedSubview(containerContentsLabel)
+        containerStackView.addArrangedSubview(containerTitleTextField)
+        containerStackView.addArrangedSubview(containerContentsTextField)
         
         containerView.addSubview(buttonStackView)
         buttonStackView.addArrangedSubview(cancelButton)
@@ -144,7 +150,7 @@ class PopUpView: UIView {
     }
     
     func resetPlaceholder() {
-        containerTitleLabel.text = ""
-        containerContentsLabel.text = ""
+        containerTitleTextField.text = ""
+        containerContentsTextField.text = ""
     }
 }
