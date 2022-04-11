@@ -5,6 +5,9 @@ import codesquad.be.todoserver.exception.NoSuchTodoFoundException;
 import codesquad.be.todoserver.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class TodoService {
 
@@ -16,6 +19,10 @@ public class TodoService {
 
 	public Todo getById(Long id) {
 		return todoRepository.findById(id)
-			.orElseThrow(() -> new NoSuchTodoFoundException("조회할 수 없는 Todo 입니다. id : " + id));
+			.orElseThrow(() -> new NoSuchTodoFoundException("id: " + id));
+	}
+
+	public Optional<List> findTodos() {
+		return todoRepository.findAll();
 	}
 }

@@ -25,6 +25,13 @@ public class TodoJdbcRepository implements TodoRepository {
 		return todos.stream().findAny();
 	}
 
+	@Override
+	public Optional<List> findAll() {
+		String sql = "SELECT id, title, contents, user, status, created_time, updated_time FROM TODO";
+		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper());
+		return Optional.of(todos);
+	}
+
 	public RowMapper<Todo> todoRowMapper() {
 		return (rs, rowNum) -> {
 			Todo todo = new Todo(
