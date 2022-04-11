@@ -10,4 +10,16 @@ class TodoTableViewCell: UITableViewCell {
     static var nib: UINib {
         return UINib(nibName: String(describing: self), bundle: nil)
     }
+
+    func admitCardData(_ card: CardData) {
+        setTitleLabelAttribute(card.title)
+    }
+
+    private func setTitleLabelAttribute(_ text: String) {
+        titleLabel.text = text
+    }
+
+    private func setContentLabelAttribute(_ text: String) {
+        contentLabel.text = text
+    }
 }
