@@ -16,4 +16,8 @@ public class Card {
 	private LocalDateTime modifiedAt;
 	private int section;
 
+	//목록조회용
+	public static Card of(Long id, String title, String content, String userId, LocalDateTime modifiedAt, int section) {
+		return new Card(id, title, content, userId, modifiedAt, section);
+	}
 }

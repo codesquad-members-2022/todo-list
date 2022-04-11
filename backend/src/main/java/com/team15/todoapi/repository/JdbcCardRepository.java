@@ -28,12 +28,17 @@ public class JdbcCardRepository implements CardRepository{
 				+ "from card , member "
 				+ "where card.member_id = member.id "
 				+ "and  delete_flag = false "
-				+ "order by modified_at desc", cardRowMapper());
+				+ "order by modified_at desc", mapper());
 	}
 
-	private RowMapper<Card> cardRowMapper(){
+	private RowMapper<Card> mapper(){
 		return (rs, rowNum) -> {
-			Card card = new Card(rs.getString("title"),rs.getString("title"));
+			Card card = Card.of(rs.getLong("id"),
+				rs.getString("title"),
+				rs.getString("content"),
+				rs.getString("user_id"),
+				rs.getTimestamp("modified_at").toLocalDateTime(),
+				rs.getInt("card_section_code_id"));
 			return card;
 		};
 	}
