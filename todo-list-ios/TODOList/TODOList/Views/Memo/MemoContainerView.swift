@@ -80,12 +80,6 @@ class MemoContainerView: UIView {
         addViews()
         setConstraints()
     }
-    
-    convenience init(identifier: Identifier) {
-        self.init()
-        super.translatesAutoresizingMaskIntoConstraints = false
-        self.identifier = identifier
-    }
 
     
     private func addViews() {
