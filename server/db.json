@@ -1,0 +1,12 @@
+{
+  "cards": [
+    {
+      "states": "해야할 일",
+      "id": 1,
+      "title": "아침에 일찍 일어나기",
+      "content": "가능할까?",
+      "lastTime": 2020
+    }
+  ],
+  "columns": ["todo", "doing", "done"]
+}

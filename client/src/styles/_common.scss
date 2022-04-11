@@ -22,11 +22,10 @@
 .default {
   background-color: $white-color;
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  cursor: move;
 
-  .close-icon {
-    path {
-      fill: $gray3-color;
-    }
+  .icon-close {
+    color: $gray3-color;
   }
 }
 
@@ -36,10 +35,8 @@
     0px 2px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(4px);
 
-  .close-icon {
-    path {
-      fill: $gray3-color;
-    }
+  .icon-close {
+    color: $gray3-color;
   }
 }
 
@@ -49,10 +46,8 @@
   border: 1px solid #0075de;
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
 
-  .close-icon {
-    path {
-      fill: $gray3-color;
-    }
+  .icon-close {
+    color: $gray3-color;
   }
 }
 
@@ -61,18 +56,18 @@
   border: 1px solid $red-color;
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
 
-  .close-icon {
-    path {
-      fill: $red-color;
-    }
+  .icon-close {
+    color: $red-color;
   }
 }
 
 .active {
+  background-color: $white-color;
   border: 1px solid $blue-color;
 }
 
 .deactivate {
+  background-color: $white-color;
   border: 1px solid $blue-color;
 
   .item-title,
@@ -83,10 +78,10 @@
   input {
     width: 100%;
     border: none;
-  }
 
-  input:focus {
-    outline: none;
+    &:focus {
+      outline: none;
+    }
   }
 }
 
@@ -117,33 +112,26 @@
   color: $white-color;
   font-weight: 700;
   font-size: 14px;
-}
-
-.accent-btn:hover {
-  background-color: $darkblue-color;
-}
-
-.accent-btn[disabled='false']:hover {
-  background-color: $darkblue-color;
-}
-
-.accent-btn[disabled='false'] {
   background-color: $blue-color;
-}
 
-.accent-btn[disabled='true'] {
-  background-color: $lightblue-color;
-  color: rgba(255, 255, 255, 0.4);
+  &:hover {
+    background-color: $darkblue-color;
+  }
+
+  &:disabled {
+    background-color: $lightblue-color;
+    color: rgba(255, 255, 255, 0.4);
+  }
 }
 
 .normal-btn {
   background-color: $gray5-color;
   color: $gray3-color;
-}
 
-.normal-btn:hover {
-  background-color: $gray3-color;
-  color: $white-color;
+  &:hover {
+    background-color: $gray3-color;
+    color: $white-color;
+  }
 }
 
 /* 팝업 레이어 백그라운드 */
