@@ -209,7 +209,6 @@ extension ColumnViewController: UITableViewDropDelegate {
     }
 }
 
-
 extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         model.cardCount
