@@ -14,20 +14,12 @@ import java.util.List;
 public class CardService {
     private final CardRepository cardRepository;
 
-    //TODO: 에러 핸들러를 만들어서 에러처리 필요
     public CardUpdateDto findUpdateCard(Long id){
-        Card card = cardRepository.findCardById(id).orElseThrow(
-                IllegalArgumentException::new
-        );
-        return makeUpdateDto(card);
-    }
-
-    public CardUpdateDto makeUpdateDto(Card card) {
-        return new CardUpdateDto(card.getCardIndex(), card.getTitle(), card.getContents(), card.getCardStatus());
+        return CardUpdateDto.makeUpdateDto(cardRepository.findCardById(id));
     }
 
     public int addCard(CardAddDto cardAddDto, int size) {
-        return cardRepository.add(cardAddDto, size);
+        return cardRepository.add(cardAddDto.toEntity(), size);
     }
 
     public int removeCard(Long id) {
@@ -35,10 +27,12 @@ public class CardService {
     }
 
 
-    public List<Card> findAll() { return cardRepository.findAll(); }
+    public List<Card> findAll() {
+        return cardRepository.findAll();
+    }
 
     public int updateCard(Long id, CardUpdateDto cardUpdateDto) {
-        return cardRepository.update(id, cardUpdateDto);
+        return cardRepository.update(id, cardUpdateDto.toEntity());
     }
 
 }
