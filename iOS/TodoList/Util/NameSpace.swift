@@ -13,4 +13,11 @@ struct NameSpace {
         static let taskCardViewCell: String = "taskCardViewCell"
         static let actionCardViewCell: String = "actionCardViewCell"
     }
+    
+}
+
+extension Notification.Name {
+    static let actionFlowButtonTapped: Notification.Name = Notification.Name("actionFlowButtonTapped")
+    static let actionFlowCloseButtonTapped: Notification.Name = Notification.Name("actionFlowCloseButtonTapped")
+   
 }

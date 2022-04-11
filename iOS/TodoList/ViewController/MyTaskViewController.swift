@@ -2,7 +2,7 @@ import UIKit
 
 class MyTaskViewController: UIViewController {
     @IBOutlet private weak var taskListStackView: TaskBoardView!
-    @IBOutlet private weak var actionBoard: UIView!
+    @IBOutlet private weak var actionBoard: ActionBoardView!
     
     @IBOutlet private weak var actionFlowButton: UIButton!
     @IBOutlet private weak var stackViewTrailing: NSLayoutConstraint!
@@ -17,7 +17,7 @@ class MyTaskViewController: UIViewController {
     }
     
     @IBAction func actionFlowButtonTapped(_ sender: UIButton) {
-        editCardButtonTapped()
+        NotificationCenter.default.post(name: Notification.Name.actionFlowButtonTapped, object: nil)
     }
     
     private func setupChildViewContoller() {
