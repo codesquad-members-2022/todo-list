@@ -34,13 +34,7 @@ public class CardService {
 		return cardRepository.delete(id);
 	}
 
-	public ResponseCard dragAndDropHorizon(Long id, RequestCard requestCard) {
-		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard);
-		activityLogService.dragAndDropLog(cardRepository.findById(id), requestCard);
-		return updateCard.createResponseCard();
-	}
-
-	public ResponseCard dragAndDropVertical(Long id, RequestCard requestCard) {
+	public ResponseCard dragAndDrop(Long id, RequestCard requestCard) {
 		Card originCard = cardRepository.findById(id);
 		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard);
 		activityLogService.dragAndDropLog(originCard, requestCard);

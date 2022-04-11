@@ -48,17 +48,10 @@ public class CardController {
 		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
-	@PostMapping("/move/horizon/{id}")
-	public void dragAndDropHorizon(@PathVariable Long id, @RequestBody RequestCard requestCard, HttpServletResponse response) {
+	@PostMapping("/move/{id}")
+	public void dragAndDrop(@PathVariable Long id, @RequestBody RequestCard requestCard, HttpServletResponse response) {
 
-		cardService.dragAndDropHorizon(id, requestCard);
-		response.setStatus(HttpServletResponse.SC_OK);
-	}
-
-	@PostMapping("/move/vertical/{id}")
-	public void dragAndDropVertical(@PathVariable Long id, @RequestBody RequestCard requestCard, HttpServletResponse response) {
-
-		cardService.dragAndDropVertical(id, requestCard);
+		cardService.dragAndDrop(id, requestCard);
 		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
