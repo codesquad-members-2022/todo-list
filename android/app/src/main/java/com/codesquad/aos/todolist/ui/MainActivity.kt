@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         setViewModel()
 
         setTodoRecyclerView()
-        setProgressRecyclerView()
-        setCompleteRecyclerView()
+//        setProgressRecyclerView()
+//        setCompleteRecyclerView()
         setLogRecyclerView()
 
         setItemTouchCallback()
@@ -59,6 +59,17 @@ class MainActivity : AppCompatActivity() {
         binding.rvTodo.adapter = todoCardListAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
+
+        val touchHelper = TodoTouchHelper(todoCardListAdapter).apply {
+            setClamp(resources.displayMetrics.widthPixels.toFloat() / 4)
+        }
+
+        ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvTodo)
+
+        binding.rvTodo.setOnTouchListener { _, _ ->
+            touchHelper.removePreviousClamp(binding.rvTodo)
+            false
+        }
 
         viewModel.addTodo("hihi", "hihihi")
         viewModel.addTodo("byebye", "byebyebye")

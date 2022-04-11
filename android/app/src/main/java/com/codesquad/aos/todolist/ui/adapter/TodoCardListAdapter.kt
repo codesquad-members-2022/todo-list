@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codesquad.aos.todolist.R
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ItemTodoCardBinding
+import java.util.*
 
 class TodoCardListAdapter : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil) {
 
@@ -28,6 +29,13 @@ class TodoCardListAdapter : ListAdapter<Card, TodoCardListAdapter.CardViewHolder
             DataBindingUtil.inflate(layoutInflater, R.layout.item_todo_card, parent, false)
         return CardViewHolder(binding)
     }
+
+    fun moveItem(from: Int, to:Int) {
+        val newList = currentList.toMutableList()
+        Collections.swap(newList, from, to)
+        submitList(newList)
+    }
+
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(getItem(position))
