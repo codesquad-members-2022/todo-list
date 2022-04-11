@@ -8,7 +8,14 @@ class MemoCanvasViewController: UIViewController {
         return view
     }()
     
-    // childVC의 viewDidLoad()라고 생각
+    private var memoTableViewControllers: [Identifier: MemoTableViewController] {
+        return [
+            .todo : MemoTableViewController(cellCount: 15, identifier: .todo)
+            , .progress : MemoTableViewController(cellCount: 15, identifier: .progress)
+            , .done : MemoTableViewController(cellCount: 15, identifier: .done)
+        ]
+    }
+    
     override func didMove(toParent parent: UIViewController?) {
         view = memoCanvasView
         memoCanvasView.todoContainerView.tableView.dataSource = self

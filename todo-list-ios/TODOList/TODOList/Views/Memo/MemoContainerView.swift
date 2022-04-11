@@ -2,7 +2,9 @@ import UIKit
 
 class MemoContainerView: UIView {
     
-    let horizontalStackView: UIStackView = {
+    private var identifier: Identifier?
+        
+    private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -12,7 +14,7 @@ class MemoContainerView: UIView {
         return stackView
     }()
     
-    let categoryLabel: UILabel = {
+    private let categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: FontFactory.bold, size: 20)
@@ -22,13 +24,13 @@ class MemoContainerView: UIView {
         return label
     }()
     
-    let countView: UIView = {
+    private let countView: UIView = {
         let label = UIView()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let countLabel: UILabel = {
+    private let countLabel: UILabel = {
         let label = UILabel()
         label.text = "3"
         label.font = UIFont(name: FontFactory.bold, size: 14)
@@ -41,13 +43,13 @@ class MemoContainerView: UIView {
         return label
     }()
     
-    let buttonView: UIView = {
+    private let buttonView: UIView = {
         let label = UIView()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let button: UIButton = {
+    private let button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(named: "add"), for: .normal)
@@ -78,6 +80,13 @@ class MemoContainerView: UIView {
         addViews()
         setConstraints()
     }
+    
+    convenience init(identifier: Identifier) {
+        self.init()
+        super.translatesAutoresizingMaskIntoConstraints = false
+        self.identifier = identifier
+    }
+
     
     private func addViews() {
         
