@@ -16,6 +16,17 @@ public class Card {
 	private int status;
 	private boolean isDeleted;
 
+	public Card(Long id, String userId, String title, String content, int sequence, int status,
+		boolean isDeleted) {
+		this.id = id;
+		this.userId = userId;
+		this.title = title;
+		this.content = content;
+		this.sequence = sequence;
+		this.status = status;
+		this.isDeleted = isDeleted;
+	}
+
 	public Card(String userId, String title, String content, Integer sequence, Integer status) {
 		this.userId = userId;
 		this.title = title;
@@ -91,4 +102,19 @@ public class Card {
 		return new ResponseCard(id, userId, title, content, sequence, status);
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
 }

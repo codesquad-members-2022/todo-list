@@ -44,11 +44,13 @@ public class CardService {
 	}
 
 	public ResponseCard changeText(Long id, PatchCard patchCard) {
-		Card card = new Card(cardRepository.findById(id), patchCard.getTitle(),
-			patchCard.getContent());
 
 		Card originCard = cardRepository.findById(id);
+
+		Card card = new Card(originCard, patchCard.getTitle(), patchCard.getContent());
+
 		Card updateCard = cardRepository.updateText(id, card);
+
 		activityLogService.changeTextLog(originCard, patchCard);
 
 		return updateCard.createResponseCard();
