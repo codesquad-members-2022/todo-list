@@ -22,25 +22,26 @@ public class MemoryCardRepository implements CardRepository {
 	}
 
 	@Override
-	public void save(Card card, int status) {
+	public Card save(Card card) {
 		Long id = sequence.incrementAndGet();
 
 		Card cardWithId = new Card(card, id);
 
 		store.put(id, cardWithId);
+		return cardWithId;
 	}
 
 	@Override
 	public Card delete(Long id) {
 		Card card = store.get(id);
-		Integer row = card.getRow();
-		Integer status = card.getStatus();
-
 		card.delete();
 
+		int row = card.getRow();
+		int status = card.getStatus();
+
 		store.values().stream()
-			.filter(c -> c.getStatus().equals(status))
-			.filter(c -> c.getRow() > row)
+			.filter(c -> c.isSameStatus(status))
+			.filter(c -> c.overRow(row))
 			.forEach(Card::decreaseRow);
 
 		return card;
@@ -49,20 +50,20 @@ public class MemoryCardRepository implements CardRepository {
 	@Override
 	public Card updateStatusAndRow(Long id, RequestCard requestCard) {
 		Card originCard = store.get(id);
-		Integer originRow = originCard.getRow();
-		Integer originStatus = originCard.getStatus();
+		int originRow = originCard.getRow();
+		int originStatus = originCard.getStatus();
 
-		Integer row = requestCard.getRow();
-		Integer status = requestCard.getStatus();
+		int row = requestCard.getRow();
+		int status = requestCard.getStatus();
 
 		store.values().stream()
-			.filter(c -> c.getStatus().equals(originStatus))
-			.filter(c -> c.getRow() > originRow)
+			.filter(c -> c.isSameStatus(originStatus))
+			.filter(c -> c.overRow(originRow))
 			.forEach(Card::decreaseRow);
 
 		store.values().stream()
-			.filter(c -> c.getStatus().equals(status))
-			.filter(c -> c.getRow() >= row)
+			.filter(c -> c.isSameStatus(status))
+			.filter(c -> c.andOverRow(row))
 			.forEach(Card::increaseRow);
 
 		Card updateCard = new Card(originCard, id, row, status);

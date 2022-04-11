@@ -1,6 +1,7 @@
 package team07.todolist.service;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import team07.todolist.domain.Card;
@@ -25,18 +26,20 @@ public class CardService {
 			requestCard.getContent(), requestCard.getRow(), requestCard.getStatus());
 
 		int status = requestCard.getStatus();
-		cardRepository.save(newCard, status);
+		cardRepository.save(newCard);
 		activityLogService.saveLog(requestCard);
 	}
 
 	public Card delete(Long id) {
 		activityLogService.deleteLog(cardRepository.findById(id));
+
 		return cardRepository.delete(id);
 	}
 
 	public ResponseCard dragAndDrop(Long id, RequestCard requestCard) {
 		Card originCard = cardRepository.findById(id);
 		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard);
+
 		activityLogService.dragAndDropLog(originCard, requestCard);
 		return updateCard.createResponseCard();
 	}

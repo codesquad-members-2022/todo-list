@@ -35,6 +35,7 @@ public class Card {
 
 	public Card(Card card, String title, String content) {
 		this.id = card.id;
+		this.userId = card.userId;
 		this.title = title;
 		this.content = content;
 		this.row = card.row;
@@ -54,11 +55,11 @@ public class Card {
 		isDeleted = true;
 	}
 
-	public Integer getRow() {
+	public int getRow() {
 		return row;
 	}
 
-	public Integer getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
@@ -72,6 +73,18 @@ public class Card {
 
 	public boolean isValid() {
 		return !isDeleted;
+	}
+
+	public boolean isSameStatus(int status) {
+		return this.status == status;
+	}
+
+	public boolean overRow(int row) {
+		return this.row > row;
+	}
+
+	public boolean andOverRow(int row) {
+		return this.row >= row;
 	}
 
 	public ResponseCard createResponseCard() {

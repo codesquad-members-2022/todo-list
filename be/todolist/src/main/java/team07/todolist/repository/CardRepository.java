@@ -1,6 +1,7 @@
 package team07.todolist.repository;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import team07.todolist.domain.Card;
 import team07.todolist.dto.RequestCard;
 
@@ -8,7 +9,7 @@ public interface CardRepository {
 
 	Card findById(Long id);
 
-	void save(Card card, int status);
+	Card save(Card card);
 
 	Card delete(Long id);
 

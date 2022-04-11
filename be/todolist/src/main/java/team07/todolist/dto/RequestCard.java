@@ -5,13 +5,13 @@ public class RequestCard {
 	private String userId;
 	private String title;
 	private String content;
-	private Integer row;
+	private int row;
 	private Integer status;
 
 	public RequestCard() {
 	}
 
-	public RequestCard(String userId, String title, String content, Integer row, Integer status) {
+	public RequestCard(String userId, String title, String content, int row, Integer status) {
 		this.userId = userId;
 		this.title = title;
 		this.content = content;
@@ -31,7 +31,7 @@ public class RequestCard {
 		return content;
 	}
 
-	public Integer getRow() {
+	public int getRow() {
 		return row;
 	}
 
