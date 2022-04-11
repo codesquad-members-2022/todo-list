@@ -32,23 +32,23 @@ h2 .itemCount {
   height: 20px;
   font-size: 15px;
   border-radius: 100%;
-  background-color: #bdbdbd;
+  background-color: var(--transparency-gray);
 }
 
 .column-item--buttons .addBtn {
   font-size: 15px;
-  color: #fff;
+  color: var(--white);
   border: none;
-  background-color: #64c964;
+  background-color: var(--green);
   border-radius: 5px;
   cursor: pointer;
 }
 
 .column-item--buttons .deleteBtn {
   font-size: 15px;
-  color: #ffffff;
+  color: var(--white);
   border: none;
-  background-color: #fd565f;
+  background-color: var(--red);
   border-radius: 5px;
   cursor: pointer;
 }
