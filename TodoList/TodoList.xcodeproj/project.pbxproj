@@ -26,6 +26,7 @@
 		72695E3C27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E3B27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift */; };
 		72695E4A27FBE79C00A29350 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E4927FBE79C00A29350 /* Card.swift */; };
 		72877BEE27FF22EB000CF68E /* CardTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72877BED27FF22EB000CF68E /* CardTableDelegate.swift */; };
+		72C368EE280417D800086FF6 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C368ED280417D800086FF6 /* HistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		72695E3B27FBE2E000A29350 /* TodoListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		72695E4927FBE79C00A29350 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		72877BED27FF22EB000CF68E /* CardTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableDelegate.swift; sourceTree = "<group>"; };
+		72C368ED280417D800086FF6 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				72695E1C27FBE2DE00A29350 /* CardBoardViewController.swift */,
 				00D13F1E27FED6200031E8DA /* CardTableViewCell.swift */,
 				0077FD4E27FD68680046AB60 /* CardTableViewController.swift */,
+				72C368ED280417D800086FF6 /* HistoryView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				00A14F7127FC19EB00474097 /* CardBoard.swift in Sources */,
 				00A14F6027FC07C700474097 /* CardFactory.swift in Sources */,
 				72877BEE27FF22EB000CF68E /* CardTableDelegate.swift in Sources */,
+				72C368EE280417D800086FF6 /* HistoryView.swift in Sources */,
 				72695E1D27FBE2DE00A29350 /* CardBoardViewController.swift in Sources */,
 				00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */,
 				00D13F1F27FED6200031E8DA /* CardTableViewCell.swift in Sources */,
@@ -503,6 +507,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -531,6 +536,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

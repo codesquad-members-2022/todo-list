@@ -18,12 +18,36 @@ class CardBoardViewController: UIViewController {
     private var doingViewController: CardTableViewController?
     private var doneViewController: CardTableViewController?
     
+    private lazy var historyView = HistoryView()
+    private var historyViewBeforeConstraints: [NSLayoutConstraint] = []
+    private var historyViewAfterConstraints: [NSLayoutConstraint] = []
+    
     @IBOutlet weak var boardStackView: UIStackView!
+    @IBOutlet weak var historyAppearButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initChildViewControllers()
         setUIProperties()
+        setHistoryView()
+    }
+    
+    private func setHistoryView(){
+        self.view.addSubview(historyView)
+        
+        historyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        historyViewBeforeConstraints.append(historyView.topAnchor.constraint(equalTo: view.topAnchor))
+        historyViewBeforeConstraints.append(historyView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
+        historyViewBeforeConstraints.append(historyView.leadingAnchor.constraint(equalTo: view.trailingAnchor))
+        historyViewBeforeConstraints.append(historyView.widthAnchor.constraint(equalToConstant: CGFloat(300)))
+       
+        historyViewAfterConstraints.append(historyView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor))
+        historyViewAfterConstraints.append(historyView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor))
+        historyViewAfterConstraints.append(historyView.topAnchor.constraint(equalTo: self.view.topAnchor))
+        historyViewAfterConstraints.append(historyView.widthAnchor.constraint(equalToConstant: CGFloat(300)))
+        
+        historyViewBeforeConstraints.map{$0.isActive = true}
     }
     
     private func initChildViewControllers() {
@@ -58,5 +82,12 @@ class CardBoardViewController: UIViewController {
         doingViewController?.setCardTitleLabel(title: CardStatus.doing.name)
         doneViewController?.setCardTitleLabel(title: CardStatus.done.name)
         todoViewController?.appendCard(factory.createRandomCard())
+    }
+    @IBAction func historyAppearButtonTapped(_ sender: Any) {
+        UIView.animate(withDuration: 0.5) {
+            self.historyViewBeforeConstraints.map{$0.isActive = false}
+            self.historyViewAfterConstraints.map{$0.isActive = true}
+            self.view.layoutIfNeeded()
+        }
     }
 }
