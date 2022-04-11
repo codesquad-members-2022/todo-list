@@ -1,6 +1,7 @@
 package com.todolist.project.web.dto;
 
 import com.todolist.project.domain.CardStatus;
+import com.todolist.project.domain.card.Card;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,11 +14,7 @@ public class CardAddDto {
     private String contents;
     private String writer;
 
-    public CardStatus createCardStatus() {
-        return CardStatus.TODO;
-    }
-
-    public LocalDateTime cardCreatedTime() {
-        return LocalDateTime.now();
+    public Card toEntity() {
+        return new Card(title, contents, writer);
     }
 }

@@ -11,19 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/card")
+@RequestMapping("/cards")
 @RestController
 public class CardController {
     private final CardService cardService;
 
     @GetMapping
-    public List<Card> home() {
+    public List<Card> list() {
         return cardService.findAll();
     }
 
     @PostMapping
     public int add(@RequestBody CardAddDto dto) {
-
         return cardService.addCard(dto, cardService.findAll().size());
     }
 
