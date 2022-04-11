@@ -13,7 +13,12 @@ export const onBodyMouseMove = () => {
 export const onBodyMouseUp = () => {
   document.body.addEventListener('mouseup', e => {
     const copyCardElement = document.querySelector('.drag');
-    copyCardElement?.remove();
+    if (copyCardElement) {
+      const dataId = copyCardElement.getAttribute('data-id');
+      copyCardElement?.remove();
+      const card = document.getElementById(`${dataId}`);
+      card.classList.remove('spectrum');
+    }
   });
 };
 
