@@ -12,7 +12,7 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(ToDoViewModel::class.java)) {
             val repository =
-                ActionLogRepository(ActionLogRemoteDataSource(RetrofitClient.create(), context))
+                ActionLogRepository(context, ActionLogRemoteDataSource(RetrofitClient.create()))
             ToDoViewModel(repository) as T
         } else {
             throw IllegalArgumentException()
