@@ -29,30 +29,43 @@
       "timeStamp": "Wed Apr 06 2022 12:16:00 GMT+0900"
     }
   ],
-  "todoList": ["todo", "progress", "done"],
-  "todo": [
+  "todoList": [
     {
       "id": 1,
-      "title": "GitHub 공부",
-      "comment": "add, commit, push",
-      "author": "web"
+      "title": "todo",
+      "task": [
+        {
+          "id": 1,
+          "title": "GitHub 공부",
+          "comment": "add, commit, push",
+          "author": "web"
+        },
+        {
+          "id": 2,
+          "title": "블로그에 포스팅할 것",
+          "comment": "* GitHub 공부내용\n* CSS transition",
+          "author": "mobile"
+        }
+      ]
     },
     {
       "id": 2,
-      "title": "블로그에 포스팅할 것",
-      "comment": "* GitHub 공부내용\n* CSS transition",
-      "author": "mobile"
-    }
-  ],
-  "progress": [
+      "title": "progress",
+      "task": [
+        {
+          "id": 1,
+          "title": "HTML/CSS 공부하기",
+          "comment": "input 태그 실습",
+          "author": "web"
+        }
+      ]
+    },
     {
-      "id": 1,
-      "title": "HTML/CSS 공부하기",
-      "comment": "input 태그 실습",
-      "author": "web"
+      "id": 3,
+      "title": "done",
+      "task": []
     }
   ],
-  "done": [],
   "user": [
     {
       "id": 1,

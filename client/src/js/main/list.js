@@ -5,47 +5,38 @@ import * as TodoListStore from "../store/todoListStore.js";
 
 export class List {
   constructor(parent, listData) {
-    this.task = [];
     this.parent = parent;
-    [[this.title, this.tasksData]] = Object.entries(listData);
+    [this.listTitle, this.taskData] = listData;
     this.init();
   }
 
   init() {
     this.render(this.parent);
-    this.createTask(this.tasksData);
+    this.createTask(this.taskData);
     this.setEvents();
     TodoListStore.subscribe("registration", this.notifyRegistration.bind(this));
-    TodoListStore.subscribe("newTask", this.notifyNewTask.bind(this));
+    TodoListStore.subscribe("newTask");
   }
 
   notifyRegistration(activation, title) {
-    if (title !== this.title) return;
+    if (title !== this.listTitle) return;
     if (!activation && !this.target.querySelector(".registration-card")) {
       const originRegistrationCard = $(".registration-card");
       originRegistrationCard && originRegistrationCard.remove();
-      return TodoListStore.update("registration", this.title);
+      return TodoListStore.update("registration", this.listTitle);
     }
-    if (!activation) this.task.shift();
     activation ? this.addRegistrationCard() : this.removeRegistrationCard();
-  }
-
-  notifyNewTask(newTaskCount, title, newTask) {
-    if (title !== this.title) return;
-    this.task.push(new Task(this.title, newTask));
-    TodoListStore.update("registration", this.title);
-    this.target.querySelector(".column__task--count").innerHTML = this.task.length;
   }
 
   createTask(tasksData) {
     for (const task of tasksData) {
-      this.task.push(new Task(this.title, task));
+      new Task(this.listTitle, task);
     }
   }
 
   render(parent) {
     const position = "beforeend";
-    parent.insertAdjacentHTML(position, this.createHTML(this.title));
+    parent.insertAdjacentHTML(position, this.createHTML(this.listTitle));
   }
 
   createHTML(title) {
@@ -53,7 +44,7 @@ export class List {
           <div class="column__item--title">
             <div class="column__item--title-text">
               <h2 class="column__title">${title}</h2>
-              <div class="column__task--count">${this.tasksData.length}</div>
+              <div class="column__task--count">${this.taskData.length}</div>
             </div>
             <div class="column__item--title-menu">
               <img src=${iconAdd} class="column__task--add-button" />
@@ -72,7 +63,7 @@ export class List {
   setTarget() {
     const lists = $$(".column__item");
     for (const list of lists) {
-      if (list.dataset.title === this.title) {
+      if (list.dataset.title === this.listTitle) {
         this.target = list;
       }
     }
@@ -85,11 +76,11 @@ export class List {
   handleClickEvent(target) {
     const isAddButton = target.classList.contains("column__task--add-button");
     if (!isAddButton) return;
-    TodoListStore.update("registration", this.title);
+    TodoListStore.update("registration", this.listTitle);
   }
 
   addRegistrationCard() {
-    this.task.unshift(new Task(this.title));
+    new Task(this.listTitle);
   }
 
   removeRegistrationCard() {

@@ -1,5 +1,7 @@
 import { iconDelete } from "../constants/imagePath.js";
 
+let timer;
+
 const taskItemClassName = "column__task--item";
 const taskListClassName = "column__task--list";
 
@@ -16,12 +18,20 @@ const taskCreator = (origin) => {
 };
 
 export const setMouseEvent = (taskItem) => {
+  const minGrabbingTime = 250;
+
   const isRegistrationCard = taskItem.classList.contains("registration-card");
   if (isRegistrationCard) return;
-  taskItem.addEventListener("mousedown", mouseDownHandler);
+
+  taskItem.addEventListener("mousedown", (event) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => mouseDownHandler(event), minGrabbingTime);
+  });
+  taskItem.addEventListener("mouseup", mouseUpHandler);
 };
 
 const mouseDownHandler = (event) => {
+  if (timer) timer = null;
   const target = event.target;
 
   if (isDeleteButton(target)) {
@@ -144,8 +154,9 @@ const setTaskList = (newList) => {
 };
 
 const mouseUpHandler = (event) => {
-  const target = event.target;
+  if (timer) return clearTimeout(timer);
 
+  const target = event.target;
   if (isDeleteButton(target)) {
     return;
   }

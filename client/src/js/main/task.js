@@ -4,8 +4,8 @@ import { setMouseEvent } from "./taskDragHandler.js";
 import * as TodoListStore from "../store/todoListStore.js";
 
 export class Task {
-  constructor(title, taskData) {
-    this.title = title;
+  constructor(listTitle, taskData) {
+    this.listTitle = listTitle;
     this.taskData = taskData;
     this.init();
     this.setEvents();
@@ -20,7 +20,7 @@ export class Task {
     const position = this.taskData ? "beforeend" : "afterbegin";
 
     for (const list of lists) {
-      if (list.dataset.title === this.title) {
+      if (list.dataset.title === this.listTitle) {
         list
           .querySelector(".column__task--list")
           .insertAdjacentHTML(
@@ -34,7 +34,7 @@ export class Task {
   createHTML(taskData) {
     taskData = taskData || this.taskData;
     const { title, comment, author } = taskData;
-    this.taskTitle = title;
+    [this.taskTitle, this.comment, this.author] = [title, comment, author];
     return taskData
       ? `<li class="column__task--item" data-title="${title}">
               <section>
@@ -71,6 +71,7 @@ export class Task {
   setEvents() {
     this.setTarget();
     this.setClickEvent();
+    this.setDoubleClickEvent();
     this.setInputEvent();
     this.setKeyupEvent();
     setMouseEvent(this.target);
@@ -100,22 +101,75 @@ export class Task {
   }
 
   handleClickEvent(target) {
-    const isTaskButton = target.closest(".column__task--button");
-    if (!isTaskButton) return;
+    if (!this.isTaskButton(target)) return;
 
-    const isCancelButton = target.classList.contains("column__task--cancel-button");
-    if (isCancelButton) return this.removeRegistrationCard();
+    if (this.isCancelButton(target))
+      if (this.isRegistrationCard()) return this.removeRegistrationCard();
+      else if (this.isEditCard()) return this.restoreOriginCard();
 
-    const isInactivation = this.target.classList.contains("inactivation");
-    if (isInactivation) return;
-    const title = this.target.querySelector("input").value;
-    const comment = this.target.querySelector("textarea").value;
-    const newTask = { title, comment, author: "web" };
-    TodoListStore.update("newTask", this.title, newTask);
+    if (this.isInactivation()) return;
+
+    this.taskTitle = this.target.querySelector("input").value;
+    this.comment = this.target.querySelector("textarea").value;
+    this.taskData = {
+      id: this.taskData ? this.taskData.id : undefined,
+      title: this.taskTitle,
+      comment: this.comment,
+      author: this.author,
+    };
+    return TodoListStore.update("newTask", this.listTitle, this.taskData);
+  }
+
+  isTaskButton(target) {
+    return target.closest(".column__task--button");
+  }
+
+  isCancelButton(target) {
+    return target.classList.contains("column__task--cancel-button");
+  }
+
+  isRegistrationCard() {
+    return this.target.classList.contains("registration-card");
+  }
+
+  isEditCard() {
+    return this.target.classList.contains("edit-card");
+  }
+
+  isInactivation() {
+    return this.target.classList.contains("inactivation");
   }
 
   removeRegistrationCard() {
     this.target.remove();
+  }
+
+  restoreOriginCard() {
+    this.target.classList.remove("edit-card");
+    this.target.querySelector(".column__task--button").remove();
+    this.target.querySelector("input").readOnly = true;
+    this.target.querySelector("textarea").readOnly = true;
+    this.target
+      .querySelector("section")
+      .insertAdjacentHTML("beforeend", `<span class="column__task--author">author by ${this.author}</span>`);
+  }
+
+  setDoubleClickEvent() {
+    this.target.addEventListener("dblclick", this.handleDoubleClickEvent.bind(this));
+  }
+
+  handleDoubleClickEvent() {
+    this.target.classList.add("edit-card", "inactivation");
+    this.target.querySelector("span").remove();
+    this.target.querySelector("input").readOnly = false;
+    this.target.querySelector("textarea").readOnly = false;
+    this.target.querySelector("section").insertAdjacentHTML(
+      "beforeend",
+      `<div class="column__task--button">
+        <button class="column__task--cancel-button">취소</button>
+        <button class="column__task--accent-button">수정</button>
+      </div>`
+    );
   }
 
   setKeyupEvent() {
@@ -123,11 +177,17 @@ export class Task {
   }
 
   handleKeyupEvent() {
-    const title = this.target.querySelector("input");
-    const comment = this.target.querySelector("textarea");
+    const taskTitle = this.target.querySelector("input").value;
+    const comment = this.target.querySelector("textarea").value;
     const maxCommentNum = 500;
-    if (comment.value.length > maxCommentNum) comment.disabled = true;
-    if (title.value || comment.value) this.target.classList.remove("inactivation");
-    else this.target.classList.add("inactivation");
+    if (comment.length > maxCommentNum) comment.disabled = true;
+    if (taskTitle || comment) {
+      this.target.classList.remove("inactivation");
+    }
+    if (
+      (!taskTitle && !comment) ||
+      (this.isEditCard() && taskTitle === this.taskTitle && comment === this.comment)
+    )
+      this.target.classList.add("inactivation");
   }
 }

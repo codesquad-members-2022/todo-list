@@ -6,7 +6,7 @@ const createTodoList = async () => {
   const todoListData = await TodoListStore.getTodoListData();
   const parent = $(".column__list");
   for (const list of todoListData) {
-    new List(parent, list);
+    new List(parent, [list.title, list.task]);
   }
 };
 
