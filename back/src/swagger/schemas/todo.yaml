@@ -1,0 +1,28 @@
+components:
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Todo 고유 번호
+        title:
+          type: string
+          description: Todo 제목
+        desc:
+          type: string
+          description: Todo 설명
+        author:
+          type: string
+          description: Todo 작성자
+        columnId:
+          type: string
+          description: Todo 가 속한 Column 의 Id (type 은 mongoose 의 objectId)
+        createdAt:
+          type: string
+          format: date-time
+          description: 생성 날짜
+        updatedAt:
+          type: string
+          format: date-time
+          description: 수정 날짜

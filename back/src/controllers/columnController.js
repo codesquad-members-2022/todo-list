@@ -1,7 +1,7 @@
 import { getDate, sendMethodResult } from "../common/utils";
 import Column from "../models/Column";
 
-export const getColumn = sendMethodResult(async () => {
+export const getColumns = sendMethodResult(async () => {
   const columns = await Column.find();
   return columns;
 });

@@ -1,0 +1,19 @@
+components:
+  schemas:
+    Column:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Column 고유 번호
+        title:
+          type: string
+          description: Column 제목
+        createdAt:
+          type: string
+          format: date-time
+          description: 생성 날짜
+        updatedAt:
+          type: string
+          format: date-time
+          description: 수정 날짜
