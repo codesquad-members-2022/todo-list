@@ -90,7 +90,7 @@ class BoardHeader: UIView {
             badge.heightAnchor.constraint(equalToConstant: 26),
             badge.widthAnchor.constraint(equalToConstant: 26),
             
-            addButton.leadingAnchor.constraint(equalTo: badge.trailingAnchor, constant: 110),
+            addButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 220),
             addButton.centerYAnchor.constraint(equalTo: title.centerYAnchor, constant: -3),
 
         ])

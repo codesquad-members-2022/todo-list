@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ChildViewController: UIViewController {
+class ChildViewController: UIViewController, UITableViewDelegate {
 
     
     @IBOutlet weak private var tableView: BoardTableView!
@@ -17,14 +17,17 @@ class ChildViewController: UIViewController {
     private var header : BoardHeader!
     private var boardType : BoardType?
     
-    private var list:[Todo]?
     
+    //Custom DataSource
+    private var dataSource : BoardTableViewDataSource!
+    
+    private var list:[Todo]?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
         setTableView()
         setHeader()
-        
         addObserver()
         
     }
@@ -42,9 +45,18 @@ class ChildViewController: UIViewController {
     private func setTableView() {
 
         self.tableView.delegate = self
-        self.tableView.dataSource = self
+//        self.tableView.dataSource = self
     }
     
+    private func setTableViewDataSource() {
+       guard let list = list else {return}
+        self.dataSource = BoardTableViewDataSource(list: list, reuseIdentifier: CardCell.identifier, cellConfigurator: { card, cell in
+           guard let cardCell = cell as? CardCell else{return}
+           cardCell.loadCardInfo(info: card)
+        })
+        self.tableView.dataSource = self.dataSource
+    }
+        
     private func addObserver() {
         NotificationCenter.default.addObserver(
             self,
@@ -57,27 +69,10 @@ class ChildViewController: UIViewController {
         guard let data = notification.userInfo?[MainViewController.BoardData] as? NetworkResult , let boardType = self.boardType else { return }
         list = boardType.extractList(from: data)
         DispatchQueue.main.async {
+            self.setTableViewDataSource()
             self.tableView.reloadData()
         }
     }
-}
-
-// MARK: - Table view data source
-extension ChildViewController : UITableViewDelegate , UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let list = list else { return 0 }
-//        self.header.updateCount(list.count)
-        return 10
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier) as? CardCell else { return UITableViewCell() }
-//        guard let list = self.list else { return UITableViewCell() }
-//        cell.loadCardInfo(info: list[indexPath.row])
-        return cell
-    }
-    
- 
 }
 
 

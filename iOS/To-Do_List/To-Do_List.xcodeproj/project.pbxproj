@@ -36,6 +36,7 @@
 		B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* BoardHeader.swift */; };
 		B730BBAE27FECB33006DC969 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAD27FECB33006DC969 /* constants.swift */; };
 		B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAF27FED3BE006DC969 /* BoardTableView.swift */; };
+		B771A84128039D2100343BAE /* BoardTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		B70BD64127FBD1E7001BE68F /* BoardHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeader.swift; sourceTree = "<group>"; };
 		B730BBAD27FECB33006DC969 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		B730BBAF27FED3BE006DC969 /* BoardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableView.swift; sourceTree = "<group>"; };
+		B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				B70BD64127FBD1E7001BE68F /* BoardHeader.swift */,
 				8DBB585127FBD8F500D129E2 /* CardCell.swift */,
 				B730BBAF27FED3BE006DC969 /* BoardTableView.swift */,
+				B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				8DBB584827FB416D00D129E2 /* DoneTableViewController.swift in Sources */,
 				8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */,
 				8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */,
+				B771A84128039D2100343BAE /* BoardTableViewDataSource.swift in Sources */,
 				8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */,
 				8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */,
 				8D2AFD7327FB08AE00307CCB /* SceneDelegate.swift in Sources */,
