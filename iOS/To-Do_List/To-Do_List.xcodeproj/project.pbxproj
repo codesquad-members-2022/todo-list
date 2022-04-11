@@ -37,6 +37,9 @@
 		B730BBAE27FECB33006DC969 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAD27FECB33006DC969 /* constants.swift */; };
 		B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAF27FED3BE006DC969 /* BoardTableView.swift */; };
 		B771A84128039D2100343BAE /* BoardTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */; };
+		B771A84428044C9A00343BAE /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84328044C9A00343BAE /* Log.swift */; };
+		B771A846280453EC00343BAE /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A845280453EC00343BAE /* LogCell.swift */; };
+		B771A84A280457EA00343BAE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A849280457EA00343BAE /* Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +79,9 @@
 		B730BBAD27FECB33006DC969 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		B730BBAF27FED3BE006DC969 /* BoardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableView.swift; sourceTree = "<group>"; };
 		B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableViewDataSource.swift; sourceTree = "<group>"; };
+		B771A84328044C9A00343BAE /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		B771A845280453EC00343BAE /* LogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
+		B771A849280457EA00343BAE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,10 +124,10 @@
 			isa = PBXGroup;
 			children = (
 				8DC2282A27FB1CFE002FB533 /* MainViewController.swift */,
-				8DD815E427FD691E00C13618 /* Todo.swift */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
-				B730BBAC27FECAFC006DC969 /* Utils */,
+				B771A842280447C000343BAE /* Model */,
 				8DD815E327FD65F300C13618 /* ChildViewControllers */,
+				B730BBAC27FECAFC006DC969 /* Utils */,
 				B70BD64027FBD1CF001BE68F /* View */,
 				8DD815E127FD655C00C13618 /* Network */,
 				8DC2282D27FB1D22002FB533 /* LogTable */,
@@ -194,6 +200,7 @@
 			children = (
 				B70BD64127FBD1E7001BE68F /* BoardHeader.swift */,
 				8DBB585127FBD8F500D129E2 /* CardCell.swift */,
+				B771A845280453EC00343BAE /* LogCell.swift */,
 				B730BBAF27FED3BE006DC969 /* BoardTableView.swift */,
 				B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */,
 			);
@@ -203,9 +210,19 @@
 		B730BBAC27FECAFC006DC969 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				B730BBAD27FECB33006DC969 /* constants.swift */,
+				B771A849280457EA00343BAE /* Extension.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B771A842280447C000343BAE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8DD815E427FD691E00C13618 /* Todo.swift */,
+				B771A84328044C9A00343BAE /* Log.swift */,
+				B730BBAD27FECB33006DC969 /* constants.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,11 +337,14 @@
 				B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */,
 				8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */,
 				8DD815E027FD655200C13618 /* HTTPMethod.swift in Sources */,
+				B771A84A280457EA00343BAE /* Extension.swift in Sources */,
 				8D2AFD7127FB08AE00307CCB /* AppDelegate.swift in Sources */,
+				B771A846280453EC00343BAE /* LogCell.swift in Sources */,
 				B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */,
 				8DBB584827FB416D00D129E2 /* DoneTableViewController.swift in Sources */,
 				8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */,
 				8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */,
+				B771A84428044C9A00343BAE /* Log.swift in Sources */,
 				B771A84128039D2100343BAE /* BoardTableViewDataSource.swift in Sources */,
 				8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */,
 				8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */,

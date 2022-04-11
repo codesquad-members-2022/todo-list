@@ -12,21 +12,17 @@ import UIKit
 class ChildViewController: UIViewController, UITableViewDelegate {
 
     
-    @IBOutlet weak private var tableView: BoardTableView!
+    private var tableView: BoardTableView<Todo,CardCell>!
     @IBOutlet weak private var headerContainer: UIView!
     private var header : BoardHeader!
     private var boardType : BoardType?
     
-    
-    //Custom DataSource
-    private var dataSource : BoardTableViewDataSource!
     
     private var list:[Todo]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
-        setTableView()
         setHeader()
         addObserver()
         
@@ -42,18 +38,7 @@ class ChildViewController: UIViewController, UITableViewDelegate {
         headerContainer.addSubview(header)
     }
     
-    private func setTableView() {
-        self.tableView.delegate = self
-    }
     
-    private func setTableViewDataSource() {
-       guard let list = list else {return}
-        self.dataSource = BoardTableViewDataSource(list: list, reuseIdentifier: CardCell.identifier, cellConfigurator: { card, cell in
-           guard let cardCell = cell as? CardCell else{return}
-           cardCell.loadCardInfo(info: card)
-        })
-        self.tableView.dataSource = self.dataSource
-    }
         
     private func addObserver() {
         NotificationCenter.default.addObserver(
@@ -68,12 +53,32 @@ class ChildViewController: UIViewController, UITableViewDelegate {
         list = boardType.extractList(from: data)
         
         DispatchQueue.main.async {
-            self.setTableViewDataSource()
+            self.setTableView()
             self.header.updateCount(self.list?.count)
             self.tableView.reloadData()
         }
         
     }
+    
+    private func setTableView() {
+        guard let list = list else {return}
+        self.tableView = BoardTableView(frame: CGRect(x: self.headerContainer.frame.minX, y: self.headerContainer.frame.maxY, width: view.frame.width, height: view.frame.height), style: .plain, list:list , cellConfigurator: { card, cell in
+            cell.loadCardInfo(info: card)
+        })
+        self.view.addSubview(self.tableView)
+        tableViewConstraints()
+    }
 }
 
 
+extension ChildViewController {
+    
+    private func tableViewConstraints() {
+        NSLayoutConstraint.activate([
+            self.tableView.topAnchor.constraint(equalTo: self.headerContainer.bottomAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
+    }
+}

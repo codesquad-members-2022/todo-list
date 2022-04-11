@@ -9,7 +9,7 @@ import UIKit
 
 class LogViewController: UIViewController {
         
-    @IBOutlet weak var logView: BoardTableView!
+    weak private var tableView: BoardTableView<Todo,CardCell>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +19,6 @@ class LogViewController: UIViewController {
 
     private func setTableView() {
 
-        self.logView.delegate = self
-        self.logView.dataSource = self
     }    
     @IBAction func test(_ sender: Any) {
 
@@ -38,7 +36,7 @@ extension LogViewController : UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier) as? CardCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: LogCell.identifier) as? LogCell else { return UITableViewCell() }
 //        guard let list = self.list else { return UITableViewCell() }
 //        cell.loadCardInfo(info: list[indexPath.row])
         return cell
