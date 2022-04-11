@@ -13,13 +13,13 @@ public class CardResponse {
 	private Long id;
 	private String title;
 	private String content;
-	private String userId;
+//	private Long memberId;
 	private LocalDateTime modifiedAt;
 	private int section;
 
 	public static CardResponse from(Card card) {
 		return new CardResponse(card.getId(), card.getTitle(), card.getContent(),
-			card.getUserId(), card.getModifiedAt(), card.getSection());
+			card.getModifiedAt(), card.getSection());
 	}
 
 }
