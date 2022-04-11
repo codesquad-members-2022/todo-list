@@ -33,7 +33,7 @@ extension ColumnTableViewManagement: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.admitCardData(dataSource[indexPath.row])
+        cell.admitCardLabel(dataSource[indexPath.row])
 
         return cell
     }
