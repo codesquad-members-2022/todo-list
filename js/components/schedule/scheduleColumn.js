@@ -11,7 +11,7 @@ export class ScheduleColumn {
         this.scheduleModel = new ScheduleModel(scheduleColumnData);
         this.title = this.scheduleModel.getScheduleColumnTitle();
         this.id = getId();
-        this.registerCard = new ScheduleRegisterCard()
+        this.registerCard = new ScheduleRegisterCard();
 
         this.init();
     }
@@ -56,6 +56,43 @@ export class ScheduleColumn {
             "click",
             this.cardAddBtnClickEventHandler.bind(this)
         );
+
+        this.$scheduleColumn.addEventListener(
+            "mousedown",
+            this.mouseDownEventHandler.bind(this)
+        );
+    }
+
+    mouseDownEventHandler(event) {
+        const target = event.target;
+        const selectedCard = target.closest(".schedule-card");
+        if (!selectedCard) {
+            return;
+        }
+
+        const CARD = "schedule-card";
+        const CARD_AFTER_IMAGE = "schedule-card--afterimage";
+        const DRAG_CARD = "schedule-drag-card";
+
+        const dragElement = selectedCard.cloneNode(true);
+
+        selectedCard.classList.replace(CARD, CARD_AFTER_IMAGE);
+        dragElement.classList.replace(CARD, DRAG_CARD);
+
+        this.$cardsContainer.appendChild(dragElement);
+
+        function moveCard(pageX, pageY) {
+            dragElement.style.left = `${pageX}px`;
+            dragElement.style.top = `${pageY}px`;
+        }
+
+        moveCard(event.pageX, event.pageY);
+
+        this.$scheduleColumn.addEventListener("mousemove", onMouseMove);
+
+        function onMouseMove(event) {
+            moveCard(event.pageX, event.pageY);
+        }
     }
 
     cardAddBtnClickEventHandler() {
@@ -67,7 +104,7 @@ export class ScheduleColumn {
     }
 
     removeRegisterCard() {
-        this.registerCard.changeState()
+        this.registerCard.changeState();
         const $registerCard = this.$cardsContainer.querySelector(
             ".schedule-register-card"
         );
@@ -75,7 +112,7 @@ export class ScheduleColumn {
     }
 
     showRegisterCard() {
-        this.registerCard.changeState()
+        this.registerCard.changeState();
         const scheduleRegisterCardParams = {
             $target: this.$cardsContainer,
             passedEventHandler: {

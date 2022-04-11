@@ -321,3 +321,31 @@
         color: map-get($colors, white);
     }
 }
+
+.schedule-card--afterimage {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px;
+    width: 308px;
+    height: 108px;
+    background: map-get($colors, white);
+    opacity: 0.4;
+    border: 1px solid map-get($colors, blue);
+    box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+    border-radius: 6px;
+    margin: 16px 0px;
+}
+
+.schedule-drag-card {
+    position: absolute;
+    padding: 16px;
+    width: 308px;
+    height: 108px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
+        0px 2px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
+    z-index: 1;
+}
