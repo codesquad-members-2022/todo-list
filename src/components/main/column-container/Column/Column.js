@@ -46,7 +46,7 @@ export class Column {
           <div class="column-header__count">${Object.keys(columnData.cards).length}</div>
         </div>
         <div class="column-header__util">
-          <div class="column-header__add-btn"></div>
+          <div class="column-header__add-btn${columnData.addBtnActivated ? " activated" : ""}"></div>
           <div class="column-header__delete-btn"></div>
         </div>
       </div>
@@ -76,12 +76,11 @@ export class Column {
   }
 
   handleAddBtnClick(addBtn) {
-    this.toggleActivation(addBtn);
-    Store.addNewCard(this.columnID);
-  }
-
-  toggleActivation(addBtn) {
-    addBtn.classList.toggle("column-header__add-btn--activated");
+    if (addBtn.classList.contains("activated")) {
+      Store.exitFromAddCardState(this.columnID);
+    }else {
+      Store.updateAsAddCardState(this.columnID);
+    }
   }
 
   activate() {

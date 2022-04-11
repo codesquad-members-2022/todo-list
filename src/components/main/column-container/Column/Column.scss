@@ -46,17 +46,16 @@
             height: 24px;
             margin-right: 5px;
             background: url(../../../../images/column-plus.png) no-repeat center;
-            
-            &--activated {
-                background: url(../../../../images/column-plus-activated.png) no-repeat center;
-            }
 
             &:hover {
                 background: url(../../../../images/column-plus-activated.png) no-repeat center;
             }
         }
-        
-        
+
+        &__add-btn.activated {
+            background: url(../../../../images/column-plus-activated.png) no-repeat center;
+        }
+
         &__delete-btn{
             width: 24px;
             height: 24px;
