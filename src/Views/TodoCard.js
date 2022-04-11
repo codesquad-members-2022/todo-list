@@ -1,6 +1,6 @@
-import { createElement } from '../utils/utils.js';
+import { createElement } from '../utils/utils';
 
-export class TodoCard {
+export default class TodoCard {
   constructor(id = null, columnId = null, title = null, desc = null, author = 'web') {
     this.$todoCard = null;
     this.id = id;

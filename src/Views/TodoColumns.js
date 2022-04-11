@@ -1,6 +1,6 @@
-import { TodoColumn } from './TodoColumn.js';
+import TodoColumn from './TodoColumn';
 
-export class TodoColumns {
+export default class TodoColumns {
   constructor($columns, columns = []) {
     this.$columns = $columns;
     this.columns = columns;

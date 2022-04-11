@@ -1,4 +1,4 @@
-import { $, eventDelegate, createElement } from './utils/utils.js';
+import { $, eventDelegate, createElement } from './utils/utils';
 
 const $todoColumns = $('.todo-columns');
 

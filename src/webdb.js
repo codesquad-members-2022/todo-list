@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { LowSync, LocalStorage } from 'lowdb';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -6,6 +7,8 @@ const getData = key => {
   db.read();
   return db.data;
 };
+
+const columns = new LowSync(new LocalStorage('columns'));
 
 const getColumns = () => {
   const columnsData = columns.data.reduce((result, columnKey) => {
@@ -16,8 +19,8 @@ const getColumns = () => {
   return columnsData;
 };
 
-const initDb = columns => {
-  if (columns.data) return;
+const initDb = columnKeys => {
+  if (columnKeys.data) return;
 
   const column1Key = uuidv4();
   const column2Key = uuidv4();
@@ -27,7 +30,7 @@ const initDb = columns => {
   const column2 = new LowSync(new LocalStorage(column2Key));
   const column3 = new LowSync(new LocalStorage(column3Key));
 
-  columns.data = [column1Key, column2Key, column3Key];
+  columnKeys.data = [column1Key, column2Key, column3Key];
 
   column1.data = {
     id: column1Key,
@@ -73,7 +76,7 @@ const initDb = columns => {
     cards: [],
   };
 
-  columns.write();
+  columnKeys.write();
   column1.write();
   column2.write();
   column3.write();
@@ -85,6 +88,5 @@ export default {
   getColumns,
 };
 
-const columns = new LowSync(new LocalStorage('columns'));
 columns.read();
 initDb(columns);

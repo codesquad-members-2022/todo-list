@@ -1,8 +1,8 @@
-import { $ } from './utils/utils.js';
-import './index.js';
+import { $ } from './utils/utils';
+import './index';
 import '../styles/main.scss';
-import db from './webdb.js';
-import { TodoColumns } from './Views/TodoColumns.js';
+import db from './webdb';
+import TodoColumns from './Views/TodoColumns';
 
 const todoColumns = new TodoColumns($('.todo-columns'));
 
