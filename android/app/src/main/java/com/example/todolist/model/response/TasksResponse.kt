@@ -10,6 +10,6 @@ data class TaskDetailResponse(
     val id: Int,
     val title: String,
     val content: String,
-    val status: Status,
+    var status: Status,
     val author: String = "Android",
 )

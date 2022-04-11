@@ -44,28 +44,50 @@ class TaskRepository {
 
     fun addTask(task: Task): TasksResponse {
         when (task.status) {
-            Status.TODO -> tasks.todo.add(TaskDetailResponse(todoIndex++,
+            Status.TODO -> tasks.todo.add(0, TaskDetailResponse(todoIndex++,
                 task.title,
                 task.content,
                 task.status))
-            Status.IN_PROGRESS -> tasks.inProgress.add(TaskDetailResponse(inProgressIndex++,
+            Status.IN_PROGRESS -> tasks.inProgress.add(0, TaskDetailResponse(inProgressIndex++,
                 task.title,
                 task.content,
                 task.status))
-            Status.DONE -> tasks.done.add(TaskDetailResponse(doneIndex++,
+            Status.DONE -> tasks.done.add(0, TaskDetailResponse(doneIndex++,
                 task.title,
                 task.content,
-                task.status))
+                task.status)
+            )
+        }
+        return tasks
+    }
+
+    fun moveDone(task: TaskDetailResponse): TasksResponse {
+        deleteTask(task)
+        if (task.status == Status.TODO) {
+            task.status = Status.DONE
+            tasks.done.add(0, task)
+        } else if (task.status == Status.IN_PROGRESS) {
+            task.status = Status.DONE
+            tasks.done.add(0, task)
+        }
+        return tasks
+    }
+
+    fun deleteTask(task: TaskDetailResponse): TasksResponse {
+        when (task.status) {
+            Status.TODO -> tasks.todo.remove(task)
+            Status.IN_PROGRESS -> tasks.inProgress.remove(task)
+            else -> tasks.done.remove(task)
         }
         return tasks
     }
 
     fun getHistory(): List<History> {
         return listOf(
-            History(1, ActionType.MOVE, "HTML/CSS공부하기", "해야할 일", "하고 있는 일", "2022-04-05 21:19:00"),
-            History(2, ActionType.ADD, "HTML/CSS공부하기", "해야할 일", null, "2022-04-05 21:05:03"),
-            History(3, ActionType.REMOVE, "HTML/CSS공부하기", "해야할 일", null, "2022-04-05 21:05:03"),
-            History(4, ActionType.UPDATE, "HTML/CSS공부하기", "해야할 일", null, "2022-04-05 21:05:03"),
+            History(4, ActionType.MOVE, "HTML/CSS공부하기", "해야할 일", "하고 있는 일", "2022-04-05 21:19:00"),
+            History(3, ActionType.ADD, "HTML/CSS공부하기", "해야할 일", null, "2022-04-05 21:05:03"),
+            History(2, ActionType.REMOVE, "HTML/CSS공부하기", "해야할 일", null, "2022-04-05 21:05:03"),
+            History(1, ActionType.UPDATE, "HTML/CSS공부하기", "해야할 일", null, "2022-04-05 21:05:03"),
         )
     }
 }

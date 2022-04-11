@@ -7,5 +7,5 @@
         android:title="@string/label_popup_modify" />
 
     <item android:id="@+id/popup_delete"
-        android:title="@string/label_popup_deliete" />
+        android:title="@string/label_popup_delete" />
 </menu>

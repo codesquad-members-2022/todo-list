@@ -53,4 +53,18 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
         val tasks = repository.addTask(task)
         _doneTask.value = tasks.done
     }
+
+    fun moveDone(task: TaskDetailResponse) {
+        val tasks = repository.moveDone(task)
+        _todoTask.value = tasks.todo
+        _inProgressTask.value = tasks.inProgress
+        _doneTask.value = tasks.done
+    }
+
+    fun deleteTask(task: TaskDetailResponse) {
+        val tasks = repository.deleteTask(task)
+        _todoTask.value = tasks.todo
+        _inProgressTask.value = tasks.inProgress
+        _doneTask.value = tasks.done
+    }
 }
