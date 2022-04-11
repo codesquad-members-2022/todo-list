@@ -52,9 +52,9 @@ class CardBoardViewController: UIViewController {
     private func setUIProperties() {
         view.backgroundColor = .systemGray5
         boardStackView.backgroundColor = .systemGray5
-        todoViewController?.setCardTitleLabel(title: "해야 할 일")
-        doingViewController?.setCardTitleLabel(title: "하고 있는 일")
-        doneViewController?.setCardTitleLabel(title: "완료한 일")
+        todoViewController?.setCardTitleLabel(title: CardStatus.todo.name)
+        doingViewController?.setCardTitleLabel(title: CardStatus.doing.name)
+        doneViewController?.setCardTitleLabel(title: CardStatus.done.name)
         todoViewController?.appendCard(factory.createRandomCard())
     }
     
