@@ -27,6 +27,6 @@ public class CardController {
 
 	@PostMapping()
 	public void add(@RequestBody CardRequest cardRequest){
-		cardService.add();
+		cardService.add(cardRequest);
 	}
 }
