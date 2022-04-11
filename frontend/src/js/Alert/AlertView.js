@@ -2,7 +2,6 @@ import {
   htmlString2htmlElement,
   targetQuerySelector,
 } from '../utils/createTemplate.js';
-
 import { alertBoxTemplate } from '../utils/template.js';
 
 class AlertView {
