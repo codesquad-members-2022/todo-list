@@ -23,11 +23,11 @@ public class CardService {
     }
 
     public CardUpdateDto makeUpdateDto(Card card) {
-        return new CardUpdateDto(card.getTitle(), card.getContents(), card.getCardStatus());
+        return new CardUpdateDto(card.getCardIndex(), card.getTitle(), card.getContents(), card.getCardStatus());
     }
 
-    public int addCard(CardAddDto cardAddDto) {
-        return cardRepository.add(cardAddDto);
+    public int addCard(CardAddDto cardAddDto, int size) {
+        return cardRepository.add(cardAddDto, size);
     }
 
     public int removeCard(Long id) {

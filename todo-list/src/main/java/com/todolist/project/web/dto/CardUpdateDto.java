@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class CardUpdateDto {
+    private int cardIndex;
     private String title;
     private String contents;
     private CardStatus cardStatus;

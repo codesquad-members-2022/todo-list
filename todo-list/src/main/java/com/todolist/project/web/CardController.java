@@ -18,13 +18,13 @@ public class CardController {
 
     @GetMapping
     public List<Card> home() {
-        List<Card> cards = cardService.findAll();
-        return cards;
+        return cardService.findAll();
     }
 
     @PostMapping
     public int add(@RequestBody CardAddDto dto) {
-        return cardService.addCard(dto);
+
+        return cardService.addCard(dto, cardService.findAll().size());
     }
 
     @DeleteMapping("/{id}")
