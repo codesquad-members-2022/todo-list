@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B50C57B428047E9F0007F417 /* MemoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C57B328047E9F0007F417 /* MemoTableViewController.swift */; };
+		B50C57B428047E9F0007F417 /* MemoContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C57B328047E9F0007F417 /* MemoContainerViewController.swift */; };
 		B50C57B628048D340007F417 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C57B528048D340007F417 /* Identifier.swift */; };
 		B58D833528001988008A811C /* MemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58D833428001988008A811C /* MemoTableViewCell.swift */; };
 		B58D833728001A9C008A811C /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58D833628001A9C008A811C /* Memo.swift */; };
@@ -32,7 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B50C57B328047E9F0007F417 /* MemoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableViewController.swift; sourceTree = "<group>"; };
+		B50C57B328047E9F0007F417 /* MemoContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerViewController.swift; sourceTree = "<group>"; };
 		B50C57B528048D340007F417 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		B58D833428001988008A811C /* MemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableViewCell.swift; sourceTree = "<group>"; };
 		B58D833628001A9C008A811C /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
@@ -165,6 +165,7 @@
 				D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */,
 				D0999D9E2804789D0045491A /* PopupViewController.swift */,
 				B50C57B328047E9F0007F417 /* MemoTableViewController.swift */,
+				B50C57B328047E9F0007F417 /* MemoContainerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -274,7 +275,7 @@
 				B5EC66D727FADD9C0042EFCF /* MainViewController.swift in Sources */,
 				D0850A7827FEB294009C60E5 /* ResourceFactory.swift in Sources */,
 				B5EC66D327FADD9C0042EFCF /* AppDelegate.swift in Sources */,
-				B50C57B428047E9F0007F417 /* MemoTableViewController.swift in Sources */,
+				B50C57B428047E9F0007F417 /* MemoContainerViewController.swift in Sources */,
 				B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */,
 				D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */,
 				B50C57B628048D340007F417 /* Identifier.swift in Sources */,

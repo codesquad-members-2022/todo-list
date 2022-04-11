@@ -8,7 +8,7 @@ class MemoCanvasViewController: UIViewController {
         return view
     }()
     
-    private var memoTableViewControllers: [Identifier: MemoTableViewController] = [:]
+    private var memoTableViewControllers: [Identifier: MemoContainerViewController] = [:]
     
     override func didMove(toParent parent: UIViewController?) {
         view = memoCanvasView
@@ -23,7 +23,7 @@ class MemoCanvasViewController: UIViewController {
     
     private func addTableViewControllers() {
         for identifier in Identifier.allCases {
-            let tableViewController = MemoTableViewController(cellCount: 15, identifier: identifier)
+            let tableViewController = MemoContainerViewController(cellCount: 15, identifier: identifier)
             memoTableViewControllers[identifier] = tableViewController
             
             addChild(tableViewController)
@@ -34,7 +34,7 @@ class MemoCanvasViewController: UIViewController {
         }
     }
     
-    private func addTableViewConfigurations(tableViewController: MemoTableViewController) {
+    private func addTableViewConfigurations(tableViewController: MemoContainerViewController) {
         tableViewController.memoContainerView.tableView.dataSource = tableViewController
         tableViewController.memoContainerView.tableView.dataSource = tableViewController
         tableViewController.memoContainerView.tableView.register(MemoTableViewCell.self, forCellReuseIdentifier: MemoTableViewCell.identifier)

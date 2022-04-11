@@ -1,6 +1,6 @@
 import UIKit
 
-class MemoTableViewController: UIViewController {
+class MemoContainerViewController: UIViewController {
     
     private var cellCount: Int?
     private var identifier: Identifier?
@@ -19,7 +19,7 @@ class MemoTableViewController: UIViewController {
     }
 }
 
-extension MemoTableViewController: UITableViewDataSource & UITableViewDelegate {
+extension MemoContainerViewController: UITableViewDataSource & UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         guard let cellCount = cellCount else { return 0 }
