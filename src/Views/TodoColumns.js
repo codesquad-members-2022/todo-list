@@ -1,20 +1,22 @@
-import { $, createElement } from '../utils/utils.js';
-import { TodoList } from './TodoList.js';
-import { TodoItem } from './TodoItem.js';
+import { TodoColumn } from './TodoColumn.js';
 
-export class TodoColumns{
-  constructor($element) {
-    this.$element = $element;
-    this.columns = [];
+export class TodoColumns {
+  constructor($columns, columns = []) {
+    this.$columns = $columns;
+    this.columns = columns;
   }
 
   init(columnsData) {
-    columnsData.forEach((columnData) => {
-      const todoList = new TodoList(null);
-      todoList.init(columnData);
-      this.columns.push(todoList.$element);
-    })
+    columnsData.forEach(columnData => {
+      const todoColumn = new TodoColumn();
+      todoColumn.init(columnData);
+      this.columns.push(todoColumn.$todoColumn);
+    });
 
-    this.$element.append(...this.columns);
+    this.render();
+  }
+
+  render() {
+    this.$columns.append(...this.columns);
   }
 }

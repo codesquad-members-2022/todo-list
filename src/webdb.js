@@ -77,7 +77,6 @@ const initDb = columns => {
   column1.write();
   column2.write();
   column3.write();
-  console.log(getData(column3Key));
 };
 
 export default {
