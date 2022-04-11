@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hooria.todo.domain.ActivityLog;
+import com.hooria.todo.dto.ActivityLogResponse;
 import com.hooria.todo.service.ActivityLogService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -48,6 +50,10 @@ class ActivityLogControllerMockTest {
                 ActivityLog.of("userId3", "update", "taskTitle3", "TODO", "IN_PROGRESS", now, false)
         );
 
+        List<ActivityLogResponse> activityLogResponses = activityLogs.stream()
+                .map(ActivityLogResponse::from)
+                .collect(Collectors.toList());
+
         given(activityLogService.selectAll()).willReturn(activityLogs);
 
         // when
@@ -57,7 +63,7 @@ class ActivityLogControllerMockTest {
         resultActions.andExpectAll(
                 content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON),
                 content().encoding(StandardCharsets.UTF_8),
-                content().string(objectMapper.writeValueAsString(ActivityLogsResponse.of(activityLogs))),
+                content().string(objectMapper.writeValueAsString(activityLogResponses)),
                 status().isOk()
         );
 

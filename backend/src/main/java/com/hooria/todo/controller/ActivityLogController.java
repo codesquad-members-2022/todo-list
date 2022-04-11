@@ -1,6 +1,6 @@
 package com.hooria.todo.controller;
 
-import com.hooria.todo.domain.ActivityLog;
+import com.hooria.todo.dto.ActivityLogResponse;
 import com.hooria.todo.service.ActivityLogService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Api(tags = "ActivityLog(활동로그) Controller")
 @RestController
@@ -21,7 +22,7 @@ class ActivityLogController {
             value = "모든 활동로그 목록 조회",
             notes = "모든 활동로그 목록을 조회한다.",
             produces = "application/json",
-            response = List.class
+            response = ResponseEntity.class
     )
     @ApiResponses({
             @ApiResponse(
@@ -34,8 +35,12 @@ class ActivityLogController {
             )
     })
     @GetMapping
-    public ResponseEntity<List<ActivityLog>> getActivities() {
-        List<ActivityLog> response = activityLogService.selectAll();
+    public ResponseEntity<List<ActivityLogResponse>> getActivities() {
+        List<ActivityLogResponse> response = activityLogService.selectAll()
+                .stream()
+                .map(ActivityLogResponse::from)
+                .collect(Collectors.toList());
+
         return ResponseEntity.ok().body(response);
     }
     
