@@ -37,7 +37,7 @@ public class CardService {
         return card.orElseThrow();
     }
 
-    public void update(int id, CardDTO cardDto) {
+    public CardDTO update(int id, CardDTO cardDto) {
         Card updateTargetCard = findOne(id);
 
         updateTargetCard.changeTitle(cardDto.getTitle());
@@ -46,6 +46,12 @@ public class CardService {
         updateTargetCard.changeSection(cardDto.getSection());
 
         cardRepository.save(updateTargetCard);
+
+        CardDTO updatedCardDTO = new CardDTO(updateTargetCard.getOrder(), updateTargetCard.getTitle(),
+            updateTargetCard.getContent(), null, updateTargetCard.getSectionType());
+        updatedCardDTO.setCardId(id);
+        return updatedCardDTO;
+
     }
 
     public CardDTO delete(int id) {

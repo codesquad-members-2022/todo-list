@@ -48,19 +48,20 @@ public class CardController {
 
 	@ApiOperation("카드 수정")
 	@PutMapping("/cards/{id}")
-	public ResponseEntity update(@PathVariable int id, CardDTO cardDto) {
-		cardService.update(id, cardDto);
+	public ResponseEntity<ResponseDTO> update(@PathVariable int id, CardDTO cardDto) {
+		CardDTO updatedCardDto = cardService.update(id, cardDto);
+		LogDTO log = logService.save(Event.UPDATE, cardDto.getTitle(), null, cardDto.getSection());
 
-		return ResponseEntity.ok(HttpStatus.OK);
+		return ResponseEntity.ok().body(new ResponseDTO(updatedCardDto, log));
 	}
 
 	@ApiOperation("카드 이동")
 	@PutMapping("/cards/{id}/move")
-	public ResponseEntity move(@PathVariable int id, CardDTO cardDto) {
+	public ResponseEntity<ResponseDTO> move(@PathVariable int id, CardDTO cardDto) {
+		CardDTO movedCardDto = cardService.update(id, cardDto);
 		LogDTO log = logService.save(Event.MOVE, cardDto.getTitle(), cardDto.getPrevSection(), cardDto.getSection());
-		cardService.update(id, cardDto);
 
-		return ResponseEntity.ok().body(log);
+		return ResponseEntity.ok().body(new ResponseDTO(movedCardDto, log));
 	}
 
 	@ApiOperation("카드 삭제")
