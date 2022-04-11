@@ -1,16 +1,29 @@
 package team03.todoapp.controller.dto;
 
+import java.time.LocalDateTime;
+
 public class CardResponse {
 
-    private Long cardId;
+    private Long id;
     private String title;
     private String content;
     private String writer;
     private Long nextId;
-    private String uploadDate;
+    private LocalDateTime uploadDate;
 
-    public CardResponse(Long cardId, String title, String content, String writer, Long nextId, String uploadDate) {
-        this.cardId = cardId;
+    public CardResponse(Long id, String title, String content, String writer, Long nextId) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.nextId = nextId;
+        this.uploadDate = LocalDateTime.now();
+    }
+
+    //mock 전용 생성자
+    public CardResponse(Long id, String title, String content, String writer, Long nextId,
+        LocalDateTime uploadDate) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
@@ -18,8 +31,8 @@ public class CardResponse {
         this.uploadDate = uploadDate;
     }
 
-    public Long getCardId() {
-        return cardId;
+    public Long id() {
+        return id;
     }
 
     public String getTitle() {
@@ -38,7 +51,7 @@ public class CardResponse {
         return nextId;
     }
 
-    public String getUploadDate() {
+    public LocalDateTime getUploadDate() {
         return uploadDate;
     }
 

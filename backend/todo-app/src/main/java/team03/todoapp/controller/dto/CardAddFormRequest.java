@@ -1,25 +1,19 @@
 package team03.todoapp.controller.dto;
 
-
-import org.springframework.lang.NonNull;
+import javax.validation.constraints.NotNull;
 import team03.todoapp.domain.Card;
-
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class CardAddFormRequest {
 
-    @NonNull
+    @NotNull
     private String title;
-    @NonNull
+    @NotNull
     private String content;
-    @NonNull
+    @NotNull
     private String writer;
-    @NonNull
+    @NotNull
     private String currentLocation;
-
-    public CardAddFormRequest() {
-    }
 
     public CardAddFormRequest(String title, String content, String writer, String currentLocation) {
         this.title = title;
@@ -60,17 +54,14 @@ public class CardAddFormRequest {
         this.currentLocation = currentLocation;
     }
 
-
     public Card toCardEntity() {
-        Card card = new Card(
-                this.title,
-                this.content,
-                this.writer,
-                this.currentLocation,
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                null,
-                "0");
-
-        return card;
+        return new Card(
+            this.title,
+            this.content,
+            this.writer,
+            this.currentLocation,
+            LocalDateTime.now(),
+            null,
+            false);
     }
 }

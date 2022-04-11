@@ -43,16 +43,16 @@ public class CardRepository {
          * where card_id=lastCardId;
          */
 
-        String getLastCardIdSQL =
-            "select card_id from card where next_id is null and current_location =" + "'"
-                + card.getCurrentLocation() + "'";
+        String getLastCardIdSQL = "select card_id from card where next_id is null and current_location = ?";
         String updateNextCardOfLastCardSQL = "update card set next_id = ? where card_id = ?";
-        Integer lastCardId = null;
+        Integer lastCardId;
 
         try {
-            lastCardId = jdbcTemplate.queryForObject(getLastCardIdSQL, Integer.class);
+            lastCardId = jdbcTemplate.queryForObject(getLastCardIdSQL, Integer.class,
+                card.getCurrentLocation());
             log.debug("lastCardId: {}", lastCardId);
         } catch (EmptyResultDataAccessException e) {
+            lastCardId = null;
             log.debug("e: {}", e);
         }
 
@@ -61,8 +61,8 @@ public class CardRepository {
         params.put("content", card.getContent());
         params.put("writer", card.getWriter());
         params.put("current_location", card.getCurrentLocation());
-        params.put("upload_date", card.getUploadDate());
-        params.put("deleted", card.getDeleted());
+        params.put("upload_date", card.getUploadDate().toString());
+        params.put("deleted", card.getDeleted().toString());
         params.put("next_id", null);
         Long thisCardId = simpleJdbcInsert.executeAndReturnKey(params).longValue();
 
@@ -90,35 +90,32 @@ public class CardRepository {
 
         Long prevId = null;
         Long nextId = null;
-        String SQL1 = "select card_id from card where next_id =" + cardId;
-        String SQL2 = "select next_id from card where card_id =" + cardId;
-        String SQL3 = "delete from card where card_id =" + cardId;
-        String SQL4 = "update card set next_id = ? where card_id= ?";
+        String getBeforeCardId = "select card_id from card where next_id = ?";
+        String getNextCardId = "select next_id from card where card_id = ?" + cardId;
+        String deleteCurrentCard = "delete from card where card_id = ?";
+        String updateCardRelations = "update card set next_id = ? where card_id = ?";
 
         try {
-            prevId = jdbcTemplate.queryForObject(SQL1, Long.class);
+            prevId = jdbcTemplate.queryForObject(getBeforeCardId, Long.class, cardId);
             log.debug("prevId: {}", prevId);
         } catch (EmptyResultDataAccessException e) {
             log.debug("e: {}", e);
         }
 
         try {
-            nextId = jdbcTemplate.queryForObject(SQL2, Long.class);
+            nextId = jdbcTemplate.queryForObject(getNextCardId, Long.class, cardId);
             log.debug("nextId: {}", nextId);
         } catch (EmptyResultDataAccessException e) {
             log.debug("e: {}", e);
         }
 
-        jdbcTemplate.update(SQL3);
+        jdbcTemplate.update(deleteCurrentCard, cardId);
 
         if (prevId != null) {
             log.debug("prev{} next{}", prevId, nextId);
-            jdbcTemplate.update(SQL4, nextId, prevId);
+            jdbcTemplate.update(updateCardRelations, nextId, prevId);
         }
-
         log.debug("cardId: {} deleted", cardId);
-
     }
-
 
 }

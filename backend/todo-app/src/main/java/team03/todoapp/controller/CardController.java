@@ -20,8 +20,8 @@ public class CardController {
         return cardId;
     }
 
-    @DeleteMapping("/card/{card_id}")
-    public void removeCard(@PathVariable("card_id") Long cardId) {
+    @DeleteMapping("/card/{cardId}")
+    public void removeCard(@PathVariable("cardId") Long cardId) {
         cardService.remove(cardId);
     }
 

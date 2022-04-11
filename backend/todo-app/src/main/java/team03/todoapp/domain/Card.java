@@ -1,5 +1,7 @@
 package team03.todoapp.domain;
 
+import java.time.LocalDateTime;
+
 public class Card {
 
     private Long cardId;
@@ -7,9 +9,20 @@ public class Card {
     private String content;
     private String writer;
     private String currentLocation;
-    private String uploadDate;
+    private LocalDateTime uploadDate;
     private Long nextId;
-    private String deleted;
+    private Boolean deleted;
+
+    public Card(String title, String content, String writer, String currentLocation,
+        LocalDateTime uploadDate, Long nextId, Boolean deleted) {
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.currentLocation = currentLocation;
+        this.uploadDate = uploadDate;
+        this.nextId = nextId;
+        this.deleted = deleted;
+    }
 
     public Long getCardId() {
         return cardId;
@@ -31,7 +44,7 @@ public class Card {
         return currentLocation;
     }
 
-    public String getUploadDate() {
+    public LocalDateTime getUploadDate() {
         return uploadDate;
     }
 
@@ -39,17 +52,8 @@ public class Card {
         return nextId;
     }
 
-    public String getDeleted() {
+    public Boolean getDeleted() {
         return deleted;
     }
 
-    public Card(String title, String content, String writer, String currentLocation, String uploadDate, Long nextId, String deleted) {
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-        this.currentLocation = currentLocation;
-        this.uploadDate = uploadDate;
-        this.nextId = nextId;
-        this.deleted = deleted;
-    }
 }
