@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface CardRepository {
 
     int save(Card card);
-    void delete(int id);
+    int delete(int id);
     List<Card> findAll();
     Optional<Card> findById(int id);
 

@@ -48,8 +48,13 @@ public class CardService {
         cardRepository.save(updateTargetCard);
     }
 
-    public void delete(int id) {
-        cardRepository.delete(id);
+    public CardDTO delete(int id) {
+        int deletedId = cardRepository.delete(id);
+        Card card = cardRepository.findById(deletedId)
+            .orElseThrow(() -> new IllegalStateException("삭제를 위한 카드가 존재하지 않습니다."));
+        CardDTO cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), null, card.getSectionType());
+        cardDto.setCardId(deletedId);
+        return cardDto;
     }
 
     public ClassifiedCardsDTO findCards() {

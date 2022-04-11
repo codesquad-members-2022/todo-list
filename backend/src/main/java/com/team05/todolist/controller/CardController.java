@@ -73,10 +73,10 @@ public class CardController {
 
 	@ApiOperation("카드 삭제")
 	@DeleteMapping("/cards/{id}")
-	public ResponseEntity delete(@PathVariable int id) {
-		cardService.delete(id);
-
-		return ResponseEntity.ok(HttpStatus.OK);
+	public ResponseEntity<ResponseDTO> delete(@PathVariable int id) {
+		CardDTO deletedCardDto = cardService.delete(id);
+		LogDTO log = logService.delete(Event.DELETE, deletedCardDto.getTitle(), deletedCardDto.getPrevSection(), deletedCardDto.getSection());
+		return ResponseEntity.ok().body(new ResponseDTO(deletedCardDto, log));
 	}
 
 }

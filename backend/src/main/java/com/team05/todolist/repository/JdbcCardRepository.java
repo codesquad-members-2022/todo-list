@@ -53,9 +53,9 @@ public class JdbcCardRepository implements CardRepository {
     }
 
     @Override
-    public void delete(int id) {
-        jdbcTemplate.update(
-            "UPDATE card SET delete_yn=? WHERE id=?", DELETED, id);
+    public int delete(int id) {
+        jdbcTemplate.update("UPDATE card SET delete_yn=? WHERE id=?", DELETED, id);
+        return id;
     }
 
     @Override
