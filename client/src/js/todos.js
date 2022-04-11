@@ -1,4 +1,4 @@
-import { $ } from './util';
+import { $, closest, containClass } from './util';
 import { createCardTemplate, createColumnTemplate } from './template';
 
 const getData = async (keyword) => {
@@ -10,43 +10,42 @@ const getData = async (keyword) => {
 
 export const renderColumns = async () => {
   const columnData = await getData('columns');
-  columnData.forEach((title) => {
-    $('main').insertAdjacentHTML('beforeend', createColumnTemplate(title));
-  });
+  const columns = columnData.map((title) => createColumnTemplate(title));
+  $('main').insertAdjacentHTML('beforeend', columns.join(' '));
 };
 
 const addCardHandler = (e) => {
-  const columnList = e.target.closest('.column').querySelector('.column-list');
-  !columnList.querySelector('.active')
-    ? columnList.insertAdjacentHTML('afterbegin', createCardTemplate())
-    : columnList.firstElementChild.remove();
+  const columnList = $('.column-list', closest('.column', e.target));
+  $('.active', columnList)
+    ? columnList.firstElementChild.remove()
+    : columnList.insertAdjacentHTML('afterbegin', createCardTemplate());
 };
 
 export const cancelAddHandler = (e) => {
-  const columnList = e.target.closest('.column').querySelector('.column-list');
+  const columnList = $('.column-list', closest('.column', e.target));
   columnList.firstElementChild.remove();
 };
 
 export const addCardEvent = () => {
   $('main').addEventListener('click', (e) => {
-    if (e.target.closest('.plus-btn')) {
+    if (closest('.plus-btn', e.target)) {
       addCardHandler(e);
     }
 
-    if (e.target.classList.contains('normal-btn')) {
+    if (containClass(e.target, 'normal-btn')) {
       cancelAddHandler(e);
     }
 
-    if (e.target.classList.contains('item-title')) {
+    if (containClass(e.target, 'item-title')) {
       e.target.addEventListener('input', () => inputFocusHandler(e.target));
     }
   });
 };
 
 const inputFocusHandler = (target) => {
-  const accentBtn = target.closest('.list_item').querySelector('.accent-btn');
+  const accentBtn = $('.accent-btn', closest('.list_item', target));
 
-  !target.value
-    ? (accentBtn.disabled = 'true')
-    : accentBtn.removeAttribute('disabled');
+  target.value
+    ? accentBtn.removeAttribute('disabled')
+    : (accentBtn.disabled = 'true');
 };
