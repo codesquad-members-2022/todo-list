@@ -7,13 +7,11 @@ public class WorkSaveRequest {
 
     private String title;
     private String content;
-    private String author;
 
     public WorkSaveRequest() {}
 
-    public WorkSaveRequest(String title, String content, String author) {
+    public WorkSaveRequest(String title, String content) {
         this.title = title;
         this.content = content;
-        this.author = author;
     }
 }

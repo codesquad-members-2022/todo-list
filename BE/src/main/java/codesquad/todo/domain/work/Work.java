@@ -1,7 +1,6 @@
 package codesquad.todo.domain.work;
 
-
-import lombok.Builder;
+import codesquad.todo.domain.user.User;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -12,12 +11,13 @@ public class Work {
     private Long id;
     private String title;
     private String content;
-    private String author;
+    private User author;
     private WorkStatus workStatus;
+    private Long statusOrder;
     private LocalDateTime createDateTime;
     private LocalDateTime lastModifiedDateTime;
 
-    public Work(String title, String content, String author) {
+    public Work(String title, String content, User author) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -32,6 +32,7 @@ public class Work {
         this.content = builder.content;
         this.author = builder.author;
         this.workStatus = builder.workStatus;
+        this.statusOrder = builder.statusOrder;
         this.createDateTime = builder.createDateTime;
         this.lastModifiedDateTime = builder.lastModifiedDateTime;
     }
@@ -44,8 +45,9 @@ public class Work {
         private Long id;
         private String title;
         private String content;
-        private String author;
+        private User author;
         private WorkStatus workStatus;
+        private Long statusOrder;
         private LocalDateTime createDateTime;
         private LocalDateTime lastModifiedDateTime;
 
@@ -64,7 +66,12 @@ public class Work {
             return this;
         }
 
-        public Builder author(String author) {
+        public Builder statusOrder(Long statusOrder) {
+            this.statusOrder = statusOrder;
+            return this;
+        }
+
+        public Builder author(User author) {
             this.author = author;
             return this;
         }
@@ -97,6 +104,10 @@ public class Work {
         return this.workStatus == workStatus;
     }
 
+    public void injectStatusOrder(Long statusOrder) {
+        this.statusOrder = statusOrder;
+    }
+
     public void update(String updateTitle, String updateContent) {
         this.title = updateTitle;
         this.content = updateContent;
@@ -120,12 +131,16 @@ public class Work {
         return content;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
     public WorkStatus getWorkStatus() {
         return workStatus;
+    }
+
+    public Long getStatusOrder() {
+        return statusOrder;
     }
 
     public LocalDateTime getCreateDateTime() {

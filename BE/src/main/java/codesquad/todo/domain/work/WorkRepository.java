@@ -10,4 +10,5 @@ public interface WorkRepository {
     void delete(Long id);
     List<Work> findAll();
     List<Work> findByStatus(WorkStatus workStatus);
+    Long maxStatusOrderOfWorks(Long userId, WorkStatus workStatus);
 }

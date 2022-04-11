@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WorkMoveRequest {
     private WorkStatus status;
-    private Integer order;
+    private Long order;
 }

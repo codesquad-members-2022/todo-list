@@ -1,6 +1,8 @@
 package codesquad.todo.web.works;
 
-import codesquad.todo.service.ColumnService;
+import codesquad.todo.domain.user.User;
+import codesquad.todo.domain.user.UserRepository;
+import codesquad.todo.domain.work.WorkStatus;
 import codesquad.todo.service.WorkService;
 import codesquad.todo.web.works.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -11,17 +13,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/works")
 public class WorkController {
 
+    public static final Long DEFAULT_USER_ID = 1L;
+    private final UserRepository userRepository;
     private final WorkService workService;
-    private final ColumnService columnService;
 
     @PostMapping
     public WorkSaveResponse workSave(@RequestBody WorkSaveRequest workSaveRequest) {
-        return workService.workSave(workSaveRequest);
-    }
-
-    @GetMapping
-    public WorkListResponse showAllWorkList() {
-        return workService.findAll();
+        User defaultUser = userRepository.findById(DEFAULT_USER_ID).get();
+        return workService.workSave(defaultUser, workSaveRequest);
     }
 
     @PutMapping("/{id}") // 내용 수정
@@ -31,6 +30,12 @@ public class WorkController {
 
     @PatchMapping("/{id}")
     public WorkMoveResponse moveWork(@PathVariable Long id, @RequestBody WorkMoveRequest workMoveRequest) {
-        return columnService.moveWork(id, workMoveRequest);
+        return workService.workMove(id, workMoveRequest);
+    }
+
+    @GetMapping
+    public WorkListResponse workListOfStatus(WorkStatus workStatus) {
+        User defaultUser = userRepository.findById(DEFAULT_USER_ID).get();
+        return workService.findWorkListByStatus(defaultUser.getId(), workStatus);
     }
 }

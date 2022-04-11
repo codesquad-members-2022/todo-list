@@ -50,4 +50,13 @@ public class MemoryWorkRepository implements WorkRepository {
                 .filter(work -> work.hasSameStatus(workStatus))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Long maxStatusOrderOfWorks(Long userId, WorkStatus workStatus) {
+        return store.values()
+                .stream()
+                .filter(work -> work.getId().equals(userId))
+                .filter(work -> work.hasSameStatus(workStatus))
+                .count();
+    }
 }
