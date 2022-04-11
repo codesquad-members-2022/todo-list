@@ -1,7 +1,5 @@
 package com.codesquad.todolist.card.dto;
 
-import com.codesquad.todolist.card.Card;
-
 public class CardUpdateRequest {
 
     private String title;

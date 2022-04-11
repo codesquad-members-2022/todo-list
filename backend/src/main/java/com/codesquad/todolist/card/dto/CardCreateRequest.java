@@ -4,10 +4,13 @@ import com.codesquad.todolist.card.Card;
 
 public class CardCreateRequest {
 
-    private final Integer columnId;
-    private final String title;
-    private final String author;
-    private final String content;
+    private Integer columnId;
+    private String title;
+    private String content;
+    private String author;
+
+    private CardCreateRequest() {
+    }
 
     public CardCreateRequest(Integer columnId, String title, String author, String content) {
         this.columnId = columnId;
@@ -34,5 +37,15 @@ public class CardCreateRequest {
 
     public String getAuthor() {
         return author;
+    }
+
+    @Override
+    public String toString() {
+        return "CardCreateRequest{" +
+            "columnId=" + columnId +
+            ", title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", author='" + author + '\'' +
+            '}';
     }
 }
