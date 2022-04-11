@@ -8,11 +8,22 @@ export default class Todo {
   onMouseDown = e => {
     if (e.target.classList.contains('card__delete')) {
       this.deleteBtn(e.target);
-      this.onDrag = true;
+      return;
     }
 
-    e.currentTarget.classList.add('spectrum');
-    this.createCopyTodo(e.pageX, e.pageY);
+    const dataDrag = e.currentTarget.getAttribute('data-drag');
+
+    if (dataDrag === 'true' && e.detail === 1) {
+      e.currentTarget.classList.add('spectrum');
+      this.createCopyTodo(e.pageX, e.pageY);
+      return;
+    }
+
+    if (e.detail === 2) {
+      e.currentTarget.setAttribute('data-drag', false);
+      this.showEditForm();
+      return;
+    }
   };
 
   createCopyTodo = (x, y) => {
@@ -27,7 +38,7 @@ export default class Todo {
   };
 
   render = () => {
-    return /*html*/ `<div class="card original-MouseOver" id =${this.todoData.id}>
+    return /*html*/ `<div class="card original-MouseOver" id =${this.todoData.id} data-drag="true">
       <header>
         <h3>${this.todoData.title}</h3>
         <button class="card__delete">x</button>
@@ -42,7 +53,7 @@ export default class Todo {
   };
 
   run = () => {
-    document.getElementById(this.todoData.id).addEventListener('dblclick', this.showEditForm);
+    document.getElementById(this.todoData.id).addEventListener('dbclick', this.showEditForm);
     document.getElementById(this.todoData.id).addEventListener('mousedown', this.onMouseDown);
     document.getElementById(this.todoData.id).addEventListener('mouseover', this.ondeleteOver);
     document.getElementById(this.todoData.id).addEventListener('mouseout', this.ondeleteOut);
