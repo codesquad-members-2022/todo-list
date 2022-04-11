@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableHeader: UITableViewHeaderFooterView{
+final class TableHeader: UITableViewHeaderFooterView{
     let titleLabel = UILabel()
     let numberLabel = UILabel()
     let plusButton = UIButton()

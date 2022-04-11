@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class URLManager{
     enum HttpMethod: String{
         case get = "GET"

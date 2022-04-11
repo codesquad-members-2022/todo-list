@@ -26,6 +26,8 @@
 		D25BF80827FE7D5A0010DE50 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80327FE7D5A0010DE50 /* NotoSansKR-Medium.otf */; };
 		D25BF80927FE7D5A0010DE50 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80427FE7D5A0010DE50 /* NotoSansKR-Regular.otf */; };
 		D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */; };
+		D274DE7F2803C4A9009CD620 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274DE7E2803C4A9009CD620 /* TableViewController.swift */; };
+		D274DE822803C529009CD620 /* TableViewInCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274DE812803C529009CD620 /* TableViewInCollectionCell.swift */; };
 		D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299330927FBD83000D79C87 /* HeaderViewController.swift */; };
 		D299331227FC07FB00D79C87 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299331127FC07FB00D79C87 /* TodoCell.swift */; };
 		D299331C27FC372600D79C87 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299331B27FC372600D79C87 /* CollectionCell.swift */; };
@@ -54,6 +56,8 @@
 		D25BF80327FE7D5A0010DE50 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		D25BF80427FE7D5A0010DE50 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
 		D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		D274DE7E2803C4A9009CD620 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		D274DE812803C529009CD620 /* TableViewInCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewInCollectionCell.swift; sourceTree = "<group>"; };
 		D299330927FBD83000D79C87 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		D299331127FC07FB00D79C87 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		D299331B27FC372600D79C87 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 		B39BFEB227FADA8700B28376 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				D274DE802803C4FB009CD620 /* Delegate */,
 				B3BAE2BF27FF28FA005E7ED2 /* Model */,
 				D299330F27FC063E00D79C87 /* ViewController */,
 				D299331027FC064C00D79C87 /* View */,
@@ -127,12 +132,21 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		D274DE802803C4FB009CD620 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				D274DE812803C529009CD620 /* TableViewInCollectionCell.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 		D299330F27FC063E00D79C87 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				B39BFEB727FADA8700B28376 /* ContainerViewController.swift */,
 				D299330927FBD83000D79C87 /* HeaderViewController.swift */,
 				B3BAE28327FBE132005E7ED2 /* ContentViewController.swift */,
+				D274DE7E2803C4A9009CD620 /* TableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -243,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D274DE822803C529009CD620 /* TableViewInCollectionCell.swift in Sources */,
 				B39BFEB827FADA8700B28376 /* ContainerViewController.swift in Sources */,
 				B39BFEB427FADA8700B28376 /* AppDelegate.swift in Sources */,
 				D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */,
@@ -256,6 +271,7 @@
 				D25BF7FD27FE794D0010DE50 /* TableHeader.swift in Sources */,
 				B3BAE28427FBE132005E7ED2 /* ContentViewController.swift in Sources */,
 				D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */,
+				D274DE7F2803C4A9009CD620 /* TableViewController.swift in Sources */,
 				D299331227FC07FB00D79C87 /* TodoCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,6 +421,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -417,7 +434,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.team15.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.team15.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -432,6 +449,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -444,7 +462,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.team15.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.team15.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

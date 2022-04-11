@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoCell: UITableViewCell{
+final class TodoCell: UITableViewCell{
     private var backView: UIView!
     private var title: UILabel!
     private var contents: UILabel!

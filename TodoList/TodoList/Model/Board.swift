@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Board{
+final class Board{
     private(set) var todoCards: [Card]?
     private(set) var doginCards: [Card]?
     private(set) var doneCards: [Card]?

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderViewController: UIViewController{
+final class HeaderViewController: UIViewController{
     var header: HeaderView!
     
     override func viewDidLoad() {
