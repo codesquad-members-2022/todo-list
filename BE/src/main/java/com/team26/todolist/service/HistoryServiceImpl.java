@@ -31,21 +31,21 @@ public class HistoryServiceImpl implements HistoryService {
         History history;
         if (cardAction == CardAction.ADD) {
             history = History.builder(cardAction, userId, LocalDateTime.now())
-                    .cardTitle(cardNow.getCardTitle())
-                    .cardStatus(cardNow.getCardStatus().name())
+                    .cardTitle(cardNow.getTitle())
+                    .cardStatus(cardNow.getCardStatus())
                     .build();
         } else if (cardAction == CardAction.DELETE) {
             history = History.builder(cardAction, userId, LocalDateTime.now())
-                    .cardTitleBefore(cardBefore.getCardTitle())
-                    .cardStatusBefore(cardBefore.getCardStatus().name())
+                    .cardTitleBefore(cardBefore.getTitle())
+                    .cardStatusBefore(cardBefore.getCardStatus())
                     .build();
 
         } else { // UPDATE, MOVE
             history = History.builder(cardAction, userId, LocalDateTime.now())
-                    .cardTitle(cardNow.getCardTitle())
-                    .cardTitleBefore(cardBefore.getCardTitle())
-                    .cardStatus(cardNow.getCardStatus().name())
-                    .cardStatusBefore(cardBefore.getCardStatus().name())
+                    .cardTitle(cardNow.getTitle())
+                    .cardTitleBefore(cardBefore.getTitle())
+                    .cardStatus(cardNow.getCardStatus())
+                    .cardStatusBefore(cardBefore.getCardStatus())
                     .build();
         }
         historyRepository.save(history);
