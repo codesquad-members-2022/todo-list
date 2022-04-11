@@ -1,16 +1,12 @@
 import TodoEdit from './TodoEdit.js';
-import { getLocalStorageByKey } from '../utils/localStorage.js';
+import Modal from './Modal.js';
+
 export default class Todo {
   constructor(todoData) {
     this.todoData = todoData;
   }
 
   onMouseDown = e => {
-    if (e.target.classList.contains('card__delete')) {
-      this.deleteBtn(e.target);
-      this.onDrag = true;
-    }
-
     e.currentTarget.classList.add('spectrum');
     this.createCopyTodo(e.pageX, e.pageY);
   };
@@ -43,7 +39,8 @@ export default class Todo {
 
   run = () => {
     document.getElementById(this.todoData.id).addEventListener('dblclick', this.showEditForm);
-    document.getElementById(this.todoData.id).addEventListener('mousedown', this.onMouseDown);
+    document.getElementById(this.todoData.id).addEventListener('click', this.deleteBtn);
+    //document.getElementById(this.todoData.id).addEventListener('mousedown', this.onMouseDown);
     document.getElementById(this.todoData.id).addEventListener('mouseover', this.ondeleteOver);
     document.getElementById(this.todoData.id).addEventListener('mouseout', this.ondeleteOut);
   };
@@ -77,28 +74,10 @@ export default class Todo {
     }
   };
 
-  deleteBtn = target => {
+  deleteBtn = ({ target }) => {
     const test = document.getElementById(this.todoData.id);
-    const modelEvent = document.querySelector('.deleteEventModal');
-
-    if (target.classList.contains('card__delete')) {
-      modelEvent.style.display = 'block';
-    }
-
-    document.querySelector('.closeButton').addEventListener('click', function () {
-      modelEvent.style.display = 'none';
-    });
-
-    document.querySelector('.deletebutton').addEventListener('click', function () {
-      const objIndex = getLocalStorageByKey('todos').findIndex(e => e.id === Number(test.id)); //1
-
-      const removeData = getLocalStorageByKey('todos').splice(0, 1);
-      console.log(removeData);
-
-      //localStorage.setItem('todos', JSON.stringify(removeData));
-
-      test.remove();
-      modelEvent.style.display = 'none';
-    });
+    const modal = new Modal(test.id);
+    modal.showModal();
+    modal.handleEventListener();
   };
 }
