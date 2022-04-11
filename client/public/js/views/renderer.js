@@ -1,16 +1,18 @@
 import { qs, insertElement } from "../utils/helpers.js";
 import { createColumn } from "./column/column.js";
 import { createItem, createItemBox } from "./card/card.js";
-import { createHistory } from "./aside/history.js";
+import { createHistory } from "./history/history.js";
+import { createHeader } from "./header/header.js";
+import { createAside } from "./aside/aside.js";
 
 const renderer = {
   allColumns: (columnList) => {
     columnList.forEach(renderer.column);
   },
 
-  column: ({ id, title }) => {
+  column: ({ id, title, length }) => {
     const columnListEl = qs(".column-list");
-    insertElement(columnListEl, "beforeend", createColumn({ id, title }));
+    insertElement(columnListEl, "beforeend", createColumn({ id, title, length }));
   },
 
   allItems: (itemList) => {
@@ -25,7 +27,7 @@ const renderer = {
   itemBox: (columnId) => {
     const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
     insertElement(itemListEl, "afterbegin", createItemBox());
-  }
+  },
 
   allHistory: (historyList) => {
     historyList.forEach(renderer.history);
@@ -34,6 +36,16 @@ const renderer = {
   history: ({ username, date, content }) => {
     const historyListEl = qs(".history-list");
     insertElement(historyListEl, "afterbegin", createHistory({ username, date, content }));
+  },
+
+  header: () => {
+    const todoContainerEl = qs(".todo-container");
+    insertElement(todoContainerEl, "afterbegin", createHeader());
+  },
+
+  aside: () => {
+    const todoContainerEl = qs(".todo-container");
+    insertElement(todoContainerEl, "beforeend", createAside());
   },
 };
 

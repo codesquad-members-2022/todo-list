@@ -13,6 +13,9 @@ function app() {
 
   const store = new Store(userData);
 
+  renderer.header();
+  renderer.aside();
+
   renderer.allColumns(store.columns);
   renderer.allItems(store.items);
   renderer.allHistory(store.history);
