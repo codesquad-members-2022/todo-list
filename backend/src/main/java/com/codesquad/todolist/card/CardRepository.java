@@ -63,11 +63,17 @@ public class CardRepository {
             new BeanPropertySqlParameterSource(card));
     }
 
+    public void move(Card card) {
+        jdbcTemplate.update(
+            "update card set column_id = :columnId, card_order = :order where card_id = :cardId",
+            new BeanPropertySqlParameterSource(card)
+        );
+    }
+
     public void deleteById(int cardId) {
         jdbcTemplate.update(
             "update card set deleted = true where card_id = :cardId",
             new MapSqlParameterSource().addValue("cardId", cardId));
-
     }
 
     private RowMapper<Card> getCardRowMapper() {
@@ -80,5 +86,4 @@ public class CardRepository {
             rs.getInt("card_order"),
             rs.getObject("created_date", LocalDateTime.class));
     }
-
 }

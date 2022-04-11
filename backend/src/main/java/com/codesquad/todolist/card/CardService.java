@@ -3,6 +3,7 @@ package com.codesquad.todolist.card;
 import org.springframework.stereotype.Service;
 
 import com.codesquad.todolist.card.dto.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
 
 @Service
@@ -33,4 +34,10 @@ public class CardService {
         cardRepository.deleteById(card.getCardId());
     }
 
+    public void move(Integer cardId, CardMoveRequest request) {
+        Card card = cardRepository.findById(cardId).orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
+        card.move(request.getColumnId(), request.getOrder());
+        cardRepository.move(card);
+
+    }
 }

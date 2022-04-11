@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codesquad.todolist.card.dto.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
 
 @RestController
@@ -27,8 +28,8 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createCard(@RequestBody @Valid CardCreateRequest createRequest) {
-        cardService.create(createRequest);
+    public ResponseEntity<?> createCard(@RequestBody @Valid CardCreateRequest request) {
+        cardService.create(request);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
@@ -44,4 +45,11 @@ public class CardController {
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/{id}/move")
+    public ResponseEntity<?> moveCard(@PathVariable(value = "id") Integer cardId,
+        @RequestBody @Valid CardMoveRequest request) {
+
+        cardService.move(cardId, request);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
+    }
 }

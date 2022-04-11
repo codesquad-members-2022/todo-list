@@ -34,8 +34,17 @@ public class Card {
         this.author = author;
     }
 
+    public void move(Integer columnId, Integer order) {
+        this.columnId = columnId;
+        this.order = order;
+    }
+
     public Integer getCardId() {
         return cardId;
+    }
+
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
     }
 
     public Integer getColumnId() {
@@ -60,10 +69,6 @@ public class Card {
 
     public LocalDateTime getCreatedDateTime() {
         return createdDateTime;
-    }
-
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
     }
 
 }
