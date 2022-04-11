@@ -17,6 +17,22 @@ public class Log {
 		this.createdDate = createdDate;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public String getPrevColumnName() {
+		return prevColumnName;
+	}
+
+	public String getCurrentColumnName() {
+		return currentColumnName;
+	}
+
+	public String getActionType() {
+		return actionType;
+	}
+
 	public static class Builder {
 		private Long id;
 		private String title;
@@ -24,6 +40,7 @@ public class Log {
 		private String currentColumnName;
 		private String actionType;
 		private String createdDate;
+
 
 		public Builder id(Long id) {
 			this.id = id;
