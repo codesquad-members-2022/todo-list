@@ -14,13 +14,13 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         mainViewController.delegate = self
         inspectorViewController.delegate = self
-        
+
         addChildViewController(child: mainViewController, parent: self)
         addChildViewController(child: inspectorViewController, parent: self)
-        
+
         setUpInspectorView()
     }
     
@@ -37,10 +37,6 @@ class ContainerViewController: UIViewController {
         addChild(child)
         child.didMove(toParent: parent)
         view.addSubview(child.view)
-    }
-    
-    private func configureView(child: UIViewController) {
-        
     }
 }
 
