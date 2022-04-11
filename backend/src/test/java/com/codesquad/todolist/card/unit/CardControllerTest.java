@@ -40,7 +40,7 @@ public class CardControllerTest {
 
         // when
         ResultActions actions = mockMvc.perform(post("/cards")
-            .contentType("application.json")
+            .contentType("application/json")
             .content(objectMapper.writeValueAsString(request)));
 
         // then

@@ -3,11 +3,8 @@ package com.codesquad.todolist.card.integration;
 import static io.restassured.RestAssured.given;
 
 import com.codesquad.todolist.card.Card;
-import com.codesquad.todolist.card.CardRepository;
 import com.codesquad.todolist.column.Column;
-import com.codesquad.todolist.column.ColumnRepository;
 import com.codesquad.todolist.user.User;
-import com.codesquad.todolist.user.UserRepository;
 import io.restassured.RestAssured;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ComponentScan
