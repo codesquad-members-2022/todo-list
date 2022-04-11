@@ -19,8 +19,7 @@
 | GET | /list    | 조회 |
 | POST | /list  |  등록  |
 | DELETE  | /list/{id}  |  삭제  |
-| POST | /list/vertical/{id}   | 상 하 드래그 앤 드랍 |
-| POST | /list/horizon/{id}   | 좌 우 드래그 앤 드랍 |
+| POST | /list/move/{id}   | 드래그 앤 드랍 |
 | PATCH | /list/{id} | 제목, 내용 변경 |
 | GET | /list/menu   |  활동 로그  |
 
@@ -47,7 +46,7 @@ PATCH /list/{id} 에서의 API
     "userId": "iOS",
     "title": "제목1",
     "content": "내용1",
-    "row": 2,
+    "sequence": 2,
     "status": 1  //todo 에 있는 상태
 }
 ```
@@ -62,7 +61,7 @@ PATCH /list/{id} 에서의 API
     "userId": "iOS",
     "title": "제목1",
     "content": "내용1",
-    "row": 2,
+    "sequence": 2,
     "status": 1  //todo 에 있는 상태
 }
 ```
