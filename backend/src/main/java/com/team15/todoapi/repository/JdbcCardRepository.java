@@ -18,7 +18,17 @@ public class JdbcCardRepository implements CardRepository{
 
 	@Override
 	public List<Card> findAll() {
-		return jdbcTemplate.query("select * from card", cardRowMapper());
+		return jdbcTemplate.query(
+			"SELECT card.id, "
+				+ "title, "
+				+ "content, "
+				+ "modified_at, "
+				+ "user_id, "
+				+ "card_section_code_id "
+				+ "from card , member "
+				+ "where card.member_id = member.id "
+				+ "and  delete_flag = false "
+				+ "order by modified_at desc", cardRowMapper());
 	}
 
 	private RowMapper<Card> cardRowMapper(){
