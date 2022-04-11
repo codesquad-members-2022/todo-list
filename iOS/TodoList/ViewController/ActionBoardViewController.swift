@@ -2,7 +2,7 @@ import UIKit
 
 class ActionBoardViewController: UIViewController {
     
-    @IBOutlet weak var table: UITableView!
+    @IBOutlet private weak var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
