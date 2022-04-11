@@ -25,7 +25,7 @@ struct Card: Codable {
 
 extension Card: CardUsable {
     func getStatus() -> CardStatus {
-        return .todo
+        return status
     }
 
     func getTitle() -> String {
