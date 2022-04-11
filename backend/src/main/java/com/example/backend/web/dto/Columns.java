@@ -1,21 +1,20 @@
 package com.example.backend.web.dto;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Columns {
-    private final Map<String, List<CardListResponseDto>> cardMap;
+    private final List<Column> columns;
 
     public Columns() {
-        cardMap = new HashMap<>();
+        columns = new ArrayList<>();
     }
 
-    public void addCardList(String columnName, List<CardListResponseDto> cardList) {
-        cardMap.put(columnName, cardList);
+    public void addColumn(Column column) {
+        columns.add(column);
     }
 
-    public Map<String, List<CardListResponseDto>> getCardMap() {
-        return cardMap;
+    public List<Column> getColumns() {
+        return columns;
     }
 }
