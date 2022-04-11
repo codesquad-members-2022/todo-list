@@ -1,18 +1,10 @@
 package com.codesquad.todolist.card.unit;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.times;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.BDDMockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.codesquad.todolist.card.CardController;
-import com.codesquad.todolist.card.CardService;
-import com.codesquad.todolist.card.dto.CardCreateRequest;
-import com.codesquad.todolist.card.dto.CardUpdateRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +13,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import com.codesquad.todolist.card.CardController;
+import com.codesquad.todolist.card.CardService;
+import com.codesquad.todolist.card.dto.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardUpdateRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @WebMvcTest(CardController.class)
 public class CardControllerTest {
 
@@ -28,14 +26,13 @@ public class CardControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
-
     @MockBean
     private CardService cardService;
 
     @Test
     @DisplayName("카드를 생성하는 요청이 오면 카드가 생성된다")
     public void cardCreateTest() throws Exception {
-
+        // given
         CardCreateRequest request = new CardCreateRequest(1, "제목", "작성자", "내용");
 
         // when
@@ -65,5 +62,22 @@ public class CardControllerTest {
         actions.andExpect(status().isOk());
 
         then(cardService).should(times(1)).update(anyInt(), any(CardUpdateRequest.class));
+    }
+
+    @Test
+    @DisplayName("카드 삭제를 요청하면 204 NO CONTENT 를 응답으로 받게 된다")
+    public void cardDeleteTest() throws Exception {
+
+        // when
+        ResultActions actions = mockMvc.perform(delete("/cards/{id}", 1)
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString("cardId:1"))
+        );
+
+        // then
+        actions.andExpect(status().isNoContent());
+
+        then(cardService).should(times(1)).delete(anyInt());
+
     }
 }
