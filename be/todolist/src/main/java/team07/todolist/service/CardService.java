@@ -21,12 +21,8 @@ public class CardService {
 	}
 
 	public void save(RequestCard requestCard) {
-		Card newCard = new Card.Builder().userId(requestCard.getUserId())
-			.title(requestCard.getTitle())
-			.content(requestCard.getContent())
-			.row(requestCard.getRow())
-			.status(requestCard.getStatus())
-			.build();
+		Card newCard = new Card(requestCard.getUserId(), requestCard.getTitle(),
+			requestCard.getContent(), requestCard.getRow(), requestCard.getStatus());
 
 		int status = requestCard.getStatus();
 		cardRepository.save(newCard, status);
@@ -39,30 +35,21 @@ public class CardService {
 	}
 
 	public ResponseCard dragAndDropHorizon(Long id, RequestCard requestCard) {
-		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getRow(),
-			requestCard.getStatus());
+		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard);
 		activityLogService.dragAndDropLog(cardRepository.findById(id), requestCard);
 		return updateCard.createResponseCard();
 	}
 
 	public ResponseCard dragAndDropVertical(Long id, RequestCard requestCard) {
-
-//		Card changedCard = new Card.Builder(cardRepository.findById(id))
-//			.row(requestCard.getRow())
-//			.status(requestCard.getStatus())
-//			.build();
-
 		Card originCard = cardRepository.findById(id);
-		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getRow(), requestCard.getStatus());
+		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard);
 		activityLogService.dragAndDropLog(originCard, requestCard);
 		return updateCard.createResponseCard();
 	}
 
 	public ResponseCard changeText(Long id, PatchCard patchCard) {
-		Card card = new Card.Builder(cardRepository.findById(id))
-			.title(patchCard.getTitle())
-			.content(patchCard.getContent())
-			.build();
+		Card card = new Card(cardRepository.findById(id), patchCard.getTitle(),
+			patchCard.getContent());
 
 		Card originCard = cardRepository.findById(id);
 		Card updateCard = cardRepository.updateText(id, card);
@@ -78,7 +65,4 @@ public class CardService {
 			.collect(Collectors.toList());
 	}
 
-	public void reset() {
-		cardRepository.reset();
-	}
 }

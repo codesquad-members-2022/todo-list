@@ -18,7 +18,6 @@ import team07.todolist.domain.Card;
 import team07.todolist.dto.PatchCard;
 import team07.todolist.dto.RequestCard;
 import team07.todolist.dto.ResponseCard;
-import team07.todolist.repository.ActivityLogRepository;
 import team07.todolist.service.ActivityLogService;
 import team07.todolist.service.CardService;
 
@@ -83,10 +82,4 @@ public class CardController {
 		return activityLogService.findAll();
 	}
 
-	@GetMapping("/reset")
-	public void reset(HttpServletResponse response) {
-		cardService.reset();
-
-		response.setStatus(HttpServletResponse.SC_OK);
-	}
 }

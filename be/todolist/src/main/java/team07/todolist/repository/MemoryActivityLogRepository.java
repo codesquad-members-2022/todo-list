@@ -12,14 +12,14 @@ import team07.todolist.domain.ActivityLog;
 public class MemoryActivityLogRepository implements ActivityLogRepository {
 
 	private static Map<Long, ActivityLog> store = new ConcurrentHashMap<>();
-	private AtomicLong sequence = new AtomicLong();
+	private final AtomicLong sequence = new AtomicLong();
 
 	@Override
 	public ActivityLog save(ActivityLog activityLog) {
 		long id = sequence.incrementAndGet();
-		activityLog.setId(id);
-		store.put(id, activityLog);
-		return activityLog;
+		ActivityLog newActivityLog = new ActivityLog(activityLog, id);
+		store.put(id, newActivityLog);
+		return newActivityLog;
 	}
 
 	@Override
