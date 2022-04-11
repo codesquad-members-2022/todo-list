@@ -34,7 +34,7 @@ public class JdbcCardRepository implements CardRepository {
         namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card), keyHolder);
         Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
 
-        return findById(id).orElseThrow(NoSuchElementException::new);
+        return Card.of(id, card);
     }
 
     @Override

@@ -35,6 +35,13 @@ public class Card {
         return new Card(id, userId, columnId, subject, contents, createTime, updateTime, deleted);
     }
 
+    public static Card of(Long id, Card card) {
+        if(card.getId() != null) {
+            return card;
+        }
+        return new Card(id, card.getUserId(), card.getColumnId(), card.getSubject(), card.getContents(), card.getCreateTime(), card.getUpdateTime(), card.isDeleted());
+    }
+
     public Long getId() {
         return id;
     }

@@ -21,7 +21,7 @@ public class mockupController {
         this.cardService = cardService;
     }
 
-    @PostMapping("/card")
+    @PostMapping("/cards")
     public ResponseEntity<CardResponse> create(@RequestBody CardDto cardDto) {
         log.info(cardDto.toString());
         CardResponse cardResponse = cardService.create(cardDto);
@@ -36,14 +36,14 @@ public class mockupController {
         return new ResponseEntity<>(cards, HttpStatus.OK);
     }
 
-    @GetMapping("/card/{id}")
+    @GetMapping("/cards/{id}")
     public ResponseEntity<CardResponse> findOne(@PathVariable Long id) {
         CardResponse card = cardService.findOne(id);
 
         return new ResponseEntity<>(card, HttpStatus.OK);
     }
 
-    @DeleteMapping("/card/{id}")
+    @DeleteMapping("/cards/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         boolean isDeleted = cardService.delete(id);
 

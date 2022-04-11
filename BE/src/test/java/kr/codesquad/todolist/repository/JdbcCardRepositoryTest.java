@@ -75,14 +75,14 @@ class JdbcCardRepositoryTest {
     @DisplayName("findAll()를 호출하면, List<Card>를 반환한다.")
     void findAll_test() {
 
-        Card save = jdbcCardRepository.save(card);
+        Card saved = jdbcCardRepository.save(card);
 
         //when
         List<Card> all = jdbcCardRepository.findAll();
 
         //then
-        assertThat(all).contains(save);
-        assertThat(all.size()).isEqualTo(3);
+        assertThat(all).contains(saved);
+        assertThat(all).hasSize(3);
     }
 
     @Test
@@ -90,12 +90,12 @@ class JdbcCardRepositoryTest {
     void delete_success_test() {
 
         //when
-        boolean delete = jdbcCardRepository.delete(1L);
+        boolean isDeleted = jdbcCardRepository.delete(1L);
         List<Card> all = jdbcCardRepository.findAll();
 
         //then
-        assertThat(delete).isTrue();
-        assertThat(all.size()).isEqualTo(1);
+        assertThat(isDeleted).isTrue();
+        assertThat(all).hasSize(1);
     }
 
     @Test
@@ -103,12 +103,12 @@ class JdbcCardRepositoryTest {
     void delete_fail_test() {
 
         //when
-        boolean delete = jdbcCardRepository.delete(3L);
+        boolean isDeleted = jdbcCardRepository.delete(3L);
         List<Card> all = jdbcCardRepository.findAll();
 
         //then
-        assertThat(delete).isFalse();
-        assertThat(all.size()).isEqualTo(2);
+        assertThat(isDeleted).isFalse();
+        assertThat(all).hasSize(2);
     }
 
 }

@@ -7,6 +7,7 @@ import kr.codesquad.todolist.repository.CardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +25,7 @@ public class CardService {
     }
 
     public CardResponse findOne(Long id) {
-        Card card = cardRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Card card = cardRepository.findById(id).orElseThrow(NoSuchElementException::new);
         return CardResponse.from(card);
     }
 
