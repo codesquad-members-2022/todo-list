@@ -6,31 +6,55 @@
 //
 
 import XCTest
-@testable import To_Do_List
 
 class To_Do_ListTests: XCTestCase {
-
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        try super.setUpWithError()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        TestURLProtocol.loadingHandler = nil
+        try super.tearDownWithError()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testRequest() {
+        //MockData
+        guard let path = Bundle.main.path(forResource: "MockJsonData", ofType: "json") else { return }
+        guard let jsonString = try? String(contentsOfFile: path) else { return }
+        guard let mockdata = jsonString.data(using: .utf8) else { return }
+        //Decoded MockData with specific type
+        guard let expected = try? JSONDecoder().decode(NetworkResult.self, from: mockdata) else { return }
+        
+        //mockEndpoint
+        let mockEndPoint = Endpoint(httpMethod: .get,
+                                    baseURL: "www.mockdata.com",
+                                    path: "88888",
+                                    headers: ["Content-Type": "application/json"],
+                                    body: nil
+                                    )
+        
+        //response 만들기
+        TestURLProtocol.loadingHandler = { request in
+            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response,mockdata,nil)
         }
+        
+        //custom Session
+        let expectation = XCTestExpectation(description: "Loading")
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [TestURLProtocol.self]
+        let networkmanager = NetworkManager(session: URLSession(configuration: configuration))
+        
+        networkmanager.request(endpoint: mockEndPoint)  { (result:Result<NetworkResult,NetworkError>) in
+            switch result {
+            case .failure(let error):
+                XCTFail("Request was not successful: \(error.localizedDescription)")
+            case .success(let result):
+                XCTAssertEqual(result, expected)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1)
     }
-
 }
