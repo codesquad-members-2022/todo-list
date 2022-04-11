@@ -54,12 +54,10 @@ class TodoServiceTest {
 
 	@Test
 	void 전체_투두리스트_조회_성공() {
-		List<Todo> todoList = new ArrayList<>();
-		todoList.add(new Todo(1L, "Github 공부하기", "add, commit, push", "sam", "todo"));
-		todoList.add(new Todo(2L, "블로그에 포스팅할 것", "*Github 공부내용 \n" + " *모던 자바스크립트 1장 공부내용", "sam", "todo"));
+		List<Todo> todolist = createTestData();
 
 		given(todoRepository.findAll())
-				.willReturn(Optional.of(todoList));
+				.willReturn(Optional.of(todolist));
 
 		List<Todo> todos = todoService.findTodos().get();
 
@@ -76,5 +74,12 @@ class TodoServiceTest {
 				() -> assertThat(todos.get(1).getUser()).isEqualTo("sam"),
 				() -> assertThat(todos.get(1).getStatus()).isEqualTo("todo")
 		);
+	}
+
+	private List<Todo> createTestData() {
+		List<Todo> todolist = new ArrayList<>();
+		todolist.add(new Todo(1L, "Github 공부하기", "add, commit, push", "sam", "todo"));
+		todolist.add(new Todo(2L, "블로그에 포스팅할 것", "*Github 공부내용 \n" + " *모던 자바스크립트 1장 공부내용", "sam", "todo"));
+		return todolist;
 	}
 }

@@ -59,13 +59,10 @@ class TodoControllerTest {
 
 	@Test
 	void 전체_투두_조회_성공() throws Exception {
-		List<Todo> arr = new ArrayList<>();
-		arr.add(new Todo(1L, "Github 공부하기", "add, commit, push", "sam", "todo"));
-		arr.add(new Todo(2L, "블로그에 포스팅할 것", "*Github 공부내용 \n" +
-				" *모던 자바스크립트 1장 공부내용", "sam", "todo"));
+		List<Todo> todos = createTestData();
 
 		given(todoService.findTodos())
-				.willReturn(Optional.of(arr));
+				.willReturn(Optional.of(todos));
 
 		ResultActions perform = mockMvc.perform(get("/api/todos"));
 
@@ -84,5 +81,13 @@ class TodoControllerTest {
 						" *모던 자바스크립트 1장 공부내용"))
 				.andExpect(jsonPath("$.[1].user").value("sam"))
 				.andExpect(jsonPath("$.[1].status").value("todo"));
+	}
+
+	private List<Todo> createTestData() {
+		List<Todo> todos = new ArrayList<>();
+		todos.add(new Todo(1L, "Github 공부하기", "add, commit, push", "sam", "todo"));
+		todos.add(new Todo(2L, "블로그에 포스팅할 것", "*Github 공부내용 \n" +
+				" *모던 자바스크립트 1장 공부내용", "sam", "todo"));
+		return todos;
 	}
 }
