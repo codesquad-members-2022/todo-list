@@ -9,7 +9,11 @@ class CardListViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countBadgeLabel: UILabel!
     @IBOutlet weak var addCardButton: UIButton!
-    private weak var editCardViewModal: EditCardViewController?
+    private weak var editCardViewModal: EditCardViewController? {
+        didSet {
+            addObservers()
+        }
+    }
     
     init(title: String, cardManager: CardManagable) {
         self.headerTitle = title
@@ -64,5 +68,24 @@ extension CardListViewController: UITableViewDataSource {
         cell.configure(title: newCardModel.title, body: newCardModel.body)
         
         return cell
+    }
+}
+
+//MARK: - Handle EditCardView's notification
+extension CardListViewController {
+    
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(editCardViewModalDidAddNewData(_:)),
+                                               name: EditCardViewController.Constants.NotificationNames.didAddNewData,
+                                               object: self.editCardViewModal)
+    }
+    
+    @objc private func editCardViewModalDidAddNewData(_ notification: Notification) {
+        guard let newData = notification.userInfo?[EditCardViewController.Constants.userInfoKeys.addedData] as? [String] else {return}
+        
+        cardManager.add(title: newData[0], body: newData[1])
+        
+        updateBadge()
+        tableView.reloadData()
     }
 }
