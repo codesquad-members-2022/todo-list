@@ -14,10 +14,10 @@ class CardAPITests: XCTestCase {
         let endpoint: String = "https://naver.com"
     }
     
-    var task: DataTask<CardData>!
+    var task: DataTask!
     
     override func setUpWithError() throws {
-        let task = DataTask(api: Team13API(), dataType: CardData.self)
+        let task = DataTask(api: Team13API())
         self.task = task
     }
 
@@ -27,7 +27,7 @@ class CardAPITests: XCTestCase {
     
     func test_todolistAPI_connectionSuccess_getData() throws {
         let expectation = XCTestExpectation()
-        task?.fetchCardsAll(completionHandler: { result in
+        task?.fetchAll(dataType: Cards.self, completionHandler: { result in
             switch result {
             case .success(let data):
                 XCTAssertNotNil(data)
@@ -36,7 +36,7 @@ class CardAPITests: XCTestCase {
             }
             expectation.fulfill()
         })
-        wait(for: [expectation], timeout: 2.0)
+        wait(for: [expectation], timeout: 3.0)
     }
     
     

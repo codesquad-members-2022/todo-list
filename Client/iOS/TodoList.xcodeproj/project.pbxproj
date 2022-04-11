@@ -37,6 +37,7 @@
 		6FD8AB5A2804268800A4B350 /* SessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8AB432803C78400A4B350 /* SessionDataTask.swift */; };
 		6FD8AB5B280426A400A4B350 /* SessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8AB422803C78400A4B350 /* SessionConfiguration.swift */; };
 		6FD8AB5C280426B000A4B350 /* SessionCommonAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8AB4B2803C78400A4B350 /* SessionCommonAttributes.swift */; };
+		6FD8AB5D28048E4700A4B350 /* CardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8AB482803C78400A4B350 /* CardData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -377,6 +378,7 @@
 				6FD8AB3C2803C68B00A4B350 /* CardAPITests.swift in Sources */,
 				6F5BC2A027FA9CB6002D591D /* TodoListTests.swift in Sources */,
 				6FD8AB5C280426B000A4B350 /* SessionCommonAttributes.swift in Sources */,
+				6FD8AB5D28048E4700A4B350 /* CardData.swift in Sources */,
 				6FD8AB582804218400A4B350 /* CardsFetchingDataTask.swift in Sources */,
 				6FD8AB592804268400A4B350 /* CardHTTPRequest.swift in Sources */,
 			);
