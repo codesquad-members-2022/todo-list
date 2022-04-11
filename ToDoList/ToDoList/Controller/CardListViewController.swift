@@ -35,13 +35,17 @@ class CardListViewController: UIViewController {
     
     @IBAction func addCardButtonTouched(_ sender: UIButton) {
         cardManager.add()
+        updateBadge()
         self.tableView.reloadData()
+    }
+    
+    private func updateBadge() {
+        self.countBadgeLabel.text = "\(self.cardManager.count)"
     }
 }
 
 extension CardListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.countBadgeLabel.text = "\(self.cardManager.count)"
         return self.cardManager.count
     }
     
