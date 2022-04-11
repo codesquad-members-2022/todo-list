@@ -21,6 +21,23 @@ public class Card {
         this.createdAt = createdAt;
     }
 
+    public Card(String title, String contents, CardStatus cardStatus) {
+        this.title = title;
+        this.contents = contents;
+        this.cardStatus = cardStatus;
+    }
+
+    public Card(Long id, String title, String contents) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+    }
+
+    public Card(Long id, CardStatus cardStatus) {
+        this.id = id;
+        this.cardStatus = cardStatus;
+    }
+
     public Long getId() {
         return id;
     }
@@ -47,5 +64,18 @@ public class Card {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", contents='" + contents + '\'' +
+                ", userId='" + userId + '\'' +
+                ", cardStatus=" + cardStatus +
+                ", isDeleted=" + isDeleted +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

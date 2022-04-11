@@ -15,7 +15,6 @@ public enum CardStatus {
     }
 
     //TODO
-    // TODO, ONGOING으로 들어오는 요청들 매핑할 수 있도록 변경예정
     public static CardStatus createCardStatus(String cardStatus) {
         return Arrays.stream(CardStatus.values())
                 .filter(status -> status.getName().equals(cardStatus))

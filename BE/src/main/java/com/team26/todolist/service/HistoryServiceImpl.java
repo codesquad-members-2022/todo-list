@@ -40,7 +40,7 @@ public class HistoryServiceImpl implements HistoryService {
                     .cardStatusBefore(cardBefore.getCardStatus())
                     .build();
 
-        } else { // UPDATE, MOVE
+        } else {
             history = History.builder(cardAction, userId, LocalDateTime.now())
                     .cardTitle(cardNow.getTitle())
                     .cardTitleBefore(cardBefore.getTitle())
