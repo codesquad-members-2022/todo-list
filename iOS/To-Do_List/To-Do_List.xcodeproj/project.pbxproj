@@ -13,6 +13,7 @@
 		8D2AFD7A27FB08B000307CCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AFD7927FB08B000307CCB /* Assets.xcassets */; };
 		8D2AFD7D27FB08B100307CCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AFD7B27FB08B100307CCB /* LaunchScreen.storyboard */; };
 		8D2AFD8827FB08B100307CCB /* To_Do_ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AFD8727FB08B100307CCB /* To_Do_ListTests.swift */; };
+		8D3B5A3D2804494400F6ECF7 /* EditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B5A3C2804494400F6ECF7 /* EditCardView.swift */; };
 		8D46807727FB3FBB00FA9F34 /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */; };
 		8D46807927FB3FC600FA9F34 /* DoingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */; };
 		8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */; };
@@ -59,6 +60,7 @@
 		8D2AFD7E27FB08B100307CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D2AFD8327FB08B100307CCB /* To-Do_ListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "To-Do_ListTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D2AFD8727FB08B100307CCB /* To_Do_ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_ListTests.swift; sourceTree = "<group>"; };
+		8D3B5A3C2804494400F6ECF7 /* EditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardView.swift; sourceTree = "<group>"; };
 		8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
 		8D46807827FB3FC600FA9F34 /* DoingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableViewController.swift; sourceTree = "<group>"; };
 		8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				B70BD64127FBD1E7001BE68F /* BoardHeader.swift */,
+				8D3B5A3C2804494400F6ECF7 /* EditCardView.swift */,
 				8DBB585127FBD8F500D129E2 /* CardCell.swift */,
 				B730BBAF27FED3BE006DC969 /* BoardTableView.swift */,
 				B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */,
@@ -329,6 +332,7 @@
 				8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */,
 				8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */,
 				8D2AFD7327FB08AE00307CCB /* SceneDelegate.swift in Sources */,
+				8D3B5A3D2804494400F6ECF7 /* EditCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
