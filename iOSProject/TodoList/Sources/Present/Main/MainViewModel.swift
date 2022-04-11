@@ -33,7 +33,8 @@ class MainViewModel: MainViewModelProtocol {
     
     init() {
         let requestLoadColumns = action.loadColumns
-            .map { self.todoRepository.loadColumns()}
+            .map {
+                self.todoRepository.loadColumns()}
             .switchToLatest()
             .share()
         
