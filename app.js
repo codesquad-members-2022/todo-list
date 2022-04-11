@@ -20,13 +20,13 @@ const createColumns = () => {
   const columns = ['todo', 'ing', 'complete'];
   columns.forEach(status => {
     const column = new TodoColumn(status);
-    const count = colulmnTodoCount(status);
+    const count = columnTodoCount(status);
     column.setCount(count);
     column.render();
   });
 };
 
-const colulmnTodoCount = status => {
+const columnTodoCount = status => {
   const todos = getLocalStorageByKey('todos');
   if (!todos) return;
   return todos.filter(todo => todo.status === status).length;
