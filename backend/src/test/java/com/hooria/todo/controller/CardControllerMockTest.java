@@ -75,9 +75,10 @@ class CardControllerMockTest {
     @DisplayName("인자로 주어진 신규 task를 저장소에 저장한다.")
     void addCard() throws Exception {
         //given
+        LocalDateTime now = LocalDateTime.now();
         AddCardParam newCard = new AddCardParam("TODO", "add test title", "add test content", "userId1", "IOS");
         Card expectedCard = new Card(4, Status.TODO, "add test title", "add test content", "userId1",
-            Device.IOS, LocalDateTime.now(), LocalDateTime.now(), false, 0);
+            Device.IOS, now, now, false, 0);
         CardResponse expected = expectedCard.toCardResponse();
         given(cardService.add(refEq(newCard))).willReturn(expected);
 

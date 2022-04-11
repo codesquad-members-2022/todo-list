@@ -24,11 +24,13 @@ public class Card {
     private int rowPosition;
 
     public static Card of(Status status, String title, String content, String userId, Device device, int rowPosition) {
-        return new Card(0, status, title, content, userId, device, LocalDateTime.now(), LocalDateTime.now(), false, rowPosition);
+        LocalDateTime now = LocalDateTime.now();
+        return new Card(0, status, title, content, userId, device, now, now, false, rowPosition);
     }
 
     public static Card of(String status, String title, String content, String userId, String device, int rowPosition) {
-        return new Card(0, Status.of(status), title, content, userId, Device.of(device), LocalDateTime.now(), LocalDateTime.now(), false, rowPosition);
+        LocalDateTime now = LocalDateTime.now();
+        return new Card(0, Status.of(status), title, content, userId, Device.of(device), now, now, false, rowPosition);
     }
 
     public CardResponse toCardResponse() {
