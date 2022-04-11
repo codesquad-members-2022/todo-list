@@ -97,6 +97,10 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: ColumnViewDelegate {
+    func columnView(_ columnView: ColumnViewController, dropedCardId: Int, targetColumn: Column.ColumnType) {
+        columnTableViews[targetColumn]?.finishDropedCard(dropedCardId)
+    }
+    
     func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Column.ColumnType) {
         columnTableViews[toColumn]?.addCard(fromCard, at: 0)
     }

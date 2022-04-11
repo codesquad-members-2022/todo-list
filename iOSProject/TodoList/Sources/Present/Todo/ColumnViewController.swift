@@ -10,10 +10,12 @@ import UIKit
 
 protocol ColumnViewDelegate {
     func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Column.ColumnType)
+    func columnView(_ columnView: ColumnViewController, dropedCardId: Int, targetColumn: Column.ColumnType)
 }
 
 protocol ColumnViewInput {
     func addCard(_ card: Card, at toIndex: Int)
+    func finishDropedCard(_ cardId: Int)
 }
 
 typealias ColumnViewControllerProtocol = UIViewController & ColumnViewInput
@@ -127,6 +129,11 @@ class ColumnViewController: UIViewController {
             .sink {
                 self.cardTableView.reloadRows(at: [IndexPath(item: 0, section: $0)], with: .none)
             }.store(in: &cancellables)
+        
+        model.state.notifiyFinishDropedCard
+            .sink { cardId, column in
+                self.delegate?.columnView(self, dropedCardId: cardId, targetColumn: column)
+            }.store(in: &cancellables)
     }
     
     private func layout() {
@@ -168,13 +175,12 @@ extension ColumnViewController: UITableViewDragDelegate {
         guard let card = model[indexPath.section] else {
             return []
         }
-        model.action.beginDrag.send(card)
-        return [UIDragItem(itemProvider: NSItemProvider(object: DragCard(card: card)))]
+        return [UIDragItem(itemProvider: NSItemProvider(object: DragCard(card: card, fromColumn: self.model.columnType)))]
     }
     
-    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
-        model.action.endDrag.send()
-    }
+//    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+//        model.action.endDrag.send()
+//    }
 }
 
 extension ColumnViewController: UITableViewDropDelegate {
@@ -197,11 +203,7 @@ extension ColumnViewController: UITableViewDropDelegate {
             let dragCards = items.compactMap{ $0 as? DragCard }
             
             dragCards.forEach { dragCard in
-                guard let addCard = dragCard.card else {
-                    return
-                }
-                print(destinationIndexPath.section)
-                self.model.action.addCard.send((addCard, destinationIndexPath.section + destinationIndexPath.item))
+                self.model.action.dropCard.send((dragCard, destinationIndexPath.section + destinationIndexPath.item))
             }
         }
     }
@@ -249,7 +251,7 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
             let moveDone = UIAction(title: "완료한 일로 이동") { _ in
-                self?.model.action.tappedMoveCardButton.send(indexPath.section)
+                self?.model.action.tappedMoveDoneColumnButton.send(indexPath.section)
             }
             
             let edit = UIAction(title: "수정하기") { _ in
@@ -265,6 +267,10 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ColumnViewController: ColumnViewInput {
+    func finishDropedCard(_ cardId: Int) {
+        model.action.finishDropedCard.send(cardId)
+    }
+    
     func addCard(_ card: Card, at toIndex: Int) {
         model.action.addCard.send((card, toIndex))
     }

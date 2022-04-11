@@ -11,14 +11,17 @@ import UniformTypeIdentifiers
 class DragCard: NSObject, Codable {
     
     let card: Card?
+    let fromColumn: Column.ColumnType
     
     override init() {
         card = nil
+        fromColumn = .done
         super.init()
     }
     
-    init(card: Card) {
+    init(card: Card, fromColumn: Column.ColumnType) {
         self.card = card
+        self.fromColumn = fromColumn
     }
 }
 
