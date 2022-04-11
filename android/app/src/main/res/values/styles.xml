@@ -39,4 +39,14 @@
     <style name="Subtitle2.grey03">
         <item name="android:textColor">@color/todo_grey03</item>
     </style>
+
+    <style name="Body2" parent="TextAppearance.MaterialComponents.Body2" />
+
+    <style name="Caption" parent="TextAppearance.MaterialComponents.Caption" />
+
+    <style name="PopupWindow" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">@color/todo_black01</item>
+        <item name="android:popupMenuStyle">@drawable/popup_menu_background</item>
+        <item name="android:popupBackground">@drawable/popup_menu_background</item>
+    </style>
 </resources>
