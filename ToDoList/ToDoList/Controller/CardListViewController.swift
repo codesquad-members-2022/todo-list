@@ -2,7 +2,7 @@ import UIKit
 
 class CardListViewController: UIViewController {
     
-    var headerTitle = ""
+    private var headerTitle = ""
     private let cardManager: CardManager
     
     @IBOutlet weak var tableView: UITableView!
