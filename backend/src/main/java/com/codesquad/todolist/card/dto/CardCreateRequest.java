@@ -6,13 +6,13 @@ import com.codesquad.todolist.card.Card;
 
 public class CardCreateRequest {
 
-    @NotNull(message = "cloumn must not be null")
+    @NotNull(message = "column Id 값이 있어야 합니다.")
     private Integer columnId;
-    @NotNull(message = "title must not be null")
+    @NotNull(message = "title 값이 있어야 합니다.")
     private String title;
-    @NotNull(message = "content must not be null")
+    @NotNull(message = "content 값이 있어야 합니다.")
     private String content;
-    @NotNull(message = "author must not be null")
+    @NotNull(message = "author 값이 있어야 합니다.")
     private String author;
 
     private CardCreateRequest() {

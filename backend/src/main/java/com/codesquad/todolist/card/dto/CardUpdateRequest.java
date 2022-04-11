@@ -3,11 +3,12 @@ package com.codesquad.todolist.card.dto;
 import javax.validation.constraints.NotNull;
 
 public class CardUpdateRequest {
-    @NotNull(message = "title must not be null")
+
+    @NotNull(message = "title 값이 있어야 합니다.")
     private String title;
-    @NotNull(message = "content must not be null")
+    @NotNull(message = "content 값이 있어야 합니다.")
     private String content;
-    @NotNull(message = "author must not be null")
+    @NotNull(message = "author 값이 있어야 합니다.")
     private String author;
 
     private CardUpdateRequest() {
