@@ -9,29 +9,33 @@ class TaskRepository {
     private var doneIndex = 4
     private val tasks = TasksResponse(
         mutableListOf(
-            TaskResponse(1, "GitHub 공부하기", "add, commit, push", Status.TODO, "Android"),
-            TaskResponse(2,
+            TaskDetailResponse(1, "GitHub 공부하기", "add, commit, push", Status.TODO, "Android"),
+            TaskDetailResponse(2,
                 "블로그에 포스팅할 것",
                 "• GitHub 공부내용\n• 모던 자바스크립트 1장 공부내용",
                 Status.TODO,
                 "Android"),
-            TaskResponse(3, "HTML/CSS", "input 태그 실습", Status.TODO, "Android")),
+            TaskDetailResponse(3, "HTML/CSS", "input 태그 실습", Status.TODO, "Android")),
         mutableListOf(
-            TaskResponse(1, "GitHub 공부하기", "add, commit, push", Status.IN_PROGRESS, "Android"),
-            TaskResponse(2,
+            TaskDetailResponse(1,
+                "GitHub 공부하기",
+                "add, commit, push",
+                Status.IN_PROGRESS,
+                "Android"),
+            TaskDetailResponse(2,
                 "블로그에 포스팅할 것",
                 "• GitHub 공부내용\n• 모던 자바스크립트 1장 공부내용",
                 Status.IN_PROGRESS,
                 "Android"),
-            TaskResponse(3, "HTML/CSS", "input 태그 실습", Status.IN_PROGRESS, "Android")),
+            TaskDetailResponse(3, "HTML/CSS", "input 태그 실습", Status.IN_PROGRESS, "Android")),
         mutableListOf(
-            TaskResponse(1, "GitHub 공부하기", "add, commit, push", Status.DONE, "Android"),
-            TaskResponse(2,
+            TaskDetailResponse(1, "GitHub 공부하기", "add, commit, push", Status.DONE, "Android"),
+            TaskDetailResponse(2,
                 "블로그에 포스팅할 것",
                 "• GitHub 공부내용\n• 모던 자바스크립트 1장 공부내용",
                 Status.DONE,
                 "Android"),
-            TaskResponse(3, "HTML/CSS", "input 태그 실습", Status.DONE, "Android")),
+            TaskDetailResponse(3, "HTML/CSS", "input 태그 실습", Status.DONE, "Android")),
     )
 
     fun getTasks(): TasksResponse {
@@ -40,15 +44,15 @@ class TaskRepository {
 
     fun addTask(task: Task): TasksResponse {
         when (task.status) {
-            Status.TODO -> tasks.todo.add(TaskResponse(todoIndex++,
+            Status.TODO -> tasks.todo.add(TaskDetailResponse(todoIndex++,
                 task.title,
                 task.content,
                 task.status))
-            Status.IN_PROGRESS -> tasks.inProgress.add(TaskResponse(inProgressIndex++,
+            Status.IN_PROGRESS -> tasks.inProgress.add(TaskDetailResponse(inProgressIndex++,
                 task.title,
                 task.content,
                 task.status))
-            Status.DONE -> tasks.done.add(TaskResponse(doneIndex++,
+            Status.DONE -> tasks.done.add(TaskDetailResponse(doneIndex++,
                 task.title,
                 task.content,
                 task.status))

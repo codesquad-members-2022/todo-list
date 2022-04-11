@@ -15,9 +15,8 @@ import com.example.todolist.databinding.DialogNewCardBinding
 import com.example.todolist.model.Status
 import com.example.todolist.model.Task
 
-class Dialog(private val status: Status) : DialogFragment() {
-    private var _binding: DialogNewCardBinding? = null
-    private val binding get() = _binding
+class TaskDialogFragment(private val status: Status) : DialogFragment() {
+    private lateinit var binding: DialogNewCardBinding
     private val viewModel: TaskViewModel by activityViewModels()
     private var titleFlag = false
     private var contentsFlag = false
@@ -26,43 +25,43 @@ class Dialog(private val status: Status) : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        _binding = DialogNewCardBinding.inflate(inflater, container, false)
+    ): View {
+        binding = DialogNewCardBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 다이얼로그의 곡선 주변에 배경색을 맞춰주는 코드
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.setCanceledOnTouchOutside(false) // 다이얼로그 외부의 영역 터치 시 취소 불가능
 
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding?.btnCancel?.setOnClickListener { dismiss() }
+        binding.btnCancel.setOnClickListener { dismiss() }
 
-        binding?.etTitle?.addTextChangedListener(titleListener)
-        binding?.etContents?.addTextChangedListener(contentsListener)
+        binding.etTitle.addTextChangedListener(titleListener)
+        binding.etContents.addTextChangedListener(contentsListener)
 
-        binding?.btnRegister?.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             when (status) {
                 Status.TODO -> {
                     val task = Task(
-                        binding?.etTitle?.text?.toString(),
-                        binding?.etContents?.text?.toString(),
+                        binding.etTitle.text.toString(),
+                        binding.etContents.text.toString(),
                         Status.TODO
                     )
                     viewModel.addTodoTask(task)
                 }
                 Status.IN_PROGRESS -> {
                     val task = Task(
-                        binding?.etTitle?.text?.toString(),
-                        binding?.etContents?.text?.toString(),
+                        binding.etTitle.text.toString(),
+                        binding.etContents.text.toString(),
                         Status.IN_PROGRESS
                     )
                     viewModel.addInProgressTask(task)
                 }
                 else -> {
                     val task = Task(
-                        binding?.etTitle?.text?.toString(),
-                        binding?.etContents?.text?.toString(),
+                        binding.etTitle.text.toString(),
+                        binding.etContents.text.toString(),
                         Status.DONE
                     )
                     viewModel.addDoneTask(task)
@@ -105,6 +104,6 @@ class Dialog(private val status: Status) : DialogFragment() {
     }
 
     fun flagCheck() {
-        binding?.btnRegister?.isEnabled = titleFlag && contentsFlag
+        binding.btnRegister.isEnabled = titleFlag && contentsFlag
     }
 }

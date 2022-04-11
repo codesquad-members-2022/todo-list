@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist.model.*
-import com.example.todolist.model.ActionType.*
 import com.example.todolist.repository.TaskRepository
 
 class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
@@ -13,16 +12,16 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     val history: LiveData<List<History>>
         get() = _history
 
-    private val _todoTask = MutableLiveData<List<TaskResponse>>()
-    val todoTask: LiveData<List<TaskResponse>>
+    private val _todoTask = MutableLiveData<List<TaskDetailResponse>>()
+    val todoTask: LiveData<List<TaskDetailResponse>>
         get() = _todoTask
 
-    private val _inProgressTask = MutableLiveData<List<TaskResponse>>()
-    val inProgressTask: LiveData<List<TaskResponse>>
+    private val _inProgressTask = MutableLiveData<List<TaskDetailResponse>>()
+    val inProgressTask: LiveData<List<TaskDetailResponse>>
         get() = _inProgressTask
 
-    private val _doneTask = MutableLiveData<List<TaskResponse>>()
-    val doneTask: LiveData<List<TaskResponse>>
+    private val _doneTask = MutableLiveData<List<TaskDetailResponse>>()
+    val doneTask: LiveData<List<TaskDetailResponse>>
         get() = _doneTask
 
     init {
