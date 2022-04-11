@@ -53,7 +53,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTodoRecyclerView() {
-        todoCardListAdapter = TodoCardListAdapter()
+        todoCardListAdapter = TodoCardListAdapter { deleteIndex ->
+            viewModel.deleteTodo(deleteIndex)
+        }
         binding.rvTodo.adapter = todoCardListAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
@@ -74,7 +76,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setProgressRecyclerView() {
-        progressCardListAdapter = TodoCardListAdapter()
+        progressCardListAdapter = TodoCardListAdapter { deleteIndex ->
+            viewModel.deleteProgress(deleteIndex)
+        }
         binding.rvProgress.adapter = progressCardListAdapter
         binding.rvProgress.layoutManager = LinearLayoutManager(this)
         binding.rvProgress.addItemDecoration(VerticalItemDecorator(15))
@@ -83,7 +87,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCompleteRecyclerView() {
-        completeCardListAdapter = TodoCardListAdapter()
+        completeCardListAdapter = TodoCardListAdapter { deleteIndex ->
+            viewModel.deleteComplete(deleteIndex)
+        }
         binding.rvComplete.adapter = completeCardListAdapter
         binding.rvComplete.layoutManager = LinearLayoutManager(this)
         binding.rvComplete.addItemDecoration(VerticalItemDecorator(15))

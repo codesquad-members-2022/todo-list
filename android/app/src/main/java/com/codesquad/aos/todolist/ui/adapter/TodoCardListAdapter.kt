@@ -12,18 +12,21 @@ import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ItemTodoCardBinding
 import java.util.*
 
-class TodoCardListAdapter : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil) {
+class TodoCardListAdapter(
+    private val deleteTextClick: (deleteCardIndex: Int) -> Unit  // 메인 액티비티에서 전달하는 메서드
+) : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil) {
 
     inner class CardViewHolder(val binding: ItemTodoCardBinding ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(card: Card?) {
+        fun bind(card: Card?, deleteTextClick: (deleteCard: Int) -> Unit) {
             binding.tvCardTitle?.text = card?.title
             binding.tvCardContent?.text = card?.content
 
             binding.tvRemove?.setOnClickListener {
                 if(this.itemView.tag == true) {
-                    removeItem(this.layoutPosition)
+                    //removeItem(this.layoutPosition)
+                    deleteTextClick.invoke(this.layoutPosition)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
                 }
             }
         }
@@ -50,7 +53,8 @@ class TodoCardListAdapter : ListAdapter<Card, TodoCardListAdapter.CardViewHolder
 
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), deleteTextClick)
+
     }
 
 

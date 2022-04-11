@@ -55,4 +55,14 @@ class TodoViewModel: ViewModel() {
         _todoListLd.value = todolist
     }
 
+    fun deleteProgress(inx: Int){
+        progresslist.removeAt(inx)
+        _progressListLd.value = progresslist
+    }
+
+    fun deleteComplete(inx: Int){
+        completelist.removeAt(inx)
+        _completeListLd.value = completelist
+    }
+
 }
