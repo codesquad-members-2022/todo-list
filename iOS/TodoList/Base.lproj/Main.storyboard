@@ -87,13 +87,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70t-Qa-EDn">
-                                <rect key="frame" x="396" y="329" width="401" height="176"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="70t-Qa-EDn">
+                                <rect key="frame" x="397" y="331" width="400" height="175"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="175" id="DYm-pH-K59"/>
+                                    <constraint firstAttribute="width" constant="400" id="dy3-j1-PNl"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uec-tf-4EG"/>
                         <color key="backgroundColor" red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="70t-Qa-EDn" firstAttribute="centerX" secondItem="uec-tf-4EG" secondAttribute="centerX" id="Kn0-Kc-eLr"/>
+                            <constraint firstItem="70t-Qa-EDn" firstAttribute="centerY" secondItem="uec-tf-4EG" secondAttribute="centerY" id="lvW-ou-hsc"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="centerView" destination="70t-Qa-EDn" id="a5i-Yj-ute"/>
@@ -101,7 +108,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4zZ-Fi-tA0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="812"/>
+            <point key="canvasLocation" x="137.68844221105527" y="811.51079136690657"/>
         </scene>
         <!--Action Board View Controller-->
         <scene sceneID="xEt-ac-OLo">
