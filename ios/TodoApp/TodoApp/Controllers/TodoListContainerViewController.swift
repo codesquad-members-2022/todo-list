@@ -8,11 +8,11 @@
 import UIKit
 
 class TodoListContainerViewController: UIViewController {
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet weak var drawerView: UIView!
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var columnStack: UIStackView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var menuButton: UIButton!
+    @IBOutlet private weak var drawerView: UIView!
+    @IBOutlet private weak var closeButton: UIButton!
+    @IBOutlet private weak var columnStack: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +30,14 @@ class TodoListContainerViewController: UIViewController {
         let width = self.drawerView.frame.width
         var point = CGPoint(x: self.drawerView.frame.origin.x, y: 0)
         
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) { [weak self] in
-            
-            if x == self?.view.frame.width {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+            if x == self.view.frame.width {
                 point.x = x - width
             } else {
                 point.x = x + width
             }
 
-            self?.drawerView.frame.origin = point
+            self.drawerView.frame.origin = point
         }
     }
 

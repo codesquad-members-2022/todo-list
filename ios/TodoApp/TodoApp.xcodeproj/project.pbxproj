@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00C0E62927FEB819000EBAAD /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C0E62827FEB819000EBAAD /* ToDoCell.swift */; };
+		E40486602803BE7D00217657 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404865F2803BE7D00217657 /* Logger+Extensions.swift */; };
 		E4B6096B27FB02BB00268CD8 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B6096A27FB02BB00268CD8 /* TodoListViewController.swift */; };
 		E4B67F5727FAAA05009397B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B67F5627FAAA05009397B2 /* AppDelegate.swift */; };
 		E4B67F5927FAAA05009397B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B67F5827FAAA05009397B2 /* SceneDelegate.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		00C0E62827FEB819000EBAAD /* ToDoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
+		E404865F2803BE7D00217657 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		E4B6096A27FB02BB00268CD8 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		E4B67F5327FAAA05009397B2 /* TodoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B67F5627FAAA05009397B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		E4D1B16E27FC0D1D00525BA2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E404865F2803BE7D00217657 /* Logger+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E40486602803BE7D00217657 /* Logger+Extensions.swift in Sources */,
 				E4B6096B27FB02BB00268CD8 /* TodoListViewController.swift in Sources */,
 				E4B67F5B27FAAA05009397B2 /* TodoListContainerViewController.swift in Sources */,
 				00C0E62927FEB819000EBAAD /* ToDoCell.swift in Sources */,
@@ -359,7 +363,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D7F6ZDDCV9;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "TodoApp/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -388,7 +392,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D7F6ZDDCV9;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "TodoApp/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

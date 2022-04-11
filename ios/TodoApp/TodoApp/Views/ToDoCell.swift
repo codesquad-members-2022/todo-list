@@ -9,15 +9,9 @@ import UIKit
 
 class ToDoCell: UITableViewCell {
     static let identifier = "ToDoCell"
-
-    @IBOutlet weak var cardView: UIView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        configureUI()
-    }
-
-   
+    @IBOutlet private weak var cardView: UIView!
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureUI()
@@ -30,11 +24,11 @@ class ToDoCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
     }
     
     private func configureUI() {
         self.cardView?.layer.cornerRadius = 10
     }
-
+    
 }

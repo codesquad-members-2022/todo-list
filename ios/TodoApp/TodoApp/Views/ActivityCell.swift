@@ -44,11 +44,6 @@ class ActivityCell: UITableViewCell {
     }()
     
     private let footerLabel = UILabel()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.configureCell()
-    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -74,10 +69,15 @@ class ActivityCell: UITableViewCell {
         self.horizontalStackView.addArrangedSubview(self.verticalStackView)
         self.contentView.addSubview(self.horizontalStackView)
         
-        self.horizontalStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant:  20).isActive = true
-        self.horizontalStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -20).isActive = true
-        self.horizontalStackView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -20).isActive = true
-        self.horizontalStackView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:  20).isActive = true
+        let horizontalStackViewConstraints = [
+            self.horizontalStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant:  20),
+            self.horizontalStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -20),
+            self.horizontalStackView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -20),
+            self.horizontalStackView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant:  20)
+        ]
+        
+        NSLayoutConstraint.activate(horizontalStackViewConstraints)
+        
     }
     
     func setHeaderText(_ text: String) {
