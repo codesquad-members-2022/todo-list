@@ -81,7 +81,7 @@ extension MainViewController {
             NSLayoutConstraint.deactivate(self.logViewConstaints)
             self.logViewConstaints.removeAll()
             
-            let constraint = self.logViewContainer.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 766)
+            let constraint = self.logViewContainer.leadingAnchor.constraint(equalTo: self.statckView.trailingAnchor, constant: -100)
 
             self.logViewConstaints.append(constraint)
             NSLayoutConstraint.activate(self.logViewConstaints)

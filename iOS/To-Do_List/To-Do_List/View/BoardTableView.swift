@@ -25,8 +25,6 @@ class BoardTableView: UITableView {
         self.backgroundColor = .secondarySystemBackground
         self.rowHeight = UITableView.automaticDimension
     }
-    
-    
 }
 
-//extension BoardTableView : UITab
+
