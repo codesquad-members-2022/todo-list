@@ -22,9 +22,9 @@
 		B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66F427FEC3F90042EFCF /* HeaderViewDelegate.swift */; };
 		D019328E27FFD12E00A9CE20 /* MemoCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */; };
 		D019329B2800998600A9CE20 /* PopupCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019329A2800998600A9CE20 /* PopupCardView.swift */; };
-		D019329D28009BC600A9CE20 /* PopupCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D019329C28009BC600A9CE20 /* PopupCardView.xib */; };
 		D0850A7827FEB294009C60E5 /* ResourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7727FEB294009C60E5 /* ResourceFactory.swift */; };
 		D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7927FFB545009C60E5 /* MemoContainerView.swift */; };
+		D0999D9F2804789D0045491A /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999D9E2804789D0045491A /* PopupViewController.swift */; };
 		D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */; };
 		D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -47,9 +47,9 @@
 		B5EC66F427FEC3F90042EFCF /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
 		D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCanvasViewController.swift; sourceTree = "<group>"; };
 		D019329A2800998600A9CE20 /* PopupCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupCardView.swift; sourceTree = "<group>"; };
-		D019329C28009BC600A9CE20 /* PopupCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PopupCardView.xib; path = TODOList/Views/Xib/PopupCardView.xib; sourceTree = SOURCE_ROOT; };
 		D0850A7727FEB294009C60E5 /* ResourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceFactory.swift; sourceTree = "<group>"; };
 		D0850A7927FFB545009C60E5 /* MemoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerView.swift; sourceTree = "<group>"; };
+		D0999D9E2804789D0045491A /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/History/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
 		D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,7 +146,6 @@
 		B5EC66E927FC0BB70042EFCF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D01932A328013FDA00A9CE20 /* Xib */,
 				B58D8339280047E0008A811C /* History */,
 				B58D8338280047C7008A811C /* Memo */,
 				B5EC66EB27FC0CD10042EFCF /* HeaderView.swift */,
@@ -159,6 +158,7 @@
 			children = (
 				B5EC66D627FADD9C0042EFCF /* MainViewController.swift */,
 				D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */,
+				D0999D9E2804789D0045491A /* PopupViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -170,14 +170,6 @@
 				B5EC66F427FEC3F90042EFCF /* HeaderViewDelegate.swift */,
 			);
 			path = Delegates;
-			sourceTree = "<group>";
-		};
-		D01932A328013FDA00A9CE20 /* Xib */ = {
-			isa = PBXGroup;
-			children = (
-				D019329C28009BC600A9CE20 /* PopupCardView.xib */,
-			);
-			path = Xib;
 			sourceTree = "<group>";
 		};
 		D0850A7627FEB27A009C60E5 /* Resources */ = {
@@ -255,7 +247,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D019329D28009BC600A9CE20 /* PopupCardView.xib in Resources */,
 				B5EC66DF27FADD9F0042EFCF /* LaunchScreen.storyboard in Resources */,
 				B5EC66DC27FADD9E0042EFCF /* Assets.xcassets in Resources */,
 				B5EC66DA27FADD9C0042EFCF /* Main.storyboard in Resources */,
@@ -271,6 +262,7 @@
 			files = (
 				D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */,
 				B5EC66EE27FC0D3F0042EFCF /* SideView.swift in Sources */,
+				D0999D9F2804789D0045491A /* PopupViewController.swift in Sources */,
 				B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */,
 				B58D833728001A9C008A811C /* Memo.swift in Sources */,
 				B5EC66D727FADD9C0042EFCF /* MainViewController.swift in Sources */,
