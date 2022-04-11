@@ -1,6 +1,7 @@
 package todo.list.controller;
 
 import org.springframework.web.bind.annotation.*;
+import todo.list.service.dto.CardModifyDto;
 import todo.list.service.dto.CardResponse;
 import todo.list.service.dto.CardSaveDto;
 import todo.list.service.CardService;
@@ -25,7 +26,7 @@ public class CardController {
         return cardService.findCollections();
     }
 
-    @PatchMapping("/cards/{cardId}")
+    @PatchMapping("/{cardId}")
     public void modifyCard(@RequestBody CardModifyDto cardModifyDto) {
         cardService.modify(cardModifyDto);
     }

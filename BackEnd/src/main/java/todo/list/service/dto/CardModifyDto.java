@@ -1,4 +1,4 @@
-package todo.list.controller;
+package todo.list.service.dto;
 
 import todo.list.domain.Author;
 import todo.list.domain.Card;
@@ -27,6 +27,6 @@ public class CardModifyDto {
     }
 
     public Card toEntity() {
-        return new Card(id, title, contents, null, null, Author.valueOf(author.toUpperCase()));
+        return new Card(id, title, contents, Author.valueOfWithCaseInsensitive(author));
     }
 }
