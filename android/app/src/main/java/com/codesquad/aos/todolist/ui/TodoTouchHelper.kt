@@ -26,7 +26,7 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
     ): Int {
         return makeMovementFlags(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            ItemTouchHelper.LEFT
         )
     }
 
@@ -35,6 +35,9 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
+        val fromPos: Int = viewHolder.absoluteAdapterPosition
+        val toPos: Int = target.absoluteAdapterPosition
+        viewModel.changeTodoOrder(fromPos, toPos)
         return true
     }
 
