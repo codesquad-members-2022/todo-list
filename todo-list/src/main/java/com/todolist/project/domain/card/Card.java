@@ -1,7 +1,6 @@
 package com.todolist.project.domain.card;
 
 import com.todolist.project.domain.CardStatus;
-import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -15,10 +14,6 @@ public class Card {
     private String writer;
     private LocalDateTime createdTime;
     private CardStatus cardStatus;
-
-    public LocalDateTime createTime() {
-        return LocalDateTime.now();
-    }
 
     public Card(Long id, int cardIndex, String title, String contents, String writer, LocalDateTime createdTime, CardStatus cardStatus) {
         this.id = id;
