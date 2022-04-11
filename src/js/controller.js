@@ -4,14 +4,19 @@ import { insertColumns } from './views/columnsView.js';
 import { insertAllCardToColumn } from './views/cardView.js';
 import { onAddBtnClick } from './views/newCardView.js';
 import { createStore } from './store/store';
+import { onClickCardDeleteBtn, onMouseOutCardDeleteBtn, onMouseOverCardDeleteBtn } from './views/cardDeleteView.js';
 
 export const controller = async views => {
   const { headerView, mainView } = views;
+  const app = document.getElementById('app');
   const todoListData = await fetchData(TODO_LIST_URL);
   const store = createStore();
   store.setStore('main', todoListData);
   insertColumns(mainView, store.getStore('main'));
   insertAllCardToColumn(mainView, store.getStore('main'));
-  appendElementsToParent(document.body, headerView, mainView);
+  appendElementsToParent(app, headerView, mainView);
   onAddBtnClick();
+  onMouseOverCardDeleteBtn();
+  onMouseOutCardDeleteBtn();
+  onClickCardDeleteBtn();
 };
