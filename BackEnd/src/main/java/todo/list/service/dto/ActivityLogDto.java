@@ -1,4 +1,4 @@
-package todo.list.service;
+package todo.list.service.dto;
 
 import todo.list.domain.Action;
 import todo.list.domain.ActivityLog;
