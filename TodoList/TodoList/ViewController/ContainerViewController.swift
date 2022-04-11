@@ -7,10 +7,12 @@
 
 import UIKit
 
-final class ContainerViewController: UIViewController {
+final class ContainerViewController: UIViewController{
     var headerVC: HeaderViewController!
     var contentVC: ContentViewController!
     var tableVC: TableViewController!
+    var menuVC: ActivityMenuViewController!
+    let menuViewWidth: CGFloat = 428.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,7 @@ private extension ContainerViewController{
         headerVC = HeaderViewController()
         self.addChild(headerVC)
         self.view.addSubview(headerVC.view)
+        headerVC.header.delegate = self
         
         contentVC = ContentViewController()
         contentVC.cellDelegate = self
@@ -32,6 +35,11 @@ private extension ContainerViewController{
         
         tableVC = TableViewController()
         self.addChild(tableVC)
+        
+        menuVC = ActivityMenuViewController()
+        self.addChild(menuVC)
+        self.view.addSubview(menuVC.view)
+        menuVC.activityView.delegate = self
         
         configureChildViewLayout()
     }
@@ -50,11 +58,34 @@ private extension ContainerViewController{
         contentVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         contentVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         contentVC.view.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        
+        menuVC.view.translatesAutoresizingMaskIntoConstraints = false
+        menuVC.view.leadingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        menuVC.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        menuVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        menuVC.view.widthAnchor.constraint(equalToConstant: self.menuViewWidth).isActive = true
     }
 }
 
 extension ContainerViewController: TableViewInCollectionCell{
     func didSetTableView(cell: CollectionCell, index: Int) {
         self.tableVC.setTableAttributes(cell: cell, index: index)
+    }
+}
+
+
+extension ContainerViewController: HeaderViewDelegate{
+    func headerMenuButtonDidTouched() {
+        UIView.animate(withDuration: 0.5) {
+            self.menuVC.view.transform = CGAffineTransform(translationX: -(self.menuViewWidth), y: 0)
+        }
+    }
+}
+
+extension ContainerViewController: ActivityViewDelegate{
+    func closeButtonDidTouched() {
+        UIView.animate(withDuration: 0.5) {
+            self.menuVC.view.transform = CGAffineTransform(translationX: self.menuViewWidth, y: 0)
+        }
     }
 }

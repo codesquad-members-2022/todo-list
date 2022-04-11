@@ -12,13 +12,13 @@ final class TableHeader: UITableViewHeaderFooterView{
     let numberLabel = UILabel()
     let plusButton = UIButton()
     
-    override init(reuseIdentifier: String?) {
+    override init(reuseIdentifier: String?){
         super.init(reuseIdentifier: reuseIdentifier)
         self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
         setAttributes()
     }
     
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder){
         super.init(coder: coder)
         self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
         setAttributes()
@@ -30,7 +30,6 @@ private extension TableHeader{
         configureTitleLabel()
         configureNumberLabel()
         configurePlusButton()
-        
         setConstraints()
     }
     
@@ -75,7 +74,7 @@ private extension TableHeader{
         plusButton.translatesAutoresizingMaskIntoConstraints = false
         plusButton.leadingAnchor.constraint(greaterThanOrEqualTo: self.numberLabel.trailingAnchor, constant: 50).isActive = true
         plusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant:  -7).isActive = true
-        plusButton.heightAnchor.constraint(equalToConstant: 13.79).isActive = true
+        plusButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         plusButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B32A875628040F8100E8B180 /* ActivityMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A875528040F8100E8B180 /* ActivityMenuViewController.swift */; };
+		B32A87582804101900E8B180 /* MenuActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A87572804101900E8B180 /* MenuActivityCell.swift */; };
+		B32A875A28041C0F00E8B180 /* HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A875928041C0F00E8B180 /* HeaderViewDelegate.swift */; };
+		B32A875C28045A1B00E8B180 /* ActivityMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A875B28045A1B00E8B180 /* ActivityMenuView.swift */; };
+		B32A875E28045CF200E8B180 /* ActivityViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A875D28045CF200E8B180 /* ActivityViewDelegate.swift */; };
 		B39BFEB427FADA8700B28376 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BFEB327FADA8700B28376 /* AppDelegate.swift */; };
 		B39BFEB627FADA8700B28376 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BFEB527FADA8700B28376 /* SceneDelegate.swift */; };
 		B39BFEB827FADA8700B28376 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BFEB727FADA8700B28376 /* ContainerViewController.swift */; };
@@ -35,6 +40,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B32A875528040F8100E8B180 /* ActivityMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMenuViewController.swift; sourceTree = "<group>"; };
+		B32A87572804101900E8B180 /* MenuActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuActivityCell.swift; path = TodoList/View/Table/MenuActivityCell.swift; sourceTree = SOURCE_ROOT; };
+		B32A875928041C0F00E8B180 /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
+		B32A875B28045A1B00E8B180 /* ActivityMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMenuView.swift; sourceTree = "<group>"; };
+		B32A875D28045CF200E8B180 /* ActivityViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewDelegate.swift; sourceTree = "<group>"; };
 		B39BFEB027FADA8700B28376 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B39BFEB327FADA8700B28376 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B39BFEB527FADA8700B28376 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				D274DE812803C529009CD620 /* TableViewInCollectionCell.swift */,
+				B32A875928041C0F00E8B180 /* HeaderViewDelegate.swift */,
+				B32A875D28045CF200E8B180 /* ActivityViewDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -144,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				B39BFEB727FADA8700B28376 /* ContainerViewController.swift */,
+				B32A875528040F8100E8B180 /* ActivityMenuViewController.swift */,
 				D299330927FBD83000D79C87 /* HeaderViewController.swift */,
 				B3BAE28327FBE132005E7ED2 /* ContentViewController.swift */,
 				D274DE7E2803C4A9009CD620 /* TableViewController.swift */,
@@ -154,6 +167,7 @@
 		D299331027FC064C00D79C87 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B32A875B28045A1B00E8B180 /* ActivityMenuView.swift */,
 				D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */,
 				D299331A27FC371100D79C87 /* Table */,
 				D299331927FC370800D79C87 /* Collection */,
@@ -173,6 +187,7 @@
 		D299331A27FC371100D79C87 /* Table */ = {
 			isa = PBXGroup;
 			children = (
+				B32A87572804101900E8B180 /* MenuActivityCell.swift */,
 				B3BAE28527FBE3DE005E7ED2 /* TodoTableView.swift */,
 				D299331127FC07FB00D79C87 /* TodoCell.swift */,
 				D25BF7FC27FE794D0010DE50 /* TableHeader.swift */,
@@ -259,16 +274,21 @@
 			files = (
 				D274DE822803C529009CD620 /* TableViewInCollectionCell.swift in Sources */,
 				B39BFEB827FADA8700B28376 /* ContainerViewController.swift in Sources */,
+				B32A875C28045A1B00E8B180 /* ActivityMenuView.swift in Sources */,
 				B39BFEB427FADA8700B28376 /* AppDelegate.swift in Sources */,
 				D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */,
+				B32A875A28041C0F00E8B180 /* HeaderViewDelegate.swift in Sources */,
 				B3BAE2C327FF2987005E7ED2 /* URLManager.swift in Sources */,
 				B3BAE2C527FF2A3C005E7ED2 /* Board.swift in Sources */,
 				B3BAE28627FBE3DE005E7ED2 /* TodoTableView.swift in Sources */,
 				D299331C27FC372600D79C87 /* CollectionCell.swift in Sources */,
+				B32A875E28045CF200E8B180 /* ActivityViewDelegate.swift in Sources */,
 				B39BFEB627FADA8700B28376 /* SceneDelegate.swift in Sources */,
 				D299331E27FC3A9400D79C87 /* CollectionView.swift in Sources */,
 				B3BAE2C127FF2905005E7ED2 /* Card.swift in Sources */,
+				B32A875628040F8100E8B180 /* ActivityMenuViewController.swift in Sources */,
 				D25BF7FD27FE794D0010DE50 /* TableHeader.swift in Sources */,
+				B32A87582804101900E8B180 /* MenuActivityCell.swift in Sources */,
 				B3BAE28427FBE132005E7ED2 /* ContentViewController.swift in Sources */,
 				D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */,
 				D274DE7F2803C4A9009CD620 /* TableViewController.swift in Sources */,
