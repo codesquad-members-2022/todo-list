@@ -1,51 +1,27 @@
-import { $, closest, containClass } from './util';
-import { createCardTemplate, createColumnTemplate } from './template';
+import { $, pipe, closest, containClass } from './util';
 
-const getData = async (keyword) => {
-  const url = `http://localhost:3001/${keyword}`;
-  const res = await fetch(url);
-  const json = await res.json();
-  return json;
-};
+export class InitTodos {
+  constructor(template) {
+    this.target = $('main');
+    this.template = template;
+  }
 
-export const renderColumns = async () => {
-  const columnData = await getData('columns');
-  const columns = columnData.map((title) => createColumnTemplate(title));
-  $('main').insertAdjacentHTML('beforeend', columns.join(' '));
-};
+  init() {
+    pipe(this.getData, this.createColumns, this.renderColumns)('columns');
+  }
 
-const addCardHandler = (e) => {
-  const columnList = $('.column-list', closest('.column', e.target));
-  $('.active', columnList)
-    ? columnList.firstElementChild.remove()
-    : columnList.insertAdjacentHTML('afterbegin', createCardTemplate());
-};
+  getData = async (keyword) => {
+    const url = `http://localhost:3001/${keyword}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    return json;
+  };
 
-export const cancelAddHandler = (e) => {
-  const columnList = $('.column-list', closest('.column', e.target));
-  columnList.firstElementChild.remove();
-};
+  createColumns = async (data) => {
+    return data.map(this.template);
+  };
 
-export const addCardEvent = () => {
-  $('main').addEventListener('click', (e) => {
-    if (closest('.plus-btn', e.target)) {
-      addCardHandler(e);
-    }
-
-    if (containClass(e.target, 'normal-btn')) {
-      cancelAddHandler(e);
-    }
-
-    if (containClass(e.target, 'item-title')) {
-      e.target.addEventListener('input', () => inputFocusHandler(e.target));
-    }
-  });
-};
-
-const inputFocusHandler = (target) => {
-  const accentBtn = $('.accent-btn', closest('.list_item', target));
-
-  target.value
-    ? accentBtn.removeAttribute('disabled')
-    : (accentBtn.disabled = 'true');
-};
+  renderColumns = async (data) => {
+    this.target.insertAdjacentHTML('beforeend', data.join(' '));
+  };
+}

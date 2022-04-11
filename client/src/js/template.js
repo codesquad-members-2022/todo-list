@@ -31,4 +31,16 @@ const createCardTemplate = () => {
   `;
 };
 
-export { createColumnTemplate, createCardTemplate };
+const createPostedCardTemplate = ({ title, content }) => {
+  return `
+    <div class="item-info">
+      <h3 class="item-title">${title}</h3>
+      <p class="item-content">${content}</p>
+    </div>
+    <button class="close-btn">
+      <span class="icon-close"></span>
+    </button>
+  `;
+};
+
+export { createColumnTemplate, createCardTemplate, createPostedCardTemplate };
