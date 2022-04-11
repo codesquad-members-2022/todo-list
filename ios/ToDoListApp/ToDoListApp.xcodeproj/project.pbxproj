@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E491FF6280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E491FF5280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift */; };
 		1E74322E27FA94AC00B908E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E74322D27FA94AC00B908E4 /* AppDelegate.swift */; };
 		1E74323027FA94AC00B908E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E74322F27FA94AC00B908E4 /* SceneDelegate.swift */; };
 		1E74323527FA94AC00B908E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E74323327FA94AC00B908E4 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E491FF5280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanColumnViewControllerDelegate.swift; sourceTree = "<group>"; };
 		1E74322A27FA94AC00B908E4 /* ToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E74322D27FA94AC00B908E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E74322F27FA94AC00B908E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			children = (
 				1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */,
 				1EF029682802CAE3001AA033 /* InspectorViewControllerDelegate.swift */,
+				1E491FF5280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift */,
 				1E7432F027FD26DF00B908E4 /* KanbanTableViewDataSource.swift */,
 				7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */,
 			);
@@ -253,6 +256,7 @@
 				1E7432F127FD26DF00B908E4 /* KanbanTableViewDataSource.swift in Sources */,
 				1E74323027FA94AC00B908E4 /* SceneDelegate.swift in Sources */,
 				7380B0D927FFC84500B5D052 /* InspectorTableViewDataSource.swift in Sources */,
+				1E491FF6280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift in Sources */,
 				1EF0291F27FEB9BD001AA033 /* KanbanType.swift in Sources */,
 				1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */,
 				1EF0292127FEBE34001AA033 /* KanbanColumnViewController.swift in Sources */,

@@ -11,16 +11,49 @@ class ContainerViewController: UIViewController {
     
     private let mainViewController = MainViewController()
     private let inspectorViewController = InspectorViewController()
+    private lazy var popUpView = PopUpView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        mainViewController.delegate = self
-        inspectorViewController.delegate = self
-
+        
+        addChildViewControllers()
+        setUpDelegates()
+        addTargetActions()
+        
+        setUpView()
+    }
+    
+    private func addChildViewControllers() {
         addChildViewController(child: mainViewController, parent: self)
         addChildViewController(child: inspectorViewController, parent: self)
+    }
+    
+    private func addChildViewController(child: UIViewController, parent: UIViewController) {
+        addChild(child)
+        child.didMove(toParent: parent)
+        view.addSubview(child.view)
+    }
+    
+    private func setUpDelegates() {
+        mainViewController.delegate = self
+        inspectorViewController.delegate = self
+        mainViewController.kanbanColumnViewControllers.forEach { kanbanColumnViewController in
+            kanbanColumnViewController.delegate = self
+        }
+    }
+    
+    private func addTargetActions() {
+        popUpView.submitButton.addTarget(self, action: #selector(didTapPopUpViewSubmitButton), for: .touchUpInside)
+        popUpView.cancelButton.addTarget(self, action: #selector(didTapPopUpViewCancelButton), for: .touchUpInside)
+    }
+}
 
+//MARK: - Set Up View
+
+extension ContainerViewController {
+    private func setUpView() {
+        view.addSubview(popUpView)
+        setUpPopUpView()
         setUpInspectorView()
     }
     
@@ -33,12 +66,18 @@ class ContainerViewController: UIViewController {
         inspectorViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.35).isActive = true
     }
     
-    private func addChildViewController(child: UIViewController, parent: UIViewController) {
-        addChild(child)
-        child.didMove(toParent: parent)
-        view.addSubview(child.view)
+    private func setUpPopUpView() {
+        popUpView.translatesAutoresizingMaskIntoConstraints = false
+        
+        popUpView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        popUpView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        popUpView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        popUpView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        popUpView.isHidden = true
     }
 }
+
+//MARK: - Delegates
 
 extension ContainerViewController: MainViewControllerDelegate {
     func didTapInspectorOpenButton() {
@@ -53,5 +92,26 @@ extension ContainerViewController: InspectorViewControllerDelegate {
         UIView.animate(withDuration: 0.5) {
             self.inspectorViewController.view.transform = .identity
         }
+    }
+}
+
+extension ContainerViewController: KanbanColumnViewControllerDelegate {
+    func didTapAddButton() {
+        popUpView.resetPlaceholder()
+        popUpView.isHidden = false
+    }
+}
+
+//MARK: - Selector Functions
+
+extension ContainerViewController {
+    
+    @objc func didTapPopUpViewSubmitButton() {
+        //TODO: SubmitButton 액션 구현
+    }
+    
+    @objc func didTapPopUpViewCancelButton() {
+        
+        popUpView.isHidden = true
     }
 }

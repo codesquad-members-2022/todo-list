@@ -9,7 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    private let kanbanColumnViewControllers: [KanbanColumnViewController] = {
+    private(set) var kanbanColumnViewControllers: [KanbanColumnViewController] = {
         return KanbanType.allCases.map{ KanbanColumnViewController(type: $0) }
     }()
     

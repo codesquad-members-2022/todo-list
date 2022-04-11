@@ -32,20 +32,16 @@ class PopUpView: UIView {
         return label
     }()
     
-    private let containerTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "제목을 입력하세요."
-        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 15)
-        label.textColor = .darkGray
-        return label
+    private let containerTitleLabel: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "내용을 입력하세요"
+        return textField
     }()
     
-    private let containerContentsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "내용을 입력하세요."
-        label.font = UIFont(name: Constant.Font.gothicNeo, size: 15)
-        label.textColor = .darkGray
-        return label
+    private let containerContentsLabel: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "제목을 입력하세요"
+        return textField
     }()
     
     private let buttonStackView: UIStackView = {
@@ -56,7 +52,7 @@ class PopUpView: UIView {
         return stackView
     }()
     
-    private let cancelButton: UIButton = {
+    private(set) var cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle("취소", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
@@ -66,7 +62,7 @@ class PopUpView: UIView {
         return button
     }()
     
-    private let submitButton: UIButton = {
+    private(set) var submitButton: UIButton = {
         let button = UIButton()
         button.setTitle("등록", for: .normal)
         button.titleLabel?.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
@@ -78,11 +74,13 @@ class PopUpView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
+        resetPlaceholder()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpView()
+        resetPlaceholder()
     }
     
     private func setUpView() {
@@ -93,8 +91,8 @@ class PopUpView: UIView {
         containerView.addSubview(containerHeadLineLabel)
         
         containerView.addSubview(containerStackView)
-        containerStackView.addArrangedSubview(containerContentsLabel)
         containerStackView.addArrangedSubview(containerTitleLabel)
+        containerStackView.addArrangedSubview(containerContentsLabel)
         
         containerView.addSubview(buttonStackView)
         buttonStackView.addArrangedSubview(cancelButton)
@@ -143,5 +141,10 @@ class PopUpView: UIView {
         buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
         buttonStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 160).isActive = true
         buttonStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
+    }
+    
+    func resetPlaceholder() {
+        containerTitleLabel.text = ""
+        containerContentsLabel.text = ""
     }
 }
