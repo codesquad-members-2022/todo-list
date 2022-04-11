@@ -6,6 +6,7 @@ import todolist.domain.event.Action;
 import todolist.domain.card.Card;
 import todolist.dto.card.RequestCardDto;
 import todolist.dto.card.ResponseCardDto;
+import todolist.dto.event.EventDto;
 import todolist.service.CardService;
 import todolist.service.EventService;
 
@@ -32,19 +33,25 @@ public class CardController {
     @PostMapping("/todo")
     public ResponseCardDto add(@RequestBody RequestCardDto requestCardDto) {
         ResponseCardDto responseCardDto = cardService.addCard(requestCardDto);
-        eventService.addEvent(responseCardDto, Action.ADD);
+        eventService.addEvent(new EventDto(responseCardDto), Action.ADD);
         return responseCardDto;
     }
 
     @PutMapping("/todo/{id}")
     public void update(@PathVariable Long id, @RequestBody RequestCardDto requestCardDto) {
+        String prevSection = cardService.getPrevSection(id);
+        ResponseCardDto responseCardDto = cardService.updateCard(id, requestCardDto);
 
-        cardService.updateCard(id, requestCardDto);
+        if (prevSection.equals(responseCardDto.getSection())) {
+            eventService.addEvent(new EventDto(responseCardDto), Action.UPDATE);
+        } else {
+            eventService.addEvent(new EventDto(prevSection, responseCardDto), Action.MOVE);
+        }
     }
 
     @DeleteMapping("/todo/{id}")
     public void delete(@PathVariable Long id) {
-        cardService.deleteCard(id);
-//        eventService.addEvent(responseCardDto, Action.ADD);
+        ResponseCardDto responseCardDto = cardService.deleteCard(id);
+        eventService.addEvent(new EventDto(responseCardDto), Action.REMOVE);
     }
 }
