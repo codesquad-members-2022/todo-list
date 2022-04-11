@@ -1,6 +1,8 @@
 package com.codesquad.todolist.card;
 
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +22,9 @@ public class CardController {
     }
 
     @PostMapping
-    public void create(CardCreateRequest createRequest) {
+    public ResponseEntity<?> createCard(@RequestBody CardCreateRequest createRequest) {
         cardService.create(createRequest);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
