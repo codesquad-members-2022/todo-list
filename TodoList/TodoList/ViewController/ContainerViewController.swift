@@ -7,9 +7,10 @@
 
 import UIKit
 
-class ContainerViewController: UIViewController {
+final class ContainerViewController: UIViewController {
     var headerVC: HeaderViewController!
     var contentVC: ContentViewController!
+    var tableVC: TableViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +26,12 @@ private extension ContainerViewController{
         self.view.addSubview(headerVC.view)
         
         contentVC = ContentViewController()
+        contentVC.cellDelegate = self
         self.addChild(contentVC)
         self.view.addSubview(contentVC.view)
+        
+        tableVC = TableViewController()
+        self.addChild(tableVC)
         
         configureChildViewLayout()
     }
@@ -45,5 +50,11 @@ private extension ContainerViewController{
         contentVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         contentVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         contentVC.view.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+    }
+}
+
+extension ContainerViewController: TableViewInCollectionCell{
+    func delegateCollectionCell(cell: CollectionCell, index: Int) {
+        self.tableVC.setTableAttributes(cell: cell, index: index)
     }
 }
