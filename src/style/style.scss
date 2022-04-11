@@ -1,47 +1,38 @@
+@use 'reset.scss';
+@use 'taskCard.scss';
+
 header {
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 50px;
   align-items: center;
+  border: 1px solid black;
 }
 
 .header__title {
-  /* logo */
-
-  /* position: absolute;
-  width: 171px;
-  height: 46px;
-  left: 80px;
-  top: 33px; */
-
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;
   font-size: 32px;
   line-height: 46px;
-
-  /* Black */
-
   color: #010101;
 }
 
 .header__menu-btn {
-  /* Vector */
-  height: 10.999999046325684px;
+  height: 11px;
   width: 17px;
-  padding-right: 10px;
-  /* left: 1339px;
-  right: 84px;
-  top: 51px;
-  bottom: 50px; */
+  left: 3px;
+  top: 7px;
+  margin-right: 10px;
 }
 
-.main__tag-zone {
+.task-tag__wrapper {
+  border: 1px solid black;
   display: flex;
-  padding-left: 30px;
 }
 
-.main__tag {
+.task-tag {
+  border: 1px solid blue;
   margin: 15px;
   padding: 15px;
   display: flex;
@@ -50,7 +41,16 @@ header {
   width: 300px;
 }
 
-.main__tag-title {
+.task-tag__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.task-tag__header__title {
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 700;

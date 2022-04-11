@@ -1,0 +1,14 @@
+body {
+  display: flex;
+}
+
+.zone {
+  width: 400px;
+  height: 100vh;
+}
+
+.box {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+}
