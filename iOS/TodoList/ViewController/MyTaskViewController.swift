@@ -13,6 +13,8 @@ class MyTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        resizeConstant()
+        actionBoard.moveView()
         setupChildViewContoller()
     }
     
@@ -29,14 +31,11 @@ class MyTaskViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         resizeConstant()
+        actionBoard.moveView()
     }
     
     private func resizeConstant() {
-        if UIDevice.current.orientation.isPortrait {
-            stackViewTrailing.constant = 48
-        }else {
-            stackViewTrailing.constant = 330
-        }
+        stackViewTrailing.constant = UIScreen.main.isPortrait ? 48 : 330
     }
     
     private func editCardButtonTapped() {

@@ -1,6 +1,7 @@
 import UIKit
 
 class ActionBoardView: UIView {
+    private var isInScreen: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -12,23 +13,24 @@ class ActionBoardView: UIView {
         addObserver()
     }
     
-    @IBAction func menuButtonTapped() {
-        self.animation(moveTo: 766)
+    @IBAction private func toggle() {
+        isInScreen.toggle()
+        animation(with: moveView)
     }
     
-    @IBAction func closeButtonTapped() {
-        self.animation(moveTo: 1194)
+    func moveView() {
+        let width : CGFloat = 428
+        let blank = isInScreen ? (UIScreen.main.bounds.width - width) : UIScreen.main.bounds.width
+        self.frame = CGRect(x: blank, y: 0, width: width, height: UIScreen.main.bounds.height)
     }
     
-    private func animation(moveTo xCoordinate: Int) {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.frame = CGRect(x: xCoordinate, y: 0, width: 428, height: 834)
-        })
+    private func animation(with handler: @escaping ()->Void) {
+        UIView.animate(withDuration: 0.2, animations: handler)
     }
     
     private func addObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(menuButtonTapped), name: Notification.Name.actionFlowButtonTapped, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(closeButtonTapped), name: Notification.Name.actionFlowCloseButtonTapped, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(toggle), name: Notification.Name.actionFlowButtonTapped, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(toggle), name: Notification.Name.actionFlowCloseButtonTapped, object: nil)
     }
 
 }

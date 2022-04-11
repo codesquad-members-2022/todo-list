@@ -10,6 +10,7 @@
 		6C22959727FD64C800381DA2 /* EditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C22959627FD64C800381DA2 /* EditCardView.swift */; };
 		6C22959927FD64DB00381DA2 /* EditCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C22959827FD64DB00381DA2 /* EditCardView.xib */; };
 		6C22959B27FD698000381DA2 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C22959A27FD698000381DA2 /* EditCardViewController.swift */; };
+		6CB489A6280403E3003F5048 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB489A5280403E3003F5048 /* extension.swift */; };
 		6CF3C10927FC2907003B4803 /* TaskCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF3C10727FC2907003B4803 /* TaskCardViewCell.swift */; };
 		6CF3C10A27FC2907003B4803 /* TaskCardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CF3C10827FC2907003B4803 /* TaskCardViewCell.xib */; };
 		6CF532BE2803C807006AE77C /* ActionBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF532BD2803C807006AE77C /* ActionBoardView.swift */; };
@@ -33,6 +34,7 @@
 		6C22959627FD64C800381DA2 /* EditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardView.swift; sourceTree = "<group>"; };
 		6C22959827FD64DB00381DA2 /* EditCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCardView.xib; sourceTree = "<group>"; };
 		6C22959A27FD698000381DA2 /* EditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
+		6CB489A5280403E3003F5048 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		6CF3C10727FC2907003B4803 /* TaskCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardViewCell.swift; sourceTree = "<group>"; };
 		6CF3C10827FC2907003B4803 /* TaskCardViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCardViewCell.xib; sourceTree = "<group>"; };
 		6CF532BD2803C807006AE77C /* ActionBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBoardView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				6F77E26027FECCED0036B6E1 /* NameSpace.swift */,
+				6CB489A5280403E3003F5048 /* extension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F41D5C127FC085C00EA3FA8 /* TaskCardListViewController.swift in Sources */,
+				6CB489A6280403E3003F5048 /* extension.swift in Sources */,
 				6F41D5A727FAE04A00EA3FA8 /* MyTaskViewController.swift in Sources */,
 				6C22959727FD64C800381DA2 /* EditCardView.swift in Sources */,
 				6CF532BE2803C807006AE77C /* ActionBoardView.swift in Sources */,
