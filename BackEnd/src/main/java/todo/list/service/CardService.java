@@ -22,8 +22,8 @@ public class CardService {
     }
 
     public void save(CardSaveDto cardSaveDto) {
-//        Card card = cardSaveDto.toEntity();
-//        cardRepository.save();
+        Card card = cardSaveDto.toEntity();
+        cardRepository.save(card);
     }
     
     public CardResponse findCollections() {

@@ -1,13 +1,12 @@
 package todo.list.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import todo.list.service.dto.CardResponse;
 import todo.list.service.dto.CardSaveDto;
 import todo.list.service.CardService;
 
 @RestController
+@RequestMapping("/cards")
 public class CardController {
 
     private final CardService cardService;
@@ -16,12 +15,12 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    @PostMapping("/cards")
-    public void save(CardSaveDto cardSaveDto) {
+    @PostMapping
+    public void save(@RequestBody CardSaveDto cardSaveDto) {
         cardService.save(cardSaveDto);
     }
 
-    @GetMapping("/cards")
+    @GetMapping
     public CardResponse getAllCards() {
         return cardService.findCollections();
     }
