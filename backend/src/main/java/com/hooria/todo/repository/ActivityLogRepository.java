@@ -28,7 +28,7 @@ public class ActivityLogRepository {
                 .usingGeneratedKeyColumns("id");
 
         rowMapper = (rs, row) ->
-                new ActivityLog(
+                ActivityLog.of(
                         rs.getLong("id"),
                         rs.getString("user_id"),
                         rs.getString("activity_type"),

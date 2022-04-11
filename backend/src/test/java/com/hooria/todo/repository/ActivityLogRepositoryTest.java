@@ -1,7 +1,6 @@
 package com.hooria.todo.repository;
 
 import com.hooria.todo.domain.ActivityLog;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ class ActivityLogRepositoryTest {
 
         // given
         LocalDateTime now = LocalDateTime.now();
-        ActivityLog activityLog = new ActivityLog(1, "userId1", "add", "TODO", "IN_PROGRESS", "taskTitle1", now, true);
+        ActivityLog activityLog = ActivityLog.of(1, "userId1", "add", "TODO", "IN_PROGRESS", "taskTitle1", now, true);
 
         // when
         ActivityLog result = repository.insert(activityLog);
@@ -54,9 +53,9 @@ class ActivityLogRepositoryTest {
         // given
         LocalDateTime now = LocalDateTime.now();
         List<ActivityLog> members = List.of(
-                new ActivityLog(1, "userId1", "add", "taskTitle1", "TODO", "IN_PROGRESS", now, true),
-                new ActivityLog(2, "userId2", "remove", "taskTitle2", "IN_PROGRESS", "DONE", now, false),
-                new ActivityLog(3, "userId3", "update", "taskTitle3", "TODO", "IN_PROGRESS", now, true)
+                ActivityLog.of(1, "userId1", "add", "taskTitle1", "TODO", "IN_PROGRESS", now, true),
+                ActivityLog.of(2, "userId2", "remove", "taskTitle2", "IN_PROGRESS", "DONE", now, false),
+                ActivityLog.of(3, "userId3", "update", "taskTitle3", "TODO", "IN_PROGRESS", now, true)
         );
 
         // when
@@ -70,13 +69,13 @@ class ActivityLogRepositoryTest {
             ActivityLog activityLog1 = results.get(index);
             ActivityLog activityLog2 = members.get(index);
 
-            AssertionsForClassTypes.assertThat(activityLog1.getId()).isEqualTo(activityLog2.getId());
-            AssertionsForClassTypes.assertThat(activityLog1.getUserId()).isEqualTo(activityLog2.getUserId());
-            AssertionsForClassTypes.assertThat(activityLog1.getActivityType()).isEqualTo(activityLog2.getActivityType());
-            AssertionsForClassTypes.assertThat(activityLog1.getFromStatus()).isEqualTo(activityLog2.getFromStatus());
-            AssertionsForClassTypes.assertThat(activityLog1.getToStatus()).isEqualTo(activityLog2.getToStatus());
+            assertThat(activityLog1.getId()).isEqualTo(activityLog2.getId());
+            assertThat(activityLog1.getUserId()).isEqualTo(activityLog2.getUserId());
+            assertThat(activityLog1.getActivityType()).isEqualTo(activityLog2.getActivityType());
+            assertThat(activityLog1.getFromStatus()).isEqualTo(activityLog2.getFromStatus());
+            assertThat(activityLog1.getToStatus()).isEqualTo(activityLog2.getToStatus());
             assertThat(dateTimeFormatter.format(activityLog1.getCreatedAt())).isEqualTo(dateTimeFormatter.format(activityLog2.getCreatedAt()));
-            AssertionsForClassTypes.assertThat(activityLog1.isReadYn()).isEqualTo(activityLog2.isReadYn());
+            assertThat(activityLog1.isReadYn()).isEqualTo(activityLog2.isReadYn());
         }
     }
 
