@@ -22,6 +22,9 @@ public class CardDTO {
 	@ApiModelProperty(value="현재 또는 이동 후 섹션 [todo /doing /done]", required = true)
 	private String section;
 
+	private CardDTO() {
+	}
+
 	public CardDTO(Integer order, String title, String content, String prevSection, String section) {
 		this.order = order;
 		this.title = title;

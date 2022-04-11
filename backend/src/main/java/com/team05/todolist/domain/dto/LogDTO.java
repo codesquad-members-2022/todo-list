@@ -22,6 +22,9 @@ public class LogDTO {
 	@ApiModelProperty(value = "카드 이동 후 section")
 	private String section;
 
+	private LogDTO() {
+	}
+
 	public LogDTO(Integer logId, String logEvent, LocalDateTime logTime, String title,
 		String prevSection, String section) {
 		this.logId = logId;
