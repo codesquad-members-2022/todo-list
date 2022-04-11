@@ -13,3 +13,5 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.F
         }
     }
 }
+
+//ViewModel의 인스턴스 객체 생성

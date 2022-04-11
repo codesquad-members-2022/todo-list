@@ -1,11 +1,15 @@
 package com.example.todo_list.history
 
+import android.util.Log
 import com.example.todo_list.history.data.HistoryCard
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 class HistoryReceive {
     companion object RetrofitApiObject {

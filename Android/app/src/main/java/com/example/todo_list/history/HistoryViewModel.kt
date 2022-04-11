@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo_list.Repository
 import com.example.todo_list.history.data.HistoryCard
+import com.example.todo_list.history.data.Todo
 import kotlinx.coroutines.launch
 
 class HistoryViewModel(private val repository: Repository): ViewModel() {

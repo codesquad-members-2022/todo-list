@@ -5,11 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="historyCard"
             type="com.example.todo_list.history.data.HistoryCard" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
