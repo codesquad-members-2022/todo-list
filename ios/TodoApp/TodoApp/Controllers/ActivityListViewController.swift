@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 class ActivityListViewController: UITableViewController {
     // TODO: Activity 모델 정의 & 소유
@@ -33,6 +34,7 @@ class ActivityListViewController: UITableViewController {
             withIdentifier: ActivityCell.identifier,
             for: indexPath
         ) as? ActivityCell else {
+            Logger.view.error("Fail to get a cell instance of ActivityCell in \(#function), \(#fileID)")
             fatalError()
         }
         

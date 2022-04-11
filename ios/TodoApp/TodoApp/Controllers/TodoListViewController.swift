@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import OSLog
 
 class TodoListViewController: UIViewController {
     // TODO: Todo 모델 정의 & 소유
 
-    @IBOutlet weak var badgeView: UIView!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addToDoButton: UIButton!
+    @IBOutlet private weak var badgeView: UIView!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var addToDoButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,10 @@ extension TodoListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ToDoCell.identifier) as? ToDoCell else { fatalError() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ToDoCell.identifier) as? ToDoCell else {
+            Logger.view.error("Fail to get a cell instance of TodoCell in \(#function), \(#fileID)")
+            fatalError()
+        }
         
         return cell
     }
