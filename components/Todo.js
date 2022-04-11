@@ -1,14 +1,20 @@
 import TodoEdit from './TodoEdit.js';
 import Modal from './Modal.js';
+import { $ } from '../utils/dom.js';
 
 export default class Todo {
   constructor(todoData) {
     this.todoData = todoData;
+    this.todoElement = '';
   }
+
+  setElement = () => {
+    this.todoElement = document.getElementById(`${this.todoData.id}`);
+  };
 
   onMouseDown = e => {
     if (e.target.classList.contains('card__delete')) {
-      this.deleteBtn(e.target);
+      this.handleDeleteBtn();
       return;
     }
 
@@ -25,22 +31,23 @@ export default class Todo {
       this.showEditForm();
       return;
     }
-
   };
 
   createCopyTodo = (x, y) => {
-    const copyCardElement = document.createElement('div');
-    document.body.insertAdjacentElement('beforeend', copyCardElement);
-    copyCardElement.classList.add('drag');
-    copyCardElement.style.position = 'absolute';
-    copyCardElement.style.left = `${x}px`;
-    copyCardElement.style.top = `${y}px`;
-    copyCardElement.setAttribute('data-id', this.todoData.id);
-    copyCardElement.innerHTML = this.render();
+    const copytodoElement = document.createElement('div');
+    document.body.insertAdjacentElement('beforeend', copytodoElement);
+    copytodoElement.classList.add('drag');
+    Object.assign(copytodoElement.style, {
+      position: 'absolute',
+      left: `${x}px`,
+      top: `${y}px`,
+    });
+    copytodoElement.setAttribute('data-id', this.todoData.id);
+    copytodoElement.innerHTML = this.render();
   };
 
   render = () => {
-    return /*html*/ `<div class="card original-MouseOver" id =${this.todoData.id} data-drag="true">
+    return /*html*/ `<div class="card" id =${this.todoData.id} data-drag="true">
       <header>
         <h3>${this.todoData.title}</h3>
         <button class="card__delete">x</button>
@@ -54,10 +61,10 @@ export default class Todo {
     </div>`;
   };
 
-  run = () => {
-    document.getElementById(this.todoData.id).addEventListener('mousedown', this.onMouseDown);
-    document.getElementById(this.todoData.id).addEventListener('mouseover', this.ondeleteOver);
-    document.getElementById(this.todoData.id).addEventListener('mouseout', this.ondeleteOut);
+  handleEventListener = () => {
+    this.todoElement.addEventListener('mousedown', this.onMouseDown);
+    $('.card__delete').addEventListener('mouseover', this.onDeleteMouseOver);
+    $('.card__delete').addEventListener('mouseout', this.onDeleteMouseOut);
   };
 
   showEditForm = () => {
@@ -67,31 +74,23 @@ export default class Todo {
       content: this.todoData.content,
       userId: this.todoData.userId,
     };
-    const todoEdit = new TodoEdit(editObj, this.render, this.run);
-    document.getElementById(this.todoData.id).classList.add('todo-border');
-    document.getElementById(this.todoData.id).innerHTML = todoEdit.render();
-    todoEdit.run();
+
+    const todoEdit = new TodoEdit(editObj, this.render, this.handleEventListener);
+    this.todoElement.classList.add('todo-border');
+    this.todoElement.innerHTML = todoEdit.render();
+    todoEdit.handleEventListener();
   };
 
-  ondeleteOver = ({ target }) => {
-    const test = document.getElementById(this.todoData.id);
-    if (target.classList.contains('card__delete')) {
-      test.classList.add('deleteBtn-MouseOver');
-      test.classList.remove('original-MouseOver');
-    }
+  onDeleteMouseOver = () => {
+    this.todoElement.classList.add('card__delete--mouseOver');
   };
 
-  ondeleteOut = ({ target }) => {
-    const test = document.getElementById(this.todoData.id);
-    if (target.classList.contains('deleteBtn-MouseOver')) {
-      target.classList.remove('deleteBtn-MouseOver');
-      target.classList.add('original-MouseOver');
-    }
+  onDeleteMouseOut = () => {
+    this.todoElement.classList.remove('card__delete--mouseOver');
   };
 
-  deleteBtn = ({ target }) => {
-    const test = document.getElementById(this.todoData.id);
-    const modal = new Modal(test.id);
+  handleDeleteBtn = () => {
+    const modal = new Modal(this.todoData.id);
     modal.showModal();
     modal.handleEventListener();
   };
