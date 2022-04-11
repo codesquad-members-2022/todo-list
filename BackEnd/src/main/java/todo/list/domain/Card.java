@@ -17,6 +17,13 @@ public class Card {
         this.author = author;
     }
 
+    public Card(Long id, String title, String contents, Author author) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+        this.author = author;
+    }
+
     public Card(Long id, String title, String contents, CardStatus status, LocalDateTime createDateTime, Author author) {
         this.id = id;
         this.title = title;
