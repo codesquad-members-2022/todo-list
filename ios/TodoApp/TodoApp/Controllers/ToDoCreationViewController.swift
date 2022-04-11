@@ -17,10 +17,10 @@ class ToDoCreationViewController: UIViewController {
         headField.borderStyle = .none
         bodyField.borderStyle = .none
         headField.becomeFirstResponder()
-        bodyField.addAction(<#T##action: UIAction##UIAction#>, for: .editingChanged)
+        bodyField.addTarget(self, action: #selector(didBodyFieldChange(_:)), for: .editingChanged)
         headField.delegate = self
         bodyField.delegate = self
-
+        registerButton.isHighlighted.toggle()
         cancelButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
     }
     
@@ -44,8 +44,14 @@ extension ToDoCreationViewController: UITextFieldDelegate {
         return true
     }
     
-    func didBodyFieldChange(_ action: UIAction) {
-        
+    @objc func didBodyFieldChange(_ textField: UITextField) {
+        if textField.hasText {
+            if registerButton.isHighlighted == true {
+                registerButton.isHighlighted.toggle()
+            }
+        } else {
+            registerButton.isHighlighted.toggle()
+        }
     }
 }
 
