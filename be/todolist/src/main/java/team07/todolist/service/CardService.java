@@ -1,7 +1,6 @@
 package team07.todolist.service;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import team07.todolist.domain.Card;
@@ -23,7 +22,7 @@ public class CardService {
 
 	public void save(RequestCard requestCard) {
 		Card newCard = new Card(requestCard.getUserId(), requestCard.getTitle(),
-			requestCard.getContent(), requestCard.getRow(), requestCard.getStatus());
+			requestCard.getContent(), requestCard.getSequence(), requestCard.getStatus());
 
 		int status = requestCard.getStatus();
 		cardRepository.save(newCard);

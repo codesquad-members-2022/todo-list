@@ -12,24 +12,24 @@ public class Card {
 	private String userId;
 	private String title;
 	private String content;
-	private int row;
+	private int sequence;
 	private int status;
 	private boolean isDeleted;
 
-	public Card(String userId, String title, String content, Integer row, Integer status) {
+	public Card(String userId, String title, String content, Integer sequence, Integer status) {
 		this.userId = userId;
 		this.title = title;
 		this.content = content;
-		this.row = row;
+		this.sequence = sequence;
 		this.status = status;
 	}
 
-	public Card(Card card, Long id, Integer row, Integer status) {
+	public Card(Card card, Long id, Integer sequence, Integer status) {
 		this.id = id;
 		this.userId = card.userId;
 		this.title = card.title;
 		this.content = card.content;
-		this.row = row;
+		this.sequence = sequence;
 		this.status = status;
 	}
 
@@ -38,7 +38,7 @@ public class Card {
 		this.userId = card.userId;
 		this.title = title;
 		this.content = content;
-		this.row = card.row;
+		this.sequence = card.sequence;
 		this.status = card.status;
 	}
 
@@ -47,7 +47,7 @@ public class Card {
 		this.userId = card.userId;
 		this.title = card.title;
 		this.content = card.content;
-		this.row = card.row;
+		this.sequence = card.sequence;
 		this.status = card.status;
 	}
 
@@ -55,8 +55,8 @@ public class Card {
 		isDeleted = true;
 	}
 
-	public int getRow() {
-		return row;
+	public int getSequence() {
+		return sequence;
 	}
 
 	public int getStatus() {
@@ -64,11 +64,11 @@ public class Card {
 	}
 
 	public void decreaseRow() {
-		this.row = this.row - 1;
+		this.sequence = this.sequence - 1;
 	}
 
 	public void increaseRow() {
-		this.row = this.row + 1;
+		this.sequence = this.sequence + 1;
 	}
 
 	public boolean isValid() {
@@ -80,15 +80,15 @@ public class Card {
 	}
 
 	public boolean overRow(int row) {
-		return this.row > row;
+		return this.sequence > row;
 	}
 
 	public boolean andOverRow(int row) {
-		return this.row >= row;
+		return this.sequence >= row;
 	}
 
 	public ResponseCard createResponseCard() {
-		return new ResponseCard(id, userId, title, content, row, status);
+		return new ResponseCard(id, userId, title, content, sequence, status);
 	}
 
 }

@@ -5,11 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-import org.springframework.stereotype.Repository;
 import team07.todolist.domain.Card;
 import team07.todolist.dto.RequestCard;
 
-@Repository
 public class MemoryCardRepository implements CardRepository {
 
 	private static final Map<Long, Card> store = new ConcurrentHashMap<>();
@@ -36,7 +34,7 @@ public class MemoryCardRepository implements CardRepository {
 		Card card = store.get(id);
 		card.delete();
 
-		int row = card.getRow();
+		int row = card.getSequence();
 		int status = card.getStatus();
 
 		store.values().stream()
@@ -50,10 +48,10 @@ public class MemoryCardRepository implements CardRepository {
 	@Override
 	public Card updateStatusAndRow(Long id, RequestCard requestCard) {
 		Card originCard = store.get(id);
-		int originRow = originCard.getRow();
+		int originRow = originCard.getSequence();
 		int originStatus = originCard.getStatus();
 
-		int row = requestCard.getRow();
+		int row = requestCard.getSequence();
 		int status = requestCard.getStatus();
 
 		store.values().stream()

@@ -5,17 +5,17 @@ public class RequestCard {
 	private String userId;
 	private String title;
 	private String content;
-	private int row;
+	private int sequence;
 	private Integer status;
 
 	public RequestCard() {
 	}
 
-	public RequestCard(String userId, String title, String content, int row, Integer status) {
+	public RequestCard(String userId, String title, String content, int sequence, Integer status) {
 		this.userId = userId;
 		this.title = title;
 		this.content = content;
-		this.row = row;
+		this.sequence = sequence;
 		this.status = status;
 	}
 
@@ -31,8 +31,8 @@ public class RequestCard {
 		return content;
 	}
 
-	public int getRow() {
-		return row;
+	public int getSequence() {
+		return sequence;
 	}
 
 	public Integer getStatus() {
@@ -45,7 +45,7 @@ public class RequestCard {
 			"userId='" + userId + '\'' +
 			", title='" + title + '\'' +
 			", content='" + content + '\'' +
-			", row=" + row +
+			", row=" + sequence +
 			", status=" + status +
 			'}';
 	}

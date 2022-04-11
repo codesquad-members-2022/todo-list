@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 import team07.todolist.domain.ActivityLog;
 
-@Repository
 public class MemoryActivityLogRepository implements ActivityLogRepository {
 
 	private static Map<Long, ActivityLog> store = new ConcurrentHashMap<>();
