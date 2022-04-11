@@ -1,0 +1,13 @@
+:root {
+  /* (1rem ===  16px) & (0.125 === 2px)*/
+  --font-XXL: 1.375rem;
+  --font-XL: 1.25rem;
+  --font-L: 1.125rem;
+  --font-M: 1rem;
+  --font-S: 0.875rem;
+  --font-XS: 0.75rem;
+
+  --font-max-bold: 900;
+  --font-bold: 700;
+  --font-semi-bold: 500;
+}

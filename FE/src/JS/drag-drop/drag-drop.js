@@ -8,31 +8,27 @@ export default class Drag {
     cardLists.forEach((cardList) => {
       cardList.addEventListener(
         'dragstart',
-        this.dragstartEventHandler(cardList)
+        this.toggleDraggingClass(cardList)
       );
 
-      cardList.addEventListener('dragend', this.dragendEventHandler(cardList));
+      cardList.addEventListener('dragend', this.toggleDraggingClass(cardList));
     });
+
+    const minimumTime = 500;
 
     containers.forEach((container) => {
       container.addEventListener(
         'dragover',
         throttle((e) => {
           this.dragoverEventHandler(e, container);
-        }, 500)
+        }, minimumTime)
       );
     });
   }
 
-  dragstartEventHandler(cardList) {
+  toggleDraggingClass(cardList) {
     return () => {
-      cardList.classList.add('dragging');
-    };
-  }
-
-  dragendEventHandler(cardList) {
-    return () => {
-      cardList.classList.remove('dragging');
+      cardList.classList.toggle('dragging');
     };
   }
 

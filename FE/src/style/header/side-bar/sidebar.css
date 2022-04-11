@@ -6,6 +6,11 @@
 #menu-icon:checked + label {
   z-index: 10;
 }
+.sidebar-container-wrap {
+  overflow-y: auto;
+  max-height: 760px;
+  margin-top: 80px;
+}
 .sidebar {
   width: 330px;
   height: 100%;
@@ -20,9 +25,5 @@
 }
 
 .sidebar .container {
-  margin-top: 80px;
-  margin-left: 10px;
-  width: 280px;
+  width: 282px;
 }
-
-
