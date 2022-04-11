@@ -56,9 +56,7 @@ extension CardListViewController: UITableViewDataSource {
         
         let newCardModel = cardManager[indexPath.item]
         
-        cell.setTitle(title: newCardModel.title)
-        cell.setBody(body: newCardModel.body)
-        cell.setCaption(caption: "iOS")
+        cell.configure(title: newCardModel.title, body: newCardModel.body)
         
         return cell
     }

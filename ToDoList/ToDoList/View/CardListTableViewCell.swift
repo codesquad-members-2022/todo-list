@@ -16,16 +16,9 @@ class CardListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setTitle(title: String) {
+    func configure(title: String, body: String, caption: String = "iOS") {
         self.title.text = title
-    }
-    
-    func setBody(body: String) {
         self.body.text = body
-    }
-    
-    func setCaption(caption: String) {
         self.caption.text = "author by \(caption)"
-    }
-    
+    }    
 }
