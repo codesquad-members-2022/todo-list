@@ -2,6 +2,7 @@ package com.codesquad.aos.todolist.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -54,7 +55,7 @@ class TodoCardListAdapter(
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(getItem(position), deleteTextClick)
-
+        holder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).translationX = 0f
     }
 
 
