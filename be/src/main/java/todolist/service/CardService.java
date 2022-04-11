@@ -29,13 +29,21 @@ public class CardService {
         return card.toResponseCardDto();
     }
 
-    public void updateCard(Long id, RequestCardDto requestCardDto) {
-        Card existingCard = repository.findById(id);
-        existingCard.update(requestCardDto);
+    public ResponseCardDto updateCard(Long id, RequestCardDto requestCardDto) {
+        Card card = repository.findById(id);
+        card.update(requestCardDto);
+        return card.toResponseCardDto();
     }
 
-    public void deleteCard(Long id) {
+    public ResponseCardDto deleteCard(Long id) {
+        Card card = repository.findById(id);
         repository.delete(id);
+        return card.toResponseCardDto();
+    }
+
+    public String getPrevSection(Long id) {
+        Card card = repository.findById(id);
+        return card.getSection();
     }
 
     private Map<String, List<Card>> categorizeCards(List<Card> cards) {
