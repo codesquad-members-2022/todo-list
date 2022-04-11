@@ -11,8 +11,8 @@ export const createNewCardTemplate = () => {
       <textarea class="card__contents__input--main" maxlength="500" placeholder="내용을 입력하세요"></textarea>
     </main>
     <footer class="card__contents__footer footer__buttons">
-      <button class="footer__buttons__cancel">취소</button>
-      <button class="footer__buttons__save">등록</button>
+      <input type=button class="footer__buttons__cancel" value="취소">
+      <input type=button class="footer__buttons__save" value="등록" disabled/>
     </footer>
   </div>
   <div class="card__delete-btn">
@@ -20,6 +20,27 @@ export const createNewCardTemplate = () => {
   </div>
 </li>
   `;
+};
+
+const onNewCardInput = newCard => {
+  newCard.addEventListener('keyup', () => {
+    changeSaveBtnStatus();
+  });
+};
+
+const changeSaveBtnStatus = () => {
+  const titleInput = document.querySelector('.card__contents__input--header');
+  const textArea = document.querySelector('.card__contents__input--main');
+  const saveBtn = document.querySelector('.footer__buttons__save');
+  if (textArea.value && titleInput.value) {
+    saveBtn.disabled = false;
+    saveBtn.style.backgroundColor = '#0175de';
+    saveBtn.style.cursor = 'pointer';
+  } else {
+    saveBtn.disabled = true;
+    saveBtn.style.backgroundColor = '#86c5ff';
+    saveBtn.style.cursor = '';
+  }
 };
 
 export const onAddBtnClick = () => {
@@ -60,7 +81,10 @@ const toggleNewCard = cardList => {
   } else {
     const newCardTemplate = createNewCardTemplate();
     cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
+    const newCard = document.querySelector('.card__contents');
     const textArea = cardList.querySelector('.card__contents__input--main');
+    onNewCardInput(newCard);
     onResizeTextArea(textArea);
+    onSaveBtnClick();
   }
 };
