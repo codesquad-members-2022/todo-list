@@ -22,12 +22,13 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/todo")
 public class CardApiController {
 	public static final String API_TODO_REDIRECT_URI = "/api/todo/card/%d";
+	public static final String API_USER_KEY = "user";
 
 	private final CardService cardService;
 
 	@GetMapping
 	public ResponseEntity welcomePage(@RequestHeader HttpHeaders headers) {
-		String userId = headers.getFirst("user");
+		String userId = headers.getFirst(API_USER_KEY);
 		CardDto.CardsResponse response = cardService.readAllFrom(Long.parseLong(userId));
 		return ResponseEntity.ok().body(response);
 	}
