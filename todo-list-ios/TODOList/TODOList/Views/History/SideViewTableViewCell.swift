@@ -16,14 +16,37 @@ class SideViewTableViewCell: UITableViewCell {
         return view
     }()
     
-    var stackView: HistoryStackView = {
-        let view = HistoryStackView()
+    var historyStackView: UIStackView = {
+        let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         view.spacing = 8
         view.alignment = .leading
         view.distribution = .equalSpacing
         return view
+    }()
+    
+    var nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: FontFactory.normal, size: 16)
+        return label
+    }()
+    
+    var contentLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: FontFactory.bold, size: 16)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    var timeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: FontFactory.normal, size: 14)
+        label.textColor = UIColor(named: ColorAsset.gray3)
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,15 +69,18 @@ class SideViewTableViewCell: UITableViewCell {
     
     private func addViews() {
         contentView.addSubview(emojiView)
-        historyView.addSubview(stackView)
+        historyView.addSubview(historyStackView)
+        historyStackView.addArrangedSubview(nameLabel)
+        historyStackView.addArrangedSubview(contentLabel)
+        historyStackView.addArrangedSubview(timeLabel)
         contentView.addSubview(historyView)
     }
     
     private func setConstraints() {
-        stackView.topAnchor.constraint(equalTo: historyView.topAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: historyView.leadingAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: historyView.trailingAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: historyView.bottomAnchor).isActive = true
+        historyStackView.topAnchor.constraint(equalTo: historyView.topAnchor).isActive = true
+        historyStackView.leadingAnchor.constraint(equalTo: historyView.leadingAnchor).isActive = true
+        historyStackView.trailingAnchor.constraint(equalTo: historyView.trailingAnchor).isActive = true
+        historyStackView.bottomAnchor.constraint(equalTo: historyView.bottomAnchor).isActive = true
         
         emojiView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         emojiView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16).isActive = true
@@ -68,8 +94,8 @@ class SideViewTableViewCell: UITableViewCell {
     }
     
     func updateStackView(history: HistoryInfo) {
-        stackView.nameLabel.text = "@\(history.name)"
-        stackView.contentLabel.text = history.content
-        stackView.timeLabel.text = "\(history.time)분 전"
+        nameLabel.text = "@\(history.name)"
+        contentLabel.text = history.content
+        timeLabel.text = "\(history.time)분 전"
     }
 }

@@ -2,27 +2,38 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    lazy var sideMenuButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(systemName: "list.bullet.circle.fill"), for: .normal)
-        button.addAction(UIAction(handler: { _ in
-            self.showSideView()
-        }), for: .touchUpInside)
-        return button
-    }()
-    
-    private let sideView: SideView = {
-        let view = SideView()
+    private var headerView: HeaderView = {
+        let view = HeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    private var sideView: SideView = {
+        let view = SideView()
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var memoCanvasViewController: MemoCanvasViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor(named: ColorAsset.gray6)
+        
+        let memoCanvasViewController = MemoCanvasViewController()
+        addChild(memoCanvasViewController)
+        view.addSubview(memoCanvasViewController.view) // 안하면 뷰 안 보임
+        memoCanvasViewController.didMove(toParent: self) // 종속관계만 생김
+        self.memoCanvasViewController = memoCanvasViewController
+        
+        self.headerView.delegate = self
+        
+        self.sideView.backgroundColor = .white
         self.sideView.delegate = self
-        self.sideView.tableView.dataSource = self
-        self.sideView.tableView.delegate = self
+        self.sideView.historyTableView.dataSource = self
+        self.sideView.historyTableView.delegate = self
         
         addViews()
         setLayout()
@@ -30,21 +41,20 @@ final class MainViewController: UIViewController {
     
     /// 초기 뷰 설정. 초기 뷰는 sideMenuButton이 보여지는 상태.
     private func addViews() {
-        self.view.addSubview(sideMenuButton)
+        view.addSubview(headerView)
+        view.addSubview(sideView)
     }
     
-    /// sideMenuButton Layout 설정
     private func setLayout(){
-        sideMenuButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        sideMenuButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        sideMenuButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        sideMenuButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-    }
-    
-    /// sideMenuButton 클릭 시 SideView를 보여준다. 
-    private func showSideView() {
-        self.sideMenuButton.removeFromSuperview()
-        self.view.addSubview(sideView)
+        headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        headerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.08).isActive = true
+        
+        memoCanvasViewController?.view.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 20).isActive = true
+        memoCanvasViewController?.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor).isActive = true
+        memoCanvasViewController?.view.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
+        memoCanvasViewController?.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25).isActive = true
         
         sideView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         sideView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -52,14 +62,23 @@ final class MainViewController: UIViewController {
         sideView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
+    /// sideMenuButton 클릭 시 SideView를 보여준다. 
+    private func showSideView() {
+        self.sideView.isHidden = false
+    }
+    
     /// SideMenu에 있는 닫기 버튼 클릭 시, sideView를 제거하고 SideMenuButton을 보여줌.
     private func hideSideView() {
         UIView.transition(with: self.sideView, duration: 0.25) {
-            self.sideView.removeFromSuperview()
+            self.sideView.isHidden = true
+            
         }
-        
-        self.view.addSubview(sideMenuButton)
-        setLayout()
+    }
+}
+
+extension MainViewController: HeaderViewDelegate{
+    func headerViewButtonDidTap() {
+        showSideView()
     }
 }
 
@@ -70,10 +89,11 @@ extension MainViewController: SideViewDelegate {
     }
 }
 
-
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //직접 테이블 뷰의 셀을 로드하는 시점에 구분선 설정을 해야 적용되고 있음
+        tableView.separatorStyle = .none
         return 15
     }
     
@@ -81,6 +101,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SideViewTableViewCell.identifier, for: indexPath) as? SideViewTableViewCell else {
             return UITableViewCell()
         }
+        
+        cell.selectionStyle = .none
         cell.emojiView.image = UIImage(named: "emoji")
         
         let history = HistoryInfo(name: "Selina", content: "이제 자러갑니당", time: "0")
