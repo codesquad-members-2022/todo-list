@@ -1,8 +1,12 @@
-package todo.list.domain;
+package todo.list.service.dto;
+
+import todo.list.domain.Action;
+import todo.list.domain.ActivityLog;
+import todo.list.domain.CardStatus;
 
 import java.time.LocalDateTime;
 
-public class ActivityLog {
+public class ActivityLogDto {
     private Long id;
     private Action action;
     private String title;
@@ -10,14 +14,13 @@ public class ActivityLog {
     private CardStatus beforeStatus;
     private LocalDateTime createDateTime;
 
-    public ActivityLog(Long id, Action action, String title, CardStatus nowStatus,
-                       CardStatus beforeStatus, LocalDateTime createDateTime) {
-        this.id = id;
-        this.action = action;
-        this.title = title;
-        this.nowStatus = nowStatus;
-        this.beforeStatus = beforeStatus;
-        this.createDateTime = createDateTime;
+    public ActivityLogDto(ActivityLog activityLog) {
+        this.id = activityLog.getId();
+        this.action = activityLog.getAction();
+        this.title = activityLog.getTitle();
+        this.nowStatus = activityLog.getNowStatus();
+        this.beforeStatus = activityLog.getBeforeStatus();
+        this.createDateTime = activityLog.getCreateDateTime();
     }
 
     public Long getId() {
