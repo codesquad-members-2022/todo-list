@@ -22,7 +22,7 @@
                 style="@style/HeadLine.Bold"
                 android:layout_marginTop="18dp"
                 android:layout_marginHorizontal="14dp"
-                android:text="@string/label_addCard_title"
+                android:text="@string/label_updateCard_title"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
@@ -61,9 +61,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="20dp"
-                android:text="@string/label_addCard_addBtn_text"
+                android:text="@string/label_update_btn_title"
                 style="@style/body.white.bold"
-                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@color/todo_second_color"
                 />
