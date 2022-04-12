@@ -5,6 +5,7 @@ import com.example.backend.domain.history.History;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.backend.controller.history.HistoryQueryHelper.CARD_ID;
+import static com.example.backend.controller.history.HistoryQueryHelper.MEMBER_ID;
 import static com.example.backend.utils.TimeUtils.dateTimeOf;
 
 @Repository
@@ -26,11 +29,28 @@ public class HistoryRepository {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<History> findHistories(Long memberId, Long cardId) {
-        String query = "SELECT m.nick_name, c.title, c.content, c.created_at, c.card_type " +
-                "FROM member AS m, card AS c JOIN c.member_id ON m.id";
-        return jdbcTemplate.query(query, mapper);
+    /**
+     * 별칭
+     */
+    public List<HistoryResponse> findHistories(Long memberId, Long cardId) {
+        String query = "SELECT h.id, h.content, h.created_at, h.action, m.member_login_id AS author, cd.card_type " +
+                "FROM history AS h JOIN member AS m ON m.id=:member_id JOIN card AS cd ON cd.id=:card_id ORDER BY DESC LIMIT 10";
+        SqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue(MEMBER_ID, memberId)
+                .addValue(CARD_ID, cardId);
+        return jdbcTemplate.query(query, parameterSource, historyResponseRowMapper);
     }
+
+    private static final RowMapper<HistoryResponse> historyResponseRowMapper = (rs, rowNum) ->
+            new HistoryResponse(
+                    rs.getLong("id"),
+                    rs.getString("content"),
+                    dateTimeOf(rs.getTimestamp("created_at")),
+                    rs.getString("action"),
+                    rs.getString("author"),
+                    rs.getString("card_type")
+
+            );
 
     private static final RowMapper<History> mapper = (rs, rowNum) ->
             new History(

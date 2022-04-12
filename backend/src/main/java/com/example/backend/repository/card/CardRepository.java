@@ -18,4 +18,5 @@ public interface CardRepository {
     Card update(Card card);
 
     Card delete(Long id);
+
 }

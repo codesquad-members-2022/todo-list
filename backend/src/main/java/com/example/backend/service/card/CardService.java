@@ -24,10 +24,9 @@ public class CardService {
         this.historyService = historyService;
     }
 
-    // 큰 트랜잭션
     @Transactional
     public Card writeCard(CardDto cardDto) {
-        Card card = new Card(cardDto.getTitle(), cardDto.getContent(), cardDto.getCardType());
+        Card card = new Card(cardDto.getWriter(), cardDto.getTitle(), cardDto.getContent(), cardDto.getCardType(), cardDto.getMemberId());
         HistorySaveRequest historySaveRequest = new HistorySaveRequest();
         return cardRepository.save(card);
     }
@@ -42,7 +41,7 @@ public class CardService {
     }
 
     public Card updateCard(Long id, CardDto cardDto) {
-        Card card = new Card(id, cardDto.getTitle(), cardDto.getContent(), cardDto.getCardType());
+        Card card = new Card(id, cardDto.getWriter(), cardDto.getTitle(), cardDto.getContent(), cardDto.getCardType());
         cardRepository.update(card);
         return null;
     }

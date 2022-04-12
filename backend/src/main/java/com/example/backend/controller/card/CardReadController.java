@@ -24,7 +24,7 @@ public class CardReadController {
         this.cardReadService = cardReadService;
     }
 
-    @GetMapping("")
+    @GetMapping
     public ApiResult<DailyPlanResponse> getDailyTodoItems(HttpServletRequest request) {
         Author author = new Author(request.getHeader("user-agent"));
         DailyPlanResponse dailyPlanResponse = cardReadService.getDailyPlan();

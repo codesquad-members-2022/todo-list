@@ -1,35 +1,32 @@
 package com.example.backend.controller.history;
 
+import com.example.backend.domain.card.CardType;
 import com.example.backend.domain.history.Action;
 
 import java.time.LocalDateTime;
 
 public class HistoryResponse {
-    private String writer;
-    private String title;
+    private Long id;
+    private String author;
     private String content;
     private LocalDateTime createdAt;
-    private LocalDateTime lastModifiedAt;
+    private CardType cardType;
     private Action action;
 
-    public HistoryResponse(String writer, String title, String content, LocalDateTime createdAt, LocalDateTime lastModifiedAt, Action action) {
-        this.writer = writer;
-        this.title = title;
+    public HistoryResponse(Long id, String content, LocalDateTime createdAt, String action, String author, String cardType) {
+        this.id = id;
+        this.author = author;
         this.content = content;
         this.createdAt = createdAt;
-        this.lastModifiedAt = lastModifiedAt;
-        this.action = action;
+        this.action = Action.valueOf(action);
+        this.cardType = CardType.valueOf(cardType);
     }
 
     public HistoryResponse() {
     }
 
-    public String getWriter() {
-        return writer;
-    }
-
-    public String getTitle() {
-        return title;
+    public String getAuthor() {
+        return author;
     }
 
     public String getContent() {
@@ -38,10 +35,6 @@ public class HistoryResponse {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public LocalDateTime getLastModifiedAt() {
-        return lastModifiedAt;
     }
 
     public Action getAction() {

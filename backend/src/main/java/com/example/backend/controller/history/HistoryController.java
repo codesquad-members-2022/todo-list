@@ -23,9 +23,8 @@ public class HistoryController {
         return OK(historyService.saveHistory(request));
     }
 
-    @GetMapping("members/{id}/cards/{id}")
-    public ApiResult<HistoryResponse> getCardHistory(@PathVariable("memberId") Long memberId, @PathVariable("cardId") Long cardId) {
-        List<History> histories = historyService.findHistories(memberId, cardId);
-        return null;
+    @GetMapping("members/{memberId}/cards/{memberId}")
+    public ApiResult<List<HistoryResponse>> getCardHistory(@PathVariable("memberId") Long memberId, @PathVariable("memberId") Long cardId) {
+        return OK(historyService.findHistories(memberId, cardId));
     }
 }

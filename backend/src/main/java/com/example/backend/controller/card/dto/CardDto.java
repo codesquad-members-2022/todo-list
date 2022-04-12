@@ -8,17 +8,23 @@ import java.time.LocalDateTime;
 public class CardDto {
 
     private Long id;
+    private String writer;
     private String title;
+    private Long position;
     private String content;
     private LocalDateTime createdAt;
     private CardType cardType;
+    private Long memberId;
 
-    public CardDto(Long id, String title, String content, LocalDateTime createdAt, CardType cardType) {
+    public CardDto(Long id, String writer, Long position, String title, String content, LocalDateTime createdAt, CardType cardType, Long memberId) {
+        this.writer = writer;
         this.id = id;
+        this.position = position;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.cardType = cardType;
+        this.memberId = memberId;
     }
 
     public CardDto() {
@@ -36,12 +42,16 @@ public class CardDto {
         return id;
     }
 
-    public CardType getCardType() {
-        return cardType;
+    public String getWriter() {
+        return writer;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public Long getPosition() {
+        return position;
     }
 
     public String getContent() {
@@ -52,7 +62,11 @@ public class CardDto {
         return createdAt;
     }
 
-    public CardDto of(Card card) {
-        return new CardDto(card.getId(), card.getTitle(), card.getContent(), card.getCreatedAt(), card.getCardType());
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public Long getMemberId() {
+        return memberId;
     }
 }

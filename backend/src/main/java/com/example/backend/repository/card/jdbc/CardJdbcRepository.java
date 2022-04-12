@@ -4,6 +4,7 @@ import static com.example.backend.utils.TimeUtils.dateTimeOf;
 
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
+import com.example.backend.domain.history.History;
 import com.example.backend.repository.card.CardRepository;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -31,26 +32,36 @@ public class CardJdbcRepository implements CardRepository {
     public CardJdbcRepository(DataSource dataSource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
+
+//    @Override
+//    public Card save(Card card) {
+//        String query = "insert card (id, title, content, card_type, created_at, last_modified_at, `visible`, member_id)" +
+//                "values (:id, :title, :content, :cardType, :createdAt, :lastModifiedAt, :visible, :member_id)";
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(toParamMap(card));
+//        jdbcTemplate.update(query, mapSqlParameterSource, keyHolder);
+//        return card;
+//    }
+
     @Override
     public Card save(Card card) {
-        String query = "insert todo_list.card (id, title, content, card_type, created_at, last_modified_at, `visible`, column_id)" +
-                "values (:id, :title, :content, :cardType, :createdAt, :lastModifiedAt, :visible, :columnId)";
+        String query = "INSERT INTO card (id, writer, position, `visible`, title, content,  card_type, created_at, last_modified_at, member_id) " +
+                "VALUES (:id, :writer, :position, :visible, :title, :content, :cardType, :createdAt, :lastModifiedAt, :memberId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(toParamMap(card));
         jdbcTemplate.update(query, mapSqlParameterSource, keyHolder);
-        return null;
+        return card;
     }
 
     @Override
     public Map<String, List<Card>> findAll() {
-        String query = "select todo_list.card.id, " +
+        String query = "select card.id, " +
                 "todo_list.card.title, " +
                 "todo_list.card.content, " +
                 "todo_list.card.card_type, " +
                 "todo_list.card.created_at, " +
                 "todo_list.card.last_modified_at, " +
                 "todo_list.card.visible, " +
-                "todo_list.card.column_id " +
                 "from todo_list.card where todo_list.card.card_type = :cardType";
         return cardTypeClassification(query);
     }
@@ -100,25 +111,27 @@ public class CardJdbcRepository implements CardRepository {
     private Map<String, Object> toParamMap(Card card) {
         return new HashMap<>() {{
             put("id", card.getId());
+            put("writer", card.getWriter());
             put("title", card.getTitle());
+            put("position", card.getPosition());
             put("content", card.getContent());
-            put("cardType", card.getCardType().toString());
+            put("cardType", card.getCardType().name());
             put("createdAt", LocalDateTime.now());
             put("lastModifiedAt", LocalDateTime.now());
             put("visible", true);
-            put("columnId", card.getColumnId());
+            put("memberId", card.getMemberId());
         }};
     }
 
     private static RowMapper<Card> mapper = (rs, rowNum) ->
             new Card(
                     rs.getLong("id"),
+                    rs.getString("writer"),
                     rs.getString("title"),
                     rs.getString("content"),
                     rs.getString("card_type"),
                     dateTimeOf(rs.getTimestamp("created_at")),
                     dateTimeOf(rs.getTimestamp("last_modified_at")),
-                    rs.getBoolean("visible"),
-                    rs.getLong("column_id")
+                    rs.getLong("member_id")
             );
 }
