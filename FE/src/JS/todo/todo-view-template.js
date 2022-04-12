@@ -26,3 +26,15 @@ export function makeCard({ id }, { title, content }) {
     <span class="card-author">Author by ${id}</span>
   </li>`;
 }
+
+export function addCardTemplate() {
+  return `
+  <li class="column-item--card">
+    <div class="card-header">
+      <input class="card-title" type="text" placeholder="제목을 입력하세요." maxlength="14"/>
+    </div>
+    <input class="card-contents" type="text" placeholder="내용을 입력하세요." maxlength="500"/>
+    <button class="add-btn">취소</button>
+    <button class="add-btn blue">등록</button>
+  </li>`
+}

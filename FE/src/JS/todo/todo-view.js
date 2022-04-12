@@ -1,5 +1,5 @@
-import { $ } from '../utility/util.js';
-import { makeCategory, makeCard } from './todo-view-template.js';
+import { $, $$ } from '../utility/util.js';
+import { makeCategory, makeCard, addCardTemplate } from './todo-view-template.js';
 
 export default class View {
   constructor() {
@@ -11,17 +11,28 @@ export default class View {
   }
 
   renderTodoCard(todoInfo, data) {
-    const $container = this.findCategoryName(todoInfo.category);
+    const $container = this.findCurrentContainer(todoInfo.category);
 
     $container.insertAdjacentHTML('beforeend', makeCard(todoInfo, data));
 
     this.changeCategoryCount(todoInfo, $container);
   }
 
-  findCategoryName = (categoryName) => $(`.container${categoryName}`);
+  findCurrentContainer = (categoryName) => $(`.container${categoryName}`);
 
   changeCategoryCount(todoInfo, $container) {
     $(`.itemCount${todoInfo.category}`).innerHTML =
       $container.childElementCount;
+  }
+
+  addCardTemplateEvent() {
+    const addBtn = $$('.addBtn');
+    addBtn.forEach(el => (el.addEventListener('click', this.showCardTemplate)));
+  }
+
+  showCardTemplate = ({target}) => {
+    const columnName = target.closest('.column-item').id;
+    const column = this.findCurrentContainer(columnName);
+    column.insertAdjacentHTML('afterBegin', addCardTemplate())
   }
 }
