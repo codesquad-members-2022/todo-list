@@ -15,6 +15,7 @@ export class ScheduleColumn {
         this.dragCard;
         this.move = this.mouseMoveOnDraggingEventHandler.bind(this);
         this.up = this.mouseUpOnDraggingEventHandler.bind(this);
+        this.enter = this.mouseEnterOnDraggingEventHandler.bind(this);
 
         this.init();
     }
@@ -80,6 +81,25 @@ export class ScheduleColumn {
     addMouseEventOnDragCard() {
         this.$target.addEventListener("mousemove", this.move);
         this.$target.addEventListener("mouseup", this.up);
+
+        this.$scheduleColumn.addEventListener("mouseenter", this.enter)
+    }
+
+    mouseEnterOnDraggingEventHandler(event) {
+        const CARD = ".schedule-card";
+        const $scheduleCard = event.target.closest(CARD)
+
+        if($scheduleCard) {
+            if(this.getLocation($scheduleCard, event.pageY) === 'top') {
+
+            }
+        }
+    }
+
+    getLocation(element, y) {
+        const box = element.getBoundingClientRect()
+        const offset = y - (box.top + box.height / 2)
+        return offset < 0 ? "top" : "bottom"
     }
 
     mouseUpOnDraggingEventHandler() {
@@ -105,7 +125,6 @@ export class ScheduleColumn {
         const CARD = "schedule-card";
         const CARD_AFTER_IMAGE = "schedule-card--afterimage";
         const DRAG_CARD = "schedule-drag-card";
-        this.initDragCard(selectedCard);
         this.dragCard = selectedCard.cloneNode(true);
 
         selectedCard.classList.replace(CARD, CARD_AFTER_IMAGE);
