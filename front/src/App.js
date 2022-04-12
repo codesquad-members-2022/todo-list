@@ -1,7 +1,7 @@
 import styles from "./App.module.css";
 import Actions from "./components/Actions/Actions";
+import Content from "./components/Content/Content";
 import Header from "./components/Header/Header";
-import Main from "./components/Main";
 import peact from "./core/peact";
 import columnApi from "./service/columnApi";
 import todoApi from "./service/todoApi";
@@ -29,15 +29,20 @@ const App = () => {
     fetchTodos();
   }, []);
 
-  return `
-    <div class="${styles.wrap}">
-        <div class="${styles.todolistArea}">
-            ${Header({ onMenuClick: handleActionDisplay })}
-            ${Main({ columns, todos })}
-        </div>
-        ${Actions({ display: actionDisplay })}
-    </div>
-  `;
+  const $todoListArea = peact.createElement({
+    tag: "div",
+    className: styles.todolistArea,
+    child: [
+      Header({ onMenuClick: handleActionDisplay }),
+      Content({ columns, todos }),
+    ],
+  });
+
+  return peact.createElement({
+    tag: "div",
+    className: styles.wrap,
+    child: [$todoListArea, Actions({ display: actionDisplay })],
+  });
 };
 
 export default App;

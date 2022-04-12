@@ -13,7 +13,7 @@
 .menu {
   display: flex;
   cursor: pointer;
-  justify-content: end;
+  justify-content: flex-end;
   margin-bottom: 18px;
 }
 

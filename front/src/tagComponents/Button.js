@@ -1,16 +1,15 @@
-import { addEventAfterRender } from "../common/domUtils";
+import peact from "../core/peact";
 import { useId } from "../hooks/useId";
 
 const Button = ({ onClick, className, innerHTML }) => {
   const id = useId("button");
-  if (onClick) {
-    addEventAfterRender({
-      eventType: "click",
-      selector: id,
-      callback: onClick,
-    });
-  }
-  return `<button id=${id} class=${className}>${innerHTML}</button>`;
+  return peact.createElement({
+    tag: "button",
+    id,
+    className,
+    attrs: { onClick },
+    child: [innerHTML],
+  });
 };
 
 export default Button;

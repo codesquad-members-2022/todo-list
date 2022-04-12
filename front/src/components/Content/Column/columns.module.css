@@ -5,3 +5,8 @@
 .column:not(:last-child) {
   margin-right: 15px;
 }
+
+.content {
+  display: flex;
+  padding: 0 80px;
+}

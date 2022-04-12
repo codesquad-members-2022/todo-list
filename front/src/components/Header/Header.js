@@ -1,3 +1,4 @@
+import peact from "../../core/peact";
 import Button from "../../tagComponents/Button";
 import styles from "./header.module.css";
 
@@ -17,16 +18,19 @@ const buttonInnerHTML = `
 `;
 
 const Header = ({ onMenuClick }) => {
-  return `
-    <header class="${styles.titleArea}">
-        <h1 class="${styles.title}">TO-DO LIST</h1>
-        ${Button({
-          className: styles.menu,
-          innerHTML: buttonInnerHTML,
-          onClick: onMenuClick,
-        })}
-    </header>
-    `;
+  const $title = peact.createElement({ tag: "h1", child: ["TO-DO LIST"] });
+  return peact.createElement({
+    tag: "header",
+    className: styles.titleArea,
+    child: [
+      $title,
+      Button({
+        className: styles.menu,
+        innerHTML: buttonInnerHTML,
+        onClick: onMenuClick,
+      }),
+    ],
+  });
 };
 
 export default Header;

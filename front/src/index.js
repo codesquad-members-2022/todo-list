@@ -1,5 +1,5 @@
 import App from "./App";
 import peact from "./core/peact";
 
-peact.setRoot(document.querySelector(".App"), App);
-peact.render();
+peact.setRoot(document.getElementById("root"));
+peact.render(App);
