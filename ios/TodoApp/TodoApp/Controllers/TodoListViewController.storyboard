@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YkO-zG-ryQ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IE7-bL-67q">
                                         <rect key="frame" x="0.0" y="0.0" width="10" height="50"/>
@@ -74,18 +74,18 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Oqo-Nq-vGg">
-                                <rect key="frame" x="15" y="55" width="384" height="792"/>
+                                <rect key="frame" x="15" y="99" width="384" height="748"/>
                                 <color key="backgroundColor" name="Background"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoCell" id="uwA-Vr-ugE" customClass="TodoCell" customModule="TodoApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="384" height="577"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TodoCell" id="uwA-Vr-ugE" customClass="TodoCell" customModule="TodoApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="384" height="557"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uwA-Vr-ugE" id="xDy-aG-jeL">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="577"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="557"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="lQi-UY-m2m">
-                                                    <rect key="frame" x="0.0" y="0.0" width="384" height="577"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="384" height="557"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQS-Yz-c7h">
                                                             <rect key="frame" x="0.0" y="0.0" width="384" height="557"/>
@@ -99,15 +99,14 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-15-REG">
-                                                                            <rect key="frame" x="0.0" y="34" width="354" height="264"/>
-                                                                            <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-15-REG">
+                                                                            <rect key="frame" x="0.0" y="34" width="354" height="41"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="작성자 필드" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoB-RK-nfb">
-                                                                            <rect key="frame" x="0.0" y="308" width="354" height="219"/>
+                                                                            <rect key="frame" x="0.0" y="85" width="354" height="442"/>
                                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
                                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -121,13 +120,6 @@
                                                                 <constraint firstItem="e1s-12-Ug8" firstAttribute="leading" secondItem="lQS-Yz-c7h" secondAttribute="leading" constant="15" id="ZQI-VH-ke6"/>
                                                                 <constraint firstItem="e1s-12-Ug8" firstAttribute="top" secondItem="lQS-Yz-c7h" secondAttribute="top" constant="15" id="juj-dz-SrB"/>
                                                                 <constraint firstAttribute="bottom" secondItem="e1s-12-Ug8" secondAttribute="bottom" constant="15" id="uaZ-FL-hMm"/>
-                                                            </constraints>
-                                                        </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZU2-wO-9Ej">
-                                                            <rect key="frame" x="0.0" y="557" width="241.5" height="20"/>
-                                                            <color key="backgroundColor" name="Background"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="20" id="PC0-H8-mav"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -152,18 +144,20 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lJG-jH-YE9"/>
+                        <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="lJG-jH-YE9" firstAttribute="trailing" secondItem="Oqo-Nq-vGg" secondAttribute="trailing" constant="15" id="0Ql-mZ-DFk"/>
                             <constraint firstItem="Oqo-Nq-vGg" firstAttribute="top" secondItem="YkO-zG-ryQ" secondAttribute="bottom" constant="5" id="0nK-Jt-zgs"/>
                             <constraint firstItem="lJG-jH-YE9" firstAttribute="bottom" secondItem="Oqo-Nq-vGg" secondAttribute="bottom" constant="15" id="7fu-Wh-OrI"/>
                             <constraint firstItem="Oqo-Nq-vGg" firstAttribute="leading" secondItem="lJG-jH-YE9" secondAttribute="leading" constant="15" id="8Ci-QS-DnQ"/>
-                            <constraint firstItem="YkO-zG-ryQ" firstAttribute="top" secondItem="qvH-Zw-uGo" secondAttribute="top" id="bgY-Tf-jZA"/>
+                            <constraint firstItem="YkO-zG-ryQ" firstAttribute="top" secondItem="lJG-jH-YE9" secondAttribute="top" id="bgY-Tf-jZA"/>
                             <constraint firstItem="YkO-zG-ryQ" firstAttribute="leading" secondItem="lJG-jH-YE9" secondAttribute="leading" id="hpF-zr-BWx"/>
                             <constraint firstItem="lJG-jH-YE9" firstAttribute="trailing" secondItem="YkO-zG-ryQ" secondAttribute="trailing" id="lWZ-cp-NhK"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addToDoButton" destination="T45-ro-CGl" id="Pi4-4Q-Ohq"/>
+                        <outlet property="badgeLabel" destination="2Rd-hi-6vj" id="M2B-Ah-vuF"/>
                         <outlet property="badgeView" destination="RnH-Pw-IWt" id="ZOs-LT-IFF"/>
                         <outlet property="tableView" destination="Oqo-Nq-vGg" id="yEA-GM-BQp"/>
                     </connections>
