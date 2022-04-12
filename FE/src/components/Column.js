@@ -1,18 +1,18 @@
-import TaskCard from './TaskCard.js';
+import { GET_CARD } from "../dummyData.js";
+import TaskCard from "./TaskCard.js";
 
 export default class Column {
-  init() {
-    const taskCards = [1, 2, 3];
-    const taskCardComponents = taskCards.map(e => new TaskCard());
+  constructor(columnTitle) {
+    this.columnTitle = columnTitle;
+    this.taskCardComponents = GET_CARD.map((card) => new TaskCard(card));
   }
-
-  template(state) {
+  template() {
     return `
       <div class="work">
         <div class="work__header">
           <div class="work__left">
-            <h2 class="work__title">${state.title}</h2>
-            <strong class="work__counter">${this.counter()}</strong>
+            <h2 class="work__title">${this.columnTitle}</h2>
+            <strong class="work__counter">${this.getCardLength()}</strong>
           </div>
           <div class="work__btn">
             <div class="work__btn--add"></div>
@@ -20,16 +20,15 @@ export default class Column {
           </div>
         </div>
         <div class="work__body">
-          ${taskCardComponents.reduce((acc, cur) => {
-            acc + cur.template(state); // state.?
-          }, '')}
+          ${this.taskCardComponents.reduce(
+            (prev, cur) => prev + cur.template(),
+            ""
+          )}
         </div>
       </div>
-    `
+    `;
   }
-
-  counter() {
-    // 프론트엔드단에서 카운터 길이를 구해서 리턴
-    return this.counter;
+  getCardLength() {
+    return this.taskCardComponents.length;
   }
 }

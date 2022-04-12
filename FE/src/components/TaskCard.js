@@ -1,20 +1,21 @@
 export default class TaskCard {
-  constructor() {}
-  init() {}
+  constructor(state) {
+    this.state = state;
+  }
   template() {
-    // states = ["idle", "delete", "drag", "place"];
-    const state = "idle";
+    // types = ["idle", "delete", "drag", "place"];
+    const type = "idle";
     return `
       <ul class="work__list">
         <li class="work__item">
-          <div class="task-${state}">
-            <div class="task-${state}__contents">
-              <h3 class="task-${state}__title">GitHub 공부하기</h3>
-              <p class="task-${state}__desc">add, commit, push</p>
-              <strong class="task-${state}__author">author by web</strong>
+          <div class="task-${type}">
+            <div class="task-${type}__contents">
+              <h3 class="task-${type}__title">${this.state.title}</h3>
+              <p class="task-${type}__desc">${this.state.contents}</p>
+              <strong class="task-${type}__author">author by ${this.state.userId}</strong>
             </div>
-            <div class="task-${state}__btn">
-              <div class="task-${state}__btn--remove"></div>
+            <div class="task-${type}__btn">
+              <div class="task-${type}__btn--remove"></div>
             </div>
           </div>
         </li>
