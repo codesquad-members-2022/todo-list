@@ -2,8 +2,6 @@ package team03.todoapp.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import team03.todoapp.controller.dto.CardResponse;
@@ -51,12 +49,12 @@ public class MockController {
 
     }
 
-    @PatchMapping("/card/move/{card_id}")
+    //@PatchMapping("/card/move/{card_id}")
     public void move() {
 
     }
 
-   // @GetMapping("/histories")
+    // @GetMapping("/histories")
     public HistoriesResponse getHistories() {
         HistoriesResponse historiesResponse = new HistoriesResponse();
 

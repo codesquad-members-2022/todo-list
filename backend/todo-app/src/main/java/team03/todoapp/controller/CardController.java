@@ -1,5 +1,6 @@
 package team03.todoapp.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import team03.todoapp.Service.CardService;
 import team03.todoapp.controller.dto.CardAddFormRequest;
 import team03.todoapp.controller.dto.CardMoveFormRequest;
-
-import javax.servlet.http.HttpServletResponse;
 import team03.todoapp.controller.dto.CardUpdateFormRequest;
 import team03.todoapp.controller.dto.CardsResponse;
 
@@ -41,8 +40,10 @@ public class CardController {
         cardService.remove(cardId);
     }
 
-    @PatchMapping("/card/{cardId}")
-    public void moveCard(@Validated @RequestBody CardMoveFormRequest cardMoveFormRequest, BindingResult bindingResult, HttpServletResponse httpServletResponse, @PathVariable("cardId") Long cardId) {
+    @PatchMapping("/card/move/{cardId}")
+    public void moveCard(@Validated @RequestBody CardMoveFormRequest cardMoveFormRequest,
+        BindingResult bindingResult, HttpServletResponse httpServletResponse,
+        @PathVariable("cardId") Long cardId) {
         if (bindingResult.hasErrors()) {
             log.error("bindingResult: {}", bindingResult);
             httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
