@@ -31,3 +31,6 @@ body {
   font-family: "Noto Sans KR";
   font-style: normal;
 }
+button{
+  background: none;
+}

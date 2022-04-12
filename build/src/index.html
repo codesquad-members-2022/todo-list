@@ -1,138 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TodoList</title>
+    <link rel="stylesheet" href="./stylesheet/css/reset.css" />
+    <link rel="stylesheet" href="./stylesheet/css/index.css" />
+    <link rel="stylesheet" href="./stylesheet/css/header.css" />
+    <link rel="stylesheet" href="./stylesheet/css/column.css" />
+    <link rel="stylesheet" href="./stylesheet/css/card.css" />
+    <link rel="stylesheet" href="./stylesheet/css/action.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TodoList</title>
-  <link rel="stylesheet" href="./stylesheet/css/reset.css" />
-  <link rel="stylesheet" href="./stylesheet/css/index.css" />
-  <link rel="stylesheet" href="./stylesheet/css/header.css" />
-  <link rel="stylesheet" href="./stylesheet/css/column.css" />
-  <link rel="stylesheet" href="./stylesheet/css/card.css" />
-  <link rel="stylesheet" href="./stylesheet/css/action.css" />
-</head>
-
-<body>
-  <header class="row-between">
-    <h1 class="header-title title-font">TO-DO LIST</h1>
-    <figure class="hamburger-button">
-      <img src="./image/hamburgerBtn.svg" alt="hamburger-button-img" />
-    </figure>
-  </header>
-  <section class="column-wrapper">
-    <article id="have-to-do-column" class="column">
-      <div class="column-menu row-between">
-        <div class="title-and-count row-sort">
-          <div class="column-title title-font">해야할 일</div>
-          <div class="count colunm-sort title-font center-sort">2</div>
-        </div>
-        <div class="menu-buttons center-sort">
-          <figure class="plus-button" id="have-to-do-plus">
-            <img src="./image/plusBtn.svg" alt="plus-button-img" class="plus-button-img" />
-          </figure>
-          <figure class="cross-button">
-            <img src="./image/crossBtn.svg" alt="cross-button-img" class="cross-button-img" />
-          </figure>
-        </div>
-      </div>
-      <div class="cards" id="have-to-do-cards">
-      </div>
-    </article>
-    <article id="doing-column" class="column">
-      <div class="column-menu row-between">
-        <div class="title-and-count row-sort">
-          <div class="column-title title-font">하고 있는 일</div>
-          <div class="count colunm-sort title-font center-sort">1</div>
-        </div>
-        <div class="menu-buttons center-sort">
-          <figure class="plus-button">
-            <img src="./image/plusBtn.svg" alt="plus-button-img" class="plus-button-img" />
-          </figure>
-          <figure class="cross-button">
-            <img src="./image/crossBtn.svg" alt="cross-button-img" class="cross-button-img" />
-          </figure>
-        </div>
-      </div>
-      <div class="cards" id="doing-cards">
-      </div>
-    </article>
-    <article id="done-column" class="column">
-      <div class="column-menu row-between">
-        <div class="title-and-count row-sort">
-          <div class="column-title title-font">완료한 일</div>
-          <div class="count colunm-sort title-font center-sort">0</div>
-        </div>
-        <div class="menu-buttons center-sort">
-          <figure class="plus-button">
-            <img src="./image/plusBtn.svg" alt="plus-button-img" class="plus-button-img" />
-          </figure>
-          <figure class="cross-button">
-            <img src="./image/crossBtn.svg" alt="cross-button-img" class="cross-button-img" />
-          </figure>
-        </div>
-      </div>
-      <div class="cards" id="done-cards">
-      </div>
-    </article>
-  </section>
-  <div class="action-bar">
-    <figure class="action-cross-button">
-      <img src="./image/crossBtn.svg" alt="cross-button-img" class="action-cross-button-img" />
-    </figure>
-    <div class="action-log">
-      <div class="action">
-        <figure class="imoge">
-          <img src="./image/imoge.svg" alt="user-imoge-img" class="imogeimg" />
-        </figure>
-        <div class="action-contents">
-          <div class="user-id">@sam</div>
-          <div class="action-detail">
-            <strong>HTML/CSS공부하기</strong>를 <strong>해야할 일</strong>에서
-            <strong>하고 있는 일</strong>로 <strong>이동</strong>하였습니다.
+  <body>
+    <header class="row-between">
+      <h1 class="header-title title-font">TO-DO LIST</h1>
+      <button class="hamburger-button">
+        <img src="./image/hamburgerBtn.svg" alt="hamburger-button-img" />
+      </button>
+    </header>
+    <section class="column-wrapper" id="column-wrapper-id">
+      <article id="have-to-do-column" class="column">
+        <div class="column-menu row-between">
+          <div class="title-and-count row-sort">
+            <div class="column-title title-font">해야할 일</div>
+            <div class="count colunm-sort title-font center-sort">2</div>
           </div>
-          <div class="action-time">1분전</div>
-        </div>
-      </div>
-      <div class="action">
-        <figure class="imoge">
-          <img src="./image/imoge.svg" alt="user-imoge-img" class="imogeimg" />
-        </figure>
-        <div class="action-contents">
-          <div class="user-id">@sam</div>
-          <div class="action-detail">
-            <strong>HTML/CSS공부하기</strong>를 <strong>해야할 일</strong>에서
-            <strong>하고 있는 일</strong>로 <strong>이동</strong>하였습니다.
+          <div class="menu-buttons center-sort">
+            <button class="plus-button" id="have-to-do-plus">
+              <img
+                src="./image/plusBtn.svg"
+                alt="plus-button-img"
+                class="plus-button-img"
+              />
+            </button>
+            <button class="cross-button">
+              <img
+                src="./image/crossBtn.svg"
+                alt="cross-button-img"
+                class="cross-button-img"
+              />
+            </button>
           </div>
-          <div class="action-time">1분전</div>
         </div>
-      </div>
-      <div class="action">
-        <figure class="imoge">
-          <img src="./image/imoge.svg" alt="user-imoge-img" class="imogeimg" />
-        </figure>
-        <div class="action-contents">
-          <div class="user-id">@sam</div>
-          <div class="action-detail">
-            <strong>HTML/CSS공부하기</strong>를 <strong>해야할 일</strong>에서
-            <strong>하고 있는 일</strong>로 <strong>이동</strong>하였습니다.
+        <div class="cards" id="have-to-do-cards"></div>
+      </article>
+      <article id="doing-column" class="column">
+        <div class="column-menu row-between">
+          <div class="title-and-count row-sort">
+            <div class="column-title title-font">하고 있는 일</div>
+            <div class="count colunm-sort title-font center-sort">1</div>
           </div>
-          <div class="action-time">1분전</div>
+          <div class="menu-buttons center-sort">
+            <button class="plus-button">
+              <img
+                src="./image/plusBtn.svg"
+                alt="plus-button-img"
+                class="plus-button-img"
+              />
+            </button>
+            <button class="cross-button">
+              <img
+                src="./image/crossBtn.svg"
+                alt="cross-button-img"
+                class="cross-button-img"
+              />
+            </button>
+          </div>
+        </div>
+        <div class="cards" id="doing-cards"></div>
+      </article>
+      <article id="done-column" class="column">
+        <div class="column-menu row-between">
+          <div class="title-and-count row-sort">
+            <div class="column-title title-font">완료한 일</div>
+            <div class="count colunm-sort title-font center-sort">0</div>
+          </div>
+          <div class="menu-buttons center-sort">
+            <button class="plus-button">
+              <img
+                src="./image/plusBtn.svg"
+                alt="plus-button-img"
+                class="plus-button-img"
+              />
+            </button>
+            <button class="cross-button">
+              <img
+                src="./image/crossBtn.svg"
+                alt="cross-button-img"
+                class="cross-button-img"
+              />
+            </button>
+          </div>
+        </div>
+        <div class="cards" id="done-cards"></div>
+      </article>
+    </section>
+    <div class="action-bar">
+      <button class="action-cross-button">
+        <img
+          src="./image/crossBtn.svg"
+          alt="cross-button-img"
+          class="action-cross-button-img"
+        />
+      </button>
+      <div class="action-log">
+        <div class="action">
+          <figure class="imoge">
+            <img
+              src="./image/imoge.svg"
+              alt="user-imoge-img"
+              class="imogeimg"
+            />
+          </figure>
+          <div class="action-contents">
+            <div class="user-id">@sam</div>
+            <div class="action-detail">
+              <strong>HTML/CSS공부하기</strong>를 <strong>해야할 일</strong>에서
+              <strong>하고 있는 일</strong>로 <strong>이동</strong>하였습니다.
+            </div>
+            <div class="action-time">1분전</div>
+          </div>
+        </div>
+        <div class="action">
+          <figure class="imoge">
+            <img
+              src="./image/imoge.svg"
+              alt="user-imoge-img"
+              class="imogeimg"
+            />
+          </figure>
+          <div class="action-contents">
+            <div class="user-id">@sam</div>
+            <div class="action-detail">
+              <strong>HTML/CSS공부하기</strong>를 <strong>해야할 일</strong>에서
+              <strong>하고 있는 일</strong>로 <strong>이동</strong>하였습니다.
+            </div>
+            <div class="action-time">1분전</div>
+          </div>
+        </div>
+        <div class="action">
+          <figure class="imoge">
+            <img
+              src="./image/imoge.svg"
+              alt="user-imoge-img"
+              class="imogeimg"
+            />
+          </figure>
+          <div class="action-contents">
+            <div class="user-id">@sam</div>
+            <div class="action-detail">
+              <strong>HTML/CSS공부하기</strong>를 <strong>해야할 일</strong>에서
+              <strong>하고 있는 일</strong>로 <strong>이동</strong>하였습니다.
+            </div>
+            <div class="action-time">1분전</div>
+          </div>
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-    <!-- <script src="https://npmcdn.com/axios/dist/axios.min.js"></script> -->
-    <script type="module" src="/build/src/javascript/app.js"></script>
-    <!-- <script src="../dist/bundle.js"></script> -->
+    <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script defer type="module" src="./javascript/app.js"></script>
+    <script defer src="../dist/bundle.js"></script>
   </body>
 </html>
-=======
-  </div>
-  <!-- <script src="https://npmcdn.com/axios/dist/axios.min.js"></script> -->
-  <script type="module" src="./javascript/app.js"></script>
-  <!-- <script src="../dist/bundle.js"></script> -->
-</body>
-
-</html>
->>>>>>> c053177edeacc9b2260f2dc71745ff13c2166c90
