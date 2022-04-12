@@ -1,5 +1,5 @@
 import "./app.scss";
-import { columnStore } from "./stores/ColumnStore.js";
+import { Store } from "./stores/ColumnStore.js";
 import { renderHeader } from "./components/header/Header.js";
 import { initMain } from "./components/main/Main.js";
 

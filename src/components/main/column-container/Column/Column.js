@@ -3,21 +3,27 @@ import { Store } from "../../../../stores/ColumnStore.js";
 import { Card } from "./card/Card.js";
 
 export const initColumn = (parentNode, columnState) => {
-  const columnNode = makeColumnNode(parentNode, columnState);
+  const columnNode = makeColumnNode(columnState);
+  appendColumnNode(columnNode, parentNode);
   renderColumn(columnNode, columnState);
+  setEvents(columnNode);
+  subscribeState();
 };
 
-const makeColumnNode = (parentNode, columnState) => {
+const makeColumnNode = (columnState) => {
   const columnNode = document.createElement("div");
   columnNode.className = "column";
-  columnNode.dataset.columnid = columnState.id;
-  parentNode.append(columnNode);
+  columnNode.dataset.id = columnState.id;
   return columnNode;
 };
 
+const appendColumnNode = (columnNode, parentNode) => {
+  parentNode.append(columnNode);
+};
+
 const renderColumn = (columnNode, columnState) => {
-  const columnInnerTemplate = makeColumnInnerTemplate(columnState);
-  columnNode.innerHTML = columnInnerTemplate;
+  columnNode.innerHTML = makeColumnInnerTemplate(columnState);
+  mountCards(columnNode, columnState);
 };
 
 const makeColumnInnerTemplate = (columnState) => {
@@ -35,7 +41,7 @@ const getHeaderTemplate = (columnState) => {
         <div class="column-header__count">${columnState.cardOrder.length}</div>
       </div>
       <div class="column-header__util">
-        <div class="column-header__add-btn${columnData.addBtnActivated ? " activated" : ""}"></div>
+        <div class="column-header__add-btn${columnState.addBtnActivated ? " activated" : ""}"></div>
         <div class="column-header__delete-btn"></div>
       </div>
     </div>
@@ -48,97 +54,42 @@ const getCardListTemplate = () => {
     `;
 };
 
+const mountCards = (columnNode, columnState) => {
+  const columnID = columnNode.dataset.id;
+  const cardOrder = columnState.cardOrder;
+  const cardListNode = columnNode.querySelector(".card-list");
+  cardListNode.innerHTML = "";
+  cardOrder.forEach((cardID) => new Card(columnID, cardID));
+};
+
+const setEvents = (columnNode) => {
+  setAddBtnEvent(columnNode);
+};
+
+const setAddBtnEvent = (columnNode) => {
+  const addBtn = columnNode.querySelector(".column-header__add-btn");
+  addBtn.addEventListener("click", () => handleAddBtnClick(columnNode, addBtn));
+};
+
+const handleAddBtnClick = (columnNode, addBtn) => {
+  const columnID = columnNode.dataset.id;
+  if (addBtn.classList.contains("activated")) {
+    Store.unsetAddingCardState(columnID);
+  } else {
+    Store.setAddingCardState(columnID);
+  }
+};
+
+const subscribeState = () => {
+  Store.subscribe("column", reRenderColumn);
+};
+
 const reRenderColumn = (columnState) => {
   const columnNode = findColumnNode(columnState.id);
-  render(columnNode, columnState);
+  renderColumn(columnNode, columnState);
+  setEvents(columnNode);
 };
 
 const findColumnNode = (columnID) => {
-  return document.querySelector(`[data-columnid="${columnID}"]`);
+  return document.querySelector(`[data-id="${columnID}"]`);
 };
-
-export class Column {
-  constructor(columnID) {
-    this.columnID = columnID;
-    this.setNode();
-    this.renderContent();
-    this.activate();
-  }
-
-  setNode() {
-    const columnContainerDOM = document.querySelector(".column-container");
-    const columnNode = this.makeColumnNode();
-    columnContainerDOM.append(columnNode);
-    this.columnNode = columnNode;
-  }
-
-  makeColumnNode() {
-    const columnNode = document.createElement("div");
-    columnNode.className = "column";
-    columnNode.dataset.columnid = this.columnID;
-    return columnNode;
-  }
-
-  renderContent() {
-    const columnData = Store.state[this.columnID];
-    this.columnNode.innerHTML = this.getContentTemplate(columnData);
-    this.mountCards(columnData);
-    this.setEvents();
-  }
-
-  getContentTemplate(columnData) {
-    return `
-      ${this.getHeaderTemplate(columnData)}
-      ${this.getCardListTemplate()}
-    `;
-  }
-
-  getHeaderTemplate(columnData) {
-    return `
-      <div class="column-header">
-        <div class="column-header__info">
-          <div class="column-header__title">${columnData.title}</div>
-          <div class="column-header__count">${Object.keys(columnData.cards).length}</div>
-        </div>
-        <div class="column-header__util">
-          <div class="column-header__add-btn${columnData.addBtnActivated ? " activated" : ""}"></div>
-          <div class="column-header__delete-btn"></div>
-        </div>
-      </div>
-    `;
-  }
-
-  getCardListTemplate() {
-    return `
-      <ul class='card-list'></ul>
-      `;
-  }
-
-  mountCards(columnData) {
-    const cardOrder = columnData.cardOrder;
-    const cardListEl = this.columnNode.querySelector(".card-list");
-    cardListEl.innerHTML = "";
-    cardOrder.forEach((cardID) => new Card(this.columnID, cardID));
-  }
-
-  setEvents() {
-    this.setAddBtnEvent();
-  }
-
-  setAddBtnEvent() {
-    const addBtn = this.columnNode.querySelector(".column-header__add-btn");
-    addBtn.addEventListener("click", () => this.handleAddBtnClick(addBtn));
-  }
-
-  handleAddBtnClick(addBtn) {
-    if (addBtn.classList.contains("activated")) {
-      Store.exitFromAddCardState(this.columnID);
-    } else {
-      Store.setAddingCardState(this.columnID);
-    }
-  }
-
-  activate() {
-    Store.subscribe("column", () => this.renderContent());
-  }
-}

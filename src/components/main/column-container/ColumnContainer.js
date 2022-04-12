@@ -1,5 +1,5 @@
-import { newStore } from "../../../stores/ColumnStore.js";
-import { Column } from "./Column/Column.js";
+import { Store } from "../../../stores/ColumnStore.js";
+import { initColumn } from "./Column/Column.js";
 import { pipe } from "../../../util/util.js";
 
 export const initColumnContainer = (parentNode) => {
@@ -19,8 +19,7 @@ const makeColumnContainerDOM = () => {
 };
 
 const mountColumn = (columnContainerNode) => {
-  const columnState = newStore.columnContainerState;
+  const columnState = Store.state;
   const columnOrder = columnState.columnOrder;
-  columnOrder.forEach((columnID) => new Column(columnID));
-  //columnOrder.forEach((columnID) => initColumn(columnContainerNode, columnState[columnID]));
+  columnOrder.forEach((columnID) => initColumn(columnContainerNode, columnState[columnID]));
 };

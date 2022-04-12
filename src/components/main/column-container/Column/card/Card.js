@@ -15,7 +15,7 @@ export class Card {
   }
 
   setNode() {
-    const parentColumnDOM = document.querySelector(`[data-columnid="${this.parentColumnID}"]`);
+    const parentColumnDOM = document.querySelector(`[data-id="${this.parentColumnID}"]`);
     const cardNode = this.makeCardNode();
     parentColumnDOM.append(cardNode);
     this.cardNode = cardNode;

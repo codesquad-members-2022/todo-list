@@ -1,45 +1,3 @@
-export const newStore = {
-  columnContainerState: {
-    columnOrder: [0, 1, 2],
-    0: {
-      id: 0,
-      title: "해야할 일",
-      addBtnActivated: false,
-      cardOrder: [],
-      cards: {
-        id: { id: 000 },
-        id: { id: 111 },
-        id: { id: 000 },
-      },
-    },
-    1: {
-      id: 1,
-      title: "하고 있는 일",
-      addBtnActivated: false,
-      cardOrder: [],
-    },
-    2: {
-      id: 2,
-      title: "완료된 일",
-      addBtnActivated: false,
-      cardOrder: [],
-    },
-  },
-};
-
-const observers = {};
-
-export const subscribe = (interest, observer) => {
-  if (!observers[interest]) {
-    observers[interest] = [];
-  }
-  observers[interest].push(observer);
-};
-
-const notify = (interest) => {
-  newStore.observers[interest].forEach((observer) => observer());
-};
-
 export const Store = {
   observers: {},
 
@@ -50,25 +8,28 @@ export const Store = {
     this.observers[interest].push(observer);
   },
 
-  notify(interest) {
-    this.observers[interest].forEach((observer) => observer());
+  notify(interest, state) {
+    this.observers[interest].forEach((observer) => observer(state));
   },
 
   state: {
     columnOrder: [0, 1, 2],
     0: {
+      id: 0,
       title: "해야할 일",
       addBtnActivated: false,
       cardOrder: [],
       cards: {},
     },
     1: {
+      id: 1,
       title: "하고 있는 일",
       addBtnActivated: false,
       cardOrder: [],
       cards: {},
     },
     2: {
+      id: 2,
       title: "완료된 일",
       addBtnActivated: false,
       cardOrder: [],
@@ -79,13 +40,13 @@ export const Store = {
   setAddingCardState(columnID) {
     this.toggleColumnAddBtnActivation(columnID);
     this.addNewCardForm(columnID);
-    this.notify("column");
+    this.notify("column", this.state[columnID]);
   },
 
-  exitFromAddCardState(columnID) {
+  unsetAddingCardState(columnID) {
     this.toggleColumnAddBtnActivation(columnID);
     this.deleteNewCardForm(columnID);
-    this.notify("column");
+    this.notify("column", this.state[columnID]);
   },
 
   toggleColumnAddBtnActivation(columnID) {
@@ -110,18 +71,18 @@ export const Store = {
   deleteCard(columnID, cardID) {
     delete this.state[columnID].cards[cardID];
     this.state[columnID].cardOrder = this.state[columnID].cardOrder.filter((e) => e !== cardID);
-    this.notify("column");
+    this.notify("column", this.state[columnID]);
   },
 
   changeCard(columnID, cardID, cardData) {
     const changedCardData = {};
     changedCardData[cardID] = cardData;
     this.state[columnID].cards = { ...this.state[columnID].cards, ...changedCardData };
-    this.notify("column");
+    this.notify("column", this.state[columnID]);
   },
 
   changeCardType(columnID, cardID, type) {
     this.state[columnID].cards[cardID].type = type;
-    this.notify("column");
+    this.notify("column", this.state[columnID]);
   },
 };
