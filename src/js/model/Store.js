@@ -1,6 +1,5 @@
 function createStore(initState) {
   let state = initState;
-  //올리버와 상의후 데이터 조율 필요
 
   return {
     getState() {

@@ -4,22 +4,23 @@ import { initColumn, onClickColumnAddBtn } from "../view/ColumnView.js";
 
 function addCard2Column(event, store) {
   const { target } = event;
-  const parentColumn = target.closest(".column__zone");
+  const parentColumn = target.closest(".task-column");
   const hasEmptyCard = parentColumn.querySelector(".testNewCard");
   if (hasEmptyCard) return;
   renderEmptyCard(parentColumn, createCardState, store);
 }
 
 async function createCardState(event, store) {
+  console.log(1);
   const { target } = event;
   const parentCard = target.closest(".testNewCard");
   const inputValues = [...parentCard.querySelectorAll("input")].map(
     (input) => input.value
   );
 
-  const isEmpty = inputValues.includes("");
-
-  if (isEmpty) return;
+  store.setState(inputValues);
+  //   const isEmpty = inputValues.includes("");
+  //   if (isEmpty) return;
 
   // const newState = getNewState(inputValues);
 
@@ -27,7 +28,7 @@ async function createCardState(event, store) {
   // store.setState(newState);
 
   // //빈카드 삭제
-  // renderCard(데이터,삭제이벤트,더블클릭이벤트,이동이벤트,store)
+  renderCard(데이터, 삭제이벤트, 더블클릭이벤트, 이동이벤트, store);
 }
 
 function removeCard(event) {
@@ -36,14 +37,13 @@ function removeCard(event) {
 }
 
 function init(store) {
-  const columnZone = document.querySelector(".column__zone");
-  initColumn();
+  const columnZone = document.querySelector(".task-column");
+  //   initColumn();
   onClickColumnAddBtn(columnZone, addCard2Column, store);
 }
 
 const createMainController = (store) => {
-  const columnStore = store;
-  init(columnStore);
+  init(store);
 };
 
 const dragDrop = (event) => {
@@ -102,4 +102,4 @@ function onMouseMove() {
   movingBox.remove();
 }
 
-export { createColumnController };
+export { createMainController };

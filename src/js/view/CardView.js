@@ -1,4 +1,4 @@
-import * as UTIL from "../util/Util.js";
+import * as UTIL from "../../util/Util.js";
 
 const createCard = (data) => {
   const newCard = document.createElement("div");

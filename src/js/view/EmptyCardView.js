@@ -7,7 +7,7 @@ const getEmptyCardNode = () => {
 };
 
 function createEmptyCardTemplate() {
-  return `<div class="task-card">
+  return `
     <div class="task-card__header">
       <div
         class="task-card__title"
@@ -42,14 +42,13 @@ function createEmptyCardTemplate() {
     </div>
     <div class="task-card__footer hidden">
       author by <span id="author">web</span>
-    </div>
   </div>`;
 }
 
 const renderEmptyCard = (parent, callbackEvent, store) => {
-  const newCard = createEmptyCard();
+  const newCard = getEmptyCardNode();
   newCard
-    .qeurySelector(".task-card__register-btn.cursor-pointer")
+    .querySelector(".task-card__register-btn.cursor-pointer")
     .addEventListener("click", (event) => {
       callbackEvent(event, store);
     });
