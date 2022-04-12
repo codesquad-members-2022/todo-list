@@ -24,21 +24,20 @@ class TodoServiceTest {
 	private TodoRepository todoRepository = mock(TodoRepository.class);
 	private TodoService todoService = new TodoService(todoRepository);
 
-	@ParameterizedTest
-	@ValueSource(strings = {"Github 공부하기", "add, commit, push", "sam", "todo"})
-	void 특정_투두리스트_조회_성공(String input) {
+	@Test
+	void 특정_투두리스트_조회_성공() {
 		given(todoRepository.findById(1L))
 			.willReturn(
-				Optional.of(new Todo(1L, input, input, input, input)));
+				Optional.of(new Todo(1L,"Github 공부하기", "add, commit, push", "sam", "todo")));
 
 		Todo todo = todoService.getById(1L);
 
 		assertAll(
 				() -> assertThat(todo.getId()).isEqualTo(1),
-				() -> assertThat(todo.getTitle()).isEqualTo(input),
-				() -> assertThat(todo.getContents()).isEqualTo(input),
-				() -> assertThat(todo.getUser()).isEqualTo(input),
-				() -> assertThat(todo.getStatus()).isEqualTo(input)
+				() -> assertThat(todo.getTitle()).isEqualTo("Github 공부하기"),
+				() -> assertThat(todo.getContents()).isEqualTo("add, commit, push"),
+				() -> assertThat(todo.getUser()).isEqualTo("sam"),
+				() -> assertThat(todo.getStatus()).isEqualTo("todo")
 		);
 	}
 
@@ -56,24 +55,13 @@ class TodoServiceTest {
 	void 전체_투두리스트_조회_성공() {
 		List<Todo> todolist = createTestData();
 
-		given(todoRepository.findAll())
+		given(todoRepository.findAllTodos())
 				.willReturn(Optional.of(todolist));
 
-		List<Todo> todos = todoService.findTodos().get();
+		List<Todo> todos = todoService.findTodos();
 
-		assertAll(
-				() -> assertThat(todos.get(0).getId()).isEqualTo(1),
-				() -> assertThat(todos.get(0).getTitle()).isEqualTo("Github 공부하기"),
-				() -> assertThat(todos.get(0).getContents()).isEqualTo("add, commit, push"),
-				() -> assertThat(todos.get(0).getUser()).isEqualTo("sam"),
-				() -> assertThat(todos.get(0).getStatus()).isEqualTo("todo"),
-
-				() -> assertThat(todos.get(1).getId()).isEqualTo(2),
-				() -> assertThat(todos.get(1).getTitle()).isEqualTo("블로그에 포스팅할 것"),
-				() -> assertThat(todos.get(1).getContents()).isEqualTo("*Github 공부내용 \n" + " *모던 자바스크립트 1장 공부내용"),
-				() -> assertThat(todos.get(1).getUser()).isEqualTo("sam"),
-				() -> assertThat(todos.get(1).getStatus()).isEqualTo("todo")
-		);
+		assertThat(todos).contains(todolist.get(0));
+		assertThat(todos).contains(todolist.get(1));
 	}
 
 	private List<Todo> createTestData() {

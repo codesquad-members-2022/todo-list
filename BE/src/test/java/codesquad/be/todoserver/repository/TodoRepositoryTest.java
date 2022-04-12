@@ -48,20 +48,8 @@ class TodoRepositoryTest {
 
 	@Test
 	void 전체_투두리스트_조회_성공() {
-		List<Todo> todos = todoRepository.findAll().get();
+		List<Todo> todos = todoRepository.findAllTodos().get();
 
-		assertAll(
-				() -> assertThat(todos.get(0).getId()).isEqualTo(1),
-				() -> assertThat(todos.get(0).getTitle()).isEqualTo("Github 공부하기"),
-				() -> assertThat(todos.get(0).getContents()).isEqualTo("add, commit, push"),
-				() -> assertThat(todos.get(0).getUser()).isEqualTo("sam"),
-				() -> assertThat(todos.get(0).getStatus()).isEqualTo("todo"),
-
-				() -> assertThat(todos.get(1).getId()).isEqualTo(2),
-				() -> assertThat(todos.get(1).getTitle()).isEqualTo("블로그에 포스팅할 것"),
-				() -> assertThat(todos.get(1).getContents()).isEqualTo("*Github 공부내용 \\r\\n" + " *모던 자바스크립트 1장 공부내용"),
-				() -> assertThat(todos.get(1).getUser()).isEqualTo("sam"),
-				() -> assertThat(todos.get(1).getStatus()).isEqualTo("todo")
-		);
+		assertThat(todos).hasSize(4);
 	}
 }
