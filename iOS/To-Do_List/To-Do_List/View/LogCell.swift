@@ -106,7 +106,6 @@ class LogCell : UITableViewCell,CellIdentifiable{
         self.backgroundColor = .secondarySystemBackground
         self.contentView.backgroundColor = .secondarySystemBackground
         
-        let spacing:CGFloat = 8.0
         let inset:CGFloat = 16
         stackView.distribution = .fillProportionally
         self.selectionStyle = .none

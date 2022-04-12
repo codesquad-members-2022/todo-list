@@ -15,6 +15,7 @@
 		8D2AFD8827FB08B100307CCB /* To_Do_ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AFD8727FB08B100307CCB /* To_Do_ListTests.swift */; };
 		8D3B5A3D2804494400F6ECF7 /* EditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B5A3C2804494400F6ECF7 /* EditCardView.swift */; };
 		8D46807727FB3FBB00FA9F34 /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */; };
+		8D5D1AFC28055FE70035EA82 /* EditStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D1AFB28055FE70035EA82 /* EditStyle.swift */; };
 		8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */; };
 		8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB585127FBD8F500D129E2 /* CardCell.swift */; };
 		8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */; };
@@ -67,6 +68,7 @@
 		8D2AFD8727FB08B100307CCB /* To_Do_ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_ListTests.swift; sourceTree = "<group>"; };
 		8D3B5A3C2804494400F6ECF7 /* EditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardView.swift; sourceTree = "<group>"; };
 		8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
+		8D5D1AFB28055FE70035EA82 /* EditStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStyle.swift; sourceTree = "<group>"; };
 		8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		8DBB585127FBD8F500D129E2 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewController.swift; sourceTree = "<group>"; };
@@ -129,8 +131,8 @@
 		8D2AFD6F27FB08AE00307CCB /* To-Do_List */ = {
 			isa = PBXGroup;
 			children = (
-				B771A8532805466900343BAE /* ViewController */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
+				B771A8532805466900343BAE /* ViewController */,
 				B771A842280447C000343BAE /* Model */,
 				B70BD64027FBD1CF001BE68F /* View */,
 				8DD815E127FD655C00C13618 /* Network */,
@@ -220,6 +222,7 @@
 				B771A851280543F700343BAE /* Action.swift */,
 				B771A84328044C9A00343BAE /* Log.swift */,
 				B730BBAD27FECB33006DC969 /* constants.swift */,
+				8D5D1AFB28055FE70035EA82 /* EditStyle.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				8DD815E527FD691E00C13618 /* Todo.swift in Sources */,
 				B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */,
 				8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */,
+				8D5D1AFC28055FE70035EA82 /* EditStyle.swift in Sources */,
 				8DD815E027FD655200C13618 /* HTTPMethod.swift in Sources */,
 				B771A84A280457EA00343BAE /* Extension.swift in Sources */,
 				8D2AFD7127FB08AE00307CCB /* AppDelegate.swift in Sources */,

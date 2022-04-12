@@ -93,7 +93,6 @@ extension MainViewController {
 
             let leading = self.logViewContainer.leadingAnchor.constraint(equalTo: self.view.trailingAnchor)
             let trailing = self.logViewContainer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: self.logViewContainer.frame.width)
-//            let bottom = self.logViewContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             self.logViewConstaints = [leading,trailing]
             NSLayoutConstraint.activate(self.logViewConstaints)

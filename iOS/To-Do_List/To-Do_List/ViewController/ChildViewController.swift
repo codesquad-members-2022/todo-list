@@ -44,7 +44,7 @@ class ChildViewController: UIViewController, UITableViewDelegate {
         self.tableView = BoardTableView(
             frame: .zero,
             style: .plain,
-            list: [],
+            list: list,
             cellConfigurator: { card, cell in
             cell.loadCardInfo(info: card)
         })
@@ -57,12 +57,13 @@ class ChildViewController: UIViewController, UITableViewDelegate {
 extension ChildViewController {
     
     private func setHeaderViewConstraint() {
+        let headerHeight:CGFloat = 44.0
         header.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 self.header.topAnchor.constraint(equalTo: self.view.topAnchor),
                 self.header.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
                 self.header.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-                self.header.heightAnchor.constraint(equalToConstant: 44)
+                self.header.heightAnchor.constraint(equalToConstant: headerHeight)
                 ])
     }
     
@@ -106,12 +107,10 @@ extension ChildViewController {
 //MARK: -- AddButton delegation
 extension ChildViewController : BoardHeaderDelegate {
     func DidTapAddButton() {
-        
         let editVC = EditCardViewController()
+        editVC.setEditCardView(editStyle: .add)
         editVC.modalPresentationStyle = .formSheet
         present(editVC, animated: true)
-
-        
     }
 
 }

@@ -9,8 +9,9 @@ import UIKit
 
 class EditCardView:UIView {
     
-    private lazy var headLineLabel:UILabel = {
+    private lazy var titleLabel:UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 16.0, weight: .bold)
         return label
     }()
     
@@ -37,26 +38,20 @@ class EditCardView:UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .blue
         addViews()
         setup()
-        setButton()
+        setButtonDisable()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         addViews()
         setup()
-        setButton()
+        setButtonDisable()
     }
-    
-    func setHeadLineLabel(editStyle:EditStyle) {
-        self.headLineLabel.text = editStyle.description
-    }
-    
     
     private func addViews() {
-        [headLineLabel,headLineInputTextField,contentInputTextField,cancelButton,confirmButton].forEach {
+        [titleLabel,headLineInputTextField,contentInputTextField,cancelButton,confirmButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }
@@ -64,43 +59,49 @@ class EditCardView:UIView {
     
     private func setup() {
         let inset:CGFloat = 8.0
+        let buttonSize:CGSize = CGSize(width: 108, height: 40)
         NSLayoutConstraint.activate([
-            headLineLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: inset * 2),
-            headLineLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: inset),
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: inset * 2),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: inset),
             
-            headLineInputTextField.topAnchor.constraint(equalTo: self.headLineLabel.bottomAnchor, constant: inset * 2),
+            headLineInputTextField.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: inset * 2),
             headLineInputTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: inset),
+            headLineInputTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
             contentInputTextField.topAnchor.constraint(equalTo: self.headLineInputTextField.bottomAnchor, constant: inset),
             contentInputTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: inset),
+            contentInputTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
+            confirmButton.widthAnchor.constraint(equalToConstant: buttonSize.width),
+            confirmButton.heightAnchor.constraint(equalToConstant: buttonSize.height),
             confirmButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -inset),
             confirmButton.topAnchor.constraint(equalTo: self.contentInputTextField.topAnchor, constant: inset),
+
             
+            cancelButton.widthAnchor.constraint(equalToConstant: buttonSize.width),
+            cancelButton.heightAnchor.constraint(equalToConstant: buttonSize.height),
             cancelButton.trailingAnchor.constraint(equalTo: self.confirmButton.leadingAnchor, constant: -inset),
             cancelButton.topAnchor.constraint(equalTo: self.contentInputTextField.bottomAnchor, constant: inset),
             
         ])
     }
     
-    private func setButton() {
+    private func setButtonDisable() {
         [cancelButton,confirmButton].forEach {
             $0.isEnabled = false
         }
     }
-    
-    
 }
 
-enum EditStyle:CustomStringConvertible {
-    var description: String {
-        switch self {
-        case .add:
-            return "새로운 카드 추가"
-        case .editContent:
-            return "카드 수정"
-        }
+//MARK: -- Set CardView Detail
+extension EditCardView {
+    func setEditCardView(editStyle:EditStyle) {
+        self.titleLabel.text = editStyle.title
+        self.headLineInputTextField.placeholder = editStyle.headLineTextFieldPlaceholder
+        self.contentInputTextField.placeholder = editStyle.contentTextFieldPlaceholder
+        self.confirmButton.setTitle(editStyle.buttonText, for: .normal)
+        self.confirmButton.tintColor = .systemBlue
+        self.cancelButton.setTitle("취소", for: .normal)
     }
-    case add
-    case editContent
 }
+
