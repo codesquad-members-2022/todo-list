@@ -66,4 +66,18 @@ public class Card {
         this.title = title;
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", writer='" + writer + '\'' +
+            ", currentLocation='" + currentLocation + '\'' +
+            ", uploadDate=" + uploadDate +
+            ", nextId=" + nextId +
+            ", deleted=" + deleted +
+            '}';
+    }
 }

@@ -1,6 +1,7 @@
 package team03.todoapp.controller.dto;
 
 import java.time.LocalDateTime;
+import team03.todoapp.domain.Card;
 
 public class CardResponse {
 
@@ -31,7 +32,16 @@ public class CardResponse {
         this.uploadDate = uploadDate;
     }
 
-    public Long id() {
+    public CardResponse(Card card) {
+        this.id = card.getCardId();
+        this.title = card.getTitle();
+        this.content = card.getContent();
+        this.writer = card.getWriter();
+        this.nextId = card.getNextId();
+        this.uploadDate = card.getUploadDate();
+    }
+
+    public Long getId() {
         return id;
     }
 

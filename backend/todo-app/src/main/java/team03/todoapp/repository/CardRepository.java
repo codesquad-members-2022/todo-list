@@ -1,7 +1,9 @@
 package team03.todoapp.repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.sql.DataSource;
@@ -133,6 +135,16 @@ public class CardRepository {
         return Optional.ofNullable(card);
     }
 
+    public List<Card> findAll() {
+        try {
+            String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, deleted from card where deleted = false";
+            return jdbcTemplate.query(sql, getCardRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            log.debug("e: {}", e);
+        }
+
+        return new ArrayList<>();
+    }
 
     private RowMapper<Card> getCardRowMapper() {
         return (rs, rowNum) -> new Card(
