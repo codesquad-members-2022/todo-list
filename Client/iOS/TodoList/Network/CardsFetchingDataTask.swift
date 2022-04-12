@@ -32,7 +32,8 @@ class DataTask: SessionDataTask {
     }
     
     func fetchUser(completionHandler: @escaping (Result<String,DataTaskError>) -> Void) {
-        guard let url = api.toURL(type: .user) else {
+        guard let url = api.toURL(type: .user),
+              let baseUrl = api.toURL(type: .base) else {
             completionHandler(.failure(.invalidURL))
             return
         }
@@ -46,7 +47,7 @@ class DataTask: SessionDataTask {
             }
 
             let cookies = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
-            HTTPCookieStorage.shared.setCookies(cookies, for: response?.url, mainDocumentURL: nil)
+            HTTPCookieStorage.shared.setCookies(cookies, for: baseUrl, mainDocumentURL: nil)
             guard let cookie_userId = cookies.filter({ $0.name == "userId" }).first else {
                 completionHandler(.failure(.notConvertdecode))
                 return
@@ -61,7 +62,11 @@ class DataTask: SessionDataTask {
             completionHandler(.failure(.invalidURL))
             return
         }
-        let request = URLRequest(url: url)
+        guard let request = makeRequestContainCookie(with: url) else {
+            completionHandler(.failure(.emptyUser))
+            return
+        }
+
         self.session.dataTask(with: request) { data, response, error in
             guard let data = data,
                 let decodedData = try? self.decoder.decode(T.self, from: data) else {
@@ -71,6 +76,16 @@ class DataTask: SessionDataTask {
             
             completionHandler(.success(decodedData))
         }.resume()
+    }
+    
+    private func makeRequestContainCookie(with url: URL) -> URLRequest? {
+        var request = URLRequest(url: url)
+        guard let baseUrl = api.toURL(type: .base),
+            let cookies = HTTPCookieStorage.shared.cookies(for: baseUrl) else {
+            return request
+        }
+        request.allHTTPHeaderFields = HTTPCookie.requestHeaderFields(with: cookies)
+        return request
     }
     
     private func makeURLComponents(from string: String? = nil, using parameter: [String: String]? = nil) -> URLComponents? {
@@ -95,6 +110,10 @@ class DataTask: SessionDataTask {
 }
 
 // MARK:- Cards
+struct CardMap: Codable {
+    let cardMap: Cards
+}
+
 struct Cards: Codable {
     let todo: [Card]
 }
@@ -114,6 +133,8 @@ protocol ServerAPI {
 extension ServerAPI {
     func getUrlString(type: URLType) -> String {
         switch type {
+        case .base:
+            return endpoint
         case .all, .user:
             return endpoint+"\(type)"
         }
@@ -128,10 +149,13 @@ extension ServerAPI {
 }
 
 enum URLType: CustomStringConvertible {
+    case base
     case all
     case user
     var description: String {
         switch self {
+        case .base:
+            return ""
         case .all:
             return "/todolist"
         case .user:
@@ -144,4 +168,6 @@ enum DataTaskError: Error {
     case notConnect
     case invalidURL
     case notConvertdecode
+    case unauthenticatedUser
+    case emptyUser
 }
