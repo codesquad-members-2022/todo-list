@@ -135,7 +135,6 @@ struct NetworkManager {
         }.resume()
     }
     
-
     func getAllLogs(then completion: @escaping (Result<[Log], NetworkError>) -> Void) {
         guard let urlString = components.string,
               let url = URL(string: urlString) else { return }
@@ -145,7 +144,7 @@ struct NetworkManager {
             guard let data = data else {
                 return completion(.failure(.noData))
             }
-
+            
             guard let decoded = try? decoder.decode([Log].self, from: data) else {
                 debugPrint(data.prettyPrintedJSONString!)
                 return completion(.failure(.decoding))
