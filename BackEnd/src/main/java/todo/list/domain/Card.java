@@ -8,20 +8,14 @@ public class Card {
     private String contents;
     private CardStatus status;
     private Author author;
-    private LocalDateTime updateDateTime = LocalDateTime.now();
+    private LocalDateTime updateDateTime;
 
     public Card(String title, String contents, CardStatus status, Author author) {
-        this.title = title;
-        this.contents = contents;
-        this.status = status;
-        this.author = author;
+        this(null, title, contents, status, LocalDateTime.now(), author);
     }
 
     public Card(Long id, String title, String contents, Author author) {
-        this.id = id;
-        this.title = title;
-        this.contents = contents;
-        this.author = author;
+        this(id, title, contents, null, LocalDateTime.now(), author);
     }
 
     public Card(Long id, String title, String contents, CardStatus status, LocalDateTime updateDateTime, Author author) {
