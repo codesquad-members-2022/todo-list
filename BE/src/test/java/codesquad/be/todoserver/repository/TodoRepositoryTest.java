@@ -1,18 +1,17 @@
 package codesquad.be.todoserver.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 import codesquad.be.todoserver.domain.Todo;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
-
-import java.util.List;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DataJdbcTest
 @Sql({"/testDB/schema.sql", "/testDB/data.sql"})
@@ -31,11 +30,11 @@ class TodoRepositoryTest {
 		Todo todo = todoRepository.findById(1L).get();
 
 		assertAll(
-				() -> assertThat(todo.getId()).isEqualTo(1),
-				() -> assertThat(todo.getTitle()).isEqualTo("Github 공부하기"),
-				() -> assertThat(todo.getContents()).isEqualTo("add, commit, push"),
-				() -> assertThat(todo.getUser()).isEqualTo("sam"),
-				() -> assertThat(todo.getStatus()).isEqualTo("doing")
+			() -> assertThat(todo.getId()).isEqualTo(1),
+			() -> assertThat(todo.getTitle()).isEqualTo("Github 공부하기"),
+			() -> assertThat(todo.getContents()).isEqualTo("add, commit, push"),
+			() -> assertThat(todo.getUser()).isEqualTo("sam"),
+			() -> assertThat(todo.getStatus()).isEqualTo("doing")
 		);
 	}
 

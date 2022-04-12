@@ -1,22 +1,21 @@
 package codesquad.be.todoserver.service;
 
-import codesquad.be.todoserver.domain.Todo;
-import codesquad.be.todoserver.exception.NoSuchTodoFoundException;
-import codesquad.be.todoserver.repository.TodoRepository;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+
+import codesquad.be.todoserver.domain.Todo;
+import codesquad.be.todoserver.exception.NoSuchTodoFoundException;
+import codesquad.be.todoserver.repository.TodoRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("API /api/todos/* 서비스 계층 단위 테스트")
 class TodoServiceTest {
@@ -33,11 +32,11 @@ class TodoServiceTest {
 		Todo todo = todoService.getById(1L);
 
 		assertAll(
-				() -> assertThat(todo.getId()).isEqualTo(1),
-				() -> assertThat(todo.getTitle()).isEqualTo("Github 공부하기"),
-				() -> assertThat(todo.getContents()).isEqualTo("add, commit, push"),
-				() -> assertThat(todo.getUser()).isEqualTo("sam"),
-				() -> assertThat(todo.getStatus()).isEqualTo("todo")
+			() -> assertThat(todo.getId()).isEqualTo(1),
+			() -> assertThat(todo.getTitle()).isEqualTo("Github 공부하기"),
+			() -> assertThat(todo.getContents()).isEqualTo("add, commit, push"),
+			() -> assertThat(todo.getUser()).isEqualTo("sam"),
+			() -> assertThat(todo.getStatus()).isEqualTo("todo")
 		);
 	}
 
@@ -56,7 +55,7 @@ class TodoServiceTest {
 		List<Todo> todolist = createTestData();
 
 		given(todoRepository.findAllTodos())
-				.willReturn(todolist);
+			.willReturn(todolist);
 
 		List<Todo> todos = todoService.findTodos();
 

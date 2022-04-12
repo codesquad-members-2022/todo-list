@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.ResultActions;
 @SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("API /api/histories 인수 테스트")
-public class HistoriesApiAcceptanceTest {
+class HistoriesApiAcceptanceTest {
 
 	@Autowired
 	MockMvc mockMvc;
