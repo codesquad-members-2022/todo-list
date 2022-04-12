@@ -56,7 +56,7 @@ public class MockController {
 
     }
 
-    @GetMapping("/histories")
+   // @GetMapping("/histories")
     public HistoriesResponse getHistories() {
         HistoriesResponse historiesResponse = new HistoriesResponse();
 

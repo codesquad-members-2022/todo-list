@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import team03.todoapp.controller.dto.CardMoveFormRequest;
 import team03.todoapp.domain.Card;
 
 @Repository
@@ -116,6 +117,48 @@ public class CardRepository {
             jdbcTemplate.update(updateCardRelations, nextId, prevId);
         }
         log.debug("cardId: {} deleted", cardId);
+    }
+
+    @Transactional
+    public void updateLocation(Long cardId, CardMoveFormRequest cardMoveFormRequest) {
+        /**
+         * 정상흐름: 데이터 사이에서 사이로 이동하는 경우
+         *  0. next를 cardId로 갖고있는 table의 id 조회 - Long beforePrevId에 저장
+         *  1. cardId로 이동할 card 컬럼의 next 조회    - Long beforeNextId
+         *  2. 이동할 곳의 cardMoveFormRequest의 prevItemId의 next를 cardId로 update
+         *  3. cardId의 next를 cardMoveFormRequest의 nextItemId로, location을 cardMoveFormRequest의 destinationLocation으로 update
+         *  4. beforePrevId의 next를 beforeNextId로 업데이트
+         *
+         *  edge - cases:
+         *  0. beforePrevId가 null인 경우(card가 첫번째 데이터)
+         *  1. cardMoveFormRequest의  nextItemId 혹은 prevItemId 가 null인 경우
+         *  2.
+         *
+         */
+
+        Long beforePrevId = null;
+        Long beforeNextId = null;
+        String getBeforePrevIdSQL = "select card_id from card where next_id = ?";
+        String getBeforeNextIdSQL = "select next_id from card where card_id = ?";
+        String updatePrevItemNextId = "update card set next_id = ? where card_id = ?";
+        String updateNextId = "update card set next_id = ?, current_location = ? where card_id = ?";
+        String updateBeforeItemsNext = "update card set next_id = ? where card_id = ?";
+
+        try {
+            beforePrevId = jdbcTemplate.queryForObject(getBeforePrevIdSQL, Long.class, cardId);
+        } catch(EmptyResultDataAccessException e) { // 반환값이 없으면 beforePrevId에 null 유지
+            log.debug("empty beforePrevId :{}", e);
+        }
+        try {
+            beforeNextId = jdbcTemplate.queryForObject(getBeforeNextIdSQL, Long.class, cardId);
+        } catch(EmptyResultDataAccessException e) { // 반환값이 없으면 beforePrevId에 null 유지
+            log.debug("empty beforeNextId:{}", e);
+        }
+
+        jdbcTemplate.update(updatePrevItemNextId, cardId, cardMoveFormRequest.getPrevItemId());
+        jdbcTemplate.update(updateNextId, cardMoveFormRequest.getNextItemId(), cardMoveFormRequest.getDestinationLocation(), cardId);
+        jdbcTemplate.update(updateBeforeItemsNext, beforeNextId, beforePrevId);
+        log.debug("location update completed: {}", cardId);
     }
 
 }

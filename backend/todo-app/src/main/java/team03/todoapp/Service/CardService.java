@@ -2,6 +2,7 @@ package team03.todoapp.Service;
 
 import org.springframework.stereotype.Service;
 import team03.todoapp.controller.dto.CardAddFormRequest;
+import team03.todoapp.controller.dto.CardMoveFormRequest;
 import team03.todoapp.domain.Card;
 import team03.todoapp.repository.CardRepository;
 
@@ -24,4 +25,7 @@ public class CardService {
         return cardRepository.insert(card);
     }
 
+    public void move(Long cardId, CardMoveFormRequest cardMoveFormRequest) {
+        cardRepository.updateLocation(cardId, cardMoveFormRequest);
+    }
 }
