@@ -27,10 +27,6 @@ public class Card {
         this.author = author;
     }
 
-    public boolean equalsStatus(CardStatus cardStatus) {
-        return status == cardStatus;
-    }
-
     public Long getId() {
         return id;
     }
