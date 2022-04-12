@@ -21,9 +21,6 @@ final class TableViewController: UIViewController{
     let cardBoard: Board = Board()
     
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
-    
-    private var todoList = [["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd"],
-                    ["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit"], ["Github공부하기","add,push,commitadd"]]
     private var listIndex = 0
     
     override func viewDidLoad() {
@@ -35,6 +32,18 @@ final class TableViewController: UIViewController{
         let header = configureSectionHeader(index: index)
         let table = configureTableView(index: index)
         configureLayout(cell: cell, header: header, tableView: table)
+    }
+    
+    @objc func setting(){
+        DispatchQueue.main.async {
+            self.todoTable.forEach{
+                $0.reloadData()
+            }
+            
+            for i in 0..<self.todo.count{
+                self.sectionHeader[i].numberLabel.text = String(self.cardBoard[i].count)
+            }
+        }
     }
 }
 

@@ -25,8 +25,16 @@ final class Board{
         }
     }
     
-    init(){
-        self.getAnddivideCard()
+    func getAnddivideCard(){
+        URLManager.requestGet(url: "http://3.39.150.251:8080/api/cards?userId=chez"){ data in
+            let cards: [Card] = JsonConverter.decodeJson(data: data)
+            
+            self.todoCards.append(contentsOf: cards.filter{ $0.section == .todo })
+            self.doingCards.append(contentsOf: cards.filter{ $0.section == .doing })
+            self.doneCards.append(contentsOf: cards.filter{ $0.section == .done })
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "board"), object: self)
+        }
     }
     
     func postCard(section: Int, title: String, content: String, userID: String){
@@ -46,15 +54,6 @@ final class Board{
 }
 
 private extension Board{
-    func getAnddivideCard(){
-        guard let data = URLManager.requestGet(url: "http://3.39.150.251:8080/api/cards?userId=chez") else { return }
-        let cards: [Card] = JsonConverter.decodeJson(data: data)
-        
-        self.todoCards.append(contentsOf: cards.filter{ $0.section == .todo })
-        self.doingCards.append(contentsOf: cards.filter{ $0.section == .doing })
-        self.doneCards.append(contentsOf: cards.filter{ $0.section == .done })
-    }
-    
     func dateFormatter(date: String) -> Date?{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

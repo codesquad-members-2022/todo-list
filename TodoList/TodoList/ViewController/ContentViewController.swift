@@ -16,7 +16,7 @@ final class ContentViewController: UIViewController {
         }
     }
     
-    private var tableVC: TableViewController!
+    private var tableVC = TableViewController()
     private var collectionView: CollectionView!
     
     // 화면 회전에 따른 layout 유지
@@ -32,9 +32,14 @@ final class ContentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableVC = TableViewController()
         setCollectionView()
         setCollectionViewDelegate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableVC.cardBoard.getAnddivideCard()
+        NotificationCenter.default.addObserver(self.tableVC, selector: #selector(tableVC.setting), name: NSNotification.Name(rawValue: "board"), object: tableVC.cardBoard)
     }
 }
 

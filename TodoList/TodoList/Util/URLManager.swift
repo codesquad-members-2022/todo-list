@@ -19,26 +19,18 @@ final class URLManager{
         }
     }
     
-    // semaphore를 활용하여 data 할당 후 return 되도록 구현
-    static func requestGet(url: String) -> Data?{
-        guard let validURL = URL(string: url) else { return nil }
-        var returnData: Data?
+    static func requestGet(url: String, complete: @escaping (Data) -> ()){
+        guard let validURL = URL(string: url) else { return }
         
         var urlRequest = URLRequest(url: validURL)
         urlRequest.httpMethod = HttpMethod.get.getRawValue()
-        
-        let semaphore = DispatchSemaphore(value: 0)
         
         URLSession.shared.dataTask(with: urlRequest){ data, response, error in
             guard let data = data else { return }
             guard let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else { return }
 
-            returnData = data
-            semaphore.signal()
+            complete(data)
         }.resume()
-        semaphore.wait()
-        
-        return returnData
     }
     
     //Post - encode된 Data를 param 인자 값으로 받아옴
