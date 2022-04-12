@@ -37,7 +37,7 @@
             android:textAppearance="@style/history_user_name"
             app:layout_constraintStart_toEndOf="@id/user_img"
             app:layout_constraintTop_toTopOf="parent"
-            bind:setUsername="@{historyCard.todo.user}"
+            bind:setUsername="@{historyCard.user}"
             tools:text="\@sam" />
 
         <TextView
@@ -65,7 +65,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/user_img"
             app:layout_constraintTop_toBottomOf="@id/body"
-            bind:setTimeStamp="@{historyCard.createdDateTime}"
+            bind:setTimeStamp="@{historyCard.createdAt}"
             tools:text="1분 전" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
