@@ -1,11 +1,10 @@
 import View from "../core/View";
-import { Action } from "../types";
 
 
 export class TodoCard extends View {
   template() {
 
-    const { todo:{title, content, caption, selected}, idx} = this.$props;
+    const { title, content, caption, selected} = this.$props;
     return `${
       selected === true
         ? `<div class="wrapper"><span class="title">${title}</span><span class="content">${content}</span></div>
@@ -25,13 +24,9 @@ export class TodoCard extends View {
   }
 
   setEvent() {
-    const {todo, idx, listIdx}= this.$props;
     this.addEvent("dblclick", ".wrapper", (e) => {
-      this.store.commit(Action.SELECT, {selected:true, listIdx, idx:Number(this.select()?.dataset.idx)});
+      console.log("hi");
+      this.$props.selected = true;
     });
-    this.addEvent('click', '.button-left', (e)=>{
-      this.store.commit(Action.SELECT, {selected:false, listIdx, idx:Number(this.select()?.dataset.idx)});
-    });
-
   }
 }

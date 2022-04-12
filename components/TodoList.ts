@@ -1,5 +1,3 @@
-import Component from "../core/Component.js";
-import { TodoCard } from "./TodoCard.js";
 
 
 import View from "../core/View";
@@ -10,8 +8,7 @@ import { TodoCard } from "./TodoCard";
 export class TodoList extends View {
   template() {
     const {
-      list: { title, todos, editting },
-      idx
+     title, todos, editting
     } = this.$props;
     return `
           <div class="todo-title">
@@ -48,19 +45,18 @@ export class TodoList extends View {
     }
     ${todos
       .map(
-        (todo, idx) =>
+        (todo:StateObj, idx:number) =>
           `<div class="${
             todo.selected ? "selected" : "todo-card"
-          }" data-idx="${idx}"></div>`
+          }" data-idx="${idx}">
+    
+</div>`
       )
       .join("")}`;
   }
 
   mount() {
-    const {
-      list: { todos }
-    } = this.$props;
-    const card = this.select(`.todo-card[data-idx="0"]`);
+    const { todos } = this.$props;
     todos.forEach(
       (todo, idx) =>
         new TodoCard(this.select(`.todo-card[data-idx="${idx}"]`), {

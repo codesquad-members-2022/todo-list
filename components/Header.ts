@@ -1,6 +1,7 @@
-import Component from "../core/Component.js";
+import View from "../core/View";
 
-export class Header extends Component {
+
+export class Header extends View {
   template() {
     return `
         <h2 class="todo-header-title">TO-DO List</h2>

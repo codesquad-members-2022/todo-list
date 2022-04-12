@@ -1,16 +1,14 @@
 import { Store } from "./Store";
 import Node from "./Node";
-import { StateObj } from "../types";
+import { StateObj } from "../utils";
 export default class View extends Node<HTMLElement>{
-  protected $props;
-  protected state;
-  protected store;
+  $props;
+  state;
+  store;
   constructor(store:Store,private target:HTMLElement, props:StateObj = {},parent : View|null =null,  ) {
     super(target, parent);
     this.store = store;
-    console.log(store);
     this.state = store.state;
-
     this.$props = props;
     this.store.observe(()=> {
       this.setEvent();
@@ -35,12 +33,12 @@ export default class View extends Node<HTMLElement>{
   setEvent() {
   }
 
-  select(selector:string|undefined=undefined):HTMLElement|null {
-    return selector? this.el.querySelector(selector):this.el
+  select(selector:string):HTMLElement|null {
+    return this.el.querySelector(selector);
   }
 
-  selectAll(selector:string|undefined=undefined) {
-    return selector? this.el.querySelectorAll(selector):this.el;
+  selectAll(selector:string) {
+    return this.el.querySelectorAll(selector);
   }
 
   _render(): void {
