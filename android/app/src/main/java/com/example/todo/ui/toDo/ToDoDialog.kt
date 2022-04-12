@@ -35,7 +35,6 @@ class ToDoDialog(private val progressType: ProgressType) : DialogFragment() {
             when (progressType) {
                 ProgressType.TO_DO -> {
                     val newToDoItem = TodoItem(
-                        "test",
                         binding.editCardTitle.text.toString(),
                         binding.editCardContent.text.toString(),
                         ProgressType.TO_DO
@@ -45,7 +44,6 @@ class ToDoDialog(private val progressType: ProgressType) : DialogFragment() {
 
                 ProgressType.IN_PROGRESS -> {
                     val newInProgressItem = TodoItem(
-                        "test",
                         binding.editCardTitle.text.toString(),
                         binding.editCardContent.text.toString(),
                         ProgressType.IN_PROGRESS
@@ -54,7 +52,6 @@ class ToDoDialog(private val progressType: ProgressType) : DialogFragment() {
                 }
                 else -> {
                     val newDoneItem = TodoItem(
-                        "test",
                         binding.editCardTitle.text.toString(),
                         binding.editCardContent.text.toString(),
                         ProgressType.DONE

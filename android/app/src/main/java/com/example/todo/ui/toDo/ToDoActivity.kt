@@ -76,50 +76,50 @@ class ToDoActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun addDummyDataInRecyclerView() {
-        val todoList = mutableListOf<TodoItem>()
-        val inProgressList = mutableListOf<TodoItem>()
-        val doneList = mutableListOf<TodoItem>()
-        val actionList = mutableListOf<ActionLog>()
-
-        val todo1 = TodoItem("one", "title", "content", ProgressType.TO_DO)
-        val todo2 = TodoItem("two", "title2", "content2\ncontentcontent", ProgressType.TO_DO)
-        val todo3 = TodoItem(
-            "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
-        )
-
-        val action1 = ActionLog(
-            "one",
-            ActionType.ADD,
-            "2022-04-07 12:00:01",
-            ProgressType.TO_DO,
-            ProgressType.IN_PROGRESS
-        )
-        val action2 = ActionLog(
-            "one",
-            ActionType.ADD,
-            "2022-04-07 10:00:01",
-            ProgressType.TO_DO,
-            ProgressType.IN_PROGRESS
-        )
-        val action3 = ActionLog(
-            "one",
-            ActionType.ADD,
-            "2022-04-05 09:00:01",
-            ProgressType.TO_DO,
-            ProgressType.IN_PROGRESS
-        )
-
-        todoList.addAll(mutableListOf(todo1, todo2, todo3))
-        inProgressList.addAll(mutableListOf(todo2, todo3, todo1))
-        doneList.addAll(mutableListOf(todo1, todo3, todo1))
-        actionList.addAll(mutableListOf(action1, action2, action3))
-
-        todoAdapter.submitList(todoList)
-        inProgressAdapter.submitList(inProgressList)
-        doneAdapter.submitList(doneList)
-        actionAdapter.submitList(actionList)
-    }
+//    private fun addDummyDataInRecyclerView() {
+//        val todoList = mutableListOf<TodoItem>()
+//        val inProgressList = mutableListOf<TodoItem>()
+//        val doneList = mutableListOf<TodoItem>()
+//        val actionList = mutableListOf<ActionLog>()
+//
+//        val todo1 = TodoItem("one", "title", "content", ProgressType.TO_DO)
+//        val todo2 = TodoItem("two", "title2", "content2\ncontentcontent", ProgressType.TO_DO)
+//        val todo3 = TodoItem(
+//            "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
+//        )
+//
+//        val action1 = ActionLog(
+//            "one",
+//            ActionType.ADD,
+//            "2022-04-07 12:00:01",
+//            ProgressType.TO_DO,
+//            ProgressType.IN_PROGRESS
+//        )
+//        val action2 = ActionLog(
+//            "one",
+//            ActionType.ADD,
+//            "2022-04-07 10:00:01",
+//            ProgressType.TO_DO,
+//            ProgressType.IN_PROGRESS
+//        )
+//        val action3 = ActionLog(
+//            "one",
+//            ActionType.ADD,
+//            "2022-04-05 09:00:01",
+//            ProgressType.TO_DO,
+//            ProgressType.IN_PROGRESS
+//        )
+//
+//        todoList.addAll(mutableListOf(todo1, todo2, todo3))
+//        inProgressList.addAll(mutableListOf(todo2, todo3, todo1))
+//        doneList.addAll(mutableListOf(todo1, todo3, todo1))
+//        actionList.addAll(mutableListOf(action1, action2, action3))
+//
+//        todoAdapter.submitList(todoList)
+//        inProgressAdapter.submitList(inProgressList)
+//        doneAdapter.submitList(doneList)
+//        actionAdapter.submitList(actionList)
+//    }
 
     private fun initializeRecyclerViews() {
         todoAdapter = TodoAdapter(TodoDiffCallback())
