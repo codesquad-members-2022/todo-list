@@ -30,6 +30,6 @@ public class TaskService {
     }
 
     private boolean isRequiredNull (Task task) {
-        return Objects.isNull(task.getTitle()) || Objects.isNull(task.getContent()) || Objects.isNull(task.getAuthorNickname()) || Objects.isNull(task.getStatus());
+        return Objects.isNull(task.getTitle()) || Objects.isNull(task.getContent()) || Objects.isNull(task.getAuthor()) || Objects.isNull(task.getStatus());
     }
 }

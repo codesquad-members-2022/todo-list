@@ -2,10 +2,8 @@ package kr.codesquad.todo.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @ApiModel
 public class Task {
@@ -25,26 +23,25 @@ public class Task {
     private String content;
 
     @ApiModelProperty(
-            value = "작성자 닉네임",
-            example = "sample"
+            value = "작성자 id",
+            example = "sampleI"
     )
-    private String authorNickname;
+    private String author;
 
     @ApiModelProperty(
             value = "태스크 상태",
-            example = "doing"
+            example = "1"
     )
-    private String status;
+    private int status;
 
     @ApiModelProperty(hidden = true)
     private LocalDateTime createAt;
 
-    public Task(String title, String content, String authorNickname, String status) {
-
-
+    public Task(String title, String content, String author, int status) {
+        System.out.printf("title: %s, content: %s, author: %s, status: %d\n", title, content, author, status);
         this.title = title;
         this.content = content;
-        this.authorNickname = authorNickname;
+        this.author = author;
         this.status = status;
     }
 
@@ -68,11 +65,11 @@ public class Task {
         return content;
     }
 
-    public String getAuthorNickname() {
-        return authorNickname;
+    public String getAuthor() {
+        return author;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
