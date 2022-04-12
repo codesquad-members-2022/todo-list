@@ -1,7 +1,5 @@
 export default class Modal {
-  init() {
-
-  }
+  init() {}
 
   template() {
     return `
@@ -16,6 +14,6 @@ export default class Modal {
           </div>
         </div>
       </div>
-    `
+    `;
   }
 }
