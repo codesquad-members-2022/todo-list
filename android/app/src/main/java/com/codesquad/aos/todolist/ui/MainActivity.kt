@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-        viewModel.addTodo("hihi", "hihihi")
-        viewModel.addTodo("byebye", "byebyebye")
+        viewModel.addTodo("rvTODO", "TAG 1")
+        viewModel.addTodo("rvTODO", "TAG 2")
     }
 
     private fun setProgressRecyclerView() {
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.rvProgress.setOnDragListener(dragListener)
 
-        viewModel.addProgress("han-todo", "오늘은 조시랑 같이 코딩하기")
+        viewModel.addProgress("rvProgress", "TAG 1")
     }
 
     private fun setCompleteRecyclerView() {
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.rvComplete.setOnDragListener(dragListener)
 
-        viewModel.addComplete("AOS-todo", "회의록 작성하기")
+        viewModel.addComplete("rvComplete", "TAG 1")
     }
 
     private fun setLogRecyclerView() {

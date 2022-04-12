@@ -65,7 +65,6 @@ class TodoViewModel: ViewModel() {
         _completeListLd.value = completelist
     }
 
-
     // 한 리사이클러뷰 내에서 순서 변경
     fun changeTodoOrder(fromPos: Int, toPos: Int){
         val fromTemp = Card(todolist[fromPos].id, todolist[fromPos].title, todolist[fromPos].content, todolist[fromPos].device)

@@ -58,15 +58,14 @@ class TodoCardListAdapter(
         submitList(newList)
     }
 
-
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(getItem(position), deleteTextClick)
         holder.itemView.tag = position
+        holder.itemView.alpha = 1f
         holder.itemView.setOnTouchListener(this)
         holder.itemView.setOnDragListener(DragListener())
         holder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).translationX = 0f
     }
-
 
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<Card>() {
@@ -101,7 +100,6 @@ class TodoCardListAdapter(
 
                 if (!isDraggable) {
                     val data = ClipData.newPlainText("", "")
-//                    shadowBuilder.view.setBackgroundColor(Color.BLACK)
                     view?.startDragAndDrop(data, shadowBuilder, view, 0)
                     return true
                 }
