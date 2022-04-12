@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct Log: Decodable {
-    internal init(userId: String, action: Action, created: Date, taskId: Int, from: TaskStatus?, to: TaskStatus?) {
+    init(userId: String, action: Action, created: Date, taskId: Int, from: TaskStatus?, to: TaskStatus?) {
         self.userId = userId
         self.activityType = action
         self.createdAt = created
@@ -17,7 +17,6 @@ struct Log: Decodable {
         self.from = from
         self.to = to
     }
-    
     
     let userId: String
     private let activityType: Action
