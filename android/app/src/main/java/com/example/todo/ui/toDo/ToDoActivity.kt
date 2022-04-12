@@ -1,58 +1,61 @@
 package com.example.todo.ui.toDo
 
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.Toolbar
+import android.view.View
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.common.ActionDiffCallback
+import com.example.todo.common.ActionType
 import com.example.todo.common.ProgressType
 import com.example.todo.common.TodoDiffCallback
+import com.example.todo.databinding.ActivityTodoBinding
 import com.example.todo.model.ActionLog
-import com.example.todo.model.ActionType
+
 import com.example.todo.model.TodoItem
 import com.example.todo.ui.action.ActionAdapter
-import java.time.LocalDateTime
 
 class ToDoActivity : AppCompatActivity() {
-    private lateinit var todoRecyclerView: RecyclerView
-    private lateinit var inProgressRecyclerView: RecyclerView
-    private lateinit var doneRecyclerView: RecyclerView
-    lateinit var actionLogRecyclerView: RecyclerView
 
+    private lateinit var binding: ActivityTodoBinding
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var inProgressAdapter: TodoAdapter
     private lateinit var doneAdapter: TodoAdapter
     private lateinit var actionAdapter: ActionAdapter
-
-    private lateinit var drawerLayout: DrawerLayout
+    private val toDoViewModel: ToDoViewModel by viewModels { ViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo)
-
-        todoRecyclerView = findViewById(R.id.rv_todo)
-        inProgressRecyclerView = findViewById(R.id.rv_in_progress)
-        doneRecyclerView = findViewById(R.id.rv_done)
-
-        actionLogRecyclerView = findViewById(R.id.rv_action_log)
-        val toolbar = findViewById<Toolbar>(R.id.tb_main)
-        drawerLayout = findViewById(R.id.draw)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        initializeTodoRecyclerViews()
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_todo)
+        setToolBar()
+        initializeRecyclerViews()
         addDummyDataInRecyclerView()
     }
 
+    private fun setToolBar() {
+        setSupportActionBar(binding.tbMain)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_action, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_menu -> {
+                binding.draw.openDrawer(GravityCompat.END)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     private fun addDummyDataInRecyclerView() {
         val todoList = mutableListOf<TodoItem>()
@@ -66,9 +69,27 @@ class ToDoActivity : AppCompatActivity() {
             "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
         )
 
-        val action1 = ActionLog("one", ActionType.ADD, "2022-04-07 12:00:01", ProgressType.TO_DO)
-        val action2 = ActionLog("one", ActionType.ADD, "2022-04-07 10:00:01", ProgressType.TO_DO)
-        val action3 = ActionLog("one", ActionType.ADD, "2022-04-05 09:00:01", ProgressType.TO_DO)
+        val action1 = ActionLog(
+            "one",
+            ActionType.ADD,
+            "2022-04-07 12:00:01",
+            ProgressType.TO_DO,
+            ProgressType.IN_PROGRESS
+        )
+        val action2 = ActionLog(
+            "one",
+            ActionType.ADD,
+            "2022-04-07 10:00:01",
+            ProgressType.TO_DO,
+            ProgressType.IN_PROGRESS
+        )
+        val action3 = ActionLog(
+            "one",
+            ActionType.ADD,
+            "2022-04-05 09:00:01",
+            ProgressType.TO_DO,
+            ProgressType.IN_PROGRESS
+        )
 
         todoList.addAll(mutableListOf(todo1, todo2, todo3))
         inProgressList.addAll(mutableListOf(todo2, todo3, todo1))
@@ -81,39 +102,40 @@ class ToDoActivity : AppCompatActivity() {
         actionAdapter.submitList(actionList)
     }
 
-    private fun initializeTodoRecyclerViews() {
+    private fun initializeRecyclerViews() {
         todoAdapter = TodoAdapter(TodoDiffCallback())
         inProgressAdapter = TodoAdapter(TodoDiffCallback())
         doneAdapter = TodoAdapter(TodoDiffCallback())
         actionAdapter = ActionAdapter(ActionDiffCallback())
 
-        todoRecyclerView.adapter = todoAdapter
-        inProgressRecyclerView.adapter = inProgressAdapter
-        doneRecyclerView.adapter = doneAdapter
-        actionLogRecyclerView.adapter = actionAdapter
-        //actionAdapter.notifyDataSetChanged()
-        todoRecyclerView.layoutManager =
+        binding.rvTodo.adapter = todoAdapter
+        binding.rvInProgress.adapter = inProgressAdapter
+        binding.rvDone.adapter = doneAdapter
+        binding.rvActionLog.adapter = actionAdapter
+        binding.rvTodo.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        inProgressRecyclerView.layoutManager =
+        binding.rvInProgress.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        doneRecyclerView.layoutManager =
+        binding.rvDone.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        actionLogRecyclerView.layoutManager =
+        binding.rvActionLog.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_action, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_menu -> {
-                drawerLayout.openDrawer(GravityCompat.END)
-            }
+        toDoViewModel.todoList.observe(this) {
+            todoAdapter.submitList(it)
         }
-        return super.onOptionsItemSelected(item)
+
+        toDoViewModel.inProgressList.observe(this) {
+            inProgressAdapter.submitList(it)
+        }
+
+        toDoViewModel.doneList.observe(this) {
+            doneAdapter.submitList(it)
+        }
+
+        toDoViewModel.actionList.observe(this) {
+            actionAdapter.submitList(it)
+        }
     }
 
     companion object {
