@@ -31,7 +31,7 @@ class TodoCardListAdapter(
             binding.tvCardContent?.text = card?.content
 
             binding.tvRemove?.setOnClickListener {
-                if (this.itemView.tag == true) {
+                if (this.itemView.tag == true) { // true면 삭제 영역 보임
                     //removeItem(this.layoutPosition)
                     deleteTextClick.invoke(this.layoutPosition)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
                 }
@@ -60,7 +60,7 @@ class TodoCardListAdapter(
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(getItem(position), deleteTextClick)
-        holder.itemView.tag = position
+        holder.itemView.tag = position  // 태그 값으로 현재 포지션이 들어가 있음,  리사이클러뷰 자체는 태그가 없고 각 아이템뷰들은 태그가 있다
         holder.itemView.alpha = 1f
         holder.itemView.setOnTouchListener(this)
         holder.itemView.setOnDragListener(DragListener())
@@ -93,7 +93,7 @@ class TodoCardListAdapter(
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 val isDraggable = if (swipeViewTag != null) {
-                    swipeViewTag as Boolean
+                    swipeViewTag as Boolean  // 삭제 영역이 활성화 되어있다면 swipeViewTag 값이 true, tag= any 타입 -> 여러 타입 할당 가능
                 } else {
                     false
                 }

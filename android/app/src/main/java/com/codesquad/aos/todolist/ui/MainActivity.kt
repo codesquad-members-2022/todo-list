@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var logCardListAdapter: LogCardListAdapter
 
     private val viewModel: TodoViewModel by viewModels()
-    private val dragListener = DragListener()
+    private val dragListener = DragListener(viewModel)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         setDrawerClose()
         setViewModel()
 
+        setDialogFragmentView()
         setTodoRecyclerView()
         setProgressRecyclerView()
         setCompleteRecyclerView()
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
         val touchHelper = TodoTouchHelper(todoCardListAdapter, viewModel).apply {
-            setClamp(170f)
+            setClamp(170f)  // 170 이
         }
 
         binding.rvTodo.setOnDragListener(dragListener)

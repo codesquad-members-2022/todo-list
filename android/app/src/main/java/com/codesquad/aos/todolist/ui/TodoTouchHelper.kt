@@ -36,9 +36,9 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        val fromPos: Int = viewHolder.absoluteAdapterPosition
+        /*val fromPos: Int = viewHolder.absoluteAdapterPosition
         val toPos: Int = target.absoluteAdapterPosition
-        viewModel.changeTodoOrder(fromPos, toPos)
+        viewModel.changeTodoOrder(fromPos, toPos)*/
         return true
     }
 
@@ -66,8 +66,8 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
         val isClamped = getTag(viewHolder)
-        // 현재 View가 고정되어있지 않고 사용자가 -clamp 이상 swipe시 isClamped true로 변경 아닐시 false로 변경
-        setTag(viewHolder, currentDx <= -clamp)
+        // 현재 View가 고정되어있지 않고 사용자가 -clamp 이상 swipe시 isClamped true로 변경 아닐시 false로 변경 -> -clamp 이상 swipe 했다는 것은 삭제 영역이 보인다는 것
+        setTag(viewHolder, currentDx <= -clamp)  // -clamp
         return 2f
     }
 
@@ -118,7 +118,7 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
             else -clamp
         }
         // 고정할 수 없으면 newX는 스와이프한 만큼
-        else dX / 3
+        else dX / 3  // 스와이프는 dx/3 만큼 할 수는 있지만 MainActivity에서 설정한 170 수치에 고정이 된다
 
         // newX가 0보다 작은지 확인
         return min(newX, max)
