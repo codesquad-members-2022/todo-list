@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS TODO_CARD;
 CREATE TABLE TODO_CARD
 (
     id             INT          PRIMARY KEY     AUTO_INCREMENT,
-    userid         VARCHAR(255) NOT NULL,
+    userId         VARCHAR(255) NOT NULL,
     title          VARCHAR(255) NOT NULL,
     content        VARCHAR(500),
     sequence       INT          NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE ACTIVITY_LOG
     id             INT            PRIMARY KEY     AUTO_INCREMENT,
     title         VARCHAR(255)   NOT NULL,
     type           INT            NOT NULL,
-    previous       INT            NOT NULL,
-    status         INT            NOT NULL,
+    previous       INT,
+    status         INT,
     time           TIMESTAMP      NOT NULL
 );

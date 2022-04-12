@@ -45,7 +45,7 @@ public class DataBaseCardRepository implements CardRepository {
 		jdbcInsert.withTableName("TODO_CARD").usingGeneratedKeyColumns("id");
 
 		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("userid", card.getUserId());
+		parameters.put("userId", card.getUserId());
 		parameters.put("title", card.getTitle());
 		parameters.put("content", card.getContent());
 		parameters.put("sequence", card.getSequence());
