@@ -1,6 +1,5 @@
 import TodoEdit from './TodoEdit.js';
 import Modal from './Modal.js';
-import { $ } from '../utils/dom.js';
 
 export default class Todo {
   constructor(todoData) {
@@ -63,8 +62,8 @@ export default class Todo {
 
   handleEventListener = () => {
     this.todoElement.addEventListener('mousedown', this.onMouseDown);
-    $('.card__delete').addEventListener('mouseover', this.onDeleteMouseOver);
-    $('.card__delete').addEventListener('mouseout', this.onDeleteMouseOut);
+    this.todoElement.addEventListener('mouseover', this.onDeleteMouseOver);
+    this.todoElement.addEventListener('mouseout', this.onDeleteMouseOut);
   };
 
   showEditForm = () => {
@@ -81,8 +80,10 @@ export default class Todo {
     todoEdit.handleEventListener();
   };
 
-  onDeleteMouseOver = () => {
-    this.todoElement.classList.add('card__delete--mouseOver');
+  onDeleteMouseOver = ({ target }) => {
+    if (target.classList.contains('card__delete')) {
+      this.todoElement.classList.add('card__delete--mouseOver');
+    }
   };
 
   onDeleteMouseOut = () => {
