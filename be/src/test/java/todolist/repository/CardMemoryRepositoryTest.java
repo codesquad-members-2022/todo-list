@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CardMemoryRepositoryTest {
 
-    private TodoRepository<Card> repository = new CardMemoryRepository();
+    private CardRepository<Card> repository = new CardMemoryRepository();
 
     @Test
     @DisplayName("Card 객체를 저장한다.")

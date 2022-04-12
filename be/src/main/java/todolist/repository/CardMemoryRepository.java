@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 //@Repository
-public class CardMemoryRepository implements TodoRepository<Card> {
+public class CardMemoryRepository implements CardRepository<Card> {
 
     private static List<Card> store = new ArrayList<>();
     private static AtomicLong id = new AtomicLong();

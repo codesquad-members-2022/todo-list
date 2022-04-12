@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class CardJdbcRepository implements TodoRepository<Card> {
+public class CardJdbcRepository implements CardRepository<Card> {
 
     private JdbcTemplate jdbcTemplate;
     private SimpleJdbcInsert jdbcInsert;
