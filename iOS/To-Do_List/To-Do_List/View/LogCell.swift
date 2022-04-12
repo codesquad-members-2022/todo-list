@@ -108,13 +108,12 @@ class LogCell : UITableViewCell,CellIdentifiable{
         
         let spacing:CGFloat = 8.0
         let inset:CGFloat = 16
-        stackView.spacing = spacing
+        stackView.distribution = .fillProportionally
         self.selectionStyle = .none
         
 
         NSLayoutConstraint.activate([
-            
-            
+             
             container.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: inset/2),
             container.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -inset/2),
             container.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -inset/2),
@@ -125,8 +124,7 @@ class LogCell : UITableViewCell,CellIdentifiable{
             image.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
             image.trailingAnchor.constraint(equalTo: stackView.leadingAnchor),
             image.bottomAnchor.constraint(equalTo: container.bottomAnchor,constant: -100),
-            
-            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor,constant: 72),
+
             stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor,constant: -inset/2),
             stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor,constant: -inset/2),
             stackView.topAnchor.constraint(equalTo: container.topAnchor,constant: 16)

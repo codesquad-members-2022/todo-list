@@ -79,13 +79,10 @@ extension MainViewController {
             NSLayoutConstraint.deactivate(self.logViewConstaints)
             self.logViewConstaints.removeAll()
             
-            let leading = self.logViewContainer.leadingAnchor.constraint(equalTo: self.statckView.trailingAnchor, constant: -self.logViewContainer.frame.width)
-            let trailing = self.logViewContainer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-            let bottom = self.logViewContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-            
-            self.logViewConstaints = [leading,trailing,bottom]
+            let leading = self.logViewContainer.leadingAnchor.constraint(equalTo: self.statckView.trailingAnchor, constant: -100)
+            self.logViewConstaints = [leading]
             NSLayoutConstraint.activate(self.logViewConstaints)
-            self.logViewContainer.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            self.logViewContainer.frame = CGRect(x: 0, y: 0, width: self.logViewContainer.frame.width, height: self.logViewContainer.frame.height)
         }
     }
     
@@ -96,12 +93,12 @@ extension MainViewController {
 
             let leading = self.logViewContainer.leadingAnchor.constraint(equalTo: self.view.trailingAnchor)
             let trailing = self.logViewContainer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: self.logViewContainer.frame.width)
-            let bottom = self.logViewContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+//            let bottom = self.logViewContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
-            self.logViewConstaints = [leading,trailing,bottom]
+            self.logViewConstaints = [leading,trailing]
             NSLayoutConstraint.activate(self.logViewConstaints)
             
-            self.logViewContainer.frame = CGRect(x: self.view.frame.maxX, y: self.view.safeAreaInsets.top, width: self.logViewContainer.frame.width, height: self.logViewContainer.frame.height)
+            self.logViewContainer.frame = CGRect(x: self.view.frame.maxX, y: self.view.safeAreaInsets.top, width: 0, height: self.logViewContainer.frame.height)
         }
     }
 }

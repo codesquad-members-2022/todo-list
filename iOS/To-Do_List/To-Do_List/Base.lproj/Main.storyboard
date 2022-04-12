@@ -149,7 +149,7 @@
                         <viewLayoutGuide key="safeArea" id="f8C-Ww-DVW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Iux-hy-Vce" firstAttribute="top" secondItem="f8C-Ww-DVW" secondAttribute="top" constant="30" id="PNC-SN-N2S"/>
+                            <constraint firstItem="Iux-hy-Vce" firstAttribute="top" secondItem="f8C-Ww-DVW" secondAttribute="top" constant="15" id="PNC-SN-N2S"/>
                             <constraint firstItem="f8C-Ww-DVW" firstAttribute="trailing" secondItem="Iux-hy-Vce" secondAttribute="trailing" constant="20" id="fzS-qx-ene"/>
                         </constraints>
                     </view>
