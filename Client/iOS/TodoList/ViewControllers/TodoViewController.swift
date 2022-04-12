@@ -1,8 +1,7 @@
 import UIKit
 
 class TodoViewController: UIViewController, TodoEndPointViewController {
-    
-    var middleWare: TodoCardViewMiddleWare?
+    let middleWare = AppDelegate.middleware
     let boardType: TodoBoard = .todo
     
     @IBOutlet weak var tableView: TodoTableView!
@@ -16,14 +15,27 @@ class TodoViewController: UIViewController, TodoEndPointViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewManagement = TodoTableViewManagement(tableView, in: boardType)
-        setDataSource()
-    }
-    
-    func setDataSource() {
-        middleWare?.requestCards(in: boardType, { data in
-            if let data = data {
-                self.tableViewManagement?.setDataSource(data: data)
+        
+        NotificationCenter.default.addObserver(
+            forName: boardType.notificationName,
+            object: middleWare,
+            queue: .main)
+        { [weak self] noti in
+            
+            guard
+                let info = noti.userInfo,
+                let result = info["result"] as? Result<[CardData], DataTaskError>
+            else {
+                return
             }
-        })
+            
+            switch result {
+            case .success(let data):
+                guard let self = self else { return }
+                self.tableViewManagement?.setDataSource(data: data)
+            case .failure(let error):
+                Log.error(error)
+            }
+        }
     }
 }

@@ -43,6 +43,7 @@ class TodoTableViewManagement: NSObject {
         todoBoard = board
         super.init()
     }
+    
     func setTableView(_ tableView: UITableView) {
         targetTableView = tableView
     }

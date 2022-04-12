@@ -31,6 +31,12 @@ class DebugDataTask: SessionDataTask {
         #endif
         
         self.session.dataTask(with: request) { data, response, error in
+            
+            guard error == nil else {
+                completionHandler(.failure(.notConnect))
+                return
+            }
+            
             guard let data = data,
                 let decodedData = try? self.decoder.decode(T.self, from: data) else {
                 completionHandler(.failure(.notConvertdecode))
