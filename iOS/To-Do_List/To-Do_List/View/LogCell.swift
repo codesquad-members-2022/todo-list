@@ -5,7 +5,6 @@
 //  Created by Kai Kim on 2022/04/11.
 //
 
-import Foundation
 import UIKit
 
 class LogCell : UITableViewCell,CellIdentifiable{
@@ -20,13 +19,6 @@ class LogCell : UITableViewCell,CellIdentifiable{
         return label
     }()
     
-    private var image: UIImageView = {
-        let imageView = UIImageView()
-        let image = "U+1f618".image()
-        imageView.image = image
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
     
      private var stackView:UIStackView = {
         let stackView = UIStackView()
@@ -37,34 +29,42 @@ class LogCell : UITableViewCell,CellIdentifiable{
         return stackView
     }()
     
-     private var headLabel:UILabel = {
+    private var image: UIImageView = {
+        let imageView = UIImageView()
+        let image = "U+1f618".image()
+        imageView.image = image
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+     private var authorLabel:UILabel = {
          let label = UILabel()
-         label.font = UIFont(name:"Noto Sans Kannada", size: 16.0)
-         label.text = "오늘 할일"
+         label.font = UIFont(name:"Noto Sans Kannada", size: 12.0)
+         label.text = "@KaiKim"
         return label
     }()
     
     private var bodyLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"Noto Sans Kannada", size: 14.0)
-        label.text = "끝내 주게 쉬기dasdasdasdasdasdasddasdasdasdasdasdasddasdasdasdasdasdasddasdasdasdasdasdasd  "
+        label.text = "(제목) 을/를 (boardType) 에서 (boardType) 으로 이동 하였습니다."
         label.numberOfLines = 3
         label.lineBreakMode = .byWordWrapping
         return label
     }()
 
 
-     private var authorLabel:UILabel = {
+     private var dateLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"Noto Sans Kannada", size: 12.0)
-        label.text = "author by iOS"
+        label.text = "2022-04-08T15:03:37"
         label.textColor = .lightGray
         return label
     }()
     
     
     func loadCardInfo(info : Todo) {
-        self.headLabel.text = info.title
+        self.authorLabel.text = info.title
         self.bodyLabel.text = info.content
     }
     
@@ -92,7 +92,7 @@ class LogCell : UITableViewCell,CellIdentifiable{
     }
     
     private func addViews() {
-        [headLabel,bodyLabel,authorLabel].forEach {
+        [authorLabel,bodyLabel,dateLabel].forEach {
             stackView.addArrangedSubview($0)
         }
         container.addSubview(stackView)
@@ -121,18 +121,16 @@ class LogCell : UITableViewCell,CellIdentifiable{
             container.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: inset/2),
             
             
-            image.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            image.topAnchor.constraint(equalTo: container.topAnchor),
+            image.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
+            image.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
             image.trailingAnchor.constraint(equalTo: stackView.leadingAnchor),
             image.bottomAnchor.constraint(equalTo: container.bottomAnchor,constant: -100),
             
-            stackView.leadingAnchor.constraint(equalTo: image.leadingAnchor,constant: inset/2),
+            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor,constant: 72),
             stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor,constant: -inset/2),
             stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor,constant: -inset/2),
-            stackView.topAnchor.constraint(equalTo: container.topAnchor,constant: inset/2)
-            
-            
-            
+            stackView.topAnchor.constraint(equalTo: container.topAnchor,constant: 16)
+
         ])
     }
 }

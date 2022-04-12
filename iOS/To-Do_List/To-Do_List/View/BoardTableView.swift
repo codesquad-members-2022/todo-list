@@ -33,13 +33,14 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        list.count
+//        list.count
+        10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as? Cell else {return UITableViewCell()}
-        let card = list[indexPath.row]
-        cellConfigurator(card, cell)
+//        let card = list[indexPath.row]
+//        cellConfigurator(card, cell)
         return cell
     }
 }

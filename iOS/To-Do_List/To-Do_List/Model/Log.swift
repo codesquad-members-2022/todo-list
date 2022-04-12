@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct History : Codable{
+    let logs : [Log]
+}
+
+
 struct Log: Codable {
     let author : String
     let content: String

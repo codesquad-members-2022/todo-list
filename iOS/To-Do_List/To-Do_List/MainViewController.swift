@@ -31,8 +31,6 @@ class MainViewController: UIViewController {
         propagateData()
     }
     
-    
-
     private func propagateData() {
         networkManager = NetworkManager(session: URLSession(configuration: URLSessionConfiguration.default))
         
@@ -81,7 +79,7 @@ extension MainViewController {
             NSLayoutConstraint.deactivate(self.logViewConstaints)
             self.logViewConstaints.removeAll()
             
-            let leading = self.logViewContainer.leadingAnchor.constraint(equalTo: self.statckView.trailingAnchor, constant: -130)
+            let leading = self.logViewContainer.leadingAnchor.constraint(equalTo: self.statckView.trailingAnchor, constant: -self.logViewContainer.frame.width)
             let trailing = self.logViewContainer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
             let bottom = self.logViewContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             

@@ -1,0 +1,18 @@
+{
+   "success":true,
+   "response":{
+      "log":[
+         {
+            "author":"Kai",
+            "content":"(제목) 을/를 (boardType) 에서 (boardType) 으로 이동 하였습니다.",
+            "lastmodifiedAt":"2022-04-08T15:03:37"
+         },
+         {
+            "author":"Kai",
+            "content":"(boardType) 에 (제목) 을/를 등록 하였습니다.",
+            "lastmodifiedAt":"2022-04-08T16:03:37"
+         }
+      ]
+   },
+   "error":null
+}
