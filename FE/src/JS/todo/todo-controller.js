@@ -1,7 +1,8 @@
 export default class Controller {
-  constructor(model, view) {
+  constructor(model, view, drag) {
     this.model = model;
     this.view = view;
+    this.drag = drag;
     this.init();
   }
 
@@ -9,6 +10,8 @@ export default class Controller {
     const workListData = this.model.workList;
     this.parseCategoryData(workListData);
     this.parseCardData(workListData);
+    this.drag.addDragEvent();
+    this.view.addCardTemplateEvent();
   }
 
   parseCategoryData(workListData) {

@@ -14,8 +14,8 @@ export async function initTodo() {
 >>>>>>> ce69d4f ([remove] 불필요한 데이터 삭제)
   const model = new Model(workListData);
   const view = new View();
-  new Controller(model, view);
-
   const drag = new Drag();
-  drag.addDragEvent();
+  
+  new Controller(model, view, drag);
+
 }
