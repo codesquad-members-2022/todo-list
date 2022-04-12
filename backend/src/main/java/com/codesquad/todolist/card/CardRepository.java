@@ -62,8 +62,21 @@ public class CardRepository {
         jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card));
     }
 
-    public void move(Card card) {
-        String sql = "update card set column_id = :columnId, card_order = :order where card_id = :cardId";
+    public void move(int oldNextId, Card card) {
+        // `nextId = 이동되는카드(2)` 였던 카드(3)를 찾고, 해당 카드의 nextId를 oldNextId로 변경한다
+        String updateCard3Sql = "update card set next_id = :oldNextId where next_id = :cardId";
+        jdbcTemplate.update(updateCard3Sql, new MapSqlParameterSource()
+            .addValue("oldNextId", oldNextId)
+            .addValue("cardId", card.getCardId())
+        );
+        // 이동된 자리에 있던 카드(5)를 찾아서, `nextId = 카드(0)` 으로 바꿔준다. (카드(5)의 조건은 `nextId = 카드(0).nextId`)
+        String updateCard5Sql = "update card set next_id = :cardId where next_id = :newNextId";
+        jdbcTemplate.update(updateCard5Sql, new MapSqlParameterSource()
+            .addValue("cardId", card.getCardId())
+            .addValue("newNextId", card.getNextId())
+        );
+
+        String sql = "update card set column_id = :columnId, next_id = :nextId where card_id = :cardId";
         jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card));
     }
 

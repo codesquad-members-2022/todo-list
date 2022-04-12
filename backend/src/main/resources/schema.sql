@@ -28,7 +28,7 @@ create table `card`
     created_date timestamp  not null comment '카드 생성 날짜, 시간',
     title        char(200)  not null comment '카드 제목',
     content      char(255)  not null comment '카드 본문',
-    next_id      int(10)    not null comment '해당 카드의 바로 다음 순서인 카드의 id',
+    next_id      bigint(10) comment '해당 카드의 바로 다음 순서인 카드의 id',
     deleted      boolean    not null default false comment 'soft delete 여부',
     FOREIGN KEY (column_id) references `column` (column_id),
     FOREIGN KEY (next_id) references `card` (card_id)
