@@ -1,18 +1,20 @@
+import { $ } from '../utils/dom.js';
 export const onBodyMouseMove = () => {
   document.body.addEventListener('mousemove', e => {
-    const copyCardElement = document.querySelector('.drag');
+    const copyCardElement = $('.drag');
     if (copyCardElement) {
-      copyCardElement.style.left = `${e.pageX}px`;
-      copyCardElement.style.top = `${e.pageY}px`;
-      const dataId = copyCardElement.getAttribute('data-id');
-      checkColumnArea(e.pageX, dataId);
+      Object.assign(copyCardElement.style, {
+        left: `${e.pageX}px`,
+        top: `${e.pageY}px`,
+      });
+      checkColumnArea(e.pageX);
     }
   });
 };
 
 export const onBodyMouseUp = () => {
   document.body.addEventListener('mouseup', e => {
-    const copyCardElement = document.querySelector('.drag');
+    const copyCardElement = $('.drag');
     if (copyCardElement) {
       const dataId = copyCardElement.getAttribute('data-id');
       copyCardElement?.remove();
@@ -22,26 +24,21 @@ export const onBodyMouseUp = () => {
   });
 };
 
-export const checkColumnArea = (x, id) => {
+const checkColumnArea = x => {
+  const dataId = $('.drag').getAttribute('data-id');
   const columns = ['todo', 'ing', 'complete'];
-  const todoColumn = document.querySelector(`.${columns[0]}-wrapper`);
-  const ingColumn = document.querySelector(`.${columns[1]}-wrapper`);
-  const completeColumn = document.querySelector(`.${columns[2]}-wrapper`);
+  const todoColumn = $(`.${columns[0]}-wrapper`);
+  const ingColumn = $(`.${columns[1]}-wrapper`);
+  const completeColumn = $(`.${columns[2]}-wrapper`);
 
-  const card = document.getElementById(`${id}`);
+  const card = document.getElementById(`${dataId}`);
   card.classList.remove('spectrum');
-  if (x >= todoColumn.getBoundingClientRect().left && x <= todoColumn.getBoundingClientRect().right) {
-    todoColumn.appendChild(card);
-    return;
-  }
 
-  if (x >= ingColumn.getBoundingClientRect().left && x <= ingColumn.getBoundingClientRect().right) {
-    ingColumn.appendChild(card);
-    return;
-  }
+  columnAppendChildCard(x, todoColumn, card);
+  columnAppendChildCard(x, ingColumn, card);
+  columnAppendChildCard(x, completeColumn, card);
+};
 
-  if (x >= completeColumn.getBoundingClientRect().left && x <= completeColumn.getBoundingClientRect().right) {
-    completeColumn.appendChild(card);
-    return;
-  }
+const columnAppendChildCard = (x, column, card) => {
+  if (x >= column.getBoundingClientRect().left && x <= column.getBoundingClientRect().right) column.appendChild(card);
 };

@@ -4,6 +4,7 @@ import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
 import { getLocalStorageByKey } from './utils/localStorage.js';
 import { onBodyMouseMove, onBodyMouseUp } from './utils/eventDragHandler.js';
+import { $ } from './utils/dom.js';
 
 const app = () => {
   const todos = getLocalStorageByKey('todos') ? getLocalStorageByKey('todos') : [];
@@ -18,15 +19,17 @@ const app = () => {
 
 const createColumns = () => {
   const columns = ['todo', 'ing', 'complete'];
+  const columnsWrapper = $('.column-section');
   columns.forEach(status => {
     const column = new TodoColumn(status);
-    const count = colulmnTodoCount(status);
+    const count = columnTodoCount(status);
     column.setCount(count);
-    column.render();
+    columnsWrapper.insertAdjacentHTML('beforeend', column.render());
+    column.handleEventListener();
   });
 };
 
-const colulmnTodoCount = status => {
+const columnTodoCount = status => {
   const todos = getLocalStorageByKey('todos');
   if (!todos) return;
   return todos.filter(todo => todo.status === status).length;
@@ -36,8 +39,8 @@ const createTodos = () => {
   const todos = getLocalStorageByKey('todos');
   todos.forEach(todo => {
     const newTodo = new Todo(todo);
-    document.querySelector(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
-    newTodo.run();
+    $(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
+    newTodo.handleEventListener();
   });
 };
 

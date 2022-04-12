@@ -1,12 +1,15 @@
 import Todo from './Todo.js';
 import TodoNotice from './TodoNotice.js';
+import { activationForm } from '../utils/handleStyle.js';
 import { TEXTAREA_DEFAULT_HEIGHT, TEXTAREA_RESIZE_HEIGHT } from '../constants/constants.js';
+import { $ } from '../utils/dom.js';
 
 export default class TodoInput {
-  constructor(status, handleCount) {
+  constructor(status, setOnInput, handleCount) {
     this.status = status;
     this.title = '';
     this.content = '';
+    this.setOnInput = setOnInput;
     this.handleCount = handleCount;
   }
 
@@ -14,16 +17,12 @@ export default class TodoInput {
     target.style.height = TEXTAREA_DEFAULT_HEIGHT + 'px';
     target.style.height = TEXTAREA_RESIZE_HEIGHT + target.scrollHeight + 'px';
 
-    const inputRegisterElement = document.querySelector(`.input-${this.status} .input--register`);
+    const inputRegisterElement = $(`.input-${this.status} .input--register`);
     if (target.value.length === 0) {
-      inputRegisterElement.disabled = true;
-      inputRegisterElement.classList.remove('bg-blue');
-      inputRegisterElement.classList.add('bg-sky-blue');
+      activationForm(inputRegisterElement, true);
     } else {
       this.content = target.value;
-      inputRegisterElement.disabled = false;
-      inputRegisterElement.classList.remove('bg-sky-blue');
-      inputRegisterElement.classList.add('bg-blue');
+      activationForm(inputRegisterElement, false);
     }
   };
 
@@ -32,7 +31,7 @@ export default class TodoInput {
   };
 
   onCloseBtn = () => {
-    document.querySelector(`.input-${this.status}`)?.remove();
+    $(`.input-${this.status}`)?.remove();
   };
 
   getLastId = () => {
@@ -56,6 +55,9 @@ export default class TodoInput {
   };
 
   createNotice = () => {
+    /** TODO
+     * TODO: Notice 부분 작업 예정
+     * */
     const notice = {};
     // notice.id
     notice.title = this.title;
@@ -69,10 +71,10 @@ export default class TodoInput {
   onRegisterBtn = () => {
     const newTodo = new Todo(this.createTodo());
     new TodoNotice(this.createNotice()).render();
-    document.querySelector(`.${this.status}`).insertAdjacentHTML('afterend', newTodo.render());
-
-    document.querySelector(`.input-${this.status}`)?.remove();
-    newTodo.run();
+    $(`.${this.status}`).insertAdjacentHTML('afterend', newTodo.render());
+    $(`.input-${this.status}`)?.remove();
+    newTodo.handleEventListener();
+    this.setOnInput(false);
     this.handleCount();
   };
 
@@ -89,10 +91,10 @@ export default class TodoInput {
     `;
   };
 
-  run = () => {
-    document.querySelector(`.input-${this.status} .input--cancel`).addEventListener('click', this.onCloseBtn);
-    document.querySelector(`.input-${this.status} .input-header`).addEventListener('input', this.onInputHeader);
-    document.querySelector(`.input-${this.status} .input-content`).addEventListener('input', this.onInputContent);
-    document.querySelector(`.input-${this.status} .input--register`).addEventListener('click', this.onRegisterBtn);
+  handleEventListener = () => {
+    $(`.input-${this.status} .input--cancel`).addEventListener('click', this.onCloseBtn);
+    $(`.input-${this.status} .input-header`).addEventListener('input', this.onInputHeader);
+    $(`.input-${this.status} .input-content`).addEventListener('input', this.onInputContent);
+    $(`.input-${this.status} .input--register`).addEventListener('click', this.onRegisterBtn);
   };
 }
