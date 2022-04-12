@@ -36,8 +36,6 @@ class CardControllerMockTest {
 
     @MockBean
     CardService cardService;
-    @MockBean
-    CardRepository cardRepository;
 
     ObjectMapper objectMapper = new ObjectMapper()
         .registerModule(new JavaTimeModule())
