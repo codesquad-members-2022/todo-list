@@ -66,6 +66,10 @@ class BoardHeader: UIView {
     private func setAddButton() {
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        addButton.addTarget(self, action: #selector(showAddCardView), for: .touchUpInside)
+    }
+    
+    @objc func showAddCardView() {
         
     }
     
