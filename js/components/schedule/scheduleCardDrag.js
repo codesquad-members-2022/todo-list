@@ -1,6 +1,8 @@
 const $main = document.querySelector("#main");
 
 let dragCard;
+let afterImageCard;
+let $scheduleCardBelow;
 
 const isValid2Drag = (target, selectedCard) => {
     const dragCard = target.closest(".schedule-drag-card");
@@ -16,15 +18,25 @@ const relocateDragCard = (pageX, pageY) => {
 const addMouseEventOnDragCard = () => {
     $main.addEventListener("mousemove", mouseMoveOnDraggingEventHandler);
     $main.addEventListener("mouseup", mouseUpOnDraggingEventHandler);
-    $main.addEventListener("mouseenter", mouseEnterOnDraggingEventHandler);
 };
 
-const mouseEnterOnDraggingEventHandler = (event) => {
+const mouseOverOnDraggingEventHandler = (event) => {
     const CARD = ".schedule-card";
-    const $scheduleCard = event.target.closest(CARD);
+    dragCard.style.display = "none";
+    const $scheduleCard = e;
+    dragCard.style.display = "block";
+    console.log(event.target);
 
     if ($scheduleCard) {
-        if (getLocation($scheduleCard, event.pageY) === "top") {
+        console.log("mouse enter schedulecard");
+        const location = getLocation($scheduleCard, event.pageY);
+        switch (location) {
+            case "top": {
+                $scheduleCard.insertAdjacentHTML("beforeBegin", afterImageCard);
+                break;
+            }
+            case "bottom": {
+            }
         }
     }
 };
@@ -46,6 +58,35 @@ const removeMouseUpEvent = () => {
 
 const mouseMoveOnDraggingEventHandler = (event) => {
     relocateDragCard(event.pageX, event.pageY);
+
+    dragCard.style.display = "none";
+    const $newScheduleCardBelow = document.elementFromPoint(
+        event.clientX,
+        event.clientY
+    );
+    dragCard.style.display = "flex";
+
+    if (
+        !$newScheduleCardBelow ||
+        !$newScheduleCardBelow.classList.contains("schedule-card") ||
+        ($scheduleCardBelow && $newScheduleCardBelow === $scheduleCardBelow)
+    ) {
+        return;
+    }
+
+    $scheduleCardBelow = $newScheduleCardBelow;
+    const location = getLocation($scheduleCardBelow, event.pageY);
+    switch (location) {
+        case "top": {
+            $scheduleCardBelow.insertAdjacentHTML(
+                "beforeBegin",
+                afterImageCard
+            );
+            break;
+        }
+        case "bottom": {
+        }
+    }
 };
 
 export const mouseDownEventHandler = (event) => {
@@ -64,6 +105,7 @@ export const mouseDownEventHandler = (event) => {
     selectedCard.classList.replace(CARD, CARD_AFTER_IMAGE);
     dragCard.classList.replace(CARD, DRAG_CARD);
     $cardsContainer.appendChild(dragCard);
+    afterImageCard = selectedCard;
 
     relocateDragCard(event.pageX, event.pageY);
     addMouseEventOnDragCard();
