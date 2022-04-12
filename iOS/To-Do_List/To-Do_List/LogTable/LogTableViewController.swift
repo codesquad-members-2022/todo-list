@@ -14,7 +14,8 @@ class LogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .gray
+        self.view.backgroundColor = .secondarySystemBackground
+//        self.view.layer.borderWidth = 1
         setTableView()
     }
 
@@ -38,7 +39,7 @@ extension LogViewController {
     
     private func tableViewConstraints() {
         NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50),
+            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 35),
             self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
