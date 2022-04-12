@@ -1,23 +1,23 @@
 package codesquad.be.todoserver.controller;
 
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import codesquad.be.todoserver.domain.Todo;
 import codesquad.be.todoserver.exception.NoSuchTodoFoundException;
 import codesquad.be.todoserver.service.TodoService;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TodoController.class)
 @DisplayName("API /api/todos/* 컨트롤러 계층 단위 테스트")
@@ -38,11 +38,7 @@ class TodoControllerTest {
 
 		perform
 			.andExpect(status().isOk())
-			.andExpect(jsonPath("id").value(1))
-			.andExpect(jsonPath("title").value("Github 공부하기"))
-			.andExpect(jsonPath("contents").value("add, commit, push"))
-			.andExpect(jsonPath("user").value("sam"))
-			.andExpect(jsonPath("status").value("todo"));
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
 	}
 
 	@Test
@@ -61,25 +57,13 @@ class TodoControllerTest {
 		List<Todo> todos = createTestData();
 
 		given(todoService.findTodos())
-				.willReturn(todos);
+			.willReturn(todos);
 
 		ResultActions perform = mockMvc.perform(get("/api/todos"));
 
 		perform
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.[0].id").value(1))
-				.andExpect(jsonPath("$.[0].title").value("Github 공부하기"))
-				.andExpect(jsonPath("$.[0].contents").value("add, commit, push"))
-				.andExpect(jsonPath("$.[0].user").value("sam"))
-				.andExpect(jsonPath("$.[0].status").value("todo"))
-
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.[1].id").value(2))
-				.andExpect(jsonPath("$.[1].title").value("블로그에 포스팅할 것"))
-				.andExpect(jsonPath("$.[1].contents").value("*Github 공부내용 \n" +
-						" *모던 자바스크립트 1장 공부내용"))
-				.andExpect(jsonPath("$.[1].user").value("sam"))
-				.andExpect(jsonPath("$.[1].status").value("todo"));
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
 	}
 
 	private List<Todo> createTestData() {
