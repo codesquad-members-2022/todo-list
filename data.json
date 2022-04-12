@@ -35,6 +35,36 @@
           "title": "완료한 일",
           "cards": []
         }
+      ],
+      "histories": [
+        {
+          "user": "sam",
+          "todo": "HTML/CSS 공부하기",
+          "beforePosition": "해야할 일",
+          "afterPosition": "하고 있는 일",
+          "action": "이동"
+        },
+        {
+          "user": "sam",
+          "todo": "HTML/CSS 공부하기",
+          "beforePosition": "",
+          "afterPosition": "해야할 일",
+          "action": "등록"
+        },
+        {
+          "user": "sam",
+          "todo": "블로그에 포스팅할 것",
+          "beforePosition": "",
+          "afterPosition": "해야할 일",
+          "action": "등록"
+        },
+        {
+          "user": "sam",
+          "todo": "Github 공부하기",
+          "beforePosition": "",
+          "afterPosition": "해야할 일",
+          "action": "등록"
+        }
       ]
     }
   ]
