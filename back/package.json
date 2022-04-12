@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node init.js --delay 1",
+    "start": "babel-node init.js --delay 1",
+    "start:watch": "nodemon --exec npm start",
     "lint": "eslint src --fix"
   },
   "keywords": [],
