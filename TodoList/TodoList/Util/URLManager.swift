@@ -36,11 +36,11 @@ final class URLManager{
         return returnData
     }
     
-    //Post // return CardID data
-    static func requestPost(url: String, requestParam: Card) -> Data?{
+    //Post - encode된 Data를 param 인자 값으로 받아옴
+    static func requestPost(url: String, requestParam: Data?) -> Data?{
         var requestedID: Data?
         
-        guard let uploadData = JsonConverter.encodeJson(param: requestParam) else { return nil }
+        guard let uploadData = requestParam else { return nil }
         
         guard let validURL = URL(string: url) else { return nil }
         var urlRequest = URLRequest(url: validURL)
