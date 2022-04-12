@@ -17,11 +17,9 @@ export default class App extends Component {
   template() {
     return `
       <header></header>
-      <div class="menu"></div>
+      <div class="menu hidden-menu"></div>
       <main class="flex">
-        ${this.state.columnTitles
-          ?.map((_, index) => `<div class="column" data-index="${index}"></div>`)
-          .join("")}
+        ${this.state.columnTitles?.map((_, index) => `<div class="column" data-index="${index}"></div>`).join("")}
       </main>
     `;
   }

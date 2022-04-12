@@ -4,7 +4,11 @@ import History from "./History.js";
 export default class Menu extends Component {
   setup() {}
 
-  setEvent() {}
+  setEvent() {
+    this.addEvent("click", ".close-button", () => {
+      this.$target.classList.add("hidden-menu");
+    });
+  }
 
   mounted() {
     const $histories = document.querySelectorAll(".history");

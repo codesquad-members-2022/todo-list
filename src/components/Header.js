@@ -3,7 +3,12 @@ import Component from "../core/Component.js";
 export default class Header extends Component {
   setup() {}
 
-  setEvent() {}
+  setEvent() {
+    this.addEvent("click", ".menu-button", () => {
+      const $menu = document.querySelector(".menu");
+      $menu.classList.remove("hidden-menu");
+    });
+  }
 
   template() {
     return /* html */ `

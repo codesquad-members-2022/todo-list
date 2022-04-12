@@ -1,3 +1,7 @@
+body {
+  overflow: hidden;
+}
+
 .menu {
   position: absolute;
   top: 0;
@@ -62,4 +66,8 @@
       }
     }
   }
+}
+
+.hidden-menu {
+  right: -452px;
 }
