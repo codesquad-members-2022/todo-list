@@ -19,14 +19,16 @@ public class Event {
     }
 
     public Event(String cardTitle, String prevSection, String currentSection, Action action) {
+        this(-1L, cardTitle, prevSection, currentSection, action, null);
+    }
+
+    public Event(Long id, String cardTitle, String prevSection, String currentSection, Action action, LocalDateTime createdAt) {
+        this.id = id;
         this.cardTitle = cardTitle;
         this.prevSection = prevSection;
         this.currentSection = currentSection;
         this.action = action;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = createdAt;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
