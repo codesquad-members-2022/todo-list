@@ -12,14 +12,15 @@ class TodoAdapter(
     todoDiffCallback: DiffUtil.ItemCallback<TodoItem>
 ) :
     ListAdapter<TodoItem, TodoAdapter.ViewHolder>(todoDiffCallback) {
-    class ViewHolder(private val itemViewBinding: TodoItemBinding) : RecyclerView.ViewHolder(itemViewBinding.root) {
+    class ViewHolder(private val itemViewBinding: TodoItemBinding) :
+        RecyclerView.ViewHolder(itemViewBinding.root) {
         fun bind(cardItem: TodoItem) {
             itemViewBinding.toDoItem = cardItem
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding= TodoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = TodoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

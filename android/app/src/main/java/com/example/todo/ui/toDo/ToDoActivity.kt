@@ -12,11 +12,8 @@ import com.example.todo.R
 import com.example.todo.ui.action.ActionDiffCallback
 
 import com.example.todo.databinding.ActivityTodoBinding
-import com.example.todo.model.ActionLog
-import com.example.todo.model.ActionType
-import com.example.todo.model.ProgressType
+import com.example.todo.model.*
 
-import com.example.todo.model.TodoItem
 import com.example.todo.ui.action.ActionAdapter
 import com.example.todo.ui.common.ViewModelFactory
 
@@ -34,15 +31,9 @@ class ToDoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_todo)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_todo)
         setToolBar()
-        setCloseDrawerBtn()
         initializeRecyclerViews()
         addDummyDataInRecyclerView()
-    }
 
-    private fun setCloseDrawerBtn(){
-        binding.ibtnCloseDrawer.setOnClickListener {
-            binding.draw.closeDrawer(GravityCompat.END)
-        }
     }
 
     private fun setToolBar() {
@@ -128,21 +119,31 @@ class ToDoActivity : AppCompatActivity() {
         binding.rvActionLog.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        binding.todoTitleViewTodo.title.text = "해야할 일"
+        binding.todoTitleViewInProgress.title.text = "하고있는 일"
+        binding.todoTitleViewTodoDone.title.text = "완료한 일"
+
         toDoViewModel.todoList.observe(this) {
             todoAdapter.submitList(it)
+            binding.todoTitleViewTodo.count.text = it.size.toString()
         }
 
         toDoViewModel.inProgressList.observe(this) {
             inProgressAdapter.submitList(it)
+            binding.todoTitleViewInProgress.count.text = (it.size).toString()
         }
 
         toDoViewModel.doneList.observe(this) {
             doneAdapter.submitList(it)
+            binding.todoTitleViewTodoDone.count.text = (it.size).toString()
         }
 
         toDoViewModel.actionList.observe(this) {
             actionAdapter.submitList(it)
+            // 테스트용
+            binding.todoTitleViewTodo.count.text = it.size.toString()
         }
+
     }
 
     companion object {
