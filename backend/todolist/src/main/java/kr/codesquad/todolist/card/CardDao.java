@@ -3,7 +3,6 @@ package kr.codesquad.todolist.card;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -32,13 +31,15 @@ public class CardDao {
 	public static final String CARD_WRITING_DATE = "writing_date";
 	public static final String CARD_TODO_USER_ID = "todo_user_id";
 	public static final String CARD_DELETED = "deleted";
+	public static final String CARD_NUMBER_OF_STATUS = "number_of_status";
 
 	public static final long ADDED_NEXT_ORDER = 1L;   // insert-getMaxTodoOrder() : default or 다음순서 +1 값
 
-	public static final String ERROR_OF_TODO_ID = "error of todoId";
+	public static final String ERROR_OF_CARD_ID = "error of cardId";
 	public static final String ERROR_OF_CARD_DAO_UPDATE = "error of CardDao - update";
 	public static final String ERROR_OR_CARD_DAO_UPDATE_NONE = "cardDao 없데이트 대상이 아닙니다.";
 	public static final String ERROR_OF_CARD_DAO_BY_FK_USER_ID = "result of null with userId";
+	public static final String ERROR_OF_CARD_DAO_USER_ID = "cardDao - userId";
 
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private final JdbcTemplate jdbcTemplate;
@@ -53,19 +54,23 @@ public class CardDao {
 		return card;
 	}
 
+	// 파람 수정 - 속성명이 달라지면서 에러 발생으로 수정
 	private int update(Card card) {
 		Optional<Card> cardInfo = findById(card.getCardId());
 		if (cardInfo.isEmpty()) {
 			throw new IllegalArgumentException(ERROR_OR_CARD_DAO_UPDATE_NONE);
 		}
-		String sql = "update todo_list_table set subject = :subject, contet = :content where todo_id = :todo_id";
-		SqlParameterSource params = new BeanPropertySqlParameterSource(card);
+		String sql = "update todo_list_table set subject = :subject, content = :content where todo_id = :todo_id";
+		final SqlParameterSource params = new MapSqlParameterSource()
+			.addValue(CARD_SUBJECT, card.getSubject())
+			.addValue(CARD_CONTENT, card.getContent())
+			.addValue(CARD_KEY_COLUMN_NAME, card.getCardId());
 		return namedParameterJdbcTemplate.update(sql, params);
 	}
 
 	protected Optional<Card> findById(Long todoId) {
 		if (todoId < ADDED_NEXT_ORDER) {
-			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
+			throw new IllegalArgumentException(ERROR_OF_CARD_ID);
 		}
 		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_KEY_COLUMN_NAME, todoId);
 		String sql = "select * from todo_list_table where todo_id = :todo_id;";
@@ -94,7 +99,7 @@ public class CardDao {
 	private long getMaxTodoOrder(Long userId, String todoStatus) {
 		long maxOrder = ADDED_NEXT_ORDER;
 		if (userId < ADDED_NEXT_ORDER) {
-			throw new IllegalArgumentException(ERROR_OF_TODO_ID);
+			throw new IllegalArgumentException(ERROR_OF_CARD_ID);
 		}
 		final SqlParameterSource namedParameters = new MapSqlParameterSource()
 			.addValue(CARD_TODO_USER_ID, userId)
@@ -137,12 +142,35 @@ public class CardDao {
 
 	public List<Card> findByUserIdAndTodoStatus(Long userId, Card.TodoStatus todo) {
 		if (userId < 1) {
-			throw new IllegalArgumentException("cardDao - userId");
+			throw new IllegalArgumentException(ERROR_OF_CARD_DAO_USER_ID);
 		}
 		final SqlParameterSource namedParameters = new MapSqlParameterSource()
 			.addValue(CARD_TODO_USER_ID, userId)
 			.addValue(CARD_TODO_STATUS, todo.getText());
+		/*
+			TODO (honux)
+			 order by - 인덱싱
+			 where filter - full scan 후 정렬 : O(n)
+		 */
 		String sql = "select * from todo_list_table where deleted = 0 and todo_user_id = :todo_user_id and todo_status = :todo_status order by todo_order desc;";
 		return namedParameterJdbcTemplate.query(sql, namedParameters, cardRowMapper());
+	}
+
+	public List<CardStatusNumber> findGroupByTodoStatus(Long userId) {
+		if (userId < 1) {
+			throw new IllegalArgumentException(ERROR_OF_CARD_DAO_USER_ID);
+		}
+		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_TODO_USER_ID, userId);
+		String sql = "select count(todo_status) as number_of_status, todo_status from springcafe.todo_list_table where todo_user_id = :todo_user_id and deleted = 0 group by todo_status;";
+		return namedParameterJdbcTemplate.query(sql, namedParameters, cardStatusNumberRowMapper());
+	}
+
+	private RowMapper<CardStatusNumber> cardStatusNumberRowMapper() {
+		return (rs, rowNum) -> {
+			CardStatusNumber cardStatusNumber = new CardStatusNumber(
+				Card.TodoStatus.from(rs.getString(CARD_TODO_STATUS)),
+				rs.getLong(CARD_NUMBER_OF_STATUS));
+			return cardStatusNumber;
+		};
 	}
 }
