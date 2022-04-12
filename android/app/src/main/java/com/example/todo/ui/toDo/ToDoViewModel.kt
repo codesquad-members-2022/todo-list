@@ -86,4 +86,67 @@ class ToDoViewModel(
             doneList = _doneList
         }
     }
+
+    fun deleteTodoItem(item: TodoItem) {
+        _todoList.value = todoList.value?.let { toDoRepository.deleteToDoItem(it, item) }
+        todoList = _todoList
+    }
+
+    fun deleteInProgressItem(item: TodoItem) {
+        _inProgressList.value = inProgressList.value?.let { toDoRepository.deleteInProgressItem(it, item) }
+        inProgressList = _inProgressList
+    }
+
+    fun deleteDoneItem(item:TodoItem){
+        _doneList.value = doneList.value?.let { toDoRepository.deleteDoneItem(it, item) }
+        doneList = _doneList
+    }
+
+    fun moveToDone(item: TodoItem) {
+        when (item.type) {
+            ProgressType.IN_PROGRESS -> {
+                deleteInProgressItem(item)
+                item.type= ProgressType.DONE
+                addDoneItem(item)
+            }
+            ProgressType.DONE -> {
+                return
+            }
+            else -> {
+                deleteTodoItem(item)
+                item.type= ProgressType.DONE
+                addDoneItem(item)
+            }
+        }
+
+    }
+
+    fun deleteItem(cardItem: TodoItem) {
+        when(cardItem.type){
+            ProgressType.TO_DO->{
+                deleteTodoItem(cardItem)
+            }
+            ProgressType.IN_PROGRESS->{
+                deleteInProgressItem(cardItem)
+            }
+            ProgressType.DONE->{
+                deleteDoneItem(cardItem)
+            }
+        }
+    }
+
+    fun updateTodoItem(updateItem: TodoItem) {
+        _todoList.value = todoList.value?.let { toDoRepository.updateToDoItem(it, updateItem) }
+        todoList = _todoList
+    }
+
+    fun updateInProgressItem(updateItem: TodoItem) {
+        _inProgressList.value = inProgressList.value?.let { toDoRepository.updateInProgressItem(it, updateItem) }
+        inProgressList = _inProgressList
+    }
+
+    fun updateDoneItem(updateItem: TodoItem) {
+        _doneList.value = doneList.value?.let { toDoRepository.updateDoneItem(it, updateItem) }
+        doneList = _doneList
+    }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/popup_move_to_done"
+        android:title="@string/label_popup_moveDone_title"/>
+    <item android:id="@+id/popup_update"
+        android:title="@string/label_popup_update_title"/>
+    <item android:id="@+id/popup_delete"
+        android:title="@string/label_popup_delete_title"/>
+
+</menu>

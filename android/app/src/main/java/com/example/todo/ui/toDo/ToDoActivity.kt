@@ -17,7 +17,7 @@ import com.example.todo.model.*
 import com.example.todo.ui.action.ActionAdapter
 import com.example.todo.ui.common.ViewModelFactory
 
-class ToDoActivity : AppCompatActivity() {
+class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
 
     private lateinit var binding: ActivityTodoBinding
     private lateinit var todoAdapter: TodoAdapter
@@ -122,9 +122,9 @@ class ToDoActivity : AppCompatActivity() {
 //    }
 
     private fun initializeRecyclerViews() {
-        todoAdapter = TodoAdapter(TodoDiffCallback())
-        inProgressAdapter = TodoAdapter(TodoDiffCallback())
-        doneAdapter = TodoAdapter(TodoDiffCallback())
+        todoAdapter = TodoAdapter(this,this,toDoViewModel, TodoDiffCallback())
+        inProgressAdapter = TodoAdapter(this,this,toDoViewModel,TodoDiffCallback())
+        doneAdapter = TodoAdapter(this,this,toDoViewModel,TodoDiffCallback())
         actionAdapter = ActionAdapter(ActionDiffCallback())
 
         binding.rvTodo.adapter = todoAdapter
@@ -166,5 +166,9 @@ class ToDoActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "ToDoActivity"
+    }
+
+    override fun updateDialog(item: TodoItem) {
+        UpdateToDoDialog(item).show(supportFragmentManager, "update")
     }
 }
