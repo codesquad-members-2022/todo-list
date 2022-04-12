@@ -11,7 +11,7 @@ import UIKit
 struct Log: Decodable {
     init(userId: String, action: Action, created: Date, taskId: Int, from: TaskStatus?, to: TaskStatus?) {
         self.userId = userId
-        self.activityType = action
+        self.action = action
         self.createdAt = created
         self.taskId = taskId
         self.from = from
@@ -19,7 +19,7 @@ struct Log: Decodable {
     }
     
     let userId: String
-    private let activityType: Action
+    private let action: Action
     private let createdAt: Date
     private let taskId: Int
     private let from: TaskStatus?
