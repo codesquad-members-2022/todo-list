@@ -44,7 +44,6 @@ class CardManager: CardManagable {
     
     func add(newCard: Cardable) {
         cards.append(newCard)
-        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self)
         
         let userInfo = [Constants.userInfoKeys.addedCard: newCard]
         NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self, userInfo: userInfo)
