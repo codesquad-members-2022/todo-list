@@ -21,7 +21,7 @@ public class HistoryJdbcRepository implements HistoryRepository {
 
 	@Override
 	public Optional<List<History>> findAllHistory() {
-		String sql = "SELECT id, todoId, todoTitle, user, action, fromStatus, toStatus, createdAt FROM HISTORY";
+		String sql = "SELECT id, todo_id, todo_title, user, action, from_status, to_status, created_at FROM HISTORY";
 
 		return Optional.ofNullable(jdbcTemplate.query(sql, historyRowMapper()));
 	}
@@ -29,13 +29,13 @@ public class HistoryJdbcRepository implements HistoryRepository {
 	private RowMapper<History> historyRowMapper() {
 		return (rs, rowNum) -> new History(
 			rs.getLong("id"),
-			rs.getLong("todoId"),
-			rs.getString("todoTitle"),
+			rs.getLong("todo_id"),
+			rs.getString("todo_title"),
 			rs.getString("user"),
 			rs.getString("action"),
-			rs.getString("fromStatus"),
-			rs.getString("toStatus"),
-			rs.getString("createdAt")
+			rs.getString("from_status"),
+			rs.getString("to_status"),
+			rs.getString("created_at")
 		);
 	}
 }
