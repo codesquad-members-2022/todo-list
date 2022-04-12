@@ -12,9 +12,17 @@ const getColumnTitles = async () => {
   }));
 };
 
+const getCards = async (columnIndex) => {
+  const mockData = await getMockData();
+  const columns = mockData.columns;
+  const cards = columns[columnIndex].cards;
+
+  return cards;
+};
+
 const getHistories = async () => {
   const mockData = await getMockData();
   return mockData.histories;
 };
 
-export { getColumnTitles, getHistories };
+export { getColumnTitles, getCards, getHistories };
