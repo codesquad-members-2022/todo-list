@@ -1,13 +1,16 @@
 package team03.todoapp.repository;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,4 +121,28 @@ public class CardRepository {
         log.debug("cardId: {} deleted", cardId);
     }
 
+    public void update(Card card) {
+        jdbcTemplate.update(
+            "update card set title = ?, content = ? where card_id = ? and deleted = false",
+            card.getTitle(), card.getContent(), card.getCardId());
+    }
+
+    public Optional<Card> findById(Long cardId) {
+        String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, deleted from card where card_id = ? and deleted = false";
+        Card card = jdbcTemplate.queryForObject(sql, getCardRowMapper(), cardId);
+        return Optional.ofNullable(card);
+    }
+
+
+    private RowMapper<Card> getCardRowMapper() {
+        return (rs, rowNum) -> new Card(
+            rs.getLong("card_id"),
+            rs.getString("title"),
+            rs.getString("content"),
+            rs.getString("writer"),
+            rs.getString("current_location"),
+            rs.getObject("upload_date", LocalDateTime.class),
+            rs.getLong("next_id"),
+            rs.getBoolean("deleted"));
+    }
 }

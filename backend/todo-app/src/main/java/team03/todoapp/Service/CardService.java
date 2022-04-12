@@ -2,6 +2,7 @@ package team03.todoapp.Service;
 
 import org.springframework.stereotype.Service;
 import team03.todoapp.controller.dto.CardAddFormRequest;
+import team03.todoapp.controller.dto.CardUpdateFormRequest;
 import team03.todoapp.domain.Card;
 import team03.todoapp.repository.CardRepository;
 
@@ -24,4 +25,11 @@ public class CardService {
         return cardRepository.insert(card);
     }
 
+    public void update(Long cardId, CardUpdateFormRequest request) {
+        Card card = cardRepository.findById(cardId)
+            .orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
+
+        card.update(request.getTitle(), request.getContent());
+        cardRepository.update(card);
+    }
 }

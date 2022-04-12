@@ -4,6 +4,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import team03.todoapp.Service.CardService;
 import team03.todoapp.controller.dto.CardAddFormRequest;
+import team03.todoapp.controller.dto.CardUpdateFormRequest;
 
 @RestController
 public class CardController {
@@ -23,6 +24,12 @@ public class CardController {
     @DeleteMapping("/card/{cardId}")
     public void removeCard(@PathVariable("cardId") Long cardId) {
         cardService.remove(cardId);
+    }
+
+    @PatchMapping("/card/{cardId}")
+    public void updateCard(@PathVariable("cardId") Long cardId,
+        @RequestBody CardUpdateFormRequest cardUpdateFormRequest) {
+        cardService.update(cardId, cardUpdateFormRequest);
     }
 
 }
