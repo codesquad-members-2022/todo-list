@@ -1,6 +1,6 @@
 [
   {
-    "id":1,
+    "id": 1,
     "cardIndex": 1,
     "title": "테스트1",
     "contents": "테스트입니다1",
@@ -9,8 +9,8 @@
     "cardStatus": "TODO"
   },
   {
-    "id":2,
-    "cardIndex": 2,
+    "id": 2,
+    "cardIndex": 1,
     "title": "테스트1",
     "contents": "테스트입니다1",
     "writer": "dis",
@@ -18,8 +18,8 @@
     "cardStatus": "DONE"
   },
   {
-    "id":3,
-    "cardIndex": 3,
+    "id": 3,
+    "cardIndex": 2,
     "title": "테스트1",
     "contents": "테스트입니다1",
     "writer": "dis",
@@ -27,8 +27,8 @@
     "cardStatus": "TODO"
   },
   {
-    "id":4,
-    "cardIndex": 4,
+    "id": 4,
+    "cardIndex": 2,
     "title": "테스트1",
     "contents": "테스트입니다1",
     "writer": "dis",
