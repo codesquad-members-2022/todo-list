@@ -1,5 +1,5 @@
 //
-//  TodoListTests.swift
+//  JsonConvertTest.swift
 //  TodoListTests
 //
 //  Created by juntaek.oh on 2022/04/12.
@@ -7,8 +7,9 @@
 
 import XCTest
 import os
+@testable import TodoList
 
-class TodoListTests: XCTestCase {
+class JsonConvertTest: XCTestCase {
     override func setUpWithError() throws {
     }
 
@@ -16,12 +17,20 @@ class TodoListTests: XCTestCase {
     }
 
     func testExample() throws {
+        func decodeJson<T: Codable>(data: Data) -> [T]?{
+            do{
+                let result = try JSONDecoder().decode([T].self, from: data)
+                return result
+            } catch{
+                return nil
+            }
+        }
+        
         func testAsync(){
             let url = "https://api.codesquad.kr/signup"
             guard let validURL = URL(string: url) else { return }
             
-            let expt = expectation(description: "Can get Data")
-            var returnData: Data?
+            let expt = expectation(description: "Can convert Data")
             
             var urlRequest = URLRequest(url: validURL)
             urlRequest.httpMethod = "GET"
@@ -36,19 +45,19 @@ class TodoListTests: XCTestCase {
                     return
                 }
 
-                returnData = data
+                let result: [String]? = decodeJson(data: data)
+                XCTAssertNotNil(result)
                 expt.fulfill()
             }.resume()
             
             waitForExpectations(timeout: 60.0)
-            XCTAssertNotNil(returnData)
         }
         
         testAsync()
     }
 
     func testPerformanceExample() throws {
-        measure {
+        self.measure {
         }
     }
 

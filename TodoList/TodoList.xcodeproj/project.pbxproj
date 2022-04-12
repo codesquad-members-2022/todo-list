@@ -25,6 +25,7 @@
 		B3BAE2C527FF2A3C005E7ED2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BAE2C427FF2A3C005E7ED2 /* Board.swift */; };
 		D2589C7C280513AE005BA2B6 /* JsonConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2589C7B280513AE005BA2B6 /* JsonConverter.swift */; };
 		D2589C8428051455005BA2B6 /* URLSessionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2589C8328051455005BA2B6 /* URLSessionTest.swift */; };
+		D2589C8B2805152E005BA2B6 /* JsonConvertTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2589C8A2805152E005BA2B6 /* JsonConvertTest.swift */; };
 		D25BF7FD27FE794D0010DE50 /* TableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25BF7FC27FE794D0010DE50 /* TableHeader.swift */; };
 		D25BF7FF27FE7D3C0010DE50 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF7FE27FE7D3C0010DE50 /* NotoSansKR-Light.otf */; };
 		D25BF80527FE7D5A0010DE50 /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80027FE7D590010DE50 /* NotoSansKR-Thin.otf */; };
@@ -72,6 +73,7 @@
 		D2589C7B280513AE005BA2B6 /* JsonConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonConverter.swift; sourceTree = "<group>"; };
 		D2589C8128051455005BA2B6 /* TodoListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2589C8328051455005BA2B6 /* URLSessionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTest.swift; sourceTree = "<group>"; };
+		D2589C8A2805152E005BA2B6 /* JsonConvertTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonConvertTest.swift; sourceTree = "<group>"; };
 		D25BF7FC27FE794D0010DE50 /* TableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeader.swift; sourceTree = "<group>"; };
 		D25BF7FE27FE7D3C0010DE50 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		D25BF80027FE7D590010DE50 /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				D2589C8328051455005BA2B6 /* URLSessionTest.swift */,
+				D2589C8A2805152E005BA2B6 /* JsonConvertTest.swift */,
 			);
 			path = TodoListTests;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2589C8428051455005BA2B6 /* URLSessionTest.swift in Sources */,
+				D2589C8B2805152E005BA2B6 /* JsonConvertTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
