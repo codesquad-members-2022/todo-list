@@ -23,15 +23,15 @@ export const createNewCardTemplate = () => {
 };
 
 const onNewCardInput = newCard => {
-  newCard.addEventListener('keyup', () => {
-    changeSaveBtnStatus();
+  newCard.addEventListener('input', () => {
+    changeSaveBtnStatus(newCard);
   });
 };
 
-const changeSaveBtnStatus = () => {
-  const titleInput = document.querySelector('.card__contents__input--header');
-  const textArea = document.querySelector('.card__contents__input--main');
-  const saveBtn = document.querySelector('.footer__buttons__save');
+const changeSaveBtnStatus = newCard => {
+  const titleInput = newCard.querySelector('.card__contents__input--header');
+  const textArea = newCard.querySelector('.card__contents__input--main');
+  const saveBtn = newCard.querySelector('.footer__buttons__save');
   if (textArea.value && titleInput.value) {
     saveBtn.disabled = false;
     saveBtn.style.backgroundColor = '#0175de';
@@ -66,10 +66,7 @@ const resizeTextArea = textArea => {
 };
 
 const onResizeTextArea = textArea => {
-  textArea.addEventListener('keyup', () => {
-    resizeTextArea(textArea);
-  });
-  textArea.addEventListener('keydown', () => {
+  textArea.addEventListener('input', () => {
     resizeTextArea(textArea);
   });
 };
@@ -81,10 +78,9 @@ const toggleNewCard = cardList => {
   } else {
     const newCardTemplate = createNewCardTemplate();
     cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
-    const newCard = document.querySelector('.card__contents');
+    const newCard = cardList.querySelector('.card__contents');
     const textArea = cardList.querySelector('.card__contents__input--main');
     onNewCardInput(newCard);
     onResizeTextArea(textArea);
-    onSaveBtnClick();
   }
 };
