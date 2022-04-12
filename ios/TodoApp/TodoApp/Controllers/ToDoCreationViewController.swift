@@ -14,6 +14,7 @@ class ToDoCreationViewController: UIViewController {
         editView.layer.borderWidth = 0.3
         editView.layer.borderColor = UIColor.blue.cgColor
         bodyField.isScrollEnabled = false
+        bodyField.autocorrectionType = .no
         headField.borderStyle = .none
         headField.becomeFirstResponder()
         registerButton.isHighlighted.toggle()
@@ -22,7 +23,7 @@ class ToDoCreationViewController: UIViewController {
     
     private func setDelegate() {
         headField.delegate = self
-//        bodyField.delegate = self
+        bodyField.delegate = self
         hideKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -41,21 +42,7 @@ extension ToDoCreationViewController: UITextFieldDelegate {
             headField.resignFirstResponder()
             bodyField.becomeFirstResponder()
         }
-        if textField === bodyField {
-            // 등록버튼을 누른 것과 같이 활동
-            bodyField.resignFirstResponder()
-        }
         return true
-    }
-    
-    @objc func didBodyFieldChange(_ textField: UITextField) {
-        if textField.hasText {
-            if registerButton.isHighlighted == true {
-                registerButton.isHighlighted.toggle()
-            }
-        } else {
-            registerButton.isHighlighted.toggle()
-        }
     }
     
     @objc func keyboardWillShow(_ sender: Notification) {
@@ -67,6 +54,7 @@ extension ToDoCreationViewController: UITextFieldDelegate {
     }
 }
 
+// 배경 탭했을 때 키보드 해산 시키는 기능
 extension ToDoCreationViewController: UIGestureRecognizerDelegate {
     private func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -84,19 +72,24 @@ extension ToDoCreationViewController: UIGestureRecognizerDelegate {
 }
 
 extension ToDoCreationViewController: UITextViewDelegate {
+    // 글자수 제한
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let string = textView.text else { return true }
+        let newLength = string.count + text.count - range.length
+        return newLength <= 500
+    }
+    
+    // 내용있어야 등록 버튼 활성화
     func textViewDidChange(_ textView: UITextView) {
-        let size: CGSize = CGSize(width: view.frame.width, height: .infinity)
-        let estimatedSize = textView.sizeThatFits(size)
-        
-        textView.constraints.forEach { (constraint) in
-            if estimatedSize.height <= 30 {
-                
+        if textView.hasText {
+            if registerButton.isHighlighted == true {
+                registerButton.isHighlighted.toggle()
             }
-            else {
-                if constraint.firstAttribute == .height {
-                    constraint.constant = estimatedSize.height
-                }
-            }
+        }
+        else {
+            registerButton.isHighlighted.toggle()
         }
     }
 }
+
+
