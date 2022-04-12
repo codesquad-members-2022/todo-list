@@ -18,6 +18,10 @@ public class ActivityLogService {
         return activityLogRepository.findAll();
     }
 
+    public ActivityLog add(ActivityLog activityLog) {
+        return activityLogRepository.insert(activityLog);
+    }
+
     public int removeById(@PathVariable long id) {
         return activityLogRepository.deleteById(id);
     }
