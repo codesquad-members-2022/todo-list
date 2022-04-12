@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @Getter
 public class WorkMoveResponse {
-    private Long order;
+    private Integer order;
     private WorkStatus status;
 
-    public WorkMoveResponse(WorkStatus status, Long order) {
+    public WorkMoveResponse(WorkStatus status, Integer order) {
         this.status = status;
         this.order = order;
     }

@@ -20,4 +20,8 @@ public class User {
     public String getName() {
         return name;
     }
+
+    public boolean isSameId(Long userId) {
+        return this.id.equals(userId);
+    }
 }

@@ -14,7 +14,7 @@ public class WorkDetailResponse {
     private String title;
     private String content;
     private WorkStatus workStatus;
-    private Long statusOrder;
+    private Integer statusIndex;
     private LocalDateTime createDateTime;
     private LocalDateTime lastModifiedDateTime;
 
@@ -24,7 +24,7 @@ public class WorkDetailResponse {
         this.title = work.getTitle();
         this.content = work.getContent();
         this.workStatus = work.getWorkStatus();
-        this.statusOrder = work.getStatusOrder();
+        this.statusIndex = work.getStatusIndex();
         this.createDateTime = work.getCreateDateTime();
         this.lastModifiedDateTime = work.getLastModifiedDateTime();
     }

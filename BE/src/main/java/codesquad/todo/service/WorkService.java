@@ -32,15 +32,15 @@ public class WorkService {
 
     private Work buildWork(User user, WorkSaveRequest workSaveRequest) {
         LocalDateTime initTime = LocalDateTime.now();
-        Long nextStatusOrder = workRepository.maxStatusOrderOfWorks(user.getId(), WorkStatus.TODO) + 1;
+        Integer nextStatusIndex = workRepository.maxStatusIndexOfWorks(user.getId(), WorkStatus.TODO);
 
         Work work = Work.builder()
                 .title(workSaveRequest.getTitle())
                 .content(workSaveRequest.getContent())
                 .author(user)
                 .workStatus(WorkStatus.TODO)
-                .statusOrder(nextStatusOrder)
-                .createTime(initTime)
+                .statusIndex(nextStatusIndex)
+                .createDateTime(initTime)
                 .lastModifiedDateTime(initTime)
                 .build();
 
@@ -62,27 +62,90 @@ public class WorkService {
         return new WorkUpdateResponse(work);
     }
 
-    public WorkMoveResponse workMove(Long id, WorkMoveRequest requestDto) {
+    public WorkMoveResponse workMove(Long id, Integer targetStatusIndex, WorkStatus targetStatus) {
         Work originWork = findById(id);
+        Long userId = originWork.getAuthor().getId();
         WorkStatus originStatus = originWork.getWorkStatus();
-        Long originStatusOrder = originWork.getStatusOrder();
+        Integer originStatusIndex = originWork.getStatusIndex();
 
-        WorkStatus targetStatus = requestDto.getStatus();
-        Long targetStatusOrder = requestDto.getOrder();
-
-        if (originStatus == targetStatus && originStatusOrder.equals(targetStatusOrder)) {
-            return new WorkMoveResponse(originStatus, targetStatusOrder);
+        // 완전 같은 경우
+        if (originStatus == targetStatus && originStatusIndex.equals(targetStatusIndex)) {
+            return new WorkMoveResponse(originStatus, targetStatusIndex);
         }
+
+//        Work changeWork = workRepository.findOne(userId, targetStatus, targetStatusIndex)
+//                .orElseThrow(() -> new NoSuchElementException("일치하는 순서의 Work가 없습니다."));
 
         if(originStatus == targetStatus) {
-            // TODO : 지정 타겟번호에 위치한 Work와 statusOrder값을 바꾸고, DB에 반영
-            return new WorkMoveResponse(originStatus, targetStatusOrder);
+            moveInSameStatus(originWork, targetStatusIndex);
+            return new WorkMoveResponse(originStatus, targetStatusIndex);
         }
-        // TODO: Status 상태 변경시 기존 status 기준으로 다른 Work들에도 statusOrder 반영
 
-        // TODO: 옮겨간 status 기준으로 다른 Work들에도 StatusOrder 변경 반영이 필요
+        moveToDifferentStatus(targetStatusIndex, targetStatus, originWork);
+        return new WorkMoveResponse(targetStatus, targetStatusIndex);
+    }
 
-        return new WorkMoveResponse(targetStatus, targetStatusOrder);
+    private void moveInSameStatus(Work originWork, Integer targetStatusIndex) {
+        Work changeWork = workRepository.findOne(originWork.getAuthor().getId(), originWork.getWorkStatus(), targetStatusIndex)
+                .orElseThrow(() -> new NoSuchElementException("일치하는 순서의 Work가 없습니다."));
+
+        Integer originStatusIndex = originWork.getStatusIndex();
+        changeWork.injectstatusIndex(originStatusIndex);
+        originWork.injectstatusIndex(targetStatusIndex);
+        workRepository.update(originWork);
+        workRepository.update(changeWork);
+    }
+
+    private void detachFromOriginStatus(Work originWork, List<Work> originStatusWorks) {
+        originStatusWorks.remove(originWork);
+        updateWorkIndex(originStatusWorks);
+    }
+
+    private void insertToTargetStatus(Integer targetStatusIndex, WorkStatus targetStatus, Work originWork) {
+        Long userId = originWork.getAuthor().getId();
+        originWork.changeStatus(targetStatus);
+        originWork.injectstatusIndex(targetStatusIndex);
+        workRepository.update(originWork);
+    }
+
+    private void insertTargetStatus(Integer targetStatusIndex, WorkStatus targetStatus, Work originWork, Long userId) {
+        originWork.changeStatus(targetStatus);
+        List<Work> targetStatusWorks = workRepository.findByUserIdAndStatus(targetStatus, userId);
+        targetStatusWorks.add(targetStatusIndex, originWork);
+        updateWorkIndex(targetStatusWorks);
+    }
+
+    private void moveToDifferentStatus(Integer targetStatusIndex, WorkStatus targetStatus, Work originWork) {
+        Long userId = originWork.getAuthor().getId();
+        WorkStatus originStatus = originWork.getWorkStatus();
+        int targetLastIndex = workRepository.maxStatusIndexOfWorks(userId, targetStatus);
+
+        List<Work> originStatusWorks = workRepository.findByUserIdAndStatus(originStatus, userId);
+
+        if(targetLastIndex == 0 && targetStatusIndex.equals(0)) {
+            detachFromOriginStatus(originWork, originStatusWorks);
+            insertToTargetStatus(targetStatusIndex, targetStatus, originWork);
+            return;
+        }
+
+        log.debug("userId : {}, targetStatus : {}, targetStatusIndex {}", userId, targetStatus, targetStatusIndex);
+        validateTargetStatusIndex(userId, targetStatus, targetStatusIndex);
+        detachFromOriginStatus(originWork, originStatusWorks);
+        insertTargetStatus(targetStatusIndex, targetStatus, originWork, userId);
+    }
+
+    private void validateTargetStatusIndex(Long userId, WorkStatus targetStatus, Integer targetStatusIndex) {
+        if(workRepository.findOne(userId, targetStatus, targetStatusIndex).isEmpty()){
+            throw new NoSuchElementException("일치하는 순서의 Work가 없습니다.");
+        }
+    }
+
+    private void updateWorkIndex(List<Work> originStatusWorks) {
+        for(int index = 0; index < originStatusWorks.size(); index++) {
+            Work work = originStatusWorks.get(index);
+            work.injectstatusIndex(index);
+            workRepository.update(work);
+        }
     }
 
     public WorkListResponse findWorkList(Long userId) {

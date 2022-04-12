@@ -2,6 +2,7 @@ package codesquad.todo.web.works;
 
 import codesquad.todo.domain.user.User;
 import codesquad.todo.domain.user.UserRepository;
+import codesquad.todo.domain.work.WorkStatus;
 import codesquad.todo.service.WorkService;
 import codesquad.todo.web.works.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,9 @@ public class WorkController {
 
     @PatchMapping("/{id}")
     public WorkMoveResponse moveWork(@PathVariable Long id, @RequestBody WorkMoveRequest workMoveRequest) {
-        return workService.workMove(id, workMoveRequest);
+        Integer targetIndex = workMoveRequest.getTargetStatusIndex();
+        WorkStatus targetStatus = workMoveRequest.getTargetStatus();
+        return workService.workMove(id, targetIndex, targetStatus);
     }
 
     @GetMapping

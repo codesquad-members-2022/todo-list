@@ -8,7 +8,8 @@ public interface WorkRepository {
     Optional<Work> findById(Long id);
     void update(Work updateWork);
     void delete(Long id);
-    List<Work> findByStatus(WorkStatus workStatus);
-    Long maxStatusOrderOfWorks(Long userId, WorkStatus workStatus);
+    List<Work> findByUserIdAndStatus(WorkStatus workStatus, Long userId);
+    int maxStatusIndexOfWorks(Long userId, WorkStatus workStatus);
     List<Work> findAllWorkByUserId(Long userId);
+    Optional<Work> findOne(Long userId, WorkStatus workStatus, Integer statusIndex);
 }

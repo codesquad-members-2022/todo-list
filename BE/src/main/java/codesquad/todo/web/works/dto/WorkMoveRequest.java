@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class WorkMoveRequest {
-    private WorkStatus status;
-    private Long order;
+    private WorkStatus targetStatus;
+    private Integer targetStatusIndex;
 }
