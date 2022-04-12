@@ -2,7 +2,7 @@ package kr.codesquad.todolist.dto.card;
 
 import kr.codesquad.todolist.domain.Card;
 
-public class updateCardRequest {
+public class UpdateCardRequest {
 
     private Long id;
     private String author;
@@ -10,7 +10,7 @@ public class updateCardRequest {
     private String subject;
     private String contents;
 
-    private updateCardRequest() {
+    private UpdateCardRequest() {
     }
 
     public Card toEntity() {

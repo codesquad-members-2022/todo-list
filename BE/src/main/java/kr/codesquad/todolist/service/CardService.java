@@ -1,8 +1,9 @@
 package kr.codesquad.todolist.service;
 
 import kr.codesquad.todolist.domain.Card;
-import kr.codesquad.todolist.dto.CardDto;
-import kr.codesquad.todolist.dto.CardResponse;
+import kr.codesquad.todolist.dto.card.CardResponse;
+import kr.codesquad.todolist.dto.card.CreateCardRequest;
+import kr.codesquad.todolist.dto.card.UpdateCardRequest;
 import kr.codesquad.todolist.repository.CardRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,25 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public CardResponse create(CardDto cardDto) {
-        Card saved = cardRepository.save(cardDto.toEntity());
+    public CardResponse create(CreateCardRequest cardRequest) {
+        Card saved = cardRepository.save(cardRequest.toEntity());
         return CardResponse.from(saved);
+    }
+
+    public CardResponse update(UpdateCardRequest cardRequest) {
+        Card updated = cardRepository.save(cardRequest.toEntity());
+        return CardResponse.from(updated);
+    }
+
+    public boolean move(Integer sectionId, Long targetCardId, UpdateCardRequest cardRequest) {
+        return cardRepository.move(sectionId, targetCardId, cardRequest.toEntity());
+    }
+
+    public List<CardResponse> findCardsOfSection(Integer sectionId) {
+        return cardRepository.findBySectionId(sectionId)
+                .stream()
+                .map(CardResponse::from)
+                .collect(Collectors.toList());
     }
 
     public CardResponse findOne(Long id) {
