@@ -40,4 +40,13 @@ export default class Cards extends Component {
     </ul>
     `;
   }
+  setEvent() {
+    this.addEvent("click", ".card-button-normal", this.clickNormalButtonHandler.bind(this));
+  }
+  clickNormalButtonHandler() {
+    const { cards, undoCreateCard } = this.$props;
+    if (cards[0]?.cardState === "create") {
+      undoCreateCard();
+    }
+  }
 }

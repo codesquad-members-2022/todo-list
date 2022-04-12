@@ -30,7 +30,7 @@ export default class Column extends Component {
   mounted() {
     const { cards } = this;
     const $cardWrapper = this.$target.querySelector(".card-wrapper");
-    new Cards($cardWrapper, { cards });
+    new Cards($cardWrapper, { cards, undoCreateCard: this.undoCreateCard.bind(this) });
   }
   get cards() {
     const { cards } = this.state;
