@@ -32,6 +32,7 @@ public class CardService {
     public ResponseCardDto updateCard(Long id, RequestCardDto requestCardDto) {
         Card card = repository.findById(id);
         card.update(requestCardDto);
+        repository.update(card);
         return card.toResponseCardDto();
     }
 
