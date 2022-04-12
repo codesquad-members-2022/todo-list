@@ -10,21 +10,24 @@
           "main": "main",
           "footer": "footer",
           "datetime": "20220407 11:07am",
-          "status": "todo"
+          "status": "todo",
+          "id": 1
         },
         {
           "header": "두번째 할일",
           "main": "main",
           "footer": "footer",
           "datetime": "20220407 11:07am",
-          "status": "todo"
+          "status": "todo",
+          "id": 2
         },
         {
           "header": "세번째 할일",
           "main": "main",
           "footer": "footer",
           "datetime": "20220407 11:07am",
-          "status": "todo"
+          "status": "todo",
+          "id": 3
         }
       ]
     },
@@ -33,7 +36,14 @@
       "title": "하고 있는 일",
       "total": 1,
       "tasks": [
-        { "header": "하는중1", "main": "main", "footer": "footer", "datetime": "20220407 11:07am", "status": "doing" }
+        {
+          "header": "하는중1",
+          "main": "main",
+          "footer": "footer",
+          "datetime": "20220407 11:07am",
+          "status": "doing",
+          "id": 4
+        }
       ]
     },
     {
@@ -41,8 +51,22 @@
       "title": "완료한 일",
       "total": 2,
       "tasks": [
-        { "header": "끝난일1", "main": "main", "footer": "footer", "datetime": "20220407 11:07am", "status": "done" },
-        { "header": "끝난일2", "main": "main", "footer": "footer", "datetime": "20220407 11:07am", "status": "done" }
+        {
+          "header": "끝난일1",
+          "main": "main",
+          "footer": "footer",
+          "datetime": "20220407 11:07am",
+          "status": "done",
+          "id": 5
+        },
+        {
+          "header": "끝난일2",
+          "main": "main",
+          "footer": "footer",
+          "datetime": "20220407 11:07am",
+          "status": "done",
+          "id": 6
+        }
       ]
     }
   ]
