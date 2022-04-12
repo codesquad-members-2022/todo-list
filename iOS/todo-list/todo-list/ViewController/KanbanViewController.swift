@@ -20,7 +20,7 @@ class KanbanViewController: UIViewController {
     
     @IBOutlet var columns: [UITableView]!
     @IBOutlet var countBadges: [UILabel]!
-    
+    @IBOutlet var addButtons: [UIButton]!
     
     
     let columnViewModels = [
@@ -101,11 +101,15 @@ extension KanbanViewController {
             print("취소")
         }
         
-        let add = UIAlertAction(title: "등록", style: .default) { _ in
+        let add = UIAlertAction(title: "등록", style: .default) { [weak self] _ in
+            
+            guard let columnIndex = self?.addButtons.firstIndex(where: { $0 === sender }), let viewModel = self?.columnViewModels[columnIndex] else { return }
+
+            
             let title = alert.textFields?[0].text ?? "nil"
             let content = alert.textFields?[1].text ?? "nil"
-            print("제목: \(title)")
-            print("내용: \(content)")
+            viewModel.add(title: title, content: content)
+            
         }
         
         alert.addAction(cancel)
