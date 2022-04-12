@@ -2,8 +2,12 @@ const $main = document.querySelector("#main");
 let dragCard;
 let afterimageCard;
 let $scheduleCardBelowDragPointer;
+
 const TOP = "top";
 const BOTTOM = "bottom";
+const CARD = "schedule-card";
+const CARD_AFTERIMAGE = "schedule-card--afterimage";
+const DRAG_CARD = "schedule-drag-card";
 
 const getDragDirection = (element, y) => {
     const box = element.getBoundingClientRect();
@@ -70,7 +74,7 @@ const mouseMoveOnDraggingEventHandler = (event) => {
         return;
     }
 
-    if (!$elementBelowDragPointer.classList.contains("schedule-card")) {
+    if (!$elementBelowDragPointer.classList.contains(CARD)) {
         return;
     }
 
@@ -89,6 +93,8 @@ const removeMouseUpEvent = () => {
 const mouseUpOnDraggingEventHandler = () => {
     $main.removeEventListener("mousemove", mouseMoveOnDraggingEventHandler);
     removeMouseUpEvent();
+
+    afterimageCard.classList.replace(CARD_AFTERIMAGE, CARD);
 };
 
 const addMouseEventOnDragCard = () => {
@@ -114,12 +120,9 @@ export const mouseDownEventHandler = (event) => {
         return;
     }
 
-    const CARD = "schedule-card";
-    const CARD_AFTER_IMAGE = "schedule-card--afterimage";
-    const DRAG_CARD = "schedule-drag-card";
     dragCard = selectedCard.cloneNode(true);
 
-    selectedCard.classList.replace(CARD, CARD_AFTER_IMAGE);
+    selectedCard.classList.replace(CARD, CARD_AFTERIMAGE);
     dragCard.classList.replace(CARD, DRAG_CARD);
     $main.appendChild(dragCard);
     afterimageCard = selectedCard;
