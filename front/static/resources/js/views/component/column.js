@@ -1,7 +1,6 @@
 class Column {
   constructor(props) {
     this.props = props;
-    //props -> status, cards
   }
 
   template(cards) {

@@ -20,19 +20,24 @@ class BoardViewModel {
     return columnState;
   }
 
-  async setState() {
-    await this.store.setState();
-    this.boardState = await this.parseStoreState();
+  initState() {
+    this.boardState = this.parseStoreState();
   }
 
   addObserver(observer) {
     this.observers.add(observer);
   }
 
-  notify(columns) {
+  notify() {
+    this.setState();
     this.observers.forEach(observer => {
-      observer.render(columns);
+      observer.notify();
     });
+  }
+
+  async init() {
+    await this.store.init();
+    this.initState();
   }
 }
 

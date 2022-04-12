@@ -7,6 +7,7 @@ class BoardController {
   constructor() {
     this.board = new Board();
     this.viewModel = new BoardViewModel();
+    this.viewModel.addObserver(this);
   }
 
   createCardsTemplate(cardsState) {
@@ -33,7 +34,7 @@ class BoardController {
   }
 
   async init() {
-    await this.viewModel.setState();
+    await this.viewModel.init();
     const columnsTemplate = this.createColumnsTemplate(this.viewModel.boardState);
     this.board.render(columnsTemplate);
   }

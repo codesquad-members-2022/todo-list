@@ -1,4 +1,4 @@
-import { fetchRequest } from "../utils/util.js";
+import { fetchRequest } from '../utils/util.js';
 
 class BoardStore {
   constructor() {
@@ -10,7 +10,7 @@ class BoardStore {
     return await fetchRequest('./mockData.json');
   }
 
-  async setState() {
+  async initState() {
     this.boardState = await this.getInitialData();
   }
 
@@ -18,11 +18,15 @@ class BoardStore {
     this.observers.add(observer);
   }
 
-  async observe(columnName, value) {
-    await this.setColumnState(columnName);
+  async observe() {
+    await this.setState();
     this.observers.forEach(observer => {
-      observer.notify(this.boardState.columnName, value);
+      observer.notify(this.boardState);
     });
+  }
+
+  async init() {
+    await this.initState();
   }
 }
 
