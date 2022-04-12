@@ -10,15 +10,27 @@ function addCard2Column(event, store) {
   renderEmptyCard(parentColumn, createCardState, store);
 }
 
-async function createCardState(event, store) {
-  console.log(1);
-  const { target } = event;
-  const parentCard = target.closest(".testNewCard");
-  const inputValues = [...parentCard.querySelectorAll("input")].map(
-    (input) => input.value
-  );
+function checkInput({ target }) {
+  const parent = target.closest(".task-card");
+  const title = parent.querySelector(".task-card__title");
+  const content = parent.querySelector(".task-card__content");
+  const inputs = [title, content].map((input) => input.textContent);
+  if (inputs.includes("")) return;
 
-  store.setState(inputValues);
+  parent.querySelector(
+    ".task-card__register-btn.cursor-pointer"
+  ).disabled = false;
+}
+
+async function createCardState(event, store) {
+  const { target } = event;
+  const parentCard = target.closest(".task-card");
+  const inputValues = [
+    parentCard.querySelector(".task-card__title"),
+    parentCard.querySelector(".task-card__content"),
+  ].map((input) => input.textContent);
+  console.log(inputValues);
+  //   store.setState(inputValues);
   //   const isEmpty = inputValues.includes("");
   //   if (isEmpty) return;
 
@@ -28,18 +40,22 @@ async function createCardState(event, store) {
   // store.setState(newState);
 
   // //빈카드 삭제
-  renderCard(데이터, 삭제이벤트, 더블클릭이벤트, 이동이벤트, store);
+  //   renderCard(inputValues, removeCard, changeCardState, dragDrop, store);
 }
 
-function removeCard(event) {
+function removeCard(event, store) {
   const { target } = event;
   target.closest(".task-card").remove();
+  //store에서 데이터 삭제
+  // 서버에 데이터 삭제 요청
 }
+
+function changeCardState(event, store) {}
 
 function init(store) {
   const columnZone = document.querySelector(".task-column");
   //   initColumn();
-  onClickColumnAddBtn(columnZone, addCard2Column, store);
+  onClickColumnAddBtn(columnZone, addCard2Column, checkInput, store);
 }
 
 const createMainController = (store) => {
