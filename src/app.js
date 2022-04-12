@@ -15,7 +15,9 @@ export default class App extends Component {
     return `
       <header></header>
       <main class="flex">
-        ${'<div class="column"></div>'.repeat(this.state.columnTitles?.length)}
+        ${this.state.columnTitles
+          ?.map((_, index) => `<div class="column" data-index="${index}"></div>`)
+          .join("")}
       </main>
     `;
   }
