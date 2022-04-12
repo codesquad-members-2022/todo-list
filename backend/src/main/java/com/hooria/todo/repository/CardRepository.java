@@ -49,7 +49,7 @@ public class CardRepository {
     public List<Card> findAll() {
         return jdbc.query(
             "select id, status, title, content, user_id, device, created_at, modified_at, deleted_yn, row_position "
-                + "from task_card where deleted_yn = false",
+                + "from task_card where deleted_yn = false order by status, row_position",
             Collections.emptyMap(), cardRowMapper
         );
     }
