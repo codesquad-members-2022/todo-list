@@ -1,3 +1,5 @@
+import { btnPlus, btnX } from "../../utils/assetURL";
+
 export function createColumn({ id, title, length }) {
   return `
     <li class="column" data-column="${id}">
@@ -7,8 +9,8 @@ export function createColumn({ id, title, length }) {
           <div class="column__header--card-count">${length}</div>
         </div>
         <div class="column__header__btn">
-          <img class="column__header--add-card" src="./asset/icon/icon-card-add-button.svg" />
-          <img class="column__header--delete-card" src="./asset/icon/icon-card-delete-button.svg" />
+          <img class="column__header--add-card" src=${btnPlus} />
+          <img class="column__header--delete-card" src=${btnX} />
         </div>
       </div>
       <ul class="card-list"></ul>

@@ -20,8 +20,9 @@ function app() {
   renderer.allItems(store.items);
   renderer.allHistory(store.history);
 
-  // test itembox
+  // test
   renderer.itemBox(1);
+  renderer.itemDeleteAlert();
 
   subscribeEvents();
 }

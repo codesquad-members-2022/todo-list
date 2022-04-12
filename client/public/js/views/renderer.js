@@ -1,6 +1,6 @@
 import { qs, insertElement } from "../utils/helpers.js";
 import { createColumn } from "./column/column.js";
-import { createItem, createItemBox } from "./card/card.js";
+import { createItem, createItemBox, createItemDeleteAlert } from "./card/card.js";
 import { createHistory } from "./history/history.js";
 import { createHeader } from "./header/header.js";
 import { createAside } from "./aside/aside.js";
@@ -27,6 +27,11 @@ const renderer = {
   itemBox: (columnId) => {
     const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
     insertElement(itemListEl, "afterbegin", createItemBox());
+  },
+
+  itemDeleteAlert: () => {
+    const todoContainerEl = qs(".todo-container");
+    insertElement(todoContainerEl, "afterbegin", createItemDeleteAlert());
   },
 
   allHistory: (historyList) => {
