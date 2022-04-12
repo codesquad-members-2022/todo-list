@@ -48,3 +48,19 @@
 .column-item--card.dragging {
   opacity: 0.5;
 }
+
+.card-title {
+  background-color: var(--light-gray);
+  width: 249px;
+  height: 25px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+}
+
+.card-contents {
+  width: 249px;
+  line-height: 1px;
+  border: none;
+  background-color: var(--light-gray);
+}
