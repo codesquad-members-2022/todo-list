@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol CardBoardViewAction{
+protocol CardBoardAction{
     func historyViewHiddenChanged(_ hiddenState :HiddenState)
 }

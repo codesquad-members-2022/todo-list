@@ -16,7 +16,8 @@ class CardBoard {
     private let cardFactory = CardFactory()
     
     private(set) var historyHiddenState: HiddenState = .hidden
-    var cardBoardDelegate: CardBoardViewAction?
+    
+    var cardBoardDelegate: CardBoardAction?
     
     func addCard(title: String, content: String) {
         let card = cardFactory.createCard(title: title, contents: content)

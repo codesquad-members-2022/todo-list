@@ -16,7 +16,7 @@
 		00A14F7127FC19EB00474097 /* CardBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A14F7027FC19EB00474097 /* CardBoard.swift */; };
 		00D13F1F27FED6200031E8DA /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D13F1E27FED6200031E8DA /* CardTableViewCell.swift */; };
 		723BF2ED2804842B001F3118 /* HiddenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723BF2EC2804842B001F3118 /* HiddenState.swift */; };
-		723BF2EF2804846C001F3118 /* CardBoardViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723BF2EE2804846C001F3118 /* CardBoardViewAction.swift */; };
+		723BF2EF2804846C001F3118 /* CardBoardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723BF2EE2804846C001F3118 /* CardBoardAction.swift */; };
 		723BF2F12804859B001F3118 /* HistoryViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723BF2F02804859B001F3118 /* HistoryViewAction.swift */; };
 		72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1827FBE2DE00A29350 /* AppDelegate.swift */; };
 		72695E1B27FBE2DE00A29350 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1A27FBE2DE00A29350 /* SceneDelegate.swift */; };
@@ -59,7 +59,7 @@
 		00A14F7027FC19EB00474097 /* CardBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoard.swift; sourceTree = "<group>"; };
 		00D13F1E27FED6200031E8DA /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		723BF2EC2804842B001F3118 /* HiddenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenState.swift; sourceTree = "<group>"; };
-		723BF2EE2804846C001F3118 /* CardBoardViewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoardViewAction.swift; sourceTree = "<group>"; };
+		723BF2EE2804846C001F3118 /* CardBoardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoardAction.swift; sourceTree = "<group>"; };
 		723BF2F02804859B001F3118 /* HistoryViewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewAction.swift; sourceTree = "<group>"; };
 		72695E1527FBE2DE00A29350 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72695E1827FBE2DE00A29350 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 			children = (
 				72877BED27FF22EB000CF68E /* CardTableDelegate.swift */,
 				0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */,
-				723BF2EE2804846C001F3118 /* CardBoardViewAction.swift */,
+				723BF2EE2804846C001F3118 /* CardBoardAction.swift */,
 				723BF2F02804859B001F3118 /* HistoryViewAction.swift */,
 			);
 			path = delegate;
@@ -334,7 +334,7 @@
 				72695E1D27FBE2DE00A29350 /* CardBoardViewController.swift in Sources */,
 				00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */,
 				00D13F1F27FED6200031E8DA /* CardTableViewCell.swift in Sources */,
-				723BF2EF2804846C001F3118 /* CardBoardViewAction.swift in Sources */,
+				723BF2EF2804846C001F3118 /* CardBoardAction.swift in Sources */,
 				0047A15F27FE805400FAF019 /* CardStatus.swift in Sources */,
 				72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */,
 				0036E2FD2803CAF8001E6EA9 /* CardTableDataSource.swift in Sources */,

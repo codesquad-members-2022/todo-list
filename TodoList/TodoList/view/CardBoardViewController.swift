@@ -105,7 +105,7 @@ extension CardBoardViewController: HistoryViewAction{
     }
 }
 
-extension CardBoardViewController: CardBoardViewAction{
+extension CardBoardViewController: CardBoardAction{
     func historyViewHiddenChanged(_ hiddenState: HiddenState) {
         if hiddenState == .hidden{
             historyDisappearAnimate()
