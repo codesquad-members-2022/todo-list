@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Card = require("../models/card");
 const Column = require("../models/column");
+const Log = require("../models/log");
 
 //Getting ALl
 router.get("/", async (req, res) => {
@@ -64,8 +65,13 @@ router.post("/:columnId/add", getColumn, async (req, res) => {
     description: req.body.description,
   });
 
+  const log = new Log({
+    log: `${res.column.title}에 ${card.title}를 등록하였습니다.`,
+  });
+
   try {
     const newCard = await card.save();
+    const newLog = await log.save();
     res.column.cards.unshift(newCard);
     res.column.save();
     res.json(res.column);
@@ -76,7 +82,7 @@ router.post("/:columnId/add", getColumn, async (req, res) => {
 
 //Get Card
 router.get("/:columnId/:cardId", getColumn, async (req, res) => {
-  const card = res.column.cards.filter((v) => v["_id"] == req.params.cardId);
+  const card = res.column.cards.filter((v) => v["_id"] == req.params.cardId)[0];
   try {
     res.json(card);
   } catch (err) {
@@ -85,21 +91,9 @@ router.get("/:columnId/:cardId", getColumn, async (req, res) => {
 });
 
 //Update Card
-router.patch("/:columnId", getColumn, async (req, res) => {
-  if (req.body.name !== null) {
-    res.column.name = req.body.name;
-  }
-
-  try {
-    const updatedColumn = await res.column.save();
-    res.json(updatedColumn);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
 router.patch("/:columnId/:cardId/update", getColumn, async (req, res) => {
   const card = res.column.cards.filter((v) => v["_id"] == req.params.cardId)[0];
+  const temp = card.title;
 
   if (req.body.title !== null) {
     card.title = req.body.title;
@@ -109,7 +103,12 @@ router.patch("/:columnId/:cardId/update", getColumn, async (req, res) => {
     card.description = req.body.description;
   }
 
+  const log = new Log({
+    log: `${temp}이/가 ${card.title}로 변경되었습니다.`,
+  });
+
   try {
+    const newLog = await log.save();
     res.column.save();
     res.json(res.column);
   } catch (err) {
@@ -119,18 +118,32 @@ router.patch("/:columnId/:cardId/update", getColumn, async (req, res) => {
 
 //Delete Card
 router.delete("/:columnId/:cardId/delete/", getColumn, async (req, res) => {
-  try {
-    res.column.cards.forEach((v) => {
-      if (v["_id"] == req.params.cardId) {
-        res.column.cards.splice(res.column.cards.indexOf(v), 1);
-      }
-    });
+  const card = res.column.cards.filter((v) => v["_id"] == req.params.cardId)[0];
+  const log = new Log({
+    log: `${card.title}이/가 ${res.column.title}에서 삭제되었습니다.`,
+  });
 
+  try {
+    res.column.cards.splice(res.column.cards.indexOf(card), 1);
+    const newLog = await log.save();
     res.column.save();
-    res.json({ message: "Deleted Card" });
+    res.json(res.column);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
+});
+
+//Get Log
+router.get("/log", async (req, res) => {
+  console.log("worked");
+  // const logData = Log.find().sort({ createdAt: -1 });
+  // const logData = Log.find({}).sort({ createdAt: -1 });
+
+  // try {
+  //   res.json(logData);
+  // } catch (err) {
+  //   res.status(400).json({ message: err.message });
+  // }
 });
 
 //Middleware
