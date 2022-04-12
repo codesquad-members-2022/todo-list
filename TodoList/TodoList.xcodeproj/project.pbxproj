@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		0036E2FD2803CAF8001E6EA9 /* CardTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */; };
 		0047A15F27FE805400FAF019 /* CardStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0047A15E27FE805400FAF019 /* CardStatus.swift */; };
+		00702C7A28051D0E009B077D /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702C7928051D0E009B077D /* HistoryTableViewCell.swift */; };
+		00702C7C28051E64009B077D /* HistoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702C7B28051E64009B077D /* HistoryCard.swift */; };
+		00702C7E28051ECC009B077D /* CardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702C7D28051ECC009B077D /* CardAction.swift */; };
+		00702C82280545DC009B077D /* HistoryTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702C81280545DC009B077D /* HistoryTableDelegate.swift */; };
+		00702C84280545F4009B077D /* HistoryTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702C83280545F4009B077D /* HistoryTableDataSource.swift */; };
 		0077FD4F27FD68680046AB60 /* CardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077FD4E27FD68680046AB60 /* CardTableViewController.swift */; };
 		0077FD5127FD68A90046AB60 /* CardTableStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0077FD5027FD68A90046AB60 /* CardTableStoryboard.storyboard */; };
 		00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A14F5D27FC07AB00474097 /* CardUsable.swift */; };
@@ -52,6 +57,11 @@
 /* Begin PBXFileReference section */
 		0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableDataSource.swift; sourceTree = "<group>"; };
 		0047A15E27FE805400FAF019 /* CardStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStatus.swift; sourceTree = "<group>"; };
+		00702C7928051D0E009B077D /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		00702C7B28051E64009B077D /* HistoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCard.swift; sourceTree = "<group>"; };
+		00702C7D28051ECC009B077D /* CardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAction.swift; sourceTree = "<group>"; };
+		00702C81280545DC009B077D /* HistoryTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableDelegate.swift; sourceTree = "<group>"; };
+		00702C83280545F4009B077D /* HistoryTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableDataSource.swift; sourceTree = "<group>"; };
 		0077FD4E27FD68680046AB60 /* CardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewController.swift; sourceTree = "<group>"; };
 		0077FD5027FD68A90046AB60 /* CardTableStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CardTableStoryboard.storyboard; sourceTree = "<group>"; };
 		00A14F5D27FC07AB00474097 /* CardUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardUsable.swift; sourceTree = "<group>"; };
@@ -107,6 +117,8 @@
 		00A14F6927FC180400474097 /* delegate */ = {
 			isa = PBXGroup;
 			children = (
+				00702C81280545DC009B077D /* HistoryTableDelegate.swift */,
+				00702C83280545F4009B077D /* HistoryTableDataSource.swift */,
 				72877BED27FF22EB000CF68E /* CardTableDelegate.swift */,
 				0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */,
 				723BF2EE2804846C001F3118 /* CardBoardAction.swift */,
@@ -176,6 +188,8 @@
 				0047A15E27FE805400FAF019 /* CardStatus.swift */,
 				00A14F7027FC19EB00474097 /* CardBoard.swift */,
 				00A14F5F27FC07C700474097 /* CardFactory.swift */,
+				00702C7D28051ECC009B077D /* CardAction.swift */,
+				00702C7B28051E64009B077D /* HistoryCard.swift */,
 			);
 			path = domain;
 			sourceTree = "<group>";
@@ -188,6 +202,7 @@
 				00D13F1E27FED6200031E8DA /* CardTableViewCell.swift */,
 				0077FD4E27FD68680046AB60 /* CardTableViewController.swift */,
 				72C368ED280417D800086FF6 /* HistoryView.swift */,
+				00702C7928051D0E009B077D /* HistoryTableViewCell.swift */,
 				723BF2EC2804842B001F3118 /* HiddenState.swift */,
 			);
 			path = view;
@@ -327,19 +342,24 @@
 			files = (
 				0077FD4F27FD68680046AB60 /* CardTableViewController.swift in Sources */,
 				00A14F7127FC19EB00474097 /* CardBoard.swift in Sources */,
+				00702C7C28051E64009B077D /* HistoryCard.swift in Sources */,
 				00A14F6027FC07C700474097 /* CardFactory.swift in Sources */,
 				723BF2ED2804842B001F3118 /* HiddenState.swift in Sources */,
 				72877BEE27FF22EB000CF68E /* CardTableDelegate.swift in Sources */,
 				72C368EE280417D800086FF6 /* HistoryView.swift in Sources */,
 				72695E1D27FBE2DE00A29350 /* CardBoardViewController.swift in Sources */,
+				00702C7E28051ECC009B077D /* CardAction.swift in Sources */,
 				00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */,
 				00D13F1F27FED6200031E8DA /* CardTableViewCell.swift in Sources */,
+				00702C7A28051D0E009B077D /* HistoryTableViewCell.swift in Sources */,
+				00702C84280545F4009B077D /* HistoryTableDataSource.swift in Sources */,
 				723BF2EF2804846C001F3118 /* CardBoardAction.swift in Sources */,
 				0047A15F27FE805400FAF019 /* CardStatus.swift in Sources */,
 				72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */,
 				0036E2FD2803CAF8001E6EA9 /* CardTableDataSource.swift in Sources */,
 				723BF2F12804859B001F3118 /* HistoryViewAction.swift in Sources */,
 				72695E1B27FBE2DE00A29350 /* SceneDelegate.swift in Sources */,
+				00702C82280545DC009B077D /* HistoryTableDelegate.swift in Sources */,
 				72695E4A27FBE79C00A29350 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
