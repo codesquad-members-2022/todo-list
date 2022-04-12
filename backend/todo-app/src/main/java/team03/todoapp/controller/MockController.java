@@ -14,7 +14,7 @@ import team03.todoapp.controller.dto.HistoryResponse;
 @RestController
 public class MockController {
 
-    @GetMapping("/cards")
+    //@GetMapping("/cards")
     public CardsResponse getCards() {
         CardsResponse cardsResponse = new CardsResponse();
         CardResponse cardResponse1 = new CardResponse(1L, "코딩하기", "알고리즘도 풀자", "짱맨", 2L,

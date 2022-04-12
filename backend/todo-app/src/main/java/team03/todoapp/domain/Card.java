@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Card {
 
-    private Long cardId;
+    private Long id;
     private String title;
     private String content;
     private String writer;
@@ -15,6 +15,12 @@ public class Card {
 
     public Card(String title, String content, String writer, String currentLocation,
         LocalDateTime uploadDate, Long nextId, Boolean deleted) {
+        this(null, title, content, writer, currentLocation, uploadDate, nextId, deleted);
+    }
+
+    public Card(Long id, String title, String content, String writer, String currentLocation,
+        LocalDateTime uploadDate, Long nextId, Boolean deleted) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
@@ -25,7 +31,7 @@ public class Card {
     }
 
     public Long getCardId() {
-        return cardId;
+        return id;
     }
 
     public String getTitle() {
@@ -56,4 +62,22 @@ public class Card {
         return deleted;
     }
 
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", writer='" + writer + '\'' +
+            ", currentLocation='" + currentLocation + '\'' +
+            ", uploadDate=" + uploadDate +
+            ", nextId=" + nextId +
+            ", deleted=" + deleted +
+            '}';
+    }
 }
