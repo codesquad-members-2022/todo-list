@@ -9,16 +9,22 @@ public class CardDto {
 
     private Long id;
     private String title;
+    private String writer;
+    private Long position;
     private String content;
     private LocalDateTime createdAt;
     private CardType cardType;
+    private Long memberId;
 
-    public CardDto(Long id, String title, String content, LocalDateTime createdAt, CardType cardType) {
+    public CardDto(Long id, String title, String writer, Long position, String content, LocalDateTime createdAt, CardType cardType, Long memberId) {
         this.id = id;
         this.title = title;
+        this.writer = writer;
+        this.position = position;
         this.content = content;
         this.createdAt = createdAt;
         this.cardType = cardType;
+        this.memberId = memberId;
     }
 
     public CardDto() {
@@ -27,9 +33,12 @@ public class CardDto {
     public CardDto(Card card) {
         this.id = card.getId();
         this.title = card.getTitle();
+        this.writer = card.getWriter();
+        this.position = card.getPosition();
         this.content = card.getContent();
         this.createdAt = card.getCreatedAt();
         this.cardType = card.getCardType();
+        this.memberId = card.getMemberId();
     }
 
     public Long getId() {
@@ -52,7 +61,23 @@ public class CardDto {
         return createdAt;
     }
 
-    public CardDto of(Card card) {
-        return new CardDto(card.getId(), card.getTitle(), card.getContent(), card.getCreatedAt(), card.getCardType());
+    public String getWriter() {
+        return writer;
+    }
+
+    public Long getPosition() {
+        return position;
+    }
+
+    public Long getMemberId() {
+        return memberId;
+    }
+
+    public Card updateCard(Long id) {
+        return new Card(id, title, content);
+    }
+
+    public Card writeCard() {
+        return new Card(title, writer, content, position, memberId, cardType);
     }
 }
