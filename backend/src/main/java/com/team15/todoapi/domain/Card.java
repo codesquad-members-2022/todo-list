@@ -28,4 +28,12 @@ public class Card {
 		return new Card(null, cardRequest.getTitle(), cardRequest.getContent(),
 			memberId, null, cardRequest.getSection());
 	}
+
+	public void insertId(Card card, Long cardId){
+		card.id = cardId;
+	}
+
+	public void insertModifiedAt(Card card, LocalDateTime now) {
+		card.modifiedAt = now;
+	}
 }
