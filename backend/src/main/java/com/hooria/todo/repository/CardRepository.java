@@ -88,7 +88,7 @@ public class CardRepository {
         return (long) insertJdbc.executeAndReturnKey(parameters);
     }
 
-    public Card update(Card card) {
+    public long update(Card card) {
         SqlParameterSource namedParameters = new MapSqlParameterSource()
             .addValue("id", card.getId())
             .addValue("status", card.getStatus().getCode())
@@ -96,16 +96,14 @@ public class CardRepository {
             .addValue("content", card.getContent())
             .addValue("user_id", card.getUserId())
             .addValue("device", card.getDevice().getCode())
-            .addValue("modified_at", card.getModifiedAt())
-            .addValue("deleted_yn", card.isDeletedYn())
-            .addValue("row_position", card.getRowPosition());
+            .addValue("modified_at", card.getModifiedAt());
 
         jdbc.update(
             "update task_card set status = :status, title = :title, content = :content, user_id = :user_id, "
-                + "device = :device, modified_at = :modified_at, deleted_yn = :deleted_yn, row_position = :row_position "
+                + "device = :device, modified_at = :modified_at "
                 + "where id = :id", namedParameters);
 
-        return card;
+        return card.getId();
     }
 
     public long delete(long id) {

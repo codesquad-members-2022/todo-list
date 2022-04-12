@@ -137,7 +137,8 @@ class CardRepositoryTest {
         );
 
         //when
-        Card updatedCard = cardRepository.update(card);
+        long updatedId = cardRepository.update(card);
+        Card updatedCard = cardRepository.findById(updatedId).get();
 
         //then
         assertThat(updatedCard.getId()).isEqualTo(existingCard.getId());
