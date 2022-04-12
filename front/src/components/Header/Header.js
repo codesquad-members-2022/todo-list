@@ -18,7 +18,11 @@ const buttonInnerHTML = `
 `;
 
 const Header = ({ onMenuClick }) => {
-  const $title = peact.createElement({ tag: "h1", child: ["TO-DO LIST"] });
+  const $title = peact.createElement({
+    tag: "h1",
+    className: styles.title,
+    child: ["TO-DO LIST"],
+  });
   return peact.createElement({
     tag: "header",
     className: styles.titleArea,
