@@ -5,17 +5,17 @@ import org.springframework.stereotype.Service;
 import todolist.domain.event.Action;
 import todolist.domain.event.Event;
 import todolist.dto.event.EventDto;
-import todolist.repository.EventMemoryRepository;
+import todolist.repository.EventRepository;
 
 import java.util.List;
 
 @Service
 public class EventService {
 
-    private EventMemoryRepository repository;
+    private EventRepository repository;
 
     @Autowired
-    public EventService(EventMemoryRepository repository) {
+    public EventService(EventRepository repository) {
         this.repository = repository;
     }
 
