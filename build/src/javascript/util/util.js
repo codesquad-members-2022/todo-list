@@ -18,19 +18,19 @@ export async function deleteData(URL) {
   await axios.delete(URL);
 }
 
-export function axiosRequest(request, dataName, data = {}) {
-  const URL = `http://localhost:5000/${dataName}`;
-  const idURL = URL + `/${data.id}`;
+export function axiosRequest(method, pathName, controlledData = {}) {
+  const URL = `http://localhost:5000/${pathName}`;
+  const idURL = URL + `/${controledData.id}`;
   let response;
-  switch (request) {
+  switch (method) {
     case "get":
       response = getData(URL);
       return response;
     case "post":
-      postData(URL, data);
+      postData(URL, controlledData);
       break;
     case "put":
-      putData(idURL, data);
+      putData(idURL, controlledData);
       break;
     case "delete":
       deleteData(idURL);
