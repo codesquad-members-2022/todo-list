@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Todo List Container View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="TodoListContainerViewController" customModule="TodoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="TO-DO LIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2A-Sn-k6t">
+                                <rect key="frame" x="30" y="54" width="1088.5" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRT-5E-WhS">
+                                <rect key="frame" x="1108.5" y="35" width="55.5" height="38"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bgk-Gp-o1q">
+                                <rect key="frame" x="30" y="84" width="1134" height="700"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7N-v5-3dX">
+                                        <rect key="frame" x="0.0" y="0.0" width="271.5" height="700"/>
+                                        <connections>
+                                            <segue destination="aF8-Mx-Xb4" kind="embed" id="1ha-Gd-uD3"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="psB-DY-ZWk">
+                                        <rect key="frame" x="287.5" y="0.0" width="271.5" height="700"/>
+                                        <connections>
+                                            <segue destination="aF8-Mx-Xb4" kind="embed" id="zXp-J7-L4w"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86M-EQ-6p4">
+                                        <rect key="frame" x="575" y="0.0" width="271.5" height="700"/>
+                                        <connections>
+                                            <segue destination="aF8-Mx-Xb4" kind="embed" id="wgx-e8-Oog"/>
+                                        </connections>
+                                    </containerView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O51-7u-hjR">
+                                        <rect key="frame" x="862.5" y="0.0" width="271.5" height="700"/>
+                                        <color key="backgroundColor" name="Background"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="y7N-v5-3dX" firstAttribute="width" secondItem="psB-DY-ZWk" secondAttribute="width" id="uht-VZ-NmM"/>
+                                    <constraint firstItem="psB-DY-ZWk" firstAttribute="width" secondItem="86M-EQ-6p4" secondAttribute="width" id="vRd-7j-i80"/>
+                                </constraints>
+                            </stackView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6I-rc-ba6">
+                                <rect key="frame" x="880" y="0.0" width="314" height="834"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpj-db-2Yk">
+                                        <rect key="frame" x="230" y="54" width="52" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NV2-Jd-E9z">
+                                        <rect key="frame" x="24" y="103" width="265" height="694"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <connections>
+                                            <segue destination="ONH-ZB-jh4" kind="embed" id="NXq-d2-Goh"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" name="Background"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="bgk-Gp-o1q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="6xD-Oz-NKU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bgk-Gp-o1q" secondAttribute="bottom" constant="30" id="JVb-Nm-j15"/>
+                            <constraint firstItem="x2A-Sn-k6t" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wRT-5E-WhS" secondAttribute="leading" constant="10" id="KfM-Mh-V13"/>
+                            <constraint firstItem="x2A-Sn-k6t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="UXT-cm-0HT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bgk-Gp-o1q" secondAttribute="trailing" constant="30" id="dV2-Uz-aPZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wRT-5E-WhS" secondAttribute="trailing" constant="30" id="hmp-ws-Rj4"/>
+                            <constraint firstItem="wRT-5E-WhS" firstAttribute="centerY" secondItem="x2A-Sn-k6t" secondAttribute="centerY" id="j0h-TB-RDa"/>
+                            <constraint firstItem="bgk-Gp-o1q" firstAttribute="top" secondItem="x2A-Sn-k6t" secondAttribute="bottom" constant="30" id="k7o-CP-aAb"/>
+                            <constraint firstItem="x2A-Sn-k6t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="nFC-GC-0s4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="Rpj-db-2Yk" id="Dgn-NC-UKX"/>
+                        <outlet property="columnStack" destination="bgk-Gp-o1q" id="vKt-s6-itj"/>
+                        <outlet property="drawerView" destination="T6I-rc-ba6" id="uOI-Ld-k6m"/>
+                        <outlet property="menuButton" destination="wRT-5E-WhS" id="nxE-Jt-eFi"/>
+                        <outlet property="titleLabel" destination="x2A-Sn-k6t" id="WHs-Ce-td7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9.5477386934673376" y="-385.61151079136692"/>
+        </scene>
+        <!--TodoListViewController-->
+        <scene sceneID="lmG-0g-5dj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TodoListViewController" id="aF8-Mx-Xb4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oaK-rb-8R7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="10" y="58"/>
+        </scene>
+        <!--ActivityListViewController-->
+        <scene sceneID="zYo-fK-bbE">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6T3-Xy-zht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="ActivityListViewController" id="ONH-ZB-jh4" sceneMemberID="viewController"/>
+            </objects>
+            <point key="canvasLocation" x="419" y="-386"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="1ha-Gd-uD3"/>
+    </inferredMetricsTieBreakers>
+    <resources>
+        <image name="line.3.horizontal" catalog="system" width="128" height="64"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+        <namedColor name="Background">
+            <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
