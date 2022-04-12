@@ -5,29 +5,49 @@ import { Column } from '../views/component/column.js';
 
 class BoardController {
   constructor() {
-    this.board = new Board();
     this.viewModel = new BoardViewModel();
     this.viewModel.addObserver(this);
+    this.cards = [];
+    this.columns = [];
   }
 
-  createCardsTemplate(cardsState) {
-    const cardsTemplate = cardsState.reduce((cardsTemplate, cardState) => {
+  setCards(cardsState) {
+    const cards = cardsState.map(cardState => {
       const card = new Card(cardState);
-      const finalTemplate = (cardsTemplate += card.nomalTemplate());
 
-      return finalTemplate;
+      return card;
+    });
+
+    this.cards = cards;
+  }
+
+  setColumns() {
+    const columns = Object.keys(this.viewModel.boardState).map(columnName => {
+      const column = new Column({ title: columnName, cards: this.viewModel.boardState[columnName] });
+      this.setCards(this.viewModel.boardState[columnName]);
+
+      return column;
+    });
+
+    this.columns = columns;
+  }
+
+  createCardsTemplate() {
+    const cardsTemplate = this.cards.reduce((cardsTemplate, card) => {
+      cardsTemplate += card.nomalTemplate();
+
+      return cardsTemplate;
     }, '');
 
     return cardsTemplate;
   }
 
-  createColumnsTemplate(boardState) {
-    const columnsTemplate = Object.keys(boardState).reduce((columnsTemplate, columnName) => {
-      const column = new Column({ title: columnName, cards: boardState[columnName] });
+  createColumnsTemplate() {
+    const columnsTemplate = this.columns.reduce((columnsTemplate, column) => {
       const cardsTemplate = this.createCardsTemplate(column.props.cards);
-      const finalTemplate = (columnsTemplate += column.template(cardsTemplate));
+      columnsTemplate += column.template(cardsTemplate);
 
-      return finalTemplate;
+      return columnsTemplate;
     }, '');
 
     return columnsTemplate;
@@ -35,8 +55,11 @@ class BoardController {
 
   async init() {
     await this.viewModel.init();
-    const columnsTemplate = this.createColumnsTemplate(this.viewModel.boardState);
+    this.board = new Board(this.viewModel.boardState);
+    this.setColumns();
+    const columnsTemplate = this.createColumnsTemplate();
     this.board.render(columnsTemplate);
+    this.board.addEvent(this);
   }
 }
 

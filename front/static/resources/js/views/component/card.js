@@ -3,7 +3,7 @@ class Card {
     this.props = props;
   }
 
-  writableTemplate() {
+  static writableTemplate() {
     return `<li class="card card--write">
           <form action="">
             <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" class="card__title" />
