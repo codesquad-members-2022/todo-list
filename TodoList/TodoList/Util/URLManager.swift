@@ -26,12 +26,16 @@ final class URLManager{
         var urlRequest = URLRequest(url: validURL)
         urlRequest.httpMethod = HttpMethod.get.getRawValue()
         
+        let semaphore = DispatchSemaphore(value: 1)
+        
         URLSession.shared.dataTask(with: urlRequest){ data, response, error in
             guard let data = data else { return }
             guard let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else { return }
 
             returnData = data
+            semaphore.signal()
         }.resume()
+        semaphore.wait()
         
         return returnData
     }

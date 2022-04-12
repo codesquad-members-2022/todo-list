@@ -18,9 +18,11 @@ final class TableViewController: UIViewController{
     
     private var sectionHeader = [TableHeader]()
     private var todoTable = [TodoTableView]()
+    let cardBoard: Board = Board()
     
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
-    let todoList = [["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd"],
+    
+    private var todoList = [["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd"],
                     ["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit"], ["Github공부하기","add,push,commitadd"]]
     private var listIndex = 0
     
@@ -31,7 +33,7 @@ final class TableViewController: UIViewController{
     
     func setTableAttributes(cell: CollectionCell, index: Int){
         let header = configureSectionHeader(index: index)
-        let table = configureTableView()
+        let table = configureTableView(index: index)
         configureLayout(cell: cell, header: header, tableView: table)
     }
 }
@@ -40,15 +42,16 @@ private extension TableViewController{
     func configureSectionHeader(index: Int) -> TableHeader{
         let header = TableHeader()
         header.titleLabel.text = todo[index]
-        header.numberLabel.text = "0"
+        header.numberLabel.text = String(cardBoard[index].count)
         
         sectionHeader.append(header)
         
         return header
     }
     
-    func configureTableView() -> TodoTableView{
+    func configureTableView(index: Int) -> TodoTableView{
         let tableView = TodoTableView()
+        tableView.setTableViewId(number: index)
         tableView.estimatedRowHeight = 108
         tableView.rowHeight = UITableView.automaticDimension
         tableView.delegate = self
@@ -80,7 +83,10 @@ private extension TableViewController{
 extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     // Footer 관련 메서드(셀 간격용)
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        guard let customTable = tableView as? TodoTableView else { return 0 }
+        let cards = cardBoard[customTable.tableViewId ?? 0]
+        
+        return cards.count
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -97,12 +103,13 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell, let customTable = tableView as? TodoTableView else { return UITableViewCell() }
         
-        let data = todoList[listIndex]
-        cell.setLabelText(title: data[0], contents: data[1])
+        let cards = cardBoard[customTable.tableViewId ?? 0]
+        let cardData = cards[listIndex]
+        cell.setLabelText(title: cardData.title, contents: cardData.content)
         
-        if listIndex == todoList.count - 1{
+        if listIndex == cards.count - 1{
             listIndex = 0
         } else{
             listIndex += 1
