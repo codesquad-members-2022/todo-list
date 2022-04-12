@@ -24,5 +24,13 @@ class TaskCardListView: UIView {
     @IBAction func addTaskButtonTapped(_ sender: UIButton) {
         NotificationCenter.default.post(name: .addTaskButtonTapped, object: nil)
     }
+    
+    func setTitle(to text: String) {
+        self.title.text = text
+    }
+    
+    func setCountBadge(with count: Int) {
+        self.taskCountBadge.text = String(count)
+    }
 }
 

@@ -31,6 +31,10 @@ enum API {
     static let deleteURL: String = ""
 }
 
+enum NotificationKeyValue {
+    static let getTaskData = "getTaskData"
+}
+
 extension Notification.Name {
     static let actionFlowButtonTapped: Notification.Name = Notification.Name("actionFlowButtonTapped")
     static let actionFlowCloseButtonTapped: Notification.Name = Notification.Name("actionFlowCloseButtonTapped")

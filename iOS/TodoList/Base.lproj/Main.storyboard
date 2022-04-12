@@ -72,7 +72,7 @@
                         <outlet property="actionBoard" destination="At7-Pe-Txa" id="vTj-FS-rtr"/>
                         <outlet property="actionFlowButton" destination="Xjx-qt-nUY" id="igO-MJ-sCW"/>
                         <outlet property="stackViewTrailing" destination="zks-zh-1b5" id="lL5-3a-SUS"/>
-                        <outlet property="taskListStackView" destination="q3x-H0-srJ" id="b2L-zg-6TB"/>
+                        <outlet property="taskBoardView" destination="q3x-H0-srJ" id="b2L-zg-6TB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -88,7 +88,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="70t-Qa-EDn">
-                                <rect key="frame" x="397" y="331" width="400" height="175"/>
+                                <rect key="frame" x="397" y="331.5" width="400" height="175"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="175" id="DYm-pH-K59"/>
                                     <constraint firstAttribute="width" constant="400" id="dy3-j1-PNl"/>
