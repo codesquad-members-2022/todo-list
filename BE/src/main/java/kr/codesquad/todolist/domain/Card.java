@@ -107,4 +107,19 @@ public class Card {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", memberId='" + memberId + '\'' +
+                ", sectionId=" + sectionId +
+                ", subject='" + subject + '\'' +
+                ", contents='" + contents + '\'' +
+                ", orderIndex=" + orderIndex +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deleted=" + deleted +
+                '}';
+    }
 }

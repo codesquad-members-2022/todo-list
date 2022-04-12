@@ -36,7 +36,7 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public Optional<Card> findById(Long id) {
-        String sql = "select id, user_id, column_id, subject, contents, create_time, update_time, deleted " +
+        String sql = "select id, member_id, section_id, subject, contents, order_index, created_at, updated_at, deleted " +
                 "from card where id = :id and deleted = false";
         try {
             Card card = namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("id", id), cardRowMapper());
@@ -48,7 +48,7 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public List<Card> findAll() {
-        String sql = "select id, user_id, column_id, subject, contents, create_time, update_time, deleted from card where deleted = false";
+        String sql = "select id, member_id, section_id, subject, contents, order_index, created_at, updated_at, deleted from card where deleted = false";
         return namedParameterJdbcTemplate.query(sql, cardRowMapper());
     }
 
@@ -71,6 +71,14 @@ public class JdbcCardRepository implements CardRepository {
 
        return namedParameterJdbcTemplate.update(sql, parameterSource) == 1;
 
+    }
+
+    @Override
+    public List<Card> findBySectionId(Integer sectionId) {
+        String sql = "select id, member_id, section_id, subject, contents, order_index, created_at, updated_at, deleted from card " +
+                "where deleted = false and section_id = :sectionId order by order_index desc";
+
+        return namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource("sectionId", sectionId), cardRowMapper());
     }
 
     private Long generateOrderIndex(Integer targetSectionId, Long targetCardId, Card card) {
@@ -97,8 +105,8 @@ public class JdbcCardRepository implements CardRepository {
                 rs.getString("subject"),
                 rs.getString("contents"),
                 rs.getLong("order_index"),
-                rs.getTimestamp("createdAt").toLocalDateTime(),
-                rs.getTimestamp("updatedAt").toLocalDateTime(),
+                rs.getTimestamp("created_at").toLocalDateTime(),
+                rs.getTimestamp("updated_at").toLocalDateTime(),
                 rs.getBoolean("deleted"));
     }
 
@@ -106,14 +114,14 @@ public class JdbcCardRepository implements CardRepository {
         Long maxOrderIndex = findMaxOrderIndex(card.getSectionId());
         Card savableCard = Card.cardWithOrderIndex(maxOrderIndex + ORDER_INTERVAL, card);
 
-        String sql = "insert into card (member_id, section_id, subject, contents, order_index, create_time, update_time) " +
+        String sql = "insert into card (member_id, section_id, subject, contents, order_index, created_at, updated_at) " +
                 "values (:memberId, :sectionId, :subject, :contents, :orderIndex, :createdAt, :updatedAt)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(savableCard), keyHolder);
         Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
 
-        return Card.of(id, card);
+        return Card.of(id, savableCard);
     }
 
     private Card update(Card card) {
@@ -132,8 +140,8 @@ public class JdbcCardRepository implements CardRepository {
         return namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("sectionId", sectionId), Long.class);
     }
 
-    private Long findPreviousOrderIndex(Integer sectionId, Long orderIndex ) {
-        String sql = "select max(order_index) from card where section_id = :sectionId and deleted = false and order_index < :orderIndex";
+    private Long findPreviousOrderIndex(Integer sectionId, Long orderIndex) {
+        String sql = "select min(order_index) from card where section_id = :sectionId and deleted = false and order_index > :orderIndex";
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("sectionId", sectionId);
         parameterSource.addValue("orderIndex", orderIndex);

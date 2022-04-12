@@ -34,17 +34,17 @@ CREATE TABLE card
      FOREIGN KEY (section_id) REFERENCES section (id)
 );
 
-CREATE TABLE log
-(
-    id                 BIGINT AUTO_INCREMENT NOT NULL,
-    user_id            VARCHAR(255) NOT NULL,
-    subject            VARCHAR(255) NOT NULL,
-    current_section_id INTEGER,
-    target_section_id  INTEGER,
-    active_time        TIMESTAMP NOT NULL,
-    activity           VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (member_id)            REFERENCES member (id),
-    FOREIGN KEY (current_section_id)   REFERENCES section (id),
-    FOREIGN KEY (target_section_id)    REFERENCES section (id)
-);
+-- CREATE TABLE log
+-- (
+--     id                 BIGINT AUTO_INCREMENT NOT NULL,
+--     user_id            VARCHAR(255) NOT NULL,
+--     subject            VARCHAR(255) NOT NULL,
+--     current_section_id INTEGER,
+--     target_section_id  INTEGER,
+--     active_time        TIMESTAMP NOT NULL,
+--     activity           VARCHAR(255) NOT NULL,
+--     PRIMARY KEY (id),
+--     FOREIGN KEY (member_id)            REFERENCES member (id),
+--     FOREIGN KEY (current_section_id)   REFERENCES section (id),
+--     FOREIGN KEY (target_section_id)    REFERENCES section (id)
+-- );
