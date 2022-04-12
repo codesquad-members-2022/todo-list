@@ -14,7 +14,6 @@ import kotlin.math.max
 import kotlin.math.min
 
 class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, private val viewModel: TodoViewModel) :
-
     ItemTouchHelper.Callback() {
 
     private var currentPosition: Int? = null
@@ -28,7 +27,7 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
     ): Int {
         return makeMovementFlags(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-            ItemTouchHelper.LEFT
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         )
     }
 
@@ -85,7 +84,6 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
             val view = getView(viewHolder)
             val isClamped = getTag(viewHolder)
             val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
-
 
             currentDx = x
             getDefaultUIUtil().onDraw(

@@ -5,8 +5,8 @@ import android.view.DragEvent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.codesquad.aos.todolist.R
-import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
+import java.util.*
 
 class DragListener : View.OnDragListener {
     private var isDropped = false
@@ -38,28 +38,51 @@ class DragListener : View.OnDragListener {
                         if (viewSource != null) {
                             val source = viewSource.parent as RecyclerView
                             val adapterSource = source.adapter as TodoCardListAdapter
+                            val adapterTarget = target.adapter as TodoCardListAdapter
                             val positionSource = source.getChildAdapterPosition(viewSource)
                             val list = adapterSource.currentList[positionSource]
-                            val listSource = adapterSource.currentList.toMutableList().apply {
-                                removeAt(positionSource)
+                            val listSource = adapterSource.currentList.toMutableList()
+
+                            if (adapterSource == adapterTarget) {
+                                if (positionTarget < 0) {
+                                    positionTarget = listSource.count() - 1
+                                }
+                                val sourceTagPosition = viewSource.tag as Int
+                                Collections.swap(listSource, sourceTagPosition, positionTarget)
+                                Log.d("BeforeList", "${listSource.count()}")
+                                adapterTarget.submitList(listSource)
+                                Log.d("AfterList", "${listSource.count()}")
+                                return true
                             }
+
+                            listSource.removeAt(positionSource)
+                            //source 옮기려는 곳 지워진걸 넣음
                             listSource.let { adapterSource.submitList(it) }
-                            val adapterTarget = target.adapter as TodoCardListAdapter
+                            Log.d("SourceList", "${listSource.count()}")
+
+                            // 지워진 리스트가 와야함
+//                            val adapterTarget = target.adapter as TodoCardListAdapter
                             val targetList = adapterTarget.currentList.toMutableList()
-                            list.let { targetList.add(it) }
+                            Log.d("TargetList", "${targetList.count()}")
+
+                            if (positionTarget >= 0) {
+                                list.let { targetList.add(positionTarget, it) }
+                            } else {
+                                list.let { targetList.add(it) }
+                            }
                             targetList.let { adapterTarget.submitList(it) }
+                            Log.d("SourceList", "AddSource")
                         }
                         Log.d("DragListener", "Dropped")
                     }
                 }
             }
-
         }
         if (!isDropped && event.localState != null) {
             Log.d("DragListener", "NotDropped")
             val shadowCard = event.localState as View
             shadowCard.visibility = View.VISIBLE
-            shadowCard.alpha = 0.5f
+//            shadowCard.alpha = 0.5f
         }
         return true
     }

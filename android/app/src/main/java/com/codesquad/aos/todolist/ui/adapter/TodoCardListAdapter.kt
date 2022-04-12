@@ -1,6 +1,7 @@
 package com.codesquad.aos.todolist.ui.adapter
 
 import android.content.ClipData
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -8,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.DataBindingUtil
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +23,7 @@ class TodoCardListAdapter(
     private val deleteTextClick: (deleteCardIndex: Int) -> Unit  // 메인 액티비티에서 전달하는 메서드
 ) : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil), View.OnTouchListener {
 
-    inner class CardViewHolder(val binding: ItemTodoCardBinding ) :
+    inner class CardViewHolder(val binding: ItemTodoCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(card: Card?, deleteTextClick: (deleteCard: Int) -> Unit) {
@@ -32,7 +31,7 @@ class TodoCardListAdapter(
             binding.tvCardContent?.text = card?.content
 
             binding.tvRemove?.setOnClickListener {
-                if(this.itemView.tag == true) {
+                if (this.itemView.tag == true) {
                     //removeItem(this.layoutPosition)
                     deleteTextClick.invoke(this.layoutPosition)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
                 }
@@ -47,7 +46,7 @@ class TodoCardListAdapter(
         return CardViewHolder(binding)
     }
 
-    fun moveItem(from: Int, to:Int) {
+    fun moveItem(from: Int, to: Int) {
         val newList = currentList.toMutableList()
         Collections.swap(newList, from, to)
         submitList(newList)
@@ -89,13 +88,24 @@ class TodoCardListAdapter(
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+    override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+        val shadowBuilder: View.DragShadowBuilder = View.DragShadowBuilder(view)
+        val swipeViewTag = view?.findViewById<ConstraintLayout>(R.id.cvSwipeView)?.tag
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                val data = ClipData.newPlainText("", "")
-                val shadowBuilder = View.DragShadowBuilder(v)
-                v?.startDragAndDrop(data, shadowBuilder, v, 0)
-                return true
+                val isDraggable = if (swipeViewTag != null) {
+                    swipeViewTag as Boolean
+                } else {
+                    false
+                }
+
+                if (!isDraggable) {
+                    val data = ClipData.newPlainText("", "")
+//                    shadowBuilder.view.setBackgroundColor(Color.BLACK)
+                    view?.startDragAndDrop(data, shadowBuilder, view, 0)
+                    return true
+                }
+                return false
             }
         }
         return false
