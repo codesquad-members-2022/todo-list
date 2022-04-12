@@ -47,9 +47,4 @@ class NetworkManagerTests: XCTestCase {
         
         wait(for: [promise], timeout: 1)
     }
-    
-    func testDelete() throws {
-        // To be implemented
-    }
-
 }

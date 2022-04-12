@@ -263,6 +263,9 @@
                         <outletCollection property="columns" destination="ByC-h1-Sf7" collectionClass="NSMutableArray" id="zE7-EM-622"/>
                         <outletCollection property="columns" destination="8ol-N5-aSs" collectionClass="NSMutableArray" id="Hnc-Cc-in6"/>
                         <outletCollection property="columns" destination="HFg-ew-nNp" collectionClass="NSMutableArray" id="HKR-YJ-C1L"/>
+                        <outletCollection property="addButtons" destination="JZE-tC-dbn" collectionClass="NSMutableArray" id="y5I-lZ-q01"/>
+                        <outletCollection property="addButtons" destination="F1t-eo-Cy5" collectionClass="NSMutableArray" id="HPV-bQ-E3e"/>
+                        <outletCollection property="addButtons" destination="Qnd-44-CVn" collectionClass="NSMutableArray" id="adM-P8-hXK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAV-8g-2rJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -39,8 +39,7 @@ class DecodingEcodingTests: XCTestCase {
         guard let dummyLogJSONData = dummyLogJSONData else { return }
 
         let logs = try self.decoder.decode([Log].self, from: dummyLogJSONData)
-
-        // To be implemented
+        XCTAssertTrue(logs.count > 0)
     }
     
     func testTaksJSONEncoding() throws {
