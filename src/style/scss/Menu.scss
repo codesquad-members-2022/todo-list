@@ -6,13 +6,18 @@
   width: 452px;
   height: 100%;
   padding: 80px 80px 80px 40px;
+  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  box-sizing: border-box;
+  transition: 0.5s;
 
   .close-button {
     cursor: pointer;
     position: absolute;
-    top: 50px;
-    right: 100px;
-    width: 10px;
+    top: 43px;
+    right: 80px;
+    width: 12px;
   }
 
   .history {
