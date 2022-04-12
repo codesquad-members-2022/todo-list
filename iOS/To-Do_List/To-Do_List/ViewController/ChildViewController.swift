@@ -33,6 +33,7 @@ class ChildViewController: UIViewController, UITableViewDelegate {
         guard let title = boardType else {return}
         self.header = BoardHeader(titleText: title)
         self.header.contentMode = .center
+        self.header.delegate = self
         self.view.addSubview(header)
         setHeaderViewConstraint()
     }
@@ -43,7 +44,7 @@ class ChildViewController: UIViewController, UITableViewDelegate {
         self.tableView = BoardTableView(
             frame: .zero,
             style: .plain,
-            list: list,
+            list: [],
             cellConfigurator: { card, cell in
             cell.loadCardInfo(info: card)
         })
@@ -99,4 +100,18 @@ extension ChildViewController {
             self.tableView.reloadData()
         }
     }
+}
+
+
+//MARK: -- AddButton delegation
+extension ChildViewController : BoardHeaderDelegate {
+    func DidTapAddButton() {
+        
+        let editVC = EditCardViewController()
+        editVC.modalPresentationStyle = .formSheet
+        present(editVC, animated: true)
+
+        
+    }
+
 }

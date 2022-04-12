@@ -37,6 +37,7 @@ class EditCardView:UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .blue
         addViews()
         setup()
         setButton()

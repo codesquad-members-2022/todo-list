@@ -73,7 +73,7 @@ enum EndPointCase {
         case .postBoard(let board):
             return Endpoint(httpMethod: .post,
                             baseURL: "http://13.125.161.84:8082/",
-                            path: "api/read/cards",
+                            path: "api/cards/write",
                             headers: ["Content-Type": "application/json"],
                             body: board
             )

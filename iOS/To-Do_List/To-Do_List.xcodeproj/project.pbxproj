@@ -40,6 +40,9 @@
 		B771A846280453EC00343BAE /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A845280453EC00343BAE /* LogCell.swift */; };
 		B771A84A280457EA00343BAE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A849280457EA00343BAE /* Extension.swift */; };
 		B771A84E28048D7C00343BAE /* LogData in Resources */ = {isa = PBXBuildFile; fileRef = B771A84D28048D7C00343BAE /* LogData */; };
+		B771A8502805434F00343BAE /* NewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84F2805434E00343BAE /* NewCard.swift */; };
+		B771A852280543F700343BAE /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A851280543F700343BAE /* Action.swift */; };
+		B771A8552805469200343BAE /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A8542805469200343BAE /* EditCardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +85,9 @@
 		B771A845280453EC00343BAE /* LogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
 		B771A849280457EA00343BAE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B771A84D28048D7C00343BAE /* LogData */ = {isa = PBXFileReference; lastKnownFileType = text; path = LogData; sourceTree = "<group>"; };
+		B771A84F2805434E00343BAE /* NewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCard.swift; sourceTree = "<group>"; };
+		B771A851280543F700343BAE /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		B771A8542805469200343BAE /* EditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,10 +129,9 @@
 		8D2AFD6F27FB08AE00307CCB /* To-Do_List */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2282A27FB1CFE002FB533 /* MainViewController.swift */,
+				B771A8532805466900343BAE /* ViewController */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
 				B771A842280447C000343BAE /* Model */,
-				8DD815E327FD65F300C13618 /* ChildViewControllers */,
 				B70BD64027FBD1CF001BE68F /* View */,
 				8DD815E127FD655C00C13618 /* Network */,
 				8DC2282D27FB1D22002FB533 /* LogTable */,
@@ -177,14 +182,6 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		8DD815E327FD65F300C13618 /* ChildViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */,
-			);
-			path = ChildViewControllers;
-			sourceTree = "<group>";
-		};
 		8DDD3A4B2803C3AD00203BB9 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				8DD815E427FD691E00C13618 /* Todo.swift */,
+				B771A84F2805434E00343BAE /* NewCard.swift */,
+				B771A851280543F700343BAE /* Action.swift */,
 				B771A84328044C9A00343BAE /* Log.swift */,
 				B730BBAD27FECB33006DC969 /* constants.swift */,
 			);
@@ -231,6 +230,16 @@
 				B771A84D28048D7C00343BAE /* LogData */,
 			);
 			path = MockData;
+			sourceTree = "<group>";
+		};
+		B771A8532805466900343BAE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2282A27FB1CFE002FB533 /* MainViewController.swift */,
+				8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */,
+				B771A8542805469200343BAE /* EditCardViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D46807727FB3FBB00FA9F34 /* ChildViewController.swift in Sources */,
+				B771A852280543F700343BAE /* Action.swift in Sources */,
 				8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */,
 				8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */,
 				B730BBAE27FECB33006DC969 /* constants.swift in Sources */,
@@ -350,12 +360,14 @@
 				8D2AFD7127FB08AE00307CCB /* AppDelegate.swift in Sources */,
 				B771A846280453EC00343BAE /* LogCell.swift in Sources */,
 				B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */,
+				B771A8502805434F00343BAE /* NewCard.swift in Sources */,
 				8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */,
 				B771A84428044C9A00343BAE /* Log.swift in Sources */,
 				B771A84128039D2100343BAE /* BoardTableViewDataSource.swift in Sources */,
 				8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */,
 				8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */,
 				8D2AFD7327FB08AE00307CCB /* SceneDelegate.swift in Sources */,
+				B771A8552805469200343BAE /* EditCardViewController.swift in Sources */,
 				8D3B5A3D2804494400F6ECF7 /* EditCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

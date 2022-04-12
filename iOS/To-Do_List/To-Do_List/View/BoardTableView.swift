@@ -9,13 +9,21 @@ import UIKit
 
 class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView, UITableViewDelegate, UITableViewDataSource {
     
-    private var list : [Model]
-    private let cellConfigurator : (Model, Cell) -> Void
+    private var list : [Model]?
+    private var cellConfigurator : ((Model, Cell) -> Void)?
 
-    init(frame: CGRect, style: UITableView.Style, list:[Model], cellConfigurator: @escaping (Model, Cell) -> Void) {
+    override init(frame: CGRect, style: UITableView.Style) {
+        super.init(frame: frame, style: style)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    convenience init(frame: CGRect, style: UITableView.Style, list:[Model], cellConfigurator: @escaping (Model, Cell) -> Void) {
+        self.init(frame: frame, style: style)
         self.list = list
         self.cellConfigurator = cellConfigurator
-        super.init(frame: frame, style: style)
         self.delegate = self
         self.dataSource = self
         self.register(Cell.self, forCellReuseIdentifier: Cell.identifier)
@@ -23,9 +31,6 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
         setupStyle()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
 
     private func setupStyle() {
@@ -34,13 +39,18 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        guard let count = list?.count else {return 0}
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as? Cell else {return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as? Cell,
+              let list = list,
+              let config = cellConfigurator
+        else {return UITableViewCell()}
+
         let card = list[indexPath.row]
-        cellConfigurator(card, cell)
+        config(card, cell)
         return cell
     }
 }
