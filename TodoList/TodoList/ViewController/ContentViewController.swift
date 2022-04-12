@@ -16,11 +16,12 @@ final class ContentViewController: UIViewController {
         }
     }
     
+    private var tableVC: TableViewController!
     private var collectionView: CollectionView!
-    var cellDelegate: TableViewInCollectionCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableVC = TableViewController()
         setCollectionView()
         setCollectionViewDelegate()
     }
@@ -61,7 +62,7 @@ extension ContentViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.collectionCell.getRawValue(), for: indexPath) as? CollectionCell else { return UICollectionViewCell() }
         
-        self.cellDelegate?.didSetTableView(cell: cell, index: indexPath.row)
+        tableVC.setTableAttributes(cell: cell, index: indexPath.row)
         
         return cell
     }
