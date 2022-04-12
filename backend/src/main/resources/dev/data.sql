@@ -5,13 +5,13 @@ VALUES ('userId2', 'password2', 'name2');
 INSERT INTO MEMBER (user_id, password, name)
 VALUES ('userId3', 'password3', 'name3');
 
-INSERT INTO ACTIVITY_LOG (user_id, activity_type, task_title, from_status, to_status, created_at, read_yn)
+INSERT INTO ACTION_LOG (user_id, action_type, task_title, from_status, to_status, created_at, read_yn)
 VALUES ('userId1', 'add', 'taskTitle1', 'TODO', 'IN_PROGRESS', SYSDATE, true);
 
-INSERT INTO ACTIVITY_LOG (user_id, activity_type, task_title, from_status, to_status, created_at, read_yn)
+INSERT INTO ACTION_LOG (user_id, action_type, task_title, from_status, to_status, created_at, read_yn)
 VALUES ('userId2', 'remove', 'taskTitle2', 'IN_PROGRESS', 'DONE', SYSDATE, false);
 
-INSERT INTO ACTIVITY_LOG (user_id, activity_type, task_title, from_status, to_status, created_at, read_yn)
+INSERT INTO ACTION_LOG (user_id, action_type, task_title, from_status, to_status, created_at, read_yn)
 VALUES ('userId3', 'update', 'taskTitle3', 'TODO', 'IN_PROGRESS', SYSDATE, true);
 
 INSERT INTO TASK_CARD (status, title, content, user_id, device, created_at, modified_at, deleted_yn, row_position)

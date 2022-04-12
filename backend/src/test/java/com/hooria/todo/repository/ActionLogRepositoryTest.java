@@ -14,15 +14,15 @@ import java.util.List;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @JdbcTest
-class ActivityLogRepositoryTest {
+class ActionLogRepositoryTest {
 
-    ActivityLogRepository repository;
+    ActionLogRepository actionLogRepository;
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Autowired
-    ActivityLogRepositoryTest(DataSource dataSource) {
-        this.repository = new ActivityLogRepository(dataSource);
+    ActionLogRepositoryTest(DataSource dataSource) {
+        this.actionLogRepository = new ActionLogRepository(dataSource);
     }
 
     @Test
@@ -34,7 +34,7 @@ class ActivityLogRepositoryTest {
         ActivityLog activityLog = ActivityLog.of(1, "userId1", "add", "TODO", "IN_PROGRESS", "taskTitle1", now, true);
 
         // when
-        ActivityLog result = repository.insert(activityLog);
+        ActivityLog result = actionLogRepository.insert(activityLog);
 
         // then
         assertThat(result.getId()).isEqualTo(activityLog.getId());
@@ -59,7 +59,7 @@ class ActivityLogRepositoryTest {
         );
 
         // when
-        List<ActivityLog> results = repository.findAll();
+        List<ActivityLog> results = actionLogRepository.findAll();
 
         // then
         assertThat(results.size()).isEqualTo(members.size());
@@ -87,7 +87,7 @@ class ActivityLogRepositoryTest {
         int id = 1;
 
         // when
-        int resultCount = repository.deleteById(id);
+        int resultCount = actionLogRepository.deleteById(id);
 
         // then
         assertThat(resultCount).isNotEqualTo(0);
