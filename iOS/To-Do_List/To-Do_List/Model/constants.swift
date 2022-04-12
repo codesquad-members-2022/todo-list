@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum BoardType: CustomStringConvertible {
+enum BoardType: CustomStringConvertible, Codable {
     
     case todo
     case progressing

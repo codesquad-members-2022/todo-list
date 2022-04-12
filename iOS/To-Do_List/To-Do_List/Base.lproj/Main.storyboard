@@ -88,7 +88,7 @@
                         <viewLayoutGuide key="safeArea" id="hNL-ez-bcF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="5yh-mT-u1k" firstAttribute="top" secondItem="hzU-m8-3QM" secondAttribute="top" priority="900" id="0OU-fw-2DS"/>
+                            <constraint firstItem="5yh-mT-u1k" firstAttribute="top" secondItem="hNL-ez-bcF" secondAttribute="top" priority="900" id="0OU-fw-2DS"/>
                             <constraint firstItem="hzU-m8-3QM" firstAttribute="leading" secondItem="hNL-ez-bcF" secondAttribute="leading" id="LCS-93-AMi"/>
                             <constraint firstItem="5yh-mT-u1k" firstAttribute="bottom" secondItem="hNL-ez-bcF" secondAttribute="bottom" priority="900" id="Oo1-7p-ODo"/>
                             <constraint firstItem="hNL-ez-bcF" firstAttribute="bottom" secondItem="qsL-gl-oqr" secondAttribute="bottom" id="VPW-zU-hNI"/>
@@ -125,26 +125,17 @@
                                     <constraint firstAttribute="height" constant="26" id="A6L-f2-nre"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RTa-kc-uAu" customClass="BoardTableView" customModule="To_Do_List" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="1366" height="954"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IY1-7O-qGY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="fNq-SA-Eaa" firstAttribute="trailing" secondItem="IY1-7O-qGY" secondAttribute="trailing" id="58X-Fq-01i"/>
-                            <constraint firstItem="IY1-7O-qGY" firstAttribute="trailing" secondItem="RTa-kc-uAu" secondAttribute="trailing" id="Du9-gx-O9O"/>
                             <constraint firstItem="fNq-SA-Eaa" firstAttribute="leading" secondItem="IY1-7O-qGY" secondAttribute="leading" id="HNE-lg-92k"/>
                             <constraint firstItem="fNq-SA-Eaa" firstAttribute="top" secondItem="IY1-7O-qGY" secondAttribute="top" id="Idv-Le-3Pe"/>
-                            <constraint firstItem="IY1-7O-qGY" firstAttribute="bottom" secondItem="RTa-kc-uAu" secondAttribute="bottom" id="PhL-Id-oiF"/>
-                            <constraint firstItem="RTa-kc-uAu" firstAttribute="top" secondItem="fNq-SA-Eaa" secondAttribute="bottom" id="e5X-Zk-i8x"/>
-                            <constraint firstItem="RTa-kc-uAu" firstAttribute="leading" secondItem="IY1-7O-qGY" secondAttribute="leading" id="hze-iD-EVA"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="headerContainer" destination="fNq-SA-Eaa" id="iYP-aU-hFt"/>
-                        <outlet property="tableView" destination="RTa-kc-uAu" id="Zo2-rU-tCk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cje-1g-zdN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -215,10 +206,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="314" height="980"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3te-PT-MvN" customClass="BoardTableView" customModule="To_Do_List" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="104" width="314" height="846"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iux-hy-Vce">
                                 <rect key="frame" x="283.5" y="53" width="10.5" height="10.5"/>
                                 <constraints>
@@ -236,17 +223,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Iux-hy-Vce" firstAttribute="top" secondItem="f8C-Ww-DVW" secondAttribute="top" constant="30" id="PNC-SN-N2S"/>
-                            <constraint firstItem="f8C-Ww-DVW" firstAttribute="bottom" secondItem="3te-PT-MvN" secondAttribute="bottom" priority="900" constant="30" id="XjK-Sj-fZ8"/>
-                            <constraint firstItem="f8C-Ww-DVW" firstAttribute="trailing" secondItem="3te-PT-MvN" secondAttribute="trailing" priority="900" id="YlS-vZ-sSG"/>
-                            <constraint firstItem="3te-PT-MvN" firstAttribute="top" secondItem="f8C-Ww-DVW" secondAttribute="top" priority="900" constant="80" id="aMz-cH-coQ"/>
-                            <constraint firstItem="3te-PT-MvN" firstAttribute="leading" secondItem="f8C-Ww-DVW" secondAttribute="leading" priority="900" id="aua-xN-uPa"/>
                             <constraint firstItem="f8C-Ww-DVW" firstAttribute="trailing" secondItem="Iux-hy-Vce" secondAttribute="trailing" constant="20" id="fzS-qx-ene"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="314" height="980"/>
-                    <connections>
-                        <outlet property="logView" destination="3te-PT-MvN" id="22l-H9-Ewl"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SE0-SX-Oqz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

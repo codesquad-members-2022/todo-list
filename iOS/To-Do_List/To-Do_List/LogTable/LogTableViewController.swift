@@ -9,7 +9,8 @@ import UIKit
 
 class LogViewController: UIViewController {
         
-    @IBOutlet weak var logView: BoardTableView!
+    private var tableView: BoardTableView<Log,LogCell>!
+    private var log: [Log]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,30 +19,29 @@ class LogViewController: UIViewController {
     }
 
     private func setTableView() {
-
-        self.logView.delegate = self
-        self.logView.dataSource = self
+        self.tableView = BoardTableView(frame: self.view.frame, style: .plain, list: [], cellConfigurator: { model, cell in
+//            cell.loadCardInfo(info: model)
+        })
+        self.view.addSubview(self.tableView)
+        tableViewConstraints()
     }    
+    
     @IBAction func test(_ sender: Any) {
-
         guard let mainVC = self.parent as? MainViewController else{ return }
         mainVC.TapCloseLogViewButton()
     }
+
 }
 
-// MARK: - Table view data source
-extension LogViewController : UITableViewDelegate , UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let list = list else { return 0 }
-//        self.header.updateCount(list.count)
-        return 1
-    }
+
+extension LogViewController {
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier) as? CardCell else { return UITableViewCell() }
-//        guard let list = self.list else { return UITableViewCell() }
-//        cell.loadCardInfo(info: list[indexPath.row])
-        return cell
+    private func tableViewConstraints() {
+        NSLayoutConstraint.activate([
+            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
     }
-    
 }

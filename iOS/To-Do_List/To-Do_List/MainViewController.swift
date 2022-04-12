@@ -31,8 +31,6 @@ class MainViewController: UIViewController {
         propagateData()
     }
     
-    
-
     private func propagateData() {
         networkManager = NetworkManager(session: URLSession(configuration: URLSessionConfiguration.default))
         
@@ -81,9 +79,11 @@ extension MainViewController {
             NSLayoutConstraint.deactivate(self.logViewConstaints)
             self.logViewConstaints.removeAll()
             
-            let constraint = self.logViewContainer.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 766)
-
-            self.logViewConstaints.append(constraint)
+            let leading = self.logViewContainer.leadingAnchor.constraint(equalTo: self.statckView.trailingAnchor, constant: -self.logViewContainer.frame.width)
+            let trailing = self.logViewContainer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            let bottom = self.logViewContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            
+            self.logViewConstaints = [leading,trailing,bottom]
             NSLayoutConstraint.activate(self.logViewConstaints)
             self.logViewContainer.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         }
@@ -94,9 +94,11 @@ extension MainViewController {
             NSLayoutConstraint.deactivate(self.logViewConstaints)
             self.logViewConstaints.removeAll()
 
-            let constraint = self.logViewContainer.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+            let leading = self.logViewContainer.leadingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            let trailing = self.logViewContainer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: self.logViewContainer.frame.width)
+            let bottom = self.logViewContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
-            self.logViewConstaints.append(constraint)
+            self.logViewConstaints = [leading,trailing,bottom]
             NSLayoutConstraint.activate(self.logViewConstaints)
             
             self.logViewContainer.frame = CGRect(x: self.view.frame.maxX, y: self.view.safeAreaInsets.top, width: self.logViewContainer.frame.width, height: self.logViewContainer.frame.height)

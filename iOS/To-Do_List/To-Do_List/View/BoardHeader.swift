@@ -35,8 +35,9 @@ class BoardHeader: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func updateCount(_ numberOfCards: Int) {
-        self.badge.setTitle("\(numberOfCards)", for: .normal)
+    func updateCount(_ numberOfCards: Int?) {
+        guard let count = numberOfCards else {return}
+        self.badge.setTitle("\(count)", for: .normal)
     }
 
     private func setupView() {
@@ -90,7 +91,9 @@ class BoardHeader: UIView {
             badge.heightAnchor.constraint(equalToConstant: 26),
             badge.widthAnchor.constraint(equalToConstant: 26),
             
-            addButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 220),
+            addButton.leadingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            addButton.widthAnchor.constraint(equalToConstant: 13.79),
+            addButton.widthAnchor.constraint(equalToConstant: 13.79),
             addButton.centerYAnchor.constraint(equalTo: title.centerYAnchor, constant: -3),
 
         ])
