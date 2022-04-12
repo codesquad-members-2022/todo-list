@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS CARD;
+DROP TABLE IF EXISTS CARD, LOG;
 CREATE TABLE CARD (
     ID BIGINT AUTO_INCREMENT PRIMARY KEY,
     CARD_INDEX INT NOT NULL,
@@ -8,3 +8,14 @@ CREATE TABLE CARD (
     CARD_STATUS ENUM('TODO', 'PROGRESS', 'DONE'),
     created_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE LOG
+(
+    id                  int AUTO_INCREMENT PRIMARY KEY,
+    title               varchar(50) NOT NULL,
+    current_status      ENUM('TODO', 'PROGRESS', 'DONE'),
+    prev_status         ENUM('TODO', 'PROGRESS', 'DONE') default NULL,
+    action_status       ENUM('ADD', 'REMOVE', 'UPDATE', 'MOVE'),
+    action_time        DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
