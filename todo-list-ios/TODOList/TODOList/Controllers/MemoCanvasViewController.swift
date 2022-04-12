@@ -12,11 +12,7 @@ class MemoCanvasViewController: UIViewController {
     
     override func didMove(toParent parent: UIViewController?) {
         view = memoCanvasView
-        memoCanvasView.todoContainerView.tableView.dataSource = self
-        memoCanvasView.todoContainerView.tableView.delegate = self
-        memoCanvasView.progressContainerView.tableView.dataSource = self
-        memoCanvasView.doneContainerView.tableView.dataSource = self
-        
+
         addTableViewControllers()
         setLayout()
     }
@@ -50,34 +46,6 @@ class MemoCanvasViewController: UIViewController {
         for ( _ , tableViewController ) in memoTableViewControllers {
             tableViewController.memoContainerView.topAnchor.constraint(equalTo: memoCanvasView.memoContainerStackView.topAnchor).isActive = true
             tableViewController.memoContainerView.bottomAnchor.constraint(equalTo: memoCanvasView.memoContainerStackView.bottomAnchor).isActive = true
-        }
-    }
-}
-
-
-extension MemoCanvasViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-        }
-    }
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = PopupViewController()
-
-        switch indexPath.section {
-        case 0:
-            self.present(vc, animated: true)
-        default:
-            self.present(vc, animated: true)
         }
     }
 }
