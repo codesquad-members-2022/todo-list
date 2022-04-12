@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0036E2FD2803CAF8001E6EA9 /* CardTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */; };
+		004781112805715400F380C6 /* NewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004781102805715400F380C6 /* NewCardView.swift */; };
 		0047A15F27FE805400FAF019 /* CardStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0047A15E27FE805400FAF019 /* CardStatus.swift */; };
 		00702C7A28051D0E009B077D /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702C7928051D0E009B077D /* HistoryTableViewCell.swift */; };
 		00702C7C28051E64009B077D /* HistoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00702C7B28051E64009B077D /* HistoryCard.swift */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableDataSource.swift; sourceTree = "<group>"; };
+		004781102805715400F380C6 /* NewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardView.swift; sourceTree = "<group>"; };
 		0047A15E27FE805400FAF019 /* CardStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStatus.swift; sourceTree = "<group>"; };
 		00702C7928051D0E009B077D /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		00702C7B28051E64009B077D /* HistoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCard.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				72C368ED280417D800086FF6 /* HistoryView.swift */,
 				00702C7928051D0E009B077D /* HistoryTableViewCell.swift */,
 				723BF2EC2804842B001F3118 /* HiddenState.swift */,
+				004781102805715400F380C6 /* NewCardView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				0077FD4F27FD68680046AB60 /* CardTableViewController.swift in Sources */,
 				00A14F7127FC19EB00474097 /* CardBoard.swift in Sources */,
 				00702C7C28051E64009B077D /* HistoryCard.swift in Sources */,
+				004781112805715400F380C6 /* NewCardView.swift in Sources */,
 				00A14F6027FC07C700474097 /* CardFactory.swift in Sources */,
 				723BF2ED2804842B001F3118 /* HiddenState.swift in Sources */,
 				72877BEE27FF22EB000CF68E /* CardTableDelegate.swift in Sources */,
