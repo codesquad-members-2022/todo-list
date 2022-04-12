@@ -25,21 +25,21 @@ public class CardRepository {
 
     public void save(Card card) {
         String sql = "insert into card" +
-                "(title, contents, card_status, author, create_date) values" +
-                "(:title, :contents, :card_status, :author, :create_date)";
+                "(title, contents, card_status, author, update_datetime) values" +
+                "(:title, :contents, :card_status, :author, :update_datetime)";
 
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("title", card.getTitle())
                 .addValue("contents", card.getContents())
                 .addValue("card_status", card.getStatus().name())
                 .addValue("author", card.getAuthor().name())
-                .addValue("create_date", card.getCreateDateTime());
+                .addValue("update_datetime", card.getUpdateDateTime());
 
         jdbcTemplate.update(sql, namedParameters);
     }
 
     public List<Card> findAll() {
-        return jdbcTemplate.query("Select id, title, contents, card_status, create_date, author from card order by create_date desc", cardsRowMapper());
+        return jdbcTemplate.query("Select id, title, contents, card_status, update_datetime, author from card order by update_datetime desc", cardsRowMapper());
     }
 
     private RowMapper<Card> cardsRowMapper() {
@@ -48,20 +48,20 @@ public class CardRepository {
             String title = rs.getString("title");
             String contents = rs.getString("contents");
             CardStatus cardStatus = CardStatus.valueOf(rs.getString("card_status"));
-            LocalDateTime createDateTime = rs.getTimestamp("create_date").toLocalDateTime();
+            LocalDateTime updateDatetime = rs.getTimestamp("update_datetime").toLocalDateTime();
             Author author = Author.valueOf(rs.getString("author"));
-            return new Card(id, title, contents, cardStatus, createDateTime, author);
+            return new Card(id, title, contents, cardStatus, updateDatetime, author);
         };
     }
 
     public void update(Card card) {
-        String updateSql = "UPDATE card SET title=:title, contents=:contents, author=:author, create_date=:create_date WHERE id=:id";
+        String updateSql = "UPDATE card SET title=:title, contents=:contents, author=:author, update_datetime=:update_datetime WHERE id=:id";
         Map<String,Object> params = new HashMap<>();
 
         params.put("title", card.getTitle());
         params.put("contents", card.getContents());
         params.put("author", card.getAuthor().name());
-        params.put("create_date", card.getCreateDateTime());
+        params.put("update_datetime", card.getUpdateDateTime());
         params.put("id", card.getId());
 
         jdbcTemplate.update(updateSql, params);

@@ -8,7 +8,7 @@ public class Card {
     private String contents;
     private CardStatus status;
     private Author author;
-    private LocalDateTime createDateTime = LocalDateTime.now();
+    private LocalDateTime updateDateTime = LocalDateTime.now();
 
     public Card(String title, String contents, CardStatus status, Author author) {
         this.title = title;
@@ -24,12 +24,12 @@ public class Card {
         this.author = author;
     }
 
-    public Card(Long id, String title, String contents, CardStatus status, LocalDateTime createDateTime, Author author) {
+    public Card(Long id, String title, String contents, CardStatus status, LocalDateTime updateDateTime, Author author) {
         this.id = id;
         this.title = title;
         this.contents = contents;
         this.status = status;
-        this.createDateTime = createDateTime;
+        this.updateDateTime = updateDateTime;
         this.author = author;
     }
 
@@ -57,7 +57,7 @@ public class Card {
         return author;
     }
 
-    public LocalDateTime getCreateDateTime() {
-        return createDateTime;
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
     }
 }
