@@ -8,7 +8,7 @@ public class CardModifyDto {
     private Long id;
     private String title;
     private String contents;
-    private String author;
+    private Author author;
 
     public Long getId() {
         return id;
@@ -22,11 +22,11 @@ public class CardModifyDto {
         return contents;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
     public Card toEntity() {
-        return new Card(id, title, contents, Author.valueOfWithCaseInsensitive(author));
+        return new Card(id, title, contents, author);
     }
 }
