@@ -38,8 +38,9 @@ public class CardRepository {
         jdbcTemplate.update(sql, namedParameters);
     }
 
-    public List<Card> findAll() {
-        return jdbcTemplate.query("Select id, title, contents, card_status, update_datetime, author from card order by update_datetime desc", cardsRowMapper());
+    public List<Card> findAllSameStatus(CardStatus cardStatus) {
+        String sql = String.format("Select id, title, contents, card_status, update_datetime, author from card WHERE card_status='%s' order by update_datetime desc", cardStatus.name());
+        return jdbcTemplate.query(sql, cardsRowMapper());
     }
 
     private RowMapper<Card> cardsRowMapper() {

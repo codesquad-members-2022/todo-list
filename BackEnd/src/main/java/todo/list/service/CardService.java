@@ -27,18 +27,15 @@ public class CardService {
     }
     
     public CardResponse findCollections() {
-        List<Card> cards = cardRepository.findAll();
+        List<Card> todoCards = cardRepository.findAllSameStatus(CardStatus.from("TODO"));
+        List<Card> inProgressCards = cardRepository.findAllSameStatus(CardStatus.from("IN_PROGRESS"));
+        List<Card> doneCards = cardRepository.findAllSameStatus(CardStatus.from("DONE"));
 
-        List<CardDto> todoCollection = makeStatusCollection(cards, CardStatus.from("TODO"));
-        List<CardDto> inProgressCollection = makeStatusCollection(cards, CardStatus.from("IN_PROGRESS"));
-        List<CardDto> doneCollection = makeStatusCollection(cards, CardStatus.from("DONE"));
-
-        return new CardResponse(todoCollection, inProgressCollection, doneCollection);
+        return new CardResponse(makeCollection(todoCards), makeCollection(inProgressCards), makeCollection(doneCards));
     }
 
-    private List<CardDto> makeStatusCollection(List<Card> cards, CardStatus cardStatus) {
+    private List<CardDto> makeCollection(List<Card> cards) {
         return cards.stream()
-                .filter(card -> card.equalsStatus(cardStatus))
                 .map(card -> new CardDto(card))
                 .collect(Collectors.toList());
     }
