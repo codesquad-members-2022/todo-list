@@ -58,7 +58,10 @@ public class DataBaseCardRepository implements CardRepository {
 
 	@Override
 	public Card delete(Long id) {
-		jdbcTemplate.update("UPDATE TODO_CARD SET is_deleted = true WHERE id = ?", id);
+		int update = jdbcTemplate.update("UPDATE TODO_CARD SET is_deleted = true WHERE id = ? AND is_deleted = false", id);
+		if (update == 0) {
+			throw new IllegalStateException("이미 삭제된 데이터입니다.");
+		}
 		Card card = findById(id);
 		jdbcTemplate.update(
 			"UPDATE TODO_CARD SET sequence = sequence - 1 WHERE status = ? AND sequence > ?",
