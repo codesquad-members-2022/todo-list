@@ -1,5 +1,7 @@
 package com.example.backend.web.controller;
 
+import com.example.backend.domain.ActionType;
+import com.example.backend.service.LogService;
 import com.example.backend.web.dto.*;
 import com.example.backend.service.CardService;
 import io.swagger.annotations.ApiOperation;
@@ -9,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 public class CardsController {
 
     private final CardService cardService;
+    private final LogService logService;
 
-    public CardsController(CardService cardService) {
+    public CardsController(CardService cardService, LogService logService) {
         this.cardService = cardService;
+        this.logService = logService;
     }
 
     @ApiOperation(value = "Card 조회")
@@ -23,6 +27,10 @@ public class CardsController {
     @ApiOperation(value = "Card 생성")
     @PostMapping("/cards")
     public Long save(@RequestBody CardSaveRequestDto dto) {
+        String title = dto.getTitle();
+        String columnName = dto.getColumnName();
+
+        logService.save(new LogSaveRequestDto(title, null, columnName, ActionType.ADD));
         return cardService.save(dto);
     }
 
