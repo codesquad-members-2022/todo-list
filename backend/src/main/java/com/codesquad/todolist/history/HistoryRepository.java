@@ -1,14 +1,15 @@
 package com.codesquad.todolist.history;
 
+import com.codesquad.todolist.history.domain.Action;
+import com.codesquad.todolist.history.domain.History;
 import com.codesquad.todolist.util.KeyHolderFactory;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import java.util.Optional;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
@@ -25,11 +26,16 @@ public class HistoryRepository {
     }
 
     public History create(History history) {
+        String sql = "insert into history (card_id, created_date, action) values (:cardId, :createdDateTime, :action)";
+
         KeyHolder keyHolder = keyHolderFactory.newKeyHolder();
 
-        jdbcTemplate.update(
-            "insert into history (card_id, created_date, field, old_value, new_value, action) values (:cardId, :createdDate, :field, :oldValue, :new_value, :action)",
-            new BeanPropertySqlParameterSource(history), keyHolder);
+        MapSqlParameterSource source = new MapSqlParameterSource()
+            .addValue("cardId", history.getCardId())
+            .addValue("createdDateTime", history.getCreatedDateTime())
+            .addValue("action", history.getAction().toString());
+
+        jdbcTemplate.update(sql, source, keyHolder);
 
         if (keyHolder.getKey() != null) {
             history.setHistoryId(keyHolder.getKey().intValue());
@@ -37,10 +43,45 @@ public class HistoryRepository {
         return history;
     }
 
-    public void createAll(List<History> histories) {
-        jdbcTemplate.batchUpdate(
-            "insert into history (card_id, created_date, field, old_value, new_value, action) values (:cardId, :createdDate, :field, :oldValue, :new_value, :action)",
-            SqlParameterSourceUtils.createBatch(histories)
+    public List<History> findAll() {
+        String sql =
+            "select history_id, user_name, column_name, title, action, history.created_date from history"
+                + " join card on history.card_id = card.card_id"
+                + " join `column` on card.column_id = `column`.column_id"
+                + " join `user` on `column`.user_id = `user`.user_id";
+
+        return jdbcTemplate.query(sql, getRowMapper());
+    }
+
+    public Optional<History> findById(Integer historyId) {
+        String sql =
+            "select history_id, user_name, column_name, title, action, history.created_date from history"
+                + " join card on history.card_id = card.card_id"
+                + " join `column` on card.column_id = `column`.column_id"
+                + " join `user` on `column`.user_id = `user`.user_id"
+                + " where history.history_id = :historyId";
+
+        MapSqlParameterSource source = new MapSqlParameterSource()
+            .addValue("historyId", historyId);
+
+        try {
+            History history = jdbcTemplate.queryForObject(sql, source, getRowMapper());
+            return Optional.ofNullable(history);
+
+        } catch (DataAccessException e) {
+            return Optional.empty();
+        }
+
+    }
+
+    private RowMapper<History> getRowMapper() {
+        return (rs, rowNum) -> new History(
+            rs.getInt("history_id"),
+            rs.getString("user_name"),
+            rs.getString("column_name"),
+            rs.getString("title"),
+            Action.valueOf(rs.getString("action")),
+            rs.getObject("created_date", LocalDateTime.class)
         );
     }
 }
