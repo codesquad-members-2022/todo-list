@@ -20,7 +20,7 @@ class CardRepositoryTest {
     void insertTest() {
         CardAddFormRequest cardAddFormRequest = new CardAddFormRequest("제목입니다", "내용입니다", "sam",
             "done");
-        Card card = cardAddFormRequest.toCardEntity();
+        Card card = cardAddFormRequest.toEntity();
         cardRepository.insert(card);
     }
 }

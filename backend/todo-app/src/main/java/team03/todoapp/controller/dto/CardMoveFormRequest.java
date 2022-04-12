@@ -6,9 +6,7 @@ public class CardMoveFormRequest {
 
     @NotNull
     private String destinationLocation;
-    @NotNull
     private Long prevItemId;
-    @NotNull
     private Long nextItemId;
 
     public CardMoveFormRequest(String destinationLocation, Long prevItemId, Long nextItemId) {

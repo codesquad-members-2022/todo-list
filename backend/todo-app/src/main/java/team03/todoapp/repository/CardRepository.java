@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -51,24 +52,16 @@ public class CardRepository {
 
         String getLastCardIdSQL = "select card_id from card where next_id is null and current_location = ?";
         String updateNextCardOfLastCardSQL = "update card set next_id = ? where card_id = ?";
-        Integer lastCardId;
 
-        try {
-            lastCardId = jdbcTemplate.queryForObject(getLastCardIdSQL, Integer.class,
-                card.getCurrentLocation());
-            log.debug("lastCardId: {}", lastCardId);
-        } catch (EmptyResultDataAccessException e) {
-            lastCardId = null;
-            log.debug("e: {}", e);
-        }
+        Integer lastCardId = DataAccessUtils.singleResult(jdbcTemplate.queryForList(getLastCardIdSQL, Integer.class, card.getCurrentLocation()));
 
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("title", card.getTitle());
         params.put("content", card.getContent());
         params.put("writer", card.getWriter());
         params.put("current_location", card.getCurrentLocation());
-        params.put("upload_date", card.getUploadDate().toString());
-        params.put("deleted", card.getDeleted().toString());
+        params.put("upload_date", card.getUploadDateTime());
+        params.put("is_deleted", card.getIsDeleted());
         params.put("next_id", null);
         Long thisCardId = simpleJdbcInsert.executeAndReturnKey(params).longValue();
 
@@ -169,7 +162,7 @@ public class CardRepository {
     public void update(Card card) {
         jdbcTemplate.update(
             "update card set title = ?, content = ? where card_id = ? and deleted = false",
-            card.getTitle(), card.getContent(), card.getCardId());
+            card.getTitle(), card.getContent(), card.getId());
     }
 
     public Optional<Card> findById(Long cardId) {
@@ -197,7 +190,6 @@ public class CardRepository {
             rs.getString("writer"),
             rs.getString("current_location"),
             rs.getObject("upload_date", LocalDateTime.class),
-            rs.getLong("next_id"),
-            rs.getBoolean("deleted"));
+            rs.getLong("next_id"));
     }
 }

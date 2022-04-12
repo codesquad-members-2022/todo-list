@@ -9,28 +9,27 @@ public class Card {
     private String content;
     private String writer;
     private String currentLocation;
-    private LocalDateTime uploadDate;
+    private LocalDateTime uploadDateTime;
     private Long nextId;
-    private Boolean deleted;
+    private boolean isDeleted;
 
     public Card(String title, String content, String writer, String currentLocation,
-        LocalDateTime uploadDate, Long nextId, Boolean deleted) {
-        this(null, title, content, writer, currentLocation, uploadDate, nextId, deleted);
+        LocalDateTime uploadDate, Long nextId) {
+        this(null, title, content, writer, currentLocation, uploadDate, nextId);
     }
 
     public Card(Long id, String title, String content, String writer, String currentLocation,
-        LocalDateTime uploadDate, Long nextId, Boolean deleted) {
+        LocalDateTime uploadDateTime, Long nextId) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.currentLocation = currentLocation;
-        this.uploadDate = uploadDate;
+        this.uploadDateTime = uploadDateTime;
         this.nextId = nextId;
-        this.deleted = deleted;
     }
 
-    public Long getCardId() {
+    public Long getId() {
         return id;
     }
 
@@ -50,16 +49,16 @@ public class Card {
         return currentLocation;
     }
 
-    public LocalDateTime getUploadDate() {
-        return uploadDate;
+    public LocalDateTime getUploadDateTime() {
+        return uploadDateTime;
     }
 
     public Long getNextId() {
         return nextId;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
+    public boolean getIsDeleted() {
+        return isDeleted;
     }
 
     public void update(String title, String content) {
@@ -75,9 +74,9 @@ public class Card {
             ", content='" + content + '\'' +
             ", writer='" + writer + '\'' +
             ", currentLocation='" + currentLocation + '\'' +
-            ", uploadDate=" + uploadDate +
+            ", uploadDate=" + uploadDateTime +
             ", nextId=" + nextId +
-            ", deleted=" + deleted +
+            ", isDeleted=" + isDeleted +
             '}';
     }
 }

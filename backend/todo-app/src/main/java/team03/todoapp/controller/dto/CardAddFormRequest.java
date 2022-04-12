@@ -54,14 +54,13 @@ public class CardAddFormRequest {
         this.currentLocation = currentLocation;
     }
 
-    public Card toCardEntity() {
+    public Card toEntity() {
         return new Card(
             this.title,
             this.content,
             this.writer,
             this.currentLocation,
             LocalDateTime.now(),
-            null,
-            false);
+            null);
     }
 }

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import team03.todoapp.controller.dto.CardAddIdResponse;
 import team03.todoapp.controller.dto.CardResponse;
 import team03.todoapp.controller.dto.CardsResponse;
 
@@ -34,20 +35,17 @@ public class MockController {
     }
 
     //@PostMapping("/card")
-    public Object add() {
-        class card_id_DTO {
-
-            public final int cardId = 5;
-        }
-        return new card_id_DTO();
+    public CardAddIdResponse add() {
+        CardAddIdResponse cardAddIdResponse = new CardAddIdResponse(5L);
+        return cardAddIdResponse;
     }
 
-    // @DeleteMapping("/card/{card_id}")
-    public void delete(@PathVariable int card_id) {
+    // @DeleteMapping("/card/{cardId}")
+    public void delete(@PathVariable int cardId) {
 
     }
 
-    //@PatchMapping("/card/move/{card_id}")
+    //@PatchMapping("/card/move/{cardId}")
     public void move() {
 
     }

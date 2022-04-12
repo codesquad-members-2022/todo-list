@@ -1,8 +1,7 @@
 package team03.todoapp.domain;
 
-import org.apache.tomcat.jni.Local;
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class History {
     private Long historyId;
@@ -10,15 +9,15 @@ public class History {
     private String cardTitle;
     private String pastLocation;
     private String nowLocation;
-    private LocalDateTime historyDate;
+    private LocalDateTime historyDateTime;
 
-    public History(Long historyId, String actionType, String cardTitle, String pastLocation, String nowLocation, LocalDateTime historyDate) {
+    public History(Long historyId, String actionType, String cardTitle, String pastLocation, String nowLocation, LocalDateTime historyDateTime) {
         this.historyId = historyId;
         this.actionType = actionType;
         this.cardTitle = cardTitle;
         this.pastLocation = pastLocation;
         this.nowLocation = nowLocation;
-        this.historyDate = historyDate;
+        this.historyDateTime = historyDateTime;
     }
 
     public Long getHistoryId() {
@@ -41,7 +40,7 @@ public class History {
         return nowLocation;
     }
 
-    public LocalDateTime getHistoryDate() {
-        return historyDate;
+    public String getHistoryDateTime() {
+        return historyDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

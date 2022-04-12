@@ -10,16 +10,16 @@ public class HistoryResponse {
     private String cardTitle;
     private String pastLocation;
     private String nowLocation;
-    private LocalDateTime historyDate;
+    private LocalDateTime historyDateTime;
 
     public HistoryResponse(Long historyId, String actionType, String cardTitle, String pastLocation,
-        String nowLocation, LocalDateTime historyDate) {
+        String nowLocation, LocalDateTime historyDateTime) {
         this.historyId = historyId;
         this.actionType = actionType;
         this.cardTitle = cardTitle;
         this.pastLocation = pastLocation;
         this.nowLocation = nowLocation;
-        this.historyDate = historyDate;
+        this.historyDateTime = historyDateTime;
     }
 
     public Long getHistoryId() {
@@ -42,8 +42,7 @@ public class HistoryResponse {
         return nowLocation;
     }
 
-    public String getHistoryDate() {
-        System.out.println(historyDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        return historyDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    public String getHistoryDateTime() {
+        return historyDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

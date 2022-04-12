@@ -26,7 +26,7 @@ public class CardService {
 
     public Long add(CardAddFormRequest cardAddFormRequest) {
         // todo: card 정보 넘기기
-        Card card = cardAddFormRequest.toCardEntity();
+        Card card = cardAddFormRequest.toEntity();
         return cardRepository.insert(card);
     }
 
