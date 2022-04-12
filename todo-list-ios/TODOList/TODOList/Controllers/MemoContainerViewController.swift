@@ -56,14 +56,14 @@ extension MemoContainerViewController: UITableViewDataSource & UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = PopupViewController()
-        vc.modalPresentationStyle = .overCurrentContext
+        let popupViewController = PopupViewController()
+        popupViewController.modalPresentationStyle = .overCurrentContext
 
         switch indexPath.section {
         case 0:
-            self.present(vc, animated: true)
+            self.present(popupViewController, animated: true)
         default:
-            self.present(vc, animated: true)
+            self.present(popupViewController, animated: true)
         }
     }
 }
