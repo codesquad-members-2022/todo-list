@@ -8,8 +8,7 @@ export default class TodoColumns {
 
   init(columnsData) {
     columnsData.forEach(columnData => {
-      const todoColumn = new TodoColumn();
-      todoColumn.init(columnData);
+      const todoColumn = new TodoColumn(columnData);
       this.columns.push(todoColumn.$todoColumn);
     });
 

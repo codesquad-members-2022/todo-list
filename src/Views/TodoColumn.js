@@ -2,31 +2,35 @@ import TodoCard from './TodoCard';
 import { createElement, $ } from '../utils/utils';
 
 export default class TodoColumn {
-  constructor(id = null, title = null, cards = []) {
+  constructor({ cards: cardsData, id, title }) {
     this.$todoColumn = null;
+    this.$todoList = null;
     this.id = id;
     this.title = title;
-    this.cards = cards;
+    this.todoCards = [];
+    this.init(cardsData);
   }
 
-  init(columnData) {
-    const { cards: cardsData, id, title } = columnData;
-    this.id = id;
-    this.title = title;
-
+  init(cardsData) {
     cardsData.forEach(cardData => {
-      const todoCard = new TodoCard(null);
-      todoCard.init(cardData);
-      this.cards.push(todoCard);
+      const todoCard = new TodoCard(cardData);
+      this.todoCards.push(todoCard);
     });
 
-    this.$todoColumn = createTodoColumn(id, title, this.cards);
-    const $todoList = $('.todo-list', this.$todoColumn);
-    const $$todoCard = this.cards.map(card => {
+    this.$todoColumn = createTodoColumn(this.id, this.title, this.todoCards);
+    this.$todoList = $('.todo-list', this.$todoColumn);
+    this.render();
+  }
+  // 타이틀 업데이트
+
+  // 배지 업데이트
+
+  render() {
+    const $$todoCard = this.todoCards.map(card => {
       return card.$todoCard;
     });
 
-    $todoList.append(...$$todoCard);
+    this.$todoList.append(...$$todoCard);
   }
 }
 
