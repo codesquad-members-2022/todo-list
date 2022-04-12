@@ -27,7 +27,7 @@ public class HistoriesApiAcceptanceTest {
 	HistoryService historyService;
 
 	@BeforeEach
-	@Sql({"/db/schema.sql", "data.sql"})
+	@Sql({"/testDB/schema.sql", "/testDB/data.sql"})
 	void setUp() {
 
 	}

@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJdbcTest
-@Sql({"/db/schema.sql", "/db/data.sql"})
+@Sql({"/testDB/schema.sql", "/testDB/data.sql"})
 @DisplayName("API /api/todos/* 리포지토리 계층 단위 테스트")
 class TodoRepositoryTest {
 
