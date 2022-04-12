@@ -28,4 +28,9 @@ public class CardService {
         cardRepository.update(card);
     }
 
+    public void delete(Integer cardId) {
+        Card card = cardRepository.findById(cardId).orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
+        cardRepository.deleteById(card.getCardId());
+    }
+
 }

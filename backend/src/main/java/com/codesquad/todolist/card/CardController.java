@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,6 +36,12 @@ public class CardController {
     public void updateCard(@PathVariable(value = "id") Integer cardId,
         @RequestBody @Valid CardUpdateRequest request) {
         cardService.update(cardId, request);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCard(@PathVariable(value = "id") Integer cardId) {
+        cardService.delete(cardId);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
 }

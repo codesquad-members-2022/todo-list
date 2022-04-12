@@ -1,13 +1,10 @@
 package com.codesquad.todolist.card.integration;
 
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
 
-import com.codesquad.todolist.card.Card;
-import com.codesquad.todolist.column.Column;
-import com.codesquad.todolist.user.User;
-import io.restassured.RestAssured;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,8 +13,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.jdbc.Sql;
+
+import com.codesquad.todolist.card.Card;
+import com.codesquad.todolist.column.Column;
+import com.codesquad.todolist.user.User;
+
+import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@Sql("classpath:/schema.sql")
 @ComponentScan
 public class CardControllerTest {
 
@@ -50,9 +55,9 @@ public class CardControllerTest {
             .contentType("application/json")
             .body(requestBody)
             .log().all()
-        .when()
+            .when()
             .post("cards/")
-        .then()
+            .then()
             .statusCode(201);
     }
 
@@ -60,18 +65,32 @@ public class CardControllerTest {
     @DisplayName("카드 업데이트 요청을 보내면 200 OK 를 응답받는다")
     public void updateCardTest() {
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("title", "제목");
-        requestBody.put("content", "내용");
-        requestBody.put("author", "작성자");
+        requestBody.put("title", "변경된 제목");
+        requestBody.put("content", "변경된 내용");
+        requestBody.put("author", "변경된 작성자");
 
         given()
             .contentType("application/json")
             .pathParam("id", 1)
             .body(requestBody)
             .log().all()
-        .when()
+            .when()
             .put("cards/{id}")
-        .then()
+            .then()
             .statusCode(200);
     }
+
+    @Test
+    @DisplayName("카드 삭제 요청을 보내면 204 NO_CONTENT 를 응답 받는다")
+    public void deleteCardTest() {
+
+        given()
+            .pathParam("id", 1)
+            .log().all()
+            .when()
+            .delete("cards/{id}")
+            .then()
+            .statusCode(204);
+    }
+
 }

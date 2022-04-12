@@ -60,4 +60,19 @@ public class CardServiceTest {
         // then
         then(cardRepository).should(times(1)).create(any(Card.class));
     }
+
+    @Test
+    @DisplayName("카드 삭제 요청 시 카드가 삭제된다")
+    public void cardDeleteTest() {
+        // given
+        Card card = new Card(1, 1, "제목", "내용", "작성자", 1, LocalDateTime.now());
+        given(cardRepository.findById(anyInt())).willReturn(Optional.ofNullable(card));
+
+        // when
+        cardService.delete(card.getCardId());
+
+        // then
+        then(cardRepository).should(times(1)).deleteById(1);
+
+    }
 }
