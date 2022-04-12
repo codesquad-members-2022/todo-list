@@ -2,6 +2,7 @@ package com.codesquad.todolist.history;
 
 import com.codesquad.todolist.history.domain.Field;
 import com.codesquad.todolist.history.domain.ModifiedField;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -36,6 +37,10 @@ public class ModifiedFieldRepository {
     }
 
     public List<ModifiedField> findByHistoryIds(List<Integer> historyIds) {
+        if (historyIds.size() == 0) {
+            return Collections.emptyList();
+        }
+
         String sql = "select modified_field_id, history_id, field,"
             + " (case when field = 'COLUMN' then (select column_name from `column` where column_id = old_value) else old_value end) as old_value,"
             + " (case when field = 'COLUMN' then (select column_name from `column` where column_id = new_value) else new_value end) as new_value"
