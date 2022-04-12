@@ -146,7 +146,7 @@ class JdbcCardRepositoryTest {
         Card saved = jdbcCardRepository.save(card);
 
         // 움직일 위치 (targetSectionId : 2, targetCardId : 6(현재 최상단) ), 움직이고자하는 카드(saved)
-        boolean isMoved = jdbcCardRepository.move(2, 6L, saved);
+        boolean isMoved = jdbcCardRepository.move(2, 6L, saved.getId());
         Card moved = jdbcCardRepository.findById(saved.getId()).orElseThrow();
 
         //then
@@ -164,7 +164,7 @@ class JdbcCardRepositoryTest {
         Card saved = jdbcCardRepository.save(card);
 
         // 움직일 위치 (targetSectionId : 2, targetCardId : 5 ), 움직이고자하는 카드(saved)
-        boolean isMoved = jdbcCardRepository.move(2, 5L, saved);
+        boolean isMoved = jdbcCardRepository.move(2, 5L, saved.getId());
         Card moved = jdbcCardRepository.findById(saved.getId()).orElseThrow();
 
         //then
@@ -182,7 +182,7 @@ class JdbcCardRepositoryTest {
         Card saved = jdbcCardRepository.save(card);
 
         // 움직일 위치 (targetSectionId : 2, targetCardId : -1 ), 움직이고자하는 카드(saved)
-        boolean isMoved = jdbcCardRepository.move(2, -1L, saved);
+        boolean isMoved = jdbcCardRepository.move(2, -1L, saved.getId());
         Card moved = jdbcCardRepository.findById(saved.getId()).orElseThrow();
 
         //then
