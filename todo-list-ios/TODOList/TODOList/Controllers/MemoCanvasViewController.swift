@@ -63,5 +63,9 @@ class MemoCanvasViewController: UIViewController {
             tableViewController.memoContainerView.bottomAnchor.constraint(equalTo: memoCanvasView.memoContainerStackView.bottomAnchor).isActive = true
         }
     }
+    
+    func removeSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath) {
+        memoTableViewModels[containerType]? .remove(at: indexPath.row)
+    }
 }
 
