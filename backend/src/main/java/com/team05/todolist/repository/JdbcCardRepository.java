@@ -1,6 +1,7 @@
 package com.team05.todolist.repository;
 
 import com.team05.todolist.domain.Card;
+import com.team05.todolist.domain.Section;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,13 @@ public class JdbcCardRepository implements CardRepository {
     public void move(Card card) {
         jdbcTemplate.update("UPDATE card SET order_index=?, section=? WHERE id=?",
             card.getOrder(), card.getSectionType(), card.getId());
+    }
+
+    @Override
+    public List<Card> findBySection(Section section) {
+        return jdbcTemplate.query(
+            "SELECT id, order_index, delete_yn, title, content, section FROM card WHERE section=? AND delete_yn=? ORDER BY order_index",
+            cardRowMapper(), section.getSectionType(), NON_DELETED);
     }
 
     private RowMapper<Card> cardRowMapper() {

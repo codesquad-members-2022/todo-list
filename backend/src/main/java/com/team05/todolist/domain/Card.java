@@ -79,4 +79,8 @@ public class Card {
 	public void changeSection(String section) {
 		this.section = Section.getSection(section);
 	}
+
+	public void setOrder(int order) {
+		this.order = order;
+	}
 }

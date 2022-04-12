@@ -1,6 +1,7 @@
 package com.team05.todolist.service;
 
 import com.team05.todolist.domain.Card;
+import com.team05.todolist.domain.Section;
 import com.team05.todolist.domain.dto.CardDTO;
 import com.team05.todolist.domain.dto.ClassifiedCardsDTO;
 import com.team05.todolist.domain.dto.MoveCardDTO;
@@ -101,16 +102,28 @@ public class CardService {
         CardDTO cardDto;
         for (Card card : cards) {
             sectionCards = classifiedCards.get(card.getSectionType());
-            if (check10Cards(sectionCards)) {
-                cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), card.getSectionType());
-                cardDto.setCardId(card.getId());
-                sectionCards.add(cardDto);
-            }
+            cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), card.getSectionType());
+            cardDto.setCardId(card.getId());
+            sectionCards.add(cardDto);
         }
         return classifiedCards;
     }
 
-    private boolean check10Cards(List<CardDTO> cards) {
-        return cards.size() < 10;
+    public void batchProcess() {
+        List<Card> todoCards = cardRepository.findBySection(Section.TODO);
+        List<Card> doingCards = cardRepository.findBySection(Section.DOING);
+        List<Card> doneCards = cardRepository.findBySection(Section.DONE);
+        sortByOrder(todoCards);
+        sortByOrder(doingCards);
+        sortByOrder(doneCards);
+    }
+
+    private void sortByOrder(List<Card> cards) {
+        int order = INCREMENT;
+        for (Card card : cards) {
+            card.setOrder(order);
+            cardRepository.save(card);
+            order+=INCREMENT;
+        }
     }
 }
