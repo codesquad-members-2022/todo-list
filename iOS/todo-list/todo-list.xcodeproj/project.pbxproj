@@ -24,6 +24,7 @@
 		5B349DED27FFFB1500AA602E /* dummyLogResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */; };
 		5B349DF328051F2300AA602E /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DF228051F2300AA602E /* LogManager.swift */; };
 		5B349DF52805205000AA602E /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DF42805205000AA602E /* LogViewModel.swift */; };
+		5B997D8E2805641300A00B42 /* LogManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B997D8D2805641300A00B42 /* LogManagerTests.swift */; };
 		BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
 		BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
 		BC4792972803E4BD00CBE369 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4792962803E4BD00CBE369 /* TaskManager.swift */; };
@@ -98,6 +99,7 @@
 		5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dummyLogResponse.json; sourceTree = "<group>"; };
 		5B349DF228051F2300AA602E /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		5B349DF42805205000AA602E /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
+		5B997D8D2805641300A00B42 /* LogManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManagerTests.swift; sourceTree = "<group>"; };
 		BC3D4A1627FD6F1C009B37FB /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		BC4792962803E4BD00CBE369 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				BC63250D2804291200CE5280 /* DecodingEcodingTests.swift */,
 				BC63250F2804291B00CE5280 /* NetworkManagerTests.swift */,
 				BC63251128043D7400CE5280 /* TaskManagerTests.swift */,
+				5B997D8D2805641300A00B42 /* LogManagerTests.swift */,
 				BC63251328043ECD00CE5280 /* ColumnViewModelTests.swift */,
 			);
 			path = "todo-listTests";
@@ -466,6 +469,7 @@
 				BC63251528043EFC00CE5280 /* ColumnViewModel.swift in Sources */,
 				BC63251428043ECD00CE5280 /* ColumnViewModelTests.swift in Sources */,
 				BC63251228043D7400CE5280 /* TaskManagerTests.swift in Sources */,
+				5B997D8E2805641300A00B42 /* LogManagerTests.swift in Sources */,
 				BCC3729127FFEB6000774933 /* Task.swift in Sources */,
 				BC63250E2804291200CE5280 /* DecodingEcodingTests.swift in Sources */,
 				5B349DBC27FA9AFF00AA602E /* todo_listTests.swift in Sources */,
