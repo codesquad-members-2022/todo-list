@@ -8,7 +8,7 @@
 import UIKit
 import OSLog
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
     
     //View
     @IBOutlet weak private var statckView: UIStackView!

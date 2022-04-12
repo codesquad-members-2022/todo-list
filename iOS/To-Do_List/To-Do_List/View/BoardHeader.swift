@@ -11,7 +11,7 @@ protocol BoardHeaderDelegate {
     func DidTapAddButton()
 }
 
-class BoardHeader: UIView {
+final class BoardHeader: UIView {
 
     private (set) var title = UILabel()
     private (set) var badge = UIButton()

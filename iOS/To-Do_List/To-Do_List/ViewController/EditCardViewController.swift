@@ -9,7 +9,7 @@
 
 import UIKit
 
-class EditCardViewController: UIViewController {
+final class EditCardViewController: UIViewController {
 
     private var editCardView : EditCardView = EditCardView(frame: .zero)
     

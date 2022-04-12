@@ -5,10 +5,13 @@
 //  Created by 박진섭 on 2022/04/05.
 //
 
-import UIKit
+
+
 protocol CellIdentifiable {
     static var identifier : String {get}
 }
+
+import UIKit
 
 class CardCell: UITableViewCell, CellIdentifiable {
 

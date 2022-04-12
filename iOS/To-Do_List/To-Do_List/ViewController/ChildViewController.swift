@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChildViewController: UIViewController, UITableViewDelegate {
+final class ChildViewController: UIViewController, UITableViewDelegate {
 
     private var tableView: BoardTableView<Todo,CardCell>!
     private var header : BoardHeader!

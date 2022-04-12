@@ -7,7 +7,9 @@
 
 import UIKit
 
-class EditCardView:UIView {
+final class EditCardView:UIView {
+    
+    var delegate:EditCardViewDelegate?
     
     private lazy var titleLabel:UILabel = {
         let label = UILabel()
@@ -27,27 +29,30 @@ class EditCardView:UIView {
     
     private lazy var cancelButton:UIButton = {
         let button = UIButton()
+        button.setTitle("취소", for: .normal)
+        button.backgroundColor = UIColor(red: 224 / 255, green: 224 / 255, blue: 224 / 255, alpha: 1)
+        button.layer.cornerRadius = 6
         return button
     }()
     
     private lazy var confirmButton:UIButton = {
         let button = UIButton()
+        button.backgroundColor = UIColor(red: 134 / 255, green: 198 / 255, blue: 255 / 255, alpha: 1)
+        button.layer.cornerRadius = 6
+        button.isEnabled = false
         return button
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
         setup()
-        setButtonDisable()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         addViews()
         setup()
-        setButtonDisable()
     }
     
     private func addViews() {
@@ -75,7 +80,7 @@ class EditCardView:UIView {
             confirmButton.widthAnchor.constraint(equalToConstant: buttonSize.width),
             confirmButton.heightAnchor.constraint(equalToConstant: buttonSize.height),
             confirmButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -inset),
-            confirmButton.topAnchor.constraint(equalTo: self.contentInputTextField.topAnchor, constant: inset),
+            confirmButton.topAnchor.constraint(equalTo: self.contentInputTextField.bottomAnchor, constant: inset),
 
             
             cancelButton.widthAnchor.constraint(equalToConstant: buttonSize.width),
@@ -84,12 +89,6 @@ class EditCardView:UIView {
             cancelButton.topAnchor.constraint(equalTo: self.contentInputTextField.bottomAnchor, constant: inset),
             
         ])
-    }
-    
-    private func setButtonDisable() {
-        [cancelButton,confirmButton].forEach {
-            $0.isEnabled = false
-        }
     }
 }
 
@@ -100,8 +99,5 @@ extension EditCardView {
         self.headLineInputTextField.placeholder = editStyle.headLineTextFieldPlaceholder
         self.contentInputTextField.placeholder = editStyle.contentTextFieldPlaceholder
         self.confirmButton.setTitle(editStyle.buttonText, for: .normal)
-        self.confirmButton.tintColor = .systemBlue
-        self.cancelButton.setTitle("취소", for: .normal)
     }
 }
-
