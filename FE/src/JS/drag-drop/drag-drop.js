@@ -1,6 +1,7 @@
 import { $, $$, throttle } from '../utility/util.js';
 
 export default class Drag {
+
   addDragEvent() {
     const cardLists = $$('.column-item--card');
     const containers = $$('.container');
@@ -14,14 +15,14 @@ export default class Drag {
       cardList.addEventListener('dragend', this.toggleDraggingClass(cardList));
     });
 
-    const minimumTime = 500;
+    const MIN_TIME = 500;
 
     containers.forEach((container) => {
       container.addEventListener(
         'dragover',
         throttle((e) => {
           this.dragoverEventHandler(e, container);
-        }, minimumTime)
+        }, MIN_TIME)
       );
     });
   }
@@ -35,12 +36,12 @@ export default class Drag {
   dragoverEventHandler(e, container) {
     e.preventDefault();
     const selectedCard = $('.dragging');
-    const afterElement = this.getDragAfterElement(container, e.clientY);
+    const targetElement = this.getDragtargetElement(container, e.clientY);
 
-    this.changeCurCard(afterElement, container, selectedCard);
+    this.changeCurCard(targetElement, container, selectedCard);
   }
 
-  getDragAfterElement(container, y) {
+  getDragtargetElement(container, y) {
     const unselectedCardEl = [
       ...container.querySelectorAll('.column-item--card:not(.dragging)'),
     ];
