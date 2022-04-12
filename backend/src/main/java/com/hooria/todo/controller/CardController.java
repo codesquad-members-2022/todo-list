@@ -3,6 +3,7 @@ package com.hooria.todo.controller;
 import com.hooria.todo.dto.AddCardParam;
 import com.hooria.todo.dto.CardResponse;
 import com.hooria.todo.dto.UpdateCardParam;
+import com.hooria.todo.dto.UpdateCardLayoutParam;
 import com.hooria.todo.service.CardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -105,5 +106,26 @@ public class CardController {
     @DeleteMapping("/{id}")
     public CardResponse delete(@PathVariable long id) {
         return cardService.delete(id);
+    }
+
+    @ApiOperation(
+        value = "타스크 정렬 순서 일괄 저장",
+        notes = "타스크 정렬 순서를 일괄 저장한다.",
+        produces = "application/json",
+        response = List.class
+    )
+    @ApiImplicitParams({
+        @ApiImplicitParam(
+            name = "updateCardLayoutParams",
+            value = "새로운 할 일"
+        )
+    })
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "수정 성공"),
+        @ApiResponse(code = 500, message = "서버 에러"),
+    })
+    @PatchMapping("/layout")
+    public List<CardResponse> updateCardsLayout(@RequestBody List<UpdateCardLayoutParam> updateCardLayoutParams) {
+        return cardService.updateCardsLayout(updateCardLayoutParams);
     }
 }
