@@ -68,7 +68,8 @@ struct NetworkManager {
 enum HttpMethod: String {
     case GET
     case POST
-    case PUT
+    case PATCH
+    case DELETE
 }
 
 enum NerworkError: Error {

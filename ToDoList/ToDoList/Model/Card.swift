@@ -4,12 +4,11 @@ struct Card: Cardable, Codable {
 
     private enum CodingKeys: String, CodingKey {
         case id
-        case title
-        case body
-        case listName
-        case caption
-        case createdTime
-        case updatedTime
+        case title = "subject"
+        case body = "contents"
+        case listName = "columnId"
+        case caption = "author"
+        case createdTime = "createdAt"
     }
     
     private(set) var id: Int?
@@ -18,7 +17,6 @@ struct Card: Cardable, Codable {
     private(set) var listName: String
     private(set) var caption: Caption
     private(set) var createdTime: Date
-    private var updatedTime: Date
     
     init(title: String, body: String, caption: Caption, listName: String) {
         self.title = title
@@ -26,7 +24,6 @@ struct Card: Cardable, Codable {
         self.caption = caption
         self.listName = listName
         self.createdTime = Date.now
-        self.updatedTime = Date.now
     }
     
     init(from decoder: Decoder) throws {
@@ -38,12 +35,10 @@ struct Card: Cardable, Codable {
         self.listName = try container.decode(String.self, forKey: .listName)
         self.caption = try container.decode(Caption.self, forKey: .caption)
         self.createdTime = try container.decode(Date.self, forKey: .createdTime)
-        self.updatedTime = try container.decode(Date.self, forKey: .updatedTime)
     }
     
     mutating func moveList(to newListName: String) {
         self.listName = newListName
-        self.updatedTime = .now
     }
     
     mutating func setID(with id: Int) {
