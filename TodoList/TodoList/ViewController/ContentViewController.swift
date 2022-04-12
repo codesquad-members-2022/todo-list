@@ -34,12 +34,12 @@ final class ContentViewController: UIViewController {
         super.viewDidLoad()
         setCollectionView()
         setCollectionViewDelegate()
-        NotificationCenter.default.addObserver(self.tableVC, selector: #selector(tableVC.setCardData), name: NSNotification.Name(rawValue: "board"), object: tableVC.cardBoard)
     }
     
+    // Layout이 생성된 이후에 네트워크 통신 및 데이터 할당 작업 실행(비동기)
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.tableVC.cardBoard.getAndDivideCard()
+        self.tableVC.connectURL()
     }
 }
 

@@ -34,6 +34,11 @@ final class TableViewController: UIViewController{
         configureLayout(cell: cell, header: header, tableView: table)
     }
     
+    func connectURL(){
+        NotificationCenter.default.addObserver(self, selector: #selector(setCardData), name: NSNotification.Name(rawValue: "board"), object: cardBoard)
+        self.cardBoard.getAndDivideCard()
+    }
+    
     @objc func setCardData(){
         DispatchQueue.main.async {
             self.todoTable.forEach{
