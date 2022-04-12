@@ -1,4 +1,5 @@
 import UIKit
+import OSLog
 
 class CardListViewController: UIViewController {
     
@@ -102,6 +103,19 @@ extension CardListViewController {
     }
     
     @objc private func cardManagerDidAddNewCard(_ notification: Notification) {
+        guard let addedCard = notification.userInfo?[CardManager.Constants.userInfoKeys.addedCard] as? Card else {
+            return
+        }
+        
+        NetworkManager.sendRequest(data: addedCard, httpMethod: .POST) { result in
+            switch result {
+                case .success(let returnedCard):
+                    self.cardManager.setNewCardsID(with: returnedCard.id ?? 0)
+                case .failure(let error):
+                    os_log(.error, "\(error.localizedDescription)")
+            }
+        }
+        
         updateBadge()
         tableView.reloadData()
         

@@ -1,6 +1,19 @@
 import Foundation
 
-struct Card: Cardable {
+struct Card: Cardable, Codable {
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case body
+        case listName
+        case caption
+        case indexOrder
+        case createdTime
+        case updatedTime
+    }
+    
+    private(set) var id: Int?
     private(set) var title: String
     private(set) var body: String
     private(set) var listName: String
@@ -18,12 +31,29 @@ struct Card: Cardable {
         self.updatedTime = Date.now
     }
     
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.body = try container.decode(String.self, forKey: .body)
+        self.listName = try container.decode(String.self, forKey: .listName)
+        self.caption = try container.decode(Caption.self, forKey: .caption)
+        self.indexOrder = try container.decode(Int.self, forKey: .indexOrder)
+        self.createdTime = try container.decode(Date.self, forKey: .createdTime)
+        self.updatedTime = try container.decode(Date.self, forKey: .updatedTime)
+    }
+    
     mutating func moveList(to newListName: String) {
         self.listName = newListName
         self.updatedTime = .now
     }
     mutating func setIndexOrder(in cardsCount: Int) {
         self.indexOrder = (cardsCount+1) * 1000
+    }
+    
+    mutating func setID(with id: Int) {
+        self.id = id
     }
 }
 

@@ -1,5 +1,5 @@
 import Foundation
 
-enum Caption {
+enum Caption: Codable {
     case iOS
 }

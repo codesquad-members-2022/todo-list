@@ -14,6 +14,7 @@
 		0234A4A02800184E0017DAD3 /* EditCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0234A49F2800184E0017DAD3 /* EditCardView.xib */; };
 		0234A4A228001C4E0017DAD3 /* EditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234A4A128001C4E0017DAD3 /* EditCardView.swift */; };
 		0234A4AE280027910017DAD3 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234A4AD280027910017DAD3 /* EditCardViewController.swift */; };
+		0254E26328050EAE00162513 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0254E26228050EAE00162513 /* NetworkManager.swift */; };
 		02AC445B27FF318A009CF050 /* CardListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02AC445927FF318A009CF050 /* CardListView.xib */; };
 		02AC446027FFDCF1009CF050 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC445F27FFDCF1009CF050 /* Card.swift */; };
 		02AC446227FFDD53009CF050 /* Caption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AC446127FFDD53009CF050 /* Caption.swift */; };
@@ -58,6 +59,7 @@
 		0234A49F2800184E0017DAD3 /* EditCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCardView.xib; sourceTree = "<group>"; };
 		0234A4A128001C4E0017DAD3 /* EditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardView.swift; sourceTree = "<group>"; };
 		0234A4AD280027910017DAD3 /* EditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
+		0254E26228050EAE00162513 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		02AC445927FF318A009CF050 /* CardListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardListView.xib; sourceTree = "<group>"; };
 		02AC445F27FFDCF1009CF050 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		02AC446127FFDD53009CF050 /* Caption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caption.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				02AC445F27FFDCF1009CF050 /* Card.swift */,
 				02AC446127FFDD53009CF050 /* Caption.swift */,
 				02AC446727FFE1F1009CF050 /* CardFactory.swift */,
+				0254E26228050EAE00162513 /* NetworkManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				02DF5F9727FD6EFF0064FEC8 /* AppDelegate.swift in Sources */,
 				021F10822803CF22006D8EA1 /* Cardable.swift in Sources */,
 				02AC446627FFE155009CF050 /* CardManager.swift in Sources */,
+				0254E26328050EAE00162513 /* NetworkManager.swift in Sources */,
 				0234A4A228001C4E0017DAD3 /* EditCardView.swift in Sources */,
 				02AC446227FFDD53009CF050 /* Caption.swift in Sources */,
 				02DF5F9927FD6EFF0064FEC8 /* SceneDelegate.swift in Sources */,

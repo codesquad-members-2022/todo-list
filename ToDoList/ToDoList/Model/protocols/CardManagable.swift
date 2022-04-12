@@ -5,4 +5,5 @@ protocol CardManagable {
     subscript(_ index: Int) -> Cardable {get}
     func add(title: String, body: String)
     func add(newCard: Cardable)
+    func setNewCardsID(with id: Int)
 }

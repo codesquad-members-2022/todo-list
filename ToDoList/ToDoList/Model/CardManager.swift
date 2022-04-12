@@ -15,6 +15,7 @@ class CardManager: CardManagable {
     private var listName: String
     private var cards = [Cardable]()
     private var selectedCard: Cardable?
+    private var currentlyAddedCard: Cardable?
     private var cardFactory: ModelFactoryBase
     
     var count: Int {
@@ -38,6 +39,8 @@ class CardManager: CardManagable {
         
         let userInfo = [Constants.userInfoKeys.addedCard: newCard]
         NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self, userInfo: userInfo)
+        
+        currentlyAddedCard = newCard
     }
     
     func add(newCard: Cardable) {
@@ -47,6 +50,11 @@ class CardManager: CardManagable {
         let userInfo = [Constants.userInfoKeys.addedCard: newCard]
         NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self, userInfo: userInfo)
     }
+    
+    func setNewCardsID(with id: Int) {
+        guard currentlyAddedCard != nil else {return}
+        
+        currentlyAddedCard?.setID(with: id)
     }
     
     func selectCard(index: Int) {
