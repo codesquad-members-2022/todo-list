@@ -1,7 +1,9 @@
 package com.codesquad.todolist.card;
 
+import com.codesquad.todolist.card.dto.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardMoveRequest;
+import com.codesquad.todolist.card.dto.CardUpdateRequest;
 import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -12,10 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.codesquad.todolist.card.dto.CardCreateRequest;
-import com.codesquad.todolist.card.dto.CardMoveRequest;
-import com.codesquad.todolist.card.dto.CardUpdateRequest;
 
 @RestController
 @RequestMapping("/cards")
@@ -39,17 +37,17 @@ public class CardController {
         cardService.update(cardId, request);
     }
 
+    @PutMapping("/{id}/move")
+    public ResponseEntity<?> moveCard(@PathVariable(value = "id") Integer cardId,
+        @RequestBody @Valid CardMoveRequest request) {
+        cardService.move(cardId, request);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCard(@PathVariable(value = "id") Integer cardId) {
         cardService.delete(cardId);
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}/move")
-    public ResponseEntity<?> moveCard(@PathVariable(value = "id") Integer cardId,
-        @RequestBody @Valid CardMoveRequest request) {
-
-        cardService.move(cardId, request);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
-    }
 }

@@ -3,8 +3,10 @@ package com.codesquad.todolist.card.dto;
 import javax.validation.constraints.NotNull;
 
 public class CardMoveRequest {
+
     @NotNull(message = "목표 위치의 컬럼ID 값이 있어야 합니다")
     private Integer columnId;
+
     private Integer nextId;
 
     private CardMoveRequest() {

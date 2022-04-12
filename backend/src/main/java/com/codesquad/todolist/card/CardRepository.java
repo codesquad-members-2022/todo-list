@@ -40,12 +40,11 @@ public class CardRepository {
         String sql =
             "select card_id, column_id, title, content, author, next_id, created_date from card"
                 + " where card_id = :cardId and deleted = false";
-        Card card;
-        try {
-            card = jdbcTemplate.queryForObject(sql,
-                new MapSqlParameterSource().addValue("cardId", cardId),
-                getCardRowMapper());
 
+        MapSqlParameterSource source = new MapSqlParameterSource().addValue("cardId", cardId);
+
+        try {
+            Card card = jdbcTemplate.queryForObject(sql, source, getCardRowMapper());
             return Optional.ofNullable(card);
 
         } catch (DataAccessException e) {
