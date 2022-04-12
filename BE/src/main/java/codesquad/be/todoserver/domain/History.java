@@ -1,5 +1,8 @@
 package codesquad.be.todoserver.domain;
 
+import lombok.Getter;
+
+@Getter
 public class History {
 
 	private final Long id;
@@ -23,31 +26,4 @@ public class History {
 		this.createdAt = createdAt;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public Long getTodoId() {
-		return todoId;
-	}
-
-	public String getTodoTitle() { return todoTitle; }
-
-	public String getUser() { return user; }
-
-	public String getAction() {
-		return action;
-	}
-
-	public String getFromStatus() {
-		return fromStatus;
-	}
-
-	public String getToStatus() {
-		return toStatus;
-	}
-
-	public String getCreatedAt() {
-		return createdAt;
-	}
 }

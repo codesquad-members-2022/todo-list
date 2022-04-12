@@ -1,7 +1,11 @@
 package codesquad.be.todoserver.domain;
 
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Todo {
 
 	private Long id;
@@ -27,35 +31,4 @@ public class Todo {
 		this.status = status;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getContents() {
-		return contents;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
 }
