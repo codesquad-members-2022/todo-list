@@ -40,7 +40,7 @@ public class CardRepository {
 
     public Optional<Card> findById(int cardId) {
         String sql = "select card_id, column_id, title, content, author, card_order, created_date from card where card_id = :cardId and deleted = false";
-        Card card = null;
+        Card card;
         try {
             card = jdbcTemplate.queryForObject(sql, new MapSqlParameterSource().addValue("cardId", cardId),
                 getCardRowMapper());

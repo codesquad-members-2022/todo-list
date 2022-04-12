@@ -62,7 +62,7 @@ public class CardServiceTest {
     }
 
     @Test
-    @DisplayName("카드 삭제 요청 시 카드가 삭제된다") //
+    @DisplayName("카드 삭제 요청 시 카드가 삭제된다")
     public void cardDeleteTest() {
         // given
         Card card = new Card(1, 1, "제목", "내용", "작성자", 1, LocalDateTime.now());
