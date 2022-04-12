@@ -8,31 +8,46 @@ class MemoCanvasViewController: UIViewController {
         return view
     }()
     
-    private var memoTableViewControllers: [MemoContainerType: MemoContainerViewController] = [:]
+    private (set) var memoTableViewControllers: [MemoContainerType: MemoContainerViewController] = [:]
+    private (set) var memoTableViewModels: [MemoContainerType: [Memo]] = [.todo:[], .progress:[], .done:[]]
     
     override func didMove(toParent parent: UIViewController?) {
         view = memoCanvasView
-
-        addTableViewControllers()
+        
+        initProperties()
         setLayout()
     }
     
-    private func addTableViewControllers() {
+    private func initProperties() {
         for containerType in MemoContainerType.allCases {
-            let tableViewController = MemoContainerViewController(cellCount: 15, containerType: containerType)
-            memoTableViewControllers[containerType] = tableViewController
-            
-            addChild(tableViewController)
-            memoCanvasView.memoContainerStackView.addArrangedSubview(tableViewController.view)
-            tableViewController.didMove(toParent: self)
-            
-            addTableViewConfigurations(tableViewController: tableViewController)
+            for _ in 0..<15 {
+                addTableViewModel(containerType: containerType)
+            }
+            addTableViewController(containerType: containerType)
         }
+    }
+    
+    private func addTableViewModel(containerType: MemoContainerType) {
+        let memo = Memo(title: "해야 할 일입니당", content: "해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK")
+        memoTableViewModels[containerType]?.append(memo)
+    }
+    
+    private func addTableViewController(containerType: MemoContainerType) {
+        let tableViewController = MemoContainerViewController(cellCount: 15, containerType: containerType)
+        memoTableViewControllers[containerType] = tableViewController
+        
+        addChild(tableViewController)
+        memoCanvasView.memoContainerStackView.addArrangedSubview(tableViewController.view)
+        tableViewController.didMove(toParent: self)
+        
+        addTableViewConfigurations(tableViewController: tableViewController)
     }
     
     private func addTableViewConfigurations(tableViewController: MemoContainerViewController) {
         tableViewController.memoContainerView.tableView.dataSource = tableViewController
         tableViewController.memoContainerView.tableView.delegate = tableViewController
+        tableViewController.memoContainerView.tableView.dragDelegate = tableViewController
+        tableViewController.memoContainerView.tableView.dragInteractionEnabled = true
         tableViewController.memoContainerView.tableView.register(MemoTableViewCell.self, forCellReuseIdentifier: MemoTableViewCell.identifier)
     }
     
