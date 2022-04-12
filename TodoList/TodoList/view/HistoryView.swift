@@ -11,7 +11,7 @@ import UIKit
 class HistoryView: UIView{
     private lazy var closeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("X", for: .normal)
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
@@ -29,9 +29,8 @@ class HistoryView: UIView{
     }
     
     private func setUI(){
-        backgroundColor = .yellow
+        backgroundColor = .white
         addSubview(closeButton)
-        print("setup!!")
         setUIConstraint()
     }
     
