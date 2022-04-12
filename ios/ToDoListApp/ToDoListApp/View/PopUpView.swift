@@ -16,6 +16,13 @@ class PopUpView: UIView {
         return view
     }()
     
+    private let containerHeadLineLabel: UILabel = {
+        let label = UILabel()
+        label.text = Constant.PopUpViewText.headLineLabel
+        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 18)
+        return label
+    }()
+    
     private let containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -23,13 +30,6 @@ class PopUpView: UIView {
         stackView.alignment = .leading
         stackView.distribution = .fillEqually
         return stackView
-    }()
-    
-    private let containerHeadLineLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constant.PopUpViewText.headLineLabel
-        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 18)
-        return label
     }()
     
     private(set) var containerTitleTextField: UITextField = {
@@ -41,7 +41,7 @@ class PopUpView: UIView {
         return textField
     }()
     
-    private let containerContentsTextField: UITextField = {
+    private(set) var containerContentsTextField: UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(
             string: Constant.PopUpViewText.contentsTextField,
@@ -80,13 +80,11 @@ class PopUpView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
-        resetPlaceholder()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpView()
-        resetPlaceholder()
     }
     
     private func setUpView() {
