@@ -1,38 +1,41 @@
 import "./alert.scss";
 import { Store } from "../../../../../../stores/ColumnStore.js";
 
-export function activateAlert(cardID) {
-  renderAlert();
-  setEvents(cardID);
-}
+export const activateAlert = (columnID, cardID) => {
+  const alertDOM = document.querySelector(".alert-container");
+  showAlert(alertDOM);
+  setEvents(alertDOM, columnID, cardID);
+};
 
-function renderAlert() {
-  document.body.insertAdjacentHTML("afterbegin", getAlertTemplate());
-}
+const showAlert = (alertDOM) => {
+  alertDOM.classList.remove("hidden");
+};
 
-function getAlertTemplate() {
-  return `
-    <div class="alert-container">
-      <div class="alert">
-        <span class="alert__message">선택한 카드를 삭제할까요?</span>
-        <div class="alert__util">
-          <div class="alert__util-btn alert__util-btn--cancel">취소</div>
-          <div class="alert__util-btn alert__util-btn--delete">삭제</div>
-        </div>
-      </div>
-    </div>
-    `;
-}
+const setEvents = (alertDOM, columnID, cardID) => {
+  setCancelBtnEvent(alertDOM, columnID, cardID);
+  setDeletBtnEvent(alertDOM, columnID, cardID);
+};
 
-function setEvents(cardID) {
-  setCancelBtnEvent(cardID);
-}
-
-function setCancelBtnEvent(cardID) {
+const setCancelBtnEvent = (alertDOM, columnID, cardID) => {
   const cancelBtn = document.querySelector(".alert__util-btn--cancel");
-  cancelBtn.addEventListener("click", () => handleCancelBtnClickEvent(cardID));
-}
+  cancelBtn.addEventListener("click", () => handleCancelBtnClickEvent(alertDOM, columnID, cardID));
+};
 
-function handleCancelBtnClickEvent(cardID) {
-  Store.setCardTypeState(cardID, "normal");
-}
+const setDeletBtnEvent = (alertDOM, columnID, cardID) => {
+  const deleteBtn = document.querySelector(".alert__util-btn--delete");
+  deleteBtn.addEventListener("click", () => handleDeleteBtnClickEvent(alertDOM, columnID, cardID));
+};
+
+const handleDeleteBtnClickEvent = (alertDOM, columnID, cardID) => {
+  hideAlert(alertDOM);
+  Store.deleteCard(columnID, cardID);
+};
+
+const handleCancelBtnClickEvent = (alertDOM, columnID, cardID) => {
+  hideAlert(alertDOM);
+  Store.changeCardType(columnID, cardID, "normal");
+};
+
+const hideAlert = (alertDOM) => {
+  alertDOM.classList.add("hidden");
+};

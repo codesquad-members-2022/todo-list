@@ -1,5 +1,6 @@
 import "./Card.scss";
 import { Store } from "../../../../../stores/ColumnStore.js";
+import { activateAlert } from "./alert/Alert.js";
 
 export const initCard = (parentNode, cardState) => {
   const cardNode = makeCardNode(cardState);
@@ -10,7 +11,10 @@ export const initCard = (parentNode, cardState) => {
 
 const makeCardNode = (cardState) => {
   const cardNode = document.createElement("div");
-  cardNode.className = "card";
+  cardNode.classList.add("card");
+  if (cardState.type === "deleting") {
+    cardNode.classList.add("card--deleting");
+  }
   cardNode.dataset.id = cardState.id;
   return cardNode;
 };
@@ -24,11 +28,14 @@ const renderCard = (cardNode, cardState) => {
 };
 
 const makeCardInnerTemplate = (cardState) => {
-  const contentTemplate =
-    cardState.type === "normal" ? getNormalContentTemplate(cardState) : getTempContentTemplate(cardState);
-  const btnTemplate =
-    cardState.type === "normal" ? getNormalBtnTemplate() : getTempBtnTemplate(cardState.type);
-  return contentTemplate + btnTemplate;
+  switch (cardState.type) {
+    case "normal":
+    case "deleting":
+      return getNormalContentTemplate(cardState) + getNormalBtnTemplate();
+    case "adding":
+    case "editing":
+      return getTempContentTemplate(cardState) + getTempBtnTemplate(cardState.type);
+  }
 };
 
 const getNormalContentTemplate = (cardState) => {
@@ -102,8 +109,9 @@ const setInputEvent = (cardNode) => {
 };
 
 const handleDeleteBtnClickEvent = (cardNode) => {
-  //todo: alert창 뜬 후에 삭제하도록 기능 추가해야함
-  deleteCard(cardNode);
+  const [parentColumnID, cardID] = getIDs(cardNode);
+  changeCardType(cardNode, "deleting");
+  activateAlert(parentColumnID, cardID);
 };
 
 const handleDeleteBtnMouseEvent = (cardNode) => {
