@@ -2,15 +2,16 @@ import Todo from './Todo.js';
 import TodoNotice from './TodoNotice.js';
 import { activationForm } from '../utils/handleStyle.js';
 import { TEXTAREA_DEFAULT_HEIGHT, TEXTAREA_RESIZE_HEIGHT } from '../constants/constants.js';
+import { getLocalStorageByKey, getLastIdByKey } from '../utils/localStorage.js';
 import { $ } from '../utils/dom.js';
 
 export default class TodoInput {
-  constructor(status, setOnInput, handleCount) {
+  constructor(status, setOnInput, handleAddCount) {
     this.status = status;
     this.title = '';
     this.content = '';
     this.setOnInput = setOnInput;
-    this.handleCount = handleCount;
+    this.handleAddCount = handleAddCount;
   }
 
   onInputContent = ({ target }) => {
@@ -34,20 +35,15 @@ export default class TodoInput {
     $(`.input-${this.status}`)?.remove();
   };
 
-  getLastId = () => {
-    const lastNum = JSON.parse(localStorage.getItem('todos'));
-    return lastNum.length;
-  };
-
   createTodo = () => {
     const todo = {};
-    todo.id = this.getLastId() + 1;
+    todo.id = getLastIdByKey('todos') + 1;
     todo.title = this.title;
     todo.content = this.content;
     todo.status = this.status;
     todo.userId = 1;
 
-    const todos = JSON.parse(localStorage.getItem('todos'));
+    const todos = getLocalStorageByKey('todos');
     todos.push(todo);
     localStorage.setItem('todos', JSON.stringify(todos));
 
@@ -75,7 +71,7 @@ export default class TodoInput {
     $(`.input-${this.status}`)?.remove();
     newTodo.handleEventListener();
     this.setOnInput(false);
-    this.handleCount();
+    this.handleAddCount();
   };
 
   render = () => {

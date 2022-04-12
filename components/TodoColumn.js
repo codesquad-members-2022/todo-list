@@ -4,7 +4,7 @@ import { $ } from '../utils/dom.js';
 export default class TodoColumn {
   constructor(status) {
     this.status = status;
-    this.todoInput = new TodoInput(this.status, this.setOnInput, this.handleCount);
+    this.todoInput = new TodoInput(this.status, this.setOnInput, this.handleAddCount);
     this.onInput = false;
     this.count = 0;
   }
@@ -26,8 +26,13 @@ export default class TodoColumn {
     return;
   };
 
-  handleCount = () => {
+  handleAddCount = () => {
     this.onAddCount();
+    this.renderCount();
+  };
+
+  handleMinusCount = () => {
+    this.onMinusCount();
     this.renderCount();
   };
 
@@ -37,6 +42,10 @@ export default class TodoColumn {
 
   onAddCount = () => {
     this.count++;
+  };
+
+  onMinusCount = () => {
+    this.count--;
   };
 
   renderCount = () => {
