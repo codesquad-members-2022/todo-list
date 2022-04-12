@@ -15,8 +15,7 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        background-color: $gray;
-        opacity: 0.8;
+        background-color: rgba($color: $light-gray, $alpha: 0.8);
         display: flex;
         justify-content: center;
         align-items: center;

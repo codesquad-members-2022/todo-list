@@ -12,7 +12,7 @@ export const initColumn = (parentNode, columnState) => {
 const makeColumnNode = (columnState) => {
   const columnNode = document.createElement("div");
   columnNode.className = "column";
-  columnNode.dataset.id = columnState.id;
+  columnNode.dataset.id = columnState._id;
   return columnNode;
 };
 
@@ -79,7 +79,7 @@ const handleAddBtnClick = (columnNode, addBtn) => {
 };
 
 export const reRenderColumn = (columnState) => {
-  const columnNode = findColumnNode(columnState.id);
+  const columnNode = findColumnNode(columnState._id);
   renderColumn(columnNode, columnState);
   setEvents(columnNode);
 };

@@ -1,3 +1,5 @@
+import { pipe } from "../util/util.js";
+
 export const Store = {
   observers: {},
 
@@ -12,29 +14,76 @@ export const Store = {
     this.observers[interest].forEach((observer) => observer(state));
   },
 
-  state: {
-    columnOrder: [0, 1, 2],
-    0: {
-      id: 0,
-      title: "해야할 일",
-      addBtnActivated: false,
-      cardOrder: [],
-      cards: {},
-    },
-    1: {
-      id: 1,
-      title: "하고 있는 일",
-      addBtnActivated: false,
-      cardOrder: [],
-      cards: {},
-    },
-    2: {
-      id: 2,
-      title: "완료된 일",
-      addBtnActivated: false,
-      cardOrder: [],
-      cards: {},
-    },
+  state: {},
+
+  async setInitialState() {
+    const rawColumnStates = await (await fetch("http://localhost:3000/columns")).json();
+    const parsedColumnStates = {};
+    this.state = pipe(
+      this.arrangeColumnOrder.bind(this),
+      this.storeEachColumnState.bind(this),
+      this.arrangeEachColumnCardOrder.bind(this),
+      this.storeEachColumnCardStates.bind(this)
+    )([rawColumnStates, parsedColumnStates]);
+  },
+
+  arrangeColumnOrder([rawColumnStates, parsedColumnStates]) {
+    const columnOrder = rawColumnStates.map((columnState) => columnState._id);
+    parsedColumnStates.columnOrder = columnOrder;
+    return [rawColumnStates, parsedColumnStates];
+  },
+
+  storeEachColumnState([rawColumnStates, parsedColumnStates]) {
+    rawColumnStates.forEach((rawColumnState) => {
+      this.makeColumnState(rawColumnState, parsedColumnStates);
+    });
+    return [rawColumnStates, parsedColumnStates];
+  },
+
+  makeColumnState(rawColumnState, parsedColumnStates) {
+    const columnState = {};
+    columnState._id = rawColumnState._id;
+    columnState.title = rawColumnState.title;
+    columnState.addBtnActivated = false;
+    parsedColumnStates[columnState._id] = columnState;
+  },
+
+  arrangeEachColumnCardOrder([rawColumnStates, parsedColumnStates]) {
+    rawColumnStates.forEach((rawColumnState) => {
+      this.arrangeCardOrder(rawColumnState, parsedColumnStates);
+    });
+    return [rawColumnStates, parsedColumnStates];
+  },
+
+  arrangeCardOrder(rawColumnState, parsedColumnStates) {
+    const cardOrder = rawColumnState.cards.map((card) => card._id);
+    const columnID = rawColumnState._id;
+    parsedColumnStates[columnID].cardOrder = cardOrder;
+  },
+
+  storeEachColumnCardStates([rawColumnStates, parsedColumnStates]) {
+    rawColumnStates.forEach((rawColumnState) => {
+      this.storeCardStates(rawColumnState, parsedColumnStates);
+    });
+    return parsedColumnStates;
+  },
+
+  storeCardStates(rawColumnState, parsedColumnStates) {
+    const columnID = rawColumnState._id;
+    parsedColumnStates[columnID].cards = {};
+    rawColumnState.cards.forEach((rawCardState) => {
+      const cardID = rawCardState._id;
+      parsedColumnStates[columnID].cards[cardID] = this.makeCardState(rawCardState);
+    });
+  },
+
+  makeCardState(rawCardState) {
+    const defaultCardState = this.getDefaultCardState();
+    return { ...rawCardState, ...defaultCardState };
+  },
+
+  getDefaultCardState() {
+    return { author: "author by web", type: "normal" };
   },
 
   setAddingCardState(columnID) {

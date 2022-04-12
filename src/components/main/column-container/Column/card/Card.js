@@ -15,7 +15,7 @@ const makeCardNode = (cardState) => {
   if (cardState.type === "deleting") {
     cardNode.classList.add("card--deleting");
   }
-  cardNode.dataset.id = cardState.id;
+  cardNode.dataset.id = cardState._id;
   return cardNode;
 };
 
@@ -159,7 +159,7 @@ const onOffConfirmBtn = (titleInput, descriptionInput, confirmBtn) => {
 const changeCardData = (cardNode) => {
   const [parentColumnID, cardID] = getIDs(cardNode);
   const cardState = {
-    id: cardID,
+    _id: cardID,
     type: "normal",
     title: cardNode.querySelector(".card-contents__title input").value,
     description: cardNode.querySelector(".card-contents__description input").value,
@@ -185,7 +185,7 @@ const getIDs = (cardNode) => {
 };
 
 export const reRenderCard = (cardState) => {
-  const cardNode = findCardNode(cardState.id);
+  const cardNode = findCardNode(cardState._id);
   renderCard(cardNode, cardState);
   setEvents(cardNode, cardState);
 };
