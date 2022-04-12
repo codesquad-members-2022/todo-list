@@ -7,6 +7,8 @@ plugins {
 group 'kr.codesquad'
 version '1.0-SNAPSHOT'
 
+sourceCompatibility = 11
+
 repositories {
     mavenCentral()
 }
