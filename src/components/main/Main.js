@@ -1,5 +1,5 @@
 import { initColumnContainer } from "./column-container/ColumnContainer.js";
-import { pipe } from "../../util/util.js";
+import { pipe } from "../../common/util.js";
 
 const makeMainDOM = () => {
   const mainDOM = document.createElement("div");

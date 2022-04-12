@@ -1,6 +1,6 @@
 import { Store } from "../../../stores/ColumnStore.js";
 import { initColumn } from "./Column/Column.js";
-import { pipe } from "../../../util/util.js";
+import { pipe } from "../../../common/util.js";
 
 export const initColumnContainer = (parentNode) => {
   pipe(renderColumnContainer, mountColumn)(parentNode);

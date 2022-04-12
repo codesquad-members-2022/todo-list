@@ -34,7 +34,7 @@ const makeCardInnerTemplate = (cardState) => {
       return getNormalContentTemplate(cardState) + getNormalBtnTemplate();
     case "adding":
     case "editing":
-      return getTempContentTemplate(cardState) + getTempBtnTemplate(cardState.type);
+      return getTempContentTemplate(cardState) + getConfirmBtnTemplate(cardState.type);
   }
 };
 
@@ -61,11 +61,13 @@ const getNormalBtnTemplate = () => {
   return `<div class="card__delete-btn"></div>`;
 };
 
-const getTempBtnTemplate = (cardType) => {
+const getConfirmBtnTemplate = (cardType) => {
   return `
   <div class="card__btns">
     <div class="card__btn card__cancel-btn">취소</div>
-    <div class="card__btn card__confirm-btn">${cardType === "adding" ? "등록" : "수정"}</div>
+    <div class="card__btn card__confirm-btn" data-type='${cardType}'>${
+    cardType === "adding" ? "등록" : "수정"
+  }</div>
   </div>`;
 };
 
@@ -124,7 +126,7 @@ const handleDoubleClickEvent = (cardNode) => {
 
 const handleCancelBtnEvent = (cardNode, cardType) => {
   if (cardType === "adding") {
-    deleteCard(cardNode);
+    deleteAddingForm(cardNode);
   } else if (cardType === "editing") {
     changeCardType(cardNode, "normal");
   }
@@ -132,7 +134,11 @@ const handleCancelBtnEvent = (cardNode, cardType) => {
 
 const handleConfirmBtnEvent = (confirmBtn, cardNode) => {
   if (!confirmBtn.classList.contains("activated")) return;
-  changeCardData(cardNode);
+  if (confirmBtn.dataset.type === "adding") {
+    registerCardState(cardNode);
+  } else if (confirmBtn.dataset.type === "editing") {
+    changeCardState(cardNode);
+  }
 };
 
 const handleInputEvent = (cardNode) => {
@@ -156,16 +162,22 @@ const onOffConfirmBtn = (titleInput, descriptionInput, confirmBtn) => {
   }
 };
 
-const changeCardData = (cardNode) => {
+const registerCardState = (cardNode) => {
   const [parentColumnID, cardID] = getIDs(cardNode);
-  const cardState = {
-    _id: cardID,
-    type: "normal",
+  const newStateForPost = {
     title: cardNode.querySelector(".card-contents__title input").value,
-    description: cardNode.querySelector(".card-contents__description input").value,
-    author: "author by web",
+    description: cardNode.querySelector(".card-contents__description input").value
   };
-  Store.changeCard(parentColumnID, cardID, cardState);
+  Store.addCardState(parentColumnID, newStateForPost);
+};
+
+const changeCardState = (cardNode) => {
+  const [parentColumnID, cardID] = getIDs(cardNode);
+  const newStateForPost = {
+    title: cardNode.querySelector(".card-contents__title input").value,
+    description: cardNode.querySelector(".card-contents__description input").value
+  };
+  Store.changeCardState(parentColumnID, cardID, newStateForPost);
 };
 
 const changeCardType = (cardNode, type) => {
@@ -173,9 +185,9 @@ const changeCardType = (cardNode, type) => {
   Store.changeCardType(parentColumnID, cardID, type);
 };
 
-const deleteCard = (cardNode) => {
+const deleteAddingForm = (cardNode) => {
   const [parentColumnID, cardID] = getIDs(cardNode);
-  Store.deleteCard(parentColumnID, cardID);
+  Store.unsetAddingCardState(parentColumnID);
 };
 
 const getIDs = (cardNode) => {

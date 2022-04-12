@@ -1,4 +1,4 @@
-import { pipe } from "../util/util.js";
+import { pipe, request } from "../common/util.js";
 
 export const Store = {
   observers: {},
@@ -17,7 +17,7 @@ export const Store = {
   state: {},
 
   async setInitialState() {
-    const rawColumnStates = await (await fetch("http://localhost:3000/columns")).json();
+    const rawColumnStates = await request.allState();
     const parsedColumnStates = {};
     this.state = pipe(
       this.arrangeColumnOrder.bind(this),
@@ -35,46 +35,49 @@ export const Store = {
 
   storeEachColumnState([rawColumnStates, parsedColumnStates]) {
     rawColumnStates.forEach((rawColumnState) => {
-      this.makeColumnState(rawColumnState, parsedColumnStates);
+      this.makeColumnState([rawColumnState, parsedColumnStates]);
     });
     return [rawColumnStates, parsedColumnStates];
   },
 
-  makeColumnState(rawColumnState, parsedColumnStates) {
+  makeColumnState([rawColumnState, parsedColumnStates]) {
     const columnState = {};
     columnState._id = rawColumnState._id;
     columnState.title = rawColumnState.title;
     columnState.addBtnActivated = false;
     parsedColumnStates[columnState._id] = columnState;
+    return [rawColumnState, parsedColumnStates];
   },
 
   arrangeEachColumnCardOrder([rawColumnStates, parsedColumnStates]) {
     rawColumnStates.forEach((rawColumnState) => {
-      this.arrangeCardOrder(rawColumnState, parsedColumnStates);
+      this.arrangeCardOrder([rawColumnState, parsedColumnStates]);
     });
     return [rawColumnStates, parsedColumnStates];
   },
 
-  arrangeCardOrder(rawColumnState, parsedColumnStates) {
+  arrangeCardOrder([rawColumnState, parsedColumnStates]) {
     const cardOrder = rawColumnState.cards.map((card) => card._id);
     const columnID = rawColumnState._id;
     parsedColumnStates[columnID].cardOrder = cardOrder;
+    return [rawColumnState, parsedColumnStates];
   },
 
   storeEachColumnCardStates([rawColumnStates, parsedColumnStates]) {
     rawColumnStates.forEach((rawColumnState) => {
-      this.storeCardStates(rawColumnState, parsedColumnStates);
+      this.storeCardStates([rawColumnState, parsedColumnStates]);
     });
     return parsedColumnStates;
   },
 
-  storeCardStates(rawColumnState, parsedColumnStates) {
+  storeCardStates([rawColumnState, parsedColumnStates]) {
     const columnID = rawColumnState._id;
     parsedColumnStates[columnID].cards = {};
     rawColumnState.cards.forEach((rawCardState) => {
       const cardID = rawCardState._id;
       parsedColumnStates[columnID].cards[cardID] = this.makeCardState(rawCardState);
     });
+    return [rawColumnState, parsedColumnStates];
   },
 
   makeCardState(rawCardState) {
@@ -117,21 +120,35 @@ export const Store = {
     return new Date().getUTCMilliseconds();
   },
 
-  deleteCard(columnID, cardID) {
+  async deleteCard(columnID, cardID) {
+    await request.deleteCard(columnID, cardID);
     delete this.state[columnID].cards[cardID];
     this.state[columnID].cardOrder = this.state[columnID].cardOrder.filter((e) => e != cardID);
     this.notify("column", this.state[columnID]);
   },
 
-  changeCard(columnID, cardID, cardData) {
-    const changedCardData = {};
-    changedCardData[cardID] = cardData;
-    this.state[columnID].cards = { ...this.state[columnID].cards, ...changedCardData };
+  async changeCardState(columnID, cardID, newStateForPost) {
+    const resultColumnState = await request.changeCard(columnID, cardID, newStateForPost);
+    pipe(
+      this.makeColumnState.bind(this),
+      this.arrangeCardOrder.bind(this),
+      this.storeCardStates.bind(this)
+    )([resultColumnState, this.state]);
+    this.notify("column", this.state[columnID]);
+  },
+
+  async addCardState(columnID, newStateForPost) {
+    const resultColumnState = await request.addCard(columnID, newStateForPost);
+    pipe(
+      this.makeColumnState.bind(this),
+      this.arrangeCardOrder.bind(this),
+      this.storeCardStates.bind(this)
+    )([resultColumnState, this.state]);
     this.notify("column", this.state[columnID]);
   },
 
   changeCardType(columnID, cardID, type) {
     this.state[columnID].cards[cardID].type = type;
     this.notify("column", this.state[columnID]);
-  },
+  }
 };
