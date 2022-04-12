@@ -17,32 +17,33 @@ enum NetworkError: Error {
     case delete(Error)
 }
 
-class NetworkManager {
+struct NetworkManager {
     let urlSession = URLSession.shared
 
     var components: URLComponents = {
         var components = URLComponents()
         components.scheme = "http"
-        components.host = "13.125.248.235"
+        components.host = "15.164.250.0"
         components.port = 8080
         components.path = "/api/cards"
         return components
     }()
     
-    let decoder = JSONDecoder()
-    let encoder = JSONEncoder()
+    let decoder = JSONDecoder().krISO8601
+    let encoder = JSONEncoder().krISO8601
     
     func getAllTasks(then completion: @escaping (Result<[Task], NetworkError>) -> Void) {
         guard let urlString = components.string,
               let url = URL(string: urlString) else { return }
         
-        urlSession.dataTask(with: url) { [weak self] data, response, error in
+        urlSession.dataTask(with: url) { data, response, error in
             
             guard let data = data else {
                 return completion(.failure(.noData))
             }
             
-            guard let decoded = try? self?.decoder.decode([Task].self, from: data) else {
+            guard let decoded = try? decoder.decode([Task].self, from: data) else {
+                print(String(data: data, encoding: .utf8)!)
                 return completion(.failure(.decoding))
             }
             
@@ -82,13 +83,14 @@ class NetworkManager {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = body
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        urlSession.dataTask(with: request) { [weak self] data, response, error in
+        urlSession.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 return completion(.failure(.noData))
             }
-            
-            guard let decoded = try? self?.decoder.decode(T.self, from: data) else {
+            print(String(data: data, encoding: .utf8)!)
+            guard let decoded = try? decoder.decode(T.self, from: data) else {
                 return completion(.failure(.decoding))
             }
             
@@ -109,12 +111,12 @@ class NetworkManager {
         request.httpMethod = "PATCH"
         request.httpBody = body
         
-        urlSession.dataTask(with: request) { [weak self] data, response, error in
+        urlSession.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 return completion(.failure(.noData))
             }
             
-            guard let decoded = try? self?.decoder.decode(T.self, from: data) else {
+            guard let decoded = try? decoder.decode(T.self, from: data) else {
                 return completion(.failure(.decoding))
             }
             
