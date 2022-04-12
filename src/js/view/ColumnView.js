@@ -48,11 +48,11 @@ function initColumn(parent) {
   parent.appendChild(getColumnNode());
 }
 
-function onClickAdd(parent, callbackEvent, store) {
+function onClickColumnAddBtn(parent, callbackEvent, store) {
   const addCardBtn = parent.querySelector(".add-btn.cursor-pointer");
   addCardBtn.addEventListener("click", (event) => {
     callbackEvent(event, store);
   });
 }
 
-export { initColumn, onClickAdd };
+export { initColumn, onClickColumnAddBtn };
