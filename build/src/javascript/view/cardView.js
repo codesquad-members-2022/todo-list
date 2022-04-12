@@ -49,8 +49,10 @@ function handleRegisterCardEvent($cards, $card) {
   const $cardTextArea = $card.querySelector(".card-text-area");
   const $registerBtn = $card.querySelector(".register-button");
   changeRegisterBoxStyle($cards);
+  const $cancelBtn = $card.querySelector(".cancel-button");
   $cardTextArea.addEventListener("click", removeText);
   $registerBtn.addEventListener("click", updateCard);
+  $cancelBtn.addEventListener("click", removeCard);
 }
 
 function changeRegisterBoxStyle($cards) {
@@ -150,6 +152,11 @@ function addRegisterBtnsListener($column) {
   for (const $registerBtn of $registerBtns) {
     $registerBtn.addEventListener("click", updateCard);
   }
+}
+
+function removeCard({ target }) {
+  const $selectedCard = target.closest(".card");
+  $selectedCard.remove();
 }
 
 export { init, renderColumn, updateCard };
