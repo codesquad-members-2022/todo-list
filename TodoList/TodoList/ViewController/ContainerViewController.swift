@@ -10,8 +10,8 @@ import UIKit
 final class ContainerViewController: UIViewController{
     var headerVC: HeaderViewController!
     var contentVC: ContentViewController!
-    var tableVC: TableViewController!
     var menuVC: ActivityMenuViewController!
+    
     let menuViewWidth: CGFloat = 428.0
     
     override func viewDidLoad() {
@@ -29,12 +29,8 @@ private extension ContainerViewController{
         headerVC.header.delegate = self
         
         contentVC = ContentViewController()
-        contentVC.cellDelegate = self
         self.addChild(contentVC)
         self.view.addSubview(contentVC.view)
-        
-        tableVC = TableViewController()
-        self.addChild(tableVC)
         
         menuVC = ActivityMenuViewController()
         self.addChild(menuVC)
@@ -66,13 +62,6 @@ private extension ContainerViewController{
         menuVC.view.widthAnchor.constraint(equalToConstant: self.menuViewWidth).isActive = true
     }
 }
-
-extension ContainerViewController: TableViewInCollectionCell{
-    func didSetTableView(cell: CollectionCell, index: Int) {
-        self.tableVC.setTableAttributes(cell: cell, index: index)
-    }
-}
-
 
 extension ContainerViewController: HeaderViewDelegate{
     func headerMenuButtonDidTouched() {

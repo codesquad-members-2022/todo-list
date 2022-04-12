@@ -16,11 +16,23 @@ final class ContentViewController: UIViewController {
         }
     }
     
+    private var tableVC: TableViewController!
     private var collectionView: CollectionView!
-    var cellDelegate: TableViewInCollectionCell?
+    
+    // 화면 회전에 따른 layout 유지
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        guard let layout = self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout, let width = self.collectionView?.bounds.width else{ return }
+        
+        let itemSize = CGSize(width: width, height: width)
+        layout.itemSize = itemSize
+        layout.invalidateLayout()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableVC = TableViewController()
         setCollectionView()
         setCollectionViewDelegate()
     }
@@ -61,7 +73,7 @@ extension ContentViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.collectionCell.getRawValue(), for: indexPath) as? CollectionCell else { return UICollectionViewCell() }
         
-        self.cellDelegate?.didSetTableView(cell: cell, index: indexPath.row)
+        tableVC.setTableAttributes(cell: cell, index: indexPath.row)
         
         return cell
     }
