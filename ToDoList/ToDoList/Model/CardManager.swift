@@ -33,8 +33,7 @@ class CardManager: CardManagable {
     
     func add(title: String, body: String) {
         let data = [listName]
-        var newCard = cardFactory.make(factoriable: Card.self, title: title, body: body, data: data)
-        newCard.setIndexOrder(in: count)
+        let newCard = cardFactory.make(factoriable: Card.self, title: title, body: body, data: data)
         cards.insert(newCard, at: 0)
         
         let userInfo = [Constants.userInfoKeys.addedCard: newCard]
