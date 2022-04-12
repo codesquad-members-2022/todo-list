@@ -78,12 +78,51 @@ extension TodoListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.tableView.beginUpdates()
+            tableView.beginUpdates()
+            
             self.viewModel.remove(at: indexPath.section)
-            self.tableView.deleteRows(at: [indexPath], with: .left)
-            self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .left)
             self.badgeLabel?.text = String(self.viewModel.count)
-            self.tableView.endUpdates()
+            
+            tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+            tableView.endUpdates()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(
+            identifier: nil,
+            previewProvider: nil) { _ in
+                let move = UIAction(
+                    title: "완료한 일로 이동",
+                    image: UIImage(systemName: "folder"),
+                    state: .off) { _ in
+                        // TODO: Post Notification
+                    }
+                
+                let modify = UIAction(
+                    title: "수정하기",
+                    image: UIImage(systemName: "square.and.pencil"),
+                    state: .off) { _ in
+                        // TODO: Segue with Todo data
+                    }
+                
+                let delete = UIAction(
+                    title: "삭제하기",
+                    image: UIImage(systemName: "trash"),
+                    attributes: .destructive,
+                    state: .off) { _ in
+                        self.viewModel.remove(at: indexPath.section)
+                        self.badgeLabel?.text = String(self.viewModel.count)
+                        tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                    }
+                
+                return UIMenu(
+                    title: "옵션",
+                    options: .displayInline,
+                    children: [move, modify, delete]
+                )
+            }
+        
+        return config
     }
 }

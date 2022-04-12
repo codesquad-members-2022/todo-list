@@ -128,7 +128,7 @@
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" name="Background"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="lQi-UY-m2m" secondAttribute="bottom" id="A92-X8-rOB"/>
                                                 <constraint firstItem="lQi-UY-m2m" firstAttribute="top" secondItem="xDy-aG-jeL" secondAttribute="top" id="Nnf-Tu-38F"/>
