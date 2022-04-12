@@ -3,7 +3,7 @@ import UIKit
 class MemoContainerViewController: UIViewController {
     
     private var cellCount: Int?
-    private var identifier: Identifier?
+    private var containerType: MemoContainerType?
     
     private (set) var memoContainerView: MemoContainerView = {
         let containerView = MemoContainerView()
@@ -11,12 +11,11 @@ class MemoContainerViewController: UIViewController {
         return containerView
     }()
     
-    convenience init(cellCount: Int, identifier: Identifier){
+    convenience init(cellCount: Int, containerType: MemoContainerType){
         self.init()
         self.cellCount = cellCount
-        self.identifier = identifier
-        memoContainerView.categoryLabel.text = " \(identifier)"
-        memoContainerView.frame.size = memoContainerView.intrinsicContentSize
+        self.containerType = containerType
+        memoContainerView.categoryLabel.text = " \(containerType)"
         view = memoContainerView
     }
 }

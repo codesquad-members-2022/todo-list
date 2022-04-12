@@ -1,6 +1,6 @@
 import Foundation
 
-enum Identifier: String, CaseIterable, CustomStringConvertible {
+enum MemoContainerType: String, CaseIterable, CustomStringConvertible {
     case todo = "해야 할 일"
     case progress = "하고있는 일"
     case done = "완료한 일"

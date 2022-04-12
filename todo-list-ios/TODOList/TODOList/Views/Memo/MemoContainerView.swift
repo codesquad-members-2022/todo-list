@@ -2,7 +2,7 @@ import UIKit
 
 class MemoContainerView: UIView {
     
-    private var identifier: Identifier?
+    private var containerType: MemoContainerType?
         
     private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
