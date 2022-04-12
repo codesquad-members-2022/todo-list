@@ -1,6 +1,7 @@
 package com.example.backend.domain.repository;
 
 import com.example.backend.domain.Card;
+import com.example.backend.web.dto.CardListResponseDto;
 import com.example.backend.web.dto.CardMoveRequestDto;
 import com.example.backend.web.dto.Columns;
 
@@ -10,7 +11,7 @@ public interface CardRepository {
 
     Columns findAllDesc();
 
-    Long save(Card card);
+    CardListResponseDto save(Card card);
 
     Optional<Card> findById(Long id);
 

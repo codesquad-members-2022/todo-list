@@ -26,7 +26,7 @@ public class CardsController {
 
     @ApiOperation(value = "Card 생성")
     @PostMapping("/cards")
-    public Long save(@RequestBody CardSaveRequestDto dto) {
+    public CardListResponseDto save(@RequestBody CardSaveRequestDto dto) {
         String title = dto.getTitle();
         String columnName = dto.getColumnName();
 
@@ -36,7 +36,7 @@ public class CardsController {
 
     @ApiOperation(value = "Card 수정")
     @PutMapping("/cards/{id}")
-    public Long update(@PathVariable Long id, @RequestBody CardUpdateRequestDto dto) {
+    public CardListResponseDto update(@PathVariable Long id, @RequestBody CardUpdateRequestDto dto) {
         return cardService.update(id, dto);
     }
 
