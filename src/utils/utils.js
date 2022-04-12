@@ -35,6 +35,10 @@ export const toggleClass = (className, element) => {
   element.classList.toggle(className);
 };
 
+export const hasClass = (className, element) => {
+  return element.classList.contains(className);
+};
+
 export const createElement = (tagName, className, attrs = {}) => {
   const element = document.createElement(tagName);
   if (className) {

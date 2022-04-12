@@ -8,6 +8,13 @@ const getData = key => {
   return db.data;
 };
 
+const setData = (key, value) => {
+  const db = new LowSync(new LocalStorage(key));
+  db.data = value;
+  db.write();
+  return db.data;
+};
+
 const columns = new LowSync(new LocalStorage('columns'));
 
 const getColumns = () => {
@@ -34,11 +41,13 @@ const initDb = columnKeys => {
 
   column1.data = {
     id: column1Key,
+    idx: 0,
     title: '해야할 일',
     cards: [
       {
         id: uuidv4(),
         columnId: column1Key,
+        columnIdx: 0,
         title: 'GitHub 공부하기',
         desc: 'add, commit, push',
         author: 'web',
@@ -47,6 +56,7 @@ const initDb = columnKeys => {
       {
         id: uuidv4(),
         columnId: column1Key,
+        columnIdx: 0,
         title: '블로그에 포스팅할 것',
         desc: '*Github 공부내용\n*모던 자바스크립트 1장 공부내용',
         author: 'web',
@@ -57,11 +67,13 @@ const initDb = columnKeys => {
 
   column2.data = {
     id: column2Key,
+    idx: 1,
     title: '하고있는 일',
     cards: [
       {
         id: uuidv4(),
-        columnId: column1Key,
+        columnId: column2Key,
+        columnIdx: 1,
         title: 'HTML/CSS 공부하기',
         desc: 'input 태그 실습',
         author: 'web',
@@ -72,6 +84,7 @@ const initDb = columnKeys => {
 
   column3.data = {
     id: column3Key,
+    idx: 2,
     title: '완료한 일',
     cards: [],
   };
@@ -85,6 +98,7 @@ const initDb = columnKeys => {
 export default {
   columns,
   getData,
+  setData,
   getColumns,
 };
 

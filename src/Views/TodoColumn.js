@@ -1,15 +1,27 @@
+import { v4 as uuidv4 } from 'uuid';
 import TodoCard from './TodoCard';
-import { createElement, $ } from '../utils/utils';
+import { createElement, $, addClass } from '../utils/utils';
 
 export default class TodoColumn {
-  constructor({ cards: cardsData, id, title }) {
+  constructor({ cards: cardsData, id, idx, title }) {
     this.id = id;
+    this.idx = idx;
     this.title = title;
     this.todoCards = [];
     this.$todoColumn = createTodoColumn(id, title, cardsData);
     this.$todoList = $('.todo-list', this.$todoColumn);
     this.init(cardsData);
+    this.listen();
   }
+
+  listen() {
+    this.$todoColumn.addEventListener('@clickAddButton', () => {
+      if (this.hasActiveCard()) return;
+      this.handleClickAddButton();
+    });
+  }
+
+  addEventHandlers() {}
 
   init(cardsData) {
     cardsData.forEach(cardData => {
@@ -23,9 +35,25 @@ export default class TodoColumn {
 
   // 배지 업데이트
 
+  hasActiveCard() {
+    const $activeCard = $('.active-item', this.$todoList);
+    return !!$activeCard;
+  }
+
   render() {
     const $$todoCard = this.todoCards.map(card => card.$todoCard);
     this.$todoList.append(...$$todoCard);
+  }
+
+  /* event handler */
+  handleClickAddButton() {
+    const { $todoCard } = new TodoCard({
+      id: uuidv4(),
+      columnId: this.id,
+      columnIdx: this.idx,
+    });
+    addClass('active-item', $todoCard);
+    this.$todoList.prepend($todoCard); // 모습이나타남
   }
 }
 

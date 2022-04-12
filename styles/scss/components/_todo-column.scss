@@ -18,6 +18,7 @@
 
   textarea {
     @include scrollbar-hidden;
+    display: block;
     width: 100%;
     resize: none;
   }
