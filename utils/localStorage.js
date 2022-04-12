@@ -13,3 +13,14 @@ export const editLocalStorageById = (editLocalStorageObj, id) => {
 
   localStorage.setItem('todos', JSON.stringify(todos));
 };
+
+export const getLastIdByKey = key => {
+  const lastNum = getLocalStorageByKey(key);
+  return lastNum.length === 0 ? 0 : lastNum[lastNum.length - 1].id;
+};
+
+export const getTodosByStatus = status => {
+  const todos = getLocalStorageByKey('todos');
+  if (!todos) return;
+  return todos.filter(todo => todo.status === status);
+};
