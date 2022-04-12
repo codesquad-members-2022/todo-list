@@ -30,10 +30,10 @@ class ToDoViewModel(
     init {
         loadActionLog()
         val todoList = mutableListOf<TodoItem>()
-        val todo1 = TodoItem("one", "title", "content", ProgressType.TO_DO)
-        val todo2 = TodoItem("two", "title2", "content2\ncontentcontent", ProgressType.TO_DO)
+        val todo1 = TodoItem("title", "content", ProgressType.TO_DO)
+        val todo2 = TodoItem("title2", "content2\ncontentcontent", ProgressType.TO_DO)
         val todo3 = TodoItem(
-            "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
+            "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
         )
 
         todoList.addAll(mutableListOf(todo1, todo2, todo3))
@@ -49,8 +49,8 @@ class ToDoViewModel(
     }
 
     fun addTodoItem(item: TodoItem) {
-        _todoList.value = todoList.value?.let{toDoRepository.addToDoItem(it, item)}
-       todoList = _todoList
+        _todoList.value = todoList.value?.let { toDoRepository.addToDoItem(it, item) }
+        todoList = _todoList
     }
 
     fun addInProgressItem(item: TodoItem) {
