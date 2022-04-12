@@ -8,12 +8,9 @@
 
 import UIKit
 
-
 class ChildViewController: UIViewController, UITableViewDelegate {
 
-    
     private var tableView: BoardTableView<Todo,CardCell>!
-    @IBOutlet weak private var headerContainer: UIView!
     private var header : BoardHeader!
     private var boardType : BoardType?
     
@@ -23,23 +20,67 @@ class ChildViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
-        setHeader()
         addObserver()
-        
+        setTableView()
+        setHeader()
     }
 
     func setBoardType(type : BoardType) {
         self.boardType = type
     }
-    
+        
     private func setHeader() {
         guard let title = boardType else {return}
         self.header = BoardHeader(titleText: title)
-        headerContainer.addSubview(header)
+        self.header.contentMode = .center
+        self.view.addSubview(header)
+        setHeaderViewConstraint()
     }
     
+
+    private func setTableView() {
+        guard let list = list else {return}
+        self.tableView = BoardTableView(
+            frame: .zero,
+            style: .plain,
+            list: list,
+            cellConfigurator: { card, cell in
+            cell.loadCardInfo(info: card)
+        })
+        self.view.addSubview(tableView)
+        setTableViewConstraint()
+    }
+}
+
+//MARK: -- Constraint
+extension ChildViewController {
     
-        
+    private func setHeaderViewConstraint() {
+        header.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                self.header.topAnchor.constraint(equalTo: self.view.topAnchor),
+                self.header.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                self.header.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                self.header.heightAnchor.constraint(equalToConstant: 44)
+                ])
+    }
+    
+    private func setTableViewConstraint() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+            self.tableView.topAnchor.constraint(equalTo: self.header.bottomAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
+    }
+}
+
+
+
+//MARK: -- NotificationCenter
+
+extension ChildViewController {
     private func addObserver() {
         NotificationCenter.default.addObserver(
             self,
@@ -57,28 +98,5 @@ class ChildViewController: UIViewController, UITableViewDelegate {
             self.header.updateCount(self.list?.count)
             self.tableView.reloadData()
         }
-        
-    }
-    
-    private func setTableView() {
-        guard let list = list else {return}
-        self.tableView = BoardTableView(frame: CGRect(x: self.headerContainer.frame.minX, y: self.headerContainer.frame.maxY, width: view.frame.width, height: view.frame.height), style: .plain, list:list , cellConfigurator: { card, cell in
-            cell.loadCardInfo(info: card)
-        })
-        self.view.addSubview(self.tableView)
-        tableViewConstraints()
-    }
-}
-
-
-extension ChildViewController {
-    
-    private func tableViewConstraints() {
-        NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.headerContainer.bottomAnchor),
-            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        ])
     }
 }
