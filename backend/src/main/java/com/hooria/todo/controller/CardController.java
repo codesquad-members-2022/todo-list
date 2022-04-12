@@ -1,9 +1,8 @@
 package com.hooria.todo.controller;
 
-import com.hooria.todo.domain.Card;
 import com.hooria.todo.dto.AddCardParam;
 import com.hooria.todo.dto.CardResponse;
-import com.hooria.todo.repository.CardRepository;
+import com.hooria.todo.dto.UpdateCardParam;
 import com.hooria.todo.service.CardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CardController {
 
-    private final CardRepository cardRepository;
     private final CardService cardService;
 
     @ApiOperation(
@@ -71,11 +69,11 @@ public class CardController {
         value = "타스크 수정",
         notes = "타스크를 수정한다.",
         produces = "application/json",
-        response = Card.class
+        response = CardResponse.class
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
-            name = "card",
+            name = "updateCardParam",
             value = "새로운 할 일"
         )
     })
@@ -83,9 +81,9 @@ public class CardController {
         @ApiResponse(code = 200, message = "수정 성공"),
         @ApiResponse(code = 500, message = "서버 에러"),
     })
-    @PatchMapping
-    public Card updateCard(@RequestBody Card card) {
-        return cardRepository.update(card);
+    @PatchMapping("/{id}")
+    public CardResponse updateCard(@RequestBody UpdateCardParam updateCardParam) {
+        return cardService.update(updateCardParam);
     }
 
     @ApiOperation(
