@@ -113,4 +113,13 @@ public class CardRepository {
 
         return id;
     }
+
+    public long updateRowPositionById(long id, int rowPosition) {
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id)
+            .addValue("row_position", rowPosition);
+
+        jdbc.update("update task_card set row_position = :row_position where id = :id", namedParameters);
+
+        return id;
+    }
 }
