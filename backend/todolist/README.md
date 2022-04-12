@@ -133,6 +133,13 @@
 - 2nd Week
   - 카드 목록 조회 기능 구현
   - 카드 이동 요청 기능 구현
+  - 카드 수정/삭제 기능 구현
+  - **리뷰 수정 할 것**
+    - 메서드 컨벤션상 public을 상단에 올리시는 것을 추천합니다.
+      - CardService updateOf()
+    - 패키징을 통해 dto의 사용 레이어를 구분해보면 어떨까요?
+      흐름을 볼 떄 request, response는 controller 영역에서 쓰이는 dto들인 것 같습니다.
+      최소한 controller에서 쓰이는 dto, service에서 쓰이는 dto 정도는 분리가 되어야 할 것 같습니다.
 
 
 
@@ -147,6 +154,7 @@
 
 #### 내용 정리
 
+`nit` : you don't have to fix these points, but we'd like you to
 
 - URL convention != Rest Api 목록
 - Dto
@@ -186,6 +194,44 @@
 ### 2nd
 
 [1주차 3th PR](https://github.com/codesquad-members-2022/todo-list/pull/126)
+
+
+### 3rd
+
+
+[2주차 1st PR](https://github.com/codesquad-members-2022/todo-list/pull/128#discussion_r847960615)
+
+
+- PATCH /api/todo/{id} -> /api/todo/card/{id}
+- GET /api/todo 는 api 해석상 조회아닌가요?
+  - 이후 welcomePage로 가는지 여부는 `백엔드의 관심사`가 아닌 것 같습니다.
+- 메서드 컨벤션상 public을 상단에 올리시는 것을 추천합니다.
+- 패키징을 통해 dto의 사용 레이어를 구분해보면 어떨까요?
+  흐름을 볼 떄 request, response는 controller 영역에서 쓰이는 dto들인 것 같습니다.
+  최소한 controller에서 쓰이는 dto, service에서 쓰이는 dto 정도는 분리가 되어야 할 것 같습니다.
+- forEach() -> map() or collect()
+  ``` java
+      @Data
+      public static class CardsResponse {
+          private final Map<String, StatusResponse> data;
+  
+          public CardsResponse(List<CardByStatus> cards) {
+              this.data = cards.stream()
+                  .collect(Collectors.toMap(
+                      key -> key.getStatus().getText(),
+                      val -> new StatusResponse(val.getCount(), val.toResponse())
+                  ));
+          }
+      }
+  ```
+  > CardsResponse가 맞을까요? CardResponses가 맞을까요? <br>
+    지금의 내부를 보면 Card정보가 아닌 status정보만 있습니다.  <br>
+    그렇다면 CardStatusResponses가 맞을까요?  <br>
+    status만 내려주는 것이 업무 요건에 적절한가요?  <br>
+
+
+- to라는 접두어는 A객체가 B객체로 변한다는 의미로 A객체의 메서드로서 존재하는 것이 직관적입니다.
+  지금의 로직은 mapper와 같은 단어가 더 적합해 보입니다.
 
 
 

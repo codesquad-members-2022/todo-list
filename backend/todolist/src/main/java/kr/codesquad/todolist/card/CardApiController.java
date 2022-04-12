@@ -29,7 +29,7 @@ public class CardApiController {
 	private final CardService cardService;
 
 	@GetMapping
-	public ResponseEntity welcomePage(@RequestHeader HttpHeaders headers) {
+	public ResponseEntity readAll(@RequestHeader HttpHeaders headers) {
 		String userId = headers.getFirst(API_USER_KEY);
 		CardDto.CardsResponse response = cardService.readAllFrom(Long.parseLong(userId));
 		return ResponseEntity.ok().body(response);
@@ -53,12 +53,12 @@ public class CardApiController {
 		return String.format(API_TODO_REDIRECT_URI, response.getCardId());
 	}
 
-	@PatchMapping("/{id}")
+	@PatchMapping("/card/{id}")
 	public void edit(@PathVariable("id") Long cardId, @RequestBody @Valid CardDto.EditRequest request) {
 		cardService.updateOf(cardId, request);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/card/{id}")
 	public void remove(@PathVariable("id") Long cardId) {
 		cardService.deleteFrom(cardId);
 	}

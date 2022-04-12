@@ -1,9 +1,9 @@
 package kr.codesquad.todolist.card;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -70,20 +70,23 @@ public class CardDto {
 
 	@Data
 	public static class CardsResponse {
-		private final Map<String, StatusResponse> data = new HashMap<>();
+		private final Map<String, CardOfCountsAndListsResponse> data;
 
 		public CardsResponse(List<CardByStatus> cards) {
-			cards.stream()
-				.forEach(card -> this.data.put(card.getStatus().getText(), new StatusResponse(card.getCount(), card.toResponse())));
+			this.data = cards.stream()
+				.collect(Collectors.toMap(
+					key -> key.getStatus().getText(),
+					val -> new CardOfCountsAndListsResponse(val.getCount(), val.toResponse())
+				));
 		}
 	}
 
 	@Data
-	public static class StatusResponse {
+	public static class CardOfCountsAndListsResponse {
 		private Long count;
 		private List<CardResponse> cards;
 
-		public StatusResponse(Long count, List<CardResponse> cardsByStatus) {
+		public CardOfCountsAndListsResponse(Long count, List<CardResponse> cardsByStatus) {
 			this.count = count;
 			this.cards = cardsByStatus;
 		}

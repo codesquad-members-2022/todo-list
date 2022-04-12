@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -39,23 +38,23 @@ public class CardService {
 		Map<Card.TodoStatus, List<Card>> cardsInfo = getCardsInfo(userId);
 		Map<Card.TodoStatus, Long> numberOfStatusInfo =  getNumberOfCardStatusInfo(userId);
 
-		List<CardByStatus> cards = toCardByStatuses(cardsInfo, numberOfStatusInfo);
+		List<CardByStatus> cards = cardByStatusMapper(cardsInfo, numberOfStatusInfo);
 		return new CardDto.CardsResponse(cards);
 	}
 
-	private List<CardByStatus> toCardByStatuses(Map<Card.TodoStatus, List<Card>> cardsInfo,
+	private List<CardByStatus> cardByStatusMapper(Map<Card.TodoStatus, List<Card>> cardsInfo,
 		Map<Card.TodoStatus, Long> numberOfStatus) {
-		List<CardByStatus> cards = new ArrayList<>();
-		cardsInfo.keySet().stream()
-			.forEach(status -> cards.add(new CardByStatus(status, numberOfStatus.get(status), cardsInfo.get(status))));
-		return cards;
+		return cardsInfo.keySet().stream()
+			.map(status -> new CardByStatus(status, numberOfStatus.get(status), cardsInfo.get(status)))
+			.collect(Collectors.toList());
 	}
 
 	private Map<Card.TodoStatus, List<Card>> getCardsInfo(Long userId) {
-		Map<Card.TodoStatus, List<Card>> cardsInfo = new HashMap<>();
-		Arrays.stream(Card.TodoStatus.values())
-			.forEach(status -> cardsInfo.put(status, cardDao.findByUserIdAndTodoStatus(userId, status)));
-		return cardsInfo;
+		return Arrays.stream(Card.TodoStatus.values())
+			.collect(Collectors.toMap(
+				key -> key,
+				status -> cardDao.findByUserIdAndTodoStatus(userId, status))
+			);
 	}
 
 	private Map<Card.TodoStatus, Long> getNumberOfCardStatusInfo(Long userId) {
