@@ -20,4 +20,9 @@ const getCards = async (columnIndex) => {
   return cards;
 };
 
-export { getColumnTitles, getCards };
+const getHistories = async () => {
+  const mockData = await getMockData();
+  return mockData.histories;
+};
+
+export { getColumnTitles, getCards, getHistories };

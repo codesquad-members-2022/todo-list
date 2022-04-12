@@ -1,0 +1,60 @@
+.menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  width: 452px;
+  height: 100%;
+  padding: 80px 80px 80px 40px;
+
+  .close-button {
+    cursor: pointer;
+    position: absolute;
+    top: 50px;
+    right: 100px;
+    width: 10px;
+  }
+
+  .history {
+    display: flex;
+    padding: 1rem;
+
+    .emoji {
+      font-size: 2rem;
+      padding: 0 1rem;
+    }
+
+    .user-behavior {
+      $content-padding: 8px 0;
+      @mixin content-setting {
+        font-family: "Noto Sans KR";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 23px;
+      }
+      display: flex;
+      flex-direction: column;
+
+      .user {
+        @include content-setting();
+        color: #010101;
+      }
+
+      .behavior {
+        padding: $content-padding;
+
+        .user-state {
+          @include content-setting();
+          font-weight: 700;
+        }
+      }
+
+      .time {
+        padding: $content-padding;
+        font-size: 14px;
+        color: #828282;
+      }
+    }
+  }
+}
