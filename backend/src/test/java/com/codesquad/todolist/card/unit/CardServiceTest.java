@@ -17,6 +17,7 @@ import com.codesquad.todolist.card.Card;
 import com.codesquad.todolist.card.CardRepository;
 import com.codesquad.todolist.card.CardService;
 import com.codesquad.todolist.card.dto.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
 
 @ExtendWith(MockitoExtension.class)
@@ -62,7 +63,7 @@ public class CardServiceTest {
     }
 
     @Test
-    @DisplayName("카드 삭제 요청 시 카드가 삭제된다")
+    @DisplayName("카드 삭제 요청 시 카드 삭제 메서드가 호출된다.")
     public void cardDeleteTest() {
         // given
         Card card = new Card(1, 1, "제목", "내용", "작성자", 1, LocalDateTime.now());
@@ -72,7 +73,22 @@ public class CardServiceTest {
         cardService.delete(card.getCardId());
 
         // then
-        then(cardRepository).should(times(1)).deleteById(1);
+        then(cardRepository).should(times(1)).deleteById(anyInt());
 
+    }
+
+    @Test
+    @DisplayName("카드 이동 요청 시 카드 이동 메서드가 호출된다.")
+    public void cardMoveTest() {
+        // given
+        CardMoveRequest request = new CardMoveRequest(2, 3);
+        Card card = new Card(1, 1, "제목", "내용", "작성자", 1, LocalDateTime.now());
+        given(cardRepository.findById(anyInt())).willReturn(Optional.ofNullable(card));
+
+        // when
+        cardService.move(1, request);
+
+        // then
+        then(cardRepository).should(times(1)).move(any(Card.class));
     }
 }

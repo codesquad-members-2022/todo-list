@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import com.codesquad.todolist.card.CardController;
 import com.codesquad.todolist.card.CardService;
 import com.codesquad.todolist.card.dto.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -79,5 +80,21 @@ public class CardControllerTest {
 
         then(cardService).should(times(1)).delete(anyInt());
 
+    }
+
+    @Test
+    @DisplayName("카드 이동을 요청하면 201 CREATED 를 응답으로 받게 된다.")
+    public void cardMoveTest() throws Exception {
+        // given
+        CardMoveRequest request = new CardMoveRequest(1, 3);
+
+        // when
+        ResultActions actions = mockMvc.perform(put("/cards/{id}/move", 1)
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(request)));
+
+        // then
+        actions.andExpect(status().isCreated());
+        then(cardService).should(times(1)).move(anyInt(), any(CardMoveRequest.class));
     }
 }

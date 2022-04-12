@@ -38,6 +38,7 @@ public class CardControllerTest {
 
         User user = cardSetUp.createUser(new User("유저 이름"));
         Column column = cardSetUp.createColumn(new Column(user.getUserId(), "컬럼 이름"));
+        Column column2 = cardSetUp.createColumn(new Column(user.getUserId(), "컬럼 이름2"));
         Card card = cardSetUp.createCard(new Card(column.getColumnId(), "제목", "내용", "작성자", 1));
     }
 
@@ -91,6 +92,24 @@ public class CardControllerTest {
             .delete("cards/{id}")
             .then()
             .statusCode(204);
+    }
+
+    @Test
+    @DisplayName("카드 이동 요청을 보내면 201 CREATED 를 응답 받는다")
+    public void moveCardTest() {
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("columnId", "2");
+        requestBody.put("order", "3");
+
+        given()
+            .contentType("application/json")
+            .pathParam("id", 1)
+            .body(requestBody)
+            .log().all()
+            .when()
+            .put("cards/{id}/move")
+            .then()
+            .statusCode(201);
     }
 
 }
