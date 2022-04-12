@@ -32,7 +32,28 @@ class ToDoActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_todo)
         setToolBar()
         initializeRecyclerViews()
+        initializeTodoTitleViews()
         addDummyDataInRecyclerView()
+
+
+    }
+
+    private fun initializeTodoTitleViews() {
+        binding.todoTitleViewTodo.title.text = "해야할 일"
+        binding.todoTitleViewInProgress.title.text = "하고있는 일"
+        binding.todoTitleViewTodoDone.title.text = "완료한 일"
+        binding.todoTitleViewTodo.addButton.setOnClickListener {
+            val addDialog = ToDoDialog(ProgressType.TO_DO)
+            addDialog.show(supportFragmentManager, "todoAddDialog")
+        }
+        binding.todoTitleViewTodo.addButton.setOnClickListener {
+            val addDialog = ToDoDialog(ProgressType.IN_PROGRESS)
+            addDialog.show(supportFragmentManager, "inProgressAddDialog")
+        }
+        binding.todoTitleViewTodoDone.addButton.setOnClickListener {
+            val addDialog = ToDoDialog(ProgressType.DONE)
+            addDialog.show(supportFragmentManager, "doneAddDialog")
+        }
 
     }
 
@@ -118,10 +139,6 @@ class ToDoActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvActionLog.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        binding.todoTitleViewTodo.title.text = "해야할 일"
-        binding.todoTitleViewInProgress.title.text = "하고있는 일"
-        binding.todoTitleViewTodoDone.title.text = "완료한 일"
 
         toDoViewModel.todoList.observe(this) {
             todoAdapter.submitList(it)

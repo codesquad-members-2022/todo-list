@@ -17,7 +17,7 @@ import com.example.todo.model.TodoItem
 class ToDoDialog(private val progressType: ProgressType) : DialogFragment() {
 
     lateinit var binding: DialogCardBinding
-    private val viewModel :ToDoViewModel by activityViewModels()
+    private val viewModel: ToDoViewModel by activityViewModels()
     private var titleValidationFlag = false
     private var contentValidationFlag = false
     override fun onCreateView(
@@ -33,27 +33,36 @@ class ToDoDialog(private val progressType: ProgressType) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.btnRegister.setOnClickListener {
             when (progressType) {
-
                 ProgressType.TO_DO -> {
-                    val newToDoItem= TodoItem("test", binding.editCardTitle.text.toString(), binding.editCardContent.text.toString(),
-                    ProgressType.TO_DO)
+                    val newToDoItem = TodoItem(
+                        "test",
+                        binding.editCardTitle.text.toString(),
+                        binding.editCardContent.text.toString(),
+                        ProgressType.TO_DO
+                    )
                     viewModel.addTodoItem(newToDoItem)
                 }
 
                 ProgressType.IN_PROGRESS -> {
-                    val newInprogressItem= TodoItem("test", binding.editCardTitle.text.toString(), binding.editCardContent.text.toString(),
-                        ProgressType.IN_PROGRESS)
-
-                    viewModel.addInprogressItem(newInprogressItem)
+                    val newInProgressItem = TodoItem(
+                        "test",
+                        binding.editCardTitle.text.toString(),
+                        binding.editCardContent.text.toString(),
+                        ProgressType.IN_PROGRESS
+                    )
+                    viewModel.addInProgressItem(newInProgressItem)
                 }
                 else -> {
-                    val newDoneItem= TodoItem("test", binding.editCardTitle.text.toString(), binding.editCardContent.text.toString(),
-                        ProgressType.DONE)
+                    val newDoneItem = TodoItem(
+                        "test",
+                        binding.editCardTitle.text.toString(),
+                        binding.editCardContent.text.toString(),
+                        ProgressType.DONE
+                    )
 
                     viewModel.addDoneItem(newDoneItem)
                 }
             }
-
             dismiss()
         }
 

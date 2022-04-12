@@ -9,75 +9,75 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="500dp"
             android:layout_height="250dp"
-            android:layout_gravity="center"
-            >
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/tv_addCard_dialog_title"
+                style="@style/HeadLine.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/HeadLine.Bold"
-                android:layout_marginTop="18dp"
                 android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="18dp"
                 android:text="@string/label_addCard_title"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/edit_card_title"
+                style="@style/HeadLine6.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_addCard_dialog_title"
-                app:layout_constraintStart_toStartOf="parent"
-                android:hint="@string/label_addCard_title_hint"
-                style="@style/HeadLine6.Bold"
-                android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/label_addCard_title_hint"
                 android:importantForAutofill="no"
-                android:inputType="text" />
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_addCard_dialog_title" />
+
             <EditText
                 android:id="@+id/edit_card_content"
+                style="@style/HeadLine6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edit_card_title"
-                app:layout_constraintStart_toStartOf="parent"
-                android:hint="@string/label_addCard_content_hint"
-                style="@style/HeadLine6"
-                android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/label_addCard_content_hint"
                 android:importantForAutofill="no"
-                android:inputType="text" />
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_card_title" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_register"
+                style="@style/body.white.bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="20dp"
-                android:text="@string/label_addCard_addBtn_text"
-                style="@style/body.white.bold"
-                android:enabled="false"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"
                 android:background="@color/todo_second_color"
-                />
+                android:enabled="false"
+                android:text="@string/label_addCard_addBtn_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cancle"
+                style="@style/body.white.bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/btn_register"
-                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="20dp"
-                android:text="@string/label_addCard_cancleBtn_text"
-                style="@style/body.white.bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"
                 android:background="@color/todo_background_color"
-                />
+                android:text="@string/label_addCard_cancleBtn_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_register" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

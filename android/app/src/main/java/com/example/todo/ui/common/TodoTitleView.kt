@@ -22,7 +22,6 @@ class TodoTitleView(context: Context, attrs: AttributeSet) :
         title = findViewById(R.id.tv_todo_title)
         count = findViewById(R.id.tv_content_count)
         addButton = findViewById(R.id.btn_add)
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
 
