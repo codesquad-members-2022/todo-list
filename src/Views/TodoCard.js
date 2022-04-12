@@ -1,8 +1,7 @@
 import { createElement } from '../utils/utils';
 
 export default class TodoCard {
-  constructor(cardData) {
-    const { id, columnId, title, desc, author, createdAt } = cardData;
+  constructor({ id, columnId, title, desc, author, createdAt }) {
     this.id = id;
     this.columnId = columnId;
     this.title = title;

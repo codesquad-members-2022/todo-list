@@ -3,11 +3,11 @@ import { createElement, $ } from '../utils/utils';
 
 export default class TodoColumn {
   constructor({ cards: cardsData, id, title }) {
-    this.$todoColumn = null;
-    this.$todoList = null;
     this.id = id;
     this.title = title;
     this.todoCards = [];
+    this.$todoColumn = createTodoColumn(id, title, cardsData);
+    this.$todoList = $('.todo-list', this.$todoColumn);
     this.init(cardsData);
   }
 
@@ -17,8 +17,6 @@ export default class TodoColumn {
       this.todoCards.push(todoCard);
     });
 
-    this.$todoColumn = createTodoColumn(this.id, this.title, this.todoCards);
-    this.$todoList = $('.todo-list', this.$todoColumn);
     this.render();
   }
   // 타이틀 업데이트
@@ -26,15 +24,12 @@ export default class TodoColumn {
   // 배지 업데이트
 
   render() {
-    const $$todoCard = this.todoCards.map(card => {
-      return card.$todoCard;
-    });
-
+    const $$todoCard = this.todoCards.map(card => card.$todoCard);
     this.$todoList.append(...$$todoCard);
   }
 }
 
-const createTodoColumn = (id, title, cards) => {
+const createTodoColumn = (id, title, cardsData) => {
   const $todoColumn = createElement('div', 'todo-column', {
     'data-id': id,
   });
@@ -43,7 +38,7 @@ const createTodoColumn = (id, title, cards) => {
     <header class="todo-column-header">
       <div class="todo-column-textarea">
         <h1 class="todo-column-title">${title}</h1>
-        <div class="todo-item-count badge-gray4">${cards.length}</div>
+        <div class="todo-item-count badge-gray4">${cardsData.length}</div>
       </div>
       <div class="todo-column-buttons">
         <button type="button" class="add-button">

@@ -1,21 +1,22 @@
 import TodoColumn from './TodoColumn';
 
 export default class TodoColumns {
-  constructor($columns, columns = []) {
-    this.$columns = $columns;
-    this.columns = columns;
+  constructor($todoColumns) {
+    this.$todoColumns = $todoColumns;
+    this.todoColumns = [];
   }
 
   init(columnsData) {
     columnsData.forEach(columnData => {
       const todoColumn = new TodoColumn(columnData);
-      this.columns.push(todoColumn.$todoColumn);
+      this.todoColumns.push(todoColumn);
     });
 
     this.render();
   }
 
   render() {
-    this.$columns.append(...this.columns);
+    const $$todoColumn = this.todoColumns.map(column => column.$todoList);
+    this.$todoColumns.append(...$$todoColumn);
   }
 }
