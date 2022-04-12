@@ -38,7 +38,6 @@ public class Task {
     private LocalDateTime createAt;
 
     public Task(String title, String content, String author, int status) {
-        System.out.printf("title: %s, content: %s, author: %s, status: %d\n", title, content, author, status);
         this.title = title;
         this.content = content;
         this.author = author;
