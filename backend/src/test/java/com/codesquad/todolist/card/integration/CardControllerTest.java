@@ -1,10 +1,14 @@
 package com.codesquad.todolist.card.integration;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
 
+import com.codesquad.todolist.SetUp;
+import com.codesquad.todolist.card.Card;
+import com.codesquad.todolist.column.Column;
+import com.codesquad.todolist.user.User;
+import io.restassured.RestAssured;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,16 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.jdbc.Sql;
-
-import com.codesquad.todolist.card.Card;
-import com.codesquad.todolist.column.Column;
-import com.codesquad.todolist.user.User;
-
-import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@Sql("classpath:/schema.sql")
 @ComponentScan
 public class CardControllerTest {
 
@@ -30,15 +26,15 @@ public class CardControllerTest {
     private int port;
 
     @Autowired
-    private CardSetUp cardSetUp;
+    private SetUp setUp;
 
     @BeforeEach
     public void setUp() {
         RestAssured.port = port;
 
-        User user = cardSetUp.createUser(new User("유저 이름"));
-        Column column = cardSetUp.createColumn(new Column(user.getUserId(), "컬럼 이름"));
-        Card card = cardSetUp.createCard(new Card(column.getColumnId(), "제목", "내용", "작성자", 1));
+        User user = setUp.createUser(new User("유저 이름"));
+        Column column = setUp.createColumn(new Column(user.getUserId(), "컬럼 이름"));
+        Card card = setUp.createCard(new Card(column.getColumnId(), "제목", "내용", "작성자", 1));
     }
 
     @Test
@@ -55,9 +51,9 @@ public class CardControllerTest {
             .contentType("application/json")
             .body(requestBody)
             .log().all()
-            .when()
+        .when()
             .post("cards/")
-            .then()
+        .then()
             .statusCode(201);
     }
 
@@ -74,9 +70,9 @@ public class CardControllerTest {
             .pathParam("id", 1)
             .body(requestBody)
             .log().all()
-            .when()
+        .when()
             .put("cards/{id}")
-            .then()
+        .then()
             .statusCode(200);
     }
 
