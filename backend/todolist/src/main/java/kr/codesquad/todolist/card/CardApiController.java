@@ -3,7 +3,9 @@ package kr.codesquad.todolist.card;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,5 +51,15 @@ public class CardApiController {
 
 	private String getRedirectUri(CardDto.Redirection response) {
 		return String.format(API_TODO_REDIRECT_URI, response.getCardId());
+	}
+
+	@PatchMapping("/{id}")
+	public void edit(@PathVariable("id") Long cardId, @RequestBody @Valid CardDto.EditRequest request) {
+		cardService.updateOf(cardId, request);
+	}
+
+	@DeleteMapping("/{id}")
+	public void remove(@PathVariable("id") Long cardId) {
+		cardService.deleteFrom(cardId);
 	}
 }
