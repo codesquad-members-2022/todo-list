@@ -18,6 +18,18 @@ public class ModifiedFieldRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public void create(ModifiedField modifiedField) {
+        String sql = "insert into modified_field (history_id, field, old_value, new_value) values (:historyId, :field, :oldValue, :newValue)";
+
+        MapSqlParameterSource source = new MapSqlParameterSource()
+            .addValue("historyId", modifiedField.getHistoryId())
+            .addValue("field", modifiedField.getField().toString())
+            .addValue("oldValue", modifiedField.getOldValue())
+            .addValue("newValue", modifiedField.getNewValue());
+
+        jdbcTemplate.update(sql, source);
+    }
+
     public void createAll(List<ModifiedField> modifiedFields) {
         String sql = "insert into modified_field (history_id, field, old_value, new_value) values (:historyId, :field, :oldValue, :newValue)";
 
@@ -25,12 +37,12 @@ public class ModifiedFieldRepository {
 
         for (int ind = 0; ind < modifiedFields.size(); ind++) {
             ModifiedField modifiedField = modifiedFields.get(ind);
-            MapSqlParameterSource param = new MapSqlParameterSource()
+            MapSqlParameterSource source = new MapSqlParameterSource()
                 .addValue("historyId", modifiedField.getHistoryId())
                 .addValue("field", modifiedField.getField().toString())
                 .addValue("oldValue", modifiedField.getOldValue())
                 .addValue("newValue", modifiedField.getNewValue());
-            batch[ind] = param;
+            batch[ind] = source;
         }
 
         jdbcTemplate.batchUpdate(sql, batch);
@@ -49,6 +61,19 @@ public class ModifiedFieldRepository {
 
         MapSqlParameterSource source = new MapSqlParameterSource()
             .addValue("historyIds", historyIds);
+
+        return jdbcTemplate.query(sql, source, getRowMapper());
+    }
+
+    public List<ModifiedField> findByHistoryId(Integer historyId) {
+        String sql = "select modified_field_id, history_id, field,"
+            + " (case when field = 'COLUMN' then (select column_name from `column` where column_id = old_value) else old_value end) as old_value,"
+            + " (case when field = 'COLUMN' then (select column_name from `column` where column_id = new_value) else new_value end) as new_value"
+            + " from modified_field"
+            + " where history_id = :historyId";
+
+        MapSqlParameterSource source = new MapSqlParameterSource()
+            .addValue("historyId", historyId);
 
         return jdbcTemplate.query(sql, source, getRowMapper());
     }

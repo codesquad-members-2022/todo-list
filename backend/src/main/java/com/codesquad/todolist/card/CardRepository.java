@@ -2,6 +2,7 @@ package com.codesquad.todolist.card;
 
 import com.codesquad.todolist.util.KeyHolderFactory;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -34,6 +35,13 @@ public class CardRepository {
             card.setCardId(keyHolder.getKey().intValue());
         }
         return card;
+    }
+
+    public List<Card> findAll() {
+        String sql =
+            "select card_id, column_id, title, content, author, next_id, created_date from card"
+                + " where deleted = false";
+        return jdbcTemplate.query(sql, getCardRowMapper());
     }
 
     public Optional<Card> findById(int cardId) {
