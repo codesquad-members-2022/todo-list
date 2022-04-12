@@ -1,6 +1,7 @@
 package kr.codesquad.todolist.repository;
 
 import kr.codesquad.todolist.domain.Card;
+import kr.codesquad.todolist.domain.Section;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class JdbcCardRepository implements CardRepository {
 
     private static final Long ORDER_INTERVAL = 1000L;
+    private static final Long EMPTY_NUMBER = 0L;
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -60,17 +62,16 @@ public class JdbcCardRepository implements CardRepository {
     }
 
    @Override
-    public boolean move(Integer targetSectionId, Long targetCardId, Card card) {
-       String sql = "update card set section_id = :sectionId, order_index = :orderIndex where id = :id";
-       Long orderIndex = generateOrderIndex(targetSectionId, targetCardId, card);
+    public boolean move(Integer targetSectionId, Long targetCardId, Long movingCardId) {
+       String sql = "update card set section_id = :sectionId, order_index = :orderIndex where id = :id and deleted = false";
+       Long orderIndex = generateOrderIndex(targetSectionId, targetCardId);
 
        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
        parameterSource.addValue("sectionId", targetSectionId);
        parameterSource.addValue("orderIndex", orderIndex);
-       parameterSource.addValue("id", card.getId());
+       parameterSource.addValue("id", movingCardId);
 
        return namedParameterJdbcTemplate.update(sql, parameterSource) == 1;
-
     }
 
     @Override
@@ -81,9 +82,15 @@ public class JdbcCardRepository implements CardRepository {
         return namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource("sectionId", sectionId), cardRowMapper());
     }
 
-    private Long generateOrderIndex(Integer targetSectionId, Long targetCardId, Card card) {
+    @Override
+    public List<Section> findSections() {
+        String sql = "select id, name from section";
+        return namedParameterJdbcTemplate.query(sql, sectionRowMapper());
+    }
 
-        if (targetCardId < 0) {
+    private Long generateOrderIndex(Integer targetSectionId, Long targetCardId) {
+
+        if (targetCardId < EMPTY_NUMBER) {
             return findMinOrderIndex(targetSectionId) / 2;
         }
 
@@ -99,7 +106,8 @@ public class JdbcCardRepository implements CardRepository {
     }
 
     private RowMapper<Card> cardRowMapper() {
-        return (rs, rowNum) -> Card.of(rs.getLong("id"),
+        return (rs, rowNum) -> Card.of(
+                rs.getLong("id"),
                 rs.getString("member_id"),
                 rs.getInt("section_id"),
                 rs.getString("subject"),
@@ -108,6 +116,12 @@ public class JdbcCardRepository implements CardRepository {
                 rs.getTimestamp("created_at").toLocalDateTime(),
                 rs.getTimestamp("updated_at").toLocalDateTime(),
                 rs.getBoolean("deleted"));
+    }
+
+    private RowMapper<Section> sectionRowMapper() {
+        return (rs, rowNum) -> new Section(
+                rs.getInt("id"),
+                rs.getString("name"));
     }
 
     private Card insert(Card card) {
@@ -125,14 +139,18 @@ public class JdbcCardRepository implements CardRepository {
     }
 
     private Card update(Card card) {
-        String sql = "update card set subject = :subject, contents = :contents, updated_at = :updatedAt";
+        String sql = "update card set subject = :subject, contents = :contents, updated_at = :updatedAt where id = :id";
         namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card));
         return card;
     }
 
     private Long findMaxOrderIndex(Integer sectionId) {
         String sql = "select max(order_index) from card where section_id = :sectionId and deleted = false";
-        return namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("sectionId", sectionId), Long.class);
+        Long maxIndex = namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("sectionId", sectionId), Long.class);
+        if(maxIndex == null) {
+            return EMPTY_NUMBER;
+        }
+        return maxIndex;
     }
 
     private Long findMinOrderIndex(Integer sectionId) {

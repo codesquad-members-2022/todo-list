@@ -1,13 +1,15 @@
 package kr.codesquad.todolist.service;
 
 import kr.codesquad.todolist.domain.Card;
+import kr.codesquad.todolist.domain.Section;
+import kr.codesquad.todolist.dto.card.CardResponse;
 import kr.codesquad.todolist.dto.card.CreateCardRequest;
 import kr.codesquad.todolist.dto.card.UpdateCardRequest;
+import kr.codesquad.todolist.dto.section.CardsOfSection;
 import kr.codesquad.todolist.repository.CardRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,37 +21,42 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public kr.codesquad.todolist.dto.card.CardResponse create(CreateCardRequest cardRequest) {
+    public CardResponse create(CreateCardRequest cardRequest) {
         Card saved = cardRepository.save(cardRequest.toEntity());
-        return kr.codesquad.todolist.dto.card.CardResponse.from(saved);
+        return CardResponse.from(saved);
     }
 
-    public kr.codesquad.todolist.dto.card.CardResponse update(UpdateCardRequest cardRequest) {
+    public CardResponse update(UpdateCardRequest cardRequest) {
         Card updated = cardRepository.save(cardRequest.toEntity());
-        return kr.codesquad.todolist.dto.card.CardResponse.from(updated);
+        return CardResponse.from(updated);
     }
 
-    public boolean move(Integer sectionId, Long targetCardId, UpdateCardRequest cardRequest) {
-        return cardRepository.move(sectionId, targetCardId, cardRequest.toEntity());
+    public boolean move(Integer sectionId, Long targetCardId, Long movingCardId) {
+        return cardRepository.move(sectionId, targetCardId, movingCardId);
     }
 
-    public List<kr.codesquad.todolist.dto.card.CardResponse> findCardsOfSection(Integer sectionId) {
+    public List<CardResponse> findCardsOfSection(Integer sectionId) {
         return cardRepository.findBySectionId(sectionId)
                 .stream()
-                .map(kr.codesquad.todolist.dto.card.CardResponse::from)
+                .map(CardResponse::from)
                 .collect(Collectors.toList());
     }
 
-    public kr.codesquad.todolist.dto.card.CardResponse findOne(Long id) {
+    public CardResponse findOne(Long id) {
         Card card = cardRepository.findById(id).orElseThrow(NoSuchElementException::new);
-        return kr.codesquad.todolist.dto.card.CardResponse.from(card);
+        return CardResponse.from(card);
     }
 
-    public List<kr.codesquad.todolist.dto.card.CardResponse> findAll() {
-        List<Card> cards = cardRepository.findAll();
-        return cards.stream()
-                .map(kr.codesquad.todolist.dto.card.CardResponse::from)
-                .collect(Collectors.toList());
+    public List<CardsOfSection> findAllbySections() {
+        List<Section> sections = cardRepository.findSections();
+
+        List<CardsOfSection> cardsOfSections = new ArrayList<>();
+        for (Section section : sections) {
+            List<CardResponse> cards = findCardsOfSection(section.getId());
+            cardsOfSections.add(new CardsOfSection(section, cards));
+        }
+
+        return cardsOfSections;
     }
 
     public boolean delete(Long id) {
