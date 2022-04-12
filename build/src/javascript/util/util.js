@@ -20,7 +20,7 @@ export async function deleteData(URL) {
 
 export function axiosRequest(method, pathName, controlledData = {}) {
   const URL = `http://localhost:5000/${pathName}`;
-  const idURL = URL + `/${controledData.id}`;
+  const idURL = URL + `/${controlledData.id}`;
   let response;
   switch (method) {
     case "get":
