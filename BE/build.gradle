@@ -17,13 +17,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
+    // lombok
+    implementation 'org.projectlombok:lombok'
+
     // h2
     runtimeOnly 'com.h2database:h2'
 
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured'
-
 }
 
 tasks.named('test') {

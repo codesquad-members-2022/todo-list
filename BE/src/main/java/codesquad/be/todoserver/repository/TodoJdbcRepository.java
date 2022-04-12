@@ -1,19 +1,17 @@
 package codesquad.be.todoserver.repository;
 
 import codesquad.be.todoserver.domain.Todo;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class TodoJdbcRepository implements TodoRepository {
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
 	public TodoJdbcRepository(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -21,10 +19,17 @@ public class TodoJdbcRepository implements TodoRepository {
 
 	@Override
 	public Optional<Todo> findById(Long id) {
-		String sql = "SELECT id, title, contents, user, status, created_time, updated_time FROM TODO WHERE id = ?";
+		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO WHERE id = ?";
 		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper(), id);
 
 		return todos.stream().findAny();
+	}
+
+	@Override
+	public List<Todo> findAllTodos() {
+		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO";
+		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper());
+		return todos;
 	}
 
 	public RowMapper<Todo> todoRowMapper() {
@@ -35,8 +40,8 @@ public class TodoJdbcRepository implements TodoRepository {
 				rs.getString("user"),
 				rs.getString("status"));
 			todo.setId(rs.getLong("id"));
-			todo.setCreatedTime(rs.getObject("created_time", LocalDateTime.class));
-			todo.setUpdatedTime(rs.getObject("updated_time", LocalDateTime.class));
+			todo.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+			todo.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
 			return todo;
 		};
 	}

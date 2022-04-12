@@ -6,8 +6,8 @@ spring:
   sql:
     init:
       mode: always
-      schema-locations: classpath:db/schema.sql
-      data-locations: classpath:db/data.sql
+      schema-locations: classpath:testDB/schema.sql
+      data-locations: classpath:testDB/data.sql
   h2:
     console:
       enabled: true
@@ -16,4 +16,3 @@ spring:
 logging:
   level:
     web: DEBUG
-
