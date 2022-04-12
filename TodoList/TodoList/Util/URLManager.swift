@@ -19,6 +19,7 @@ final class URLManager{
         }
     }
     
+    // semaphore를 활용하여 data 할당 후 return 되도록 구현
     static func requestGet(url: String) -> Data?{
         guard let validURL = URL(string: url) else { return nil }
         var returnData: Data?
@@ -26,7 +27,7 @@ final class URLManager{
         var urlRequest = URLRequest(url: validURL)
         urlRequest.httpMethod = HttpMethod.get.getRawValue()
         
-        let semaphore = DispatchSemaphore(value: 1)
+        let semaphore = DispatchSemaphore(value: 0)
         
         URLSession.shared.dataTask(with: urlRequest){ data, response, error in
             guard let data = data else { return }
