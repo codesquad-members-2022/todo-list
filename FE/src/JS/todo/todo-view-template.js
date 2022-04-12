@@ -29,12 +29,14 @@ export function makeCard({ id }, { title, content }) {
 
 export function addCardTemplate() {
   return `
-  <li class="column-item--card">
-    <div class="card-header">
+  <li class="column-item--card column-addBtn">
+    <div class="card-header add-card--header">
       <input class="card-title" type="text" placeholder="제목을 입력하세요." maxlength="14"/>
+      <div class="card-content" contenteditable="true" placeholder="내용을 입력하세요.(500자 제한)"></div>
+      </div>
+    <div>
+      <button class="card-addbtn cancleBtn">취소</button>
+      <button class="card-addbtn registerBtn">등록</button>
     </div>
-    <input class="card-contents" type="text" placeholder="내용을 입력하세요." maxlength="500"/>
-    <button class="add-btn">취소</button>
-    <button class="add-btn blue">등록</button>
   </li>`
 }

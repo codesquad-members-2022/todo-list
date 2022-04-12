@@ -49,8 +49,12 @@
   opacity: 0.5;
 }
 
+.column-addBtn {
+  background-color: white;
+  border: 1px solid #86C6FF;
+}
+
 .card-title {
-  background-color: var(--light-gray);
   width: 249px;
   height: 25px;
   font-size: 16px;
@@ -58,9 +62,42 @@
   border: none;
 }
 
-.card-contents {
-  width: 249px;
-  line-height: 1px;
+.card-title:focus, .card-content:focus {
+  outline: none;
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+}
+
+.card-content {
+  border: 1px solid #ddd;
+  color : #333;
+  font-size: 12px;
+  width: 240px;
+  padding: 5px;
   border: none;
-  background-color: var(--light-gray);
+  cursor: pointer;
+}
+
+.add-card--header {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-addbtn {
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.registerBtn {
+  background-color: #86C6FF;
+  color: white;
+}
+
+.registerBtn:hover {
+  background-color:#0075DE;
 }
