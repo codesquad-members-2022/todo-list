@@ -2,7 +2,7 @@ package todo.list.controller;
 
 import org.springframework.web.bind.annotation.*;
 import todo.list.service.dto.CardModifyDto;
-import todo.list.service.dto.CardResponse;
+import todo.list.service.dto.CardCollectionResponse;
 import todo.list.service.dto.CardSaveDto;
 import todo.list.service.CardService;
 
@@ -22,7 +22,7 @@ public class CardController {
     }
 
     @GetMapping
-    public CardResponse getAllCards() {
+    public CardCollectionResponse getAllCards() {
         return cardService.findCollections();
     }
 

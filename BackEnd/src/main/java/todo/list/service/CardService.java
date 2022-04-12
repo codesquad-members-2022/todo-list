@@ -5,12 +5,10 @@ import todo.list.service.dto.CardModifyDto;
 import todo.list.domain.Card;
 import todo.list.domain.CardStatus;
 import todo.list.repository.CardRepository;
-import todo.list.service.dto.CardDto;
-import todo.list.service.dto.CardResponse;
+import todo.list.service.dto.CardCollectionResponse;
 import todo.list.service.dto.CardSaveDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CardService {
@@ -26,18 +24,12 @@ public class CardService {
         cardRepository.save(card);
     }
     
-    public CardResponse findCollections() {
+    public CardCollectionResponse findCollections() {
         List<Card> todoCards = cardRepository.findAllSameStatus(CardStatus.from("TODO"));
         List<Card> inProgressCards = cardRepository.findAllSameStatus(CardStatus.from("IN_PROGRESS"));
         List<Card> doneCards = cardRepository.findAllSameStatus(CardStatus.from("DONE"));
 
-        return new CardResponse(makeCollection(todoCards), makeCollection(inProgressCards), makeCollection(doneCards));
-    }
-
-    private List<CardDto> makeCollection(List<Card> cards) {
-        return cards.stream()
-                .map(card -> new CardDto(card))
-                .collect(Collectors.toList());
+        return new CardCollectionResponse(todoCards, inProgressCards, doneCards);
     }
 
     public void modify(CardModifyDto cardModifyDto) {
