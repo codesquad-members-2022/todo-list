@@ -1,21 +1,30 @@
 .modal {
-  width: 100vw;
-  height: 100vh;
-  background-color: #F5F5F7;
-  position: absolute;
-  display: flex;
-  top: 0;
-  left: 0;
-  border-radius: 0.6rem;
-
   &__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-sizing: border-box;
     width: 40rem;
     height: 13.8rem;
     padding: 2.4rem;
     background-color: $white;
     margin: auto;
+    border-radius: 6px;
+  }
+
+  &__check-message {
     font-size: $font-xlarge;
+  }
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0.5;
   }
 
   &__btns {

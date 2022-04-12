@@ -10,6 +10,7 @@
 @import './header';
 
 .wrap {
+  position: relative;
   background-color: $wrap;
   padding: 3.3rem 8rem 0 8.4rem;
   width: 144rem;
