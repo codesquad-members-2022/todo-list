@@ -66,6 +66,12 @@ class HistoryTableViewCell: UITableViewCell {
         
     }
     
+    func setCellUIData(title: String, writer: String, time: Date) {
+        self.titleFromToLabel.text = title
+        self.writerLabel.text = writer
+        self.timestampLabel.text = time.description
+    }
+    
     private func setPropertiesAutoLayout() {
         view.translatesAutoresizingMaskIntoConstraints = false
     }
