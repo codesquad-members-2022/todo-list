@@ -37,7 +37,14 @@ export default class Column extends Component {
     return cards;
   }
   setEvent() {
-    this.addEvent("click", ".column-plus-button", this.createCard.bind(this));
+    this.addEvent("click", ".column-plus-button", this.clickPlusButtonHandler.bind(this));
+  }
+  clickPlusButtonHandler() {
+    if (this.state.cards[0]?.cardState === "create") {
+      this.undoCreateCard();
+    } else {
+      this.createCard();
+    }
   }
   createCard() {
     const _cards = this.state.cards;
@@ -47,6 +54,11 @@ export default class Column extends Component {
       author: "나",
       cardState: "create",
     });
+    this.setState({ cards: _cards });
+  }
+  undoCreateCard() {
+    const _cards = this.state.cards;
+    _cards.shift();
     this.setState({ cards: _cards });
   }
 }
