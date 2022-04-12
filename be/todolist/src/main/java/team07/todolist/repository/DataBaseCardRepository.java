@@ -88,4 +88,9 @@ public class DataBaseCardRepository implements CardRepository {
 	public List<Card> findAll() {
 		return jdbcTemplate.query("SELECT * FROM TODO_CARD", rowMapper);
 	}
+
+	@Override
+	public void reset() {
+		jdbcTemplate.execute("TRUNCATE TABLE TODO_CARD");
+	}
 }

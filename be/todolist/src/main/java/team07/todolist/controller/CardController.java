@@ -76,4 +76,10 @@ public class CardController {
 		return activityLogService.findAll();
 	}
 
+	@GetMapping("/reset")
+	@ResponseStatus(HttpStatus.OK)
+	public void reset() {
+		cardService.reset();
+	}
+
 }

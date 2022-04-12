@@ -83,4 +83,9 @@ public class MemoryCardRepository implements CardRepository {
 		return new ArrayList<>(store.values());
 	}
 
+	@Override
+	public void reset() {
+
+	}
+
 }

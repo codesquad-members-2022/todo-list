@@ -63,4 +63,7 @@ public class CardService {
 			.collect(Collectors.toList());
 	}
 
+	public void reset() {
+		cardRepository.reset();
+	}
 }
