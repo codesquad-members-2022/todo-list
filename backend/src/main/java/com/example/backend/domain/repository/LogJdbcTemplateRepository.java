@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -21,6 +23,7 @@ import com.example.backend.web.dto.LogListResponseDto;
 
 @Repository
 public class LogJdbcTemplateRepository {
+	private static final Logger logger = LoggerFactory.getLogger(LogJdbcTemplateRepository.class);
 	private final JdbcTemplate jdbcTemplate;
 	private final SimpleJdbcInsert simpleJdbcInsert;
 
@@ -48,6 +51,7 @@ public class LogJdbcTemplateRepository {
 		params.put("text", log.getText());
 		KeyHolder keyHolder = simpleJdbcInsert.executeAndReturnKeyHolder(params);
 		Map<String, Object> keys = keyHolder.getKeys();
-		return Long.parseLong(keys.get("ID").toString());
+		logger.debug("LogJdbcTemplateRepository save : {}", keys);
+		return 0L;
 	}
 }

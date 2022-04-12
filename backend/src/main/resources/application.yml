@@ -1,3 +1,5 @@
 spring:
   profiles:
     active: ${profile}
+logging:
+  level.com.example.backend.domain.repository: debug
