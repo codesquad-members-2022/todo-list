@@ -13,6 +13,7 @@ class TodoTableViewCell: UITableViewCell {
 
     func reloadAllLabels(_ card: CardData) {
         setTitleLabelAttribute(card.title)
+        setContentLabelAttribute(card.contents)
     }
 
     private func setTitleLabelAttribute(_ text: String) {
