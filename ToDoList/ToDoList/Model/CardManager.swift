@@ -6,6 +6,10 @@ class CardManager: CardManagable {
         enum NotificationNames {
             static let didAddNewCard = Notification.Name("CardManagerDidAddNewCard")
         }
+        
+        enum userInfoKeys {
+            static let addedCard = "addedCard"
+        }
     }
     
     private var listName: String
@@ -28,14 +32,21 @@ class CardManager: CardManagable {
     
     func add(title: String, body: String) {
         let data = [listName]
-        let newCard = cardFactory.make(factoriable: Card.self, title: title, body: body, data: data)
-        cards.append(newCard)
-        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self)
+        var newCard = cardFactory.make(factoriable: Card.self, title: title, body: body, data: data)
+        newCard.setIndexOrder(in: count)
+        cards.insert(newCard, at: 0)
+        
+        let userInfo = [Constants.userInfoKeys.addedCard: newCard]
+        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self, userInfo: userInfo)
     }
     
     func add(newCard: Cardable) {
         cards.append(newCard)
         NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self)
+        
+        let userInfo = [Constants.userInfoKeys.addedCard: newCard]
+        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self, userInfo: userInfo)
+    }
     }
     
     func selectCard(index: Int) {
