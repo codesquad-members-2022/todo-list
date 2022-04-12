@@ -20,17 +20,23 @@ public class CardService {
 	private final CardRepository cardRepository;
 	private final MemberRepository memberRepository;
 
-	public List<CardResponse> findAll() {
-		List<Card> cards = cardRepository.findAll();
+	public List<CardResponse> findAll(String userId) {
+		Member member = selectMemberInfo(userId);
+
+		List<Card> cards = cardRepository.findAll(member.getId());
 		return cards.stream().map(CardResponse::from).collect(Collectors.toList());
 	}
 
 	public ResponseEntity add(CardRequest cardRequest) {
-		Member member = memberRepository.findByUserId(cardRequest.getUserId());
+		Member member = selectMemberInfo(cardRequest.getUserId());
 
 		Card card = Card.of(cardRequest, member.getId());
 		int result = cardRepository.add(card);
-
 		return new ResponseEntity("success", HttpStatus.CREATED);
+	}
+
+	private Member selectMemberInfo(String userId) {
+		Member member = memberRepository.findByUserId(userId);
+		return member;
 	}
 }

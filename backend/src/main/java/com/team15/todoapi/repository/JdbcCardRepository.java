@@ -2,9 +2,10 @@ package com.team15.todoapi.repository;
 
 import com.team15.todoapi.domain.Card;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -17,7 +18,6 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-@Slf4j
 @Repository
 public class JdbcCardRepository implements CardRepository {
 
@@ -30,18 +30,23 @@ public class JdbcCardRepository implements CardRepository {
 	}
 
 	@Override
-	public List<Card> findAll() {
-		return jdbcTemplate.query(
-			"SELECT card.id, "
-				+ "title, "
-				+ "content, "
-				+ "modified_at, "
-				+ "member_id, "
-				+ "card_section_code_id "
-				+ "from card , member "
-				+ "where card.member_id = member.id "
-				+ "and  delete_flag = false "
-				+ "order by modified_at desc", rowMapper);
+	public List<Card> findAll(Long memberId) {
+		Map namedParameters = Collections.singletonMap("memberId", memberId);
+
+		String sql = "SELECT card.id, "
+							+ "title, "
+							+ "content, "
+							+ "modified_at, "
+							+ "member_id, "
+							+ "card_section_code_id "
+							+ "from card , member "
+							+ "where card.member_id = member.id "
+							+ "and card.member_id = :memberId "
+							+ "and  delete_flag = false "
+							+ "order by modified_at desc";
+
+		List<Card> cards = jdbcTemplate.query(sql, namedParameters, rowMapper);
+		return cards;
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import com.team15.todoapi.domain.Card;
 import java.util.List;
 
 public interface CardRepository {
-	List<Card> findAll();
+	List<Card> findAll(Long memberId);
 
 	int add(Card card);
 }
