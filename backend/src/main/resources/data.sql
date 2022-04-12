@@ -17,5 +17,5 @@ values (2, '작성자', '2022-04-06 00:00:00', 'sql,', 'sql 공부하기', 2);
 insert into card (column_id, author, created_date, title, content, next_id)
 values (2, '작성자', '2022-04-06 00:00:00', 'sql,', 'sql 공부하기', 3);
 
-insert into history (user_id, created_date, title, column_name, field, old_value, action)
-values (1, '2022-04-06 00:00:00', 'todo_list', NULL, NULL, NULL, 'delete')
+insert into history (card_id, created_date, action)
+values (1, '2022-04-06 00:00:00', 'DELETE')

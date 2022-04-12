@@ -1,6 +1,10 @@
 package com.codesquad.todolist.card;
 
+import com.codesquad.todolist.history.domain.Field;
+import com.codesquad.todolist.history.domain.ModifiedField;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Card {
 
@@ -12,6 +16,9 @@ public class Card {
     private Integer nextId;
     private LocalDateTime createdDateTime;
     private Boolean deleted;
+
+    // relation
+    private List<ModifiedField> modifiedFields = new ArrayList<>();
 
     public Card(Integer columnId, String title, String content, String author, Integer nextId) {
         this(null, columnId, title, content, author, nextId, LocalDateTime.now());
@@ -29,9 +36,18 @@ public class Card {
     }
 
     public void update(String title, String content, String author) {
-        this.title = title;
-        this.content = content;
-        this.author = author;
+        if (!this.title.equals(title)) {
+            modifiedFields.add(new ModifiedField(Field.TITLE, this.title, title));
+            this.title = title;
+        }
+        if (!this.content.equals(content)) {
+            modifiedFields.add(new ModifiedField(Field.CONTENT, this.content, content));
+            this.content = content;
+        }
+        if (!this.author.equals(author)) {
+            modifiedFields.add(new ModifiedField(Field.AUTHOR, this.author, author));
+            this.author = author;
+        }
     }
 
     public void move(Integer columnId, Integer order) {
@@ -71,6 +87,14 @@ public class Card {
         return createdDateTime;
     }
 
+    public List<ModifiedField> getModifiedFields() {
+        return modifiedFields;
+    }
+
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
+    }
+
     @Override
     public String toString() {
         return "Card{" +
@@ -84,4 +108,5 @@ public class Card {
             ", deleted=" + deleted +
             '}';
     }
+
 }
