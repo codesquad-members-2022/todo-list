@@ -4,7 +4,8 @@ struct NetworkManager {
     
     static let url = URL(string: "http://worldclockapi.com/api/json/est/now") // 아무 URL사용
     
-    static private func makeRequest(data: Card?, httpMethod: HttpMethod) -> URLRequest? {
+    static private func makeRequest(data: Card?, httpMethod: HttpMethod,
+                                    targetColumnId: String?, targetCardId: Int?) -> URLRequest? {
         
         guard let url = url else {return nil}
         
@@ -12,7 +13,10 @@ struct NetworkManager {
         request.httpMethod = httpMethod.rawValue
         
         if let data = data, let id = data.id {
-            let data = ["userID": String(id), "title": data.title, "body": data.body, "listName": data.listName]
+            let data = ["id": String(id), "subject": data.title,
+                        "contents": data.body, "sectionId": data.listName,
+                        "author": data.caption.rawValue, "createdAt": "\(data.createdTime)",
+                        "targetColumnId": "\(targetColumnId)", "targetCardId": "\(targetCardId)"]
             let encoder = JSONEncoder()
             
             guard let encodedData = try? encoder.encode(data) else {return nil}
@@ -23,8 +27,13 @@ struct NetworkManager {
         return request
     }
     
-    static func sendRequest(data: Card?, httpMethod: HttpMethod, completionHandler: @escaping(Result<Card, NerworkError>) -> Void) {
-        guard let request = makeRequest(data: data, httpMethod: httpMethod) else {return}
+    static func sendRequest(data: Card?, httpMethod: HttpMethod,
+                            targetColumnId: String?, targetCardId: Int?,
+                            completionHandler: @escaping(Result<Card, NerworkError>) -> Void) {
+        guard let request = makeRequest(data: data,
+                                        httpMethod: httpMethod,
+                                        targetColumnId: targetColumnId,
+                                        targetCardId: targetCardId) else {return}
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             

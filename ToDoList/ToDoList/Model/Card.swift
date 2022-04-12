@@ -17,7 +17,7 @@ struct Card: Cardable, Codable {
     private(set) var body: String
     private(set) var listName: String
     private(set) var caption: Caption
-    private let createdTime: Date
+    private(set) var createdTime: Date
     private var updatedTime: Date
     
     init(title: String, body: String, caption: Caption, listName: String) {

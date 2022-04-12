@@ -107,7 +107,7 @@ extension CardListViewController {
             return
         }
         
-        NetworkManager.sendRequest(data: addedCard, httpMethod: .POST) { result in
+        NetworkManager.sendRequest(data: addedCard, httpMethod: .POST, targetColumnId: nil, targetCardId: nil) { result in
             switch result {
                 case .success(let returnedCard):
                     self.cardManager.setNewCardsID(with: returnedCard.id ?? 0)
