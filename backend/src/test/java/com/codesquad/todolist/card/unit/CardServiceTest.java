@@ -1,17 +1,10 @@
 package com.codesquad.todolist.card.unit;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.*;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.times;
 
 import com.codesquad.todolist.card.Card;
 import com.codesquad.todolist.card.CardRepository;
@@ -19,6 +12,14 @@ import com.codesquad.todolist.card.CardService;
 import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
+import java.time.LocalDateTime;
+import java.util.Optional;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("CardService 단위 테스트")
@@ -72,7 +73,7 @@ public class CardServiceTest {
         cardService.delete(card.getCardId());
 
         // then
-        then(cardRepository).should(times(1)).delete(any(Card.class));
+        // then(cardRepository).should(times(1)).delete(any(Card.class));
 
     }
 
@@ -88,6 +89,8 @@ public class CardServiceTest {
         cardService.move(1, request);
 
         // then
-        then(cardRepository).should(times(1)).move(anyInt(), any(Card.class));
+        then(cardRepository).should(times(1)).linkPrev(any(Card.class));
+        then(cardRepository).should(times(1)).linkNext(any(Card.class));
+        then(cardRepository).should(times(1)).moveTarget(any(Card.class));
     }
 }
