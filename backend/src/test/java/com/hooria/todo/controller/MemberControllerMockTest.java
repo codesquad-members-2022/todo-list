@@ -5,6 +5,7 @@ import com.hooria.todo.domain.Member;
 import com.hooria.todo.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -37,7 +38,7 @@ class MemberControllerMockTest {
 
         // given
         Member newMember = Member.of("userId", "password", "name");
-        given(memberService.add(newMember)).willReturn(newMember);
+        given(memberService.add(ArgumentMatchers.refEq(newMember))).willReturn(newMember);
 
         // when
         ResultActions resultActions = mvc.perform(post("/api/users")
@@ -54,7 +55,7 @@ class MemberControllerMockTest {
                 status().is2xxSuccessful()
         );
 
-        verify(memberService).add(newMember);
+        verify(memberService).add(ArgumentMatchers.refEq(newMember));
     }
 
     @Test
