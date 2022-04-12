@@ -10,6 +10,9 @@
 		6C22959727FD64C800381DA2 /* EditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C22959627FD64C800381DA2 /* EditCardView.swift */; };
 		6C22959927FD64DB00381DA2 /* EditCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C22959827FD64DB00381DA2 /* EditCardView.xib */; };
 		6C22959B27FD698000381DA2 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C22959A27FD698000381DA2 /* EditCardViewController.swift */; };
+		6C9FB68D2805113400A125C4 /* TaskCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9FB68C2805113400A125C4 /* TaskCard.swift */; };
+		6C9FB6912805415600A125C4 /* TaskCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9FB6902805415600A125C4 /* TaskCardList.swift */; };
+		6C9FB6932805425500A125C4 /* TaskBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9FB6922805425500A125C4 /* TaskBoard.swift */; };
 		6CB489A6280403E3003F5048 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB489A5280403E3003F5048 /* Extension.swift */; };
 		6CF3C10927FC2907003B4803 /* TaskCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF3C10727FC2907003B4803 /* TaskCardViewCell.swift */; };
 		6CF3C10A27FC2907003B4803 /* TaskCardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CF3C10827FC2907003B4803 /* TaskCardViewCell.xib */; };
@@ -34,6 +37,9 @@
 		6C22959627FD64C800381DA2 /* EditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardView.swift; sourceTree = "<group>"; };
 		6C22959827FD64DB00381DA2 /* EditCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCardView.xib; sourceTree = "<group>"; };
 		6C22959A27FD698000381DA2 /* EditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
+		6C9FB68C2805113400A125C4 /* TaskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCard.swift; sourceTree = "<group>"; };
+		6C9FB6902805415600A125C4 /* TaskCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardList.swift; sourceTree = "<group>"; };
+		6C9FB6922805425500A125C4 /* TaskBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoard.swift; sourceTree = "<group>"; };
 		6CB489A5280403E3003F5048 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		6CF3C10727FC2907003B4803 /* TaskCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardViewCell.swift; sourceTree = "<group>"; };
 		6CF3C10827FC2907003B4803 /* TaskCardViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCardViewCell.xib; sourceTree = "<group>"; };
@@ -67,6 +73,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C9FB68B280510AC00A125C4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C9FB6922805425500A125C4 /* TaskBoard.swift */,
+				6C9FB6902805415600A125C4 /* TaskCardList.swift */,
+				6C9FB68C2805113400A125C4 /* TaskCard.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		6F41D59627FAE04A00EA3FA8 = {
 			isa = PBXGroup;
 			children = (
@@ -86,13 +102,14 @@
 		6F41D5A127FAE04A00EA3FA8 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				6F41D5A827FAE04A00EA3FA8 /* Main.storyboard */,
 				6F41D5A227FAE04A00EA3FA8 /* AppDelegate.swift */,
 				6F41D5A427FAE04A00EA3FA8 /* SceneDelegate.swift */,
-				6F41D5A827FAE04A00EA3FA8 /* Main.storyboard */,
 				6F41D5AB27FAE04B00EA3FA8 /* Assets.xcassets */,
 				6F41D5AD27FAE04B00EA3FA8 /* LaunchScreen.storyboard */,
 				6F41D5B027FAE04B00EA3FA8 /* Info.plist */,
 				6F77E26A27FED2FF0036B6E1 /* ViewController */,
+				6C9FB68B280510AC00A125C4 /* Model */,
 				6F77E26B27FED3670036B6E1 /* View */,
 				6F77E26D27FED3A10036B6E1 /* Xib */,
 				6F77E26C27FED3960036B6E1 /* Util */,
@@ -228,6 +245,9 @@
 				6F41D5BB27FBD6F700EA3FA8 /* TaskCardListView.swift in Sources */,
 				6F41D5A327FAE04A00EA3FA8 /* AppDelegate.swift in Sources */,
 				6F77E27627FFDC180036B6E1 /* ActionCardViewCell.swift in Sources */,
+				6C9FB6912805415600A125C4 /* TaskCardList.swift in Sources */,
+				6C9FB6932805425500A125C4 /* TaskBoard.swift in Sources */,
+				6C9FB68D2805113400A125C4 /* TaskCard.swift in Sources */,
 				6FC4ABD527FE7B0F00231F9E /* TaskBoardView.swift in Sources */,
 				6F41D5A527FAE04A00EA3FA8 /* SceneDelegate.swift in Sources */,
 				6C22959B27FD698000381DA2 /* EditCardViewController.swift in Sources */,
