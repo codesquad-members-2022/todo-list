@@ -63,4 +63,8 @@ public class CardService {
         return cardRepository.delete(id);
     }
 
+    public Section findSection(Integer sectionId) {
+        return cardRepository.findSection(sectionId).orElseThrow(NoSuchElementException::new);
+    }
+
 }

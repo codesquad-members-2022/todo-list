@@ -83,6 +83,17 @@ public class JdbcCardRepository implements CardRepository {
     }
 
     @Override
+    public Optional<Section> findSection(Integer sectionId) {
+        String sql = "select id, name from section where id = :id";
+        try {
+            Section section = namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("id", sectionId), sectionRowMapper());
+            return Optional.ofNullable(section);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public List<Section> findSections() {
         String sql = "select id, name from section";
         return namedParameterJdbcTemplate.query(sql, sectionRowMapper());

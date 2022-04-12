@@ -65,11 +65,11 @@ public class CardController {
 
     @GetMapping("/cards/section/{sectionId}")
     public ResponseEntity<CardsOfSection> findCardsBySectionId(@PathVariable Integer sectionId) {
-        //Section을 찾는 로직 필요
-        Section todo = new Section(sectionId, "TO DO");
+
+        Section section = cardService.findSection(sectionId);
         List<CardResponse> cards = cardService.findCardsOfSection(sectionId);
 
-        return new ResponseEntity<>(new CardsOfSection(todo, cards), HttpStatus.OK);
+        return new ResponseEntity<>(new CardsOfSection(section, cards), HttpStatus.OK);
     }
 
     @PatchMapping("/cards/move/{movingCardId}")
