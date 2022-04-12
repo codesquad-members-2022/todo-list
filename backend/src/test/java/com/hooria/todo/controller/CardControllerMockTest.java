@@ -100,4 +100,27 @@ class CardControllerMockTest {
 
         verify(cardService).add(refEq(newCard));
     }
+
+    @Test
+    @DisplayName("인자로 주어신 'id'를 가진 task를 저장소에서 찾아 삭제 처리한다(soft-delete).")
+    void deleteCard() throws Exception {
+        //given
+        long id = 1;
+        LocalDateTime datetime = LocalDateTime.of(2022, 4, 10, 0, 0);
+        Card expectedCard = new Card(1, Status.TODO, "title1", "content1", "userId1", Device.WEB,
+            datetime, datetime, true, 0);
+        CardResponse expected = expectedCard.toCardResponse();
+        given(cardService.delete(id)).willReturn(expected);
+
+        //when
+        ResultActions resultActions = mvc.perform(delete("/api/cards/{id}", id));
+
+        //then
+        resultActions.andExpectAll(
+            content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON),
+            content().encoding(StandardCharsets.UTF_8),
+            content().string(objectMapper.writeValueAsString(expected)),
+            status().isOk()
+        );
+    }
 }

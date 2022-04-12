@@ -28,4 +28,11 @@ public class CardService {
             .map(Card::toCardResponse)
             .orElseThrow();
     }
+
+    public CardResponse delete(long id) {
+        long deletedId = cardRepository.delete(id);
+        return cardRepository.findById(deletedId)
+            .map(Card::toCardResponse)
+            .orElseThrow();
+    }
 }

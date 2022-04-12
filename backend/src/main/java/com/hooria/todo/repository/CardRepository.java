@@ -111,7 +111,7 @@ public class CardRepository {
     public long delete(long id) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
 
-        jdbc.update("update task_card set deleted_yn = true where id = :id", namedParameters);
+        jdbc.update("update task_card set deleted_yn = true, row_position = 0 where id = :id", namedParameters);
 
         return id;
     }
