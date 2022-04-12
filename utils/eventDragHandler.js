@@ -7,8 +7,7 @@ export const onBodyMouseMove = () => {
         left: `${e.pageX}px`,
         top: `${e.pageY}px`,
       });
-      const dataId = copyCardElement.getAttribute('data-id');
-      checkColumnArea(e.pageX, dataId);
+      checkColumnArea(e.pageX);
     }
   });
 };
@@ -25,13 +24,14 @@ export const onBodyMouseUp = () => {
   });
 };
 
-const checkColumnArea = (x, id) => {
+const checkColumnArea = x => {
+  const dataId = $('.drag').getAttribute('data-id');
   const columns = ['todo', 'ing', 'complete'];
   const todoColumn = $(`.${columns[0]}-wrapper`);
   const ingColumn = $(`.${columns[1]}-wrapper`);
   const completeColumn = $(`.${columns[2]}-wrapper`);
 
-  const card = document.getElementById(`${id}`);
+  const card = document.getElementById(`${dataId}`);
   card.classList.remove('spectrum');
 
   columnAppendChildCard(x, todoColumn, card);
