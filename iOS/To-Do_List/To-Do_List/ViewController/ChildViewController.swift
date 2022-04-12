@@ -14,7 +14,6 @@ final class ChildViewController: UIViewController, UITableViewDelegate {
     private var header : BoardHeader!
     private var boardType : BoardType?
     
-    
     private var list:[Todo]?
 
     override func viewDidLoad() {
@@ -32,10 +31,10 @@ final class ChildViewController: UIViewController, UITableViewDelegate {
     private func setHeader() {
         guard let title = boardType else {return}
         self.header = BoardHeader(titleText: title)
-        self.header.contentMode = .center
-        self.header.delegate = self
         self.view.addSubview(header)
         setHeaderViewConstraint()
+        
+        self.header.delegate = self
     }
     
 
@@ -104,13 +103,12 @@ extension ChildViewController {
 }
 
 
-//MARK: -- AddButton delegation
+//MARK: -- BoardHeader Delegation
 extension ChildViewController : BoardHeaderDelegate {
-    func DidTapAddButton() {
+    func didTapAddButton() {
         let editVC = EditCardViewController()
         editVC.setEditCardView(editStyle: .add)
         editVC.modalPresentationStyle = .formSheet
         present(editVC, animated: true)
     }
-
 }

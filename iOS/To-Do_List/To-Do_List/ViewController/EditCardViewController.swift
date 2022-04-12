@@ -19,6 +19,8 @@ final class EditCardViewController: UIViewController {
     }
        
     private func setup() {
+        self.editCardView.delegate = self
+        
         let editViewSize = CGSize(width: 400, height: 175)
         self.editCardView.backgroundColor = .systemBackground
         self.preferredContentSize = CGSize(width: editViewSize.width , height: editViewSize.height)
@@ -39,4 +41,19 @@ final class EditCardViewController: UIViewController {
         self.editCardView.setEditCardView(editStyle: editStyle)
     }
     
+}
+
+//MARK: -- EditCardView Delegation
+extension EditCardViewController : EditCardViewDelegate {
+    func didTapConfirmButton(buttonTitle: String) {
+        print(buttonTitle)
+    }
+    
+    func didTapCancelButton() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func textFieldDidEndEditing() {
+        editCardView.changeConfirmButtonState()
+    }
 }

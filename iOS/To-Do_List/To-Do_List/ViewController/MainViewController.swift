@@ -67,9 +67,8 @@ final class MainViewController: UIViewController {
             addChild($0)
             self.statckView.addArrangedSubview($0.view)
         }
-        
     }
-
+    
 }
 
 //MARK: Handeling Logview animation.
