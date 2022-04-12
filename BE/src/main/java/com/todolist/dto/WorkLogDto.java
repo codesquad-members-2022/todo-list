@@ -1,10 +1,8 @@
 package com.todolist.dto;
 
 import java.time.LocalDateTime;
-import lombok.Builder;
 import lombok.Getter;
 
-@Builder
 @Getter
 public class WorkLogDto {
 
@@ -13,4 +11,13 @@ public class WorkLogDto {
     private String previousColumn;
     private String changedColumn;
     private LocalDateTime updatedDateTime;
+
+    public WorkLogDto(String title, String action, String previousColumn,
+        String changedColumn, LocalDateTime updatedDateTime) {
+        this.title = title;
+        this.action = action;
+        this.previousColumn = previousColumn;
+        this.changedColumn = changedColumn;
+        this.updatedDateTime = updatedDateTime;
+    }
 }

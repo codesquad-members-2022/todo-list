@@ -14,8 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class WorkLogRepository {
 
-    private static final String CREATION = "등록";
-
     private final NamedParameterJdbcTemplate jdbc;
 
     public WorkLogRepository(DataSource dataSource) {
@@ -24,15 +22,14 @@ public class WorkLogRepository {
 
     public List<WorkLog> findAllByUserId(String userId) {
         return jdbc.query("SELECT title, action, previous_column, changed_column, updated_datetime "
-            + "FROM work AS A JOIN work_log AS B ON A.id = B.work_id WHERE user_id = :userId ORDER BY updated_datetime DESC",
+            + "FROM work_log WHERE user_id = :userId ORDER BY updated_datetime DESC",
             Collections.singletonMap("userId", userId), workLogRowMapper());
     }
 
-    public void saveCreationLog(Integer workId, String categoryName) {
-        WorkLog workLog = new WorkLog(workId, CREATION, categoryName);
+    public void saveCreationLog(WorkLog workLog) {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(workLog);
-        jdbc.update("INSERT INTO work_log (work_id, action, previous_column, updated_datetime)"
-            + " VALUES (:workId, :action, :previousColumn, :updatedDateTime)", parameters);
+        jdbc.update("INSERT INTO work_log (user_id, title, action, previous_column, updated_datetime)"
+            + " VALUES (:userId, :title, :action, :previousColumn, :updatedDateTime)", parameters);
     }
 
     private RowMapper<WorkLog> workLogRowMapper() {

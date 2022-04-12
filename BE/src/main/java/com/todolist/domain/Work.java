@@ -33,21 +33,11 @@ public class Work {
         this.createdDateTime = createdDateTime;
     }
 
-    public WorkDto convertToDtoForCreation(Integer id) {
-        return WorkDto.builder()
-            .id(id)
-            .title(title)
-            .content(content)
-            .createdDateTime(createdDateTime)
-            .build();
+    public WorkDto convertToDto() {
+        return new WorkDto(id, title, content, createdDateTime);
     }
 
-    public WorkDto convertToDto() {
-        return WorkDto.builder()
-            .id(id)
-            .title(title)
-            .content(content)
-            .createdDateTime(createdDateTime)
-            .build();
+    public WorkDto convertToDtoForCreation(Integer id) {
+        return new WorkDto(id, title, content, createdDateTime);
     }
 }

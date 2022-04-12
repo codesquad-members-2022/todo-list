@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class WorkLog {
 
-    private Integer workId;
+    private String userId;
     private String title;
     private String action;
     private String previousColumn;
@@ -25,20 +25,15 @@ public class WorkLog {
         this.updatedDateTime = updatedDateTime;
     }
 
-    public WorkLog(Integer workId, String action, String previousColumn) {
-        this.workId = workId;
+    public WorkLog(String userId, String title, String action, String previousColumn) {
+        this.userId = userId;
+        this.title = title;
         this.action = action;
         this.previousColumn = previousColumn;
         this.updatedDateTime = LocalDateTime.now();
     }
 
     public WorkLogDto convertToDto() {
-        return WorkLogDto.builder()
-            .title(title)
-            .action(action)
-            .previousColumn(previousColumn)
-            .changedColumn(changedColumn)
-            .updatedDateTime(updatedDateTime)
-            .build();
+        return new WorkLogDto(title, action, previousColumn, changedColumn, updatedDateTime);
     }
 }
