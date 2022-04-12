@@ -17,7 +17,7 @@ class HistoryTableViewCell: UITableViewCell {
     lazy var emojiLabel: UILabel = {
         let label = UILabel()
         label.text = "🥳"
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
     
@@ -53,17 +53,18 @@ class HistoryTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(view)
         view.addSubview(emojiLabel)
         view.addSubview(titleFromToLabel)
         view.addSubview(writerLabel)
         view.addSubview(timestampLabel)
+        contentView.addSubview(view)
         setPropertiesAutoLayout()
         setCellUIProperty()
     }
     
     private func setCellUIProperty() {
-        
+        contentView.backgroundColor = .yellow
+        view.backgroundColor = .white
     }
     
     func setCellUIData(title: String, writer: String, time: Date) {
@@ -74,6 +75,21 @@ class HistoryTableViewCell: UITableViewCell {
     
     private func setPropertiesAutoLayout() {
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: CGFloat(200)).isActive = true
+        view.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        
+        emojiLabel.translatesAutoresizingMaskIntoConstraints = false
+        emojiLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        emojiLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+        //emojiLabel.trailingAnchor.constraint(equalTo: writerLabel.trailingAnchor, constant: -15).isActive = true
+        emojiLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        writerLabel.translatesAutoresizingMaskIntoConstraints = false
+        writerLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        writerLabel.leadingAnchor.constraint(equalTo: emojiLabel.trailingAnchor, constant: 15).isActive = true
+        //writerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        
     }
 
 }

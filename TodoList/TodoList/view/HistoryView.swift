@@ -19,6 +19,8 @@ class HistoryView: UIView{
     var actionDelegate: HistoryViewAction?
     
     private let historyTableView = UITableView()
+    private let historyTableDelegate = HistoryTableDelegate()
+    private let historyTableDataSource = HistoryTableDataSource()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,11 +34,13 @@ class HistoryView: UIView{
     
     private func setUI(){
         backgroundColor = .white
+        historyTableView.delegate = historyTableDelegate
+        historyTableView.dataSource = historyTableDataSource
+        historyTableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: HistoryTableViewCell.identifier)
         addSubview(closeButton)
         addSubview(historyTableView)
         setUIConstraint()
         setCloseButtonAction()
-        historyTableView.backgroundColor = .brown
     }
     
     private func setUIConstraint(){
@@ -68,3 +72,4 @@ class HistoryView: UIView{
         }, for: .touchUpInside)
     }
 }
+
