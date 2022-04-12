@@ -1,24 +1,33 @@
+import { store } from "../store.js";
+import { $ } from "../utils.js";
+
 export default class TaskCard {
-  constructor() {}
-  init() {}
+  constructor(card) {
+    this.id = card.id;
+    store.initState(this.id);
+    store.setState(this.id, card);
+  }
   template() {
-    // states = ["idle", "delete", "drag", "place"];
-    const state = "idle";
+    // types = ["idle", "delete", "drag", "place"];
+    const type = "idle";
+    const card = store.state[this.id];
     return `
-      <ul class="work__list">
         <li class="work__item">
-          <div class="task-${state}">
-            <div class="task-${state}__contents">
-              <h3 class="task-${state}__title">GitHub 공부하기</h3>
-              <p class="task-${state}__desc">add, commit, push</p>
-              <strong class="task-${state}__author">author by web</strong>
+          <div class="task-${type}">
+            <div class="task-${type}__contents">
+              <h3 class="task-${type}__title">${card.title}</h3>
+              <p class="task-${type}__desc">${card.contents}</p>
+              <strong class="task-${type}__author">author by ${card.userId}</strong>
             </div>
-            <div class="task-${state}__btn">
-              <div class="task-${state}__btn--remove"></div>
+            <div class="task-${type}__btn">
+              <div class="task-${type}__btn--remove"></div>
             </div>
           </div>
         </li>
-      </ul>
     `;
+  }
+  render() {
+    $(`.${this.id}`).innerHTML = this.template();
+    store.subscribe(this.id, this.render().bind(this));
   }
 }
