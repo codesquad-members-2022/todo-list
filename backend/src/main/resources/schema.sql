@@ -37,13 +37,21 @@ drop table if exists history cascade;
 create table history
 (
     history_id   bigint(10) not null auto_increment primary key comment '변경내역 식별 번호',
-    user_id      bigint(10) not null comment '어떤 사용자에 의해 변경이 발생했는지 식별하기 위한 FK',
+    card_id      bigint(10) not null comment '어떤 카드에 변경이 발생했는지 식별하기 위한 FK',
     created_date timestamp  not null comment '변경내역 발생 날짜, 시간',
-    title        char(200) comment '카드 관련 변경내역인 경우 해당 카드의 제목',
-    column_name  char(200) comment '컬럼 관련 변경내역인 경우 해당 컬럼의 이름',
-    field        char(100) comment '변경이 적용된 필드(카드 제목, 컬럼 이름 등)',
-    old_value    char(200) comment '변경이 적용되기 이전의 해당 필드의 값',
     action       char(20)   not null comment '변경 내용(이동,삭제 등)',
-    FOREIGN KEY (user_id) references user (user_id)
+    FOREIGN KEY (card_id) references card (card_id)
 );
+
+drop table if exists modified_field cascade;
+create table modified_field
+(
+    modified_field_id bigint(10) not null auto_increment primary key comment '필드 변경내역 식별 번호',
+    history_id        bigint(10) not null comment '어떤 변경 내역에 해당하는 필드 변경 내역인지 식별하기 위한 FK',
+    field             char(100) comment '변경이 적용된 필드(카드 제목, 컬럼 이름 등)',
+    old_value         char(200) comment '변경이 적용되기 이전의 해당 필드의 값',
+    new_value         char(200) comment '변경이 적용되기 이후의 해당 필드의 값',
+    FOREIGN KEY (history_id) references history (history_id)
+);
+
 set foreign_key_checks = 1;

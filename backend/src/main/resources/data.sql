@@ -13,5 +13,5 @@ values (1, 'Miller', '2022-04-06 00:00:00', 'todo_list', 'todolist 만들기', 1
 insert into card (column_id, author, created_date, title, content, card_order)
 values (2, 'Miller', '2022-04-06 00:00:00', 'sql,', 'sql 공부하기', 1);
 
-insert into history (user_id, created_date, title, column_name, field, old_value, action)
-values (1, '2022-04-06 00:00:00', 'todo_list', NULL, NULL, NULL, 'delete')
+insert into history (card_id, created_date, action)
+values (1, '2022-04-06 00:00:00', 'DELETE')

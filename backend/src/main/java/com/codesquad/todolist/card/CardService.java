@@ -1,17 +1,28 @@
 package com.codesquad.todolist.card;
 
-import org.springframework.stereotype.Service;
-
 import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
+import com.codesquad.todolist.history.HistoryRepository;
+import com.codesquad.todolist.history.ModifiedFieldRepository;
+import com.codesquad.todolist.history.domain.Action;
+import com.codesquad.todolist.history.domain.History;
+import com.codesquad.todolist.history.domain.ModifiedField;
+import java.util.List;
+import org.springframework.stereotype.Service;
+
 
 @Service
 public class CardService {
 
     private final CardRepository cardRepository;
+    private final HistoryRepository historyRepository;
+    private final ModifiedFieldRepository modifiedFieldRepository;
 
-    public CardService(CardRepository cardRepository) {
+    public CardService(CardRepository cardRepository, HistoryRepository historyRepository,
+        ModifiedFieldRepository modifiedFieldRepository) {
         this.cardRepository = cardRepository;
+        this.historyRepository = historyRepository;
+        this.modifiedFieldRepository = modifiedFieldRepository;
     }
 
     public Card create(CardCreateRequest createRequest) {
@@ -20,16 +31,29 @@ public class CardService {
         return cardRepository.create(card);
     }
 
-    public void update(Integer cardId, CardUpdateRequest request) {
+    public History update(Integer cardId, CardUpdateRequest request) {
         Card card = cardRepository.findById(cardId)
             .orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
 
         card.update(request.getTitle(), request.getContent(), request.getAuthor());
         cardRepository.update(card);
+
+        History history = new History(card.getCardId(), Action.UPDATE);
+        historyRepository.create(history);
+
+        List<ModifiedField> modifiedFields = card.getModifiedFields();
+        for (ModifiedField modifiedField : modifiedFields) {
+            modifiedField.setHistoryId(history.getHistoryId());
+        }
+        modifiedFieldRepository.createAll(modifiedFields);
+
+        return historyRepository.findById(history.getHistoryId())
+            .orElseThrow(() -> new IllegalArgumentException("히스토리를 찾을 수 없습니다."));
     }
 
     public void delete(Integer cardId) {
-        Card card = cardRepository.findById(cardId).orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
+        Card card = cardRepository.findById(cardId)
+            .orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
         cardRepository.deleteById(card.getCardId());
     }
 
