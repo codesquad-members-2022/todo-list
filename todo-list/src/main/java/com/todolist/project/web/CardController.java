@@ -20,6 +20,9 @@ public class CardController {
         return cardService.findAll();
     }
 
+    @GetMapping("/{cardStatus}")
+    public List<Card> listByStatus(@PathVariable String cardStatus) { return cardService.findByStatus(cardStatus);}
+
     @PostMapping
     public int add(@RequestBody CardAddDto dto) {
         return cardService.addCard(dto, cardService.findAll().size());
