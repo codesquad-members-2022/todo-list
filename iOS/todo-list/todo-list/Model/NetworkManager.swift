@@ -29,6 +29,15 @@ struct NetworkManager {
         return components
     }()
     
+    var logComponents: URLComponents = {
+        var logComponents = URLComponents()
+        logComponents.scheme = "http"
+        logComponents.host = "15.164.250.0"
+        logComponents.port = 8080
+        logComponents.path = "/api/activities"
+        return logComponents
+    }()
+    
     let decoder = JSONDecoder().krISO8601
     let encoder = JSONEncoder().krISO8601
     
