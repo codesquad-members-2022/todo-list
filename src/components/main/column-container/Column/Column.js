@@ -1,13 +1,12 @@
 import "./Column.scss";
 import { Store } from "../../../../stores/ColumnStore.js";
-import { Card } from "./card/Card.js";
+import { initCard } from "./card/Card.js";
 
 export const initColumn = (parentNode, columnState) => {
   const columnNode = makeColumnNode(columnState);
   appendColumnNode(columnNode, parentNode);
   renderColumn(columnNode, columnState);
   setEvents(columnNode);
-  subscribeState();
 };
 
 const makeColumnNode = (columnState) => {
@@ -55,11 +54,10 @@ const getCardListTemplate = () => {
 };
 
 const mountCards = (columnNode, columnState) => {
-  const columnID = columnNode.dataset.id;
   const cardOrder = columnState.cardOrder;
   const cardListNode = columnNode.querySelector(".card-list");
   cardListNode.innerHTML = "";
-  cardOrder.forEach((cardID) => new Card(columnID, cardID));
+  cardOrder.forEach((cardID) => initCard(cardListNode, columnState.cards[cardID]));
 };
 
 const setEvents = (columnNode) => {
@@ -80,11 +78,7 @@ const handleAddBtnClick = (columnNode, addBtn) => {
   }
 };
 
-const subscribeState = () => {
-  Store.subscribe("column", reRenderColumn);
-};
-
-const reRenderColumn = (columnState) => {
+export const reRenderColumn = (columnState) => {
   const columnNode = findColumnNode(columnState.id);
   renderColumn(columnNode, columnState);
   setEvents(columnNode);

@@ -56,7 +56,7 @@ export const Store = {
   addNewCardForm(columnID) {
     const newCardID = this.getNewCardID();
     this.state[columnID].cardOrder.unshift(newCardID);
-    this.state[columnID].cards[newCardID] = { columnID, type: "new" };
+    this.state[columnID].cards[newCardID] = { id: newCardID, type: "adding" };
   },
 
   deleteNewCardForm(columnID) {
@@ -70,7 +70,7 @@ export const Store = {
 
   deleteCard(columnID, cardID) {
     delete this.state[columnID].cards[cardID];
-    this.state[columnID].cardOrder = this.state[columnID].cardOrder.filter((e) => e !== cardID);
+    this.state[columnID].cardOrder = this.state[columnID].cardOrder.filter((e) => e != cardID);
     this.notify("column", this.state[columnID]);
   },
 

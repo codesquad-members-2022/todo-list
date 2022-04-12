@@ -1,185 +1,187 @@
 import "./Card.scss";
 import { Store } from "../../../../../stores/ColumnStore.js";
 
-export class Card {
-  constructor(parentColumnID, cardID) {
-    this.parentColumnID = parentColumnID;
-    this.cardID = cardID;
-    this.setNode();
-    this.renderContent();
-    this.activate();
-  }
+export const initCard = (parentNode, cardState) => {
+  const cardNode = makeCardNode(cardState);
+  appendCardNode(cardNode, parentNode);
+  renderCard(cardNode, cardState);
+  setEvents(cardNode, cardState);
+};
 
-  activate() {
-    Store.subscribe("card", () => this.renderContent());
-  }
+const makeCardNode = (cardState) => {
+  const cardNode = document.createElement("div");
+  cardNode.className = "card";
+  cardNode.dataset.id = cardState.id;
+  return cardNode;
+};
 
-  setNode() {
-    const parentColumnDOM = document.querySelector(`[data-id="${this.parentColumnID}"]`);
-    const cardNode = this.makeCardNode();
-    parentColumnDOM.append(cardNode);
-    this.cardNode = cardNode;
-  }
+const appendCardNode = (cardNode, parentNode) => {
+  parentNode.append(cardNode);
+};
 
-  makeCardNode() {
-    const cardNode = document.createElement("div");
-    cardNode.className = "card";
-    cardNode.dataset.cardID = this.cardID;
-    return cardNode;
-  }
+const renderCard = (cardNode, cardState) => {
+  cardNode.innerHTML = makeCardInnerTemplate(cardState);
+};
 
-  renderContent() {
-    const cardData = Store.state[this.parentColumnID].cards[this.cardID];
-    const cardType = cardData.type;
-    this.cardNode.innerHTML = this.getInnerTemplate(cardType, cardData);
-    this.cacheDOM(cardType);
-    this.setEvents(cardType);
-  }
+const makeCardInnerTemplate = (cardState) => {
+  const contentTemplate =
+    cardState.type === "normal" ? getNormalContentTemplate(cardState) : getTempContentTemplate(cardState);
+  const btnTemplate =
+    cardState.type === "normal" ? getNormalBtnTemplate() : getTempBtnTemplate(cardState.type);
+  return contentTemplate + btnTemplate;
+};
 
-  getInnerTemplate(cardType, cardData) {
-    const contentTemplate =
-      cardType === "normal" ? this.getNormalContentTemplate(cardData) : this.getTempContentTemplate(cardData);
-    const btnTemplate =
-      cardType === "normal" ? this.getNormalBtnTemplate() : this.getTempBtnTemplate(cardType);
-    return contentTemplate + btnTemplate;
-  }
+const getNormalContentTemplate = (cardState) => {
+  return `      
+  <div class="card-contents">
+    <div class="card-contents__title">${cardState.title}</div>
+    <div class="card-contents__description">${cardState.description}</div>
+    <div class="card-contents__author">${cardState.author}</div>
+  </div>`;
+};
 
-  getNormalContentTemplate(cardData) {
-    return `      
+const getTempContentTemplate = (cardState) => {
+  const titleInput = `<input placeholder="제목을 입력하세요" value='${cardState.title || ""}' />`;
+  const descriptionInput = `<input placeholder="내용을입력하세요" value='${cardState.description || ""}' />`;
+  return `
     <div class="card-contents">
-      <div class="card-contents__title">${cardData.title}</div>
-      <div class="card-contents__description">${cardData.description}</div>
-      <div class="card-contents__author">${cardData.author}</div>
+      <div class="card-contents__title">${titleInput}</div>
+      <div class="card-contents__description">${descriptionInput}</div>
     </div>`;
-  }
+};
 
-  getTempContentTemplate(cardData) {
-    const titleInput = `<input placeholder="제목을 입력하세요" value='${cardData.title || ""}' />`;
-    const descriptionInput = `<input placeholder="내용을입력하세요" value='${cardData.description || ""}' />`;
+const getNormalBtnTemplate = () => {
+  return `<div class="card__delete-btn"></div>`;
+};
 
-    return `
-      <div class="card-contents">
-        <div class="card-contents__title">${titleInput}</div>
-        <div class="card-contents__description">${descriptionInput}</div>
-      </div>`;
-  }
+const getTempBtnTemplate = (cardType) => {
+  return `
+  <div class="card__btns">
+    <div class="card__btn card__cancel-btn">취소</div>
+    <div class="card__btn card__confirm-btn">${cardType === "adding" ? "등록" : "수정"}</div>
+  </div>`;
+};
 
-  getNormalBtnTemplate() {
-    return `<div class="card__delete-btn"></div>`;
+const setEvents = (cardNode, cardState) => {
+  switch (cardState.type) {
+    case "normal":
+      setDeleteBtnEvent(cardNode);
+      setDoubleClickEvent(cardNode);
+      break;
+    case "adding":
+    case "editing":
+      setCancelBtnEvent(cardNode, cardState.type);
+      setConfirmBtnEvent(cardNode);
+      setInputEvent(cardNode);
   }
+};
 
-  getTempBtnTemplate(cardType) {
-    return `
-    <div class="card__btns">
-      <div class="card__btn card__cancel-btn">취소</div>
-      <div class="card__btn card__confirm-btn">${cardType === "new" ? "등록" : "수정"}</div>
-    </div>`;
-  }
+const setDeleteBtnEvent = (cardNode) => {
+  const deleteBtn = cardNode.querySelector(".card__delete-btn");
+  deleteBtn.addEventListener("click", () => handleDeleteBtnClickEvent(cardNode));
+  deleteBtn.addEventListener("mouseenter", () => handleDeleteBtnMouseEvent(cardNode));
+  deleteBtn.addEventListener("mouseleave", () => handleDeleteBtnMouseEvent(cardNode));
+};
 
-  cacheDOM(cardType) {
-    if (cardType === "normal") {
-      this.deleteBtn = this.cardNode.querySelector(".card__delete-btn");
-    } else {
-      this.cancelBtn = this.cardNode.querySelector(".card__cancel-btn");
-      this.confirmBtn = this.cardNode.querySelector(".card__confirm-btn");
-      this.titleInput = this.cardNode.querySelector(".card-contents__title input");
-      this.descriptionInput = this.cardNode.querySelector(".card-contents__description input");
-    }
-  }
+const setDoubleClickEvent = (cardNode) => {
+  cardNode.addEventListener("dblclick", () => handleDoubleClickEvent(cardNode));
+};
 
-  setEvents(cardType) {
-    switch (cardType) {
-      case "normal":
-        this.setDeleteBtnEvent();
-        this.setDoubleClickEvent();
-        break;
-      case "new":
-      case "editing":
-        this.setCancelBtnEvent(cardType);
-        this.setConfirmBtnEvent();
-        this.setInputEvent();
-    }
-  }
+const setCancelBtnEvent = (cardNode, cardType) => {
+  const cancelBtn = cardNode.querySelector(".card__cancel-btn");
+  cancelBtn.addEventListener("click", () => handleCancelBtnEvent(cardNode, cardType));
+};
 
-  setDeleteBtnEvent() {
-    this.deleteBtn.addEventListener("click", () => this.handleDeleteBtnClickEvent());
-    this.deleteBtn.addEventListener("mouseenter", () => this.handleDeleteBtnMounseEvent());
-    this.deleteBtn.addEventListener("mouseleave", () => this.handleDeleteBtnMounseEvent());
-  }
+const setConfirmBtnEvent = (cardNode) => {
+  const confirmBtn = cardNode.querySelector(".card__confirm-btn");
+  confirmBtn.addEventListener("click", () => handleConfirmBtnEvent(confirmBtn, cardNode));
+};
 
-  setDoubleClickEvent() {
-    this.cardNode.addEventListener("dblclick", () => this.handleDoubleClickEvent());
-  }
+const setInputEvent = (cardNode) => {
+  cardNode.addEventListener("input", () => handleInputEvent(cardNode));
+};
 
-  setCancelBtnEvent(cardType) {
-    this.cancelBtn.addEventListener("click", () => this.handleCancelBtnEvent(cardType));
-  }
+const handleDeleteBtnClickEvent = (cardNode) => {
+  //todo: alert창 뜬 후에 삭제하도록 기능 추가해야함
+  deleteCard(cardNode);
+};
 
-  setConfirmBtnEvent() {
-    this.confirmBtn.addEventListener("click", () => this.handleConfirmBtnEvent());
-  }
+const handleDeleteBtnMouseEvent = (cardNode) => {
+  cardNode.classList.toggle("card--deleting");
+};
 
-  setInputEvent() {
-    this.titleInput.addEventListener("input", (e) => this.handelInputEvent(e));
-    this.descriptionInput.addEventListener("input", (e) => this.handelInputEvent(e));
-  }
+const handleDoubleClickEvent = (cardNode) => {
+  changeCardType(cardNode, "editing");
+};
 
-  handleDeleteBtnClickEvent() {
-    //todo: alert창 뜬 후에 삭제하도록 기능 추가해야함
-    this.deleteCard();
+const handleCancelBtnEvent = (cardNode, cardType) => {
+  if (cardType === "adding") {
+    deleteCard(cardNode);
+  } else if (cardType === "editing") {
+    changeCardType(cardNode, "normal");
   }
+};
 
-  handleDeleteBtnMounseEvent() {
-    this.cardNode.classList.toggle("card--deleting");
-  }
+const handleConfirmBtnEvent = (confirmBtn, cardNode) => {
+  if (!confirmBtn.classList.contains("activated")) return;
+  changeCardData(cardNode);
+};
 
-  handleDoubleClickEvent() {
-    this.changeCardType("editing");
-  }
+const handleInputEvent = (cardNode) => {
+  const titleInput = cardNode.querySelector(".card-contents__title input");
+  const descriptionInput = cardNode.querySelector(".card-contents__description input");
+  const confirmBtn = cardNode.querySelector(".card__confirm-btn");
+  onOffConfirmBtn(titleInput, descriptionInput, confirmBtn);
+};
 
-  handleCancelBtnEvent(cardType) {
-    if (cardType === "new") {
-      this.deleteCard();
-    } else if (cardType === "editing") {
-      this.changeCardType("normal");
-    }
-  }
+const isInputAllValid = (titleInput, descriptionInput) => {
+  const titleInputLength = titleInput.value.trim().length;
+  const descriptionInputLength = descriptionInput.value.trim().length;
+  return Boolean(titleInputLength && descriptionInputLength);
+};
 
-  handleConfirmBtnEvent(e) {
-    if (!this.confirmBtn.classList.contains("activated")) {
-      return;
-    }
-    this.changeCardData();
+const onOffConfirmBtn = (titleInput, descriptionInput, confirmBtn) => {
+  if (isInputAllValid(titleInput, descriptionInput)) {
+    confirmBtn.classList.add("activated");
+  } else {
+    confirmBtn.classList.remove("activated");
   }
+};
 
-  handelInputEvent(e) {
-    this.toggleConfrimBtn(e);
-  }
+const changeCardData = (cardNode) => {
+  const [parentColumnID, cardID] = getIDs(cardNode);
+  const cardState = {
+    id: cardID,
+    type: "normal",
+    title: cardNode.querySelector(".card-contents__title input").value,
+    description: cardNode.querySelector(".card-contents__description input").value,
+    author: "author by web",
+  };
+  Store.changeCard(parentColumnID, cardID, cardState);
+};
 
-  deleteCard() {
-    Store.deleteCard(this.parentColumnID, this.cardID);
-  }
+const changeCardType = (cardNode, type) => {
+  const [parentColumnID, cardID] = getIDs(cardNode);
+  Store.changeCardType(parentColumnID, cardID, type);
+};
 
-  changeCardType(type) {
-    Store.changeCardType(this.parentColumnID, this.cardID, type);
-  }
+const deleteCard = (cardNode) => {
+  const [parentColumnID, cardID] = getIDs(cardNode);
+  Store.deleteCard(parentColumnID, cardID);
+};
 
-  changeCardData() {
-    const cardData = {
-      columnID: this.parentColumnID,
-      type: "normal",
-      title: this.titleInput.value,
-      description: this.descriptionInput.value,
-      author: "author by web",
-    };
-    Store.changeCard(this.parentColumnID, this.cardID, cardData);
-  }
+const getIDs = (cardNode) => {
+  const parentColumnID = cardNode.closest(".column").dataset.id;
+  const cardID = cardNode.dataset.id;
+  return [parentColumnID, cardID];
+};
 
-  toggleConfrimBtn(e) {
-    if (e.target.value.trim().length === 0) {
-      this.confirmBtn.classList.remove("activated");
-    } else {
-      this.confirmBtn.classList.add("activated");
-    }
-  }
-}
+export const reRenderCard = (cardState) => {
+  const cardNode = findCardNode(cardState.id);
+  renderCard(cardNode, cardState);
+  setEvents(cardNode, cardState);
+};
+
+const findCardNode = (cardID) => {
+  return document.querySelector(`[data-id="${cardID}"]`);
+};
