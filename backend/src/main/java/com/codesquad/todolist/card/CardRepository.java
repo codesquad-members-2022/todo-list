@@ -72,12 +72,19 @@ public class CardRepository {
             .addValue("cardId", card.getCardId())
         );
         // 이동 위치의 카드의 nextId를 변경한다
-
-        String updateCard5Sql = "update card set next_id = :cardId where next_id = :newNextId";
-        jdbcTemplate.update(updateCard5Sql, new MapSqlParameterSource()
-            .addValue("cardId", card.getCardId())
-            .addValue("newNextId", card.getNextId())
-        );
+        if (card.getNextId() == null) {
+            String updateCard5Sql = "update card set next_id = :cardId where next_id is null and column_id = :columnId";
+            jdbcTemplate.update(updateCard5Sql, new MapSqlParameterSource()
+                .addValue("cardId", card.getCardId())
+                .addValue("columnId", card.getColumnId())
+            );
+        } else {
+            String updateCard5Sql = "update card set next_id = :cardId where next_id = :newNextId";
+            jdbcTemplate.update(updateCard5Sql, new MapSqlParameterSource()
+                .addValue("cardId", card.getCardId())
+                .addValue("newNextId", card.getNextId())
+            );
+        }
 
         // 이동 하는 카드의 nextId를 변경한다
         String sql = "update card set column_id = :columnId, next_id = :nextId where card_id = :cardId";
