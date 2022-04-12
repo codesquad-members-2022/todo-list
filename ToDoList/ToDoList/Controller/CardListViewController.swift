@@ -104,5 +104,9 @@ extension CardListViewController {
     @objc private func cardManagerDidAddNewCard(_ notification: Notification) {
         updateBadge()
         tableView.reloadData()
+        
+        NotificationCenter.default.removeObserver(self,
+                                                  name: EditCardViewController.Constants.NotificationNames.didAddNewData,
+                                                  object: self.editCardViewModal)
     }
 }
