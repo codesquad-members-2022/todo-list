@@ -15,13 +15,13 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-public class ActionLogRepository {
+public class ActivityLogRepository {
 
     private final SimpleJdbcInsert insertJdbc;
     private final NamedParameterJdbcTemplate jdbc;
     private final RowMapper<ActivityLog> rowMapper;
 
-    public ActionLogRepository(DataSource dataSource) {
+    public ActivityLogRepository(DataSource dataSource) {
         jdbc = new NamedParameterJdbcTemplate(dataSource);
         insertJdbc = new SimpleJdbcInsert(dataSource)
                 .withTableName("activity_log")

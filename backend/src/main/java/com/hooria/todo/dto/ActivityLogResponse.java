@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 @AllArgsConstructor
 @Getter
-public class ActionLogResponse {
+public class ActivityLogResponse {
 
     private long id;
     private String userId;
@@ -20,8 +20,8 @@ public class ActionLogResponse {
     private String createdAt;
     private boolean readYn;
 
-    public static ActionLogResponse from(ActivityLog activityLog) {
-        return new ActionLogResponse(
+    public static ActivityLogResponse from(ActivityLog activityLog) {
+        return new ActivityLogResponse(
                 activityLog.getId(),
                 activityLog.getUserId(),
                 activityLog.getActivityType(),

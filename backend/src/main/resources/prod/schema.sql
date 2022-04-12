@@ -25,16 +25,15 @@ create table task_card
 );
 
 drop table if exists activity_log;
-drop table if exists action_log;
 
-create table action_log
+create table activity_log
 (
-    id          int primary key auto_increment,
-    user_id     varchar(500) not null,
-    action_type varchar(500) not null COMMENT 'ADD, REMOVE, UPDATE, MOVE',
-    task_title  varchar(500) not null,
-    from_status varchar(500) COMMENT '변경 전 상태',
-    to_status   varchar(500) COMMENT '변경 후 상태',
-    created_at  datetime     not null,
-    read_yn     boolean      not null COMMENT '읽기 여부'
+    id            int primary key auto_increment,
+    user_id       varchar(500) not null,
+    activity_type varchar(500) not null COMMENT 'ADD, REMOVE, UPDATE, MOVE',
+    task_title    varchar(500) not null,
+    from_status   varchar(500) COMMENT '변경 전 상태',
+    to_status     varchar(500) COMMENT '변경 후 상태',
+    created_at    datetime     not null,
+    read_yn       boolean      not null COMMENT '읽기 여부'
 );
