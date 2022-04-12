@@ -15,6 +15,7 @@ struct Task: Codable {
     
     // System Generated
     var id: Int = 0
+    var userId: String = "Eddy_User"
     var rowPosition: Int = 0
     var device: Device = .iOS
     var createdAt: Date = .now

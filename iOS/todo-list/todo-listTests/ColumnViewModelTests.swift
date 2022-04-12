@@ -11,14 +11,12 @@ class ColumnViewModelTests: XCTestCase {
     
     func testLoad() {
         let promise = XCTestExpectation(description: "Data Loaded")
-        let columnViewModel = ColumnViewModel(state: .todo)
-        
+        let columnViewModel = ColumnViewModel(state: .todo, taskManager: TaskManager())
+
         columnViewModel.list.bind { taskViewModels in
-            DispatchQueue.main.async {
                 print(taskViewModels.count)
                 XCTAssertTrue(taskViewModels.count > 0)
                 promise.fulfill()
-            }
         }
         
         columnViewModel.load()

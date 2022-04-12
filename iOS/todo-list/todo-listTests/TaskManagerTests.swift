@@ -15,7 +15,7 @@ class TaskManagerTests: XCTestCase {
             XCTAssertTrue(tasks.count > 0)
             promise.fulfill()
         }
-        wait(for: [promise], timeout: 1)
+        wait(for: [promise], timeout: 2)
     }
     
     func testAdd() {

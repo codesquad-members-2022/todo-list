@@ -27,6 +27,8 @@
 		5B997D8E2805641300A00B42 /* LogManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B997D8D2805641300A00B42 /* LogManagerTests.swift */; };
 		BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
 		BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
+		BC40607F2805419600E03651 /* DataPrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC40607E2805419600E03651 /* DataPrettyPrint.swift */; };
+		BC4060802805419600E03651 /* DataPrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC40607E2805419600E03651 /* DataPrettyPrint.swift */; };
 		BC4792972803E4BD00CBE369 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4792962803E4BD00CBE369 /* TaskManager.swift */; };
 		BC4792982803E4BD00CBE369 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4792962803E4BD00CBE369 /* TaskManager.swift */; };
 		BC5880DE27FC297C002E3A1D /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */; };
@@ -102,6 +104,7 @@
 		5B997D8D2805641300A00B42 /* LogManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManagerTests.swift; sourceTree = "<group>"; };
 		BC3D4A1627FD6F1C009B37FB /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		BC40607E2805419600E03651 /* DataPrettyPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPrettyPrint.swift; sourceTree = "<group>"; };
 		BC4792962803E4BD00CBE369 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
 		BC5880D927FC297C002E3A1D /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
@@ -274,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				BC632507280427BA00CE5280 /* DateFormatter.swift */,
+				BC40607E2805419600E03651 /* DataPrettyPrint.swift */,
 				BC632504280418B900CE5280 /* Observerble.swift */,
 			);
 			path = Common;
@@ -452,6 +456,7 @@
 				BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */,
 				5B349DEA27FECDC500AA602E /* Action.swift in Sources */,
 				BCC6641027FC10F10078C1E2 /* KanbanViewController.swift in Sources */,
+				BC40607F2805419600E03651 /* DataPrettyPrint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC6325102804291B00CE5280 /* NetworkManagerTests.swift in Sources */,
+				BC4060802805419600E03651 /* DataPrettyPrint.swift in Sources */,
 				BC4792982803E4BD00CBE369 /* TaskManager.swift in Sources */,
 				BCC3729227FFEB6300774933 /* NetworkManager.swift in Sources */,
 				BC63251628043EFF00CE5280 /* Observerble.swift in Sources */,
