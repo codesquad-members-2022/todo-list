@@ -1,0 +1,19 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+  align-items: center;
+}
+
+.header__title {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 46px;
+  color: #010101;
+}
+
+.header__menu-btn {
+  margin-right: 10px;
+}

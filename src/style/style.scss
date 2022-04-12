@@ -1,79 +1,8 @@
 @use 'reset.scss';
+@use 'header.scss';
+@use 'taskColumn';
 @use 'taskCard.scss';
 
-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 50px;
-  align-items: center;
-  border: 1px solid black;
-}
-
-.header__title {
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 46px;
-  color: #010101;
-}
-
-.header__menu-btn {
-  height: 11px;
-  width: 17px;
-  left: 3px;
-  top: 7px;
-  margin-right: 10px;
-}
-
-.task-tag__wrapper {
-  border: 1px solid black;
-  display: flex;
-}
-
-.task-tag {
-  border: 1px solid blue;
-  margin: 15px;
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 300px;
-}
-
-.task-tag__header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-.task-tag__header__title {
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 26px;
-  color: #010101;
-  display: flex;
-  align-items: center;
-}
-
-.tag-cnt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* display: inline-block; */
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  margin-left: 10px;
-  background-color: #b0b0b0;
-}
-
-.gray {
-  fill: #bdbdbd;
-  color: #bdbdbd;
+body {
+  background-color: #f5f5f7;
 }
