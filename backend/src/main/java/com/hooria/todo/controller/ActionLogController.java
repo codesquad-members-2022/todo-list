@@ -1,7 +1,7 @@
 package com.hooria.todo.controller;
 
-import com.hooria.todo.dto.ActivityLogResponse;
-import com.hooria.todo.service.ActivityLogService;
+import com.hooria.todo.dto.ActionLogResponse;
+import com.hooria.todo.service.ActionLogService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Api(tags = "ActivityLog(활동로그) Controller")
+@Api(tags = "ActionLog(활동로그) Controller")
 @RestController
-@RequestMapping("/api/activities")
+@RequestMapping("/api/actions")
 @RequiredArgsConstructor
-class ActivityLogController {
+class ActionLogController {
 
-    private final ActivityLogService activityLogService;
+    private final ActionLogService actionLogService;
 
     @ApiOperation(
             value = "모든 활동로그 목록 조회",
@@ -35,10 +35,10 @@ class ActivityLogController {
             )
     })
     @GetMapping
-    public ResponseEntity<List<ActivityLogResponse>> getActivities() {
-        List<ActivityLogResponse> response = activityLogService.selectAll()
+    public ResponseEntity<List<ActionLogResponse>> getActivities() {
+        List<ActionLogResponse> response = actionLogService.selectAll()
                 .stream()
-                .map(ActivityLogResponse::from)
+                .map(ActionLogResponse::from)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok().body(response);
@@ -66,8 +66,8 @@ class ActivityLogController {
                     message = "서버 에러"
             )
     })
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public int readActivity(@PathVariable long id) {
-        return activityLogService.removeById(id);
+        return actionLogService.removeById(id);
     }
 }

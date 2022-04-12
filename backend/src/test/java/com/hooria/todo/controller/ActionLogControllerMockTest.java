@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hooria.todo.domain.ActivityLog;
-import com.hooria.todo.dto.ActivityLogResponse;
-import com.hooria.todo.service.ActivityLogService;
+import com.hooria.todo.dto.ActionLogResponse;
+import com.hooria.todo.service.ActionLogService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +25,14 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(ActivityLogController.class)
-class ActivityLogControllerMockTest {
+@WebMvcTest(ActionLogController.class)
+class ActionLogControllerMockTest {
 
     @Autowired
     MockMvc mvc;
 
     @MockBean
-    ActivityLogService activityLogService;
+    ActionLogService actionLogService;
 
     ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
@@ -50,11 +50,11 @@ class ActivityLogControllerMockTest {
                 ActivityLog.of("userId3", "update", "taskTitle3", "TODO", "IN_PROGRESS", now, false)
         );
 
-        List<ActivityLogResponse> activityLogResponses = activityLogs.stream()
-                .map(ActivityLogResponse::from)
+        List<ActionLogResponse> activityLogResponses = activityLogs.stream()
+                .map(ActionLogResponse::from)
                 .collect(Collectors.toList());
 
-        given(activityLogService.selectAll()).willReturn(activityLogs);
+        given(actionLogService.selectAll()).willReturn(activityLogs);
 
         // when
         ResultActions resultActions = mvc.perform(get("/api/activities"));
@@ -67,7 +67,7 @@ class ActivityLogControllerMockTest {
                 status().isOk()
         );
 
-        verify(activityLogService).selectAll();
+        verify(actionLogService).selectAll();
     }
 
     @Test
@@ -76,7 +76,7 @@ class ActivityLogControllerMockTest {
 
         // given
         long id = 1;
-        given(activityLogService.removeById(id)).willReturn(1 /* 반영된 row 수 */);
+        given(actionLogService.removeById(id)).willReturn(1 /* 반영된 row 수 */);
 
         // when
         ResultActions resultActions = mvc.perform(delete("/api/activities/{id}", id));
