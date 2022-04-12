@@ -70,11 +70,33 @@ public class CardDto {
 
 	@Data
 	public static class CardsResponse {
-		private final Map<String, List<CardResponse>> data = new HashMap<>();
+		private final Map<String, StatusResponse> data = new HashMap<>();
 
 		public CardsResponse(List<CardByStatus> cards) {
 			cards.stream()
-				.forEach(card -> this.data.put(card.getStatus().getText(), card.toResponse()));
+				.forEach(card -> this.data.put(card.getStatus().getText(), new StatusResponse(card.getCount(), card.toResponse())));
 		}
+	}
+
+	@Data
+	public static class StatusResponse {
+		private Long count;
+		private List<CardResponse> cards;
+
+		public StatusResponse(Long count, List<CardResponse> cardsByStatus) {
+			this.count = count;
+			this.cards = cardsByStatus;
+		}
+	}
+
+	@Data
+	@NoArgsConstructor
+	public static class EditRequest {
+		@NotBlank(message = "제목은 필수 값입니다.")
+		@Size(min = 1, max = 50, message = "50자 미안으로 작성 하세요.")
+		private String subject;
+		@NotBlank(message = "내용은 필수 값입니다.")
+		@Size(min = 1, max = 500, message = "500자 미안으로 작성 하세요.")
+		private String content;
 	}
 }

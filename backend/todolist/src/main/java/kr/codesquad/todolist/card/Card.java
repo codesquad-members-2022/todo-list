@@ -71,4 +71,9 @@ public class Card {
 	protected Long getUserId() {
 		return userId;
 	}
+
+	public void modify(String subject, String content) {
+		this.subject = subject;
+		this.content = content;
+	}
 }

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CardByStatus {
 	private final Card.TodoStatus status;
+	private final Long count;
 	private final List<Card> cards;
 
 	public List<CardDto.CardResponse> toResponse() {

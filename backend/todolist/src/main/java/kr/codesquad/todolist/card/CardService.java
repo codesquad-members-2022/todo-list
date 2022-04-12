@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,14 +37,17 @@ public class CardService {
 	@Transactional(readOnly = true)
 	public CardDto.CardsResponse readAllFrom(Long userId) {
 		Map<Card.TodoStatus, List<Card>> cardsInfo = getCardsInfo(userId);
-		List<CardByStatus> cards = toCardByStatuses(cardsInfo);
+		Map<Card.TodoStatus, Long> numberOfStatusInfo =  getNumberOfCardStatusInfo(userId);
+
+		List<CardByStatus> cards = toCardByStatuses(cardsInfo, numberOfStatusInfo);
 		return new CardDto.CardsResponse(cards);
 	}
 
-	private List<CardByStatus> toCardByStatuses(Map<Card.TodoStatus, List<Card>> cardsInfo) {
+	private List<CardByStatus> toCardByStatuses(Map<Card.TodoStatus, List<Card>> cardsInfo,
+		Map<Card.TodoStatus, Long> numberOfStatus) {
 		List<CardByStatus> cards = new ArrayList<>();
 		cardsInfo.keySet().stream()
-			.forEach(status -> cards.add(new CardByStatus(status, cardsInfo.get(status))));
+			.forEach(status -> cards.add(new CardByStatus(status, numberOfStatus.get(status), cardsInfo.get(status))));
 		return cards;
 	}
 
@@ -52,5 +56,27 @@ public class CardService {
 		Arrays.stream(Card.TodoStatus.values())
 			.forEach(status -> cardsInfo.put(status, cardDao.findByUserIdAndTodoStatus(userId, status)));
 		return cardsInfo;
+	}
+
+	private Map<Card.TodoStatus, Long> getNumberOfCardStatusInfo(Long userId) {
+		List<CardStatusNumber> numberOfStatus = cardDao.findGroupByTodoStatus(userId);
+		return numberOfStatus.stream()
+			.collect(Collectors.toMap(CardStatusNumber::getStatus, CardStatusNumber::getNumberOfStatus));
+	}
+
+	public void updateOf(Long cardId, CardDto.EditRequest request) {
+		Card card = getCard(cardId);
+		card.modify(request.getSubject(), request.getContent());
+		cardDao.save(card);
+	}
+
+	private Card getCard(Long cardId) {
+		return cardDao.findById(cardId)
+			.orElseThrow(() -> new IllegalArgumentException(ERROR_OF_CARD_ID));
+	}
+
+	public void deleteFrom(Long cardId) {
+		Card cardInfo = getCard(cardId);
+		cardDao.delete(cardInfo.getCardId());
 	}
 }
