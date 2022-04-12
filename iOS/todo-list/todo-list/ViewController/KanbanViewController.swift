@@ -43,8 +43,11 @@ class KanbanViewController: UIViewController {
         }
         
         columnViewModels.enumerated().forEach { [weak self] (index, viewModel) in
-            viewModel.list.bind { _ in
-                DispatchQueue.main.async { self?.columns[index].reloadData() }
+            viewModel.list.bind { taskVMs in
+                DispatchQueue.main.async {
+                    self?.columns[index].reloadData()
+                    self?.countBadges[index].text = "\(taskVMs.count)"
+                }
             }
             viewModel.load()
         }
