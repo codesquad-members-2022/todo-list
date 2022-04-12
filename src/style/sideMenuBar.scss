@@ -19,7 +19,6 @@
   // border: 1px solid black;
   margin: 50px 40px 0px 40px;
   width: 372px;
-  // height: 500px;
 }
 
 .side-menu-bar__wrapper .delete-btn {
@@ -27,7 +26,44 @@
 }
 
 .history-card {
-  margin-top: 20px;
   padding: 20px;
-  border: 1px solid green;
+  // border: 1px solid green;
+  min-height: 100px;
+  display: flex;
+}
+
+.history-card__left {
+  width: 20%;
+  font-size: 35px;
+  margin-top: 5px;
+}
+
+.history-card__right {
+  width: 80%;
+}
+
+#user-name {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 23px;
+}
+
+.history-card__content {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.history-card__time {
+  margin-top: 10px;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #828282;
 }
