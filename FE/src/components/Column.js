@@ -20,10 +20,13 @@ export default class Column {
           </div>
         </div>
         <div class="work__body">
-          ${this.taskCardComponents.reduce(
-            (prev, cur) => prev + cur.template(),
-            ""
-          )}
+          <ul class="work__list">
+            ${this.taskCardComponents.reduce(
+              (prev, cur) =>
+                prev + `<div class="${cur.id}">${cur.template()}</div>`,
+              ""
+            )}
+          </ul>
         </div>
       </div>
     `;

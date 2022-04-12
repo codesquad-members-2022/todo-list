@@ -1,3 +1,5 @@
-function $(className) {
-  return document.querySelector(`.${className}`);
+function $(selector) {
+  return document.querySelector(`${selector}`);
 }
+
+export { $ };

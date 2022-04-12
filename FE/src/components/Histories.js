@@ -1,5 +1,5 @@
 import HistoryCard from "./HistoryCard.js";
-import { historyStore } from "../store/HistoryStore.js";
+import { store } from "../store.js";
 import { GET_HISTORY } from "../dummyData.js";
 
 export default class Histories {
@@ -8,9 +8,9 @@ export default class Histories {
     this.historyCardComponents = GET_HISTORY.map(
       (history) => new HistoryCard(history)
     );
-    historyStore.initState("history");
-    historyStore.subscribe("history", this.render.bind(this));
-    historyStore.setState("history", GET_HISTORY);
+    store.initState("history");
+    store.subscribe("history", this.render.bind(this));
+    store.setState("history", GET_HISTORY);
   }
   init() {}
 
