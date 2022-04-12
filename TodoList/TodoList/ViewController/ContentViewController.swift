@@ -34,12 +34,12 @@ final class ContentViewController: UIViewController {
         super.viewDidLoad()
         setCollectionView()
         setCollectionViewDelegate()
+        NotificationCenter.default.addObserver(self.tableVC, selector: #selector(tableVC.setCardData), name: NSNotification.Name(rawValue: "board"), object: tableVC.cardBoard)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.tableVC.cardBoard.getAnddivideCard()
-        NotificationCenter.default.addObserver(self.tableVC, selector: #selector(tableVC.setting), name: NSNotification.Name(rawValue: "board"), object: tableVC.cardBoard)
+        self.tableVC.cardBoard.getAndDivideCard()
     }
 }
 

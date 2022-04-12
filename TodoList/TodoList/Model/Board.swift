@@ -25,7 +25,7 @@ final class Board{
         }
     }
     
-    func getAnddivideCard(){
+    func getAndDivideCard(){
         URLManager.requestGet(url: "http://3.39.150.251:8080/api/cards?userId=chez"){ data in
             let cards: [Card] = JsonConverter.decodeJson(data: data)
             

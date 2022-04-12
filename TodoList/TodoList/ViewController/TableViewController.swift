@@ -34,7 +34,7 @@ final class TableViewController: UIViewController{
         configureLayout(cell: cell, header: header, tableView: table)
     }
     
-    @objc func setting(){
+    @objc func setCardData(){
         DispatchQueue.main.async {
             self.todoTable.forEach{
                 $0.reloadData()
