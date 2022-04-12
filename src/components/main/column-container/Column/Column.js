@@ -2,6 +2,61 @@ import "./Column.scss";
 import { Store } from "../../../../stores/ColumnStore.js";
 import { Card } from "./card/Card.js";
 
+export const initColumn = (parentNode, columnState) => {
+  const columnNode = makeColumnNode(parentNode, columnState);
+  renderColumn(columnNode, columnState);
+};
+
+const makeColumnNode = (parentNode, columnState) => {
+  const columnNode = document.createElement("div");
+  columnNode.className = "column";
+  columnNode.dataset.columnid = columnState.id;
+  parentNode.append(columnNode);
+  return columnNode;
+};
+
+const renderColumn = (columnNode, columnState) => {
+  const columnInnerTemplate = makeColumnInnerTemplate(columnState);
+  columnNode.innerHTML = columnInnerTemplate;
+};
+
+const makeColumnInnerTemplate = (columnState) => {
+  return `
+    ${getHeaderTemplate(columnState)}
+    ${getCardListTemplate()}
+  `;
+};
+
+const getHeaderTemplate = (columnState) => {
+  return `
+    <div class="column-header">
+      <div class="column-header__info">
+        <div class="column-header__title">${columnState.title}</div>
+        <div class="column-header__count">${columnState.cardOrder.length}</div>
+      </div>
+      <div class="column-header__util">
+        <div class="column-header__add-btn${columnData.addBtnActivated ? " activated" : ""}"></div>
+        <div class="column-header__delete-btn"></div>
+      </div>
+    </div>
+  `;
+};
+
+const getCardListTemplate = () => {
+  return `
+    <ul class='card-list'></ul>
+    `;
+};
+
+const reRenderColumn = (columnState) => {
+  const columnNode = findColumnNode(columnState.id);
+  render(columnNode, columnState);
+};
+
+const findColumnNode = (columnID) => {
+  return document.querySelector(`[data-columnid="${columnID}"]`);
+};
+
 export class Column {
   constructor(columnID) {
     this.columnID = columnID;
@@ -78,8 +133,8 @@ export class Column {
   handleAddBtnClick(addBtn) {
     if (addBtn.classList.contains("activated")) {
       Store.exitFromAddCardState(this.columnID);
-    }else {
-      Store.updateAsAddCardState(this.columnID);
+    } else {
+      Store.setAddingCardState(this.columnID);
     }
   }
 

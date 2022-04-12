@@ -1,3 +1,45 @@
+export const newStore = {
+  columnContainerState: {
+    columnOrder: [0, 1, 2],
+    0: {
+      id: 0,
+      title: "해야할 일",
+      addBtnActivated: false,
+      cardOrder: [],
+      cards: {
+        id: { id: 000 },
+        id: { id: 111 },
+        id: { id: 000 },
+      },
+    },
+    1: {
+      id: 1,
+      title: "하고 있는 일",
+      addBtnActivated: false,
+      cardOrder: [],
+    },
+    2: {
+      id: 2,
+      title: "완료된 일",
+      addBtnActivated: false,
+      cardOrder: [],
+    },
+  },
+};
+
+const observers = {};
+
+export const subscribe = (interest, observer) => {
+  if (!observers[interest]) {
+    observers[interest] = [];
+  }
+  observers[interest].push(observer);
+};
+
+const notify = (interest) => {
+  newStore.observers[interest].forEach((observer) => observer());
+};
+
 export const Store = {
   observers: {},
 
@@ -34,7 +76,7 @@ export const Store = {
     },
   },
 
-  updateAsAddCardState(columnID) {
+  setAddingCardState(columnID) {
     this.toggleColumnAddBtnActivation(columnID);
     this.addNewCardForm(columnID);
     this.notify("column");
