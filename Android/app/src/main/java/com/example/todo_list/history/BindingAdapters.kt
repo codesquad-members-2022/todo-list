@@ -39,7 +39,7 @@ fun setBody(view: TextView, body: HistoryCard) {
             HtmlCompat.fromHtml(
                 view.context.getString(
                     R.string.history_move_string,
-                    body.todo.contents,
+                    body.todoTitle,
                     convertStatus(body.fromStatus),
                     convertStatus(body.toStatus),
                     convertAction(body.action)
@@ -50,8 +50,8 @@ fun setBody(view: TextView, body: HistoryCard) {
             HtmlCompat.fromHtml(
                 view.context.getString(
                     R.string.history_default_string,
-                    convertStatus(body.todo.status),
-                    body.todo.contents,
+                    convertStatus(body.toStatus),
+                    body.todoTitle,
                     convertAction(body.action)
                 ),
                 FROM_HTML_MODE_LEGACY
