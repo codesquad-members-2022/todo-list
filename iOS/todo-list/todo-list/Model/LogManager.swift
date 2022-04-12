@@ -13,7 +13,7 @@ struct LogManager {
     private let networkManager = NetworkManager()
     
     func load(then completion: @escaping([Log]) -> Void) {
-        networkManager.getAllTasks { result in
+        networkManager.getAllLogs { result in
             switch result {
             case .success(let data):
                 completion(data)
