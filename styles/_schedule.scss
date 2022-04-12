@@ -338,6 +338,7 @@
 }
 
 .schedule-drag-card {
+    @include flex-layout(auto, flex-start);
     position: absolute;
     padding: 16px;
     width: 308px;

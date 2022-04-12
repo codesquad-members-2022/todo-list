@@ -12,6 +12,9 @@ export class ScheduleColumn {
         this.title = this.scheduleModel.getScheduleColumnTitle();
         this.id = getId();
         this.registerCard = new ScheduleRegisterCard();
+        this.dragCard;
+        this.move = this.mouseMoveOnDraggingEventHandler.bind(this);
+        this.up = this.mouseUpOnDraggingEventHandler.bind(this);
 
         this.init();
     }
@@ -63,51 +66,54 @@ export class ScheduleColumn {
         );
     }
 
+    isValid2Drag(target, selectedCard) {
+        const dragCard = target.closest(".schedule-drag-card");
+
+        return selectedCard && selectedCard !== dragCard;
+    }
+
+    relocateDragCard(pageX, pageY) {
+        this.dragCard.style.left = `${pageX - this.dragCard.offsetWidth / 2}px`;
+        this.dragCard.style.top = `${pageY - this.dragCard.offsetHeight / 2}px`;
+    }
+
+    addMouseEventOnDragCard() {
+        this.$target.addEventListener("mousemove", this.move);
+        this.$target.addEventListener("mouseup", this.up);
+    }
+
+    mouseUpOnDraggingEventHandler() {
+        this.$target.removeEventListener("mousemove", this.move);
+        this.removeMouseUpEvent();
+    }
+
+    removeMouseUpEvent() {
+        this.$target.removeEventListener("mouseup", this.up);
+    }
+
+    mouseMoveOnDraggingEventHandler(event) {
+        this.relocateDragCard(event.pageX, event.pageY);
+    }
+
     mouseDownEventHandler(event) {
         const target = event.target;
         const selectedCard = target.closest(".schedule-card");
-        const dragCard = target.closest(".schedule-drag-card");
-        if (!selectedCard || selectedCard === dragCard) {
+        if (!this.isValid2Drag(target, selectedCard)) {
             return;
         }
 
         const CARD = "schedule-card";
         const CARD_AFTER_IMAGE = "schedule-card--afterimage";
         const DRAG_CARD = "schedule-drag-card";
-
-        const dragElement = selectedCard.cloneNode(true);
+        this.initDragCard(selectedCard);
+        this.dragCard = selectedCard.cloneNode(true);
 
         selectedCard.classList.replace(CARD, CARD_AFTER_IMAGE);
-        dragElement.classList.add(DRAG_CARD);
+        this.dragCard.classList.replace(CARD, DRAG_CARD);
+        this.$cardsContainer.appendChild(this.dragCard);
 
-        this.$cardsContainer.appendChild(dragElement);
-
-        function moveCard(pageX, pageY) {
-            dragElement.style.left = `${pageX}px`;
-            dragElement.style.top = `${pageY}px`;
-        }
-
-        moveCard(event.pageX, event.pageY);
-
-        this.$target.addEventListener("mousemove", onMouseMove);
-
-        function onMouseMove(event) {
-            moveCard(event.pageX, event.pageY);
-        }
-
-        this.$target.addEventListener(
-            "mouseup",
-            removeMouseMoveEvent.bind(this)
-        );
-
-        function removeMouseMoveEvent() {
-            this.$target.removeEventListener("mousemove", onMouseMove);
-            removeMouseUpEvent.apply(this);
-        }
-
-        function removeMouseUpEvent() {
-            this.$target.removeEventListener("mouseup", removeMouseMoveEvent);
-        }
+        this.relocateDragCard(event.pageX, event.pageY);
+        this.addMouseEventOnDragCard();
     }
 
     cardAddBtnClickEventHandler() {
