@@ -1,0 +1,81 @@
+@mixin titleText {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+}
+
+.card {
+  position: relative;
+  box-sizing: border-box;
+  width: 308px;
+  padding: 16px;
+  margin: 8px 0;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: 6px;
+  &[data-card-state="default"] {
+    background: #ffffff;
+    .card-button-delete {
+      background-image: url(../images/delete-gray3.png);
+    }
+  }
+  &[data-card-state="delete"] {
+    background: #ffeeec;
+    border: 1px solid #ff4343;
+    .card-button-delete {
+      background-image: url(../images/delete-red.png);
+    }
+  }
+  &[data-card-state="create"] {
+    background: #ffffff;
+    border: 1px solid #0075de;
+  }
+  input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+  &-title {
+    @include titleText();
+  }
+  &-content {
+    margin: 8px 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  &-author {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #bdbdbd;
+  }
+  &-button-wrapper {
+    button {
+      width: 134px;
+      height: 40px;
+      border: none;
+      border-radius: 6px;
+    }
+  }
+  &-button-normal {
+    background: #e0e0e0;
+    border-radius: 6px;
+    color: #828282;
+  }
+  &-button-accent {
+    background: #0075de;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #ffffff;
+  }
+  &-button-delete {
+    position: absolute;
+    top: 22.75px;
+    right: 22.75px;
+    width: 10.5px;
+    height: 10.5px;
+    background-repeat: no-repeat;
+    background-size: 10.5px;
+  }
+}

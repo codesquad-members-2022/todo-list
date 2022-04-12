@@ -1,19 +1,23 @@
+import { getCards } from "../api.js";
 import Component from "../core/Component.js";
+import Cards from "./Cards.js";
 
 export default class Column extends Component {
-  setup() {
-    this.state = {
-      title: "해야할 일",
-      cardCount: 0,
-    };
+  async setup() {
+    const columnIndex = Number(this.$target.dataset.index);
+    const cards = await getCards(columnIndex);
+    this.setState({
+      columnIndex: columnIndex,
+      cards: cards.map((card) => ({ ...card, cardState: "default" })),
+    });
   }
   template() {
-    const { title, cardCount } = this.state;
+    const { title, cards } = this.state;
     return `
       <div class="column-header">
         <div class="flex">
           <h1 class="column-title">${title}</h1>
-          <div class="card-count">${cardCount}</div>
+          <div class="card-count">${cards?.length}</div>
         </div>
         <div class="flex">
           <div class="column-plus-button"></div>
@@ -22,5 +26,14 @@ export default class Column extends Component {
       </div>
       <div class="card-wrapper"></div>
     `;
+  }
+  mounted() {
+    const { cards } = this;
+    const $cardWrapper = this.$target.querySelector(".card-wrapper");
+    new Cards($cardWrapper, { cards });
+  }
+  get cards() {
+    const { cards } = this.state;
+    return cards;
   }
 }
