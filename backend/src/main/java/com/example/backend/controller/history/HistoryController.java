@@ -2,15 +2,14 @@ package com.example.backend.controller.history;
 
 import com.example.backend.controller.ApiResult;
 import com.example.backend.domain.history.History;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.example.backend.controller.ApiResult.OK;
+
 @RestController
-@RequestMapping("api/cards")
+@RequestMapping("api/histories")
 public class HistoryController {
 
     private final HistoryService historyService;
@@ -19,9 +18,14 @@ public class HistoryController {
         this.historyService = historyService;
     }
 
-    @GetMapping("{id}/{id}")
-    public ApiResult<HistoryResponse> getCardHistory(@PathVariable("id") Long id){
-        List<History> histories = historyService.findHistories(id);
+    @PostMapping("")
+    public ApiResult<History> saveHistory(@RequestBody HistorySaveRequest request) {
+        return OK(historyService.saveHistory(request));
+    }
+
+    @GetMapping("members/{id}/cards/{id}")
+    public ApiResult<HistoryResponse> getCardHistory(@PathVariable("memberId") Long memberId, @PathVariable("cardId") Long cardId) {
+        List<History> histories = historyService.findHistories(memberId, cardId);
         return null;
     }
 }

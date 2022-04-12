@@ -14,8 +14,12 @@ public class HistoryService {
         this.historyRepository = historyRepository;
     }
 
-    public List<History> findHistories(Long id) {
-        historyRepository.findHistories(id);
-        return null;
+    public List<History> findHistories(Long memberId, Long cardId) {
+        historyRepository.findHistories(memberId, cardId);
+        return historyRepository.findHistories(memberId, cardId);
+    }
+
+    public History saveHistory(HistorySaveRequest request) {
+        return historyRepository.save(request.toEntity());
     }
 }

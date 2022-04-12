@@ -1,51 +1,27 @@
 package com.example.backend.controller.card.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.backend.domain.card.CardType;
 
-import static com.example.backend.domain.card.CardType.*;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 public class DailyPlanResponse {
 
-    private List<TodoItem> todoItems;
-    private List<ProgressingItem> progressingItems;
-    private List<CompletedItem> completedItems;
+    private Map<CardType, List<Task>> cardTypeObjectMap;
     private Author author;
 
-    public DailyPlanResponse() {
-    };
+    public DailyPlanResponse() {};
 
     public DailyPlanResponse(List<Task> tasks) {
-        this.todoItems = new ArrayList<>();
-        this.progressingItems = new ArrayList<>();
-        this.completedItems = new ArrayList<>();
-        addTasks(tasks);
+        cardTypeObjectMap = tasks.stream()
+                .collect(groupingBy(Task::getCardType, toList()));
     }
 
-    private void addTasks(List<Task> tasks) {
-        for (Task task : tasks) {
-            if (TODO.equals(task.getCardType())) {
-                todoItems.add(new TodoItem(task));
-            }
-            if (COMPLETED.equals(task.getCardType())) {
-                completedItems.add(new CompletedItem(task));
-            }
-            if (PROGRESSING.equals(task.getCardType())) {
-                progressingItems.add(new ProgressingItem(task));
-            }
-        }
-    }
-
-    public List<TodoItem> getTodoItems() {
-        return todoItems;
-    }
-
-    public List<ProgressingItem> getProgressingItems() {
-        return progressingItems;
-    }
-
-    public List<CompletedItem> getCompletedItems() {
-        return completedItems;
+    public Map<CardType, List<Task>> getCardTypeObjectMap() {
+        return cardTypeObjectMap;
     }
 
     public Author getAuthor() {
