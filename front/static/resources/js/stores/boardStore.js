@@ -1,3 +1,5 @@
+import { fetchRequest } from "../utils/util.js";
+
 class BoardStore {
   constructor() {
     this.boardState;
@@ -5,9 +7,7 @@ class BoardStore {
   }
 
   async getInitialData() {
-    const response = await fetch('./mockData.json');
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    return response.json();
+    return await fetchRequest('./mockData.json');
   }
 
   async setState() {
