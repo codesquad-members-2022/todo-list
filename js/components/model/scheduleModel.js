@@ -15,11 +15,10 @@ const getScheduleCards = (columnId) => {
 const addScheduleCard = (columnId, cardData) => {
     const cardsInScheduleColumn = findScheduleColumn(columnId).cards;
     cardsInScheduleColumn.push(cardData);
-    console.log(cardsInScheduleColumn);
 };
 
 const removeScheduleCard = (columnId, cardId) => {
-    const cardsInScheduleColumn = findScheduleColumn(columnId).cards;
+    let cardsInScheduleColumn = findScheduleColumn(columnId).cards;
     cardsInScheduleColumn = cardsInScheduleColumn.filter(
         (card) => card.id !== cardId
     );

@@ -2,6 +2,7 @@ const $main = document.querySelector("#main");
 let dragCard;
 let afterimageCard;
 let $scheduleCardBelowDragPointer;
+let selectedCard;
 
 const TOP = "top";
 const BOTTOM = "bottom";
@@ -108,10 +109,9 @@ const addMouseEventOnDragCard = () => {
     $main.addEventListener("mouseup", mouseUpOnDraggingEventHandler);
 };
 
-const isValid2Drag = (target, selectedCard) => {
-    const dragCard = target.closest(".schedule-drag-card");
-
-    return selectedCard && selectedCard !== dragCard;
+const isValid2Drag = (target) => {
+    const isDeleteBtn = target.classList.contains("schedule-card__delete-btn");
+    return selectedCard && !isDeleteBtn;
 };
 
 const relocateDragCard = (pageX, pageY) => {
@@ -121,8 +121,9 @@ const relocateDragCard = (pageX, pageY) => {
 
 export const mouseDownEventHandler = (event) => {
     const target = event.target;
-    const selectedCard = target.closest(".schedule-card");
-    if (!isValid2Drag(target, selectedCard)) {
+    selectedCard = target.closest(".schedule-card");
+
+    if (!isValid2Drag(target)) {
         return;
     }
 
