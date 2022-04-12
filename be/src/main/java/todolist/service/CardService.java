@@ -5,17 +5,17 @@ import org.springframework.stereotype.Service;
 import todolist.domain.card.Card;
 import todolist.dto.card.RequestCardDto;
 import todolist.dto.card.ResponseCardDto;
-import todolist.repository.TodoRepository;
+import todolist.repository.CardRepository;
 
 import java.util.*;
 
 @Service
 public class CardService {
 
-    private final TodoRepository<Card> repository;
+    private final CardRepository<Card> repository;
 
     @Autowired
-    public CardService(TodoRepository<Card> repository) {
+    public CardService(CardRepository<Card> repository) {
         this.repository = repository;
     }
 

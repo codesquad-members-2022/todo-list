@@ -6,13 +6,13 @@ import todolist.domain.card.Card;
 import todolist.dto.card.RequestCardDto;
 import todolist.dto.card.ResponseCardDto;
 import todolist.repository.CardMemoryRepository;
-import todolist.repository.TodoRepository;
+import todolist.repository.CardRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CardServiceTest {
 
-    private TodoRepository<Card> repository= new CardMemoryRepository();
+    private CardRepository<Card> repository= new CardMemoryRepository();
     private CardService service = new CardService(repository);
 
     @Test
