@@ -74,7 +74,13 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public Integer findNumberOfCards(String section) {
-        return jdbcTemplate.queryForObject("SELECT count(*) FROM card WHERE section = ?", Integer.class, section);
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM card WHERE section=?", Integer.class, section);
+    }
+
+    @Override
+    public void move(Card card) {
+        jdbcTemplate.update("UPDATE card SET order_index=?, section=? WHERE id=?",
+            card.getOrder(), card.getSectionType(), card.getId());
     }
 
     private RowMapper<Card> cardRowMapper() {

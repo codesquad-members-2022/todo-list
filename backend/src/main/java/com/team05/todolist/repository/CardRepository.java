@@ -11,4 +11,5 @@ public interface CardRepository {
     List<Card> findAll();
     Optional<Card> findById(int id);
     Integer findNumberOfCards(String section);
+	void move(Card moveTargetCard);
 }
