@@ -3,14 +3,11 @@ import UIKit
 class MemoContainerView: UIView {
     
     private var containerType: MemoContainerType?
-        
-    private let horizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.alignment = .fill
-        return stackView
+
+    private let containerTitleView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     let categoryLabel: UILabel = {
@@ -41,13 +38,7 @@ class MemoContainerView: UIView {
         return label
     }()
     
-    private let buttonView: UIView = {
-        let label = UIView()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let button: UIButton = {
+    private let addButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(named: "add"), for: .normal)
@@ -82,33 +73,40 @@ class MemoContainerView: UIView {
     private func addViews() {
         
         countView.addSubview(countLabel)
-        buttonView.addSubview(button)
-        horizontalStackView.addArrangedSubview(categoryLabel)
-        horizontalStackView.addArrangedSubview(countView)
-        horizontalStackView.addArrangedSubview(buttonView)
+        containerTitleView.addSubview(categoryLabel)
+        containerTitleView.addSubview(countView)
+        containerTitleView.addSubview(addButton)
         
-        addSubview(horizontalStackView)
+        addSubview(containerTitleView)
         addSubview(tableView)
     }
     
     private func setConstraints() {
         
-        button.centerYAnchor.constraint(equalTo: buttonView.centerYAnchor).isActive = true
-        button.trailingAnchor.constraint(equalTo: buttonView.trailingAnchor, constant: -20).isActive = true
+        categoryLabel.leadingAnchor.constraint(equalTo: containerTitleView.leadingAnchor).isActive = true
+        categoryLabel.centerYAnchor.constraint(equalTo: containerTitleView.centerYAnchor).isActive = true
         
-        countLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        countLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        countLabel.leadingAnchor.constraint(equalTo: countView.leadingAnchor).isActive = true
+        countLabel.widthAnchor.constraint(equalTo: countView.widthAnchor).isActive = true
+        countLabel.heightAnchor.constraint(equalTo: countView.heightAnchor).isActive = true
+        countLabel.centerXAnchor.constraint(equalTo: countView.centerXAnchor).isActive = true
         countLabel.centerYAnchor.constraint(equalTo: countView.centerYAnchor).isActive = true
         
-        horizontalStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        horizontalStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        horizontalStackView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        countView.leadingAnchor.constraint(equalTo: categoryLabel.trailingAnchor, constant: 10).isActive = true
+        countView.centerYAnchor.constraint(equalTo: containerTitleView.centerYAnchor).isActive = true
+        countView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        countView.heightAnchor.constraint(equalTo: countView.widthAnchor).isActive = true
         
-        tableView.topAnchor.constraint(equalTo: horizontalStackView.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: horizontalStackView.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: horizontalStackView.trailingAnchor).isActive = true
+        addButton.trailingAnchor.constraint(equalTo: containerTitleView.trailingAnchor).isActive = true
+        addButton.centerYAnchor.constraint(equalTo: containerTitleView.centerYAnchor).isActive = true
+        
+        containerTitleView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        containerTitleView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        containerTitleView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        containerTitleView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        tableView.topAnchor.constraint(equalTo: containerTitleView.bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: containerTitleView.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: containerTitleView.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }
