@@ -51,7 +51,7 @@ class MockCard: Decodable, CustomStringConvertible, Equatable {
     }
     
     func toClientData() -> ClientCard {
-        ClientCard(id: id, title: title, content: content, caption: author_system)
+        ClientCard(id: id, title: title, content: content, authorSystem: author_system)
     }
 }
 

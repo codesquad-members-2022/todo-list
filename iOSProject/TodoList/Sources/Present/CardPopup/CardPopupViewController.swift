@@ -176,6 +176,9 @@ class CardPopupViewController: UIViewController {
                 self.editButton.isEnabled = isEnable
             }.store(in: &cancellables)
         
+        cancelButton.publisher(for: .touchUpInside)
+            .sink {self.dismiss(animated: false) }
+            .store(in: &cancellables)
 
         confimButton.publisher(for: .touchUpInside)
             .map { (self.titleTextField.text ?? "", self.bodyTextView.text ?? "") }

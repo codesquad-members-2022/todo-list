@@ -19,7 +19,7 @@ class MockDataBase {
                   let cardCount = cardCounting[randomColumn] else {
                 return nil
             }
-            let newCard = MockCard(id: index, title: "타이틀 \(index)", content: "내용 \(index)", author_system: "author by iOS",                column_name: randomColumn,order_id: cardCount)
+            let newCard = MockCard(id: index, title: "타이틀 \(index)", content: "내용 \(index)", author_system: "iOS",                column_name: randomColumn,order_id: cardCount)
             
             cardCounting[randomColumn] = cardCount + 1
             return newCard
@@ -120,7 +120,7 @@ extension MockDataBase {
     private func loadColumn(_ urlRequest: URLRequest) -> (Data?, HTTPURLResponse?) {
         let columns = MockColumnType.allCases.map { type -> ClientColumn in
             let cards = getCards(column: type).map { $0.toClientData()}
-            return ClientColumn(type: type, cards: cards)
+            return ClientColumn(columnType: type, cards: cards)
         }
         
         guard let data = try? JSONEncoder().encode(columns) else {
@@ -135,7 +135,7 @@ extension MockDataBase {
             return (nil, HTTPURLResponse(url: urlRequest.url!, statusCode: 402, httpVersion: "2", headerFields: nil))
         }
         
-        let newCard = MockCard(id: cards.count, title: addCardData.title, content: addCardData.content, author_system: "author by iOS", column_name: addCardData.column, order_id: 0)
+        let newCard = MockCard(id: cards.count, title: addCardData.title, content: addCardData.content, author_system: "iOS", column_name: addCardData.column, order_id: 0)
         
         let columnCards = getCards(column: addCardData.column).filter{ $0.order_id >= 0}
         refreshOrderId(cards: columnCards, moveValue: 1)

@@ -13,7 +13,7 @@ struct MainViewModelAction {
 }
 
 struct MainViewModelState {
-    let loadedColumns = PassthroughSubject<[(Column.ColumnType, ColumnViewModelProtocol)], Never>()
+    let loadedColumns = PassthroughSubject<[ColumnViewModelProtocol], Never>()
 }
 
 protocol MainViewModelBinding {
@@ -41,7 +41,7 @@ class MainViewModel: MainViewModelProtocol {
         requestLoadColumns
             .compactMap{ $0.value }
             .map { columns in
-                columns.map { column in (column.type, ColumnViewModel(column: column))}
+                columns.columns.map { column in ColumnViewModel(column: column)}
             }
             .sink(receiveValue: self.state.loadedColumns.send(_:))
             .store(in: &cancellables)

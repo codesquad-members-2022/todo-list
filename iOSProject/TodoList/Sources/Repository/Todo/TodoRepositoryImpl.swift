@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
-    func loadColumns() -> AnyPublisher<ApiResult<[Column], SessionError>, Never> {
-        request(.loadColumns, isSucccess: true)
-            .map { $0.decode([Column].self) }
+    func loadColumns() -> AnyPublisher<ApiResult<Columns, SessionError>, Never> {
+        request(.loadColumns)
+            .map { $0.decode(Columns.self) }
             .eraseToAnyPublisher()
     }
     
