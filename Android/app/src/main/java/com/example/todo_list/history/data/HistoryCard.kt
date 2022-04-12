@@ -1,7 +1,5 @@
 package com.example.todo_list.history.data
 
-import com.google.gson.annotations.SerializedName
-
 data class HistoryCard(
     val id: Int,
     val todoId: Int,
