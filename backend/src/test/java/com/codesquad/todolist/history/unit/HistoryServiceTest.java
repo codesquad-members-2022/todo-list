@@ -12,6 +12,8 @@ import com.codesquad.todolist.history.domain.Field;
 import com.codesquad.todolist.history.domain.History;
 import com.codesquad.todolist.history.domain.ModifiedField;
 import com.codesquad.todolist.history.dto.HistoryResponse;
+import com.codesquad.todolist.util.page.Criteria;
+import com.codesquad.todolist.util.page.Slice;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -39,10 +41,10 @@ public class HistoryServiceTest {
     public void findAllTest() {
         // given
         List<History> histories = List.of(
-            new History(1, "유저 이름", "컬럼 이름", "제목", Action.CREATE, LocalDateTime.now()),
-            new History(2, "유저 이름", "컬럼 이름", "제목", Action.MOVE, LocalDateTime.now()),
+            new History(4, "유저 이름", "컬럼 이름", "변경된 제목", Action.DELETE, LocalDateTime.now()),
             new History(3, "유저 이름", "컬럼 이름", "변경된 제목", Action.UPDATE, LocalDateTime.now()),
-            new History(4, "유저 이름", "컬럼 이름", "변경된 제목", Action.DELETE, LocalDateTime.now())
+            new History(2, "유저 이름", "컬럼 이름", "제목", Action.MOVE, LocalDateTime.now()),
+            new History(1, "유저 이름", "컬럼 이름", "제목", Action.CREATE, LocalDateTime.now())
         );
         List<ModifiedField> modifiedFields = List.of(
             new ModifiedField(1, 3, Field.TITLE, "제목", "변경된 제목"),
@@ -50,23 +52,27 @@ public class HistoryServiceTest {
             new ModifiedField(3, 3, Field.AUTHOR, "작성자", "변경된 작성자"),
             new ModifiedField(4, 3, Field.COLUMN, "컬럼", "변경된 컬럼")
         );
-        given(historyRepository.findAll())
+        Criteria criteria = new Criteria(1, 10);
+        given(historyRepository.findAll(criteria))
             .willReturn(histories);
         given(modifiedFieldRepository.findByHistoryIds(any()))
             .willReturn(modifiedFields);
 
         // when
-        List<HistoryResponse> findHistories = historyService.findAll();
+        Slice<HistoryResponse> slice = historyService.findAll(criteria);
+        List<HistoryResponse> findHistories = slice.getData();
+
+        System.out.println(findHistories);
 
         // then
         then(findHistories)
             .extracting("historyId")
-            .containsExactly(1, 2, 3, 4);
+            .containsExactly(4, 3, 2, 1);
 
         then(findHistories.get(0).getFields()).isNull();
-        then(findHistories.get(1).getFields()).isNull();
-        then(findHistories.get(2).getFields())
+        then(findHistories.get(1).getFields())
             .extracting("modifiedFieldId").containsExactly(1, 2, 3, 4);
-        then(findHistories.get(0).getFields()).isNull();
+        then(findHistories.get(2).getFields()).isNull();
+        then(findHistories.get(3).getFields()).isNull();
     }
 }

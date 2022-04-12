@@ -51,46 +51,54 @@ public class HistoryControllerTest {
         Column column_2 = setUp.createColumn(new Column(user.getUserId(), "이동한 컬럼 이름"));
         Card card = setUp.createCard(new Card(column_1.getColumnId(), "제목", "내용", "작성자", 1));
 
-        History history_1 = setUp.createHistory(new History(card.getCardId(), Action.CREATE));
-        History history_2 = setUp.createHistory(new History(card.getCardId(), Action.MOVE));
-        History history_3 = setUp.createHistory(new History(card.getCardId(), Action.UPDATE));
+        // 슬라이스 크기인 5개를 초과한 History 객체 저장
+        History history_5 = setUp.createHistory(new History(card.getCardId(), Action.CREATE));
+
         History history_4 = setUp.createHistory(new History(card.getCardId(), Action.DELETE));
+        History history_3 = setUp.createHistory(new History(card.getCardId(), Action.CREATE));
+        History history_2 = setUp.createHistory(new History(card.getCardId(), Action.MOVE));
+        History history_1 = setUp.createHistory(new History(card.getCardId(), Action.UPDATE));
+        History history_0 = setUp.createHistory(new History(card.getCardId(), Action.DELETE));
 
         setUp.createModifiedFields(List.of(
             new ModifiedField(null, history_2.getHistoryId(), Field.COLUMN,
                 column_1.getColumnId().toString(), column_2.getColumnId().toString()),
-            new ModifiedField(null, history_3.getHistoryId(), Field.TITLE, "제목", "변경된 제목"),
-            new ModifiedField(null, history_3.getHistoryId(), Field.CONTENT, "내용", "변경된 내용"),
-            new ModifiedField(null, history_3.getHistoryId(), Field.AUTHOR, "작성자", "변경된 작성자")
+            new ModifiedField(null, history_1.getHistoryId(), Field.TITLE, "제목", "변경된 제목"),
+            new ModifiedField(null, history_1.getHistoryId(), Field.CONTENT, "내용", "변경된 내용"),
+            new ModifiedField(null, history_1.getHistoryId(), Field.AUTHOR, "작성자", "변경된 작성자")
         ));
 
         given()
+            .param("page", 1)
+            .param("size", 5)
             .contentType("application/json")
             .log().all()
             .when()
             .get("/histories")
             .then()
             .statusCode(200)
-            .body("[0].action", equalTo("CREATE"))
-            .body("[1].action", equalTo("MOVE"))
-            .body("[2].action", equalTo("UPDATE"))
-            .body("[3].action", equalTo("DELETE"))
+            .body("data[0].action", equalTo("DELETE"))
+            .body("data[1].action", equalTo("UPDATE"))
+            .body("data[2].action", equalTo("MOVE"))
+            .body("data[3].action", equalTo("CREATE"))
+            .body("data[4].action", equalTo("DELETE"))
+            .body("hasNext", equalTo(true))
 
-            .body("[1].fields[0].field", equalTo("COLUMN"))
-            .body("[1].fields[0].oldValue", equalTo("컬럼 이름"))
-            .body("[1].fields[0].newValue", equalTo("이동한 컬럼 이름"))
+            .body("data[1].fields[0].field", equalTo("TITLE"))
+            .body("data[1].fields[0].oldValue", equalTo("제목"))
+            .body("data[1].fields[0].newValue", equalTo("변경된 제목"))
 
-            .body("[2].fields[0].field", equalTo("TITLE"))
-            .body("[2].fields[0].oldValue", equalTo("제목"))
-            .body("[2].fields[0].newValue", equalTo("변경된 제목"))
+            .body("data[1].fields[1].field", equalTo("CONTENT"))
+            .body("data[1].fields[1].oldValue", equalTo("내용"))
+            .body("data[1].fields[1].newValue", equalTo("변경된 내용"))
 
-            .body("[2].fields[1].field", equalTo("CONTENT"))
-            .body("[2].fields[1].oldValue", equalTo("내용"))
-            .body("[2].fields[1].newValue", equalTo("변경된 내용"))
+            .body("data[1].fields[2].field", equalTo("AUTHOR"))
+            .body("data[1].fields[2].oldValue", equalTo("작성자"))
+            .body("data[1].fields[2].newValue", equalTo("변경된 작성자"))
 
-            .body("[2].fields[2].field", equalTo("AUTHOR"))
-            .body("[2].fields[2].oldValue", equalTo("작성자"))
-            .body("[2].fields[2].newValue", equalTo("변경된 작성자"));
+            .body("data[2].fields[0].field", equalTo("COLUMN"))
+            .body("data[2].fields[0].oldValue", equalTo("컬럼 이름"))
+            .body("data[2].fields[0].newValue", equalTo("이동한 컬럼 이름"));
 
     }
 

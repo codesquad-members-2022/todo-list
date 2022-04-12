@@ -13,6 +13,7 @@ import com.codesquad.todolist.user.User;
 import com.codesquad.todolist.user.UserRepository;
 import com.codesquad.todolist.util.GeneratedKeyHolderFactory;
 import com.codesquad.todolist.util.KeyHolderFactory;
+import com.codesquad.todolist.util.page.Criteria;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +49,6 @@ public class HistoryRepositoryTest {
         this.historyRepository = new HistoryRepository(jdbcTemplate, keyHolderFactory);
     }
 
-
     @BeforeEach
     public void setUp() {
         User user = userRepository.create(new User("유저 이름"));
@@ -79,19 +79,29 @@ public class HistoryRepositoryTest {
     @DisplayName("저장소에 저장된 히스토리 정보가 반환된다")
     public void findAllTest() {
         // given
-        History history_1 = historyRepository.create(new History(card.getCardId(), Action.CREATE));
-        History history_2 = historyRepository.create(new History(card.getCardId(), Action.MOVE));
-        History history_3 = historyRepository.create(new History(card.getCardId(), Action.UPDATE));
-        History history_4 = historyRepository.create(new History(card.getCardId(), Action.DELETE));
+        // 슬라이스 크기인 5개를 초과한 History 객체 저장 -> 6개의 History 객체 읽기
+        History history_6 = historyRepository.create(new History(card.getCardId(), Action.CREATE));
 
-        List<History> histories = List.of(history_1, history_2, history_3, history_4);
+        History history_5 = historyRepository.create(new History(card.getCardId(), Action.CREATE));
+        History history_4 = historyRepository.create(new History(card.getCardId(), Action.MOVE));
+        History history_3 = historyRepository.create(new History(card.getCardId(), Action.UPDATE));
+        History history_2 = historyRepository.create(new History(card.getCardId(), Action.DELETE));
+        History history_1 = historyRepository.create(new History(card.getCardId(), Action.DELETE));
+        History history_0 = historyRepository.create(new History(card.getCardId(), Action.DELETE));
 
         // when
-        List<History> findHistories = historyRepository.findAll();
+        List<History> findHistories = historyRepository.findAll(new Criteria(1, 5));
 
         // then
-        then(histories).containsExactlyElementsOf(findHistories);
+        then(findHistories).extracting("historyId")
+            .containsExactly(
+                history_0.getHistoryId(),
+                history_1.getHistoryId(),
+                history_2.getHistoryId(),
+                history_3.getHistoryId(),
+                history_4.getHistoryId(),
+                history_5.getHistoryId()
+            );
     }
-
 
 }
