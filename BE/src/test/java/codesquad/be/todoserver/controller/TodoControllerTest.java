@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -62,7 +61,7 @@ class TodoControllerTest {
 		List<Todo> todos = createTestData();
 
 		given(todoService.findTodos())
-				.willReturn(Optional.of(todos));
+				.willReturn(todos);
 
 		ResultActions perform = mockMvc.perform(get("/api/todos"));
 

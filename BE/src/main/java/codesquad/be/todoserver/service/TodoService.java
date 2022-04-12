@@ -6,7 +6,7 @@ import codesquad.be.todoserver.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Service
 public class TodoService {
@@ -22,7 +22,8 @@ public class TodoService {
 			.orElseThrow(() -> new NoSuchTodoFoundException("id: " + id));
 	}
 
-	public Optional<List> findTodos() {
-		return todoRepository.findAll();
+	public List<Todo> findTodos() {
+		return todoRepository.findAllTodos()
+				.orElseThrow(() -> new NoSuchElementException("Empty Todos"));
 	}
 }
