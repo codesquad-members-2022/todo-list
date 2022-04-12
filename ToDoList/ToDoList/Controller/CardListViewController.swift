@@ -16,8 +16,8 @@ class CardListViewController: UIViewController {
         }
     }
     
-    init(title: String, cardManager: CardManagable) {
-        self.headerTitle = title
+    init(type: CardList, cardManager: CardManagable) {
+        self.headerTitle = type.titleName
         self.cardManager = cardManager
         super.init(nibName: "CardListView", bundle: nil)
         
@@ -27,7 +27,7 @@ class CardListViewController: UIViewController {
     required init?(coder: NSCoder) {
         let title = "unknown"
         self.headerTitle = title
-        self.cardManager = CardManager(listName: title, cardFactory: ModelFactory())
+        self.cardManager = CardManager(cardListType: .todo, cardFactory: ModelFactory())
         super.init(coder: coder)
         
         addCardManagerObserver()

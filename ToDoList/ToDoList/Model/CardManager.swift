@@ -12,7 +12,7 @@ class CardManager: CardManagable {
         }
     }
     
-    private var listName: String
+    private var cardListID: Int
     private var cards = [Cardable]()
     private var selectedCard: Cardable?
     private var currentlyAddedCard: Cardable?
@@ -26,13 +26,13 @@ class CardManager: CardManagable {
         return cards[index]
     }
     
-    init(listName: String, cardFactory: ModelFactoryBase) {
-        self.listName = listName
+    init(cardListType: CardList, cardFactory: ModelFactoryBase) {
+        self.cardListID = cardListType.id
         self.cardFactory = cardFactory
     }
     
     func add(title: String, body: String) {
-        let data = [listName]
+        let data = [cardListID]
         let newCard = cardFactory.make(factoriable: Card.self, title: title, body: body, data: data)
         cards.insert(newCard, at: 0)
         

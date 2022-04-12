@@ -14,7 +14,7 @@ struct NetworkManager {
         
         if let data = data, let id = data.id {
             let data = ["id": String(id), "subject": data.title,
-                        "contents": data.body, "sectionId": data.listName,
+                        "contents": data.body, "sectionId": "\(data.cardListID)",
                         "author": data.caption.rawValue, "createdAt": "\(data.createdTime)",
                         "targetColumnId": "\(targetColumnId)", "targetCardId": "\(targetCardId)"]
             let encoder = JSONEncoder()
