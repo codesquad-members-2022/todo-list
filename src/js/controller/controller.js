@@ -1,10 +1,10 @@
-import { TODO_LIST_URL } from './constants/constant.js';
-import { appendElementsToParent, fetchData } from './utils/util.js';
-import { insertColumns } from './views/columnsView.js';
-import { insertAllCardToColumn } from './views/cardView.js';
-import { onAddBtnClick } from './views/newCardView.js';
-import { createStore } from './store/store';
-import { onClickCardDeleteBtn, onMouseOutCardDeleteBtn, onMouseOverCardDeleteBtn } from './views/cardDeleteView.js';
+import { TODO_LIST_URL } from '../constants/constant.js';
+import { appendElementsToParent, fetchData } from '../utils/util.js';
+import { insertColumns } from '../views/columnsView.js';
+import { insertAllCardToColumn } from '../views/cardView.js';
+import { onAddBtnClick } from '../views/newCardView.js';
+import { createStore } from '../store/store';
+import { onClickCardDeleteBtn, onMouseOutCardDeleteBtn, onMouseOverCardDeleteBtn } from '../views/cardDeleteView.js';
 
 export const controller = async views => {
   const { headerView, mainView } = views;
@@ -12,11 +12,17 @@ export const controller = async views => {
   const todoListData = await fetchData(TODO_LIST_URL);
   const store = createStore();
   store.setStore('main', todoListData);
-  insertColumns(mainView, store.getStore('main'));
-  insertAllCardToColumn(mainView, store.getStore('main'));
   appendElementsToParent(app, headerView, mainView);
+  insertColumns(store.getStore('main'), mainView);
+  insertAllCardToColumn(store.getStore('main'), mainView);
   onAddBtnClick();
   onMouseOverCardDeleteBtn();
   onMouseOutCardDeleteBtn();
-  onClickCardDeleteBtn();
+  onClickCardDeleteBtn(store);
+  setObserver(store);
+};
+
+const setObserver = store => {
+  store.setObserver(insertColumns);
+  store.setObserver(insertAllCardToColumn);
 };

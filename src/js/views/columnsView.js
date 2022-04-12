@@ -1,6 +1,6 @@
 import { icons } from '../constants/constant.js';
 
-export const insertColumns = (parentElement, store) => {
+export const insertColumns = (store, parentElement = document.querySelector('.main')) => {
   const columns = getAllColumns(store);
   columns.forEach(column => {
     parentElement.appendChild(column);
@@ -40,3 +40,5 @@ const createColumnTemplate = (className, title) => {
     </ul>
   `;
 };
+
+const renderColumn = () => {};
