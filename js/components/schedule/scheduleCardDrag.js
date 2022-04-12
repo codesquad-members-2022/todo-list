@@ -20,27 +20,6 @@ const addMouseEventOnDragCard = () => {
     $main.addEventListener("mouseup", mouseUpOnDraggingEventHandler);
 };
 
-const mouseOverOnDraggingEventHandler = (event) => {
-    const CARD = ".schedule-card";
-    dragCard.style.display = "none";
-    const $scheduleCard = e;
-    dragCard.style.display = "block";
-    console.log(event.target);
-
-    if ($scheduleCard) {
-        console.log("mouse enter schedulecard");
-        const location = getLocation($scheduleCard, event.pageY);
-        switch (location) {
-            case "top": {
-                $scheduleCard.insertAdjacentHTML("beforeBegin", afterImageCard);
-                break;
-            }
-            case "bottom": {
-            }
-        }
-    }
-};
-
 const getLocation = (element, y) => {
     const box = element.getBoundingClientRect();
     const offset = y - (box.top + box.height / 2);
@@ -68,23 +47,26 @@ const mouseMoveOnDraggingEventHandler = (event) => {
 
     if (
         !$newScheduleCardBelow ||
-        !$newScheduleCardBelow.classList.contains("schedule-card") ||
-        ($scheduleCardBelow && $newScheduleCardBelow === $scheduleCardBelow)
+        !$newScheduleCardBelow.classList.contains("schedule-card")
     ) {
         return;
     }
 
     $scheduleCardBelow = $newScheduleCardBelow;
     const location = getLocation($scheduleCardBelow, event.pageY);
+    const tempAfterImageCard = afterImageCard;
     switch (location) {
         case "top": {
-            $scheduleCardBelow.insertAdjacentHTML(
-                "beforeBegin",
-                afterImageCard
-            );
+            afterImageCard.remove();
+            $scheduleCardBelow.before(tempAfterImageCard);
+            afterImageCard = tempAfterImageCard;
             break;
         }
         case "bottom": {
+            afterImageCard.remove();
+            $scheduleCardBelow.after(tempAfterImageCard);
+            afterImageCard = tempAfterImageCard;
+            break;
         }
     }
 };
