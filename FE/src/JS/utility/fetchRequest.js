@@ -1,17 +1,13 @@
 export async function fetchRequest(url, type = 'GET', request) {
-  switch (type) {
-    case 'GET':
-    case 'DELETE':
-      return await requestReadOrDelete(url, type);
-    case 'POST':
-    case 'PUT':
-    case 'PATCH':
-      return await requestCreateOrUpdate(url, type, request);
+  if(type === 'GET' || 'DELETE') {
+    return await requestReadOrDelete(url, type);
   }
+  return await requestCreateOrUpdate(url, type, request);
 }
 
 async function requestReadOrDelete(url, type) {
-  return fetch(url, { method: type }).then((res) => res.json());
+  const res = await fetch(url, { method: type });
+  return res.json();
 }
 
 // POST는 create 시에만, 전체 데이터 수정은 PUT, 일부 데이터 수정은 PATCH
@@ -23,5 +19,5 @@ async function requestCreateOrUpdate(url, type, request) {
     },
     body: JSON.stringify(request),
   });
-  return await res.json();
+  return res.json();
 }
