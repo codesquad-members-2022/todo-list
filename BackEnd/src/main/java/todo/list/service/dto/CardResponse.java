@@ -1,26 +1,28 @@
 package todo.list.service.dto;
 
+import java.util.List;
+
 public class CardResponse {
 
-    private CardCollectionDto todoCollection;
-    private CardCollectionDto inProgressCollection;
-    private CardCollectionDto doneCollection;
+    private List<CardDto> todoCollection;
+    private List<CardDto> inProgressCollection;
+    private List<CardDto> doneCollection;
 
-    public CardResponse(CardCollectionDto todoCollection, CardCollectionDto inProgressCollection, CardCollectionDto doneCollection) {
+    public CardResponse(List<CardDto> todoCollection, List<CardDto> inProgressCollection, List<CardDto> doneCollection) {
         this.todoCollection = todoCollection;
         this.inProgressCollection = inProgressCollection;
         this.doneCollection = doneCollection;
     }
 
-    public CardCollectionDto getTodoCollection() {
+    public List<CardDto> getTodoCollection() {
         return todoCollection;
     }
 
-    public CardCollectionDto getInProgressCollection() {
+    public List<CardDto> getInProgressCollection() {
         return inProgressCollection;
     }
 
-    public CardCollectionDto getDoneCollection() {
+    public List<CardDto> getDoneCollection() {
         return doneCollection;
     }
 }
