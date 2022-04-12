@@ -9,6 +9,9 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @Api(value = "TaskController v1")
 public class TaskController {
@@ -27,5 +30,10 @@ public class TaskController {
     @PostMapping("/task")
     public ResponseEntity<Object> add(@RequestBody Task task) {
         return taskService.createTask(task);
+    }
+
+    @GetMapping("/task")
+    public ResponseEntity<Map<Integer, List<Task>>> load() {
+        return taskService.getAllTasks();
     }
 }

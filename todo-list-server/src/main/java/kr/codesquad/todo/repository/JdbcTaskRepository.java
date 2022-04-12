@@ -1,6 +1,7 @@
 package kr.codesquad.todo.repository;
 
 import kr.codesquad.todo.domain.Task;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -38,5 +40,17 @@ public class JdbcTaskRepository implements TaskRepository {
         task.setCreateAt(now);
 
         return task;
+    }
+
+    @Override
+    public List<Task> getAll() {
+        String sql = "select * from task order by created_at desc";
+        List<Task> tasks = jdbcTemplate.query(sql, (rs, rowCount) -> {
+            Task task = new Task(rs.getString("title"), rs.getString("content"), rs.getString("author"), rs.getInt("status"));
+            task.setCreateAt(rs.getTimestamp("created_at").toLocalDateTime());
+            task.setIdx(rs.getInt("idx"));
+            return task;
+        });
+        return tasks;
     }
 }

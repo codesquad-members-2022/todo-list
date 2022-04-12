@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class TaskService {
@@ -31,5 +31,34 @@ public class TaskService {
 
     private boolean isRequiredNull (Task task) {
         return Objects.isNull(task.getTitle()) || Objects.isNull(task.getContent()) || Objects.isNull(task.getAuthor()) || Objects.isNull(task.getStatus());
+    }
+
+    public ResponseEntity<Map<Integer, List<Task>>> getAllTasks() {
+        List<Task> statusOne = new ArrayList<>();
+        List<Task> statusTwo = new ArrayList<>();
+        List<Task> statusThree = new ArrayList<>();
+
+        List<Task> tasks = taskRepository.getAll();
+        for (Task task : tasks) {
+            switch (task.getStatus()) {
+                case 1:
+                    statusOne.add(task);
+                    break;
+                case 2:
+                    statusTwo.add(task);
+                    break;
+                case 3:
+                    statusThree.add(task);
+                    break;
+                default:
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+        Map<Integer, List<Task>> taskMap = new HashMap<>();
+        taskMap.put(1, statusOne);
+        taskMap.put(2, statusTwo);
+        taskMap.put(3, statusThree);
+
+        return ResponseEntity.status(HttpStatus.OK).body(taskMap);
     }
 }
