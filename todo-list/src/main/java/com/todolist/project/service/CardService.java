@@ -31,6 +31,8 @@ public class CardService {
         return cardRepository.findAll();
     }
 
+    public List<Card> findByStatus(String cardStatus) { return cardRepository.findCardsByStatus(cardStatus);}
+
     public int updateCard(Long id, CardUpdateDto cardUpdateDto) {
         return cardRepository.update(id, cardUpdateDto.toEntity());
     }

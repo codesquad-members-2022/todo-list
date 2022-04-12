@@ -21,6 +21,7 @@ public class CardRepository {
             = "UPDATE card SET card_index = :index, title = :title, contents = :contents, card_status = :card_status, created_date = :createTime WHERE id = :id";
     private final static String INSERT_CARD_SQL
             = "INSERT INTO card(card_index, title, contents, writer, created_date, card_status) VALUES (:index,:title,:contents,:writer,:createTime,:card_status)";
+    private final static String FIND_CARD_BY_STATUS_SQL = "SELECT id, card_index, title, contents, writer, card_status, created_date FROM card WHERE card_status = :cardStatus";
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final RowMapper<Card> rowMapper;
@@ -50,6 +51,12 @@ public class CardRepository {
                 .orElseThrow(
                         IllegalAccessError::new
                 );
+    }
+
+    public List<Card> findCardsByStatus(String cardStatus) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("cardStatus", cardStatus);
+        return namedParameterJdbcTemplate.query(FIND_CARD_BY_STATUS_SQL, mapSqlParameterSource, rowMapper);
     }
 
     public List<Card> findAll() {
