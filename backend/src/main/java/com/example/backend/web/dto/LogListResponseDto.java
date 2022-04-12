@@ -1,35 +1,22 @@
 package com.example.backend.web.dto;
 
 public class LogListResponseDto {
-	private String title;
-	private String prevColumnName;
-	private String currentColumnName;
-	private String actionType;
+	private String author;
+	private String text;
 	private String createdDate;
 
-	public LogListResponseDto(String title, String prevColumnName, String currentColumnName, String actionType,
-		String createdDate) {
-		this.title = title;
-		this.prevColumnName = prevColumnName;
-		this.currentColumnName = currentColumnName;
-		this.actionType = actionType;
+	public LogListResponseDto(String author, String text, String createdDate) {
+		this.author = author;
+		this.text = text;
 		this.createdDate = createdDate;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getAuthor() {
+		return author;
 	}
 
-	public String getPrevColumnName() {
-		return prevColumnName;
-	}
-
-	public String getCurrentColumnName() {
-		return currentColumnName;
-	}
-
-	public String getActionType() {
-		return actionType;
+	public String getText() {
+		return text;
 	}
 
 	public String getCreatedDate() {

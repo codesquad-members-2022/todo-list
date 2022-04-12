@@ -33,11 +33,6 @@ public class LogSaveRequestDto {
 	}
 
 	public Log toEntity() {
-		return new Log.Builder()
-			.title(title)
-			.prevColumnName(prevColumnName)
-			.currentColumnName(currentColumnName)
-			.actionType(actionType)
-			.build();
+		return Log.from(this);
 	}
 }
