@@ -29,7 +29,7 @@ interface RetrofitClient {
     suspend fun getActionLog(): ActionLogResponse
 
     companion object {
-        private const val baseUrl = "http://52.78.46.69/"
+        private const val baseUrl = "http://13.125.179.177:8080/"
 
         fun create(): RetrofitClient {
             return Retrofit.Builder().baseUrl(baseUrl)

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo.model.ActionLog
+import com.example.todo.model.ActionType
 import com.example.todo.model.ProgressType
 import com.example.todo.model.TodoItem
 import com.example.todo.respository.ActionLogRepository
@@ -50,9 +51,14 @@ class ToDoViewModel(
 
     private fun loadActionLog() {
         viewModelScope.launch {
-            val actionLogs = actionLogRepository.getActionLogs()
-            _actionList.value = actionLogs
-            Log.d("ssss", actionLogs.toString())
+//            val actionLogs = actionLogRepository.getActionLogs()
+//            _actionList.value = actionLogs
+            val tempActions= mutableListOf<ActionLog>()
+            val tempActionLog= ActionLog("aaaa", ActionType.UPDATE, "2022-04-06 16:00:01", ProgressType.IN_PROGRESS, ProgressType.DONE)
+            tempActions.add(tempActionLog)
+            _actionList.value= tempActions
+
+
         }
     }
 
