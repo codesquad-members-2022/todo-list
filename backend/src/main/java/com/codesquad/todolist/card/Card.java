@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Card {
+public class Card implements Cloneable {
 
     private Integer cardId;
     private Integer columnId;
@@ -92,6 +92,15 @@ public class Card {
     }
 
     @Override
+    public Card clone() {
+        try {
+            return (Card) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
+
+    @Override
     public String toString() {
         return "Card{" +
             "cardId=" + cardId +
@@ -102,7 +111,7 @@ public class Card {
             ", nextId=" + nextId +
             ", createdDateTime=" + createdDateTime +
             ", deleted=" + deleted +
+            ", modifiedFields=" + modifiedFields +
             '}';
     }
-
 }
