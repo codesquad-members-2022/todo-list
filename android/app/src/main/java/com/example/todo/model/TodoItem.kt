@@ -7,7 +7,7 @@ data class TodoItem(
     var itemId: Int = -1,
     var next: TodoItem? = null
 ) {
- 
+
 }
 
 
