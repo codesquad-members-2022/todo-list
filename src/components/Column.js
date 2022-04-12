@@ -36,4 +36,17 @@ export default class Column extends Component {
     const { cards } = this.state;
     return cards;
   }
+  setEvent() {
+    this.addEvent("click", ".column-plus-button", this.createCard.bind(this));
+  }
+  createCard() {
+    const _cards = this.state.cards;
+    _cards.unshift({
+      title: "",
+      content: "",
+      author: "나",
+      cardState: "create",
+    });
+    this.setState({ cards: _cards });
+  }
 }
