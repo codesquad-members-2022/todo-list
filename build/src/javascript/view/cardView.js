@@ -89,7 +89,7 @@ function updateCardContents(target) {
     column: cardColumnName,
     title: cardTitleText,
     detail: cardDetailsText,
-    time: cardRegisterTime,
+    createDate: cardRegisterTime,
   };
   return card;
 }

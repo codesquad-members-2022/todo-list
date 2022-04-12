@@ -21,11 +21,10 @@ export async function deleteData(URL) {
 export function axiosRequest(method, pathName, controlledData = {}) {
   const URL = `http://localhost:5000/${pathName}`;
   const idURL = URL + `/${controlledData.id}`;
-  let response;
   switch (method) {
     case "get":
-      const sortingURL = URL + "?_sort=";
-      response = getData(URL);
+      const sortingURL = URL + "?_sort=createDate&_order=desc";
+      const response = getData(sortingURL);
       return response;
     case "post":
       postData(URL, controlledData);
