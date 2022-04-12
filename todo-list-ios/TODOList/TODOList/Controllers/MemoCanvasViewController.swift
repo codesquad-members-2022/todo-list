@@ -32,7 +32,7 @@ class MemoCanvasViewController: UIViewController {
     
     private func addTableViewConfigurations(tableViewController: MemoContainerViewController) {
         tableViewController.memoContainerView.tableView.dataSource = tableViewController
-        tableViewController.memoContainerView.tableView.dataSource = tableViewController
+        tableViewController.memoContainerView.tableView.delegate = tableViewController
         tableViewController.memoContainerView.tableView.register(MemoTableViewCell.self, forCellReuseIdentifier: MemoTableViewCell.identifier)
     }
     
