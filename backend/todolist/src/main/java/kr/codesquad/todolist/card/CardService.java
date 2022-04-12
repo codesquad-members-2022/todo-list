@@ -63,4 +63,15 @@ public class CardService {
 		return numberOfStatus.stream()
 			.collect(Collectors.toMap(CardStatusNumber::getStatus, CardStatusNumber::getNumberOfStatus));
 	}
+
+	public void updateOf(Long cardId, CardDto.EditRequest request) {
+		Card card = getCard(cardId);
+		card.modify(request.getSubject(), request.getContent());
+		cardDao.save(card);
+	}
+
+	private Card getCard(Long cardId) {
+		return cardDao.findById(cardId)
+			.orElseThrow(() -> new IllegalArgumentException(ERROR_OF_CARD_ID));
+	}
 }
