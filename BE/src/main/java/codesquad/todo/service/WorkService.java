@@ -10,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -83,11 +85,11 @@ public class WorkService {
         return new WorkMoveResponse(targetStatus, targetStatusOrder);
     }
 
-    public WorkListResponse findWorkListByStatus(Long userId, WorkStatus workStatus) {
-        // 레포지토리에서, 작성자가 userId 값이고 status가 workStatus인 Work들을 가져와 반환
-
-
-        return new WorkListResponse(workRepository.findAll());
+    public WorkListResponse findWorkList(Long userId) {
+        // 레포지토리에서, 작성자가 userId 값인 Work들을 가져와 반환
+        List<WorkDetailResponse> workDetails = workRepository.findAllWorkByUserId(userId).stream()
+                .map(WorkDetailResponse::new)
+                .collect(Collectors.toList());
+        return new WorkListResponse(workDetails);
     }
-
 }

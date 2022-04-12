@@ -2,7 +2,6 @@ package codesquad.todo.web.works;
 
 import codesquad.todo.domain.user.User;
 import codesquad.todo.domain.user.UserRepository;
-import codesquad.todo.domain.work.WorkStatus;
 import codesquad.todo.service.WorkService;
 import codesquad.todo.web.works.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +33,8 @@ public class WorkController {
     }
 
     @GetMapping
-    public WorkListResponse workListOfStatus(WorkStatus workStatus) {
+    public WorkListResponse workAllList() {
         User defaultUser = userRepository.findById(DEFAULT_USER_ID).get();
-        return workService.findWorkListByStatus(defaultUser.getId(), workStatus);
+        return workService.findWorkList(defaultUser.getId());
     }
 }

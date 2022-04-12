@@ -2,7 +2,6 @@ package codesquad.todo.domain.work;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,9 +37,10 @@ public class MemoryWorkRepository implements WorkRepository {
         store.remove(id);
     }
 
-    @Override
-    public List<Work> findAll() {
-        return new ArrayList<>(store.values());
+    public List<Work> findAllWorkByUserId(Long userId) {
+        return store.values().stream()
+                .filter(work -> work.getId().equals(userId))
+                .collect(Collectors.toList());
     }
 
     @Override
