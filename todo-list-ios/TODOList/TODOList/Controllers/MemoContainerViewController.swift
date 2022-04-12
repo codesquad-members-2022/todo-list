@@ -1,8 +1,7 @@
 import UIKit
 
 class MemoContainerViewController: UIViewController {
-    
-    private var cellCount: Int?
+
     private var containerType: MemoContainerType?
     private var selectedIndexPath: IndexPath?
     
@@ -12,9 +11,8 @@ class MemoContainerViewController: UIViewController {
         return containerView
     }()
     
-    convenience init(cellCount: Int, containerType: MemoContainerType){
+    convenience init(containerType: MemoContainerType){
         self.init()
-        self.cellCount = cellCount
         self.containerType = containerType
         memoContainerView.categoryLabel.text = " \(containerType)"
         view = memoContainerView
@@ -24,8 +22,10 @@ class MemoContainerViewController: UIViewController {
 extension MemoContainerViewController: UITableViewDataSource & UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let cellCount = cellCount else { return 0 }
-        return cellCount
+        guard let parentViewController = parent as? MemoCanvasViewController,
+              let containerType = containerType,
+              let memos = parentViewController.memoTableViewModels[containerType] else { return 0 }
+        return memos.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

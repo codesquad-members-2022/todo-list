@@ -33,7 +33,7 @@ class MemoCanvasViewController: UIViewController {
     }
     
     private func addTableViewController(containerType: MemoContainerType) {
-        let tableViewController = MemoContainerViewController(cellCount: 15, containerType: containerType)
+        let tableViewController = MemoContainerViewController(containerType: containerType)
         memoTableViewControllers[containerType] = tableViewController
         
         addChild(tableViewController)
