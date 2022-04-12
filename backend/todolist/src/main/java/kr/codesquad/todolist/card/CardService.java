@@ -74,4 +74,9 @@ public class CardService {
 		return cardDao.findById(cardId)
 			.orElseThrow(() -> new IllegalArgumentException(ERROR_OF_CARD_ID));
 	}
+
+	public void deleteFrom(Long cardId) {
+		Card cardInfo = getCard(cardId);
+		cardDao.delete(cardInfo.getCardId());
+	}
 }
