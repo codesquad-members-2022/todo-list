@@ -62,8 +62,6 @@ public class HistoryServiceTest {
         Slice<HistoryResponse> slice = historyService.findAll(criteria);
         List<HistoryResponse> findHistories = slice.getData();
 
-        System.out.println(findHistories);
-
         // then
         then(findHistories)
             .extracting("historyId")

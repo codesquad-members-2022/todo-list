@@ -8,8 +8,6 @@ public class Slice<T> {
     private final List<T> data;
 
     public Slice(List<T> data, Criteria criteria) {
-        System.out.println("size :" + data.size());
-
         int index = Math.min(data.size(), criteria.getSize());
 
         this.hasNext = data.size() > criteria.getSize();
