@@ -8,30 +8,34 @@
 import Foundation
 
 struct ColumnViewModel {
-    var list = Observable([TaskCellViewModel]())
-    let state: TaskStatus
+
+    private let state: TaskStatus
     private let taskManager: TaskManager
+    
+    var list = Observable([TaskCellViewModel]())
     
     init(state: TaskStatus, taskManager: TaskManager) {
         self.state = state
         self.taskManager = taskManager
     }
     
-    var count: Int {
-        list.value.count
-    }
+    var count: Int { list.value.count }
     
     subscript(index: Int) -> TaskCellViewModel? {
         guard index < list.value.count else { return nil }
         return list.value[index]
     }
+}
+
+// MARK: - Handling User Input
+
+extension ColumnViewModel {
     
     func load() {
         taskManager.load { tasks in
             let taskVM = tasks.filter { $0.status == state }.map {
                 TaskCellViewModel(id: $0.id, title: $0.title, content: $0.content, device: $0.device)
             }
-            
             self.list.value = taskVM
         }
     }
@@ -44,11 +48,11 @@ struct ColumnViewModel {
     }
     
     func delete(id: Int) {
-        //
+        // To be implemented
     }
     
     func reorder(from: Int, to: Int) {
-        //
+        // To be implemented
     }
 }
 

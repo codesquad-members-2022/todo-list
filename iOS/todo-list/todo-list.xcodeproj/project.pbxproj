@@ -29,6 +29,8 @@
 		BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
 		BC40607F2805419600E03651 /* DataPrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC40607E2805419600E03651 /* DataPrettyPrint.swift */; };
 		BC4060802805419600E03651 /* DataPrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC40607E2805419600E03651 /* DataPrettyPrint.swift */; };
+		BC4060832805575D00E03651 /* TaskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4060822805575D00E03651 /* TaskStorage.swift */; };
+		BC4060842805575D00E03651 /* TaskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4060822805575D00E03651 /* TaskStorage.swift */; };
 		BC4792972803E4BD00CBE369 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4792962803E4BD00CBE369 /* TaskManager.swift */; };
 		BC4792982803E4BD00CBE369 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4792962803E4BD00CBE369 /* TaskManager.swift */; };
 		BC5880DE27FC297C002E3A1D /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */; };
@@ -105,6 +107,7 @@
 		BC3D4A1627FD6F1C009B37FB /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		BC40607E2805419600E03651 /* DataPrettyPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPrettyPrint.swift; sourceTree = "<group>"; };
+		BC4060822805575D00E03651 /* TaskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStorage.swift; sourceTree = "<group>"; };
 		BC4792962803E4BD00CBE369 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
 		BC5880D927FC297C002E3A1D /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
@@ -174,6 +177,7 @@
 			children = (
 				BC632506280427A700CE5280 /* Common */,
 				BC63251728043F9B00CE5280 /* View Model */,
+				BC4060812805574300E03651 /* UseCases */,
 				BC3D4A1527FD6F11009B37FB /* Model */,
 				BC3D4A1327FD6F02009B37FB /* View */,
 				5B349DD727FA9DAA00AA602E /* ViewController */,
@@ -251,13 +255,20 @@
 			isa = PBXGroup;
 			children = (
 				BC3D4A1627FD6F1C009B37FB /* Task.swift */,
-				BC4792962803E4BD00CBE369 /* TaskManager.swift */,
-				BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */,
-				5B349DE927FECDC500AA602E /* Action.swift */,
+				BC4060822805575D00E03651 /* TaskStorage.swift */,
 				5B349DE727FECD0C00AA602E /* Log.swift */,
-				5B349DF228051F2300AA602E /* LogManager.swift */,
+				5B349DE927FECDC500AA602E /* Action.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BC4060812805574300E03651 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				BC4792962803E4BD00CBE369 /* TaskManager.swift */,
+				BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		BC5880EA27FC2980002E3A1D /* NotoSansKR */ = {
@@ -457,6 +468,7 @@
 				5B349DEA27FECDC500AA602E /* Action.swift in Sources */,
 				BCC6641027FC10F10078C1E2 /* KanbanViewController.swift in Sources */,
 				BC40607F2805419600E03651 /* DataPrettyPrint.swift in Sources */,
+				BC4060832805575D00E03651 /* TaskStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +484,7 @@
 				BCC3729327FFEB6500774933 /* Action.swift in Sources */,
 				BC632509280427BA00CE5280 /* DateFormatter.swift in Sources */,
 				BCC3729427FFEB6900774933 /* Log.swift in Sources */,
+				BC4060842805575D00E03651 /* TaskStorage.swift in Sources */,
 				BC63251528043EFC00CE5280 /* ColumnViewModel.swift in Sources */,
 				BC63251428043ECD00CE5280 /* ColumnViewModelTests.swift in Sources */,
 				BC63251228043D7400CE5280 /* TaskManagerTests.swift in Sources */,
