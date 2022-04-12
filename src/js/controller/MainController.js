@@ -46,4 +46,60 @@ const createColumnController = (store) => {
   init(columnStore);
 };
 
+const dragDrop = (event) => {
+  const movingBox = document.createElement("div");
+  movingBox.classList.add("box");
+  movingBox.style.position = "absolute";
+  document.querySelector(".zone").appendChild(movingBox); // 이부분 수정필요
+
+  const { target, pageX, pageY, clientX, clientY } = event;
+  let shiftX = clientX - target.getBoundingClientRect().left;
+  let shiftY = clientY - target.getBoundingClientRect().top;
+  const coord = { pageX, pageY, shiftX, shiftY };
+  moveAt(movingBox, coord);
+
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);
+  }
+
+  document.addEventListener("mousemove", onMouseMove);
+};
+
+function moveAt(element, { pageX, pageY, shiftX, shiftY }) {
+  Object.assign(element.style, {
+    left: pageX - shiftX + "px",
+    top: pageY - shiftY + "px",
+  });
+}
+
+function onMouseMo() {
+  document.removeEventListener("mousemove", onMouseMove);
+  const movingBoxCoord = movingBox.style.left + movingBox.style.width / 2;
+
+  if (movingBoxCoord > document.querySelectorAll(".zone")[2].style.left) {
+    /*이부분 left 수정해야함*/ // 왜 right는 안되는걸까?
+    document.querySelectorAll(".zone")[2].appendChild(movingBox);
+    Object.assign(movingBox.style, {
+      position: "static",
+      left: "0px",
+      top: "0px",
+    });
+
+    return;
+  }
+
+  if (movingBoxCoord > document.querySelectorAll(".zone")[1].style.left) {
+    document.querySelectorAll(".zone")[1].appendChild(movingBox);
+    Object.assign(movingBox.style, {
+      position: "static",
+      left: "0px",
+      top: "0px",
+    });
+
+    return;
+  }
+
+  movingBox.remove();
+}
+
 export { createColumnController };
