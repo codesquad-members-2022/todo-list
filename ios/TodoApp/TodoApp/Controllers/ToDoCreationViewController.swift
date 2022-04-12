@@ -4,7 +4,7 @@ class ToDoCreationViewController: UIViewController {
     
     @IBOutlet weak var editView: UIView!
     @IBOutlet weak var headField: UITextField!
-    @IBOutlet weak var bodyField: UITextField!
+    @IBOutlet weak var bodyField: UITextView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     
@@ -13,18 +13,16 @@ class ToDoCreationViewController: UIViewController {
         editView.layer.cornerRadius = 15
         editView.layer.borderWidth = 0.3
         editView.layer.borderColor = UIColor.blue.cgColor
-        
+        bodyField.isScrollEnabled = false
         headField.borderStyle = .none
-        bodyField.borderStyle = .none
         headField.becomeFirstResponder()
-        bodyField.addTarget(self, action: #selector(didBodyFieldChange(_:)), for: .editingChanged)
         registerButton.isHighlighted.toggle()
         cancelButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
     }
     
     private func setDelegate() {
         headField.delegate = self
-        bodyField.delegate = self
+//        bodyField.delegate = self
         hideKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -85,3 +83,20 @@ extension ToDoCreationViewController: UIGestureRecognizerDelegate {
     }
 }
 
+extension ToDoCreationViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let size: CGSize = CGSize(width: view.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        textView.constraints.forEach { (constraint) in
+            if estimatedSize.height <= 30 {
+                
+            }
+            else {
+                if constraint.firstAttribute == .height {
+                    constraint.constant = estimatedSize.height
+                }
+            }
+        }
+    }
+}
