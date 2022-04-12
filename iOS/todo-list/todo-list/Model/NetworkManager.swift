@@ -92,7 +92,10 @@ struct NetworkManager {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = body
+<<<<<<< HEAD
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+=======
+>>>>>>> 60d70e9 (🐛: ViewModel에서 nil이 넘어오는 버그를 Observable의 bind와 클로저 실행 분리로 해결)
 
         print("Body", String(data: body, encoding: .utf8)!)
         urlSession.dataTask(with: request) { data, response, error in

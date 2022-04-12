@@ -12,11 +12,19 @@ class ColumnViewModelTests: XCTestCase {
     func testLoad() {
         let promise = XCTestExpectation(description: "Data Loaded")
         let columnViewModel = ColumnViewModel(state: .todo, taskManager: TaskManager())
+<<<<<<< HEAD
         
         columnViewModel.list.bind { taskViewModels in
             print(taskViewModels.count)
             XCTAssertTrue(taskViewModels.count > 0)
             promise.fulfill()
+=======
+
+        columnViewModel.list.bind { taskViewModels in
+                print(taskViewModels.count)
+                XCTAssertTrue(taskViewModels.count > 0)
+                promise.fulfill()
+>>>>>>> 60d70e9 (🐛: ViewModel에서 nil이 넘어오는 버그를 Observable의 bind와 클로저 실행 분리로 해결)
         }
         
         columnViewModel.load()
