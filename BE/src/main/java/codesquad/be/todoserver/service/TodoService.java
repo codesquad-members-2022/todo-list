@@ -3,10 +3,9 @@ package codesquad.be.todoserver.service;
 import codesquad.be.todoserver.domain.Todo;
 import codesquad.be.todoserver.exception.NoSuchTodoFoundException;
 import codesquad.be.todoserver.repository.TodoRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TodoService {
@@ -23,10 +22,11 @@ public class TodoService {
 	}
 
 	public List<Todo> findTodos() {
+		List<Todo> todos = todoRepository.findAllTodos();
 
-		if (todoRepository.findAllTodos().isEmpty()) {
-			throw new NoSuchElementException();
+		if (todos.isEmpty()) {
+			throw new NoSuchElementException("Empty Todos");
 		}
-		return todoRepository.findAllTodos();
+		return todos;
 	}
 }

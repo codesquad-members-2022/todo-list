@@ -2,11 +2,10 @@ package codesquad.be.todoserver.service;
 
 import codesquad.be.todoserver.domain.History;
 import codesquad.be.todoserver.repository.HistoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class HistoryService {
@@ -19,10 +18,11 @@ public class HistoryService {
 	}
 
 	public List<History> getAllHistory() {
+		List<History> histories = historyRepository.findAllHistory();
 
-		if (historyRepository.findAllHistory().isEmpty()) {
-			throw new NoSuchElementException();
+		if (histories.isEmpty()) {
+			throw new NoSuchElementException("Empty History");
 		}
-		return historyRepository.findAllHistory();
+		return histories;
 	}
 }
