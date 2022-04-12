@@ -10,5 +10,5 @@ public interface CardRepository {
     int delete(int id);
     List<Card> findAll();
     Optional<Card> findById(int id);
-
+    Integer findNumberOfCards(String section);
 }

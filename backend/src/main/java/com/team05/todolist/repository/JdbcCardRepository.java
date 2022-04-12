@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -71,6 +70,11 @@ public class JdbcCardRepository implements CardRepository {
             "SELECT id, order_index, delete_yn, title, content, section FROM card WHERE id = ?",
             cardRowMapper(), id);
         return result.stream().findAny();
+    }
+
+    @Override
+    public Integer findNumberOfCards(String section) {
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM card WHERE section = ?", Integer.class, section);
     }
 
     private RowMapper<Card> cardRowMapper() {
