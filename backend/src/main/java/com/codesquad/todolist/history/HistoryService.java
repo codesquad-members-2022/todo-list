@@ -3,6 +3,8 @@ package com.codesquad.todolist.history;
 import com.codesquad.todolist.history.domain.History;
 import com.codesquad.todolist.history.domain.ModifiedField;
 import com.codesquad.todolist.history.dto.HistoryResponse;
+import com.codesquad.todolist.util.page.Criteria;
+import com.codesquad.todolist.util.page.Slice;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,8 +22,8 @@ public class HistoryService {
         this.modifiedFieldRepository = modifiedFieldRepository;
     }
 
-    public List<HistoryResponse> findAll() {
-        List<History> histories = historyRepository.findAll();
+    public Slice<HistoryResponse> findAll(Criteria criteria) {
+        List<History> histories = historyRepository.findAll(criteria);
 
         List<Integer> historyIds = histories.stream()
             .map(History::getHistoryId)
@@ -36,9 +38,10 @@ public class HistoryService {
             history -> history.setFields(modifiedFieldMap.get(history.getHistoryId()))
         );
 
-        return histories.stream()
+        List<HistoryResponse> historyResponses = histories.stream()
             .map(HistoryResponse::from)
             .collect(Collectors.toList());
+        return new Slice<>(historyResponses, criteria);
     }
 
 }

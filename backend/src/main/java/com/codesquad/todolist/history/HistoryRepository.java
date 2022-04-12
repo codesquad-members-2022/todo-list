@@ -3,6 +3,7 @@ package com.codesquad.todolist.history;
 import com.codesquad.todolist.history.domain.Action;
 import com.codesquad.todolist.history.domain.History;
 import com.codesquad.todolist.util.KeyHolderFactory;
+import com.codesquad.todolist.util.page.Criteria;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -43,14 +44,20 @@ public class HistoryRepository {
         return history;
     }
 
-    public List<History> findAll() {
+    public List<History> findAll(Criteria criteria) {
         String sql =
             "select history_id, user_name, column_name, title, action, history.created_date from history"
                 + " join card on history.card_id = card.card_id"
                 + " join `column` on card.column_id = `column`.column_id"
-                + " join `user` on `column`.user_id = `user`.user_id";
+                + " join `user` on `column`.user_id = `user`.user_id"
+                + " order by history_id desc"
+                + " limit :limit offset :offset";
 
-        return jdbcTemplate.query(sql, getRowMapper());
+        MapSqlParameterSource source = new MapSqlParameterSource()
+            .addValue("limit", criteria.getLimit())
+            .addValue("offset", criteria.getOffset());
+
+        return jdbcTemplate.query(sql, source, getRowMapper());
     }
 
     public Optional<History> findById(Integer historyId) {
