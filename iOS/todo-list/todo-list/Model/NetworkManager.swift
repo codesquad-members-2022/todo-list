@@ -139,19 +139,20 @@ struct NetworkManager {
         guard let urlString = logComponents.string,
               let url = URL(string: urlString) else { return }
         
-        urlSession.dataTask(with: url) { data, response, error in
-            
-            guard let data = data else {
-                return completion(.failure(.noData))
-            }
-            
-            guard let decode = try? decoder.decode([Log].self, from: data) else {
-                print(String(data: data, encoding: .utf8)!)
-                return completion(.failure(.decoding))
-            }
-            
-            completion(.success(decode))
-            
-        }.resume()
+//        LogManager Local Test를 위해 임시 주석처리
+//        urlSession.dataTask(with: url) { data, response, error in
+//
+//            guard let data = data else {
+//                return completion(.failure(.noData))
+//            }
+//
+//            guard let decode = try? decoder.decode([Log].self, from: data) else {
+//                print(String(data: data, encoding: .utf8)!)
+//                return completion(.failure(.decoding))
+//            }
+//
+//            completion(.success(decode))
+//
+//        }.resume()
     }
 }

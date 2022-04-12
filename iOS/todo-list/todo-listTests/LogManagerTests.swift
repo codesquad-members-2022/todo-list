@@ -9,4 +9,9 @@ import XCTest
 
 class LogManagerTests: XCTestCase {
     
+    func testLoad() {
+        let dummyLogJSONData: Data? = {
+            
+        }
+    }
 }
