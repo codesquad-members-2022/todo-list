@@ -78,7 +78,20 @@ extension MemoContainerViewController: UITableViewDragDelegate {
         
         let memo = memos[indexPath.row]
         let itemProvider = NSItemProvider(object: memo)
-        let selectedIndexPath = indexPath
+        selectedIndexPath = indexPath
         return [UIDragItem(itemProvider: itemProvider)]
     }
+    
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        guard let parentViewController = parent as? MemoCanvasViewController,
+              let containerType = containerType,
+              let selectedIndexPath = selectedIndexPath else { return }
+
+        parentViewController.removeSelectedMemoModel(containerType: containerType, indexPath: selectedIndexPath)
+        tableView.beginUpdates()
+        tableView.deleteSections([selectedIndexPath.section], with: .automatic)
+        tableView.endUpdates()
+        self.selectedIndexPath = nil
+    }
+}
 }
