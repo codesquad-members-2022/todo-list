@@ -1,16 +1,18 @@
-import Component from "../core/Component.js";
+import View from "../core/View";
 
-export class TodoCard extends Component {
+
+export class TodoCard extends View {
   template() {
-    const { todo, idx, selected } = this.$props;
+
+    const { title, content, caption, selected} = this.$props;
     return `${
       selected === true
-        ? `<div class="wrapper"><span class="title">${todo.title}</span><span class="content">${todo.content}</span></div>
+        ? `<div class="wrapper"><span class="title">${title}</span><span class="content">${content}</span></div>
         <div class="frame">
           <div class="button-left"><span>취소</span></div>
           <div class="button-right"><span>등록</span></div>
         </div>`
-        : `<div class="wrapper"><h2 class="card-title">${todo.title}</h2><span class="card-content">${todo.content}</span><span class="card-caption">${todo.caption}</span>
+        : `<div class="wrapper"><h2 class="card-title">${title}</h2><span class="card-content">${content}</span><span class="card-caption">${caption}</span>
         </div>
         <span class="delete-card">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +25,8 @@ export class TodoCard extends Component {
 
   setEvent() {
     this.addEvent("dblclick", ".wrapper", (e) => {
-      this.setState({ selected: true });
+      console.log("hi");
+      this.$props.selected = true;
     });
   }
 }

@@ -3,21 +3,21 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./app.js",
+  entry: "./app.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js"
 
   },
+  resolve: {
+    extensions: ['', '.js','.ts']
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        test: /\.tsx?$/, use: ['babel-loader', 'ts-loader'], exclude: /node_modules/
       },
+
       {
         test: /\.css$/, // .css 확장자로 끝나는 모든 파일
         use: ["style-loader", "css-loader"] // css-loader를 적용한다

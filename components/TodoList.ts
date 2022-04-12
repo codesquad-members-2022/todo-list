@@ -1,11 +1,14 @@
-import Component from "../core/Component.js";
-import { TodoCard } from "./TodoCard.js";
 
-export class TodoList extends Component {
+
+import View from "../core/View";
+import { StateObj } from "../utils";
+import { TodoCard } from "./TodoCard";
+
+
+export class TodoList extends View {
   template() {
     const {
-      list: { title, todos, editting },
-      idx
+     title, todos, editting
     } = this.$props;
     return `
           <div class="todo-title">
@@ -42,29 +45,27 @@ export class TodoList extends Component {
     }
     ${todos
       .map(
-        (todo, idx) =>
+        (todo:StateObj, idx:number) =>
           `<div class="${
             todo.selected ? "selected" : "todo-card"
-          }" data-idx="${idx}"></div>`
+          }" data-idx="${idx}">
+    
+</div>`
       )
       .join("")}`;
   }
 
   mount() {
-    const {
-      list: { todos }
-    } = this.$props;
-    const card = this.select(`.todo-card[data-idx="0"]`);
+    const { todos } = this.$props;
     todos.forEach(
-      (todo, idx) =>
-
-        todo.selected ? new TodoForm() :
-          new TodoCard(this.select(`.todo-card[data-idx="${idx}"]`), {
-            todo,
-            idx
-          })
-
+      (todo:StateObj, idx:number) =>
+          new TodoCard(this.store, this.select(`.todo-card[data-idx="${idx}"]`)!, todo,this)
     );
+  }
+  setEvent(){
+    this.addEvent('click', '.add' , e=>{
+      this.$props.editting = true;
+    })
   }
 }
 
