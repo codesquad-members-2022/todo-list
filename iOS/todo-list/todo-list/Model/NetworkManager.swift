@@ -133,4 +133,25 @@ struct NetworkManager {
             
         }.resume()
     }
+    
+    //MARK: getAllLogs
+    func getAllLogs(then completion: @escaping (Result <[Log], NetworkError>) -> Void) {
+        guard let urlString = logComponents.string,
+              let url = URL(string: urlString) else { return }
+        
+        urlSession.dataTask(with: url) { data, response, error in
+            
+            guard let data = data else {
+                return completion(.failure(.noData))
+            }
+            
+            guard let decode = try? decoder.decode([Log].self, from: data) else {
+                print(String(data: data, encoding: .utf8)!)
+                return completion(.failure(.decoding))
+            }
+            
+            completion(.success(decode))
+            
+        }.resume()
+    }
 }
