@@ -19,7 +19,7 @@ public class HistoryController {
         this.historyService = historyService;
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{id}/{id}")
     public ApiResult<HistoryResponse> getCardHistory(@PathVariable("id") Long id){
         List<History> histories = historyService.findHistories(id);
         return null;

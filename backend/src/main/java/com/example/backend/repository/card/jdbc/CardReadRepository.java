@@ -19,7 +19,7 @@ public class CardReadRepository {
     }
 
     public List<Task> findItems() {
-        String query = "SELECT id, title, card_type, content, created_at, last_modified_at FROM cards";
+        String query = "SELECT id, title, card_type, content, created_at, last_modified_at FROM card";
         return jdbcTemplate.query(query, mapper);
     }
 

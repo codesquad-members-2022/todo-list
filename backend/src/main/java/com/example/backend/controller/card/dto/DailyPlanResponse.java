@@ -5,17 +5,17 @@ import java.util.List;
 
 import static com.example.backend.domain.card.CardType.*;
 
-public class DailyPlan {
+public class DailyPlanResponse {
 
     private List<TodoItem> todoItems;
     private List<ProgressingItem> progressingItems;
     private List<CompletedItem> completedItems;
     private Author author;
 
-    public DailyPlan() {
+    public DailyPlanResponse() {
     };
 
-    public DailyPlan(List<Task> tasks) {
+    public DailyPlanResponse(List<Task> tasks) {
         this.todoItems = new ArrayList<>();
         this.progressingItems = new ArrayList<>();
         this.completedItems = new ArrayList<>();
@@ -52,7 +52,7 @@ public class DailyPlan {
         return author;
     }
 
-    public void acquire(Author author) {
+    public void add(Author author) {
         this.author = author;
     }
 }
