@@ -20,11 +20,11 @@ public class CardService {
         return cardRepository.findAllDesc();
     }
 
-    public Long save(CardSaveRequestDto dto) {
+    public CardListResponseDto save(CardSaveRequestDto dto) {
         return cardRepository.save(dto.toEntity());
     }
 
-    public Long update(Long id, CardUpdateRequestDto dto) {
+    public CardListResponseDto update(Long id, CardUpdateRequestDto dto) {
         Card card = findById(id);
         card.update(dto.getTitle(), dto.getTitle());
         return cardRepository.save(card);

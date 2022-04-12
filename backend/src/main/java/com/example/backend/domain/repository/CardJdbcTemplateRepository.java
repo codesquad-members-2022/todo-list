@@ -53,7 +53,7 @@ public class CardJdbcTemplateRepository implements CardRepository {
     }
 
     @Override
-    public Long save(Card card) {
+    public CardListResponseDto save(Card card) {
         String columnName = card.getColumnName();
         Integer orderIndex = getOrderIndex(columnName);
 
@@ -64,7 +64,8 @@ public class CardJdbcTemplateRepository implements CardRepository {
         params.put("author_system", card.getAuthorSystem());
         params.put("order_index", orderIndex);
         params.put("deleted", false);
-        return simpleJdbcInsert.executeAndReturnKey(params).longValue();
+        long id = simpleJdbcInsert.executeAndReturnKey(params).longValue();
+        return new CardListResponseDto(id, card.getTitle(), card.getContent(), card.getAuthorSystem());
     }
 
     private Integer getOrderIndex(String columnName) {
