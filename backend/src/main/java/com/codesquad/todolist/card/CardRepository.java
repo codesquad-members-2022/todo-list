@@ -58,16 +58,13 @@ public class CardRepository {
     }
 
     public void update(Card card) {
-        jdbcTemplate.update(
-            "update card set title = :title, content = :content, author = :author where card_id = :cardId and deleted = false",
-            new BeanPropertySqlParameterSource(card));
+        String sql = "update card set title = :title, content = :content, author = :author where card_id = :cardId and deleted = false";
+        jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card));
     }
 
     public void move(Card card) {
-        jdbcTemplate.update(
-            "update card set column_id = :columnId, card_order = :order where card_id = :cardId",
-            new BeanPropertySqlParameterSource(card)
-        );
+        String sql = "update card set column_id = :columnId, card_order = :order where card_id = :cardId";
+        jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card));
     }
 
     public void deleteById(int cardId) {

@@ -36,7 +36,7 @@ public class CardService {
 
     public void move(Integer cardId, CardMoveRequest request) {
         Card card = cardRepository.findById(cardId).orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
-        card.move(request.getColumnId(), request.getOrder());
+        card.move(request.getColumnId(), request.getNextCardId());
         cardRepository.move(card);
 
     }
