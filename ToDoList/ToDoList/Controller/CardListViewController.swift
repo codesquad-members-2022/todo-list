@@ -38,9 +38,11 @@ class CardListViewController: UIViewController {
         
         self.titleLabel.text = headerTitle
         self.countBadgeLabel.text = "0"
-
+        
         self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: CardListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: CardListTableViewCell.identifier)
+        
+        self.tableView.delegate = self
     }
     
     @IBAction func addCardButtonTouched(_ sender: UIButton) {
@@ -76,6 +78,14 @@ extension CardListViewController: UITableViewDataSource {
     }
 }
 
+extension CardListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            cardManager.remove(at: indexPath.item)
+        }
+    }
+}
+
 //MARK: - Handle EditCardView's notification
 extension CardListViewController {
     
@@ -100,6 +110,10 @@ extension CardListViewController {
                                                selector: #selector(cardManagerDidAddNewCard(_:)),
                                                name: CardManager.Constants.NotificationNames.didAddNewCard,
                                                object: self.cardManager)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(cardManagerDidRemoveCard(_:)),
+                                               name: CardManager.Constants.NotificationNames.didRemoveCard,
+                                               object: self.cardManager)
     }
     
     @objc private func cardManagerDidAddNewCard(_ notification: Notification) {
@@ -122,5 +136,24 @@ extension CardListViewController {
         NotificationCenter.default.removeObserver(self,
                                                   name: EditCardViewController.Constants.NotificationNames.didAddNewData,
                                                   object: self.editCardViewModal)
+    }
+    
+    @objc private func cardManagerDidRemoveCard(_ notification: Notification) {
+        guard let removedCard = notification.userInfo?[CardManager.Constants.userInfoKeys.removedCard] as? Card,
+              let removedCardIndex = notification.userInfo?[CardManager.Constants.userInfoKeys.removedCardIndex] as? Int else {
+                  return
+              }
+        
+        NetworkManager.sendRequest(data: removedCard, httpMethod: .DELETE, targetColumnId: nil, targetCardId: nil) { result in
+            switch result {
+                case .success(_):
+                    os_log(.default, "success remove")
+                case .failure(let error):
+                    os_log(.error, "\(error.localizedDescription)")
+            }
+        }
+        
+        tableView.deleteRows(at: [IndexPath(item: removedCardIndex, section: 0)], with: .automatic)
+        updateBadge()
     }
 }

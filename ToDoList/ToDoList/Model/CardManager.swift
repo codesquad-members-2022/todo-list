@@ -5,10 +5,13 @@ class CardManager: CardManagable {
     enum Constants {
         enum NotificationNames {
             static let didAddNewCard = Notification.Name("CardManagerDidAddNewCard")
+            static let didRemoveCard = Notification.Name("CardManagerDidRemoveCard")
         }
         
         enum userInfoKeys {
             static let addedCard = "addedCard"
+            static let removedCard = "removedCard"
+            static let removedCardIndex = "removedCardIndex"
         }
     }
     
@@ -47,6 +50,14 @@ class CardManager: CardManagable {
         
         let userInfo = [Constants.userInfoKeys.addedCard: newCard]
         NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self, userInfo: userInfo)
+    }
+    
+    func remove(at index: Int) {
+        let removedCard = cards.remove(at: index)
+        
+        let userInfo: [String: Any] = [Constants.userInfoKeys.removedCardIndex: index,
+                        Constants.userInfoKeys.removedCard: removedCard]
+        NotificationCenter.default.post(name: Constants.NotificationNames.didRemoveCard, object: self, userInfo: userInfo)
     }
     
     func setNewCardsID(with id: Int) {
