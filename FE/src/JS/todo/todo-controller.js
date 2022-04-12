@@ -30,6 +30,7 @@ export default class Controller {
       todoInfo.category = categoryName;
       for (const data of workListData[categoryName]) {
         this.view.renderTodoCard(todoInfo, data);
+        console.log(data)
       }
     }
   }

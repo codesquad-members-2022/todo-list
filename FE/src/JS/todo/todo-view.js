@@ -13,7 +13,7 @@ export default class View {
   renderTodoCard(todoInfo, data) {
     const $container = this.findCurrentContainer(todoInfo.category);
 
-    $container.insertAdjacentHTML('beforeend', makeCard(todoInfo, data));
+    $container.insertAdjacentHTML('afterBegin', makeCard(todoInfo, data));
 
     this.changeCategoryCount(todoInfo, $container);
   }
@@ -34,5 +34,16 @@ export default class View {
     const columnName = target.closest('.column-item').id;
     const column = this.findCurrentContainer(columnName);
     column.insertAdjacentHTML('afterBegin', addCardTemplate())
+    this.addCardBtnEvent()
+  }
+
+  addCardBtnEvent() {
+    const registerBtn = $('.registerBtn');
+    const cancleBtn = $('.cancleBtn');
+    cancleBtn.addEventListener('click', this.cancelCardTemplate);
+   }
+
+  cancelCardTemplate = ({target}) => {
+    target.closest('.column-addBtn').remove();
   }
 }
