@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.example.backend.domain.Log;
@@ -27,7 +28,7 @@ public class LogJdbcTemplateRepository {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
 			.withTableName("ACTION_LOG")
-			.usingGeneratedKeyColumns("id");
+			.usingGeneratedKeyColumns("id", "created_date");
 	}
 
 	public List<LogListResponseDto> findAll() {
@@ -48,7 +49,9 @@ public class LogJdbcTemplateRepository {
 		params.put("title", log.getTitle());
 		params.put("prev_column_name", log.getPrevColumnName());
 		params.put("cur_column_name", log.getCurrentColumnName());
-		params.put("action_type", log.getActionType());
-		return simpleJdbcInsert.executeAndReturnKey(params).longValue();
+		params.put("action_type", log.getActionType().getName());
+		KeyHolder keyHolder = simpleJdbcInsert.executeAndReturnKeyHolder(params);
+		Map<String, Object> keys = keyHolder.getKeys();
+		return Long.parseLong(keys.get("ID").toString());
 	}
 }
