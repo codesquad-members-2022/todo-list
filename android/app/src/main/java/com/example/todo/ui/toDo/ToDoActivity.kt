@@ -33,7 +33,7 @@ class ToDoActivity : AppCompatActivity() {
         setToolBar()
         initializeRecyclerViews()
         initializeTodoTitleViews()
-        addDummyDataInRecyclerView()
+       // addDummyDataInRecyclerView()
 
 
     }
@@ -46,7 +46,7 @@ class ToDoActivity : AppCompatActivity() {
             val addDialog = ToDoDialog(ProgressType.TO_DO)
             addDialog.show(supportFragmentManager, "todoAddDialog")
         }
-        binding.todoTitleViewTodo.addButton.setOnClickListener {
+        binding.todoTitleViewInProgress.addButton.setOnClickListener {
             val addDialog = ToDoDialog(ProgressType.IN_PROGRESS)
             addDialog.show(supportFragmentManager, "inProgressAddDialog")
         }
@@ -142,23 +142,24 @@ class ToDoActivity : AppCompatActivity() {
 
         toDoViewModel.todoList.observe(this) {
             todoAdapter.submitList(it)
-            binding.todoTitleViewTodo.count.text = it.size.toString()
+            binding.todoTitleViewTodo.count.text = it?.size.toString()
         }
 
         toDoViewModel.inProgressList.observe(this) {
             inProgressAdapter.submitList(it)
-            binding.todoTitleViewInProgress.count.text = (it.size).toString()
+
+            binding.todoTitleViewInProgress.count.text = (it?.size).toString()
         }
 
         toDoViewModel.doneList.observe(this) {
             doneAdapter.submitList(it)
-            binding.todoTitleViewTodoDone.count.text = (it.size).toString()
+            binding.todoTitleViewTodoDone.count.text = (it?.size).toString()
         }
 
         toDoViewModel.actionList.observe(this) {
             actionAdapter.submitList(it)
             // 테스트용
-            binding.todoTitleViewTodo.count.text = it.size.toString()
+           // binding.todoTitleViewTodo.count.text = it?.size.toString()
         }
 
     }
