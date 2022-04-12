@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import OSLog
 
 class NetworkManagerTests: XCTestCase {
     
@@ -17,8 +18,7 @@ class NetworkManagerTests: XCTestCase {
         networkManager.getAllTasks { result in
             switch result {
             case .success(let data):
-                print(data)
-                print("date:", data[0].createdAt)
+                XCTAssertTrue(data.count > 0)
                 promise.fulfill()
             case .failure(let error): print(error.localizedDescription)
             }

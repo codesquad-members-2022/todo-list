@@ -52,7 +52,7 @@ struct NetworkManager {
             }
             
             guard let decoded = try? decoder.decode([Task].self, from: data) else {
-                debugPrint(data.prettyPrintedJSONString!)
+                SystemLog.info("Following data loaded: \n\(data.prettyPrintedJSONString!)")
                 return completion(.failure(.decoding))
             }
             
@@ -99,7 +99,8 @@ struct NetworkManager {
             guard let data = data else {
                 return completion(.failure(.noData))
             }
-            print("Response:", String(data: data, encoding: .utf8)!)
+            SystemLog.info("Server response to Post: \n\(data.prettyPrintedJSONString!)")
+            
             guard let decoded = try? decoder.decode(T.self, from: data) else {
                 return completion(.failure(.decoding))
             }
@@ -146,7 +147,7 @@ struct NetworkManager {
             }
             
             guard let decoded = try? decoder.decode([Log].self, from: data) else {
-                debugPrint(data.prettyPrintedJSONString!)
+                SystemLog.info("Following data loaded: \n\(data.prettyPrintedJSONString!)")
                 return completion(.failure(.decoding))
             }
             
