@@ -29,7 +29,7 @@ class JdbcCardRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        card = Card.of("vans", 1, "제목", "본문");
+        card = Card.newCard("vans", 1, "제목", "본문");
     }
 
     @Test

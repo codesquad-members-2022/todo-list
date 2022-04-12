@@ -28,13 +28,17 @@ public class Card {
         this.deleted = deleted;
     }
 
-    public static Card of(String memberId, Integer sectionId, String subject, String contents) {
+    public static Card newCard(String memberId, Integer sectionId, String subject, String contents) {
         return new Card(null, memberId, sectionId, subject, contents, null, LocalDateTime.now(), LocalDateTime.now(), false);
+    }
+
+    public static Card updateCard(Long id, String memberId, Integer sectionId, String subject, String contents) {
+        return new Card(id, memberId, sectionId, subject, contents, null, LocalDateTime.now(), LocalDateTime.now(), false);
     }
 
     public static Card of(Long id, String memberId, Integer sectionId, String subject, String contents, Long orderIndex,
                           LocalDateTime createdAt, LocalDateTime updatedAt, boolean deleted) {
-        return new Card(id, memberId, sectionId, subject, contents, orderIndex,createdAt, updatedAt, deleted);
+        return new Card(id, memberId, sectionId, subject, contents, orderIndex, createdAt, updatedAt, deleted);
     }
 
     public static Card of(Long id, Card card) {
