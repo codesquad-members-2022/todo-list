@@ -1,4 +1,5 @@
 import { ScheduleColumn } from "./components/schedule/scheduleColumn.js";
+import { mouseDownEventHandler } from "./components/schedule/scheduleCardDrag.js";
 
 const $main = document.querySelector("#main");
 
@@ -26,6 +27,9 @@ const columns = [
         ],
     },
 ];
+
 columns.forEach((scheduleColumn) => {
     new ScheduleColumn($main, scheduleColumn);
 });
+
+$main.addEventListener("mousedown", mouseDownEventHandler);

@@ -12,10 +12,6 @@ export class ScheduleColumn {
         this.title = this.scheduleModel.getScheduleColumnTitle();
         this.id = getId();
         this.registerCard = new ScheduleRegisterCard();
-        this.dragCard;
-        this.move = this.mouseMoveOnDraggingEventHandler.bind(this);
-        this.up = this.mouseUpOnDraggingEventHandler.bind(this);
-        this.enter = this.mouseEnterOnDraggingEventHandler.bind(this);
 
         this.init();
     }
@@ -60,79 +56,6 @@ export class ScheduleColumn {
             "click",
             this.cardAddBtnClickEventHandler.bind(this)
         );
-
-        this.$scheduleColumn.addEventListener(
-            "mousedown",
-            this.mouseDownEventHandler.bind(this)
-        );
-    }
-
-    isValid2Drag(target, selectedCard) {
-        const dragCard = target.closest(".schedule-drag-card");
-
-        return selectedCard && selectedCard !== dragCard;
-    }
-
-    relocateDragCard(pageX, pageY) {
-        this.dragCard.style.left = `${pageX - this.dragCard.offsetWidth / 2}px`;
-        this.dragCard.style.top = `${pageY - this.dragCard.offsetHeight / 2}px`;
-    }
-
-    addMouseEventOnDragCard() {
-        this.$target.addEventListener("mousemove", this.move);
-        this.$target.addEventListener("mouseup", this.up);
-
-        this.$scheduleColumn.addEventListener("mouseenter", this.enter)
-    }
-
-    mouseEnterOnDraggingEventHandler(event) {
-        const CARD = ".schedule-card";
-        const $scheduleCard = event.target.closest(CARD)
-
-        if($scheduleCard) {
-            if(this.getLocation($scheduleCard, event.pageY) === 'top') {
-
-            }
-        }
-    }
-
-    getLocation(element, y) {
-        const box = element.getBoundingClientRect()
-        const offset = y - (box.top + box.height / 2)
-        return offset < 0 ? "top" : "bottom"
-    }
-
-    mouseUpOnDraggingEventHandler() {
-        this.$target.removeEventListener("mousemove", this.move);
-        this.removeMouseUpEvent();
-    }
-
-    removeMouseUpEvent() {
-        this.$target.removeEventListener("mouseup", this.up);
-    }
-
-    mouseMoveOnDraggingEventHandler(event) {
-        this.relocateDragCard(event.pageX, event.pageY);
-    }
-
-    mouseDownEventHandler(event) {
-        const target = event.target;
-        const selectedCard = target.closest(".schedule-card");
-        if (!this.isValid2Drag(target, selectedCard)) {
-            return;
-        }
-
-        const CARD = "schedule-card";
-        const CARD_AFTER_IMAGE = "schedule-card--afterimage";
-        const DRAG_CARD = "schedule-drag-card";
-        this.dragCard = selectedCard.cloneNode(true);
-
-        selectedCard.classList.replace(CARD, CARD_AFTER_IMAGE);
-        this.dragCard.classList.replace(CARD, DRAG_CARD);
-        this.$cardsContainer.appendChild(this.dragCard);
-
-        this.relocateDragCard(event.pageX, event.pageY);
-        this.addMouseEventOnDragCard();
     }
 
     cardAddBtnClickEventHandler() {
