@@ -3,13 +3,14 @@ package codesquad.be.todoserver.service;
 import codesquad.be.todoserver.domain.Todo;
 import codesquad.be.todoserver.exception.NoSuchTodoFoundException;
 import codesquad.be.todoserver.repository.TodoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class TodoService {
 
-	@Autowired
 	private TodoRepository todoRepository;
 
 	public TodoService(TodoRepository todoRepository) {
@@ -18,6 +19,11 @@ public class TodoService {
 
 	public Todo getById(Long id) {
 		return todoRepository.findById(id)
-			.orElseThrow(() -> new NoSuchTodoFoundException("조회할 수 없는 Todo 입니다. id : " + id));
+			.orElseThrow(() -> new NoSuchTodoFoundException("id: " + id));
+	}
+
+	public List<Todo> findTodos() {
+		return todoRepository.findAllTodos()
+				.orElseThrow(() -> new NoSuchElementException("Empty Todos"));
 	}
 }

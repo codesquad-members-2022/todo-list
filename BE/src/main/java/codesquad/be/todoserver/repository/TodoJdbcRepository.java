@@ -1,18 +1,16 @@
 package codesquad.be.todoserver.repository;
 
 import codesquad.be.todoserver.domain.Todo;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class TodoJdbcRepository implements TodoRepository {
 
-	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	public TodoJdbcRepository(JdbcTemplate jdbcTemplate) {
@@ -27,6 +25,13 @@ public class TodoJdbcRepository implements TodoRepository {
 		return todos.stream().findAny();
 	}
 
+	@Override
+	public Optional<List> findAllTodos() {
+		String sql = "SELECT id, title, contents, user, status, created_time, updated_time FROM TODO";
+		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper());
+		return Optional.of(todos);
+	}
+
 	public RowMapper<Todo> todoRowMapper() {
 		return (rs, rowNum) -> {
 			Todo todo = new Todo(
@@ -35,8 +40,8 @@ public class TodoJdbcRepository implements TodoRepository {
 				rs.getString("user"),
 				rs.getString("status"));
 			todo.setId(rs.getLong("id"));
-			todo.setCreatedTime(rs.getObject("created_time", LocalDateTime.class));
-			todo.setUpdatedTime(rs.getObject("updated_time", LocalDateTime.class));
+			todo.setCreatedAt(rs.getTimestamp("created_time").toLocalDateTime());
+			todo.setUpdatedAt(rs.getTimestamp("updated_time").toLocalDateTime());
 			return todo;
 		};
 	}
