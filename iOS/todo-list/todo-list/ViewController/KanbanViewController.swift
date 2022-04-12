@@ -8,7 +8,7 @@
 import UIKit
 
 class KanbanViewController: UIViewController {
-
+    
     let dummyTitle = ["Github 공부하기", "테이블 뷰 Dummy Data로 세팅 및 구현", "알고리즘 문제 풀기", "iOS 면담 form 사전 작성"]
     let dummyContents = [
         "Vestibulum ac porttitor nulla.",
@@ -20,6 +20,12 @@ class KanbanViewController: UIViewController {
     
     @IBOutlet var columns: [UITableView]!
     @IBOutlet var countBadges: [UILabel]!
+    
+    let columnViewModels = [
+        ColumnViewModel(state: .todo),
+        ColumnViewModel(state: .inProgress),
+        ColumnViewModel(state: .done)
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,29 +39,31 @@ class KanbanViewController: UIViewController {
         columns.forEach { column in
             column.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         }
+        
+//        columnViewModels.enumerated().forEach { [weak self] (index, viewModel) in
+//            viewModel.list.bind { _ in
+//                DispatchQueue.main.async { self?.columns[index].reloadData() }
+//            }
+//            viewModel.load()
+//        }
     }
 }
 
 extension KanbanViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyTitle.count
+        guard let columnIndex = columns.firstIndex(where: { $0 === tableView }) else { return 0 }
+        
+        return columnViewModels[columnIndex].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell,
+              let columnIndex = columns.firstIndex(where: { $0 === tableView }),
+              let cellVM = columnViewModels[columnIndex][indexPath.row] else {
+            return UITableViewCell()
+        }
         
-        var config = cell.defaultContentConfiguration()
-        
-        config.attributedText = cell.makePrimaryText(title: dummyTitle[indexPath.row])
-        config.secondaryAttributedText = cell.makeSecondaryText(contents: dummyContents[indexPath.row], authored: dummyAuthored)
-        
-        cell.contentConfiguration = config
-        
-        var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
-        
-        backgroundConfig.cornerRadius = 10
-        
-        cell.backgroundConfiguration = backgroundConfig
+        cell.configure(with: cellVM)
         
         return cell
     }
@@ -63,7 +71,7 @@ extension KanbanViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "삭제") { action, view, handler in
-            print("delete task")
+            // delete task
             handler(true)
         }
         

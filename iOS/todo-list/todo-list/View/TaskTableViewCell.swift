@@ -10,6 +10,8 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
     static let identifier = "taskTableViewCell"
     
+    var id: Int?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -39,6 +41,24 @@ class TaskTableViewCell: UITableViewCell {
             .foregroundColor : UIColor.gray,
             .font : Font.authored ?? UIFont()
         ]
+    }
+    
+    func configure(with viewModel: TaskCellViewModel) {
+        
+        self.id = viewModel.id
+        
+        var config = defaultContentConfiguration()
+        
+        config.attributedText = self.makePrimaryText(title: viewModel.title)
+        
+        config.secondaryAttributedText = self.makeSecondaryText(contents: viewModel.content, authored: "Authored by \(viewModel.device)")
+        
+        self.contentConfiguration = config
+        
+        var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
+        backgroundConfig.cornerRadius = 10
+        
+        self.backgroundConfiguration = backgroundConfig
     }
     
     func makePrimaryText(title: String) -> NSAttributedString {

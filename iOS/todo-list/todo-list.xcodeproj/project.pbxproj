@@ -38,6 +38,16 @@
 		BC5880E727FC297C002E3A1D /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880DC27FC297C002E3A1D /* NotoSansKR-Light.otf */; };
 		BC5880E827FC297C002E3A1D /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880DD27FC297C002E3A1D /* NotoSansKR-Regular.otf */; };
 		BC5880E927FC297C002E3A1D /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880DD27FC297C002E3A1D /* NotoSansKR-Regular.otf */; };
+		BC6325032804138C00CE5280 /* ColumnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6325022804138C00CE5280 /* ColumnViewModel.swift */; };
+		BC632505280418B900CE5280 /* Observerble.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC632504280418B900CE5280 /* Observerble.swift */; };
+		BC632508280427BA00CE5280 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC632507280427BA00CE5280 /* DateFormatter.swift */; };
+		BC632509280427BA00CE5280 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC632507280427BA00CE5280 /* DateFormatter.swift */; };
+		BC63250E2804291200CE5280 /* DecodingEcodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC63250D2804291200CE5280 /* DecodingEcodingTests.swift */; };
+		BC6325102804291B00CE5280 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC63250F2804291B00CE5280 /* NetworkManagerTests.swift */; };
+		BC63251228043D7400CE5280 /* TaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC63251128043D7400CE5280 /* TaskManagerTests.swift */; };
+		BC63251428043ECD00CE5280 /* ColumnViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC63251328043ECD00CE5280 /* ColumnViewModelTests.swift */; };
+		BC63251528043EFC00CE5280 /* ColumnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6325022804138C00CE5280 /* ColumnViewModel.swift */; };
+		BC63251628043EFF00CE5280 /* Observerble.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC632504280418B900CE5280 /* Observerble.swift */; };
 		BCC3729127FFEB6000774933 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
 		BCC3729227FFEB6300774933 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
 		BCC3729327FFEB6500774933 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE927FECDC500AA602E /* Action.swift */; };
@@ -93,6 +103,13 @@
 		BC5880DB27FC297C002E3A1D /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
 		BC5880DC27FC297C002E3A1D /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		BC5880DD27FC297C002E3A1D /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		BC6325022804138C00CE5280 /* ColumnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnViewModel.swift; sourceTree = "<group>"; };
+		BC632504280418B900CE5280 /* Observerble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observerble.swift; sourceTree = "<group>"; };
+		BC632507280427BA00CE5280 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		BC63250D2804291200CE5280 /* DecodingEcodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodingEcodingTests.swift; sourceTree = "<group>"; };
+		BC63250F2804291B00CE5280 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		BC63251128043D7400CE5280 /* TaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerTests.swift; sourceTree = "<group>"; };
+		BC63251328043ECD00CE5280 /* ColumnViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnViewModelTests.swift; sourceTree = "<group>"; };
 		BCC3729527FFF3CD00774933 /* dummyTaskResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dummyTaskResponse.json; sourceTree = "<group>"; };
 		BCC6640F27FC10F10078C1E2 /* KanbanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanViewController.swift; sourceTree = "<group>"; };
 		BCC6641127FC14370078C1E2 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskTableViewCell.swift; path = "todo-list/View/TaskTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
@@ -146,6 +163,8 @@
 		5B349DA327FA9AFE00AA602E /* todo-list */ = {
 			isa = PBXGroup;
 			children = (
+				BC632506280427A700CE5280 /* Common */,
+				BC63251728043F9B00CE5280 /* View Model */,
 				BC3D4A1527FD6F11009B37FB /* Model */,
 				BC3D4A1327FD6F02009B37FB /* View */,
 				5B349DD727FA9DAA00AA602E /* ViewController */,
@@ -161,6 +180,10 @@
 			isa = PBXGroup;
 			children = (
 				5B349DBB27FA9AFF00AA602E /* todo_listTests.swift */,
+				BC63250D2804291200CE5280 /* DecodingEcodingTests.swift */,
+				BC63250F2804291B00CE5280 /* NetworkManagerTests.swift */,
+				BC63251128043D7400CE5280 /* TaskManagerTests.swift */,
+				BC63251328043ECD00CE5280 /* ColumnViewModelTests.swift */,
 			);
 			path = "todo-listTests";
 			sourceTree = "<group>";
@@ -237,6 +260,23 @@
 				BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */,
 			);
 			path = NotoSansKR;
+			sourceTree = "<group>";
+		};
+		BC632506280427A700CE5280 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BC632507280427BA00CE5280 /* DateFormatter.swift */,
+				BC632504280418B900CE5280 /* Observerble.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		BC63251728043F9B00CE5280 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC6325022804138C00CE5280 /* ColumnViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,7 +431,10 @@
 				5B349DE827FECD0C00AA602E /* Log.swift in Sources */,
 				5B349DA527FA9AFE00AA602E /* AppDelegate.swift in Sources */,
 				BCC6641227FC14370078C1E2 /* TaskTableViewCell.swift in Sources */,
+				BC632508280427BA00CE5280 /* DateFormatter.swift in Sources */,
+				BC632505280418B900CE5280 /* Observerble.swift in Sources */,
 				5B349DE227FD7FF600AA602E /* ActivityRecoderController.swift in Sources */,
+				BC6325032804138C00CE5280 /* ColumnViewModel.swift in Sources */,
 				BC4792972803E4BD00CBE369 /* TaskManager.swift in Sources */,
 				BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */,
 				5B349DA727FA9AFE00AA602E /* SceneDelegate.swift in Sources */,
@@ -405,11 +448,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC6325102804291B00CE5280 /* NetworkManagerTests.swift in Sources */,
 				BC4792982803E4BD00CBE369 /* TaskManager.swift in Sources */,
 				BCC3729227FFEB6300774933 /* NetworkManager.swift in Sources */,
+				BC63251628043EFF00CE5280 /* Observerble.swift in Sources */,
 				BCC3729327FFEB6500774933 /* Action.swift in Sources */,
+				BC632509280427BA00CE5280 /* DateFormatter.swift in Sources */,
 				BCC3729427FFEB6900774933 /* Log.swift in Sources */,
+				BC63251528043EFC00CE5280 /* ColumnViewModel.swift in Sources */,
+				BC63251428043ECD00CE5280 /* ColumnViewModelTests.swift in Sources */,
+				BC63251228043D7400CE5280 /* TaskManagerTests.swift in Sources */,
 				BCC3729127FFEB6000774933 /* Task.swift in Sources */,
+				BC63250E2804291200CE5280 /* DecodingEcodingTests.swift in Sources */,
 				5B349DBC27FA9AFF00AA602E /* todo_listTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
