@@ -33,23 +33,19 @@ public class LogJdbcTemplateRepository {
 
 	public List<LogListResponseDto> findAll() {
 		return jdbcTemplate.query(
-			"SELECT title, prev_column_name, cur_column_name, action_type, created_date FROM ACTION_LOG ORDER BY id DESC",
+			"SELECT author, text, created_date FROM ACTION_LOG ORDER BY id DESC",
 			(rs, rowNum) -> {
-				String title = rs.getString("title");
-				String prev_column_name = rs.getString("prev_column_name");
-				String cur_column_name = rs.getString("cur_column_name");
-				String action_type = rs.getString("action_type");
+				String author = rs.getString("author");
+				String text = rs.getString("text");
 				String created_date = rs.getString("created_date");
-				return new LogListResponseDto(title, prev_column_name, cur_column_name, action_type, created_date);
+				return new LogListResponseDto(author, text, created_date);
 			});
 	}
 
 	public Long save(Log log) {
 		Map<String, Object> params = new HashMap<>();
-		params.put("title", log.getTitle());
-		params.put("prev_column_name", log.getPrevColumnName());
-		params.put("cur_column_name", log.getCurrentColumnName());
-		params.put("action_type", log.getActionType().getName());
+		params.put("author", log.getAuthor());
+		params.put("text", log.getText());
 		KeyHolder keyHolder = simpleJdbcInsert.executeAndReturnKeyHolder(params);
 		Map<String, Object> keys = keyHolder.getKeys();
 		return Long.parseLong(keys.get("ID").toString());
