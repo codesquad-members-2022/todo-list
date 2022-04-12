@@ -15,7 +15,7 @@ import com.example.todolist.databinding.DialogNewCardBinding
 import com.example.todolist.model.Status
 import com.example.todolist.model.Task
 
-class TaskDialogFragment(private val status: Status) : DialogFragment() {
+class NewTaskDialogFragment(private val status: Status) : DialogFragment() {
     private lateinit var binding: DialogNewCardBinding
     private val viewModel: TaskViewModel by activityViewModels()
     private var titleFlag = false
