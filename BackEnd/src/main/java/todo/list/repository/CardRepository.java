@@ -4,6 +4,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import todo.list.domain.Author;
 import todo.list.domain.Card;
@@ -23,7 +25,8 @@ public class CardRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void save(Card card) {
+    public Card save(Card card) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         String sql = "insert into card" +
                 "(title, contents, card_status, author, update_datetime) values" +
                 "(:title, :contents, :card_status, :author, :update_datetime)";
@@ -35,7 +38,9 @@ public class CardRepository {
                 .addValue("author", card.getAuthor().name())
                 .addValue("update_datetime", card.getUpdateDateTime());
 
-        jdbcTemplate.update(sql, namedParameters);
+        jdbcTemplate.update(sql, namedParameters, keyHolder);
+        Long cardId = keyHolder.getKey().longValue();
+        return new Card(cardId, card.getTitle(), card.getContents(), card.getStatus(), card.getUpdateDateTime(), card.getAuthor());
     }
 
     public List<Card> findAllSameStatus(CardStatus cardStatus) {
@@ -55,7 +60,7 @@ public class CardRepository {
         };
     }
 
-    public void update(Card card) {
+    public Card update(Card card) {
         String updateSql = "UPDATE card SET title=:title, contents=:contents, author=:author, update_datetime=:update_datetime WHERE id=:id";
         Map<String,Object> params = new HashMap<>();
 
@@ -66,5 +71,6 @@ public class CardRepository {
         params.put("id", card.getId());
 
         jdbcTemplate.update(updateSql, params);
+        return card;
     }
 }

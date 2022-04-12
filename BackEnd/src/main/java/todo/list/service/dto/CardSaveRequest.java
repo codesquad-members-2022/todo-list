@@ -4,7 +4,7 @@ import todo.list.domain.Author;
 import todo.list.domain.Card;
 import todo.list.domain.CardStatus;
 
-public class CardSaveDto {
+public class CardSaveRequest {
 
     private String title;
     private String contents;

@@ -1,12 +1,10 @@
 package todo.list.service;
 
 import org.springframework.stereotype.Service;
-import todo.list.service.dto.CardModifyDto;
+import todo.list.service.dto.*;
 import todo.list.domain.Card;
 import todo.list.domain.CardStatus;
 import todo.list.repository.CardRepository;
-import todo.list.service.dto.CardCollectionResponse;
-import todo.list.service.dto.CardSaveDto;
 
 import java.util.List;
 
@@ -19,9 +17,11 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public void save(CardSaveDto cardSaveDto) {
-        Card card = cardSaveDto.toEntity();
-        cardRepository.save(card);
+    public CommandResultResponse save(CardSaveRequest cardSaveRequest) {
+        Card card = cardSaveRequest.toEntity();
+        Card savedCard = cardRepository.save(card);
+        CardCommandResponse cardCommandResponse = new CardCommandResponse(savedCard);
+        return new CommandResultResponse(201, cardCommandResponse);
     }
     
     public CardCollectionResponse findCollections() {
@@ -32,8 +32,8 @@ public class CardService {
         return new CardCollectionResponse(todoCards, inProgressCards, doneCards);
     }
 
-    public void modify(CardModifyDto cardModifyDto) {
-        Card card = cardModifyDto.toEntity();
-        cardRepository.update(card);
+    public void modify(CardModifyRequest cardModifyRequest) {
+        Card card = cardModifyRequest.toEntity();
+        Card modifyedCard = cardRepository.update(card);
     }
 }

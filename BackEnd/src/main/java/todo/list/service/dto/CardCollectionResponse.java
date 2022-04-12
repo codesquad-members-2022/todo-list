@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 
 public class CardCollectionResponse {
 
-    private List<CardDto> todoCollection;
-    private List<CardDto> inProgressCollection;
-    private List<CardDto> doneCollection;
+    private List<CardQueryResponse> todoCollection;
+    private List<CardQueryResponse> inProgressCollection;
+    private List<CardQueryResponse> doneCollection;
 
     public CardCollectionResponse(List<Card> todoCollection, List<Card> inProgressCollection, List<Card> doneCollection) {
         this.todoCollection = makeCollection(todoCollection);
@@ -17,21 +17,21 @@ public class CardCollectionResponse {
         this.doneCollection = makeCollection(doneCollection);
     }
 
-    private List<CardDto> makeCollection(List<Card> cards) {
+    private List<CardQueryResponse> makeCollection(List<Card> cards) {
         return cards.stream()
-                .map(CardDto::new)
+                .map(CardQueryResponse::new)
                 .collect(Collectors.toList());
     }
 
-    public List<CardDto> getTodoCollection() {
+    public List<CardQueryResponse> getTodoCollection() {
         return todoCollection;
     }
 
-    public List<CardDto> getInProgressCollection() {
+    public List<CardQueryResponse> getInProgressCollection() {
         return inProgressCollection;
     }
 
-    public List<CardDto> getDoneCollection() {
+    public List<CardQueryResponse> getDoneCollection() {
         return doneCollection;
     }
 }
