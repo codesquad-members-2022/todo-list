@@ -8,8 +8,8 @@ export async function initTodo() {
   const workListData = await fetchRequest('../src/js/mok-data/mokData.json');
   const model = new Model(workListData);
   const view = new View();
-  new Controller(model, view);
-
   const drag = new Drag();
-  drag.addDragEvent();
+  
+  new Controller(model, view, drag);
+
 }
