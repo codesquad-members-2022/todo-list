@@ -35,6 +35,8 @@ class PopUpViewController: UIViewController {
 extension PopUpViewController {
     @objc func didTapCancelButton() {
         self.dismiss(animated: false, completion: nil)
+        self.popUpView.containerTitleTextField.text = ""
+        self.popUpView.containerContentsTextField.text = ""
     }
     
     @objc func didTapSubmitButton() {
