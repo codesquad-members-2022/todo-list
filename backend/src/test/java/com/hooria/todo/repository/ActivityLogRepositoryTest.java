@@ -1,6 +1,8 @@
 package com.hooria.todo.repository;
 
+import com.hooria.todo.domain.Action;
 import com.hooria.todo.domain.ActivityLog;
+import com.hooria.todo.domain.Status;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ class ActivityLogRepositoryTest {
 
         // given
         LocalDateTime now = LocalDateTime.now();
-        ActivityLog activityLog = ActivityLog.of(1, "userId1", "add", "TODO", "IN_PROGRESS", "taskTitle1", now, true);
+        ActivityLog activityLog = ActivityLog.of(1, "userId1", Action.ADD, "taskTitle1", Status.TODO, Status.IN_PROGRESS, now, true);
 
         // when
         ActivityLog result = repository.insert(activityLog);
@@ -39,7 +41,7 @@ class ActivityLogRepositoryTest {
         // then
         assertThat(result.getId()).isEqualTo(activityLog.getId());
         assertThat(result.getUserId()).isEqualTo(activityLog.getUserId());
-        assertThat(result.getActivityType()).isEqualTo(activityLog.getActivityType());
+        assertThat(result.getAction()).isEqualTo(activityLog.getAction());
         assertThat(result.getFromStatus()).isEqualTo(activityLog.getFromStatus());
         assertThat(result.getToStatus()).isEqualTo(activityLog.getToStatus());
         assertThat(dateTimeFormatter.format(result.getCreatedAt())).isEqualTo(dateTimeFormatter.format(activityLog.getCreatedAt()));
@@ -52,26 +54,26 @@ class ActivityLogRepositoryTest {
 
         // given
         LocalDateTime now = LocalDateTime.now();
-        List<ActivityLog> members = List.of(
-                ActivityLog.of(1, "userId1", "add", "taskTitle1", "TODO", "IN_PROGRESS", now, true),
-                ActivityLog.of(2, "userId2", "remove", "taskTitle2", "IN_PROGRESS", "DONE", now, false),
-                ActivityLog.of(3, "userId3", "update", "taskTitle3", "TODO", "IN_PROGRESS", now, true)
+        List<ActivityLog> activityLogs = List.of(
+                ActivityLog.of(1, "userId1", Action.ADD, "taskTitle1", Status.TODO, Status.IN_PROGRESS, now, true),
+                ActivityLog.of(2, "userId2", Action.REMOVE, "taskTitle2", Status.IN_PROGRESS, Status.DONE, now, false),
+                ActivityLog.of(3, "userId3", Action.UPDATE, "taskTitle3", Status.IN_PROGRESS, Status.IN_PROGRESS, now, true)
         );
 
         // when
         List<ActivityLog> results = repository.findAll();
 
         // then
-        assertThat(results.size()).isEqualTo(members.size());
+        assertThat(results.size()).isEqualTo(activityLogs.size());
 
         int size = results.size();
         for (int index = 0; index < size; ++index) {
             ActivityLog activityLog1 = results.get(index);
-            ActivityLog activityLog2 = members.get(index);
+            ActivityLog activityLog2 = activityLogs.get(index);
 
             assertThat(activityLog1.getId()).isEqualTo(activityLog2.getId());
             assertThat(activityLog1.getUserId()).isEqualTo(activityLog2.getUserId());
-            assertThat(activityLog1.getActivityType()).isEqualTo(activityLog2.getActivityType());
+            assertThat(activityLog1.getAction()).isEqualTo(activityLog2.getAction());
             assertThat(activityLog1.getFromStatus()).isEqualTo(activityLog2.getFromStatus());
             assertThat(activityLog1.getToStatus()).isEqualTo(activityLog2.getToStatus());
             assertThat(dateTimeFormatter.format(activityLog1.getCreatedAt())).isEqualTo(dateTimeFormatter.format(activityLog2.getCreatedAt()));

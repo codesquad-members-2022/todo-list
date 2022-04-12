@@ -1,6 +1,8 @@
 package com.hooria.todo.repository;
 
+import com.hooria.todo.domain.Action;
 import com.hooria.todo.domain.ActivityLog;
+import com.hooria.todo.domain.Status;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -31,10 +33,10 @@ public class ActivityLogRepository {
                 ActivityLog.of(
                         rs.getLong("id"),
                         rs.getString("user_id"),
-                        rs.getString("activity_type"),
+                        Action.of(rs.getInt("action")),
                         rs.getString("task_title"),
-                        rs.getString("from_status"),
-                        rs.getString("to_status"),
+                        Status.of(rs.getInt("from_status")),
+                        Status.of(rs.getInt("to_status")),
                         rs.getObject("created_at", LocalDateTime.class),
                         rs.getBoolean("read_yn")
                 );
@@ -48,7 +50,7 @@ public class ActivityLogRepository {
 
     public List<ActivityLog> findAll() {
         return jdbc.query(
-                "select id, user_id, activity_type, task_title, from_status, to_status, created_at, read_yn from activity_log",
+                "select id, user_id, action, task_title, from_status, to_status, created_at, read_yn from activity_log",
                 Collections.emptyMap(), rowMapper
         );
     }

@@ -3,7 +3,9 @@ package com.hooria.todo.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.hooria.todo.domain.Action;
 import com.hooria.todo.domain.ActivityLog;
+import com.hooria.todo.domain.Status;
 import com.hooria.todo.dto.ActivityLogResponse;
 import com.hooria.todo.service.ActivityLogService;
 import org.junit.jupiter.api.DisplayName;
@@ -45,9 +47,9 @@ class ActivityLogControllerMockTest {
         // given
         LocalDateTime now = LocalDateTime.now();
         List<ActivityLog> activityLogs = List.of(
-                ActivityLog.of("userId1", "add", "taskTitle1", "TODO", "IN_PROGRESS", now, false),
-                ActivityLog.of("userId2", "remove", "taskTitle2", "IN_PROGRESS", "DONE", now, false),
-                ActivityLog.of("userId3", "update", "taskTitle3", "TODO", "IN_PROGRESS", now, false)
+                ActivityLog.of(1, "userId1", Action.ADD, "taskTitle1", Status.TODO, Status.IN_PROGRESS, now, true),
+                ActivityLog.of(2, "userId2", Action.REMOVE, "taskTitle2", Status.IN_PROGRESS, Status.DONE, now, false),
+                ActivityLog.of(3, "userId3", Action.UPDATE, "taskTitle3", Status.IN_PROGRESS, Status.IN_PROGRESS, now, true)
         );
 
         List<ActivityLogResponse> activityLogResponses = activityLogs.stream()
