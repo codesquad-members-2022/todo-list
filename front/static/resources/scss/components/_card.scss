@@ -1,0 +1,72 @@
+.card {
+  position: relative;
+  margin-top: 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+
+  &__title {
+    padding-right: 40px;
+    font-size: $size-medium;
+    font-weight: $weight-bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__content {
+    height: 20px;
+    margin: 8px 0;
+  }
+
+  &__writer {
+    font-size: $size-small;
+    color: $light-gray;
+  }
+
+  &__button--delete {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+  }
+
+  &--success {
+    border: 1px solid $button-bg-color-dark-blue;
+
+    .card {
+      &__writer {
+        display: none;
+      }
+
+      &__button-wrap {
+        margin-top: 16px;
+      }
+    }
+  }
+
+  &--write {
+    @extend .card--success;
+    border: 1px solid $button-bg-color-blue;
+
+    .card__button--submit {
+      @extend .button--disabled;
+    }
+  }
+
+  &--delete {
+    background: #ffeeec;
+    border: 1px solid #ff4343;
+  }
+
+  &--translucence {
+    padding: 15px;
+    border: 1px solid $button-bg-color-blue;
+    opacity: 60%;
+  }
+
+  &--move {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
+  }
+}
