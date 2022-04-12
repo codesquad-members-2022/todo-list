@@ -17,6 +17,7 @@ CREATE TABLE HISTORY
     id           BIGINT NOT NULL AUTO_INCREMENT COMMENT 'History의 고유한 id',
     todoId       BIGINT                         COMMENT '외래키 : Todo의 고유한 id',
     todoTitle    VARCHAR(255)                   COMMENT 'todoId에 해당하는 title',
+    user         VARCHAR(100)                   COMMENT 'Todo 생성한 사용자',
     action       VARCHAR(10)                    COMMENT 'Todo의 상태(todo, doing, done)',
     fromStatus   VARCHAR(10)                    COMMENT 'todo_id의 action (add, remove, update, move)',
     toStatus     VARCHAR(10)                    COMMENT 'Todo의 상태(todo, doing, done)',

@@ -3,6 +3,7 @@ package codesquad.be.todoserver.service;
 import codesquad.be.todoserver.domain.History;
 import codesquad.be.todoserver.repository.HistoryRepository;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class HistoryService {
 	}
 
 	public List<History> getAllHistory() {
-		return historyRepository.findAllHistory();
+		return historyRepository.findAllHistory()
+			.orElseThrow(() -> new NoSuchElementException("Empty History"));
 	}
 }
