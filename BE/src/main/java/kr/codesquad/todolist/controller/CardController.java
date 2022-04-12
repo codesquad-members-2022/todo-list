@@ -3,6 +3,7 @@ package kr.codesquad.todolist.controller;
 import kr.codesquad.todolist.domain.Section;
 import kr.codesquad.todolist.dto.card.CardResponse;
 import kr.codesquad.todolist.dto.card.CreateCardRequest;
+import kr.codesquad.todolist.dto.card.MotionInfo;
 import kr.codesquad.todolist.dto.card.UpdateCardRequest;
 import kr.codesquad.todolist.dto.section.CardsOfSection;
 import kr.codesquad.todolist.service.CardService;
@@ -16,12 +17,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class mockupController {
-    private final Logger log = LoggerFactory.getLogger(mockupController.class);
+public class CardController {
+    private final Logger log = LoggerFactory.getLogger(CardController.class);
 
     private final CardService cardService;
 
-    public mockupController(CardService cardService) {
+    public CardController(CardService cardService) {
         this.cardService = cardService;
     }
 
@@ -33,12 +34,12 @@ public class mockupController {
         return new ResponseEntity<>(cardResponse, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/cards")
-//    public ResponseEntity<List<CardResponse>> findAll() {
-//        List<CardResponse> cards = cardService.findAll();
-//
-//        return new ResponseEntity<>(cards, HttpStatus.OK);
-//    }
+    @GetMapping("/cards")
+    public ResponseEntity<List<CardsOfSection>> findAll() {
+        List<CardsOfSection> all = cardService.findAllbySections();
+
+        return new ResponseEntity<>(all, HttpStatus.OK);
+    }
 
     @GetMapping("/cards/{id}")
     public ResponseEntity<CardResponse> findOne(@PathVariable Long id) {
@@ -62,13 +63,19 @@ public class mockupController {
         return new ResponseEntity<>(cardResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/cards/{sectionId}")
+    @GetMapping("/cards/section/{sectionId}")
     public ResponseEntity<CardsOfSection> findCardsBySectionId(@PathVariable Integer sectionId) {
-        //SectionService필요
+        //Section을 찾는 로직 필요
         Section todo = new Section(sectionId, "TO DO");
         List<CardResponse> cards = cardService.findCardsOfSection(sectionId);
 
         return new ResponseEntity<>(new CardsOfSection(todo, cards), HttpStatus.OK);
+    }
+
+    @PatchMapping("/cards/move/{movingCardId}")
+    public ResponseEntity<Boolean> moveOne(@PathVariable Long movingCardId, @RequestBody MotionInfo motionInfo) {
+        boolean isMoved = cardService.move(motionInfo.getSectionId(), motionInfo.getTargetCardId(), movingCardId);
+        return new ResponseEntity<>(isMoved, HttpStatus.OK);
     }
 
 }
