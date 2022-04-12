@@ -30,7 +30,7 @@ public class CardService {
 
     public void delete(Integer cardId) {
         Card card = cardRepository.findById(cardId).orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
-        cardRepository.deleteById(card.getCardId());
+        cardRepository.delete(card);
     }
 
     public void move(Integer cardId, CardMoveRequest request) {

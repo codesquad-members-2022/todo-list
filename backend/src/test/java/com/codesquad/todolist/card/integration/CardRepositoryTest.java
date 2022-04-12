@@ -89,7 +89,7 @@ public class CardRepositoryTest {
     public void cardDeleteTest() {
         // given
         cardRepository.create(card);
-        cardRepository.deleteById(card.getCardId());
+        cardRepository.delete(card);
 
         // when
         Optional<Card> foundCard = cardRepository.findById(card.getCardId());

@@ -72,7 +72,7 @@ public class CardServiceTest {
         cardService.delete(card.getCardId());
 
         // then
-        then(cardRepository).should(times(1)).deleteById(anyInt());
+        then(cardRepository).should(times(1)).delete(any(Card.class));
 
     }
 

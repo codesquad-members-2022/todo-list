@@ -103,11 +103,11 @@ public class CardControllerTest {
     public void moveCardTest() {
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("columnId", "1");
-        requestBody.put("nextId", "3");
+        requestBody.put("nextId", null);
 
         given()
             .contentType("application/json")
-            .pathParam("id", 1)
+            .pathParam("id", 3)
             .body(requestBody)
             .log().all()
             .when()

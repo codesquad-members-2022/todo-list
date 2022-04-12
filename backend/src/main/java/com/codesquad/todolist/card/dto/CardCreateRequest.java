@@ -47,6 +47,10 @@ public class CardCreateRequest {
         return author;
     }
 
+    public Integer getNextId() {
+        return nextId;
+    }
+
     @Override
     public String toString() {
         return "CardCreateRequest{" +
