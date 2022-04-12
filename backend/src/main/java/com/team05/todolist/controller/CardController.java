@@ -2,6 +2,7 @@ package com.team05.todolist.controller;
 
 import com.team05.todolist.domain.Event;
 import com.team05.todolist.domain.dto.CardDTO;
+import com.team05.todolist.domain.dto.CreateCardDTO;
 import com.team05.todolist.domain.dto.LogDTO;
 import com.team05.todolist.domain.dto.MoveCardDTO;
 import com.team05.todolist.domain.dto.ResponseDTO;
@@ -32,9 +33,9 @@ public class CardController {
 
 	@ApiOperation("카드 등록")
 	@PostMapping("/cards")
-	public ResponseEntity<ResponseDTO> create(@RequestHeader(value = "user-agent") String userAgent, @RequestBody CardDTO cardDto) {
-		CardDTO newCardDto = cardService.save(cardDto);
-		LogDTO log = logService.save(Event.CREATE, cardDto.getTitle(), cardDto.getSection());
+	public ResponseEntity<ResponseDTO> create(@RequestHeader(value = "user-agent") String userAgent, @RequestBody CreateCardDTO createCardDto) {
+		CardDTO newCardDto = cardService.save(createCardDto);
+		LogDTO log = logService.save(Event.CREATE, createCardDto.getTitle(), createCardDto.getSection());
 
 		return ResponseEntity.ok().body(new ResponseDTO(newCardDto, log, userAgent));
 	}

@@ -4,6 +4,7 @@ import com.team05.todolist.domain.Card;
 import com.team05.todolist.domain.Section;
 import com.team05.todolist.domain.dto.CardDTO;
 import com.team05.todolist.domain.dto.ClassifiedCardsDTO;
+import com.team05.todolist.domain.dto.CreateCardDTO;
 import com.team05.todolist.domain.dto.MoveCardDTO;
 import com.team05.todolist.repository.CardRepository;
 import java.util.List;
@@ -26,20 +27,20 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public CardDTO save(CardDTO cardDto) {
+    public CardDTO save(CreateCardDTO cardDto) {
         /*
         해당 섹션의 카드 수를 구해와서 order 값과 비교한다. 이 때 같아야만 통과된다.
          */
-        if (cardDto.getOrder() != 0) {
+        if (cardDto.getNumber() != 0) {
             int numberOfCards = cardRepository.findNumberOfCards(cardDto.getSection());
-            logger.debug("{}-card 개수: {}", cardDto.getSection(), cardDto.getOrder());
-            if (cardDto.getOrder() != numberOfCards){
+            logger.debug("{}-card 개수: {}", cardDto.getSection(), cardDto.getNumber());
+            if (cardDto.getNumber() != numberOfCards){
                 logger.debug("실제 DB의 {}-card 개수: {}", cardDto.getSection(), numberOfCards);
                 throw new IllegalStateException("섹션의 카드 수와 일치하지 않습니다.");
             }
         }
 
-        Card card = new Card((cardDto.getOrder()+1)*INCREMENT, NON_DELETED, cardDto.getTitle(), cardDto.getContent(),
+        Card card = new Card((cardDto.getNumber()+1)*INCREMENT, NON_DELETED, cardDto.getTitle(), cardDto.getContent(),
             cardDto.getSection());
 
         int newCardId = cardRepository.save(card);
