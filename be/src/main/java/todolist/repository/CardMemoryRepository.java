@@ -25,7 +25,9 @@ public class CardMemoryRepository implements TodoRepository<Card> {
 
     @Override
     public Card findById(Long id) {
-        return store.stream().filter(card -> card.getId() == id).findAny().orElseThrow(()-> new IllegalArgumentException());
+        return store.stream().filter(card -> card.getId() == id)
+                             .findAny()
+                             .orElseThrow(()-> new IllegalArgumentException());
     }
 
     @Override
