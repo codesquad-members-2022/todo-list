@@ -59,10 +59,6 @@ public class Card {
         return cardId;
     }
 
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
-    }
-
     public Integer getColumnId() {
         return columnId;
     }
