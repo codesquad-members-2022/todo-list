@@ -16,9 +16,7 @@ export default class Controller {
     const sidebarData = await fetchRequest(
       '../src/js/mok-data/sidebar-mokData.json'
     );
-    console.log(sidebarData);
     const actionLogData = this.model.returnLogData(sidebarData);
-    console.log(actionLogData);
     let userId = '';
 
     for (const logData of actionLogData) {
