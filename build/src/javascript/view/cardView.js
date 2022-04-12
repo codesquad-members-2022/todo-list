@@ -1,6 +1,6 @@
 import { removeText, axiosRequest } from "../util/util.js";
 
-function init() {
+async function init() {
   addPlusBtnEvent();
 }
 function addPlusBtnEvent() {
@@ -21,7 +21,8 @@ async function renderRegisterCard() {
           >
             제목을 입력하세요
           </div>
-          <div class="card-details"  contentEditable="true">
+          <div class="card-details"
+          contentEditable="true">
             내용을 입력하세요
           </div>
         </div>
@@ -34,8 +35,8 @@ async function renderRegisterCard() {
         </button>
       </div>
       <div class="card-buttons-wrapper">
-        <button class="cancel-button center-sort">취소</button>
-        <button class="register-button center-sort">등록</button>
+        <button class="cancel-button">취소</button>
+        <button class="register-button">등록</button>
       </div>
     </div>
   `;
@@ -137,8 +138,8 @@ function renderColumn(columnId, todos) {
       </figure>
     </div>
     <div class="card-buttons-wrapper">
-      <button class="cancel-button center-sort">취소</button>
-      <button class="register-button center-sort">등록</button>
+      <button class="cancel-button">취소</button>
+      <button class="register-button">등록</button>
     </div>
   </div>`;
     return template;
@@ -154,7 +155,7 @@ function addRegisterBtnsListener($column) {
   }
 }
 
-function removeCard({ target }) {
+export function removeCard({ target }) {
   const $selectedCard = target.closest(".card");
   $selectedCard.remove();
 }
