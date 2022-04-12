@@ -6,6 +6,7 @@ import {
 import { InitTodos } from './todos';
 import { AddCard } from './CRUDClass/addCard';
 import { DeleteCard } from './CRUDClass/deleteCard';
+import { DragAndDrop } from './dragAndDrop.js';
 
 export const init = () => {
   const initTodos = new InitTodos(createColumnTemplate);
@@ -16,4 +17,7 @@ export const init = () => {
 
   const deleteCard = new DeleteCard();
   deleteCard.init();
+
+  const dragAndDrop = new DragAndDrop();
+  dragAndDrop.init();
 };
