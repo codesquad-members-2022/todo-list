@@ -17,8 +17,8 @@ public class CategoryRepository {
         jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<Category> findAll() {
-        return jdbc.query("SELECT id, name FROM category", categoryRowMapper());
+    public List<Category> findAll(String userId) {
+        return jdbc.query("SELECT id, name FROM category WHERE user_id = :userId", Collections.singletonMap("userId", userId), categoryRowMapper());
     }
 
     public String findNameById(Integer id) {

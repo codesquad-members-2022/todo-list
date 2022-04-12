@@ -33,13 +33,13 @@ public class WorkService {
 
     public ColumnListDto getColumnList(String userId) {
         List<WorkListDto> workLists = new ArrayList<>();
-        List<Category> categoryList = categoryRepository.findAll();
+        List<Category> categoryList = categoryRepository.findAll(userId);
 
         for (Category category : categoryList) {
             int categoryId = category.getId();
             String categoryName = category.getName();
 
-            List<WorkDto> works = workRepository.findAllByCategoryId(categoryId, userId)
+            List<WorkDto> works = workRepository.findAllByCategoryId(categoryId)
                 .stream().map(Work::convertToDto).collect(Collectors.toList());
 
             workLists.add(new WorkListDto(categoryId, categoryName, works));
