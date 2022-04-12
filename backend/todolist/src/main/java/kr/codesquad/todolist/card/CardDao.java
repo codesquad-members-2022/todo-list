@@ -173,4 +173,10 @@ public class CardDao {
 			return cardStatusNumber;
 		};
 	}
+
+	public void delete(Long cardId) {
+		String sql = "DELETE FROM todo_list_table WHERE todo_id = :todo_id;";
+		final SqlParameterSource params = new MapSqlParameterSource().addValue(CARD_KEY_COLUMN_NAME, cardId);
+		this.namedParameterJdbcTemplate.update(sql, params);
+	}
 }
