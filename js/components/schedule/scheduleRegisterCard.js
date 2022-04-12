@@ -1,4 +1,4 @@
-import { TEXT_LENGTH_LIMIT } from "../../utils.js";
+import { getId, TEXT_LENGTH_LIMIT } from "../../utils.js";
 
 export class ScheduleRegisterCard {
     constructor() {
@@ -24,9 +24,7 @@ export class ScheduleRegisterCard {
     }
 
     setDOMElement($target) {
-        this.$registerCard = $target.querySelector(
-            ".schedule-register-card"
-        );
+        this.$registerCard = $target.querySelector(".schedule-register-card");
         this.$cardTitle = this.$registerCard.querySelector(
             ".schedule-register-card__title"
         );
@@ -99,6 +97,7 @@ export class ScheduleRegisterCard {
             title: this.$cardTitle.value.replace(/\n/g, "<br>"),
             body: this.$cardBody.value.replace(/\n/g, "<br>"),
             caption: "author by web",
+            id: getId(),
         };
         this.passedEventHandler.addCard(cardData);
         this.passedEventHandler.removeRegisterCard();

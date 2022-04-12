@@ -1,35 +1,16 @@
 import { ScheduleColumn } from "./components/schedule/scheduleColumn.js";
 import { mouseDownEventHandler } from "./components/schedule/scheduleCardDrag.js";
+import { scheduleModel } from "./components/model/scheduleModel.js";
 
 const $main = document.querySelector("#main");
+const scheduleColumns = [];
 
-const columns = [
-    {
-        title: "해야할 일",
-        cards: [
-            {
-                title: "제목",
-                body: "내용",
-                caption: "author by web",
-                id: "0",
-            },
-        ],
-    },
-    {
-        title: "하고 있는 일",
-        cards: [
-            {
-                title: "제목",
-                body: "내용",
-                caption: "author by web",
-                id: "0",
-            },
-        ],
-    },
-];
-
-columns.forEach((scheduleColumn) => {
-    new ScheduleColumn($main, scheduleColumn);
+scheduleModel.forEach((scheduleColumnData) => {
+    const scheduleColumn = new ScheduleColumn(
+        $main,
+        scheduleColumnData.columnId
+    );
+    scheduleColumns.push(scheduleColumn);
 });
 
 $main.addEventListener("mousedown", mouseDownEventHandler);

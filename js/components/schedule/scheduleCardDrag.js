@@ -90,13 +90,17 @@ const removeMouseUpEvent = () => {
     $main.removeEventListener("mouseup", mouseUpOnDraggingEventHandler);
 };
 
+const removeDragCard = () => {
+    dragCard.remove();
+    dragCard = null;
+};
+
 const mouseUpOnDraggingEventHandler = () => {
     $main.removeEventListener("mousemove", mouseMoveOnDraggingEventHandler);
     removeMouseUpEvent();
 
     afterimageCard.classList.replace(CARD_AFTERIMAGE, CARD);
-    dragCard.remove();
-    dragCard = null;
+    removeDragCard();
 };
 
 const addMouseEventOnDragCard = () => {
