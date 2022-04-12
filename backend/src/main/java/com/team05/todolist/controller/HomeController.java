@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -33,7 +34,7 @@ public class HomeController {
 	@GetMapping("/cards")
 	public ResponseEntity<ListResponseDTO> inquireAll() {
 		ClassifiedCardsDTO classifiedCards = cardService.findCards();
-		List<LogDTO> logs = logService.findLogs();
+		List<LogDTO> logs = logService.findLogs(0, 10);
 		return ResponseEntity.ok().body(new ListResponseDTO(classifiedCards, logs));
 	}
 
@@ -42,5 +43,13 @@ public class HomeController {
 	public ResponseEntity<String> batchProcess() {
 		cardService.batchProcess();
 		return ResponseEntity.ok().body("batch process complete!");
+	}
+
+	@ApiOperation("Log 페이징 - nowNumberOfLogs: 현재 로그 개수, number: 추가적으로 원하는 로그 개수")
+	@GetMapping("/logs")
+	public ResponseEntity<List<LogDTO>> logPaging(int nowNumberOfLogs, int number) {
+		List<LogDTO> logs = logService.findLogs(nowNumberOfLogs, number);
+		logger.debug("넘겨주는 log의 수: {}", logs.size());
+		return ResponseEntity.ok().body(logs);
 	}
 }

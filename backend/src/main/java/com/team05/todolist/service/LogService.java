@@ -2,7 +2,6 @@ package com.team05.todolist.service;
 
 import com.team05.todolist.domain.Event;
 import com.team05.todolist.domain.Log;
-import com.team05.todolist.domain.dto.CardDTO;
 import com.team05.todolist.domain.dto.LogDTO;
 import com.team05.todolist.repository.LogRepository;
 import java.time.LocalDateTime;
@@ -31,14 +30,28 @@ public class LogService {
             log.getSectionType());
     }
 
-    public List<LogDTO> findLogs() {
+    public List<LogDTO> findLogs(int nowNumberOfLogs, int number) {
         List<Log> logs = logRepository.findAll();
         List<LogDTO> logDtos = new ArrayList<>();
-        for (Log log : logs) { // log를 10개씩 출력으로 변경해야 한다.
+        Log log;
+        int startIndex = logs.size() - 1 - nowNumberOfLogs;
+
+        /*
+        startIndex부터 number 개수만큼 log를 담아 return
+         */
+        for (int i=startIndex; i>(startIndex-number); i--) {
+            if (isNotValidRange(i)){
+                break;
+            }
+            log = logs.get(i);
             logDtos.add(new LogDTO(log.getId(), log.getEventType(), log.getLogTime(),
                     log.getTitle(), log.getPrevSection(), log.getSectionType()));
         }
         return logDtos;
+    }
+
+    private boolean isNotValidRange(int index) {
+        return index < 0;
     }
 
     public LogDTO delete(Event event, String cardTitle, String section) {
