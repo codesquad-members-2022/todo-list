@@ -40,7 +40,7 @@ class TodosApiAcceptanceTest {
             .body("title", equalTo("Github 공부하기"))
             .body("contents", equalTo("add, commit, push"))
             .body("user", equalTo("sam"))
-            .body("status", equalTo("todo"));
+            .body("status", equalTo("doing"));
     }
 
     @Test
