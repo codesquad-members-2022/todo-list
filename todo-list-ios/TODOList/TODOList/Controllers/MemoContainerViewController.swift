@@ -4,6 +4,7 @@ class MemoContainerViewController: UIViewController {
     
     private var cellCount: Int?
     private var containerType: MemoContainerType?
+    private var selectedIndexPath: IndexPath?
     
     private (set) var memoContainerView: MemoContainerView = {
         let containerView = MemoContainerView()
@@ -26,18 +27,18 @@ extension MemoContainerViewController: UITableViewDataSource & UITableViewDelega
         guard let cellCount = cellCount else { return 0 }
         return cellCount
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoTableViewCell.identifier, for: indexPath) as? MemoTableViewCell else {
-            return UITableViewCell()
-        }
-
-        let memo = Memo(title: "해야 할 일입니당", content: "해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK")
-        cell.updateStackView(memo: memo)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoTableViewCell.identifier, for: indexPath) as? MemoTableViewCell,
+              let parentViewController = parent as? MemoCanvasViewController,
+              let containerType = containerType,
+              let memos = parentViewController.memoTableViewModels[containerType] else { return UITableViewCell() }
+        
+        cell.updateStackView(memo: memos[indexPath.row])
         cell.updateStyle()
         return cell
     }
@@ -58,12 +59,26 @@ extension MemoContainerViewController: UITableViewDataSource & UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let popupViewController = PopupViewController()
         popupViewController.modalPresentationStyle = .overCurrentContext
-
+        
         switch indexPath.section {
         case 0:
             self.present(popupViewController, animated: true)
         default:
             self.present(popupViewController, animated: true)
         }
+    }
+}
+
+extension MemoContainerViewController: UITableViewDragDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let parentViewController = parent as? MemoCanvasViewController,
+              let containerType = containerType,
+              let memos = parentViewController.memoTableViewModels[containerType] else { return [] }
+        
+        let memo = memos[indexPath.row]
+        let itemProvider = NSItemProvider(object: memo)
+        let selectedIndexPath = indexPath
+        return [UIDragItem(itemProvider: itemProvider)]
     }
 }
