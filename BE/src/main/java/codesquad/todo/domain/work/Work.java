@@ -19,6 +19,7 @@ public class Work {
     private Integer statusIndex;
     private LocalDateTime createDateTime;
     private LocalDateTime lastModifiedDateTime;
+    private boolean isDeleted;
 
     public boolean isSameStatusIndex(Integer statusIndex) {
         return this.statusIndex.equals(statusIndex);
@@ -44,6 +45,13 @@ public class Work {
 
     public void changeStatus(WorkStatus workStatus) {
         this.workStatus = workStatus;
+        this.lastModifiedDateTime = LocalDateTime.now();
+    }
+
+    public void delete() {
+        this.isDeleted = true;
+        this.workStatus = null;
+        this.statusIndex = null;
         this.lastModifiedDateTime = LocalDateTime.now();
     }
 }

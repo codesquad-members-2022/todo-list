@@ -35,11 +35,6 @@ public class MemoryWorkRepository implements WorkRepository {
     }
 
     @Override
-    public void delete(Long id) {
-        store.remove(id);
-    }
-
-    @Override
     public List<Work> findAllWorkByUserId(Long userId) {
         return store.values().stream()
                 .filter(work -> work.getAuthor().isSameId(userId))
@@ -74,4 +69,6 @@ public class MemoryWorkRepository implements WorkRepository {
                 .filter(work -> work.isSameStatusIndex(statusIndex))
                 .findAny();
     }
+
+
 }

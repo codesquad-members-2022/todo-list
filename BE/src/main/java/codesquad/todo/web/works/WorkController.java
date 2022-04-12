@@ -40,4 +40,9 @@ public class WorkController {
         User defaultUser = userRepository.findById(DEFAULT_USER_ID).get();
         return workService.findWorkList(defaultUser.getId());
     }
+
+    @DeleteMapping("/{id}")
+    public WorkDeleteResponse deleteWork(@PathVariable Long id) {
+        return workService.workDelete(id);
+    }
 }

@@ -155,4 +155,14 @@ public class WorkService {
                 .collect(Collectors.toList());
         return new WorkListResponse(workDetails);
     }
+
+    public WorkDeleteResponse workDelete(Long id) {
+        Work work = findById(id);
+        Long userId = work.getAuthor().getId();
+        List<Work> originWorks = workRepository.findByUserIdAndStatus(work.getWorkStatus(), userId);
+        detachFromOriginStatus(work, originWorks);
+        work.delete();
+        workRepository.update(work);
+        return new WorkDeleteResponse(true, id);
+    }
 }
