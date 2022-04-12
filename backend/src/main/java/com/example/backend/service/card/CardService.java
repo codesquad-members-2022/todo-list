@@ -1,11 +1,14 @@
 package com.example.backend.service.card;
 
 import com.example.backend.controller.card.dto.CardDto;
+import com.example.backend.controller.history.HistorySaveRequest;
+import com.example.backend.controller.history.HistoryService;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -14,13 +17,18 @@ import java.util.Map;
 public class CardService {
 
     private final CardRepository cardRepository;
+    private final HistoryService historyService;
 
-    public CardService(CardRepository cardRepository) {
+    public CardService(CardRepository cardRepository, HistoryService historyService) {
         this.cardRepository = cardRepository;
+        this.historyService = historyService;
     }
 
+    // 큰 트랜잭션
+    @Transactional
     public Card writeCard(CardDto cardDto) {
         Card card = new Card(cardDto.getTitle(), cardDto.getContent(), cardDto.getCardType());
+        HistorySaveRequest historySaveRequest = new HistorySaveRequest();
         return cardRepository.save(card);
     }
 
