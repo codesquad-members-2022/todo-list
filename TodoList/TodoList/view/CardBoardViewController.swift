@@ -8,7 +8,7 @@
 import UIKit
 
 class CardBoardViewController: UIViewController {
-
+    
     static let cardTableStoryBoardIdentifier = "CardTableStoryboard"
     
     let factory = CardFactory()
@@ -17,8 +17,9 @@ class CardBoardViewController: UIViewController {
     private var todoViewController: CardTableViewController?
     private var doingViewController: CardTableViewController?
     private var doneViewController: CardTableViewController?
+    private var historyViewController: HistoryViewController?
     
-    private let historyView = HistoryView(frame: .zero)
+    //private let historyView = HistoryView(frame: .zero)
     private var historyViewBeforeConstraint: NSLayoutConstraint?
     private var historyViewAfterConstraint: NSLayoutConstraint?
     
@@ -33,8 +34,9 @@ class CardBoardViewController: UIViewController {
     }
     
     private func setHistoryView(){
-        self.view.addSubview(historyView)
-        historyView.actionDelegate = self
+        guard let historyView = historyViewController?.view else { return }
+        view.addSubview(historyView)
+        //historyView.actionDelegate = self
         historyView.translatesAutoresizingMaskIntoConstraints = false
         historyView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         historyView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -49,12 +51,14 @@ class CardBoardViewController: UIViewController {
         self.todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: CardTableViewController.identifier) as? CardTableViewController
         self.doingViewController = todoStoryBoard.instantiateViewController(withIdentifier: CardTableViewController.identifier) as? CardTableViewController
         self.doneViewController = todoStoryBoard.instantiateViewController(withIdentifier: CardTableViewController.identifier) as? CardTableViewController
+        self.historyViewController = HistoryViewController()
         
         guard let todoViewController = self.todoViewController,
               let doingViewController = self.doingViewController,
-              let doneViewController = self.doneViewController else {
-            return
-        }
+              let doneViewController = self.doneViewController,
+              let historyViewController = self.historyViewController else {
+                  return
+              }
         
         boardStackView.addArrangedSubview(todoViewController.view)
         boardStackView.addArrangedSubview(doingViewController.view)
@@ -63,10 +67,12 @@ class CardBoardViewController: UIViewController {
         addChild(todoViewController)
         addChild(doingViewController)
         addChild(doneViewController)
+        addChild(historyViewController)
         
         todoViewController.didMove(toParent: self)
         doingViewController.didMove(toParent: self)
         doneViewController.didMove(toParent: self)
+        historyViewController.didMove(toParent: self)
     }
     
     private func setUIProperties() {
