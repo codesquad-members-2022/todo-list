@@ -15,9 +15,8 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public Card create(CardCreateRequest createRequest) {
-        Integer count = cardRepository.countByColumn(createRequest.getColumnId());
-        Card card = createRequest.toEntity(count + 1);
+    public Card create(CardCreateRequest request) {
+        Card card = request.toEntity();
         return cardRepository.create(card);
     }
 

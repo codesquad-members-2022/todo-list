@@ -71,4 +71,17 @@ public class Card {
         return createdDateTime;
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+            "cardId=" + cardId +
+            ", columnId=" + columnId +
+            ", title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", author='" + author + '\'' +
+            ", nextId=" + nextId +
+            ", createdDateTime=" + createdDateTime +
+            ", deleted=" + deleted +
+            '}';
+    }
 }

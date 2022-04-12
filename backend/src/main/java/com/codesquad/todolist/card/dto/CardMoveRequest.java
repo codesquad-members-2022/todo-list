@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 public class CardMoveRequest {
     @NotNull(message = "목표 위치의 컬럼ID 값이 있어야 합니다")
     private Integer columnId;
-    @NotNull(message = "목표 위치의 다음 카드ID 값이 있어야 합니다")
     private Integer nextId;
 
     private CardMoveRequest() {
@@ -22,5 +21,13 @@ public class CardMoveRequest {
 
     public Integer getNextId() {
         return nextId;
+    }
+
+    @Override
+    public String toString() {
+        return "CardMoveRequest{" +
+            "columnId=" + columnId +
+            ", nextId=" + nextId +
+            '}';
     }
 }

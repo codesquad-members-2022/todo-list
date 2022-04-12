@@ -29,7 +29,8 @@ public class CardRepository {
         KeyHolder keyHolder = keyHolderFactory.newKeyHolder();
 
         jdbcTemplate.update(
-            "insert into card (column_id, title, content, author, card_order, created_date) values (:columnId, :title, :content, :author, :order, :createdDateTime)",
+            "insert into card (column_id, title, content, author, next_id, created_date) values (:columnId, :title, "
+                + ":content, :author, :nextId, :createdDateTime)",
             new BeanPropertySqlParameterSource(card), keyHolder);
 
         if (keyHolder.getKey() != null) {
@@ -39,8 +40,9 @@ public class CardRepository {
     }
 
     public Optional<Card> findById(int cardId) {
-        String sql = "select card_id, column_id, title, content, author, card_order, created_date from card where card_id = :cardId and deleted = false";
-        Card card;
+        String sql = "select card_id, column_id, title, content, author, next_id, created_date from card where "
+            + "card_id = :cardId and deleted = false";
+        Card card = null;
         try {
             card = jdbcTemplate.queryForObject(sql, new MapSqlParameterSource().addValue("cardId", cardId),
                 getCardRowMapper());
@@ -63,21 +65,26 @@ public class CardRepository {
     }
 
     public void move(int oldNextId, Card card) {
+
         // `nextId = 이동되는카드(2)` 였던 카드(3)를 찾고, 해당 카드의 nextId를 oldNextId로 변경한다
         String updateCard3Sql = "update card set next_id = :oldNextId where next_id = :cardId";
         jdbcTemplate.update(updateCard3Sql, new MapSqlParameterSource()
             .addValue("oldNextId", oldNextId)
             .addValue("cardId", card.getCardId())
         );
+
         // 이동된 자리에 있던 카드(5)를 찾아서, `nextId = 카드(0)` 으로 바꿔준다. (카드(5)의 조건은 `nextId = 카드(0).nextId`)
         String updateCard5Sql = "update card set next_id = :cardId where next_id = :newNextId";
         jdbcTemplate.update(updateCard5Sql, new MapSqlParameterSource()
             .addValue("cardId", card.getCardId())
             .addValue("newNextId", card.getNextId())
         );
-
         String sql = "update card set column_id = :columnId, next_id = :nextId where card_id = :cardId";
-        jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card));
+        jdbcTemplate.update(sql, new MapSqlParameterSource()
+            .addValue("columnId", card.getColumnId())
+            .addValue("nextId", card.getNextId())
+            .addValue("cardId", card.getCardId())
+        );
     }
 
     public void deleteById(int cardId) {
@@ -93,7 +100,7 @@ public class CardRepository {
             rs.getString("title"),
             rs.getString("content"),
             rs.getString("author"),
-            rs.getInt("card_order"),
+            rs.getInt("next_id"),
             rs.getObject("created_date", LocalDateTime.class));
     }
 }

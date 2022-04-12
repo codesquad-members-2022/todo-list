@@ -17,6 +17,7 @@ import com.codesquad.todolist.card.Card;
 import com.codesquad.todolist.card.CardRepository;
 import com.codesquad.todolist.card.CardService;
 import com.codesquad.todolist.card.dto.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,10 +49,9 @@ public class CardServiceTest {
     @DisplayName("카드 생성시 저장소에 카드 데이터가 저장된다")
     public void cardCreateTest() {
         // given
-        CardCreateRequest createRequest = new CardCreateRequest(1, "제목", "작성자", "내용");
+        CardCreateRequest createRequest = new CardCreateRequest(1, "제목", "작성자", "내용", null);
         Card card = new Card(1, "제목", "내용", "작성자", 1);
 
-        given(cardRepository.countByColumn(anyInt())).willReturn(0);
         given(cardRepository.create(any(Card.class))).willReturn(card);
 
         // when
@@ -76,18 +76,18 @@ public class CardServiceTest {
 
     }
 
-    // @Test
-    // @DisplayName("카드 이동 요청 시 카드 이동 메서드가 호출된다.")
-    // public void cardMoveTest() {
-    //     // given
-    //     CardMoveRequest request = new CardMoveRequest(2, 3);
-    //     Card card = new Card(1, 1, "제목", "내용", "작성자", 1, LocalDateTime.now());
-    //     given(cardRepository.findById(anyInt())).willReturn(Optional.ofNullable(card));
-    //
-    //     // when
-    //     cardService.move(1, request);
-    //
-    //     // then
-    //     then(cardRepository).should(times(1)).move(any(Card.class));
-    // }
+    @Test
+    @DisplayName("카드 이동 요청 시 카드 이동 메서드가 호출된다.")
+    public void cardMoveTest() {
+        // given
+        CardMoveRequest request = new CardMoveRequest(2, 3);
+        Card card = new Card(1, 1, "제목", "내용", "작성자", 1, LocalDateTime.now());
+        given(cardRepository.findById(anyInt())).willReturn(Optional.ofNullable(card));
+
+        // when
+        cardService.move(1, request);
+
+        // then
+        then(cardRepository).should(times(1)).move(anyInt(), any(Card.class));
+    }
 }
