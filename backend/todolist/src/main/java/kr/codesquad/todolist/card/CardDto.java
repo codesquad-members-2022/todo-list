@@ -88,4 +88,15 @@ public class CardDto {
 			this.cards = cardsByStatus;
 		}
 	}
+
+	@Data
+	@NoArgsConstructor
+	public static class EditRequest {
+		@NotBlank(message = "제목은 필수 값입니다.")
+		@Size(min = 1, max = 50, message = "50자 미안으로 작성 하세요.")
+		private String subject;
+		@NotBlank(message = "내용은 필수 값입니다.")
+		@Size(min = 1, max = 500, message = "500자 미안으로 작성 하세요.")
+		private String content;
+	}
 }
