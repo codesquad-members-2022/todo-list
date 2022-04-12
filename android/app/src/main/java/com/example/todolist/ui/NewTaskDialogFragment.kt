@@ -17,7 +17,7 @@ import com.example.todolist.model.Task
 
 class NewTaskDialogFragment(private val status: Status) : DialogFragment() {
     private lateinit var binding: DialogNewCardBinding
-    private val viewModel: TaskViewModel by activityViewModels()
+    private val remoteViewModel: TaskRemoteViewModel by activityViewModels()
     private var titleFlag = false
     private var contentsFlag = false
 
@@ -48,7 +48,7 @@ class NewTaskDialogFragment(private val status: Status) : DialogFragment() {
                         binding.etContents.text.toString(),
                         Status.TODO
                     )
-                    viewModel.addTodoTask(task)
+                    remoteViewModel.addTask(task)
                 }
                 Status.IN_PROGRESS -> {
                     val task = Task(
@@ -56,7 +56,7 @@ class NewTaskDialogFragment(private val status: Status) : DialogFragment() {
                         binding.etContents.text.toString(),
                         Status.IN_PROGRESS
                     )
-                    viewModel.addInProgressTask(task)
+                    remoteViewModel.addTask(task)
                 }
                 else -> {
                     val task = Task(
@@ -64,7 +64,7 @@ class NewTaskDialogFragment(private val status: Status) : DialogFragment() {
                         binding.etContents.text.toString(),
                         Status.DONE
                     )
-                    viewModel.addDoneTask(task)
+                    remoteViewModel.addTask(task)
                 }
             }
             dismiss()

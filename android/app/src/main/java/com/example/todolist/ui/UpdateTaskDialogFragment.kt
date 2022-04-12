@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.todolist.databinding.DialogUpdateCardBinding
 import com.example.todolist.model.Status
-import com.example.todolist.model.TaskDetailResponse
+import com.example.todolist.model.response.TaskDetailResponse
 
 class UpdateTaskDialogFragment(private val task: TaskDetailResponse) : DialogFragment() {
     private lateinit var binding: DialogUpdateCardBinding

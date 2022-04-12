@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.databinding.ItemTaskBinding
-import com.example.todolist.model.TaskDetailResponse
+import com.example.todolist.model.response.TaskDetailResponse
 
 class TaskAdapter(
-    private val viewModel: TaskViewModel,
+    private val viewModel: TaskRemoteViewModel,
     private val listener: DialogListener
 ) : ListAdapter<TaskDetailResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback) {
 

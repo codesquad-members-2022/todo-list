@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist.model.*
+import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.repository.TaskRepository
 
 class TaskViewModel(private val repository: TaskRepository) : ViewModel() {

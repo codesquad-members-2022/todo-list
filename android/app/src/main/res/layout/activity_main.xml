@@ -8,6 +8,9 @@
 
         <variable
             name="viewModel"
+            type="com.example.todolist.ui.TaskRemoteViewModel" />
+        <variable
+            name="vm"
             type="com.example.todolist.ui.TaskViewModel" />
     </data>
 

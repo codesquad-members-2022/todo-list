@@ -8,11 +8,12 @@ import androidx.databinding.DataBindingUtil
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.model.Status
-import com.example.todolist.model.TaskDetailResponse
+import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.ui.common.ViewModelFactory
 
 class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
     private val viewModel: TaskViewModel by viewModels { ViewModelFactory() }
+    private val remoteViewModel: TaskRemoteViewModel by viewModels { ViewModelFactory() }
     private lateinit var binding: ActivityMainBinding
     private val historyAdapter: HistoryAdapter by lazy { HistoryAdapter() }
     private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.viewModel = viewModel
+        binding.viewModel = remoteViewModel
         binding.lifecycleOwner = this
         onDrawerEvent()
 
@@ -46,17 +47,17 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
         }
 
         binding.includeTodo.rvTodo.adapter = toDoAdapter
-        viewModel.todoTask.observe(this) { todoTask ->
+        remoteViewModel.todoTask.observe(this) { todoTask ->
             toDoAdapter.submitList(todoTask.toList())
         }
 
         binding.includeInProgress.rvInProgress.adapter = inProgressAdapter
-        viewModel.inProgressTask.observe(this) { inProgressTask ->
+        remoteViewModel.inProgressTask.observe(this) { inProgressTask ->
             inProgressAdapter.submitList(inProgressTask.toList())
         }
 
         binding.includeDone.rvDone.adapter = doneAdapter
-        viewModel.doneTask.observe(this) { doneTask ->
+        remoteViewModel.doneTask.observe(this) { doneTask ->
             doneAdapter.submitList(doneTask.toList())
         }
 
