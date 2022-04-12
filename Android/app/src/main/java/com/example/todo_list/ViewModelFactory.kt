@@ -2,6 +2,7 @@ package com.example.todo_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.todo_list.data.Repository
 import com.example.todo_list.history.HistoryViewModel
 
 class ViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {

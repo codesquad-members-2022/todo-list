@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todo_list.Repository
+import com.example.todo_list.data.Repository
 import com.example.todo_list.history.data.HistoryCard
 import kotlinx.coroutines.launch
 

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo_list.databinding.ActivityMainBinding
 import com.example.todo_list.history.HistoryAdapter
 import com.example.todo_list.history.HistoryViewModel
-import com.example.todo_list.history.data.HistoryRepository
+import com.example.todo_list.data.TasksRepository
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        historyViewModel = ViewModelProvider(this, ViewModelFactory(HistoryRepository())).get(HistoryViewModel::class.java)
+        historyViewModel = ViewModelProvider(this, ViewModelFactory(TasksRepository())).get(HistoryViewModel::class.java)
 
         val adapter = HistoryAdapter()
         binding.recyclerviewHistory.adapter = adapter
