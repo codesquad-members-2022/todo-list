@@ -19,7 +19,7 @@ enum NetworkError: Error {
 
 struct NetworkManager {
     let urlSession = URLSession.shared
-
+    
     var components: URLComponents = {
         var components = URLComponents()
         components.scheme = "http"
@@ -59,7 +59,7 @@ struct NetworkManager {
             completion(.success(decoded))
             
         }.resume()
-
+        
     }
     
     func delete(id: Int, then completion: @escaping (Result<Int, NetworkError>) -> Void) {
@@ -139,20 +139,36 @@ struct NetworkManager {
         guard let urlString = logComponents.string,
               let url = URL(string: urlString) else { return }
         
-//        LogManager Local Test를 위해 임시 주석처리
-//        urlSession.dataTask(with: url) { data, response, error in
-//
-//            guard let data = data else {
-//                return completion(.failure(.noData))
-//            }
-//
-//            guard let decode = try? decoder.decode([Log].self, from: data) else {
-//                print(String(data: data, encoding: .utf8)!)
-//                return completion(.failure(.decoding))
-//            }
-//
-//            completion(.success(decode))
-//
-//        }.resume()
+        urlSession.dataTask(with: url) { data, response, error in
+            
+            guard let data = data else {
+                return completion(.failure(.noData))
+            }
+            
+            guard let decode = try? decoder.decode([Log].self, from: data) else {
+                print(String(data: data, encoding: .utf8)!)
+                return completion(.failure(.decoding))
+            }
+            
+            completion(.success(decode))
+            
+        }.resume()
+    }
+    
+    func getAllDumyLogs(then completion: @escaping (Result <[Log], NetworkError>) -> Void) {
+        let dummyLogJSONData: Data? = {
+            guard let url = Bundle.main.url(forResource: "dummyLogResponse", withExtension: "json") else { return nil }
+            guard let dummyJSONData = try? Data(contentsOf: url) else { return nil }
+            return dummyJSONData
+        }()
+        
+        guard let dummyLogJSONData = dummyLogJSONData else { return }
+        
+        guard let logs = try? self.decoder.decode([Log].self, from: dummyLogJSONData) else {
+            return completion(.failure(.decoding))
+        }
+        
+        completion(.success(logs))
+        
     }
 }
