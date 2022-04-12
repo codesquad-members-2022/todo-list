@@ -25,6 +25,7 @@ class NetworkRepository<Target: BaseTarget> {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = target.method
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
         if let param = target.parameter,
            let body = try? JSONSerialization.data(withJSONObject: param, options: .init()) {

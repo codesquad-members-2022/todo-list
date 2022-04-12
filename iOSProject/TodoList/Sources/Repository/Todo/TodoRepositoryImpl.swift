@@ -16,7 +16,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     }
     
     func addCard(title: String, body: String, column: Column.ColumnType) -> AnyPublisher<ApiResult<Card, SessionError>, Never> {
-        request(.addCard(title: title, body: body, column: column), isSucccess: true)
+        request(.addCard(title: title, body: body, column: column, authorSystem: "iOS"))
             .map { $0.decode(Card.self) }
             .eraseToAnyPublisher()
     }

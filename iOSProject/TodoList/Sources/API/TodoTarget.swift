@@ -12,7 +12,7 @@ enum TodoTarget: BaseTarget {
     case moveCard(_ cardId: Int, toColumn: Column.ColumnType, toIndex: Int)
     case deleteCard(_ cardId: Int)
     case editCard(_ cardId: Int, title: String, body: String)
-    case addCard(title: String, body: String, column: Column.ColumnType)
+    case addCard(title: String, body: String, column: Column.ColumnType, authorSystem: String)
 }
 
 extension TodoTarget {
@@ -31,8 +31,8 @@ extension TodoTarget {
         switch self {
         case .loadColumns:
             return nil
-        case .addCard(let title, let body, let column):
-            return ["title": title, "content":body, "column":column.rawValue]
+        case .addCard(let title, let body, let column, let authorSystem):
+            return ["title": title, "content":body, "columnName":column.rawValue, "authorSystem": authorSystem]
         case .moveCard(let cardId, let toColumn, let index):
             return ["id": cardId, "column": toColumn.rawValue, "index": index]
         case .editCard( _, let title, let body):
