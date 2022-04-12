@@ -33,7 +33,7 @@ class ActivityLogRepositoryTest {
 
         // given
         LocalDateTime now = LocalDateTime.now();
-        ActivityLog activityLog = ActivityLog.of(1, "userId1", Action.ADD, "taskTitle1", Status.TODO, Status.IN_PROGRESS, now, true);
+        ActivityLog activityLog = ActivityLog.of(1, "userId1", Action.ADD, "taskTitle1", Status.TODO, Status.TODO, now, false);
 
         // when
         ActivityLog result = repository.insert(activityLog);
@@ -55,9 +55,25 @@ class ActivityLogRepositoryTest {
         // given
         LocalDateTime now = LocalDateTime.now();
         List<ActivityLog> activityLogs = List.of(
-                ActivityLog.of(1, "userId1", Action.ADD, "taskTitle1", Status.TODO, Status.IN_PROGRESS, now, true),
-                ActivityLog.of(2, "userId2", Action.REMOVE, "taskTitle2", Status.IN_PROGRESS, Status.DONE, now, false),
-                ActivityLog.of(3, "userId3", Action.UPDATE, "taskTitle3", Status.IN_PROGRESS, Status.IN_PROGRESS, now, true)
+                ActivityLog.of(1, "userId1", Action.ADD, "taskTitle1", Status.TODO, Status.TODO, now, false),
+                ActivityLog.of(2, "userId2", Action.REMOVE, "taskTitle2", Status.TODO, Status.TODO, now, false),
+                ActivityLog.of(3, "userId3", Action.UPDATE, "taskTitle3", Status.TODO, Status.TODO, now, false),
+                ActivityLog.of(4, "userId1", Action.MOVE, "taskTitle4", Status.TODO, Status.IN_PROGRESS, now, false),
+
+                ActivityLog.of(5, "userId2", Action.ADD, "taskTitle5", Status.IN_PROGRESS, Status.IN_PROGRESS, now, false),
+                ActivityLog.of(6, "userId3", Action.REMOVE, "taskTitle6", Status.IN_PROGRESS, Status.IN_PROGRESS, now, false),
+                ActivityLog.of(7, "userId1", Action.UPDATE, "taskTitle7", Status.IN_PROGRESS, Status.IN_PROGRESS, now, false),
+                ActivityLog.of(8, "userId2", Action.MOVE, "taskTitle8", Status.IN_PROGRESS, Status.DONE, now, false),
+
+                ActivityLog.of(9, "userId3", Action.ADD, "taskTitle9", Status.DONE, Status.DONE, now, false),
+                ActivityLog.of(10, "userId1", Action.REMOVE, "taskTitle10", Status.DONE, Status.DONE, now, false),
+                ActivityLog.of(11, "userId2", Action.UPDATE, "taskTitle11", Status.DONE, Status.DONE, now, false),
+                ActivityLog.of(12, "userId3", Action.MOVE, "taskTitle12", Status.DONE, Status.DONE, now, false),
+
+                ActivityLog.of(13, "userId1", Action.MOVE, "taskTitle13", Status.TODO, Status.TODO, now, false),
+                ActivityLog.of(14, "userId2", Action.MOVE, "taskTitle14", Status.TODO, Status.IN_PROGRESS, now, false),
+                ActivityLog.of(15, "userId3", Action.MOVE, "taskTitle15", Status.IN_PROGRESS, Status.DONE, now, false),
+                ActivityLog.of(16, "userId1", Action.MOVE, "taskTitle16", Status.DONE, Status.DONE, now, false)
         );
 
         // when

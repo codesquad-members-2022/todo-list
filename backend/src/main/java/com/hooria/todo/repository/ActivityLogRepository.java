@@ -14,7 +14,9 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ActivityLogRepository {
@@ -43,7 +45,16 @@ public class ActivityLogRepository {
     }
 
     public ActivityLog insert(ActivityLog activityLog) {
-        SqlParameterSource params = new BeanPropertySqlParameterSource(activityLog);
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", activityLog.getId());
+        params.put("user_id", activityLog.getUserId());
+        params.put("action", activityLog.getAction().getCode());
+        params.put("task_title", activityLog.getTaskTitle());
+        params.put("from_status", activityLog.getFromStatus().getCode());
+        params.put("to_status", activityLog.getToStatus().getCode());
+        params.put("created_at", activityLog.getCreatedAt());
+        params.put("read_yn", activityLog.isReadYn());
+
         insertJdbc.executeAndReturnKey(params).intValue();
         return activityLog;
     }
