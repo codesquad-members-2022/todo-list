@@ -7,83 +7,113 @@
 
 import Foundation
 
-class CardsFetchingDataTask: CardHTTPRequest
-{
-    
+struct Team13API: ServerAPI {
+    let endpoint: String = "http://13.125.216.180:8080"
+}
+
+
+class DataTask: SessionDataTask {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
+    private let api: ServerAPI
     
-    override init?(
-        as string: String,
-        using delegate: URLSessionDelegate?,
-        in queue: OperationQueue? = nil,
-        type: NSURLRequest.NetworkServiceType = .default
-    ) {
-        super.init(as: string, using: delegate, in: queue, type: type)
+    convenience init?(api: ServerAPI) {
+        self.init(api: api, using: nil)
     }
     
-    func fetchCardsAll(completionHandler: @escaping ([[CardData]]?)->Void)
-    {
-        do {
-            doGetRequest(url: try FetchingURL.fetchAll.toURL(), parameter: nil) { [weak self] taskResult in
-                
-                guard let data = try? taskResult.get() else {
-                    completionHandler(nil)
-                    return
-                }
-                
-                completionHandler(try? self?.decoder.decode([[CardData]].self, from: data))
+    init?(api: ServerAPI,
+         using delegate: URLSessionDelegate?,
+         in queue: OperationQueue? = nil,
+         type: NSURLRequest.NetworkServiceType = .default
+         ) {
+        self.api = api
+        let urlString = api.getUrlString(type: .all)
+        super.init(as: urlString, using: delegate, in: queue, type: type)
+    }
+    
+    func fetchAll<T: Codable>(dataType: T.Type, completionHandler: @escaping (Result<T,DataTaskError>) -> Void) {
+        guard let url = api.toURL(type: .all) else {
+            completionHandler(.failure(.invalidURL))
+            return
+        }
+        let request = URLRequest(url: url)
+        self.session.dataTask(with: request) { data, response, error in
+            guard let data = data,
+                let decodedData = try? self.decoder.decode(T.self, from: data) else {
+                completionHandler(.failure(.notConvertdecode))
+                return
             }
-        } catch {
-            Log.error(error)
-            completionHandler(nil)
+            
+            completionHandler(.success(decodedData))
+        }.resume()
+    }
+    
+    private func makeURLComponents(from string: String? = nil, using parameter: [String: String]? = nil) -> URLComponents? {
+        
+        if let string = string {
+            urlString = string
+        }
+        guard let url = URL(string: urlString) else { return nil }
+        
+        var queryItems = [URLQueryItem]()
+        
+        if let parameter = parameter {
+            for param in parameter {
+                queryItems.append(URLQueryItem(name: param.key, value: param.value))
+            }
+        }
+        
+        var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        urlComp?.queryItems = queryItems
+        return urlComp
+    }
+}
+
+// MARK:- Cards
+struct Cards: Codable {
+    let todo: [Card]
+}
+
+struct Card: Codable {
+    let cardId: Int
+    let cardTitle: String
+    let cardContent: String
+    let boardName: String
+}
+
+// MARK:- ServerAPI
+protocol ServerAPI {
+    var endpoint: String { get }
+}
+
+extension ServerAPI {
+    func getUrlString(type: URLType) -> String {
+        switch type {
+        case .all:
+            return endpoint+"\(type)"
         }
     }
     
-    func fetchCardsInBoard(completionHandler: @escaping ([CardData]?)->Void)
-    {
-        do {
-            doGetRequest(url: try FetchingURL.oneFetch.toURL(), parameter: nil) { [weak self] taskResult in
-                
-                guard let data = try? taskResult.get() else {
-                    completionHandler(nil)
-                    return
-                }
-                
-                completionHandler(try? self?.decoder.decode([CardData].self, from: data))
-            }
-        } catch {
-            Log.error(error)
-            completionHandler(nil)
+    func toURL(type: URLType) -> URL? {
+        guard let url = URL(string: endpoint+"\(type)") else {
+            return nil
+        }
+        return url
+    }
+}
+
+enum URLType: CustomStringConvertible {
+    case all
+    var description: String {
+        switch self {
+        case .all:
+            return "/todolist"
         }
     }
 }
 
-extension CardsFetchingDataTask {
-    enum FetchingURL: String {
-        case fetchAll = "https://fetchAll.com"
-        case oneFetch = "https://oneFetch.com"
-        
-        func toURL() throws -> URL {
-            if let url = URL(string: self.rawValue) {
-                return url
-            } else {
-                throw CardFetchingError.CardURLError
-            }
-        }
-        
-        func toURLComponent() throws -> URLComponents {
-            if let comp = URLComponents(string: self.rawValue) {
-                return comp
-            } else {
-                throw CardFetchingError.CardURLError
-            }
-        }
-    }
-    
-    enum CardFetchingError: String, Error {
-        case CardFetchAllError = "Card를 모두 가져오는 중 발생하였습니다."
-        case CardOneFetchError = "한 개의 Card를 발생하였습니다."
-        case CardURLError = "적절하지 않은 URL입니다."
-    }
+enum DataTaskError: Error {
+    case notConnect
+    case invalidURL
+    case notConvertdecode
 }
