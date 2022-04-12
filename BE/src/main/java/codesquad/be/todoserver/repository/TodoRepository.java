@@ -11,5 +11,5 @@ public interface TodoRepository {
 
 	Optional<Todo> findById(Long id);
 
-	Optional<List> findAllTodos();
+	List<Todo> findAllTodos();
 }

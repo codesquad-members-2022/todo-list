@@ -23,7 +23,10 @@ public class TodoService {
 	}
 
 	public List<Todo> findTodos() {
-		return todoRepository.findAllTodos()
-				.orElseThrow(() -> new NoSuchElementException("Empty Todos"));
+
+		if (todoRepository.findAllTodos().isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		return todoRepository.findAllTodos();
 	}
 }

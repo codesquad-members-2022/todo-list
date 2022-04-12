@@ -1,17 +1,18 @@
 package codesquad.be.todoserver.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 import codesquad.be.todoserver.domain.Todo;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DataJdbcTest
 @Sql({"/testDB/schema.sql", "/testDB/data.sql"})
@@ -47,7 +48,7 @@ class TodoRepositoryTest {
 
 	@Test
 	void 전체_투두리스트_조회_성공() {
-		List<Todo> todos = todoRepository.findAllTodos().get();
+		List<Todo> todos = todoRepository.findAllTodos();
 
 		assertThat(todos).hasSize(4);
 	}

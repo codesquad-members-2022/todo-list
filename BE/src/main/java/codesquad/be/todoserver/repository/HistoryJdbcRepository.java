@@ -1,12 +1,12 @@
 package codesquad.be.todoserver.repository;
 
 import codesquad.be.todoserver.domain.History;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class HistoryJdbcRepository implements HistoryRepository {
@@ -20,10 +20,10 @@ public class HistoryJdbcRepository implements HistoryRepository {
 
 
 	@Override
-	public Optional<List<History>> findAllHistory() {
+	public List<History> findAllHistory() {
 		String sql = "SELECT id, todo_id, todo_title, user, action, from_status, to_status, created_at FROM HISTORY";
 
-		return Optional.ofNullable(jdbcTemplate.query(sql, historyRowMapper()));
+		return jdbcTemplate.query(sql, historyRowMapper());
 	}
 
 	private RowMapper<History> historyRowMapper() {

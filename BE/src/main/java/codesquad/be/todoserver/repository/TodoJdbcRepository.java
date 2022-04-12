@@ -1,11 +1,12 @@
 package codesquad.be.todoserver.repository;
 
 import codesquad.be.todoserver.domain.Todo;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class TodoJdbcRepository implements TodoRepository {
@@ -25,10 +26,10 @@ public class TodoJdbcRepository implements TodoRepository {
 	}
 
 	@Override
-	public Optional<List> findAllTodos() {
+	public List<Todo> findAllTodos() {
 		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO";
 		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper());
-		return Optional.of(todos);
+		return todos;
 	}
 
 	public RowMapper<Todo> todoRowMapper() {

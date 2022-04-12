@@ -56,7 +56,7 @@ class TodoServiceTest {
 		List<Todo> todolist = createTestData();
 
 		given(todoRepository.findAllTodos())
-				.willReturn(Optional.of(todolist));
+				.willReturn(todolist);
 
 		List<Todo> todos = todoService.findTodos();
 
