@@ -1,15 +1,9 @@
-const createEmptyCard = () => {
+const getEmptyCardNode = () => {
   const newCard = document.createElement("div");
-  newCard.classList.add("testNewCard");
-  const input = document.createElement("input");
-  const input2 = document.createElement("input");
-  const button = document.createElement("button");
-  newCard.appendChild(input);
-  newCard.appendChild(input2);
-  newCard.appendChild(button);
-  newCard.querySelector("button").classList.add("testButton");
+  const newCardHTML = createEmptyCardTemplate();
+  newCard.classList.add("task-card");
+  newCard.innerHTML = newCardHTML;
   return newCard;
-  // initCard(newCard);
 };
 
 function createEmptyCardTemplate() {
@@ -54,8 +48,12 @@ function createEmptyCardTemplate() {
 
 const renderEmptyCard = (parent, callbackEvent, store) => {
   const newCard = createEmptyCard();
-  newCard.qeurySelector(".testButton").addEventListener("click", (event) => {
-    callbackEvent(event, store);
-  });
+  newCard
+    .qeurySelector(".task-card__register-btn.cursor-pointer")
+    .addEventListener("click", (event) => {
+      callbackEvent(event, store);
+    });
   parent.appendChild(newCard);
 };
+
+export { renderEmptyCard };

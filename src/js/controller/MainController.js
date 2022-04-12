@@ -1,4 +1,5 @@
 import { renderEmptyCard } from "../view/EmptyCardView.js";
+import { initColumn, onClickAdd } from "../view/ColumnView.js";
 
 function addCard2Column(event, store) {
   const { target } = event;
