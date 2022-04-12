@@ -11,4 +11,12 @@ class TaskCardViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
+    func setTitle(to text: String) {
+        self.title.text = text
+    }
+    
+    func setContents(to text: String) {
+        self.contents.text = text
+    }
 }

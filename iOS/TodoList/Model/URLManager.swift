@@ -45,10 +45,9 @@ struct URLManager {
             }
             guard let data = data else {return}
             if let result = try? JSONDecoder().decode(TaskBoard.self, from: data) {
-                NotificationCenter.default.post(name: .getTaskBoardData, object: result)
+                NotificationCenter.default.post(name: .getTaskBoardData, object: nil, userInfo: [NotificationKeyValue.getTaskData:result])
             }
         }.resume()
     }
-
 }
 
