@@ -1,5 +1,5 @@
 import "./app.scss";
-import { Store } from "./stores/ColumnStore.js";
+import { Store, observer } from "./stores/ColumnStore.js";
 import { renderHeader } from "./components/header/Header.js";
 import { initMain } from "./components/main/Main.js";
 import { reRenderColumn } from "./components/main/column-container/Column/Column.js";
@@ -7,8 +7,8 @@ import { reRenderCard } from "./components/main/column-container/Column/card/Car
 
 (async () => {
   await Store.setInitialState();
-  Store.subscribe("column", reRenderColumn);
-  Store.subscribe("card", reRenderCard);
+  observer.subscribe("column", reRenderColumn);
+  observer.subscribe("card", reRenderCard);
   renderHeader();
   initMain();
 })();
