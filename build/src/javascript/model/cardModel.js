@@ -14,10 +14,6 @@ async function getTodos() {
   return cardModel;
 }
 
-async function postTodos(card) {
-  await axiosRequest("post", "todos", card);
-}
-
 function getAllColumnTodos() {
   cardModel.haveToDoColumn = getColumnTodos("have-to-do-column");
   cardModel.doingColumn = getColumnTodos("doing-column");
@@ -31,4 +27,4 @@ function getColumnTodos(columnName) {
   return columnTodos;
 }
 
-export { getTodos, postTodos };
+export { getTodos };
