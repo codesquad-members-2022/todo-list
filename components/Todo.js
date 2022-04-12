@@ -7,8 +7,12 @@ export default class Todo {
     this.todoElement = '';
   }
 
-  setElement = () => {
+  cacheElement = () => {
     this.todoElement = document.getElementById(`${this.todoData.id}`);
+  };
+
+  setTodoData = todoData => {
+    this.todoData = todoData;
   };
 
   onMouseDown = e => {
@@ -48,7 +52,7 @@ export default class Todo {
   render = () => {
     return /*html*/ `<div class="card" id =${this.todoData.id} data-drag="true">
       <header>
-        <h3>${this.todoData.title}</h3>
+        <h3 class="card__title">${this.todoData.title}</h3>
         <button class="card__delete">x</button>
       </header>
       <div class="card__content">
@@ -61,6 +65,7 @@ export default class Todo {
   };
 
   handleEventListener = () => {
+    this.cacheElement();
     this.todoElement.addEventListener('mousedown', this.onMouseDown);
     this.todoElement.addEventListener('mouseover', this.onDeleteMouseOver);
     this.todoElement.addEventListener('mouseout', this.onDeleteMouseOut);
@@ -74,7 +79,7 @@ export default class Todo {
       userId: this.todoData.userId,
     };
 
-    const todoEdit = new TodoEdit(editObj, this.render, this.handleEventListener);
+    const todoEdit = new TodoEdit(editObj, this.render, this.setTodoData, this.handleEventListener);
     this.todoElement.classList.add('todo-border');
     this.todoElement.innerHTML = todoEdit.render();
     todoEdit.handleEventListener();

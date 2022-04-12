@@ -1,14 +1,20 @@
 import { editLocalStorageById } from '../utils/localStorage.js';
 import { activationForm } from '../utils/handleStyle.js';
 export default class TodoEdit {
-  constructor(editObj, todoRender, todoHandleEventListener) {
+  constructor(editObj, todoRender, setTodoData, todoHandleEventListener) {
     this.id = editObj.id;
     this.title = editObj.title;
     this.content = editObj.content;
     this.userId = editObj.userId;
     this.todoRender = todoRender;
+    this.setTodoData = setTodoData;
     this.todoHandleEventListener = todoHandleEventListener;
+    this.editTodoElement = '';
   }
+
+  cacheElement = () => {
+    this.editTodoElement = document.getElementById(`${this.id}`);
+  };
 
   render = () => {
     return /*html*/ `
@@ -26,7 +32,7 @@ export default class TodoEdit {
   editTemplate = editData => {
     return /*html*/ `
       <header>
-        <h3>${editData.title}</h3>
+        <h3 class="card__title">${editData.title}</h3>
         <button class="column__delete">x</button>
       </header>
       <div class="card__content">
@@ -38,39 +44,46 @@ export default class TodoEdit {
   };
 
   handleEventListener = () => {
-    document.getElementById(this.id).addEventListener('input', this.onEditInputContent);
-    document.getElementById(this.id).addEventListener('click', this.onButtons);
+    this.cacheElement();
+    this.editTodoElement.querySelector('.edit-input-header').addEventListener('input', this.onEditInputTitle);
+    this.editTodoElement.querySelector('.edit-input-content').addEventListener('input', this.onEditInputContent);
+    this.editTodoElement.querySelector('.input--cancel').addEventListener('click', this.onClonseBtn);
+    this.editTodoElement.querySelector('.input--update').addEventListener('click', this.onUpdateBtn);
+  };
+
+  onEditInputTitle = ({ target }) => {
+    this.title = target.value;
   };
 
   onEditInputContent = ({ target }) => {
-    const editFormElement = document.getElementById(this.id);
-    const editContentForm = editFormElement.querySelector('.input--update');
-
     if (target.classList.contains('edit-input-content')) {
+      const editUpdateBtn = this.editTodoElement.querySelector('.input--update');
       if (target.value.length === 0) {
-        activationForm(editContentForm, true);
+        activationForm(editUpdateBtn, true);
       } else {
-        activationForm(editContentForm, false);
+        this.content = target.value;
+        activationForm(editUpdateBtn, false);
       }
     }
   };
 
-  onButtons = ({ target }) => {
-    if (target.classList.contains('input--cancel')) {
-      document.getElementById(this.id).outerHTML = this.todoRender();
-      this.todoHandleEventListener();
-    }
+  onClonseBtn = () => {
+    this.editTodoElement.outerHTML = this.todoRender();
+    this.todoHandleEventListener();
+  };
 
-    if (target.classList.contains('input--update')) {
-      const editFormElement = document.getElementById(this.id);
-      const editTitle = editFormElement.querySelector('.edit-input-header').value;
-      const editContent = editFormElement.querySelector('.edit-input-content').value;
+  onUpdateBtn = () => {
+    const editData = { title: this.title, content: this.content, userId: this.userId };
+    editLocalStorageById(editData, this.id);
+    this.editTodoElement.classList.remove('todo-border');
 
-      const editData = { title: editTitle, content: editContent, userId: this.userId };
-      editLocalStorageById(editData, this.id);
-
-      editFormElement.innerHTML = this.editTemplate(editData);
-      document.getElementById(this.id).classList.remove('todo-border');
-    }
+    this.editTodoElement.innerHTML = this.editTemplate(editData);
+    const newTodoData = {};
+    newTodoData.id = this.id;
+    newTodoData.title = this.title;
+    newTodoData.content = this.content;
+    newTodoData.userId = this.userid;
+    this.setTodoData(newTodoData);
+    this.todoHandleEventListener();
   };
 }

@@ -73,7 +73,6 @@ export default class TodoInput {
     new TodoNotice(this.createNotice()).render();
     $(`.${this.status}`).insertAdjacentHTML('afterend', newTodo.render());
     $(`.input-${this.status}`)?.remove();
-    newTodo.setElement();
     newTodo.handleEventListener();
     this.setOnInput(false);
     this.handleCount();
@@ -92,7 +91,7 @@ export default class TodoInput {
     `;
   };
 
-  run = () => {
+  handleEventListener = () => {
     $(`.input-${this.status} .input--cancel`).addEventListener('click', this.onCloseBtn);
     $(`.input-${this.status} .input-header`).addEventListener('input', this.onInputHeader);
     $(`.input-${this.status} .input-content`).addEventListener('input', this.onInputContent);

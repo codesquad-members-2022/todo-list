@@ -3,7 +3,6 @@ import { $ } from '../utils/dom.js';
 
 export default class TodoColumn {
   constructor(status) {
-    this.parentTarget = $('.column-section');
     this.status = status;
     this.todoInput = new TodoInput(this.status, this.setOnInput, this.handleCount);
     this.onInput = false;
@@ -22,7 +21,7 @@ export default class TodoColumn {
     }
 
     $(`.${this.status}`).insertAdjacentHTML('afterend', this.todoInput.render());
-    this.todoInput.run();
+    this.todoInput.handleEventListener();
     this.setOnInput(true);
     return;
   };
@@ -44,8 +43,12 @@ export default class TodoColumn {
     $(`.${this.status} .column__count`).innerText = this.count;
   };
 
+  handleEventListener = () => {
+    $(`.${this.status} .column__add`).addEventListener('click', this.onAddClick);
+  };
+
   render = () => {
-    const columnListHTML = /* html */ `
+    return /* html */ `
     <article class="column-list ${this.status}-wrapper">
         <nav class="column ${this.status}">
             <div class="column__left">
@@ -60,7 +63,5 @@ export default class TodoColumn {
         
     </article>
       `;
-    this.parentTarget.insertAdjacentHTML('beforeend', columnListHTML);
-    $(`.${this.status} .column__add`).addEventListener('click', this.onAddClick);
   };
 }

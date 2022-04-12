@@ -19,11 +19,13 @@ const app = () => {
 
 const createColumns = () => {
   const columns = ['todo', 'ing', 'complete'];
+  const columnsWrapper = $('.column-section');
   columns.forEach(status => {
     const column = new TodoColumn(status);
     const count = columnTodoCount(status);
     column.setCount(count);
-    column.render();
+    columnsWrapper.insertAdjacentHTML('beforeend', column.render());
+    column.handleEventListener();
   });
 };
 
@@ -38,7 +40,6 @@ const createTodos = () => {
   todos.forEach(todo => {
     const newTodo = new Todo(todo);
     $(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
-    newTodo.setElement();
     newTodo.handleEventListener();
   });
 };
