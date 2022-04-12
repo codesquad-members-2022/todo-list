@@ -66,7 +66,8 @@ export class ScheduleColumn {
     mouseDownEventHandler(event) {
         const target = event.target;
         const selectedCard = target.closest(".schedule-card");
-        if (!selectedCard) {
+        const dragCard = target.closest(".schedule-drag-card");
+        if (!selectedCard || selectedCard === dragCard) {
             return;
         }
 
@@ -77,7 +78,7 @@ export class ScheduleColumn {
         const dragElement = selectedCard.cloneNode(true);
 
         selectedCard.classList.replace(CARD, CARD_AFTER_IMAGE);
-        dragElement.classList.replace(CARD, DRAG_CARD);
+        dragElement.classList.add(DRAG_CARD);
 
         this.$cardsContainer.appendChild(dragElement);
 
@@ -88,10 +89,24 @@ export class ScheduleColumn {
 
         moveCard(event.pageX, event.pageY);
 
-        this.$scheduleColumn.addEventListener("mousemove", onMouseMove);
+        this.$target.addEventListener("mousemove", onMouseMove);
 
         function onMouseMove(event) {
             moveCard(event.pageX, event.pageY);
+        }
+
+        this.$target.addEventListener(
+            "mouseup",
+            removeMouseMoveEvent.bind(this)
+        );
+
+        function removeMouseMoveEvent() {
+            this.$target.removeEventListener("mousemove", onMouseMove);
+            removeMouseUpEvent.apply(this);
+        }
+
+        function removeMouseUpEvent() {
+            this.$target.removeEventListener("mouseup", removeMouseMoveEvent);
         }
     }
 
