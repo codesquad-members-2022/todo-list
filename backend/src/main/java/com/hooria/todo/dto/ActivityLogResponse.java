@@ -13,7 +13,7 @@ public class ActivityLogResponse {
 
     private long id;
     private String userId;
-    private String activityType;
+    private String action;
     private String taskTitle;
     private String fromStatus;
     private String toStatus;
@@ -24,10 +24,10 @@ public class ActivityLogResponse {
         return new ActivityLogResponse(
                 activityLog.getId(),
                 activityLog.getUserId(),
-                activityLog.getActivityType(),
+                activityLog.getAction().name(),
                 activityLog.getTaskTitle(),
-                activityLog.getFromStatus(),
-                activityLog.getToStatus(),
+                activityLog.getFromStatus().name(),
+                activityLog.getToStatus().name(),
                 activityLog.getCreatedAt().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 activityLog.isReadYn()
         );
