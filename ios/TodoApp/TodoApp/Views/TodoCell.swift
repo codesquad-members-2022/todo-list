@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ToDoCell: UITableViewCell {
-    static let identifier = "ToDoCell"
+class TodoCell: UITableViewCell {
+    static let identifier = "TodoCell"
     
     @IBOutlet private weak var cardView: UIView!
     

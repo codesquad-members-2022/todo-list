@@ -43,7 +43,7 @@ extension TodoListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ToDoCell.identifier) as? ToDoCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.identifier) as? TodoCell else {
             Logger.view.error("Fail to get a cell instance of TodoCell in \(#function), \(#fileID)")
             fatalError()
         }

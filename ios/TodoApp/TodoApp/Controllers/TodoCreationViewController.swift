@@ -1,6 +1,6 @@
 import UIKit
 
-class ToDoCreationViewController: UIViewController {
+class TodoCreationViewController: UIViewController {
     
     @IBOutlet weak var editView: UIView!
     @IBOutlet weak var headField: UITextField!
@@ -36,7 +36,7 @@ class ToDoCreationViewController: UIViewController {
     }
 }
 
-extension ToDoCreationViewController: UITextFieldDelegate {
+extension TodoCreationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField === headField {
             headField.resignFirstResponder()
@@ -55,7 +55,7 @@ extension ToDoCreationViewController: UITextFieldDelegate {
 }
 
 // 배경 탭했을 때 키보드 해산 시키는 기능
-extension ToDoCreationViewController: UIGestureRecognizerDelegate {
+extension TodoCreationViewController: UIGestureRecognizerDelegate {
     private func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -71,7 +71,7 @@ extension ToDoCreationViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension ToDoCreationViewController: UITextViewDelegate {
+extension TodoCreationViewController: UITextViewDelegate {
     // 글자수 제한
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let string = textView.text else { return true }

@@ -7,6 +7,7 @@
 
 import OSLog
 
+// TODO: Logging 모듈을 import 해서 사용하지 않도록 추상화하기
 extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier!
     static let network = Logger(subsystem: subsystem, category: "Network")
