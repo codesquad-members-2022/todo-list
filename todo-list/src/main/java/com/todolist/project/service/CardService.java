@@ -3,6 +3,7 @@ package com.todolist.project.service;
 import com.todolist.project.domain.card.Card;
 import com.todolist.project.domain.card.CardRepository;
 import com.todolist.project.web.dto.CardAddDto;
+import com.todolist.project.web.dto.CardListDto;
 import com.todolist.project.web.dto.CardUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,11 @@ public class CardService {
     }
 
 
-    public List<Card> findAll() {
+    public List<CardListDto> findAll() {
         return cardRepository.findAll();
     }
 
-    public List<Card> findByStatus(String cardStatus) { return cardRepository.findCardsByStatus(cardStatus);}
+    public List<CardListDto> findByStatus(String cardStatus) { return cardRepository.findCardsByStatus(cardStatus);}
 
     public int updateCard(Long id, CardUpdateDto cardUpdateDto) {
         return cardRepository.update(id, cardUpdateDto.toEntity());

@@ -1,6 +1,7 @@
 package com.todolist.project.domain.card;
 
 import com.todolist.project.domain.CardStatus;
+import com.todolist.project.web.dto.CardListDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -8,6 +9,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -53,14 +57,32 @@ public class CardRepository {
                 );
     }
 
-    public List<Card> findCardsByStatus(String cardStatus) {
+    public List<CardListDto> findCardsByStatus(String cardStatus) {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("cardStatus", cardStatus);
-        return namedParameterJdbcTemplate.query(FIND_CARD_BY_STATUS_SQL, mapSqlParameterSource, rowMapper);
+        return namedParameterJdbcTemplate.query(FIND_CARD_BY_STATUS_SQL, mapSqlParameterSource, (rs, rowNum) -> {
+            long id = rs.getLong("id");
+            int card_index = rs.getInt("card_index");
+            String title = rs.getString("title");
+            String contents = rs.getString("contents");
+            String writer = rs.getString("writer");
+            LocalDateTime created_date = rs.getTimestamp("created_date").toLocalDateTime();
+            String status = rs.getString("card_status");
+            return new CardListDto(id, card_index, title, contents, writer, status, created_date);
+        });
     }
 
-    public List<Card> findAll() {
-        return jdbcTemplate.query(FIND_CARD_SQL, rowMapper);
+    public List<CardListDto> findAll() {
+       return jdbcTemplate.query(FIND_CARD_SQL, (rs, rowNum) -> {
+           long id = rs.getLong("id");
+           int card_index = rs.getInt("card_index");
+           String title = rs.getString("title");
+           String contents = rs.getString("contents");
+           String writer = rs.getString("writer");
+           LocalDateTime created_date = rs.getTimestamp("created_date").toLocalDateTime();
+           String cardStatus = rs.getString("card_status");
+           return new CardListDto(id, card_index, title, contents, writer, cardStatus, created_date);
+       });
     }
 
     public int add(Card card, int size){

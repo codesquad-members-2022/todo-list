@@ -3,6 +3,7 @@ package com.todolist.project.web;
 import com.todolist.project.domain.card.Card;
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.CardAddDto;
+import com.todolist.project.web.dto.CardListDto;
 import com.todolist.project.web.dto.CardUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,12 @@ public class CardController {
     private final CardService cardService;
 
     @GetMapping
-    public List<Card> list() {
+    public List<CardListDto> list() {
         return cardService.findAll();
     }
 
     @GetMapping("/{cardStatus}")
-    public List<Card> listByStatus(@PathVariable String cardStatus) { return cardService.findByStatus(cardStatus);}
+    public List<CardListDto> listByStatus(@PathVariable String cardStatus) { return cardService.findByStatus(cardStatus);}
 
     @PostMapping
     public int add(@RequestBody CardAddDto dto) {
