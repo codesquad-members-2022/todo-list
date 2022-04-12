@@ -89,10 +89,10 @@ public class CardController {
     }
 
     @ApiOperation(
-        value = "id 에 해당하는 할 일 삭제",
-        notes = "id 에 해당하는 할 일을 삭제한다.",
+        value = "해당 'id'를 가진 타스크 삭제",
+        notes = "해당 'id'를 가진 타스크를 삭제한다.",
         produces = "application/json",
-        response = Long.class
+        response = CardResponse.class
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
@@ -104,8 +104,8 @@ public class CardController {
         @ApiResponse(code = 200, message = "삭제 성공"),
         @ApiResponse(code = 500, message = "서버 에러"),
     })
-    @DeleteMapping("{id}")
-    public long delete(@PathVariable long id) {
-        return cardRepository.delete(id);
+    @DeleteMapping("/{id}")
+    public CardResponse delete(@PathVariable long id) {
+        return cardService.delete(id);
     }
 }
