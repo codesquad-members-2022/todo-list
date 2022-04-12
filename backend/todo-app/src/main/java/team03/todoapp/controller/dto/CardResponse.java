@@ -1,6 +1,7 @@
 package team03.todoapp.controller.dto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import team03.todoapp.domain.Card;
 
 public class CardResponse {
@@ -61,8 +62,8 @@ public class CardResponse {
         return nextId;
     }
 
-    public LocalDateTime getUploadDate() {
-        return uploadDate;
+    public String getUploadDate() {
+        return uploadDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
 }
