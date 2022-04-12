@@ -1,8 +1,7 @@
 package com.codesquad.todolist.card.dto;
 
-import javax.validation.constraints.NotNull;
-
 import com.codesquad.todolist.card.Card;
+import javax.validation.constraints.NotNull;
 
 public class CardCreateRequest {
 
@@ -15,18 +14,22 @@ public class CardCreateRequest {
     @NotNull(message = "author 값이 있어야 합니다.")
     private String author;
 
+    private Integer nextId;
+
     private CardCreateRequest() {
     }
 
-    public CardCreateRequest(Integer columnId, String title, String author, String content) {
+    public CardCreateRequest(Integer columnId, String title, String author, String content,
+        Integer nextId) {
         this.columnId = columnId;
         this.title = title;
         this.content = content;
         this.author = author;
+        this.nextId = nextId;
     }
 
-    public Card toEntity(int order) {
-        return new Card(columnId, title, content, author, order);
+    public Card toEntity() {
+        return new Card(columnId, title, content, author, nextId);
     }
 
     public Integer getColumnId() {
@@ -45,6 +48,10 @@ public class CardCreateRequest {
         return author;
     }
 
+    public Integer getNextId() {
+        return nextId;
+    }
+
     @Override
     public String toString() {
         return "CardCreateRequest{" +
@@ -52,6 +59,7 @@ public class CardCreateRequest {
             ", title='" + title + '\'' +
             ", content='" + content + '\'' +
             ", author='" + author + '\'' +
+            ", nextId=" + nextId +
             '}';
     }
 }

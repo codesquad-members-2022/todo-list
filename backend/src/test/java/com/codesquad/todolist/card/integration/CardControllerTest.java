@@ -34,7 +34,11 @@ public class CardControllerTest {
 
         User user = setUp.createUser(new User("유저 이름"));
         Column column = setUp.createColumn(new Column(user.getUserId(), "컬럼 이름"));
-        Card card = setUp.createCard(new Card(column.getColumnId(), "제목", "내용", "작성자", 1));
+        Card card = setUp.createCard(new Card(column.getColumnId(), "제목", "내용", "작성자", null));
+
+        Column column2 = setUp.createColumn(new Column(user.getUserId(), "컬럼 이름2"));
+        Card card2 = setUp.createCard(new Card(column2.getColumnId(), "제목2", "내용2", "작성자2", null));
+        Card card3 = setUp.createCard(new Card(column.getColumnId(), "제목3", "내용3", "작성자3", 1));
     }
 
     @Test
@@ -43,9 +47,10 @@ public class CardControllerTest {
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("columnId", 1);
-        requestBody.put("title", "제목");
-        requestBody.put("content", "내용");
-        requestBody.put("author", "작성자");
+        requestBody.put("title", "제목4");
+        requestBody.put("content", "내용4");
+        requestBody.put("author", "작성자4");
+        requestBody.put("nextId", "3");
 
         given()
             .contentType("application/json")
@@ -87,6 +92,25 @@ public class CardControllerTest {
             .delete("cards/{id}")
             .then()
             .statusCode(204);
+    }
+
+    // Todo : 테스트 해결하기
+    @Test
+    @DisplayName("카드 이동 요청을 보내면 201 CREATED 를 응답 받는다")
+    public void moveCardTest() {
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("columnId", "1");
+        requestBody.put("nextId", null);
+
+        given()
+            .contentType("application/json")
+            .pathParam("id", 3)
+            .body(requestBody)
+            .log().all()
+            .when()
+            .put("cards/{id}/move")
+            .then()
+            .statusCode(201);
     }
 
 }

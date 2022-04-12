@@ -1,10 +1,17 @@
 package com.codesquad.todolist.card.integration;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.assertj.core.api.BDDAssertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 
+import com.codesquad.todolist.card.Card;
+import com.codesquad.todolist.card.CardRepository;
+import com.codesquad.todolist.column.Column;
+import com.codesquad.todolist.column.ColumnRepository;
+import com.codesquad.todolist.user.User;
+import com.codesquad.todolist.user.UserRepository;
+import com.codesquad.todolist.util.GeneratedKeyHolderFactory;
+import com.codesquad.todolist.util.KeyHolderFactory;
 import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,15 +22,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
-
-import com.codesquad.todolist.card.Card;
-import com.codesquad.todolist.card.CardRepository;
-import com.codesquad.todolist.column.Column;
-import com.codesquad.todolist.column.ColumnRepository;
-import com.codesquad.todolist.user.User;
-import com.codesquad.todolist.user.UserRepository;
-import com.codesquad.todolist.util.GeneratedKeyHolderFactory;
-import com.codesquad.todolist.util.KeyHolderFactory;
 
 @JdbcTest
 @Sql("classpath:/schema.sql")
@@ -89,7 +87,7 @@ public class CardRepositoryTest {
     public void cardDeleteTest() {
         // given
         cardRepository.create(card);
-        cardRepository.deleteById(card.getCardId());
+        // cardRepository.delete(card);
 
         // when
         Optional<Card> foundCard = cardRepository.findById(card.getCardId());

@@ -13,25 +13,25 @@ public class Card {
     private String title;
     private String content;
     private String author;
-    private Integer order;
+    private Integer nextId;
     private LocalDateTime createdDateTime;
     private Boolean deleted;
 
     // relation
     private List<ModifiedField> modifiedFields = new ArrayList<>();
 
-    public Card(Integer columnId, String title, String content, String author, Integer order) {
-        this(null, columnId, title, content, author, order, LocalDateTime.now());
+    public Card(Integer columnId, String title, String content, String author, Integer nextId) {
+        this(null, columnId, title, content, author, nextId, LocalDateTime.now());
     }
 
     public Card(Integer cardId, Integer columnId, String title, String content, String author,
-        Integer order, LocalDateTime createdDateTime) {
+        Integer nextId, LocalDateTime createdDateTime) {
         this.cardId = cardId;
         this.columnId = columnId;
         this.title = title;
         this.content = content;
         this.author = author;
-        this.order = order;
+        this.nextId = nextId;
         this.createdDateTime = createdDateTime;
     }
 
@@ -50,8 +50,17 @@ public class Card {
         }
     }
 
+    public void move(Integer columnId, Integer order) {
+        this.columnId = columnId;
+        this.nextId = order;
+    }
+
     public Integer getCardId() {
         return cardId;
+    }
+
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
     }
 
     public Integer getColumnId() {
@@ -70,8 +79,8 @@ public class Card {
         return author;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getNextId() {
+        return nextId;
     }
 
     public LocalDateTime getCreatedDateTime() {
@@ -84,6 +93,20 @@ public class Card {
 
     public void setCardId(int cardId) {
         this.cardId = cardId;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+            "cardId=" + cardId +
+            ", columnId=" + columnId +
+            ", title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", author='" + author + '\'' +
+            ", nextId=" + nextId +
+            ", createdDateTime=" + createdDateTime +
+            ", deleted=" + deleted +
+            '}';
     }
 
 }
