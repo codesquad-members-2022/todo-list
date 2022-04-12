@@ -1,6 +1,6 @@
 export default class CardModel {
-  constructor({ id, title, content }) {
-    this.id = id;
+  constructor({ cardId, title, content }) {
+    this.id = cardId;
     this.title = title;
     this.content = content;
   }

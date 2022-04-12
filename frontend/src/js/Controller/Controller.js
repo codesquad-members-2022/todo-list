@@ -9,6 +9,7 @@ class Controller {
     this.history = History;
     this.todo = null;
     this.deleteAlertView = null;
+    this.newCard = null;
     this.init();
   }
 
@@ -73,8 +74,12 @@ class Controller {
     }
 
     const cardId = this.updateCardCount('add');
-    const newCard = new Card(cardId);
-    newCard.view.renderAddCard(targetColumnBox, cardId);
+    this.newCard = new Card({ cardId: cardId });
+    this.newCard.view.renderAddCard(targetColumnBox, cardId);
+    this.newCard.view.eventInit({
+      cardInputHandler: this.cardInputHandler.bind(this),
+      cardAddHandler: this.cardAddHandler.bind(this),
+    });
   }
 
   cancelAddCard(targetColumnBox) {
@@ -85,6 +90,65 @@ class Controller {
   updateCardCount(action) {
     this.todo.model.updateCardCount(action);
     return this.todo.model.getAllCardCount();
+  }
+
+  cardInputHandler({ target }) {
+    const { titleInput, contentInput, accentBtn } =
+      this.getTargetCardInfo(target);
+
+    if (!(titleInput.value && contentInput.value)) {
+      accentBtn.setAttribute('disabled', 'false');
+      return;
+    }
+    if (!accentBtn.getAttribute('disabled')) return;
+    accentBtn.removeAttribute('disabled');
+  }
+
+  cardAddHandler({ target }) {
+    const {
+      targetColumnBox,
+      targetCard,
+      titleInput,
+      contentInput,
+      titleText,
+      contentText,
+    } = this.getTargetCardInfo(target);
+    const titleValue = titleInput.value;
+    const contentValue = contentInput.value;
+
+    titleText.innerText = titleValue;
+    contentText.innerText = contentValue;
+    targetCard.classList.remove('write');
+
+    this.newCard.model.title = titleValue;
+    this.newCard.model.content = contentValue;
+
+    const targetColumn = this.todo.model.columns[targetColumnBox.id];
+    targetColumn.model.addCardList(this.newCard);
+    targetColumn.model.updateAddStstue();
+    targetColumn.view.renderCardCount(
+      targetColumnBox,
+      targetColumn.model.getCardCount()
+    );
+  }
+
+  getTargetCardInfo(target) {
+    const targetColumnBox = target.closest('.todo_column_box');
+    const targetCard = target.closest('.card');
+    const titleText = targetCard.querySelector('.title_text');
+    const contentText = targetCard.querySelector('.content_text');
+    const titleInput = targetCard.querySelector('.title_input');
+    const contentInput = targetCard.querySelector('.content_input');
+    const accentBtn = targetCard.querySelector('.accent_btn');
+    return {
+      targetColumnBox,
+      targetCard,
+      titleInput,
+      titleText,
+      contentInput,
+      contentText,
+      accentBtn,
+    };
   }
 
   menuBtnClickHandler() {

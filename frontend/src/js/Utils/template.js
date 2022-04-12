@@ -91,13 +91,13 @@ const cardTemplate = ({ cardId = '' }) => {
       </div>
       <div class="card_content">
         <p class="content_text"></p>
-        <textarea class="content_input" placeholder="내용을 입력해주세요"></textarea>
+        <textarea class="content_input" placeholder="내용을 입력해주세요" maxlength="500"></textarea>
       </div>
       <span class="card_caption">author by web</span>
     </div>
     <div class="card_btn_box">
       <button type="button" class="btn normal_btn">취소</button>
-      <button type="button" class="btn accent_btn disabled">
+      <button type="button" class="btn accent_btn" disabled="true">
         등록
       </button>
     </div>

@@ -8,4 +8,10 @@ export default class ColumnView {
     const todoContainer = document.querySelector('.todo_container');
     todoContainer.insertAdjacentHTML('beforeend', columnBox);
   }
+
+  renderCardCount(targetColumn, cardCount) {
+    const countText = targetColumn.querySelector('.card_count');
+
+    countText.innerText = cardCount;
+  }
 }
