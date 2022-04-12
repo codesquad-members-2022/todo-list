@@ -42,7 +42,7 @@ class CardAPITests: XCTestCase {
     
     func test_todolistAPI_connectionSuccess_getData() throws {
         let expectation = XCTestExpectation()
-        task?.fetchAll(dataType: Cards.self, completionHandler: { result in
+        task?.fetchAll(dataType: CardMap.self, completionHandler: { result in
             switch result {
             case .success(let data):
                 XCTAssertNotNil(data)
