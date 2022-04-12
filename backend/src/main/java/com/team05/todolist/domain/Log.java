@@ -11,6 +11,10 @@ public class Log {
 	private String prevSection;
 	private Section section;
 
+	public Log(String event, LocalDateTime logTime, String title, String section) {
+		this(event, logTime, title, null, section);
+	}
+
 	public Log(String event, LocalDateTime logTime, String title, String prevSection, String section) {
 		this.event = Event.getEvent(event);
 		this.logTime = logTime;

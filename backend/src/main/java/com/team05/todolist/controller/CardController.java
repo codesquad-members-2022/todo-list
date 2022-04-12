@@ -34,7 +34,7 @@ public class CardController {
 	@PostMapping("/cards")
 	public ResponseEntity<ResponseDTO> create(@RequestHeader(value = "user-agent") String userAgent, @RequestBody CardDTO cardDto) {
 		CardDTO newCardDto = cardService.save(cardDto);
-		LogDTO log = logService.save(Event.CREATE, cardDto.getTitle(), null, cardDto.getSection());
+		LogDTO log = logService.save(Event.CREATE, cardDto.getTitle(), cardDto.getSection());
 
 		return ResponseEntity.ok().body(new ResponseDTO(newCardDto, log, userAgent));
 	}
@@ -44,7 +44,7 @@ public class CardController {
 	public ResponseEntity<ResponseDTO> update(@RequestHeader(value = "user-agent") String userAgent,
 		@PathVariable int id, @RequestBody CardDTO cardDto) {
 		CardDTO updatedCardDto = cardService.update(id, cardDto);
-		LogDTO log = logService.save(Event.UPDATE, cardDto.getTitle(), null, cardDto.getSection());
+		LogDTO log = logService.save(Event.UPDATE, cardDto.getTitle(), cardDto.getSection());
 
 		return ResponseEntity.ok().body(new ResponseDTO(updatedCardDto, log, userAgent));
 	}
@@ -63,7 +63,7 @@ public class CardController {
 	@DeleteMapping("/cards/{id}")
 	public ResponseEntity<ResponseDTO> delete(@PathVariable int id) {
 		CardDTO deletedCardDto = cardService.delete(id);
-		LogDTO log = logService.delete(Event.DELETE, deletedCardDto.getTitle(), null, deletedCardDto.getSection());
+		LogDTO log = logService.delete(Event.DELETE, deletedCardDto.getTitle(), deletedCardDto.getSection());
 		return ResponseEntity.ok().body(new ResponseDTO(deletedCardDto, log));
 	}
 
