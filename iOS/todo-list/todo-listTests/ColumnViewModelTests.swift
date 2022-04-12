@@ -13,6 +13,7 @@ class ColumnViewModelTests: XCTestCase {
         let promise = XCTestExpectation(description: "Data Loaded")
         let columnViewModel = ColumnViewModel(state: .todo, taskManager: TaskManager())
 <<<<<<< HEAD
+<<<<<<< HEAD
         
         columnViewModel.list.bind { taskViewModels in
             print(taskViewModels.count)
@@ -25,6 +26,13 @@ class ColumnViewModelTests: XCTestCase {
                 XCTAssertTrue(taskViewModels.count > 0)
                 promise.fulfill()
 >>>>>>> 60d70e9 (🐛: ViewModel에서 nil이 넘어오는 버그를 Observable의 bind와 클로저 실행 분리로 해결)
+=======
+        
+        columnViewModel.list.bind { taskViewModels in
+            print(taskViewModels.count)
+            XCTAssertTrue(taskViewModels.count > 0)
+            promise.fulfill()
+>>>>>>> c862819 (⚡️: KanbanViewController에 할일 조회 및 추가 기능 연결)
         }
         
         columnViewModel.load()

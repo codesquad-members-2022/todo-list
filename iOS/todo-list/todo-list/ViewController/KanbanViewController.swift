@@ -23,8 +23,6 @@ class KanbanViewController: UIViewController {
     @IBOutlet var addButtons: [UIButton]!
     
     
-    
-    
     let columnViewModels = [
         ColumnViewModel(state: .todo, taskManager: TaskManager.shared),
         ColumnViewModel(state: .inProgress, taskManager: TaskManager.shared ),
