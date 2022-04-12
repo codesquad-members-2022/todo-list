@@ -1,6 +1,7 @@
 package team07.todolist.repository;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class DataBaseActivityLogRepository implements ActivityLogRepository {
 			rs.getInt("type"),
 			rs.getInt("previous"),
 			rs.getInt("status"),
-			rs.getTimestamp("time")
+			rs.getObject("time", LocalDateTime.class)
 		);
 	}
 

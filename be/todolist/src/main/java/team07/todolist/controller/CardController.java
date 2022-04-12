@@ -18,6 +18,7 @@ import team07.todolist.domain.ActivityLog;
 import team07.todolist.domain.Card;
 import team07.todolist.dto.PatchCard;
 import team07.todolist.dto.RequestCard;
+import team07.todolist.dto.ResponseActivityLog;
 import team07.todolist.dto.ResponseCard;
 import team07.todolist.service.ActivityLogService;
 import team07.todolist.service.CardService;
@@ -72,7 +73,7 @@ public class CardController {
 
 	@ResponseBody
 	@GetMapping("/menu")
-	public List<ActivityLog> menu() {
+	public List<ResponseActivityLog> menu() {
 		return activityLogService.findAll();
 	}
 

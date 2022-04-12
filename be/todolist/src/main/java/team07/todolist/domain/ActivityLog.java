@@ -1,8 +1,9 @@
 package team07.todolist.domain;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import team07.todolist.dto.ResponseActivityLog;
 
 public class ActivityLog {
 
@@ -31,13 +32,13 @@ public class ActivityLog {
 	}
 
 	public ActivityLog(Long id, String title, int type, Integer previous, Integer status,
-		Timestamp time) {
+		LocalDateTime time) {
 		this.id = id;
 		this.title = title;
 		this.type = type;
 		this.previous = previous;
 		this.status = status;
-		this.time = time.toLocalDateTime();
+		this.time = time;
 	}
 
 	public Long getId() {
@@ -62,6 +63,10 @@ public class ActivityLog {
 
 	public LocalDateTime getTime() {
 		return time;
+	}
+
+	public ResponseActivityLog createResponseActivityLog() {
+		return new ResponseActivityLog(id, title, type, previous, status, time);
 	}
 
 }

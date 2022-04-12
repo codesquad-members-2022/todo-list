@@ -1,11 +1,13 @@
 package team07.todolist.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import team07.todolist.domain.ActivityLog;
 import team07.todolist.domain.Card;
 import team07.todolist.dto.PatchCard;
 import team07.todolist.dto.RequestCard;
+import team07.todolist.dto.ResponseActivityLog;
 import team07.todolist.dto.ResponseCard;
 import team07.todolist.repository.ActivityLogRepository;
 
@@ -49,7 +51,9 @@ public class ActivityLogService {
 		activityLogRepository.save(activityLog);
 	}
 
-	public List<ActivityLog> findAll() {
-		return activityLogRepository.findAll();
+	public List<ResponseActivityLog> findAll() {
+		return activityLogRepository.findAll().stream()
+			.map(ActivityLog::createResponseActivityLog)
+			.collect(Collectors.toList());
 	}
 }

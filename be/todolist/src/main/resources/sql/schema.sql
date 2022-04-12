@@ -16,9 +16,9 @@ DROP TABLE IF EXISTS ACTIVITY_LOG;
 CREATE TABLE ACTIVITY_LOG
 (
     id             INT            PRIMARY KEY     AUTO_INCREMENT,
-    title         VARCHAR(255)   NOT NULL,
+    title          VARCHAR(255)   NOT NULL,
     type           INT            NOT NULL,
     previous       INT,
     status         INT,
-    time           TIMESTAMP      NOT NULL
+    time           DATETIME       NOT NULL
 );
