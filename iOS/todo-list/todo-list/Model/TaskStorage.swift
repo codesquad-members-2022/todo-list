@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 class TaskStorage {
     private var dict: [Int: Task] = [:]
@@ -21,14 +22,14 @@ class TaskStorage {
     
     func add(task: Task) {
         if dict[task.id] != nil {
-            return Logger.init().fault("\(task.id) already exists")
+            return SystemLog.fault("\(task.id) already exists")
         }
         dict[task.id] = task
     }
     
     func update(task: Task) {
         if dict[task.id] == nil {
-            return Logger.init().fault("\(task.id) does not exists")
+            return SystemLog.fault("\(task.id) does not exists")
         }
         dict[task.id] = task
     }
