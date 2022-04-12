@@ -3,6 +3,7 @@ package com.codesquad.aos.todolist.ui.adapter
 import android.content.ClipData
 import android.graphics.Color
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -16,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.codesquad.aos.todolist.R
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ItemTodoCardBinding
+import com.codesquad.aos.todolist.ui.DataChangeListener
 import com.codesquad.aos.todolist.ui.DragListener
 import java.util.*
 
 class TodoCardListAdapter(
-    private val deleteTextClick: (deleteCardIndex: Int) -> Unit  // 메인 액티비티에서 전달하는 메서드
+    private val deleteTextClick: (deleteCardIndex: Int) -> Unit,  // 메인 액티비티에서 전달하는 메서드
+    private val dataChangeListener: DataChangeListener
 ) : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil), View.OnTouchListener {
 
     inner class CardViewHolder(val binding: ItemTodoCardBinding) :
@@ -58,12 +61,20 @@ class TodoCardListAdapter(
         submitList(newList)
     }
 
+    val dragInstance: DragListener?
+        get() = if (dataChangeListener != null) {
+            DragListener(dataChangeListener)
+        } else {
+            Log.e(javaClass::class.simpleName, "Listener not initialized")
+            null
+        }
+
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(getItem(position), deleteTextClick)
         holder.itemView.tag = position  // 태그 값으로 현재 포지션이 들어가 있음,  리사이클러뷰 자체는 태그가 없고 각 아이템뷰들은 태그가 있다
         holder.itemView.alpha = 1f
         holder.itemView.setOnTouchListener(this)
-        holder.itemView.setOnDragListener(DragListener())
+        holder.itemView.setOnDragListener(DragListener(dataChangeListener))
         holder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).translationX = 0f
     }
 

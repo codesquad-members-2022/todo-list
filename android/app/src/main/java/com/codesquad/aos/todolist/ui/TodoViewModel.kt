@@ -27,20 +27,53 @@ class TodoViewModel: ViewModel() {
     private var todoId = 1
     private var progressId = 1
     private var completeId = 1
+    private var cardId = 1
 
     // 해야할 일 추가
     fun addTodo(title: String, content: String){
-        todolist.add(0, Card(todoId++, title, content, "author by android"))
+        todolist.add(0, Card(cardId++, title, content, "author by android"))
         _todoListLd.value = todolist
     }
 
     fun addProgress(title: String, content: String){
-        progresslist.add(0, Card(progressId++, title, content, "author by android"))
+        progresslist.add(0, Card(cardId++, title, content, "author by android"))
         _progressListLd.value = progresslist
     }
 
     fun addComplete(title: String, content: String){
-        completelist.add(0, Card(completeId++, title, content, "author by android"))
+        completelist.add(0, Card(cardId++, title, content, "author by android"))
+        _completeListLd.value = completelist
+    }
+
+    // Card 객체를 바로 리스트 마지막에 추가
+    fun addTodoCard(card: Card){
+        todolist.add(card)
+        _todoListLd.value = todolist
+    }
+
+    fun addProgressCard(card: Card){
+        progresslist.add(card)
+        _progressListLd.value = progresslist
+    }
+
+    fun addCompleteCard(card: Card){
+        completelist.add(card)
+        _completeListLd.value = completelist
+    }
+
+    // Card 객체를 바로 리스트 마지막에 추가
+    fun addTodoCardAtInx(targetInx: Int, card: Card){
+        todolist.add(targetInx, card)
+        _todoListLd.value = todolist
+    }
+
+    fun addProgressCardAtInx(targetInx: Int, card: Card){
+        progresslist.add(targetInx, card)
+        _progressListLd.value = progresslist
+    }
+
+    fun addCompleteCardAtInx(targetInx: Int, card: Card){
+        completelist.add(targetInx, card)
         _completeListLd.value = completelist
     }
 
@@ -73,6 +106,24 @@ class TodoViewModel: ViewModel() {
         todolist[fromPos] = toTemp
         todolist[toPos] = fromTemp
         _todoListLd.value = todolist
+    }
+
+    fun changeProgressOrder(fromPos: Int, toPos: Int){
+        val fromTemp = Card(progresslist[fromPos].id, progresslist[fromPos].title, progresslist[fromPos].content, progresslist[fromPos].device)
+        val toTemp = Card(progresslist[toPos].id, progresslist[toPos].title, progresslist[toPos].content, progresslist[toPos].device)
+
+        progresslist[fromPos] = toTemp
+        progresslist[toPos] = fromTemp
+        _progressListLd.value = progresslist
+    }
+
+    fun changeCompleteOrder(fromPos: Int, toPos: Int){
+        val fromTemp = Card(completelist[fromPos].id, completelist[fromPos].title, completelist[fromPos].content, completelist[fromPos].device)
+        val toTemp = Card(completelist[toPos].id, completelist[toPos].title, completelist[toPos].content, completelist[toPos].device)
+
+        completelist[fromPos] = toTemp
+        completelist[toPos] = fromTemp
+        _completeListLd.value = completelist
     }
 
 }
