@@ -1,4 +1,4 @@
-package kr.codesquad.todolist.dto;
+package kr.codesquad.todolist.dto.card;
 
 import kr.codesquad.todolist.domain.Card;
 
@@ -7,35 +7,35 @@ import java.time.LocalDateTime;
 public class CardResponse {
 
     private final Long id;
-    private final Integer columnId;
     private final String author;
+    private final Integer sectionId;
     private final String subject;
     private final String contents;
-    private final LocalDateTime createTime;
+    private final LocalDateTime createdAt;
 
-    public CardResponse(Long id, Integer columnId, String author, String subject, String contents, LocalDateTime createTime) {
+    public CardResponse(Long id, String author, Integer sectionId, String subject, String contents, LocalDateTime createdAt) {
         this.id = id;
-        this.columnId = columnId;
         this.author = author;
+        this.sectionId = sectionId;
         this.subject = subject;
         this.contents = contents;
-        this.createTime = createTime;
+        this.createdAt = createdAt;
     }
 
     public static CardResponse from(Card saved) {
-        return new CardResponse(saved.getId(), saved.getColumnId(), saved.getUserId(), saved.getSubject(), saved.getContents(), saved.getCreateTime());
+        return new CardResponse(saved.getId(), saved.getMemberId(), saved.getSectionId(), saved.getSubject(), saved.getContents(), saved.getCreatedAt());
     }
 
     public Long getId() {
         return id;
     }
 
-    public Integer getColumnId() {
-        return columnId;
-    }
-
     public String getAuthor() {
         return author;
+    }
+
+    public Integer getSectionId() {
+        return sectionId;
     }
 
     public String getSubject() {
@@ -46,7 +46,7 @@ public class CardResponse {
         return contents;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

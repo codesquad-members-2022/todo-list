@@ -1,28 +1,28 @@
-package kr.codesquad.todolist.dto;
+package kr.codesquad.todolist.dto.card;
 
 import kr.codesquad.todolist.domain.Card;
 
 
-public class CardDto {
+public class CreateCardRequest {
 
     private String author;
-    private Integer columnId;
+    private Integer sectionId;
     private String subject;
     private String contents;
 
-    private CardDto() {
+    private CreateCardRequest() {
     }
 
     public Card toEntity() {
-        return Card.of(this.author, this.columnId, this.subject, this.contents);
+        return Card.newCard(this.author, this.sectionId, this.subject, this.contents);
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public Integer getColumnId() {
-        return columnId;
+    public Integer getSectionId() {
+        return sectionId;
     }
 
     public String getSubject() {
@@ -35,9 +35,9 @@ public class CardDto {
 
     @Override
     public String toString() {
-        return "CardDto{" +
+        return "CreateCardRequest{" +
                 "author='" + author + '\'' +
-                ", columnId=" + columnId +
+                ", sectionId=" + sectionId +
                 ", subject='" + subject + '\'' +
                 ", contents='" + contents + '\'' +
                 '}';

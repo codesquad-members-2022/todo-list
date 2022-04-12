@@ -1,6 +1,7 @@
 package kr.codesquad.todolist.repository;
 
 import kr.codesquad.todolist.domain.Card;
+import kr.codesquad.todolist.domain.Section;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -10,7 +11,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -18,6 +18,9 @@ import java.util.Optional;
 
 @Repository
 public class JdbcCardRepository implements CardRepository {
+
+    private static final Long ORDER_INTERVAL = 1000L;
+    private static final Long EMPTY_NUMBER = 0L;
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -27,19 +30,15 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public Card save(Card card) {
-        String sql = "insert into card (user_id, column_id, subject, contents, create_time, update_time) " +
-                "values (:userId, :columnId, :subject, :contents, :createTime, :updateTime)";
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card), keyHolder);
-        Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
-
-        return findById(id).orElseThrow(NoSuchElementException::new);
+        if (card.hasId()) {
+            return update(card);
+        }
+        return insert(card);
     }
 
     @Override
     public Optional<Card> findById(Long id) {
-        String sql = "select id, user_id, column_id, subject, contents, create_time, update_time, deleted " +
+        String sql = "select id, member_id, section_id, subject, contents, order_index, created_at, updated_at, deleted " +
                 "from card where id = :id and deleted = false";
         try {
             Card card = namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("id", id), cardRowMapper());
@@ -51,7 +50,7 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public List<Card> findAll() {
-        String sql = "select id, user_id, column_id, subject, contents, create_time, update_time, deleted from card where deleted = false";
+        String sql = "select id, member_id, section_id, subject, contents, order_index, created_at, updated_at, deleted from card where deleted = false";
         return namedParameterJdbcTemplate.query(sql, cardRowMapper());
     }
 
@@ -62,15 +61,120 @@ public class JdbcCardRepository implements CardRepository {
         return namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("id", id)) == 1;
     }
 
+   @Override
+    public boolean move(Integer targetSectionId, Long targetCardId, Long movingCardId) {
+       String sql = "update card set section_id = :sectionId, order_index = :orderIndex where id = :id and deleted = false";
+       Long orderIndex = generateOrderIndex(targetSectionId, targetCardId);
+
+       MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+       parameterSource.addValue("sectionId", targetSectionId);
+       parameterSource.addValue("orderIndex", orderIndex);
+       parameterSource.addValue("id", movingCardId);
+
+       return namedParameterJdbcTemplate.update(sql, parameterSource) == 1;
+    }
+
+    @Override
+    public List<Card> findBySectionId(Integer sectionId) {
+        String sql = "select id, member_id, section_id, subject, contents, order_index, created_at, updated_at, deleted from card " +
+                "where deleted = false and section_id = :sectionId order by order_index desc";
+
+        return namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource("sectionId", sectionId), cardRowMapper());
+    }
+
+    @Override
+    public Optional<Section> findSection(Integer sectionId) {
+        String sql = "select id, name from section where id = :id";
+        try {
+            Section section = namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("id", sectionId), sectionRowMapper());
+            return Optional.ofNullable(section);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public List<Section> findSections() {
+        String sql = "select id, name from section";
+        return namedParameterJdbcTemplate.query(sql, sectionRowMapper());
+    }
+
+    private Long generateOrderIndex(Integer targetSectionId, Long targetCardId) {
+
+        if (targetCardId < EMPTY_NUMBER) {
+            return findMinOrderIndex(targetSectionId) / 2;
+        }
+
+        Card targetCard = findById(targetCardId).orElseThrow(NoSuchElementException::new);
+        Long foundOrderIndex = findMaxOrderIndex(targetSectionId);
+        if(targetCard.isSameOrderIndex(foundOrderIndex)) {
+            return foundOrderIndex + ORDER_INTERVAL;
+        }
+
+        Long targetOrderIndex = targetCard.getOrderIndex();
+        Long previousOrderIndex = findPreviousOrderIndex(targetSectionId, targetOrderIndex);
+        return (targetOrderIndex + previousOrderIndex) / 2;
+    }
 
     private RowMapper<Card> cardRowMapper() {
-        return (rs, rowNum) -> Card.of(rs.getLong("id"),
-                rs.getString("user_id"),
-                rs.getInt("column_id"),
+        return (rs, rowNum) -> Card.of(
+                rs.getLong("id"),
+                rs.getString("member_id"),
+                rs.getInt("section_id"),
                 rs.getString("subject"),
                 rs.getString("contents"),
-                rs.getObject("create_time", LocalDateTime.class),
-                rs.getObject("update_time", LocalDateTime.class),
+                rs.getLong("order_index"),
+                rs.getTimestamp("created_at").toLocalDateTime(),
+                rs.getTimestamp("updated_at").toLocalDateTime(),
                 rs.getBoolean("deleted"));
+    }
+
+    private RowMapper<Section> sectionRowMapper() {
+        return (rs, rowNum) -> new Section(
+                rs.getInt("id"),
+                rs.getString("name"));
+    }
+
+    private Card insert(Card card) {
+        Long maxOrderIndex = findMaxOrderIndex(card.getSectionId());
+        Card savableCard = Card.cardWithOrderIndex(maxOrderIndex + ORDER_INTERVAL, card);
+
+        String sql = "insert into card (member_id, section_id, subject, contents, order_index, created_at, updated_at) " +
+                "values (:memberId, :sectionId, :subject, :contents, :orderIndex, :createdAt, :updatedAt)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(savableCard), keyHolder);
+        Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
+
+        return Card.of(id, savableCard);
+    }
+
+    private Card update(Card card) {
+        String sql = "update card set subject = :subject, contents = :contents, updated_at = :updatedAt where id = :id";
+        namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card));
+        return card;
+    }
+
+    private Long findMaxOrderIndex(Integer sectionId) {
+        String sql = "select max(order_index) from card where section_id = :sectionId and deleted = false";
+        Long maxIndex = namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("sectionId", sectionId), Long.class);
+        if(maxIndex == null) {
+            return EMPTY_NUMBER;
+        }
+        return maxIndex;
+    }
+
+    private Long findMinOrderIndex(Integer sectionId) {
+        String sql = "select min(order_index) from card where section_id = :sectionId and deleted = false";
+        return namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("sectionId", sectionId), Long.class);
+    }
+
+    private Long findPreviousOrderIndex(Integer sectionId, Long orderIndex) {
+        String sql = "select min(order_index) from card where section_id = :sectionId and deleted = false and order_index > :orderIndex";
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("sectionId", sectionId);
+        parameterSource.addValue("orderIndex", orderIndex);
+
+        return namedParameterJdbcTemplate.queryForObject(sql, parameterSource, Long.class);
     }
 }
