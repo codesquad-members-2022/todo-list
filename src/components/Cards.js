@@ -11,10 +11,18 @@ export default class Cards extends Component {
             `<li>
               <div class="card" data-card-state="${cardState}">
                 <div class="card-title">
-                  ${cardState === "create" ? `<input placeholder="제목을 입력하세요">` : title}
+                  ${
+                    cardState === "create"
+                      ? `<input class="card-title-input" placeholder="제목을 입력하세요">`
+                      : title
+                  }
                 </div>
                 <div class="card-content">
-                  ${cardState === "create" ? `<input placeholder="내용을 입력하세요"></textarea>` : content}
+                  ${
+                    cardState === "create"
+                      ? `<input class="card-content-input" placeholder="내용을 입력하세요"></textarea>`
+                      : content
+                  }
                 </div>
                 ${
                   cardState === "create" || cardState === "update"
@@ -42,11 +50,20 @@ export default class Cards extends Component {
   }
   setEvent() {
     this.addEvent("click", ".card-button-normal", this.clickNormalButtonHandler.bind(this));
+    this.addEvent("input", ".card", this.inputHandler.bind(this));
   }
   clickNormalButtonHandler() {
     const { cards, undoCreateCard } = this.$props;
     if (cards[0]?.cardState === "create") {
       undoCreateCard();
+    }
+  }
+  inputHandler({ target }) {
+    const $inputs = [...this.$target.querySelectorAll("input")];
+    const isInputEvery = $inputs.every(($input) => $input.value !== "");
+    const $button = this.$target.querySelector(".card-button-accent");
+    if (isInputEvery) {
+      $button.className = "card-button-accent__active";
     }
   }
 }
