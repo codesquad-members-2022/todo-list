@@ -41,7 +41,7 @@ function init(store) {
   onClickColumnAddBtn(columnZone, addCard2Column, store);
 }
 
-const createColumnController = (store) => {
+const createMainController = (store) => {
   const columnStore = store;
   init(columnStore);
 };
@@ -72,7 +72,7 @@ function moveAt(element, { pageX, pageY, shiftX, shiftY }) {
   });
 }
 
-function onMouseMo() {
+function onMouseMove() {
   document.removeEventListener("mousemove", onMouseMove);
   const movingBoxCoord = movingBox.style.left + movingBox.style.width / 2;
 
