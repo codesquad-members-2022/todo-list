@@ -23,7 +23,7 @@ class NetworkManagerTests: XCTestCase {
             case .failure(let error): print(error.localizedDescription)
             }
         }
-        wait(for: [promise], timeout: 1)
+        wait(for: [promise], timeout: 2)
     }
     
     func testAdd() throws {

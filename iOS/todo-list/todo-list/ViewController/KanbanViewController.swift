@@ -21,10 +21,12 @@ class KanbanViewController: UIViewController {
     @IBOutlet var columns: [UITableView]!
     @IBOutlet var countBadges: [UILabel]!
     
+    
+    
     let columnViewModels = [
-        ColumnViewModel(state: .todo),
-        ColumnViewModel(state: .inProgress),
-        ColumnViewModel(state: .done)
+        ColumnViewModel(state: .todo, taskManager: TaskManager.shared),
+        ColumnViewModel(state: .inProgress, taskManager: TaskManager.shared ),
+        ColumnViewModel(state: .done, taskManager: TaskManager.shared)
     ]
     
     override func viewDidLoad() {
@@ -40,12 +42,12 @@ class KanbanViewController: UIViewController {
             column.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
         }
         
-//        columnViewModels.enumerated().forEach { [weak self] (index, viewModel) in
-//            viewModel.list.bind { _ in
-//                DispatchQueue.main.async { self?.columns[index].reloadData() }
-//            }
-//            viewModel.load()
-//        }
+        columnViewModels.enumerated().forEach { [weak self] (index, viewModel) in
+            viewModel.list.bind { _ in
+                DispatchQueue.main.async { self?.columns[index].reloadData() }
+            }
+            viewModel.load()
+        }
     }
 }
 

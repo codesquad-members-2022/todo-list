@@ -19,6 +19,7 @@ struct TaskManager {
             switch result {
             case .success(let data):
                 tasks.overwrite(tasks: data)
+                debugPrint(data)
                 completion(data)
             case .failure(let error): print(error.localizedDescription)
             }

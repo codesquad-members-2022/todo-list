@@ -52,7 +52,7 @@ struct NetworkManager {
             }
             
             guard let decoded = try? decoder.decode([Task].self, from: data) else {
-                print(String(data: data, encoding: .utf8)!)
+                debugPrint(data.prettyPrintedJSONString!)
                 return completion(.failure(.decoding))
             }
             
@@ -92,13 +92,13 @@ struct NetworkManager {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = body
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
+        print("Body", String(data: body, encoding: .utf8)!)
         urlSession.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 return completion(.failure(.noData))
             }
-            print(String(data: data, encoding: .utf8)!)
+            print("Response:", String(data: data, encoding: .utf8)!)
             guard let decoded = try? decoder.decode(T.self, from: data) else {
                 return completion(.failure(.decoding))
             }
