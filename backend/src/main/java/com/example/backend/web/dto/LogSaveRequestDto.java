@@ -1,14 +1,15 @@
 package com.example.backend.web.dto;
 
+import com.example.backend.domain.ActionType;
 import com.example.backend.domain.Log;
 
 public class LogSaveRequestDto {
 	private String title;
 	private String prevColumnName;
 	private String currentColumnName;
-	private String actionType;
+	private ActionType actionType;
 
-	public LogSaveRequestDto(String title, String prevColumnName, String currentColumnName, String actionType) {
+	public LogSaveRequestDto(String title, String prevColumnName, String currentColumnName, ActionType actionType) {
 		this.title = title;
 		this.prevColumnName = prevColumnName;
 		this.currentColumnName = currentColumnName;
@@ -27,7 +28,7 @@ public class LogSaveRequestDto {
 		return currentColumnName;
 	}
 
-	public String getActionType() {
+	public ActionType getActionType() {
 		return actionType;
 	}
 

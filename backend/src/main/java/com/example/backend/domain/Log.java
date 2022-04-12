@@ -5,10 +5,10 @@ public class Log {
 	private String title;
 	private String prevColumnName;
 	private String currentColumnName;
-	private String actionType;
+	private ActionType actionType;
 	private String createdDate;
 
-	public Log(Long id, String title, String prevColumnName, String currentColumnName, String actionType, String createdDate) {
+	public Log(Long id, String title, String prevColumnName, String currentColumnName, ActionType actionType, String createdDate) {
 		this.id = id;
 		this.title = title;
 		this.prevColumnName = prevColumnName;
@@ -29,7 +29,7 @@ public class Log {
 		return currentColumnName;
 	}
 
-	public String getActionType() {
+	public ActionType getActionType() {
 		return actionType;
 	}
 
@@ -38,7 +38,7 @@ public class Log {
 		private String title;
 		private String prevColumnName;
 		private String currentColumnName;
-		private String actionType;
+		private ActionType actionType;
 		private String createdDate;
 
 
@@ -62,7 +62,7 @@ public class Log {
 			return this;
 		}
 
-		public Builder actionType(String actionType) {
+		public Builder actionType(ActionType actionType) {
 			this.actionType = actionType;
 			return this;
 		}
