@@ -8,11 +8,11 @@
 import Foundation
 
 struct Card: Codable{
-    private(set) var id: Int
+    private(set) var id: Int?
     private(set) var section: State
     private(set) var title: String
     private(set) var content: String
-    private(set) var createdDate: Date
+    private(set) var createdDate: Date?
     private(set) var userID: String
     
     enum State: String, Codable{

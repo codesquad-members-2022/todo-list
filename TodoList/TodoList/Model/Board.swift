@@ -8,14 +8,19 @@
 import Foundation
 
 final class Board{
-    private(set) var todoCards: [Card]?
-    private(set) var doginCards: [Card]?
-    private(set) var doneCards: [Card]?
+    private(set) var todoCards = [Card]()
+    private(set) var doingCards = [Card]()
+    private(set) var doneCards = [Card]()
     
-    func divideCard() {
-        guard let cards = URLManager.requestGet(url: "") else { return }
-        todoCards = cards.filter{ $0.section == Card.State.todo }
-        doginCards = cards.filter{ $0.section == Card.State.doing }
-        doneCards = cards.filter{ $0.section == Card.State.done }
+    func divideCard(){
+        guard let data = URLManager.requestGet(url: "/api/cards") else { return }
+        
+        if let cards: [Card] = JsonConverter.decodeJson(data: data){
+            todoCards.append(contentsOf: cards.filter{ $0.section == .todo })
+            doingCards.append(contentsOf: cards.filter{ $0.section == .doing })
+            doneCards.append(contentsOf: cards.filter{ $0.section == .done })
+        } else{
+            return
+        }
     }
 }
