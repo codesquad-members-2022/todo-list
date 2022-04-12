@@ -1,11 +1,11 @@
 package com.todolist.domain;
 
-import com.todolist.dto.WorkLogDto;
+import com.todolist.dto.UserLogDto;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
 @Getter
-public class WorkLog {
+public class UserLog {
 
     private String userId;
     private String title;
@@ -14,9 +14,9 @@ public class WorkLog {
     private String changedColumn;
     private LocalDateTime updatedDateTime;
 
-    private WorkLog() { }
+    private UserLog() { }
 
-    public WorkLog(String title, String action,
+    public UserLog(String title, String action,
         String previousColumn, String changedColumn, LocalDateTime updatedDateTime) {
         this.title = title;
         this.action = action;
@@ -25,7 +25,7 @@ public class WorkLog {
         this.updatedDateTime = updatedDateTime;
     }
 
-    public WorkLog(String userId, String title, String action, String previousColumn) {
+    public UserLog(String userId, String title, String action, String previousColumn) {
         this.userId = userId;
         this.title = title;
         this.action = action;
@@ -33,7 +33,7 @@ public class WorkLog {
         this.updatedDateTime = LocalDateTime.now();
     }
 
-    public WorkLogDto convertToDto() {
-        return new WorkLogDto(title, action, previousColumn, changedColumn, updatedDateTime);
+    public UserLogDto convertToDto() {
+        return new UserLogDto(title, action, previousColumn, changedColumn, updatedDateTime);
     }
 }

@@ -2,13 +2,13 @@ package com.todolist.service;
 
 import com.todolist.domain.Category;
 import com.todolist.domain.Work;
-import com.todolist.domain.WorkLog;
+import com.todolist.domain.UserLog;
 import com.todolist.dto.ColumnListDto;
 import com.todolist.dto.WorkDto;
 import com.todolist.dto.WorkListDto;
 import com.todolist.dto.WorkRequestFormDto;
 import com.todolist.repository.CategoryRepository;
-import com.todolist.repository.WorkLogRepository;
+import com.todolist.repository.UserLogRepository;
 import com.todolist.repository.WorkRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +23,12 @@ public class WorkService {
 
     private final CategoryRepository categoryRepository;
     private final WorkRepository workRepository;
-    private final WorkLogRepository workLogRepository;
+    private final UserLogRepository userLogRepository;
 
-    public WorkService(CategoryRepository categoryRepository, WorkRepository workRepository, WorkLogRepository workLogRepository) {
+    public WorkService(CategoryRepository categoryRepository, WorkRepository workRepository, UserLogRepository userLogRepository) {
         this.categoryRepository = categoryRepository;
         this.workRepository = workRepository;
-        this.workLogRepository = workLogRepository;
+        this.userLogRepository = userLogRepository;
     }
 
     public ColumnListDto getColumnList(String userId) {
@@ -58,8 +58,8 @@ public class WorkService {
         String userId = work.getUserId();
         String title = work.getTitle();
         String categoryName = categoryRepository.findNameById(work.getCategoryId());
-        WorkLog workLog = new WorkLog(userId, title, CREATION, categoryName);
-        workLogRepository.saveCreationLog(workLog);
+        UserLog userLog = new UserLog(userId, title, CREATION, categoryName);
+        userLogRepository.saveCreationLog(userLog);
 
         return workDto;
     }

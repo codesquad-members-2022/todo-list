@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 
 @Getter
-public class WorkLogDto {
+public class UserLogDto {
 
     private String title;
     private String action;
@@ -12,7 +12,7 @@ public class WorkLogDto {
     private String changedColumn;
     private LocalDateTime updatedDateTime;
 
-    public WorkLogDto(String title, String action, String previousColumn,
+    public UserLogDto(String title, String action, String previousColumn,
         String changedColumn, LocalDateTime updatedDateTime) {
         this.title = title;
         this.action = action;

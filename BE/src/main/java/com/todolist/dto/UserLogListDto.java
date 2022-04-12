@@ -4,12 +4,12 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class WorkLogListDto {
+public class UserLogListDto {
 
     private String userId;
-    private List<WorkLogDto> workLogList;
+    private List<UserLogDto> workLogList;
 
-    public WorkLogListDto(String userId, List<WorkLogDto> workLogList) {
+    public UserLogListDto(String userId, List<UserLogDto> workLogList) {
         this.userId = userId;
         this.workLogList = workLogList;
     }

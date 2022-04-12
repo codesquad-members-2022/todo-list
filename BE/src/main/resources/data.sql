@@ -1,8 +1,8 @@
 DELETE FROM user;
 alter table user AUTO_INCREMENT = 1;
 
-DELETE FROM work_log;
-alter table work_log AUTO_INCREMENT = 1;
+DELETE FROM user_log;
+alter table user_log AUTO_INCREMENT = 1;
 
 DELETE FROM work;
 alter table work AUTO_INCREMENT = 1;
@@ -25,11 +25,11 @@ INSERT INTO work (category_id, title, content, user_id, delete_flag, created_dat
 INSERT INTO work (category_id, title, content, user_id, delete_flag, created_datetime)
  VALUES (3, '깃 공부', 'rebase와 merge의 차이', 'ikjo', false, NOW());
 
-INSERT INTO work_log (user_id, title, action, previous_column, updated_datetime)
+INSERT INTO user_log (user_id, title, action, previous_column, updated_datetime)
  VALUES ('ikjo', '자바 공부', '등록', 'TODO', NOW());
 
-INSERT INTO work_log (user_id, title, action, previous_column, updated_datetime)
+INSERT INTO user_log (user_id, title, action, previous_column, updated_datetime)
  VALUES ('ikjo', 'MySQL 공부', '등록', 'DOING', NOW());
 
-INSERT INTO work_log (user_id, title, action, previous_column, updated_datetime)
+INSERT INTO user_log (user_id, title, action, previous_column, updated_datetime)
  VALUES ('ikjo', '깃 공부', '등록', 'DONE', NOW());

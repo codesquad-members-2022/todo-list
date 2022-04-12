@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS work_log;
+DROP TABLE IF EXISTS user_log;
 DROP TABLE IF EXISTS work;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS category;
@@ -31,7 +31,7 @@ CREATE TABLE work (
     INDEX index_datetime (created_datetime)
 );
 
-CREATE TABLE work_log (
+CREATE TABLE user_log (
     id INT NOT NULL AUTO_INCREMENT,
     user_id VARCHAR(64) NOT NULL,
     title VARCHAR(255),
