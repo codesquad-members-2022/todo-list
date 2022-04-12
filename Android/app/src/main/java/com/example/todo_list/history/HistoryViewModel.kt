@@ -15,10 +15,10 @@ class HistoryViewModel(private val repository: Repository): ViewModel() {
     private val _checkLoading = MutableLiveData<Boolean>()
     val checkLoading: LiveData<Boolean> get() = _checkLoading
 
-    fun getHistory() {
+    fun getHistories() {
         _checkLoading.value = true
         viewModelScope.launch {
-            val response = repository.getHistory()
+            val response = repository.getHistories()
             if (response.isSuccessful) {
                 _historyList.value = response.body()
                 _checkLoading.value = false

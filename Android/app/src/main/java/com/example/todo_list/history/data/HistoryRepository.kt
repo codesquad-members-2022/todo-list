@@ -7,7 +7,7 @@ import retrofit2.Response
 class HistoryRepository : Repository {
     private val retrofit = HistoryReceive.service
 
-    override suspend fun getHistory(): Response<List<HistoryCard>> {
-        return retrofit.getHistory("histories")
+    override suspend fun getHistories(): Response<List<HistoryCard>> {
+        return retrofit.getHistories("histories")
     }
 }

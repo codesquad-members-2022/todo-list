@@ -40,8 +40,8 @@ fun setBody(view: TextView, body: HistoryCard) {
                 view.context.getString(
                     R.string.history_move_string,
                     body.todo.contents,
-                    convertStatus(body.from_status),
-                    convertStatus(body.to_status),
+                    convertStatus(body.fromStatus),
+                    convertStatus(body.toStatus),
                     convertAction(body.action)
                 ),
                 FROM_HTML_MODE_LEGACY

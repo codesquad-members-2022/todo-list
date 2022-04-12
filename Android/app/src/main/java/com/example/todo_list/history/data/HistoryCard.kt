@@ -8,9 +8,9 @@ data class HistoryCard(
 
     val action: String,
     @SerializedName("from status")
-    val from_status: String,
+    val fromStatus: String,
     @SerializedName("to status")
-    val to_status: String,
+    val toStatus: String,
     val createdDateTime: String
 )
 

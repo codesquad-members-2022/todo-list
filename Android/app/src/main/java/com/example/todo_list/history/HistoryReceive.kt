@@ -20,5 +20,5 @@ class HistoryReceive {
 
 interface HistoryApi {
     @GET("api/{todos}")
-    suspend fun getHistory(@Path("todos") variable: String): Response<List<HistoryCard>>
+    suspend fun getHistories(@Path("todos") variable: String): Response<List<HistoryCard>>
 }

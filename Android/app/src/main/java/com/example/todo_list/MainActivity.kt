@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.recyclerviewHistory.layoutManager = LinearLayoutManager(this)
         binding.btnMenu.setOnClickListener {
             binding.mainLayout.openDrawer(GravityCompat.END)
-            historyViewModel.getHistory()
+            historyViewModel.getHistories()
         }
         binding.btnClose.setOnClickListener { binding.mainLayout.closeDrawer(GravityCompat.END) }
         binding.naviView.setNavigationItemSelectedListener(this)
