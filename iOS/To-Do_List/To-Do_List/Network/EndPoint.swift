@@ -59,6 +59,7 @@ struct Endpoint:Endpointable {
 enum EndPointCase {
     case getBoard
     case postBoard(board:Board)
+    case deleteCard(card:Todo)
     
     var endpoint:Endpointable {
         switch self {
@@ -76,6 +77,14 @@ enum EndPointCase {
                             path: "api/cards/write",
                             headers: ["Content-Type": "application/json"],
                             body: board
+            )
+            
+        case .deleteCard(let card):
+            return Endpoint(httpMethod: .delete,
+                            baseURL: "http://13.125.161.84:8082/",
+                            path: "api/cards/\(card.id)",
+                            headers: ["Content-Type": "application/json"],
+                            body: nil
             )
         }
     }

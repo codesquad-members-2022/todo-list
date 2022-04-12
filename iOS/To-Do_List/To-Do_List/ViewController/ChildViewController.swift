@@ -8,23 +8,36 @@
 
 import UIKit
 
-class ChildViewController: UIViewController, UITableViewDelegate {
+protocol BoardModifiable {
+    func removeFromList(card: Todo)
+    func setBoardType(type: BoardType)
+}
+
+
+class ChildViewController: UIViewController , BoardModifiable{
+    
 
     private var tableView: BoardTableView<Todo,CardCell>!
     private var header : BoardHeader!
     private var boardType : BoardType?
     
-    
     private var list:[Todo]?
-
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
         addObserver()
-        setTableView()
+//        setTableView()
         setHeader()
     }
 
+    func removeFromList(card: Todo) {
+        guard var list = list, let targetIndex = list.firstIndex(where: {$0.id == card.id}) else {return}
+        list.remove(at: targetIndex)
+    }
+    
     func setBoardType(type : BoardType) {
         self.boardType = type
     }
@@ -44,10 +57,11 @@ class ChildViewController: UIViewController, UITableViewDelegate {
         self.tableView = BoardTableView(
             frame: .zero,
             style: .plain,
-            list: [],
+            list: list,
             cellConfigurator: { card, cell in
             cell.loadCardInfo(info: card)
         })
+        self.tableView.BoardTableDelegate = self
         self.view.addSubview(tableView)
         setTableViewConstraint()
     }
@@ -86,7 +100,7 @@ extension ChildViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reloadTableView),
-            name: MainViewController.didFetchInfo,
+            name: MainViewController.didFetchBoardInfo,
             object: nil)
     }
     
@@ -106,12 +120,21 @@ extension ChildViewController {
 //MARK: -- AddButton delegation
 extension ChildViewController : BoardHeaderDelegate {
     func DidTapAddButton() {
-        
         let editVC = EditCardViewController()
         editVC.modalPresentationStyle = .formSheet
         present(editVC, animated: true)
-
-        
     }
-
 }
+
+//MARK: -- BoardTableView Delete delegation
+extension ChildViewController : BoardTableViewDelegate {
+    func DidTapDelete(item: Any) {
+        NotificationCenter.default.post(
+            name: MainViewController.didDeleteCard,
+            object: self,
+            userInfo: [MainViewController.CardData:item])
+    }
+}
+
+
+
