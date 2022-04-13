@@ -1,6 +1,4 @@
 import { BoardStore } from '../stores/boardStore.js';
-import { Card } from '../views/component/card.js';
-import { Column } from '../views/component/column.js';
 
 class BoardViewModel {
   constructor() {
