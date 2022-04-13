@@ -38,7 +38,7 @@ public class CardServiceJdbc implements CardService {
     @Override
     public CardResponse addCard(CardRegistrationRequest cardRegistrationRequest) {
         Double firstOrder = cardRepository.getFirstOrder();
-        Double newOrder = firstOrder - DIFFERENCE;
+        Double newOrder = firstOrder != null ? firstOrder - DIFFERENCE : 0;
         Card saveCard = cardRepository.save(cardRegistrationRequest.toEntity(), newOrder);
         historyService.saveHistory(CardAction.ADD, "", null, saveCard);
 
