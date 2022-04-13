@@ -1,8 +1,15 @@
 .container {
+<<<<<<< HEAD
   background-color: var(--white);
   width: 90%;
   padding: 16px;
   box-shadow: 0px 1px 30px var(--gray);
+=======
+  background-color: white;
+  width: 90%;
+  padding: 16px;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.5);
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   border-radius: 6px;
 }
 
@@ -11,7 +18,11 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+<<<<<<< HEAD
   background-color: var(--light-gray);
+=======
+  background-color: #ececec;
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   width: 90%;
   padding: 16px;
   margin-bottom: 15px;
@@ -31,8 +42,13 @@
 
 .card-header .delete-btn {
   border: none;
+<<<<<<< HEAD
   background-color: var(--red);
   color: var(--white);
+=======
+  background-color: #fd565f;
+  color: #fff;
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   border-radius: 5px;
 }
 .card-content {
@@ -41,13 +57,18 @@
   padding: 10px 0;
 }
 .card-author {
+<<<<<<< HEAD
   color: var(--transparency-gray);
+=======
+  color: #bdbdbd;
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   font-size: 12px;
 }
 
 .column-item--card.dragging {
   opacity: 0.5;
 }
+<<<<<<< HEAD
 
 .column-addBtn {
   background-color: white;
@@ -111,3 +132,5 @@
 .delete-btn:hover {
   background-color: #f00;
 }
+=======
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e

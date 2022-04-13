@@ -6,7 +6,11 @@
   display: block;
   width: 25px;
   height: 20px;
+<<<<<<< HEAD
   margin-right: 20px;
+=======
+  margin-right: 10px;
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   position: fixed;
   cursor: pointer;
   z-index: 10;
@@ -19,7 +23,11 @@
   width: 100%;
   height: 4px;
   border-radius: 10px;
+<<<<<<< HEAD
   background-color: var(--gray);
+=======
+  background-color: #808080;
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   transition: all 0.5s;
 }
 

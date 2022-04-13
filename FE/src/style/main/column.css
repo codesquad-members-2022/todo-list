@@ -32,23 +32,39 @@ h2 .itemCount {
   height: 20px;
   font-size: 15px;
   border-radius: 100%;
+<<<<<<< HEAD
   background-color: var(--transparency-gray);
+=======
+  background-color: #bdbdbd;
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
 }
 
 .column-item--buttons .addBtn {
   font-size: 15px;
+<<<<<<< HEAD
   color: var(--white);
   border: none;
   background-color: var(--green);
+=======
+  color: #fff;
+  border: none;
+  background-color: #64c964;
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   border-radius: 5px;
   cursor: pointer;
 }
 
 .column-item--buttons .deleteBtn {
   font-size: 15px;
+<<<<<<< HEAD
   color: var(--white);
   border: none;
   background-color: var(--red);
+=======
+  color: #ffffff;
+  border: none;
+  background-color: #fd565f;
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   border-radius: 5px;
   cursor: pointer;
 }
