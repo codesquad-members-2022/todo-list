@@ -4,27 +4,31 @@
       "className": "todo",
       "title": "해야할 일",
       "total": 3,
+      "id": 1,
       "tasks": [
         {
           "header": "첫번째 할일",
           "main": "main",
           "footer": "footer",
           "datetime": "20220407 11:07am",
-          "status": "todo"
+          "status": "todo",
+          "cardId": 1
         },
         {
           "header": "두번째 할일",
           "main": "main",
           "footer": "footer",
           "datetime": "20220407 11:07am",
-          "status": "todo"
+          "status": "todo",
+          "cardId": 2
         },
         {
           "header": "세번째 할일",
           "main": "main",
           "footer": "footer",
           "datetime": "20220407 11:07am",
-          "status": "todo"
+          "status": "todo",
+          "cardId": 3
         }
       ]
     },
@@ -32,17 +36,40 @@
       "className": "doing",
       "title": "하고 있는 일",
       "total": 1,
+      "id": 2,
       "tasks": [
-        { "header": "하는중1", "main": "main", "footer": "footer", "datetime": "20220407 11:07am", "status": "doing" }
+        {
+          "header": "하는중1",
+          "main": "main",
+          "footer": "footer",
+          "datetime": "20220407 11:07am",
+          "status": "doing",
+          "cardId": 4
+        }
       ]
     },
     {
       "className": "done",
       "title": "완료한 일",
       "total": 2,
+      "id": 3,
       "tasks": [
-        { "header": "끝난일1", "main": "main", "footer": "footer", "datetime": "20220407 11:07am", "status": "done" },
-        { "header": "끝난일2", "main": "main", "footer": "footer", "datetime": "20220407 11:07am", "status": "done" }
+        {
+          "header": "끝난일1",
+          "main": "main",
+          "footer": "footer",
+          "datetime": "20220407 11:07am",
+          "status": "done",
+          "cardId": 5
+        },
+        {
+          "header": "끝난일2",
+          "main": "main",
+          "footer": "footer",
+          "datetime": "20220407 11:07am",
+          "status": "done",
+          "cardId": 6
+        }
       ]
     }
   ]

@@ -36,6 +36,7 @@
       font-weight: 400;
       width: 100%;
       overflow: hidden;
+      resize: none;
     }
   }
 }
@@ -43,7 +44,7 @@
   cursor: pointer;
   position: absolute;
   right: 5%;
-  top: 13%;
+  top: 13px;
 }
 
 .footer__buttons {
@@ -52,11 +53,13 @@
   font-weight: 700;
 
   &__cancel {
+    cursor: pointer;
     line-height: 20px;
     width: 134px;
     height: 40px;
     left: 20px;
     top: 20px;
+    color: $gray1;
     background: $gray3;
     border-radius: 6px;
     margin-right: 8px;
@@ -69,7 +72,7 @@
     left: 20px;
     top: 20px;
     color: $white;
-    background: $blue;
+    background: $skyblue;
     border-radius: 6px;
   }
 }
