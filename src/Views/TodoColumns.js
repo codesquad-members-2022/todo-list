@@ -8,6 +8,15 @@ export default class TodoColumns {
     this.addEventHandlers();
   }
 
+  init(columnsData) {
+    columnsData.forEach(columnData => {
+      const todoColumn = new TodoColumn(columnData);
+      this.todoColumns.push(todoColumn);
+    });
+
+    this.render();
+  }
+
   addEventHandlers() {
     eventDelegate({
       target: this.$todoColumns,
@@ -44,15 +53,6 @@ export default class TodoColumns {
         this.handleClickDeleteCardButton(event);
       },
     });
-  }
-
-  init(columnsData) {
-    columnsData.forEach(columnData => {
-      const todoColumn = new TodoColumn(columnData);
-      this.todoColumns.push(todoColumn);
-    });
-
-    this.render();
   }
 
   render() {

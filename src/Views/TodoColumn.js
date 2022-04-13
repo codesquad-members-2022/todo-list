@@ -15,6 +15,15 @@ export default class TodoColumn {
     this.listen();
   }
 
+  init(cardsData) {
+    cardsData.forEach(cardData => {
+      const todoCard = new TodoCard(cardData);
+      this.todoCards.push(todoCard);
+    });
+
+    this.render();
+  }
+
   listen() {
     this.$todoColumn.addEventListener('@clickAddButton', () => {
       if (this.hasActiveCard()) return;
@@ -27,15 +36,6 @@ export default class TodoColumn {
   }
 
   addEventHandlers() {}
-
-  init(cardsData) {
-    cardsData.forEach(cardData => {
-      const todoCard = new TodoCard(cardData);
-      this.todoCards.push(todoCard);
-    });
-
-    this.render();
-  }
 
   // TODO: 타이틀 업데이트
 
