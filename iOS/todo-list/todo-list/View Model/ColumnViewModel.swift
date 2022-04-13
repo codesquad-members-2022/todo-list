@@ -48,7 +48,9 @@ extension ColumnViewModel {
     }
     
     func delete(id: Int) {
-        // To be implemented
+        taskManager.delete(id: id) { id in
+            list.value.removeAll { $0.id == id }
+        }
     }
     
     func reorder(from: Int, to: Int) {
