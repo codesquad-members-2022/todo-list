@@ -56,7 +56,7 @@ public class CardServiceTest {
         given(cardRepository.create(any(Card.class))).willReturn(card);
 
         // when
-        Card createdCard = cardService.create(createRequest);
+        cardService.create(createRequest);
 
         // then
         then(cardRepository).should(times(1)).create(any(Card.class));

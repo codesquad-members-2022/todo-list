@@ -10,7 +10,11 @@ public class ModifiedField {
     private String newValue;
 
     public ModifiedField(Field field, String oldValue, String newValue) {
-        this(null, null, field, oldValue, newValue);
+        this(null, field, oldValue, newValue);
+    }
+
+    public ModifiedField(Integer historyId, Field field, String oldValue, String newValue) {
+        this(null, historyId, field, oldValue, newValue);
     }
 
     public ModifiedField(Integer modifiedFieldId, Integer historyId, Field field, String oldValue,

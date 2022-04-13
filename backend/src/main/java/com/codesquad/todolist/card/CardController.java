@@ -3,6 +3,7 @@ package com.codesquad.todolist.card;
 import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
+import com.codesquad.todolist.history.dto.HistoryResponse;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,28 +27,29 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createCard(@RequestBody @Valid CardCreateRequest request) {
-        cardService.create(request);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+    public ResponseEntity<HistoryResponse> createCard(
+        @RequestBody @Valid CardCreateRequest request) {
+        HistoryResponse historyResponse = cardService.create(request);
+        return new ResponseEntity<>(historyResponse, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public void updateCard(@PathVariable(value = "id") Integer cardId,
+    public HistoryResponse updateCard(@PathVariable(value = "id") Integer cardId,
         @RequestBody @Valid CardUpdateRequest request) {
-        cardService.update(cardId, request);
+        return cardService.update(cardId, request);
     }
 
     @PutMapping("/{id}/move")
     public ResponseEntity<?> moveCard(@PathVariable(value = "id") Integer cardId,
         @RequestBody @Valid CardMoveRequest request) {
-        cardService.move(cardId, request);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        HistoryResponse historyResponse = cardService.move(cardId, request);
+        return new ResponseEntity<>(historyResponse, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCard(@PathVariable(value = "id") Integer cardId) {
-        cardService.delete(cardId);
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        HistoryResponse historyResponse = cardService.delete(cardId);
+        return new ResponseEntity<>(historyResponse, HttpStatus.NO_CONTENT);
     }
 
 }
