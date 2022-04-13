@@ -51,14 +51,8 @@ class ToDoViewModel(
 
     private fun loadActionLog() {
         viewModelScope.launch {
-//            val actionLogs = actionLogRepository.getActionLogs()
-//            _actionList.value = actionLogs
-            val tempActions= mutableListOf<ActionLog>()
-            val tempActionLog= ActionLog("aaaa", ActionType.UPDATE, "2022-04-06 16:00:01", ProgressType.IN_PROGRESS, ProgressType.DONE)
-            tempActions.add(tempActionLog)
-            _actionList.value= tempActions
-
-
+            val actionLogs = actionLogRepository.getActionLogs()
+            actionLogs?.let { _actionList.value = actionLogs }
         }
     }
 
@@ -69,26 +63,17 @@ class ToDoViewModel(
         }
     }
 
-//    fun addInProgressItem(item: TodoItem) {
-//        _inProgressList.value = inProgressList.value?.let {
-//            val originList = mutableListOf<TodoItem>()
-//            originList.addAll(it)
-//            originList.add(0, item)
-//            originList.toList()
-//        }
-//        inProgressList = _inProgressList
-//    }
     fun addInProgressItem(item: TodoItem) {
         viewModelScope.launch {
             _inProgressList.value =
-                inProgressList.value?.let { toDoRepository.addInProgressItem(it, item) }
+                inProgressList.value?.let { toDoRepository.addToDoItem(it, item) }
             inProgressList = _inProgressList
         }
     }
 
     fun addDoneItem(item: TodoItem) {
         viewModelScope.launch {
-            _doneList.value = doneList.value?.let { toDoRepository.addDoneItem(it, item) }
+            _doneList.value = doneList.value?.let { toDoRepository.addToDoItem(it, item) }
             doneList = _doneList
         }
     }
@@ -99,11 +84,12 @@ class ToDoViewModel(
     }
 
     fun deleteInProgressItem(item: TodoItem) {
-        _inProgressList.value = inProgressList.value?.let { toDoRepository.deleteInProgressItem(it, item) }
+        _inProgressList.value =
+            inProgressList.value?.let { toDoRepository.deleteInProgressItem(it, item) }
         inProgressList = _inProgressList
     }
 
-    fun deleteDoneItem(item:TodoItem){
+    fun deleteDoneItem(item: TodoItem) {
         _doneList.value = doneList.value?.let { toDoRepository.deleteDoneItem(it, item) }
         doneList = _doneList
     }
@@ -112,7 +98,7 @@ class ToDoViewModel(
         when (item.type) {
             ProgressType.IN_PROGRESS -> {
                 deleteInProgressItem(item)
-                item.type= ProgressType.DONE
+                item.type = ProgressType.DONE
                 addDoneItem(item)
             }
             ProgressType.DONE -> {
@@ -120,7 +106,7 @@ class ToDoViewModel(
             }
             else -> {
                 deleteTodoItem(item)
-                item.type= ProgressType.DONE
+                item.type = ProgressType.DONE
                 addDoneItem(item)
             }
         }
@@ -128,14 +114,14 @@ class ToDoViewModel(
     }
 
     fun deleteItem(cardItem: TodoItem) {
-        when(cardItem.type){
-            ProgressType.TO_DO->{
+        when (cardItem.type) {
+            ProgressType.TO_DO -> {
                 deleteTodoItem(cardItem)
             }
-            ProgressType.IN_PROGRESS->{
+            ProgressType.IN_PROGRESS -> {
                 deleteInProgressItem(cardItem)
             }
-            ProgressType.DONE->{
+            ProgressType.DONE -> {
                 deleteDoneItem(cardItem)
             }
         }
@@ -147,7 +133,8 @@ class ToDoViewModel(
     }
 
     fun updateInProgressItem(updateItem: TodoItem) {
-        _inProgressList.value = inProgressList.value?.let { toDoRepository.updateInProgressItem(it, updateItem) }
+        _inProgressList.value =
+            inProgressList.value?.let { toDoRepository.updateInProgressItem(it, updateItem) }
         inProgressList = _inProgressList
     }
 

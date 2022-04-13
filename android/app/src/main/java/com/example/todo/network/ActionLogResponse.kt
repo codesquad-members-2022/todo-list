@@ -1,14 +1,12 @@
 package com.example.todo.network
 
-data class JsonActionLog(
-    val historyId: Int,
+class ActionLogResponse : ArrayList<ActionLogResponseItem>()
+
+data class ActionLogResponseItem(
     val actionType: String,
     val cardTitle: String,
-    val pastLocation: String,
+    val historyDateTime: String,
+    val historyId: Int,
     val nowLocation: String,
-    val historyDate: String
-)
-
-data class ActionLogResponse(
-    val histories: List<JsonActionLog>
+    val pastLocation: Any
 )

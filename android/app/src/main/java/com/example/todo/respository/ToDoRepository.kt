@@ -16,33 +16,6 @@ class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
         } else toDoList
     }
 
-    suspend fun addInProgressItem(
-        inProgressList: List<TodoItem>,
-        newItem: TodoItem
-    ): List<TodoItem> {
-        val response = toDoDataSource.getInProgressId(newItem)
-        return if (response.isSuccessful) {
-            val originList = inProgressList.toMutableList()
-            newItem.itemId = response?.body()?.card_id ?: -1
-            originList[1].next = newItem
-            originList.add(0, newItem)
-            originList.toList()
-        } else inProgressList
-    }
-
-    suspend fun addDoneItem(doneList: List<TodoItem>, newItem: TodoItem): List<TodoItem> {
-        val response = toDoDataSource.getDoneId(newItem)
-        //Log.d("test", response.isSuccessful.toString())
-        return if (response.isSuccessful) {
-
-            val originList = doneList.toMutableList()
-            newItem.itemId = response?.body()?.card_id ?: -1
-            originList[1].next = newItem
-            originList.add(0, newItem)
-            originList.toList()
-        } else doneList
-    }
-
     fun deleteToDoItem(toDoList: List<TodoItem>, deleteItem: TodoItem): List<TodoItem> {
         val originList = toDoList.toMutableList()
         originList.remove(deleteItem)
