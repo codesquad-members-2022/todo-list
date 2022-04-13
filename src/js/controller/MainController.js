@@ -29,8 +29,9 @@ async function createCardState(event, store) {
     parentCard.querySelector(".task-card__title"),
     parentCard.querySelector(".task-card__content"),
   ].map((input) => input.textContent);
-  console.log(inputValues);
+
   //   store.setState(inputValues);
+
   //   const isEmpty = inputValues.includes("");
   //   if (isEmpty) return;
 
@@ -39,8 +40,8 @@ async function createCardState(event, store) {
   // UTIL.fetchData(); // 포스트요청 보내야함
   // store.setState(newState);
 
-  // //빈카드 삭제
-  //   renderCard(inputValues, removeCard, changeCardState, dragDrop, store);
+  // 빈카드 삭제
+  renderCard(inputValues, removeCard, changeCardState, dragDrop, store);
 }
 
 function removeCard(event, store) {

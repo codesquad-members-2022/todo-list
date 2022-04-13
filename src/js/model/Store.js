@@ -11,7 +11,7 @@ function createStore(initState) {
       state = [...state, newState];
     },
     removeState() {
-      /* staet 정보 삭제*/
+      /* state 정보 삭제*/
     },
   };
 }
