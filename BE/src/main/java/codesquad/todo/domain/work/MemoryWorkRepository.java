@@ -38,6 +38,8 @@ public class MemoryWorkRepository implements WorkRepository {
     public List<Work> findAllWorkByUserId(Long userId) {
         return store.values().stream()
                 .filter(work -> work.getAuthor().isSameId(userId))
+                .filter(work -> !work.isDeleted())
+                .sorted(Comparator.comparing(Work::getStatusIndex))
                 .collect(Collectors.toList());
     }
 
