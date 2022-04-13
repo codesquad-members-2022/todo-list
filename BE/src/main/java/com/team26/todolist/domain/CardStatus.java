@@ -14,7 +14,6 @@ public enum CardStatus {
         this.name = name;
     }
 
-    //TODO
     public static CardStatus createCardStatus(String cardStatus) {
         return Arrays.stream(CardStatus.values())
                 .filter(status -> status.getName().equals(cardStatus))

@@ -1,5 +1,4 @@
 package com.team26.todolist.dto.request;
-
 import com.team26.todolist.domain.Card;
 import com.team26.todolist.domain.CardStatus;
 

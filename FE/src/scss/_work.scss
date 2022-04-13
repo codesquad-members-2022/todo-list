@@ -1,0 +1,71 @@
+.works {
+  display: flex;
+}
+
+.work {
+  font-size: 1.6rem;
+  margin: 1.6rem;
+  width: 30.8rem;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.6rem;
+  }
+
+  &__left {
+    align-items: center;
+    display: flex;
+  }
+
+  &__title {
+    color: $column-title-color;
+    cursor: pointer;
+    font-size: $column-title-fs;
+    font-weight: $column-title-wgt;
+    margin-right: .8rem;
+  }
+
+  &__counter {
+    align-items: center;
+    background-color: $column-cnt;
+    border-radius: 2rem;
+    color: $column-cnt-color;
+    display: flex;
+    font-size: $column-cnt-fs;
+    font-weight: $column-cnt-wgt;
+    height: 2.6rem;
+    justify-content: center;
+    width: 2.6rem;
+  }
+
+  &__item {
+    background-color: $task-default;
+    border-radius: .6rem;
+    box-shadow: 0 .1rem 3rem $task-box-shadow;
+  }
+
+  &__btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__btn--add {
+    @include worklist-task-btn('../assets/worklist-add-default.svg');
+    margin-right: 1.986rem;
+  }
+
+  &__btn--add:hover {
+    @include worklist-task-btn('../assets/worklist-add-hover.svg');
+  }
+
+  &__btn--remove {
+    @include worklist-task-btn('../assets/worklist-remove-default.svg');
+    margin-top: .3rem;
+  }
+
+  &__btn--remove:hover {
+    @include worklist-task-btn('../assets/worklist-remove-hover.svg');
+  }
+}

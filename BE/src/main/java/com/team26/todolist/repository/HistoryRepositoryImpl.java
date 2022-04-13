@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 public class HistoryRepositoryImpl implements HistoryRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
     private final RowMapper<History> rowMapper = historyRowMapper();
 
     public HistoryRepositoryImpl(JdbcTemplate jdbcTemplate) {
@@ -26,7 +25,7 @@ public class HistoryRepositoryImpl implements HistoryRepository {
     @Override
     public List<History> findAll() {
         String sql = "SELECT * FROM HISTORY";
-        return jdbcTemplate.query(sql, historyRowMapper());
+        return jdbcTemplate.query(sql, rowMapper);
     }
 
     @Override
