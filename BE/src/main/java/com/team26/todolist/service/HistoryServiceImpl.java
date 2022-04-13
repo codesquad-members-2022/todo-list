@@ -31,14 +31,21 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public void saveHistory(CardAction cardAction, String userId, Card cardBefore, Card cardNow) {
-        Column columnBefore = cardBefore != null ? columnService.findById(cardBefore.getColumnId()) : null;
+        Column columnBefore =
+                cardBefore != null ? columnService.findById(cardBefore.getColumnId()) : null;
         Column columnNow = cardNow != null ? columnService.findById(cardNow.getColumnId()) : null;
+
+        if (cardBefore != null && cardNow != null && cardBefore.getColumnId()
+                .equals(cardNow.getColumnId())) {
+            return;
+        }
+
         History history = History.builder(cardAction, userId, LocalDateTime.now())
-                    .cardTitle(columnNow != null ? cardNow.getTitle() : null)
-                    .cardTitleBefore(columnBefore != null ? cardBefore.getTitle(): null)
-                    .columnTitle(columnNow != null ?columnNow.getTitle() : null)
-                    .columnTitleBefore(columnBefore != null ? columnBefore.getTitle() : null)
-                    .build();
+                .cardTitle(columnNow != null ? cardNow.getTitle() : null)
+                .cardTitleBefore(columnBefore != null ? cardBefore.getTitle() : null)
+                .columnTitle(columnNow != null ? columnNow.getTitle() : null)
+                .columnTitleBefore(columnBefore != null ? columnBefore.getTitle() : null)
+                .build();
         historyRepository.save(history);
     }
 }
