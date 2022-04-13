@@ -18,8 +18,8 @@ const getCards = async (columnIndex) => {
 };
 
 const getHistories = async () => {
-  const mockData = await getMockData("histories");
-  return mockData.histories;
+  const histories = await getMockData("histories");
+  return histories;
 };
 
 export { getColumns, getCards, getHistories };
