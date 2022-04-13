@@ -1,4 +1,4 @@
-import * as UTIL from "../../util/Util.js";
+import * as util from "../../util/Util.js";
 
 const createCard = (data) => {
   const newCard = document.createElement("div");
@@ -15,7 +15,7 @@ const getCardTemplate = (data) => {
       class="task-card__title font-black"
       contenteditable="false"
     >
-      GitHub 공부하기
+    ${data[0]}
     </div>
     <span class="delete-btn cursor-pointer"
       ><svg
@@ -36,7 +36,7 @@ const getCardTemplate = (data) => {
     class="task-card__content font-black"
     contenteditable="false"
   >
-    add, commit, push
+  ${data[1]}
   </div>
   <div class="task-card__btns">
     <button class="task-card__cancle-btn hidden">취소</button>
@@ -52,8 +52,8 @@ const renderCard = (data, callbackRemoveEvt, callbackChangeEvt) => {
   const card = createCard(data);
   const deleteBtn = card.querySelector(".delete-btn.cursor-pointer");
   deleteBtn.addEventListener("click", callbackRemoveEvt);
-  card.addEvnetListener("dblclick", callbackChangeEvt);
-  const parent = UTIL.$(`${data.column}`);
+  // card.addEvnetListener("dblclick", callbackChangeEvt);
+  const parent = util.$(`.task-column`);
   parent.appendChild(card);
 };
 

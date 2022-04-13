@@ -45,13 +45,17 @@ function createEmptyCardTemplate() {
   </div>`;
 }
 
-const renderEmptyCard = (parent, callbackEvent, store) => {
+const renderEmptyCard = (parent, registerData, checkInput, store) => {
   const newCard = getEmptyCardNode();
   newCard
     .querySelector(".task-card__register-btn.cursor-pointer")
     .addEventListener("click", (event) => {
-      callbackEvent(event, store);
+      registerData(event, store);
     });
+
+  newCard.addEventListener("keydown", (event) => {
+    checkInput(event);
+  });
   parent.appendChild(newCard);
 };
 
