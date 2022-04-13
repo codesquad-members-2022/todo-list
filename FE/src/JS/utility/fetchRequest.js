@@ -1,5 +1,5 @@
 export async function fetchRequest(url, type = 'GET', request) {
-  if(type === 'GET' || 'DELETE') {
+  if (type === 'GET' || type === 'DELETE') {
     return await requestReadOrDelete(url, type);
   }
   return await requestCreateOrUpdate(url, type, request);
