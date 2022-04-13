@@ -16,7 +16,7 @@ export const request = {
 
   async changeCard(columnID, cardID, requestBody) {
     const changedColumnState = await (
-      await fetch(`http://localhost:3000/columns/${columnID}/${cardID}/update`, {
+      await fetch(`${URL}/columns/${columnID}/${cardID}/update`, {
         method: "PATCH",
         body: JSON.stringify(requestBody),
         headers: { "Content-type": "application/json; charset=UTF-8" }
@@ -27,7 +27,7 @@ export const request = {
 
   async addCard(columnID, requestBody) {
     const updatedColumnState = await (
-      await fetch(`http://localhost:3000/columns/${columnID}/add`, {
+      await fetch(`${URL}/columns/${columnID}/add`, {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: { "Content-type": "application/json; charset=UTF-8" }

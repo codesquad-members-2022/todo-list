@@ -1,4 +1,5 @@
 import "./Card.scss";
+import { CARD_TYPE } from "../../../../../common/variable.js";
 import { Store } from "../../../../../stores/ColumnStore.js";
 import { activateAlert } from "./alert/Alert.js";
 
@@ -12,7 +13,7 @@ export const initCard = (parentNode, cardState) => {
 const makeCardNode = (cardState) => {
   const cardNode = document.createElement("div");
   cardNode.classList.add("card");
-  if (cardState.type === "deleting") {
+  if (cardState.type === CARD_TYPE.DELETING) {
     cardNode.classList.add("card--deleting");
   }
   cardNode.dataset.id = cardState._id;
@@ -29,11 +30,11 @@ const renderCard = (cardNode, cardState) => {
 
 const makeCardInnerTemplate = (cardState) => {
   switch (cardState.type) {
-    case "normal":
-    case "deleting":
+    case CARD_TYPE.NORMAL:
+    case CARD_TYPE.DELETING:
       return getNormalContentTemplate(cardState) + getNormalBtnTemplate();
-    case "adding":
-    case "editing":
+    case CARD_TYPE.ADDING:
+    case CARD_TYPE.EDITING:
       return getTempContentTemplate(cardState) + getConfirmBtnTemplate(cardState.type);
   }
 };
@@ -66,19 +67,19 @@ const getConfirmBtnTemplate = (cardType) => {
   <div class="card__btns">
     <div class="card__btn card__cancel-btn">취소</div>
     <div class="card__btn card__confirm-btn" data-type='${cardType}'>${
-    cardType === "adding" ? "등록" : "수정"
+    cardType === CARD_TYPE.ADDING ? "등록" : "수정"
   }</div>
   </div>`;
 };
 
 const setEvents = (cardNode, cardState) => {
   switch (cardState.type) {
-    case "normal":
+    case CARD_TYPE.NORMAL:
       setDeleteBtnEvent(cardNode);
       setDoubleClickEvent(cardNode);
       break;
-    case "adding":
-    case "editing":
+    case CARD_TYPE.ADDING:
+    case CARD_TYPE.EDITING:
       setCancelBtnEvent(cardNode, cardState.type);
       setConfirmBtnEvent(cardNode);
       setInputEvent(cardNode);
@@ -112,7 +113,7 @@ const setInputEvent = (cardNode) => {
 
 const handleDeleteBtnClickEvent = (cardNode) => {
   const [parentColumnID, cardID] = getIDs(cardNode);
-  changeCardType(cardNode, "deleting");
+  changeCardType(cardNode, CARD_TYPE.DELETING);
   activateAlert(parentColumnID, cardID);
 };
 
@@ -121,22 +122,22 @@ const handleDeleteBtnMouseEvent = (cardNode) => {
 };
 
 const handleDoubleClickEvent = (cardNode) => {
-  changeCardType(cardNode, "editing");
+  changeCardType(cardNode, CARD_TYPE.EDITING);
 };
 
 const handleCancelBtnEvent = (cardNode, cardType) => {
-  if (cardType === "adding") {
+  if (cardType === CARD_TYPE.ADDING) {
     deleteAddingForm(cardNode);
-  } else if (cardType === "editing") {
-    changeCardType(cardNode, "normal");
+  } else if (cardType === CARD_TYPE.EDITING) {
+    changeCardType(cardNode, CARD_TYPE.NORMAL);
   }
 };
 
 const handleConfirmBtnEvent = (confirmBtn, cardNode) => {
   if (!confirmBtn.classList.contains("activated")) return;
-  if (confirmBtn.dataset.type === "adding") {
+  if (confirmBtn.dataset.type === CARD_TYPE.ADDING) {
     registerCardState(cardNode);
-  } else if (confirmBtn.dataset.type === "editing") {
+  } else if (confirmBtn.dataset.type === CARD_TYPE.EDITING) {
     changeCardState(cardNode);
   }
 };

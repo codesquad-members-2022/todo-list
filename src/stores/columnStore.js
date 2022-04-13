@@ -1,4 +1,5 @@
 import { pipe, request } from "../common/util.js";
+import { CARD_TYPE } from "../common/variable.js";
 
 export const Store = {
   state: {},
@@ -109,7 +110,7 @@ const makeCardState = (rawCardState) => {
 };
 
 const getDefaultCardState = () => {
-  return { author: "author by web", type: "normal" };
+  return { author: "author by web", type: CARD_TYPE.NORMAL };
 };
 
 const toggleColumnAddBtnActivation = (columnID) => {
@@ -119,7 +120,7 @@ const toggleColumnAddBtnActivation = (columnID) => {
 const addAddingCardInClientStore = (columnID) => {
   const tempCardID = getTempCardID();
   Store.state[columnID].cardOrder.unshift(tempCardID);
-  Store.state[columnID].cards[tempCardID] = { id: tempCardID, type: "adding" };
+  Store.state[columnID].cards[tempCardID] = { id: tempCardID, type: CARD_TYPE.ADDING };
 };
 
 const deleteAddingCardFromClientStore = (columnID) => {

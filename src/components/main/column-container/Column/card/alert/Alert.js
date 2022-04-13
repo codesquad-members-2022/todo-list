@@ -1,4 +1,5 @@
 import "./alert.scss";
+import { CARD_TYPE } from "../../../../../../common/variable.js";
 import { Store } from "../../../../../../stores/ColumnStore.js";
 
 export const activateAlert = (columnID, cardID) => {
@@ -33,7 +34,7 @@ const handleDeleteBtnClickEvent = (alertDOM, columnID, cardID) => {
 
 const handleCancelBtnClickEvent = (alertDOM, columnID, cardID) => {
   hideAlert(alertDOM);
-  Store.changeCardType(columnID, cardID, "normal");
+  Store.changeCardType(columnID, cardID, CARD_TYPE.NORMAL);
 };
 
 const hideAlert = (alertDOM) => {
