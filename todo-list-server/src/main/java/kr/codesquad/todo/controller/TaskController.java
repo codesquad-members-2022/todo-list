@@ -41,4 +41,9 @@ public class TaskController {
     public ResponseEntity<Map<Integer, List<Task>>> load() {
         return taskService.getAllTasks();
     }
+
+    @PatchMapping("/task/status")
+    public ResponseEntity<Task> move(@RequestParam long idx, int status) {
+        return taskService.changeTaskStatus(idx, status);
+    }
 }

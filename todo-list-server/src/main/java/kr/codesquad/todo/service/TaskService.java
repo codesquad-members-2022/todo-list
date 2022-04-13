@@ -67,4 +67,22 @@ public class TaskService {
 
         return ResponseEntity.status(HttpStatus.OK).body(taskMap);
     }
+
+    public ResponseEntity<Task> changeTaskStatus(long idx, int status) {
+        if (isChangeInfoInvalid(idx, status)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        Task task;
+        try {
+            task = taskRepository.changeStatus(idx, status);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(task);
+    }
+
+    public boolean isChangeInfoInvalid(long idx, int status) {
+        return !(status == 1 || status == 2 || status == 3) || idx < 1;
+    }
 }
