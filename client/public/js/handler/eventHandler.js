@@ -1,9 +1,11 @@
-import { qs, delegate } from "../utils/helpers.js";
+import Store from "../model/Store.js";
+import { qs, delegate, on } from "../utils/helpers.js";
 import * as renderer from "../views/renderer.js";
 
 export function bindEvents() {
   const el = {
     columnList: qs(".column-list"),
+    columnAdd: qs(".column-add"),
   };
 
   const selector = {
@@ -13,6 +15,8 @@ export function bindEvents() {
     cancelItemFormBtn: ".card__btn--cancel",
     removeColumnBtn: ".column__header--delete-card",
   };
+
+  on(el.columnAdd, "click", addColumn);
 
   delegate(el.columnList, "click", selector.addItemBtn, (event) => showItemForm(event));
   delegate(el.columnList, "click", selector.registItemBtn, (event) => registItem(event));
@@ -38,6 +42,11 @@ function removeItem(event) {
 
 function cancelItemForm(event) {
   console.log("cancelItemForm");
+  console.log(event.target);
+}
+
+function addColumn(event) {
+  console.log("addColumn");
   console.log(event.target);
 }
 

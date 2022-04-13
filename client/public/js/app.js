@@ -10,6 +10,7 @@ import {
   renderAllColumns,
   renderAllItems,
   renderAllHistory,
+  renderColumn,
 } from "./views/renderer.js";
 
 import { bindEvents } from "./handler/eventHandler.js";
@@ -31,7 +32,7 @@ function app() {
   renderAllItems(store.items);
   renderAllHistory(store.history);
 
-  //bind events
+  // bind events
   bindEvents();
 }
 

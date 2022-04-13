@@ -21,7 +21,7 @@ module.exports = merge(common, {
     },
     open: true,
     hot: true,
-    port: "5000",
+    port: 5000,
     // proxy,
   },
 });
