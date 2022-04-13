@@ -96,6 +96,17 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
         binding.rvProgress.setOnDragListener(progressCardListAdapter.dragInstance)
 
+        val touchHelper = TodoTouchHelper(progressCardListAdapter, viewModel).apply {
+            setClamp(170f)  // 170 이
+        }
+
+        ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvProgress)
+
+        binding.rvProgress.setOnTouchListener { _, _ ->
+            touchHelper.removePreviousClamp(binding.rvProgress)
+            false
+        }
+
         // 더미데이터
         //viewModel.addProgress("rvProgress", "TAG 1")
     }
@@ -110,6 +121,17 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         binding.rvComplete.addItemDecoration(VerticalItemDecorator(15))
 
         binding.rvComplete.setOnDragListener(completeCardListAdapter.dragInstance)
+
+        val touchHelper = TodoTouchHelper(completeCardListAdapter, viewModel).apply {
+            setClamp(170f)  // 170 이
+        }
+
+        ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvComplete)
+
+        binding.rvComplete.setOnTouchListener { _, _ ->
+            touchHelper.removePreviousClamp(binding.rvComplete)
+            false
+        }
 
         // 더미데이터
         //viewModel.addComplete("rvComplete", "TAG 1")
