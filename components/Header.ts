@@ -1,9 +1,8 @@
-import Component from './Component.js';
+import View from "../core/View";
 
-export class Header extends Component {
+
+export class Header extends View {
   template() {
-    // const { isOpened } = this.state;
-
     return `
         <h2 class="todo-header-title">TO-DO List</h2>
         <span class="menu-sidebar-icon"><svg width="17" height="11" viewBox="0 0 17 11" fill="none"

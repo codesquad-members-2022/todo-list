@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d995f52-4be1-415d-b57f-6d6654aa18a1" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/components/TodoForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/components/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.js" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Component.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/Component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/TodoCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/TodoCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/TodoList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/TodoCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/scss/_column.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_column.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/scss/_shared.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_shared.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/scss/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/index.css" afterDir="false" />
+>>>>>>> b1b2b4736e9982fe98c248551f730f9c72c2f8fa
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,20 +31,43 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27d9I16XBpxtTySQfelpljcJSUk" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/inust/projects/todo-list&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/inust/projects/todo-list/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.toDoOptions&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/inust/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/221.5080.96/WebStorm 2022.1 EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/inust/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/221.5080.154/WebStorm 2022.1 EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components" />
+    </key>
+  </component>
+<<<<<<< HEAD
+  <component name="RunManager" selected="JavaScript 디버그.index.html (1)">
+=======
   <component name="RunManager" selected="JavaScript 디버그.index.html">
+>>>>>>> b1b2b4736e9982fe98c248551f730f9c72c2f8fa
     <configuration name="index.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63343/todo-list/dist/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -47,14 +76,31 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript 디버그.index.html" />
         <item itemvalue="JavaScript 디버그.index.html (1)" />
+        <item itemvalue="JavaScript 디버그.index.html" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="7d995f52-4be1-415d-b57f-6d6654aa18a1" name="변경" comment="" />
+      <created>1649639012342</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1649639012342</updated>
+      <workItem from="1649639018771" duration="598000" />
+      <workItem from="1649640028134" duration="904000" />
+<<<<<<< HEAD
+      <workItem from="1649662218315" duration="2011000" />
+=======
+>>>>>>> b1b2b4736e9982fe98c248551f730f9c72c2f8fa
+    </task>
     <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

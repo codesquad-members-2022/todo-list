@@ -8,13 +8,26 @@
   width: 308px;
   height: auto;
 
+  &[data-idx="0"] {
+    @include shared.column_left(0);
+  }
+
+  &[data-idx="1"] {
+    @include shared.column_left(1);
+  }
+
+  &[data-idx="2"] {
+    @include shared.column_left(2);
+  }
+
+
   .todo-card {
     @include shared.todo-card($background: White, $border: shadow_normal);
   }
-
   .selected {
     @include shared.selected();
   }
+
 }
 
 
