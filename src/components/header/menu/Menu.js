@@ -33,11 +33,11 @@ const menuBtnHandler = () => {
 };
 
 const getLogData = async () => {
-  const logs = await fetch("http://localhost:3000/log", {
+  const logs = await fetch("http://localhost:30000/log", {
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json",
-    },
+      Accept: "application/json"
+    }
   });
   const json = await logs.json();
 
