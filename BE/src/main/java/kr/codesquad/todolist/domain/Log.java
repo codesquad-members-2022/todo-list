@@ -57,6 +57,10 @@ public class Log {
         return activity;
     }
 
+    public String getActivityString() {
+        return activity.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

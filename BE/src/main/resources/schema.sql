@@ -39,13 +39,13 @@ CREATE TABLE log
      id                  BIGINT AUTO_INCREMENT NOT NULL,
      member_id           VARCHAR(255) NOT NULL,
      previous_subject    VARCHAR(255) NOT NULL,
-     current_subject     VARCHAR(255) NOT NULL,
+     current_subject     VARCHAR(255),
      previous_section_id INTEGER,
      current_section_id  INTEGER,
      activated_at        TIMESTAMP NOT NULL,
      activity            VARCHAR(255) NOT NULL,
      PRIMARY KEY (id),
      FOREIGN KEY (member_id)            REFERENCES member (id),
-     FOREIGN KEY (current_section_id)   REFERENCES section (id),
-     FOREIGN KEY (target_section_id)    REFERENCES section (id)
+     FOREIGN KEY (previous_section_id)   REFERENCES section (id),
+     FOREIGN KEY (current_section_id)    REFERENCES section (id)
 );
