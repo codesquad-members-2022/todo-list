@@ -23,6 +23,23 @@
   line-height: 20px;
 }
 
+.xButton {
+  cursor: pointer;
+}
+
+.cardMouseOver {
+  background: #ffeeec;
+  border: 1px solid #ff4343;
+}
+
+.path {
+  fill: #828282;
+}
+
+.pathMouseOver {
+  fill: #ff4343;
+}
+
 .cardContent {
   font-weight: 400;
   font-size: 14px;

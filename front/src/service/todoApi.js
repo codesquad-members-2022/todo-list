@@ -11,6 +11,11 @@ const todoApi = {
 
     return response.data.results;
   },
+
+  deleteTodo: async (id) => {
+    const response = await client.delete(`delete/${id}`);
+    return response.data.results;
+  },
 };
 
 export default todoApi;

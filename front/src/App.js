@@ -11,6 +11,11 @@ const App = () => {
   const [todos, setTodos] = peact.useState([]);
   const [columns, setColumns] = peact.useState([]);
   const [todoLogs, setTodoLogs] = peact.useState([]);
+  const [renderFlag, setRenderFlag] = peact.useState(false);
+
+  const handleRenderFlag = () => {
+    setRenderFlag(!renderFlag);
+  };
 
   peact.useEffect(() => {
     const fetchTodos = async () => {
@@ -28,12 +33,12 @@ const App = () => {
     fetchTodos();
     fetchColumns();
     fetchTodoLogs();
-  }, []);
+  }, [renderFlag]);
 
   const $todoListArea = peact.createElement({
     tag: "div",
     className: styles.todolistArea,
-    child: [Header(), Content({ columns, todos })],
+    child: [Header(), Content({ columns, todos, handleRenderFlag })],
   });
 
   return peact.createElement({

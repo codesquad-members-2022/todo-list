@@ -3,7 +3,7 @@ import Cards from "../Cards/Cards";
 import ColumnHeader from "../ColumnHeader/ColumnHeader";
 import styles from "./columns.module.css";
 
-const Columns = ({ columns, todos }) => {
+const Columns = ({ columns, todos, handleRenderFlag }) => {
   const getTodosByColumnId = (columnId) => {
     return todos.filter((todo) => todo.columnId === columnId);
   };
@@ -14,7 +14,7 @@ const Columns = ({ columns, todos }) => {
       className: styles.column,
       child: [
         ColumnHeader({ column, todos: getTodosByColumnId(column._id) }),
-        Cards({ todos: getTodosByColumnId(column._id) }),
+        Cards({ todos: getTodosByColumnId(column._id), handleRenderFlag }),
       ],
     });
   };

@@ -2,7 +2,7 @@ import peact from "../../../core/peact";
 import Card from "../Card/Card";
 import styles from "./cards.module.css";
 
-const Cards = ({ todos }) => {
+const Cards = ({ todos, handleRenderFlag }) => {
   const setTodosSortByLatest = (a, b) =>
     new Date(b.updatedAt) - new Date(a.updatedAt);
 
@@ -10,7 +10,7 @@ const Cards = ({ todos }) => {
     return peact.createElement({
       tag: "div",
       className: styles.cardsArea,
-      child: [Card({ todo })],
+      child: [Card({ todo, handleRenderFlag })],
     });
   };
 
