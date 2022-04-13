@@ -1,7 +1,6 @@
 package codesquad.be.todoserver.repository;
 
 import codesquad.be.todoserver.domain.Todo;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +36,7 @@ public class TodoJdbcRepository implements TodoRepository {
 	}
 
 	@Override
-	public Long saveTodo(Todo todo) {
+	public Todo saveTodo(Todo todo) {
 		String sql = "INSERT INTO TODO (TITLE, CONTENTS, USER, STATUS, CREATED_AT, UPDATED_AT) VALUES (?, ?, ?, ?, ?, ?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -47,16 +46,13 @@ public class TodoJdbcRepository implements TodoRepository {
 			ps.setString(2, todo.getContents());
 			ps.setString(3, todo.getUser());
 			ps.setString(4, todo.getStatus());
-			ps.setDate(5, currentTime());
-			ps.setDate(6, currentTime());
+			ps.setDate(5, java.sql.Date.valueOf(todo.getCreatedAt().toLocalDate()));
+			ps.setDate(6, java.sql.Date.valueOf(todo.getUpdatedAt().toLocalDate()));
 			return ps;
 		}, keyHolder);
+		todo.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
 
-		return Objects.requireNonNull(keyHolder.getKey()).longValue();
-	}
-
-	private Date currentTime() {
-		return new Date(new java.util.Date().getTime());
+		return todo;
 	}
 
 	public RowMapper<Todo> todoRowMapper() {

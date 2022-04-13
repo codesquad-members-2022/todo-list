@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class History {
 
-	private final Long id;
+	private Long id;
 	private final Long todoId;
 	private final String todoTitle;
 	private final String user;
@@ -27,6 +27,22 @@ public class History {
 		this.fromStatus = fromStatus;
 		this.toStatus = toStatus;
 		this.createdAt = createdAt;
+	}
+
+	public History(Long todoId, String todoTitle, String user, String action,
+		String fromStatus, String toStatus) {
+		this.todoId = todoId;
+		this.todoTitle = todoTitle;
+		this.user = user;
+		this.action = action;
+		this.fromStatus = fromStatus;
+		this.toStatus = toStatus;
+		this.createdAt = LocalDateTime.now();
+	}
+
+	public static History createAddHistoryBy(Todo todo) {
+		return new History(todo.getId(), todo.getTitle(), todo.getUser(), "add",
+			"", todo.getStatus());
 	}
 
 }

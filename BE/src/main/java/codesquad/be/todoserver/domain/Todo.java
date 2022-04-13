@@ -25,6 +25,8 @@ public class Todo {
 		this.contents = contents;
 		this.user = user;
 		this.status = status;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 
 	public Todo(String title, String contents, String user, String status) {
@@ -32,6 +34,8 @@ public class Todo {
 		this.contents = contents;
 		this.user = user;
 		this.status = status;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 
 }

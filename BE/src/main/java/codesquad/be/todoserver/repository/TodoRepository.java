@@ -12,5 +12,5 @@ public interface TodoRepository {
 
 	List<Todo> findAllTodos();
 
-	Long saveTodo(Todo todo);
+	Todo saveTodo(Todo todo);
 }

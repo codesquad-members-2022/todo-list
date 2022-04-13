@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 
 import codesquad.be.todoserver.domain.Todo;
 import codesquad.be.todoserver.exception.NoSuchTodoFoundException;
+import codesquad.be.todoserver.repository.HistoryRepository;
 import codesquad.be.todoserver.repository.TodoRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 class TodoServiceTest {
 
 	private TodoRepository todoRepository = mock(TodoRepository.class);
-	private TodoService todoService = new TodoService(todoRepository);
+	private HistoryRepository historyRepository  = mock(HistoryRepository.class);
+	private TodoService todoService = new TodoService(todoRepository, historyRepository);
 
 	@Test
 	void 특정_투두리스트_조회_성공() {
