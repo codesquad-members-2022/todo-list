@@ -60,7 +60,7 @@ export class AddCard {
       this.addCardHandler(e);
     }
 
-    if (containClass(e.target, 'normal-btn')) {
+    if (containClass(e.target, 'cancel-add-btn')) {
       this.cancelAddHandler(e);
     }
 
