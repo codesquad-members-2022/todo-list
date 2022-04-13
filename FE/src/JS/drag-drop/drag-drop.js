@@ -1,18 +1,42 @@
 import { $, $$, throttle } from '../utility/util.js';
 
 export default class Drag {
+  removeDragEvent() {
+    const cardLists = $$('.column-item--card');
+    const containers = $$('.container');
+
+    cardLists.forEach((cardList) => {
+      cardList.removeEventListener(
+        'dragstart',
+        this.addDraggingClass(cardList)
+      );
+
+      cardList.removeEventListener(
+        'dragend',
+        this.removeDraggingClass(cardList)
+      );
+    });
+
+    const MIN_TIME = 500;
+
+    containers.forEach((container) => {
+      container.removeEventListener(
+        'dragover',
+        throttle((e) => {
+          this.dragoverEventHandler(e, container);
+        }, MIN_TIME)
+      );
+    });
+  }
 
   addDragEvent() {
     const cardLists = $$('.column-item--card');
     const containers = $$('.container');
 
     cardLists.forEach((cardList) => {
-      cardList.addEventListener(
-        'dragstart',
-        this.toggleDraggingClass(cardList)
-      );
+      cardList.addEventListener('dragstart', this.addDraggingClass(cardList));
 
-      cardList.addEventListener('dragend', this.toggleDraggingClass(cardList));
+      cardList.addEventListener('dragend', this.removeDraggingClass(cardList));
     });
 
     const MIN_TIME = 500;
@@ -30,6 +54,18 @@ export default class Drag {
   toggleDraggingClass(cardList) {
     return () => {
       cardList.classList.toggle('dragging');
+    };
+  }
+
+  addDraggingClass(cardList) {
+    return () => {
+      cardList.classList.add('dragging');
+    };
+  }
+
+  removeDraggingClass(cardList) {
+    return () => {
+      cardList.classList.remove('dragging');
     };
   }
 
