@@ -83,4 +83,11 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
         val tasks = repository.updateTask(task)
         _doneTask.value = tasks.done
     }
+
+    fun swapTask(currentList: List<TaskDetailResponse>, fromPosition: Int, toPosition: Int) {
+        val tasks = repository.swap(currentList, fromPosition, toPosition)
+        _todoTask.value = tasks.todo
+        _inProgressTask.value = tasks.inProgress
+        _doneTask.value = tasks.done
+    }
 }

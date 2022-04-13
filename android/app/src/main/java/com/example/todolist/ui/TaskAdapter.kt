@@ -11,8 +11,9 @@ import com.example.todolist.model.response.TaskDetailResponse
 
 class TaskAdapter(
     private val viewModel: TaskViewModel,
-    private val listener: DialogListener
-) : ListAdapter<TaskDetailResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback) {
+    private val listener: DialogListener,
+) : ListAdapter<TaskDetailResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback),
+    ItemTouchHelperListener {
 
     interface DialogListener {
         fun updateDialog(task: TaskDetailResponse)
@@ -27,7 +28,7 @@ class TaskAdapter(
         holder.bind(getItem(position))
     }
 
-     inner class TaskViewHolder(private val binding: ItemTaskBinding) :
+    inner class TaskViewHolder(private val binding: ItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root), PopupMenu.OnMenuItemClickListener {
 
         private lateinit var task: TaskDetailResponse
@@ -36,6 +37,7 @@ class TaskAdapter(
             this.task = task
             binding.task = task
             binding.executePendingBindings()
+            binding.clDelete.setOnClickListener { onItemSwipe(layoutPosition) }
             itemView.setOnLongClickListener {
                 showPopup(it)
                 true
@@ -58,6 +60,15 @@ class TaskAdapter(
             }
             return item != null
         }
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+        viewModel.swapTask(currentList, fromPosition, toPosition)
+        return true
+    }
+
+    override fun onItemSwipe(position: Int) {
+        viewModel.deleteTask(getItem(position))
     }
 }
 
