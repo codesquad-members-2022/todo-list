@@ -2,12 +2,12 @@ package com.todolist.controller;
 
 import com.todolist.dto.ColumnListDto;
 import com.todolist.dto.WorkDto;
-import com.todolist.dto.WorkLogListDto;
-import com.todolist.dto.WorkRequestFormDto;
-import com.todolist.service.WorkLogService;
+import com.todolist.dto.WorkCreationDto;
+import com.todolist.dto.WorkMovementDto;
 import com.todolist.service.WorkService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class WorkController {
 
     private final WorkService workService;
-    private final WorkLogService workLogService;
 
-    public WorkController(WorkService workService, WorkLogService workLogService) {
+    public WorkController(WorkService workService) {
         this.workService = workService;
-        this.workLogService = workLogService;
     }
 
     @GetMapping("/works")
@@ -30,15 +28,12 @@ public class WorkController {
     }
 
     @PostMapping("/works")
-    public WorkDto create(@RequestBody WorkRequestFormDto workRequestFormDto,
-                          @RequestParam("userId") String userId,
-                          @RequestParam("categoryId") Integer categoryId) {
-
-        return workService.create(workRequestFormDto, userId, categoryId);
+    public WorkDto create(@RequestBody WorkCreationDto workCreationDto) {
+        return workService.create(workCreationDto);
     }
 
-    @GetMapping("/work-logs")
-    public WorkLogListDto getWorkLogList(@RequestParam("userId") String userId) {
-        return workLogService.getWorkLogList(userId);
+    @PatchMapping("/works")
+    public void move(@RequestBody WorkMovementDto workMovementDto) {
+        workService.move(workMovementDto);
     }
 }
