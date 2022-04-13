@@ -22,11 +22,13 @@ public class WorkService {
     public static final String NOT_FOUND_WORK_ERROR = "해당 id의 Work를 찾을 수 없습니다.";
 
     private final WorkRepository workRepository;
+    private final HistoryService historyService;
 
     public WorkSaveResponse workSave(User user, WorkSaveRequest workSaveRequest) {
         Work work = buildWork(user, workSaveRequest);
         workRepository.save(work);
         log.debug("[SAVE AFTER] : {}", work);
+        historyService.saveCreateHistory(work);
         return new WorkSaveResponse(work.getId());
     }
 
@@ -58,6 +60,7 @@ public class WorkService {
         log.debug("[UPDATE BEFORE] : {}", work);
         work.update(workUpdateRequest.getTitle(), workUpdateRequest.getContent());
         workRepository.update(work);
+        historyService.saveUpdateHistory(work);
         log.debug("[UPDATE AFTER] : {}", work);
         return new WorkUpdateResponse(work);
     }
@@ -73,15 +76,13 @@ public class WorkService {
             return new WorkMoveResponse(originStatus, targetStatusIndex);
         }
 
-//        Work changeWork = workRepository.findOne(userId, targetStatus, targetStatusIndex)
-//                .orElseThrow(() -> new NoSuchElementException("일치하는 순서의 Work가 없습니다."));
-
         if(originStatus == targetStatus) {
             moveInSameStatus(originWork, targetStatusIndex);
             return new WorkMoveResponse(originStatus, targetStatusIndex);
         }
 
         moveToDifferentStatus(targetStatusIndex, targetStatus, originWork);
+        historyService.saveMoveHistory(originWork, originStatus, targetStatus);
         return new WorkMoveResponse(targetStatus, targetStatusIndex);
     }
 
@@ -161,11 +162,13 @@ public class WorkService {
 
     public WorkDeleteResponse workDelete(Long id) {
         Work work = findById(id);
+        WorkStatus originStatus = work.getWorkStatus();
         Long userId = work.getAuthor().getId();
         List<Work> originWorks = workRepository.findByUserIdAndStatus(work.getWorkStatus(), userId);
         detachFromOriginStatus(work, originWorks);
         work.delete();
         workRepository.update(work);
+        historyService.saveDeleteHistory(work, originStatus);
         return new WorkDeleteResponse(true, id);
     }
 }

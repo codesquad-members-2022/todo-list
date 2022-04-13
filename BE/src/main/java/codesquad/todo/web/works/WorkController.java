@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/works")
 public class WorkController {
 
-    public static final Long DEFAULT_USER_ID = 1L;
+    private static final Long DEFAULT_USER_ID = 1L;
     private final UserRepository userRepository;
     private final WorkService workService;
 

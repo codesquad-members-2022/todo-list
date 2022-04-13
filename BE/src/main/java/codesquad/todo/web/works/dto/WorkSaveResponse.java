@@ -1,12 +1,13 @@
 package codesquad.todo.web.works.dto;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public class WorkSaveResponse {
 
-    private final Long id;
+    private final Long workId;
 
+    public WorkSaveResponse(Long workId) {
+        this.workId = workId;
+    }
 }
