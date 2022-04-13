@@ -1,4 +1,4 @@
-import { getColumnTitles, getHistories } from "./api.js";
+import { getColumns, getHistories } from "./api.js";
 import Column from "./components/Column.js";
 import Header from "./components/Header.js";
 import Menu from "./components/Menu.js";
@@ -6,10 +6,10 @@ import Component from "./core/Component.js";
 
 export default class App extends Component {
   async setup() {
-    const columnTitles = await getColumnTitles();
+    const columns = await getColumns();
     const histories = await getHistories();
     this.state = {
-      columnTitles: columnTitles,
+      columns: columns,
       histories: histories,
     };
     this.render();
@@ -19,8 +19,8 @@ export default class App extends Component {
       <header></header>
       <div class="menu"></div>
       <main class="flex">
-        ${this.state.columnTitles
-          ?.map((_, index) => `<div class="column" data-index="${index}"></div>`)
+        ${this.state.columns
+          ?.map((column) => `<div class="column" data-index="${column.id}"></div>`)
           .join("")}
       </main>
     `;
@@ -32,7 +32,7 @@ export default class App extends Component {
     new Header($header);
     new Menu($menu, {}, this.state.histories);
     $columns.forEach(($column, index) => {
-      new Column($column, null, this.state.columnTitles[index]);
+      new Column($column, null, this.state.columns[index]);
     });
   }
 }

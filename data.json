@@ -74,30 +74,6 @@
       "beforePosition": "",
       "afterPosition": "해야할 일",
       "action": "등록"
-    },
-    {
-      "user": "sam",
-      "todo": "api 설계하기",
-      "beforePosition": "",
-      "afterPosition": "하고있는 일",
-      "action": "등록",
-      "id": 5
-    },
-    {
-      "user": "sam",
-      "todo": "api 설계하기",
-      "beforePosition": "",
-      "afterPosition": "하고있는 일",
-      "action": "등록",
-      "id": 6
-    },
-    {
-      "user": "sam",
-      "todo": "api 설계하기",
-      "beforePosition": "",
-      "afterPosition": "하고있는 일",
-      "action": "등록",
-      "id": 7
     }
   ],
   "data": [

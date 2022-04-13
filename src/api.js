@@ -1,28 +1,25 @@
-const getMockData = async () => {
-  const res = await fetch("http://localhost:3000/data");
+const getMockData = async (resource) => {
+  const res = await fetch("http://localhost:3000/" + resource);
   const data = await res.json();
-  return data[0];
+  return data;
 };
 
-const getColumnTitles = async () => {
-  const mockData = await getMockData();
-  const columns = mockData.columns;
-  return columns.map((column) => ({
-    title: column.title,
+const getColumns = async () => {
+  const columns = await getMockData("columns");
+  return columns.map(({ title, id }) => ({
+    title: title,
+    id: id,
   }));
 };
 
 const getCards = async (columnIndex) => {
-  const mockData = await getMockData();
-  const columns = mockData.columns;
-  const cards = columns[columnIndex].cards;
-
+  const cards = await getMockData(`cards?columnId=${columnIndex}`);
   return cards;
 };
 
 const getHistories = async () => {
-  const mockData = await getMockData();
+  const mockData = await getMockData("histories");
   return mockData.histories;
 };
 
-export { getColumnTitles, getCards, getHistories };
+export { getColumns, getCards, getHistories };
