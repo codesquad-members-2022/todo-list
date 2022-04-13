@@ -146,5 +146,12 @@ Projects 에는 올리지 않아도 됩니다 ( 요구기능은 issue 로 관리
 ## BE Mock Server
 
 - [JSON server](https://github.com/typicode/json-server)를 사용하여 API 통신
+
+  - Express + mongoDB 로 변경
+
 - 담당: @[파크](https://github.com/healtheloper)
   - JSON server 사용하려다가 router 설정의 한계를 느껴서 express + mongoDB + mongoose 로 변경하였습니다.
+
+### API 명세
+
+- https://bbpark-todolist.herokuapp.com/api-docs/
