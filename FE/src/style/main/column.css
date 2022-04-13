@@ -19,8 +19,8 @@
 
 .column-item--header h2 {
   display: flex;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: var(--font-L);
+  font-weight: var(--font-bold);
 }
 
 h2 .itemCount {
@@ -30,41 +30,27 @@ h2 .itemCount {
   margin-left: 5px;
   width: 20px;
   height: 20px;
-  font-size: 15px;
+  font-size: var(--font-M);
   border-radius: 100%;
-<<<<<<< HEAD
   background-color: var(--transparency-gray);
-=======
-  background-color: #bdbdbd;
->>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
 }
 
 .column-item--buttons .addBtn {
   font-size: 15px;
-<<<<<<< HEAD
+  font-size: var(--font-M);
   color: var(--white);
   border: none;
   background-color: var(--green);
-=======
-  color: #fff;
-  border: none;
-  background-color: #64c964;
->>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   border-radius: 5px;
   cursor: pointer;
 }
 
 .column-item--buttons .deleteBtn {
   font-size: 15px;
-<<<<<<< HEAD
+  font-size: var(--font-M);
   color: var(--white);
   border: none;
   background-color: var(--red);
-=======
-  color: #ffffff;
-  border: none;
-  background-color: #fd565f;
->>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   border-radius: 5px;
   cursor: pointer;
 }

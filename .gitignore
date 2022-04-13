@@ -40,5 +40,9 @@ out/
 ### babel ###
 node_modules/
 package.json
+<<<<<<< HEAD
 FE/build/
 
+=======
+FE/build/
+>>>>>>> 767e7dff9f3bf713e997c7123a3b92f65ab809f9

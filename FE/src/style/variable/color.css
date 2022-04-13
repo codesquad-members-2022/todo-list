@@ -3,6 +3,20 @@
   --red: #fd565f;
   --green: #64c964;
   --gray: #808080;
+<<<<<<< HEAD
   --transparency-gray: #bdbdbd;
   --light-gray: #ececec;
+=======
+  --blue: #86c6ff;
+  --pink: #ffd8d3;
+
+  --light-black: #333;
+  --light-gray: #ececec;
+  --strong-blue: #0075de;
+  --strong-white: #ddd;
+  --strong-red: #f00;
+
+  --transparency-gray: #bdbdbd;
+  --shadow-color: rgba(224, 224, 224, 0.5);
+>>>>>>> fc5cfdcad89b729dace466d815e532b70220bc2b
 }
