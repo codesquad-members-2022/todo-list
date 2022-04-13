@@ -33,14 +33,20 @@ public class DataBaseCardRepository implements CardRepository {
 
 	@Override
 	public Card findById(Long id) {
-		List<Card> result = jdbcTemplate.query("SELECT * FROM TODO_CARD WHERE id = ?", rowMapper,
-			id);
+		List<Card> result = jdbcTemplate.query("SELECT * FROM TODO_CARD WHERE id = ?", rowMapper, id);
 		return result.stream().findAny()
 			.orElseThrow(() -> new IllegalStateException("존재하지 않는 id 입니다"));
 	}
 
 	@Override
 	public Card save(Card card) {
+
+		Integer sequence = countTotalSequence(card.getStatus());
+
+		if (card.getSequence() != sequence + 1) {
+			throw new IllegalStateException("부적절한 sequence 값입니다.");
+		}
+
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
 		jdbcInsert.withTableName("TODO_CARD").usingGeneratedKeyColumns("id");
 
@@ -62,16 +68,23 @@ public class DataBaseCardRepository implements CardRepository {
 		if (update == 0) {
 			throw new IllegalStateException("이미 삭제된 데이터입니다.");
 		}
+
 		Card card = findById(id);
 		jdbcTemplate.update(
-			"UPDATE TODO_CARD SET sequence = sequence - 1 WHERE status = ? AND sequence > ?",
-			card.getStatus(), card.getSequence());
+			"UPDATE TODO_CARD SET sequence = sequence - 1 WHERE status = ? AND sequence > ?", card.getStatus(), card.getSequence());
+
 		return findById(id);
 	}
 
 	@Override
 	public Card updateStatusAndRow(Long id, RequestCard requestCard) {
 		Card originCard = findById(id);
+
+		Integer sequence = countTotalSequence(requestCard.getStatus());
+
+		if (requestCard.getSequence() > sequence + 1) {
+			throw new IllegalStateException("부적절한 sequence 값입니다.");
+		}
 
 		jdbcTemplate.update("UPDATE TODO_CARD SET sequence = sequence - 1 WHERE status = ? AND sequence > ?", originCard.getStatus(), originCard.getSequence());
 		jdbcTemplate.update("UPDATE TODO_CARD SET sequence = sequence + 1 WHERE status = ? AND sequence >= ?", requestCard.getStatus(), requestCard.getSequence());
@@ -82,8 +95,7 @@ public class DataBaseCardRepository implements CardRepository {
 
 	@Override
 	public Card updateText(Long id, Card card) {
-		jdbcTemplate.update("UPDATE TODO_CARD SET title = ?, content = ? WHERE id = ?",
-			card.getTitle(), card.getContent(), id);
+		jdbcTemplate.update("UPDATE TODO_CARD SET title = ?, content = ? WHERE id = ?",	card.getTitle(), card.getContent(), id);
 		return card;
 	}
 
@@ -96,4 +108,9 @@ public class DataBaseCardRepository implements CardRepository {
 	public void reset() {
 		jdbcTemplate.execute("TRUNCATE TABLE TODO_CARD");
 	}
+
+	private Integer countTotalSequence(int status) {
+		return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM TODO_CARD WHERE status = ? AND is_deleted = false", Integer.class, status);
+	}
+
 }

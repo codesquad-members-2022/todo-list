@@ -49,7 +49,7 @@ public class DataBaseActivityLogRepository implements ActivityLogRepository {
 
 	@Override
 	public List<ActivityLog> findAll() {
-		return jdbcTemplate.query("SELECT * FROM ACTIVITY_LOG", rowMapper);
+		return jdbcTemplate.query("SELECT * FROM ACTIVITY_LOG ORDER BY id DESC", rowMapper);
 	}
 
 	@Override
