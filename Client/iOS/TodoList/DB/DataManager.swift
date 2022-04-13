@@ -1,6 +1,14 @@
 import Foundation
 import CoreData
 
+// MARK:- Cards
+struct Card {
+    let cardId: Int
+    let cardTitle: String
+    let cardContent: String
+    let boardName: String
+}
+
 enum BoardType: CustomStringConvertible {
     case all
     case todo
