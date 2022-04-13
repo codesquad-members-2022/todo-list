@@ -16,15 +16,18 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codesquad.aos.todolist.R
+import com.codesquad.aos.todolist.common.ViewModelFactory
 import com.codesquad.aos.todolist.common.utils.VerticalItemDecorator
+import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ActivityMainBinding
 import com.codesquad.aos.todolist.ui.adapter.LogCardListAdapter
 import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
 import com.codesquad.aos.todolist.ui.dialog.CompleteDialogFragment
 import com.codesquad.aos.todolist.ui.dialog.ProgressDialogFragment
 import com.codesquad.aos.todolist.ui.dialog.TodoDialogFragment
+import kotlin.math.min
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DataChangeListener {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var todoCardListAdapter: TodoCardListAdapter
@@ -32,7 +35,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var completeCardListAdapter: TodoCardListAdapter
     private lateinit var logCardListAdapter: LogCardListAdapter
 
-    private val viewModel: TodoViewModel by viewModels()
+    private val viewModel: TodoViewModel by viewModels {ViewModelFactory(this)}
+    private val dragListener = DragListener(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,43 +47,94 @@ class MainActivity : AppCompatActivity() {
         setDrawerClose()
         setViewModel()
 
+        setDialogFragmentView()
         setTodoRecyclerView()
         setProgressRecyclerView()
         setCompleteRecyclerView()
         setLogRecyclerView()
 
-        setItemTouchCallback()
-
-        setDialogFragmentView()
+        //
+        viewModel.getCardItems()
     }
 
-
     private fun setTodoRecyclerView() {
-        todoCardListAdapter = TodoCardListAdapter()
+        todoCardListAdapter = TodoCardListAdapter(
+            { deleteIndex ->
+                viewModel.deleteTodo(deleteIndex)
+            }, this
+        )
         binding.rvTodo.adapter = todoCardListAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
-        viewModel.addTodo("hihi", "hihihi")
-        viewModel.addTodo("byebye", "byebyebye")
+        val touchHelper = TodoTouchHelper(todoCardListAdapter, viewModel).apply {
+            setClamp(170f)  // 170 이
+        }
+
+        binding.rvTodo.setOnDragListener(todoCardListAdapter.dragInstance)
+
+        ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvTodo)
+
+        binding.rvTodo.setOnTouchListener { _, _ ->
+            touchHelper.removePreviousClamp(binding.rvTodo)
+            false
+        }
+
+        // 더미데이터
+        //viewModel.addTodo("rvTODO", "TAG 1")
+        //viewModel.addTodo("rvTODO", "TAG 2")
     }
 
     private fun setProgressRecyclerView() {
-        progressCardListAdapter = TodoCardListAdapter()
+        progressCardListAdapter = TodoCardListAdapter (
+            { deleteIndex ->
+                viewModel.deleteProgress(deleteIndex)
+            }, this)
         binding.rvProgress.adapter = progressCardListAdapter
         binding.rvProgress.layoutManager = LinearLayoutManager(this)
         binding.rvProgress.addItemDecoration(VerticalItemDecorator(15))
 
-        viewModel.addProgress("han-todo", "오늘은 조시랑 같이 코딩하기")
+        binding.rvProgress.setOnDragListener(progressCardListAdapter.dragInstance)
+
+        val touchHelper = TodoTouchHelper(progressCardListAdapter, viewModel).apply {
+            setClamp(170f)  // 170 이
+        }
+
+        ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvProgress)
+
+        binding.rvProgress.setOnTouchListener { _, _ ->
+            touchHelper.removePreviousClamp(binding.rvProgress)
+            false
+        }
+
+        // 더미데이터
+        //viewModel.addProgress("rvProgress", "TAG 1")
     }
 
     private fun setCompleteRecyclerView() {
-        completeCardListAdapter = TodoCardListAdapter()
+        completeCardListAdapter = TodoCardListAdapter (
+            { deleteIndex ->
+            viewModel.deleteComplete(deleteIndex)
+            }, this)
         binding.rvComplete.adapter = completeCardListAdapter
         binding.rvComplete.layoutManager = LinearLayoutManager(this)
         binding.rvComplete.addItemDecoration(VerticalItemDecorator(15))
 
-        viewModel.addComplete("AOS-todo", "회의록 작성하기")
+        binding.rvComplete.setOnDragListener(completeCardListAdapter.dragInstance)
+
+        val touchHelper = TodoTouchHelper(completeCardListAdapter, viewModel).apply {
+            setClamp(170f)  // 170 이
+        }
+
+        ItemTouchHelper(touchHelper).attachToRecyclerView(binding.rvComplete)
+
+        binding.rvComplete.setOnTouchListener { _, _ ->
+            touchHelper.removePreviousClamp(binding.rvComplete)
+            false
+        }
+
+        // 더미데이터
+        //viewModel.addComplete("rvComplete", "TAG 1")
     }
 
     private fun setLogRecyclerView() {
@@ -177,52 +232,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setItemTouchCallback(){
-        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT
-        ){
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                TODO("Not yet implemented")
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                // viewModel.deleteTodo(viewHolder.layoutPosition)
-            }
-
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-
-                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
-                    val paint = Paint()
-                    paint.color = Color.parseColor("#FF0000")
-                    val background = RectF(viewHolder.itemView.right.toFloat() + dX/4, viewHolder.itemView.top.toFloat(),
-                                           viewHolder.itemView.right.toFloat(), viewHolder.itemView.bottom.toFloat())
-                    c.drawRect(background, paint)
-                }
-
-                super.onChildDraw(
-                    c,
-                    recyclerView,
-                    viewHolder,
-                    dX / 4,
-                    dY,
-                    actionState,
-                    isCurrentlyActive
-                )
-            }
+    // implement DataChangeListener
+    override fun swapData(rvType: Int, sourceIndex: Int, targetIndex: Int) {
+        when(rvType){
+            1 -> viewModel.changeTodoOrder(sourceIndex, targetIndex)
+            2 -> viewModel.changeProgressOrder(sourceIndex, targetIndex)
+            3 -> viewModel.changeCompleteOrder(sourceIndex, targetIndex)
         }
-
-        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(binding.rvTodo)
     }
+
+    override fun addDataAtEnd(rvType: Int, card: Card) {
+        when(rvType){
+            1 -> viewModel.addTodoCard(card)
+            2 -> viewModel.addProgressCard(card)
+            3 -> viewModel.addCompleteCard(card)
+        }
+    }
+
+    override fun addDataAtInx(rvType: Int, tartgetIndex: Int, card: Card) {
+        when(rvType){
+            1 -> viewModel.addTodoCardAtInx(tartgetIndex, card)
+            2 -> viewModel.addProgressCardAtInx(tartgetIndex, card)
+            3 -> viewModel.addCompleteCardAtInx(tartgetIndex, card)
+        }
+    }
+
+    override fun deleteData(rvType: Int, targetIndex: Int) {
+        when(rvType){
+            1 -> viewModel.deleteTodo(targetIndex)
+            2 -> viewModel.deleteProgress(targetIndex)
+            3 -> viewModel.deleteComplete(targetIndex)
+        }
+    }
+
 }

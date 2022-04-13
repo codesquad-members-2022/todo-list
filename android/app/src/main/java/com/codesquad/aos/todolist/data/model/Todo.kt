@@ -1,6 +1,6 @@
 package com.codesquad.aos.todolist.data.model
 
-data class Card(
+data class Todo(
     val cardId: Int,
     val content: String,
     val order: Int,
