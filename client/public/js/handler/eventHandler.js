@@ -17,8 +17,8 @@ export function bindEvents() {
     removeColumnBtn: ".column__header--delete-card",
   };
 
-  on(el.showHistoryBtn, "click", toggleHistoryBar);
-  on(el.hideHistoryBtn, "click", toggleHistoryBar);
+  on(el.showHistoryBtn, "click", showHistoryBar);
+  on(el.hideHistoryBtn, "click", hideHistoryBar);
 
   delegate(el.columnList, "click", selector.addItemBtn, (event) => showItemForm(event));
   delegate(el.columnList, "click", selector.registItemBtn, (event) => registItem(event));
@@ -32,13 +32,18 @@ function showItemForm(event) {
   console.log(event.target);
 }
   function toggleHistoryBar() {
+  function showHistoryBar() {
     el.historyBar.classList.toggle("show");
+    // 히스토리 상대 날짜 리렌더링
   }
 
 function registItem(event) {
   console.log("registItem");
   console.log(event.target);
 }
+  function hideHistoryBar() {
+    el.historyBar.classList.toggle("show");
+  }
 
 function removeItem(event) {
   console.log("removeItem");
