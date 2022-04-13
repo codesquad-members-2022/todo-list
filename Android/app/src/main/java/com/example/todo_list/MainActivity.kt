@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo_list.data.TasksRepository
 import com.example.todo_list.databinding.ActivityMainBinding
 import com.example.todo_list.history.HistoryAdapter
 import com.example.todo_list.history.HistoryViewModel
+import com.example.todo_list.tasks.data.Task
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -24,17 +24,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         historyViewModel = ViewModelProvider(this, ViewModelFactory(TasksRepository())).get(HistoryViewModel::class.java)
 
-        val adapter = HistoryAdapter()
-        binding.recyclerviewHistory.adapter = adapter
-        binding.recyclerviewHistory.layoutManager = LinearLayoutManager(this)
+        val historyAdapter = HistoryAdapter()
+        binding.recyclerviewHistory.adapter = historyAdapter
         binding.btnMenu.setOnClickListener {
             binding.mainLayout.openDrawer(GravityCompat.END)
             historyViewModel.getHistories()
         }
+
         binding.btnClose.setOnClickListener { binding.mainLayout.closeDrawer(GravityCompat.END) }
         binding.naviView.setNavigationItemSelectedListener(this)
 
-        historyViewModel.historyList.observe(this) { adapter.submitList(it) }
+        historyViewModel.historyList.observe(this) { historyAdapter.submitList(it) }
         historyViewModel.checkLoading.observe(this) {
             if (it) {
                 binding.spinner.visibility = View.VISIBLE
@@ -44,6 +44,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 binding.recyclerviewHistory.visibility = View.VISIBLE
             }
         }
+
+        val task1 = Task(
+            1,
+            "테스트하기1",
+            "콘텐츠테스트1",
+            "jung",
+            "doing",
+            "2022-04-06T15:30:00.000+09:00",
+            "2022-04-06T15:30:00.000+09:00"
+        )
+
+        val task2 = Task(
+            2,
+            "테스트하기2",
+            "콘텐츠테스트2",
+            "park",
+            "todo",
+            "2022-04-06T15:30:00.000+09:00",
+            "2022-04-06T15:30:00.000+09:00"
+        )
+
+        binding.todoTodoView.addTasks(listOf(task1, task2))
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

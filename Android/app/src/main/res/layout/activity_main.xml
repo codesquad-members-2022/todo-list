@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -7,12 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:openDrawer="end">
+        tools:openDrawer="start">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar"
@@ -45,7 +46,47 @@
                 </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.AppBarLayout>
-        </LinearLayout>
+
+            <com.example.todo_list.tasks.TasksView
+                android:id="@+id/todo_todo_view"
+                android:layout_width="256dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="51dp"
+                android:layout_marginBottom="51dp"
+                custom:badge_count="0"
+                custom:layout_constraintBottom_toBottomOf="parent"
+                custom:layout_constraintStart_toStartOf="parent"
+                custom:layout_constraintTop_toBottomOf="@id/app_bar"
+                custom:title="해야할 일" />
+
+            <com.example.todo_list.tasks.TasksView
+                android:id="@+id/todo_inprogress_view"
+                android:layout_width="256dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="51dp"
+                android:layout_marginBottom="51dp"
+                custom:badge_count="0"
+                custom:layout_constraintBottom_toBottomOf="parent"
+                custom:layout_constraintStart_toEndOf="@id/todo_todo_view"
+                custom:layout_constraintTop_toBottomOf="@id/app_bar"
+                custom:title="하고 있는 일" />
+
+            <com.example.todo_list.tasks.TasksView
+                android:id="@+id/todo_done_view"
+                android:layout_width="256dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="51dp"
+                android:layout_marginBottom="51dp"
+                custom:badge_count="0"
+                custom:layout_constraintBottom_toBottomOf="parent"
+                custom:layout_constraintStart_toEndOf="@id/todo_inprogress_view"
+                custom:layout_constraintTop_toBottomOf="@id/app_bar"
+                custom:title="완료한 일" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navi_view"
@@ -72,6 +113,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="80dp"
                 android:layout_marginBottom="80dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/history_item" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -82,7 +124,6 @@
                 android:indeterminate="true" />
 
         </com.google.android.material.navigation.NavigationView>
-
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

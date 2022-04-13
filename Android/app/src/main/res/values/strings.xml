@@ -6,4 +6,5 @@
     <string name="close">Close</string>
     <string name="menu">Menu</string>
     <string name="user_image">User Image</string>
+    <string name="todo_add_content_desc">Todo Add</string>
 </resources>
