@@ -108,8 +108,8 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
     fun changeTodoOrder(fromPos: Int, toPos: Int){
         val fromTemp = Card(todolist[fromPos].cardId, todolist[fromPos].content, todolist[fromPos].order,
             todolist[fromPos].section, todolist[fromPos].title)
-        val toTemp = Card(todolist[fromPos].cardId, todolist[fromPos].content, todolist[fromPos].order,
-            todolist[fromPos].section, todolist[fromPos].title)
+        val toTemp = Card(todolist[toPos].cardId, todolist[toPos].content, todolist[toPos].order,
+            todolist[toPos].section, todolist[toPos].title)
 
         todolist[fromPos] = toTemp
         todolist[toPos] = fromTemp
@@ -120,8 +120,8 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
     fun changeProgressOrder(fromPos: Int, toPos: Int){
         val fromTemp = Card(progresslist[fromPos].cardId, progresslist[fromPos].content, progresslist[fromPos].order,
             progresslist[fromPos].section, progresslist[fromPos].title)
-        val toTemp = Card(progresslist[fromPos].cardId, progresslist[fromPos].content, progresslist[fromPos].order,
-            progresslist[fromPos].section, progresslist[fromPos].title)
+        val toTemp = Card(progresslist[toPos].cardId, progresslist[toPos].content, progresslist[toPos].order,
+            progresslist[toPos].section, progresslist[toPos].title)
 
         progresslist[fromPos] = toTemp
         progresslist[toPos] = fromTemp
@@ -131,8 +131,8 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
     fun changeCompleteOrder(fromPos: Int, toPos: Int){
         val fromTemp = Card(completelist[fromPos].cardId, completelist[fromPos].content, completelist[fromPos].order,
             completelist[fromPos].section, completelist[fromPos].title)
-        val toTemp = Card(completelist[fromPos].cardId, completelist[fromPos].content, completelist[fromPos].order,
-            completelist[fromPos].section, completelist[fromPos].title)
+        val toTemp = Card(completelist[toPos].cardId, completelist[toPos].content, completelist[toPos].order,
+            completelist[toPos].section, completelist[toPos].title)
 
         completelist[fromPos] = toTemp
         completelist[toPos] = fromTemp
