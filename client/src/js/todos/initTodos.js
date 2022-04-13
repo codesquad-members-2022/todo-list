@@ -1,4 +1,4 @@
-import { $, pipe, closest, containClass } from './util';
+import { $, pipe, closest, containClass } from '../util';
 
 export class InitTodos {
   constructor(template) {

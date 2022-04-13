@@ -1,4 +1,4 @@
-import { $, $$, closest } from './util';
+import { $, $$, closest } from '../util.js';
 
 export class DragAndDrop {
   constructor() {
@@ -127,42 +127,6 @@ export class DragAndDrop {
           }
         }
       }
-
-      // if (prevCard.x + prevCard.width - curCard.x > prevCard.width / 2) {
-      //   if (
-      //     cloneCardPosData.y < el.y &&
-      //     higherCard.y + higherCard.height - lowerCard.y > lowerCard.height / 2
-      //   ) {
-      //     if (
-      //       this.dragCard.getBoundingClientRect().x === el.x &&
-      //       !this.moveCardState
-      //     ) {
-      //       el.positionedCard.insertAdjacentElement('afterend', this.dragCard);
-      //     } else {
-      //       this.moveCardState = true;
-      //       el.positionedCard.insertAdjacentElement(
-      //         'beforebegin',
-      //         this.dragCard
-      //       );
-      //     }
-      //   } else if (
-      //     cloneCardPosData.y > el.y &&
-      //     higherCard.y + higherCard.height - lowerCard.y > higherCard.height / 2
-      //   ) {
-      //     if (
-      //       this.dragCard.getBoundingClientRect().x === el.x &&
-      //       !this.moveCardState
-      //     ) {
-      //       el.positionedCard.insertAdjacentElement(
-      //         'beforebegin',
-      //         this.dragCard
-      //       );
-      //     } else {
-      //       this.moveCardState = true;
-      //       el.positionedCard.insertAdjacentElement('afterend', this.dragCard);
-      //     }
-      //   }
-      // }
     });
   };
 

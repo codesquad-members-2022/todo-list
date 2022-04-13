@@ -2,11 +2,11 @@ import {
   createColumnTemplate,
   createCardTemplate,
   createPostedCardTemplate,
-} from './template.js';
-import { InitTodos } from './todos';
-import { AddCard } from './CRUDClass/addCard';
-import { DeleteCard } from './CRUDClass/deleteCard';
-import { DragAndDrop } from './dragAndDrop.js';
+} from './todos/template.js';
+import { InitTodos } from './todos/initTodos';
+import { AddCard } from './todos/addCard.js';
+import { DeleteCard } from './todos/deleteCard.js';
+import { DragAndDrop } from './todos/dragAndDrop.js';
 
 export const init = () => {
   const initTodos = new InitTodos(createColumnTemplate);
