@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.model.Status
+import com.example.todolist.model.Task
+import com.example.todolist.model.request.ModifyTaskRequest
 import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.ui.common.ViewModelFactory
 
@@ -16,9 +18,9 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
     private val remoteViewModel: TaskRemoteViewModel by viewModels { ViewModelFactory() }
     private lateinit var binding: ActivityMainBinding
     private val historyAdapter: HistoryAdapter by lazy { HistoryAdapter() }
-    private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
-    private val inProgressAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
-    private val doneAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
+    private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(remoteViewModel, this) }
+    private val inProgressAdapter: TaskAdapter by lazy { TaskAdapter(remoteViewModel, this) }
+    private val doneAdapter: TaskAdapter by lazy { TaskAdapter(remoteViewModel, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

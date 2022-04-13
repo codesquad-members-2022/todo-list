@@ -54,7 +54,7 @@ class TaskRepository {
                 task.content,
                 task.status)
             )
-            Status.IN_PROGRESS -> tasks.inProgress.add(0, TaskDetailResponse(inProgressIndex++,
+            Status.IN_PROGRESS -> tasks.inProgresses.add(0, TaskDetailResponse(inProgressIndex++,
                 task.title,
                 task.content,
                 task.status)
@@ -76,9 +76,9 @@ class TaskRepository {
                 tasks.todo[index] = task
             }
             Status.IN_PROGRESS -> {
-                val originalTask = tasks.inProgress.find { task.id == it.id }
-                val index = tasks.inProgress.indexOf(originalTask)
-                tasks.inProgress[index] = task
+                val originalTask = tasks.inProgresses.find { task.id == it.id }
+                val index = tasks.inProgresses.indexOf(originalTask)
+                tasks.inProgresses[index] = task
             }
             Status.DONE -> {
                 val originalTask = tasks.done.find { task.id == it.id }
@@ -100,7 +100,7 @@ class TaskRepository {
     fun deleteTask(task: TaskDetailResponse): TasksResponse {
         when (task.status) {
             Status.TODO -> tasks.todo.remove(task)
-            Status.IN_PROGRESS -> tasks.inProgress.remove(task)
+            Status.IN_PROGRESS -> tasks.inProgresses.remove(task)
             else -> tasks.done.remove(task)
         }
         return tasks

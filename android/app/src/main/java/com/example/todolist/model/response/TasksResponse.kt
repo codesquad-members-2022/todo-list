@@ -12,6 +12,10 @@ data class TasksResponse(
     val done: MutableList<TaskDetailResponse>,
 )
 
+data class Result(
+    val status: Int,
+    val taskDetailResponse: TaskDetailResponse
+)
 data class TaskDetailResponse(
     val id: Int,
     val title: String,
@@ -19,9 +23,4 @@ data class TaskDetailResponse(
     val status: Status,
     val author: String = "Android",
     val updateDateTime: String?
-)
-
-data class AddTasksResponse(
-    val status: Int,
-    val resources: TaskDetailResponse
 )
