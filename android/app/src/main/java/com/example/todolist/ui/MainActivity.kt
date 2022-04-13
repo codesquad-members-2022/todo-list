@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.model.Status
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
     private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
     private val inProgressAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
     private val doneAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
+    private val clamp: Float = 170f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,21 +52,47 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
             }
         }
 
-        binding.includeTodo.rvTodo.adapter = toDoAdapter
+        val todoItemTouchCallback = ItemTouchCallback(clamp, toDoAdapter)
+        with(binding.includeTodo.rvTodo) {
+            ItemTouchHelper(todoItemTouchCallback).attachToRecyclerView(this)
+            adapter = toDoAdapter
+            setOnTouchListener { _, _ ->
+                todoItemTouchCallback.removePreviousClamp(this)
+                false
+            }
+        }
         viewModel.todoTask.observe(this) { todoTask ->
             toDoAdapter.submitList(todoTask.toList())
         }
 
-        binding.includeInProgress.rvInProgress.adapter = inProgressAdapter
+        val inProgressItemTouchCallback = ItemTouchCallback(clamp, inProgressAdapter)
+        with(binding.includeInProgress.rvInProgress) {
+            ItemTouchHelper(inProgressItemTouchCallback).attachToRecyclerView(this)
+            adapter = inProgressAdapter
+            setOnTouchListener { _, _ ->
+                inProgressItemTouchCallback.removePreviousClamp(this)
+                false
+            }
+        }
         viewModel.inProgressTask.observe(this) { inProgressTask ->
             inProgressAdapter.submitList(inProgressTask.toList())
         }
 
+
+
         binding.includeDone.rvDone.adapter = doneAdapter
+        val doneItemTouchCallback = ItemTouchCallback(clamp, doneAdapter)
+        with(binding.includeDone.rvDone) {
+            ItemTouchHelper(doneItemTouchCallback).attachToRecyclerView(this)
+            adapter = doneAdapter
+            setOnTouchListener { _, _ ->
+                doneItemTouchCallback.removePreviousClamp(this)
+                false
+            }
+        }
         viewModel.doneTask.observe(this) { doneTask ->
             doneAdapter.submitList(doneTask.toList())
         }
-
     }
 
     private fun onDrawerEvent() {

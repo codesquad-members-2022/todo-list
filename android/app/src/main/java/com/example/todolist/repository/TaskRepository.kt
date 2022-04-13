@@ -3,6 +3,7 @@ package com.example.todolist.repository
 import com.example.todolist.model.*
 import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.model.response.TasksResponse
+import java.util.*
 
 class TaskRepository {
 
@@ -119,6 +120,19 @@ class TaskRepository {
             Status.TODO -> tasks.todo.remove(task)
             Status.IN_PROGRESS -> tasks.inProgress.remove(task)
             else -> tasks.done.remove(task)
+        }
+        return tasks
+    }
+
+    fun swap(
+        currentList: List<TaskDetailResponse>,
+        fromPosition: Int,
+        toPosition: Int,
+    ): TasksResponse {
+        when (currentList) {
+            tasks.todo -> Collections.swap(tasks.todo, fromPosition, toPosition)
+            tasks.inProgress -> Collections.swap(tasks.inProgress, fromPosition, toPosition)
+            tasks.done -> Collections.swap(tasks.done, fromPosition, toPosition)
         }
         return tasks
     }
