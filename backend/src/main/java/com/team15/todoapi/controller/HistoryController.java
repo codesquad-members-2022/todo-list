@@ -17,8 +17,8 @@ public class HistoryController {
 
 	private final HistoryService historyService;
 
-	@GetMapping()
-	public List<HistoryResponse> histories(@RequestParam String userId){
+	@GetMapping
+	public List<HistoryResponse> histories(String userId){
 		return historyService.findAll(userId);
 	}
 }

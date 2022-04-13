@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://13.125.160.182:3306/todolist
+    url: jdbc:mysql://3.39.150.251:3306/todolist
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: minri
     password: 1234
