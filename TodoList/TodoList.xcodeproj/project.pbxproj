@@ -22,9 +22,10 @@
 		00A14F6027FC07C700474097 /* CardFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A14F5F27FC07C700474097 /* CardFactory.swift */; };
 		00A14F7127FC19EB00474097 /* CardBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A14F7027FC19EB00474097 /* CardBoard.swift */; };
 		00D13F1F27FED6200031E8DA /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D13F1E27FED6200031E8DA /* CardTableViewCell.swift */; };
+		7202A9452806655100BB1CD8 /* HistoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7202A9442806655100BB1CD8 /* HistoryBoard.swift */; };
 		72049EC4280574C100614366 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72049EC3280574C100614366 /* HistoryViewController.swift */; };
 		723BF2ED2804842B001F3118 /* HiddenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723BF2EC2804842B001F3118 /* HiddenState.swift */; };
-		723BF2EF2804846C001F3118 /* CardBoardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723BF2EE2804846C001F3118 /* CardBoardAction.swift */; };
+		723BF2EF2804846C001F3118 /* HistoryBoardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723BF2EE2804846C001F3118 /* HistoryBoardDelegate.swift */; };
 		723BF2F12804859B001F3118 /* HistoryViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723BF2F02804859B001F3118 /* HistoryViewAction.swift */; };
 		72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1827FBE2DE00A29350 /* AppDelegate.swift */; };
 		72695E1B27FBE2DE00A29350 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72695E1A27FBE2DE00A29350 /* SceneDelegate.swift */; };
@@ -73,9 +74,10 @@
 		00A14F5F27FC07C700474097 /* CardFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFactory.swift; sourceTree = "<group>"; };
 		00A14F7027FC19EB00474097 /* CardBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoard.swift; sourceTree = "<group>"; };
 		00D13F1E27FED6200031E8DA /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		7202A9442806655100BB1CD8 /* HistoryBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryBoard.swift; sourceTree = "<group>"; };
 		72049EC3280574C100614366 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		723BF2EC2804842B001F3118 /* HiddenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenState.swift; sourceTree = "<group>"; };
-		723BF2EE2804846C001F3118 /* CardBoardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoardAction.swift; sourceTree = "<group>"; };
+		723BF2EE2804846C001F3118 /* HistoryBoardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryBoardDelegate.swift; sourceTree = "<group>"; };
 		723BF2F02804859B001F3118 /* HistoryViewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewAction.swift; sourceTree = "<group>"; };
 		72695E1527FBE2DE00A29350 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72695E1827FBE2DE00A29350 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,10 +129,30 @@
 				00702C83280545F4009B077D /* HistoryTableDataSource.swift */,
 				72877BED27FF22EB000CF68E /* CardTableDelegate.swift */,
 				0036E2FC2803CAF8001E6EA9 /* CardTableDataSource.swift */,
-				723BF2EE2804846C001F3118 /* CardBoardAction.swift */,
 				723BF2F02804859B001F3118 /* HistoryViewAction.swift */,
 			);
 			path = delegate;
+			sourceTree = "<group>";
+		};
+		7202A9462806655D00BB1CD8 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				00702C7D28051ECC009B077D /* CardAction.swift */,
+				00A14F5D27FC07AB00474097 /* CardUsable.swift */,
+				00702C7B28051E64009B077D /* HistoryCard.swift */,
+				72695E4927FBE79C00A29350 /* Card.swift */,
+				0047A15E27FE805400FAF019 /* CardStatus.swift */,
+			);
+			path = entity;
+			sourceTree = "<group>";
+		};
+		7202A9472806657000BB1CD8 /* board */ = {
+			isa = PBXGroup;
+			children = (
+				7202A9442806655100BB1CD8 /* HistoryBoard.swift */,
+				00A14F7027FC19EB00474097 /* CardBoard.swift */,
+			);
+			path = board;
 			sourceTree = "<group>";
 		};
 		72695E0C27FBE2DD00A29350 = {
@@ -189,13 +211,10 @@
 		72695E4827FBE6DE00A29350 /* domain */ = {
 			isa = PBXGroup;
 			children = (
-				72695E4927FBE79C00A29350 /* Card.swift */,
-				00A14F5D27FC07AB00474097 /* CardUsable.swift */,
-				0047A15E27FE805400FAF019 /* CardStatus.swift */,
-				00A14F7027FC19EB00474097 /* CardBoard.swift */,
+				72AD71102806A4E1003A8063 /* delegate */,
+				7202A9472806657000BB1CD8 /* board */,
+				7202A9462806655D00BB1CD8 /* entity */,
 				00A14F5F27FC07C700474097 /* CardFactory.swift */,
-				00702C7D28051ECC009B077D /* CardAction.swift */,
-				00702C7B28051E64009B077D /* HistoryCard.swift */,
 			);
 			path = domain;
 			sourceTree = "<group>";
@@ -215,6 +234,14 @@
 				004781142805BFCA00F380C6 /* NewCardViewController.swift */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		72AD71102806A4E1003A8063 /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				723BF2EE2804846C001F3118 /* HistoryBoardDelegate.swift */,
+			);
+			path = delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,13 +385,14 @@
 				72049EC4280574C100614366 /* HistoryViewController.swift in Sources */,
 				72877BEE27FF22EB000CF68E /* CardTableDelegate.swift in Sources */,
 				72C368EE280417D800086FF6 /* HistoryView.swift in Sources */,
+				7202A9452806655100BB1CD8 /* HistoryBoard.swift in Sources */,
 				72695E1D27FBE2DE00A29350 /* CardBoardViewController.swift in Sources */,
 				00702C7E28051ECC009B077D /* CardAction.swift in Sources */,
 				00A14F5E27FC07AB00474097 /* CardUsable.swift in Sources */,
 				00D13F1F27FED6200031E8DA /* CardTableViewCell.swift in Sources */,
 				00702C7A28051D0E009B077D /* HistoryTableViewCell.swift in Sources */,
 				00702C84280545F4009B077D /* HistoryTableDataSource.swift in Sources */,
-				723BF2EF2804846C001F3118 /* CardBoardAction.swift in Sources */,
+				723BF2EF2804846C001F3118 /* HistoryBoardDelegate.swift in Sources */,
 				0047A15F27FE805400FAF019 /* CardStatus.swift in Sources */,
 				004781152805BFCA00F380C6 /* NewCardViewController.swift in Sources */,
 				72695E1927FBE2DE00A29350 /* AppDelegate.swift in Sources */,
