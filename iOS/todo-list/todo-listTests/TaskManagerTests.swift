@@ -32,5 +32,19 @@ class TaskManagerTests: XCTestCase {
         
         wait(for: [promise], timeout: 1)
     }
+    
+    func testDelete() {
+        
+        let testId = 2
+        
+        let promise = XCTestExpectation(description: "data deleted")
+     
+        TaskManager.shared.delete(id: testId) { id in
+            XCTAssertEqual(id, testId)
+            promise.fulfill()
+        }
+        
+        wait(for: [promise], timeout: 1)
+    }
 
 }
