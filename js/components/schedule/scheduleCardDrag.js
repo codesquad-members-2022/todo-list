@@ -11,6 +11,7 @@ let selectedCardData;
 const TOP = "top";
 const BOTTOM = "bottom";
 const CARD = "schedule-card";
+const CARDS_CONTAINER = "schedule-column__cards-container"
 const CARD_AFTERIMAGE = "schedule-card--afterimage";
 const DRAG_CARD = "schedule-drag-card";
 
@@ -31,13 +32,11 @@ const getElementBelowDragPointer = (event) => {
     return $elementBelowDragPointer;
 };
 
-const appendAfterimageCardInEmptyCardContainer = ($cardContainer) => {
-    if ($cardContainer.children.length) {
-        return;
-    }
+const appendAfterimageCardInCards = ($cardsContainer) => {
+    const $cards = $cardsContainer.querySelector(".schedule-column__cards")
     const tempAfterimageCard = afterimageCard;
     afterimageCard.remove();
-    $cardContainer.appendChild(tempAfterimageCard);
+    $cards.appendChild(tempAfterimageCard);
     afterimageCard = tempAfterimageCard;
 };
 
@@ -73,10 +72,10 @@ const mouseMoveOnDraggingEventHandler = (event) => {
 
     if (
         $elementBelowDragPointer.classList.contains(
-            "schedule-column__cards-container"
+            CARDS_CONTAINER
         )
     ) {
-        appendAfterimageCardInEmptyCardContainer($elementBelowDragPointer);
+        appendAfterimageCardInCards($elementBelowDragPointer);
         return;
     }
 
@@ -110,16 +109,16 @@ const resetGlobalVariables = () => {
 
 const insertAfterimageCardToModel = (afterimageCard) => {
     const columnId = afterimageCard.closest(".schedule-column").dataset.id;
-    const $scheduleCardContainer = afterimageCard.closest(
-        ".schedule-column__cards-container"
+    const $scheduleCards = afterimageCard.closest(
+        ".schedule-column__cards"
     );
     const afterCardBrowserIndex = [
-        ...$scheduleCardContainer.children,
+        ...$scheduleCards.children,
     ].findIndex(
         (card) => card.classList.contains("schedule-card--afterimage") === true
     );
     const afterCardModelIndex =
-        [...$scheduleCardContainer.children].length - afterCardBrowserIndex - 1;
+        [...$scheduleCards.children].length - afterCardBrowserIndex - 1;
     scheduleModel.insertScheduleCard(
         columnId,
         selectedCardData,

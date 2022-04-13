@@ -7,7 +7,7 @@ export class ScheduleColumn {
     constructor(target, columnId) {
         this.$target = target;
         this.$scheduleColumn;
-        this.$cardsContainer;
+        this.$cards;
         this.columnId = columnId;
         this.columnTitle = scheduleModel.getScheduleColumnTitle(this.columnId);
         this.registerCard = new ScheduleRegisterCard();
@@ -27,8 +27,8 @@ export class ScheduleColumn {
         this.$scheduleColumn = this.$target.querySelector(
             `[data-id="${this.columnId}"]`
         );
-        this.$cardsContainer = this.$scheduleColumn.querySelector(
-            ".schedule-column__cards-container"
+        this.$cards = this.$scheduleColumn.querySelector(
+            ".schedule-column__cards"
         );
     }
 
@@ -36,7 +36,7 @@ export class ScheduleColumn {
         const cards = scheduleModel.getScheduleCards(this.columnId);
         cards.forEach((cardData) => {
             const scheduleCardParams = {
-                target: this.$cardsContainer,
+                target: this.$cards,
                 cardData: cardData,
                 passedEventHandler: {
                     removeCard: this.removeCard.bind(this),
@@ -68,7 +68,7 @@ export class ScheduleColumn {
 
     removeRegisterCard() {
         this.registerCard.changeState();
-        const $registerCard = this.$cardsContainer.querySelector(
+        const $registerCard = this.$cards.querySelector(
             ".schedule-register-card"
         );
         $registerCard.remove();
@@ -77,7 +77,7 @@ export class ScheduleColumn {
     showRegisterCard() {
         this.registerCard.changeState();
         const scheduleRegisterCardParams = {
-            $target: this.$cardsContainer,
+            $target: this.$cards,
             passedEventHandler: {
                 removeRegisterCard: this.removeRegisterCard.bind(this),
                 addCard: this.addCard.bind(this),
@@ -94,7 +94,7 @@ export class ScheduleColumn {
     addCard(cardData) {
         scheduleModel.addScheduleCard(this.columnId, cardData);
         const scheduleCardParams = {
-            target: this.$cardsContainer,
+            target: this.$cards,
             cardData: cardData,
             passedEventHandler: {
                 removeCard: this.removeCard.bind(this),
@@ -159,7 +159,10 @@ export class ScheduleColumn {
                     />
                 </svg>
             </div>
-            <div class="schedule-column__cards-container"></div>
+            <div class="schedule-column__cards-container">
+                <div class="schedule-column__cards">
+                </div>
+            </div>
         </div>`;
     }
 }
