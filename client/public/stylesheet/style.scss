@@ -4,11 +4,11 @@
 @import "./util/variable";
 @import "./util/font";
 @import "./util/mixin";
-@import "./util/main";
 
 // components
 @import "../js/views/header/header";
 @import "../js/views/aside/aside";
+@import "../js/views/main/main";
 @import "../js/views/column/column";
 @import "../js/views/card/card";
 @import "../js/views/history/history";
