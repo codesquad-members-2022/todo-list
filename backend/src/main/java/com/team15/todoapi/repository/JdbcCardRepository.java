@@ -71,11 +71,6 @@ public class JdbcCardRepository implements CardRepository {
 			long cardId = keyHolder.getKey().longValue();
 			card.insertId(card, cardId);
 
-			//card add 실패 시
-			if (addResult != 1) {
-				return addResult;
-			}
-
 			//활동 로그 기록
 			String sqlForActionLog = "INSERT INTO card_action_log "
 				+ "(created_at, card_id, member_id, card_action_code_id) "
