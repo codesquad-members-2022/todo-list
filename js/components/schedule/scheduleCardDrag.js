@@ -125,7 +125,6 @@ export const mouseDownEventHandler = (event) => {
     selectedCard = target.closest(".schedule-card");
 
     if (!isValid2Drag(target)) {
-        clickCount = 0;
         return;
     }
 
