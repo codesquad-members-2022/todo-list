@@ -1,26 +1,44 @@
+import "../stylesheet/style.scss";
+
 import Store from "./model/Store.js";
-import storage from "./tempStorage.js";
+import usersData from "./tempStorage.js";
 
-import HeaderView from "./views/HeaderView.js";
-import AsideView from "./views/AsideView.js";
-import ColumnsView from "./views/ColumnsView.js";
+import {
+  renderHeader,
+  renderMain,
+  renderAside,
+  renderAllColumns,
+  renderAllItems,
+  renderAllHistory,
+  renderColumn,
+} from "./views/renderer.js";
 
-document.addEventListener("DOMContentLoaded", main);
+import { bindEvents } from "./handler/eventHandler.js";
 
-function main() {
-  const userStorage = getUserData("mansaout");
+document.addEventListener("DOMContentLoaded", app);
 
-  const store = new Store(userStorage);
+function app() {
+  const userData = getUserData("mansaout");
 
-  const views = {
-    headerView: new HeaderView(),
-    asideView: new AsideView(),
-    columnsView: new ColumnsView(),
-  };
+  const store = new Store(userData);
 
-  new Controller(store, views);
+  // initial HTML structure
+  renderHeader();
+  renderMain();
+  renderAside();
+
+  // render initial user data
+  renderAllColumns(store.columns);
+  renderAllItems(store.items);
+  renderAllHistory(store.history);
+
+  // bind events
+  bindEvents();
 }
 
 function getUserData(userId) {
-  return storage[userId];
+  const [userData] = usersData.filter((data) => data.id === userId);
+  if (!userData) throw "no user";
+
+  return userData;
 }

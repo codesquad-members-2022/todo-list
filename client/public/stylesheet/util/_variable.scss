@@ -1,0 +1,21 @@
+// color
+$black: #010101;
+$white: #ffffff;
+$gray-body: #f5f5f7;
+$gray-light: #bdbdbd;
+$gray-strong: #c4c4c4;
+$gray-cement: #828282;
+$card-body: #ffffff;
+
+$white-light: #ffffff66;
+$box-cancel: #e0e0e0;
+$box-shadow: #e0e0e04d;
+$box-blue: #0075de;
+$box-lightblue: #86c6ff;
+
+// filter: color
+$filter-lightgray: invert(54%) sepia(0%) saturate(121%) hue-rotate(229deg) brightness(95%) contrast(88%);
+$filter-gray: invert(92%) sepia(18%) saturate(0%) hue-rotate(132deg) brightness(81%) contrast(87%);
+$filter-blue: invert(30%) sepia(91%) saturate(2709%) hue-rotate(193deg) brightness(93%) contrast(101%);
+$filter-red: invert(55%) sepia(66%) saturate(5299%) hue-rotate(334deg) brightness(98%) contrast(103%);
+$filter-lightblue: invert(66%) sepia(87%) saturate(606%) hue-rotate(181deg) brightness(102%) contrast(106%);
