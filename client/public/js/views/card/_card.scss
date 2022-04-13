@@ -36,8 +36,8 @@
       width: 100%;
       background-color: transparent;
       font-size: 14px;
-      height: auto;
       vertical-align: middle;
+      overflow: hidden;
       padding: 0;
 
       &::placeholder {
@@ -53,11 +53,11 @@
   }
 
   &--delete-card {
+    filter: $filter-lightgray;
     margin-top: 16px;
 
     &:hover {
       filter: $filter-red;
-      cursor: pointer;
     }
   }
 
@@ -68,6 +68,10 @@
 
     border: 1px solid $box-blue;
     min-height: 135px;
+  }
+
+  &__register-form {
+    margin: 0 auto;
   }
 
   &__btn {
@@ -90,10 +94,33 @@
       color: $white-light;
       border-radius: 6px;
 
-      &.actㅗive {
+      &.active {
         background-color: $box-blue;
         color: $white;
       }
+    }
+
+    &--delete {
+      @extend .card__btn--regist;
+      background-color: $box-blue;
+      color: $white;
+    }
+  }
+
+  &__alert {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @extend .card;
+    flex-direction: column;
+    z-index: 3;
+    width: 400px;
+    gap: 24px;
+    padding: 24px 24px 16px;
+    margin: 0px;
+
+    &--content {
+      font-size: 18px;
     }
   }
 }
