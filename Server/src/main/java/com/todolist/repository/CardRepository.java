@@ -30,11 +30,10 @@ public class CardRepository {
         return namedParameterJdbcTemplate.query(sql, namedParameters, cardRowMapper());
     }
 
-    public void delete(Integer cardId) {
+    public Integer delete(Integer cardId) {
         String sql = "UPDATE card SET removed = true WHERE cardId = :cardId";
         SqlParameterSource namedParameters = new MapSqlParameterSource("cardId", cardId);
-
-        namedParameterJdbcTemplate.update(sql, namedParameters);
+        return namedParameterJdbcTemplate.update(sql, namedParameters);
     }
 
     public Integer save(Card card) {
@@ -62,15 +61,6 @@ public class CardRepository {
         namedParameterJdbcTemplate.update(sql, parameterSource);
     }
 
-    private RowMapper<CardInformationDto> cardInformationDtoRowMapper() {
-        return (resultSet, rowNum) -> new CardInformationDto(
-            resultSet.getInt("cardId"),
-            resultSet.getString("cardTitle"),
-            resultSet.getString("cardContent"),
-            resultSet.getString("boardName")
-        );
-    }
-
     private RowMapper<Card> cardRowMapper() {
         return (resultSet, rowNum) ->
             Card.builder()
@@ -81,5 +71,14 @@ public class CardRepository {
                 .boardName(resultSet.getString("boardName"))
                 .createdTime(resultSet.getTimestamp("createdTime").toLocalDateTime())
                 .build();
+    }
+
+    private RowMapper<CardInformationDto> cardInformationDtoRowMapper() {
+        return (resultSet, rowNum) -> new CardInformationDto(
+            resultSet.getInt("cardId"),
+            resultSet.getString("cardTitle"),
+            resultSet.getString("cardContent"),
+            resultSet.getString("boardName")
+        );
     }
 }
