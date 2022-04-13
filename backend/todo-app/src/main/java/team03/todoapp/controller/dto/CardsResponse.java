@@ -15,4 +15,5 @@ public class CardsResponse {
     public Map<String, List<CardResponse>> getCardsClassifiedByLocation() {
         return cardsClassifiedByLocation;
     }
+
 }

@@ -1,8 +1,8 @@
 package team03.todoapp.controller.dto;
 
-import javax.validation.constraints.NotNull;
-import team03.todoapp.domain.Card;
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
+import team03.todoapp.repository.domain.Card;
 
 public class CardAddFormRequest {
 
@@ -54,14 +54,14 @@ public class CardAddFormRequest {
         this.currentLocation = currentLocation;
     }
 
-    public Card toCardEntity() {
+    public Card toEntity() {
         return new Card(
             this.title,
             this.content,
             this.writer,
             this.currentLocation,
             LocalDateTime.now(),
-            null,
-            false);
+            null);
     }
+
 }

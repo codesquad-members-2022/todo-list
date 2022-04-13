@@ -1,5 +1,8 @@
 package team03.todoapp.controller.dto;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class HistoryResponse {
 
     private Long historyId;
@@ -7,18 +10,16 @@ public class HistoryResponse {
     private String cardTitle;
     private String pastLocation;
     private String nowLocation;
-    private String historyDate;
-
-
+    private LocalDateTime historyDateTime;
 
     public HistoryResponse(Long historyId, String actionType, String cardTitle, String pastLocation,
-        String nowLocation, String historyDate) {
+        String nowLocation, LocalDateTime historyDateTime) {
         this.historyId = historyId;
         this.actionType = actionType;
         this.cardTitle = cardTitle;
         this.pastLocation = pastLocation;
         this.nowLocation = nowLocation;
-        this.historyDate = historyDate;
+        this.historyDateTime = historyDateTime;
     }
 
     public Long getHistoryId() {
@@ -41,7 +42,8 @@ public class HistoryResponse {
         return nowLocation;
     }
 
-    public String getHistoryDate() {
-        return historyDate;
+    public String getHistoryDateTime() {
+        return historyDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
+
 }
