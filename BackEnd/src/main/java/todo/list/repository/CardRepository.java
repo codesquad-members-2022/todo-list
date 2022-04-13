@@ -73,4 +73,11 @@ public class CardRepository {
         jdbcTemplate.update(updateSql, params);
         return card;
     }
+
+    public Card findById(Long id) {
+        String sql = "Select id, title, contents, card_status, update_datetime, author from card WHERE id=:id";
+        Map<String,Object> params = new HashMap<>();
+        params.put("id", id);
+        return jdbcTemplate.queryForObject(sql, params, cardsRowMapper());
+    }
 }
