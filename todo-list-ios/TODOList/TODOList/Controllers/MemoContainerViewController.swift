@@ -38,7 +38,7 @@ extension MemoContainerViewController: UITableViewDataSource & UITableViewDelega
               let containerType = containerType,
               let memos = parentViewController.memoTableViewModels[containerType] else { return UITableViewCell() }
         
-        cell.updateStackView(memo: memos[indexPath.row])
+        cell.updateStackView(memo: memos[indexPath.section])
         cell.updateStyle()
         return cell
     }
