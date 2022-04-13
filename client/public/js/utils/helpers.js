@@ -8,6 +8,24 @@ export function qsAll(selector, scope = document) {
 
 export function insertElement(target, option, element) {
   target.insertAdjacentHTML(option, element);
+} // For Rendering
+
+export function on(target, eventName, handler) {
+  target.addEventListener(eventName, handler);
+}
+
+export function delegate(target, eventName, selector, handler) {
+  const emitEvent = (event) => {
+    const potentialElements = qsAll(selector, target);
+
+    for (const potentialElement of potentialElements) {
+      if (potentialElement === event.target) {
+        return handler.call(event.target, event);
+      }
+    }
+  };
+
+  on(target, eventName, emitEvent);
 }
 
 export function formatRelativeDate(date = new Date()) {
@@ -18,7 +36,7 @@ export function formatRelativeDate(date = new Date()) {
   const A_WEEK = 7 * A_DAY;
 
   const diff = new Date() - date;
-  console.log(diff, A_WEEK);
+
   if (diff < TEN_SECOND) return `방금 전`;
   if (diff < A_MINUTE) return `${Math.floor(diff / 1000)}초 전`;
   if (diff < A_HOUR) return `${Math.floor(diff / 1000 / 60)}분 전`;

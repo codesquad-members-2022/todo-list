@@ -3,8 +3,16 @@ import "../stylesheet/style.scss";
 import Store from "./model/Store.js";
 import usersData from "./tempStorage.js";
 
-import { subscribeEvents } from "./handler/handler.js";
-import { renderer } from "./views/renderer.js";
+import {
+  renderHeader,
+  renderMain,
+  renderAside,
+  renderAllColumns,
+  renderAllItems,
+  renderAllHistory,
+} from "./views/renderer.js";
+
+import { bindEvents } from "./handler/eventHandler.js";
 
 document.addEventListener("DOMContentLoaded", app);
 
@@ -13,18 +21,18 @@ function app() {
 
   const store = new Store(userData);
 
-  renderer.header();
-  renderer.aside();
+  // initial HTML structure
+  renderHeader();
+  renderMain();
+  renderAside();
 
-  renderer.allColumns(store.columns);
-  renderer.allItems(store.items);
-  renderer.allHistory(store.history);
+  // render initial user data
+  renderAllColumns(store.columns);
+  renderAllItems(store.items);
+  renderAllHistory(store.history);
 
-  // test
-  renderer.itemBox(1);
-  renderer.itemDeleteAlert();
-
-  subscribeEvents();
+  //bind events
+  bindEvents();
 }
 
 function getUserData(userId) {

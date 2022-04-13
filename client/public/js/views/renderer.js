@@ -4,54 +4,56 @@ import { createItem, createItemBox, createItemDeleteAlert } from "./card/card.js
 import { createHistory } from "./history/history.js";
 import { createHeader } from "./header/header.js";
 import { createAside } from "./aside/aside.js";
+import { createMain } from "./main/main.js";
 
-const renderer = {
-  allColumns: (columnList) => {
-    columnList.forEach(renderer.column);
-  },
+export function renderAllColumns(columnList) {
+  columnList.forEach(renderColumn);
+}
 
-  column: ({ id, title, length }) => {
-    const columnListEl = qs(".column-list");
-    insertElement(columnListEl, "beforeend", createColumn({ id, title, length }));
-  },
+export function renderColumn({ id, title, length }) {
+  const columnListEl = qs(".column-list");
+  insertElement(columnListEl, "beforeend", createColumn({ id, title, length }));
+}
 
-  allItems: (itemList) => {
-    itemList.forEach(renderer.item);
-  },
+export function renderAllItems(itemList) {
+  itemList.forEach(renderItem);
+}
 
-  item: ({ id, columnId, title, content }) => {
-    const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
-    insertElement(itemListEl, "beforeend", createItem({ id, title, content }));
-  },
+export function renderItem({ id, columnId, title, content }) {
+  const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
+  insertElement(itemListEl, "beforeend", createItem({ id, title, content }));
+}
 
-  itemBox: (columnId) => {
-    const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
-    insertElement(itemListEl, "afterbegin", createItemBox());
-  },
+export function renderItemBox(columnId) {
+  const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
+  insertElement(itemListEl, "afterbegin", createItemBox());
+}
 
-  itemDeleteAlert: () => {
-    const todoContainerEl = qs(".todo-container");
-    insertElement(todoContainerEl, "afterbegin", createItemDeleteAlert());
-  },
+export function renderItemDeleteAlert() {
+  const todoContainerEl = qs(".todo-container");
+  insertElement(todoContainerEl, "afterbegin", createItemDeleteAlert());
+}
 
-  allHistory: (historyList) => {
-    historyList.forEach(renderer.history);
-  },
+export function renderAllHistory(historyList) {
+  historyList.forEach(renderHistory);
+}
 
-  history: ({ username, date, content }) => {
-    const historyListEl = qs(".history-list");
-    insertElement(historyListEl, "afterbegin", createHistory({ username, date, content }));
-  },
+export function renderHistory({ username, date, content }) {
+  const historyListEl = qs(".history-list");
+  insertElement(historyListEl, "afterbegin", createHistory({ username, date, content }));
+}
 
-  header: () => {
-    const todoContainerEl = qs(".todo-container");
-    insertElement(todoContainerEl, "afterbegin", createHeader());
-  },
+export function renderHeader() {
+  const todoContainerEl = qs(".todo-container");
+  insertElement(todoContainerEl, "afterbegin", createHeader());
+}
 
-  aside: () => {
-    const todoContainerEl = qs(".todo-container");
-    insertElement(todoContainerEl, "beforeend", createAside());
-  },
-};
+export function renderAside() {
+  const todoContainerEl = qs(".todo-container");
+  insertElement(todoContainerEl, "beforeend", createAside());
+}
 
-export { renderer };
+export function renderMain() {
+  const todoContainerEl = qs(".todo-container");
+  insertElement(todoContainerEl, "beforeend", createMain());
+}
