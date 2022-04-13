@@ -64,7 +64,7 @@ struct NetworkManager {
     
     func delete(id: Int, then completion: @escaping (Result<Int, NetworkError>) -> Void) {
         var components = components
-        components.queryItems = [URLQueryItem(name: "id", value: String(id))]
+        components.path += "/\(id)"
         
         guard let urlString = components.string,
               let url = URL(string: urlString) else { return }
@@ -73,11 +73,17 @@ struct NetworkManager {
         request.httpMethod = "DELETE"
         
         urlSession.dataTask(with: request) { data, response, error in
-            if let error = error {
-                return completion(.failure(.delete(error)))
-            } else {
-                return completion(.success(id))
+            guard let data = data else {
+                return completion(.failure(.noData))
             }
+            
+            SystemLog.info("Server response to Post: \n\(data.prettyPrintedJSONString!)")
+            
+            guard let decoded = try? decoder.decode(Task.self, from: data) else {
+                return completion(.failure(.decoding))
+            }
+            
+            completion(.success(decoded.id))
         }.resume()
     }
     
@@ -99,6 +105,7 @@ struct NetworkManager {
             guard let data = data else {
                 return completion(.failure(.noData))
             }
+            
             SystemLog.info("Server response to Post: \n\(data.prettyPrintedJSONString!)")
             
             guard let decoded = try? decoder.decode(T.self, from: data) else {

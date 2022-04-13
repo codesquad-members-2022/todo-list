@@ -73,8 +73,15 @@ extension KanbanViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        guard let columnIndex = columns.firstIndex(where: { $0 === tableView }), let taskId = columnViewModels[columnIndex][indexPath.row]?.id else {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        
+        let columnVM = columnViewModels[columnIndex]
+        
         let delete = UIContextualAction(style: .destructive, title: "삭제") { action, view, handler in
-            // To be Implemented
+            columnVM.delete(id: taskId)
             handler(true)
         }
         
