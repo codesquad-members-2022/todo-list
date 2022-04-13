@@ -28,7 +28,7 @@ final class URLManager{
         URLSession.shared.dataTask(with: urlRequest){ data, response, error in
             guard let data = data else { return }
             guard let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else { return }
-
+            
             complete(data)
         }.resume()
     }
