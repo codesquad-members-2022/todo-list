@@ -10,7 +10,7 @@ export const insertCardToColumn = (column, parent = document) => {
   });
 };
 
-export const insertAllCardToColumn = (parent, store) => {
+export const insertAllCardToColumn = (store = store.getStore('main'), parent = document.querySelector('.main')) => {
   store.forEach(column => {
     insertCardToColumn(column, parent);
   });
@@ -18,7 +18,7 @@ export const insertAllCardToColumn = (parent, store) => {
 
 export const createCardTemplate = task => {
   return `
-    <li class="task__card" data-datetime=${task.datetime}>
+    <li class="task__card" data-datetime=${task.datetime} data-id=${task.id}>
     <div class="card__contents">
       <header class="card__contents__header">${task.header}</header>
       <main class="card__contents__main">${task.main}</main>
