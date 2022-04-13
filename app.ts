@@ -1,14 +1,10 @@
 
-
-
-
 import "./styles/scss/index.css";
-import { TodoCard } from "./components/TodoCard";
-import { Store } from "./core/Store";
+import { foo, Store } from "./core/Store";
 import { TodoList } from "./components/TodoList";
 import { Header } from "./components/Header";
 import View from "./core/View";
-import { StateObj } from "./utils";
+import { StateObj } from "./types";
 
 
 
@@ -35,25 +31,12 @@ class App extends View {
     new Header(this.store,this.select(".todo-header")!);
     lists.forEach(
       (list:StateObj, idx:number) =>
-        new TodoList(this.store,this.select(`section[data-idx="${idx}"`)!, list,this)
+        new TodoList(this.store,this.select(`section[data-idx="${idx}"`)!, list)
     );
   }
 }
 
-const store = new Store({
-  lists: [
-    {
-      title: "오늘 할 일",
-      todos: [
-        {
-          title: "코드스쿼드",
-          content: "수업듣기",
-          caption: "",
-          selected: false
-        }
-      ],
-      editting: false
-    }
-  ]
+foo().then(store=>{
+  new App( store, document.body );
 })
-new App( store, document.body );
+

@@ -1,0 +1,36 @@
+
+
+{
+  "lists": [
+    {
+      "title": "오늘 할 일",
+      "todos": [
+        {
+          "title": "코드스쿼드",
+          "content": "수업듣기",
+          "caption": "",
+          "selected": false
+        },
+        {
+          "title": "오브젝트",
+          "content": "3장읽기",
+          "caption": "",
+          "selected": false
+        }
+      ],
+      "editting": false
+    },
+    {
+      "title": "내일 할 일",
+      "todos": [
+        {
+          "title": "운영체제",
+          "content": "과제2",
+          "caption": "",
+          "selected": false
+        }
+      ],
+      "editting": false
+    }
+  ]
+}

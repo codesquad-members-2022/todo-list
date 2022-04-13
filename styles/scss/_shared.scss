@@ -114,8 +114,7 @@ $Gray_4: #bdbdbd;
 
 %card-title {
   @include custom_static($left: 0, $top: 0);
-  width: 252px;
-  height: 23px;
+  @include width_height_bypx(252,23);
   @include custom_font($family: 'Noto Sans KR', $style: normal, $weight: 700, $size: 16px);
   line-height: 23px;
   color: $Black;
