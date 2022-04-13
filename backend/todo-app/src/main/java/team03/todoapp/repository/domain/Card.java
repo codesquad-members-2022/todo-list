@@ -79,4 +79,5 @@ public class Card {
             ", isDeleted=" + isDeleted +
             '}';
     }
+
 }

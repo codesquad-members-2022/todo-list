@@ -12,4 +12,5 @@ public class CardUpdateFormRequest {
     public String getContent() {
         return content;
     }
+
 }

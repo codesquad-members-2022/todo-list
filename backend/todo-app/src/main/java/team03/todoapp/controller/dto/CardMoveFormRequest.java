@@ -38,4 +38,5 @@ public class CardMoveFormRequest {
     public Long getNextItemId() {
         return nextItemId;
     }
+
 }

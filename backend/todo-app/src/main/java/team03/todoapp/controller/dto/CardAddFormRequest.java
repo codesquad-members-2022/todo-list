@@ -1,8 +1,8 @@
 package team03.todoapp.controller.dto;
 
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 import team03.todoapp.repository.domain.Card;
-import java.time.LocalDateTime;
 
 public class CardAddFormRequest {
 
@@ -63,4 +63,5 @@ public class CardAddFormRequest {
             LocalDateTime.now(),
             null);
     }
+
 }

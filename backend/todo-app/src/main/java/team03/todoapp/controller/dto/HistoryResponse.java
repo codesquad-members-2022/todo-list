@@ -45,4 +45,5 @@ public class HistoryResponse {
     public String getHistoryDateTime() {
         return historyDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
+
 }

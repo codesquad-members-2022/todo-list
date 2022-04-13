@@ -31,10 +31,10 @@ public class HistoryMakerInterCeptor implements HandlerInterceptor {
         History history = new History(
             request.getAttribute("actionType").toString(),
             request.getAttribute("cardTitle").toString(),
-            Optional.ofNullable((String)request.getAttribute("pastLocation")),
+            Optional.ofNullable((String) request.getAttribute("pastLocation")),
             request.getAttribute("nowLocation").toString(),
             LocalDateTime.now()
-            );
+        );
 
         historyService.add(history);
         log.debug("history Added : {}", history);

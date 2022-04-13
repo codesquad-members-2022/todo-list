@@ -2,15 +2,14 @@ package team03.todoapp.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 import team03.todoapp.controller.dto.CardAddFormRequest;
 import team03.todoapp.controller.dto.CardMoveFormRequest;
 import team03.todoapp.controller.dto.CardResponse;
 import team03.todoapp.controller.dto.CardUpdateFormRequest;
 import team03.todoapp.controller.dto.CardsResponse;
-import team03.todoapp.repository.domain.Card;
 import team03.todoapp.repository.CardRepository;
+import team03.todoapp.repository.domain.Card;
 
 @Service
 public class CardService {
@@ -33,6 +32,7 @@ public class CardService {
     public void move(Long cardId, CardMoveFormRequest cardMoveFormRequest) {
         cardRepository.updateLocation(cardId, cardMoveFormRequest);
     }
+
     public void update(Long cardId, CardUpdateFormRequest request) {
         Card card = cardRepository.findById(cardId)
             .orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
@@ -61,7 +61,6 @@ public class CardService {
         List<CardResponse> dones = new ArrayList<>();
 
         for (Card card : cards) {
-            System.out.println(card);
             if (card.getCurrentLocation().equals("todo")) {
                 todos.add(new CardResponse(card));
             } else if (card.getCurrentLocation().equals("ing")) {

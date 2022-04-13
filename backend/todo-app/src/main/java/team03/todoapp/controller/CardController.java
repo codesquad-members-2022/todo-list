@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,14 +26,14 @@ public class CardController {
 
     private final Logger log = LoggerFactory.getLogger(CardController.class);
     private final CardService cardService;
-    //add remove update move
 
     public CardController(CardService cardService) {
         this.cardService = cardService;
     }
 
     @PostMapping("/card")
-    public CardAddIdResponse addCard(@Validated @RequestBody CardAddFormRequest cardAddFormRequest, HttpServletRequest request) {
+    public CardAddIdResponse addCard(@Validated @RequestBody CardAddFormRequest cardAddFormRequest,
+        HttpServletRequest request) {
         Long cardId = cardService.add(cardAddFormRequest);
         CardAddIdResponse cardAddIdResponse = new CardAddIdResponse(cardId);
         putHistoryDataToRequest(request, "add", null, cardService.findOne(cardId));
@@ -43,10 +42,9 @@ public class CardController {
 
     @DeleteMapping("/card/{cardId}")
     public void removeCard(@PathVariable("cardId") Long cardId, HttpServletRequest request) {
-        putHistoryDataToRequest(request, "remove", "null", cardService.findOne(cardId));
+        putHistoryDataToRequest(request, "remove", null, cardService.findOne(cardId));
 
         cardService.remove(cardId);
-
     }
 
     @PatchMapping("/card/move/{cardId}")
@@ -67,7 +65,7 @@ public class CardController {
     public void updateCard(@PathVariable("cardId") Long cardId,
         @RequestBody CardUpdateFormRequest cardUpdateFormRequest, HttpServletRequest request) {
         cardService.update(cardId, cardUpdateFormRequest);
-        putHistoryDataToRequest(request, "update", "null", cardService.findOne(cardId));
+        putHistoryDataToRequest(request, "update", null, cardService.findOne(cardId));
     }
 
     @GetMapping("/cards")
@@ -75,10 +73,12 @@ public class CardController {
         return cardService.findAll();
     }
 
-    private void putHistoryDataToRequest(HttpServletRequest request, String actionType, String pastLocation, Card card) {
+    private void putHistoryDataToRequest(HttpServletRequest request, String actionType,
+        String pastLocation, Card card) {
         request.setAttribute("actionType", actionType);
-        request.setAttribute("cardTitle",card.getTitle());
+        request.setAttribute("cardTitle", card.getTitle());
         request.setAttribute("pastLocation", pastLocation);
         request.setAttribute("nowLocation", card.getCurrentLocation());
     }
+
 }

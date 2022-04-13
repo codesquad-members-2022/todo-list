@@ -1,13 +1,12 @@
 package team03.todoapp.Service;
 
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team03.todoapp.repository.domain.History;
 import team03.todoapp.repository.HistoryRepository;
-
-import java.util.List;
+import team03.todoapp.repository.domain.History;
 
 @Service
 public class HistoryService {

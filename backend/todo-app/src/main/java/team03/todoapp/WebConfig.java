@@ -1,7 +1,6 @@
 package team03.todoapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -21,6 +20,5 @@ public class WebConfig implements WebMvcConfigurer {
             .addPathPatterns("/card/{cardId}")
             .addPathPatterns("/card/move/{cardId}");
     }
-
 
 }
