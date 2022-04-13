@@ -14,6 +14,7 @@ final class AddCardViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .clear
         setaddCardView()
+        addCardView.delegate = self
     }
 }
 
@@ -23,7 +24,19 @@ private extension AddCardViewController{
         let yCoord = self.view.bounds.height / 2 - 87
 
         addCardView = AddCardView(frame: CGRect(x: xCoord, y: yCoord, width: 400, height: 175))
+        addCardView.setCardText(title: nil, body: nil)
         self.view.addSubview(addCardView)
-        print(addCardView.frame)
     }
+}
+
+extension AddCardViewController: AddCardDelegate{
+    func makeCardShoudCanceld() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func makeCardShoudConfirmed() {
+        
+    }
+    
+    
 }

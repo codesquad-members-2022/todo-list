@@ -7,20 +7,33 @@
 
 import UIKit
 
-final class AddCardView: UIView {
+final class AddCardView: UIView{
     private var msgLabel: UILabel!
     private var titleTextField: UITextField!
     private var bodyTextField: UITextField!
     private var cancelButton: UIButton!
     private var confirmButton: UIButton!
+    var delegate: AddCardDelegate?
     
     override init(frame: CGRect){
         super.init(frame: frame)
         setAttributes()
     }
-    required init?(coder: NSCoder) {
+    
+    required init?(coder: NSCoder){
         super.init(coder: coder)
         setAttributes()
+    }
+    
+    func setCardText(title: String?, body: String?){
+        guard let title = title, let body = body else{
+            msgLabel.text = "카드추가"
+            return
+        }
+        
+        msgLabel.text = "카드수정"
+        titleTextField.text = title
+        bodyTextField.text = body
     }
 }
 
@@ -90,6 +103,8 @@ private extension AddCardView{
         cancelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16).isActive = true
         cancelButton.widthAnchor.constraint(equalToConstant: 108).isActive = true
         cancelButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        cancelButton.addTarget(self, action: #selector(touchedCancleButton(_:)), for: .touchUpInside)
     }
     
     func configureConfirmButton(){
@@ -108,4 +123,14 @@ private extension AddCardView{
         confirmButton.widthAnchor.constraint(equalToConstant: 108).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
+    
+    @objc
+    func touchedCancleButton(_ sender: UIButton){
+        self.delegate?.makeCardShoudCanceld()
+    }
+    
+//    @objc
+//    func touchedConfirmButton(_ sender: UIButton){
+//        self.delegate?.makeCardShoudCanceld()
+//    }
 }

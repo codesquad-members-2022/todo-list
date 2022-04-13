@@ -18,7 +18,7 @@ final class TableViewController: UIViewController{
     
     private var sectionHeader = [TableHeader]()
     private var todoTable = [TodoTableView]()
-    private var addCardViewController: AddCardViewController!
+    private var addCardViewController = AddCardViewController()
     private var addCardView: AddCardView!
     
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
@@ -118,10 +118,8 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
 
 extension TableViewController: TableHeaderDelegate{
     func cardWillCreated(at section: String) {
-        addCardViewController = AddCardViewController()
         addCardViewController.modalPresentationStyle = .overCurrentContext
         addCardViewController.modalTransitionStyle = .crossDissolve
         self.present(addCardViewController, animated: true, completion: nil)
     }
-    
 }
