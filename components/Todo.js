@@ -1,6 +1,7 @@
 import TodoEdit from './TodoEdit.js';
 import Modal from './Modal.js';
 import { popupRemoveTitle } from '../constants/modal.js';
+import { createNotice, handleNotice } from '../utils/action.js';
 
 export default class Todo {
   constructor(todoData, handleMinusCount) {
@@ -27,7 +28,7 @@ export default class Todo {
 
     if (dataDrag === 'true' && e.detail === 1) {
       e.currentTarget.classList.add('spectrum');
-      this.createCopyTodo(e.pageX, e.pageY);
+      this.createCopyTodo();
       return;
     }
 
@@ -38,16 +39,18 @@ export default class Todo {
     }
   };
 
-  createCopyTodo = (x, y) => {
+  createCopyTodo = () => {
     const copytodoElement = document.createElement('div');
     document.body.insertAdjacentElement('beforeend', copytodoElement);
     copytodoElement.classList.add('drag');
+    copytodoElement.classList.add('cursor');
     Object.assign(copytodoElement.style, {
       position: 'absolute',
-      left: `${x}px`,
-      top: `${y}px`,
+      left: `${this.todoElement.getBoundingClientRect().left}px`,
+      top: `${this.todoElement.getBoundingClientRect().top}px`,
     });
     copytodoElement.setAttribute('data-id', this.todoData.id);
+    copytodoElement.setAttribute('data-status', this.todoData.status);
     copytodoElement.innerHTML = this.render();
   };
 
@@ -77,6 +80,7 @@ export default class Todo {
     const editObj = {
       id: this.todoData.id,
       title: this.todoData.title,
+      status: this.todoData.status,
       content: this.todoData.content,
       userId: this.todoData.userId,
     };
@@ -101,5 +105,8 @@ export default class Todo {
     const modal = new Modal(this.todoData.id, popupRemoveTitle, this.handleMinusCount);
     modal.showModal();
     modal.handleEventListener();
+
+    const notice = createNotice(this.todoData, '삭제');
+    handleNotice(notice);
   };
 }

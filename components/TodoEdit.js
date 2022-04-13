@@ -1,9 +1,12 @@
 import { editLocalStorageById } from '../utils/localStorage.js';
 import { activationForm } from '../utils/handleStyle.js';
+import { createNotice, handleNotice } from '../utils/action.js';
+
 export default class TodoEdit {
   constructor(editObj, todoRender, setTodoData, todoHandleEventListener) {
     this.id = editObj.id;
     this.title = editObj.title;
+    this.status = editObj.status;
     this.content = editObj.content;
     this.userId = editObj.userId;
     this.todoRender = todoRender;
@@ -29,17 +32,17 @@ export default class TodoEdit {
     `;
   };
 
-  editTemplate = editData => {
+  editTemplate = () => {
     return /*html*/ `
       <header>
-        <h3 class="card__title">${editData.title}</h3>
-        <button class="column__delete">x</button>
+        <h3 class="card__title">${this.title}</h3>
+        <button class="card__delete">x</button>
       </header>
       <div class="card__content">
-        <p class="card__content-text">${editData.content}</p>
+        <p class="card__content-text">${this.content}</p>
       </div>
       <div class="card__author">
-        <p class="card__author-text">author by ${editData.userId}</p>
+        <p class="card__author-text">author by ${this.userId}</p>
       </div>`;
   };
 
@@ -47,7 +50,7 @@ export default class TodoEdit {
     this.cacheElement();
     this.editTodoElement.querySelector('.edit-input-header').addEventListener('input', this.onEditInputTitle);
     this.editTodoElement.querySelector('.edit-input-content').addEventListener('input', this.onEditInputContent);
-    this.editTodoElement.querySelector('.input--cancel').addEventListener('click', this.onClonseBtn);
+    this.editTodoElement.querySelector('.input--cancel').addEventListener('click', this.onCloseBtn);
     this.editTodoElement.querySelector('.input--update').addEventListener('click', this.onUpdateBtn);
   };
 
@@ -67,7 +70,7 @@ export default class TodoEdit {
     }
   };
 
-  onClonseBtn = () => {
+  onCloseBtn = () => {
     this.editTodoElement.outerHTML = this.todoRender();
     this.todoHandleEventListener();
   };
@@ -77,13 +80,19 @@ export default class TodoEdit {
     editLocalStorageById(editData, this.id);
     this.editTodoElement.classList.remove('todo-border');
 
-    this.editTodoElement.innerHTML = this.editTemplate(editData);
+    this.todoHandleEventListener();
+    this.editTodoElement.innerHTML = this.editTemplate();
     const newTodoData = {};
     newTodoData.id = this.id;
     newTodoData.title = this.title;
     newTodoData.content = this.content;
     newTodoData.userId = this.userid;
     this.setTodoData(newTodoData);
-    this.todoHandleEventListener();
+
+    const newNotice = {};
+    newNotice.title = this.title;
+    newNotice.status = this.status;
+    const notice = createNotice(newNotice, '수정');
+    handleNotice(notice);
   };
 }
