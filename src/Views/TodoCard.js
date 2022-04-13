@@ -1,6 +1,7 @@
 import {
   $,
   hasClass,
+  openModal,
   createElement,
   replaceBrElementWithLinebreak,
   replaceLinebreakWithBrElement,
@@ -67,6 +68,9 @@ export default class TodoCard {
     this.$todoCard.addEventListener('@clickCancelButton', event => {
       this.handleClickCancelButton(event);
     });
+    this.$todoCard.addEventListener('@clickDeleteCardButton', event => {
+      this.handleClickDeleteButton(event);
+    });
   }
 
   addEventHandlers() {
@@ -93,6 +97,10 @@ export default class TodoCard {
   handleClickCancelButton(event) {
     const $todoCard = event.target;
     $todoCard.parentNode.removeChild($todoCard);
+  }
+
+  handleClickDeleteButton() {
+    openModal({ title: '선택한 카드를 삭제할까요?', accentText: '삭제' });
   }
 }
 
