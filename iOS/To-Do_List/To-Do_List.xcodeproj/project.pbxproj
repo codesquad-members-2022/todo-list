@@ -18,7 +18,6 @@
 		8D5D1AFC28055FE70035EA82 /* EditStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D1AFB28055FE70035EA82 /* EditStyle.swift */; };
 		8D5D1AFE28056A470035EA82 /* EditCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D1AFD28056A470035EA82 /* EditCardViewDelegate.swift */; };
 		8D5D1B0128056CCF0035EA82 /* BoardHeaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D1B0028056CCF0035EA82 /* BoardHeaderDelegate.swift */; };
-		8D5D1B032805773F0035EA82 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D1B022805773F0035EA82 /* NetworkStatus.swift */; };
 		8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */; };
 		8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB585127FBD8F500D129E2 /* CardCell.swift */; };
 		8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */; };
@@ -36,6 +35,7 @@
 		8DDD3A4828039FE600203BB9 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DD27FD646B00C13618 /* NetworkError.swift */; };
 		8DDD3A4928039FE800203BB9 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DF27FD655200C13618 /* HTTPMethod.swift */; };
 		8DDD3A4A2803A34B00203BB9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815E427FD691E00C13618 /* Todo.swift */; };
+		8DEAB47E28067007004D682A /* EditViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAB47D28067007004D682A /* EditViewControllerDelegate.swift */; };
 		B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* BoardHeader.swift */; };
 		B730BBAE27FECB33006DC969 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAD27FECB33006DC969 /* constants.swift */; };
 		B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAF27FED3BE006DC969 /* BoardTableView.swift */; };
@@ -74,7 +74,6 @@
 		8D5D1AFB28055FE70035EA82 /* EditStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStyle.swift; sourceTree = "<group>"; };
 		8D5D1AFD28056A470035EA82 /* EditCardViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewDelegate.swift; sourceTree = "<group>"; };
 		8D5D1B0028056CCF0035EA82 /* BoardHeaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeaderDelegate.swift; sourceTree = "<group>"; };
-		8D5D1B022805773F0035EA82 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
 		8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		8DBB585127FBD8F500D129E2 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +84,7 @@
 		8DD815E427FD691E00C13618 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		8DDD3A3E2803079500203BB9 /* MockJsonData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockJsonData.json; sourceTree = "<group>"; };
 		8DDD3A412803107900203BB9 /* TestURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestURLProtocol.swift; sourceTree = "<group>"; };
+		8DEAB47D28067007004D682A /* EditViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewControllerDelegate.swift; sourceTree = "<group>"; };
 		B70BD64127FBD1E7001BE68F /* BoardHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeader.swift; sourceTree = "<group>"; };
 		B730BBAD27FECB33006DC969 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		B730BBAF27FED3BE006DC969 /* BoardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableView.swift; sourceTree = "<group>"; };
@@ -164,6 +164,7 @@
 		8D5D1AFF28056CC10035EA82 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
+				8DEAB47D28067007004D682A /* EditViewControllerDelegate.swift */,
 				8D5D1AFD28056A470035EA82 /* EditCardViewDelegate.swift */,
 				8D5D1B0028056CCF0035EA82 /* BoardHeaderDelegate.swift */,
 			);
@@ -195,7 +196,6 @@
 				8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */,
 				8DD815DB27FD642800C13618 /* NetworkManager.swift */,
 				8DD815DD27FD646B00C13618 /* NetworkError.swift */,
-				8D5D1B022805773F0035EA82 /* NetworkStatus.swift */,
 				8DD815DF27FD655200C13618 /* HTTPMethod.swift */,
 			);
 			path = Network;
@@ -213,8 +213,8 @@
 		B70BD64027FBD1CF001BE68F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B70BD64127FBD1E7001BE68F /* BoardHeader.swift */,
 				8D3B5A3C2804494400F6ECF7 /* EditCardView.swift */,
+				B70BD64127FBD1E7001BE68F /* BoardHeader.swift */,
 				8DBB585127FBD8F500D129E2 /* CardCell.swift */,
 				B771A845280453EC00343BAE /* LogCell.swift */,
 				B730BBAF27FED3BE006DC969 /* BoardTableView.swift */,
@@ -367,7 +367,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D46807727FB3FBB00FA9F34 /* ChildViewController.swift in Sources */,
-				8D5D1B032805773F0035EA82 /* NetworkStatus.swift in Sources */,
 				B771A852280543F700343BAE /* Action.swift in Sources */,
 				8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */,
 				8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */,
@@ -384,6 +383,7 @@
 				8D5D1B0128056CCF0035EA82 /* BoardHeaderDelegate.swift in Sources */,
 				B771A846280453EC00343BAE /* LogCell.swift in Sources */,
 				B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */,
+				8DEAB47E28067007004D682A /* EditViewControllerDelegate.swift in Sources */,
 				B771A8502805434F00343BAE /* NewCard.swift in Sources */,
 				8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */,
 				B771A84428044C9A00343BAE /* Log.swift in Sources */,

@@ -5,10 +5,17 @@
 //  Created by 박진섭 on 2022/04/11.
 //
 
+typealias EditViewInputInfo = (button:String, title:String, content:String)
+
 import UIKit
 
 final class EditCardView:UIView {
 
+    //Notification
+    static let tapCofirmButton = Notification.Name("didTapConfirmButton")
+    static let cardViewInfo = "CardViewInfo"
+    
+    //Setting Value
     private let defaultButtonColor = UIColor(red: 224 / 255, green: 224 / 255, blue: 224 / 255, alpha: 1)
     private let activeButtonColor = UIColor(red: 0 , green: 117 / 255, blue: 222 / 255, alpha: 1)
     private let buttonCornerRadius:CGFloat = 6.0
@@ -152,8 +159,13 @@ extension EditCardView {
     @objc func didTapCancelButton() {
         delegate?.didTapCancelButton()
     }
-    @objc func didTapConfirmButton(_ button:UIButton) {
-        guard let buttonTitle = button.titleLabel?.text else { return }
-        delegate?.didTapConfirmButton(buttonTitle: buttonTitle)
+    
+    @objc func didTapConfirmButton() {
+        guard let buttonTitle = confirmButton.titleLabel?.text else { return }
+        let titleText = headLineInputTextField.text ?? ""
+        let contentText = contentInputTextField.text ?? ""
+        delegate?.didTapConfirmButton(editViewInfo: EditViewInputInfo(button:buttonTitle, title:titleText, content:contentText))
     }
 }
+
+

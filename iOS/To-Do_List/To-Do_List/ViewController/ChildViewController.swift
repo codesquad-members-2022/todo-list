@@ -9,13 +9,15 @@
 import UIKit
 
 final class ChildViewController: UIViewController, UITableViewDelegate {
+    
 
     private var tableView: BoardTableView<Todo,CardCell>!
     private var header : BoardHeader!
     private var boardType : BoardType?
+    private var editCardViewController:EditCardViewController?
     
     private var list:[Todo]?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
@@ -109,6 +111,23 @@ extension ChildViewController : BoardHeaderDelegate {
         let editVC = EditCardViewController()
         editVC.setEditCardView(editStyle: .add)
         editVC.modalPresentationStyle = .formSheet
-        present(editVC, animated: true)
+        
+        editVC.delegate = self
+        
+        editCardViewController = editVC
+        guard let editCardViewController = editCardViewController else { return }
+        present(editCardViewController, animated: true)
+    }
+}
+
+
+//MARK: -- EditViewController Delegation
+extension ChildViewController : EditViewControllerDelegate {
+    func didTapConfirmButton(editViewInfo: EditViewInputInfo) {
+        postNotification(editViewInfo: editViewInfo)
+    }
+    
+    func postNotification(editViewInfo:EditViewInputInfo) {
+        
     }
 }

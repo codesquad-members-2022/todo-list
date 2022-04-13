@@ -6,7 +6,7 @@
 //
 
 protocol EditCardViewDelegate {
+    func didTapConfirmButton(editViewInfo:EditViewInputInfo)
     func didTapCancelButton()
-    func didTapConfirmButton(buttonTitle:String)
     func textFieldDidEndEditing()
 }

@@ -11,6 +11,9 @@ import UIKit
 
 final class EditCardViewController: UIViewController {
 
+    
+    var delegate:EditViewControllerDelegate?
+    
     private var editCardView : EditCardView = EditCardView(frame: .zero)
     
     override func viewDidLoad() {
@@ -45,8 +48,8 @@ final class EditCardViewController: UIViewController {
 
 //MARK: -- EditCardView Delegation
 extension EditCardViewController : EditCardViewDelegate {
-    func didTapConfirmButton(buttonTitle: String) {
-        print(buttonTitle)
+    func didTapConfirmButton(editViewInfo: EditViewInputInfo) {
+        delegate?.didTapConfirmButton(editViewInfo: editViewInfo)
     }
     
     func didTapCancelButton() {
