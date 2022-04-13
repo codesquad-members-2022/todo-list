@@ -14,7 +14,7 @@ public class ApiResult<T> {
     @ApiModelProperty(value = "success가 false라면, API 요청 처리 응답값")
     private final ApiError error;
 
-    private ApiResult(boolean success, T response, ApiError error) {
+    public ApiResult(boolean success, T response, ApiError error) {
         this.success = success;
         this.response = response;
         this.error = error;
