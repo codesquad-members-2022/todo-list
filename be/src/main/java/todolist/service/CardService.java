@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import todolist.domain.card.Card;
 import todolist.dto.card.RequestCardDto;
 import todolist.dto.card.ResponseCardDto;
+import todolist.dto.card.ResponseCardsDto;
 import todolist.repository.CardRepository;
 
 import java.util.*;
@@ -19,9 +20,12 @@ public class CardService {
         this.repository = repository;
     }
 
-    public Map<String, List<Card>> getCards() {
+    public ResponseCardsDto getCards() {
         List<Card> cards = repository.findAll();
-        return categorizeCards(cards);
+
+        ResponseCardsDto responseCardsDto = new ResponseCardsDto();
+        responseCardsDto.categorizeCards(cards);
+        return responseCardsDto;
     }
 
     public ResponseCardDto addCard(RequestCardDto requestCardDto) {
@@ -45,20 +49,5 @@ public class CardService {
     public String getPrevSection(Long id) {
         Card card = repository.findById(id);
         return card.getSection();
-    }
-
-    private Map<String, List<Card>> categorizeCards(List<Card> cards) {
-        Map<String, List<Card>> result = new HashMap<>();
-
-        for (Card card : cards) {
-            String section = card.getSection();
-            if (result.containsKey(section)) {
-                List<Card> cardList = result.get(section);
-                cardList.add(card);
-            } else {
-                result.put(section, new ArrayList<>(Arrays.asList(card)));
-            }
-        }
-        return result;
     }
 }
