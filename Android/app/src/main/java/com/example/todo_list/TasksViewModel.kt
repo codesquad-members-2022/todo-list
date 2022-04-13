@@ -1,4 +1,4 @@
-package com.example.todo_list.history
+package com.example.todo_list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import com.example.todo_list.data.Repository
 import com.example.todo_list.history.data.HistoryCard
 import kotlinx.coroutines.launch
 
-class HistoryViewModel(private val repository: Repository): ViewModel() {
+class TasksViewModel(private val repository: Repository): ViewModel() {
     private val _historyList = MutableLiveData<List<HistoryCard>>()
     val historyList: LiveData<List<HistoryCard>> get() = _historyList
 
