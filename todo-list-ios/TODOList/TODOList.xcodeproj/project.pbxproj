@@ -31,6 +31,8 @@
 		D0999DDA28068B620045491A /* MemoStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999DD928068B620045491A /* MemoStatus.swift */; };
 		D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */; };
 		D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */; };
+		D0FAF3B7280694BF0096A520 /* CommonResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3B6280694BF0096A520 /* CommonResponseType.swift */; };
+		D0FAF3B9280694C90096A520 /* MemoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3B8280694C90096A520 /* MemoResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		D0999DD928068B620045491A /* MemoStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStatus.swift; sourceTree = "<group>"; };
 		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/History/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
 		D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewDelegate.swift; sourceTree = "<group>"; };
+		D0FAF3B6280694BF0096A520 /* CommonResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseType.swift; sourceTree = "<group>"; };
+		D0FAF3B8280694C90096A520 /* MemoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 		B5EC66D127FADD9C0042EFCF /* TODOList */ = {
 			isa = PBXGroup;
 			children = (
+				D0999DE22806933F0045491A /* Data */,
 				D0999DD6280689B60045491A /* Domain */,
 				B5EC66F327FEC3E10042EFCF /* Delegates */,
 				D0850A7627FEB27A009C60E5 /* Resources */,
@@ -200,6 +205,14 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		D0999DE22806933F0045491A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D0FAF3B1280694840096A520 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		D0B4198E27FD636500DBAFDB /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +220,23 @@
 				B58D833A280047FC008A811C /* History */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D0FAF3B1280694840096A520 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D0FAF3BA2806951A0096A520 /* Model */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D0FAF3BA2806951A0096A520 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D0FAF3B6280694BF0096A520 /* CommonResponseType.swift */,
+				D0FAF3B8280694C90096A520 /* MemoResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +313,7 @@
 				D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */,
 				B5EC66EE27FC0D3F0042EFCF /* SideView.swift in Sources */,
 				D0999DDA28068B620045491A /* MemoStatus.swift in Sources */,
+				D0FAF3B7280694BF0096A520 /* CommonResponseType.swift in Sources */,
 				D0999DD8280689D10045491A /* MemoEntity.swift in Sources */,
 				D0999D9F2804789D0045491A /* PopupViewController.swift in Sources */,
 				B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */,
@@ -292,6 +323,7 @@
 				B5EC66D327FADD9C0042EFCF /* AppDelegate.swift in Sources */,
 				B50C57B428047E9F0007F417 /* MemoContainerViewController.swift in Sources */,
 				B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */,
+				D0FAF3B9280694C90096A520 /* MemoResponse.swift in Sources */,
 				D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */,
 				B50C57B628048D340007F417 /* MemoContainerType.swift in Sources */,
 				D019329B2800998600A9CE20 /* PopupCardView.swift in Sources */,
