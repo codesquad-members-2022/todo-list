@@ -3,7 +3,6 @@ package todo.list.service;
 import org.springframework.stereotype.Service;
 import todo.list.domain.ActivityLog;
 import todo.list.repository.ActivityLogRepository;
-import todo.list.service.dto.ActivityLogRequest;
 import todo.list.service.dto.ActivityLogResponse;
 
 import java.util.List;
@@ -23,10 +22,5 @@ public class ActivityLogService {
         return activityLogs.stream()
                 .map(ActivityLogResponse::new)
                 .collect(Collectors.toList());
-    }
-
-    public void save(ActivityLogRequest activityLogRequest) {
-        ActivityLog activityLog = activityLogRequest.toEntity();
-        activityLogRepository.save(activityLog);
     }
 }

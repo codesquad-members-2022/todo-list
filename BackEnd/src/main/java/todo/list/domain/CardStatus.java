@@ -7,10 +7,8 @@ public enum CardStatus {
     IN_PROGRESS,
     DONE;
 
-    @JsonCreator
     public static CardStatus from(String name) {
         try {
-            name = name.toUpperCase();
             return valueOf(name);
         } catch (NullPointerException e) {
             return null;

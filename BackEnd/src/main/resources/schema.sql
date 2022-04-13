@@ -1,6 +1,8 @@
 drop table if exists card;
 drop table if exists activity_log;
 
+set global time_zone = 'Asia/Seoul';
+
 create table card (
     id bigint not null auto_increment,
     title varchar(500) not null,
