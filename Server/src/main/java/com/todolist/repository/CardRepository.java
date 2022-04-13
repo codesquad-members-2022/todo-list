@@ -30,11 +30,11 @@ public class CardRepository {
         return namedParameterJdbcTemplate.query(sql, namedParameters, cardRowMapper());
     }
 
-    public Integer delete(Integer cardId) {
+    public void delete(Integer cardId) {
         String sql = "UPDATE card SET removed = true WHERE cardId = :cardId";
         SqlParameterSource namedParameters = new MapSqlParameterSource("cardId", cardId);
 
-        return namedParameterJdbcTemplate.update(sql, namedParameters);
+        namedParameterJdbcTemplate.update(sql, namedParameters);
     }
 
     public Integer save(Card card) {
