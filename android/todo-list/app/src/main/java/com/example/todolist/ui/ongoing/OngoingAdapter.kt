@@ -1,4 +1,4 @@
-package com.example.todolist.ui.todo
+package com.example.todolist.ui.ongoing
 
 import android.app.Activity
 import android.content.ClipData
@@ -19,9 +19,9 @@ import com.example.todolist.databinding.ItemTodoBinding
 import com.example.todolist.ui.TaskViewModel
 import com.example.todolist.ui.common.DiffUtil
 
-class TodoAdapter(
+class OngoingAdapter(
     private val viewModel: TaskViewModel
-) : ListAdapter<Task, TodoAdapter.TodoViewHolder>(DiffUtil) {
+) : ListAdapter<Task, OngoingAdapter.TodoViewHolder>(DiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val binding = ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -45,10 +45,9 @@ class TodoAdapter(
 
         private fun deleteCard(task: Task) {
             binding.tvDeleteCard?.setOnClickListener {
-                viewModel.deleteTodoCard(task)
+                viewModel.deleteOngoingCard(task)
             }
         }
-
 
         private fun drag(task: Task) {
             DragStartHelper(itemView) { view, _ ->
@@ -95,8 +94,10 @@ class TodoAdapter(
                 "todo" -> viewModel.deleteTodoCard(droppedTask)
                 "ongoing" -> viewModel.deleteOngoingCard(droppedTask)
             }
-            viewModel.dropTodoCard(droppedTask, targetTask)
+            viewModel.dropOngoingCard(droppedTask, targetTask)
+
         }
 
     }
+
 }

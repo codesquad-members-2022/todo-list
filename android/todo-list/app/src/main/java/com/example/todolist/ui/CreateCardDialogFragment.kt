@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.todolist.R
 import com.example.todolist.databinding.DialogFragmentBinding
-import com.google.android.material.textfield.TextInputEditText
 
 class CreateCardDialogFragment : DialogFragment() {
 
@@ -67,7 +65,7 @@ class CreateCardDialogFragment : DialogFragment() {
 
     private fun setAddTaskListener() {
         binding.btnDialogRegister.setOnClickListener {
-            viewModel.addTodo(title, content)
+            viewModel.addTodoCard(title, content)
             this.dismiss()
         }
     }

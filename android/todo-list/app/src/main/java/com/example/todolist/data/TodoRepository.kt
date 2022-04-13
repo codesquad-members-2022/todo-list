@@ -1,7 +1,5 @@
 package com.example.todolist.data
 
-import android.util.Log
-
 class TodoRepository {
 
     private var todoTaskList = mutableListOf<Task>(
@@ -33,6 +31,12 @@ class TodoRepository {
 
     fun deleteTask(task: Task) {
         todoTaskList.remove(task)
+    }
+
+    fun dropTodoTask(droppedTask: Task, targetedTask: Task) {
+        droppedTask.order = targetedTask.order - 1
+        todoTaskList.add(droppedTask)
+        todoTaskList.filter { it.order <= droppedTask.order && it != droppedTask }.forEach { it.order-- }
     }
 
 
