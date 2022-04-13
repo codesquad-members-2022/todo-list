@@ -23,7 +23,7 @@ public class JdbcMemberRepository implements MemberRepository {
 		String sql = "SELECT id,"
 			+ "user_id, "
 			+ "name "
-			+ "FROM MEMBER "
+			+ "FROM member "
 			+ "where user_id = :userId";
 		return jdbcTemplate.queryForObject(sql, namedParameters, rowMapper);
 	}

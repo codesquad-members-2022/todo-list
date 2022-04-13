@@ -33,17 +33,16 @@ public class JdbcCardRepository implements CardRepository {
 	public List<Card> findAll(Long memberId) {
 		Map namedParameters = Collections.singletonMap("memberId", memberId);
 
-		String sql = "SELECT card.id, "
-							+ "title, "
-							+ "content, "
-							+ "modified_at, "
-							+ "member_id, "
-							+ "card_section_code_id "
-							+ "from card , member "
-							+ "where card.member_id = member.id "
-							+ "and card.member_id = :memberId "
-							+ "and  delete_flag = false "
-							+ "order by modified_at desc";
+		String sql = "SELECT id, "
+						+ "title, "
+						+ "content, "
+						+ "modified_at, "
+						+ "member_id, "
+						+ "card_section_code_id "
+						+ "from card "
+						+ "where card.member_id = :memberId "
+						+ "and  delete_flag = false "
+						+ "order by modified_at desc";
 
 		List<Card> cards = jdbcTemplate.query(sql, namedParameters, rowMapper);
 		return cards;
@@ -78,7 +77,7 @@ public class JdbcCardRepository implements CardRepository {
 			}
 
 			//활동 로그 기록
-			String sqlForActionLog = "INSERT INTO CARD_ACTION_LOG "
+			String sqlForActionLog = "INSERT INTO card_action_log "
 				+ "(created_at, card_id, member_id, card_action_code_id) "
 				+ "VALUES (now(), :id, :memberId, 1)";
 			int logResult = jdbcTemplate.update(sqlForActionLog, namedParameters);
