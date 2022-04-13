@@ -18,7 +18,7 @@ class EditCardView: UIView {
     
     @IBAction func editButtonTapped(_ sender: UIButton) {
         let inputData: (String) -> RequestCardData = { section in RequestCardData(section: section, title: self.title.text ?? "", content: self.content.text ?? "") }
-        NotificationCenter.default.post(name: .postInputData, object: inputData)
+        NotificationCenter.default.post(name: .editButtonTapped, object: nil, userInfo: [NotificationKeyValue.targetData:inputData])
     }
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         NotificationCenter.default.post(name: .cancelButtonTapped, object: nil)

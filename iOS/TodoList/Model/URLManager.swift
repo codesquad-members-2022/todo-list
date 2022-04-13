@@ -2,16 +2,16 @@ import Foundation
 
 struct URLManager {
     static func post(with taskCard: RequestCardData) {
-        guard let uploadData = try? JSONEncoder().encode(taskCard) else {return}
-        guard let url = URL(string: API.postURL) else {return}
+        guard let uploadData = try? JSONEncoder().encode(taskCard) else { return }
+        guard let url = URL(string: API.postURL) else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         URLSession.shared.uploadTask(with: request, from: uploadData){(data, response, error) in
-            guard error == nil else {return}
-            guard let response = response as? HTTPURLResponse else {return}
+            guard error == nil else { return }
+            guard let response = response as? HTTPURLResponse else { return }
             
             switch response.statusCode {
             case APIResponse.alreadyExist:
@@ -24,7 +24,7 @@ struct URLManager {
                 break
             }
             
-            guard let data = data else {return}
+            guard let data = data else { return }
             if let result = try? JSONDecoder().decode(TaskCard.self, from: data) {
                 getTasks()
             }
@@ -32,15 +32,14 @@ struct URLManager {
     }
     
     static func getTasks() {
-        guard let url = URL(string: API.getTodosURL) else {return}
+        guard let url = URL(string: API.getTodosURL) else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
         URLSession.shared.dataTask(with: request) {(data, response, error) in
-            guard error == nil else {return}
-            guard let response = response as? HTTPURLResponse else {return}
-            
+            guard error == nil else { return }
+            guard let response = response as? HTTPURLResponse else { return }
             switch response.statusCode {
             case APIResponse.goodRequest:
                 print("200")
@@ -50,11 +49,19 @@ struct URLManager {
                 break
             }
             
-            guard let data = data else {return}
-            if let result = try? JSONDecoder().decode([String:[TaskCard]].self, from: data) {
-                NotificationCenter.default.post(name: .getTaskBoardData, object: nil, userInfo: [NotificationKeyValue.getTaskData:result])
+            guard let data = data else { return }
+            if let result = try? JSONDecoder().decode(TaskBoard.self, from: data) {
+                NotificationCenter.default.post(name: .getTaskBoardData, object: nil, userInfo: [NotificationKeyValue.getTaskData:result.cards])
             }
         }.resume()
+    }
+    
+    static func getEvents() {
+        guard let url = URL(string: API.getEventURL) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
     }
 }
 

@@ -7,12 +7,10 @@ class TaskCardListView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        NotificationCenter.default.addObserver(forName: .postInputData, object: nil, queue: .main, using: postInputData(noti:))
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        NotificationCenter.default.addObserver(forName: .postInputData, object: nil, queue: .main, using: postInputData(noti:))
     }
     
     func setTableView(with viewController: UIViewController & UITableViewDelegate & UITableViewDataSource) {
@@ -20,11 +18,10 @@ class TaskCardListView: UIView {
         self.table.dataSource = viewController
         let nibName = UINib(nibName: NameSpace.nib.taskCardViewCell, bundle: nil)
         self.table.register(nibName, forCellReuseIdentifier: NameSpace.identifier.taskCardViewCell)
-
     }
 
     @IBAction func addTaskButtonTapped(_ sender: UIButton) {
-        NotificationCenter.default.post(name: .addTaskButtonTapped, object: title)
+        NotificationCenter.default.post(name: .addTaskButtonTapped, object: nil, userInfo: [NotificationKeyValue.targetViewTitle:self.title.text ?? ""])
     }
     
     func setTitle(to text: String) {
@@ -33,12 +30,6 @@ class TaskCardListView: UIView {
     
     func setCountBadge(with count: Int) {
         self.taskCountBadge.text = String(count)
-    }
-    
-    func postInputData(noti: Notification) {
-        guard let cardData = noti.object as? (String) -> RequestCardData else { return }
-        let card = cardData(self.title.text ?? "")
-        NotificationCenter.default.post(name: .editButtonTapped, object: nil, userInfo: [NotificationKeyValue.postTaskData:card])
     }
     
     func reloadTable() {
