@@ -27,6 +27,8 @@
 		D0850A7827FEB294009C60E5 /* ResourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7727FEB294009C60E5 /* ResourceFactory.swift */; };
 		D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7927FFB545009C60E5 /* MemoContainerView.swift */; };
 		D0999D9F2804789D0045491A /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999D9E2804789D0045491A /* PopupViewController.swift */; };
+		D0999DD8280689D10045491A /* MemoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999DD7280689D10045491A /* MemoEntity.swift */; };
+		D0999DDA28068B620045491A /* MemoStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999DD928068B620045491A /* MemoStatus.swift */; };
 		D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */; };
 		D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +56,8 @@
 		D0850A7727FEB294009C60E5 /* ResourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceFactory.swift; sourceTree = "<group>"; };
 		D0850A7927FFB545009C60E5 /* MemoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerView.swift; sourceTree = "<group>"; };
 		D0999D9E2804789D0045491A /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		D0999DD7280689D10045491A /* MemoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEntity.swift; sourceTree = "<group>"; };
+		D0999DD928068B620045491A /* MemoStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStatus.swift; sourceTree = "<group>"; };
 		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/History/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
 		D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +128,7 @@
 		B5EC66D127FADD9C0042EFCF /* TODOList */ = {
 			isa = PBXGroup;
 			children = (
+				D0999DD6280689B60045491A /* Domain */,
 				B5EC66F327FEC3E10042EFCF /* Delegates */,
 				D0850A7627FEB27A009C60E5 /* Resources */,
 				D0B4198E27FD636500DBAFDB /* Models */,
@@ -164,7 +169,6 @@
 				B5EC66D627FADD9C0042EFCF /* MainViewController.swift */,
 				D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */,
 				D0999D9E2804789D0045491A /* PopupViewController.swift */,
-				B50C57B328047E9F0007F417 /* MemoTableViewController.swift */,
 				B50C57B328047E9F0007F417 /* MemoContainerViewController.swift */,
 			);
 			path = Controllers;
@@ -185,6 +189,15 @@
 				D0850A7727FEB294009C60E5 /* ResourceFactory.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		D0999DD6280689B60045491A /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D0999DD7280689D10045491A /* MemoEntity.swift */,
+				D0999DD928068B620045491A /* MemoStatus.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		D0B4198E27FD636500DBAFDB /* Models */ = {
@@ -269,6 +282,8 @@
 			files = (
 				D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */,
 				B5EC66EE27FC0D3F0042EFCF /* SideView.swift in Sources */,
+				D0999DDA28068B620045491A /* MemoStatus.swift in Sources */,
+				D0999DD8280689D10045491A /* MemoEntity.swift in Sources */,
 				D0999D9F2804789D0045491A /* PopupViewController.swift in Sources */,
 				B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */,
 				B58D833728001A9C008A811C /* Memo.swift in Sources */,
@@ -432,7 +447,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TODOList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -461,7 +476,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TODOList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
