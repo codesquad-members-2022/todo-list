@@ -20,16 +20,19 @@ class MemoContainerViewController: UIViewController {
 }
 
 extension MemoContainerViewController: UITableViewDataSource & UITableViewDelegate {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+//    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        guard let parentViewController = parent as? MemoCanvasViewController,
+//              let containerType = containerType,
+//              let memos = parentViewController.memoTableViewModels[containerType] else { return 0 }
+//        return memos.count
+//    }
+//    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let parentViewController = parent as? MemoCanvasViewController,
               let containerType = containerType,
               let memos = parentViewController.memoTableViewModels[containerType] else { return 0 }
         return memos.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,9 +92,60 @@ extension MemoContainerViewController: UITableViewDragDelegate {
 
         parentViewController.removeSelectedMemoModel(containerType: containerType, indexPath: selectedIndexPath)
         tableView.beginUpdates()
-        tableView.deleteSections([selectedIndexPath.section], with: .automatic)
+        tableView.deleteRows(at: [selectedIndexPath], with: .automatic)
+//        tableView.deleteSections([selectedIndexPath.section], with: .automatic)
         tableView.endUpdates()
+    
         self.selectedIndexPath = nil
     }
 }
+
+extension MemoContainerViewController: UITableViewDropDelegate {
+    
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: Memo.self)
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        guard session.items.count == 1 else { return UITableViewDropProposal(operation: .cancel) }
+        
+        
+        if tableView.hasActiveDrag && tableView.isEditing {
+            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }else {
+            if let indexPath = selectedIndexPath {
+                selectedIndexPath = indexPath
+            }
+            return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        guard let parentViewController = parent as? MemoCanvasViewController,
+              let containerType = containerType else { return }
+        
+        var destinationPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationPath = indexPath
+        }
+        
+        coordinator.session.loadObjects(ofClass: Memo.self) { items in
+            guard let items = items as? [Memo] else { return }
+//            var indexPaths:IndexSet = IndexSet()
+            var indexPaths:[IndexPath] = []
+            
+            for ( index , value ) in items.enumerated() {
+                let indexPath = IndexPath(row: destinationPath.row + index, section: destinationPath.section)
+                parentViewController.insertSelectedMemoModel(containerType: containerType, indexPath: indexPath, memoModel: value)
+                indexPaths.append(indexPath)
+//                indexPaths.insert(indexPath.section)
+            }
+            
+            tableView.beginUpdates()
+            tableView.insertRows(at: indexPaths, with: .automatic)
+//            tableView.insertSections(indexPaths, with: .automatic)
+            tableView.endUpdates()
+        }
+    }
+
 }

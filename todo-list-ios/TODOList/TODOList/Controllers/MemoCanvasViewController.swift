@@ -47,6 +47,7 @@ class MemoCanvasViewController: UIViewController {
         tableViewController.memoContainerView.tableView.dataSource = tableViewController
         tableViewController.memoContainerView.tableView.delegate = tableViewController
         tableViewController.memoContainerView.tableView.dragDelegate = tableViewController
+        tableViewController.memoContainerView.tableView.dropDelegate = tableViewController
         tableViewController.memoContainerView.tableView.dragInteractionEnabled = true
         tableViewController.memoContainerView.tableView.register(MemoTableViewCell.self, forCellReuseIdentifier: MemoTableViewCell.identifier)
     }
@@ -66,6 +67,10 @@ class MemoCanvasViewController: UIViewController {
     
     func removeSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath) {
         memoTableViewModels[containerType]? .remove(at: indexPath.row)
+    }
+    
+    func insertSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath, memoModel: Memo) {
+        memoTableViewModels[containerType]?.insert(memoModel, at: indexPath.row)
     }
 }
 
