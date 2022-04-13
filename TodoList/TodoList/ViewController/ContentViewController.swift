@@ -33,6 +33,7 @@ final class ContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableVC = TableViewController()
+        self.addChild(tableVC)
         setCollectionView()
         setCollectionViewDelegate()
     }
