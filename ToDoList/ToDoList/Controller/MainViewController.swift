@@ -4,13 +4,14 @@ class MainViewController: UIViewController {
     
     static let serviceName = "TO-DO LIST - team10"
     
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cardListStackView: UIStackView!
     
     private let todoViewController = CardListViewController(type: .todo, cardManager: CardManager(cardListType: .todo, cardFactory: ModelFactory()))
     private let inProgressViewController = CardListViewController(type: .inProgress, cardManager: CardManager(cardListType: .inProgress, cardFactory: ModelFactory()))
     private let doneViewController = CardListViewController(type: .done, cardManager: CardManager(cardListType: .done, cardFactory: ModelFactory()))
+    
+    var logViewController: LogListViewController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
