@@ -8,17 +8,22 @@
 import UIKit
 
 class TodoListContainerViewController: UIViewController {
+    // MARK: -  Properties
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var menuButton: UIButton!
     @IBOutlet private weak var drawerView: UIView!
     @IBOutlet private weak var closeButton: UIButton!
     @IBOutlet private weak var columnStack: UIStackView!
     
+    private var viewControllers = [UIViewController]()
+    
+    // MARK: -  Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
     }
 
+    // MARK: - UI Configuration
     private func configureUI() {
         self.drawerView.frame.origin.x = self.view.frame.maxX
         self.menuButton.addAction(UIAction(handler: self.toggleMenuButton(_:)), for: .touchUpInside)
@@ -41,6 +46,10 @@ class TodoListContainerViewController: UIViewController {
         }
     }
 
+    // MARK: - Dependency Injection
+    func setChildren(_ viewControllers: [UIViewController]) {
+        self.viewControllers = viewControllers
+    }
 
 }
 
