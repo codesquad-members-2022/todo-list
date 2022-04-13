@@ -85,11 +85,11 @@ class ActivityCell: UITableViewCell {
     }
     
     func setFooterText(_ text: String) {
-        self.bodyLabel.text = text
+        self.footerLabel.text = text
     }
     
     func setBodyText(_ text: String) {
-        self.footerLabel.text = text
+        self.bodyLabel.text = text
     }
     
     func setBackgroundColor(_ color: UIColor) {
