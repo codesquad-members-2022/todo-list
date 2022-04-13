@@ -1,65 +1,80 @@
-import { TEXT_LENGTH_LIMIT } from "../../utils.js";
+import { getId, TEXT_LENGTH_LIMIT } from "../../utils.js";
 
 export class ScheduleRegisterCard {
-    constructor({ target, id, passedEventHandler }) {
-        this.$target = target;
-        this.id = id;
-        this.passedEventHandler = passedEventHandler;
-        this.init();
+    constructor() {
+        this.$target;
+        this.passedEventHandler;
+        this.state = false;
+        this.$registerCard;
+        this.$cardTitle;
+        this.$cardBody;
+        this.$registerBtn;
     }
 
-    init() {
-        this.render();
+    init({ $target, passedEventHandler }) {
+        this.render($target);
+        this.setDOMElement($target);
+        this.passedEventHandler = passedEventHandler;
         this.setEvent();
     }
 
-    render() {
+    render($target) {
         const registerCardTemplate = this.template();
-        this.$target.insertAdjacentHTML("afterbegin", registerCardTemplate);
+        $target.insertAdjacentHTML("afterbegin", registerCardTemplate);
+    }
+
+    setDOMElement($target) {
+        this.$registerCard = $target.querySelector(".schedule-register-card");
+        this.$cardTitle = this.$registerCard.querySelector(
+            ".schedule-register-card__title"
+        );
+        this.$cardBody = this.$registerCard.querySelector(
+            ".schedule-register-card__body"
+        );
+        this.$registerBtn = this.$registerCard.querySelector(
+            ".schedule-register-card__register-btn"
+        );
     }
 
     setEvent() {
-        const $registerCard = this.$target.querySelector(
-            ".schedule-register-card"
-        );
-        $registerCard.addEventListener(
+        this.$registerCard.addEventListener(
             "click",
             this.registerCardClickEventHandler.bind(this)
         );
-        $registerCard.addEventListener(
+        this.$registerCard.addEventListener(
             "input",
             this.registerCardInputEventHandler.bind(this)
         );
     }
 
-    registerCardClickEventHandler({ target }) {
-        const $cancelBtn = this.$target.querySelector(
-            ".schedule-register-card__cancel-btn"
-        );
-        const $registerBtn = this.$target.querySelector(
-            ".schedule-register-card__register-btn"
-        );
+    getState() {
+        return this.state;
+    }
 
-        if (target === $cancelBtn) {
+    changeState() {
+        this.state = this.state ? false : true;
+    }
+
+    registerCardClickEventHandler({ target }) {
+        const CANCLE_BTN = "schedule-register-card__cancel-btn";
+        const REGISTER_BTN = "schedule-register-card__register-btn";
+
+        if (target.classList.contains(CANCLE_BTN)) {
             this.passedEventHandler.removeRegisterCard();
         }
-        if (target === $registerBtn) {
+        if (target.classList.contains(REGISTER_BTN)) {
             this.registerBtnClickEventHandler(target);
         }
     }
 
     registerCardInputEventHandler({ target }) {
-        const $cardTitle = this.$target.querySelector(
-            ".schedule-register-card__title"
-        );
-        const $cardBody = this.$target.querySelector(
-            ".schedule-register-card__body"
-        );
+        const REGISTER_CARD_TITLE = "schedule-register-card__title";
+        const REGISTER_CARD_BODY = "schedule-register-card__body";
 
-        if (target === $cardTitle) {
+        if (target.classList.contains(REGISTER_CARD_TITLE)) {
             this.cardTitleInputEventHandler(target);
         }
-        if (target === $cardBody) {
+        if (target.classList.contains(REGISTER_CARD_BODY)) {
             this.cardBodyInputEventHandler(target);
         }
     }
@@ -78,42 +93,32 @@ export class ScheduleRegisterCard {
             return;
         }
 
-        const $cardTitle = this.$target.querySelector(
-            ".schedule-register-card__title"
-        );
-        const $cardBody = this.$target.querySelector(
-            ".schedule-register-card__body"
-        );
-
         const cardData = {
-            title: $cardTitle.value.replace(/\n/g, "<br>"),
-            body: $cardBody.value.replace(/\n/g, "<br>"),
+            title: this.$cardTitle.value.replace(/\n/g, "<br>"),
+            body: this.$cardBody.value.replace(/\n/g, "<br>"),
             caption: "author by web",
+            id: getId(),
         };
         this.passedEventHandler.addCard(cardData);
         this.passedEventHandler.removeRegisterCard();
     }
 
-    toggleRegisterBtn(booleanValue, $registerBtn) {
+    toggleRegisterBtn(booleanValue) {
         if (booleanValue) {
-            $registerBtn.classList.replace("inactive", "active");
+            this.$registerBtn.classList.replace("inactive", "active");
         } else {
-            $registerBtn.classList.replace("active", "inactive");
+            this.$registerBtn.classList.replace("active", "inactive");
         }
     }
 
     cardTitleInputEventHandler($cardTitle) {
         const cardTitle = $cardTitle.value;
-        const $registerBtn = this.$target.querySelector(
-            ".schedule-register-card__register-btn"
-        );
-
-        this.toggleRegisterBtn(cardTitle, $registerBtn);
+        this.toggleRegisterBtn(cardTitle);
         this.adjustInputHeight($cardTitle);
     }
 
     template() {
-        return `<div class="schedule-register-card" data-id="${this.id}">
+        return `<div class="schedule-register-card">
                 <form class="schedule-register-card__text-container">
                     <textarea 
                         class="schedule-register-card__title"  

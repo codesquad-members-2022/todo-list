@@ -1,17 +1,16 @@
 import { ScheduleCard } from "./scheduleCard.js";
 import { ScheduleRegisterCard } from "./scheduleRegisterCard.js";
-import { ScheduleModel } from "../model/scheduleModel.js";
-import { getId } from "../../utils.js";
+import * as scheduleModel from "../model/scheduleModel.js";
+import { changeCardNumber } from "./scheduleCardCount.js";
 
 export class ScheduleColumn {
-    constructor(target, scheduleColumnData) {
+    constructor(target, columnId) {
         this.$target = target;
         this.$scheduleColumn;
-        this.$cardsContainer;
-        this.scheduleModel = new ScheduleModel(scheduleColumnData);
-        this.title = this.scheduleModel.getScheduleColumnTitle();
-        this.id = getId();
-        this.registerCardState = false;
+        this.$cards;
+        this.columnId = columnId;
+        this.columnTitle = scheduleModel.getScheduleColumnTitle(this.columnId);
+        this.registerCard = new ScheduleRegisterCard();
 
         this.init();
     }
@@ -21,26 +20,28 @@ export class ScheduleColumn {
         this.setDOMElement();
         this.renderCards();
         this.setEvent();
+        changeCardNumber(this.columnId)
     }
 
     setDOMElement() {
         this.$scheduleColumn = this.$target.querySelector(
-            `[data-id="${this.id}"]`
+            `[data-id="${this.columnId}"]`
         );
-        this.$cardsContainer = this.$scheduleColumn.querySelector(
-            ".schedule-column__cards-container"
+        this.$cards = this.$scheduleColumn.querySelector(
+            ".schedule-column__cards"
         );
     }
 
     renderCards() {
-        const cards = this.scheduleModel.getScheduleCards();
+        const cards = scheduleModel.getScheduleCards(this.columnId);
         cards.forEach((cardData) => {
             const scheduleCardParams = {
-                target: this.$cardsContainer,
+                target: this.$cards,
                 cardData: cardData,
                 passedEventHandler: {
                     removeCard: this.removeCard.bind(this),
                     updateCard: this.updateCard.bind(this),
+                    getCardData: this.getCardData.bind(this),
                 },
             };
             new ScheduleCard(scheduleCardParams);
@@ -58,7 +59,7 @@ export class ScheduleColumn {
     }
 
     cardAddBtnClickEventHandler() {
-        if (this.registerCardState) {
+        if (this.registerCard.getState()) {
             this.removeRegisterCard();
         } else {
             this.showRegisterCard();
@@ -66,24 +67,23 @@ export class ScheduleColumn {
     }
 
     removeRegisterCard() {
-        this.registerCardState = false;
-        const $registerCard = this.$cardsContainer.querySelector(
+        this.registerCard.changeState();
+        const $registerCard = this.$cards.querySelector(
             ".schedule-register-card"
         );
         $registerCard.remove();
     }
 
     showRegisterCard() {
-        this.registerCardState = true;
+        this.registerCard.changeState();
         const scheduleRegisterCardParams = {
-            target: this.$cardsContainer,
-            id: this.id,
+            $target: this.$cards,
             passedEventHandler: {
                 removeRegisterCard: this.removeRegisterCard.bind(this),
                 addCard: this.addCard.bind(this),
             },
         };
-        new ScheduleRegisterCard(scheduleRegisterCardParams);
+        this.registerCard.init(scheduleRegisterCardParams);
     }
 
     render() {
@@ -92,34 +92,45 @@ export class ScheduleColumn {
     }
 
     addCard(cardData) {
-        this.scheduleModel.addScheduleCard(cardData);
+        scheduleModel.addScheduleCard(this.columnId, cardData);
         const scheduleCardParams = {
-            target: this.$cardsContainer,
+            target: this.$cards,
             cardData: cardData,
             passedEventHandler: {
                 removeCard: this.removeCard.bind(this),
                 updateCard: this.updateCard.bind(this),
+                getCardData: this.getCardData.bind(this),
             },
         };
         new ScheduleCard(scheduleCardParams);
+        changeCardNumber(this.columnId)
     }
 
     removeCard($target) {
         const cardId = $target.dataset.cardId;
-        this.scheduleModel.removeScheduleCard(cardId);
+        scheduleModel.removeScheduleCard(this.columnId, cardId);
         $target.remove();
+        changeCardNumber(this.columnId)
     }
 
     updateCard(cardData) {
-        this.scheduleModel.updateScheduleCard(cardData);
+        scheduleModel.updateScheduleCard(this.columnId, cardData);
+    }
+
+    getCardData(columnId, cardId) {
+        const cardData = scheduleModel.getScheduleCardDataById(
+            columnId,
+            cardId
+        );
+        return cardData;
     }
 
     template() {
-        return `<div class="schedule-column" data-id="${this.id}">
+        return `<div class="schedule-column" data-id="${this.columnId}">
             <div class="schedule-column__header">
-                <h2 class="schedule-column__title">${this.title}</h2>
+                <h2 class="schedule-column__title">${this.columnTitle}</h2>
                 <div class="schedule-column__count-box">
-                    <span class="schedule-column__count-number">0</span>
+                    <span class="schedule-column__count-number"></span>
                 </div>
                 <svg
                     class="schedule-column__add-btn column-btn"
@@ -148,7 +159,10 @@ export class ScheduleColumn {
                     />
                 </svg>
             </div>
-            <div class="schedule-column__cards-container"></div>
+            <div class="schedule-column__cards-container">
+                <div class="schedule-column__cards">
+                </div>
+            </div>
         </div>`;
     }
 }
