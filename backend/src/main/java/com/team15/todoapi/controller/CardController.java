@@ -28,6 +28,6 @@ public class CardController {
 
 	@PostMapping()
 	public void add(@RequestBody CardRequest cardRequest){
-		cardService.add(cardRequest);
+		CardResponse cardResponse = cardService.add(cardRequest);
 	}
 }

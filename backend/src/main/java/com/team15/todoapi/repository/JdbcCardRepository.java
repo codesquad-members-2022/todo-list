@@ -49,7 +49,7 @@ public class JdbcCardRepository implements CardRepository {
 	}
 
 	@Override
-	public int add(Card card) {
+	public Card add(Card card) {
 		LocalDateTime now = LocalDateTime.now();
 		card.insertModifiedAt(card, now);
 		BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(card);
@@ -74,14 +74,14 @@ public class JdbcCardRepository implements CardRepository {
 			//활동 로그 기록
 			String sqlForActionLog = "INSERT INTO card_action_log "
 				+ "(created_at, card_id, member_id, card_action_code_id) "
-				+ "VALUES (now(), :id, :memberId, 1)";
+				+ "VALUES (:modifiedAt, :id, :memberId, 1)";
 			int logResult = jdbcTemplate.update(sqlForActionLog, namedParameters);
 			transactionManager.commit(transactionStatus);
 		}catch(DataAccessException e){
 			transactionManager.rollback(transactionStatus);
 		}
 
-		return addResult;
+		return card;
 	}
 
 	private static RowMapper<Card> rowMapper = (rs, rowNum) -> Card.of(rs.getLong("id"),

@@ -6,5 +6,5 @@ import java.util.List;
 public interface CardRepository {
 	List<Card> findAll(Long memberId);
 
-	int add(Card card);
+	Card add(Card card);
 }

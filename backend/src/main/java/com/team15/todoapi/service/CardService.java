@@ -9,8 +9,6 @@ import com.team15.todoapi.repository.MemberRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,12 +26,13 @@ public class CardService {
 		return cards.stream().map(CardResponse::from).collect(Collectors.toList());
 	}
 
-	public ResponseEntity add(CardRequest cardRequest) {
+	public CardResponse add(CardRequest cardRequest) {
 		Member member = selectMemberInfo(cardRequest.getUserId());
 
 		Card card = Card.of(cardRequest, member.getId());
-		int result = cardRepository.add(card);
-		return new ResponseEntity("success", HttpStatus.CREATED);
+		card = cardRepository.add(card);
+
+		return CardResponse.from(card);
 	}
 
 	private Member selectMemberInfo(String userId) {
