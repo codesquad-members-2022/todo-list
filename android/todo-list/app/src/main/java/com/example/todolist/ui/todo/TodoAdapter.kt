@@ -4,16 +4,22 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.Intent
+import android.graphics.Canvas
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.util.component1
 import androidx.core.util.component2
 import androidx.core.view.DragStartHelper
 import androidx.draganddrop.DropHelper
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.R
 import com.example.todolist.data.Task
 import com.example.todolist.databinding.ItemTodoBinding
 import com.example.todolist.ui.TaskViewModel
@@ -45,10 +51,15 @@ class TodoAdapter(
 
         private fun deleteCard(task: Task) {
             binding.tvDeleteCard?.setOnClickListener {
-                viewModel.deleteTodoCard(task)
+                //추후 업데이트 예정
+                when(task.status) {
+                    "todo" -> viewModel.deleteTodoCard(task)
+                    "ongoing" -> viewModel.deleteOngoingCard(task)
+                    "complete" -> viewModel.deleteCompletedCard(task)
+                }
+
             }
         }
-
 
         private fun drag(task: Task) {
             DragStartHelper(itemView) { view, _ ->
@@ -83,20 +94,63 @@ class TodoAdapter(
 
                 when {
                     payload.clip.description.hasMimeType(ClipDescription.MIMETYPE_TEXT_INTENT) ->
-                        handlePlainTextDrop(item, task)
+                        handleCardDrop(item, task)
                 }
                 remaining
             }
         }
 
-        private fun handlePlainTextDrop(item: ClipData.Item, targetTask: Task) {
+        private fun handleCardDrop(item: ClipData.Item, targetTask: Task) {
             val droppedTask = item.intent.getSerializableExtra("task") as Task
             when (droppedTask.status) {
-                "todo" -> viewModel.deleteTodoCard(droppedTask)
-                "ongoing" -> viewModel.deleteOngoingCard(droppedTask)
+                "todo" -> {
+                    viewModel.deleteTodoCard(droppedTask)
+                }
+                "ongoing" -> {
+                    viewModel.deleteOngoingCard(droppedTask)
+                }
+                "complete" -> {
+                    viewModel.deleteCompletedCard(droppedTask)
+                }
             }
-            viewModel.dropTodoCard(droppedTask, targetTask)
+            handleTargetCard(droppedTask, targetTask)
         }
 
+        private fun handleTargetCard(droppedTask:Task, targetTask: Task) {
+            when(targetTask.status) {
+                "todo" -> {
+                    viewModel.dropTodoCard(droppedTask, targetTask)
+                }
+                "ongoing" -> {
+                    viewModel.dropOngoingCard(droppedTask, targetTask)
+                }
+                "complete" -> {
+                    viewModel.dropCompletedCard(droppedTask, targetTask)
+                }
+            }
+        }
+
+        fun getDeleteTextViewWidth() =
+            binding.tvDeleteCard?.width?.toFloat() ?: 0f
+//            itemView.findViewById<View>(R.id.tv_delete_card).width.toFloat()
+
+
+        fun getDeleteTextView() : TextView? {
+            return binding.tvDeleteCard
+        }
+//            itemView.findViewById<View>(R.id.tv_delete_card)
+
+        fun getSwipeView() =
+            binding.cioScreen
+
+        fun setTag(isClamped: Boolean) {
+            itemView.tag = isClamped
+        }
+
+        fun getTag(): Boolean =
+            itemView.tag as? Boolean ?: false
+
     }
+
+
 }

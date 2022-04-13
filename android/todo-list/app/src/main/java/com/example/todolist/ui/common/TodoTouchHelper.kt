@@ -1,23 +1,26 @@
 package com.example.todolist.ui.common
 
-import android.annotation.SuppressLint
 import android.graphics.Canvas
 import android.view.View
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.R
+import com.example.todolist.ui.todo.TodoAdapter
 
 class TodoTouchHelper :
     ItemTouchHelper.Callback() {
+
     private var currentDx = 0f
     private var deleteTextViewSize = 0f
+
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        deleteTextViewSize = getDeleteTextViewWidth(viewHolder)
-        return makeMovementFlags(UP or DOWN, LEFT or RIGHT)
+        deleteTextViewSize = getDeleteTextViewWidth(viewHolder as TodoAdapter.TodoViewHolder)
+        return makeMovementFlags(UP or DOWN, START)
     }
 
     override fun onMove(
@@ -25,8 +28,6 @@ class TodoTouchHelper :
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        val fromPos = viewHolder.adapterPosition
-        val toPos = viewHolder.adapterPosition
         return true
     }
 
@@ -43,10 +44,13 @@ class TodoTouchHelper :
         isCurrentlyActive: Boolean
     ) {
         if (actionState == ACTION_STATE_SWIPE) {
+            viewHolder as TodoAdapter.TodoViewHolder
             val view = getSwipeView(viewHolder)
             val isClamped = getTag(viewHolder)
             val deleteTextView = getDeleteTextView(viewHolder)
-            val newX = swipe(isClamped, isCurrentlyActive, dX, deleteTextView)
+
+            val newX = deleteTextView?.let { swipe(isClamped, isCurrentlyActive, dX, it) } ?: 0f
+
             currentDx = newX
             getDefaultUIUtil().onDraw(
                 c,
@@ -60,7 +64,6 @@ class TodoTouchHelper :
         }
     }
 
-    @SuppressLint("NewApi")
     private fun swipe(
         isClamped: Boolean,
         isCurrentlyActive: Boolean,
@@ -90,23 +93,31 @@ class TodoTouchHelper :
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-        setTag(viewHolder, currentDx <= -deleteTextViewSize)
+        setTag((viewHolder as TodoAdapter.TodoViewHolder), currentDx <= -deleteTextViewSize)
         return 2f
     }
 
-    private fun getDeleteTextViewWidth(viewHolder: RecyclerView.ViewHolder) =
-        viewHolder.itemView.findViewById<View>(R.id.tv_delete_card).width.toFloat()
-
-    private fun getDeleteTextView(viewHolder: RecyclerView.ViewHolder) =
-        viewHolder.itemView.findViewById<View>(R.id.tv_delete_card)
-
-    private fun getSwipeView(viewHolder: RecyclerView.ViewHolder): View =
-        viewHolder.itemView.findViewById(R.id.cio_screen)
-
-    private fun setTag(viewHolder: RecyclerView.ViewHolder, isClamped: Boolean) {
-        viewHolder.itemView.tag = isClamped
+    private fun getDeleteTextViewWidth(viewHolder: TodoAdapter.TodoViewHolder): Float {
+        return viewHolder.getDeleteTextViewWidth()
     }
 
-    private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean =
-        viewHolder.itemView.tag as? Boolean ?: false
+
+    private fun getDeleteTextView(viewHolder: TodoAdapter.TodoViewHolder): TextView? {
+        return viewHolder.getDeleteTextView()
+    }
+
+
+    private fun getSwipeView(viewHolder: TodoAdapter.TodoViewHolder): ConstraintLayout? {
+        return viewHolder.getSwipeView()
+    }
+
+
+    private fun setTag(viewHolder: TodoAdapter.TodoViewHolder, isClamped: Boolean) {
+        viewHolder.setTag(isClamped)
+    }
+
+    private fun getTag(viewHolder: TodoAdapter.TodoViewHolder): Boolean {
+        return viewHolder.getTag()
+    }
+
 }
