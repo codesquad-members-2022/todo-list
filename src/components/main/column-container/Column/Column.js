@@ -1,89 +1,89 @@
 import "./Column.scss";
 import { Store } from "../../../../stores/ColumnStore.js";
-import { Card } from "./card/Card.js";
+import { initCard } from "./card/Card.js";
 
-export class Column {
-  constructor(columnID) {
-    this.columnID = columnID;
-    this.setNode();
-    this.renderContent();
-    this.activate();
-  }
+export const initColumn = (parentNode, columnState) => {
+  const columnNode = makeColumnNode(columnState);
+  appendColumnNode(columnNode, parentNode);
+  renderColumn(columnNode, columnState);
+  setEvents(columnNode);
+};
 
-  setNode() {
-    const columnContainerDOM = document.querySelector(".column-container");
-    const columnNode = this.makeColumnNode();
-    columnContainerDOM.append(columnNode);
-    this.columnNode = columnNode;
-  }
+const makeColumnNode = (columnState) => {
+  const columnNode = document.createElement("div");
+  columnNode.className = "column";
+  columnNode.dataset.id = columnState._id;
+  return columnNode;
+};
 
-  makeColumnNode() {
-    const columnNode = document.createElement("div");
-    columnNode.className = "column";
-    columnNode.dataset.columnid = this.columnID;
-    return columnNode;
-  }
+const appendColumnNode = (columnNode, parentNode) => {
+  parentNode.append(columnNode);
+};
 
-  renderContent() {
-    const columnData = Store.state[this.columnID];
-    this.columnNode.innerHTML = this.getContentTemplate(columnData);
-    this.mountCards(columnData);
-    this.setEvents();
-  }
+const renderColumn = (columnNode, columnState) => {
+  columnNode.innerHTML = makeColumnInnerTemplate(columnState);
+  mountCards(columnNode, columnState);
+};
 
-  getContentTemplate(columnData) {
-    return `
-      ${this.getHeaderTemplate(columnData)}
-      ${this.getCardListTemplate()}
-    `;
-  }
+const makeColumnInnerTemplate = (columnState) => {
+  return `
+    ${getHeaderTemplate(columnState)}
+    ${getCardListTemplate()}
+  `;
+};
 
-  getHeaderTemplate(columnData) {
-    return `
-      <div class="column-header">
-        <div class="column-header__info">
-          <div class="column-header__title">${columnData.title}</div>
-          <div class="column-header__count">${Object.keys(columnData.cards).length}</div>
-        </div>
-        <div class="column-header__util">
-          <div class="column-header__add-btn${columnData.addBtnActivated ? " activated" : ""}"></div>
-          <div class="column-header__delete-btn"></div>
-        </div>
+const getHeaderTemplate = (columnState) => {
+  return `
+    <div class="column-header">
+      <div class="column-header__info">
+        <div class="column-header__title">${columnState.title}</div>
+        <div class="column-header__count">${columnState.cardOrder.length}</div>
       </div>
+      <div class="column-header__util">
+        <div class="column-header__add-btn${columnState.addBtnActivated ? " activated" : ""}"></div>
+        <div class="column-header__delete-btn"></div>
+      </div>
+    </div>
+  `;
+};
+
+const getCardListTemplate = () => {
+  return `
+    <ul class='card-list'></ul>
     `;
-  }
+};
 
-  getCardListTemplate() {
-    return `
-      <ul class='card-list'></ul>
-      `;
-  }
+const mountCards = (columnNode, columnState) => {
+  const cardOrder = columnState.cardOrder;
+  const cardListNode = columnNode.querySelector(".card-list");
+  cardListNode.innerHTML = "";
+  cardOrder.forEach((cardID) => initCard(cardListNode, columnState.cards[cardID]));
+};
 
-  mountCards(columnData) {
-    const cardOrder = columnData.cardOrder;
-    const cardListEl = this.columnNode.querySelector(".card-list");
-    cardListEl.innerHTML = "";
-    cardOrder.forEach((cardID) => new Card(this.columnID, cardID));
-  }
+const setEvents = (columnNode) => {
+  setAddBtnEvent(columnNode);
+};
 
-  setEvents() {
-    this.setAddBtnEvent();
-  }
+const setAddBtnEvent = (columnNode) => {
+  const addBtn = columnNode.querySelector(".column-header__add-btn");
+  addBtn.addEventListener("click", () => handleAddBtnClick(columnNode, addBtn));
+};
 
-  setAddBtnEvent() {
-    const addBtn = this.columnNode.querySelector(".column-header__add-btn");
-    addBtn.addEventListener("click", () => this.handleAddBtnClick(addBtn));
+const handleAddBtnClick = (columnNode, addBtn) => {
+  const columnID = columnNode.dataset.id;
+  if (addBtn.classList.contains("activated")) {
+    Store.unsetAddingCardState(columnID);
+  } else {
+    Store.setAddingCardState(columnID);
   }
+};
 
-  handleAddBtnClick(addBtn) {
-    if (addBtn.classList.contains("activated")) {
-      Store.exitFromAddCardState(this.columnID);
-    }else {
-      Store.updateAsAddCardState(this.columnID);
-    }
-  }
+export const reRenderColumn = (columnState) => {
+  const columnNode = findColumnNode(columnState._id);
+  renderColumn(columnNode, columnState);
+  setEvents(columnNode);
+};
 
-  activate() {
-    Store.subscribe("column", () => this.renderContent());
-  }
-}
+const findColumnNode = (columnID) => {
+  return document.querySelector(`[data-id="${columnID}"]`);
+};

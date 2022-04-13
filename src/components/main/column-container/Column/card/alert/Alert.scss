@@ -1,0 +1,61 @@
+@import '../../../../../../scss/variable';
+
+.alert {
+    width: 400px;
+    height: 138px;
+    background-color: $white;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 24px;
+
+    &-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: rgba($color: $light-gray, $alpha: 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+    }
+
+    &__message {
+        font-size: 1.125rem;
+        font-weight: 700;
+        line-height: 26px;
+        width: 100%;
+        text-align: left;
+    }
+
+    &__util {
+        display: flex;
+        justify-content: space-between;
+        width: 276px;
+
+        &-btn {
+            width: 134px;
+            height: 40px;
+            border-radius: 6px;
+            text-align: center;
+            padding: 10px;
+            
+            &--cancel {
+                background-color: $light-gray;
+                color: $dark-gray;
+            }
+
+            &--delete {
+                background-color: $blue;
+                color: $white;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+.hidden {
+    visibility: hidden;
+}

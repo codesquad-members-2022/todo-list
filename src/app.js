@@ -1,20 +1,18 @@
 import "./app.scss";
+import { Store, observer } from "./stores/ColumnStore.js";
 import { renderHeader } from "./components/header/Header.js";
-import { renderMain } from "./components/main/Main.js";
-import "./components/header/menu/Menu.js";
-import "./components/main/fab/Fab.js";
-import "./components/main/column-container/Column/Column.js";
-import "./components/main/column-container/Column/card/Card.js";
-import "./components/main/column-container/Column/card/alert/Alert.js";
+import { initMain } from "./components/main/Main.js";
+import { reRenderColumn } from "./components/main/column-container/Column/Column.js";
+import { reRenderCard } from "./components/main/column-container/Column/card/Card.js";
 
-function runApp() {
-  renderApp();
-}
+(async () => {
+  await Store.setInitialState();
+  observer.subscribe("column", reRenderColumn);
+  observer.subscribe("card", reRenderCard);
+  renderHeader();
+  initMain();
+})();
 
-function renderApp() {
-  renderHeader(document.body);
-  renderMain(document.body);
-}
 
-runApp();
+
 

@@ -1,85 +1,161 @@
+import { pipe, request } from "../common/util.js";
+import { CARD_TYPE } from "../common/variable.js";
+
 export const Store = {
-  observers: {},
+  state: {},
 
-  subscribe(interest, observer) {
-    if (!this.observers[interest]) {
-      this.observers[interest] = [];
-    }
-    this.observers[interest].push(observer);
+  async setInitialState() {
+    const rawColumnStates = await request.allState();
+    const parsedColumnStates = {};
+    this.state = pipe(
+      arrangeColumnOrder,
+      storeEachColumnState,
+      arrangeEachColumnCardOrder,
+      storeEachColumnCardStates
+    )([rawColumnStates, parsedColumnStates]);
   },
 
-  notify(interest) {
-    this.observers[interest].forEach((observer) => observer());
+  setAddingCardState(columnID) {
+    toggleColumnAddBtnActivation(columnID);
+    addAddingCardInClientStore(columnID);
+    observer.notify("column", this.state[columnID]);
   },
 
-  state: {
-    columnOrder: [0, 1, 2],
-    0: {
-      title: "해야할 일",
-      addBtnActivated: false,
-      cardOrder: [],
-      cards: {},
-    },
-    1: {
-      title: "하고 있는 일",
-      addBtnActivated: false,
-      cardOrder: [],
-      cards: {},
-    },
-    2: {
-      title: "완료된 일",
-      addBtnActivated: false,
-      cardOrder: [],
-      cards: {},
-    },
-  },
-
-  updateAsAddCardState(columnID) {
-    this.toggleColumnAddBtnActivation(columnID);
-    this.addNewCardForm(columnID);
-    this.notify("column");
-  },
-
-  exitFromAddCardState(columnID) {
-    this.toggleColumnAddBtnActivation(columnID);
-    this.deleteNewCardForm(columnID);
-    this.notify("column");
-  },
-
-  toggleColumnAddBtnActivation(columnID) {
-    this.state[columnID].addBtnActivated = !this.state[columnID].addBtnActivated;
-  },
-
-  addNewCardForm(columnID) {
-    const newCardID = this.getNewCardID();
-    this.state[columnID].cardOrder.unshift(newCardID);
-    this.state[columnID].cards[newCardID] = { columnID, type: "new" };
-  },
-
-  deleteNewCardForm(columnID) {
-    const newCardID = this.state[columnID].cardOrder.shift();
-    delete this.state[columnID].cards[newCardID];
-  },
-
-  getNewCardID() {
-    return new Date().getUTCMilliseconds();
+  unsetAddingCardState(columnID) {
+    toggleColumnAddBtnActivation(columnID);
+    deleteAddingCardFromClientStore(columnID);
+    observer.notify("column", this.state[columnID]);
   },
 
   deleteCard(columnID, cardID) {
-    delete this.state[columnID].cards[cardID];
-    this.state[columnID].cardOrder = this.state[columnID].cardOrder.filter((e) => e !== cardID);
-    this.notify("column");
+    deleteCardFromServer(columnID, cardID);
+    deleteCardFromClientStore(columnID, cardID);
+    observer.notify("column", this.state[columnID]);
   },
 
-  changeCard(columnID, cardID, cardData) {
-    const changedCardData = {};
-    changedCardData[cardID] = cardData;
-    this.state[columnID].cards = { ...this.state[columnID].cards, ...changedCardData };
-    this.notify("column");
+  async changeCardState(columnID, cardID, newState) {
+    const resultColumnState = await changeCardInServer(columnID, cardID, newState);
+    pipe(makeColumnState, arrangeCardOrder, storeCardStates)([resultColumnState, this.state]);
+    observer.notify("column", this.state[columnID]);
+  },
+
+  async addCardState(columnID, newStateForPost) {
+    const resultColumnState = await request.addCard(columnID, newStateForPost);
+    pipe(makeColumnState, arrangeCardOrder, storeCardStates)([resultColumnState, this.state]);
+    observer.notify("column", this.state[columnID]);
   },
 
   changeCardType(columnID, cardID, type) {
     this.state[columnID].cards[cardID].type = type;
-    this.notify("column");
+    observer.notify("column", this.state[columnID]);
+  }
+};
+
+const arrangeColumnOrder = ([rawColumnStates, parsedColumnStates]) => {
+  const columnOrder = rawColumnStates.map((columnState) => columnState._id);
+  parsedColumnStates.columnOrder = columnOrder;
+  return [rawColumnStates, parsedColumnStates];
+};
+
+const storeEachColumnState = ([rawColumnStates, parsedColumnStates]) => {
+  rawColumnStates.forEach((rawColumnState) => {
+    makeColumnState([rawColumnState, parsedColumnStates]);
+  });
+  return [rawColumnStates, parsedColumnStates];
+};
+
+const makeColumnState = ([rawColumnState, parsedColumnStates]) => {
+  const columnState = {};
+  columnState._id = rawColumnState._id;
+  columnState.title = rawColumnState.title;
+  columnState.addBtnActivated = false;
+  parsedColumnStates[columnState._id] = columnState;
+  return [rawColumnState, parsedColumnStates];
+};
+
+const arrangeEachColumnCardOrder = ([rawColumnStates, parsedColumnStates]) => {
+  rawColumnStates.forEach((rawColumnState) => {
+    arrangeCardOrder([rawColumnState, parsedColumnStates]);
+  });
+  return [rawColumnStates, parsedColumnStates];
+};
+
+const arrangeCardOrder = ([rawColumnState, parsedColumnStates]) => {
+  const cardOrder = rawColumnState.cards.map((card) => card._id);
+  const columnID = rawColumnState._id;
+  parsedColumnStates[columnID].cardOrder = cardOrder;
+  return [rawColumnState, parsedColumnStates];
+};
+
+const storeEachColumnCardStates = ([rawColumnStates, parsedColumnStates]) => {
+  rawColumnStates.forEach((rawColumnState) => {
+    storeCardStates([rawColumnState, parsedColumnStates]);
+  });
+  return parsedColumnStates;
+};
+
+const storeCardStates = ([rawColumnState, parsedColumnStates]) => {
+  const columnID = rawColumnState._id;
+  parsedColumnStates[columnID].cards = {};
+  rawColumnState.cards.forEach((rawCardState) => {
+    const cardID = rawCardState._id;
+    parsedColumnStates[columnID].cards[cardID] = makeCardState(rawCardState);
+  });
+  return [rawColumnState, parsedColumnStates];
+};
+
+const makeCardState = (rawCardState) => {
+  const defaultCardState = getDefaultCardState();
+  return { ...rawCardState, ...defaultCardState };
+};
+
+const getDefaultCardState = () => {
+  return { author: "author by web", type: CARD_TYPE.NORMAL };
+};
+
+const toggleColumnAddBtnActivation = (columnID) => {
+  Store.state[columnID].addBtnActivated = !Store.state[columnID].addBtnActivated;
+};
+
+const addAddingCardInClientStore = (columnID) => {
+  const tempCardID = getTempCardID();
+  Store.state[columnID].cardOrder.unshift(tempCardID);
+  Store.state[columnID].cards[tempCardID] = { id: tempCardID, type: CARD_TYPE.ADDING };
+};
+
+const deleteAddingCardFromClientStore = (columnID) => {
+  const newCardID = Store.state[columnID].cardOrder.shift();
+  delete Store.state[columnID].cards[newCardID];
+};
+
+const getTempCardID = () => {
+  return new Date().getUTCMilliseconds();
+};
+
+const deleteCardFromServer = (columnID, cardID) => {
+  request.deleteCard(columnID, cardID);
+};
+
+const deleteCardFromClientStore = (columnID, cardID) => {
+  delete Store.state[columnID].cards[cardID];
+  Store.state[columnID].cardOrder = Store.state[columnID].cardOrder.filter((e) => e != cardID);
+};
+
+const changeCardInServer = (columnID, cardID, newState) => {
+  return request.changeCard(columnID, cardID, newState);
+};
+
+export const observer = {
+  subscribers: {},
+
+  subscribe(interest, subscriber) {
+    if (!this.subscribers[interest]) {
+      this.subscribers[interest] = [];
+    }
+    this.subscribers[interest].push(subscriber);
   },
+
+  notify(interest, state) {
+    this.subscribers[interest].forEach((subscriber) => subscriber(state));
+  }
 };
