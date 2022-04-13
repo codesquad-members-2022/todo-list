@@ -9,9 +9,6 @@ export class ScheduleColumn {
         this.$cardsContainer;
         this.columnId = columnId;
         this.columnTitle = scheduleModel.getScheduleColumnTitle(this.columnId);
-
-        // this.scheduleModel = new ScheduleModel(scheduleColumnData);
-        // this.title = this.scheduleModel.getScheduleColumnTitle();
         this.registerCard = new ScheduleRegisterCard();
 
         this.init();
@@ -116,9 +113,9 @@ export class ScheduleColumn {
         scheduleModel.updateScheduleCard(this.columnId, cardData);
     }
 
-    getCardData(cardId) {
+    getCardData(columnId, cardId) {
         const cardData = scheduleModel.getScheduleCardDataById(
-            this.columnId,
+            columnId,
             cardId
         );
         return cardData;
