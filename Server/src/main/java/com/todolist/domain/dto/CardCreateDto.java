@@ -2,7 +2,10 @@ package com.todolist.domain.dto;
 
 import java.time.LocalDateTime;
 
+import com.todolist.domain.BoardType;
 import com.todolist.domain.Card;
+import com.todolist.exception.ExceptionType;
+import com.todolist.exception.GlobalException;
 
 import lombok.Getter;
 
@@ -13,7 +16,6 @@ import javax.validation.constraints.Size;
 @Getter
 public class CardCreateDto {
 
-    // @NotBlank 는 String 에서 사용
     @NotNull(message = "userId 값이 비었습니다.")
     private Integer userId;
 
@@ -32,7 +34,7 @@ public class CardCreateDto {
         this.userId = userId;
         this.cardTitle = cardTitle;
         this.cardContent = cardContent;
-        this.boardName = boardName;
+        this.boardName = resolveBoardName(boardName);
     }
 
     public Card toCard() {
@@ -43,5 +45,14 @@ public class CardCreateDto {
             .boardName(boardName)
             .createdTime(LocalDateTime.now())
             .build();
+    }
+
+    private String resolveBoardName(String boardName) {
+        for (BoardType value : BoardType.values()) {
+            if (value.name().equals(boardName)) {
+                return boardName;
+            }
+        }
+        throw new GlobalException(ExceptionType.INVALID_BOARD_NAME);
     }
 }
