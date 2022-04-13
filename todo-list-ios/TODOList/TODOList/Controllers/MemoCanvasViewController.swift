@@ -20,15 +20,15 @@ class MemoCanvasViewController: UIViewController {
     
     private func initProperties() {
         for containerType in MemoContainerType.allCases {
-            for _ in 0..<15 {
-                addTableViewModel(containerType: containerType)
+            for index in 0..<3 {
+                addTableViewModel(containerType: containerType, index: index)
             }
             addTableViewController(containerType: containerType)
         }
     }
     
-    private func addTableViewModel(containerType: MemoContainerType) {
-        let memo = Memo(title: "해야 할 일입니당", content: "해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK")
+    private func addTableViewModel(containerType: MemoContainerType, index: Int) {
+        let memo = Memo(title: containerType.rawValue, content: "\(index) : 해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK \(index)")
         memoTableViewModels[containerType]?.append(memo)
     }
     
