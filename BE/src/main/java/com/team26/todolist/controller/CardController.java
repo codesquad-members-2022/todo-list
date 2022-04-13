@@ -7,8 +7,6 @@ import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
 import com.team26.todolist.exception.EmptyCardStatusException;
 import com.team26.todolist.service.CardService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,7 +54,7 @@ public class CardController {
 
     @PatchMapping
     public ResponseEntity<CardResponse> changeCardStatus(@RequestBody CardMoveRequest cardMoveRequest) {
-        CardResponse movedCard = cardService.changeCardStatus(cardMoveRequest);
+        CardResponse movedCard = cardService.changeCardLocation(cardMoveRequest);
 
         return ResponseEntity.ok()
                 .body(movedCard);

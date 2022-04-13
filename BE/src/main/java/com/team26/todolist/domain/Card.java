@@ -2,23 +2,30 @@ package com.team26.todolist.domain;
 
 import java.time.LocalDateTime;
 
-public class Card {
+public class Card implements Comparable<Card> {
     private Long id;
     private String title;
     private String contents;
     private String userId;
     private Long columnId;
+    private Double order;
     private boolean isDeleted;
     private LocalDateTime createdAt;
 
-    public Card(Long id, String title, String contents, String userId, Long columnId, LocalDateTime createdAt) {
+    public Card(Long id, String title, String contents, String userId, Long columnId,
+            Double order, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.contents = contents;
         this.userId = userId;
         this.columnId = columnId;
-        this.isDeleted = false;
+        this.order = order;
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public int compareTo(Card card) {
+        return Double.compare(getOrder(), card.getOrder());
     }
 
     public Card(String title, String contents, Long columnId) {
@@ -77,5 +84,9 @@ public class Card {
                 ", isDeleted=" + isDeleted +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    public Double getOrder() {
+        return order;
     }
 }

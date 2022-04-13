@@ -4,6 +4,8 @@ import com.team26.todolist.domain.Card;
 public class CardMoveRequest {
     private Long id;
     private Long newColumnId;
+    private Long upperCardId;
+    private Long lowerCardId;
 
     public Card toEntity() {
         return new Card(this.id, this.newColumnId);
@@ -15,5 +17,13 @@ public class CardMoveRequest {
 
     public Long getNewColumnId() {
         return newColumnId;
+    }
+
+    public Long getUpperCardId() {
+        return upperCardId;
+    }
+
+    public Long getLowerCardId() {
+        return lowerCardId;
     }
 }

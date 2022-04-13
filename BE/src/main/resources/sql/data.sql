@@ -1,14 +1,14 @@
-INSERT INTO card(id, title, contents, user_id, column_id, deleted, created_at )
-VALUES(1, '제목 1', '내용 1', 'damon', 1, false, CURRENT_TIMESTAMP);
+INSERT INTO card(id, title, contents, user_id, column_id, deleted, order_index, created_at )
+VALUES(1, '제목 1', '내용 1', 'damon', 1, false, 0.0, CURRENT_TIMESTAMP);
 
-INSERT INTO card(id, title, contents, user_id, column_id, deleted, created_at )
-VALUES(2, '제목 2', '내용 2', 'ader', 1, true, CURRENT_TIMESTAMP);
+INSERT INTO card(id, title, contents, user_id, column_id, deleted, order_index, created_at )
+VALUES(2, '제목 2', '내용 2', 'ader', 1, true, 1000.0, CURRENT_TIMESTAMP);
 
-INSERT INTO card(id, title, contents, user_id, column_id, deleted, created_at )
-VALUES(3, '제목 3', '내용 3', 'honux', 3, false, CURRENT_TIMESTAMP);
+INSERT INTO card(id, title, contents, user_id, column_id, deleted, order_index, created_at )
+VALUES(3, '제목 3', '내용 3', 'honux', 3, false, 0.0, CURRENT_TIMESTAMP);
 
-INSERT INTO card(id, title, contents, user_id, column_id, deleted, created_at )
-VALUES(4, '제목 4', '내용 4', 'backend', 2, false, CURRENT_TIMESTAMP);
+INSERT INTO card(id, title, contents, user_id, column_id, deleted, order_index, created_at )
+VALUES(4, '제목 4', '내용 4', 'backend', 2, false, 0.0, CURRENT_TIMESTAMP);
 
 INSERT INTO history(card_action, user_id, card_title, card_title_before, column_title,
                     column_title_before, created_at)

@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 @Primary
 public class CardServiceJdbc implements CardService {
 
+    public static final double DIFFERENCE = 1000.0;
+
     private final CardRepository cardRepository;
     private final HistoryService historyService;
 
@@ -28,14 +30,16 @@ public class CardServiceJdbc implements CardService {
 
     @Override
     public List<CardResponse> findByColumnId(Long columnId) {
-        return cardRepository.findByCardStatus(columnId).stream()
+        return cardRepository.findByColumnId(columnId).stream().sorted()
                 .map(CardResponse::of)
                 .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
     public CardResponse addCard(CardRegistrationRequest cardRegistrationRequest) {
-        Card saveCard = cardRepository.save(cardRegistrationRequest.toEntity());
+        Double firstOrder = cardRepository.getFirstOrder();
+        Double newOrder = firstOrder - DIFFERENCE;
+        Card saveCard = cardRepository.save(cardRegistrationRequest.toEntity(), newOrder);
         historyService.saveHistory(CardAction.ADD, "", null, saveCard);
 
         return CardResponse.of(saveCard);
@@ -53,10 +57,11 @@ public class CardServiceJdbc implements CardService {
     }
 
     @Override
-    public CardResponse changeCardStatus(CardMoveRequest cardMoveRequest) {
+    public CardResponse changeCardLocation(CardMoveRequest cardMoveRequest) {
+        Double newOrder = getNewOrder(cardMoveRequest);
         Card card = cardMoveRequest.toEntity();
         Card cardBefore = cardRepository.findById(cardMoveRequest.getId());
-        Card cardAfter = cardRepository.updateCardStatus(card);
+        Card cardAfter = cardRepository.updateLocation(card, newOrder);
 
         historyService.saveHistory(CardAction.MOVE, "", cardBefore, cardAfter);
 
@@ -69,5 +74,24 @@ public class CardServiceJdbc implements CardService {
 
         cardRepository.delete(findCard);
         historyService.saveHistory(CardAction.DELETE, "", findCard, null);
+    }
+
+    private double getNewOrder(CardMoveRequest cardMoveRequest) {
+        Card upperCard = cardRepository.findById(cardMoveRequest.getUpperCardId());
+        Card lowerCard = cardRepository.findById(cardMoveRequest.getLowerCardId());
+
+        if (upperCard == null && lowerCard == null) {
+            return 0.0;
+        }
+
+        if (upperCard == null) {
+            return lowerCard.getOrder() - DIFFERENCE;
+        }
+
+        if (lowerCard == null) {
+            return upperCard.getOrder() + DIFFERENCE;
+        }
+
+        return (upperCard.getOrder() + lowerCard.getOrder()) / 2;
     }
 }
