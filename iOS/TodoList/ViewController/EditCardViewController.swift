@@ -11,7 +11,9 @@ class EditCardViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: .cancelButtonTapped, object: nil, queue: .main, using: {_ in
             self.dismiss(animated: false)
         })
-        NotificationCenter.default.addObserver(forName: .editButtonTapped, object: nil, queue: .main, using: {_ in
+        NotificationCenter.default.addObserver(forName: .editButtonTapped, object: nil, queue: .main, using: { noti in
+            guard let card = noti.userInfo?[NotificationKeyValue.postTaskData] as? RequestCardData else { return }
+            URLManager.post(with: card)
             self.dismiss(animated: false)
         })
     }

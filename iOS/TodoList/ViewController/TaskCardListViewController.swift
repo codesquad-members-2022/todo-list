@@ -23,11 +23,13 @@ class TaskCardListViewController: UIViewController {
         
     }
     
-    func set(_ title: String, with cards: TaskCardList) {
+    func set(_ title: String, with cards: [TaskCard]) {
+        self.taskCardList = TaskCardList(sectionTitle: title, cards: cards)
+        let count = self.taskCardList?.count ?? 0
+        
         self.taskCardListView.setTitle(to: title)
-        self.taskCardList = cards
-        let count = self.taskCardList?.getCount() ?? 0
         self.taskCardListView.setCountBadge(with: count)
+        self.taskCardListView.reloadTable()
     }
     
 }
@@ -35,7 +37,7 @@ class TaskCardListViewController: UIViewController {
 extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let taskCardList = self.taskCardList else {return 0}
-        return taskCardList.getCount()
+        return taskCardList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
