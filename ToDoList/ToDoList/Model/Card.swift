@@ -1,6 +1,7 @@
 import Foundation
+import MobileCoreServices
 
-struct Card: Cardable, Codable {
+final class Card: NSObject, Cardable, Codable {
 
     private enum CodingKeys: String, CodingKey {
         case id
@@ -26,7 +27,7 @@ struct Card: Cardable, Codable {
         self.createdTime = Date.now
     }
     
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         self.id = try container.decode(Int.self, forKey: .id)
@@ -37,11 +38,11 @@ struct Card: Cardable, Codable {
         self.createdTime = try container.decode(Date.self, forKey: .createdTime)
     }
     
-    mutating func moveList(to newCardListID: Int) {
+    func moveList(to newCardListID: Int) {
         self.cardListID = newCardListID
     }
     
-    mutating func setID(with id: Int) {
+    func setID(with id: Int) {
         self.id = id
     }
 }
@@ -50,5 +51,39 @@ extension Card: ModelFactoriable {
     static func make(title: String, body: String, data: [Any]) -> Cardable {
         let cardListID: Int = data[0] as? Int ?? -1
         return Card.init(title: title, body: body, caption: .iOS, cardListID: cardListID)
+    }
+}
+
+extension Card: NSItemProviderWriting {
+    static var writableTypeIdentifiersForItemProvider: [String] {
+        return [String(kUTTypeData)]
+    }
+    
+    func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
+        let progress = Progress(totalUnitCount: 100)
+        
+        do {
+            let data = try JSONEncoder().encode(self)
+            progress.completedUnitCount = 100
+            completionHandler(data, nil)
+        } catch {
+            completionHandler(nil, error)
+        }
+        
+        return progress
+    }
+}
+
+extension Card: NSItemProviderReading {
+    static var readableTypeIdentifiersForItemProvider: [String] {
+        return [String(kUTTypeData)]
+    }
+    
+    static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Card {
+        let decoder = JSONDecoder()
+        do {
+            let card = try decoder.decode(Card.self, from: data)
+            return card
+        }
     }
 }
