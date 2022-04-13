@@ -47,4 +47,22 @@ class NetworkManagerTests: XCTestCase {
         
         wait(for: [promise], timeout: 1)
     }
+    
+    func testDelete() throws {
+        // Delete는 멱등하지가 않은데, Test 실행시마다 test id를 어떻게 동적으로 정해야할까?
+        let testId = 2
+        
+        let promise = XCTestExpectation(description: "data deleted")
+        
+        networkManager.delete(id: testId) { result in
+            switch result {
+            case .success(let id):
+                XCTAssertEqual(id, testId)
+                promise.fulfill()
+            case .failure(let error): print(error.localizedDescription)
+            }
+        }
+        
+        wait(for: [promise], timeout: 1)
+    }
 }

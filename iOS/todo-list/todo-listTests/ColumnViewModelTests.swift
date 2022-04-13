@@ -16,7 +16,6 @@ class ColumnViewModelTests: XCTestCase {
 <<<<<<< HEAD
         
         columnViewModel.list.bind { taskViewModels in
-            print(taskViewModels.count)
             XCTAssertTrue(taskViewModels.count > 0)
             promise.fulfill()
 =======
@@ -59,4 +58,31 @@ class ColumnViewModelTests: XCTestCase {
         wait(for: [promise], timeout: 2)
     }
     
+    func testDelete() throws {
+        let columnViewModel = ColumnViewModel(state: .inProgress, taskManager: TaskManager())
+        
+        // Test id를 얻기 위한 load 실행
+        let loadPromise = XCTestExpectation(description: "data loaded")
+        var testId = 0
+        
+        columnViewModel.list.bind { taskViewModels in
+            testId = taskViewModels[0].id
+            loadPromise.fulfill()
+        }
+        
+        columnViewModel.load()
+        wait(for: [loadPromise], timeout: 1)
+        
+        // 가져온 Test id로 delete 테스트 실행
+        let deletePromise = XCTestExpectation(description: "data deleted")
+        
+        columnViewModel.list.bind { taskViewModels in
+            XCTAssertTrue(taskViewModels.filter { $0.id == testId }.count == 0)
+            deletePromise.fulfill()
+        }
+        
+        columnViewModel.delete(id: testId)
+        
+        wait(for: [deletePromise], timeout: 1)
+    }
 }
