@@ -1,5 +1,3 @@
-import { icons } from '../constants/constant.js';
-
 export const createNewCardTemplate = () => {
   return `
   <li class="task__card new-card">
@@ -14,9 +12,6 @@ export const createNewCardTemplate = () => {
       <input type=button class="footer__buttons__cancel" value="취소">
       <input type=button class="footer__buttons__save" value="등록" disabled/>
     </footer>
-  </div>
-  <div class="card__delete-btn">
-    ${icons.delete}
   </div>
 </li>
   `;
@@ -33,7 +28,14 @@ const onNewCardClick = (newCard, store, columnClassName) => {
 
 const saveNewCard = (newCard, store, columnClassName, ...userInput) => {
   const [header, main] = userInput;
-  const taskData = { header, main, footer: 'author', dateTime: Date(), status: columnClassName, id: Date.now() };
+  const taskData = {
+    header,
+    main,
+    footer: 'author',
+    datetime: new Date().toISOString(),
+    status: columnClassName,
+    cardId: Date.now(),
+  };
   const columnData = store.getStore('main').find(column => column.className === columnClassName);
   columnData.tasks.push(taskData);
   columnData.total++;
@@ -91,6 +93,13 @@ const onResizeTextArea = textArea => {
   });
 };
 
+const onCancelBtnClick = newCard => {
+  const cancelBtn = newCard.querySelector('.footer__buttons__cancel');
+  cancelBtn.addEventListener('click', () => {
+    newCard.parentElement.remove();
+  });
+};
+
 const toggleNewCard = (cardList, store, columnClassName) => {
   const newCard = cardList.querySelector('.new-card');
   if (newCard) {
@@ -103,5 +112,6 @@ const toggleNewCard = (cardList, store, columnClassName) => {
     onNewCardInput(newCard);
     onResizeTextArea(textArea);
     onNewCardClick(newCard, store, columnClassName);
+    onCancelBtnClick(newCard);
   }
 };
