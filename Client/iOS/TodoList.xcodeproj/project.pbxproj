@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B548340280675C600CB6ABE /* CardDataMiddleWare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54833F280675C600CB6ABE /* CardDataMiddleWare.swift */; };
+		1B548343280675DF00CB6ABE /* CardMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B548341280675DF00CB6ABE /* CardMap.swift */; };
+		1B5483462806760900CB6ABE /* CardsFetchingDebugDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5483452806760900CB6ABE /* CardsFetchingDebugDataTask.swift */; };
+		1B54834A280676C600CB6ABE /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B548348280676C600CB6ABE /* TodoTableView.swift */; };
+		1B54834B280676C600CB6ABE /* TodoTableViewManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B548349280676C600CB6ABE /* TodoTableViewManagement.swift */; };
 		6F13F36D27FC2487000DF2BA /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F13F36B27FC2487000DF2BA /* TodoViewController.swift */; };
 		6F13F37427FC9BD3000DF2BA /* ProgressTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F13F37327FC9BD3000DF2BA /* ProgressTodoViewController.swift */; };
 		6F13F37627FC9C0A000DF2BA /* CompletedTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F13F37527FC9C0A000DF2BA /* CompletedTodoViewController.swift */; };
@@ -58,6 +63,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B54833F280675C600CB6ABE /* CardDataMiddleWare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDataMiddleWare.swift; sourceTree = "<group>"; };
+		1B548341280675DF00CB6ABE /* CardMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMap.swift; sourceTree = "<group>"; };
+		1B5483452806760900CB6ABE /* CardsFetchingDebugDataTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsFetchingDebugDataTask.swift; sourceTree = "<group>"; };
+		1B548348280676C600CB6ABE /* TodoTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
+		1B548349280676C600CB6ABE /* TodoTableViewManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableViewManagement.swift; sourceTree = "<group>"; };
 		6F13F36B27FC2487000DF2BA /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		6F13F37327FC9BD3000DF2BA /* ProgressTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTodoViewController.swift; sourceTree = "<group>"; };
 		6F13F37527FC9C0A000DF2BA /* CompletedTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTodoViewController.swift; sourceTree = "<group>"; };
@@ -116,9 +126,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B54833E280675C600CB6ABE /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				1B54833F280675C600CB6ABE /* CardDataMiddleWare.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		1B548347280676C600CB6ABE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1B548348280676C600CB6ABE /* TodoTableView.swift */,
+				1B548349280676C600CB6ABE /* TodoTableViewManagement.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6F13F36F27FC2D31000DF2BA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				6F5BC28C27FA9CB0002D591D /* ViewController.swift */,
 				6F13F36B27FC2487000DF2BA /* TodoViewController.swift */,
 				6F13F37327FC9BD3000DF2BA /* ProgressTodoViewController.swift */,
 				6F13F37527FC9C0A000DF2BA /* CompletedTodoViewController.swift */,
@@ -160,11 +188,12 @@
 			children = (
 				6FD8AB562803C7A100A4B350 /* SystemLog.swift */,
 				6FD8AB402803C78400A4B350 /* Network */,
+				1B54833E280675C600CB6ABE /* Repository */,
 				6F1EC59627FD5B0800BAED63 /* Cells */,
 				6F13F36F27FC2D31000DF2BA /* ViewControllers */,
+				1B548347280676C600CB6ABE /* View */,
 				6F5BC28827FA9CB0002D591D /* AppDelegate.swift */,
 				6F5BC28A27FA9CB0002D591D /* SceneDelegate.swift */,
-				6F5BC28C27FA9CB0002D591D /* ViewController.swift */,
 				6F5BC28E27FA9CB0002D591D /* Main.storyboard */,
 				6F5BC29127FA9CB6002D591D /* Assets.xcassets */,
 				6F5BC29327FA9CB6002D591D /* LaunchScreen.storyboard */,
@@ -195,13 +224,14 @@
 		6FD8AB402803C78400A4B350 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				6FD8AB472803C78400A4B350 /* ResourcesNetwork */,
 				6FD8AB412803C78400A4B350 /* CardHTTPRequest.swift */,
 				6FD8AB422803C78400A4B350 /* SessionConfiguration.swift */,
 				6FD8AB432803C78400A4B350 /* SessionDataTask.swift */,
 				6FD8AB442803C78400A4B350 /* RequestSessionDefault.swift */,
 				6FD8AB452803C78400A4B350 /* CardsUpdateDataTask.swift */,
 				6FD8AB462803C78400A4B350 /* CardsFetchingDataTask.swift */,
-				6FD8AB472803C78400A4B350 /* ResourcesNetwork */,
+				1B5483452806760900CB6ABE /* CardsFetchingDebugDataTask.swift */,
 				6FD8AB4B2803C78400A4B350 /* SessionCommonAttributes.swift */,
 			);
 			path = Network;
@@ -210,6 +240,7 @@
 		6FD8AB472803C78400A4B350 /* ResourcesNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				1B548341280675DF00CB6ABE /* CardMap.swift */,
 				6FD8AB482803C78400A4B350 /* CardData.swift */,
 				6FD8AB492803C78400A4B350 /* BoardData.swift */,
 				6FD8AB4A2803C78400A4B350 /* HistoryData.swift */,
@@ -356,7 +387,10 @@
 				6FD8AB532803C78400A4B350 /* BoardData.swift in Sources */,
 				6FD8AB4C2803C78400A4B350 /* CardHTTPRequest.swift in Sources */,
 				6FD8AB552803C78400A4B350 /* SessionCommonAttributes.swift in Sources */,
+				1B548343280675DF00CB6ABE /* CardMap.swift in Sources */,
+				1B548340280675C600CB6ABE /* CardDataMiddleWare.swift in Sources */,
 				6FD8AB4F2803C78400A4B350 /* RequestSessionDefault.swift in Sources */,
+				1B54834A280676C600CB6ABE /* TodoTableView.swift in Sources */,
 				6FD8AB542803C78400A4B350 /* HistoryData.swift in Sources */,
 				6FD8AB502803C78400A4B350 /* CardsUpdateDataTask.swift in Sources */,
 				6F5BC28927FA9CB0002D591D /* AppDelegate.swift in Sources */,
@@ -365,6 +399,8 @@
 				6F5BC28B27FA9CB0002D591D /* SceneDelegate.swift in Sources */,
 				6F13F37627FC9C0A000DF2BA /* CompletedTodoViewController.swift in Sources */,
 				6FD8AB4D2803C78400A4B350 /* SessionConfiguration.swift in Sources */,
+				1B5483462806760900CB6ABE /* CardsFetchingDebugDataTask.swift in Sources */,
+				1B54834B280676C600CB6ABE /* TodoTableViewManagement.swift in Sources */,
 				6F13F37427FC9BD3000DF2BA /* ProgressTodoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
