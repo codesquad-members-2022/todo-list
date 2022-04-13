@@ -8,12 +8,11 @@
 import Foundation
 
 struct Card: Codable{
-    private(set) var id: Int?
+    private(set) var id: Int
     private(set) var section: State
     private(set) var title: String
     private(set) var content: String
-    private(set) var createdDate: Date?
-    private(set) var userID: String
+    private(set) var createdDate: String
     
     enum State: Int, Codable{
         case todo = 1
@@ -26,17 +25,15 @@ struct Card: Codable{
         case section
         case title
         case content
-        case createdDate = "created_at"
-        case userID = "userId"
+        case createdDate = "modifiedAt"
     }
     
     init(section: Int, title: String, content: String, userID: String){
-        self.id = nil
+        self.id = 0
         self.section = State(rawValue: section) ?? .todo
         self.title = title
         self.content = content
-        self.createdDate = nil
-        self.userID = userID
+        self.createdDate = ""
     }
     
     mutating func changeId(id: Int){
@@ -44,6 +41,6 @@ struct Card: Codable{
     }
     
     mutating func changeDate(date: Date){
-        self.createdDate = date
+        self.createdDate = ""
     }
 }

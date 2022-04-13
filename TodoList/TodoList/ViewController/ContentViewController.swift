@@ -16,25 +16,31 @@ final class ContentViewController: UIViewController {
         }
     }
     
-    private var tableVC: TableViewController!
+    private var tableVC = TableViewController()
     private var collectionView: CollectionView!
     
     // 화면 회전에 따른 layout 유지
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        guard let layout = self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout, let width = self.collectionView?.bounds.width else{ return }
+        guard let layout = self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout, let width = self.collectionView?.bounds.width, let height = self.collectionView?.bounds.height else{ return }
         
-        let itemSize = CGSize(width: width, height: width)
+        let itemSize = CGSize(width: width, height: height)
         layout.itemSize = itemSize
         layout.invalidateLayout()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableVC = TableViewController()
+        self.addChild(tableVC)
         setCollectionView()
         setCollectionViewDelegate()
+    }
+    
+    // Layout이 생성된 이후에 네트워크 통신 및 데이터 할당 작업 실행(비동기)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableVC.didMove(toParent: self)
     }
 }
 
