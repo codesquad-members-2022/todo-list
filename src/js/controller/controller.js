@@ -1,7 +1,7 @@
 import { TODO_LIST_URL } from '../constants/constant.js';
 import { appendElementsToParent, fetchData } from '../utils/util.js';
 import { insertColumns } from '../views/columnsView.js';
-import { insertAllCardToColumn } from '../views/cardView.js';
+import { addNewCardToColumn, insertAllCardToColumn } from '../views/cardView.js';
 import { onAddBtnClick } from '../views/newCardView.js';
 import { createStore } from '../store/store';
 import { onClickCardDeleteBtn, onMouseOutCardDeleteBtn, onMouseOverCardDeleteBtn } from '../views/cardDeleteView.js';
@@ -29,5 +29,5 @@ const addEventListeners = store => {
   onAddBtnClick(store);
   onMouseOverCardDeleteBtn();
   onMouseOutCardDeleteBtn();
-  onClickCardDeleteBtn();
+  onClickCardDeleteBtn(store);
 };
