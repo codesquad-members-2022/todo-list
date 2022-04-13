@@ -44,11 +44,7 @@ class NetworkHandler {
             do {
                 let decoder = JSONDecoder()
                 let activities = try decoder.decode(Activities.self, from: data)
-                print(activities.count)
-                for activity in activities {
-                    print("action: \(activity.action)")
-                    print("modified at: \(activity.modifiedAt)")
-                }
+                NotificationCenter.default.post(name: Notification.Name.fetch, object: self, userInfo: [NotificationKey.activity: activities])
             }
             catch let error {
                 print("--> error: \(error.localizedDescription)")
