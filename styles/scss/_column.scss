@@ -24,15 +24,10 @@
   .todo-card {
     @include shared.todo-card($background: White, $border: shadow_normal);
   }
-
-  &[data-idx="2"] {
-    @include shared.column_left(2);
+  .selected {
+    @include shared.selected();
   }
 
-
-  .todo-card {
-    @include shared.todo-card($background: White, $border: shadow_normal); 
-  } 
 }
 
 

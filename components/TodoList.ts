@@ -8,7 +8,7 @@ import { TodoCard } from "./TodoCard";
 export class TodoList extends View {
   template() {
     const {
-     title, todos, editting
+    title, todos, editting
     } = this.$props;
     return `
           <div class="todo-title">
@@ -46,23 +46,16 @@ export class TodoList extends View {
     ${todos
       .map(
         (todo:StateObj, idx:number) =>
-          `<div class="${
-            todo.selected ? "selected" : "todo-card"
-          }" data-idx="${idx}">
-    
-</div>`
-      )
+       `<div class="todo-card" data-idx="${idx}"></div>`
+    )
       .join("")}`;
   }
 
   mount() {
     const { todos } = this.$props;
     todos.forEach(
-      (todo, idx) =>
-        new TodoCard(this.select(`.todo-card[data-idx="${idx}"]`), {
-          todo,
-          idx
-        })
+      (todo:StateObj, idx:number) =>
+          new TodoCard(this.store, this.select(`.todo-card[data-idx="${idx}"]`)!, {todo,idx, listIdx:this.select()?.dataset.idx})
     );
   }
   setEvent(){
