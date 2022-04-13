@@ -14,5 +14,8 @@ $box-blue: #0075de;
 $box-lightblue: #86c6ff;
 
 // filter: color
-$filter-blue: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(700%) contrast(0.8);
-$filter-red: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+$filter-lightgray: invert(54%) sepia(0%) saturate(121%) hue-rotate(229deg) brightness(95%) contrast(88%);
+$filter-gray: invert(92%) sepia(18%) saturate(0%) hue-rotate(132deg) brightness(81%) contrast(87%);
+$filter-blue: invert(30%) sepia(91%) saturate(2709%) hue-rotate(193deg) brightness(93%) contrast(101%);
+$filter-red: invert(55%) sepia(66%) saturate(5299%) hue-rotate(334deg) brightness(98%) contrast(103%);
+$filter-lightblue: invert(66%) sepia(87%) saturate(606%) hue-rotate(181deg) brightness(102%) contrast(106%);

@@ -36,14 +36,14 @@
     }
 
     &--add-card {
-      cursor: pointer;
+      filter: $filter-gray;
       &:hover {
         filter: $filter-blue;
       }
     }
 
     &--delete-card {
-      cursor: pointer;
+      filter: $filter-gray;
       &:hover {
         filter: $filter-red;
       }
