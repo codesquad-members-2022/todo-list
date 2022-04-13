@@ -7,23 +7,23 @@
 
 import UIKit
 
-class AddCardViewController: UIViewController {
-
+final class AddCardViewController: UIViewController {
+    var addCardView: AddCardView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor = .clear
+        setaddCardView()
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
+private extension AddCardViewController{
+    func setaddCardView(){
+        let xCoord = self.view.bounds.width / 2 - 200
+        let yCoord = self.view.bounds.height / 2 - 87
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        addCardView = AddCardView(frame: CGRect(x: xCoord, y: yCoord, width: 400, height: 175))
+        self.view.addSubview(addCardView)
+        print(addCardView.frame)
     }
-    */
-
 }
