@@ -4,26 +4,13 @@ import lombok.Getter;
 
 @Getter
 public class RestResponse {
-    private String errorFiledName;
-    private String errorMessage;
+    private final Object errorMessage;
 
-    private RestResponse(String errorFiledName, String errorMessage) {
-        this.errorFiledName = errorFiledName;
+    private RestResponse(Object errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    // MethodArgumentNotValidException 예외 처리
-    public static RestResponse methodArgumentNotValidException(String errorFiledName, String errorMessage) {
-        return new RestResponse(errorFiledName, errorMessage);
-    }
-
-    // MethodArgumentTypeMismatchException 예외 처리
-    public static RestResponse methodArgumentTypeMismatchException(String errorFiledName, String errorMessage) {
-        return new RestResponse(errorFiledName, errorMessage);
-    }
-
-    // NotFoundCardException 예외 처리
-    public static RestResponse notFoundCardException(String errorFiledName, String errorMessage) {
-        return new RestResponse(errorFiledName, errorMessage);
+    public static RestResponse of(Object errorMessage) {
+        return new RestResponse(errorMessage);
     }
 }
