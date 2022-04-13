@@ -1,18 +1,29 @@
 package com.example.backend.web.dto;
 
-import java.util.HashMap;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Column {
-    private final Map<String, List<CardListResponseDto>> cardMap = new HashMap<>();
+    @ApiModelProperty(example = "column 이름")
+    private final String columnType;
+    private final List<CardListResponseDto> cards;
 
-    public void addByColumnName(String columnName, CardListResponseDto dto) {
-        List<CardListResponseDto> cardList = cardMap.get(columnName);
-        cardList.add(dto);
+    public Column(String columnType) {
+        cards = new ArrayList<>();
+        this.columnType = columnType;
     }
 
-    public Map<String, List<CardListResponseDto>> getCardMap() {
-        return cardMap;
+    public void addCards(List<CardListResponseDto> cards) {
+        this.cards.addAll(cards);
+    }
+
+    public String getColumnType() {
+        return columnType;
+    }
+
+    public List<CardListResponseDto> getCards() {
+        return cards;
     }
 }

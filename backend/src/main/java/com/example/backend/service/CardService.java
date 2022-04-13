@@ -2,10 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.domain.Card;
 import com.example.backend.domain.repository.CardRepository;
-import com.example.backend.web.dto.Column;
-import com.example.backend.web.dto.CardSaveRequestDto;
-import com.example.backend.web.dto.CardMoveRequestDto;
-import com.example.backend.web.dto.CardUpdateRequestDto;
+import com.example.backend.web.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,18 +16,17 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public Column findAll() {
+    public Columns findAll() {
         return cardRepository.findAllDesc();
     }
 
-    public Long save(CardSaveRequestDto dto) {
+    public CardListResponseDto save(CardSaveRequestDto dto) {
         return cardRepository.save(dto.toEntity());
     }
 
-    public Long update(Long id, CardUpdateRequestDto dto) {
-        // 해당 id로 조회한 카드의 entity에 내용을 반영하여 전달
+    public CardListResponseDto update(Long id, CardUpdateRequestDto dto) {
         Card card = findById(id);
-        card.update(dto.getTitle(), dto.getTitle());
+        card.update(dto.getTitle(), dto.getContent());
         return cardRepository.save(card);
     }
 
