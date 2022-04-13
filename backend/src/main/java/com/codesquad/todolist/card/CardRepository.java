@@ -49,7 +49,8 @@ public class CardRepository {
             "select card_id, column_id, title, content, author, next_id, created_date from card"
                 + " where card_id = :cardId and deleted = false";
 
-        MapSqlParameterSource source = new MapSqlParameterSource().addValue("cardId", cardId);
+        MapSqlParameterSource source = new MapSqlParameterSource()
+            .addValue("cardId", cardId);
 
         try {
             Card card = jdbcTemplate.queryForObject(sql, source, getCardRowMapper());
@@ -89,6 +90,16 @@ public class CardRepository {
     public void deleteTarget(Card card) {
         String sql = "update card set deleted = true, next_id = null where card_id = :cardId";
         jdbcTemplate.update(sql, new BeanPropertySqlParameterSource(card));
+    }
+
+    public Integer countByColumnIdAndNextId(int columnId, int nextId) {
+        String sql = "select count(*) from card where card_id = :cardId and column_id = :columnId and deleted = false";
+
+        MapSqlParameterSource source = new MapSqlParameterSource()
+            .addValue("cardId", nextId)
+            .addValue("columnId", columnId);
+
+        return jdbcTemplate.queryForObject(sql, source, Integer.class);
     }
 
     private RowMapper<Card> getCardRowMapper() {

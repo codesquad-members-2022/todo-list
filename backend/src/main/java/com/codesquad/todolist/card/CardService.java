@@ -75,6 +75,9 @@ public class CardService {
     }
 
     public HistoryResponse move(Integer cardId, CardMoveRequest request) {
+        // 이동할 컬럼에서 지정된 다음 노드가 있는지 확인
+        validateNextId(request.getColumnId(), request.getNextId());
+
         Card oldCard = cardRepository.findById(cardId)
             .orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
 
@@ -107,5 +110,16 @@ public class CardService {
             history.setFields(modifiedFields);
         }
         return HistoryResponse.from(history);
+    }
+
+    private void validateNextId(int columnId, Integer nextId) {
+        if (nextId == null) {
+            return;
+        }
+        Integer count = cardRepository.countByColumnIdAndNextId(columnId, nextId);
+
+        if (count == 0) {
+            throw new IllegalStateException("해당 컬럼에서 다음 카드를 찾을 수 없습니다.");
+        }
     }
 }
