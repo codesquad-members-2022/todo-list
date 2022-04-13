@@ -1,10 +1,10 @@
 package kr.codesquad.todolist.card;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @RequiredArgsConstructor

@@ -1,11 +1,11 @@
 package kr.codesquad.todolist.card;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Builder
 public class Card {
