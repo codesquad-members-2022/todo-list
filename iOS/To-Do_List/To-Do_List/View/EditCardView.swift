@@ -10,10 +10,6 @@ typealias EditViewInputInfo = (button:String, title:String, content:String)
 import UIKit
 
 final class EditCardView:UIView {
-
-    //Notification
-    static let tapCofirmButton = Notification.Name("didTapConfirmButton")
-    static let cardViewInfo = "CardViewInfo"
     
     //Setting Value
     private let defaultButtonColor = UIColor(red: 224 / 255, green: 224 / 255, blue: 224 / 255, alpha: 1)

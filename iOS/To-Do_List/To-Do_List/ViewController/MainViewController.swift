@@ -76,9 +76,33 @@ extension MainViewController {
             selector: #selector(deleteCard),
             name: MainViewController.didDeleteCard,
             object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(postNewCardInfo),
+            name: ChildViewController.tapCofirmButton,
+            object: nil)
+        
     }
-    
+    @objc func postNewCardInfo(_ notification:Notification) {
+        let samplePostModel = CardInfo(writer: "Park", position: 123, title: "Queen", content: "Dom", cardType: "TODO", memberId: 1)
+        guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
+              let childVC = notification.object as? ChildViewController
+        else { return }
+        
+        networkManager?.request(endpoint: EndPointCase.addCard(card: samplePostModel).endpoint, completionHandler: { (result:Result<CardInfo,NetworkError>) in
+            switch result {
+            case .success(let cardinfo):
+                childVC.insertFromList(card: cardinfo)
+            case .failure(let error):
+                os_log(.error, "\(error.localizedDescription)")
+            }
+        })
+    }
 }
+
+
+
 
 //MARK: Network
 extension MainViewController {
@@ -107,25 +131,11 @@ extension MainViewController {
             switch result {
             case .success:
                 os_log(.default, "삭제 성공")
-                self.removeCardFromChildController(card: cardInfo, from: childVC)
             case .failure(let error):
                 os_log(.error, "\(error.localizedDescription)")
             }
         }
     }
-    
-    
-    
-    private func removeCardFromChildController(card: Todo, from: ChildViewController) {
-        //여기서 childController 를 불러야한다.
-        let BoardViewControllers = self.children.filter {$0 is BoardModifiable}
-        
-        //어떤 childController 인지 어떻게 앎?
-        
-        print(BoardViewControllers)
-        
-    }
-
     
 }
 
@@ -151,7 +161,7 @@ extension MainViewController {
 
             let leading = self.logViewContainer.leadingAnchor.constraint(equalTo: self.view.trailingAnchor)
             let trailing = self.logViewContainer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: self.logViewContainer.frame.width)
-//            let bottom = self.logViewContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+
             
             self.logViewConstaints = [leading,trailing]
             NSLayoutConstraint.activate(self.logViewConstaints)

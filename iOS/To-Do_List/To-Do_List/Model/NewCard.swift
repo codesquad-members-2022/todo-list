@@ -22,10 +22,15 @@ struct NewCard :Codable {
 }
 
 struct CardInfo : Codable {
-    let author : String
+    let writer : String?
+    let position : Int?
     let title : String
     let content : String
-    let boardType : BoardType
-    let action: Action
-    let lastmodifiedAt : String
+    let cardType: String
+    let memberId : Int?
+    
+    func body() -> [String:Any]? {
+        return ["writer":writer,"position":position, "title":title, "content":content, "cardType":cardType, "memberId":memberId]
+    }
+    
 }

@@ -8,28 +8,24 @@
 
 import UIKit
 
-protocol BoardModifiable {
-    func removeFromList(card: Todo)
-    func setBoardType(type: BoardType)
-}
-
-
-class ChildViewController: UIViewController , BoardModifiable{
+class ChildViewController: UIViewController{
     
-
     private var tableView: BoardTableView<Todo,CardCell>!
     private var header : BoardHeader!
     private var boardType : BoardType?
     
     private var list:[Todo]?
     
-   
+    private var editViewController:EditCardViewController?
+    
+    //Notification
+    static let tapCofirmButton = Notification.Name("didTapConfirmButton")
+    static let cardViewInfo = "CardViewInfo"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
         addObserver()
-//        setTableView()
         setHeader()
     }
 
@@ -37,6 +33,11 @@ class ChildViewController: UIViewController , BoardModifiable{
         guard var list = list, let targetIndex = list.firstIndex(where: {$0.id == card.id}) else {return}
         list.remove(at: targetIndex)
     }
+    
+    func insertFromList(card:CardInfo) {
+        //insertToDo
+    }
+    
     
     func setBoardType(type : BoardType) {
         self.boardType = type
@@ -119,8 +120,13 @@ extension ChildViewController {
 
 //MARK: -- AddButton delegation
 extension ChildViewController : BoardHeaderDelegate {
-    func DidTapAddButton() {
-        let editVC = EditCardViewController()
+    
+    func didTapAddButton() {
+        editViewController = EditCardViewController()
+        editViewController?.delegate = self
+        
+        guard let editVC = editViewController else { return }
+        editVC.setEditCardView(editStyle: .add)
         editVC.modalPresentationStyle = .formSheet
         present(editVC, animated: true)
     }
@@ -136,5 +142,13 @@ extension ChildViewController : BoardTableViewDelegate {
     }
 }
 
-
+extension ChildViewController:EditViewControllerDelegate {
+    func didTapConfirmButton(editViewInfo: EditViewInputInfo) {
+        NotificationCenter.default.post(
+            name: ChildViewController.tapCofirmButton,
+            object: self,
+            userInfo: [ChildViewController.cardViewInfo:editViewInfo]
+        )
+    }
+}
 
