@@ -3,10 +3,7 @@ package kr.codesquad.todolist.card;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -77,5 +74,16 @@ public class CardService {
 	public void deleteFrom(Long cardId) {
 		Card cardInfo = getCard(cardId);
 		cardDao.delete(cardInfo.getCardId());
+	}
+
+	@Transactional
+	public void moveCardTo(Long cardId, Card.TodoStatus toStatus, Long toOrder) {
+		Card cardInfo = getCard(cardId);
+
+		if (cardInfo.isPositionedAt(toStatus, toOrder)) {
+			return;
+		}
+
+		cardDao.updatePosition(cardInfo, toStatus, toOrder);
 	}
 }

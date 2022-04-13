@@ -102,4 +102,13 @@ public class CardDto {
 		@Size(min = 1, max = 500, message = "500자 미안으로 작성 하세요.")
 		private String content;
 	}
+
+	@Data
+	@NoArgsConstructor
+	public static class MoveRequest {
+		@NotBlank(message = "이동할 위치의 todo list 카테고리 정보는 필수 값입니다.")
+		private String toStatus;
+		@NotNull(message = "이동할 위치의 순서 정보는 필수 값입니다.")
+		private Long toOrder;
+	}
 }
