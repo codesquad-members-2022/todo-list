@@ -17,7 +17,7 @@ export function makeCategory(categoryName) {
 
 export function makeCard({ id }, { title, content }) {
   return `
-  <li class="column-item--card" draggable="true">
+  <li class="column-item--card deleting" draggable="true">
     <div class="card-header">
       <h3>${title}</h3>
       <input type="button" class="delete-btn" value="del" />
@@ -35,8 +35,8 @@ export function addCardTemplate() {
       <div class="card-content" contenteditable="true" placeholder="내용을 입력하세요.(500자 제한)"></div>
       </div>
     <div>
-      <button class="card-addbtn cancleBtn">취소</button>
-      <button class="card-addbtn registerBtn">등록</button>
+      <button class="card-addBtn cancelBtn">취소</button>
+      <button class="card-addBtn registerBtn">등록</button>
     </div>
-  </li>`
+  </li>`;
 }
