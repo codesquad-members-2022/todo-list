@@ -18,9 +18,9 @@ export async function deleteData(URL) {
   await axios.delete(URL);
 }
 
-export function axiosRequest(method, pathName, controlledData = {}) {
+export function axiosRequest(method, pathName, controlledData = {}, dataId) {
   const URL = `http://localhost:5000/${pathName}`;
-  const idURL = URL + `/${controlledData.id}`;
+  const idURL = URL + `/${dataId}`;
   switch (method) {
     case "get":
       const sortingURL = URL + "?_sort=createDate&_order=desc";
@@ -39,5 +39,10 @@ export function axiosRequest(method, pathName, controlledData = {}) {
 }
 
 export function removeText({ target }) {
-  target.innerText = "";
+  if (
+    target.classList.contains("card-title") ||
+    target.classList.contains("card-details")
+  ) {
+    target.innerText = "";
+  }
 }
