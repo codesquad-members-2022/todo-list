@@ -1,21 +1,16 @@
 package com.todolist.exception;
 
-public class NotFoundCardException extends RuntimeException {
+public class NotFoundCardException extends GlobalException {
 
-    private final ExceptionType exceptionType;
-    private final String errorFiledName;
+    private final String errorFieldName;
 
-    public NotFoundCardException(ExceptionType exceptionType, String errorFiledName) {
-        this.exceptionType = exceptionType;
-        this.errorFiledName = errorFiledName;
+    public NotFoundCardException(ExceptionType exceptionType, String errorFieldName) {
+        super(exceptionType);
+        this.errorFieldName = errorFieldName;
     }
 
-    public String getExceptionType() {
-        return exceptionType.getMessage();
-    }
-
-    public String getErrorFiledName() {
-        return errorFiledName;
+    public String getErrorFieldName() {
+        return errorFieldName;
     }
 }
 
