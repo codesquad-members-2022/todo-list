@@ -48,12 +48,14 @@ class HistoryServiceTest {
             1L,
             1L,
             2L,
+            2L,
             Action.ADD,
             LocalDateTime.parse("2022-04-05T19:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         );
         History history2 = new History(
             1L,
             1L,
+            2L,
             3L,
             Action.MOVE,
             LocalDateTime.parse("2022-04-05T20:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME)
@@ -106,8 +108,8 @@ class HistoryServiceTest {
             Throwable thrown = catchThrowable(() -> historyService.store(
                 1L,
                 3L,
-                null,
-                LocalDateTime.parse("2022-04-05T20:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                3L,
+                null)
             );
 
             // then
@@ -129,8 +131,8 @@ class HistoryServiceTest {
             Throwable thrown = catchThrowable(() -> historyService.store(
                 1L,
                 3L,
-                Action.ADD,
-                LocalDateTime.parse("2022-04-05T20:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                3L,
+                Action.ADD)
             );
 
             // then

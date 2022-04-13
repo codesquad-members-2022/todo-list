@@ -27,8 +27,8 @@ class HistoryResolverTest {
             @DisplayName("해당 기록들을 최신순으로 확인 할 수 있다.")
             void properHistory() {
                 // given
-                History firstHistory = getHistory(1L, 1L, 1L, Action.ADD, 1);
-                History secondHistory = getHistory(1L, 1L, 3L, Action.MOVE, 2);
+                History firstHistory = getHistory(1L, 1L, 1L, 1L, Action.ADD, 1);
+                History secondHistory = getHistory(1L, 1L, 1L, 3L, Action.MOVE, 2);
 
                 // when
                 List<HistoryResponse> result = HistoryResolver.resolveHistoryList(
@@ -37,23 +37,22 @@ class HistoryResolverTest {
                 // then
                 assertThat(result.get(0).getCardId()).isEqualTo(1L);
                 assertThat(result.get(0).getOldColumn()).isEqualTo(1L);
-                assertThat(result.get(0).getNewColumn()).isEqualTo(3L);
                 assertThat(result.get(0).getAction()).isEqualTo(Action.MOVE.name());
 
                 assertThat(result.get(1).getCardId()).isEqualTo(1L);
                 assertThat(result.get(1).getOldColumn()).isEqualTo(1L);
-                assertThat(result.get(1).getNewColumn()).isEqualTo(1L);
                 assertThat(result.get(1).getAction()).isEqualTo(Action.ADD.name());
             }
         }
     }
 
-    private static History getHistory(Long userId, Long cardId, Long ColumnId, Action action,
+    private static History getHistory(Long userId, Long cardId, Long oldColumnsId, Long newColumnsId, Action action,
         int priority) {
         return new History(
             userId,
             cardId,
-            ColumnId,
+            oldColumnsId,
+            newColumnsId,
             action,
             LocalDateTime.parse("2022-04-05T20:11:" + String.format("%02d", priority),
                 DateTimeFormatter.ISO_LOCAL_DATE_TIME)

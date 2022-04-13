@@ -88,6 +88,7 @@ class HistoryRepositoryTest {
                 1L,
                 1L,
                 2L,
+                2L,
                 Action.ADD,
                 LocalDateTime.parse("2022-04-05T19:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME)
             );

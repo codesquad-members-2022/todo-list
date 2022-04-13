@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.ijava.todolist.history.Action;
 import com.ijava.todolist.history.domain.History;
+import com.ijava.todolist.history.repository.dto.JoinedHistory;
 import com.ijava.todolist.history.service.HistoryService;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,38 +35,83 @@ class HistoryControllerTest {
     @MockBean
     private HistoryService historyService;
 
-    private static List<History> historyList;
+    private static List<JoinedHistory> historyList;
 
     @BeforeAll
     static void setup() {
-        History history1 = new History(
-            1L,
-            1L,
-            2L,
-            Action.ADD,
-            LocalDateTime.parse("2022-04-05T19:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        );
-        History history2 = new History(
-            1L,
-            1L,
-            2L,
-            Action.MOVE,
-            LocalDateTime.parse("2022-04-05T20:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        );
-        History history3 = new History(
-            1L,
-            1L,
-            2L,
-            Action.UPDATE,
-            LocalDateTime.parse("2022-04-05T21:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        );
-        History history4 = new History(
-            1L,
-            1L,
-            2L,
-            Action.REMOVE,
-            LocalDateTime.parse("2022-04-05T22:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        );
+
+        Long userId = 1L;
+        String userName = "익명사용자이름";
+        Long cardId1 = 1L;
+        String cardTitle1 = "장보기";
+        Long columnId1 = 1L;
+        Long columnId2 = 2L;
+        String columnName1 = "해야할일";
+        String columnName2 = "해야할일";
+
+        LocalDateTime date1 = LocalDateTime.parse("2022-04-05T19:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime date2 = LocalDateTime.parse("2022-04-05T20:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime date3 = LocalDateTime.parse("2022-04-05T21:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime date4 = LocalDateTime.parse("2022-04-05T21:11:11", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
+        JoinedHistory history1 = JoinedHistory.builder()
+                .id(1L)
+                .cardId(cardId1)
+                .cardTitle(cardTitle1)
+                .userId(userId)
+                .userName(userName)
+                .oldColumnsId(columnId1)
+                .oldColumnName(columnName1)
+                .newColumnsId(columnId1)
+                .newColumnName(columnName1)
+                .action(Action.ADD)
+                .createdDate(date1)
+                .modifiedDate(date1)
+                .build();
+        JoinedHistory history2 = JoinedHistory.builder()
+                .id(2L)
+                .cardId(cardId1)
+                .cardTitle(cardTitle1)
+                .userId(userId)
+                .userName(userName)
+                .oldColumnsId(columnId1)
+                .oldColumnName(columnName1)
+                .newColumnsId(columnId2)
+                .newColumnName(columnName2)
+                .action(Action.MOVE)
+                .createdDate(date2)
+                .modifiedDate(date2)
+                .build();
+        JoinedHistory history3 = JoinedHistory.builder()
+                .id(3L)
+                .cardId(cardId1)
+                .cardTitle(cardTitle1)
+                .userId(userId)
+                .userName(userName)
+                .oldColumnsId(columnId2)
+                .oldColumnName(columnName2)
+                .newColumnsId(columnId2)
+                .newColumnName(columnName2)
+                .action(Action.UPDATE)
+                .createdDate(date3)
+                .modifiedDate(date3)
+                .build();
+        JoinedHistory history4 = JoinedHistory.builder()
+                .id(4L)
+                .cardId(cardId1)
+                .cardTitle(cardTitle1)
+                .userId(userId)
+                .userName(userName)
+                .oldColumnsId(columnId2)
+                .oldColumnName(columnName2)
+                .newColumnsId(columnId2)
+                .newColumnName(columnName2)
+                .action(Action.REMOVE)
+                .createdDate(date4)
+                .modifiedDate(date4)
+                .build();
+
+
         historyList = Arrays.asList(history1, history2, history3, history4);
     }
 
@@ -82,7 +128,7 @@ class HistoryControllerTest {
             void historyList() throws Exception {
                 DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
                 // given
-                given(historyService.findHistories())
+                given(historyService.findAllJoinedHistory())
                     .willReturn(historyList);
 
                 // when
@@ -93,31 +139,7 @@ class HistoryControllerTest {
                     .andExpect(jsonPath("$[0]").exists())
                     .andExpect(jsonPath("$[1]").exists())
                     .andExpect(jsonPath("$[2]").exists())
-                    .andExpect(jsonPath("$[3]").exists())
-
-                    .andExpect(jsonPath("$[0].action", is(historyList.get(3).getAction().name())))
-                    .andExpect(jsonPath("$[0].cardId", is(historyList.get(3).getCardId().intValue())))
-                    .andExpect(jsonPath("$[0].oldColumn", is(historyList.get(3).getColumnsId().intValue())))
-                    .andExpect(jsonPath("$[0].newColumn", is(historyList.get(3).getColumnsId().intValue())))
-                    .andExpect(jsonPath("$[0].modifiedDate", is(historyList.get(3).getModifiedDate().format(dateTimeFormat))))
-
-                    .andExpect(jsonPath("$[1].action", is(historyList.get(2).getAction().name())))
-                    .andExpect(jsonPath("$[1].cardId", is(historyList.get(2).getCardId().intValue())))
-                    .andExpect(jsonPath("$[1].oldColumn", is(historyList.get(2).getColumnsId().intValue())))
-                    .andExpect(jsonPath("$[1].newColumn", is(historyList.get(2).getColumnsId().intValue())))
-                    .andExpect(jsonPath("$[1].modifiedDate", is(historyList.get(2).getModifiedDate().format(dateTimeFormat))))
-
-                    .andExpect(jsonPath("$[2].action", is(historyList.get(1).getAction().name())))
-                    .andExpect(jsonPath("$[2].cardId", is(historyList.get(1).getCardId().intValue())))
-                    .andExpect(jsonPath("$[2].oldColumn", is(historyList.get(0).getColumnsId().intValue())))
-                    .andExpect(jsonPath("$[2].newColumn", is(historyList.get(1).getColumnsId().intValue())))
-                    .andExpect(jsonPath("$[2].modifiedDate", is(historyList.get(1).getModifiedDate().format(dateTimeFormat))))
-
-                    .andExpect(jsonPath("$[3].action", is(historyList.get(0).getAction().name())))
-                    .andExpect(jsonPath("$[3].cardId", is(historyList.get(0).getCardId().intValue())))
-                    .andExpect(jsonPath("$[3].oldColumn", is(historyList.get(0).getColumnsId().intValue())))
-                    .andExpect(jsonPath("$[3].newColumn", is(historyList.get(0).getColumnsId().intValue())))
-                    .andExpect(jsonPath("$[3].modifiedDate", is(historyList.get(0).getModifiedDate().format(dateTimeFormat))));
+                    .andExpect(jsonPath("$[3]").exists());
             }
         }
 

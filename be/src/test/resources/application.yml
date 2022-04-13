@@ -19,7 +19,3 @@ spring:
       platform: h2
       mode: always
       schema-locations: classpath:sql/ddl-h2.sql
-      data-locations: classpath:test/*.sql
-  h2:
-    console:
-      enabled: true

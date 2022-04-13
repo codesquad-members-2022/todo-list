@@ -33,7 +33,7 @@ public class HistoryResolver {
         Action action = history.getAction();
         Long cardId = history.getCardId();
         Long oldColumId = historyHashMap.get(cardId);
-        Long newColumnId = history.getColumnsId();
+        Long newColumnId = history.getOldColumnsId();
 
         historyHashMap.put(cardId, newColumnId);
         if (action == Action.MOVE) {
