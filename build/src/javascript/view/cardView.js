@@ -1,12 +1,11 @@
-import { removeText } from "../util/util.js";
-import { addCardDoubleClickEvent } from "./dblClickView.js";
-import { addServerCardData } from "../controller/cardController.js";
-import { showAlert } from "./deleteCardView.js";
+import { removeText, isTextLengthExceeded, hideElement } from "../util/util.js";
+import {
+  addServerCardData,
+  updateServerCardData,
+  deleteCardData,
+} from "../controller/cardController.js";
 
-async function init() {
-  addPlusBtnEvent();
-}
-function addPlusBtnEvent() {
+export function addPlusBtnEvent() {
   const $plusBtn = document.querySelector("#have-to-do-plus");
   $plusBtn.addEventListener("click", renderRegisterCard);
 }
@@ -48,7 +47,7 @@ async function renderRegisterCard() {
   const cardId = `#card${todoCount + 1}`;
   const $card = document.querySelector(cardId);
   const $crossBtn = $card.querySelector(".card-cross-button");
-  $crossBtn.style.display = "none";
+  hideElement($crossBtn);
   handleRegisterCardEvent($cards, $card);
 }
 
@@ -57,18 +56,13 @@ function handleRegisterCardEvent($cards, $card) {
   const $registerBtn = $card.querySelector(".register-button");
   const $firstCard = $cards.firstElementChild;
   applyRegisterBoxStyle($firstCard);
-  displayButtons($card);
+  displayBtns($card);
   const $crossBtn = $card.querySelector(".card-cross-button");
   const $cancelBtn = $card.querySelector(".cancel-button");
   $cardTextArea.addEventListener("click", removeText);
   $registerBtn.addEventListener("click", updateCard);
   $cancelBtn.addEventListener("click", removeCard);
   $crossBtn.addEventListener("click", showAlert);
-}
-
-function displayButtons($card) {
-  const $buttonWrpper = $card.querySelector(".card-buttons-wrapper");
-  $buttonWrpper.style.display = "flex";
 }
 
 function applyRegisterBoxStyle($card) {
@@ -85,7 +79,7 @@ function updateCard({ target }) {
   addServerCardData($selectedCard);
 }
 
-function getUpdatedCardContent(target) {
+export function getUpdatedCardContent(target) {
   const $selectedCard = target.closest(".card");
   const $cardDetails = $selectedCard.querySelector(".card-details");
   const cardDetailsText = $cardDetails.innerText;
@@ -106,12 +100,6 @@ function getUpdatedCardContent(target) {
   return card;
 }
 
-function isTextLengthExceeded(text) {
-  const textLength = text.length;
-  const maxLength = 500;
-  return textLength > maxLength;
-}
-
 function applyCardStyle($card) {
   const $buttonWrapper = $card.querySelector(".card-buttons-wrapper");
   const $crossBtn = $card.querySelector(".card-cross-button");
@@ -120,7 +108,7 @@ function applyCardStyle($card) {
     opacity: 1,
     border: "none",
   });
-  $buttonWrapper.style.display = "none";
+  hideElement($buttonWrapper);
 }
 
 function setTextAreaContenteditable($card, boolean) {
@@ -130,7 +118,7 @@ function setTextAreaContenteditable($card, boolean) {
   $cardDetails.setAttribute("contenteditable", boolean);
 }
 
-function renderColumn(columnId, todos) {
+export function renderColumn(columnId, todos) {
   const $column = document.querySelector(columnId);
   const $cards = $column.querySelector(".cards");
   const cardTemplate = todos.reduce((template, todo) => {
@@ -167,17 +155,82 @@ function addRegisterBtnsListener($column) {
   }
 }
 
-export function removeCard({ target }) {
+function addCardDoubleClickEvent($cards) {
+  $cards.addEventListener("dblclick", handleDoubleClickEvent);
+}
+
+function handleDoubleClickEvent({ target }) {
+  const $clickedCard = target.closest(".card");
+  if ($clickedCard) {
+    displayBtns($clickedCard);
+    applyRegisterBoxStyle($clickedCard);
+    setTextAreaContenteditable($clickedCard, true);
+    applyEditBtnStyle($clickedCard);
+    addBtnClickEvent($clickedCard);
+  }
+}
+
+function displayBtns($card) {
+  const $buttonWrpper = $card.querySelector(".card-buttons-wrapper");
+  $buttonWrpper.style.display = "flex";
+}
+
+function applyEditBtnStyle($card) {
+  const $registerBtn = $card.querySelector(".register-button");
+  if (!$registerBtn) return;
+  $registerBtn.removeEventListener("click", updateCard);
+  $registerBtn.className = "edit-button";
+  $registerBtn.innerText = "수정";
+}
+
+function addBtnClickEvent($card) {
+  const $editBtn = $card.querySelector(".edit-button");
+  const $cancelBtn = $card.querySelector(".cancel-button");
+  $editBtn.addEventListener("click", handleEditBtnEvent);
+  $cancelBtn.addEventListener("click", handleCancelBtnEvent);
+}
+
+function handleEditBtnEvent({ target }) {
+  const $clickedCard = target.closest(".card");
+  updateServerCardData($clickedCard);
+  applyCardStyle($clickedCard);
+  setTextAreaContenteditable($clickedCard, false);
+}
+
+function handleCancelBtnEvent({ target }) {
+  const $clickedCard = target.closest(".card");
+  applyCardStyle($clickedCard);
+  setTextAreaContenteditable($clickedCard, false);
+}
+
+function removeCard({ target }) {
   const $selectedCard = target.closest(".card");
   $selectedCard.remove();
 }
 
-export {
-  init,
-  renderColumn,
-  applyRegisterBoxStyle,
-  applyCardStyle,
-  updateCard,
-  getUpdatedCardContent,
-  setTextAreaContenteditable,
-};
+export function addDeleteEvent() {
+  const $cancelBtn = document.querySelector("#alert-cancel-btn");
+  const $crossBtns = document.querySelectorAll(".card-cross-button");
+  for (const $crossBtn of $crossBtns) {
+    $crossBtn.addEventListener("click", showAlert);
+  }
+  $cancelBtn.addEventListener("click", blockAlert);
+}
+
+function blockAlert() {
+  const $alert = document.querySelector("#alert-id");
+  hideElement($alert);
+}
+
+function showAlert({ target }) {
+  const $alert = document.querySelector("#alert-id");
+  $alert.style.display = "flex";
+  const $selectedCard = target.closest(".card");
+  const $editBtn = document.querySelector("#alert-edit-btn");
+  $editBtn.addEventListener("click", function () {
+    deleteCardData($selectedCard);
+    removeCard({ target });
+    blockAlert();
+  });
+  $editBtn.removeEventListener("click", addDeleteEvent);
+}
