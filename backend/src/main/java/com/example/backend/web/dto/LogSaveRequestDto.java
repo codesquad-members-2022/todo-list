@@ -6,13 +6,13 @@ import com.example.backend.domain.Log;
 public class LogSaveRequestDto {
 	private String title;
 	private String prevColumnName;
-	private String currentColumnName;
+	private String curColumnName;
 	private ActionType actionType;
 
-	public LogSaveRequestDto(String title, String prevColumnName, String currentColumnName, ActionType actionType) {
+	public LogSaveRequestDto(String title, String prevColumnName, String curColumnName, ActionType actionType) {
 		this.title = title;
 		this.prevColumnName = prevColumnName;
-		this.currentColumnName = currentColumnName;
+		this.curColumnName = curColumnName;
 		this.actionType = actionType;
 	}
 
@@ -24,8 +24,8 @@ public class LogSaveRequestDto {
 		return prevColumnName;
 	}
 
-	public String getCurrentColumnName() {
-		return currentColumnName;
+	public String getCurColumnName() {
+		return curColumnName;
 	}
 
 	public ActionType getActionType() {
@@ -33,6 +33,6 @@ public class LogSaveRequestDto {
 	}
 
 	public Log toEntity() {
-		return Log.from(this);
+		return new Log.Builder().title(title).prevColumnName(prevColumnName).curColumnName(curColumnName).actionType(actionType).build();
 	}
 }

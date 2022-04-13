@@ -1,27 +1,23 @@
 package com.example.backend.domain.repository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
 import com.example.backend.domain.Card;
 import com.example.backend.domain.ColumnName;
 import com.example.backend.web.dto.CardListResponseDto;
 import com.example.backend.web.dto.CardMoveRequestDto;
 import com.example.backend.web.dto.Column;
 import com.example.backend.web.dto.Columns;
-
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
-
-import javax.sql.DataSource;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 
 @Repository
 public class CardJdbcTemplateRepository implements CardRepository {
