@@ -1,8 +1,20 @@
 spring:
   datasource:
-    url:
+    url: jdbc:mysql://todolist.cvzpkqdwzwik.ap-northeast-2.rds.amazonaws.com:3306/todolist?zeroDateTimeBehavior=convertToNull
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${ACCESS_ID}
-    password: ${ACCESS_PASSWORD}
+    username: jun
+    password: 12341234
 server:
-  port: 8080
+  port: 8082
+
+#cloud:
+#  aws:
+#    s3:
+#      bucket: 버킷명
+#    credentials:
+#      access-key: IAM 계정 - access key
+#      secret-key: IAM 계정 - secret access key
+#    region:
+#      static: 현재 s3 버킷의 Region
+#    stack:
+#      auto: false

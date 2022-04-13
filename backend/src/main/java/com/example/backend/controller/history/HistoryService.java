@@ -14,8 +14,7 @@ public class HistoryService {
         this.historyRepository = historyRepository;
     }
 
-    public List<History> findHistories(Long memberId, Long cardId) {
-        historyRepository.findHistories(memberId, cardId);
+    public List<HistoryResponse> findHistories(Long memberId, Long cardId) {
         return historyRepository.findHistories(memberId, cardId);
     }
 
