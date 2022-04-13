@@ -1,6 +1,9 @@
 package kr.codesquad.todolist.card;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -38,7 +41,7 @@ public class CardDto {
 	}
 
 	@Data
-	public static class WriteResponse {
+	public static class CardResponse {
 		private Long cardId;
 		private String subject;
 		private String content;
@@ -46,7 +49,7 @@ public class CardDto {
 		private Long order;
 		private Long userId;
 
-		public WriteResponse(Card card) {
+		public CardResponse(Card card) {
 			this.cardId = card.getCardId();
 			this.subject = card.getSubject();
 			this.content = card.getContent();
@@ -63,5 +66,49 @@ public class CardDto {
 		public Redirection(Long cardId) {
 			this.cardId = cardId;
 		}
+	}
+
+	@Data
+	public static class CardsResponse {
+		private final Map<String, CardOfCountsAndListsResponse> data;
+
+		public CardsResponse(List<CardByStatus> cards) {
+			this.data = cards.stream()
+				.collect(Collectors.toMap(
+					key -> key.getStatus().getText(),
+					val -> new CardOfCountsAndListsResponse(val.getCount(), val.toResponse())
+				));
+		}
+	}
+
+	@Data
+	public static class CardOfCountsAndListsResponse {
+		private Long count;
+		private List<CardResponse> cards;
+
+		public CardOfCountsAndListsResponse(Long count, List<CardResponse> cardsByStatus) {
+			this.count = count;
+			this.cards = cardsByStatus;
+		}
+	}
+
+	@Data
+	@NoArgsConstructor
+	public static class EditRequest {
+		@NotBlank(message = "제목은 필수 값입니다.")
+		@Size(min = 1, max = 50, message = "50자 미안으로 작성 하세요.")
+		private String subject;
+		@NotBlank(message = "내용은 필수 값입니다.")
+		@Size(min = 1, max = 500, message = "500자 미안으로 작성 하세요.")
+		private String content;
+	}
+
+	@Data
+	@NoArgsConstructor
+	public static class MoveRequest {
+		@NotBlank(message = "이동할 위치의 todo list 카테고리 정보는 필수 값입니다.")
+		private String toStatus;
+		@NotNull(message = "이동할 위치의 순서 정보는 필수 값입니다.")
+		private Long toOrder;
 	}
 }

@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -58,7 +59,7 @@ class CardServiceTest {
 		when(cardDao.findById(anyLong()))
 			.thenReturn(Optional.of(expected));
 
-		CardDto.WriteResponse actual = cardService.readOf(CARD_TEST_USER_ID);
+		CardDto.CardResponse actual = cardService.readFrom(CARD_TEST_USER_ID);
 
 		assertAll(
 			() -> assertThat(actual.getCardId()).isEqualTo(expected.getCardId()),
@@ -74,7 +75,26 @@ class CardServiceTest {
 		Mockito.lenient().when(cardDao.findById(anyLong()))
 			.thenReturn(Optional.empty());
 
-		assertThrows(IllegalArgumentException.class, () -> cardService.readOf(99999L));
+		assertThrows(IllegalArgumentException.class, () -> cardService.readFrom(99999L));
+	}
+
+	@DisplayName("사용자별 전체 카드 조회 요청시 DB 로부터 사용자에 해당하는 각 status 별 card 개수, 카드목록을 확인한다.")
+	@Test
+	void read_all_cards() {
+		Card expectedCard = getCard();
+		when(cardDao.findByUserIdAndTodoStatus(anyLong(), any()))
+			.thenReturn(List.of(expectedCard));
+		when(cardDao.findGroupByTodoStatus(anyLong()))
+			.thenReturn(List.of(getCardStatusNumber()));
+
+		CardDto.CardsResponse actual = cardService.readAllFrom(CARD_TEST_USER_ID);
+
+		assertAll(
+			() -> assertThat(actual.getData().get(CARD_TEST_STATUS.getText()).getCount()).isNotZero(),
+			() -> assertThat(actual.getData().get(CARD_TEST_STATUS.getText()).getCards().size()).isNotZero(),
+			() -> assertThat(actual.getData().get(CARD_TEST_STATUS.getText()).getCards().get(0).getStatus()).isEqualTo(CARD_TEST_STATUS.getText()),
+			() -> assertThat(actual.getData().get(CARD_TEST_STATUS.getText()).getCards().get(0).getUserId()).isEqualTo(CARD_TEST_USER_ID)
+		);
 	}
 
 	private Card getCard() {
@@ -89,5 +109,9 @@ class CardServiceTest {
 		request.setStatus(CARD_TEST_STATUS.getText());
 		request.setUserId(CARD_TEST_USER_ID);
 		return request;
+	}
+
+	private CardStatusNumber getCardStatusNumber() {
+		return new CardStatusNumber(CARD_TEST_STATUS, 1L);
 	}
 }

@@ -1,11 +1,11 @@
 package kr.codesquad.todolist.card;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Builder
 public class Card {
@@ -17,6 +17,10 @@ public class Card {
 	private boolean deleted;
 	private LocalDateTime createdAt;
 	private Long userId;
+
+	public boolean isPositionedAt(TodoStatus toStatus, Long toOrder) {
+		return toStatus.equals(this.status) && toOrder.equals(this.order);
+	}
 
 	@Getter
 	@RequiredArgsConstructor
@@ -70,5 +74,10 @@ public class Card {
 
 	protected Long getUserId() {
 		return userId;
+	}
+
+	public void modify(String subject, String content) {
+		this.subject = subject;
+		this.content = content;
 	}
 }

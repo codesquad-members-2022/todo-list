@@ -3,6 +3,9 @@ package kr.codesquad.todolist.card;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -19,10 +22,68 @@ public class CardService {
 		return new CardDto.Redirection(cardInfo.getCardId());
 	}
 
-	public CardDto.WriteResponse readOf(Long id) {
+	@Transactional(readOnly = true)
+	public CardDto.CardResponse readFrom(Long id) {
 		String errorMessage = String.format(ERROR_OF_CARD_ID, id);
 		Card cardInfo = cardDao.findById(id)
 			.orElseThrow(() -> new IllegalArgumentException(errorMessage));
-		return new CardDto.WriteResponse(cardInfo);
+		return new CardDto.CardResponse(cardInfo);
+	}
+
+	@Transactional(readOnly = true)
+	public CardDto.CardsResponse readAllFrom(Long userId) {
+		Map<Card.TodoStatus, List<Card>> cardsInfo = getCardsInfo(userId);
+		Map<Card.TodoStatus, Long> numberOfStatusInfo =  getNumberOfCardStatusInfo(userId);
+
+		List<CardByStatus> cards = cardByStatusMapper(cardsInfo, numberOfStatusInfo);
+		return new CardDto.CardsResponse(cards);
+	}
+
+	private List<CardByStatus> cardByStatusMapper(Map<Card.TodoStatus, List<Card>> cardsInfo,
+		Map<Card.TodoStatus, Long> numberOfStatus) {
+		return cardsInfo.keySet().stream()
+			.map(status -> new CardByStatus(status, numberOfStatus.get(status), cardsInfo.get(status)))
+			.collect(Collectors.toList());
+	}
+
+	private Map<Card.TodoStatus, List<Card>> getCardsInfo(Long userId) {
+		return Arrays.stream(Card.TodoStatus.values())
+			.collect(Collectors.toMap(
+				key -> key,
+				status -> cardDao.findByUserIdAndTodoStatus(userId, status))
+			);
+	}
+
+	private Map<Card.TodoStatus, Long> getNumberOfCardStatusInfo(Long userId) {
+		List<CardStatusNumber> numberOfStatus = cardDao.findGroupByTodoStatus(userId);
+		return numberOfStatus.stream()
+			.collect(Collectors.toMap(CardStatusNumber::getStatus, CardStatusNumber::getNumberOfStatus));
+	}
+
+	public void updateOf(Long cardId, CardDto.EditRequest request) {
+		Card card = getCard(cardId);
+		card.modify(request.getSubject(), request.getContent());
+		cardDao.save(card);
+	}
+
+	private Card getCard(Long cardId) {
+		return cardDao.findById(cardId)
+			.orElseThrow(() -> new IllegalArgumentException(ERROR_OF_CARD_ID));
+	}
+
+	public void deleteFrom(Long cardId) {
+		Card cardInfo = getCard(cardId);
+		cardDao.delete(cardInfo.getCardId());
+	}
+
+	@Transactional
+	public void moveCardTo(Long cardId, Card.TodoStatus toStatus, Long toOrder) {
+		Card cardInfo = getCard(cardId);
+
+		if (cardInfo.isPositionedAt(toStatus, toOrder)) {
+			return;
+		}
+
+		cardDao.updatePosition(cardInfo, toStatus, toOrder);
 	}
 }
