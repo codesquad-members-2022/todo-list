@@ -118,7 +118,7 @@ class CardRepositoryTest {
 
     @Test
     @Transactional
-    @DisplayName("DB에 수정사항을 반영하고 변경된 Card를 반환한다.")
+    @DisplayName("DB에 수정사항을 반영하고 변경된 카드의 id를 반환한다.")
     void update() {
         //given
         long id = 1;
@@ -148,7 +148,7 @@ class CardRepositoryTest {
 
     @Test
     @Transactional
-    @DisplayName("카드를 삭제하고 변경된 row 수를 반환한다.")
+    @DisplayName("카드를 삭제하고 삭제된 카드의 id를 반환한다.")
     void delete() {
         //given
 
