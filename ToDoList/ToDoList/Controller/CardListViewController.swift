@@ -81,6 +81,7 @@ extension CardListViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - Handle swipe and delete action
 extension CardListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -95,12 +96,12 @@ extension CardListViewController {
     private func addEditCardViewObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(editCardViewModalDidAddNewData(_:)),
-                                               name: EditCardViewController.Constants.NotificationNames.didAddNewData,
+                                               name: EditCardViewController.NotificationNames.didAddNewData,
                                                object: self.editCardViewModal)
     }
     
     @objc private func editCardViewModalDidAddNewData(_ notification: Notification) {
-        guard let newData = notification.userInfo?[EditCardViewController.Constants.userInfoKeys.addedData] as? [String] else {return}
+        guard let newData = notification.userInfo?[EditCardViewController.userInfoKeys.addedData] as? [String] else {return}
         
         cardManager.add(title: newData[0], body: newData[1])
     }
@@ -111,20 +112,20 @@ extension CardListViewController {
     private func addCardManagerObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(cardManagerDidAddNewCard(_:)),
-                                               name: CardManager.Constants.NotificationNames.didAddNewCard,
+                                               name: CardManager.NotificationNames.didAddNewCard,
                                                object: self.cardManager)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(cardManagerDidRemoveCard(_:)),
-                                               name: CardManager.Constants.NotificationNames.didRemoveCard,
+                                               name: CardManager.NotificationNames.didRemoveCard,
                                                object: self.cardManager)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(cardManagerDidAddNewCardFromOtherCardList(_:)),
-                                               name: CardManager.Constants.NotificationNames.didAddNewCardFromOtherCardList,
+                                               name: CardManager.NotificationNames.didAddNewCardFromOtherCardList,
                                                object: self.cardManager)
     }
     
     @objc private func cardManagerDidAddNewCard(_ notification: Notification) {
-        guard let addedCard = notification.userInfo?[CardManager.Constants.userInfoKeys.addedCard] as? Card else {
+        guard let addedCard = notification.userInfo?[CardManager.userInfoKeys.addedCard] as? Card else {
             return
         }
         
@@ -141,13 +142,13 @@ extension CardListViewController {
         tableView.reloadData()
         
         NotificationCenter.default.removeObserver(self,
-                                                  name: EditCardViewController.Constants.NotificationNames.didAddNewData,
+                                                  name: EditCardViewController.NotificationNames.didAddNewData,
                                                   object: self.editCardViewModal)
     }
     
     @objc private func cardManagerDidRemoveCard(_ notification: Notification) {
-        guard let removedCard = notification.userInfo?[CardManager.Constants.userInfoKeys.removedCard] as? Card,
-              let removedCardIndex = notification.userInfo?[CardManager.Constants.userInfoKeys.removedCardIndex] as? Int else {
+        guard let removedCard = notification.userInfo?[CardManager.userInfoKeys.removedCard] as? Card,
+              let removedCardIndex = notification.userInfo?[CardManager.userInfoKeys.removedCardIndex] as? Int else {
                   return
               }
         
@@ -165,8 +166,8 @@ extension CardListViewController {
     }
     
     @objc private func cardManagerDidAddNewCardFromOtherCardList(_ notification: Notification) {
-        guard let movedCard = notification.userInfo?[CardManager.Constants.userInfoKeys.movedCard] as? Card,
-              let targetCardId = notification.userInfo?[CardManager.Constants.userInfoKeys.targetCardId] as? Int else {
+        guard let movedCard = notification.userInfo?[CardManager.userInfoKeys.movedCard] as? Card,
+              let targetCardId = notification.userInfo?[CardManager.userInfoKeys.targetCardId] as? Int else {
                   return
               }
         

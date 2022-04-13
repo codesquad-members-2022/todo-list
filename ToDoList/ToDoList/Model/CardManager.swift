@@ -2,22 +2,6 @@ import Foundation
 
 class CardManager: CardManagable {
     
-    enum Constants {
-        enum NotificationNames {
-            static let didAddNewCard = Notification.Name("CardManagerDidAddNewCard")
-            static let didRemoveCard = Notification.Name("CardManagerDidRemoveCard")
-            static let didAddNewCardFromOtherCardList = Notification.Name("CardManagerDidAddNewCardFromOtherCardList")
-        }
-        
-        enum userInfoKeys {
-            static let addedCard = "addedCard"
-            static let movedCard = "movedCard"
-            static let targetCardId = "targetCardId"
-            static let removedCard = "removedCard"
-            static let removedCardIndex = "removedCardIndex"
-        }
-    }
-    
     private var cardListID: Int
     private var cards = [Cardable]()
     private var selectedCard: Cardable?
@@ -45,8 +29,8 @@ class CardManager: CardManagable {
         let newCard = cardFactory.make(factoriable: Card.self, title: title, body: body, data: data)
         cards.insert(newCard, at: 0)
         
-        let userInfo = [Constants.userInfoKeys.addedCard: newCard]
-        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self, userInfo: userInfo)
+        let userInfo = [userInfoKeys.addedCard: newCard]
+        NotificationCenter.default.post(name: NotificationNames.didAddNewCard, object: self, userInfo: userInfo)
         
         currentlyAddedCard = newCard
     }
@@ -60,18 +44,18 @@ class CardManager: CardManagable {
             targetCardId = targetCard.id
         }
         
-        let userInfo: [String: Any] = [Constants.userInfoKeys.movedCard: newCard,
-                                       Constants.userInfoKeys.targetCardId: targetCardId]
-        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCardFromOtherCardList, object: self, userInfo: userInfo)
+        let userInfo: [String: Any] = [userInfoKeys.movedCard: newCard,
+                                       userInfoKeys.targetCardId: targetCardId]
+        NotificationCenter.default.post(name: NotificationNames.didAddNewCardFromOtherCardList, object: self, userInfo: userInfo)
     }
     
     func remove(at index: Int, isMovingState: Bool) {
         let removedCard = cards.remove(at: index)
         
         if !isMovingState {
-            let userInfo: [String: Any] = [Constants.userInfoKeys.removedCardIndex: index,
-                                           Constants.userInfoKeys.removedCard: removedCard]
-            NotificationCenter.default.post(name: Constants.NotificationNames.didRemoveCard, object: self, userInfo: userInfo)
+            let userInfo: [String: Any] = [userInfoKeys.removedCardIndex: index,
+                                           userInfoKeys.removedCard: removedCard]
+            NotificationCenter.default.post(name: NotificationNames.didRemoveCard, object: self, userInfo: userInfo)
         }
     }
     
@@ -84,5 +68,21 @@ class CardManager: CardManagable {
     func selectCard(index: Int) -> Cardable {
         self.selectedCard = cards[index]
         return cards[index]
+    }
+}
+
+extension CardManager {
+    enum NotificationNames {
+        static let didAddNewCard = Notification.Name("CardManagerDidAddNewCard")
+        static let didRemoveCard = Notification.Name("CardManagerDidRemoveCard")
+        static let didAddNewCardFromOtherCardList = Notification.Name("CardManagerDidAddNewCardFromOtherCardList")
+    }
+    
+    enum userInfoKeys {
+        static let addedCard = "addedCard"
+        static let movedCard = "movedCard"
+        static let targetCardId = "targetCardId"
+        static let removedCard = "removedCard"
+        static let removedCardIndex = "removedCardIndex"
     }
 }
