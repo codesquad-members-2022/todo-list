@@ -8,16 +8,16 @@ import com.codesquad.aos.todolist.data.model.Log
 
 class TodoViewModel: ViewModel() {
 
-    private val _todoListLd = MutableLiveData<MutableList<Card>>()
-    private var todolist = mutableListOf<Card>()
+    private val _todoListLd = MutableLiveData<MutableList<Card>>(mutableListOf())
+    private val todolist = mutableListOf<Card>()
     val todoListLd: LiveData<MutableList<Card>> get() = _todoListLd
 
     private val _progressListLd = MutableLiveData<MutableList<Card>>()
-    private var progresslist = mutableListOf<Card>()
+    private val progresslist = mutableListOf<Card>()
     val progressListLd: LiveData<MutableList<Card>> get() = _progressListLd
 
     private val _completeListLd = MutableLiveData<MutableList<Card>>()
-    private var completelist = mutableListOf<Card>()
+    private val completelist = mutableListOf<Card>()
     val completeListLd: LiveData<MutableList<Card>> get() = _completeListLd
 
     private val _LogListLd = MutableLiveData<MutableList<Log>>()
@@ -105,6 +105,7 @@ class TodoViewModel: ViewModel() {
 
         todolist[fromPos] = toTemp
         todolist[toPos] = fromTemp
+
         _todoListLd.value = todolist
     }
 
