@@ -7,32 +7,31 @@ class MyTaskViewController: UIViewController {
     @IBOutlet private weak var actionFlowButton: UIButton!
     @IBOutlet private weak var stackViewTrailing: NSLayoutConstraint!
     
-    private var taskBoard: TaskBoard?
+    private var taskBoard: [TaskCardList] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         observe()
-        URLManager.getTasks()
+        DispatchQueue.main.async {
+            URLManager.getTasks()
+        }
         resizeConstant()
         actionBoard.moveView()
     }
     
     private func observe() {
         NotificationCenter.default.addObserver(forName: .getTaskBoardData, object: nil, queue: .main, using: setChild(with:))
-        NotificationCenter.default.addObserver(forName: .addTaskButtonTapped, object: nil, queue: .main) { _ in
-            self.editCardButtonTapped()
-        }
+        NotificationCenter.default.addObserver(forName: .addTaskButtonTapped, object: nil, queue: .main, using: self.editCardButtonTapped(noti:))
     }
     
-    
     func setChild(with notification: Notification) {
-        self.taskBoard = notification.userInfo?[NotificationKeyValue.getTaskData] as? TaskBoard
-        guard let taskBoard = self.taskBoard else {return}
-        for (key,value) in taskBoard.lists {
+        guard let taskBoard = notification.userInfo?[NotificationKeyValue.getTaskData] as? [String:[TaskCard]] else { return }
+        self.taskBoardView.subviews.forEach { $0.removeFromSuperview() }
+        for (key, value) in taskBoard {
             let controller = TaskCardListViewController()
-            controller.set(key, with: value)
             self.addChild(controller)
             self.taskBoardView.addArrangedSubview(controller.view)
+            controller.set(key, with: value)
         }
     }
     
@@ -50,13 +49,12 @@ class MyTaskViewController: UIViewController {
         stackViewTrailing.constant = UIScreen.main.isPortrait ? 48 : 330
     }
     
-    private func editCardButtonTapped() {
+    private func editCardButtonTapped(noti: Notification) {
         guard let popupViewController = storyboard?.instantiateViewController(withIdentifier: NameSpace.identifier.popupViewController) as? EditCardViewController else { return }
-        
         popupViewController.modalPresentationStyle = .overFullScreen
-        
         self.present(popupViewController, animated: false)
     }
+    
 }
 
 extension MyTaskViewController: UIPopoverPresentationControllerDelegate {

@@ -1,10 +1,9 @@
 import Foundation
 
-
-struct TaskCardList: Codable {
-    var cards: [TaskCard] = []
-    
-    func getCount() -> Int{
+struct TaskCardList {
+    var sectionTitle: String
+    var cards: [TaskCard]
+    var count: Int {
         return self.cards.count
     }
     
