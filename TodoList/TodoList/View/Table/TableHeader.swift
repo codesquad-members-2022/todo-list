@@ -11,6 +11,7 @@ final class TableHeader: UIView{
     let titleLabel = UILabel()
     let numberLabel = UILabel()
     let plusButton = UIButton()
+    var delegate: TableHeaderDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,6 +58,7 @@ private extension TableHeader{
         plusButton.tintColor = UIColor(red: 0.741, green: 0.741, blue: 0.741, alpha: 1)
         
         self.addSubview(plusButton)
+        plusButton.addTarget(self, action: #selector(touchedPlusButton(_:)), for: .touchUpInside)
     }
     
     func setConstraints(){
@@ -76,5 +78,10 @@ private extension TableHeader{
         plusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant:  -7).isActive = true
         plusButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         plusButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+    }
+    
+    @objc
+    func touchedPlusButton(_ button: UIButton){
+        self.delegate?.cardWillCreated(at: titleLabel.text ?? "해야할 일")
     }
 }

@@ -12,6 +12,10 @@
 		B32A875A28041C0F00E8B180 /* HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A875928041C0F00E8B180 /* HeaderViewDelegate.swift */; };
 		B32A875C28045A1B00E8B180 /* ActivityMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A875B28045A1B00E8B180 /* ActivityMenuView.swift */; };
 		B32A875E28045CF200E8B180 /* ActivityViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32A875D28045CF200E8B180 /* ActivityViewDelegate.swift */; };
+		B3834AD5280662900003A831 /* TableHeaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3834AD4280662900003A831 /* TableHeaderDelegate.swift */; };
+		B3834AD728066EE70003A831 /* AddCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3834AD628066EE70003A831 /* AddCardViewController.swift */; };
+		B3834AD9280696FC0003A831 /* AddCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3834AD8280696FC0003A831 /* AddCardDelegate.swift */; };
+		B38DE39C280579350073AF72 /* AddCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38DE39B280579350073AF72 /* AddCardView.swift */; };
 		B39BFEB427FADA8700B28376 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BFEB327FADA8700B28376 /* AppDelegate.swift */; };
 		B39BFEB627FADA8700B28376 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BFEB527FADA8700B28376 /* SceneDelegate.swift */; };
 		B39BFEB827FADA8700B28376 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39BFEB727FADA8700B28376 /* ContainerViewController.swift */; };
@@ -57,6 +61,10 @@
 		B32A875928041C0F00E8B180 /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
 		B32A875B28045A1B00E8B180 /* ActivityMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMenuView.swift; sourceTree = "<group>"; };
 		B32A875D28045CF200E8B180 /* ActivityViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewDelegate.swift; sourceTree = "<group>"; };
+		B3834AD4280662900003A831 /* TableHeaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderDelegate.swift; sourceTree = "<group>"; };
+		B3834AD628066EE70003A831 /* AddCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardViewController.swift; sourceTree = "<group>"; };
+		B3834AD8280696FC0003A831 /* AddCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardDelegate.swift; sourceTree = "<group>"; };
+		B38DE39B280579350073AF72 /* AddCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardView.swift; sourceTree = "<group>"; };
 		B39BFEB027FADA8700B28376 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B39BFEB327FADA8700B28376 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B39BFEB527FADA8700B28376 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +148,10 @@
 				B39BFEBC27FADA8E00B28376 /* Assets.xcassets */,
 				B39BFEBE27FADA8E00B28376 /* LaunchScreen.storyboard */,
 				B39BFEC127FADA8E00B28376 /* Info.plist */,
+				B38DE39B280579350073AF72 /* AddCardView.swift */,
+				B3834AD8280696FC0003A831 /* AddCardDelegate.swift */,
+				B3834AD4280662900003A831 /* TableHeaderDelegate.swift */,
+				B3834AD628066EE70003A831 /* AddCardViewController.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -355,16 +367,20 @@
 				B32A875C28045A1B00E8B180 /* ActivityMenuView.swift in Sources */,
 				B39BFEB427FADA8700B28376 /* AppDelegate.swift in Sources */,
 				D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */,
+				B3834AD5280662900003A831 /* TableHeaderDelegate.swift in Sources */,
 				B32A875A28041C0F00E8B180 /* HeaderViewDelegate.swift in Sources */,
 				B3BAE2C327FF2987005E7ED2 /* URLManager.swift in Sources */,
 				B3BAE2C527FF2A3C005E7ED2 /* Board.swift in Sources */,
+				B3834AD728066EE70003A831 /* AddCardViewController.swift in Sources */,
 				D2589C7C280513AE005BA2B6 /* JsonConverter.swift in Sources */,
 				B3BAE28627FBE3DE005E7ED2 /* TodoTableView.swift in Sources */,
 				D299331C27FC372600D79C87 /* CollectionCell.swift in Sources */,
+				B3834AD9280696FC0003A831 /* AddCardDelegate.swift in Sources */,
 				B32A875E28045CF200E8B180 /* ActivityViewDelegate.swift in Sources */,
 				B39BFEB627FADA8700B28376 /* SceneDelegate.swift in Sources */,
 				D299331E27FC3A9400D79C87 /* CollectionView.swift in Sources */,
 				B3BAE2C127FF2905005E7ED2 /* Card.swift in Sources */,
+				B38DE39C280579350073AF72 /* AddCardView.swift in Sources */,
 				B32A875628040F8100E8B180 /* ActivityMenuViewController.swift in Sources */,
 				D25BF7FD27FE794D0010DE50 /* TableHeader.swift in Sources */,
 				B32A87582804101900E8B180 /* MenuActivityCell.swift in Sources */,
