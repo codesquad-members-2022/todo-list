@@ -6,6 +6,7 @@ import com.example.backend.domain.history.History;
 import com.example.backend.service.history.HistoryService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static com.example.backend.controller.ApiResult.OK;
@@ -21,7 +22,7 @@ public class HistoryController {
     }
 
     @PostMapping("")
-    public ApiResult<History> saveHistory(@RequestBody HistorySaveRequest request) {
+    public ApiResult<History> saveHistory(@RequestBody @Valid HistorySaveRequest request) {
         return OK(historyService.saveHistory(request));
     }
 
