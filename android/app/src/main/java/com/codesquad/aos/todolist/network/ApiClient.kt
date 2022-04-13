@@ -4,6 +4,7 @@ import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.data.model.GetCardResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -11,7 +12,7 @@ import retrofit2.http.GET
 interface ApiClient {
 
     @GET("api/cards")
-    suspend fun getCard(): GetCardResponse
+    suspend fun getCard(): Response<GetCardResponse>
 
     companion object {
 

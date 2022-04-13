@@ -1,13 +1,11 @@
 package com.codesquad.aos.todolist.ui
 
 import android.util.Log.d
-import android.util.Log.i
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codesquad.aos.todolist.data.model.Card
-import com.codesquad.aos.todolist.data.model.CardData
 import com.codesquad.aos.todolist.data.model.Log
 import com.codesquad.aos.todolist.repository.CardItemRepository
 import kotlinx.coroutines.launch
@@ -30,10 +28,9 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
     private var LogList = mutableListOf<Log>()
     val LogListLd: LiveData<MutableList<Log>> get() = _LogListLd
 
-    private var todoId = 1
-    private var progressId = 1
-    private var completeId = 1
     private var cardId = 1
+
+    val progressVisible = MutableLiveData<Boolean>(false)
 
     // 해야할 일 추가
     fun addTodo(title: String, content: String){
@@ -144,20 +141,33 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
     // 전체 카드 조회
     fun getCardItems(){
         viewModelScope.launch {
+            progressVisible.postValue(true)
             val resopnse = repository.getCardItems()
-            android.util.Log.d("AppTest", "response : ${resopnse.logs}")
 
-            todolist.clear()
-            todolist.addAll(resopnse.classifiedCardsDTO.classifiedCards.todo.toMutableList())
-            _todoListLd.value = todolist
+            if(resopnse.isSuccessful){
+                android.util.Log.d("AppTest", "success, ${resopnse.message()}")
+                progressVisible.postValue(false)
 
-            progresslist.clear()
-            progresslist.addAll(resopnse.classifiedCardsDTO.classifiedCards.doing.toMutableList())
-            _progressListLd.value = progresslist
+                val responseBody = resopnse.body()
+                responseBody?.let {
+                    todolist.clear()
+                    todolist.addAll(it.classifiedCardsDTO.classifiedCards.todo.toMutableList())
+                    _todoListLd.value = todolist
 
-            completelist.clear()
-            completelist.addAll(resopnse.classifiedCardsDTO.classifiedCards.done.toMutableList())
-            _completeListLd.value = completelist
+                    progresslist.clear()
+                    progresslist.addAll(it.classifiedCardsDTO.classifiedCards.doing.toMutableList())
+                    _progressListLd.value = progresslist
+
+                    completelist.clear()
+                    completelist.addAll(it.classifiedCardsDTO.classifiedCards.done.toMutableList())
+                    _completeListLd.value = completelist
+                }
+            }
+            else{
+                android.util.Log.d("AppTest", "${resopnse.message()}")
+                progressVisible.postValue(false)
+            }
+
         }
     }
 

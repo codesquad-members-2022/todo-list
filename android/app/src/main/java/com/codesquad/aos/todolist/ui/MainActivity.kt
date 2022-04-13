@@ -53,7 +53,9 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         setCompleteRecyclerView()
         setLogRecyclerView()
 
-        //
+        setProgressBar()
+
+        // 시작 시 전체 데이터 가져오기
         viewModel.getCardItems()
     }
 
@@ -265,4 +267,9 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         }
     }
 
+    fun setProgressBar(){
+        viewModel.progressVisible.observe(this){
+            binding.progressBar?.visibility = if(it) View.VISIBLE else View.GONE
+        }
+    }
 }
