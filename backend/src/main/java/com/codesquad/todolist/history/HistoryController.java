@@ -20,9 +20,9 @@ public class HistoryController {
 
     @GetMapping
     public Slice<HistoryResponse> findAll(
-        @RequestParam(value = "page", defaultValue = "1") Integer page,
+        @RequestParam(value = "length", defaultValue = "0") Integer length,
         @RequestParam(value = "size", defaultValue = "10") Integer size
     ) {
-        return historyService.findAll(new Criteria(page, size));
+        return historyService.findAll(new Criteria(length, size));
     }
 }
