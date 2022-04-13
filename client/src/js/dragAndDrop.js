@@ -42,7 +42,7 @@ export class DragAndDrop {
     if (!this.isDragging) return;
 
     if (!this.isClone) {
-      this.setCardPosition();
+      this.setCardsPosition();
       this.cloneCard(e);
     }
 
@@ -51,23 +51,20 @@ export class DragAndDrop {
     this.clonedDragCard.style.left = mouseX + 'px';
     this.clonedDragCard.style.top = mouseY + 'px';
 
-    const cloneCardClientRect = this.clonedDragCard.getBoundingClientRect();
-    const columnClientRect = this.column.getBoundingClientRect();
+    const cloneCardPosData = this.clonedDragCard.getBoundingClientRect();
+    const columnPosData = this.column.getBoundingClientRect();
 
-    const draggedX = cloneCardClientRect.x;
-    const draggedY = cloneCardClientRect.y;
+    const draggedX = cloneCardPosData.x;
+    const draggedY = cloneCardPosData.y;
 
-    if (
-      columnClientRect.x - cloneCardClientRect.x >
-      cloneCardClientRect.width / 2
-    ) {
+    if (columnPosData.x - cloneCardPosData.x > cloneCardPosData.width / 2) {
       $(
         '.column-list',
         this.column.parentElement.previousElementSibling
       ).appendChild(this.dragCard);
     } else if (
-      columnClientRect.x + columnClientRect.width - cloneCardClientRect.x <
-      cloneCardClientRect.width / 2
+      columnPosData.x + columnPosData.width - cloneCardPosData.x <
+      cloneCardPosData.width / 2
     ) {
       $(
         '.column-list',
@@ -76,11 +73,11 @@ export class DragAndDrop {
     }
 
     this.cardPositionInfo.forEach((el) => {
-      const prevCard = el.x - draggedX > 0 ? cloneCardClientRect : el;
-      const curCard = el.x - draggedX > 0 ? el : cloneCardClientRect;
+      const prevCard = el.x - draggedX > 0 ? cloneCardPosData : el;
+      const curCard = el.x - draggedX > 0 ? el : cloneCardPosData;
 
-      const higherCard = el.y - draggedY > 0 ? cloneCardClientRect : el;
-      const lowerCard = el.y - draggedY > 0 ? el : cloneCardClientRect;
+      const higherCard = el.y - draggedY > 0 ? cloneCardPosData : el;
+      const lowerCard = el.y - draggedY > 0 ? el : cloneCardPosData;
 
       if (
         this.dragCard.getBoundingClientRect().x === el.x &&
@@ -88,7 +85,7 @@ export class DragAndDrop {
       ) {
         if (prevCard.x + prevCard.width - curCard.x > prevCard.width / 2) {
           if (
-            cloneCardClientRect.y < el.y &&
+            cloneCardPosData.y < el.y &&
             higherCard.y + higherCard.height - lowerCard.y >
               lowerCard.height / 2
           ) {
@@ -96,7 +93,7 @@ export class DragAndDrop {
           }
 
           if (
-            cloneCardClientRect.y > el.y &&
+            cloneCardPosData.y > el.y &&
             higherCard.y + higherCard.height - lowerCard.y >
               higherCard.height / 2
           ) {
@@ -111,7 +108,7 @@ export class DragAndDrop {
 
         if (prevCard.x + prevCard.width - curCard.x > prevCard.width / 2) {
           if (
-            cloneCardClientRect.y < el.y &&
+            cloneCardPosData.y < el.y &&
             higherCard.y + higherCard.height - lowerCard.y >
               lowerCard.height / 2
           ) {
@@ -122,7 +119,7 @@ export class DragAndDrop {
           }
 
           if (
-            cloneCardClientRect.y > el.y &&
+            cloneCardPosData.y > el.y &&
             higherCard.y + higherCard.height - lowerCard.y >
               higherCard.height / 2
           ) {
@@ -130,10 +127,46 @@ export class DragAndDrop {
           }
         }
       }
+
+      // if (prevCard.x + prevCard.width - curCard.x > prevCard.width / 2) {
+      //   if (
+      //     cloneCardPosData.y < el.y &&
+      //     higherCard.y + higherCard.height - lowerCard.y > lowerCard.height / 2
+      //   ) {
+      //     if (
+      //       this.dragCard.getBoundingClientRect().x === el.x &&
+      //       !this.moveCardState
+      //     ) {
+      //       el.positionedCard.insertAdjacentElement('afterend', this.dragCard);
+      //     } else {
+      //       this.moveCardState = true;
+      //       el.positionedCard.insertAdjacentElement(
+      //         'beforebegin',
+      //         this.dragCard
+      //       );
+      //     }
+      //   } else if (
+      //     cloneCardPosData.y > el.y &&
+      //     higherCard.y + higherCard.height - lowerCard.y > higherCard.height / 2
+      //   ) {
+      //     if (
+      //       this.dragCard.getBoundingClientRect().x === el.x &&
+      //       !this.moveCardState
+      //     ) {
+      //       el.positionedCard.insertAdjacentElement(
+      //         'beforebegin',
+      //         this.dragCard
+      //       );
+      //     } else {
+      //       this.moveCardState = true;
+      //       el.positionedCard.insertAdjacentElement('afterend', this.dragCard);
+      //     }
+      //   }
+      // }
     });
   };
 
-  setCardPosition() {
+  setCardsPosition() {
     for (const li of $$('.list_item')) {
       this.cardPositionInfo.push({
         x: li.getBoundingClientRect().x,
