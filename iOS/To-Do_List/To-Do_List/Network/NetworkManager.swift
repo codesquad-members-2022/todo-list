@@ -21,10 +21,15 @@ final class NetworkManager {
         let httpMethod = endpoint.getHttpMethod().rawValue
         urlRequest.httpMethod = httpMethod
         
+        //HTTP header
+        let headers = endpoint.getHeaders()
+        headers?.forEach { urlRequest.setValue($1 as? String, forHTTPHeaderField: $0) }
+        
         //handling encodingError if endpoint has body
-        if let body = endpoint.getBody() {
+        if let postBody = endpoint.getBody() {
             do {
-                urlRequest.httpBody = try JSONEncoder().encode(body as? Board)
+                let body = try JSONSerialization.data(withJSONObject: postBody, options: [])
+                urlRequest.httpBody = body
             }
             catch {
                 completionHandler(.failure(.encodingError))

@@ -7,17 +7,14 @@
 
 import UIKit
 
-protocol headerDisplayable {
-    func setUp(title : String)
-}
+final class BoardHeader: UIView {
 
-class BoardHeader: UIView {
-
+    var delegate : BoardHeaderDelegate?
+    
     private (set) var title = UILabel()
     private (set) var badge = UIButton()
     private (set) var addButton = UIButton()
     private (set) var closeButton = UIButton()
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,11 +29,11 @@ class BoardHeader: UIView {
         self.init(frame: .zero)
         self.title.text = "\(titleText)"
         setupView()
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func updateCount(_ numberOfCards: Int) {
-        self.badge.setTitle("\(numberOfCards)", for: .normal)
+    func updateCount(_ numberOfCards: Int?) {
+        guard let count = numberOfCards else {return}
+        self.badge.setTitle("\(count)", for: .normal)
     }
 
     private func setupView() {
@@ -65,9 +62,12 @@ class BoardHeader: UIView {
     private func setAddButton() {
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        
+        addButton.addTarget(self, action: #selector(showAddCardView), for: .touchUpInside)
     }
     
+    @objc func showAddCardView() {
+        delegate?.didTapAddButton()
+    }
     
     
     private func addElement() {
@@ -77,22 +77,25 @@ class BoardHeader: UIView {
     }
     
     private func setConstraints() {
+        let inset:CGFloat = 8.0
+        let badgeSize:CGFloat = 26.0
+        let titleAdjustInset:CGFloat = 4.0
         
         
         NSLayoutConstraint.activate([
             
-
-            title.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 8),
+            title.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: inset),
+            title.centerYAnchor.constraint(equalTo: self.centerYAnchor,constant: titleAdjustInset),
             
-            badge.centerYAnchor.constraint(equalTo: title.centerYAnchor, constant: -3),
-            badge.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: 8),
-            badge.topAnchor.constraint(equalTo: self.topAnchor),
-            badge.heightAnchor.constraint(equalToConstant: 26),
-            badge.widthAnchor.constraint(equalToConstant: 26),
+            badge.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: inset),
+            badge.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            badge.heightAnchor.constraint(equalToConstant: badgeSize),
+            badge.widthAnchor.constraint(equalToConstant: badgeSize),
             
-            addButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 220),
-            addButton.centerYAnchor.constraint(equalTo: title.centerYAnchor, constant: -3),
-
+            
+            addButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -inset),
+            addButton.topAnchor.constraint(equalTo: self.topAnchor, constant: inset),
+            addButton.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
 }
