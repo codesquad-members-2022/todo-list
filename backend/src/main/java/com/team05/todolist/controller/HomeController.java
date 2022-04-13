@@ -5,6 +5,8 @@ import com.team05.todolist.domain.dto.ListResponseDTO;
 import com.team05.todolist.domain.dto.LogDTO;
 import com.team05.todolist.service.CardService;
 import com.team05.todolist.service.LogService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.slf4j.Logger;
@@ -45,8 +47,12 @@ public class HomeController {
 		return ResponseEntity.ok().body("batch process complete!");
 	}
 
-	@ApiOperation("Log 페이징 - nowNumberOfLogs: 현재 로그 개수, number: 추가적으로 원하는 로그 개수")
+	@ApiOperation("Log 페이징")
 	@GetMapping("/logs")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "nowNumberOfLogs", value = "현재 로그 개수"),
+		@ApiImplicitParam(name = "number", value = "추가적으로 원하는 로그 개수")
+	})
 	public ResponseEntity<List<LogDTO>> logPaging(int nowNumberOfLogs, int number) {
 		List<LogDTO> logs = logService.findLogs(nowNumberOfLogs, number);
 		logger.debug("넘겨주는 log의 수: {}", logs.size());
