@@ -10,3 +10,4 @@ data class ActionLogResponseItem(
     val nowLocation: String,
     val pastLocation: Any
 )
+

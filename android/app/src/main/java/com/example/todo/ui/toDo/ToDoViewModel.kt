@@ -30,6 +30,7 @@ class ToDoViewModel(
 
     init {
         loadActionLog()
+        loadTodoList()
         val tempTodoList = mutableListOf<TodoItem>()
         val tempInProgressList = mutableListOf<TodoItem>()
         val tempDoneList = mutableListOf<TodoItem>()
@@ -57,6 +58,23 @@ class ToDoViewModel(
         _todoList.value = tempTodoList
         _inProgressList.value = tempInProgressList
         _doneList.value = tempDoneList
+    }
+
+    private fun loadTodoList() {
+        viewModelScope.launch {
+            val totalList = toDoRepository.getTodoItems()
+            val tempTodoList = mutableListOf<TodoItem>()
+            val progressList = mutableListOf<TodoItem>()
+            val doneList = mutableListOf<TodoItem>()
+            totalList?.forEach {
+                if (it.type == ProgressType.TO_DO) tempTodoList.add(it)
+                else if (it.type == ProgressType.IN_PROGRESS) progressList.add(it)
+                if (it.type == ProgressType.DONE) doneList.add(it)
+            }
+            _todoList.value = tempTodoList
+            _inProgressList.value = progressList
+            _doneList.value = doneList
+        }
     }
 
     private fun loadActionLog() {

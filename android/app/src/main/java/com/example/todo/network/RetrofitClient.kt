@@ -15,9 +15,9 @@ interface RetrofitClient {
         @Query("writer") writer: String,
         @Query("current_location") current_location: String
     ): Response<CardIndex>
-    
+
     @GET("cards")
-    suspend fun getTodos(): List<JsonTodo>
+    suspend fun getTodos(): Response<TodoResponse>
 
     @GET("histories")
     suspend fun getActionLog(): Response<ActionLogResponse>
