@@ -105,7 +105,7 @@ public class JdbcCardRepository implements CardRepository {
             return findMinOrderIndex(targetSectionId) / 2;
         }
 
-        Card targetCard = findById(targetCardId).orElseThrow(NoSuchElementException::new);
+        Card targetCard = findById(targetCardId).orElseThrow(() -> new NoSuchElementException("ERROR!! NOT FOUND"));
         Long foundOrderIndex = findMaxOrderIndex(targetSectionId);
         if(targetCard.isSameOrderIndex(foundOrderIndex)) {
             return foundOrderIndex + ORDER_INTERVAL;
@@ -174,7 +174,11 @@ public class JdbcCardRepository implements CardRepository {
 
     private Long findMinOrderIndex(Integer sectionId) {
         String sql = "select min(order_index) from card where section_id = :sectionId and deleted = false";
-        return namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("sectionId", sectionId), Long.class);
+        Long minIndex = namedParameterJdbcTemplate.queryForObject(sql, new MapSqlParameterSource("sectionId", sectionId), Long.class);
+        if(minIndex == null) {
+            return EMPTY_NUMBER;
+        }
+        return minIndex;
     }
 
     private Long findPreviousOrderIndex(Integer sectionId, Long orderIndex) {
