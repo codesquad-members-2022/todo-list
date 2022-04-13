@@ -2,38 +2,24 @@ import Foundation
 
 struct NetworkManager {
     
-    static let url = URL(string: "http://worldclockapi.com/api/json/est/now") // 아무 URL사용
-    
-    static private func makeRequest(data: Card?, httpMethod: HttpMethod,
-                                    targetColumnId: String?, targetCardId: Int?) -> URLRequest? {
+    static private func makeRequest(networkTarget: NetworkTargetable) -> URLRequest? {
         
-        guard let url = url else {return nil}
+        var request = URLRequest(url: networkTarget.url)
+        request.httpMethod = networkTarget.method
         
-        var request = URLRequest(url: url)
-        request.httpMethod = httpMethod.rawValue
-        
-        if let data = data, let id = data.id {
-            let data = ["id": String(id), "subject": data.title,
-                        "contents": data.body, "sectionId": "\(data.cardListID)",
-                        "author": data.caption.rawValue, "createdAt": "\(data.createdTime)",
-                        "targetColumnId": "\(targetColumnId)", "targetCardId": "\(targetCardId)"]
-            let encoder = JSONEncoder()
-            
-            guard let encodedData = try? encoder.encode(data) else {return nil}
-            request.httpBody = encodedData
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let data = networkTarget.parameter {
+            let body = try? JSONSerialization.data(withJSONObject: data, options: .init())
+            request.httpBody = body
         }
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return request
     }
     
-    static func sendRequest(data: Card?, httpMethod: HttpMethod,
-                            targetColumnId: String?, targetCardId: Int?,
+    static func sendRequest(networkTarget: NetworkTargetable,
                             completionHandler: @escaping(Result<Card, NerworkError>) -> Void) {
-        guard let request = makeRequest(data: data,
-                                        httpMethod: httpMethod,
-                                        targetColumnId: targetColumnId,
-                                        targetCardId: targetCardId) else {return}
+        guard let request = makeRequest(networkTarget: networkTarget) else {return}
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
@@ -63,13 +49,6 @@ struct NetworkManager {
         
         task.resume()
     }
-}
-
-enum HttpMethod: String {
-    case GET
-    case POST
-    case PATCH
-    case DELETE
 }
 
 enum NerworkError: Error {
