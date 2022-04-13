@@ -5,10 +5,10 @@ import static java.util.stream.Collectors.toList;
 
 import com.example.backend.controller.card.dto.CardDto;
 import com.example.backend.controller.history.dto.HistorySaveRequest;
-import com.example.backend.service.history.HistoryService;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
+import com.example.backend.service.history.HistoryService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,6 @@ public class CardService {
         this.historyService = historyService;
     }
 
-    // 큰 트랜잭션
     @Transactional
     public Card writeCard(CardDto cardDto) {
         Card card = cardDto.writeCard();
