@@ -4,6 +4,7 @@ import { BoardViewModel } from '../viewModels/boardViewModel.js';
 import { Board } from '../views/component/board.js';
 import { Card } from '../views/component/card.js';
 import { Column } from '../views/component/column.js';
+import { Popup } from '../views/popup.js';
 
 class BoardController {
   constructor() {
@@ -75,9 +76,8 @@ class BoardController {
     column.props.cards = column.props.cards.slice(0, -1);
   }
 
-  toggleWritableCard(target, column) {
+  updateColumnState(target, column) {
     const btnType = target.classList.contains('button--add') ? 'add' : 'cancle';
-
     if (btnType === 'add') {
       this.addWritableCard(target, column);
     } else if (btnType === 'cancle') {
@@ -86,18 +86,27 @@ class BoardController {
     this.setCards(column.props.cards);
   }
 
-  updateColumnToWritable(target) {
-    const columnName = target.dataset.status;
-    const column = this.getColumn(columnName);
-    this.toggleWritableCard(target, column);
-
+  renderSingleColumn(column) {
     const cardsTemplate = this.createCardsTemplate(column.props.cards);
     column.render(column.props.title, cardsTemplate);
   }
 
-  newCardInfo($form, columnName) {
-    const title = $form.querySelector('.card__title').value;
-    const contents = $form.querySelector('.card__content').value;
+  toggleWritableCard(target) {
+    const columnName = target.dataset.status;
+    const column = this.getColumn(columnName);
+    this.updateColumnState(target, column);
+    this.renderSingleColumn(column);
+  }
+
+  getCardFormData(writableCard, columnName) {
+    const $form = writableCard.getFormElement(columnName);
+    const title = writableCard.getTitle($form);
+    const contents = writableCard.getContent($form);
+    return { title, contents };
+  }
+
+  getCardInfo(writableCard, columnName) {
+    const { title, contents } = this.getCardFormData(writableCard, columnName);
     if (isEmptyInput(title) || isEmptyInput(contents)) {
       alert('내용을 입력해주세요.');
       return;
@@ -115,8 +124,7 @@ class BoardController {
   createNewCard(target) {
     const columnName = target.dataset.status;
     const writableCard = this.cards[this.cards.length - 1];
-    const $form = writableCard.getCardFormElement(columnName);
-    const cardInfo = this.newCardInfo($form, columnName);
+    const cardInfo = this.getCardInfo(writableCard, columnName);
     return cardInfo;
   }
 
@@ -127,15 +135,37 @@ class BoardController {
     fetchRequest('http://localhost:8080', requestOption);
   }
 
-  btnClickHandler({ target }) {
+  addCardEvent(target) {
     if (target.classList.contains('card-button--add') || target.classList.contains('card__button--cancle')) {
-      this.updateColumnToWritable(target);
+      this.toggleWritableCard(target);
     }
     if (target.classList.contains('card__button--submit')) {
       const newCard = this.createNewCard(target);
       this.postNewCard(newCard);
-      this.updateColumnToWritable(target);
     }
+  }
+
+  deleteCardEvent(target) {
+    if (target.classList.contains('card__button--delete')) {
+      this.popup.show();
+    }
+    if (target.classList.contains('popup-button--cancle')) {
+      this.popup.hidden();
+    }
+    if (target.classList.contains('popup-button--confirm')) {
+      const requestOption = HTTP_REQUEST.DELETE();
+      fetchRequest('http://localhost:8080', requestOption);
+      this.popup.hidden();
+    }
+  }
+
+  btnClickHandler({ target }) {
+    this.addCardEvent(target);
+    this.deleteCardEvent(target);
+  }
+
+  addEvent() {
+    this.board.addEvent(this);
   }
 
   async init() {
@@ -144,7 +174,11 @@ class BoardController {
     const columnsTemplate = this.createColumnsTemplate();
     this.board = new Board();
     this.board.render(columnsTemplate);
-    this.board.addEvent(this);
+
+    this.popup = new Popup();
+    this.popup.render();
+
+    this.addEvent();
   }
 }
 

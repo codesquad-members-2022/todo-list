@@ -3,8 +3,16 @@ class Card {
     this.props = props;
   }
 
-  getCardFormElement(columnName) {
+  getFormElement(columnName) {
     return document.querySelector(`form[data-status=${columnName}]`);
+  }
+
+  getTitle($form) {
+    return $form.querySelector('.card__title').value;
+  }
+
+  getContent($form) {
+    return $form.querySelector('.card__content').value;
   }
 
   writableTemplate() {
