@@ -30,6 +30,7 @@ class ToDoViewModel(
 
     init {
         loadActionLog()
+        loadTodoList()
         val tempTodoList = mutableListOf<TodoItem>()
         val tempInProgressList = mutableListOf<TodoItem>()
         val tempDoneList = mutableListOf<TodoItem>()
@@ -39,26 +40,47 @@ class ToDoViewModel(
         val todo3 = TodoItem(
             "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
         )
+        val todo4 = TodoItem("title", "content", ProgressType.IN_PROGRESS)
+        val todo5 = TodoItem("title2", "content2\ncontentcontent", ProgressType.IN_PROGRESS)
+        val todo6 = TodoItem(
+            "title2", "content2\ncontentcontent\n sdfsd", ProgressType.IN_PROGRESS
+        )
+        val todo7 = TodoItem("title", "content", ProgressType.DONE)
+        val todo8 = TodoItem("title2", "content2\ncontentcontent", ProgressType.DONE)
+        val todo9 = TodoItem(
+            "title2", "content2\ncontentcontent\n sdfsd", ProgressType.DONE
+        )
 
         tempTodoList.addAll(mutableListOf(todo1, todo2, todo3))
-        tempInProgressList.addAll(mutableListOf(todo2, todo3, todo1))
-        tempDoneList.addAll(mutableListOf(todo1, todo2, todo3))
+        tempInProgressList.addAll(mutableListOf(todo4, todo5, todo6))
+        tempDoneList.addAll(mutableListOf(todo8, todo9, todo7))
 
         _todoList.value = tempTodoList
         _inProgressList.value = tempInProgressList
         _doneList.value = tempDoneList
     }
 
+    private fun loadTodoList() {
+        viewModelScope.launch {
+            val totalList = toDoRepository.getTodoItems()
+            val tempTodoList = mutableListOf<TodoItem>()
+            val progressList = mutableListOf<TodoItem>()
+            val doneList = mutableListOf<TodoItem>()
+            totalList?.forEach {
+                if (it.type == ProgressType.TO_DO) tempTodoList.add(it)
+                else if (it.type == ProgressType.IN_PROGRESS) progressList.add(it)
+                if (it.type == ProgressType.DONE) doneList.add(it)
+            }
+            _todoList.value = tempTodoList
+            _inProgressList.value = progressList
+            _doneList.value = doneList
+        }
+    }
+
     private fun loadActionLog() {
         viewModelScope.launch {
-//            val actionLogs = actionLogRepository.getActionLogs()
-//            _actionList.value = actionLogs
-            val tempActions= mutableListOf<ActionLog>()
-            val tempActionLog= ActionLog("aaaa", ActionType.UPDATE, "2022-04-06 16:00:01", ProgressType.IN_PROGRESS, ProgressType.DONE)
-            tempActions.add(tempActionLog)
-            _actionList.value= tempActions
-
-
+            val actionLogs = actionLogRepository.getActionLogs()
+            actionLogs?.let { _actionList.value = actionLogs }
         }
     }
 
@@ -69,26 +91,17 @@ class ToDoViewModel(
         }
     }
 
-//    fun addInProgressItem(item: TodoItem) {
-//        _inProgressList.value = inProgressList.value?.let {
-//            val originList = mutableListOf<TodoItem>()
-//            originList.addAll(it)
-//            originList.add(0, item)
-//            originList.toList()
-//        }
-//        inProgressList = _inProgressList
-//    }
     fun addInProgressItem(item: TodoItem) {
         viewModelScope.launch {
             _inProgressList.value =
-                inProgressList.value?.let { toDoRepository.addInProgressItem(it, item) }
+                inProgressList.value?.let { toDoRepository.addToDoItem(it, item) }
             inProgressList = _inProgressList
         }
     }
 
     fun addDoneItem(item: TodoItem) {
         viewModelScope.launch {
-            _doneList.value = doneList.value?.let { toDoRepository.addDoneItem(it, item) }
+            _doneList.value = doneList.value?.let { toDoRepository.addToDoItem(it, item) }
             doneList = _doneList
         }
     }
@@ -99,12 +112,13 @@ class ToDoViewModel(
     }
 
     fun deleteInProgressItem(item: TodoItem) {
-        _inProgressList.value = inProgressList.value?.let { toDoRepository.deleteInProgressItem(it, item) }
+        _inProgressList.value =
+            inProgressList.value?.let { toDoRepository.deleteToDoItem(it, item) }
         inProgressList = _inProgressList
     }
 
-    fun deleteDoneItem(item:TodoItem){
-        _doneList.value = doneList.value?.let { toDoRepository.deleteDoneItem(it, item) }
+    fun deleteDoneItem(item: TodoItem) {
+        _doneList.value = doneList.value?.let { toDoRepository.deleteToDoItem(it, item) }
         doneList = _doneList
     }
 
@@ -112,7 +126,7 @@ class ToDoViewModel(
         when (item.type) {
             ProgressType.IN_PROGRESS -> {
                 deleteInProgressItem(item)
-                item.type= ProgressType.DONE
+                item.type = ProgressType.DONE
                 addDoneItem(item)
             }
             ProgressType.DONE -> {
@@ -120,7 +134,7 @@ class ToDoViewModel(
             }
             else -> {
                 deleteTodoItem(item)
-                item.type= ProgressType.DONE
+                item.type = ProgressType.DONE
                 addDoneItem(item)
             }
         }
@@ -128,14 +142,14 @@ class ToDoViewModel(
     }
 
     fun deleteItem(cardItem: TodoItem) {
-        when(cardItem.type){
-            ProgressType.TO_DO->{
+        when (cardItem.type) {
+            ProgressType.TO_DO -> {
                 deleteTodoItem(cardItem)
             }
-            ProgressType.IN_PROGRESS->{
+            ProgressType.IN_PROGRESS -> {
                 deleteInProgressItem(cardItem)
             }
-            ProgressType.DONE->{
+            ProgressType.DONE -> {
                 deleteDoneItem(cardItem)
             }
         }
@@ -147,7 +161,8 @@ class ToDoViewModel(
     }
 
     fun updateInProgressItem(updateItem: TodoItem) {
-        _inProgressList.value = inProgressList.value?.let { toDoRepository.updateInProgressItem(it, updateItem) }
+        _inProgressList.value =
+            inProgressList.value?.let { toDoRepository.updateInProgressItem(it, updateItem) }
         inProgressList = _inProgressList
     }
 

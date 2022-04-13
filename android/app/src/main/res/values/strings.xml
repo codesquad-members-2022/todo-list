@@ -5,14 +5,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="progress_todo">해야 할일</string>
-    <string name="progress_ing">하고 있는일</string>
-    <string name="progress_done">한 일</string>
+    <string name="progress_todo">todo</string>
+    <string name="progress_ing">ing</string>
+    <string name="progress_done">done</string>
 
-    <string name="action_add">등록</string>
-    <string name="action_remove">삭제</string>
-    <string name="action_move">이동</string>
-    <string name="action_update">수정</string>
+    <string name="action_add">add</string>
+    <string name="action_remove">remove</string>
+    <string name="action_move">move</string>
+    <string name="action_update">update</string>
 
 
     <string name="label_addCard_title">새로운 카드 추가</string>

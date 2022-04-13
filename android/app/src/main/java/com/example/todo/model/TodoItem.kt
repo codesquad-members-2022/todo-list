@@ -5,7 +5,7 @@ data class TodoItem(
     var content: String,
     var type: ProgressType,
     var itemId: Int = -1,
-    var next: TodoItem? = null
+    var next: Int? = null
 ) {
 
 }

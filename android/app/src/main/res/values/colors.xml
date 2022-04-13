@@ -3,7 +3,7 @@
     <color name="todo_main_color">#5C5C5C</color>
     <color name="todo_background_color">#80B1B1B1</color>
     <color name="todo_second_color">#03A9F4</color>
-    <color name="todo_background_green">#80CDDC39</color>
+    <color name="todo_background_green">#33DCFA39</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

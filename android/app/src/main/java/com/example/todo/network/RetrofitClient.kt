@@ -1,6 +1,5 @@
 package com.example.todo.network
 
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,20 +16,14 @@ interface RetrofitClient {
         @Query("current_location") current_location: String
     ): Response<CardIndex>
 
-//    "title" : "카드제목",
-//    "content" : "카드내용",
-//    "writer" : "작성자",
-//    "current_location" : "done"
-
     @GET("cards")
-    suspend fun getTodos(): List<JsonTodo>
+    suspend fun getTodos(): Response<TodoResponse>
 
     @GET("histories")
-    suspend fun getActionLog(): ActionLogResponse
+    suspend fun getActionLog(): Response<ActionLogResponse>
 
     companion object {
-        private const val baseUrl = "http://13.125.179.177:8080/"
-
+        private const val baseUrl = "http://3.37.194.187:8080/"
         fun create(): RetrofitClient {
             return Retrofit.Builder().baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())

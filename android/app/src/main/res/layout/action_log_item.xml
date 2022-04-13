@@ -17,7 +17,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="20dp"
         android:paddingRight="10dp"
-        android:background="@color/todo_second_color"
+        android:background="@color/todo_background_green"
         android:paddingBottom="20dp">
 
 
