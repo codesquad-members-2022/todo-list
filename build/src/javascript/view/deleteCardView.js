@@ -16,7 +16,7 @@ function blockAlert() {
   alert.style.display = "none";
 }
 
-function showAlert({ target }) {
+export function showAlert({ target }) {
   const alert = document.querySelector("#alert-id");
   alert.style.display = "flex";
   const $selectedCard = target.closest(".card");
@@ -26,5 +26,5 @@ function showAlert({ target }) {
     removeCard({ target });
     blockAlert();
   });
-  $editBtn.removeEventListener("click", removeCard);
+  $editBtn.removeEventListener("click", handleAlertEvent);
 }
