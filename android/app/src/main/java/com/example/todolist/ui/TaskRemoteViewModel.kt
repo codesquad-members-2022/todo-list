@@ -61,21 +61,24 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
             taskRemoteRepository.modifyTask(modifyTaskRequest)?.let {
                 when (it.status) {
                     Status.TODO -> {
-                        val originalTask = _todoTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
+                        val originalTask =
+                            _todoTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
                         val index = _todoTask.value?.indexOf(originalTask)
                         if (index != null) {
                             _todoTask.value?.set(index, it)
                         }
                     }
                     Status.IN_PROGRESS -> {
-                        val originalTask = _inProgressTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
+                        val originalTask =
+                            _inProgressTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
                         val index = _inProgressTask.value?.indexOf(originalTask)
                         if (index != null) {
                             _inProgressTask.value?.set(index, it)
                         }
                     }
                     Status.DONE -> {
-                        val originalTask = _doneTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
+                        val originalTask =
+                            _doneTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
                         val index = _doneTask.value?.indexOf(originalTask)
                         if (index != null) {
                             _doneTask.value?.set(index, it)

@@ -19,6 +19,6 @@ class TaskRemoteRepository(
     }
 
     suspend fun modifyTask(modifyTaskRequest: ModifyTaskRequest): TaskDetailResponse? {
-        return taskRemoteDataSource.modifyTask(modifyTaskRequest)
+        return taskRemoteDataSource.modifyTask(modifyTaskRequest)?.taskDetailResponse
     }
 }

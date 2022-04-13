@@ -16,11 +16,12 @@ data class Result(
     val status: Int,
     val taskDetailResponse: TaskDetailResponse
 )
+
 data class TaskDetailResponse(
     val id: Int,
     val title: String,
     val content: String,
     val status: Status,
     val author: String = "Android",
-    val updateDateTime: String?
+    val updateDateTime: String? = null
 )

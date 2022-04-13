@@ -15,17 +15,16 @@ import com.example.todolist.ui.common.ViewModelFactory
 
 class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
     private val viewModel: TaskViewModel by viewModels { ViewModelFactory() }
-    private val remoteViewModel: TaskRemoteViewModel by viewModels { ViewModelFactory() }
     private lateinit var binding: ActivityMainBinding
     private val historyAdapter: HistoryAdapter by lazy { HistoryAdapter() }
-    private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(remoteViewModel, this) }
-    private val inProgressAdapter: TaskAdapter by lazy { TaskAdapter(remoteViewModel, this) }
-    private val doneAdapter: TaskAdapter by lazy { TaskAdapter(remoteViewModel, this) }
+    private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
+    private val inProgressAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
+    private val doneAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.viewModel = remoteViewModel
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
         onDrawerEvent()
 
@@ -40,7 +39,10 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
             }
 
             includeInProgress.btnAdd.setOnClickListener {
-                NewTaskDialogFragment(Status.IN_PROGRESS).show(supportFragmentManager, "inProgressDialog")
+                NewTaskDialogFragment(Status.IN_PROGRESS).show(
+                    supportFragmentManager,
+                    "inProgressDialog"
+                )
             }
 
             includeDone.btnAdd.setOnClickListener {
@@ -49,17 +51,17 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
         }
 
         binding.includeTodo.rvTodo.adapter = toDoAdapter
-        remoteViewModel.todoTask.observe(this) { todoTask ->
+        viewModel.todoTask.observe(this) { todoTask ->
             toDoAdapter.submitList(todoTask.toList())
         }
 
         binding.includeInProgress.rvInProgress.adapter = inProgressAdapter
-        remoteViewModel.inProgressTask.observe(this) { inProgressTask ->
+        viewModel.inProgressTask.observe(this) { inProgressTask ->
             inProgressAdapter.submitList(inProgressTask.toList())
         }
 
         binding.includeDone.rvDone.adapter = doneAdapter
-        remoteViewModel.doneTask.observe(this) { doneTask ->
+        viewModel.doneTask.observe(this) { doneTask ->
             doneAdapter.submitList(doneTask.toList())
         }
 

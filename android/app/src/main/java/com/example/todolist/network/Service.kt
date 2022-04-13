@@ -18,7 +18,7 @@ interface Service {
     suspend fun saveTask(@Body cardInfo: Task): Response<Result>
 
     @Headers("Content-Type: application/json")
-    @PATCH("cards")
+    @PATCH("cards/{id}")
     suspend fun modifyTask(
         @Path("id") id: Int,
         @Body modifyTaskRequest: ModifyTaskRequest

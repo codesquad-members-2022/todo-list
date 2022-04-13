@@ -32,7 +32,7 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     private fun loadTasks() {
         val tasks = repository.getTasks()
         _todoTask.value = tasks.todo
-        _inProgressTask.value = tasks.inProgresses
+        _inProgressTask.value = tasks.inProgress
         _doneTask.value = tasks.done
     }
 
@@ -47,7 +47,7 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
 
     fun addInProgressTask(task: Task) {
         val tasks = repository.addTask(task)
-        _inProgressTask.value = tasks.inProgresses
+        _inProgressTask.value = tasks.inProgress
     }
 
     fun addDoneTask(task: Task) {
@@ -58,14 +58,14 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     fun moveDone(task: TaskDetailResponse) {
         val tasks = repository.moveDone(task)
         _todoTask.value = tasks.todo
-        _inProgressTask.value = tasks.inProgresses
+        _inProgressTask.value = tasks.inProgress
         _doneTask.value = tasks.done
     }
 
     fun deleteTask(task: TaskDetailResponse) {
         val tasks = repository.deleteTask(task)
         _todoTask.value = tasks.todo
-        _inProgressTask.value = tasks.inProgresses
+        _inProgressTask.value = tasks.inProgress
         _doneTask.value = tasks.done
     }
 
@@ -76,7 +76,7 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
 
     fun updateInProgressTask(task: TaskDetailResponse) {
         val tasks = repository.updateTask(task)
-        _inProgressTask.value = tasks.inProgresses
+        _inProgressTask.value = tasks.inProgress
     }
 
     fun updateDoneTask(task: TaskDetailResponse) {

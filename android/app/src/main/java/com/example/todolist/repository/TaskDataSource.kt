@@ -12,5 +12,5 @@ interface TaskDataSource {
 
     suspend fun addTask(cardData: Task): Result?
 
-    suspend fun modifyTask(modifyTaskRequest: ModifyTaskRequest): TaskDetailResponse?
+    suspend fun modifyTask(modifyTaskRequest: ModifyTaskRequest): Result?
 }
