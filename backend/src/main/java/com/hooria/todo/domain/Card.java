@@ -25,6 +25,11 @@ public class Card {
     private boolean deletedYn;
     private int rowPosition;
 
+    public static Card of(long id, String status, String title, String content, String userId, String device) {
+        LocalDateTime now = LocalDateTime.now();
+        return new Card(id, Status.of(status), title, content, userId, Device.of(device), now, now, false, 0);
+    }
+
     public static Card of(Status status, String title, String content, String userId, Device device, int rowPosition) {
         LocalDateTime now = LocalDateTime.now();
         return new Card(0, status, title, content, userId, device, now, now, false, rowPosition);

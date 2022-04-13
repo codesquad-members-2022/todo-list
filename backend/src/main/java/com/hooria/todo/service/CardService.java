@@ -3,6 +3,8 @@ package com.hooria.todo.service;
 import com.hooria.todo.domain.Card;
 import com.hooria.todo.dto.AddCardParam;
 import com.hooria.todo.dto.CardResponse;
+import com.hooria.todo.dto.UpdateCardLayoutParam;
+import com.hooria.todo.dto.UpdateCardParam;
 import com.hooria.todo.repository.CardRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,5 +36,20 @@ public class CardService {
         return cardRepository.findById(deletedId)
             .map(Card::toCardResponse)
             .orElseThrow();
+    }
+
+    public CardResponse update(UpdateCardParam updateCardParam) {
+        Card updatedCard = updateCardParam.toEntity();
+        long updatedId = cardRepository.update(updatedCard);
+        return cardRepository.findById(updatedId)
+            .map(Card::toCardResponse)
+            .orElseThrow();
+    }
+
+    public List<CardResponse> updateCardsLayout(List<UpdateCardLayoutParam> updateCardLayoutParams) {
+        for (UpdateCardLayoutParam updateCardLayoutParam : updateCardLayoutParams) {
+            cardRepository.updateRowPositionById(updateCardLayoutParam.getId(), updateCardLayoutParam.getRowPosition());
+        }
+        return selectAll();
     }
 }

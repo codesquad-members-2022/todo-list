@@ -39,22 +39,22 @@ class CardRepositoryTest {
             new Card(8, Status.TODO, "title8", "content8", "userId1", Device.IOS, datetime, datetime, false, 6),
             new Card(9, Status.TODO, "title9", "content9", "userId1", Device.ANDROID, datetime, datetime, false, 7),
             new Card(10, Status.TODO, "title10", "content10", "userId1", Device.WEB, datetime, datetime, false, 8),
-            new Card(11, Status.IN_PROGRESS, "title11", "content11", "userId1", Device.WEB, datetime, datetime, false, 3),
-            new Card(12, Status.IN_PROGRESS, "title12", "content12", "userId1", Device.IOS, datetime, datetime, false, 2),
             new Card(15, Status.IN_PROGRESS, "title15", "content15", "userId1", Device.IOS, datetime, datetime, false, 1),
+            new Card(12, Status.IN_PROGRESS, "title12", "content12", "userId1", Device.IOS, datetime, datetime, false, 2),
+            new Card(11, Status.IN_PROGRESS, "title11", "content11", "userId1", Device.WEB, datetime, datetime, false, 3),
             new Card(16, Status.IN_PROGRESS, "title16", "content16", "userId1", Device.ANDROID, datetime, datetime, false, 4),
             new Card(17, Status.IN_PROGRESS, "title17", "content17", "userId1", Device.WEB, datetime, datetime, false, 5),
             new Card(18, Status.IN_PROGRESS, "title18", "content18", "userId1", Device.IOS, datetime, datetime, false, 6),
             new Card(19, Status.IN_PROGRESS, "title19", "content19", "userId1", Device.ANDROID, datetime, datetime, false, 7),
             new Card(20, Status.IN_PROGRESS, "title20", "content20", "userId1", Device.WEB, datetime, datetime, false, 8),
-            new Card(21, Status.DONE, "title21", "content21", "userId1", Device.WEB, datetime, datetime, false, 8),
-            new Card(22, Status.DONE, "title22", "content22", "userId1", Device.IOS, datetime, datetime, false, 7),
-            new Card(25, Status.DONE, "title25", "content25", "userId1", Device.IOS, datetime, datetime, false, 6),
-            new Card(26, Status.DONE, "title26", "content26", "userId1", Device.ANDROID, datetime, datetime, false, 5),
-            new Card(27, Status.DONE, "title27", "content27", "userId1", Device.WEB, datetime, datetime, false, 4),
-            new Card(28, Status.DONE, "title28", "content28", "userId1", Device.IOS, datetime, datetime, false, 3),
+            new Card(30, Status.DONE, "title30", "content30", "userId1", Device.WEB, datetime, datetime, false, 1),
             new Card(29, Status.DONE, "title29", "content29", "userId1", Device.ANDROID, datetime, datetime, false, 2),
-            new Card(30, Status.DONE, "title30", "content30", "userId1", Device.WEB, datetime, datetime, false, 1)
+            new Card(28, Status.DONE, "title28", "content28", "userId1", Device.IOS, datetime, datetime, false, 3),
+            new Card(27, Status.DONE, "title27", "content27", "userId1", Device.WEB, datetime, datetime, false, 4),
+            new Card(26, Status.DONE, "title26", "content26", "userId1", Device.ANDROID, datetime, datetime, false, 5),
+            new Card(25, Status.DONE, "title25", "content25", "userId1", Device.IOS, datetime, datetime, false, 6),
+            new Card(22, Status.DONE, "title22", "content22", "userId1", Device.IOS, datetime, datetime, false, 7),
+            new Card(21, Status.DONE, "title21", "content21", "userId1", Device.WEB, datetime, datetime, false, 8)
         );
 
         //when
@@ -118,7 +118,7 @@ class CardRepositoryTest {
 
     @Test
     @Transactional
-    @DisplayName("DB에 수정사항을 반영하고 변경된 Card를 반환한다.")
+    @DisplayName("DB에 수정사항을 반영하고 변경된 카드의 id를 반환한다.")
     void update() {
         //given
         long id = 1;
@@ -137,7 +137,8 @@ class CardRepositoryTest {
         );
 
         //when
-        Card updatedCard = cardRepository.update(card);
+        long updatedId = cardRepository.update(card);
+        Card updatedCard = cardRepository.findById(updatedId).get();
 
         //then
         assertThat(updatedCard.getId()).isEqualTo(existingCard.getId());
@@ -147,7 +148,7 @@ class CardRepositoryTest {
 
     @Test
     @Transactional
-    @DisplayName("카드를 삭제하고 변경된 row 수를 반환한다.")
+    @DisplayName("카드를 삭제하고 삭제된 카드의 id를 반환한다.")
     void delete() {
         //given
 
@@ -159,5 +160,24 @@ class CardRepositoryTest {
         assertThat(deletedCard).isNotEmpty()
             .get()
             .hasFieldOrPropertyWithValue("deletedYn", true);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("id에 해당하는 카드의 rowPosition을 변경하고 변경된 카드의 id를 반환한다.")
+    void updateRowPositionById() {
+        //given
+        long id = 1;
+        int rowPosition = 9;
+
+        //when
+        long updatedId = cardRepository.updateRowPositionById(id, rowPosition);
+        Optional<Card> updatedCard = cardRepository.findById(updatedId);
+
+        //then
+        assertThat(updatedCard).isNotEmpty()
+            .get()
+            .hasFieldOrPropertyWithValue("id", 1L)
+            .hasFieldOrPropertyWithValue("rowPosition", 9);
     }
 }
