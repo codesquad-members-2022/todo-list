@@ -134,6 +134,7 @@ class BoardController {
     if (target.classList.contains('card__button--submit')) {
       const newCard = this.createNewCard(target);
       this.postNewCard(newCard);
+      this.updateColumnToWritable(target);
     }
   }
 
