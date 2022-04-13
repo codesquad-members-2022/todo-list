@@ -25,3 +25,12 @@ values ('DELETE', 'test3', '', '카드 제목 이전 3', 'UNCLASSIFIED', 'ONGOIN
 insert into history(card_action, user_id, card_title, card_title_before, card_status,
                     card_status_before, created_at)
 values ('ADD', 'test4', '카드 제목 4', '', 'ONGOING', 'UNCLASSIFIED', CURRENT_TIMESTAMP);
+
+INSERT INTO column_tbl(title, order_index, deleted, created_at)
+VALUES ('할 일', 0.0, false, CURRENT_TIMESTAMP);
+
+INSERT INTO column_tbl(title, order_index, deleted, created_at)
+VALUES ('하고 있는 일', 1000.0, false, CURRENT_TIMESTAMP);
+
+INSERT INTO column_tbl(title, order_index, deleted, created_at)
+VALUES ('완료한 일', 2000.0, false, CURRENT_TIMESTAMP);
