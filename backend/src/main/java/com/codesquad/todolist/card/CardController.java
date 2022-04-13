@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -35,6 +36,7 @@ public class CardController {
     @PostMapping
     public ResponseEntity<HistoryResponse> createCard(
         @RequestBody @Valid CardCreateRequest request) {
+        cardService.validateCreateInput(request.getColumnId(), request.getNextId());
         HistoryResponse historyResponse = cardService.create(request);
         return new ResponseEntity<>(historyResponse, HttpStatus.CREATED);
     }

@@ -1,5 +1,13 @@
 package com.codesquad.todolist.card;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
@@ -10,8 +18,6 @@ import com.codesquad.todolist.history.domain.Field;
 import com.codesquad.todolist.history.domain.History;
 import com.codesquad.todolist.history.domain.ModifiedField;
 import com.codesquad.todolist.history.dto.HistoryResponse;
-import java.util.List;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CardService {
@@ -120,6 +126,25 @@ public class CardService {
 
         if (count == 0) {
             throw new IllegalStateException("해당 컬럼에서 다음 카드를 찾을 수 없습니다.");
+        }
+    }
+
+    public void validateCreateInput(Integer columnId, Integer nextId) {
+        List<Card> cards = cardRepository.findByColumnId(columnId);
+        if (cards.size() == 0 && nextId == null) {
+            return;
+        }
+        Map<Integer, Card> columnCardMap = cards.stream()
+            .collect(Collectors.toMap(Card::getNextId, Function.identity()));
+        Card card = Optional.ofNullable(columnCardMap.remove(null))
+            .orElseThrow(() -> new IllegalArgumentException("조건을 만족하는 카드가 없습니다."));
+
+        while (columnCardMap.size() > 0) {
+            card = columnCardMap.remove(card.getCardId());
+        }
+
+        if (!card.getCardId().equals(nextId)) {
+            throw new IllegalStateException("조건을 만족하는 카드가 없습니다.");
         }
     }
 }
