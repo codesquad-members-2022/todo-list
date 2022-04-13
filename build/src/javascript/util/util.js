@@ -18,9 +18,10 @@ export async function deleteData(URL) {
   await axios.delete(URL);
 }
 
-export function axiosRequest(method, pathName, controlledData = {}) {
+export function axiosRequest(method, pathName, controlledData = {}, dataId) {
   const URL = `http://localhost:5000/${pathName}`;
-  const idURL = URL + `/${controlledData.id}`;
+  const idURL = URL + `/${dataId}`;
+  console.log(idURL);
   switch (method) {
     case "get":
       const sortingURL = URL + "?_sort=createDate&_order=desc";
