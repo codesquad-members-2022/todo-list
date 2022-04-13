@@ -3,10 +3,10 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: #ececec;
+  background-color: var(--light-gray);
   width: 100%;
   margin-bottom: 10px;
-  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.5);
+  box-shadow: 0px 1px 30px var(--shadow-color);
   border-radius: 6px;
   cursor: pointer;
 }
@@ -16,14 +16,14 @@
 }
 
 .sidebar-card--id {
-  font-size: 14px;
+  font-size: var(--font-S);
 }
 
 .side-card--content {
-  font-size: 15px;
+  font-size: var(--font-M);
 }
 
 .sidebar-card--minute {
-  color: #bdbdbd;
-  font-size: 12px;
+  color: var(--transparency-gray);
+  font-size: var(--font-XS);
 }

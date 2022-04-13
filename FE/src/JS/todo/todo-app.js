@@ -1,15 +1,14 @@
-import Model from './Model.js';
-import View from './view.js';
-import Controller from './Controller.js';
+import Model from './todo-model.js';
+import View from './todo-view.js';
+import Controller from './todo-controller.js';
 import Drag from '../drag-drop/drag-drop.js';
 import { fetchRequest } from '../utility/fetchRequest.js';
 
 export async function initTodo() {
-  const workListData = await fetchRequest('../src/js/mok-data/mokData.json');
+  const workListData = await fetchRequest('/works?userId=ikjo');
   const model = new Model(workListData);
   const view = new View();
-  new Controller(model, view);
-
   const drag = new Drag();
-  drag.addDragEvent();
+
+  new Controller(model, view, drag);
 }

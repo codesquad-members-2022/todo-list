@@ -1,8 +1,8 @@
 .container {
-  background-color: white;
+  background-color: var(--white);
   width: 90%;
   padding: 16px;
-  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.5);
+  box-shadow: 0px 1px 30px var(--gray);
   border-radius: 6px;
 }
 
@@ -11,11 +11,11 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: #ececec;
+  background-color: var(--light-gray);
   width: 90%;
   padding: 16px;
   margin-bottom: 15px;
-  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.5);
+  box-shadow: 0px 1px 30px var(--shadow-color);
   border-radius: 6px;
   cursor: move;
 }
@@ -31,20 +31,84 @@
 
 .card-header .delete-btn {
   border: none;
-  background-color: #fd565f;
-  color: #fff;
+  background-color: var(--red);
+  color: var(--white);
   border-radius: 5px;
 }
 .card-content {
-  font-size: 14px;
+  font-size: var(--font-S);
   line-height: 20px;
   padding: 10px 0;
 }
 .card-author {
-  color: #bdbdbd;
-  font-size: 12px;
+  color: var(--transparency-gray);
+  color: var(--transparency-gray);
+  font-size: var(--font-XS);
 }
 
 .column-item--card.dragging {
   opacity: 0.5;
+}
+
+.column-addBtn {
+  background-color: var(--white);
+  border: 1px solid var(--blue);
+}
+
+.card-title {
+  width: 249px;
+  height: 25px;
+  font-size: var(--font-M);
+  font-weight: var(--font-bold);
+  border: none;
+}
+
+.card-title:focus,
+.card-content:focus {
+  outline: none;
+}
+
+[contenteditable='true']:empty:before {
+  content: attr(placeholder);
+}
+
+.card-content {
+  border: 1px solid var(--strong-white);
+  color: var(--light-black);
+  font-size: var(--font-XS);
+  width: 240px;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-card--header {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-addBtn {
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.registerBtn {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.registerBtn:hover {
+  background-color: var(--strong-blue);
+}
+
+.deleting {
+  background-color: var(--pink);
+  border: 1px solid var(--strong-red);
+}
+
+.delete-btn:hover {
+  background-color: var(--strong-red);
 }

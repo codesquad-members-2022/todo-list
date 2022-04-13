@@ -1,26 +1,54 @@
 {
   "userId": "ikjo",
-	"workLogList":[
-		{
-			"title": "자바 공부",
-			"action": "등록",
-			"previousColumn": "TODO",
-			"changedColumn": null,
-			"updatedDateTime": "2022-04-06T11:38:00"
-		},
-		{
-			"title": "MySQL 공부",
-			"action": "등록",
-			"previousColumn": "DOING",
-			"changedColumn": null,
-			"updatedDateTime": "2022-04-06T11:38:00"
-		},
-		{
-			"title": "깃 공부",
-			"action": "등록",
-			"previousColumn": "DONE",
-			"changedColumn": null,
-			"updatedDateTime": "2022-04-06T11:38:00"
-		}
-	]
+  "workLogList": [
+    {
+      "title": "자바 공부",
+      "action": "등록",
+      "previousCategory": "TODO",
+      "changedCategory": null,
+      "updatedDateTime": "2022-04-12T11:35:00"
+    },
+    {
+      "title": "MySQL 공부",
+      "action": "등록",
+      "previousCategory": "DOING",
+      "changedCategory": null,
+      "updatedDateTime": "2022-04-12T11:36:00"
+    },
+    {
+      "title": "깃 공부",
+      "action": "등록",
+      "previousCategory": "DONE",
+      "changedCategory": null,
+      "updatedDateTime": "2022-04-12T11:37:00"
+    },
+    {
+      "title": "알고리즘 문제풀기",
+      "action": "이동",
+      "previousCategory": "TODO",
+      "changedCategory": "DOING",
+      "updatedDateTime": "2022-04-12 11:38:00"
+    },
+    {
+      "title": "MySQL 공부",
+      "action": "등록",
+      "previousCategory": "DOING",
+      "changedCategory": null,
+      "updatedDateTime": "2022-04-12 11:39:00"
+    },
+    {
+      "title": "깃 공부",
+      "action": "등록",
+      "previousCategory": "DONE",
+      "changedCategory": null,
+      "updatedDateTime": "2022-04-12T11:40:00"
+    },
+    {
+      "title": "알고리즘 문제풀기",
+      "action": "이동",
+      "previousCategory": "TODO",
+      "changedCategory": "DOING",
+      "updatedDateTime": "2022-04-12T11:41:00"
+    }
+  ]
 }

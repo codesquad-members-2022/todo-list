@@ -6,6 +6,20 @@
 #menu-icon:checked + label {
   z-index: 10;
 }
+<<<<<<< HEAD
+.sidebar-container-wrap {
+  overflow-y: auto;
+  max-height: 760px;
+  margin-top: 80px;
+}
+.sidebar {
+  width: 340px;
+  height: 100%;
+  background-color: #fff;
+  position: fixed;
+  top: 0%;
+  right: -340px;
+=======
 .sidebar {
   width: 330px;
   height: 100%;
@@ -15,14 +29,21 @@
   position: fixed;
   top: 0%;
   right: -330px;
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
   z-index: 9;
   transition: all 0.7s;
 }
 
 .sidebar .container {
+<<<<<<< HEAD
+  box-shadow: none;
+  width: 90%;
+}
+=======
   margin-top: 80px;
   margin-left: 10px;
   width: 280px;
 }
 
 
+>>>>>>> 942bc9be9bdaaa540ee8c22f2bd16d3fa7911c1e
