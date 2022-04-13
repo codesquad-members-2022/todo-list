@@ -16,7 +16,7 @@ final class ContainerViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
+        self.view.layer.backgroundColor = ColorMaker.lightGray0.getRawValue().cgColor
         addChildViewController()
     }
 }
