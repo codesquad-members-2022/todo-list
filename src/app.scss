@@ -2,5 +2,6 @@
 @import "./scss/_variable.scss";
 
 body {
-    background-color: $background-color;
+  background-color: $background-color;
+  overflow: hidden;
 }
