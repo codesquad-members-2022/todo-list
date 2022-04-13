@@ -1,17 +1,23 @@
-@import './reset';
-@import './colors';
-@import './backgrounds';
-@import './typography';
-@import './utils';
-@import './modal';
-@import './work';
-@import './task';
-@import './history';
-@import './header';
+@import "./reset";
+@import "./colors";
+@import "./backgrounds";
+@import "./typography";
+@import "./utils";
+@import "./modal";
+@import "./work";
+@import "./task";
+@import "./history";
+@import "./header";
 
 .wrap {
   position: relative;
   background-color: $wrap;
   padding: 3.3rem 8rem 0 8.4rem;
-  width: 144rem;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
 }
