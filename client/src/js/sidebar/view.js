@@ -95,7 +95,9 @@ const notify = () => {
   sidebar.classList.toggle("show");
 };
 
-export const sidebarInit = (parent) => {
+const sidebarInit = (parent) => {
   render(parent);
   TodoListStore.subscribe("sidebar", notify);
 };
+
+export { sidebarInit };

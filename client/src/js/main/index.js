@@ -18,7 +18,9 @@ const render = (parent) => {
   parent.innerHTML = createHTML();
 };
 
-export const mainInit = (parent) => {
+const mainInit = (parent) => {
   render(parent);
   createTodoList();
 };
+
+export { mainInit };

@@ -30,8 +30,10 @@ const notify = (isShow) => {
   sidebarMenuBtn.src = isShow ? iconDelete : iconMenu;
 };
 
-export const headInit = (parent) => {
+const headInit = (parent) => {
   render(parent);
   setEvents();
   TodoListStore.subscribe("sidebar", notify);
 };
+
+export { headInit };

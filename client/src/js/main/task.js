@@ -1,7 +1,8 @@
 import { $, $$ } from "../utils/utils.js";
 import { iconDelete } from "../constants/imagePath.js";
 import * as TodoListStore from "../store/todoListStore.js";
-import { deleteMenuInit } from "./deleteMenu.js";
+import { setMouseEvent } from "./taskDragHandler.js";
+import { alertDeleteInit } from "./alertDelete.js";
 
 export class Task {
   constructor(listTitle, taskData) {
@@ -75,6 +76,7 @@ export class Task {
     this.setInputEvent();
     this.setKeyupEvent();
     this.setDeleteButtonMouseEvent();
+    setMouseEvent(this.target);
   }
 
   setTarget() {
@@ -224,7 +226,7 @@ export class Task {
   }
 
   handleDeleteButtonClick() {
-    deleteMenuInit({ listTitle: this.listTitle, taskTitle: this.taskTitle }, this.cancelAlert.bind(this));
+    alertDeleteInit({ listTitle: this.listTitle, taskTitle: this.taskTitle }, this.cancelAlert.bind(this));
   }
 
   cancelAlert() {

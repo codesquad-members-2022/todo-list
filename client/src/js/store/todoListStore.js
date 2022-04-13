@@ -3,7 +3,7 @@ import { serverURL } from "../constants/urlPath.js";
 
 let todoListData;
 
-export const getTodoListData = async () => {
+const getTodoListData = async () => {
   todoListData = await fetchData(`${serverURL}/todoList`);
 
   for (const listData of todoListData) {
@@ -23,7 +23,7 @@ export const getTodoListData = async () => {
   return todoListData;
 };
 
-export const updateTodoListData = ([id, updatedList]) => {
+const updateTodoListData = ([id, updatedList]) => {
   putData(`${serverURL}/todoList/${id}`, updatedList);
 };
 
@@ -60,7 +60,7 @@ const getTaskId = (taskList, taskTitle) => {
   return id;
 };
 
-export const deleteListTask = (title, taskTitle) => {
+const deleteListTask = (title, taskTitle) => {
   const list = todoListData.filter((e) => e.title === title)[0];
   const taskId = getTaskId(list.task, taskTitle);
   if (taskId === list.task.length) {
@@ -86,7 +86,7 @@ export const deleteListTask = (title, taskTitle) => {
   ];
 };
 
-export const subscribe = (key, notify = null, defaultValue = false) => {
+const subscribe = (key, notify = null, defaultValue = false) => {
   if (activation[key] === undefined) {
     activation[key] = defaultValue;
     let value = activation[key];
@@ -112,7 +112,9 @@ export const subscribe = (key, notify = null, defaultValue = false) => {
   notify && subscribers[key].push(notify);
 };
 
-export const update = (key, title = null, newTask = null) => {
+const update = (key, title = null, newTask = null) => {
   if (newTask) return (activation[key] = [activation[key] + 1, title, newTask]);
   return (activation[key] = [!activation[key], title]);
 };
+
+export { getTodoListData, updateTodoListData, deleteListTask, subscribe, update };
