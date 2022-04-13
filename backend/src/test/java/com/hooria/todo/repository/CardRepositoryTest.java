@@ -161,4 +161,23 @@ class CardRepositoryTest {
             .get()
             .hasFieldOrPropertyWithValue("deletedYn", true);
     }
+
+    @Test
+    @Transactional
+    @DisplayName("id에 해당하는 카드의 rowPosition을 변경하고 변경된 카드의 id를 반환한다.")
+    void updateRowPositionById() {
+        //given
+        long id = 1;
+        int rowPosition = 9;
+
+        //when
+        long updatedId = cardRepository.updateRowPositionById(id, rowPosition);
+        Optional<Card> updatedCard = cardRepository.findById(updatedId);
+
+        //then
+        assertThat(updatedCard).isNotEmpty()
+            .get()
+            .hasFieldOrPropertyWithValue("id", 1L)
+            .hasFieldOrPropertyWithValue("rowPosition", 9);
+    }
 }
