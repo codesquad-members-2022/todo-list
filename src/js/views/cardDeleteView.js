@@ -4,6 +4,7 @@ const createDeleteAlertElement = () => {
   deleteAlert.innerHTML = createDeleteAlertTemplate();
   return deleteAlert;
 };
+
 const createDeleteAlertTemplate = () => {
   return `
   <div class="delete-alert">
@@ -79,61 +80,35 @@ const onClickDeleteAlert = (cardDeleteBtn, deleteAlertElement, store) => {
 };
 
 const handleDeleteAlertClick = (cardDeleteBtn, target, store) => {
-  const targetBtn = target.closest(`.delete-alert__btn`);
-  if (!targetBtn) {
+  const deleteAlertBtn = target.closest('.delete-alert__btn');
+  if (!deleteAlertBtn) {
     return;
   }
-  const orders = { 취소: removeAlert, 삭제: removeCard };
-  const order = target.innerHTML;
+  const removeFnObj = { 취소: () => removeAlert(), 삭제: () => removeCard(cardDeleteBtn, store) };
+  const buttonText = target.textContent;
 
-  orders[order](cardDeleteBtn, store);
+  removeFnObj[buttonText]();
 };
 
 const removeCard = (cardDeleteBtn, store) => {
   const cardElement = cardDeleteBtn.parentElement;
-  const cardId = cardElement.dataset.cardId;
-  const columnElement = cardElement.parentElement.parentElement.classList;
-  const columnName = [...columnElement].filter(className => className !== 'column').join('');
-  cardElement.remove();
+  const cardId = cardElement.dataset.id;
+  const columnName = cardElement.closest('.column').classList[1];
   removeAlert();
-  reflectStore(store, columnName, cardId);
+  modifyCurrentColumnData(store.getStore('main'), columnName, cardId);
+  notifyRenderMainView(store);
+};
+
+const notifyRenderMainView = store => {
   const mainView = document.querySelector('.main');
   mainView.innerHTML = '';
   store.inform(store.getStore('main'));
 };
 
-const reflectStore = (store, columnName, cardId) => {
-  const targetColumn = getColumnData(store, columnName);
-  const targetColumnIdx = getColumnIdx(store, columnName);
-  const removeCardData = getDataById(targetColumn, cardId);
-  targetColumn.forEach(column => {
-    column.tasks = column.tasks.filter(task => !removeCardData.includes(task));
-    column.total = column.tasks.length;
-  });
-
-  targetColumnIdx.forEach((columnIdx, idx) => {
-    store.getStore('main')[columnIdx] = targetColumn[idx];
-  });
-};
-
-const getColumnData = (store, columnName) => {
-  store = store.getStore('main');
-  return store.filter(({ className }) => className === columnName);
-};
-
-const getColumnIdx = (store, columnName) => {
-  store = store.getStore('main');
-  return store
-    .map(({ className }, idx) => {
-      if (className === columnName) {
-        return idx;
-      }
-    })
-    .filter(idx => idx >= 0);
-};
-
-const getDataById = (columns, targetId) => {
-  return columns.map(column => column['tasks'].filter(task => String(task.id) === String(targetId))[0]);
+const modifyCurrentColumnData = (todoListData, columnName, cardId) => {
+  const currentColumnData = todoListData.find(column => column.className === columnName);
+  currentColumnData.tasks = currentColumnData.tasks.filter(task => task.cardId !== Number(cardId));
+  currentColumnData.total = currentColumnData.tasks.length;
 };
 
 const removeAlert = () => {

@@ -37,7 +37,7 @@ const saveNewCard = (newCard, store, columnClassName, ...userInput) => {
     cardId: Date.now(),
   };
   const columnData = store.getStore('main').find(column => column.className === columnClassName);
-  columnData.tasks.push(taskData);
+  columnData.tasks.unshift(taskData);
   columnData.total++;
   const columnElement = document.querySelector(`.${columnClassName}`);
   store.notify('newTodo', columnElement, taskData, columnData.total);
