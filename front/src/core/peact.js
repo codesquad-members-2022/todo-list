@@ -70,8 +70,8 @@ const peact = (function () {
     setTimeout(callback, 0);
   };
 
-  const useEffect = (callback, watchStates) => {
-    const isUpdate = watchStates.some((wValue) => {
+  const useEffect = (callback, dependencyList) => {
+    const isUpdate = dependencyList.some((wValue) => {
       return wValue === info.state[info.updatedStateKey];
     });
     const isMounted = !(info.updatedStateKey === null);
