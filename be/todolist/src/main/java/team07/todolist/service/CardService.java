@@ -12,8 +12,8 @@ import team07.todolist.repository.CardRepository;
 @Service
 public class CardService {
 
-	private CardRepository cardRepository;
-	private ActivityLogService activityLogService;
+	private final CardRepository cardRepository;
+	private final ActivityLogService activityLogService;
 
 	public CardService(CardRepository cardRepository, ActivityLogService activityLogService) {
 		this.cardRepository = cardRepository;
@@ -24,7 +24,6 @@ public class CardService {
 		Card newCard = new Card(requestCard.getUserId(), requestCard.getTitle(),
 			requestCard.getContent(), requestCard.getSequence(), requestCard.getStatus());
 
-		int status = requestCard.getStatus();
 		cardRepository.save(newCard);
 		activityLogService.saveLog(requestCard);
 	}
@@ -40,15 +39,14 @@ public class CardService {
 		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard);
 
 		activityLogService.dragAndDropLog(originCard, requestCard);
+
 		return updateCard.createResponseCard();
 	}
 
 	public ResponseCard changeText(Long id, PatchCard patchCard) {
 
 		Card originCard = cardRepository.findById(id);
-
 		Card card = new Card(originCard, patchCard.getTitle(), patchCard.getContent());
-
 		Card updateCard = cardRepository.updateText(id, card);
 
 		activityLogService.changeTextLog(originCard, patchCard);

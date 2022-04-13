@@ -1,4 +1,4 @@
-package team07.todolist.service;
+package team07.todolist.domain;
 
 public enum Type {
 

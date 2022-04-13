@@ -6,6 +6,8 @@ import team07.todolist.domain.ActivityLog;
 public interface ActivityLogRepository {
 
 	ActivityLog save(ActivityLog activityLog);
+
 	List<ActivityLog> findAll();
 
+	void reset();
 }

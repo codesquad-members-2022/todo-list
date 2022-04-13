@@ -51,4 +51,9 @@ public class DataBaseActivityLogRepository implements ActivityLogRepository {
 	public List<ActivityLog> findAll() {
 		return jdbcTemplate.query("SELECT * FROM ACTIVITY_LOG", rowMapper);
 	}
+
+	@Override
+	public void reset() {
+		jdbcTemplate.execute("TRUNCATE TABLE ACTIVITY_LOG");
+	}
 }

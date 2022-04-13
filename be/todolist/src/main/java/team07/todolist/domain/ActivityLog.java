@@ -1,8 +1,7 @@
 package team07.todolist.domain;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
+import java.util.Optional;
 import team07.todolist.dto.ResponseActivityLog;
 
 public class ActivityLog {
@@ -14,11 +13,11 @@ public class ActivityLog {
 	private Integer status;
 	private LocalDateTime time;
 
-	public ActivityLog(String title, int type, Integer previous, Integer status) {
+	public ActivityLog(String title, int type, Optional<Integer> previous, Optional<Integer> status) {
 		this.title = title;
 		this.type = type;
-		this.previous = previous;
-		this.status = status;
+		this.previous = previous.orElse(0);
+		this.status = status.orElse(0);
 		this.time = LocalDateTime.now();
 	}
 

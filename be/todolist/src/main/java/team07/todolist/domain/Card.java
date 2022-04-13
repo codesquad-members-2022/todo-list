@@ -4,10 +4,6 @@ import team07.todolist.dto.ResponseCard;
 
 public class Card {
 
-	private static final int TODO = 1;
-	private static final int PROGRESS = 2;
-	private static final int DONE = 3;
-
 	private Long id;
 	private String userId;
 	private String title;
@@ -66,14 +62,6 @@ public class Card {
 		isDeleted = true;
 	}
 
-	public int getSequence() {
-		return sequence;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
 	public void decreaseRow() {
 		this.sequence = this.sequence - 1;
 	}
@@ -102,6 +90,10 @@ public class Card {
 		return new ResponseCard(id, userId, title, content, sequence, status);
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -112,6 +104,14 @@ public class Card {
 
 	public String getContent() {
 		return content;
+	}
+
+	public int getSequence() {
+		return sequence;
+	}
+
+	public int getStatus() {
+		return status;
 	}
 
 	public boolean isDeleted() {

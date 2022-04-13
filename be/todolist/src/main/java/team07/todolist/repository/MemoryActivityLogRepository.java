@@ -24,4 +24,9 @@ public class MemoryActivityLogRepository implements ActivityLogRepository {
 	public List<ActivityLog> findAll() {
 		return new ArrayList<>(store.values());
 	}
+
+	@Override
+	public void reset() {
+		store.clear();
+	}
 }

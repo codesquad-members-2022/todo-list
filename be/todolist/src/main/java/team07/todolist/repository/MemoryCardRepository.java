@@ -85,7 +85,7 @@ public class MemoryCardRepository implements CardRepository {
 
 	@Override
 	public void reset() {
-
+		store.clear();
 	}
 
 }

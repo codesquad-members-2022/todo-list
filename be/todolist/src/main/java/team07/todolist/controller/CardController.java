@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import team07.todolist.domain.ActivityLog;
 import team07.todolist.domain.Card;
 import team07.todolist.dto.PatchCard;
 import team07.todolist.dto.RequestCard;
@@ -81,6 +80,7 @@ public class CardController {
 	@ResponseStatus(HttpStatus.OK)
 	public void reset() {
 		cardService.reset();
+		activityLogService.reset();
 	}
 
 }
