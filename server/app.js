@@ -1,20 +1,9 @@
-import express from "express";
-import router from "./routes/index.js";
-import cors from "cors";
-import tempDB from "./DB/tempDB.js";
-
-const userId = "mansaout";
-const PORT = process.env.PORT || 3000;
+const express = require("express");
+const cors = require("cors");
 const app = express();
-app.locals.pretty = true;
-
-app.get("/", (req, res) => {
-  res.json(tempDB);
-});
+const PORT = 3000;
 
 app.use(cors());
-app.use(`/${userId}`, router);
+app.get("/id", (req, res) => res.json());
 
-app.listen(PORT, (err) => {
-  err ? console.log(`err: ${err}`) : console.log(`Listening on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
