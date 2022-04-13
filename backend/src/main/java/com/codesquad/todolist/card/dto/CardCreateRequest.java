@@ -22,7 +22,7 @@ public class CardCreateRequest {
     @NotNull(message = "author 값이 있어야 합니다.")
     private String author;
 
-    @ApiModelProperty(value = "목표 컬럼의 최상위 카드 Id", required = true)
+    @ApiModelProperty(value = "목표 컬럼의 최상위 카드 Id")
     @NotNull(message = "nextId 값이 있어야 합니다.")
     private Integer nextId;
 
