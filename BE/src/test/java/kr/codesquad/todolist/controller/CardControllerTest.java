@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.BDDMockito.given;
@@ -44,7 +45,9 @@ class CardControllerTest {
     void create() throws Exception {
 
         //given
-        CardResponse cardResponse = CardResponse.from(Card.of(1L, createCardRequest.toEntity()));
+        Card card = Card.of(1L, createCardRequest.getAuthor(), createCardRequest.getSectionId(), createCardRequest.getSubject(),
+                createCardRequest.getContents(), 1000L, LocalDateTime.now(), LocalDateTime.now(), false);
+        CardResponse cardResponse = CardResponse.from(card);
         given(cardService.create(refEq(createCardRequest))).willReturn(cardResponse);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
@@ -54,7 +57,7 @@ class CardControllerTest {
         mockMvc.perform(post("/api/cards")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding(StandardCharsets.UTF_8)
-                .content(new ObjectMapper().writeValueAsString(createCardRequest)))
+                .content(objectMapper.writeValueAsString(createCardRequest)))
 
                 //then
                 .andExpect(status().isCreated())

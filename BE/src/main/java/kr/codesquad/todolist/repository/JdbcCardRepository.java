@@ -66,10 +66,10 @@ public class JdbcCardRepository implements CardRepository {
        String sql = "update card set section_id = :sectionId, order_index = :orderIndex where id = :id and deleted = false";
        Long orderIndex = generateOrderIndex(targetSectionId, targetCardId);
 
-       MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-       parameterSource.addValue("sectionId", targetSectionId);
-       parameterSource.addValue("orderIndex", orderIndex);
-       parameterSource.addValue("id", movingCardId);
+       MapSqlParameterSource parameterSource = new MapSqlParameterSource()
+               .addValue("sectionId", targetSectionId)
+               .addValue("orderIndex", orderIndex)
+               .addValue("id", movingCardId);
 
        return namedParameterJdbcTemplate.update(sql, parameterSource) == 1;
     }
@@ -101,7 +101,7 @@ public class JdbcCardRepository implements CardRepository {
 
     private Long generateOrderIndex(Integer targetSectionId, Long targetCardId) {
 
-        if (targetCardId < EMPTY_NUMBER) {
+        if (targetCardId < EMPTY_NUMBER) { // targetCardId가 0이하이면 section의 가장 아래로 이동한다.
             return findMinOrderIndex(targetSectionId) / 2;
         }
 
@@ -136,17 +136,25 @@ public class JdbcCardRepository implements CardRepository {
     }
 
     private Card insert(Card card) {
-        Long maxOrderIndex = findMaxOrderIndex(card.getSectionId());
-        Card savableCard = Card.cardWithOrderIndex(maxOrderIndex + ORDER_INTERVAL, card);
+        Long orderIndex = findMaxOrderIndex(card.getSectionId()) + ORDER_INTERVAL;
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("id", card.getId())
+                .addValue("memberId", card.getMemberId())
+                .addValue("sectionId", card.getSectionId())
+                .addValue("subject", card.getSubject())
+                .addValue("contents", card.getSubject())
+                .addValue("orderIndex", orderIndex)
+                .addValue("createdAt", card.getCreatedAt())
+                .addValue("updatedAt", card.getUpdatedAt());
 
         String sql = "insert into card (member_id, section_id, subject, contents, order_index, created_at, updated_at) " +
                 "values (:memberId, :sectionId, :subject, :contents, :orderIndex, :createdAt, :updatedAt)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(savableCard), keyHolder);
+        namedParameterJdbcTemplate.update(sql, parameterSource, keyHolder);
         Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
 
-        return Card.of(id, savableCard);
+        return Card.withIdAndOrderIndex(id, orderIndex, card);
     }
 
     private Card update(Card card) {
@@ -171,9 +179,9 @@ public class JdbcCardRepository implements CardRepository {
 
     private Long findPreviousOrderIndex(Integer sectionId, Long orderIndex) {
         String sql = "select min(order_index) from card where section_id = :sectionId and deleted = false and order_index > :orderIndex";
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("sectionId", sectionId);
-        parameterSource.addValue("orderIndex", orderIndex);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("sectionId", sectionId)
+                .addValue("orderIndex", orderIndex);
 
         return namedParameterJdbcTemplate.queryForObject(sql, parameterSource, Long.class);
     }

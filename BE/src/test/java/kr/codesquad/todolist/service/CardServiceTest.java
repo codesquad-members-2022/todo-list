@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
@@ -35,8 +37,9 @@ class CardServiceTest {
     @DisplayName("CardRequest를 받으면 새로운 카드를 생성하고 CardResonse를 반환한다.")
     void create_test() {
         //given
-        Card card = createCardRequest.toEntity();
-        given(cardRepository.save(any())).willReturn(Card.of(1L, card));
+        Card card = Card.of(1L, createCardRequest.getAuthor(), createCardRequest.getSectionId(), createCardRequest.getSubject(),
+                createCardRequest.getContents(), 1000L, LocalDateTime.now(), LocalDateTime.now(), false);
+        given(cardRepository.save(any())).willReturn(card);
 
         //when
         CardResponse cardResponse = cardService.create(createCardRequest);

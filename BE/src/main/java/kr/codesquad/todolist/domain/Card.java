@@ -41,17 +41,8 @@ public class Card {
         return new Card(id, memberId, sectionId, subject, contents, orderIndex, createdAt, updatedAt, deleted);
     }
 
-    public static Card of(Long id, Card card) {
+    public static Card withIdAndOrderIndex(Long id, Long orderIndex, Card card) {
         return new Card(id, card.getMemberId(), card.getSectionId(), card.getSubject(), card.getContents(),
-                card.getOrderIndex(), card.getCreatedAt(), card.getUpdatedAt(), card.isDeleted());
-    }
-
-    public static Card cardWithOrderIndex(Long orderIndex, Card card) {
-        if(card.hasId()) {
-            return new Card(card.getId(), card.getMemberId(), card.getSectionId(), card.getSubject(),
-                    card.getContents(), card.getOrderIndex(), card.getCreatedAt(), card.getUpdatedAt(), card.isDeleted());
-        }
-        return new Card(null, card.getMemberId(), card.getSectionId(), card.getSubject(), card.getContents(),
                 orderIndex, card.getCreatedAt(), card.getUpdatedAt(), card.isDeleted());
     }
 

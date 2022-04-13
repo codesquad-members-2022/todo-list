@@ -58,7 +58,7 @@ public class CardController {
     @PatchMapping("/cards/{id}")
     public ResponseEntity<CardResponse> updateOne(@PathVariable Long id, @RequestBody UpdateCardRequest cardRequest) {
 
-        CardResponse cardResponse = cardService.update(cardRequest);
+        CardResponse cardResponse = cardService.update(id, cardRequest);
 
         return new ResponseEntity<>(cardResponse, HttpStatus.OK);
     }

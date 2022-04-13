@@ -26,8 +26,14 @@ public class CardService {
         return CardResponse.from(saved);
     }
 
-    public CardResponse update(UpdateCardRequest cardRequest) {
-        Card updated = cardRepository.save(cardRequest.toEntity());
+    public CardResponse update(Long id, UpdateCardRequest cardRequest) {
+
+        CardResponse target = findOne(id);
+        Card updatableCard = Card.updateCard(id, target.getAuthor(), target.getSectionId(),
+                cardRequest.getSubject(), cardRequest.getContents());
+
+        Card updated = cardRepository.save(updatableCard);
+
         return CardResponse.from(updated);
     }
 
