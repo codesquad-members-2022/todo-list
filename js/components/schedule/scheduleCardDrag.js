@@ -61,6 +61,7 @@ const moveAfterimageCard2DragPoint = (
 };
 
 const mouseMoveOnDraggingEventHandler = (event) => {
+    $main.appendChild(dragCard);
     relocateDragCard(event.pageX, event.pageY);
     const $elementBelowDragPointer = getElementBelowDragPointer(event);
 
@@ -168,9 +169,7 @@ export const mouseDownEventHandler = (event) => {
     dragCard = selectedCard.cloneNode(true);
     selectedCard.classList.replace(CARD, CARD_AFTERIMAGE);
     dragCard.classList.replace(CARD, DRAG_CARD);
-    $main.appendChild(dragCard);
     afterimageCard = selectedCard;
 
-    relocateDragCard(event.pageX, event.pageY);
     addMouseEventOnDragging();
 };
