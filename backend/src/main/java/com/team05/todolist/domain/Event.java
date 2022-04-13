@@ -5,6 +5,7 @@ import java.util.Arrays;
 public enum Event {
 	CREATE("create"),
 	MOVE("move"),
+	UPDATE("update"),
 	DELETE("delete");
 
 	private final String eventType;

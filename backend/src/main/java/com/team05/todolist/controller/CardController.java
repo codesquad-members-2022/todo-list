@@ -2,19 +2,21 @@ package com.team05.todolist.controller;
 
 import com.team05.todolist.domain.Event;
 import com.team05.todolist.domain.dto.CardDTO;
+import com.team05.todolist.domain.dto.CreateCardDTO;
 import com.team05.todolist.domain.dto.LogDTO;
+import com.team05.todolist.domain.dto.MoveCardDTO;
+import com.team05.todolist.domain.dto.ResponseDTO;
 import com.team05.todolist.service.CardService;
 import com.team05.todolist.service.LogService;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -23,7 +25,6 @@ public class CardController {
 
 	private final CardService cardService;
 	private final LogService logService;
-	private final Logger logger = LoggerFactory.getLogger(CardController.class);
 
 	public CardController(CardService cardService, LogService logService) {
 		this.cardService = cardService;
@@ -32,26 +33,39 @@ public class CardController {
 
 	@ApiOperation("카드 등록")
 	@PostMapping("/cards")
-	public ResponseEntity<LogDTO> create(CardDTO cardDto) {
-		cardService.save(cardDto);
-		LogDTO log = logService.save(Event.CREATE, cardDto.getTitle(), cardDto.getSection());
+	public ResponseEntity<ResponseDTO> create(@RequestHeader(value = "user-agent") String userAgent, @RequestBody CreateCardDTO createCardDto) {
+		CardDTO newCardDto = cardService.save(createCardDto);
+		LogDTO log = logService.save(Event.CREATE, createCardDto.getTitle(), createCardDto.getSection());
 
-		logger.debug("[card-title] {}, [log-information] {}({})", cardDto.getTitle(), log.getLogEventType(), log.getLogTime()); // card Id 추가
-		return ResponseEntity.ok().body(log);
+		return ResponseEntity.ok().body(new ResponseDTO(newCardDto, log, userAgent));
 	}
 
+	@ApiOperation("카드 수정")
 	@PutMapping("/cards/{id}")
-	public ResponseEntity update(@PathVariable int id, CardDTO cardDto) {
-		cardService.update(id, cardDto);
+	public ResponseEntity<ResponseDTO> update(@RequestHeader(value = "user-agent") String userAgent,
+		@PathVariable int id, @RequestBody CardDTO cardDto) {
+		CardDTO updatedCardDto = cardService.update(id, cardDto);
+		LogDTO log = logService.save(Event.UPDATE, cardDto.getTitle(), cardDto.getSection());
 
-		return ResponseEntity.ok(HttpStatus.OK);
+		return ResponseEntity.ok().body(new ResponseDTO(updatedCardDto, log, userAgent));
 	}
 
-	@DeleteMapping("/cards/{id}")
-	public ResponseEntity delete(@PathVariable int id) {
-		cardService.delete(id);
+	@ApiOperation("카드 이동")
+	@PutMapping("/cards/{id}/move")
+	public ResponseEntity<ResponseDTO> move(@RequestHeader(value = "user-agent") String userAgent,
+		@PathVariable int id, @RequestBody MoveCardDTO moveCardDto) {
+		CardDTO cardDto = cardService.move(id, moveCardDto);
+		LogDTO log = logService.save(Event.MOVE, cardDto.getTitle(), moveCardDto.getPrevSection(), moveCardDto.getSection());
 
-		return ResponseEntity.ok(HttpStatus.OK);
+		return ResponseEntity.ok().body(new ResponseDTO(cardDto, log, userAgent));
+	}
+
+	@ApiOperation("카드 삭제")
+	@DeleteMapping("/cards/{id}")
+	public ResponseEntity<ResponseDTO> delete(@PathVariable int id) {
+		CardDTO deletedCardDto = cardService.delete(id);
+		LogDTO log = logService.delete(Event.DELETE, deletedCardDto.getTitle(), deletedCardDto.getSection());
+		return ResponseEntity.ok().body(new ResponseDTO(deletedCardDto, log));
 	}
 
 }
