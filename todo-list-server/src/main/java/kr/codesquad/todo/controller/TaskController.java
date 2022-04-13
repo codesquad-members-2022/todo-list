@@ -1,6 +1,7 @@
 package kr.codesquad.todo.controller;
 
 import kr.codesquad.todo.domain.Task;
+import kr.codesquad.todo.domain.TaskStatusChangeDto;
 import kr.codesquad.todo.service.TaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,7 +50,7 @@ public class TaskController {
             @ApiResponse(code = 500, message = "서버에서 발생한 에러입니다.")
     })
     @PatchMapping("/task/status")
-    public ResponseEntity<Task> move(@RequestParam long idx, int status) {
-        return taskService.changeTaskStatus(idx, status);
+    public ResponseEntity<Task> move(@RequestBody TaskStatusChangeDto dto) {
+        return taskService.changeTaskStatus(dto.getIdx(), dto.getStatus());
     }
 }
