@@ -8,16 +8,16 @@ public class UserLogDto {
 
     private String title;
     private String action;
-    private String previousColumn;
-    private String changedColumn;
+    private String previousCategory;
+    private String changedCategory;
     private LocalDateTime updatedDateTime;
 
-    public UserLogDto(String title, String action, String previousColumn,
-        String changedColumn, LocalDateTime updatedDateTime) {
+    public UserLogDto(String title, String action, String previousCategory,
+        String changedCategory, LocalDateTime updatedDateTime) {
         this.title = title;
         this.action = action;
-        this.previousColumn = previousColumn;
-        this.changedColumn = changedColumn;
+        this.previousCategory = previousCategory;
+        this.changedCategory = changedCategory;
         this.updatedDateTime = updatedDateTime;
     }
 }

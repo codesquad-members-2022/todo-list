@@ -23,13 +23,19 @@ public class Work {
         this.content = content;
         this.userId = userId;
         this.deleteFlag = false;
-        this.createdDateTime = LocalDateTime.now();
+        this.createdDateTime = LocalDateTime.now().withNano(0);
     }
 
     public Work(Integer id, String title, String content, LocalDateTime createdDateTime) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.createdDateTime = createdDateTime;
+    }
+
+    public Work(Integer id, Integer categoryId, LocalDateTime createdDateTime) {
+        this.id = id;
+        this.categoryId = categoryId;
         this.createdDateTime = createdDateTime;
     }
 

@@ -2,8 +2,10 @@ package com.todolist.repository;
 
 import com.todolist.domain.Work;
 import com.todolist.dto.WorkDto;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.TimeZone;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -38,13 +40,20 @@ public class WorkRepository {
         return work.convertToDtoForCreation((keyHolder.getKey()).intValue());
     }
 
+    public void update(Work work) {
+        SqlParameterSource parameters = new BeanPropertySqlParameterSource(work);
+        jdbc.update("UPDATE work SET category_id = :categoryId, created_datetime = :createdDateTime WHERE id = :id", parameters);
+    }
+
     private RowMapper<Work> workRowMapper() {
         return (rs, rowNum) -> {
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
             Work work = new Work(
                 rs.getObject("id", Integer.class),
                 rs.getString("title"),
                 rs.getString("content"),
-                rs.getTimestamp("created_datetime").toLocalDateTime()
+                rs.getTimestamp("created_datetime", cal).toLocalDateTime()
             );
 
             return work;

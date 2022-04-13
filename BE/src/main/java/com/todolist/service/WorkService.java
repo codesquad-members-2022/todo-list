@@ -6,7 +6,8 @@ import com.todolist.domain.UserLog;
 import com.todolist.dto.ColumnListDto;
 import com.todolist.dto.WorkDto;
 import com.todolist.dto.WorkListDto;
-import com.todolist.dto.WorkRequestFormDto;
+import com.todolist.dto.WorkCreationDto;
+import com.todolist.dto.WorkMovementDto;
 import com.todolist.repository.CategoryRepository;
 import com.todolist.repository.UserLogRepository;
 import com.todolist.repository.WorkRepository;
@@ -18,8 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class WorkService {
-
-    private static final String CREATION = "등록";
 
     private final CategoryRepository categoryRepository;
     private final WorkRepository workRepository;
@@ -38,7 +37,6 @@ public class WorkService {
         for (Category category : categoryList) {
             int categoryId = category.getId();
             String categoryName = category.getName();
-
             List<WorkDto> works = workRepository.findAllByCategoryId(categoryId)
                 .stream().map(Work::convertToDto).collect(Collectors.toList());
 
@@ -49,18 +47,24 @@ public class WorkService {
     }
 
     @Transactional
-    public WorkDto create(WorkRequestFormDto workRequestFormDto) {
-        // 카드 저장
-        Work work = workRequestFormDto.convertToDomain();
+    public WorkDto create(WorkCreationDto workCreationDto) {
+        Work work = workCreationDto.convertToWorkDomain();
         WorkDto workDto = workRepository.save(work);
 
-        // 활동 기록 저장
-        String userId = work.getUserId();
-        String title = work.getTitle();
         String categoryName = categoryRepository.findNameById(work.getCategoryId());
-        UserLog userLog = new UserLog(userId, title, CREATION, categoryName);
-        userLogRepository.saveCreationLog(userLog);
+        UserLog userLog = workCreationDto.convertToUserLogDomain(categoryName);
+        userLogRepository.saveLogOfCreationByUser(userLog);
 
         return workDto;
+    }
+
+    @Transactional
+    public void move(WorkMovementDto workMovementDto) {
+        Work work = workMovementDto.convertToWorkDomain();
+        workRepository.update(work);
+
+        String previousCategoryName = categoryRepository.findNameById(workMovementDto.getPreviousCategoryId());
+        String changedCategoryName = categoryRepository.findNameById(workMovementDto.getChangedCategoryId());
+        userLogRepository.saveLogOfMovementByUser(workMovementDto.convertToUserLogDomain(previousCategoryName, changedCategoryName));
     }
 }

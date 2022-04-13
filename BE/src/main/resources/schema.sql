@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS user_log;
 DROP TABLE IF EXISTS work;
-DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS user;
 
 CREATE TABLE user (
     user_id VARCHAR(64) NOT NULL,
@@ -36,8 +36,8 @@ CREATE TABLE user_log (
     user_id VARCHAR(64) NOT NULL,
     title VARCHAR(255),
     action VARCHAR(32) NOT NULL COMMENT '등록, 삭제, 변경, 이동',
-    previous_column VARCHAR(64) NOT NULL COMMENT '등록/삭제/변경/이동 시에만 존재',
-    changed_column VARCHAR(64)  COMMENT '이동 시에만 존재',
+    previous_category VARCHAR(64) NOT NULL COMMENT '등록/삭제/변경/이동 시에만 존재',
+    changed_category VARCHAR(64)  COMMENT '이동 시에만 존재',
     updated_datetime TIMESTAMP NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES user(user_id),
