@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.ui.common.TodoTouchHelper
+import com.example.todolist.ui.ongoing.OngoingAdapter
 import com.example.todolist.ui.todo.TodoAdapter
 
 // 해야할 일 뷰 어뎁터, 뷰모델
@@ -25,19 +26,31 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val adapter = TodoAdapter(viewModel)
-        binding.rvTodo.adapter = adapter
+
+        val todoAdapter = TodoAdapter(viewModel)
+        binding.rvTodo.adapter = todoAdapter
+        val ongoingAdapter = OngoingAdapter(viewModel)
+        binding.rvProgress.adapter = ongoingAdapter
+
         setOnClickMenu()
         setOnClickTodoAdd()
-        viewModel
+
         val swipeHelperCallback = TodoTouchHelper()
         ItemTouchHelper(swipeHelperCallback).attachToRecyclerView(binding.rvTodo)
+        ItemTouchHelper(swipeHelperCallback).attachToRecyclerView(binding.rvProgress)
 
-        viewModel.loadTodoTask()
+        viewModel.loadAllTask()
 
         viewModel.todoTaskList.observe(this) {
-            Log.d("AppTest", "observer")
-            adapter.submitList(it.toList()) {
+            todoAdapter.submitList(it.toList()) {
+                if (viewModel.state == 1) {
+                    binding.rvTodo.scrollToPosition(0)
+                }
+            }
+        }
+
+        viewModel.onGoingTaskList.observe(this) {
+            ongoingAdapter.submitList(it.toList()) {
                 if (viewModel.state == 1) {
                     binding.rvTodo.scrollToPosition(0)
                 }
@@ -60,7 +73,13 @@ class MainActivity : AppCompatActivity() {
             dialog.show(supportFragmentManager, null)
             /*Log.d("AppTest", "click btn")
             viewModel.addTodo()*/
+        }
 
+        binding.btnProgressAdd.setOnClickListener {
+            val dialog = CreateCardDialogFragment()
+            dialog.show(supportFragmentManager, null)
+            /*Log.d("AppTest", "click btn")
+            viewModel.addTodo()*/
         }
     }
 
