@@ -20,8 +20,12 @@ class CardTableViewController: UIViewController {
     private let tableViewDataSource = CardTableDataSource()
     private var cards = [TableCardUsable]()
     
+    // private var newCardViewController: NewCardViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       // initChildViewController()
         
         cardTableView.register(CardTableViewCell.self, forCellReuseIdentifier: CardTableViewCell.identifier)
         cardTableView.delegate = tableViewDelegate
@@ -33,6 +37,18 @@ class CardTableViewController: UIViewController {
         setUIPropertiesConstraint()
     }
     
+//    private func initChildViewController() {
+//        self.newCardViewController = NewCardViewController()
+//
+//        guard let newCardViewController = newCardViewController else {
+//            return
+//        }
+//
+//        self.view.addSubview(newCardViewController.view)
+//        self.addChild(newCardViewController)
+//        newCardViewController.didMove(toParent: self)
+//    }
+//
     func setCardTitleLabel(title: String){
         cardLabel.text = title
     }
@@ -45,6 +61,19 @@ class CardTableViewController: UIViewController {
     func setCards(_ cards: [TableCardUsable]) {
         self.cards = cards
         self.tableViewDataSource.setCards(cards: cards)
+    }
+    
+    @IBAction func addCardButtonTouched(_ sender: UIButton) {
+        let newCardVC = NewCardViewController()
+        newCardVC.modalTransitionStyle = .coverVertical
+        newCardVC.modalPresentationStyle = .automatic
+        self.present(newCardVC, animated: true)
+        
+//        guard let newCardViewController = newCardViewController else {
+//            print("뉴뷰컨 없음")
+//            return
+//        }
+//        self.present(newCardViewController, animated: true, completion: nil)
     }
     
     private func setCardCountLabel() {

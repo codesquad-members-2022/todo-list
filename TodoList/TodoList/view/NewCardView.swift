@@ -50,7 +50,29 @@ class NewCardView: UIView {
         super.init(coder: coder)
     }
     
-    func setUIConstraint() {
+    func setUI() {
+        addSubview(newCardLabel)
+        addSubview(titleTextField)
+        addSubview(contentTextView)
+        addSubview(addButton)
+        addSubview(cancelButton)
+        setViewConstraint()
+        setUIConstraint()
+    }
+    
+    private func setViewConstraint() {
+        guard let superview = self.superview else {
+            return
+        }
+        print(superview)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.widthAnchor.constraint(equalToConstant: 500).isActive = true
+        self.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        self.centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
+        self.centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
+    }
+    
+    private func setUIConstraint() {
         setNewCardLabelConstraint()
         setTitleTextFieldConstraint()
         setContentTextViewConstraint()

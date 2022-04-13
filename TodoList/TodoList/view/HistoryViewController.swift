@@ -32,7 +32,9 @@ class HistoryViewController: UIViewController{
     
     private func setHistoryConstraint(){
         view.translatesAutoresizingMaskIntoConstraints = false
-        guard let superview = view.superview else { return }
+        guard let superview = view.superview else {
+            return
+        }
         view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
         view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
         view.widthAnchor.constraint(equalToConstant: 300).isActive = true
