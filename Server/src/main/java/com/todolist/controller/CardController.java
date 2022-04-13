@@ -6,9 +6,11 @@ import java.util.Optional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -40,11 +42,11 @@ public class CardController {
     }
 
     @GetMapping
-    public CardAllShowDto read(HttpServletRequest request) {
-        Cookie[] cookies = Optional.ofNullable(request.getCookies())
-            .orElseThrow(() -> new GlobalException(NO_COOKIE));
+            public CardAllShowDto read(HttpServletRequest request) {
+            Cookie[] cookies = Optional.ofNullable(request.getCookies())
+                    .orElseThrow(() -> new GlobalException(NO_COOKIE));
 
-        for (Cookie cookie : cookies) {
+            for (Cookie cookie : cookies) {
             if (cookie.getName().equals("userId")) {
                 return new CardAllShowDto(cardService.findAllCards(Integer.parseInt(cookie.getValue())));
             }
@@ -53,25 +55,39 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity<CardResponseDto> save(@RequestBody CardCreateDto cardCreateDto) {
+    public ResponseEntity<CardResponseDto> save(
+            @Validated @RequestBody CardCreateDto cardCreateDto) {
+
         Integer cardId = cardService.save(cardCreateDto);
         return new ResponseEntity<>(new CardResponseDto(cardId), HttpStatus.CREATED);
     }
 
+    // TODO cardId 검증, @Validated 클래스 레벨로 뽑을지 고민
     @DeleteMapping("/{cardId}")
-    public ResponseEntity<CardResponseDto> delete(@PathVariable Integer cardId) {
-        Integer deletedId = cardService.delete(cardId);
-        return ResponseEntity.ok(new CardResponseDto(deletedId));
+    @Validated
+    public ResponseEntity<CardResponseDto> delete(
+            @PathVariable @NotNull Integer cardId) {
+
+        cardService.delete(cardId);
+        return ResponseEntity.ok(new CardResponseDto(cardId));
     }
 
+    // TODO cardId 검증
     @GetMapping("/{cardId}")
-    public ResponseEntity<CardInformationDto> findCard(@PathVariable Integer cardId) {
+    @Validated
+    public ResponseEntity<CardInformationDto> findCard(
+            @PathVariable @NotNull Integer cardId) {
+
         CardInformationDto cardInformation = cardService.findCard(cardId);
         return ResponseEntity.ok(cardInformation);
     }
 
     @PatchMapping("/{cardId}")
-    public ResponseEntity<CardResponseDto> patch(@PathVariable Integer cardId, @RequestBody CardPatchDto cardPatchDto) {
+    @Validated
+    public ResponseEntity<CardResponseDto> patch(
+            @PathVariable @NotNull Integer cardId,
+            @Validated @RequestBody CardPatchDto cardPatchDto) {
+
         cardService.patch(cardId, cardPatchDto);
         return ResponseEntity.ok(new CardResponseDto(cardId));
     }
