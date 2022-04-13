@@ -53,7 +53,8 @@ public class CardRepository {
         String getLastCardIdSQL = "select card_id from card where next_id is null and current_location = ?";
         String updateNextCardOfLastCardSQL = "update card set next_id = ? where card_id = ?";
 
-        Integer lastCardId = DataAccessUtils.singleResult(jdbcTemplate.queryForList(getLastCardIdSQL, Integer.class, card.getCurrentLocation()));
+        Integer lastCardId = DataAccessUtils.singleResult(
+            jdbcTemplate.queryForList(getLastCardIdSQL, Integer.class, card.getCurrentLocation()));
 
         Map<String, Object> params = new HashMap<>();
         params.put("title", card.getTitle());
@@ -144,36 +145,37 @@ public class CardRepository {
 
         try {
             beforePrevId = jdbcTemplate.queryForObject(getBeforePrevIdSQL, Long.class, cardId);
-        } catch(EmptyResultDataAccessException e) { // 반환값이 없으면 beforePrevId에 null 유지
+        } catch (EmptyResultDataAccessException e) { // 반환값이 없으면 beforePrevId에 null 유지
             log.debug("empty beforePrevId :{}", e);
         }
         try {
             beforeNextId = jdbcTemplate.queryForObject(getBeforeNextIdSQL, Long.class, cardId);
-        } catch(EmptyResultDataAccessException e) { // 반환값이 없으면 beforePrevId에 null 유지
+        } catch (EmptyResultDataAccessException e) { // 반환값이 없으면 beforePrevId에 null 유지
             log.debug("empty beforeNextId:{}", e);
         }
 
         jdbcTemplate.update(updatePrevItemNextId, cardId, cardMoveFormRequest.getPrevItemId());
-        jdbcTemplate.update(updateNextId, cardMoveFormRequest.getNextItemId(), cardMoveFormRequest.getDestinationLocation(), cardId);
+        jdbcTemplate.update(updateNextId, cardMoveFormRequest.getNextItemId(),
+            cardMoveFormRequest.getDestinationLocation(), cardId);
         jdbcTemplate.update(updateBeforeItemsNext, beforeNextId, beforePrevId);
         log.debug("location update completed: {}", cardId);
     }
 
     public void update(Card card) {
         jdbcTemplate.update(
-            "update card set title = ?, content = ? where card_id = ? and deleted = false",
+            "update card set title = ?, content = ? where card_id = ? and is_deleted = false",
             card.getTitle(), card.getContent(), card.getId());
     }
 
     public Optional<Card> findById(Long cardId) {
-        String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, deleted from card where card_id = ? and deleted = false";
+        String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, is_deleted from card where card_id = ? and is_deleted = false";
         Card card = jdbcTemplate.queryForObject(sql, getCardRowMapper(), cardId);
         return Optional.ofNullable(card);
     }
 
     public List<Card> findAll() {
         try {
-            String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, deleted from card where deleted = false";
+            String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, is_deleted from card where is_deleted = false";
             return jdbcTemplate.query(sql, getCardRowMapper());
         } catch (EmptyResultDataAccessException e) {
             log.debug("e: {}", e);
