@@ -22,6 +22,26 @@ export const createNewCardTemplate = () => {
   `;
 };
 
+const onNewCardClick = (newCard, store, columnClassName) => {
+  const saveBtn = newCard.querySelector('.footer__buttons__save');
+  saveBtn.addEventListener('click', () => {
+    const titleInputValue = newCard.querySelector('.card__contents__input--header').value;
+    const textAreaValue = newCard.querySelector('.card__contents__input--main').value;
+    saveNewCard(newCard, store, columnClassName, titleInputValue, textAreaValue);
+  });
+};
+
+const saveNewCard = (newCard, store, columnClassName, ...userInput) => {
+  const [header, main] = userInput;
+  const taskData = { header, main, footer: 'author', dateTime: Date(), status: columnClassName, id: Date.now() };
+  const columnData = store.getStore('main').find(column => column.className === columnClassName);
+  columnData.tasks.push(taskData);
+  columnData.total++;
+  const columnElement = document.querySelector(`.${columnClassName}`);
+  store.notify('newTodo', columnElement, taskData, columnData.total);
+  newCard.parentElement.remove();
+};
+
 const onNewCardInput = newCard => {
   newCard.addEventListener('input', () => {
     changeSaveBtnStatus(newCard);
@@ -43,21 +63,21 @@ const changeSaveBtnStatus = newCard => {
   }
 };
 
-export const onAddBtnClick = () => {
+export const onAddBtnClick = store => {
   const mainElement = document.querySelector('.main');
   mainElement.addEventListener('click', ({ target }) => {
-    handleAddBtnClick(mainElement, target);
+    handleAddBtnClick(mainElement, target, store);
   });
 };
 
-const handleAddBtnClick = (mainElement, target) => {
+const handleAddBtnClick = (mainElement, target, store) => {
   if (!target.closest(`.title-column__btn__add`)) {
     return;
   }
-  const className = target.closest(`.title-column__btn__add`).dataset.classname;
-  const column = mainElement.querySelector(`.${className}`);
+  const columnClassName = target.closest(`.title-column__btn__add`).dataset.classname;
+  const column = mainElement.querySelector(`.${columnClassName}`);
   const cardList = column.querySelector('.task__cards');
-  toggleNewCard(cardList);
+  toggleNewCard(cardList, store, columnClassName);
 };
 
 const resizeTextArea = textArea => {
@@ -71,7 +91,7 @@ const onResizeTextArea = textArea => {
   });
 };
 
-const toggleNewCard = cardList => {
+const toggleNewCard = (cardList, store, columnClassName) => {
   const newCard = cardList.querySelector('.new-card');
   if (newCard) {
     newCard.remove();
@@ -82,5 +102,6 @@ const toggleNewCard = cardList => {
     const textArea = cardList.querySelector('.card__contents__input--main');
     onNewCardInput(newCard);
     onResizeTextArea(textArea);
+    onNewCardClick(newCard, store, columnClassName);
   }
 };

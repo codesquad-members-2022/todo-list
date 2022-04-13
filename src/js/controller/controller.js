@@ -12,17 +12,22 @@ export const controller = async views => {
   const todoListData = await fetchData(TODO_LIST_URL);
   const store = createStore();
   store.setStore('main', todoListData);
+  store.subscribe('newTodo', addNewCardToColumn);
   appendElementsToParent(app, headerView, mainView);
   insertColumns(store.getStore('main'), mainView);
   insertAllCardToColumn(store.getStore('main'), mainView);
-  onAddBtnClick();
-  onMouseOverCardDeleteBtn();
-  onMouseOutCardDeleteBtn();
-  onClickCardDeleteBtn(store);
   setObserver(store);
+  addEventListeners(store);
 };
 
 const setObserver = store => {
   store.setObserver(insertColumns);
   store.setObserver(insertAllCardToColumn);
+};
+
+const addEventListeners = store => {
+  onAddBtnClick(store);
+  onMouseOverCardDeleteBtn();
+  onMouseOutCardDeleteBtn();
+  onClickCardDeleteBtn();
 };

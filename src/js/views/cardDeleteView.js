@@ -99,7 +99,7 @@ const removeCard = (cardDeleteBtn, store) => {
   reflectStore(store, columnName, cardId);
   const mainView = document.querySelector('.main');
   mainView.innerHTML = '';
-  store.notify(store.getStore('main'));
+  store.inform(store.getStore('main'));
 };
 
 const reflectStore = (store, columnName, cardId) => {

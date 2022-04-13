@@ -1,11 +1,12 @@
 import { icons } from '../constants/constant.js';
 
-export const insertCardToColumn = (column, parent = document) => {
-  const columnElement = parent.querySelector(`.${column.className}`);
+export const insertCardToColumn = (columnData, parent = document) => {
+  const columnElement = parent.querySelector(`.${columnData.className}`);
   const cardList = columnElement.querySelector('.task__cards');
   const taskCount = columnElement.querySelector('.title-column__title__count');
-  taskCount.textContent = column.total;
-  column.tasks.forEach(task => {
+  taskCount.textContent = columnData.total;
+
+  columnData.tasks.forEach(task => {
     cardList.insertAdjacentHTML('beforeend', createCardTemplate(task));
   });
 };
@@ -29,4 +30,12 @@ export const createCardTemplate = task => {
     </div>
   </li>
     `;
+};
+
+export const addNewCardToColumn = (column, taskData, totalCount) => {
+  const newTodo = createCardTemplate(taskData);
+  const cardList = column.querySelector('.task__cards');
+  const cardCount = column.querySelector('.title-column__title__count');
+  cardList.insertAdjacentHTML('afterbegin', newTodo);
+  cardCount.textContent = totalCount;
 };
