@@ -1,6 +1,6 @@
-const $ = (query) => document.querySelector(query);
+const $ = (query, baseNode = document) => baseNode.querySelector(query);
 
-const $All = (query) => document.querySelectorAll(query);
+const $All = (query, baseNode = document) => baseNode.querySelectorAll(query);
 
 const fetchData = async (url) => {
   try {
@@ -11,7 +11,8 @@ const fetchData = async (url) => {
   }
 };
 
-function addEvent(targetNode, createCardFunc) {
-  targetNode.addEventListener("click", createCardFunc);
+function on(eventType, targetNode, handlerFn) {
+  targetNode.addEventListener(eventType, handlerFn);
 }
-export { $, $All, fetchData, addEvent };
+
+export { $, $All, fetchData, on };

@@ -1,8 +1,20 @@
+import * as util from "../../util/Util.js";
+
+const renderEmptyCard = (parent, handlerFn, store) => {
+  const newCard = getEmptyCardNode();
+  const registerBtn = util.$(".task-card__register-btn.cursor-pointer", newCard);
+  util.on("click", registerBtn, (event) => {
+    handlerFn(event, store);
+  });
+  parent.insertBefore(newCard, parent.children[1]);
+};
+
 const getEmptyCardNode = () => {
   const newCard = document.createElement("div");
   const newCardHTML = createEmptyCardTemplate();
   newCard.classList.add("task-card");
-  newCard.innerHTML = newCardHTML;
+  newCard.id = "empty-card";
+  newCard.insertAdjacentHTML("afterbegin", newCardHTML);
   return newCard;
 };
 
@@ -44,19 +56,5 @@ function createEmptyCardTemplate() {
       author by <span id="author">web</span>
   </div>`;
 }
-
-const renderEmptyCard = (parent, registerData, checkInput, store) => {
-  const newCard = getEmptyCardNode();
-  newCard
-    .querySelector(".task-card__register-btn.cursor-pointer")
-    .addEventListener("click", (event) => {
-      registerData(event, store);
-    });
-
-  newCard.addEventListener("keydown", (event) => {
-    checkInput(event);
-  });
-  parent.appendChild(newCard);
-};
 
 export { renderEmptyCard };
