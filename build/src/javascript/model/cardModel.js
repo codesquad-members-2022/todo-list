@@ -27,4 +27,8 @@ function getColumnTodos(columnName) {
   return columnTodos;
 }
 
-export { getTodos };
+function postTodo(cardData) {
+  axiosRequest("post", "todos", cardData);
+}
+
+export { getTodos, postTodo };

@@ -1,5 +1,5 @@
-import { getTodos } from "../model/cardModel.js";
-import { renderColumn } from "../view/cardView.js";
+import { getTodos, postTodo } from "../model/cardModel.js";
+import { renderColumn, getUpdatedCardContent } from "../view/cardView.js";
 
 async function renderTodos() {
   const todos = await getTodos();
@@ -8,4 +8,9 @@ async function renderTodos() {
   renderColumn("#done-column", todos.doneColumn);
 }
 
-export { renderTodos };
+function addServerCardData(card) {
+  const cardData = getUpdatedCardContent(card);
+  postTodo(cardData);
+}
+
+export { renderTodos, addServerCardData };
