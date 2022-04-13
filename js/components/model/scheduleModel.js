@@ -19,7 +19,7 @@ const addScheduleCard = (columnId, cardData) => {
 
 const removeScheduleCard = (columnId, cardId) => {
     let cardsInScheduleColumn = findScheduleColumn(columnId).cards;
-    cardsInScheduleColumn = cardsInScheduleColumn.filter(
+    findScheduleColumn(columnId).cards = cardsInScheduleColumn.filter(
         (card) => card.id !== cardId
     );
 };
@@ -33,6 +33,11 @@ const updateScheduleCard = (columnId, cardData) => {
         }
         return false;
     });
+};
+
+const insertScheduleCard = (columnId, cardData, index) => {
+    const cardsInScheduleColumn = findScheduleColumn(columnId).cards;
+    cardsInScheduleColumn.splice(index, 0, cardData);
 };
 
 const getScheduleCardDataById = (columnId, cardId) => {
@@ -69,7 +74,7 @@ const scheduleModel = [
                 title: "제목",
                 body: "내용",
                 caption: "author by web",
-                id: "0",
+                id: "3",
             },
         ],
     },
@@ -83,4 +88,5 @@ export {
     removeScheduleCard,
     updateScheduleCard,
     getScheduleCardDataById,
+    insertScheduleCard,
 };

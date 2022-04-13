@@ -1,8 +1,10 @@
+import * as scheduleModel from "../model/scheduleModel.js";
+
 const $main = document.querySelector("#main");
 let dragCard;
 let afterimageCard;
-let $scheduleCardBelowDragPointer;
 let selectedCard;
+let selectedCardData;
 
 const TOP = "top";
 const BOTTOM = "bottom";
@@ -27,32 +29,32 @@ const getElementBelowDragPointer = (event) => {
     return $elementBelowDragPointer;
 };
 
-const appendAfterImageCardInEmptyCardContainer = ($cardContainer) => {
+const appendAfterimageCardInEmptyCardContainer = ($cardContainer) => {
     if ($cardContainer.children.length) {
         return;
     }
-    const tempAfterImageCard = afterimageCard;
+    const tempAfterimageCard = afterimageCard;
     afterimageCard.remove();
-    $cardContainer.appendChild(tempAfterImageCard);
-    afterimageCard = tempAfterImageCard;
+    $cardContainer.appendChild(tempAfterimageCard);
+    afterimageCard = tempAfterimageCard;
 };
 
-const moveAfterImageCard2DragPoint = (
+const moveAfterimageCard2DragPoint = (
     $scheduleCardBelowDragPointer,
     location
 ) => {
-    const tempAfterImageCard = afterimageCard;
+    const tempAfterimageCard = afterimageCard;
     switch (location) {
         case TOP: {
             afterimageCard.remove();
-            $scheduleCardBelowDragPointer.before(tempAfterImageCard);
-            afterimageCard = tempAfterImageCard;
+            $scheduleCardBelowDragPointer.before(tempAfterimageCard);
+            afterimageCard = tempAfterimageCard;
             break;
         }
         case BOTTOM: {
             afterimageCard.remove();
-            $scheduleCardBelowDragPointer.after(tempAfterImageCard);
-            afterimageCard = tempAfterImageCard;
+            $scheduleCardBelowDragPointer.after(tempAfterimageCard);
+            afterimageCard = tempAfterimageCard;
             break;
         }
     }
@@ -71,7 +73,7 @@ const mouseMoveOnDraggingEventHandler = (event) => {
             "schedule-column__cards-container"
         )
     ) {
-        appendAfterImageCardInEmptyCardContainer($elementBelowDragPointer);
+        appendAfterimageCardInEmptyCardContainer($elementBelowDragPointer);
         return;
     }
 
@@ -79,44 +81,78 @@ const mouseMoveOnDraggingEventHandler = (event) => {
         return;
     }
 
-    $scheduleCardBelowDragPointer = $elementBelowDragPointer;
+    const $scheduleCardBelowDragPointer = $elementBelowDragPointer;
     const dragDirection = getDragDirection(
         $scheduleCardBelowDragPointer,
         event.pageY
     );
-    moveAfterImageCard2DragPoint($scheduleCardBelowDragPointer, dragDirection);
+    moveAfterimageCard2DragPoint($scheduleCardBelowDragPointer, dragDirection);
 };
 
-const removeMouseUpEvent = () => {
+const removeMouseEventOnDragging = () => {
     $main.removeEventListener("mouseup", mouseUpOnDraggingEventHandler);
+    $main.removeEventListener("mousemove", mouseMoveOnDraggingEventHandler);
 };
 
 const removeDragCard = () => {
     dragCard.remove();
+};
+
+const resetGlobalVariables = () => {
+    afterimageCard = null;
+    selectedCard = null;
+    selectedCardData = null;
     dragCard = null;
 };
 
-const mouseUpOnDraggingEventHandler = () => {
-    $main.removeEventListener("mousemove", mouseMoveOnDraggingEventHandler);
-    removeMouseUpEvent();
-
-    afterimageCard.classList.replace(CARD_AFTERIMAGE, CARD);
-    removeDragCard();
+const insertAfterimageCardToModel = (afterimageCard) => {
+    const columnId = afterimageCard.closest(".schedule-column").dataset.id;
+    const $scheduleCardContainer = afterimageCard.closest(
+        ".schedule-column__cards-container"
+    );
+    const afterCardBrowserIndex = [
+        ...$scheduleCardContainer.children,
+    ].findIndex(
+        (card) => card.classList.contains("schedule-card--afterimage") === true
+    );
+    const afterCardModelIndex =
+        [...$scheduleCardContainer.children].length - afterCardBrowserIndex - 1;
+    scheduleModel.insertScheduleCard(
+        columnId,
+        selectedCardData,
+        afterCardModelIndex
+    );
 };
 
-const addMouseEventOnDragCard = () => {
+const mouseUpOnDraggingEventHandler = () => {
+    removeMouseEventOnDragging();
+    insertAfterimageCardToModel(afterimageCard);
+    afterimageCard.classList.replace(CARD_AFTERIMAGE, CARD);
+    removeDragCard();
+    resetGlobalVariables();
+};
+
+const addMouseEventOnDragging = () => {
     $main.addEventListener("mousemove", mouseMoveOnDraggingEventHandler);
     $main.addEventListener("mouseup", mouseUpOnDraggingEventHandler);
 };
 
 const isValid2Drag = (target) => {
-    const isDeleteBtn = target.classList.contains("schedule-card__delete-btn");
+    const isDeleteBtn = target.closest(".schedule-card__delete-btn");
     return selectedCard && !isDeleteBtn;
 };
 
 const relocateDragCard = (pageX, pageY) => {
     dragCard.style.left = `${pageX - dragCard.offsetWidth / 2}px`;
     dragCard.style.top = `${pageY - dragCard.offsetHeight / 2}px`;
+};
+
+const removeSelectedCardFromModel = (selectedCard) => {
+    const columnId = selectedCard.closest(".schedule-column").dataset.id;
+    const cardId = selectedCard.dataset.cardId;
+
+    selectedCardData = scheduleModel.getScheduleCardDataById(columnId, cardId);
+    scheduleModel.removeScheduleCard(columnId, cardId);
 };
 
 export const mouseDownEventHandler = (event) => {
@@ -127,13 +163,14 @@ export const mouseDownEventHandler = (event) => {
         return;
     }
 
-    dragCard = selectedCard.cloneNode(true);
+    removeSelectedCardFromModel(selectedCard);
 
+    dragCard = selectedCard.cloneNode(true);
     selectedCard.classList.replace(CARD, CARD_AFTERIMAGE);
     dragCard.classList.replace(CARD, DRAG_CARD);
     $main.appendChild(dragCard);
     afterimageCard = selectedCard;
 
     relocateDragCard(event.pageX, event.pageY);
-    addMouseEventOnDragCard();
+    addMouseEventOnDragging();
 };
