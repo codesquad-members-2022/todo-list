@@ -1,4 +1,4 @@
-package team03.todoapp.domain;
+package team03.todoapp.repository.domain;
 
 import java.time.LocalDateTime;
 

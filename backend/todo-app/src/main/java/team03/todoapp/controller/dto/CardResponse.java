@@ -2,7 +2,7 @@ package team03.todoapp.controller.dto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import team03.todoapp.domain.Card;
+import team03.todoapp.repository.domain.Card;
 
 public class CardResponse {
 

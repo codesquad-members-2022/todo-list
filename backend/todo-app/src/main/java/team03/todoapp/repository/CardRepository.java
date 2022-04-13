@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import team03.todoapp.controller.dto.CardMoveFormRequest;
-import team03.todoapp.domain.Card;
+import team03.todoapp.repository.domain.Card;
 
 @Repository
 public class CardRepository {
@@ -161,19 +161,19 @@ public class CardRepository {
 
     public void update(Card card) {
         jdbcTemplate.update(
-            "update card set title = ?, content = ? where card_id = ? and deleted = false",
+            "update card set title = ?, content = ? where card_id = ? and is_deleted = false",
             card.getTitle(), card.getContent(), card.getId());
     }
 
     public Optional<Card> findById(Long cardId) {
-        String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, deleted from card where card_id = ? and deleted = false";
+        String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, is_deleted from card where card_id = ? and is_deleted = false";
         Card card = jdbcTemplate.queryForObject(sql, getCardRowMapper(), cardId);
         return Optional.ofNullable(card);
     }
 
     public List<Card> findAll() {
         try {
-            String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, deleted from card where deleted = false";
+            String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, is_deleted from card where is_deleted = false";
             return jdbcTemplate.query(sql, getCardRowMapper());
         } catch (EmptyResultDataAccessException e) {
             log.debug("e: {}", e);

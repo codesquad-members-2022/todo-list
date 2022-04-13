@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import team03.todoapp.controller.dto.CardAddFormRequest;
-import team03.todoapp.domain.Card;
+import team03.todoapp.repository.domain.Card;
 
 @SpringBootTest
 class CardRepositoryTest {

@@ -1,7 +1,7 @@
 package team03.todoapp.controller.dto;
 
 import javax.validation.constraints.NotNull;
-import team03.todoapp.domain.Card;
+import team03.todoapp.repository.domain.Card;
 import java.time.LocalDateTime;
 
 public class CardAddFormRequest {
