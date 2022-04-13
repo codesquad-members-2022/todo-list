@@ -18,7 +18,7 @@ const createColumnTemplate = (title) => {
 
 const createCardTemplate = () => {
   return `
-  <li class="list_item active">
+  <li class="list_item active creating">
     <form class="item-info">
       <input class="item-title" placeholder="제목을 입력하세요""></input>
       <textarea class="item-content" placeholder="내용을 입력하세요"></textarea>

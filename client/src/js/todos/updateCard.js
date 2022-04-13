@@ -27,6 +27,7 @@ export class UpdateCard {
         .innerText;
 
       currCard.classList.replace('default', 'active');
+
       currCard.innerHTML = this.updateCardTemplate(title, content);
     }
   };

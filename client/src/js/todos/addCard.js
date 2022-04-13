@@ -16,14 +16,14 @@ export class AddCard {
 
   addCardHandler = (e) => {
     const columnList = $('.column-list', closest('.column', e.target));
-    $('.active', columnList)
-      ? columnList.firstElementChild.remove()
+    $('.active', columnList) && $('.creating', columnList)
+      ? $('.creating', columnList).remove()
       : columnList.insertAdjacentHTML('afterbegin', this.newCardTemplate());
   };
 
   cancelAddHandler = (e) => {
     const columnList = $('.column-list', closest('.column', e.target));
-    columnList.firstElementChild.remove();
+    $('.creating', columnList).remove();
   };
 
   postCardHandler = (target) => {
@@ -48,6 +48,7 @@ export class AddCard {
     const thisItem = closest('.list_item', target);
     const title = $('.item-title', thisItem).value;
     const content = $('.item-content', thisItem).value;
+    thisItem.classList.remove('creating');
     thisItem.classList.replace('active', 'default');
     thisItem.innerHTML = this.postCardTemplate({
       title,
