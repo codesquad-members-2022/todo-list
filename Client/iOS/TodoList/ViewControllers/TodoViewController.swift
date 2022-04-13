@@ -1,23 +1,22 @@
 import UIKit
 
-class TodoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    @IBOutlet private weak var tableView: UITableView!
+class TodoViewController: UIViewController, TodoEndPointViewController, TodoBadgeDelegate {
+    let middleWare = AppDelegate.middleWare
+    let boardType: TodoBoard = .todo
+    
+    @IBOutlet weak var tableView: TodoTableView!
+    @IBOutlet weak var dataSourceBadge: UILabel!
+    
+    private var tableViewManagement: TodoTableViewManagement?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        tableView.register(TodoTableViewCell.nib, forCellReuseIdentifier: TodoTableViewCell.cellName)
+        tableViewManagement = TodoTableViewManagement(tableView, in: boardType)
+        tableViewManagement?.badgeDelegate = self
     }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.cellName, for: indexPath) as! TodoTableViewCell
-        return cell
+    
+    func setBadgeCount(_ count: Int) {
+        dataSourceBadge.text = "\(count)"
+        dataSourceBadge.layer.cornerRadius = dataSourceBadge.frame.width / 2
     }
 }
