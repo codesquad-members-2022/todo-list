@@ -66,11 +66,11 @@ class MemoCanvasViewController: UIViewController {
     }
     
     func removeSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath) {
-        memoTableViewModels[containerType]? .remove(at: indexPath.row)
+        memoTableViewModels[containerType]? .remove(at: indexPath.section)
     }
     
     func insertSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath, memoModel: Memo) {
-        memoTableViewModels[containerType]?.insert(memoModel, at: indexPath.row)
+        memoTableViewModels[containerType]?.insert(memoModel, at: indexPath.section)
     }
 }
 
