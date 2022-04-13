@@ -44,6 +44,7 @@ class MainViewController: UIViewController {
         layoutTableStackView()
     }
     
+    
     private func configureView() {
         view.backgroundColor = .systemGray6
     }
@@ -54,16 +55,27 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func addChildViewController(child: UIViewController, parent: UIViewController) {
-        addChild(child)
-        child.didMove(toParent: parent)
-    }
-    
     private func configureTableStackView() {
         kanbanColumnViewControllers.forEach { kanbanColumnViewController in
             tableStackView.addArrangedSubview(kanbanColumnViewController.view)
         }
     }
+    
+    private func addChildViewController(child: UIViewController, parent: UIViewController) {
+        addChild(child)
+        child.didMove(toParent: parent)
+    }
+    
+    private func addTargetActions() {
+        titleView.inspectorButton.addTarget(self,
+                                            action: #selector(didTapInspectorOpenButton),
+                                            for: .touchUpInside)
+    }
+}
+
+//MARK: - View Layouts
+
+extension MainViewController {
     
     private func layoutTitleView() {
         titleView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,19 +90,13 @@ class MainViewController: UIViewController {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         
         tableStackView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 64).isActive = true
-        tableStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
+        tableStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
-        tableStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -343).isActive = true
-    }
-    
-    private func addTargetActions() {
-        titleView.inspectorButton.addTarget(self,
-                                            action: #selector(didTapInspectorOpenButton),
-                                            for: .touchUpInside)
+        tableStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.72).isActive = true
     }
 }
 
-//MARK: - selector functions
+//MARK: - Selector Functions
 
 extension MainViewController {
     @objc func didTapInspectorOpenButton() {
