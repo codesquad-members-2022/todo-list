@@ -1,9 +1,12 @@
-import { qs, delegate } from "../utils/helpers.js";
+import { qs, on, delegate } from "../utils/helpers.js";
 import * as renderer from "../views/renderer.js";
 
 export function bindEvents() {
   const el = {
     columnList: qs(".column-list"),
+    historyBar: qs(".history__bar"),
+    showHistoryBtn: qs(".header--history-btn"),
+    hideHistoryBtn: qs(".history--close-btn"),
   };
 
   const selector = {
@@ -13,6 +16,9 @@ export function bindEvents() {
     cancelItemFormBtn: ".card__btn--cancel",
     removeColumnBtn: ".column__header--delete-card",
   };
+
+  on(el.showHistoryBtn, "click", toggleHistoryBar);
+  on(el.hideHistoryBtn, "click", toggleHistoryBar);
 
   delegate(el.columnList, "click", selector.addItemBtn, (event) => showItemForm(event));
   delegate(el.columnList, "click", selector.registItemBtn, (event) => registItem(event));
@@ -25,6 +31,9 @@ function showItemForm(event) {
   console.log("showItemForm");
   console.log(event.target);
 }
+  function toggleHistoryBar() {
+    el.historyBar.classList.toggle("show");
+  }
 
 function registItem(event) {
   console.log("registItem");
@@ -44,4 +53,8 @@ function cancelItemForm(event) {
 function removeColumn(event) {
   console.log("removeColumn");
   console.log(event.target);
+  function toggleHistoryBar() {
+    el.historyBar.classList.toggle("show");
+  }
+
 }
