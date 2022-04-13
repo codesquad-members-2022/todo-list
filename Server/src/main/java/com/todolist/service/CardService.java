@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.todolist.exception.ExceptionType;
+import com.todolist.exception.GlobalException;
+import com.todolist.exception.NotFoundCardException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.todolist.domain.Card;
@@ -24,6 +28,10 @@ public class CardService {
     public Map<String, List<CardInformationDto>> findAllCards(Integer userId) {
         List<Card> allCards = cardRepository.findAll(userId);
 
+        if (allCards.size() == 0) {
+            throw new GlobalException(ExceptionType.NO_USER_FOUNDED);
+        }
+
         return allCards.stream()
             .map(card ->
                 new CardInformationDto(card.getCardId(), card.getCardTitle(), card.getCardContent(), card.getBoardName()))
@@ -34,15 +42,25 @@ public class CardService {
         return cardRepository.save(cardCreateDto.toCard());
     }
 
-    public Integer delete(Integer cardId) {
-        return cardRepository.delete(cardId);
-    }
-
-    public CardInformationDto findCard(Integer cardId) {
-        return cardRepository.findCard(cardId);
+    public void delete(Integer cardId) {
+        Integer deletedValue = cardRepository.delete(cardId);
+        if (deletedValue == 0) {
+            throw new GlobalException(ExceptionType.NO_FOUND_CARD);
+        }
     }
 
     public void patch(Integer cardId, CardPatchDto cardPatchDto) {
+        findCard(cardId);
         cardRepository.patch(cardId, cardPatchDto);
+    }
+
+    public CardInformationDto findCard(Integer cardId) {
+        CardInformationDto cardInformationDto;
+        try {
+            cardInformationDto = cardRepository.findCard(cardId);
+        } catch(EmptyResultDataAccessException emptyResultDataAccessException) {
+            throw new NotFoundCardException(ExceptionType.NO_FOUND_CARD, "cardId");
+        }
+        return cardInformationDto;
     }
 }

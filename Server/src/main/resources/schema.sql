@@ -20,7 +20,6 @@ create TABLE `card` (
     PRIMARY KEY (`cardId`),
     FOREIGN KEY (`userId`)
         REFERENCES `user` (`userId`)
-        ON update CASCADE
 );
 
 drop table IF EXISTS `history`;
@@ -33,5 +32,4 @@ create TABLE `history` (
     PRIMARY KEY (`historyId`),
     FOREIGN KEY (`userId`)
         REFERENCES `user` (`userId`)
-        ON update CASCADE
 );

@@ -1,9 +1,15 @@
 package com.todolist.controller;
 
-import java.util.List;
-import java.util.Map;
+import static com.todolist.exception.ExceptionType.*;
 
+import java.util.Optional;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,12 +19,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.todolist.domain.dto.CardAllShowDto;
 import com.todolist.domain.dto.CardCreateDto;
 import com.todolist.domain.dto.CardInformationDto;
 import com.todolist.domain.dto.CardPatchDto;
 import com.todolist.domain.dto.CardResponseDto;
+import com.todolist.exception.GlobalException;
 import com.todolist.service.CardService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RequestMapping("/todolist")
 @RestController
 public class CardController {
@@ -29,30 +40,29 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    // TODO : 데이터 저장 시 타입 체크 수행
-    /**
-     * 제목, 내용은 필수값
-     * 타이틀 글자 수 30자 제한
-     * 내용 글자수 500자 제한
-     * 특수문자 가능
-     */
-    // TODO : EC2 배포, API 공유
-
     @GetMapping
-    public Map<String, List<CardInformationDto>> read() {
-        return cardService.findAllCards(1);
+    public CardAllShowDto read(HttpServletRequest request) {
+        Cookie[] cookies = Optional.ofNullable(request.getCookies())
+            .orElseThrow(() -> new GlobalException(NO_COOKIE));
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("userId")) {
+                return new CardAllShowDto(cardService.findAllCards(Integer.parseInt(cookie.getValue())));
+            }
+        }
+        throw new GlobalException(NO_USER_ID_IN_COOKIE);
     }
 
     @PostMapping
-    public ResponseEntity<CardResponseDto> save(@RequestBody CardCreateDto cardCreateDto) {
+    public ResponseEntity<CardResponseDto> save(@Validated @RequestBody CardCreateDto cardCreateDto) {
         Integer cardId = cardService.save(cardCreateDto);
-        return ResponseEntity.ok(new CardResponseDto(cardId));
+        return new ResponseEntity<>(new CardResponseDto(cardId), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{cardId}")
     public ResponseEntity<CardResponseDto> delete(@PathVariable Integer cardId) {
-        Integer deletedId = cardService.delete(cardId);
-        return ResponseEntity.ok(new CardResponseDto(deletedId));
+        cardService.delete(cardId);
+        return ResponseEntity.ok(new CardResponseDto(cardId));
     }
 
     @GetMapping("/{cardId}")
@@ -62,7 +72,7 @@ public class CardController {
     }
 
     @PatchMapping("/{cardId}")
-    public ResponseEntity<CardResponseDto> patch(@PathVariable Integer cardId, @RequestBody CardPatchDto cardPatchDto) {
+    public ResponseEntity<CardResponseDto> patch(@PathVariable Integer cardId, @Validated @RequestBody CardPatchDto cardPatchDto) {
         cardService.patch(cardId, cardPatchDto);
         return ResponseEntity.ok(new CardResponseDto(cardId));
     }
