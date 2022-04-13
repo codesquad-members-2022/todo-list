@@ -24,7 +24,6 @@ class NewCardView: UIView {
     
     lazy var contentTextView: UITextView = {
         let textView = UITextView()
-        // textView.placeholder (없음 - 뷰컨의 UITextViewDelegate에 구현해야 함)
         return textView
     }()
     

@@ -23,6 +23,4 @@ extension HistoryTableDataSource: UITableViewDataSource {
         cell.setCellUIData(title: card.getTitleString(), writer: card.writer, time: card.date)
         return cell
     }
-    
-    
 }
