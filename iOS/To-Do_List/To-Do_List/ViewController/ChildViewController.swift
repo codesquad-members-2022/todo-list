@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ChildViewController: UIViewController{
-    
+class ChildViewController: UIViewController {
+
     private var tableView: BoardTableView<Todo,CardCell>!
     private var header : BoardHeader!
     private var boardType : BoardType?
@@ -32,10 +32,14 @@ class ChildViewController: UIViewController{
     func removeFromList(card: Todo) {
         guard var list = list, let targetIndex = list.firstIndex(where: {$0.id == card.id}) else {return}
         list.remove(at: targetIndex)
+        let indexPath = IndexPath(row: targetIndex, section: 0)
+        DispatchQueue.main.async {
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
-    
+    //TODO: 새로운 카드를 insert함.
     func insertFromList(card:CardInfo) {
-        //insertToDo
+       
     }
     
     
@@ -120,7 +124,6 @@ extension ChildViewController {
 
 //MARK: -- AddButton delegation
 extension ChildViewController : BoardHeaderDelegate {
-    
     func didTapAddButton() {
         editViewController = EditCardViewController()
         editViewController?.delegate = self
@@ -130,6 +133,7 @@ extension ChildViewController : BoardHeaderDelegate {
         editVC.modalPresentationStyle = .formSheet
         present(editVC, animated: true)
     }
+   
 }
 
 //MARK: -- BoardTableView Delete delegation

@@ -5,6 +5,7 @@
 //  Created by Kai Kim on 2022/04/11.
 //
 
+//TODO: LogView 이모티콘 사용을 위해 선언
 import UIKit
 
 extension String {

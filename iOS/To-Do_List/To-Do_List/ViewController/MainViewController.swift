@@ -36,7 +36,6 @@ class MainViewController: UIViewController {
         setNetworkManager()
         propagateData()
         addObserver()
-        //removeCardFromChildController(card: Todo(id: 12, title: "ds", content: "dsd", createdAt: "sd"), from: ChildViewController)
     }
     
     private func configureChildViewControllers() {
@@ -56,8 +55,6 @@ class MainViewController: UIViewController {
         }
         
     }
-
-    
 }
 
 //MARK: Notification
@@ -86,6 +83,7 @@ extension MainViewController {
     }
     @objc func postNewCardInfo(_ notification:Notification) {
         let samplePostModel = CardInfo(writer: "Park", position: 123, title: "Queen", content: "Dom", cardType: "TODO", memberId: 1)
+        //TODO: info의 타입에 따라서 수정 혹은 추가를 Post함.
         guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
               let childVC = notification.object as? ChildViewController
         else { return }
@@ -123,6 +121,7 @@ extension MainViewController {
         }
     }
     
+    
     @objc private func deleteCard(notification:Notification) {
         guard let cardInfo = notification.userInfo?[MainViewController.CardData] as? Todo,
               let childVC = notification.object as? ChildViewController else {return}
@@ -130,13 +129,13 @@ extension MainViewController {
         networkManager?.request(endpoint: EndPointCase.deleteCard(card: cardInfo).endpoint) { (result:Result<String,NetworkError>)  in
             switch result {
             case .success:
-                os_log(.default, "삭제 성공")
+                childVC.removeFromList(card: cardInfo)
             case .failure(let error):
                 os_log(.error, "\(error.localizedDescription)")
             }
         }
     }
-    
+
 }
 
 

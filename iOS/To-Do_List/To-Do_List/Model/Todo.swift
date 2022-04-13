@@ -18,10 +18,15 @@ struct Board:Codable {
     let completedItems:[Todo]
 }
 
-struct Todo:Codable {
+struct Todo:Codable,Equatable {
     let id:Int
     let title:String
     let content:String
     let createdAt:String
 }
 
+extension NetworkResult:Equatable {
+    static func == (lhs: NetworkResult, rhs: NetworkResult) -> Bool {
+        lhs.response.completedItems == rhs.response.completedItems && lhs.response.progressingItems == rhs.response.progressingItems && lhs.response.todoItems == rhs.response.todoItems
+    }
+}

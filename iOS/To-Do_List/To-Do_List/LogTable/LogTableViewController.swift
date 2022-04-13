@@ -20,7 +20,8 @@ class LogViewController: UIViewController {
     }
 
     private func setTableView() {
-        self.tableView = BoardTableView(frame: self.view.frame, style: .plain, list: [], cellConfigurator: { model, cell in
+        guard let log = log else { return }
+        self.tableView = BoardTableView(frame: self.view.frame, style: .plain, list: log, cellConfigurator: { model, cell in
 //            cell.loadCardInfo(info: model)
         })
         self.view.addSubview(self.tableView)

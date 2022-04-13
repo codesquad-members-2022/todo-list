@@ -6,20 +6,6 @@
 //
 
 import Foundation
-//Post:
-//{NewCard :
-//    { author : “Kai” ,
-//      title :
-//      content: “”
-//      boardtype : “todo”
-//      action : “Create” ….
-//      lastmodifiedAt: “2022-12-31 00:00:00”
-//    }
-//}
-
-struct NewCard :Codable {
-    let Card : CardInfo
-}
 
 struct CardInfo : Codable {
     let writer : String?
