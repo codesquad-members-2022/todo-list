@@ -17,7 +17,7 @@ export function makeCategory(categoryName) {
 
 export function makeCard({ id }, { title, content }) {
   return `
-  <li class="column-item--card deleting" draggable="true">
+  <li class="column-item--card" draggable="true">
     <div class="card-header">
       <h3>${title}</h3>
       <input type="button" class="delete-btn" value="del" />
