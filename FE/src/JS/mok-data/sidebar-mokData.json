@@ -4,50 +4,50 @@
     {
       "title": "자바 공부",
       "action": "등록",
-      "previousColumn": "TODO",
-      "changedColumn": null,
+      "previousCategory": "TODO",
+      "changedCategory": null,
       "updatedDateTime": "2022-04-12T11:35:00"
     },
     {
       "title": "MySQL 공부",
       "action": "등록",
-      "previousColumn": "DOING",
-      "changedColumn": null,
+      "previousCategory": "DOING",
+      "changedCategory": null,
       "updatedDateTime": "2022-04-12T11:36:00"
     },
     {
       "title": "깃 공부",
       "action": "등록",
-      "previousColumn": "DONE",
-      "changedColumn": null,
+      "previousCategory": "DONE",
+      "changedCategory": null,
       "updatedDateTime": "2022-04-12T11:37:00"
     },
     {
       "title": "알고리즘 문제풀기",
       "action": "이동",
-      "previousColumn": "TODO",
-      "changedColumn": "DOING",
+      "previousCategory": "TODO",
+      "changedCategory": "DOING",
       "updatedDateTime": "2022-04-12 11:38:00"
     },
     {
       "title": "MySQL 공부",
       "action": "등록",
-      "previousColumn": "DOING",
-      "changedColumn": null,
+      "previousCategory": "DOING",
+      "changedCategory": null,
       "updatedDateTime": "2022-04-12 11:39:00"
     },
     {
       "title": "깃 공부",
       "action": "등록",
-      "previousColumn": "DONE",
-      "changedColumn": null,
+      "previousCategory": "DONE",
+      "changedCategory": null,
       "updatedDateTime": "2022-04-12T11:40:00"
     },
     {
       "title": "알고리즘 문제풀기",
       "action": "이동",
-      "previousColumn": "TODO",
-      "changedColumn": "DOING",
+      "previousCategory": "TODO",
+      "changedCategory": "DOING",
       "updatedDateTime": "2022-04-12T11:41:00"
     }
   ]
