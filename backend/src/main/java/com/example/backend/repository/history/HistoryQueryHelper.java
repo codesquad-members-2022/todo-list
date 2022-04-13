@@ -1,5 +1,6 @@
-package com.example.backend.controller.history;
+package com.example.backend.repository.history;
 
+import com.example.backend.controller.history.dto.HistoryRead;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.domain.history.Action;
 import com.example.backend.domain.history.History;

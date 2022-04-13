@@ -1,4 +1,4 @@
-package com.example.backend.controller.history;
+package com.example.backend.controller.history.dto;
 
 import com.example.backend.domain.history.Action;
 import com.example.backend.domain.history.History;
