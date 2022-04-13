@@ -18,6 +18,10 @@ public class Card {
 	private LocalDateTime createdAt;
 	private Long userId;
 
+	public boolean isPositionedAt(TodoStatus toStatus, Long toOrder) {
+		return toStatus.equals(this.status) && toOrder.equals(this.order);
+	}
+
 	@Getter
 	@RequiredArgsConstructor
 	public enum TodoStatus {

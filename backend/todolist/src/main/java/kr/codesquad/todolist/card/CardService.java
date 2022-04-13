@@ -78,4 +78,15 @@ public class CardService {
 		Card cardInfo = getCard(cardId);
 		cardDao.delete(cardInfo.getCardId());
 	}
+
+	@Transactional
+	public void moveCardTo(Long cardId, Card.TodoStatus toStatus, Long toOrder) {
+		Card cardInfo = getCard(cardId);
+
+		if (cardInfo.isPositionedAt(toStatus, toOrder)) {
+			return;
+		}
+
+		cardDao.updatePosition(cardInfo, toStatus, toOrder);
+	}
 }
