@@ -39,7 +39,7 @@
 		B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* BoardHeader.swift */; };
 		B730BBAE27FECB33006DC969 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAD27FECB33006DC969 /* constants.swift */; };
 		B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAF27FED3BE006DC969 /* BoardTableView.swift */; };
-		B771A84128039D2100343BAE /* BoardTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */; };
+		B74C6AFF2806A93F009A8BFA /* BoardTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74C6AFE2806A93F009A8BFA /* BoardTableDelegate.swift */; };
 		B771A84428044C9A00343BAE /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84328044C9A00343BAE /* Log.swift */; };
 		B771A846280453EC00343BAE /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A845280453EC00343BAE /* LogCell.swift */; };
 		B771A84A280457EA00343BAE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A849280457EA00343BAE /* Extension.swift */; };
@@ -88,7 +88,7 @@
 		B70BD64127FBD1E7001BE68F /* BoardHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeader.swift; sourceTree = "<group>"; };
 		B730BBAD27FECB33006DC969 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		B730BBAF27FED3BE006DC969 /* BoardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableView.swift; sourceTree = "<group>"; };
-		B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableViewDataSource.swift; sourceTree = "<group>"; };
+		B74C6AFE2806A93F009A8BFA /* BoardTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableDelegate.swift; sourceTree = "<group>"; };
 		B771A84328044C9A00343BAE /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		B771A845280453EC00343BAE /* LogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
 		B771A849280457EA00343BAE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -167,6 +167,7 @@
 				8DEAB47D28067007004D682A /* EditViewControllerDelegate.swift */,
 				8D5D1AFD28056A470035EA82 /* EditCardViewDelegate.swift */,
 				8D5D1B0028056CCF0035EA82 /* BoardHeaderDelegate.swift */,
+				B74C6AFE2806A93F009A8BFA /* BoardTableDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -218,7 +219,6 @@
 				8DBB585127FBD8F500D129E2 /* CardCell.swift */,
 				B771A845280453EC00343BAE /* LogCell.swift */,
 				B730BBAF27FED3BE006DC969 /* BoardTableView.swift */,
-				B771A84028039D2100343BAE /* BoardTableViewDataSource.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -384,10 +384,10 @@
 				B771A846280453EC00343BAE /* LogCell.swift in Sources */,
 				B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */,
 				8DEAB47E28067007004D682A /* EditViewControllerDelegate.swift in Sources */,
+				B74C6AFF2806A93F009A8BFA /* BoardTableDelegate.swift in Sources */,
 				B771A8502805434F00343BAE /* NewCard.swift in Sources */,
 				8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */,
 				B771A84428044C9A00343BAE /* Log.swift in Sources */,
-				B771A84128039D2100343BAE /* BoardTableViewDataSource.swift in Sources */,
 				8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */,
 				8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */,
 				8D2AFD7327FB08AE00307CCB /* SceneDelegate.swift in Sources */,

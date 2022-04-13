@@ -36,7 +36,6 @@ class MainViewController: UIViewController {
         setNetworkManager()
         propagateData()
         addObserver()
-        //removeCardFromChildController(card: Todo(id: 12, title: "ds", content: "dsd", createdAt: "sd"), from: ChildViewController)
     }
     
     private func configureChildViewControllers() {
@@ -99,6 +98,7 @@ extension MainViewController {
         }
     }
     
+    
     @objc private func deleteCard(notification:Notification) {
         guard let cardInfo = notification.userInfo?[MainViewController.CardData] as? Todo,
               let childVC = notification.object as? ChildViewController else {return}
@@ -107,26 +107,13 @@ extension MainViewController {
             switch result {
             case .success:
                 os_log(.default, "삭제 성공")
-                self.removeCardFromChildController(card: cardInfo, from: childVC)
+                childVC.removeFromList(card: cardInfo)
             case .failure(let error):
                 os_log(.error, "\(error.localizedDescription)")
             }
         }
     }
-    
-    
-    
-    private func removeCardFromChildController(card: Todo, from: ChildViewController) {
-        //여기서 childController 를 불러야한다.
-        let BoardViewControllers = self.children.filter {$0 is BoardModifiable}
-        
-        //어떤 childController 인지 어떻게 앎?
-        
-        print(BoardViewControllers)
-        
-    }
 
-    
 }
 
 

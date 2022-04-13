@@ -8,13 +8,10 @@
 
 import UIKit
 
-protocol BoardModifiable {
-    func removeFromList(card: Todo)
-    func setBoardType(type: BoardType)
-}
 
 
-class ChildViewController: UIViewController , BoardModifiable{
+
+class ChildViewController: UIViewController {
     
 
     private var tableView: BoardTableView<Todo,CardCell>!
@@ -29,13 +26,16 @@ class ChildViewController: UIViewController , BoardModifiable{
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
         addObserver()
-//        setTableView()
         setHeader()
     }
 
     func removeFromList(card: Todo) {
         guard var list = list, let targetIndex = list.firstIndex(where: {$0.id == card.id}) else {return}
         list.remove(at: targetIndex)
+        let indexPath = IndexPath(row: targetIndex, section: 0)
+        DispatchQueue.main.async {
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
     
     func setBoardType(type : BoardType) {
@@ -119,11 +119,12 @@ extension ChildViewController {
 
 //MARK: -- AddButton delegation
 extension ChildViewController : BoardHeaderDelegate {
-    func DidTapAddButton() {
+    func didTapAddButton() {
         let editVC = EditCardViewController()
         editVC.modalPresentationStyle = .formSheet
         present(editVC, animated: true)
     }
+   
 }
 
 //MARK: -- BoardTableView Delete delegation
