@@ -26,6 +26,8 @@ class Component {
     this.render();
   }
 
+  notify() {}
+
   setEvent() {}
 
   addEvent(eventType, selector, callback, useCapture = false) {

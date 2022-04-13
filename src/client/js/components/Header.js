@@ -1,4 +1,5 @@
 import Component from '../core/Component.js';
+import { ActionStore } from '../store/index.js';
 
 class Header extends Component {
 
@@ -13,6 +14,7 @@ class Header extends Component {
 
   setEvent() {
     this.addEvent('click', '.menu-btn', () => {
+      ActionStore.toggleIsActionLayerActive();
       document.querySelector('.action-layer').classList.add('active');
     })
   }

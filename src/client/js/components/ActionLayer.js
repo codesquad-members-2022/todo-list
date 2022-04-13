@@ -1,13 +1,16 @@
 import Component from '../core/Component.js';
-import ActionStore from '../store/ActionStore.js';
-import { calculateTimeDiff } from '../utils/index.js';
+import { ActionStore } from '../store/index.js';
+import { renderActions } from '../render/index.js';
+import { setCancelableInterval } from '../utils/index.js';
+import { cloneDeep } from 'lodash';
 
 class ActionLayer extends Component {
   setup() {
     this.$state = {
-      actions: ActionStore.getActions(),
+      actions: ActionStore.getAllActions(),
     };
     ActionStore.subscribe('actions', this);
+    ActionStore.subscribe('isActionLayerActive', this);
   }
 
   template() {
@@ -20,30 +23,44 @@ class ActionLayer extends Component {
         </svg>
       </button>
     </div>
-    <ol class='action-list'>
-      ${
-        this.$state.actions.length
-          ? this.$state.actions
-              .reverse()
-              .reduce((prev, { id, contents, executedTime, user }) => {
-                return (prev += `<li class='action-list-item' data-action-id='${id}'>
-        <img class='user-profile' src='${user.profile}' alt='${user.name}'>
-        <div class='action-info'>
-          <span class='user-name'>${user.name}</span>
-          ${contents}
-          <span class='executed-time'>${calculateTimeDiff(executedTime)}</span>
-        </div>
-      </li>`);
-              }, '')
-          : `<li>활동 기록이 없습니다.</li>`
-      }
-    </ol>`;
+    <ol class='action-list'></ol>`;
   }
 
   setEvent() {
     this.addEvent('click', '.close-btn', () => {
       this.$target.classList.remove('active');
+      ActionStore.toggleIsActionLayerActive();
     });
+  }
+
+  mounted() {
+    renderActions({
+      container: this.$target.querySelector('.action-list'),
+      actions: cloneDeep(this.$state.actions),
+    });
+  }
+
+  notify(state) {
+    if (this.isActionLayerToggled(state)) {
+      state.isActionLayerActive ? this.clearInterval = this.changeActionTime() : this.clearInterval();
+    } else {
+      this.setState({
+        actions: ActionStore.getAllActions(),
+      });
+    }
+  }
+
+  isActionLayerToggled(state) {
+    return !Array.isArray(state);
+  }
+
+  changeActionTime() {
+    return setCancelableInterval(() => {
+      renderActions({
+        container: this.$target.querySelector('.action-list'),
+        actions: cloneDeep(this.$state.actions),
+      });
+    }, 10000);
   }
 }
 

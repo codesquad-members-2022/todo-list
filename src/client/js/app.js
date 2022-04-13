@@ -1,12 +1,10 @@
 import '../style/style.scss';
-import ActionLayer from './components/ActionLayer.js';
-import ActionStore from './store/ActionStore.js'
-import Header from './components/Header.js';
+import { initStore } from './store/index.js';
+import { render } from './render/index.js';
 
 const init = async () => {
-  await ActionStore.init();
-  new Header(document.querySelector('header'));
-  new ActionLayer(document.querySelector('.action-layer'));
-}
+  await initStore();
+  render();
+};
 
 init();
