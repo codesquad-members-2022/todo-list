@@ -16,7 +16,7 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public ResponseEntity<Object> createTask(Task task) {
+    public ResponseEntity<Task> createTask(Task task) {
         if (isRequiredNull(task)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -26,7 +26,7 @@ public class TaskService {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 
     private boolean isRequiredNull (Task task) {
