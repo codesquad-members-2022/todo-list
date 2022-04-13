@@ -151,7 +151,7 @@ extension CardListViewController {
                   return
               }
         
-        NetworkManager.sendRequest(data: removedCard, httpMethod: .DELETE, targetColumnId: nil, targetCardId: nil) { result in
+        NetworkManager.sendRequest(networkTarget: NetworkTarget.deleteCard(cardId: removedCard.id)) { result in
             switch result {
                 case .success(_):
                     os_log(.default, "success remove")

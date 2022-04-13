@@ -19,11 +19,11 @@ enum CardList: String, Codable {
     var id: Int {
         switch self {
             case .todo:
-                return 0
-            case .inProgress:
                 return 1
-            case .done:
+            case .inProgress:
                 return 2
+            case .done:
+                return 3
         }
     }
 }
