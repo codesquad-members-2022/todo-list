@@ -2,7 +2,9 @@ import UIKit
 
 class MemoContainerView: UIView {
     
-    private var containerType: MemoContainerType?
+    weak var delegate: MemoContainerViewDelegate?
+    
+    var containerType: MemoContainerType?
 
     private let containerTitleView: UIView = {
         let view = UIView()
@@ -38,10 +40,13 @@ class MemoContainerView: UIView {
         return label
     }()
     
-    private let addButton: UIButton = {
+    private lazy var addButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(named: "add"), for: .normal)
+        button.addAction(UIAction(handler: { _ in
+            self.delegate?.addButtonDidTap(container: self.containerType!)
+        }), for: .touchUpInside)
         return button
     }()
     

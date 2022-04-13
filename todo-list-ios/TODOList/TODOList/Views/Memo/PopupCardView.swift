@@ -1,7 +1,7 @@
 import UIKit
 
 class PopupCardView: UIView {
-    
+
     private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -9,10 +9,9 @@ class PopupCardView: UIView {
         return view
     }()
     
-    private let alertLabel: UILabel = {
+    let alertLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "새로운 카드 추가"
         label.font = UIFont(name: FontFactory.bold, size: 16)
         return label
     }()

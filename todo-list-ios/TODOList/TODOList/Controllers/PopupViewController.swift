@@ -2,8 +2,11 @@ import UIKit
 
 class PopupViewController: UIViewController {
 
-    private var popupCardView: PopupCardView = {
+    var alertTitle: String = ""
+    
+    lazy var popupCardView: PopupCardView = {
         let view = PopupCardView()
+        view.alertLabel.text = alertTitle
         view.layer.cornerRadius = 10
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false

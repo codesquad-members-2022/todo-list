@@ -11,11 +11,28 @@ class MemoContainerViewController: UIViewController {
         return containerView
     }()
     
-    convenience init(containerType: MemoContainerType){
+    convenience init(containerType: MemoContainerType) {
         self.init()
+        
         self.containerType = containerType
+        memoContainerView.containerType = containerType
         memoContainerView.categoryLabel.text = " \(containerType)"
         view = memoContainerView
+    }
+    
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        self.memoContainerView.delegate = self
+    }
+}
+
+
+extension MemoContainerViewController: MemoContainerViewDelegate {
+    func addButtonDidTap(container: MemoContainerType) {
+        let popupViewController = PopupViewController()
+        popupViewController.modalPresentationStyle = .overCurrentContext
+        popupViewController.alertTitle = "\(container) 추가하기"
+        present(popupViewController, animated: true)
     }
 }
 
