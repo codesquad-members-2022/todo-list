@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todolist.data.Repository
 import com.example.todolist.history.data.HistoryCard
-import com.example.todolist.tasks.data.Task
 import kotlinx.coroutines.launch
 
 class TasksViewModel(private val repository: Repository): ViewModel() {
