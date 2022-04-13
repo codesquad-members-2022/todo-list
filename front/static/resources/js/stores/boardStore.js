@@ -1,4 +1,4 @@
-import { fetchRequest } from '../utils/util.js';
+import { fetchRequest } from '../utils/fetch.js';
 
 class BoardStore {
   constructor() {

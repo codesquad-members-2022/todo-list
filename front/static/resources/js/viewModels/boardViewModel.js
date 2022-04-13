@@ -1,4 +1,6 @@
 import { BoardStore } from '../stores/boardStore.js';
+import { Card } from '../views/component/card.js';
+import { Column } from '../views/component/column.js';
 
 class BoardViewModel {
   constructor() {
@@ -31,7 +33,7 @@ class BoardViewModel {
   notify() {
     this.setState();
     this.observers.forEach(observer => {
-      observer.notify();
+      observer.render();
     });
   }
 

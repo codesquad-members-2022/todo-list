@@ -1,8 +1,4 @@
 class Board {
-  constructor(props) {
-    this.props = props;
-  }
-
   render(columns) {
     document.querySelector('main').insertAdjacentHTML('afterbegin', this.template(columns));
   }
@@ -11,6 +7,10 @@ class Board {
     return `<div class="column-wrap">
         ${columns}
       </div>`;
+  }
+
+  addEvent(_this) {
+    document.querySelector('main').addEventListener('click', _this.btnClickHandler.bind(_this));
   }
 }
 
