@@ -29,6 +29,8 @@ class KanbanColumnViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        registerCustomTableView()
+        addTargetActions()
     }
     
     private func setUpView() {
@@ -40,13 +42,9 @@ class KanbanColumnViewController: UIViewController {
         
         layoutTableTitleView()
         layoutTableView()
-        
-        tableTitleView.addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
     }
     
     private func configureCustomTableView() {
-        tableView.register(KanbanTableViewCell.self, forCellReuseIdentifier: KanbanTableViewCell.indentifier)
-        tableView.dataSource = tableViewDataSource
         tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = 8
         tableView.sectionFooterHeight = 8
@@ -57,6 +55,20 @@ class KanbanColumnViewController: UIViewController {
         tableTitleView.changeBadgeLabel(text: KanbanTableCellData.dataList.count)
         tableTitleView.changeTitleLabel(text: type.description)
     }
+    
+    private func registerCustomTableView() {
+        tableView.register(KanbanTableViewCell.self, forCellReuseIdentifier: KanbanTableViewCell.indentifier)
+        tableView.dataSource = tableViewDataSource
+    }
+    
+    private func addTargetActions() {
+        tableTitleView.addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+    }
+}
+
+//MARK: - View Layouts
+
+extension KanbanColumnViewController {
     
     private func layoutTableTitleView() {
         tableTitleView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +89,8 @@ class KanbanColumnViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
 }
+
+//MARK: - Selector Functions
 
 extension KanbanColumnViewController {
     @objc func didTapAddButton() {

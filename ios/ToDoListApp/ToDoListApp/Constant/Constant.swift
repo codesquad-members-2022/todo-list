@@ -38,8 +38,8 @@ enum Constant {
     
     enum PopUpViewText {
         static let headLineLabel = "새로운 카드 추가"
-        static let titleTextField = "내용을 입력하세요"
-        static let contentsTextField = "제목을 입력하세요"
+        static let titleTextFieldPlaceholder = "제목을 입력하세요"
+        static let contentsTextViewPlaceholder = "내용을 입력하세요"
         static let cancelButton = "취소"
         static let submitButton = "등록"
     }

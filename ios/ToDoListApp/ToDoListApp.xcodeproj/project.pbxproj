@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E491FF6280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E491FF5280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift */; };
 		1E4920202804590600764EF8 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49201F2804590600764EF8 /* PopUpViewController.swift */; };
+		1E4920222805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4920212805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift */; };
 		1E74322E27FA94AC00B908E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E74322D27FA94AC00B908E4 /* AppDelegate.swift */; };
 		1E74323027FA94AC00B908E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E74322F27FA94AC00B908E4 /* SceneDelegate.swift */; };
 		1E74323527FA94AC00B908E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E74323327FA94AC00B908E4 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		1E491FF5280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanColumnViewControllerDelegate.swift; sourceTree = "<group>"; };
 		1E49201F2804590600764EF8 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		1E4920212805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpContentsTextViewDelegate.swift; sourceTree = "<group>"; };
 		1E74322A27FA94AC00B908E4 /* ToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E74322D27FA94AC00B908E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E74322F27FA94AC00B908E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				1E491FF5280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift */,
 				1E7432F027FD26DF00B908E4 /* KanbanTableViewDataSource.swift */,
 				7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */,
+				1E4920212805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift */,
 			);
 			path = "Delegate & DataSource";
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				7380B0E127FFC87300B5D052 /* InspectorTableViewCell.swift in Sources */,
 				7380B0DF27FFC86A00B5D052 /* InspectorViewController.swift in Sources */,
 				1E7432EF27FD26C600B908E4 /* KanbanTableViewCell.swift in Sources */,
+				1E4920222805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift in Sources */,
 				7380B0E928001EC500B5D052 /* Constant.swift in Sources */,
 				7380B0DD27FFC85800B5D052 /* CALayer+addBorder.swift in Sources */,
 				1E7432F527FD271A00B908E4 /* KanbanTableCellData.swift in Sources */,

@@ -9,7 +9,7 @@ import UIKit
 
 class KanbanTableViewDataSource: NSObject, UITableViewDataSource {
     
-    let cellData = KanbanTableCellData.dataList
+    var cellData = KanbanTableCellData.dataList
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return cellData.count
@@ -28,5 +28,11 @@ class KanbanTableViewDataSource: NSObject, UITableViewDataSource {
         cell.changeTitleLabel(text: target.title)
         cell.changeContentLabel(text: target.content)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //TODO: Swipe Delete 구현
+        }
     }
 }
