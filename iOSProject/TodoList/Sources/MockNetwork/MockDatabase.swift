@@ -123,7 +123,9 @@ extension MockDataBase {
             return ClientColumn(columnType: type, cards: cards)
         }
         
-        guard let data = try? JSONEncoder().encode(columns) else {
+        let clientColumn = ClientColumns(columns: columns)
+        
+        guard let data = try? JSONEncoder().encode(clientColumn) else {
             return (nil, HTTPURLResponse(url: urlRequest.url!, statusCode: 402, httpVersion: "2", headerFields: nil))
         }
 

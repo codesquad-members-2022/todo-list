@@ -108,6 +108,7 @@ class ColumnViewController: UIViewController {
             }.store(in: &cancellables)
         
         model.state.insertedCard
+            .receive(on: DispatchQueue.main)
             .sink {
                 self.cardTableView.insertSections(IndexSet(integer: $0), with: .none)
                 self.countLabel.text = String(self.model.cardCount)
@@ -126,6 +127,7 @@ class ColumnViewController: UIViewController {
             }.store(in: &cancellables)
         
         model.state.reloadCard
+            .receive(on: DispatchQueue.main)
             .sink {
                 self.cardTableView.reloadRows(at: [IndexPath(item: 0, section: $0)], with: .none)
             }.store(in: &cancellables)

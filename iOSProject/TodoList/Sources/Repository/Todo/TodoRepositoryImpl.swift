@@ -28,7 +28,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     }
     
     func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<ApiResult<Card, SessionError>, Never> {
-        request(.editCard(cardId, title: title, body: body), isSucccess: true)
+        request(.editCard(cardId, title: title, body: body))
             .map { $0.decode(Card.self) }
             .eraseToAnyPublisher()
     }

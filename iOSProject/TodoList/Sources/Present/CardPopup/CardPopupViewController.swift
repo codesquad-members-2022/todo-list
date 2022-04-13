@@ -71,7 +71,7 @@ class CardPopupViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "(0/\(Constants.maxBodyLength))"
         label.font = .systemFont(ofSize: 14)
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.textColor = .gray3
         return label
     }()
@@ -186,6 +186,7 @@ class CardPopupViewController: UIViewController {
             .store(in: &cancellables)
         
         model.state.addedCard
+            .receive(on: DispatchQueue.main)
             .sink { card in
                 self.delegate?.cardPopupView(self, addedCard: card, toIndex: 0)
                 self.dismiss(animated: false)
@@ -197,6 +198,7 @@ class CardPopupViewController: UIViewController {
             .store(in: &cancellables)
         
         model.state.editedCard
+            .receive(on: DispatchQueue.main)
             .sink { card in
                 self.delegate?.cardPopupView(self, editedCard: card)
                 self.dismiss(animated: false)
@@ -235,16 +237,16 @@ class CardPopupViewController: UIViewController {
             bodyTextView.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
             bodyTextView.heightAnchor.constraint(equalToConstant: 40),
             
-            maxBodyLengthLabel.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 8),
+            maxBodyLengthLabel.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 16),
             maxBodyLengthLabel.leadingAnchor.constraint(equalTo: popupBackgroundView.leadingAnchor, constant: 16),
-            maxBodyLengthLabel.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
+            maxBodyLengthLabel.trailingAnchor.constraint(equalTo: cancelButton.leadingAnchor, constant: -16),
             
-            editButton.topAnchor.constraint(equalTo: maxBodyLengthLabel.bottomAnchor, constant: 16),
+            editButton.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 16),
             editButton.rightAnchor.constraint(equalTo: popupBackgroundView.rightAnchor, constant: -16),
             editButton.widthAnchor.constraint(equalToConstant: 108),
             editButton.heightAnchor.constraint(equalToConstant: 40),
             
-            confimButton.topAnchor.constraint(equalTo: maxBodyLengthLabel.bottomAnchor, constant: 16),
+            confimButton.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 16),
             confimButton.rightAnchor.constraint(equalTo: popupBackgroundView.rightAnchor, constant: -16),
             confimButton.widthAnchor.constraint(equalToConstant: 108),
             confimButton.heightAnchor.constraint(equalToConstant: 40),
