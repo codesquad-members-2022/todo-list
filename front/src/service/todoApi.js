@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/api/todo/";
+const API_END_POINT = `__API_END_POINT__`; // replace by webpack
+const baseURL = `${API_END_POINT}/todo/`;
 const client = axios.create({
   baseURL,
 });
