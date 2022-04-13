@@ -1,3 +1,4 @@
+import { deleteTodo } from '../utils/api.js';
 import { getLocalStorageByKey } from '../utils/localStorage.js';
 import { $ } from '../utils/dom.js';
 import { popupCloseText, popupOkText } from '../constants/modal.js';
@@ -45,6 +46,7 @@ export default class Modal {
 
     document.getElementById(`${this.id}`)?.remove();
     this.closeButton();
+    deleteTodo(this.id);
   };
 
   handleEventListener = () => {
