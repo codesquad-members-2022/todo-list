@@ -12,7 +12,7 @@ final class Card: NSObject, Cardable, Codable {
         case createdTime = "createdAt"
     }
     
-    private(set) var id: Int?
+    private(set) var id: Int = -1
     private(set) var title: String
     private(set) var body: String
     private(set) var cardListID: Int

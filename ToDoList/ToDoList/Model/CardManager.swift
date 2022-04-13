@@ -6,10 +6,13 @@ class CardManager: CardManagable {
         enum NotificationNames {
             static let didAddNewCard = Notification.Name("CardManagerDidAddNewCard")
             static let didRemoveCard = Notification.Name("CardManagerDidRemoveCard")
+            static let didAddNewCardFromOtherCardList = Notification.Name("CardManagerDidAddNewCardFromOtherCardList")
         }
         
         enum userInfoKeys {
             static let addedCard = "addedCard"
+            static let movedCard = "movedCard"
+            static let targetCardId = "targetCardId"
             static let removedCard = "removedCard"
             static let removedCardIndex = "removedCardIndex"
         }
@@ -45,19 +48,28 @@ class CardManager: CardManagable {
         currentlyAddedCard = newCard
     }
     
-    func add(newCard: Cardable) {
-        cards.append(newCard)
+    func add(newCard: Cardable, at index: Int) {
+        cards.insert(newCard, at: index)
         
-        let userInfo = [Constants.userInfoKeys.addedCard: newCard]
-        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCard, object: self, userInfo: userInfo)
+        var targetCardId = -1
+        
+        if let targetCard = self[index + 1] as? Card {
+            targetCardId = targetCard.id
+        }
+        
+        let userInfo: [String: Any] = [Constants.userInfoKeys.movedCard: newCard,
+                                       Constants.userInfoKeys.targetCardId: targetCardId]
+        NotificationCenter.default.post(name: Constants.NotificationNames.didAddNewCardFromOtherCardList, object: self, userInfo: userInfo)
     }
     
-    func remove(at index: Int) {
+    func remove(at index: Int, isMovingState: Bool) {
         let removedCard = cards.remove(at: index)
         
-        let userInfo: [String: Any] = [Constants.userInfoKeys.removedCardIndex: index,
-                        Constants.userInfoKeys.removedCard: removedCard]
-        NotificationCenter.default.post(name: Constants.NotificationNames.didRemoveCard, object: self, userInfo: userInfo)
+        if !isMovingState {
+            let userInfo: [String: Any] = [Constants.userInfoKeys.removedCardIndex: index,
+                                           Constants.userInfoKeys.removedCard: removedCard]
+            NotificationCenter.default.post(name: Constants.NotificationNames.didRemoveCard, object: self, userInfo: userInfo)
+        }
     }
     
     func setNewCardsID(with id: Int) {
@@ -66,7 +78,8 @@ class CardManager: CardManagable {
         currentlyAddedCard?.setID(with: id)
     }
     
-    func selectCard(index: Int) {
+    func selectCard(index: Int) -> Cardable {
         self.selectedCard = cards[index]
+        return cards[index]
     }
 }

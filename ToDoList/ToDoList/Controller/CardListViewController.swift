@@ -85,7 +85,7 @@ extension CardListViewController: UITableViewDataSource {
 extension CardListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            cardManager.remove(at: indexPath.item)
+            cardManager.remove(at: indexPath.item, isMovingState: false)
         }
     }
 }
@@ -118,6 +118,10 @@ extension CardListViewController {
                                                selector: #selector(cardManagerDidRemoveCard(_:)),
                                                name: CardManager.Constants.NotificationNames.didRemoveCard,
                                                object: self.cardManager)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(cardManagerDidAddNewCardFromOtherCardList(_:)),
+                                               name: CardManager.Constants.NotificationNames.didAddNewCardFromOtherCardList,
+                                               object: self.cardManager)
     }
     
     @objc private func cardManagerDidAddNewCard(_ notification: Notification) {
@@ -128,7 +132,7 @@ extension CardListViewController {
         NetworkManager.sendRequest(networkTarget: NetworkTarget.createCard(title: addedCard.title, body: addedCard.body, cardListId: addedCard.cardListID)) { result in
             switch result {
                 case .success(let returnedCard):
-                    self.cardManager.setNewCardsID(with: returnedCard.id ?? 0)
+                    self.cardManager.setNewCardsID(with: returnedCard.id)
                 case .failure(let error):
                     os_log(.error, "\(error.localizedDescription)")
             }
@@ -160,6 +164,24 @@ extension CardListViewController {
         tableView.deleteRows(at: [IndexPath(item: removedCardIndex, section: 0)], with: .automatic)
         updateBadge()
     }
+    
+    @objc private func cardManagerDidAddNewCardFromOtherCardList(_ notification: Notification) {
+        guard let movedCard = notification.userInfo?[CardManager.Constants.userInfoKeys.movedCard] as? Card,
+              let targetCardId = notification.userInfo?[CardManager.Constants.userInfoKeys.targetCardId] as? Int else {
+                  return
+              }
+        
+        NetworkManager.sendRequest(networkTarget: NetworkTarget.moveCard(cardId: movedCard.id, targetCardListId: movedCard.cardListID, targetCardId: targetCardId)) { result in
+            switch result {
+                case .success(_):
+                    os_log(.default, "success move")
+                case .failure(let error):
+                    os_log(.error, "\(error.localizedDescription)")
+            }
+        }
+    }
+}
+
 //MARK: - Handle Drag and Drop
 extension CardListViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
