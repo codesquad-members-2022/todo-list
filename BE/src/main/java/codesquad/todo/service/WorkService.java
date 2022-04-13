@@ -67,7 +67,6 @@ public class WorkService {
 
     public WorkMoveResponse workMove(Long id, Integer targetStatusIndex, WorkStatus targetStatus) {
         Work originWork = findById(id);
-        Long userId = originWork.getAuthor().getId();
         WorkStatus originStatus = originWork.getWorkStatus();
         Integer originStatusIndex = originWork.getStatusIndex();
 
@@ -76,11 +75,13 @@ public class WorkService {
             return new WorkMoveResponse(originStatus, targetStatusIndex);
         }
 
+        // 같은 status, 다른 순서
         if(originStatus == targetStatus) {
             moveInSameStatus(originWork, targetStatusIndex);
             return new WorkMoveResponse(originStatus, targetStatusIndex);
         }
 
+        // 다른 status로 이동
         moveToDifferentStatus(targetStatusIndex, targetStatus, originWork);
         historyService.saveMoveHistory(originWork, originStatus, targetStatus);
         return new WorkMoveResponse(targetStatus, targetStatusIndex);
@@ -97,56 +98,43 @@ public class WorkService {
         workRepository.update(changeWork);
     }
 
-    private void detachFromOriginStatus(Work originWork, List<Work> originStatusWorks) {
+    // 다른 status로 이동
+    private void moveToDifferentStatus(Integer targetStatusIndex, WorkStatus targetStatus, Work originWork) {
+        Long userId = originWork.getAuthor().getId();
+        validateTargetStatusIndex(userId, targetStatus, targetStatusIndex); // 유효한 인덱스인지 검증
+        detachFromOriginStatus(originWork); // originStatus에서 분리
+        insertToTargetStatus(targetStatusIndex, targetStatus, originWork); // targetStatus에 삽입
+    }
+
+    // 유효하지 않은 범위의 인덱스로 이동하려 요청했을 때, 예외 발생
+    private void validateTargetStatusIndex(Long userId, WorkStatus targetStatus, Integer targetStatusIndex) {
+        int countOfTargetStatus = workRepository.countOfStatus(userId, targetStatus);
+        if (targetStatusIndex <0 || targetStatusIndex > countOfTargetStatus) {
+            throw new IllegalStateException(
+                    String.format("옮기고자하는 곳의 인덱스 유효범위는 %d 이상 %d 이하입니다.", 0, countOfTargetStatus)
+            );
+        }
+    }
+
+    private void detachFromOriginStatus(Work originWork) {
+        List<Work> originStatusWorks = workRepository
+                .findByUserIdAndStatus(originWork.getWorkStatus(), originWork.getAuthor().getId());
+
         originStatusWorks.remove(originWork);
         originWork.injectstatusIndex(null);
         updateWorkIndex(originStatusWorks);
     }
 
     private void insertToTargetStatus(Integer targetStatusIndex, WorkStatus targetStatus, Work originWork) {
-        Long userId = originWork.getAuthor().getId();
-        originWork.changeStatus(targetStatus);
-        originWork.injectstatusIndex(targetStatusIndex);
-        workRepository.update(originWork);
-    }
-
-    private void insertTargetStatus(Integer targetStatusIndex, WorkStatus targetStatus, Work originWork, Long userId) {
-        List<Work> targetStatusWorks = workRepository.findByUserIdAndStatus(targetStatus, userId);
+        List<Work> targetStatusWorks = workRepository.findByUserIdAndStatus(targetStatus, originWork.getAuthor().getId());
         originWork.changeStatus(targetStatus);
         targetStatusWorks.add(targetStatusIndex, originWork);
         updateWorkIndex(targetStatusWorks);
-        log.debug("targetStatusIndex : {}, originWork.getStatusIndex {}", targetStatusIndex, originWork.getStatusIndex());
     }
 
-    private void moveToDifferentStatus(Integer targetStatusIndex, WorkStatus targetStatus, Work originWork) {
-        Long userId = originWork.getAuthor().getId();
-        WorkStatus originStatus = originWork.getWorkStatus();
-
-        int countOfTargetStatus = workRepository.countOfStatus(userId, targetStatus);
-        List<Work> originStatusWorks = workRepository.findByUserIdAndStatus(originStatus, userId);
-
-        if(countOfTargetStatus == 0 && targetStatusIndex.equals(0)) {
-            log.debug("[Move to empty status]");
-            detachFromOriginStatus(originWork, originStatusWorks);
-            insertToTargetStatus(targetStatusIndex, targetStatus, originWork);
-            return;
-        }
-
-        log.debug("userId : {}, targetStatus : {}, targetStatusIndex {}", userId, targetStatus, targetStatusIndex);
-        validateTargetStatusIndex(userId, targetStatus, targetStatusIndex);
-        detachFromOriginStatus(originWork, originStatusWorks);
-        insertTargetStatus(targetStatusIndex, targetStatus, originWork, userId);
-    }
-
-    private void validateTargetStatusIndex(Long userId, WorkStatus targetStatus, Integer targetStatusIndex) {
-        if(workRepository.findOne(userId, targetStatus, targetStatusIndex).isEmpty()){
-            throw new NoSuchElementException("일치하는 순서의 Work가 없습니다.");
-        }
-    }
-
-    private void updateWorkIndex(List<Work> originStatusWorks) {
-        for(int index = 0; index < originStatusWorks.size(); index++) {
-            Work work = originStatusWorks.get(index);
+    private void updateWorkIndex(List<Work> works) {
+        for(int index = 0; index < works.size(); index++) {
+            Work work = works.get(index);
             work.injectstatusIndex(index);
             workRepository.update(work);
         }
@@ -163,9 +151,9 @@ public class WorkService {
     public WorkDeleteResponse workDelete(Long id) {
         Work work = findById(id);
         WorkStatus originStatus = work.getWorkStatus();
-        Long userId = work.getAuthor().getId();
-        List<Work> originWorks = workRepository.findByUserIdAndStatus(work.getWorkStatus(), userId);
-        detachFromOriginStatus(work, originWorks);
+
+        detachFromOriginStatus(work);
+
         work.delete();
         workRepository.update(work);
         historyService.saveDeleteHistory(work, originStatus);
