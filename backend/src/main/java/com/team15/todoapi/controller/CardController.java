@@ -6,6 +6,8 @@ import com.team15.todoapi.service.CardService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +29,9 @@ public class CardController {
 	}
 
 	@PostMapping()
-	public void add(@RequestBody CardRequest cardRequest){
+	public ResponseEntity add(@RequestBody CardRequest cardRequest){
 		CardResponse cardResponse = cardService.add(cardRequest);
+
+		return new ResponseEntity(cardResponse, HttpStatus.CREATED);
 	}
 }

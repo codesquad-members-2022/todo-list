@@ -76,6 +76,7 @@ public class JdbcCardRepository implements CardRepository {
 				+ "(created_at, card_id, member_id, card_action_code_id) "
 				+ "VALUES (:modifiedAt, :id, :memberId, 1)";
 			int logResult = jdbcTemplate.update(sqlForActionLog, namedParameters);
+
 			transactionManager.commit(transactionStatus);
 		}catch(DataAccessException e){
 			transactionManager.rollback(transactionStatus);
