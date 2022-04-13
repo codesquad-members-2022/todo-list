@@ -10,7 +10,7 @@ import UIKit
 
 class ActivityRecordController: UITableViewController {
     
-    var dummylog = Log(userId: "@sam", action: .Move, created: Date.now, taskId: 0, from: .todo, to: .inProgress)
+    var dummylog = Log(userId: "@sam", action: .Move, created: Date.now, taskId: 0, from: .todo, to: .inProgress, taskTitle: "Title")
 
     var tempArray = [String]()
     
