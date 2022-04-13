@@ -19,9 +19,8 @@ final class URLManager{
         }
     }
     
-    static func requestGet(url: String) -> Data?{
-        guard let validURL = URL(string: url) else { return nil }
-        var returnData: Data?
+    static func requestGet(url: String, complete: @escaping (Data) -> ()){
+        guard let validURL = URL(string: url) else { return }
         
         var urlRequest = URLRequest(url: validURL)
         urlRequest.httpMethod = HttpMethod.get.getRawValue()
@@ -29,11 +28,9 @@ final class URLManager{
         URLSession.shared.dataTask(with: urlRequest){ data, response, error in
             guard let data = data else { return }
             guard let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else { return }
-
-            returnData = data
+            
+            complete(data)
         }.resume()
-        
-        return returnData
     }
     
     //Post - encode된 Data를 param 인자 값으로 받아옴

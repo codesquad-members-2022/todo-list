@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class TableHeader: UITableViewHeaderFooterView{
+final class TableHeader: UIView{
     let titleLabel = UILabel()
     let numberLabel = UILabel()
     let plusButton = UIButton()
     var delegate: TableHeaderDelegate?
     
-    override init(reuseIdentifier: String?){
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
         setAttributes()
     }

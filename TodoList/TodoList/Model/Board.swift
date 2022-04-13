@@ -12,13 +12,29 @@ final class Board{
     private(set) var doingCards = [Card]()
     private(set) var doneCards = [Card]()
     
-    func divideCard(){
-        guard let data = URLManager.requestGet(url: "/api/cards") else { return }
-        let cards: [Card] = JsonConverter.decodeJson(data: data)
-        
-        todoCards.append(contentsOf: cards.filter{ $0.section == .todo })
-        doingCards.append(contentsOf: cards.filter{ $0.section == .doing })
-        doneCards.append(contentsOf: cards.filter{ $0.section == .done })
+    subscript(index: Int) -> [Card]{
+        switch index{
+        case 0:
+            return todoCards
+        case 1:
+            return doingCards
+        case 2:
+            return doneCards
+        default:
+            return [Card]()
+        }
+    }
+    
+    func getAndDivideCard(){
+        URLManager.requestGet(url: "http://3.39.150.251:8080/api/cards?userId=chez"){ data in
+            let cards: [Card] = JsonConverter.decodeJson(data: data)
+            
+            self.todoCards.append(contentsOf: cards.filter{ $0.section == .todo })
+            self.doingCards.append(contentsOf: cards.filter{ $0.section == .doing })
+            self.doneCards.append(contentsOf: cards.filter{ $0.section == .done })
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "board"), object: self)
+        }
     }
     
     func postCard(section: Int, title: String, content: String, userID: String){

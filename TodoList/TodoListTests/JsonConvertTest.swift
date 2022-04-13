@@ -18,16 +18,20 @@ class JsonConvertTest: XCTestCase {
 
     func testExample() throws {
         func decodeJson<T: Codable>(data: Data) -> [T]?{
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            
             do{
-                let result = try JSONDecoder().decode([T].self, from: data)
+                let result = try decoder.decode([T].self, from: data)
                 return result
             } catch{
+                print(error)
                 return nil
             }
         }
         
         func testAsync(){
-            let url = "https://api.codesquad.kr/signup"
+            let url = "http://3.39.150.251:8080/api/cards?userId=chez"
             guard let validURL = URL(string: url) else { return }
             
             let expt = expectation(description: "Can convert Data")
@@ -44,8 +48,8 @@ class JsonConvertTest: XCTestCase {
                     os_log("Response is not available")
                     return
                 }
-
-                let result: [String]? = decodeJson(data: data)
+                
+                let result: [Card]? = decodeJson(data: data)
                 XCTAssertNotNil(result)
                 expt.fulfill()
             }.resume()
