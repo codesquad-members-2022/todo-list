@@ -129,8 +129,8 @@ private extension AddCardView{
         self.delegate?.makeCardShoudCanceld()
     }
     
-//    @objc
-//    func touchedConfirmButton(_ sender: UIButton){
-//        self.delegate?.makeCardShoudCanceld()
-//    }
+    @objc
+    func touchedConfirmButton(_ sender: UIButton){
+        self.delegate?.makeCardShoudCanceld()
+    }
 }

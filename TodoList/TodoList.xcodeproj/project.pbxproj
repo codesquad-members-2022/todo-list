@@ -117,6 +117,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B3834ADA2806A5660003A831 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				B38DE39B280579350073AF72 /* AddCardView.swift */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
 		B39BFEA727FADA8600B28376 = {
 			isa = PBXGroup;
 			children = (
@@ -150,10 +158,6 @@
 				B39BFEBC27FADA8E00B28376 /* Assets.xcassets */,
 				B39BFEBE27FADA8E00B28376 /* LaunchScreen.storyboard */,
 				B39BFEC127FADA8E00B28376 /* Info.plist */,
-				B38DE39B280579350073AF72 /* AddCardView.swift */,
-				B3834AD8280696FC0003A831 /* AddCardDelegate.swift */,
-				B3834AD4280662900003A831 /* TableHeaderDelegate.swift */,
-				B3834AD628066EE70003A831 /* AddCardViewController.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -213,6 +217,8 @@
 			children = (
 				B32A875928041C0F00E8B180 /* HeaderViewDelegate.swift */,
 				B32A875D28045CF200E8B180 /* ActivityViewDelegate.swift */,
+				B3834AD8280696FC0003A831 /* AddCardDelegate.swift */,
+				B3834AD4280662900003A831 /* TableHeaderDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -225,6 +231,7 @@
 				B3BAE28327FBE132005E7ED2 /* ContentViewController.swift */,
 				D274DE7E2803C4A9009CD620 /* TableViewController.swift */,
 				B32A875528040F8100E8B180 /* ActivityMenuViewController.swift */,
+				B3834AD628066EE70003A831 /* AddCardViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -232,6 +239,7 @@
 		D299331027FC064C00D79C87 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B3834ADA2806A5660003A831 /* Modal */,
 				D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */,
 				D2589C792805136F005BA2B6 /* ActivityMenu */,
 				D299331A27FC371100D79C87 /* Table */,
