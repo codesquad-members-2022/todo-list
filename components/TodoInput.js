@@ -1,16 +1,17 @@
 import Todo from './Todo.js';
-import TodoNotice from './TodoNotice.js';
 import { activationForm } from '../utils/handleStyle.js';
 import { TEXTAREA_DEFAULT_HEIGHT, TEXTAREA_RESIZE_HEIGHT } from '../constants/constants.js';
+import { getLocalStorageByKey, getLastIdByKey } from '../utils/localStorage.js';
 import { $ } from '../utils/dom.js';
+import { createNotice, handleNotice } from '../utils/action.js';
 
 export default class TodoInput {
-  constructor(status, setOnInput, handleCount) {
+  constructor(status, setOnInput, handleAddCount) {
     this.status = status;
     this.title = '';
     this.content = '';
     this.setOnInput = setOnInput;
-    this.handleCount = handleCount;
+    this.handleAddCount = handleAddCount;
   }
 
   onInputContent = ({ target }) => {
@@ -32,50 +33,44 @@ export default class TodoInput {
 
   onCloseBtn = () => {
     $(`.input-${this.status}`)?.remove();
-  };
-
-  getLastId = () => {
-    const lastNum = JSON.parse(localStorage.getItem('todos'));
-    return lastNum.length;
+    this.setOnInput(false);
   };
 
   createTodo = () => {
     const todo = {};
-    todo.id = this.getLastId() + 1;
+    todo.id = getLastIdByKey('todos') + 1;
     todo.title = this.title;
     todo.content = this.content;
     todo.status = this.status;
     todo.userId = 1;
 
-    const todos = JSON.parse(localStorage.getItem('todos'));
-    todos.push(todo);
-    localStorage.setItem('todos', JSON.stringify(todos));
+    const localTodos = getLocalStorageByKey('todos');
+    localTodos.push(todo);
+    localStorage.setItem('todos', JSON.stringify(localTodos));
 
     return todo;
   };
 
-  createNotice = () => {
-    /** TODO
-     * TODO: Notice 부분 작업 예정
-     * */
-    const notice = {};
-    // notice.id
-    notice.title = this.title;
-    notice.status = this.status;
-    notice.userId = 1;
-    // localStorage Setting
-
-    return notice;
-  };
-
   onRegisterBtn = () => {
-    const newTodo = new Todo(this.createTodo());
-    new TodoNotice(this.createNotice()).render();
+    if (!this.title || !this.content) {
+      alert('값이 비워져 있습니다....');
+      return;
+    }
+    const todo = this.createTodo();
+    const newTodo = new Todo(todo);
     $(`.${this.status}`).insertAdjacentHTML('afterend', newTodo.render());
-    $(`.input-${this.status}`)?.remove();
     newTodo.handleEventListener();
+    $(`.input-${this.status}`)?.remove();
     this.setOnInput(false);
-    this.handleCount();
+
+    const newNotice = {};
+    newNotice.title = this.title;
+    newNotice.status = this.status;
+
+    const notice = createNotice(newNotice, '등록');
+    handleNotice(notice);
+
+    this.handleAddCount();
   };
 
   render = () => {

@@ -1,46 +1,48 @@
-import css from './style/index.scss';
+// import css from './style/index.scss';
 import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
-import { getLocalStorageByKey } from './utils/localStorage.js';
+import { getLocalStorageByKey, getTodosByStatus } from './utils/localStorage.js';
 import { onBodyMouseMove, onBodyMouseUp } from './utils/eventDragHandler.js';
 import { $ } from './utils/dom.js';
+import { handleNotice } from './utils/action.js';
 
 const app = () => {
   const todos = getLocalStorageByKey('todos') ? getLocalStorageByKey('todos') : [];
+  const notices = getLocalStorageByKey('notices') ? getLocalStorageByKey('notices') : [];
   localStorage.setItem('todos', JSON.stringify(todos));
+  localStorage.setItem('notices', JSON.stringify(notices));
 
   new TodoNoticeAnimation();
   onBodyMouseMove();
   onBodyMouseUp();
   createColumns();
-  createTodos();
+  createNotices();
 };
 
 const createColumns = () => {
-  const columns = ['todo', 'ing', 'complete'];
+  const columns = ['해야할일', '하고있는일', '완료한일'];
   const columnsWrapper = $('.column-section');
   columns.forEach(status => {
     const column = new TodoColumn(status);
-    const count = columnTodoCount(status);
+    const todos = getTodosByStatus(status);
+    const count = todos.length;
     column.setCount(count);
     columnsWrapper.insertAdjacentHTML('beforeend', column.render());
     column.handleEventListener();
+
+    todos.forEach(element => {
+      const newTodo = new Todo(element, column.handleMinusCount);
+      $(`.${element.status}`).insertAdjacentHTML('afterend', newTodo.render());
+      newTodo.handleEventListener();
+    });
   });
 };
 
-const columnTodoCount = status => {
-  const todos = getLocalStorageByKey('todos');
-  if (!todos) return;
-  return todos.filter(todo => todo.status === status).length;
-};
-
-const createTodos = () => {
-  const todos = getLocalStorageByKey('todos');
-  todos.forEach(todo => {
-    const newTodo = new Todo(todo);
-    $(`.${todo.status}`).insertAdjacentHTML('afterend', newTodo.render());
-    newTodo.handleEventListener();
+const createNotices = () => {
+  const notices = getLocalStorageByKey('notices') ? getLocalStorageByKey('notices') : [];
+  notices.forEach(notice => {
+    handleNotice(notice);
   });
 };
 

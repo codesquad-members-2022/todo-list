@@ -4,10 +4,10 @@ export const onBodyMouseMove = () => {
     const copyCardElement = $('.drag');
     if (copyCardElement) {
       Object.assign(copyCardElement.style, {
-        left: `${e.pageX}px`,
-        top: `${e.pageY}px`,
+        left: `${e.clientX}px`,
+        top: `${e.clientY}px`,
       });
-      checkColumnArea(e.pageX);
+      checkColumnArea(e.clientX);
     }
   });
 };
@@ -25,8 +25,11 @@ export const onBodyMouseUp = () => {
 };
 
 const checkColumnArea = x => {
+  // 복사된 카드가 각 영역 절반정도가 되는거 어떻게 체크?
   const dataId = $('.drag').getAttribute('data-id');
-  const columns = ['todo', 'ing', 'complete'];
+  const copyCardStatus = $('.drag').getAttribute('data-status');
+
+  const columns = ['해야할일', '하고있는일', '완료한일'];
   const todoColumn = $(`.${columns[0]}-wrapper`);
   const ingColumn = $(`.${columns[1]}-wrapper`);
   const completeColumn = $(`.${columns[2]}-wrapper`);
@@ -34,11 +37,38 @@ const checkColumnArea = x => {
   const card = document.getElementById(`${dataId}`);
   card.classList.remove('spectrum');
 
-  columnAppendChildCard(x, todoColumn, card);
-  columnAppendChildCard(x, ingColumn, card);
-  columnAppendChildCard(x, completeColumn, card);
+  /**
+   * TODO 영역별로 이동경로 절반일 시 카드가 움직여야함
+   */
+  if (x >= todoColumn.getBoundingClientRect().left && x <= todoColumn.getBoundingClientRect().right) {
+    todoColumn.appendChild(card);
+    return;
+  }
+
+  if (x >= ingColumn.getBoundingClientRect().left && x <= ingColumn.getBoundingClientRect().right) {
+    ingColumn.appendChild(card);
+    return;
+  }
+
+  if (x >= completeColumn.getBoundingClientRect().left && x <= completeColumn.getBoundingClientRect().right) {
+    completeColumn.appendChild(card);
+    return;
+  }
+  // if (x >= ingColumn.getBoundingClientRect().left + 154 && x <=) {
+  //   return;
+  // }
+
+  // columnAppendChildCard(x, todoColumn, card);
+  // columnAppendChildCard(x, ingColumn, card);
+  // columnAppendChildCard(x, completeColumn, card);
 };
 
 const columnAppendChildCard = (x, column, card) => {
-  if (x >= column.getBoundingClientRect().left && x <= column.getBoundingClientRect().right) column.appendChild(card);
+  const columnWidth = 154;
+  console.log(column.getBoundingClientRect().left, column.getBoundingClientRect().right);
+  if (x >= column.getBoundingClientRect().left && x <= column.getBoundingClientRect().right) {
+    column.appendChild(card);
+  }
 };
+
+const checkSiblingsCard = () => {};
