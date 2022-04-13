@@ -66,13 +66,15 @@ $lightblue: #86c6ff;
     color: #828282;
   }
   &-button-accent {
-    background: $lightblue;
+    background: $blue;
     font-weight: 700;
     font-size: 14px;
     line-height: 20px;
+    background: $blue;
     color: #ffffff;
-    &__active {
-      background: $blue;
+    &:disabled {
+      background: $lightblue;
+      color: rgba(255, 255, 255, 0.4);
     }
   }
   &-button-delete {

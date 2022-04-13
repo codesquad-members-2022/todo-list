@@ -29,7 +29,7 @@ export default class Cards extends Component {
                     ? `
                     <div class="card-button-wrapper">
                       <button class="card-button-normal">취소</button>
-                      <button class="card-button-accent">
+                      <button class="card-button-accent" ${cardState === "create" ? "disabled" : ""}>
                         ${cardState === "create" ? `등록` : `수정`}
                       </button> 
                     </div>`
@@ -62,8 +62,7 @@ export default class Cards extends Component {
     const $inputs = [...this.$target.querySelectorAll("input")];
     const isInputEvery = $inputs.every(($input) => $input.value !== "");
     const $button = this.$target.querySelector(".card-button-accent");
-    if (isInputEvery) {
-      $button.className = "card-button-accent__active";
-    }
+
+    $button.disabled = !isInputEvery;
   }
 }
