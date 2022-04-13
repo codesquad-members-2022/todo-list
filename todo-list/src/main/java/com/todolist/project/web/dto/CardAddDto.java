@@ -1,5 +1,6 @@
 package com.todolist.project.web.dto;
 
+import com.todolist.project.domain.CardStatus;
 import com.todolist.project.domain.card.Card;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,11 +8,14 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class CardAddDto {
+    private int cardIndex;
     private String title;
     private String contents;
     private String writer;
+    private String cardStatus;
 
     public Card toEntity() {
-        return new Card(title, contents, writer);
+        CardStatus card_Status = CardStatus.valueOf(this.cardStatus);
+        return new Card(cardIndex, title, contents, writer, card_Status);
     }
 }

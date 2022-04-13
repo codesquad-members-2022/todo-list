@@ -1,6 +1,5 @@
 package com.todolist.project.web;
 
-import com.todolist.project.domain.card.Card;
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.CardAddDto;
 import com.todolist.project.web.dto.CardListDto;
@@ -22,11 +21,13 @@ public class CardController {
     }
 
     @GetMapping("/{cardStatus}")
-    public List<CardListDto> listByStatus(@PathVariable String cardStatus) { return cardService.findByStatus(cardStatus);}
+    public List<CardListDto> listByStatus(@PathVariable String cardStatus) {
+        return cardService.findByStatus(cardStatus);
+    }
 
     @PostMapping
     public int add(@RequestBody CardAddDto dto) {
-        return cardService.addCard(dto, cardService.findAll().size());
+        return cardService.addCard(dto);
     }
 
     @DeleteMapping("/{id}")
