@@ -8,4 +8,5 @@ window.addEventListener("DOMContentLoaded", () => {
   const columns = new Columns(worksEl);
   columns.render();
   const histories = new Histories(historyEl);
+  histories.addEvent();
 });

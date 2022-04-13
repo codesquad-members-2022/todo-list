@@ -1,6 +1,7 @@
 import HistoryCard from "./HistoryCard.js";
 import { store } from "../store.js";
 import { GET_HISTORY } from "../dummyData.js";
+import { $ } from "../utils.js";
 
 export default class Histories {
   constructor(target) {
@@ -12,8 +13,6 @@ export default class Histories {
     store.subscribe("history", this.render.bind(this));
     store.setState("history", GET_HISTORY);
   }
-  init() {}
-
   template() {
     return `
         <button class="history__btn--close">x</button>
@@ -26,4 +25,16 @@ export default class Histories {
   render() {
     this.target.innerHTML = this.template();
   }
+  addEvent() {
+    $(".header__menu").addEventListener("click", showHistoryView);
+    $(".history__btn--close").addEventListener("click", hideHistoryView);
+  }
+}
+
+function showHistoryView() {
+  $(".history").style.right = "0";
+}
+
+function hideHistoryView() {
+  $(".history").style.right = "-45.2rem";
 }
