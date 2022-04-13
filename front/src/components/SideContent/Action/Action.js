@@ -1,16 +1,22 @@
+import { LOG_TYPE } from "../../../common/constants";
 import peact from "../../../core/peact";
 import styles from "./action.module.css";
 
-const Action = () => {
+/*
+ * type: move
+ * ${fromColumnTitle} 에서 ${toColumnTitle} 로 이동하였습니다.
+ */
+
+const Action = ({ todoLog }) => {
+  const { columnTitle, title, author, type } = todoLog;
+
   const actionInnerHTML = `
     <div class="${styles.icon}">🥳</div>
     <div class="content">
-        <p class="author">@sam</p>
+        <p class="author">${author}</p>
         <p class="content">
-            <strong>뭐시기</strong>를 <strong>뿅뿅</strong>에서
-            <strong>짠짠</strong>으로 <strong>룰루</strong>하였습니다.
-            <strong>짠짠</strong>으로 <strong>룰루</strong>하였습니다.
-            <strong>짠짠</strong>으로 <strong>룰루</strong>하였습니다.
+            <strong>${columnTitle}</strong>에 <strong>${title}</strong>를
+            <strong>${LOG_TYPE[type]}</strong>하였습니다.
         </p>
         <p class="${styles.time}">1분 전</p>
     </div>

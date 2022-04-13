@@ -7,7 +7,11 @@ const client = axios.create({
 
 const columnApi = {
   getColumns: async () => {
-    const response = await client.get("");
+    const response = await client.get();
+    return response.data.results;
+  },
+  getColumnById: async (id) => {
+    const response = await client.get(id);
     return response.data.results;
   },
 };
