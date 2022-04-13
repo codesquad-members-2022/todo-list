@@ -42,6 +42,12 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
+    @ApiOperation(value = "상태 변경", notes = "선택한 task의 상태(status)를 변경합니다.\n 1)태스크의 idx, 2)변경하기를 원하는 status 값이 필요합니다.\nidx가 1보다 작은 값이거나, status(1, 2, 3)가 유효하지 않은 경우 BAD REQUEST가 리턴됩니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "요청이 성공했습니다.", response = Task.class),
+            @ApiResponse(code = 400, message = "잘못 된 요청 입니다."),
+            @ApiResponse(code = 500, message = "서버에서 발생한 에러입니다.")
+    })
     @PatchMapping("/task/status")
     public ResponseEntity<Task> move(@RequestParam long idx, int status) {
         return taskService.changeTaskStatus(idx, status);
