@@ -1,8 +1,11 @@
+import { $ } from './utils/utils';
 import '../styles/main.scss';
-import db from './store';
+import TodoColumns from './Views/TodoColumns';
+import store from './store';
 
-// db.read('store').push(data).write();
+function init() {
+  const todoColumns = new TodoColumns($('.todo-columns'));
+  todoColumns.init(store.getAllColumns());
+}
 
-db.data = { mock: [1, 2, 3] };
-db.write();
-console.log(db.data);
+window.addEventListener('DOMContentLoaded', init);

@@ -3,7 +3,21 @@ export const $ = (selector, base = document) => {
 };
 
 export const $$ = (selector, base = document) => {
-  return base.querySelectorAll(selector);
+  return [...base.querySelectorAll(selector)];
+};
+
+export const eventDelegate = ({ target, eventName, selector, handler }) => {
+  const emitEvent = event => {
+    const expectedTarget = event.target.closest(selector);
+    if (expectedTarget) handler.call(expectedTarget, event);
+  };
+
+  target.addEventListener(eventName, emitEvent);
+};
+
+export const emit = (target, eventName, detail) => {
+  const event = new CustomEvent(eventName, { detail });
+  target.dispatchEvent(event);
 };
 
 export const addClass = (className, element) => {
@@ -19,6 +33,10 @@ export const removeClass = (className, element) => {
 export const toggleClass = (className, element) => {
   if (!element) return;
   element.classList.toggle(className);
+};
+
+export const hasClass = (className, element) => {
+  return element.classList.contains(className);
 };
 
 export const createElement = (tagName, className, attrs = {}) => {
@@ -59,3 +77,7 @@ export const throttle = (cb, delay) => {
     }, delay);
   };
 };
+
+export const replaceLinebreakWithBrElement = text => text.replace(/(\r\n|\r|\n)/g, '<br>');
+
+export const replaceBrElementWithLinebreak = text => text.replace(/<br\s?\/?>/g, '\n');

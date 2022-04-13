@@ -20,6 +20,8 @@
       }
     ],
     "import/no-unresolved": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "no-use-before-define": "off",
+    "class-methods-use-this": "off"
   }
 }

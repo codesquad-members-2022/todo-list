@@ -17,6 +17,19 @@
       flex-grow: 1;
       width: 100%;
       overflow: hidden;
+
+      textarea,
+      p {
+        display: block;
+        width: 100%;
+        height: auto;
+        line-height: 1.5;
+      }
+
+      textarea {
+        @include scrollbar-hidden;
+        resize: none;
+      }
     }
 
     &-title {

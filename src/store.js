@@ -1,7 +1,35 @@
-import { LowSync, LocalStorage } from 'lowdb';
+import { v4 as uuidv4 } from 'uuid';
+import db from './webdb';
 
-const db = new LowSync(new LocalStorage('store'));
+class Store {
+  constructor() {
+    this.state = db.getColumns();
+  }
 
-// 여기에 데이터 get, post, delete, patch, move 메서드 추가해서 export 하면 될 듯 합니다.
+  getAllColumns() {
+    return this.state;
+  }
 
-export default db;
+  addTodoCard(columnIdx, columnId, title, desc, callback) {
+    const newCard = {
+      id: uuidv4(),
+      columnId,
+      columnIdx,
+      title,
+      desc,
+      author: 'web',
+      createAt: Date.now(),
+    };
+
+    const column = db.getData(columnId);
+    const oldCards = column.cards;
+    column.cards = [newCard, ...oldCards];
+    db.setData(columnId, column);
+
+    if (callback) callback(db.getData(columnId));
+  }
+}
+
+const store = new Store();
+
+export default store;

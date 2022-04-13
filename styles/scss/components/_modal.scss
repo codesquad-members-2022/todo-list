@@ -1,0 +1,42 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(1, 1, 1, 0.4);
+
+  &-container {
+    @include column-flexbox(space-around, normal);
+    @include pos-align-xy();
+    width: 400px;
+    height: 138px;
+    padding: 24px;
+    background: $white;
+    border-radius: 6px;
+    box-shadow: $drag-item-box-shadow;
+    user-select: none;
+    backdrop-filter: blur(4px);
+  }
+
+  &-title {
+    flex: none;
+    margin-bottom: 24px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    color: $black;
+  }
+
+  &-buttons {
+    @include flexbox(space-between, flex-start);
+    order: 1;
+    width: 276px;
+    height: 40px;
+    padding: 0;
+    margin-left: auto;
+  }
+}

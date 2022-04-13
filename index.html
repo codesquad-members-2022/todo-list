@@ -35,51 +35,73 @@
         <div class="row">
           <div class="col-12">
             <div class="main-wrapper">
-              <div class="todo-columns">
-                <div class="todo-column">
-                  <header class="todo-column-header">
-                    <div class="todo-column-textarea">
-                      <h1 class="todo-column-title">해야할 일</h1>
-                      <div class="todo-item-count badge-gray4">2</div>
-                    </div>
-                    <div class="todo-column-buttons">
-                      <button type="button" class="add-button">
-                        <i class="ic-plus"></i>
-                      </button>
-                      <button type="button" class="delete-button">
-                        <i class="ic-close"></i>
-                      </button>
-                    </div>
-                  </header>
-                  <div class="todo-column-body">
-                    <ol class="todo-list">
-                      <li class="todo-item active-item">
-                        <div class="todo-form">
-                          <div class="todo-item-textarea">
-                            <header class="todo-item-title">
-                              <textarea placeholder="제목을 입력하세요" rows="1"></textarea>
-                            </header>
-                            <div class="todo-item-desc">
-                              <textarea placeholder="내용을 입력하세요" rows="1"></textarea>
-                            </div>
-                            <footer class="todo-item-author">
-                              author by
-                              <span class="author">web</span>
-                            </footer>
-                          </div>
-                          <button type="button" class="delete-button">
-                            <i class="ic-close"></i>
-                          </button>
-                        </div>
-                        <footer class="todo-buttons">
-                          <button type="button" class="cancel-button button-normal">취소</button>
-                          <button type="button" class="register-button button-accent" disabled="disabled">등록</button>
-                        </footer>
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-                <div class="todo-column">
+              <div class="todo-columns"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <aside></aside>
+    <aside class="modal hidden">
+      <div class="modal-container">
+        <div class="modal-title">기본 html에서 설정한 title</div>
+        <footer class="modal-buttons">
+          <button type="button" class="cancel-button button-normal">취소</button>
+          <button type="button" class="delete-button button-accent">기본</button>
+        </footer>
+      </div>
+    </aside>
+    <script src="./dist/main.js"></script>
+  </body>
+</html>
+
+<!-- temp -->
+<!--
+<div class="todo-column">
+  <header class="todo-column-header">
+    <div class="todo-column-textarea">
+      <h1 class="todo-column-title">해야할 일</h1>
+      <div class="todo-item-count badge-gray4">2</div>
+    </div>
+    <div class="todo-column-buttons">
+      <button type="button" class="add-button">
+        <i class="ic-plus"></i>
+      </button>
+      <button type="button" class="delete-button">
+        <i class="ic-close"></i>
+      </button>
+    </div>
+  </header>
+  <div class="todo-column-body">
+    <ol class="todo-list">
+      <li class="todo-item active-item">
+        <div class="todo-form">
+          <div class="todo-item-textarea">
+            <header class="todo-item-title">
+              <textarea placeholder="제목을 입력하세요" rows="1"></textarea>
+            </header>
+            <div class="todo-item-desc">
+              <textarea placeholder="내용을 입력하세요" rows="1"></textarea>
+            </div>
+            <footer class="todo-item-author">
+              author by
+              <span class="author">web</span>
+            </footer>
+          </div>
+          <button type="button" class="delete-button">
+            <i class="ic-close"></i>
+          </button>
+        </div>
+        <footer class="todo-buttons">
+          <button type="button" class="cancel-button button-normal">취소</button>
+          <button type="button" class="register-button button-accent" disabled="disabled">등록</button>
+        </footer>
+      </li>
+    </ol>
+  </div>
+</div>
+-->
+<!--                <div class="todo-column">
                   <header class="todo-column-header">
                     <div class="todo-column-textarea">
                       <h1 class="todo-column-title">해야할 일</h1>
@@ -118,8 +140,8 @@
                       </li>
                     </ol>
                   </div>
-                </div>
-                <div class="todo-column">
+                </div>-->
+<!--                <div class="todo-column">
                   <header class="todo-column-header">
                     <div class="todo-column-textarea">
                       <h1 class="todo-column-title">해야할 일</h1>
@@ -158,8 +180,8 @@
                       </li>
                     </ol>
                   </div>
-                </div>
-                <div class="todo-column">
+                </div>-->
+<!--                <div class="todo-column">
                   <header class="todo-column-header">
                     <div class="todo-column-textarea">
                       <h1 class="todo-column-title">해야할 일</h1>
@@ -198,8 +220,8 @@
                       </li>
                     </ol>
                   </div>
-                </div>
-                <div class="todo-column">
+                </div>-->
+<!--                <div class="todo-column">
                   <header class="todo-column-header">
                     <div class="todo-column-textarea">
                       <h1 class="todo-column-title">해야할 일</h1>
@@ -238,15 +260,27 @@
                       </li>
                     </ol>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                </div>-->
+<!--<li class="todo-item active-item">
+  <div class="todo-form">
+    <div class="todo-item-textarea">
+      <header class="todo-item-title">
+        <textarea placeholder="제목을 입력하세요" rows="1"></textarea>
+      </header>
+      <div class="todo-item-desc">
+        <textarea placeholder="내용을 입력하세요" rows="1"></textarea>
       </div>
-    </main>
-    <aside></aside>
-    <aside></aside>
-    <script src="./dist/main.js"></script>
-  </body>
-</html>
+      <footer class="todo-item-author">
+        author by
+        <span class="author">web</span>
+      </footer>
+    </div>
+    <button type="button" class="delete-button">
+      <i class="ic-close"></i>
+    </button>
+  </div>
+  <footer class="todo-buttons">
+    <button type="button" class="cancel-button button-normal">취소</button>
+    <button type="button" class="register-button button-accent" disabled="disabled">등록</button>
+  </footer>
+</li>-->
