@@ -24,7 +24,7 @@ const createCardTemplate = () => {
       <textarea class="item-content" placeholder="내용을 입력하세요"></textarea>
       <div class="active-btns">
         <button type="button" class="normal-btn cancel-add-btn">취소</button>
-        <button type="submit" class="accent-btn" disabled="true">등록</button>
+        <button type="submit" class="accent-btn post-btn" disabled="true">등록</button>
       </div>
     </form>
   </li>
@@ -38,7 +38,7 @@ const createUpdateCardTemplate = (title, content) => {
       <textarea class="item-content" placeholder="내용을 입력하세요">${content}</textarea>
       <div class="active-btns">
         <button type="button" class="normal-btn update-delete-btn">취소</button>
-        <button type="submit" class="accent-btn">수정</button>
+        <button type="submit" class="accent-btn update-btn">수정</button>
       </div>
     </form>
   `;

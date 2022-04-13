@@ -33,13 +33,28 @@ export class UpdateCard {
 
   updateCardClickHandler = (e) => {
     if (containClass(e.target, 'update-delete-btn')) {
-      this.cancelUpdateHandler(e);
+      this.cancelUpdateHandler(e.target);
+    }
+    if (containClass(e.target, 'update-btn')) {
+      e.preventDefault();
+      this.updateCardHandler(e.target);
     }
   };
 
-  cancelUpdateHandler = (e) => {
-    const currCard = closest('.list_item', e.target);
+  cancelUpdateHandler = (target) => {
+    const currCard = closest('.list_item', target);
     currCard.classList.replace('active', 'default');
     currCard.innerHTML = this.beforeUpdateCard;
+  };
+
+  updateCardHandler = (target) => {
+    const thisItem = closest('.list_item', target);
+    const title = $('.item-title', thisItem).value;
+    const content = $('.item-content', thisItem).value;
+    thisItem.classList.replace('active', 'default');
+    thisItem.innerHTML = this.postCardTemplate({
+      title,
+      content,
+    });
   };
 }

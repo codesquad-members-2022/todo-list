@@ -64,7 +64,7 @@ export class AddCard {
       this.cancelAddHandler(e);
     }
 
-    if (containClass(e.target, 'accent-btn')) {
+    if (containClass(e.target, 'post-btn')) {
       e.preventDefault();
       this.postCardHandler(e.target);
     }
