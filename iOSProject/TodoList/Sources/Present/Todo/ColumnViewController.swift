@@ -115,6 +115,7 @@ class ColumnViewController: UIViewController {
             }.store(in: &cancellables)
         
         model.state.deletedCard
+            .receive(on: DispatchQueue.main)
             .sink {
                 self.cardTableView.deleteSections(IndexSet(integer: $0), with: .none)
                 self.countLabel.text = String(self.model.cardCount)

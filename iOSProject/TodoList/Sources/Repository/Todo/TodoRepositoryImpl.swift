@@ -34,7 +34,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     }
     
     func deleteCard(_ cardId: Int) -> AnyPublisher<ApiResult<Int, SessionError>, Never> {
-        request(.deleteCard(cardId), isSucccess: true)
+        request(.deleteCard(cardId))
             .map { result in result.mapValue(cardId) }
             .eraseToAnyPublisher()
     }
