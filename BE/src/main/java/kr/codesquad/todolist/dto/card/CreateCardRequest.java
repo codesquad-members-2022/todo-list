@@ -10,7 +10,13 @@ public class CreateCardRequest {
     private String subject;
     private String contents;
 
-    private CreateCardRequest() {
+    public CreateCardRequest() {}
+
+    public CreateCardRequest(String author, Integer sectionId, String subject, String contents) {
+        this.author = author;
+        this.sectionId = sectionId;
+        this.subject = subject;
+        this.contents = contents;
     }
 
     public Card toEntity() {
