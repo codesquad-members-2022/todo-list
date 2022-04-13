@@ -232,5 +232,9 @@ function showAlert({ target }) {
     removeCard({ target });
     blockAlert();
   });
-  $editBtn.removeEventListener("click", addDeleteEvent);
+  $editBtn.removeEventListener("click", function () {
+    deleteCardData($selectedCard);
+    removeCard({ target });
+    blockAlert();
+  });
 }
