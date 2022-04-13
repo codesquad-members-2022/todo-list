@@ -4,28 +4,16 @@ import todo.list.domain.Author;
 import todo.list.domain.Card;
 import todo.list.domain.CardStatus;
 
-public class CardDto {
+public class CardModifyRequest {
 
     private Long id;
-    private CardStatus status;
     private String title;
     private String contents;
     private Author author;
-
-    public CardDto(Card card) {
-        this.id = card.getId();
-        this.status = card.getStatus();
-        this.title = card.getTitle();
-        this.contents = card.getContents();
-        this.author = card.getAuthor();
-    }
+    private CardStatus status;
 
     public Long getId() {
         return id;
-    }
-
-    public CardStatus getStatus() {
-        return status;
     }
 
     public String getTitle() {
@@ -38,5 +26,13 @@ public class CardDto {
 
     public Author getAuthor() {
         return author;
+    }
+
+    public CardStatus getStatus() {
+        return status;
+    }
+
+    public Card toEntity() {
+        return new Card(id, title, contents, status, author);
     }
 }

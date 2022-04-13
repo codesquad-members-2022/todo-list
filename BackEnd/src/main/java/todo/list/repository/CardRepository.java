@@ -4,13 +4,18 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import todo.list.domain.Author;
 import todo.list.domain.Card;
 import todo.list.domain.CardStatus;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CardRepository {
@@ -21,23 +26,28 @@ public class CardRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void save(Card card) {
+    public Card save(Card card) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         String sql = "insert into card" +
-                "(title, contents, card_status, author, create_date) values" +
-                "(:title, :contents, :card_status, :author, :create_date)";
+                "(title, contents, card_status, author, update_datetime) values" +
+                "(:title, :contents, :card_status, :author, :update_datetime)";
 
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("title", card.getTitle())
                 .addValue("contents", card.getContents())
                 .addValue("card_status", card.getStatus().name())
                 .addValue("author", card.getAuthor().name())
-                .addValue("create_date", card.getCreateDateTime());
+                .addValue("update_datetime", card.getUpdateDateTime());
 
-        jdbcTemplate.update(sql, namedParameters);
+        jdbcTemplate.update(sql, namedParameters, keyHolder);
+        Long cardId = keyHolder.getKey().longValue();
+        return new Card(cardId, card.getTitle(), card.getContents(), card.getStatus(), card.getUpdateDateTime(), card.getAuthor());
     }
 
-    public List<Card> findAll() {
-        return jdbcTemplate.query("Select id, title, contents, card_status, create_date, author from card order by create_date desc", cardsRowMapper());
+    public List<Card> findAllSameStatus(CardStatus cardStatus) {
+        String sql = "Select id, title, contents, card_status, update_datetime, author from card WHERE card_status=:card_status order by update_datetime desc";
+        Map<String, String> params = Collections.singletonMap("card_status", cardStatus.name());
+        return jdbcTemplate.query(sql, params, cardsRowMapper());
     }
 
     private RowMapper<Card> cardsRowMapper() {
@@ -46,9 +56,30 @@ public class CardRepository {
             String title = rs.getString("title");
             String contents = rs.getString("contents");
             CardStatus cardStatus = CardStatus.valueOf(rs.getString("card_status"));
-            LocalDateTime createDateTime = rs.getTimestamp("create_date").toLocalDateTime();
+            LocalDateTime updateDatetime = rs.getTimestamp("update_datetime").toLocalDateTime();
             Author author = Author.valueOf(rs.getString("author"));
-            return new Card(id, title, contents, cardStatus, createDateTime, author);
+            return new Card(id, title, contents, cardStatus, updateDatetime, author);
         };
+    }
+
+    public Card update(Card card) {
+        String updateSql = "UPDATE card SET title=:title, contents=:contents, author=:author, update_datetime=:update_datetime WHERE id=:id";
+        Map<String,Object> params = new HashMap<>();
+
+        params.put("title", card.getTitle());
+        params.put("contents", card.getContents());
+        params.put("author", card.getAuthor().name());
+        params.put("update_datetime", card.getUpdateDateTime());
+        params.put("id", card.getId());
+
+        jdbcTemplate.update(updateSql, params);
+        return card;
+    }
+
+    public Card findById(Long id) {
+        String sql = "Select id, title, contents, card_status, update_datetime, author from card WHERE id=:id";
+        Map<String,Object> params = new HashMap<>();
+        params.put("id", id);
+        return jdbcTemplate.queryForObject(sql, params, cardsRowMapper());
     }
 }

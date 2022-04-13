@@ -6,7 +6,7 @@ import todo.list.domain.CardStatus;
 
 import java.time.LocalDateTime;
 
-public class ActivityLogDto {
+public class ActivityLogResponse {
     private Long id;
     private Action action;
     private String title;
@@ -14,7 +14,7 @@ public class ActivityLogDto {
     private CardStatus beforeStatus;
     private LocalDateTime createDateTime;
 
-    public ActivityLogDto(ActivityLog activityLog) {
+    public ActivityLogResponse(ActivityLog activityLog) {
         this.id = activityLog.getId();
         this.action = activityLog.getAction();
         this.title = activityLog.getTitle();

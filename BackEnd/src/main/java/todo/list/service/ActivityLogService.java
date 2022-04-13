@@ -3,7 +3,7 @@ package todo.list.service;
 import org.springframework.stereotype.Service;
 import todo.list.domain.ActivityLog;
 import todo.list.repository.ActivityLogRepository;
-import todo.list.service.dto.ActivityLogDto;
+import todo.list.service.dto.ActivityLogResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,10 +17,10 @@ public class ActivityLogService {
         this.activityLogRepository = activityLogRepository;
     }
 
-    public List<ActivityLogDto> findActivityLogs() {
+    public List<ActivityLogResponse> findActivityLogs() {
         List<ActivityLog> activityLogs = activityLogRepository.findAll();
         return activityLogs.stream()
-                .map(ActivityLogDto::new)
+                .map(ActivityLogResponse::new)
                 .collect(Collectors.toList());
     }
 }

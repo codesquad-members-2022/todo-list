@@ -1,49 +1,54 @@
 package todo.list.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import todo.list.domain.Action;
+import todo.list.domain.ActivityLog;
+import todo.list.repository.ActivityLogRepository;
+import todo.list.service.dto.*;
 import todo.list.domain.Card;
 import todo.list.domain.CardStatus;
 import todo.list.repository.CardRepository;
-import todo.list.service.dto.CardCollectionDto;
-import todo.list.service.dto.CardDto;
-import todo.list.service.dto.CardResponse;
-import todo.list.service.dto.CardSaveDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CardService {
 
     private final CardRepository cardRepository;
+    private final ActivityLogRepository activityLogRepository;
 
-    public CardService(CardRepository cardRepository) {
+    public CardService(CardRepository cardRepository, ActivityLogRepository activityLogRepository) {
         this.cardRepository = cardRepository;
+        this.activityLogRepository = activityLogRepository;
     }
 
-    public void save(CardSaveDto cardSaveDto) {
-        Card card = cardSaveDto.toEntity();
-        cardRepository.save(card);
+    @Transactional
+    public CommandResultResponse save(CardSaveRequest cardSaveRequest) {
+        Card card = cardSaveRequest.toEntity();
+        Card savedCard = cardRepository.save(card);
+        ActivityLog activityLog = new ActivityLog(Action.ADD, card.getTitle(), card.getStatus());
+        activityLogRepository.save(activityLog);
+        CardCommandResponse cardCommandResponse = new CardCommandResponse(savedCard);
+        return new CommandResultResponse(201, cardCommandResponse);
     }
     
-    public CardResponse findCollections() {
-        List<Card> cards = cardRepository.findAll();
+    public CardCollectionResponse findCollections() {
+        List<Card> todoCards = cardRepository.findAllSameStatus(CardStatus.from("TODO"));
+        List<Card> inProgressCards = cardRepository.findAllSameStatus(CardStatus.from("IN_PROGRESS"));
+        List<Card> doneCards = cardRepository.findAllSameStatus(CardStatus.from("DONE"));
 
-        CardCollectionDto todoCollection = makeStatusCollection(cards, CardStatus.from("TODO"));
-        CardCollectionDto inProgressCollection = makeStatusCollection(cards, CardStatus.from("IN_PROGRESS"));
-        CardCollectionDto doneCollection = makeStatusCollection(cards, CardStatus.from("DONE"));
-
-        return new CardResponse(todoCollection, inProgressCollection, doneCollection);
+        return new CardCollectionResponse(todoCards, inProgressCards, doneCards);
     }
 
-    private CardCollectionDto makeStatusCollection(List<Card> cards, CardStatus cardStatus) {
-        List<CardDto> collection = cards.stream()
-                .filter(card -> card.equalsStatus(cardStatus))
-                .map(card -> new CardDto(card))
-                .collect(Collectors.toList());
-
-        return new CardCollectionDto(collection);
+    @Transactional
+    public CommandResultResponse modify(CardModifyRequest cardModifyRequest) {
+        Card card = cardModifyRequest.toEntity();
+        Card modifyedCard = cardRepository.update(card);
+        ActivityLog activityLog = new ActivityLog(Action.UPDATE, card.getTitle(), card.getStatus());
+        activityLogRepository.save(activityLog);
+        Card foundCard = cardRepository.findById(card.getId());
+        CardCommandResponse cardCommandResponse = new CardCommandResponse(foundCard);
+        return new CommandResultResponse(200, cardCommandResponse);
     }
-
-
 }
