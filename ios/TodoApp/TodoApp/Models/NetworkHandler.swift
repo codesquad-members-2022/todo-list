@@ -12,33 +12,50 @@ class NetworkHandler {
     class func getData(resource: String) {
         // 세션 환경 설정
         let defaultSession = URLSession(configuration: .default)
-        
-        guard let url = URL(string: "\(resource)") else {
+        guard let url = URL(string: resource) else {
             print("URL is nil")
             return
         }
-        
         // Request
-        let request = URLRequest(url: url)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         
         // DataTask
-        let dataTask = defaultSession.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+        
+        let dataTask = defaultSession.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?)  in
+            let successRange = 200..<300
+            
             // getting data error
             guard error == nil else {
                 Logger.view.error("Error occur: \(String(describing: error))")
                 return
             }
             
-            guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            guard let data = data, let responseObject = response as? HTTPURLResponse, successRange.contains(responseObject.statusCode) else {
+                Logger.view.error("status code: \((response as? HTTPURLResponse)!.statusCode)")
                 return
             }
             // 통신에 성공한 경우 data 에 Data 객체가 전달됩니다.
-            guard let jsonToArray = try? JSONSerialization.jsonObject(with:data, options: []) else {
-                Logger.view.error("json to Any Error")
-                return
-            }
+//            guard let jsonToArray = try? JSONSerialization.jsonObject(with: data, options: []) else {
+//                Logger.view.error("json to Any Error")
+//                return
+//            }
             //원하는 작업
-            print(jsonToArray)
+            do {
+                let decoder = JSONDecoder()
+                let activities = try decoder.decode(Activities.self, from: data)
+                print(activities.count)
+                for activity in activities {
+                    print("action: \(activity.action)")
+                    print("modified at: \(activity.modifiedAt)")
+                }
+            }
+            catch let error {
+                print("--> error: \(error.localizedDescription)")
+
+            }
+            
         }
+        dataTask.resume()
     }
 }

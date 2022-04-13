@@ -18,11 +18,6 @@ class ActivityListViewController: UITableViewController {
         NetworkHandler.getData(resource: "https://1dc4c2f3-00b4-446d-a22a-d6920eaee622.mock.pstmn.io/history")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(getActivities(notification:)), name: Notification.Name.fetch, object: NetworkHandler.self)     // 문제 생기면 object 를 nil 로 바꿔서 작업해볼것
-    }
-    
     private func configureTableView() {
         self.tableView.register(ActivityCell.self, forCellReuseIdentifier: ActivityCell.identifier)
         self.tableView.showsVerticalScrollIndicator = false

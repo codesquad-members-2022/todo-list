@@ -14,3 +14,4 @@ struct Activity: Codable {
 }
 
 
+typealias Activities = [Activity]
