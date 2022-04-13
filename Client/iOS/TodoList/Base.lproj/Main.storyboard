@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,22 +18,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gXw-r6-kvC">
-                                <rect key="frame" x="20" y="72" width="1154" height="722"/>
+                                <rect key="frame" x="20" y="96" width="1154" height="698"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U8l-VO-PVk">
-                                        <rect key="frame" x="0.0" y="0.0" width="371.5" height="722"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="371.5" height="698"/>
                                         <connections>
                                             <segue destination="G6i-T1-C7z" kind="embed" id="NbV-63-6Go"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXH-2y-GUg">
-                                        <rect key="frame" x="391.5" y="0.0" width="371" height="722"/>
+                                        <rect key="frame" x="391.5" y="0.0" width="371" height="698"/>
                                         <connections>
                                             <segue destination="Kju-AU-qJE" kind="embed" id="Ed7-h1-Zeg"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NHt-Ou-XNx">
-                                        <rect key="frame" x="782.5" y="0.0" width="371.5" height="722"/>
+                                        <rect key="frame" x="782.5" y="0.0" width="371.5" height="698"/>
                                         <connections>
                                             <segue destination="61h-Xi-zIg" kind="embed" id="DWc-hg-wHG"/>
                                         </connections>
@@ -41,7 +41,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQh-7P-Cmq">
-                                <rect key="frame" x="0.0" y="0.0" width="1194" height="72"/>
+                                <rect key="frame" x="0.0" y="24" width="1194" height="72"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TO-DO LIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vmj-u9-T0u">
                                         <rect key="frame" x="48" y="17" width="171" height="38.5"/>
@@ -86,11 +86,11 @@
             <objects>
                 <viewController id="G6i-T1-C7z" customClass="TodoViewController" customModule="TodoList" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ETe-Jt-mYe">
-                        <rect key="frame" x="0.0" y="0.0" width="371.5" height="722"/>
+                        <rect key="frame" x="0.0" y="0.0" width="371.5" height="698"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0SC-7T-nbF">
-                                <rect key="frame" x="0.0" y="60" width="371.5" height="662"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0SC-7T-nbF" customClass="TodoTableView" customModule="TodoList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="60" width="371.5" height="638"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wbo-O3-mRX" userLabel="header view">
@@ -138,7 +138,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="0SC-7T-nbF" id="XTa-qC-KbK"/>
+                        <outlet property="tableView" destination="0SC-7T-nbF" id="Pug-KT-ylp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jk3-zs-VFs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -150,11 +150,11 @@
             <objects>
                 <viewController id="Kju-AU-qJE" customClass="ProgressTodoViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LlN-mE-her">
-                        <rect key="frame" x="0.0" y="0.0" width="371" height="722"/>
+                        <rect key="frame" x="0.0" y="0.0" width="371" height="698"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cq0-cd-q25">
-                                <rect key="frame" x="0.0" y="60" width="371" height="662"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cq0-cd-q25" customClass="TodoTableView" customModule="TodoList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="60" width="371" height="638"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nbd-tq-n0l" userLabel="header view">
@@ -201,6 +201,9 @@
                             <constraint firstItem="cq0-cd-q25" firstAttribute="leading" secondItem="wkj-DG-DCz" secondAttribute="leading" id="xWK-5l-hjz"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="cq0-cd-q25" id="Y8t-P8-6l5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WMr-Gr-Txu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -211,11 +214,11 @@
             <objects>
                 <viewController id="61h-Xi-zIg" customClass="CompletedTodoViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l60-4m-K0f">
-                        <rect key="frame" x="0.0" y="0.0" width="371.5" height="722"/>
+                        <rect key="frame" x="0.0" y="0.0" width="371.5" height="698"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QqX-tp-SRV">
-                                <rect key="frame" x="0.0" y="60" width="371.5" height="662"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QqX-tp-SRV" customClass="TodoTableView" customModule="TodoList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="60" width="371.5" height="638"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SsD-Oi-Y5H" userLabel="header view">
@@ -262,6 +265,9 @@
                             <constraint firstItem="SsD-Oi-Y5H" firstAttribute="top" secondItem="l60-4m-K0f" secondAttribute="top" id="tMR-Xu-W04"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="QqX-tp-SRV" id="Qk2-XR-26c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l95-FU-Vga" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
