@@ -10,32 +10,32 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todo_list.data.TasksRepository
 import com.example.todo_list.databinding.ActivityMainBinding
 import com.example.todo_list.history.HistoryAdapter
-import com.example.todo_list.history.HistoryViewModel
 import com.example.todo_list.tasks.data.Task
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var historyViewModel: HistoryViewModel
+    private lateinit var tasksViewModel: TasksViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        historyViewModel = ViewModelProvider(this, ViewModelFactory(TasksRepository())).get(HistoryViewModel::class.java)
+        tasksViewModel = ViewModelProvider(this, ViewModelFactory(TasksRepository())).get(
+            TasksViewModel::class.java)
 
         val historyAdapter = HistoryAdapter()
         binding.recyclerviewHistory.adapter = historyAdapter
         binding.btnMenu.setOnClickListener {
             binding.mainLayout.openDrawer(GravityCompat.END)
-            historyViewModel.getHistories()
+            tasksViewModel.getHistories()
         }
 
         binding.btnClose.setOnClickListener { binding.mainLayout.closeDrawer(GravityCompat.END) }
         binding.naviView.setNavigationItemSelectedListener(this)
 
-        historyViewModel.historyList.observe(this) { historyAdapter.submitList(it) }
-        historyViewModel.checkLoading.observe(this) {
+        tasksViewModel.historyList.observe(this) { historyAdapter.submitList(it) }
+        tasksViewModel.checkLoading.observe(this) {
             if (it) {
                 binding.spinner.visibility = View.VISIBLE
                 binding.recyclerviewHistory.visibility = View.GONE
