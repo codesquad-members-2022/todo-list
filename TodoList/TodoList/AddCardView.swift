@@ -31,6 +31,10 @@ private extension AddCardView{
         configureBodyTextField()
         configureCancelButton()
         configureConfirmButton()
+        self.backgroundColor = .white
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor(red: 0, green: 0.459, blue: 0.871, alpha: 1).cgColor
+        self.layer.cornerRadius = 6
     }
     
     func configureMsgLabel(){
@@ -44,6 +48,7 @@ private extension AddCardView{
         msgLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16).isActive = true
         msgLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 16).isActive = true
         msgLabel.heightAnchor.constraint(equalToConstant: 23).isActive = true
+        msgLabel.widthAnchor.constraint(equalToConstant: 368).isActive = true
     }
     
     func configureTitleTextField(){
@@ -65,9 +70,10 @@ private extension AddCardView{
         self.addSubview(bodyTextField)
         
         bodyTextField.translatesAutoresizingMaskIntoConstraints = false
-        bodyTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 16).isActive = true
+        bodyTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 8).isActive = true
         bodyTextField.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor).isActive = true
         bodyTextField.trailingAnchor.constraint(equalTo: titleTextField.trailingAnchor).isActive = true
+        bodyTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
     func configureCancelButton(){
@@ -75,6 +81,7 @@ private extension AddCardView{
         cancelButton.setTitle("취소", for: .normal)
         cancelButton.backgroundColor = UIColor(red: 0.878, green: 0.878, blue: 0.878, alpha: 1)
         cancelButton.tintColor = UIColor(red: 0.51, green: 0.51, blue: 0.51, alpha: 1)
+        cancelButton.layer.cornerRadius = 6
         self.addSubview(cancelButton)
         
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -90,13 +97,14 @@ private extension AddCardView{
         confirmButton.setTitle("확인", for: .normal)
         confirmButton.backgroundColor = UIColor(red: 0.525, green: 0.775, blue: 1, alpha: 1)
         confirmButton.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.4)
+        confirmButton.layer.cornerRadius = 6
         self.addSubview(confirmButton)
         
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
         confirmButton.topAnchor.constraint(equalTo: cancelButton.topAnchor).isActive = true
-        confirmButton.leadingAnchor.constraint(equalTo: cancelButton.leadingAnchor, constant: 8).isActive = true
+        confirmButton.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor, constant: 8).isActive = true
         confirmButton.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor).isActive = true
-        confirmButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 16).isActive = true
+        confirmButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: 108).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
