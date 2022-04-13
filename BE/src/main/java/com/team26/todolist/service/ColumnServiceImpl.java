@@ -51,18 +51,19 @@ public class ColumnServiceImpl implements ColumnService{
         Column leftColumn = columnRepository.findById(columnMoveRequest.getLeftColumnId());
         Column rightColumn = columnRepository.findById(columnMoveRequest.getRightColumnId());
 
-        Double orderLeft = leftColumn.getOrder();
-        Double orderRight = rightColumn.getOrder();
-
-        if (orderLeft == null) {
-            return orderRight - DIFFERENCE;
+        if (leftColumn == null && rightColumn == null) {
+            return 0.0;
         }
 
-        if(orderRight == null) {
-            return orderLeft + DIFFERENCE;
+        if (leftColumn == null) {
+            return rightColumn.getOrder() - DIFFERENCE;
         }
 
-        return (orderLeft + orderRight) / 2;
+        if(rightColumn == null) {
+            return leftColumn.getOrder() + DIFFERENCE;
+        }
+
+        return (leftColumn.getOrder() + rightColumn.getOrder()) / 2;
     }
 
     public ColumnResponse modifyColumn(ColumnUpdateRequest columnUpdateRequest) {
