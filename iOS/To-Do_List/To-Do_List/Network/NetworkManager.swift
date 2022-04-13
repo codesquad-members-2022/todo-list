@@ -8,6 +8,18 @@ final class NetworkManager {
         self.session = session
     }
     
+    //    func postRequest<T:Decodable,U:Encodable>(postBody:U, completion: @escaping((Result<T,SignUpNetworkError>) -> Void)) {
+    //        //is URL available?
+    //        guard let signUpURL = signUpURL else { return }
+    //        var urlRequest = URLRequest(url: signUpURL)
+    //        urlRequest.httpMethod = HttpMethod.post
+    //
+    //        do {
+    //            urlRequest.httpBody = try JSONEncoder().encode(postBody)
+    //
+        
+    //재사용성 있는 코드를 만드는데요... Endpoint를 할래요 request
+    
     func request<T:Decodable>(endpoint:Endpointable, completionHandler: @escaping((Result<T,NetworkError>) -> Void)) {
         //handling urlError
         let endpointURL = endpoint.getURL()
@@ -21,10 +33,17 @@ final class NetworkManager {
         let httpMethod = endpoint.getHttpMethod().rawValue
         urlRequest.httpMethod = httpMethod
         
+        let headers = endpoint.getHeaders()
+        
+        headers?.forEach {
+            urlRequest.setValue($1 as? String, forHTTPHeaderField: $0)
+        }
+
         //handling encodingError if endpoint has body
-        if let body = endpoint.getBody() {
+        if let postBody = endpoint.getBody() {
             do {
-                urlRequest.httpBody = try JSONEncoder().encode(body as? Board)
+                let body = try JSONSerialization.data(withJSONObject: postBody, options: [])
+                urlRequest.httpBody = body
             }
             catch {
                 completionHandler(.failure(.encodingError))

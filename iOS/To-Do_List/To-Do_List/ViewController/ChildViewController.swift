@@ -10,7 +10,6 @@ import UIKit
 
 final class ChildViewController: UIViewController, UITableViewDelegate {
     
-
     private var tableView: BoardTableView<Todo,CardCell>!
     private var header : BoardHeader!
     private var boardType : BoardType?
@@ -128,6 +127,12 @@ extension ChildViewController : EditViewControllerDelegate {
     }
     
     func postNotification(editViewInfo:EditViewInputInfo) {
-        
+        NotificationCenter.default.post(
+            name: Notification.Name.init(rawValue: ""),
+            object: nil, userInfo: nil
+        )
     }
 }
+
+
+

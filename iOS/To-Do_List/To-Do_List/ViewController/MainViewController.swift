@@ -8,6 +8,20 @@
 import UIKit
 import OSLog
 
+struct postModel:Codable {
+    let writer:String?
+    let position:Int?
+    let title:String
+    let content:String
+    let cardType:String
+    let memberId:Int?
+    
+    func toBody() -> [String:Any] {
+        ["writer":writer, "position":position, "title": title,"content":content,"cardType":cardType,"memberId":memberId]
+    }
+    
+}
+
 final class MainViewController: UIViewController {
     
     //View

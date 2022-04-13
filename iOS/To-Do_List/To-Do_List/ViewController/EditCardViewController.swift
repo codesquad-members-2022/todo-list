@@ -5,13 +5,10 @@
 //  Created by Kai Kim on 2022/04/12.
 //
 
-
-
 import UIKit
 
 final class EditCardViewController: UIViewController {
 
-    
     var delegate:EditViewControllerDelegate?
     
     private var editCardView : EditCardView = EditCardView(frame: .zero)

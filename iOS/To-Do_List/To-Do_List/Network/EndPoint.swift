@@ -12,7 +12,7 @@ protocol Endpointable {
     func getBaseURL() -> String
     func getPath() -> String
     func getHeaders() -> [String:Any]?
-    func getBody() -> Encodable?
+    func getBody() -> [String:Any]?
 }
 
 extension Endpointable {
@@ -25,9 +25,9 @@ struct Endpoint:Endpointable {
     private let baseURL: String
     private let path: String
     private let headers: [String: Any]?
-    private let body: Encodable?
+    private let body: [String:Any]?
     
-    init(httpMethod:HTTPMethod, baseURL:String, path:String, headers:[String:Any]?, body:Encodable? = nil) {
+    init(httpMethod:HTTPMethod, baseURL:String, path:String, headers:[String:Any]?, body:[String:Any]? = nil) {
         self.httpMethod = httpMethod
         self.baseURL = baseURL
         self.path = path
@@ -51,14 +51,14 @@ struct Endpoint:Endpointable {
         return self.headers
     }
     
-    func getBody() -> Encodable? {
+    func getBody() -> [String:Any]? {
         return self.body
     }
 }
 
 enum EndPointCase {
     case getBoard
-    case postBoard(board:Board)
+    case postBoard(board:postModel)
     
     var endpoint:Endpointable {
         switch self {
@@ -70,12 +70,12 @@ enum EndPointCase {
                             body: nil
             )
             
-        case .postBoard(let board):
+        case .postBoard(let postModel):
             return Endpoint(httpMethod: .post,
                             baseURL: "http://13.125.161.84:8082/",
                             path: "api/cards/write",
                             headers: ["Content-Type": "application/json"],
-                            body: board
+                            body: postModel.toBody()
             )
         }
     }
