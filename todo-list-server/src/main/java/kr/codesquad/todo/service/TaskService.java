@@ -37,8 +37,14 @@ public class TaskService {
         List<Task> statusOne = new ArrayList<>();
         List<Task> statusTwo = new ArrayList<>();
         List<Task> statusThree = new ArrayList<>();
+        List<Task> tasks;
 
-        List<Task> tasks = taskRepository.getAll();
+        try {
+            tasks = taskRepository.getAll();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
         for (Task task : tasks) {
             switch (task.getStatus()) {
                 case 1:

@@ -32,6 +32,11 @@ public class TaskController {
         return taskService.createTask(task);
     }
 
+    @ApiOperation(value = "전체 조회", notes = "전체 태스크를 DB에서 불러옵니다. \n json에서 정수 1을 key로 하는 task는 TODO, 2는 DOING, 3은 DONE입니다.\n(아래 예시에서의 addtionalProp1의 값이 실제 응답에서는 정수 1로 바뀌게 됩니다.)")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "요청이 성공했습니다."),
+            @ApiResponse(code = 500, message = "서버에서 발생한 에러입니다.")
+    })
     @GetMapping("/task")
     public ResponseEntity<Map<Integer, List<Task>>> load() {
         return taskService.getAllTasks();
