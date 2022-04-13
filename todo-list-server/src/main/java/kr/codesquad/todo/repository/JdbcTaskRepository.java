@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,8 @@ public class JdbcTaskRepository implements TaskRepository {
         parameters.put("title", task.getTitle());
         parameters.put("author", task.getAuthor());
         parameters.put("content", task.getContent());
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+
         parameters.put("created_at", now);
         parameters.put("status", task.getStatus());
         int key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters)).intValue();
@@ -47,6 +49,7 @@ public class JdbcTaskRepository implements TaskRepository {
         String sql = "select * from task order by created_at desc";
         List<Task> tasks = jdbcTemplate.query(sql, (rs, rowCount) -> {
             Task task = new Task(rs.getString("title"), rs.getString("content"), rs.getString("author"), rs.getInt("status"));
+
             task.setCreateAt(rs.getTimestamp("created_at").toLocalDateTime());
             task.setIdx(rs.getInt("idx"));
             return task;
