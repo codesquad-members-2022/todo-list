@@ -1,29 +1,24 @@
 //
-//  CardCell.swift
+//  LogCell.swift
 //  To-Do_List
 //
-//  Created by 박진섭 on 2022/04/05.
+//  Created by Kai Kim on 2022/04/11.
 //
-
-
-
-protocol CellIdentifiable {
-    static var identifier : String {get}
-}
 
 import UIKit
 
-class CardCell: UITableViewCell, CellIdentifiable {
-
-    static let identifier = "CardCell"
+class LogCell : UITableViewCell,CellIdentifiable{
     
-    private var container : UIView = {
+    static let identifier = "LogCell"
+    
+    private var container: UIView = {
         let label = UIView()
         label.backgroundColor = .white
         label.layer.cornerRadius = 8
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     
      private var stackView:UIStackView = {
         let stackView = UIStackView()
@@ -34,34 +29,42 @@ class CardCell: UITableViewCell, CellIdentifiable {
         return stackView
     }()
     
-     private var headLabel:UILabel = {
+    private var image: UIImageView = {
+        let imageView = UIImageView()
+        let image = "U+1f618".image()
+        imageView.image = image
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+     private var authorLabel:UILabel = {
          let label = UILabel()
-         label.font = UIFont(name:"Noto Sans Kannada", size: 16.0)
-         label.text = "오늘 할일"
+         label.font = UIFont(name:"Noto Sans Kannada", size: 12.0)
+         label.text = "@KaiKim"
         return label
     }()
     
     private var bodyLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"Noto Sans Kannada", size: 14.0)
-        label.text = "끝내 주게 쉬기"
+        label.text = "(제목) 을/를 (boardType) 에서 (boardType) 으로 이동 하였습니다."
         label.numberOfLines = 3
         label.lineBreakMode = .byWordWrapping
         return label
     }()
 
 
-     private var authorLabel:UILabel = {
+     private var dateLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"Noto Sans Kannada", size: 12.0)
-        label.text = "author by iOS"
+        label.text = "2022-04-08T15:03:37"
         label.textColor = .lightGray
         return label
     }()
     
     
     func loadCardInfo(info : Todo) {
-        self.headLabel.text = info.title
+        self.authorLabel.text = info.title
         self.bodyLabel.text = info.content
     }
     
@@ -77,6 +80,7 @@ class CardCell: UITableViewCell, CellIdentifiable {
         setup()
     }
     
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
@@ -88,11 +92,11 @@ class CardCell: UITableViewCell, CellIdentifiable {
     }
     
     private func addViews() {
-        [headLabel,bodyLabel,authorLabel].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
+        [authorLabel,bodyLabel,dateLabel].forEach {
             stackView.addArrangedSubview($0)
         }
         container.addSubview(stackView)
+        container.addSubview(image)
         self.contentView.addSubview(container)
     }
     
@@ -102,23 +106,28 @@ class CardCell: UITableViewCell, CellIdentifiable {
         self.backgroundColor = .secondarySystemBackground
         self.contentView.backgroundColor = .secondarySystemBackground
         
-        let spacing:CGFloat = 8.0
         let inset:CGFloat = 16
-        stackView.spacing = spacing
+        stackView.distribution = .fillProportionally
         self.selectionStyle = .none
         
 
         NSLayoutConstraint.activate([
-            
+             
             container.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: inset/2),
             container.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -inset/2),
             container.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -inset/2),
             container.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: inset/2),
             
-            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor,constant: inset/2),
+            
+            image.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
+            image.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
+            image.trailingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            image.bottomAnchor.constraint(equalTo: container.bottomAnchor,constant: -100),
+
             stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor,constant: -inset/2),
             stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor,constant: -inset/2),
-            stackView.topAnchor.constraint(equalTo: container.topAnchor,constant: inset/2)
+            stackView.topAnchor.constraint(equalTo: container.topAnchor,constant: 16)
+
         ])
     }
 }

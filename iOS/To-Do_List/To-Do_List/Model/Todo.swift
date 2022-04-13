@@ -27,12 +27,6 @@ struct Todo:Codable,Equatable {
 
 extension NetworkResult:Equatable {
     static func == (lhs: NetworkResult, rhs: NetworkResult) -> Bool {
-        lhs.response.self == rhs.response.self
-    }
-}
-
-extension Board:Equatable {
-    static func == (lhs: Board, rhs: Board) -> Bool {
-        lhs.todoItems == rhs.todoItems && lhs.completedItems == rhs.completedItems && lhs.progressingItems ==  rhs.progressingItems
+        lhs.response.completedItems == rhs.response.completedItems && lhs.response.progressingItems == rhs.response.progressingItems && lhs.response.todoItems == rhs.response.todoItems
     }
 }
