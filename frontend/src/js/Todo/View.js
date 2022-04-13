@@ -15,6 +15,7 @@ export default class TodoView {
 
   eventInit({ ColumnClickHanlder }) {
     this.columnContainer.addEventListener('click', ColumnClickHanlder);
+    this.columnContainer.addEventListener('dblclick', ColumnClickHanlder);
   }
 
   setContainer() {

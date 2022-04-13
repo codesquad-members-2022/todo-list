@@ -10,6 +10,10 @@ class Controller {
     this.todo = null;
     this.deleteAlertView = null;
     this.newCard = null;
+    this.cardCurValue = {
+      title: null,
+      content: null,
+    };
     this.init();
   }
 
@@ -55,10 +59,22 @@ class Controller {
     });
   }
 
-  columnClickHanlder({ target }) {
-    switch (target.className) {
-      case 'control_btn add':
-        this.addCard(target);
+  columnClickHanlder({ target, type }) {
+    switch (type) {
+      case 'click':
+        if (target.className === 'control_btn add') {
+          this.addCard(target);
+          return;
+        }
+        if (target.className === 'btn normal_btn') {
+          console.log(target);
+          this.cardCancelHandler(target);
+          return;
+        }
+        break;
+      case 'dblclick':
+        if (target.closest('.write')) return;
+        if (target.closest('.card')) this.cardEditHanler(target);
         break;
     }
   }
@@ -67,7 +83,6 @@ class Controller {
     const targetColumnBox = target.closest('.todo_column_box');
     const targetColumnID = targetColumnBox.id;
     const targetColumn = this.todo.model.columns[targetColumnID];
-
     if (!targetColumn.model.updateAddStstue()) {
       this.cancelAddCard(targetColumnBox);
       return;
@@ -79,7 +94,6 @@ class Controller {
     this.newCard.view.eventInit({
       cardInputHandler: this.cardInputHandler.bind(this),
       cardAddHandler: this.cardAddHandler.bind(this),
-      cardCancelHandler: this.cardCancelHandler.bind(this),
     });
   }
 
@@ -133,16 +147,43 @@ class Controller {
     );
   }
 
-  cardCancelHandler({ target }) {
-    const targetCard = target.closest('.card');
-    const targetColumnBox = targetCard.closest('.todo_column_box');
+  cardCancelHandler(target) {
+    const { targetColumnBox, targetCard, titleInput, contentInput } =
+      this.getTargetCardInfo(target);
     const targetColumn = this.todo.model.columns[targetColumnBox.id];
+    const targetCardInfo = targetColumn.model.cardList[targetCard.id];
 
     if (targetCard.classList.contains('edit')) {
+      targetCardInfo.view.cancelEditMode({
+        targetCard,
+        titleInput,
+        contentInput,
+        value: this.cardCurValue,
+      });
       return;
     }
     this.cancelAddCard(targetColumnBox);
     targetColumn.model.updateAddStstue();
+  }
+
+  cardEditHanler(target) {
+    const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
+    const targetColumnId = targetColumnBox.id;
+    const targetColumn = this.todo.model.columns[targetColumnId];
+    const editCard = targetColumn.model.cardList[targetCard.id];
+    let targetText = null;
+    if (
+      target.className === 'title_text' ||
+      target.className === 'content_text'
+    ) {
+      targetText = target;
+    }
+
+    this.cardCurValue = {
+      title: editCard.model.title,
+      content: editCard.model.content,
+    };
+    editCard.view.changeEditMode(targetCard, targetText);
   }
 
   getTargetCardInfo(target) {

@@ -10,7 +10,7 @@ export default class CardView {
     const cancelBtn = writeCard.querySelector('.normal_btn');
     writeCard.addEventListener('input', cardInputHandler);
     accentBtn.addEventListener('click', cardAddHandler);
-    cancelBtn.addEventListener('click', cardCancelHandler);
+    // cancelBtn.addEventListener('click', cardCancelHandler);
   }
 
   renderAddCard(targetColumn, cardId) {
@@ -20,5 +20,18 @@ export default class CardView {
       className: 'card_list',
     });
     targetList.insertAdjacentHTML('afterbegin', cardHtml);
+  }
+
+  changeEditMode(card, targetText) {
+    card.classList.add('write', 'edit');
+    card.querySelector('.accent_btn').innerText = '수정';
+    if (!targetText) return;
+    targetText.nextElementSibling.focus();
+  }
+
+  cancelEditMode({ targetCard, titleInput, contentInput, value }) {
+    targetCard.classList.remove('write', 'edit');
+    titleInput.value = value.title;
+    contentInput.value = value.content;
   }
 }
