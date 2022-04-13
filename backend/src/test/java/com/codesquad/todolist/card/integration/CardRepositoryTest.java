@@ -1,6 +1,7 @@
 package com.codesquad.todolist.card.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 
 import com.codesquad.todolist.card.Card;
 import com.codesquad.todolist.card.CardRepository;
@@ -20,7 +21,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 
 @JdbcTest
@@ -33,6 +33,7 @@ public class CardRepositoryTest {
     private final CardRepository cardRepository;
     private final ColumnRepository columnRepository;
     private final UserRepository userRepository;
+    private Card card;
 
     @Autowired
     public CardRepositoryTest(NamedParameterJdbcTemplate jdbcTemplate,
@@ -42,8 +43,6 @@ public class CardRepositoryTest {
         this.userRepository = new UserRepository(jdbcTemplate, keyHolderFactory);
     }
 
-    private Card card;
-
     @BeforeEach
     public void setUp() {
         User user = userRepository.create(new User("유저 이름"));
@@ -52,7 +51,6 @@ public class CardRepositoryTest {
     }
 
     @Test
-    @Rollback(false)
     @DisplayName("요청한 카드 정보가 저장소에 저장되고, 카드 정보를 조회해 저장되었는지 확인한다")
     public void createCardTest() {
         // when
@@ -67,7 +65,6 @@ public class CardRepositoryTest {
     }
 
     @Test
-    @Rollback(false)
     @DisplayName("변경된 카드 정보가 저장소에 저장되고, 카드 정보를 조회해 변경되었는지 확인한다")
     public void cardUpdateTest() {
         // given
@@ -83,5 +80,19 @@ public class CardRepositoryTest {
             assertThat(findCard.getContent()).isEqualTo("변경된 내용");
             assertThat(findCard.getAuthor()).isEqualTo("변경된 작성자");
         });
+    }
+
+    @Test
+    @DisplayName("삭제 요청된 카드 정보가 저장소에 저장되고, 카드 정보를 조회해 변경되었는지 확인한다")
+    public void cardDeleteTest() {
+        // given
+        cardRepository.create(card);
+        // cardRepository.delete(card);
+
+        // when
+        Optional<Card> foundCard = cardRepository.findById(card.getCardId());
+
+        // then
+        then(foundCard).isEqualTo(Optional.empty());
     }
 }
