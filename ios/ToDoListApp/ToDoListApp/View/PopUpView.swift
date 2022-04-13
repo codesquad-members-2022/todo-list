@@ -19,35 +19,26 @@ class PopUpView: UIView {
     private let containerHeadLineLabel: UILabel = {
         let label = UILabel()
         label.text = Constant.PopUpViewText.headLineLabel
-        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 18)
+        label.font = UIFont(name: Constant.Font.gothicNeoBold, size: 16)
         return label
-    }()
-    
-    private let containerStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        stackView.alignment = .leading
-        stackView.distribution = .fillEqually
-        return stackView
     }()
     
     private(set) var containerTitleTextField: UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(
-            string: Constant.PopUpViewText.titleTextField,
-            attributes: [NSAttributedString.Key.font: UIFont(name: Constant.Font.gothicNeoBold, size: 15) as Any ]
+            string: Constant.PopUpViewText.titleTextFieldPlaceholder,
+            attributes: [.font: UIFont(name: Constant.Font.gothicNeoBold, size: 14) as Any,
+                         .foregroundColor: UIColor(red: 130/255, green: 130/255, blue: 130/255, alpha: 1.0)]
         )
         return textField
     }()
     
-    private(set) var containerContentsTextField: UITextField = {
-        let textField = UITextField()
-        textField.attributedPlaceholder = NSAttributedString(
-            string: Constant.PopUpViewText.contentsTextField,
-            attributes: [NSAttributedString.Key.font: UIFont(name: Constant.Font.gothicNeo, size: 15) as Any ]
-        )
-        return textField
+    private(set) var containerContentsTextView: UITextView = {
+        let textView = UITextView()
+        textView.isScrollEnabled = false
+        textView.textContainerInset = .zero
+        textView.textContainer.lineFragmentPadding = 0.0
+        return textView
     }()
     
     private let buttonStackView: UIStackView = {
@@ -71,8 +62,8 @@ class PopUpView: UIView {
     private(set) var submitButton: UIButton = {
         let button = UIButton()
         button.setTitle(Constant.PopUpViewText.submitButton, for: .normal)
-        button.titleLabel?.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
-        button.backgroundColor = .systemBlue
+        button.titleLabel?.font = UIFont(name: Constant.Font.gothicNeoBold, size: 14)
+        button.backgroundColor = .init(red: 0, green: 117/255, blue: 222/225, alpha: 1)
         button.layer.cornerRadius = 5
         return button
     }()
@@ -93,10 +84,8 @@ class PopUpView: UIView {
         addSubview(containerView)
         
         containerView.addSubview(containerHeadLineLabel)
-        
-        containerView.addSubview(containerStackView)
-        containerStackView.addArrangedSubview(containerTitleTextField)
-        containerStackView.addArrangedSubview(containerContentsTextField)
+        containerView.addSubview(containerTitleTextField)
+        containerView.addSubview(containerContentsTextView)
         
         containerView.addSubview(buttonStackView)
         buttonStackView.addArrangedSubview(cancelButton)
@@ -104,8 +93,12 @@ class PopUpView: UIView {
         
         layoutContainerView()
         layoutContainerHeadLineLabel()
-        layoutContainerStackView()
+        layoutContainerTitleTextField()
+        layoutContainerContentsTextView()
+        
         layoutButtonStackView()
+        
+        resetContentsTextViewPlaceholder()
     }
     
     private func configureView() {
@@ -115,40 +108,59 @@ class PopUpView: UIView {
     private func layoutContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        containerView.widthAnchor.constraint(equalToConstant: 400).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 175).isActive = true
+        containerView.topAnchor.constraint(equalTo: topAnchor, constant: 330).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 397).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -397).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 16).isActive = true
     }
     
     private func layoutContainerHeadLineLabel() {
         containerHeadLineLabel.translatesAutoresizingMaskIntoConstraints = false
         
         containerHeadLineLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16).isActive = true
-        containerHeadLineLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -136).isActive = true
         containerHeadLineLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16).isActive = true
         containerHeadLineLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
+        containerHeadLineLabel.heightAnchor.constraint(equalToConstant: 23).isActive = true
     }
     
-    private func layoutContainerStackView() {
-        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+    private func layoutContainerTitleTextField() {
+        containerTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         
-        containerStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 60).isActive = true
-        containerStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -72).isActive = true
-        containerStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16).isActive = true
-        containerStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
+        containerTitleTextField.topAnchor.constraint(equalTo: containerHeadLineLabel.bottomAnchor, constant: 16).isActive = true
+        containerTitleTextField.leadingAnchor.constraint(equalTo: containerHeadLineLabel.leadingAnchor).isActive = true
+        containerTitleTextField.trailingAnchor.constraint(equalTo: containerHeadLineLabel.trailingAnchor).isActive = true
+    }
+    
+    private func layoutContainerContentsTextView() {
+        containerContentsTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerContentsTextView.topAnchor.constraint(equalTo: containerTitleTextField.bottomAnchor, constant: 8).isActive = true
+        containerContentsTextView.leadingAnchor.constraint(equalTo: containerHeadLineLabel.leadingAnchor).isActive = true
+        containerContentsTextView.trailingAnchor.constraint(equalTo: containerHeadLineLabel.trailingAnchor).isActive = true
     }
     
     private func layoutButtonStackView() {
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        buttonStackView.topAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 16).isActive = true
-        buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
-        buttonStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 160).isActive = true
+        
+        buttonStackView.topAnchor.constraint(equalTo: containerContentsTextView.bottomAnchor, constant: 16).isActive = true
         buttonStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16).isActive = true
+        buttonStackView.widthAnchor.constraint(equalToConstant: 224).isActive = true
+        buttonStackView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+}
+
+extension PopUpView {
+    func resetContentsTextViewPlaceholder() {
+        containerContentsTextView.text = Constant.PopUpViewText.contentsTextViewPlaceholder
+        containerContentsTextView.font = UIFont(name: Constant.Font.gothicNeo, size: 14)
+        containerContentsTextView.textColor = UIColor(red: 130/255, green: 130/255, blue: 130/255, alpha: 1.0)
     }
     
-    func resetPlaceholder() {
-        containerTitleTextField.text = ""
-        containerContentsTextField.text = ""
+    func getTitleTextFieldText() -> String? {
+        return containerTitleTextField.text
+    }
+    
+    func getContentsTextViewText() -> String {
+        return containerContentsTextView.text
     }
 }
