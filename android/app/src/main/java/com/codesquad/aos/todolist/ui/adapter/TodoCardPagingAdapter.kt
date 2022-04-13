@@ -1,6 +1,7 @@
 package com.codesquad.aos.todolist.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -38,7 +39,7 @@ class TodoCardPagingAdapter : PagingDataAdapter<Card, TodoCardPagingAdapter.Card
                 oldItem: Card,
                 newItem: Card
             ): Boolean {  // id, 주민번호 등 특징적인 것으로 비교
-                return oldItem.id == newItem.id
+                return oldItem.cardId == newItem.cardId
             }
 
             override fun areContentsTheSame(
