@@ -12,4 +12,11 @@ export const TABLE_NAME = {
   LAST_ID: "lastId",
 };
 
-export const API_URL = (PORT) => `http://localhost:${PORT}/`;
+const BASE_URL = {
+  production: "https://bbpark-todolist.herokuapp.com:",
+  development: "http://localhost:",
+};
+
+export const SERVICE_DOMAIN = "https://healtheloper.github.io";
+
+export const API_URL = (PORT) => `${BASE_URL[process.env.NODE_ENV]}${PORT}/`;
