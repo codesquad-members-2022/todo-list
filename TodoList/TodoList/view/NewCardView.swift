@@ -24,55 +24,55 @@ class NewCardView: UIView {
     
     lazy var contentTextView: UITextView = {
         let textView = UITextView()
+        textView.backgroundColor = .systemGray3
         // textView.placeholder (없음 - 뷰컨의 UITextViewDelegate에 구현해야 함)
         return textView
     }()
     
     lazy var addButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = "등록"
+        button.setTitle("등록", for: .normal)
         button.backgroundColor = .systemBlue
         return button
     }()
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = "취소"
+        button.setTitle("취소", for: .normal)
+        button.titleLabel?.textColor = .black
         button.backgroundColor = .systemGray4
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUI()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setUI()
     }
     
     func setUI() {
+        self.backgroundColor = .white
         addSubview(newCardLabel)
         addSubview(titleTextField)
         addSubview(contentTextView)
         addSubview(addButton)
         addSubview(cancelButton)
-        setViewConstraint()
-        setUIConstraint()
+        setUIPropertiesConstraint()
     }
     
-    private func setViewConstraint() {
-        guard let superview = self.superview else {
-            return
-        }
-        print(superview)
+    func setViewConstraint() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.widthAnchor.constraint(equalToConstant: 500).isActive = true
         self.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        self.centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
-        self.centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
+        self.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        self.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor).isActive = true // superview의 centerX,YAnchor를 가져와야 해서 실패..
     }
     
-    private func setUIConstraint() {
+    private func setUIPropertiesConstraint() {
         setNewCardLabelConstraint()
         setTitleTextFieldConstraint()
         setContentTextViewConstraint()
@@ -95,7 +95,10 @@ class NewCardView: UIView {
     private func setContentTextViewConstraint() {
         contentTextView.translatesAutoresizingMaskIntoConstraints = false
         contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10).isActive = true
+        contentTextView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: 10).isActive = true
         contentTextView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
+        contentTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 15).isActive = true
+        
     }
     
     private func setAddButtonConstraint() {

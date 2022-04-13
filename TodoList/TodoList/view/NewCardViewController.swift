@@ -9,15 +9,13 @@ import UIKit
 
 class NewCardViewController: UIViewController {
 
-    private let newCardView = NewCardView()
+    private lazy var newCardView = NewCardView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = newCardView
-    }
-    
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
+//        let newCardView = NewCardView()
+        view.addSubview(newCardView)
+        newCardView.setViewConstraint()
         newCardView.setUI()
     }
     

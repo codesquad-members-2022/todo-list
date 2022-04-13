@@ -59,28 +59,6 @@
             </objects>
             <point key="canvasLocation" x="-510.5527638190955" y="50.359712230215834"/>
         </scene>
-        <!--New Card View Controller-->
-        <scene sceneID="Ab3-yD-lfS">
-            <objects>
-                <viewController id="Aql-9q-eYh" customClass="NewCardViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Od0-Zf-Ags">
-                        <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4zC-ca-QSL">
-                                <rect key="frame" x="477" y="353" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="UeQ-rP-vyz"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cWb-PK-q6t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="163" y="50"/>
-        </scene>
     </scenes>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>

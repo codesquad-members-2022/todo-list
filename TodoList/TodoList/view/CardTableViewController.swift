@@ -20,12 +20,8 @@ class CardTableViewController: UIViewController {
     private let tableViewDataSource = CardTableDataSource()
     private var cards = [TableCardUsable]()
     
-    // private var newCardViewController: NewCardViewController?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       // initChildViewController()
         
         cardTableView.register(CardTableViewCell.self, forCellReuseIdentifier: CardTableViewCell.identifier)
         cardTableView.delegate = tableViewDelegate
@@ -36,19 +32,6 @@ class CardTableViewController: UIViewController {
         setUIProperties()
         setUIPropertiesConstraint()
     }
-    
-//    private func initChildViewController() {
-//        self.newCardViewController = NewCardViewController()
-//
-//        guard let newCardViewController = newCardViewController else {
-//            return
-//        }
-//
-//        self.view.addSubview(newCardViewController.view)
-//        self.addChild(newCardViewController)
-//        newCardViewController.didMove(toParent: self)
-//    }
-//
     func setCardTitleLabel(title: String){
         cardLabel.text = title
     }
@@ -67,13 +50,8 @@ class CardTableViewController: UIViewController {
         let newCardVC = NewCardViewController()
         newCardVC.modalTransitionStyle = .coverVertical
         newCardVC.modalPresentationStyle = .automatic
+        // setViewConstraintFor(viewController: newCardVC)
         self.present(newCardVC, animated: true)
-        
-//        guard let newCardViewController = newCardViewController else {
-//            print("뉴뷰컨 없음")
-//            return
-//        }
-//        self.present(newCardViewController, animated: true, completion: nil)
     }
     
     private func setCardCountLabel() {
@@ -109,4 +87,15 @@ class CardTableViewController: UIViewController {
         self.addCardButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -10).isActive = true
         self.addCardButton.bottomAnchor.constraint(equalTo: self.cardTableView.topAnchor, constant: -10).isActive = true
     }
+    
+//    private func setViewConstraintFor(viewController: NewCardViewController) {
+//        guard let newCardView = viewController.view else {
+//            return
+//        }
+//        newCardView.translatesAutoresizingMaskIntoConstraints = false
+//        newCardView.widthAnchor.constraint(equalToConstant: 500).isActive = true
+//        newCardView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+//        newCardView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        newCardView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+//    }
 }
