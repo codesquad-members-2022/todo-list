@@ -79,6 +79,7 @@ class Controller {
     this.newCard.view.eventInit({
       cardInputHandler: this.cardInputHandler.bind(this),
       cardAddHandler: this.cardAddHandler.bind(this),
+      cardCancelHandler: this.cardCancelHandler.bind(this),
     });
   }
 
@@ -97,7 +98,7 @@ class Controller {
       this.getTargetCardInfo(target);
 
     if (!(titleInput.value && contentInput.value)) {
-      accentBtn.setAttribute('disabled', 'false');
+      accentBtn.setAttribute('disabled', 'true');
       return;
     }
     if (!accentBtn.getAttribute('disabled')) return;
@@ -130,6 +131,18 @@ class Controller {
       targetColumnBox,
       targetColumn.model.getCardCount()
     );
+  }
+
+  cardCancelHandler({ target }) {
+    const targetCard = target.closest('.card');
+    const targetColumnBox = targetCard.closest('.todo_column_box');
+    const targetColumn = this.todo.model.columns[targetColumnBox.id];
+
+    if (targetCard.classList.contains('edit')) {
+      return;
+    }
+    this.cancelAddCard(targetColumnBox);
+    targetColumn.model.updateAddStstue();
   }
 
   getTargetCardInfo(target) {
