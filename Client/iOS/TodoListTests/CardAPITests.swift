@@ -25,9 +25,24 @@ class CardAPITests: XCTestCase {
         self.task = nil
     }
     
+    func test_userAPI_connectionSuccess_getCookie() {
+        let expectation = XCTestExpectation()
+        task.fetchUser { result in
+            switch result {
+            case .success(let userId):
+                XCTAssertNotNil(userId)
+            case .failure(let error):
+                XCTFail("Failed get user cookie \(error)")
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 3.0)
+    }
+    
+    
     func test_todolistAPI_connectionSuccess_getData() throws {
         let expectation = XCTestExpectation()
-        task?.fetchAll(dataType: Cards.self, completionHandler: { result in
+        task?.fetchAll(dataType: CardMap.self, completionHandler: { result in
             switch result {
             case .success(let data):
                 XCTAssertNotNil(data)
