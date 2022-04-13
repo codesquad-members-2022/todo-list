@@ -6,4 +6,5 @@
     <color name="todo_background_green">#33DCFA39</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="swipe_red">#FFB20600</color>
 </resources>

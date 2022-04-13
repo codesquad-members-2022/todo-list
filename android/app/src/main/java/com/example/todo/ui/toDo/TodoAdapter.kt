@@ -3,11 +3,13 @@ package com.example.todo.ui.toDo
 
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +41,12 @@ class TodoAdapter(
                 displayPopupMenu(it)
                 true
             }
+
+            itemView.findViewById<TextView>(R.id.delete_view).setOnClickListener {
+                Log.d("test","delete")
+                println("delete")
+                viewModel.deleteItem(cardItem)
+            }
         }
 
         private fun displayPopupMenu(view: View) {
@@ -50,12 +58,13 @@ class TodoAdapter(
 
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             when (item?.itemId) {
-                R.id.popup_move_to_done ->  viewModel.moveToDone(cardItem)
+                R.id.popup_move_to_done -> viewModel.moveToDone(cardItem)
                 R.id.popup_update -> listener.updateDialog(cardItem)
                 R.id.popup_delete -> viewModel.deleteItem(cardItem)
             }
             return true
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
