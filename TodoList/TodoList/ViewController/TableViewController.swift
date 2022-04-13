@@ -18,16 +18,15 @@ final class TableViewController: UIViewController{
     
     private var sectionHeader = [TableHeader]()
     private var todoTable = [TodoTableView]()
+    private var addCardViewController: AddCardViewController!
+    private var addCardView: AddCardView!
     
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
     let todoList = [["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd"],
                     ["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit"], ["Github공부하기","add,push,commitadd"]]
     private var listIndex = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
-    }
+    
     
     func setTableAttributes(cell: CollectionCell, index: Int){
         let header = configureSectionHeader(index: index)
@@ -41,6 +40,7 @@ private extension TableViewController{
         let header = TableHeader()
         header.titleLabel.text = todo[index]
         header.numberLabel.text = "0"
+        header.delegate = self
         
         sectionHeader.append(header)
         
@@ -114,4 +114,14 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+}
+
+extension TableViewController: TableHeaderDelegate{
+    func cardWillCreated(at section: String) {
+        addCardViewController = AddCardViewController()
+        addCardViewController.modalPresentationStyle = .overCurrentContext
+        addCardViewController.modalTransitionStyle = .crossDissolve
+        self.present(addCardViewController, animated: true, completion: nil)
+    }
+    
 }
