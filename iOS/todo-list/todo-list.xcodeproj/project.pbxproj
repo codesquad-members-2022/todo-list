@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B0DC1542806D0AF0052C645 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0DC1532806D0AF0052C645 /* LogManager.swift */; };
 		5B349DA527FA9AFE00AA602E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DA427FA9AFE00AA602E /* AppDelegate.swift */; };
 		5B349DA727FA9AFE00AA602E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DA627FA9AFE00AA602E /* SceneDelegate.swift */; };
 		5B349DA927FA9AFE00AA602E /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DA827FA9AFE00AA602E /* SplitViewController.swift */; };
@@ -22,7 +23,6 @@
 		5B349DEA27FECDC500AA602E /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE927FECDC500AA602E /* Action.swift */; };
 		5B349DEC27FFFB1500AA602E /* dummyLogResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */; };
 		5B349DED27FFFB1500AA602E /* dummyLogResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */; };
-		5B349DF328051F2300AA602E /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DF228051F2300AA602E /* LogManager.swift */; };
 		5B349DF52805205000AA602E /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DF42805205000AA602E /* LogViewModel.swift */; };
 		5B997D8E2805641300A00B42 /* LogManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B997D8D2805641300A00B42 /* LogManagerTests.swift */; };
 		BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
@@ -85,6 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B0DC1532806D0AF0052C645 /* LogManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		5B349DA127FA9AFE00AA602E /* todo-list.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-list.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B349DA427FA9AFE00AA602E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B349DA627FA9AFE00AA602E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +156,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B0DC1522806D0110052C645 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				5B349DF228051F2300AA602E /* LogManager.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		5B349D9827FA9AFE00AA602E = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +171,7 @@
 				5B349DBA27FA9AFF00AA602E /* todo-listTests */,
 				5B349DC427FA9AFF00AA602E /* todo-listUITests */,
 				5B349DA227FA9AFE00AA602E /* Products */,
+				5B0DC1522806D0110052C645 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -259,6 +269,7 @@
 			children = (
 				BC3D4A1627FD6F1C009B37FB /* Task.swift */,
 				BC4060822805575D00E03651 /* TaskStorage.swift */,
+				5B0DC1532806D0AF0052C645 /* LogManager.swift */,
 				5B349DE727FECD0C00AA602E /* Log.swift */,
 				5B349DE927FECDC500AA602E /* Action.swift */,
 			);
@@ -457,13 +468,13 @@
 				5B349DE627FECB4700AA602E /* LogTableViewCell.swift in Sources */,
 				5B349DA927FA9AFE00AA602E /* SplitViewController.swift in Sources */,
 				5B349DE827FECD0C00AA602E /* Log.swift in Sources */,
+				5B0DC1542806D0AF0052C645 /* LogManager.swift in Sources */,
 				5B349DA527FA9AFE00AA602E /* AppDelegate.swift in Sources */,
 				BCC6641227FC14370078C1E2 /* TaskTableViewCell.swift in Sources */,
 				BC632508280427BA00CE5280 /* DateFormatter.swift in Sources */,
 				5B349DF52805205000AA602E /* LogViewModel.swift in Sources */,
 				BC632505280418B900CE5280 /* Observerble.swift in Sources */,
 				5B349DE227FD7FF600AA602E /* ActivityRecoderController.swift in Sources */,
-				5B349DF328051F2300AA602E /* LogManager.swift in Sources */,
 				BC6325032804138C00CE5280 /* ColumnViewModel.swift in Sources */,
 				BC4792972803E4BD00CBE369 /* TaskManager.swift in Sources */,
 				BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */,
@@ -668,7 +679,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "todo-list/configuration/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "todo-list";
@@ -697,7 +708,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "todo-list/configuration/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "todo-list";
