@@ -12,8 +12,10 @@ gen
 build
 rebel.xml
 
-
+/express-server
 
 *.css.map
 /node_modules
 /dist
+./tsconfig.json
+./babel.config.json
