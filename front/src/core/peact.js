@@ -9,29 +9,40 @@ const peact = (function () {
     rootComponent: null,
   };
 
+  const addClassName = ($el, className) => {
+    if (typeof className === "string") {
+      $el.classList.add(className);
+    } else {
+      $el.classList.add(...className);
+    }
+  };
+
+  const addEvent = ($el, onEventType, callback) => {
+    const [, eventType] = onEventType.split("on");
+    $el.addEventListener(eventType.toLowerCase(), callback);
+  };
+
   const createElement = ({ tag, id, className, attrs = null, child }) => {
     const $element = document.createElement(tag);
     if (id) {
       $element.id = id;
     }
     if (className) {
-      if (typeof className === "string") {
-        $element.classList.add(className);
-      } else {
-        $element.classList.add(...className);
-      }
+      addClassName($element, className);
     }
     if (attrs) {
       Object.entries(attrs).forEach(([key, value]) => {
         if (key.includes("on")) {
-          const [, eventType] = key.split("on");
-          $element.addEventListener(eventType.toLowerCase(), value);
+          addEvent($element, key, value);
         } else {
           $element.setAttribute(key, value);
         }
       });
     }
-    if (child.length === 1 && typeof child[0] === "string") {
+    const isStringChildElement =
+      child.length === 1 && typeof child[0] === "string";
+
+    if (isStringChildElement) {
       const [elementTextContent] = child;
       $element.innerHTML = elementTextContent;
     } else {
@@ -55,15 +66,17 @@ const peact = (function () {
     info.$root.appendChild(info.app());
   };
 
+  const executeAfterStackEmpty = (callback) => {
+    setTimeout(callback, 0);
+  };
+
   const useEffect = (callback, watchStates) => {
     const isUpdate = watchStates.some((wValue) => {
       return wValue === info.state[info.updatedStateKey];
     });
     const isMounted = !(info.updatedStateKey === null);
     if (isUpdate || !isMounted) {
-      setTimeout(() => {
-        callback();
-      }, 0);
+      executeAfterStackEmpty(callback);
     }
   };
 
@@ -75,11 +88,11 @@ const peact = (function () {
     }
     const value = info.state[currentStateKey];
     const setValue = (newValue) => {
-      setTimeout(() => {
+      executeAfterStackEmpty(() => {
         info.state[currentStateKey] = newValue;
         info.updatedStateKey = currentStateKey;
         render();
-      }, 0);
+      });
     };
     info.currentStateKey += 1;
     return [value, setValue];
