@@ -1,11 +1,12 @@
 package todolist.dto.card;
 
-import lombok.Getter;
 import todolist.domain.card.Card;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@Getter
 public class ResponseCardsDto {
 
     private Map<String, List<ResponseCardDto>> cards;
@@ -15,6 +16,10 @@ public class ResponseCardsDto {
         cards.put("해야할 일", new ArrayList<>());
         cards.put("하고 있는 일", new ArrayList<>());
         cards.put("완료된 일", new ArrayList<>());
+    }
+
+    public Map<String, List<ResponseCardDto>> getCards() {
+        return cards;
     }
 
     public void categorizeCards(List<Card> cardlist) {

@@ -2,17 +2,17 @@ package todolist.dto.event;
 
 import todolist.dto.card.ResponseCardDto;
 
-public class EventDto {
+public class RequestEventDto {
     private String title;
     private String prevSection;
     private String currentSection;
 
 
-    public EventDto(ResponseCardDto responseCardDto) {
+    public RequestEventDto(ResponseCardDto responseCardDto) {
         this("", responseCardDto);
     }
 
-    public EventDto(String prevSection, ResponseCardDto responseCardDto) {
+    public RequestEventDto(String prevSection, ResponseCardDto responseCardDto) {
         this.title = responseCardDto.getTitle();
         this.prevSection = prevSection;
         this.currentSection = responseCardDto.getSection();

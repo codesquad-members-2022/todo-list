@@ -1,6 +1,6 @@
 package todolist.domain.event;
 
-import todolist.dto.event.EventDto;
+import todolist.dto.event.RequestEventDto;
 
 import java.util.function.BiFunction;
 
@@ -11,13 +11,13 @@ public enum Action {
     REMOVE((dto, action) -> new Event(dto.getTitle(), dto.getCurrentSection(), action));
 
 
-    private BiFunction<EventDto, Action, Event> eventFunction;
+    private BiFunction<RequestEventDto, Action, Event> eventFunction;
 
-    Action(BiFunction<EventDto, Action, Event> eventFunction) {
+    Action(BiFunction<RequestEventDto, Action, Event> eventFunction) {
         this.eventFunction = eventFunction;
     }
 
-    public Event publish(EventDto eventDto) {
-        return eventFunction.apply(eventDto, this);
+    public Event publish(RequestEventDto requestEventDto) {
+        return eventFunction.apply(requestEventDto, this);
     }
 }

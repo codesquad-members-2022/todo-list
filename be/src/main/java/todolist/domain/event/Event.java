@@ -1,10 +1,9 @@
 package todolist.domain.event;
 
-import lombok.Getter;
+import todolist.dto.event.ResponseEventDto;
 
 import java.time.LocalDateTime;
 
-@Getter
 public class Event {
     private Long id;
     private String cardTitle;
@@ -29,6 +28,30 @@ public class Event {
         this.currentSection = currentSection;
         this.action = action;
         this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCardTitle() {
+        return cardTitle;
+    }
+
+    public String getPrevSection() {
+        return prevSection;
+    }
+
+    public String getCurrentSection() {
+        return currentSection;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public ResponseEventDto toResponseEventDto() {
+        return new ResponseEventDto(id, cardTitle, prevSection, currentSection, action, createdAt);
     }
 
 }
