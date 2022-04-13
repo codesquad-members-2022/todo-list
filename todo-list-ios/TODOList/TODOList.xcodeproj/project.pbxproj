@@ -36,6 +36,9 @@
 		D0FAF3BF28069A5E0096A520 /* HistoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3BE28069A5E0096A520 /* HistoryEntity.swift */; };
 		D0FAF3C228069C750096A520 /* MemoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3C128069C750096A520 /* MemoUseCase.swift */; };
 		D0FAF3C428069CF90096A520 /* HistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3C328069CF90096A520 /* HistoryUseCase.swift */; };
+		D0FAF3CE2806A2C80096A520 /* MemoPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3CD2806A2C80096A520 /* MemoPostData.swift */; };
+		D0FAF3D12806A31B0096A520 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D02806A31B0096A520 /* EndPoint.swift */; };
+		D0FAF3D32806A3FF0096A520 /* HTTPRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +73,9 @@
 		D0FAF3BE28069A5E0096A520 /* HistoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntity.swift; sourceTree = "<group>"; };
 		D0FAF3C128069C750096A520 /* MemoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUseCase.swift; sourceTree = "<group>"; };
 		D0FAF3C328069CF90096A520 /* HistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCase.swift; sourceTree = "<group>"; };
+		D0FAF3CD2806A2C80096A520 /* MemoPostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoPostData.swift; sourceTree = "<group>"; };
+		D0FAF3D02806A31B0096A520 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,7 @@
 		B5EC66D127FADD9C0042EFCF /* TODOList */ = {
 			isa = PBXGroup;
 			children = (
+				D0FAF3CF2806A3130096A520 /* Common */,
 				D0999DE22806933F0045491A /* Data */,
 				D0999DD6280689B60045491A /* Domain */,
 				B5EC66F327FEC3E10042EFCF /* Delegates */,
@@ -233,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				D0FAF3BA2806951A0096A520 /* Model */,
+				D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -242,6 +250,7 @@
 			children = (
 				D0FAF3B6280694BF0096A520 /* CommonResponseType.swift */,
 				D0FAF3B8280694C90096A520 /* MemoResponse.swift */,
+				D0FAF3CD2806A2C80096A520 /* MemoPostData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -262,6 +271,14 @@
 				D0FAF3C328069CF90096A520 /* HistoryUseCase.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		D0FAF3CF2806A3130096A520 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D0FAF3D02806A31B0096A520 /* EndPoint.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0FAF3D12806A31B0096A520 /* EndPoint.swift in Sources */,
 				D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */,
 				B5EC66EE27FC0D3F0042EFCF /* SideView.swift in Sources */,
 				D0999DDA28068B620045491A /* MemoStatus.swift in Sources */,
@@ -359,8 +377,10 @@
 				B5EC66F027FC0D5D0042EFCF /* MemoCanvasView.swift in Sources */,
 				D019328E27FFD12E00A9CE20 /* MemoCanvasViewController.swift in Sources */,
 				B5EC66EC27FC0CD10042EFCF /* HeaderView.swift in Sources */,
+				D0FAF3D32806A3FF0096A520 /* HTTPRequestHandler.swift in Sources */,
 				D0FAF3C428069CF90096A520 /* HistoryUseCase.swift in Sources */,
 				D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */,
+				D0FAF3CE2806A2C80096A520 /* MemoPostData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
