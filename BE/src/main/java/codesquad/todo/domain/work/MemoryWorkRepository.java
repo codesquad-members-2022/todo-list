@@ -52,7 +52,7 @@ public class MemoryWorkRepository implements WorkRepository {
     }
 
     @Override
-    public int maxStatusIndexOfWorks(Long userId, WorkStatus workStatus) {
+    public int countOfStatus(Long userId, WorkStatus workStatus) {
         return (int)store.values()
                 .stream()
                 .filter(work -> work.getAuthor().isSameId(userId))

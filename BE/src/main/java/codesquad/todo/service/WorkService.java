@@ -32,7 +32,7 @@ public class WorkService {
 
     private Work buildWork(User user, WorkSaveRequest workSaveRequest) {
         LocalDateTime initTime = LocalDateTime.now();
-        Integer nextStatusIndex = workRepository.maxStatusIndexOfWorks(user.getId(), WorkStatus.TODO);
+        Integer nextStatusIndex = workRepository.countOfStatus(user.getId(), WorkStatus.TODO);
 
         Work work = Work.builder()
                 .title(workSaveRequest.getTitle())
@@ -98,6 +98,7 @@ public class WorkService {
 
     private void detachFromOriginStatus(Work originWork, List<Work> originStatusWorks) {
         originStatusWorks.remove(originWork);
+        originWork.injectstatusIndex(null);
         updateWorkIndex(originStatusWorks);
     }
 
@@ -109,20 +110,22 @@ public class WorkService {
     }
 
     private void insertTargetStatus(Integer targetStatusIndex, WorkStatus targetStatus, Work originWork, Long userId) {
-        originWork.changeStatus(targetStatus);
         List<Work> targetStatusWorks = workRepository.findByUserIdAndStatus(targetStatus, userId);
+        originWork.changeStatus(targetStatus);
         targetStatusWorks.add(targetStatusIndex, originWork);
         updateWorkIndex(targetStatusWorks);
+        log.debug("targetStatusIndex : {}, originWork.getStatusIndex {}", targetStatusIndex, originWork.getStatusIndex());
     }
 
     private void moveToDifferentStatus(Integer targetStatusIndex, WorkStatus targetStatus, Work originWork) {
         Long userId = originWork.getAuthor().getId();
         WorkStatus originStatus = originWork.getWorkStatus();
-        int targetLastIndex = workRepository.maxStatusIndexOfWorks(userId, targetStatus);
 
+        int countOfTargetStatus = workRepository.countOfStatus(userId, targetStatus);
         List<Work> originStatusWorks = workRepository.findByUserIdAndStatus(originStatus, userId);
 
-        if(targetLastIndex == 0 && targetStatusIndex.equals(0)) {
+        if(countOfTargetStatus == 0 && targetStatusIndex.equals(0)) {
+            log.debug("[Move to empty status]");
             detachFromOriginStatus(originWork, originStatusWorks);
             insertToTargetStatus(targetStatusIndex, targetStatus, originWork);
             return;
