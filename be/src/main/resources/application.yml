@@ -1,7 +1,7 @@
 # active profile
 spring:
   profiles:
-    active: "mem-h2-db"
+    active: "sdd-mysql-db"
 
 ---
 # mem-h2-db
@@ -23,3 +23,32 @@ spring:
   h2:
     console:
       enabled: true
+
+---
+# sdd-mysql-db
+spring:
+  config:
+    activate:
+      on-profile: sdd-mysql-db
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/todolist
+    username: root
+    password:
+  sql:
+    init:
+      platform: mysql
+      mode: always
+      schema-locations: classpath:sql/ddl-h2.sql
+
+---
+# deploy-mysql-db
+spring:
+  config:
+    activate:
+      on-profile: deploy-mysql-db
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${TODO_URL}
+    username: ${TODO_USER}
+    password: ${TODO_PW}
