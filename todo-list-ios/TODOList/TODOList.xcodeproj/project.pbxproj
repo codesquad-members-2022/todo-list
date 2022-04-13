@@ -41,6 +41,7 @@
 		D0FAF3D32806A3FF0096A520 /* HTTPRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */; };
 		D0FAF3D52806F7910096A520 /* MemoContainerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */; };
 		D0FAF3D9280724390096A520 /* PopupCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */; };
+		D0FAF3DC28072FC00096A520 /* NSNotification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3DB28072FC00096A520 /* NSNotification+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestHandler.swift; sourceTree = "<group>"; };
 		D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerViewDelegate.swift; sourceTree = "<group>"; };
 		D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupCardViewDelegate.swift; sourceTree = "<group>"; };
+		D0FAF3DB28072FC00096A520 /* NSNotification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,9 +284,18 @@
 		D0FAF3CF2806A3130096A520 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D0FAF3DA28072FB90096A520 /* Extension */,
 				D0FAF3D02806A31B0096A520 /* EndPoint.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		D0FAF3DA28072FB90096A520 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D0FAF3DB28072FC00096A520 /* NSNotification+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,6 +378,7 @@
 				D0999DD8280689D10045491A /* MemoEntity.swift in Sources */,
 				D0999D9F2804789D0045491A /* PopupViewController.swift in Sources */,
 				B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */,
+				D0FAF3DC28072FC00096A520 /* NSNotification+Extension.swift in Sources */,
 				D0FAF3D52806F7910096A520 /* MemoContainerViewDelegate.swift in Sources */,
 				B58D833728001A9C008A811C /* Memo.swift in Sources */,
 				B5EC66D727FADD9C0042EFCF /* MainViewController.swift in Sources */,
