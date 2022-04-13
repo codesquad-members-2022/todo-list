@@ -5,10 +5,13 @@
 //  Created by 박진섭 on 2022/04/05.
 //
 
-import UIKit
+
+
 protocol CellIdentifiable {
     static var identifier : String {get}
 }
+
+import UIKit
 
 class CardCell: UITableViewCell, CellIdentifiable {
 
@@ -41,7 +44,7 @@ class CardCell: UITableViewCell, CellIdentifiable {
     private var bodyLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"Noto Sans Kannada", size: 14.0)
-        label.text = "끝내 주게 쉬기dasdasdasdasdasdasddasdasdasdasdasdasddasdasdasdasdasdasddasdasdasdasdasdasd  "
+        label.text = "끝내 주게 쉬기"
         label.numberOfLines = 3
         label.lineBreakMode = .byWordWrapping
         return label
@@ -73,7 +76,6 @@ class CardCell: UITableViewCell, CellIdentifiable {
         addViews()
         setup()
     }
-    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

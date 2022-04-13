@@ -7,17 +7,14 @@
 
 import UIKit
 
-protocol BoardHeaderDelegate {
-    func DidTapAddButton()
-}
+final class BoardHeader: UIView {
 
-class BoardHeader: UIView {
-
+    var delegate : BoardHeaderDelegate?
+    
     private (set) var title = UILabel()
     private (set) var badge = UIButton()
     private (set) var addButton = UIButton()
     private (set) var closeButton = UIButton()
-    var delegate : BoardHeaderDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,7 +66,7 @@ class BoardHeader: UIView {
     }
     
     @objc func showAddCardView() {
-        delegate?.DidTapAddButton()
+        delegate?.didTapAddButton()
     }
     
     
