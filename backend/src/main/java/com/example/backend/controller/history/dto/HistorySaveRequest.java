@@ -5,12 +5,20 @@ import com.example.backend.domain.history.History;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class HistorySaveRequest {
 
+    @NotBlank(message = "내용을 반드시 입력해야 합니다.")
     private String content;
+    @NotNull(message = "작성자는 반드시 입력해야 합니다.")
     private String author;
+    @NotNull(message = "행동은 반드시 입력해야 합니다.")
     private Action action;
+    @NotNull(message = "폰트는 반드시 입력해야 합니다.")
     private String font;
+    @NotNull(message = "회원 번호를 반드시 입력해야 합니다.")
     private Long memberId;
     private Long cardId;
     private LocalDateTime createdAt;
