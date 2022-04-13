@@ -34,7 +34,8 @@ class TodoCardListAdapter(
             binding.tvCardContent?.text = card?.content
 
             binding.tvRemove?.setOnClickListener {
-                if (this.itemView.tag == true) { // true면 삭제 영역 보임
+                val viewTag = this.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).tag as Boolean
+                if (viewTag) { // true면 삭제 영역 보임
                     //removeItem(this.layoutPosition)
                     deleteTextClick.invoke(this.layoutPosition)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
                 }
