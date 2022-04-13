@@ -10,6 +10,7 @@ import com.example.backend.web.dto.Columns;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -87,20 +88,28 @@ public class CardJdbcTemplateRepository implements CardRepository {
 
 	@Override
 	public Optional<Card> findById(Long id) {
-		List<Card> cardList = jdbcTemplate.query("SELECT id, title, content, author_system FROM CARD WHERE id = ?",
+		List<Card> cardList = jdbcTemplate.query(
+			"SELECT id, title, content, column_name, author_system FROM CARD WHERE id = ?",
 			(rs, rowNum) -> {
 				long userId = rs.getLong("id");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
+				String columnName = rs.getString("column_name");
 				String authorSystem = rs.getString("author_system");
-				return new Card.Builder().title(title).content(content).id(userId).authorSystem(authorSystem).build();
+				return new Card.Builder().title(title)
+					.content(content)
+					.id(userId)
+					.authorSystem(authorSystem)
+					.columnName(columnName)
+					.build();
 			}, id);
 		return cardList.stream().findAny();
 	}
 
 	@Override
 	public Long deleteById(Long id) {
-		return null;
+		jdbcTemplate.update("UPDATE CARD SET DELETED=? WHERE id=?", true, id);
+		return id;
 	}
 
 	@Override
