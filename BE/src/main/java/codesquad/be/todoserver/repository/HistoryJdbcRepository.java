@@ -1,12 +1,11 @@
 package codesquad.be.todoserver.repository;
 
 import codesquad.be.todoserver.domain.History;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class HistoryJdbcRepository implements HistoryRepository {
@@ -35,7 +34,7 @@ public class HistoryJdbcRepository implements HistoryRepository {
 			rs.getString("action"),
 			rs.getString("from_status"),
 			rs.getString("to_status"),
-			rs.getString("created_at")
+			rs.getTimestamp("created_at").toLocalDateTime()
 		);
 	}
 }
