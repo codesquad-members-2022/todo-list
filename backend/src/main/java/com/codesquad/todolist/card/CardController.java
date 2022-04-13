@@ -6,6 +6,7 @@ import com.codesquad.todolist.card.dto.CardUpdateRequest;
 import com.codesquad.todolist.history.dto.HistoryResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,14 +41,18 @@ public class CardController {
 
     @ApiOperation(value = "카드 업데이트", notes = "지정한 카드를 새로운 데이터로 업데이트합니다.")
     @PutMapping("/{id}")
-    public HistoryResponse updateCard(@PathVariable(value = "id") Integer cardId,
+    public HistoryResponse updateCard(
+        @ApiParam(name = "id", value = "업데이트할 카드 Id", required = true)
+        @PathVariable(value = "id") Integer cardId,
         @RequestBody @Valid CardUpdateRequest request) {
         return cardService.update(cardId, request);
     }
 
     @ApiOperation(value = "카드 이동", notes = "카드를 현재 컬럼 혹은 다른 컬럼으로 이동하고 순서를 변경합니다.")
     @PutMapping("/{id}/move")
-    public ResponseEntity<?> moveCard(@PathVariable(value = "id") Integer cardId,
+    public ResponseEntity<?> moveCard(
+        @ApiParam(name = "id", value = "이동할 카드 Id", required = true)
+        @PathVariable(value = "id") Integer cardId,
         @RequestBody @Valid CardMoveRequest request) {
         HistoryResponse historyResponse = cardService.move(cardId, request);
         return new ResponseEntity<>(historyResponse, HttpStatus.CREATED);
@@ -55,7 +60,9 @@ public class CardController {
 
     @ApiOperation(value = "카드 삭제", notes = "지정한 카드를 삭제합니다.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCard(@PathVariable(value = "id") Integer cardId) {
+    public ResponseEntity<?> deleteCard(
+        @ApiParam(name = "id", value = "삭제할 카드 Id", required = true)
+        @PathVariable(value = "id") Integer cardId) {
         HistoryResponse historyResponse = cardService.delete(cardId);
         return new ResponseEntity<>(historyResponse, HttpStatus.NO_CONTENT);
     }
