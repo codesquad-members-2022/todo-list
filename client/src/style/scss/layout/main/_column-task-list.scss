@@ -101,10 +101,6 @@
   &--accent-button {
     background-color: $color-blue;
   }
-
-  &--delete-button {
-    cursor: pointer;
-  }
 }
 
 .section__header {
@@ -140,4 +136,17 @@
   .column__task--accent-button {
     background-color: $color-light-blue;
   }
+}
+
+.delete-border {
+  border: 1px solid $color-red;
+}
+
+.delete-background {
+  background-color: $color-white-red;
+}
+
+.delete-hover {
+  cursor: pointer;
+  filter: invert(41%) sepia(95%) saturate(2569%) hue-rotate(332deg) brightness(100%) contrast(110%);
 }

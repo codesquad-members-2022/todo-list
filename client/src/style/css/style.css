@@ -404,9 +404,6 @@ aside {
 .column__task--accent-button {
   background-color: #0075de;
 }
-.column__task--delete-button {
-  cursor: pointer;
-}
 
 .section__header {
   width: 100%;
@@ -441,6 +438,76 @@ aside {
 
 .inactivation .column__task--accent-button {
   background-color: #86c6ff;
+}
+
+.delete-border {
+  border: 1px solid #FF4343;
+}
+
+.delete-background {
+  background-color: #FFEEEC;
+}
+
+.delete-hover {
+  cursor: pointer;
+  filter: invert(41%) sepia(95%) saturate(2569%) hue-rotate(332deg) brightness(100%) contrast(110%);
+}
+
+.dimmed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(28, 28, 28, 0.522);
+  z-index: 2000;
+  top: 0;
+}
+
+.delete {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 400px;
+  height: 138px;
+  background-color: #fff;
+  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  border-radius: 6px;
+  padding: 24px;
+}
+.delete--title {
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+  margin-bottom: 24px;
+}
+.delete--button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+.delete--button button {
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 700;
+  font-style: normal;
+  color: #fff;
+  width: 134px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+}
+.delete--cancel-button {
+  background-color: #e0e0e0;
+  margin-right: 8px;
+}
+.delete--delete-button {
+  background-color: #0075de;
 }
 
 body {
