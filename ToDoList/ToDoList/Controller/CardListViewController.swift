@@ -5,6 +5,7 @@ class CardListViewController: UIViewController {
     
     private var headerTitle = ""
     private let cardManager: CardManagable
+    private var selectIndexPath: (IndexPath, Bool)?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -43,6 +44,9 @@ class CardListViewController: UIViewController {
         self.tableView.register(UINib(nibName: CardListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: CardListTableViewCell.identifier)
         
         self.tableView.delegate = self
+        self.tableView.dragInteractionEnabled = true
+        self.tableView.dropDelegate = self
+        self.tableView.dragDelegate = self
     }
     
     @IBAction func addCardButtonTouched(_ sender: UIButton) {
@@ -155,5 +159,80 @@ extension CardListViewController {
         
         tableView.deleteRows(at: [IndexPath(item: removedCardIndex, section: 0)], with: .automatic)
         updateBadge()
+    }
+//MARK: - Handle Drag and Drop
+extension CardListViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        
+        guard let selectedCard = cardManager.selectCard(index: indexPath.item) as? Card else {
+            return []
+        }
+        let itemProvider = NSItemProvider(object: selectedCard)
+        
+        selectIndexPath = (indexPath, false)
+        
+        return [UIDragItem(itemProvider: itemProvider)]
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        guard let selectIndexPath = selectIndexPath else {return}
+        if !selectIndexPath.1 {
+            if tableView == self.tableView {
+                cardManager.remove(at: selectIndexPath.0.row, isMovingState: true)
+            }
+            
+            tableView.reloadData()
+            updateBadge()
+        }
+    }
+    
+}
+
+extension CardListViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        var destinationIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+        
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        }
+        
+        coordinator.session.loadObjects(ofClass: Card.self) { [self] items in
+            guard let cards = items as? [Card] else {return}
+            var indexPaths = [IndexPath]()
+            
+            for (index, value) in cards.enumerated() {
+                let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
+                
+                if tableView == self.tableView {
+                    cardManager.add(newCard: value, at: indexPath.row)
+                }
+                indexPaths.append(indexPath)
+            }
+            tableView.reloadData()
+            updateBadge()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: Card.self)
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        var dropProposal = UITableViewDropProposal(operation: .cancel)
+        guard session.items.count == 1 else {return dropProposal}
+        
+        if tableView.hasActiveDrag {
+            if tableView.isEditing {
+                dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+            }
+        } else {
+            if let indexPath = selectIndexPath {
+                selectIndexPath = (indexPath.0, true)
+            }
+            
+            return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+        }
+        
+        return dropProposal
     }
 }
