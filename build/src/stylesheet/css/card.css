@@ -33,10 +33,7 @@
   gap: 8px;
   display: flex;
 }
-.alert-buttons {
-  justify-content: flex-end;
-  width: 100%;
-}
+
 .card {
   box-sizing: border-box;
   padding: 16px;
@@ -68,7 +65,17 @@
   gap: 8px;
 }
 
-.card-buttons-wrapper > * {
+.alert-buttons {
+  display: flex;
+  width: 276px;
+  height: 40px;
+  gap: 8px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.card-buttons-wrapper > *,
+.alert-buttons > * {
   width: 134px;
   border-radius: 6px;
   box-sizing: border-box;
