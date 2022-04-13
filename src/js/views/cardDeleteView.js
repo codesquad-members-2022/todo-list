@@ -91,7 +91,7 @@ const handleDeleteAlertClick = (cardDeleteBtn, target, store) => {
 
 const removeCard = (cardDeleteBtn, store) => {
   const cardElement = cardDeleteBtn.parentElement;
-  const cardId = cardElement.dataset.id;
+  const cardId = cardElement.dataset.cardId;
   const columnElement = cardElement.parentElement.parentElement.classList;
   const columnName = [...columnElement].filter(className => className !== 'column').join('');
   cardElement.remove();

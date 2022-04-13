@@ -19,7 +19,7 @@ export const insertAllCardToColumn = (store = store.getStore('main'), parent = d
 
 export const createCardTemplate = task => {
   return `
-    <li class="task__card" data-datetime=${task.datetime} data-id=${task.id}>
+    <li class="task__card" data-datetime=${task.datetime} data-id=${task.cardId}>
     <div class="card__contents">
       <header class="card__contents__header">${task.header}</header>
       <main class="card__contents__main">${task.main}</main>
