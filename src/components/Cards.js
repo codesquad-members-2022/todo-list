@@ -51,6 +51,7 @@ export default class Cards extends Component {
   setEvent() {
     this.addEvent("click", ".card-button-normal", this.clickNormalButtonHandler.bind(this));
     this.addEvent("input", ".card", this.inputHandler.bind(this));
+    this.addEvent("click", ".card-button-accent", this.addNewCard.bind(this));
   }
   clickNormalButtonHandler() {
     const { cards, undoCreateCard } = this.$props;
@@ -64,5 +65,12 @@ export default class Cards extends Component {
     const $button = this.$target.querySelector(".card-button-accent");
 
     $button.disabled = !isInputEvery;
+  }
+  async addNewCard() {
+    const [title, content] = [".card-title-input", ".card-content-input"].map(
+      (selector) => this.$target.querySelector(selector).value
+    );
+    // { title: title, content: content } 카드 데이터 서버로 전송
+    // 서버 데이터로 리렌더링
   }
 }
