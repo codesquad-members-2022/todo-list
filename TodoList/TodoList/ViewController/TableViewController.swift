@@ -25,7 +25,11 @@ final class TableViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+    }
+    
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        self.connectURL()
     }
     
     func setTableAttributes(cell: CollectionCell, index: Int){
@@ -33,13 +37,17 @@ final class TableViewController: UIViewController{
         let table = configureTableView(index: index)
         configureLayout(cell: cell, header: header, tableView: table)
     }
-    
+}
+
+private extension TableViewController{
+    // 서버 통신 및 데이터 변환 작업
     func connectURL(){
         NotificationCenter.default.addObserver(self, selector: #selector(setCardData), name: NSNotification.Name(rawValue: "board"), object: cardBoard)
         self.cardBoard.getAndDivideCard()
     }
     
-    @objc func setCardData(){
+    @objc
+    func setCardData(){
         DispatchQueue.main.async {
             self.todoTable.forEach{
                 $0.reloadData()
@@ -50,9 +58,8 @@ final class TableViewController: UIViewController{
             }
         }
     }
-}
-
-private extension TableViewController{
+    
+    // 내부 View layout 작업
     func configureSectionHeader(index: Int) -> TableHeader{
         let header = TableHeader()
         header.titleLabel.text = todo[index]
