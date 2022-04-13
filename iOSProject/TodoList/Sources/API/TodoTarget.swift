@@ -13,6 +13,7 @@ enum TodoTarget: BaseTarget {
     case deleteCard(_ cardId: Int)
     case editCard(_ cardId: Int, title: String, body: String)
     case addCard(title: String, body: String, column: Column.ColumnType, authorSystem: String)
+    case loadLogs
 }
 
 extension TodoTarget {
@@ -24,6 +25,8 @@ extension TodoTarget {
             return "/cards/\(cardId)"
         case .editCard(let cardId, _, _):
             return "/cards/\(cardId)"
+        case .loadLogs:
+            return "/logs"
         }
     }
     
@@ -37,14 +40,14 @@ extension TodoTarget {
             return ["id": cardId, "column": toColumn.rawValue, "index": index]
         case .editCard( _, let title, let body):
             return ["title": title, "content":body]
-        case .deleteCard:
+        case .deleteCard, .loadLogs:
             return nil
         }
     }
     
     var method: String {
         switch self {
-        case .loadColumns:
+        case .loadColumns, .loadLogs:
             return "GET"
         case .moveCard, .editCard:
             return "PUT"

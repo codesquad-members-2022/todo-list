@@ -38,4 +38,10 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
             .map { result in result.mapValue(cardId) }
             .eraseToAnyPublisher()
     }
+    
+    func loadLogs() -> AnyPublisher<ApiResult<ActivityLog, SessionError>, Never> {
+        request(.loadLogs)
+            .map { $0.decode(ActivityLog.self) }
+            .eraseToAnyPublisher()
+    }
 }
