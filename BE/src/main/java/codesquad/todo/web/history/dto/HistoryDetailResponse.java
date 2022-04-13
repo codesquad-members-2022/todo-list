@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class HistoryDetailResponse {
-    private Long id;
+
     private String author;
     private String title;
     private HistoryType historyType;
@@ -18,7 +18,6 @@ public class HistoryDetailResponse {
     private WorkStatus afterStatus;
 
     public HistoryDetailResponse(History history) {
-        this.id = history.getId();
         this.author = history.getAuthorName();
         this.title = history.getTitle();
         this.historyType = history.getHistoryType();
