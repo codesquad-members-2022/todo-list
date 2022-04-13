@@ -1,5 +1,6 @@
 .column {
   width: 308px;
+  margin: 0 8px;
   &-header {
     display: flex;
     justify-content: space-between;
@@ -36,7 +37,7 @@
     height: 10.5px;
     margin: 0 10px;
     background-repeat: no-repeat;
-    background-image: url(../images/delete.png);
+    background-image: url(../images/cross.png);
     background-size: 10.5px;
   }
 }

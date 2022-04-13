@@ -1,28 +1,36 @@
+import { getColumns, getHistories } from "./api.js";
 import Column from "./components/Column.js";
 import Header from "./components/Header.js";
+import Menu from "./components/Menu.js";
 import Component from "./core/Component.js";
 
 export default class App extends Component {
-  setup() {
+  async setup() {
+    const columns = await getColumns();
+    const histories = await getHistories();
     this.state = {
-      columns: [{ title: "해야할 일" }, { title: "하고 있는 일" }, { title: "완료한 일" }],
+      columns: columns,
+      histories: histories,
     };
+    this.render();
   }
   template() {
     return `
       <header></header>
+      <div class="menu hidden-menu"></div>
       <main class="flex">
-        <div class="column"></div>
-        <div class="column"></div>
-        <div class="column"></div>
-        <div class="aaa"></div>
+        ${this.state.columns
+          ?.map((column) => `<div class="column" data-index="${column.id}"></div>`)
+          .join("")}
       </main>
     `;
   }
   mounted() {
     const $header = this.$target.querySelector("header");
+    const $menu = this.$target.querySelector(".menu");
     const $columns = this.$target.querySelectorAll(".column");
     new Header($header);
+    new Menu($menu, {}, this.state.histories);
     $columns.forEach(($column, index) => {
       new Column($column, null, this.state.columns[index]);
     });
