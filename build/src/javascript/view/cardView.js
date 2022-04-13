@@ -227,14 +227,14 @@ function showAlert({ target }) {
   $alert.style.display = "flex";
   const $selectedCard = target.closest(".card");
   const $editBtn = document.querySelector("#alert-edit-btn");
-  $editBtn.addEventListener("click", function () {
+  const handeDeleteEvent = function () {
     deleteCardData($selectedCard);
     removeCard({ target });
     blockAlert();
-  });
-  $editBtn.removeEventListener("click", function () {
-    deleteCardData($selectedCard);
-    removeCard({ target });
-    blockAlert();
+  };
+  const bindFunc = handeDeleteEvent.bind({ target });
+  $editBtn.addEventListener("click", bindFunc);
+  $alert.addEventListener("mouseleave", () => {
+    $editBtn.removeEventListener("click", bindFunc);
   });
 }
