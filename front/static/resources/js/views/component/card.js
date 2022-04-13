@@ -3,9 +3,13 @@ class Card {
     this.props = props;
   }
 
+  getCardFormElement(columnName) {
+    return document.querySelector(`form[data-status=${columnName}]`);
+  }
+
   writableTemplate() {
     return `<li class="card card--write">
-          <form action="">
+          <form data-status="${this.props.cardStatus}" action="">
             <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" class="card__title" />
             <textarea
               name=""
@@ -16,8 +20,8 @@ class Card {
             ></textarea>
             <span class="card__writer">도니</span>
             <div class="button-wrap card__button-wrap">
-              <button type="button" class="button--cancle card__button--cancle">취소</button>
-              <button type="button" class="button--submit card__button--submit">등록</button>
+              <button type="button" class="button--cancle card__button--cancle" data-status="${this.props.cardStatus}">취소</button>
+              <button type="button" class="button--submit card__button--submit" data-status="${this.props.cardStatus}">등록</button>
             </div>
           </form>
         </li>`;

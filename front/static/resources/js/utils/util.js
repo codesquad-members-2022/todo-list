@@ -1,9 +1,5 @@
-const isObjEmpty = (obj) => {
-  for (var prop in obj) {
-    if (obj.hasOwnProperty(prop)) return false;
-  }
-
-  return true;
+const isEmptyInput = (input) => {
+  if (!input) return true;
 }
 
-export { isObjEmpty }
+export { isEmptyInput };
