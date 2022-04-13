@@ -6,8 +6,8 @@ class BoardStore {
     this.observers = new Set();
   }
 
-  async getInitialData() {
-    return await fetchRequest('./mockData.json');
+  getInitialData() {
+    return fetchRequest('./mockData.json');
   }
 
   async initState() {
@@ -31,7 +31,7 @@ class BoardStore {
   }
 
   async observe() {
-    await this.setState();
+    await this.initState();
     this.observers.forEach(observer => {
       observer.notify(this.boardState);
     });

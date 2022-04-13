@@ -20,7 +20,7 @@ class BoardViewModel {
     return columnState;
   }
 
-  initState() {
+  setState() {
     this.boardState = this.parseStoreState();
   }
 
@@ -31,13 +31,15 @@ class BoardViewModel {
   notify() {
     this.setState();
     this.observers.forEach(observer => {
-      observer.render();
+      observer.setColumns();
+      const columnsTemplate = observer.createColumnsTemplate();
+      observer.board.render(columnsTemplate);
     });
   }
 
   async init() {
     await this.store.init();
-    this.initState();
+    this.setState();
   }
 }
 

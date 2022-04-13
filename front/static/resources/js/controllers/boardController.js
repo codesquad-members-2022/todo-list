@@ -1,4 +1,3 @@
-import { fetchRequest, HTTP_REQUEST } from '../utils/fetch.js';
 import { checkBtnType, isEmptyInput } from '../utils/util.js';
 import { BoardViewModel } from '../viewModels/boardViewModel.js';
 import { Board } from '../views/component/board.js';
@@ -139,6 +138,8 @@ class BoardController {
     if (target.classList.contains('card__button--submit')) {
       const newCard = this.createNewCard(target);
       this.viewModel.store.postRequest(newCard);
+      this.viewModel.store.observe();
+      this.viewModel.notify();
     }
   }
 
@@ -167,6 +168,7 @@ class BoardController {
   async init() {
     await this.viewModel.init();
     this.setColumns();
+    console.log(this.viewModel.boardState)
     const columnsTemplate = this.createColumnsTemplate();
     this.board = new Board();
     this.board.render(columnsTemplate);
