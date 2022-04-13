@@ -31,7 +31,9 @@ public class Log {
 				return sb.toString();
 
 			case ("remove"):
-				sb.append(title)
+				sb.append(currentColumnName)
+					.append("의 ")
+					.append(title)
 					.append("이(가) 삭제되었습니다.");
 				return sb.toString();
 

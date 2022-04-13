@@ -1,6 +1,7 @@
 package com.example.backend.web.controller;
 
 import com.example.backend.domain.ActionType;
+import com.example.backend.domain.Card;
 import com.example.backend.service.LogService;
 import com.example.backend.web.dto.*;
 import com.example.backend.service.CardService;
@@ -45,6 +46,8 @@ public class CardsController {
     @ApiOperation(value = "Card 삭제")
     @DeleteMapping("/cards/{id}")
     public Long delete(@PathVariable Long id) {
+        Card card = cardService.findById(id);
+        logService.save(new LogSaveRequestDto(card.getTitle(), null, card.getColumnName(), ActionType.REMOVE));
         return cardService.delete(id);
     }
 
