@@ -47,3 +47,13 @@ export function formatRelativeDate(date = new Date()) {
     dateStyle: "medium",
   });
 }
+
+export function getParentElementByDataset(target, dataName) {
+  const parentEl = target.parentElement;
+  const dataValue = parentEl.dataset[dataName];
+
+  if (dataValue) {
+    return parentEl;
+  }
+  return getParentElementByDataset(parentEl, dataName);
+}
