@@ -6,7 +6,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-//@NoArgsConstructor
 public class Member {
 
 	private Long id;
