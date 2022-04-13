@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codesquad.aos.todolist.R
+import com.codesquad.aos.todolist.common.ViewModelFactory
 import com.codesquad.aos.todolist.common.utils.VerticalItemDecorator
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ActivityMainBinding
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     private lateinit var completeCardListAdapter: TodoCardListAdapter
     private lateinit var logCardListAdapter: LogCardListAdapter
 
-    private val viewModel: TodoViewModel by viewModels()
+    private val viewModel: TodoViewModel by viewModels {ViewModelFactory(this)}
     private val dragListener = DragListener(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +52,9 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         setProgressRecyclerView()
         setCompleteRecyclerView()
         setLogRecyclerView()
+
+        //
+        viewModel.getCardItems()
     }
 
     private fun setTodoRecyclerView() {
@@ -76,8 +80,9 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
             false
         }
 
-        viewModel.addTodo("rvTODO", "TAG 1")
-        viewModel.addTodo("rvTODO", "TAG 2")
+        // 더미데이터
+        //viewModel.addTodo("rvTODO", "TAG 1")
+        //viewModel.addTodo("rvTODO", "TAG 2")
     }
 
     private fun setProgressRecyclerView() {
@@ -91,7 +96,8 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
         binding.rvProgress.setOnDragListener(progressCardListAdapter.dragInstance)
 
-        viewModel.addProgress("rvProgress", "TAG 1")
+        // 더미데이터
+        //viewModel.addProgress("rvProgress", "TAG 1")
     }
 
     private fun setCompleteRecyclerView() {
@@ -105,7 +111,8 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
         binding.rvComplete.setOnDragListener(completeCardListAdapter.dragInstance)
 
-        viewModel.addComplete("rvComplete", "TAG 1")
+        // 더미데이터
+        //viewModel.addComplete("rvComplete", "TAG 1")
     }
 
     private fun setLogRecyclerView() {

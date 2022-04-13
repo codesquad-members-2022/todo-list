@@ -84,7 +84,7 @@ class TodoCardListAdapter(
                 oldItem: Card,
                 newItem: Card
             ): Boolean {  // id, 주민번호 등 특징적인 것으로 비교
-                return oldItem.id == newItem.id
+                return oldItem.cardId == newItem.cardId
             }
 
             override fun areContentsTheSame(
