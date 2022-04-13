@@ -10,7 +10,6 @@ export default class CardView {
     const cancelBtn = writeCard.querySelector('.normal_btn');
     writeCard.addEventListener('input', cardInputHandler);
     accentBtn.addEventListener('click', cardAddHandler);
-    // cancelBtn.addEventListener('click', cardCancelHandler);
   }
 
   renderAddCard(targetColumn, cardId) {
