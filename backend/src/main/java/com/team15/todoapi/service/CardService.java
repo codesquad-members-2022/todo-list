@@ -24,6 +24,7 @@ public class CardService {
 		Member member = selectMemberInfo(userId);
 
 		List<Card> cards = cardRepository.findAll(member.getId());
+
 		return cards.stream().map(CardResponse::from).collect(Collectors.toList());
 	}
 

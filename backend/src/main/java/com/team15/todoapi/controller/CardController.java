@@ -21,7 +21,7 @@ public class CardController {
 
 	private final CardService cardService;
 
-	@GetMapping("")
+	@GetMapping()
 	public List<CardResponse> retrieveList(@RequestParam String userId){
 		return cardService.findAll(userId);
 	}
