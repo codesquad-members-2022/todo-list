@@ -1,3 +1,42 @@
+.alert {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(73, 68, 68, 0.5);
+  z-index: 5;
+  display: none;
+}
+.alert-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 400px;
+  height: 138px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background: #ffffff;
+  padding: 24px;
+  gap: 24px;
+}
+.alert-text-wrap {
+  display: flex;
+  justify-content: flex-start;
+}
+.alert-text {
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.card-buttons-wrapper {
+  width: 276px;
+  height: 40px;
+  gap: 8px;
+  display: flex;
+}
+.alert-buttons {
+  justify-content: flex-end;
+  width: 100%;
+}
 .card {
   box-sizing: border-box;
   padding: 16px;

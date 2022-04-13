@@ -1,8 +1,9 @@
 import { removeText } from "../util/util.js";
 import { addCardDoubleClickEvent } from "./dblClickView.js";
 import { addServerCardData } from "../controller/cardController.js";
+import { showAlert } from "./deleteCardView.js";
 
-function init() {
+async function init() {
   addPlusBtnEvent();
 }
 function addPlusBtnEvent() {
@@ -12,7 +13,8 @@ function addPlusBtnEvent() {
 
 async function renderRegisterCard() {
   const $cards = document.querySelector("#have-to-do-cards");
-  const todoCount = $cards.children.length;
+  const $allCards = document.querySelectorAll(".card");
+  const todoCount = $allCards.length;
   const registerBoxTemp = `
     <div class="card"  id="card${todoCount + 1}">
       <div class="card-contents-wrapper row-sort">
@@ -23,7 +25,8 @@ async function renderRegisterCard() {
           >
             제목을 입력하세요
           </div>
-          <div class="card-details"  contenteditable="true">
+          <div class="card-details"
+          contentEditable="true">
             내용을 입력하세요
           </div>
         </div>
@@ -44,6 +47,8 @@ async function renderRegisterCard() {
   $cards.insertAdjacentHTML("afterbegin", registerBoxTemp);
   const cardId = `#card${todoCount + 1}`;
   const $card = document.querySelector(cardId);
+  const $crossBtn = $card.querySelector(".card-cross-button");
+  $crossBtn.style.display = "none";
   handleRegisterCardEvent($cards, $card);
 }
 
@@ -53,10 +58,12 @@ function handleRegisterCardEvent($cards, $card) {
   const $firstCard = $cards.firstElementChild;
   applyRegisterBoxStyle($firstCard);
   displayButtons($card);
+  const $crossBtn = $card.querySelector(".card-cross-button");
   const $cancelBtn = $card.querySelector(".cancel-button");
   $cardTextArea.addEventListener("click", removeText);
   $registerBtn.addEventListener("click", updateCard);
   $cancelBtn.addEventListener("click", removeCard);
+  $crossBtn.addEventListener("click", showAlert);
 }
 
 function displayButtons($card) {
@@ -106,14 +113,14 @@ function isTextLengthExceeded(text) {
 }
 
 function applyCardStyle($card) {
-  const $buttonWrpper = $card.querySelector(".card-buttons-wrapper");
+  const $buttonWrapper = $card.querySelector(".card-buttons-wrapper");
+  const $crossBtn = $card.querySelector(".card-cross-button");
+  $crossBtn.style.display = "block";
   Object.assign($card.style, {
     opacity: 1,
     border: "none",
   });
-  Object.assign($buttonWrpper.style, {
-    display: "none",
-  });
+  $buttonWrapper.style.display = "none";
 }
 
 function setTextAreaContenteditable($card, boolean) {
@@ -160,7 +167,7 @@ function addRegisterBtnsListener($column) {
   }
 }
 
-function removeCard({ target }) {
+export function removeCard({ target }) {
   const $selectedCard = target.closest(".card");
   $selectedCard.remove();
 }
