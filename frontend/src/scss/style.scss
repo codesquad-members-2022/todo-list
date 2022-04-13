@@ -299,3 +299,10 @@ body {
     }
   }
 }
+
+.card {
+  &.shadow {
+    background-color: #ffffffba;
+    border: 1px solid #86c6ff;
+  }
+}
