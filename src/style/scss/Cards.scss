@@ -1,3 +1,6 @@
+$blue: #0075de;
+$lightblue: #86c6ff;
+
 @mixin titleText {
   font-weight: 700;
   font-size: 16px;
@@ -27,7 +30,7 @@
   }
   &[data-card-state="create"] {
     background: #ffffff;
-    border: 1px solid #0075de;
+    border: 1px solid $blue;
   }
   input {
     background-color: transparent;
@@ -63,11 +66,16 @@
     color: #828282;
   }
   &-button-accent {
-    background: #0075de;
+    background: $blue;
     font-weight: 700;
     font-size: 14px;
     line-height: 20px;
+    background: $blue;
     color: #ffffff;
+    &:disabled {
+      background: $lightblue;
+      color: rgba(255, 255, 255, 0.4);
+    }
   }
   &-button-delete {
     position: absolute;

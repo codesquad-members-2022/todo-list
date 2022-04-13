@@ -30,10 +30,35 @@ export default class Column extends Component {
   mounted() {
     const { cards } = this;
     const $cardWrapper = this.$target.querySelector(".card-wrapper");
-    new Cards($cardWrapper, { cards });
+    new Cards($cardWrapper, { cards, undoCreateCard: this.undoCreateCard.bind(this) });
   }
   get cards() {
     const { cards } = this.state;
     return cards;
+  }
+  setEvent() {
+    this.addEvent("click", ".column-plus-button", this.clickPlusButtonHandler.bind(this));
+  }
+  clickPlusButtonHandler() {
+    if (this.state.cards[0]?.cardState === "create") {
+      this.undoCreateCard();
+    } else {
+      this.createCard();
+    }
+  }
+  createCard() {
+    const _cards = this.state.cards;
+    _cards.unshift({
+      title: "",
+      content: "",
+      author: "나",
+      cardState: "create",
+    });
+    this.setState({ cards: _cards });
+  }
+  undoCreateCard() {
+    const _cards = this.state.cards;
+    _cards.shift();
+    this.setState({ cards: _cards });
   }
 }
