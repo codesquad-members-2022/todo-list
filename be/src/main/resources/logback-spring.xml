@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+  <springProperty name="filePath" source="logging.file.path"/>
+  <property name="fileName"		value="todolist" />
+  <property name="maxHistory"		value="7" />
+  <property name="maxFileSize"	value="5KB" />
+  <property name="totalSizeCap"	value="1GB" />
+  <property name="consolePattern"	value="%d{HH:mm:ss.SSS} [%-5level] [%thread] [%logger{36}] - %m%n"/>
+  <property name="filePattern"    value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] [%logger{36}] - %m%n"/>
+
+  <!-- Log Appender Module -->
+  <springProfile name="console-log">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <pattern>${consolePattern}</pattern>
+      </encoder>
+    </appender>
+  </springProfile>
+
+  <springProfile name="file-log">
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>${filePath}//${fileName}.log</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+        <fileNamePattern>${filePath}//LOG_%d{yyyy-MM-dd}_${fileName}.log.%i.zip</fileNamePattern>
+        <maxHistory>${maxHistory}</maxHistory>
+        <maxFileSize>${maxFileSize}</maxFileSize>
+        <totalSizeCap>${totalSizeCap}</totalSizeCap>
+      </rollingPolicy>
+      <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <pattern>${filePattern}</pattern>
+      </encoder>
+    </appender>
+  </springProfile>
+
+  <!-- Log Level Module -->
+  <springProfile name="high-level-log">
+    <logger name="root" level="error" />
+    <logger name="com.ijava.todolist" level="error"/>
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="warn"/>
+  </springProfile>
+
+  <springProfile name="low-level-log">
+    <logger name="root" level="info" />
+    <logger name="com.ijava.todolist" level="debug"/>
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="debug"/>
+  </springProfile>
+
+  <root level="info">
+    <springProfile name="console-log">
+      <appender-ref ref="console" />
+    </springProfile>
+
+    <springProfile name="file-log">
+      <appender-ref ref="file" />
+    </springProfile>
+  </root>
+
+</configuration>
