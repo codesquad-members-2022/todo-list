@@ -13,45 +13,61 @@ import team07.todolist.repository.CardRepository;
 public class CardService {
 
 	private CardRepository cardRepository;
+	private ActivityLogService activityLogService;
 
-	public CardService(CardRepository cardRepository) {
+	public CardService(CardRepository cardRepository, ActivityLogService activityLogService) {
 		this.cardRepository = cardRepository;
+		this.activityLogService = activityLogService;
 	}
 
 	public void save(RequestCard requestCard) {
-		Card newCard = new Card(requestCard.getUserId(), requestCard.getTitle(),
-			requestCard.getContent(), requestCard.getRow(),
-			requestCard.getStatus());
+		Card newCard = new Card.Builder().userId(requestCard.getUserId())
+			.title(requestCard.getTitle())
+			.content(requestCard.getContent())
+			.row(requestCard.getRow())
+			.status(requestCard.getStatus())
+			.build();
+
 		int status = requestCard.getStatus();
 		cardRepository.save(newCard, status);
+		activityLogService.saveLog(requestCard);
 	}
 
 	public Card delete(Long id) {
+		activityLogService.deleteLog(cardRepository.findById(id));
 		return cardRepository.delete(id);
 	}
 
-	public ResponseCard dragAndDrop(Long id, RequestCard requestCard) {
+	public ResponseCard dragAndDropHorizon(Long id, RequestCard requestCard) {
+		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getRow(),
+			requestCard.getStatus());
+		activityLogService.dragAndDropLog(cardRepository.findById(id), requestCard);
+		return updateCard.createResponseCard();
+	}
 
-		Card card = cardRepository.findById(id);
+	public ResponseCard dragAndDropVertical(Long id, RequestCard requestCard) {
 
-		if (card.isDifferentStatus(requestCard.getStatus())) {
-			// 만약 status가 다르다면
-			// -> 왼쪽 오른쪽으로 드래그 앤 드랍 progress -> done    update status를 실행시킨다.
-			Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getStatus());
-			return updateCard.createResponseCard();
-		}
-
-		// 만약 row만 다르다면 -> progress -> progress로 이동한 경우
-		Card updateCard = cardRepository.updateRow(id);
+//		Card changedCard = new Card.Builder(cardRepository.findById(id))
+//			.row(requestCard.getRow())
+//			.status(requestCard.getStatus())
+//			.build();
+		Card originCard = cardRepository.findById(id);
+		Card updateCard = cardRepository.updateStatusAndRow(id, requestCard.getRow(), requestCard.getStatus());
+		activityLogService.dragAndDropLog(originCard, requestCard);
 		return updateCard.createResponseCard();
 	}
 
 	public ResponseCard changeText(Long id, PatchCard patchCard) {
-		//todo
-		// title or content가 바뀌었다면 드래그 앤 드랍이 아닌 내용만 수정한 상황
-		cardRepository.updateText(id);
+		Card card = new Card.Builder(cardRepository.findById(id))
+			.title(patchCard.getTitle())
+			.content(patchCard.getContent())
+			.build();
 
-		return null;
+		Card originCard = cardRepository.findById(id);
+		Card updateCard = cardRepository.updateText(id, card);
+		activityLogService.changeTextLog(originCard, patchCard);
+
+		return updateCard.createResponseCard();
 	}
 
 	public List<ResponseCard> findAll() {
@@ -61,4 +77,7 @@ public class CardService {
 			.collect(Collectors.toList());
 	}
 
+	public void reset() {
+		cardRepository.reset();
+	}
 }

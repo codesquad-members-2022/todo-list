@@ -19,10 +19,10 @@
 | GET | /list    | 조회 |
 | POST | /list  |  등록  |
 | DELETE  | /list/{id}  |  삭제  |
-| POST | /list/{id}   |  드래그 앤 드랍 변경  |
+| POST | /list/vertical/{id}   | 상 하 드래그 앤 드랍 |
+| POST | /list/horizon/{id}   | 좌 우 드래그 앤 드랍 |
 | PATCH | /list/{id} | 제목, 내용 변경 |
 | GET | /list/menu   |  활동 로그  |
-
 
 <br>
 
@@ -36,7 +36,11 @@
 
 <br>
 
-POST /list 일 때의 API
+POST /list,
+
+DELETE /list/{id} 
+
+PATCH /list/{id} 에서의 API
 
 ```
 {
@@ -50,11 +54,11 @@ POST /list 일 때의 API
 
 <br>
 
-POST, DELETE /list/{id} 와 response의 API
+위의 요청을 제외한 모든 요청 API 방식
 
 ```
 {
-    "id": 1,
+    "id": 1,   // 요청할 카드의 고유한 pk값 (카드의 등록순서와 동일)
     "userId": "iOS",
     "title": "제목1",
     "content": "내용1",
