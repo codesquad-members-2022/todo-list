@@ -35,6 +35,7 @@ export class UpdateCard {
     if (containClass(e.target, 'update-delete-btn')) {
       this.cancelUpdateHandler(e.target);
     }
+
     if (containClass(e.target, 'update-btn')) {
       e.preventDefault();
       this.updateCardHandler(e.target);

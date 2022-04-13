@@ -9,6 +9,7 @@ import { AddCard } from './todos/addCard.js';
 import { DeleteCard } from './todos/deleteCard.js';
 import { UpdateCard } from './todos/updateCard.js';
 import { DragAndDrop } from './todos/dragAndDrop.js';
+import { MenuBar } from './todos/menuBar.js';
 
 export const init = () => {
   const initTodos = new InitTodos(createColumnTemplate);
@@ -28,4 +29,6 @@ export const init = () => {
     createPostedCardTemplate
   );
   updateCard.init();
+  const mainMenu = new MenuBar();
+  mainMenu.init();
 };
