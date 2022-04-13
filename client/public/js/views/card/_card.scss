@@ -70,6 +70,10 @@
     min-height: 135px;
   }
 
+  &__register-form {
+    margin: 0 auto;
+  }
+
   &__btn {
     @include flex();
     gap: 8px;
