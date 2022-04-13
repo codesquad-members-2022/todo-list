@@ -20,11 +20,13 @@ fun stringFormat(view: TextView, history: History) {
             view.context.getString(R.string.action_default, nowStatus, title, "삭제").htmlToString()
         UPDATE -> view.text =
             view.context.getString(R.string.action_default, nowStatus, title, "변경").htmlToString()
-        MOVE -> view.text = view.context.getString(R.string.action_move,
+        MOVE -> view.text = view.context.getString(
+            R.string.action_move,
             title,
             beforeStatus,
             nowStatus,
-            "이동").htmlToString()
+            "이동"
+        ).htmlToString()
     }
 }
 

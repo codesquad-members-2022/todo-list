@@ -1,6 +1,8 @@
 package com.example.todolist.repository
 
 import com.example.todolist.model.*
+import com.example.todolist.model.response.TaskDetailResponse
+import com.example.todolist.model.response.TasksResponse
 
 class TaskRepository {
 
@@ -10,32 +12,43 @@ class TaskRepository {
     private val tasks = TasksResponse(
         mutableListOf(
             TaskDetailResponse(1, "GitHub 공부하기", "add, commit, push", Status.TODO, "Android"),
-            TaskDetailResponse(2,
+            TaskDetailResponse(
+                2,
                 "블로그에 포스팅할 것",
                 "• GitHub 공부내용\n• 모던 자바스크립트 1장 공부내용",
                 Status.TODO,
-                "Android"),
-            TaskDetailResponse(3, "HTML/CSS", "input 태그 실습", Status.TODO, "Android")),
+                "Android"
+            ),
+            TaskDetailResponse(3, "HTML/CSS", "input 태그 실습", Status.TODO, "Android")
+        ),
         mutableListOf(
-            TaskDetailResponse(4,
+            TaskDetailResponse(
+                4,
                 "GitHub 공부하기",
                 "add, commit, push",
                 Status.IN_PROGRESS,
-                "Android"),
-            TaskDetailResponse(5,
+                "Android"
+            ),
+            TaskDetailResponse(
+                5,
                 "블로그에 포스팅할 것",
                 "• GitHub 공부내용\n• 모던 자바스크립트 1장 공부내용",
                 Status.IN_PROGRESS,
-                "Android"),
-            TaskDetailResponse(6, "HTML/CSS", "input 태그 실습", Status.IN_PROGRESS, "Android")),
+                "Android"
+            ),
+            TaskDetailResponse(6, "HTML/CSS", "input 태그 실습", Status.IN_PROGRESS, "Android")
+        ),
         mutableListOf(
             TaskDetailResponse(7, "GitHub 공부하기", "add, commit, push", Status.DONE, "Android"),
-            TaskDetailResponse(8,
+            TaskDetailResponse(
+                8,
                 "블로그에 포스팅할 것",
                 "• GitHub 공부내용\n• 모던 자바스크립트 1장 공부내용",
                 Status.DONE,
-                "Android"),
-            TaskDetailResponse(9, "HTML/CSS", "input 태그 실습", Status.DONE, "Android")),
+                "Android"
+            ),
+            TaskDetailResponse(9, "HTML/CSS", "input 태그 실습", Status.DONE, "Android")
+        ),
     )
 
     fun getTasks(): TasksResponse {
@@ -44,18 +57,29 @@ class TaskRepository {
 
     fun addTask(task: Task): TasksResponse {
         when (task.status) {
-            Status.TODO -> tasks.todo.add(0, TaskDetailResponse(todoIndex++,
-                task.title,
-                task.content,
-                task.status))
-            Status.IN_PROGRESS -> tasks.inProgress.add(0, TaskDetailResponse(inProgressIndex++,
-                task.title,
-                task.content,
-                task.status))
-            Status.DONE -> tasks.done.add(0, TaskDetailResponse(doneIndex++,
-                task.title,
-                task.content,
-                task.status)
+            Status.TODO -> tasks.todo.add(
+                0, TaskDetailResponse(
+                    todoIndex++,
+                    task.title,
+                    task.content,
+                    task.status
+                )
+            )
+            Status.IN_PROGRESS -> tasks.inProgress.add(
+                0, TaskDetailResponse(
+                    inProgressIndex++,
+                    task.title,
+                    task.content,
+                    task.status
+                )
+            )
+            Status.DONE -> tasks.done.add(
+                0, TaskDetailResponse(
+                    doneIndex++,
+                    task.title,
+                    task.content,
+                    task.status
+                )
             )
         }
         return tasks
@@ -83,9 +107,9 @@ class TaskRepository {
     }
 
     fun moveDone(task: TaskDetailResponse): TasksResponse {
-        deleteTask(task)
         if (task.status != Status.DONE) {
             tasks.done.add(0, task.copy(status = Status.DONE))
+            deleteTask(task)
         }
         return tasks
     }

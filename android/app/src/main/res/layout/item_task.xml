@@ -7,7 +7,7 @@
 
         <variable
             name="task"
-            type="com.example.todolist.model.TaskDetailResponse" />
+            type="com.example.todolist.model.response.TaskDetailResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

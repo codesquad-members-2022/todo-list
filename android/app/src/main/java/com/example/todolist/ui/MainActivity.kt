@@ -8,7 +8,9 @@ import androidx.databinding.DataBindingUtil
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.model.Status
-import com.example.todolist.model.TaskDetailResponse
+import com.example.todolist.model.Task
+import com.example.todolist.model.request.ModifyTaskRequest
+import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.ui.common.ViewModelFactory
 
 class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
@@ -37,7 +39,10 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
             }
 
             includeInProgress.btnAdd.setOnClickListener {
-                NewTaskDialogFragment(Status.IN_PROGRESS).show(supportFragmentManager, "inProgressDialog")
+                NewTaskDialogFragment(Status.IN_PROGRESS).show(
+                    supportFragmentManager,
+                    "inProgressDialog"
+                )
             }
 
             includeDone.btnAdd.setOnClickListener {
