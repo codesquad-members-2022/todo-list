@@ -37,6 +37,7 @@
 		D25BF80727FE7D5A0010DE50 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80227FE7D5A0010DE50 /* NotoSansKR-Bold.otf */; };
 		D25BF80827FE7D5A0010DE50 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80327FE7D5A0010DE50 /* NotoSansKR-Medium.otf */; };
 		D25BF80927FE7D5A0010DE50 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D25BF80427FE7D5A0010DE50 /* NotoSansKR-Regular.otf */; };
+		D2630D272806904E0046D695 /* ColorMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2630D262806904E0046D695 /* ColorMaker.swift */; };
 		D2657C1927FAE0EF004AF1E7 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */; };
 		D274DE7F2803C4A9009CD620 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274DE7E2803C4A9009CD620 /* TableViewController.swift */; };
 		D299330A27FBD83000D79C87 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299330927FBD83000D79C87 /* HeaderViewController.swift */; };
@@ -89,6 +90,7 @@
 		D25BF80227FE7D5A0010DE50 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		D25BF80327FE7D5A0010DE50 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		D25BF80427FE7D5A0010DE50 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		D2630D262806904E0046D695 /* ColorMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMaker.swift; sourceTree = "<group>"; };
 		D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		D274DE7E2803C4A9009CD620 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		D299330927FBD83000D79C87 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				D2589C7B280513AE005BA2B6 /* JsonConverter.swift */,
 				B3BAE2C227FF2987005E7ED2 /* URLManager.swift */,
+				D2630D262806904E0046D695 /* ColorMaker.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				B3834AD5280662900003A831 /* TableHeaderDelegate.swift in Sources */,
 				B32A875A28041C0F00E8B180 /* HeaderViewDelegate.swift in Sources */,
 				B3BAE2C327FF2987005E7ED2 /* URLManager.swift in Sources */,
+				D2630D272806904E0046D695 /* ColorMaker.swift in Sources */,
 				B3BAE2C527FF2A3C005E7ED2 /* Board.swift in Sources */,
 				B3834AD728066EE70003A831 /* AddCardViewController.swift in Sources */,
 				D2589C7C280513AE005BA2B6 /* JsonConverter.swift in Sources */,

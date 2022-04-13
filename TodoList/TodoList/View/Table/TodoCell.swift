@@ -15,13 +15,13 @@ final class TodoCell: UITableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1)
+        self.backgroundColor = ColorMaker.lightGray0.getRawValue()
         setComponents()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1)
+        self.backgroundColor = ColorMaker.lightGray0.getRawValue()
         setComponents()
     }
     
@@ -50,7 +50,7 @@ private extension TodoCell{
 
     func configureTitleLabel(){
         title = UILabel()
-        title.textColor = UIColor(red: 0.004, green: 0.004, blue: 0.004, alpha: 1)
+        title.textColor = ColorMaker.black.getRawValue()
         title.font = UIFont(name: "NotoSansKR-Bold", size: 16)
         
         self.backView.addSubview(title)
@@ -59,7 +59,7 @@ private extension TodoCell{
     func configureContentLabel(){
         contents = UILabel()
         contents.numberOfLines = 3
-        contents.textColor = UIColor(red: 0.004, green: 0.004, blue: 0.004, alpha: 1)
+        contents.textColor = ColorMaker.black.getRawValue()
         contents.font = UIFont(name: "NotoSansKR-Regular", size: 14)
         
         self.backView.addSubview(contents)
@@ -68,7 +68,7 @@ private extension TodoCell{
     func configureAuthor(){
         author = UILabel()
         author.text = "author by iOS"
-        author.textColor = UIColor(red: 0.741, green: 0.741, blue: 0.741, alpha: 1)
+        author.textColor = ColorMaker.lightGray1.getRawValue()
         author.font = UIFont(name: "NotoSansKR-Regular", size: 12)
         
         self.backView.addSubview(author)
