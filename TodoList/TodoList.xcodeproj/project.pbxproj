@@ -171,6 +171,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		D21943D72806A6250099419F /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
 		D2589C792805136F005BA2B6 /* ActivityMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,8 +247,8 @@
 		D299331027FC064C00D79C87 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D21943D72806A6250099419F /* Header */,
 				B3834ADA2806A5660003A831 /* Modal */,
-				D2657C1827FAE0EF004AF1E7 /* HeaderView.swift */,
 				D2589C792805136F005BA2B6 /* ActivityMenu */,
 				D299331A27FC371100D79C87 /* Table */,
 				D299331927FC370800D79C87 /* Collection */,

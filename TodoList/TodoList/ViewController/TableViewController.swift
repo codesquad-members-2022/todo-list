@@ -72,6 +72,7 @@ private extension TableViewController{
         header.titleLabel.text = todo[index]
         header.numberLabel.text = String(cardBoard[index].count)
         
+        header.delegate = self
         sectionHeader.append(header)
         
         return header
