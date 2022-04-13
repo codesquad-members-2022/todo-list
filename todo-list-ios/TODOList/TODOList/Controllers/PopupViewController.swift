@@ -18,6 +18,8 @@ class PopupViewController: UIViewController {
         
         addViews()
         setTapGesture()
+        
+        self.popupCardView.delegate = self
     }
     
     
@@ -34,6 +36,18 @@ class PopupViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
 }
+
+
+extension PopupViewController: PopupCardViewDelegate {
+    func popupCardCancelButtonDidTap() {
+        dismiss(animated: true)
+    }
+    
+    func popupCardOkButtonDidTap() {
+        // TODO: Server에 데이터 POST
+    }
+}
+
 
 
 extension PopupViewController: UIGestureRecognizerDelegate {

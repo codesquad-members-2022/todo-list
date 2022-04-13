@@ -2,6 +2,8 @@ import UIKit
 
 class PopupCardView: UIView {
 
+    weak var delegate: PopupCardViewDelegate?
+    
     private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +46,7 @@ class PopupCardView: UIView {
         return stackView
     }()
     
-    private let cancelButton: UIButton = {
+    lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("취소", for: .normal)
@@ -52,10 +54,13 @@ class PopupCardView: UIView {
         button.setTitleColor(UIColor(named: ColorAsset.gray3), for: .normal)
         button.titleLabel?.font = UIFont(name: FontFactory.normal, size: 14)
         button.layer.cornerRadius = 6
+        button.addAction(UIAction(handler: { _ in
+            self.delegate?.popupCardCancelButtonDidTap()
+        }), for: .touchUpInside)
         return button
     }()
     
-    private let okButton: UIButton = {
+    lazy var okButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("등록", for: .normal)
@@ -63,6 +68,9 @@ class PopupCardView: UIView {
         button.setTitleColor(UIColor(named: ColorAsset.white), for: .normal)
         button.titleLabel?.font = UIFont(name: FontFactory.normal, size: 14)
         button.layer.cornerRadius = 6
+        button.addAction(UIAction(handler: { _ in
+            self.delegate?.popupCardOkButtonDidTap()
+        }), for: .touchUpInside)
         return button
     }()
     

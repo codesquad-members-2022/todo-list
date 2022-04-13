@@ -40,6 +40,7 @@
 		D0FAF3D12806A31B0096A520 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D02806A31B0096A520 /* EndPoint.swift */; };
 		D0FAF3D32806A3FF0096A520 /* HTTPRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */; };
 		D0FAF3D52806F7910096A520 /* MemoContainerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */; };
+		D0FAF3D9280724390096A520 /* PopupCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		D0FAF3D02806A31B0096A520 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestHandler.swift; sourceTree = "<group>"; };
 		D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerViewDelegate.swift; sourceTree = "<group>"; };
+		D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupCardViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 				D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */,
 				B5EC66F427FEC3F90042EFCF /* HeaderViewDelegate.swift */,
 				D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */,
+				D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				B5EC66F027FC0D5D0042EFCF /* MemoCanvasView.swift in Sources */,
 				D019328E27FFD12E00A9CE20 /* MemoCanvasViewController.swift in Sources */,
 				B5EC66EC27FC0CD10042EFCF /* HeaderView.swift in Sources */,
+				D0FAF3D9280724390096A520 /* PopupCardViewDelegate.swift in Sources */,
 				D0FAF3D32806A3FF0096A520 /* HTTPRequestHandler.swift in Sources */,
 				D0FAF3C428069CF90096A520 /* HistoryUseCase.swift in Sources */,
 				D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */,
