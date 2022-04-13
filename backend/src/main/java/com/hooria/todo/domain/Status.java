@@ -21,4 +21,12 @@ public enum Status {
             .findFirst()
             .orElse(NONE);
     }
+
+    public static Status of(String status) {
+        try {
+            return Status.valueOf(status);
+        } catch (IllegalArgumentException e) {
+            return NONE;
+        }
+    }
 }

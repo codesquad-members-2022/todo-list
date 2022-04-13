@@ -1,7 +1,10 @@
 package com.hooria.todo.controller;
 
-import com.hooria.todo.domain.Card;
-import com.hooria.todo.repository.CardRepository;
+import com.hooria.todo.dto.AddCardParam;
+import com.hooria.todo.dto.CardResponse;
+import com.hooria.todo.dto.UpdateCardParam;
+import com.hooria.todo.dto.UpdateCardLayoutParam;
+import com.hooria.todo.service.CardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,17 +28,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CardController {
 
-    private final CardRepository cardRepository;
+    private final CardService cardService;
 
     @ApiOperation(
         value = "새로운 타스크 등록",
         notes = "새로운 타스크를 등록한다.",
         produces = "application/json",
-        response = Card.class
+        response = CardResponse.class
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
-            name = "card",
+            name = "addCardParam",
             value = "새로운 타스크"
         )
     })
@@ -44,9 +47,8 @@ public class CardController {
         @ApiResponse(code = 500, message = "서버 에러"),
     })
     @PostMapping
-    public Card addCard(@RequestBody Card card) {
-        long addedCardId = cardRepository.add(card);
-        return cardRepository.findById(addedCardId).orElseThrow();
+    public CardResponse addCard(@RequestBody AddCardParam addCardParam) {
+        return cardService.add(addCardParam);
     }
 
     @ApiOperation(
@@ -60,19 +62,19 @@ public class CardController {
         @ApiResponse(code = 500, message = "서버 에러"),
     })
     @GetMapping
-    public List<Card> getCards() {
-        return cardRepository.findAll();
+    public List<CardResponse> getCards() {
+        return cardService.selectAll();
     }
 
     @ApiOperation(
         value = "타스크 수정",
         notes = "타스크를 수정한다.",
         produces = "application/json",
-        response = Card.class
+        response = CardResponse.class
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
-            name = "card",
+            name = "updateCardParam",
             value = "새로운 할 일"
         )
     })
@@ -80,16 +82,16 @@ public class CardController {
         @ApiResponse(code = 200, message = "수정 성공"),
         @ApiResponse(code = 500, message = "서버 에러"),
     })
-    @PatchMapping
-    public Card updateCard(@RequestBody Card card) {
-        return cardRepository.update(card);
+    @PatchMapping("/{id}")
+    public CardResponse updateCard(@RequestBody UpdateCardParam updateCardParam) {
+        return cardService.update(updateCardParam);
     }
 
     @ApiOperation(
-        value = "id 에 해당하는 할 일 삭제",
-        notes = "id 에 해당하는 할 일을 삭제한다.",
+        value = "해당 'id'를 가진 타스크 삭제",
+        notes = "해당 'id'를 가진 타스크를 삭제한다.",
         produces = "application/json",
-        response = Long.class
+        response = CardResponse.class
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
@@ -101,8 +103,29 @@ public class CardController {
         @ApiResponse(code = 200, message = "삭제 성공"),
         @ApiResponse(code = 500, message = "서버 에러"),
     })
-    @DeleteMapping("{id}")
-    public long delete(@PathVariable long id) {
-        return cardRepository.delete(id);
+    @DeleteMapping("/{id}")
+    public CardResponse delete(@PathVariable long id) {
+        return cardService.delete(id);
+    }
+
+    @ApiOperation(
+        value = "타스크 정렬 순서 일괄 저장",
+        notes = "타스크 정렬 순서를 일괄 저장한다.",
+        produces = "application/json",
+        response = List.class
+    )
+    @ApiImplicitParams({
+        @ApiImplicitParam(
+            name = "updateCardLayoutParams",
+            value = "새로운 할 일"
+        )
+    })
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "수정 성공"),
+        @ApiResponse(code = 500, message = "서버 에러"),
+    })
+    @PatchMapping("/layout")
+    public List<CardResponse> updateCardsLayout(@RequestBody List<UpdateCardLayoutParam> updateCardLayoutParams) {
+        return cardService.updateCardsLayout(updateCardLayoutParams);
     }
 }

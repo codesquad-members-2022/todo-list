@@ -29,10 +29,32 @@ class CardRepositoryTest {
     @DisplayName("전체 카드 목록을 반환한다.")
     void findAll() {
         //given
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime datetime = LocalDateTime.of(2022, 4, 10, 0, 0);
         List<Card> cards = List.of(
-            new Card(1, Status.TODO, "title1", "content1", "userId1", Device.WEB, now, now, false, 1),
-            new Card(2, Status.TODO, "title2", "content2", "userId1", Device.WEB, now, now, false, 2)
+            new Card(1, Status.TODO, "title1", "content1", "userId1", Device.WEB, datetime, datetime, false, 1),
+            new Card(2, Status.TODO, "title2", "content2", "userId1", Device.IOS, datetime, datetime, false, 2),
+            new Card(5, Status.TODO, "title5", "content5", "userId1", Device.IOS, datetime, datetime, false, 3),
+            new Card(6, Status.TODO, "title6", "content6", "userId1", Device.ANDROID, datetime, datetime, false, 4),
+            new Card(7, Status.TODO, "title7", "content7", "userId1", Device.WEB, datetime, datetime, false, 5),
+            new Card(8, Status.TODO, "title8", "content8", "userId1", Device.IOS, datetime, datetime, false, 6),
+            new Card(9, Status.TODO, "title9", "content9", "userId1", Device.ANDROID, datetime, datetime, false, 7),
+            new Card(10, Status.TODO, "title10", "content10", "userId1", Device.WEB, datetime, datetime, false, 8),
+            new Card(15, Status.IN_PROGRESS, "title15", "content15", "userId1", Device.IOS, datetime, datetime, false, 1),
+            new Card(12, Status.IN_PROGRESS, "title12", "content12", "userId1", Device.IOS, datetime, datetime, false, 2),
+            new Card(11, Status.IN_PROGRESS, "title11", "content11", "userId1", Device.WEB, datetime, datetime, false, 3),
+            new Card(16, Status.IN_PROGRESS, "title16", "content16", "userId1", Device.ANDROID, datetime, datetime, false, 4),
+            new Card(17, Status.IN_PROGRESS, "title17", "content17", "userId1", Device.WEB, datetime, datetime, false, 5),
+            new Card(18, Status.IN_PROGRESS, "title18", "content18", "userId1", Device.IOS, datetime, datetime, false, 6),
+            new Card(19, Status.IN_PROGRESS, "title19", "content19", "userId1", Device.ANDROID, datetime, datetime, false, 7),
+            new Card(20, Status.IN_PROGRESS, "title20", "content20", "userId1", Device.WEB, datetime, datetime, false, 8),
+            new Card(30, Status.DONE, "title30", "content30", "userId1", Device.WEB, datetime, datetime, false, 1),
+            new Card(29, Status.DONE, "title29", "content29", "userId1", Device.ANDROID, datetime, datetime, false, 2),
+            new Card(28, Status.DONE, "title28", "content28", "userId1", Device.IOS, datetime, datetime, false, 3),
+            new Card(27, Status.DONE, "title27", "content27", "userId1", Device.WEB, datetime, datetime, false, 4),
+            new Card(26, Status.DONE, "title26", "content26", "userId1", Device.ANDROID, datetime, datetime, false, 5),
+            new Card(25, Status.DONE, "title25", "content25", "userId1", Device.IOS, datetime, datetime, false, 6),
+            new Card(22, Status.DONE, "title22", "content22", "userId1", Device.IOS, datetime, datetime, false, 7),
+            new Card(21, Status.DONE, "title21", "content21", "userId1", Device.WEB, datetime, datetime, false, 8)
         );
 
         //when
@@ -51,6 +73,8 @@ class CardRepositoryTest {
             assertThat(actual.getContent()).isEqualTo(expected.getContent());
             assertThat(actual.getUserId()).isEqualTo(expected.getUserId());
             assertThat(actual.getDevice()).isEqualTo(expected.getDevice());
+            assertThat(actual.getCreatedAt()).isEqualTo(expected.getCreatedAt());
+            assertThat(actual.getModifiedAt()).isEqualTo(expected.getModifiedAt());
             assertThat(actual.isDeletedYn()).isFalse();
             assertThat(actual.getRowPosition()).isEqualTo(expected.getRowPosition());
         }
@@ -65,7 +89,7 @@ class CardRepositoryTest {
         int result = cardRepository.countByStatus(1);
 
         //then
-        assertThat(result).isEqualTo(2);
+        assertThat(result).isEqualTo(8);
     }
 
     @Test
@@ -73,7 +97,7 @@ class CardRepositoryTest {
     @DisplayName("카드를 추가하고 추가된 카드의 id를 반환한다.")
     void add() {
         //given
-        Card card = Card.of(Status.TODO, "title4", "content4", "userId1", Device.WEB, 4);
+        Card card = Card.of(Status.TODO, "add test title", "add test contet", "userId1", Device.WEB, 0);
 
         //when
         long addedCardId = cardRepository.add(card);
@@ -82,22 +106,23 @@ class CardRepositoryTest {
         //then
         assertThat(addedCard).isNotEmpty()
             .get()
-            .hasFieldOrPropertyWithValue("id", 4L)
+            .hasFieldOrPropertyWithValue("id", 31L)
             .hasFieldOrPropertyWithValue("status", card.getStatus())
             .hasFieldOrPropertyWithValue("title", card.getTitle())
             .hasFieldOrPropertyWithValue("content", card.getContent())
             .hasFieldOrPropertyWithValue("userId", card.getUserId())
             .hasFieldOrPropertyWithValue("device", card.getDevice())
             .hasFieldOrPropertyWithValue("deletedYn", card.isDeletedYn())
-            .hasFieldOrPropertyWithValue("row_position", card.getRowPosition());
+            .hasFieldOrPropertyWithValue("rowPosition", card.getRowPosition());
     }
 
     @Test
     @Transactional
-    @DisplayName("DB에 수정사항을 반영하고 변경된 Card를 반환한다.")
+    @DisplayName("DB에 수정사항을 반영하고 변경된 카드의 id를 반환한다.")
     void update() {
         //given
         long id = 1;
+        LocalDateTime datetime = LocalDateTime.of(2022, 4, 10, 1, 0);
         Card existingCard = cardRepository.findById(id).get();
         Card card = new Card(existingCard.getId(),
             Status.IN_PROGRESS,
@@ -106,23 +131,24 @@ class CardRepositoryTest {
             existingCard.getUserId(),
             existingCard.getDevice(),
             existingCard.getCreatedAt(),
-            LocalDateTime.now(),
+            datetime,
             existingCard.isDeletedYn(),
             1
         );
 
         //when
-        Card updatedCard = cardRepository.update(card);
+        long updatedId = cardRepository.update(card);
+        Card updatedCard = cardRepository.findById(updatedId).get();
 
         //then
         assertThat(updatedCard.getId()).isEqualTo(existingCard.getId());
         assertThat(updatedCard.getStatus()).isEqualTo(Status.IN_PROGRESS);
-        assertThat(updatedCard.getModifiedAt()).isNotEqualTo(existingCard.getModifiedAt());
+        assertThat(updatedCard.getModifiedAt()).isEqualTo(datetime);
     }
 
     @Test
     @Transactional
-    @DisplayName("카드를 삭제하고 변경된 row 수를 반환한다.")
+    @DisplayName("카드를 삭제하고 삭제된 카드의 id를 반환한다.")
     void delete() {
         //given
 
@@ -134,5 +160,24 @@ class CardRepositoryTest {
         assertThat(deletedCard).isNotEmpty()
             .get()
             .hasFieldOrPropertyWithValue("deletedYn", true);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("id에 해당하는 카드의 rowPosition을 변경하고 변경된 카드의 id를 반환한다.")
+    void updateRowPositionById() {
+        //given
+        long id = 1;
+        int rowPosition = 9;
+
+        //when
+        long updatedId = cardRepository.updateRowPositionById(id, rowPosition);
+        Optional<Card> updatedCard = cardRepository.findById(updatedId);
+
+        //then
+        assertThat(updatedCard).isNotEmpty()
+            .get()
+            .hasFieldOrPropertyWithValue("id", 1L)
+            .hasFieldOrPropertyWithValue("rowPosition", 9);
     }
 }

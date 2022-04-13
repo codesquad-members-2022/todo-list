@@ -22,4 +22,12 @@ public enum Device {
             .findFirst()
             .orElse(NONE);
     }
+
+    public static Device of(String device) {
+        try {
+            return Device.valueOf(device);
+        } catch (IllegalArgumentException e) {
+            return NONE;
+        }
+    }
 }
