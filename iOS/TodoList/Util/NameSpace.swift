@@ -33,6 +33,8 @@ enum API {
 }
 
 enum NotificationKeyValue {
+    static let targetViewTitle = "targetViewTitle"
+    static let targetData = "targetData"
     static let postTaskData = "postTaskData"
     static let getTaskData = "getTaskData"
 }
@@ -41,7 +43,6 @@ extension Notification.Name {
     static let actionFlowButtonTapped: Notification.Name = Notification.Name("actionFlowButtonTapped")
     static let actionFlowCloseButtonTapped: Notification.Name = Notification.Name("actionFlowCloseButtonTapped")
     static let addTaskButtonTapped: Notification.Name = Notification.Name("addTaskButtonTapped")
-    static let postInputData: Notification.Name = Notification.Name("postInputData")
     static let editButtonTapped: Notification.Name = Notification.Name("editButtonTapped")
     static let cancelButtonTapped: Notification.Name = Notification.Name("cancelButtonTapped")
     

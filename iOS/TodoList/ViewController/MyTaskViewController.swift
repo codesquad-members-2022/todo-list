@@ -52,6 +52,8 @@ class MyTaskViewController: UIViewController {
     private func editCardButtonTapped(noti: Notification) {
         guard let popupViewController = storyboard?.instantiateViewController(withIdentifier: NameSpace.identifier.popupViewController) as? EditCardViewController else { return }
         popupViewController.modalPresentationStyle = .overFullScreen
+        guard let title = noti.userInfo?[NotificationKeyValue.targetViewTitle] as? String else { return }
+        popupViewController.targetTitle = title
         self.present(popupViewController, animated: false)
     }
     
