@@ -37,6 +37,8 @@ public class CardsController {
     @ApiOperation(value = "Card 수정")
     @PutMapping("/cards/{id}")
     public CardListResponseDto update(@PathVariable Long id, @RequestBody CardUpdateRequestDto dto) {
+        String title = dto.getTitle();
+        logService.save(new LogSaveRequestDto(title, null, null, ActionType.UPDATE));
         return cardService.update(id, dto);
     }
 

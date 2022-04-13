@@ -26,7 +26,7 @@ public class CardService {
 
     public CardListResponseDto update(Long id, CardUpdateRequestDto dto) {
         Card card = findById(id);
-        card.update(dto.getTitle(), dto.getTitle());
+        card.update(dto.getTitle(), dto.getContent());
         return cardRepository.save(card);
     }
 
