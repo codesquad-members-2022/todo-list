@@ -3,17 +3,30 @@ package com.example.backend.controller.card.dto;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class CardDto {
 
     private Long id;
+
+    @NotBlank(message = "제목을 반드시 입력해야 합니다.")
     private String title;
+
+    @NotNull(message = "작성자를 반드시 입력해야 합니다.")
     private String writer;
     private Long position;
+
+    @NotBlank(message = "내용을 반드시 입력해야 합니다.")
     private String content;
+
     private LocalDateTime createdAt;
+
+    @NotNull(message = "카드 타입을 반드시 입력해야 합니다.")
     private CardType cardType;
+
+    @NotNull(message = "회원 번호를 반드시 입력해야 합니다.")
     private Long memberId;
 
     public CardDto(Long id, String title, String writer, Long position, String content, LocalDateTime createdAt, CardType cardType, Long memberId) {

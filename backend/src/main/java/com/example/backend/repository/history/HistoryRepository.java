@@ -1,6 +1,6 @@
-package com.example.backend.controller.history;
+package com.example.backend.repository.history;
 
-import com.example.backend.domain.card.Card;
+import com.example.backend.controller.history.HistoryResponse;
 import com.example.backend.domain.history.History;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -16,8 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.backend.controller.history.HistoryQueryHelper.CARD_ID;
-import static com.example.backend.controller.history.HistoryQueryHelper.MEMBER_ID;
+import static com.example.backend.repository.history.HistoryQueryHelper.CARD_ID;
+import static com.example.backend.repository.history.HistoryQueryHelper.MEMBER_ID;
 import static com.example.backend.utils.TimeUtils.dateTimeOf;
 
 @Repository

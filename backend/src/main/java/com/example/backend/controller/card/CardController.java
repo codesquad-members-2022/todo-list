@@ -5,8 +5,10 @@ import com.example.backend.controller.card.dto.CardDto;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.service.card.CardService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +22,8 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    @PostMapping("/cards/")
-    public ApiResult<CardDto> writeCard(@RequestBody CardDto cardDto) {
+    @PostMapping("/cards")
+    public ApiResult<CardDto> writeCard(@RequestBody @Valid CardDto cardDto) {
         Card card = cardService.writeCard(cardDto);
         return ApiResult.OK(new CardDto(card));
     }
