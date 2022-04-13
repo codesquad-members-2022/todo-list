@@ -1,47 +1,65 @@
-## MEMBER
-CREATE TABLE member
+drop table if exists card;
+drop table if exists history;
+drop table if exists member;
+
+create table card
 (
-    id               BIGINT      NOT NULL PRIMARY KEY,
-    member_login_id  VARCHAR(10) NOT NULL,
-    password         VARCHAR(15) NOT NULL,
-    email            VARCHAR(20) NOT NULL,
-    created_at       DATETIME,
-    last_modified_at DATETIME
+    id               bigint       not null
+        primary key auto_increment,
+    writer           varchar(10)  null,
+    position         bigint       not null,
+    visible          bit          null,
+    title            varchar(255) not null,
+    content          blob         not null,
+    card_type        varchar(25)  not null,
+    created_at       datetime     not null,
+    last_modified_at datetime     null,
+    member_id        bigint       not null
 );
 
-CREATE TABLE card
+create table history
 (
-    id               BIGINT       NOT NULL PRIMARY KEY auto_increment,
-    title            VARCHAR(255) NOT NULL,
-    content          VARCHAR(500) NOT NULL,
-    card_type        VARCHAR(50)  NOT NULL,
-    created_at       DATETIME,
-    last_modified_at DATETIME,
-    visible          BIT,
-    column_id        BIGINT
+    id         bigint auto_increment
+        primary key auto_increment,
+    content    varchar(255) not null,
+    created_at datetime(6)  null,
+    action     varchar(10)  not null,
+    member_id  bigint       not null,
+    card_id    bigint       not null,
+    font       varchar(10)  not null,
+    visible    bit          null
 );
 
-## COLUMN
-CREATE TABLE `column`
+create table member
 (
-    id               BIGINT       NOT NULL PRIMARY KEY auto_increment,
-    writer           VARCHAR(10),
-    created_at       DATETIME,
-    last_modified_at DATETIME,
-    visible          BIT,
-    member_id        BIGINT NOT NULL
+    id              bigint auto_increment
+        primary key auto_increment,
+    created_at      datetime(6)  not null,
+    member_login_id varchar(10)  not null,
+    password        varchar(15)  not null,
+    nick_name       varchar(255) not null,
+    visible         bit          null
 );
 
+INSERT INTO card (writer, position, visible, title, content, card_type, created_at, last_modified_at, member_id)
+VALUES ('Bong', 1, true, '', '', 'progressingItems', '2022-04-12 18:16:53', null, 0);
+INSERT INTO card (writer, position, visible, title, content, card_type, created_at, last_modified_at, member_id)
+VALUES ('Kai', 2, true, '', '', 'todoItems', '2022-04-12 18:16:53', null, 0);
+INSERT INTO card (writer, position, visible, title, content, card_type, created_at, last_modified_at, member_id)
+VALUES ('Terry', 2, true, '', '', 'completedItems', '2022-04-12 18:16:56', null, 0);
 
-## HISTORY
-CREATE TABLE history
-(
-    id         bigint       NOT NULL PRIMARY KEY,
-    content    VARCHAR(255) NOT NULL,
-    created_at datetime(6)  NULL,
-    writer     VARCHAR(10)  NOT NULL,
-    action     VARCHAR(10)  NOT NULL,
-    member_id  bigint       NOT NULL,
-    font       VARCHAR(10)  NOT NULL,
-    visible    BIT
-)
+INSERT INTO member (created_at, member_login_id, password, nick_name, visible)
+VALUES ('2022-04-03 14:52:44', 'bongbong', '1234', 'BongBong', true);
+INSERT INTO member (created_at, member_login_id, password, nick_name, visible)
+VALUES ('2022-04-02 14:52:44', 'kaikai', '1234', 'Kai', true);
+
+INSERT INTO history (content, created_at, action, member_id, card_id, font, visible)
+VALUES ('hello', '2022-04-12 18:08:12.474219', 'DELETE', 1, 1, 'Helvetica', true);
+INSERT INTO history (content, created_at, action, member_id, card_id, font, visible)
+VALUES ('hello', '2022-04-12 21:10:19.311098', 'DELETE', 1, 1, 'Helvetica', true);
+INSERT INTO history (content, created_at, action, member_id, card_id, font, visible)
+VALUES ('hello', '2022-04-12 21:15:23.385740', 'DELETE', 1, 1, 'Helvetica', true);
+INSERT INTO history (content, created_at, action, member_id, card_id, font, visible)
+VALUES ('hello', '2022-04-12 21:15:35.878344', 'DELETE', 1, 1, 'Helvetica', true);
+INSERT INTO history (content, created_at, action, member_id, card_id, font, visible)
+VALUES ('hello', '2022-04-12 21:15:36.531356', 'DELETE', 1, 1, 'Helvetica', true);

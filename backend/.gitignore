@@ -18,7 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-.idea
+.idea/*
 Translate
 
 # Created by https://www.toptal.com/developers/gitignore/api/jetbrains,macos,intellij,java
@@ -277,3 +277,4 @@ Temporary Items
 .apdisk
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains,macos,intellij,java
+/.idea/

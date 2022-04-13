@@ -1,18 +1,11 @@
 package com.example.backend.controller.card;
 
+import com.example.backend.controller.ApiResult;
 import com.example.backend.controller.card.dto.CardDto;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.service.card.CardService;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -27,32 +20,31 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    @PostMapping("/cards/write")
-    public CardDto writeCard(@RequestBody CardDto cardDto) {
+    @PostMapping("/cards/")
+    public ApiResult<CardDto> writeCard(@RequestBody CardDto cardDto) {
         Card card = cardService.writeCard(cardDto);
-        return new CardDto(card);
+        return ApiResult.OK(new CardDto(card));
     }
 
     @GetMapping("/cards/{id}")
-    public CardDto cardDetailInquiry(@PathVariable Long id) {
+    public ApiResult<CardDto> cardDetailInquiry(@PathVariable Long id) {
         Card card = cardService.findById(id);
-        return new CardDto(card);
+        return ApiResult.OK(new CardDto(card));
     }
 
     @GetMapping("/cards")
-    public Map<String, List<Card>> getCards() {
-        return cardService.findAll();
+    public ApiResult<Map<CardType, List<Card>>> getCards() {
+        return ApiResult.OK(cardService.findAll());
     }
 
     @DeleteMapping("/cards/{id}")
-    public CardDto delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         cardService.delete(id);
-        return null;
     }
 
     @PatchMapping({"/cards/{id}"})
-    public CardDto updateCard(@PathVariable Long id, @RequestBody CardDto cardDto) {
-        cardService.updateCard(id, cardDto);
-        return null;
+    public ApiResult<CardDto> updateCard(@PathVariable Long id, @RequestBody CardDto cardDto) {
+        Card card = cardService.updateCard(id, cardDto);
+        return ApiResult.OK(new CardDto(card));
     }
 }
