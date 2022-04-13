@@ -1,6 +1,7 @@
 body {
   background-color: $background;
 }
+
 #app {
   padding: 0 80px;
 }
@@ -16,24 +17,28 @@ body {
 
 .main {
   @include flexbox(start, start);
-  width: 100%;
   height: 100%;
+  width: 100%;
 }
 
 .column {
-  width: 308px;
   margin-right: 16px;
+  width: 308px;
 }
+
 .title-column {
   @include flexbox(between);
   margin-bottom: 16px;
+
   &__title {
     @include flexbox();
+
     &__text {
       font-size: 18px;
       font-weight: 700;
       line-height: 26px;
     }
+
     &__count {
       margin-left: 10px;
       font-size: 14px;
@@ -46,11 +51,19 @@ body {
       line-height: 29px;
     }
   }
+
   &__btn {
     @include flexbox();
+    cursor: pointer;
+
     &__add {
       margin: 0 5px;
     }
+
+    &__add:hover path {
+      fill: $blue;
+    }
+
     &__delete {
       margin: 0 5px;
     }
