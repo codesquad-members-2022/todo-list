@@ -1,6 +1,7 @@
 package com.team05.todolist.domain.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,4 +22,11 @@ public class ClassifiedCardsDTO {
 	public List<CardDTO> get(String section) {
 		return classifiedCards.get(section);
 	}
+
+	public void sort() {
+		Collections.sort(classifiedCards.get("todo"));
+		Collections.sort(classifiedCards.get("doing"));
+		Collections.sort(classifiedCards.get("done"));
+	};
+
 }

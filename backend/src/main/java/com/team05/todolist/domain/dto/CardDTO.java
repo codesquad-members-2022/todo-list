@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @ApiModel(value="CardDTO : 카드 정보를 가지고 있는 모델")
 @Getter
-public class CardDTO {
+public class CardDTO implements Comparable<CardDTO> {
 
 	@ApiModelProperty(hidden = true)
 	private Integer cardId;
@@ -31,5 +31,10 @@ public class CardDTO {
 
 	public void setCardId(Integer cardId) {
 		this.cardId = cardId;
+	}
+
+	@Override
+	public int compareTo(CardDTO o) {
+		return this.order - o.order;
 	}
 }
