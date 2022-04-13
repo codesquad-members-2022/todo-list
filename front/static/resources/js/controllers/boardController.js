@@ -132,20 +132,13 @@ class BoardController {
     return cardInfo;
   }
 
-  postNewCard(newCard) {
-    if (!newCard) return;
-
-    const requestOption = HTTP_REQUEST.POST(newCard);
-    fetchRequest('http://localhost:8080', requestOption);
-  }
-
   addCardEvent(target) {
     if (target.classList.contains('card-button--add') || target.classList.contains('card__button--cancle')) {
       this.toggleWritableCard(target);
     }
     if (target.classList.contains('card__button--submit')) {
       const newCard = this.createNewCard(target);
-      this.postNewCard(newCard);
+      this.viewModel.store.postRequest(newCard);
     }
   }
 
@@ -157,8 +150,7 @@ class BoardController {
       this.popup.hidden();
     }
     if (target.classList.contains('popup-button--confirm')) {
-      const requestOption = HTTP_REQUEST.DELETE();
-      fetchRequest('http://localhost:8080', requestOption);
+      this.viewModel.store.deleteRequest();
       this.popup.hidden();
     }
   }

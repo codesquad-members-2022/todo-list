@@ -1,4 +1,4 @@
-import { fetchRequest } from '../utils/fetch.js';
+import { fetchRequest, HTTP_REQUEST } from '../utils/fetch.js';
 
 class BoardStore {
   constructor() {
@@ -12,6 +12,18 @@ class BoardStore {
 
   async initState() {
     this.boardState = await this.getInitialData();
+  }
+
+  postRequest(data) {
+    if (!data) return;
+
+    const requestOption = HTTP_REQUEST.POST(data);
+    fetchRequest('http://localhost:8080', requestOption);
+  }
+
+  deleteRequest() {
+    const requestOption = HTTP_REQUEST.DELETE();
+    fetchRequest('http://localhost:8080', requestOption);
   }
 
   addObserver(observer) {
