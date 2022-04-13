@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 public class HistoryRepositoryImpl implements HistoryRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final RowMapper<History> rowMapper = historyRowMapper();
 
     public HistoryRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -24,13 +25,13 @@ public class HistoryRepositoryImpl implements HistoryRepository {
     @Override
     public List<History> findAll() {
         String sql = "SELECT * FROM HISTORY";
-        return jdbcTemplate.query(sql, historyRowMapper());
+        return jdbcTemplate.query(sql, rowMapper);
     }
 
     @Override
     public History findById(Long id) {
         String sql = "SELECT * FROM HISTORY WHERE id = ?";
-        List<History> result = jdbcTemplate.query(sql, historyRowMapper(), id);
+        List<History> result = jdbcTemplate.query(sql, rowMapper, id);
 
         return result.stream().findAny().orElse(null);
     }
@@ -46,8 +47,12 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         parameters.put("user_id", history.getUserId());
         parameters.put("card_title", history.getCardTitle());
         parameters.put("card_title_before", history.getCardTitleBefore());
-        parameters.put("card_status", history.getCardStatus().name());
-        parameters.put("card_status_before", history.getCardStatusBefore().name());
+        parameters.put("card_status",
+                history.getCardStatus() == null ? CardStatus.UNCLASSIFIED.name()
+                        : history.getCardStatus().name());
+        parameters.put("card_status_before",
+                history.getCardStatusBefore() == null ? CardStatus.UNCLASSIFIED.name()
+                        : history.getCardStatusBefore().name());
         parameters.put("created_at", history.getCreatedAt());
 
         Long key = (Long) jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));

@@ -5,6 +5,7 @@ import com.team26.todolist.dto.request.CardMoveRequest;
 import com.team26.todolist.dto.request.CardRegistrationRequest;
 import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
+import com.team26.todolist.exception.EmptyCardStatusException;
 import com.team26.todolist.service.CardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,9 @@ public class CardController {
     @GetMapping
     public ResponseEntity<List<CardResponse>> getCards(@RequestParam String cardStatus) {
         //TODO
-        // cardStatus가 null이거나 비어있을 때 예외처리
-        if (cardStatus.equals(" ")) {
-
+        // validation 적용예정
+        if (cardStatus.equals("")) {
+            throw new EmptyCardStatusException("cardStatus는 비어있을 수 없습니다.");
         }
 
         List<CardResponse> cards = cardService.findByCardStatus(cardStatus);
@@ -55,8 +56,8 @@ public class CardController {
     }
 
     @PatchMapping
-    public ResponseEntity<CardResponse> moveCard(@RequestBody CardMoveRequest cardMoveRequest) {
-        CardResponse movedCard = cardService.moveCard(cardMoveRequest);
+    public ResponseEntity<CardResponse> changeCardStatus(@RequestBody CardMoveRequest cardMoveRequest) {
+        CardResponse movedCard = cardService.changeCardStatus(cardMoveRequest);
 
         return ResponseEntity.ok()
                 .body(movedCard);
