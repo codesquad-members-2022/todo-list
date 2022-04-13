@@ -39,10 +39,20 @@ class ToDoViewModel(
         val todo3 = TodoItem(
             "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
         )
+        val todo4 = TodoItem("title", "content", ProgressType.IN_PROGRESS)
+        val todo5 = TodoItem("title2", "content2\ncontentcontent", ProgressType.IN_PROGRESS)
+        val todo6 = TodoItem(
+            "title2", "content2\ncontentcontent\n sdfsd", ProgressType.IN_PROGRESS
+        )
+        val todo7 = TodoItem("title", "content", ProgressType.DONE)
+        val todo8 = TodoItem("title2", "content2\ncontentcontent", ProgressType.DONE)
+        val todo9 = TodoItem(
+            "title2", "content2\ncontentcontent\n sdfsd", ProgressType.DONE
+        )
 
         tempTodoList.addAll(mutableListOf(todo1, todo2, todo3))
-        tempInProgressList.addAll(mutableListOf(todo2, todo3, todo1))
-        tempDoneList.addAll(mutableListOf(todo1, todo2, todo3))
+        tempInProgressList.addAll(mutableListOf(todo4, todo5, todo6))
+        tempDoneList.addAll(mutableListOf(todo8, todo9, todo7))
 
         _todoList.value = tempTodoList
         _inProgressList.value = tempInProgressList
@@ -85,12 +95,12 @@ class ToDoViewModel(
 
     fun deleteInProgressItem(item: TodoItem) {
         _inProgressList.value =
-            inProgressList.value?.let { toDoRepository.deleteInProgressItem(it, item) }
+            inProgressList.value?.let { toDoRepository.deleteToDoItem(it, item) }
         inProgressList = _inProgressList
     }
 
     fun deleteDoneItem(item: TodoItem) {
-        _doneList.value = doneList.value?.let { toDoRepository.deleteDoneItem(it, item) }
+        _doneList.value = doneList.value?.let { toDoRepository.deleteToDoItem(it, item) }
         doneList = _doneList
     }
 
