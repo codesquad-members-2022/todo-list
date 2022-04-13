@@ -28,7 +28,7 @@ public class CardController {
     }
 
     @PatchMapping("/{cardId}")
-    public void modifyCard(@RequestBody CardModifyRequest cardModifyRequest) {
-        cardService.modify(cardModifyRequest);
+    public CommandResultResponse modifyCard(@RequestBody CardModifyRequest cardModifyRequest) {
+        return cardService.modify(cardModifyRequest);
     }
 }

@@ -20,7 +20,7 @@ public class ActivityLogRepository {
     }
 
     public List<ActivityLog> findAll() {
-        return jdbcTemplate.query("select id, activity_log_action, title, now_status, before_status, create_date from activity_log order by create_date desc", activityLogRowMapper());
+        return jdbcTemplate.query("select id, activity_log_action, title, now_status, before_status, create_datetime from activity_log order by create_datetime desc", activityLogRowMapper());
     }
 
     private RowMapper<ActivityLog> activityLogRowMapper() {
@@ -30,13 +30,13 @@ public class ActivityLogRepository {
             String title = rs.getString("title");
             CardStatus nowStatus = CardStatus.from(rs.getString("now_status"));
             CardStatus beforeStatus = CardStatus.from(rs.getString("before_status"));
-            LocalDateTime createDate = rs.getTimestamp("create_date").toLocalDateTime();
+            LocalDateTime createDate = rs.getTimestamp("create_datetime").toLocalDateTime();
             return new ActivityLog(id, action, title, nowStatus, beforeStatus, createDate);
         };
     }
 
     public void save(ActivityLog activityLog) {
-        String sql = "insert into activity_log (activity_log_action, title, now_status, before_status, create_date) values(?, ?, ?, ?, ?)";
+        String sql = "insert into activity_log (activity_log_action, title, now_status, before_status, create_datetime) values(?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, activityLog.getAction().name(), activityLog.getTitle(), activityLog.getNowStatus().name(), null, activityLog.getCreateDateTime());
     }
 }

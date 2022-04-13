@@ -1,6 +1,7 @@
 package todo.list.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import todo.list.domain.Action;
 import todo.list.domain.ActivityLog;
 import todo.list.repository.ActivityLogRepository;
@@ -22,6 +23,7 @@ public class CardService {
         this.activityLogRepository = activityLogRepository;
     }
 
+    @Transactional
     public CommandResultResponse save(CardSaveRequest cardSaveRequest) {
         Card card = cardSaveRequest.toEntity();
         Card savedCard = cardRepository.save(card);
@@ -39,10 +41,14 @@ public class CardService {
         return new CardCollectionResponse(todoCards, inProgressCards, doneCards);
     }
 
-    public void modify(CardModifyRequest cardModifyRequest) {
+    @Transactional
+    public CommandResultResponse modify(CardModifyRequest cardModifyRequest) {
         Card card = cardModifyRequest.toEntity();
         Card modifyedCard = cardRepository.update(card);
         ActivityLog activityLog = new ActivityLog(Action.UPDATE, card.getTitle(), card.getStatus());
         activityLogRepository.save(activityLog);
+        Card foundCard = cardRepository.findById(card.getId());
+        CardCommandResponse cardCommandResponse = new CardCommandResponse(foundCard);
+        return new CommandResultResponse(200, cardCommandResponse);
     }
 }

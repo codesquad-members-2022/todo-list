@@ -10,7 +10,7 @@ public class CardModifyRequest {
     private String title;
     private String contents;
     private Author author;
-    private CardStatus cardStatus;
+    private CardStatus status;
 
     public Long getId() {
         return id;
@@ -27,11 +27,12 @@ public class CardModifyRequest {
     public Author getAuthor() {
         return author;
     }
-    public CardStatus getCardStatus() {
-        return cardStatus;
+
+    public CardStatus getStatus() {
+        return status;
     }
 
     public Card toEntity() {
-        return new Card(id, title, contents, cardStatus, author);
+        return new Card(id, title, contents, status, author);
     }
 }

@@ -19,6 +19,6 @@ create table activity_log (
     title varchar(500) not null,
     now_status varchar(20) not null,
     before_status varchar(20),
-    create_date timestamp not null default current_timestamp,
+    create_datetime timestamp not null default current_timestamp,
     primary key (id)
 );

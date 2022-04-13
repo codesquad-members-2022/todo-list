@@ -12,6 +12,7 @@ import todo.list.domain.Card;
 import todo.list.domain.CardStatus;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +45,9 @@ public class CardRepository {
     }
 
     public List<Card> findAllSameStatus(CardStatus cardStatus) {
-        String sql = String.format("Select id, title, contents, card_status, update_datetime, author from card WHERE card_status='%s' order by update_datetime desc", cardStatus.name());
-        return jdbcTemplate.query(sql, cardsRowMapper());
+        String sql = "Select id, title, contents, card_status, update_datetime, author from card WHERE card_status=:card_status order by update_datetime desc";
+        Map<String, String> params = Collections.singletonMap("card_status", cardStatus.name());
+        return jdbcTemplate.query(sql, params, cardsRowMapper());
     }
 
     private RowMapper<Card> cardsRowMapper() {
