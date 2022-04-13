@@ -1,5 +1,7 @@
 package codesquad.be.todoserver.service;
 
+import codesquad.be.todoserver.controller.TodoDtoMapper;
+import codesquad.be.todoserver.controller.model.RegisterTodoDto;
 import codesquad.be.todoserver.domain.Todo;
 import codesquad.be.todoserver.exception.NoSuchTodoFoundException;
 import codesquad.be.todoserver.repository.TodoRepository;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TodoService {
 
-	private TodoRepository todoRepository;
+	private final TodoRepository todoRepository;
 
 	public TodoService(TodoRepository todoRepository) {
 		this.todoRepository = todoRepository;
@@ -28,5 +30,13 @@ public class TodoService {
 			throw new NoSuchElementException("Empty Todos");
 		}
 		return todos;
+	}
+
+	public Todo registerTodo(RegisterTodoDto registerTodoDto) {
+		Todo todo = TodoDtoMapper.toDomainFromRegisterTodoDto(registerTodoDto);
+		Long saveId = todoRepository.saveTodo(todo);
+		todo.setId(saveId);
+
+		return todo;
 	}
 }
