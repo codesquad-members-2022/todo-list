@@ -77,3 +77,7 @@ export const throttle = (cb, delay) => {
     }, delay);
   };
 };
+
+export const replaceLinebreakWithBrElement = text => text.replace(/(\r\n|\r|\n)/g, '<br>');
+
+export const replaceBrElementWithLinebreak = text => text.replace(/<br\s?\/?>/g, '\n');

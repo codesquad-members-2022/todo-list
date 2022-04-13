@@ -26,6 +26,15 @@ export default class TodoColumns {
         this.handleClickCancelButton(event);
       },
     });
+
+    eventDelegate({
+      target: this.$todoColumns,
+      eventName: 'input',
+      selector: '.todo-form textarea',
+      handler: event => {
+        this.handleInputTextarea(event);
+      },
+    });
   }
 
   init(columnsData) {
@@ -51,5 +60,11 @@ export default class TodoColumns {
   handleClickCancelButton(event) {
     const $targetCard = event.target.closest('.todo-item');
     emit($targetCard, '@clickCancelButton');
+  }
+
+  handleInputTextarea(event) {
+    const $targetTextarea = event.target;
+    $targetTextarea.style.height = 'auto';
+    $targetTextarea.style.height = `${$targetTextarea.scrollHeight}px`;
   }
 }
