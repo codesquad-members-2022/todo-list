@@ -1,6 +1,7 @@
 import { ScheduleCard } from "./scheduleCard.js";
 import { ScheduleRegisterCard } from "./scheduleRegisterCard.js";
 import * as scheduleModel from "../model/scheduleModel.js";
+import { changeCardNumber } from "./scheduleCardCount.js";
 
 export class ScheduleColumn {
     constructor(target, columnId) {
@@ -19,6 +20,7 @@ export class ScheduleColumn {
         this.setDOMElement();
         this.renderCards();
         this.setEvent();
+        changeCardNumber(this.columnId)
     }
 
     setDOMElement() {
@@ -101,12 +103,14 @@ export class ScheduleColumn {
             },
         };
         new ScheduleCard(scheduleCardParams);
+        changeCardNumber(this.columnId)
     }
 
     removeCard($target) {
         const cardId = $target.dataset.cardId;
         scheduleModel.removeScheduleCard(this.columnId, cardId);
         $target.remove();
+        changeCardNumber(this.columnId)
     }
 
     updateCard(cardData) {
@@ -126,7 +130,7 @@ export class ScheduleColumn {
             <div class="schedule-column__header">
                 <h2 class="schedule-column__title">${this.columnTitle}</h2>
                 <div class="schedule-column__count-box">
-                    <span class="schedule-column__count-number">0</span>
+                    <span class="schedule-column__count-number"></span>
                 </div>
                 <svg
                     class="schedule-column__add-btn column-btn"

@@ -47,6 +47,11 @@ const getScheduleCardDataById = (columnId, cardId) => {
     return cardData;
 };
 
+const getScheduleCardNumberInColumn = (columnId) => {
+    const cardsInScheduleColumn = findScheduleColumn(columnId).cards;
+    return cardsInScheduleColumn.length;
+}
+
 const scheduleModel = [
     {
         columnId: "0",
@@ -89,4 +94,5 @@ export {
     updateScheduleCard,
     getScheduleCardDataById,
     insertScheduleCard,
+    getScheduleCardNumberInColumn
 };

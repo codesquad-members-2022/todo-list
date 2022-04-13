@@ -1,4 +1,6 @@
 import * as scheduleModel from "../model/scheduleModel.js";
+import { changeCardNumber } from "./scheduleCardCount.js";
+
 
 const $main = document.querySelector("#main");
 let dragCard;
@@ -123,6 +125,7 @@ const insertAfterimageCardToModel = (afterimageCard) => {
         selectedCardData,
         afterCardModelIndex
     );
+    changeCardNumber(columnId)
 };
 
 const mouseUpOnDraggingEventHandler = () => {
@@ -154,6 +157,7 @@ const removeSelectedCardFromModel = (selectedCard) => {
 
     selectedCardData = scheduleModel.getScheduleCardDataById(columnId, cardId);
     scheduleModel.removeScheduleCard(columnId, cardId);
+    changeCardNumber(columnId)
 };
 
 export const mouseDownEventHandler = (event) => {
