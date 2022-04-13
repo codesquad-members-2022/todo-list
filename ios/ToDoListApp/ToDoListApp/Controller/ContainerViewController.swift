@@ -15,11 +15,14 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         addChildViewControllers()
-        setUpDelegates()
-        
         setUpView()
+        
+        setUpDelegates()
+    }
+    
+    private func setUpView() {
+        setUpInspectorView()
     }
     
     private func addChildViewControllers() {
@@ -42,20 +45,16 @@ class ContainerViewController: UIViewController {
     }
 }
 
-//MARK: - Set Up View
+//MARK: - View Layouts
 
 extension ContainerViewController {
-    private func setUpView() {
-        setUpInspectorView()
-    }
-    
     private func setUpInspectorView() {
         inspectorViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         inspectorViewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         inspectorViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         inspectorViewController.view.leadingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        inspectorViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.35).isActive = true
+        inspectorViewController.view.widthAnchor.constraint(equalToConstant: 428).isActive = true
     }
 }
 
@@ -64,7 +63,7 @@ extension ContainerViewController {
 extension ContainerViewController: MainViewControllerDelegate {
     func didTapInspectorOpenButton() {
         UIView.animate(withDuration: 0.5) {
-            self.inspectorViewController.view.transform = CGAffineTransform(translationX: -(self.view.frame.width * 0.35), y: 0)
+            self.inspectorViewController.view.transform = CGAffineTransform(translationX: -428, y: 0)
         }
     }
 }
