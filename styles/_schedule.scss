@@ -86,6 +86,7 @@
         font-weight: 700;
         font-size: 1.6rem;
         line-height: 23px;
+        word-break: break-all;
         color: map-get($colors, black);
     }
 
@@ -94,6 +95,7 @@
         font-weight: 400;
         font-size: 1.4rem;
         line-height: 20px;
+        word-break: break-all;
         color: map-get($colors, black);
         margin: 8px 0px;
     }
@@ -277,6 +279,7 @@
         font-weight: 700;
         font-size: 1.6rem;
         line-height: 23px;
+        word-break: break-all;
         color: map-get($colors, black);
         width: 100%;
     }
@@ -286,6 +289,7 @@
         font-weight: 400;
         font-size: 1.4rem;
         line-height: 20px;
+        word-break: break-all;
         color: map-get($colors, black);
         margin: 8px 0px;
         width: 100%;
@@ -328,7 +332,7 @@
     align-items: flex-start;
     padding: 16px;
     width: 308px;
-    height: 108px;
+    min-height: 108px;
     background: map-get($colors, white);
     opacity: 0.4;
     border: 1px solid map-get($colors, blue);
@@ -342,11 +346,12 @@
     position: absolute;
     padding: 16px;
     width: 308px;
-    height: 108px;
+    min-height: 108px;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
         0px 2px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
     border-radius: 6px;
     z-index: 1;
+    user-select: none;
 }

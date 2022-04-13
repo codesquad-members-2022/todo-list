@@ -12,6 +12,7 @@ body {
     position: relative;
     min-width: 1440px;
     height: 100vh;
+    user-select: none;
 }
 
 $colors: (
@@ -23,8 +24,8 @@ $colors: (
     merona: #f4fce3,
     blue: #0075de,
     inactive-blue: #86c6ff,
-    white-red: #FFEEEC,
-    red: #FF4343
+    white-red: #ffeeec,
+    red: #ff4343,
 );
 
 .show {
