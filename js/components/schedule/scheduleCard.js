@@ -1,6 +1,4 @@
 import { deleteConfirmInit } from "./scheduleDeleteConfirm.js";
-import { doubleClickEventHandler } from "../../utils.js";
-import { ScheduleEditCard } from "./scheduleEditCard.js";
 
 export class ScheduleCard {
     constructor({ target, cardData, passedEventHandler }) {
@@ -30,15 +28,6 @@ export class ScheduleCard {
     }
 
     setEvent() {
-        this.setDeleteCardEvent();
-
-        this.$scheduleCard.addEventListener(
-            "click",
-            doubleClickEventHandler(this.createEditCard).bind(this)
-        );
-    }
-
-    setDeleteCardEvent() {
         const $scheduleCardDeleteBtn = this.$target.querySelector(
             ".schedule-card__delete-btn"
         );
@@ -61,32 +50,15 @@ export class ScheduleCard {
             $scheduleCard: this.$scheduleCard,
             passedEventHandler: {
                 removeCard: this.passedEventHandler.removeCard,
-                toggleScheduleCardActiveRed: this.toggleScheduleCardActiveRed.bind(this)
+                toggleScheduleCardActiveRed:
+                    this.toggleScheduleCardActiveRed.bind(this),
             },
         };
-        deleteConfirmInit(scheduleDeleteConfirmParams)
+        deleteConfirmInit(scheduleDeleteConfirmParams);
     }
 
     toggleScheduleCardActiveRed() {
         this.$scheduleCard.classList.toggle("schedule-card--active-red");
-    }
-
-    createEditCard(target) {
-        if (!this.editCard) {
-            const $selectedCard = target.closest(".schedule-card");
-            const scheduleEditCardParams = {
-                original: $selectedCard,
-                passedEventHandler: {
-                    updateCard: this.passedEventHandler.updateCard,
-                    getCardData: this.passedEventHandler.getCardData,
-                },
-            };
-
-            this.editCard = new ScheduleEditCard(scheduleEditCardParams);
-            return;
-        }
-
-        this.editCard.render();
     }
 
     template() {

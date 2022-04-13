@@ -1,17 +1,18 @@
 import { ScheduleCard } from "./scheduleCard.js";
 import { ScheduleRegisterCard } from "./scheduleRegisterCard.js";
-import { ScheduleModel } from "../model/scheduleModel.js";
-import { getId } from "../../utils.js";
+import * as scheduleModel from "../model/scheduleModel.js";
 
 export class ScheduleColumn {
-    constructor(target, scheduleColumnData) {
+    constructor(target, columnId) {
         this.$target = target;
         this.$scheduleColumn;
         this.$cardsContainer;
-        this.scheduleModel = new ScheduleModel(scheduleColumnData);
-        this.title = this.scheduleModel.getScheduleColumnTitle();
-        this.id = getId();
-        this.registerCard = new ScheduleRegisterCard()
+        this.columnId = columnId;
+        this.columnTitle = scheduleModel.getScheduleColumnTitle(this.columnId);
+
+        // this.scheduleModel = new ScheduleModel(scheduleColumnData);
+        // this.title = this.scheduleModel.getScheduleColumnTitle();
+        this.registerCard = new ScheduleRegisterCard();
 
         this.init();
     }
@@ -25,7 +26,7 @@ export class ScheduleColumn {
 
     setDOMElement() {
         this.$scheduleColumn = this.$target.querySelector(
-            `[data-id="${this.id}"]`
+            `[data-id="${this.columnId}"]`
         );
         this.$cardsContainer = this.$scheduleColumn.querySelector(
             ".schedule-column__cards-container"
@@ -33,7 +34,7 @@ export class ScheduleColumn {
     }
 
     renderCards() {
-        const cards = this.scheduleModel.getScheduleCards();
+        const cards = scheduleModel.getScheduleCards(this.columnId);
         cards.forEach((cardData) => {
             const scheduleCardParams = {
                 target: this.$cardsContainer,
@@ -67,7 +68,7 @@ export class ScheduleColumn {
     }
 
     removeRegisterCard() {
-        this.registerCard.changeState()
+        this.registerCard.changeState();
         const $registerCard = this.$cardsContainer.querySelector(
             ".schedule-register-card"
         );
@@ -75,7 +76,7 @@ export class ScheduleColumn {
     }
 
     showRegisterCard() {
-        this.registerCard.changeState()
+        this.registerCard.changeState();
         const scheduleRegisterCardParams = {
             $target: this.$cardsContainer,
             passedEventHandler: {
@@ -92,7 +93,7 @@ export class ScheduleColumn {
     }
 
     addCard(cardData) {
-        this.scheduleModel.addScheduleCard(cardData);
+        scheduleModel.addScheduleCard(this.columnId, cardData);
         const scheduleCardParams = {
             target: this.$cardsContainer,
             cardData: cardData,
@@ -107,23 +108,26 @@ export class ScheduleColumn {
 
     removeCard($target) {
         const cardId = $target.dataset.cardId;
-        this.scheduleModel.removeScheduleCard(cardId);
+        scheduleModel.removeScheduleCard(this.columnId, cardId);
         $target.remove();
     }
 
     updateCard(cardData) {
-        this.scheduleModel.updateScheduleCard(cardData);
+        scheduleModel.updateScheduleCard(this.columnId, cardData);
     }
 
     getCardData(cardId) {
-        const cardData = this.scheduleModel.getScheduleCardDataById(cardId);
+        const cardData = scheduleModel.getScheduleCardDataById(
+            this.columnId,
+            cardId
+        );
         return cardData;
     }
 
     template() {
-        return `<div class="schedule-column" data-id="${this.id}">
+        return `<div class="schedule-column" data-id="${this.columnId}">
             <div class="schedule-column__header">
-                <h2 class="schedule-column__title">${this.title}</h2>
+                <h2 class="schedule-column__title">${this.columnTitle}</h2>
                 <div class="schedule-column__count-box">
                     <span class="schedule-column__count-number">0</span>
                 </div>
