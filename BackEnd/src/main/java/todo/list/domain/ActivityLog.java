@@ -10,6 +10,10 @@ public class ActivityLog {
     private CardStatus beforeStatus;
     private LocalDateTime createDateTime;
 
+    public ActivityLog(Action action, String title, CardStatus nowStatus) {
+        this(null, action, title, nowStatus, null, LocalDateTime.now());
+    }
+
     public ActivityLog(Long id, Action action, String title, CardStatus nowStatus,
                        CardStatus beforeStatus, LocalDateTime createDateTime) {
         this.id = id;

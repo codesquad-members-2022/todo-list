@@ -34,4 +34,9 @@ public class ActivityLogRepository {
             return new ActivityLog(id, action, title, nowStatus, beforeStatus, createDate);
         };
     }
+
+    public void save(ActivityLog activityLog) {
+        String sql = "insert into activity_log (activity_log_action, title, now_status, before_status, create_date) values(?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, activityLog.getAction().name(), activityLog.getTitle(), activityLog.getNowStatus().name(), null, activityLog.getCreateDateTime());
+    }
 }
