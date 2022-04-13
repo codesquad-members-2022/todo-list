@@ -20,9 +20,8 @@
             android:id="@+id/delete_view"
             android:layout_width="110dp"
             android:layout_height="0dp"
-            android:visibility="gone"
-            android:gravity="center"
             style="@style/swipe.white"
+            android:gravity="center"
             android:text="@string/label_item_delete_title"
             android:background="@color/swipe_red"
             app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +45,7 @@
 
             <TextView
                 android:id="@+id/tv_item_title"
-                style="@style/HeadLine"
+                style="@style/HeadLine6.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{toDoItem.title}"

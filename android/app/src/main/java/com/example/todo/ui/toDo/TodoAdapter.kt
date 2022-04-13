@@ -1,15 +1,12 @@
-
 package com.example.todo.ui.toDo
 
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -37,14 +34,17 @@ class TodoAdapter(
         fun bind(cardItem: TodoItem) {
             this.cardItem = cardItem
             itemViewBinding.toDoItem = cardItem
+            deleteCard()
             itemView.setOnLongClickListener {
                 displayPopupMenu(it)
                 true
             }
 
-            itemView.findViewById<TextView>(R.id.delete_view).setOnClickListener {
-                Log.d("test","delete")
-                println("delete")
+
+        }
+
+        private fun deleteCard() {
+            itemViewBinding.deleteView.setOnClickListener {
                 viewModel.deleteItem(cardItem)
             }
         }

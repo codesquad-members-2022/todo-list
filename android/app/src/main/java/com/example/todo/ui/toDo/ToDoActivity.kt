@@ -1,20 +1,14 @@
 package com.example.todo.ui.toDo
 
-import android.graphics.Canvas
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.databinding.ActivityTodoBinding
 import com.example.todo.model.ProgressType
@@ -23,8 +17,6 @@ import com.example.todo.ui.action.ActionAdapter
 import com.example.todo.ui.action.ActionDiffCallback
 import com.example.todo.ui.common.ToDoTouchHelper
 import com.example.todo.ui.common.ViewModelFactory
-import java.lang.Float.max
-import java.lang.Float.min
 
 class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
 
@@ -44,10 +36,6 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
         initializeTodoTitleViews()
         // addDummyDataInRecyclerView()
 
-
-        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvTodo)
-        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvDone)
-        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvInProgress)
 
     }
 
@@ -139,6 +127,12 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
         inProgressAdapter = TodoAdapter(this, this, toDoViewModel, TodoDiffCallback())
         doneAdapter = TodoAdapter(this, this, toDoViewModel, TodoDiffCallback())
         actionAdapter = ActionAdapter(ActionDiffCallback())
+
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvTodo)
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvDone)
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvInProgress)
+
+
 
         binding.rvTodo.adapter = todoAdapter
         binding.rvInProgress.adapter = inProgressAdapter
