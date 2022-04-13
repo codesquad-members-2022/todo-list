@@ -48,7 +48,7 @@ class CardRepositoryTest {
             new Card(19, Status.IN_PROGRESS, "title19", "content19", "userId1", Device.ANDROID, datetime, datetime, false, 7),
             new Card(20, Status.IN_PROGRESS, "title20", "content20", "userId1", Device.WEB, datetime, datetime, false, 8),
             new Card(30, Status.DONE, "title30", "content30", "userId1", Device.WEB, datetime, datetime, false, 1),
-        new Card(29, Status.DONE, "title29", "content29", "userId1", Device.ANDROID, datetime, datetime, false, 2),
+            new Card(29, Status.DONE, "title29", "content29", "userId1", Device.ANDROID, datetime, datetime, false, 2),
             new Card(28, Status.DONE, "title28", "content28", "userId1", Device.IOS, datetime, datetime, false, 3),
             new Card(27, Status.DONE, "title27", "content27", "userId1", Device.WEB, datetime, datetime, false, 4),
             new Card(26, Status.DONE, "title26", "content26", "userId1", Device.ANDROID, datetime, datetime, false, 5),
