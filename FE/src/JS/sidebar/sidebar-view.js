@@ -22,7 +22,7 @@ export default class View {
       (pre, curData) => (pre += this.sidebarActionLog(userId, curData)),
       ''
     );
-
+    console.log(sidebarDataTemplate);
     $sidebarContainer.innerHTML = sidebarDataTemplate;
   }
 
@@ -31,30 +31,32 @@ export default class View {
     <li class="sidebar-card">
       <span class="sidebar-card--id">@${userId}</span>
       <span class="side-card--content">${this.checkAction(info)}</span>
-      <span class="sidebar-card--minute">${this.calcTwoTimeDifference(info)}</span>
+      <span class="sidebar-card--minute">${this.calcTwoTimeDifference(
+        info
+      )}</span>
     </li>`;
   }
 
-  checkAction({ title, action, previousColumn, changedColumn }) {
+  checkAction({ title, action, previousCategory, changedCategory }) {
     if (action === '이동') {
       return `
-      <b>${title}</b>를 <b>${previousColumn}</b>에서<b>${changedColumn}</b>으로<b>${action}</b>하였습니다
+      <b>${title}</b>를 <b>${previousCategory}</b>에서<b>${changedCategory}</b>으로<b>${action}</b>하였습니다
       `;
     }
 
     return `
-    <b>${previousColumn}</b>에 <b>${title}</b>를 <b>${action}</b>하였습니다
+    <b>${previousCategory}</b>에 <b>${title}</b>를 <b>${action}</b>하였습니다
     `;
   }
 
-  calcTwoTimeDifference({updatedDateTime}) {
+  calcTwoTimeDifference({ updatedDateTime }) {
     const currentTime = new Date();
     const updateTime = new Date(updatedDateTime);
-    const diffminutes = currentTime.getTime() - updateTime.getTime();
-    const result = Math.abs(diffminutes / (1000 * 60));
-    if(result < 60) {
+    const diffMinutes = currentTime.getTime() - updateTime.getTime();
+    const result = Math.abs(diffMinutes / (1000 * 60));
+    if (result < 60) {
       return `${result.toFixed()}분전`;
     }
-    return `${(result / 60).toFixed()}시간 ${(result % 60).toFixed()}분전`
+    return `${(result / 60).toFixed()}시간 ${(result % 60).toFixed()}분전`;
   }
 }
