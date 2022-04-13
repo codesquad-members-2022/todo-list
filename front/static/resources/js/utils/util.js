@@ -1,33 +1,9 @@
-const HTTP_REQUEST = {
-  PUT(data) {
-    return {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    };
-  },
-  DELETE() {
-    return {
-      method: 'DELETE'
-    };
-  },
-  POST(data) {
-    return {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    };
+const isObjEmpty = (obj) => {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) return false;
   }
-};
 
-const fetchRequest = async (url, option = {}) => {
-  const response = await fetch(url, option);
-  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-  return response.json();
-};
+  return true;
+}
 
-export { HTTP_REQUEST, fetchRequest };
+export { isObjEmpty }
