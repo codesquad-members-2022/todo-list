@@ -2,13 +2,14 @@ package team03.todoapp.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import team03.todoapp.controller.dto.CardAddFormRequest;
 import team03.todoapp.controller.dto.CardMoveFormRequest;
 import team03.todoapp.controller.dto.CardResponse;
 import team03.todoapp.controller.dto.CardUpdateFormRequest;
 import team03.todoapp.controller.dto.CardsResponse;
-import team03.todoapp.domain.Card;
+import team03.todoapp.repository.domain.Card;
 import team03.todoapp.repository.CardRepository;
 
 @Service
@@ -25,7 +26,6 @@ public class CardService {
     }
 
     public Long add(CardAddFormRequest cardAddFormRequest) {
-        // todo: card 정보 넘기기
         Card card = cardAddFormRequest.toEntity();
         return cardRepository.insert(card);
     }
@@ -39,6 +39,12 @@ public class CardService {
 
         card.update(request.getTitle(), request.getContent());
         cardRepository.update(card);
+    }
+
+    public Card findOne(Long cardId) {
+        Card card = cardRepository.findById(cardId)
+            .orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
+        return card;
     }
 
     public CardsResponse findAll() {
@@ -71,4 +77,5 @@ public class CardService {
 
         return cardsResponse;
     }
+
 }

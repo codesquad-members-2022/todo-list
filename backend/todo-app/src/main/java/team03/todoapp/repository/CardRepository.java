@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import team03.todoapp.controller.dto.CardMoveFormRequest;
-import team03.todoapp.domain.Card;
+import team03.todoapp.repository.domain.Card;
 
 @Repository
 public class CardRepository {

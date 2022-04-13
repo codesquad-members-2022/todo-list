@@ -1,7 +1,9 @@
-package team03.todoapp.domain;
+package team03.todoapp.repository.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import java.util.Optional;
 
 public class History {
     private Long historyId;
@@ -16,6 +18,14 @@ public class History {
         this.actionType = actionType;
         this.cardTitle = cardTitle;
         this.pastLocation = pastLocation;
+        this.nowLocation = nowLocation;
+        this.historyDateTime = historyDateTime;
+    }
+
+    public History(String actionType, String cardTitle, Optional<String> pastLocation, String nowLocation, LocalDateTime historyDateTime) {
+        this.actionType = actionType;
+        this.cardTitle = cardTitle;
+        this.pastLocation = pastLocation.orElse(null);
         this.nowLocation = nowLocation;
         this.historyDateTime = historyDateTime;
     }
@@ -42,5 +52,17 @@ public class History {
 
     public String getHistoryDateTime() {
         return historyDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    @Override
+    public String toString() {
+        return "History{" +
+            "historyId=" + historyId +
+            ", actionType='" + actionType + '\'' +
+            ", cardTitle='" + cardTitle + '\'' +
+            ", pastLocation='" + pastLocation + '\'' +
+            ", nowLocation='" + nowLocation + '\'' +
+            ", historyDateTime=" + historyDateTime +
+            '}';
     }
 }

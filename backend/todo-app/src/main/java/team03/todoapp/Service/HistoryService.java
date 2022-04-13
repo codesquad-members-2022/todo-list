@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team03.todoapp.domain.History;
+import team03.todoapp.repository.domain.History;
 import team03.todoapp.repository.HistoryRepository;
 
 import java.util.List;
@@ -22,6 +22,10 @@ public class HistoryService {
 
     public List<History> getAllHistories() {
         return historyRepository.findAll();
+    }
+
+    public void add(History history) {
+        historyRepository.insert(history);
     }
 
 }
