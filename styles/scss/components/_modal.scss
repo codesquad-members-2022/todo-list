@@ -16,14 +16,14 @@
     padding: 24px;
     background: $white;
     border-radius: 6px;
-    box-shadow: 0 0 4px rgba(204, 204, 204, 0.5), 0 2px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: $drag-item-box-shadow;
+    user-select: none;
     backdrop-filter: blur(4px);
   }
 
   &-title {
     flex: none;
     margin-bottom: 24px;
-    font-family: 'Noto Sans KR';
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -32,7 +32,6 @@
   }
 
   &-buttons {
-    /* Auto layout */
     @include flexbox(space-between, flex-start);
     order: 1;
     width: 276px;

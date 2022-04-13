@@ -1,7 +1,8 @@
+import modal from './Modal';
 import {
   $,
+  emit,
   hasClass,
-  openModal,
   createElement,
   replaceBrElementWithLinebreak,
   replaceLinebreakWithBrElement,
@@ -21,7 +22,6 @@ export default class TodoCard {
     this.listen();
   }
 
-  // p -> textarea로 바꾸기 / textarea -> p로 바꾸기
   static replaceParagraphWithTextarea($todoCard) {
     const $titleParagraph = $('.todo-item-title p', $todoCard);
     const $descParagraph = $('.todo-item-desc p', $todoCard);
@@ -45,8 +45,6 @@ export default class TodoCard {
     $descParagraph.replaceWith($descTextarea);
   }
 
-  // todoCard 인스턴스 초기화 과정에서 $todoCard 엘리먼트 생성할 때 title, desc는 개행문자 <br>로 치환해서 넣는거로 수정해서,
-  // 만약 카드 수정 -> db 컬럼 업데이트 -> 업데이트된 db 컬럼을 기반으로 엘리먼트 다시 생성하여 리렌더하는 경우는 필요없는 함수
   static replaceTextareaWithParagraph($todoCard) {
     const $titleTextarea = $('.todo-item-title textarea', $todoCard);
     const $descTextarea = $('.todo-item-desc textarea', $todoCard);
@@ -74,6 +72,12 @@ export default class TodoCard {
   }
 
   addEventHandlers() {
+    const $registerButton = $('.register-button', this.$todoCard);
+
+    $registerButton.addEventListener('click', () => {
+      this.handleClickRegisterButton();
+    });
+
     this.$todoCard.addEventListener('input', event => {
       if (!hasClass('active-item', event.currentTarget)) return;
       this.handleInput(event);
@@ -100,7 +104,19 @@ export default class TodoCard {
   }
 
   handleClickDeleteButton() {
-    openModal({ title: '선택한 카드를 삭제할까요?', accentText: '삭제' });
+    modal.setContents({ title: '선택한 카드를 삭제할까요?', accentText: '삭제' });
+    modal.openModal();
+  }
+
+  handleClickRegisterButton() {
+    const $title = $('.todo-item-title textarea', this.$todoCard);
+    const title = $title.value;
+
+    const $desc = $('.todo-item-desc textarea', this.$todoCard);
+    const desc = $desc.value;
+
+    const $todoColumn = this.$todoCard.closest('.todo-column');
+    emit($todoColumn, '@submitNewTodoCard', { title, desc });
   }
 }
 

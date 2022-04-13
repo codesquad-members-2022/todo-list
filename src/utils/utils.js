@@ -78,19 +78,6 @@ export const throttle = (cb, delay) => {
   };
 };
 
-export const openModal = modalContent => {
-  const { title, accentText } = modalContent;
-  const $modalTitle = $('.modal .modal-title');
-  const $modalAccentText = $('.modal .button-accent');
-  $modalTitle.innerText = title;
-  $modalAccentText.innerText = accentText;
-  removeClass('hidden', $('.modal'));
-};
-
-export const closeModal = () => {
-  addClass('hidden', $('.modal'));
-};
-
 export const replaceLinebreakWithBrElement = text => text.replace(/(\r\n|\r|\n)/g, '<br>');
 
 export const replaceBrElementWithLinebreak = text => text.replace(/<br\s?\/?>/g, '\n');

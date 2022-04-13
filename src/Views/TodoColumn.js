@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import TodoCard from './TodoCard';
+import store from '../store';
 import { $, addClass, createElement } from '../utils/utils';
 
 export default class TodoColumn {
@@ -19,6 +20,10 @@ export default class TodoColumn {
       if (this.hasActiveCard()) return;
       this.handleClickAddButton();
     });
+
+    this.$todoColumn.addEventListener('@submitNewTodoCard', event => {
+      this.handleSubmitNewTodoCard(event);
+    });
   }
 
   addEventHandlers() {}
@@ -34,15 +39,30 @@ export default class TodoColumn {
 
   // TODO: 타이틀 업데이트
 
-  // TODO: 배지 업데이트
+  updateCardCount(cardsData) {
+    const $todoItemCount = $('.todo-item-count', this.$todoColumn);
+    $todoItemCount.textContent = cardsData.length;
+  }
 
   hasActiveCard() {
     const $activeCard = $('.active-item', this.$todoList);
     return !!$activeCard;
   }
 
+  preRender({ cards: cardsData }) {
+    this.todoCards = [];
+    cardsData.forEach(cardData => {
+      const todoCard = new TodoCard(cardData);
+      this.todoCards.push(todoCard);
+    });
+
+    this.updateCardCount(cardsData);
+    this.render();
+  }
+
   render() {
     const $$todoCard = this.todoCards.map(card => card.$todoCard);
+    this.$todoList.textContent = '';
     this.$todoList.append(...$$todoCard);
   }
 
@@ -56,7 +76,16 @@ export default class TodoColumn {
     addClass('active-item', $todoCard);
     TodoCard.replaceParagraphWithTextarea($todoCard);
     this.$todoList.prepend($todoCard);
-    // '카드 수정'의 경우, 위와 비슷한 로직 + textarea의 높이를 scrollHeight로 조절 추가.
+  }
+
+  handleSubmitNewTodoCard(event) {
+    const {
+      detail: { title, desc },
+    } = event;
+
+    store.addTodoCard(this.idx, this.id, title, desc, cardsData => {
+      this.preRender(cardsData);
+    });
   }
 }
 

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import db from './webdb';
 
 class Store {
@@ -9,11 +10,23 @@ class Store {
     return this.state;
   }
 
-  setColumnState(columnIdx, newColumnState, callback) {
-    const { id: columnId } = this.state[columnIdx];
-    db.setData(columnId, newColumnState);
-    this.state[columnIdx] = db.getData(columnId);
-    callback();
+  addTodoCard(columnIdx, columnId, title, desc, callback) {
+    const newCard = {
+      id: uuidv4(),
+      columnId,
+      columnIdx,
+      title,
+      desc,
+      author: 'web',
+      createAt: Date.now(),
+    };
+
+    const column = db.getData(columnId);
+    const oldCards = column.cards;
+    column.cards = [newCard, ...oldCards];
+    db.setData(columnId, column);
+
+    if (callback) callback(db.getData(columnId));
   }
 }
 
