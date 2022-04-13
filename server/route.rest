@@ -1,0 +1,60 @@
+### Get all columns
+GET http://localhost:3000/columns
+
+### Get column
+//GET http://localhost:3000/columns/:columnid
+GET http://localhost:3000/columns/6250344a606b2ced274f2691
+
+### Create column
+POST http://localhost:3000/columns
+Content-Type: application/json
+
+{
+  "title": "테스트",
+  "cards": []
+}
+
+### Update column
+//PATCH http://localhost:3000/:cloumnid
+PATCH http://localhost:3000/columns/62565cb89a2f38b0e8d58a5b
+Content-Type: application/json
+
+{
+  "title": "컬럼 이름 변경"
+}
+
+### Delete column
+//DELETE http://localhost:3000/columns/:id
+
+DELETE http://localhost:3000/columns/6254d467670c772e6fad2b54
+
+### Add card
+//POST http://localhost:3000/columns/:columnid/add
+POST http://localhost:3000/columns/62543ac2651b34cc1543ced8/add
+Content-Type: application/json
+
+{
+  "title": "db 리팩토링11221",
+  "description": "왜 안되냐고!!!!"
+}
+
+### Get card
+//GET http://localhost:3000/columns/:columnid/:cardid
+GET http://localhost:3000/columns/6253817d24799268ac629ee3/625383ba773a1ab87855790d
+
+### Update card
+PATCH http://localhost:3000/columns/62543aad651b34cc1543ced6/6254d4d5670c772e6fad2b5a/update
+Content-Type: application/json
+
+{
+  "title": "몽고디비연결",
+  "description": "연결하기"
+}
+
+### Delete card
+//DELETE http://localhost:3000/columns/:columnid/:cardid/delete
+DELETE http://localhost:3000/columns/62543ac2651b34cc1543ced8/62562fa82b961644a3d43f55/delete
+
+### Get log
+//GET http://localhost:3000/log
+GET http://localhost:3000/log
