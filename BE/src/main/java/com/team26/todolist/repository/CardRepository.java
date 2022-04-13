@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Repository
 public class CardRepository {
@@ -38,9 +39,9 @@ public class CardRepository {
         params.put("deleted", false);
         params.put("created_at", LocalDateTime.now());
 
-        long saveId = namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
 
-        return findById(saveId);
+        return findById(Objects.requireNonNull(keyHolder.getKey()).longValue());
     }
 
     public List<Card> findByCardStatus(String cardStatus) {
@@ -88,9 +89,9 @@ public class CardRepository {
         params.put("contents", cardBefore.getContents());
         params.put("id", cardBefore.getId());
 
-        long saveId = namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
 
-        return findById(saveId);
+        return findById(Objects.requireNonNull(keyHolder.getKey()).longValue());
     }
 
     public Card updateCardStatus(Card cardBefore) {
@@ -102,9 +103,9 @@ public class CardRepository {
         params.put("cardStatus", cardBefore.getCardStatus().name());
         params.put("id", cardBefore.getId());
 
-        long saveId = namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
 
-        return findById(saveId);
+        return findById(Objects.requireNonNull(keyHolder.getKey()).longValue());
     }
 
     private RowMapper<Card> cardRowMapper() {
