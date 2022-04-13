@@ -142,7 +142,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" image="multiply" catalog="system" title=""/>
                                 <connections>
-                                    <action selector="test:" destination="S12-PW-vXJ" eventType="touchUpInside" id="h5Z-SJ-vdS"/>
+                                    <action selector="tapCloseLogView:" destination="S12-PW-vXJ" eventType="touchUpInside" id="VcE-hT-KQH"/>
                                 </connections>
                             </button>
                         </subviews>

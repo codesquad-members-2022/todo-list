@@ -30,8 +30,9 @@ class ChildViewController: UIViewController {
     }
 
     func removeFromList(card: Todo) {
-        guard var list = list, let targetIndex = list.firstIndex(where: {$0.id == card.id}) else {return}
+        guard var list = list, let targetIndex = list.firstIndex(where: {$0 == card}) else {return}
         list.remove(at: targetIndex)
+        self.list = list
         let indexPath = IndexPath(row: targetIndex, section: 0)
         DispatchQueue.main.async {
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -39,7 +40,7 @@ class ChildViewController: UIViewController {
     }
     //TODO: 새로운 카드를 insert함.
     func insertFromList(card:CardInfo) {
-       
+      
     }
     
     
@@ -105,12 +106,12 @@ extension ChildViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reloadTableView),
-            name: MainViewController.didFetchBoardInfo,
+            name: MainViewController.didFetchBoard,
             object: nil)
     }
     
     @objc func reloadTableView(notification:Notification) {
-        guard let data = notification.userInfo?[MainViewController.BoardData] as? NetworkResult , let boardType = self.boardType else { return }
+        guard let data = notification.userInfo?[MainViewController.UserInfoBoardData] as? NetworkResult , let boardType = self.boardType else { return }
         list = boardType.extractList(from: data)
         
         DispatchQueue.main.async {
@@ -142,7 +143,7 @@ extension ChildViewController : BoardTableViewDelegate {
         NotificationCenter.default.post(
             name: MainViewController.didDeleteCard,
             object: self,
-            userInfo: [MainViewController.CardData:item])
+            userInfo: [MainViewController.UserInfoCardData:item])
     }
 }
 

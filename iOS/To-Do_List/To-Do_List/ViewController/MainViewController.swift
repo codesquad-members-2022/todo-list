@@ -18,12 +18,10 @@ class MainViewController: UIViewController {
     private var networkManager:NetworkManager?
     
     //Notification
-    static let didFetchBoardInfo = NSNotification.Name("DidFetchToList")
+    static let didFetchBoard = NSNotification.Name("DidFetchToList")
     static let didDeleteCard = NSNotification.Name("DidDeleteCard")
-    
-    //UserInfo
-    static let BoardData = "BoardData"
-    static let CardData = "CardData"
+    static let UserInfoBoardData = "BoardData"
+    static let UserInfoCardData = "CardData"
     
 
     //Constraint for logView animation
@@ -62,9 +60,9 @@ extension MainViewController {
     
     private func postNotification(data: NetworkResult) {
         NotificationCenter.default.post(
-            name: MainViewController.didFetchBoardInfo,
+            name: MainViewController.didFetchBoard,
             object: self,
-            userInfo: [MainViewController.BoardData:data])
+            userInfo: [MainViewController.UserInfoBoardData:data])
     }
     
     private func addObserver() {
@@ -81,26 +79,8 @@ extension MainViewController {
             object: nil)
         
     }
-    @objc func postNewCardInfo(_ notification:Notification) {
-        let samplePostModel = CardInfo(writer: "Park", position: 123, title: "Queen", content: "Dom", cardType: "TODO", memberId: 1)
-        //TODO: info의 타입에 따라서 수정 혹은 추가를 Post함.
-        guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
-              let childVC = notification.object as? ChildViewController
-        else { return }
-        
-        networkManager?.request(endpoint: EndPointCase.addCard(card: samplePostModel).endpoint, completionHandler: { (result:Result<CardInfo,NetworkError>) in
-            switch result {
-            case .success(let cardinfo):
-                childVC.insertFromList(card: cardinfo)
-            case .failure(let error):
-                os_log(.error, "\(error.localizedDescription)")
-            }
-        })
-    }
+  
 }
-
-
-
 
 //MARK: Network
 extension MainViewController {
@@ -121,9 +101,25 @@ extension MainViewController {
         }
     }
     
+    @objc func postNewCardInfo(_ notification:Notification) {
+        let samplePostModel = CardInfo(writer: "Park", position: 123, title: "Queen", content: "Dom", cardType: "TODO", memberId: 1)
+        //TODO: info의 타입에 따라서 수정 혹은 추가를 Post함.
+        guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
+              let childVC = notification.object as? ChildViewController
+        else { return }
+        
+        networkManager?.request(endpoint: EndPointCase.addCard(card: samplePostModel).endpoint, completionHandler: { (result:Result<CardInfo,NetworkError>) in
+            switch result {
+            case .success(let cardinfo):
+                childVC.insertFromList(card: cardinfo)
+            case .failure(let error):
+                os_log(.error, "\(error.localizedDescription)")
+            }
+        })
+    }
     
     @objc private func deleteCard(notification:Notification) {
-        guard let cardInfo = notification.userInfo?[MainViewController.CardData] as? Todo,
+        guard let cardInfo = notification.userInfo?[MainViewController.UserInfoCardData] as? Todo,
               let childVC = notification.object as? ChildViewController else {return}
         
         networkManager?.request(endpoint: EndPointCase.deleteCard(card: cardInfo).endpoint) { (result:Result<String,NetworkError>)  in
