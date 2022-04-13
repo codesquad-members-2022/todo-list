@@ -36,8 +36,8 @@ router.post("/", async (req, res) => {
 
 //Updating One
 router.patch("/:columnId", getColumn, async (req, res) => {
-  if (req.body.name !== null) {
-    res.column.name = req.body.name;
+  if (req.body.title !== null) {
+    res.column.title = req.body.title;
   }
 
   try {
@@ -125,25 +125,13 @@ router.delete("/:columnId/:cardId/delete/", getColumn, async (req, res) => {
 
   try {
     res.column.cards.splice(res.column.cards.indexOf(card), 1);
+    await Card.deleteOne({ _id: card["_id"] });
     const newLog = await log.save();
     res.column.save();
     res.json(res.column);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-});
-
-//Get Log
-router.get("/log", async (req, res) => {
-  console.log("worked");
-  // const logData = Log.find().sort({ createdAt: -1 });
-  // const logData = Log.find({}).sort({ createdAt: -1 });
-
-  // try {
-  //   res.json(logData);
-  // } catch (err) {
-  //   res.status(400).json({ message: err.message });
-  // }
 });
 
 //Middleware
@@ -162,7 +150,7 @@ async function getColumn(req, res, next) {
   next();
 }
 
-function getDocument(doc, collection) {
+async function getDocument(doc, collection) {
   return async (req, res, next) => {
     let doc;
     try {
