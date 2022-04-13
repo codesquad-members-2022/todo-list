@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.todolist.exception.ExceptionType;
+import com.todolist.exception.NotFoundCardException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.todolist.domain.Card;
@@ -34,8 +37,8 @@ public class CardService {
         return cardRepository.save(cardCreateDto.toCard());
     }
 
-    public Integer delete(Integer cardId) {
-        return cardRepository.delete(cardId);
+    public void delete(Integer cardId) {
+        cardRepository.delete(cardId);
     }
 
     public CardInformationDto findCard(Integer cardId) {
@@ -43,6 +46,13 @@ public class CardService {
     }
 
     public void patch(Integer cardId, CardPatchDto cardPatchDto) {
+        try {
+            CardInformationDto findCard = cardRepository.findCard(cardId);
+        } catch(EmptyResultDataAccessException emptyResultDataAccessException) {
+
+            throw new NotFoundCardException(ExceptionType.NO_FOUND_CARD, "cardId");
+        }
+
         cardRepository.patch(cardId, cardPatchDto);
     }
 }
