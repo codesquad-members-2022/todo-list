@@ -24,6 +24,7 @@ class PopupCardView: UIView {
         textField.placeholder = "제목을 입력하세요"
         textField.font = UIFont(name: FontFactory.bold, size: 14)
         textField.textColor = UIColor(named: ColorAsset.gray3)
+        textField.becomeFirstResponder()
         return textField
     }()
     
