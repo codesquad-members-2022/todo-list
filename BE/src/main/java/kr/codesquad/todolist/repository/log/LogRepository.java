@@ -1,4 +1,4 @@
-package kr.codesquad.todolist.repository;
+package kr.codesquad.todolist.repository.log;
 
 import kr.codesquad.todolist.domain.Log;
 

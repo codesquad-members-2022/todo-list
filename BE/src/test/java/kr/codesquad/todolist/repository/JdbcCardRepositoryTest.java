@@ -1,6 +1,7 @@
 package kr.codesquad.todolist.repository;
 
 import kr.codesquad.todolist.domain.Card;
+import kr.codesquad.todolist.repository.card.JdbcCardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

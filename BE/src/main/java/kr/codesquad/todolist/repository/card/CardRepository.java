@@ -1,4 +1,4 @@
-package kr.codesquad.todolist.repository;
+package kr.codesquad.todolist.repository.card;
 
 import kr.codesquad.todolist.domain.Card;
 import kr.codesquad.todolist.domain.Section;

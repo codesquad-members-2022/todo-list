@@ -2,6 +2,7 @@ package kr.codesquad.todolist.repository;
 
 import kr.codesquad.todolist.domain.Activity;
 import kr.codesquad.todolist.domain.Log;
+import kr.codesquad.todolist.repository.log.JdbcLogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @JdbcTest
 class JdbcLogRepositoryTest {

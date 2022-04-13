@@ -6,7 +6,7 @@ import kr.codesquad.todolist.dto.card.CardResponse;
 import kr.codesquad.todolist.dto.card.CreateCardRequest;
 import kr.codesquad.todolist.dto.card.UpdateCardRequest;
 import kr.codesquad.todolist.dto.section.CardsOfSection;
-import kr.codesquad.todolist.repository.CardRepository;
+import kr.codesquad.todolist.repository.card.CardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

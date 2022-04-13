@@ -28,7 +28,7 @@ public class CardController {
 
     @PostMapping("/cards")
     public ResponseEntity<CardResponse> create(@RequestBody CreateCardRequest cardRequest) {
-
+        log.info("new card");
         CardResponse cardResponse = cardService.create(cardRequest);
 
         return new ResponseEntity<>(cardResponse, HttpStatus.CREATED);
