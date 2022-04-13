@@ -1,6 +1,6 @@
 import { qs, insertElement } from "../utils/helpers.js";
 import { createColumn } from "./column/column.js";
-import { createItem, createItemBox, createItemDeleteAlert } from "./card/card.js";
+import { createItem, createItemForm, createItemDeleteAlert } from "./card/card.js";
 import { createHistory } from "./history/history.js";
 import { createHeader } from "./header/header.js";
 import { createAside } from "./aside/aside.js";
@@ -24,9 +24,9 @@ export function renderItem({ id, columnId, title, content }) {
   insertElement(itemListEl, "beforeend", createItem({ id, title, content }));
 }
 
-export function renderItemBox(columnId) {
+export function renderItemForm(columnId) {
   const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
-  insertElement(itemListEl, "afterbegin", createItemBox());
+  insertElement(itemListEl, "afterbegin", createItemForm());
 }
 
 export function renderItemDeleteAlert() {
