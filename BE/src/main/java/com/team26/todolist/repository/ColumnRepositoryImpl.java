@@ -3,6 +3,7 @@ package com.team26.todolist.repository;
 import com.team26.todolist.domain.Column;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -21,6 +22,14 @@ public class ColumnRepositoryImpl implements ColumnRepository {
     public ColumnRepositoryImpl(
             NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
+
+    @Override
+    public List<Column> findAll() {
+        String sql = "SELECT * FROM column_tbl WHERE deleted = :isDeleted";
+        Map<String, Object> params = new HashMap<>();
+        params.put("isDeleted", false);
+        return namedParameterJdbcTemplate.query(sql, params, columnRowMapper);
     }
 
     @Override
@@ -85,7 +94,7 @@ public class ColumnRepositoryImpl implements ColumnRepository {
                 keyHolder);
 
 
-        return findById((long) keyHolder.getKey());
+        return findById(keyHolder.getKey().longValue());
     }
 
     @Override

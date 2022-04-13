@@ -2,6 +2,7 @@ package com.team26.todolist.service;
 
 import com.team26.todolist.domain.Card;
 import com.team26.todolist.domain.CardAction;
+import com.team26.todolist.domain.Column;
 import com.team26.todolist.domain.History;
 import com.team26.todolist.dto.response.HistoryResponse;
 import com.team26.todolist.repository.HistoryRepository;
@@ -14,9 +15,12 @@ import org.springframework.stereotype.Service;
 public class HistoryServiceImpl implements HistoryService {
 
     private final HistoryRepository historyRepository;
+    private final ColumnService columnService;
 
-    public HistoryServiceImpl(HistoryRepository historyRepository) {
+    public HistoryServiceImpl(HistoryRepository historyRepository,
+            ColumnService columnService) {
         this.historyRepository = historyRepository;
+        this.columnService = columnService;
     }
 
     @Override
@@ -27,27 +31,14 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public void saveHistory(CardAction cardAction, String userId, Card cardBefore, Card cardNow) {
-        // TODO : Card 클래스에 getter 필요
-        History history;
-        if (cardAction == CardAction.ADD) {
-            history = History.builder(cardAction, userId, LocalDateTime.now())
-                    .cardTitle(cardNow.getTitle())
-                    .cardStatus(cardNow.getCardStatus())
+        Column columnBefore = cardBefore != null ? columnService.findById(cardBefore.getColumnId()) : null;
+        Column columnNow = cardNow != null ? columnService.findById(cardNow.getColumnId()) : null;
+        History history = History.builder(cardAction, userId, LocalDateTime.now())
+                    .cardTitle(columnNow != null ? cardNow.getTitle() : null)
+                    .cardTitleBefore(columnBefore != null ? cardBefore.getTitle(): null)
+                    .columnTitle(columnNow != null ?columnNow.getTitle() : null)
+                    .columnTitleBefore(columnBefore != null ? columnBefore.getTitle() : null)
                     .build();
-        } else if (cardAction == CardAction.DELETE) {
-            history = History.builder(cardAction, userId, LocalDateTime.now())
-                    .cardTitleBefore(cardBefore.getTitle())
-                    .cardStatusBefore(cardBefore.getCardStatus())
-                    .build();
-
-        } else {
-            history = History.builder(cardAction, userId, LocalDateTime.now())
-                    .cardTitle(cardNow.getTitle())
-                    .cardTitleBefore(cardBefore.getTitle())
-                    .cardStatus(cardNow.getCardStatus())
-                    .cardStatusBefore(cardBefore.getCardStatus())
-                    .build();
-        }
         historyRepository.save(history);
     }
 }

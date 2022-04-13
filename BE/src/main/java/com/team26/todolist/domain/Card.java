@@ -7,24 +7,24 @@ public class Card {
     private String title;
     private String contents;
     private String userId;
-    private CardStatus cardStatus;
+    private Long columnId;
     private boolean isDeleted;
     private LocalDateTime createdAt;
 
-    public Card(Long id, String title, String contents, String userId, CardStatus cardStatus, LocalDateTime createdAt) {
+    public Card(Long id, String title, String contents, String userId, Long columnId, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.contents = contents;
         this.userId = userId;
-        this.cardStatus = cardStatus;
+        this.columnId = columnId;
         this.isDeleted = false;
         this.createdAt = createdAt;
     }
 
-    public Card(String title, String contents, CardStatus cardStatus) {
+    public Card(String title, String contents, Long columnId) {
         this.title = title;
         this.contents = contents;
-        this.cardStatus = cardStatus;
+        this.columnId = columnId;
     }
 
     public Card(Long id, String title, String contents) {
@@ -33,9 +33,9 @@ public class Card {
         this.contents = contents;
     }
 
-    public Card(Long id, CardStatus cardStatus) {
+    public Card(Long id, Long columnId) {
         this.id = id;
-        this.cardStatus = cardStatus;
+        this.columnId = columnId;
     }
 
     public Long getId() {
@@ -54,8 +54,8 @@ public class Card {
         return userId;
     }
 
-    public CardStatus getCardStatus() {
-        return cardStatus;
+    public Long getColumnId() {
+        return columnId;
     }
 
     public boolean isDeleted() {
@@ -73,7 +73,7 @@ public class Card {
                 ", title='" + title + '\'' +
                 ", contents='" + contents + '\'' +
                 ", userId='" + userId + '\'' +
-                ", cardStatus=" + cardStatus +
+                ", cardStatus=" + columnId +
                 ", isDeleted=" + isDeleted +
                 ", createdAt=" + createdAt +
                 '}';

@@ -1,15 +1,14 @@
 package com.team26.todolist.dto.request;
 
 import com.team26.todolist.domain.Card;
-import com.team26.todolist.domain.CardStatus;
 
 public class CardRegistrationRequest {
     private String title;
     private String contents;
-    private CardStatus cardStatus;
+    private Long columnId;
 
     public Card toEntity() {
-        return new Card(this.title, this.contents, this.cardStatus);
+        return new Card(this.title, this.contents, this.columnId);
     }
 
     public String getTitle() {
@@ -20,7 +19,7 @@ public class CardRegistrationRequest {
         return contents;
     }
 
-    public CardStatus getCardStatus() {
-        return cardStatus;
+    public Long getColumnId() {
+        return columnId;
     }
 }

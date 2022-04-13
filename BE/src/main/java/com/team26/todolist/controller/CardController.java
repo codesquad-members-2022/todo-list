@@ -18,22 +18,21 @@ import java.util.List;
 @RequestMapping("/cards")
 public class CardController {
 
-    private Logger logger = LoggerFactory.getLogger(CardController.class);
     private final CardService cardService;
 
     public CardController(CardService cardService) {
         this.cardService = cardService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<CardResponse>> getCards(@RequestParam String cardStatus) {
+    @GetMapping("/{columnId}")
+    public ResponseEntity<List<CardResponse>> getCards(@PathVariable Long columnId) {
         //TODO
         // validation 적용예정
-        if (cardStatus.equals("")) {
-            throw new EmptyCardStatusException("cardStatus는 비어있을 수 없습니다.");
+        if (columnId == null) {
+            throw new EmptyCardStatusException("columnId는 비어있을 수 없습니다.");
         }
 
-        List<CardResponse> cards = cardService.findByCardStatus(cardStatus);
+        List<CardResponse> cards = cardService.findByColumnId(columnId);
 
         return ResponseEntity.ok()
                 .body(cards);
@@ -64,7 +63,7 @@ public class CardController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteCard(@RequestBody CardDeleteRequest cardDeleteRequest) {
+    public ResponseEntity<Void> deleteCard(@RequestBody CardDeleteRequest cardDeleteRequest) {
         cardService.deleteCard(cardDeleteRequest);
 
         return ResponseEntity.noContent()

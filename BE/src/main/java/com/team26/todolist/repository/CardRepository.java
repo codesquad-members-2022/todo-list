@@ -1,7 +1,6 @@
 package com.team26.todolist.repository;
 
 import com.team26.todolist.domain.Card;
-import com.team26.todolist.domain.CardStatus;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -28,36 +27,36 @@ public class CardRepository {
     }
 
     public Card save(Card card) {
-        String sql = "INSERT INTO card (user_id, title, contents, card_status, deleted, created_at) " +
-                "VALUES (:user_id, :title, :contents, :card_status, :deleted, :created_at)";
+        String sql = "INSERT INTO card (user_id, title, contents, column_id, deleted, created_at) " +
+                "VALUES (:userId, :title, :contents, :columnId, :isDeleted, :createdAt)";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("user_id", card.getUserId());
+        params.put("userId", card.getUserId());
         params.put("title", card.getTitle());
         params.put("contents", card.getContents());
-        params.put("card_status", card.getCardStatus().name());
-        params.put("deleted", false);
-        params.put("created_at", LocalDateTime.now());
+        params.put("columnId", card.getColumnId());
+        params.put("isDeleted", false);
+        params.put("createdAt", LocalDateTime.now());
 
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
 
         return findById(Objects.requireNonNull(keyHolder.getKey()).longValue());
     }
 
-    public List<Card> findByCardStatus(String cardStatus) {
-        String sql = "SELECT id, user_id, title, contents, card_status, created_at " +
+    public List<Card> findByCardStatus(Long columnId) {
+        String sql = "SELECT id, user_id, title, contents, column_id, created_at " +
                 "FROM card " +
-                "WHERE deleted = :isDeleted AND card_status = :card_status";
+                "WHERE deleted = :isDeleted AND column_id = :columnId";
 
         Map<String, Object> params = new HashMap<>();
         params.put("isDeleted", false);
-        params.put("card_status", cardStatus);
+        params.put("columnId", columnId);
 
         return namedParameterJdbcTemplate.query(sql, params, cardRowMapper);
     }
 
     public Card findById(Long id) {
-        String sql = "SELECT id, user_id, title, contents, card_status, created_at " +
+        String sql = "SELECT id, user_id, title, contents, column_id, created_at " +
                 "FROM card " +
                 "WHERE id = :id";
 
@@ -68,21 +67,17 @@ public class CardRepository {
     }
 
     public void delete(Card findCard) {
-        String sql = "UPDATE card " +
-                "SET deleted = :deleted " +
-                "WHERE id = :id";
+        String sql = "UPDATE card SET deleted = :isDeleted WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("deleted", true);
+        params.put("isDeleted", true);
         params.put("id", findCard.getId());
 
         namedParameterJdbcTemplate.update(sql,params);
     }
 
     public Card update(Card cardBefore) {
-        String sql = "UPDATE card " +
-                "SET title = :title, contents = :contents " + 
-                "WHERE id = :id";
+        String sql = "UPDATE card SET title = :title, contents = :contents WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
         params.put("title", cardBefore.getTitle());
@@ -95,12 +90,10 @@ public class CardRepository {
     }
 
     public Card updateCardStatus(Card cardBefore) {
-        String sql = "UPDATE card " +
-                "SET card_status = :cardStatus " +
-                "WHERE id = :id";
+        String sql = "UPDATE card SET column_id = :columnId WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("cardStatus", cardBefore.getCardStatus().name());
+        params.put("columnId", cardBefore.getColumnId());
         params.put("id", cardBefore.getId());
 
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
@@ -115,7 +108,7 @@ public class CardRepository {
                         rs.getString("title"),
                         rs.getString("contents"),
                         rs.getString("user_id"),
-                        CardStatus.valueOf(rs.getString("card_status")),
+                        rs.getLong("column_id"),
                         rs.getObject("created_at", LocalDateTime.class)
                 ));
     }

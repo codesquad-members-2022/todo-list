@@ -27,8 +27,8 @@ public class CardServiceJdbc implements CardService {
     }
 
     @Override
-    public List<CardResponse> findByCardStatus(String cardStatus) {
-        return cardRepository.findByCardStatus(cardStatus).stream()
+    public List<CardResponse> findByColumnId(Long columnId) {
+        return cardRepository.findByCardStatus(columnId).stream()
                 .map(CardResponse::of)
                 .collect(Collectors.toUnmodifiableList());
     }

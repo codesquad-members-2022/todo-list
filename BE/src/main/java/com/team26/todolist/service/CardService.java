@@ -9,7 +9,7 @@ import com.team26.todolist.dto.response.CardResponse;
 import java.util.List;
 
 public interface CardService {
-    List<CardResponse> findByCardStatus(String cardStatus);
+    List<CardResponse> findByColumnId(Long columnId);
 
     CardResponse addCard(CardRegistrationRequest cardRegistrationRequest);
 
