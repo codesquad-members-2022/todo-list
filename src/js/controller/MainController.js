@@ -1,24 +1,42 @@
+/*
+  TODO:
+  - [ ] 초기 화면 카드 그리기
+  - column
+    - [x] 추가 버튼 이벤트
+    - [ ] 삭제 버튼 이벤트
+  - card
+    - [ ] 삭제 버튼 이벤트
+    - [ ] 수정 이벤트
+    - [ ] 이동 이벤트
+  - [ ] 사이드 메뉴 이벤트
+  */
+
 import { renderEmptyCard } from "../view/EmptyCardView.js";
 import { renderCard } from "../view/CardView.js";
 import { initColumn, onClickColumnAddBtn } from "../view/ColumnView.js";
+import * as util from "../../util/Util.js";
 
-function addCard2Column(event, store) {
-  const { target } = event;
-  const parentColumn = target.closest(".task-column");
-  const hasEmptyCard = parentColumn.querySelector(".testNewCard");
-  if (hasEmptyCard) return;
-  renderEmptyCard(parentColumn, createCardState, store);
+function init(store) {
+  const columns = document.querySelectorAll(".task-column");
+  // add 버튼 이벤트 달기
+  onClickColumnAddBtn(columns, handleClickAddBtn, store);
 }
 
-async function createCardState(event, store) {
-  console.log(1);
-  const { target } = event;
-  const parentCard = target.closest(".testNewCard");
-  const inputValues = [...parentCard.querySelectorAll("input")].map(
-    (input) => input.value
-  );
+function handleClickAddBtn({ target }, store) {
+  const parentColumn = target.closest(".task-column");
+  const emptyCard = util.$("#empty-card", parentColumn);
+  if (emptyCard) return;
+  renderEmptyCard(parentColumn, handleClickRegisterBtn, store);
+}
 
-  store.setState(inputValues);
+async function handleClickRegisterBtn({ target }, store) {
+  const parentCard = target.closest(".task-card");
+  console.log(parentCard);
+  const inputValues = [
+    parentCard.querySelector(".task-card__title"),
+    parentCard.querySelector(".task-card__content"),
+  ].map((input) => input.textContent);
+
   //   const isEmpty = inputValues.includes("");
   //   if (isEmpty) return;
 
@@ -28,18 +46,12 @@ async function createCardState(event, store) {
   // store.setState(newState);
 
   // //빈카드 삭제
-  renderCard(데이터, 삭제이벤트, 더블클릭이벤트, 이동이벤트, store);
+  //renderCard(데이터, 삭제이벤트, 더블클릭이벤트, 이동이벤트, store);
 }
 
 function removeCard(event) {
   const { target } = event;
   target.closest(".task-card").remove();
-}
-
-function init(store) {
-  const columnZone = document.querySelector(".task-column");
-  //   initColumn();
-  onClickColumnAddBtn(columnZone, addCard2Column, store);
 }
 
 const createMainController = (store) => {
