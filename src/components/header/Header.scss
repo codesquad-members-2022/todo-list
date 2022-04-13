@@ -13,6 +13,10 @@ header {
     background-image: url("../../images/menu.png");
     width: 24px;
     height: 24px;
-    
+    cursor: pointer;
+
+    .is-opened {
+      background-image: url("../../images/close.png");
+    }
   }
 }

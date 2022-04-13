@@ -1,6 +1,7 @@
 import "./Header.scss";
+import { initMenu } from "./menu/Menu";
 
-export const renderHeader = () => {
+const renderHeader = () => {
   document.body.insertAdjacentHTML("beforeend", getHeaderTemplate());
 };
 
@@ -11,4 +12,9 @@ const getHeaderTemplate = () => {
       <div class="header__menu-btn"></div>
     </header>
   `;
+};
+
+export const initHeader = () => {
+  renderHeader();
+  initMenu();
 };
