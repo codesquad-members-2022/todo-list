@@ -39,6 +39,9 @@
                                             <imageReference key="image" image="line.3.horizontal" catalog="system" symbolScale="large"/>
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didClickOpenButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cUJ-hp-tyD"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96272128820000002" green="0.95925337079999995" blue="0.97011226419999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
