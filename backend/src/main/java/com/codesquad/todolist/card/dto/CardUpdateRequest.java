@@ -1,13 +1,19 @@
 package com.codesquad.todolist.card.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotNull;
 
 public class CardUpdateRequest {
 
+    @ApiModelProperty(value = "카드의 제목")
     @NotNull(message = "title 값이 있어야 합니다.")
     private String title;
+
+    @ApiModelProperty(value = "카드의 내용")
     @NotNull(message = "content 값이 있어야 합니다.")
     private String content;
+
+    @ApiModelProperty(value = "작성자")
     @NotNull(message = "author 값이 있어야 합니다.")
     private String author;
 
