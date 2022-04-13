@@ -1,7 +1,7 @@
 @mixin button {
   width: 13.4rem;
   height: 4rem;
-  border-radius: .6rem;
+  border-radius: 0.6rem;
   border: 0;
   font-size: $font-medium;
   font-weight: $wgt-large;
@@ -25,13 +25,18 @@
   color: $btn-normal-hover;
 }
 
-@mixin task($color: false, $box-sizing: false, $opactiy: 1, $background-color: $task-default) {
+@mixin task(
+  $color: false,
+  $box-sizing: false,
+  $opactiy: 1,
+  $background-color: $task-default
+) {
   display: flex;
   padding: 1.6rem;
   opacity: $opactiy;
   background-color: $background-color;
-  border-radius: .6rem;
-  box-shadow: 0 .1rem 3rem $task-box-shadow;
+  border-radius: 0.6rem;
+  box-shadow: 0 0.1rem 3rem $task-box-shadow;
   justify-content: space-between;
   margin-bottom: 1.6rem;
 
@@ -42,7 +47,7 @@
   }
 
   @if $color {
-    border: .1rem solid $color;
+    border: 0.1rem solid $color;
   } @else {
     border: 0;
   }
@@ -58,14 +63,14 @@
     color: $task-title-color;
     font-size: $task-title-fs;
     font-weight: $task-title-wgt;
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
   }
 
   &__desc {
     color: $task-body-color;
     font-size: $task-body-fs;
     font-weight: $task-body-wgt;
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
   }
 
   &__author {
@@ -76,14 +81,14 @@
 
   @if $btn-remove-img {
     &__btn--remove {
-      background-image: url('../assets/task-remove-default.svg');
+      background-image: url("../assets/task-remove-default.svg");
       background-repeat: no-repeat;
       height: 1.2rem;
       width: 1.2rem;
     }
   } @else {
     &__btn--remove {
-      background-image: url('../assets/task-remove-delete.svg');
+      background-image: url("../assets/task-remove-delete.svg");
       background-repeat: no-repeat;
       height: 1.2rem;
       width: 1.2rem;
@@ -95,18 +100,18 @@
   flex-direction: column;
 
   &__title {
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
   }
 
   &__desc {
     margin-bottom: 1.6rem;
   }
 
-  input[type=text] {
+  input[type="text"] {
     border: 0;
   }
 
-  input[type=text]:focus {
+  input[type="text"]:focus {
     outline: none;
   }
 

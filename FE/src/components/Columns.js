@@ -3,7 +3,7 @@ import Column from "./Column.js";
 export default class Columns {
   constructor(target) {
     this.target = target;
-    const columnTitles = ["해야할 일", "하고 있는 일", "완료한 일"];
+    const columnTitles = ["TODO", "ONGOING", "DONE"];
     this.columnComponents = columnTitles.map((name) => new Column(name));
   }
 
@@ -17,5 +17,9 @@ export default class Columns {
   }
   render() {
     this.target.innerHTML = this.template();
+
+    this.columnComponents.forEach((column) => {
+      column.addEvent();
+    });
   }
 }

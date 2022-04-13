@@ -1,4 +1,4 @@
-class CardModificationForm {
+export class CardModificationForm {
   constructor(target) {
     this.isOccupiedInput = false;
     this.target = target;
