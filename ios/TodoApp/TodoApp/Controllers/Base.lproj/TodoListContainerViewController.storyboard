@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="TO-DO LIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2A-Sn-k6t">
-                                <rect key="frame" x="30" y="54" width="1088.5" height="0.0"/>
+                                <rect key="frame" x="30" y="54" width="1088.5" height="50.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRT-5E-WhS">
-                                <rect key="frame" x="1108.5" y="35" width="55.5" height="38"/>
+                                <rect key="frame" x="1108.5" y="60.5" width="55.5" height="38"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
@@ -32,42 +32,14 @@
                                 </buttonConfiguration>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bgk-Gp-o1q">
-                                <rect key="frame" x="30" y="84" width="1134" height="700"/>
-                                <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7N-v5-3dX">
-                                        <rect key="frame" x="0.0" y="0.0" width="271.5" height="700"/>
-                                        <connections>
-                                            <segue destination="aF8-Mx-Xb4" kind="embed" id="1ha-Gd-uD3"/>
-                                        </connections>
-                                    </containerView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="psB-DY-ZWk">
-                                        <rect key="frame" x="287.5" y="0.0" width="271.5" height="700"/>
-                                        <connections>
-                                            <segue destination="aF8-Mx-Xb4" kind="embed" id="zXp-J7-L4w"/>
-                                        </connections>
-                                    </containerView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86M-EQ-6p4">
-                                        <rect key="frame" x="575" y="0.0" width="271.5" height="700"/>
-                                        <connections>
-                                            <segue destination="aF8-Mx-Xb4" kind="embed" id="wgx-e8-Oog"/>
-                                        </connections>
-                                    </containerView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O51-7u-hjR">
-                                        <rect key="frame" x="862.5" y="0.0" width="271.5" height="700"/>
-                                        <color key="backgroundColor" name="Background"/>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="y7N-v5-3dX" firstAttribute="width" secondItem="psB-DY-ZWk" secondAttribute="width" id="uht-VZ-NmM"/>
-                                    <constraint firstItem="psB-DY-ZWk" firstAttribute="width" secondItem="86M-EQ-6p4" secondAttribute="width" id="vRd-7j-i80"/>
-                                </constraints>
+                                <rect key="frame" x="30" y="134.5" width="1134" height="649.5"/>
                             </stackView>
                             <view contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6I-rc-ba6">
                                 <rect key="frame" x="880" y="0.0" width="314" height="834"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpj-db-2Yk">
-                                        <rect key="frame" x="230" y="54" width="52" height="41"/>
+                                        <rect key="frame" x="230" y="54" width="51" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system">
@@ -113,14 +85,6 @@
             </objects>
             <point key="canvasLocation" x="9.5477386934673376" y="-385.61151079136692"/>
         </scene>
-        <!--TodoListViewController-->
-        <scene sceneID="lmG-0g-5dj">
-            <objects>
-                <viewControllerPlaceholder storyboardName="TodoListViewController" id="aF8-Mx-Xb4" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oaK-rb-8R7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="10" y="58"/>
-        </scene>
         <!--ActivityListViewController-->
         <scene sceneID="zYo-fK-bbE">
             <objects>
@@ -130,9 +94,6 @@
             <point key="canvasLocation" x="419" y="-386"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="1ha-Gd-uD3"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="line.3.horizontal" catalog="system" width="128" height="64"/>
         <image name="xmark" catalog="system" width="128" height="113"/>

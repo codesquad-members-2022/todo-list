@@ -64,7 +64,7 @@
                                             <constraint firstAttribute="height" constant="50" id="v6k-5o-aii"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system">
+                                        <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system" title="">
                                             <color key="baseForegroundColor" systemColor="systemGray2Color"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -78,20 +78,20 @@
                                 <color key="backgroundColor" name="Background"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TodoCell" id="uwA-Vr-ugE" customClass="TodoCell" customModule="TodoApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="384" height="557"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="384" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uwA-Vr-ugE" id="xDy-aG-jeL">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="557"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="131"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="lQi-UY-m2m">
-                                                    <rect key="frame" x="0.0" y="0.0" width="384" height="557"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="384" height="131"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQS-Yz-c7h">
-                                                            <rect key="frame" x="0.0" y="0.0" width="384" height="557"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="384" height="131"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e1s-12-Ug8">
-                                                                    <rect key="frame" x="15" y="15" width="354" height="527"/>
+                                                                    <rect key="frame" x="15" y="15" width="354" height="101"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목 필드" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tL-3w-jXg">
                                                                             <rect key="frame" x="0.0" y="0.0" width="354" height="24"/>
@@ -106,7 +106,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="작성자 필드" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoB-RK-nfb">
-                                                                            <rect key="frame" x="0.0" y="85" width="354" height="442"/>
+                                                                            <rect key="frame" x="0.0" y="85" width="354" height="16"/>
                                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
                                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -114,7 +114,6 @@
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="e1s-12-Ug8" secondAttribute="trailing" constant="15" id="S0T-Co-4vL"/>
                                                                 <constraint firstItem="e1s-12-Ug8" firstAttribute="leading" secondItem="lQS-Yz-c7h" secondAttribute="leading" constant="15" id="ZQI-VH-ke6"/>
@@ -136,8 +135,11 @@
                                                 <constraint firstItem="lQi-UY-m2m" firstAttribute="leading" secondItem="xDy-aG-jeL" secondAttribute="leading" id="sd8-Wn-jGT"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="cardView" destination="lQS-Yz-c7h" id="mGz-Zg-osL"/>
+                                            <outlet property="authorLabel" destination="MoB-RK-nfb" id="QEe-Ul-S0H"/>
+                                            <outlet property="contentLabel" destination="hFd-15-REG" id="IGd-hk-LvG"/>
+                                            <outlet property="titleLabel" destination="7tL-3w-jXg" id="hdY-5N-YXL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -156,10 +158,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addToDoButton" destination="T45-ro-CGl" id="Pi4-4Q-Ohq"/>
                         <outlet property="badgeLabel" destination="2Rd-hi-6vj" id="M2B-Ah-vuF"/>
                         <outlet property="badgeView" destination="RnH-Pw-IWt" id="ZOs-LT-IFF"/>
                         <outlet property="tableView" destination="Oqo-Nq-vGg" id="yEA-GM-BQp"/>
+                        <outlet property="titleLabel" destination="w3g-LD-Op9" id="4DS-kL-5BQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cM7-Ba-UPc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
