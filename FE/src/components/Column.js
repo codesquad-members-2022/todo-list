@@ -58,10 +58,8 @@ export default class Column {
   showModificationForm(e) {
     const columnName = e.target.dataset.name;
     const list = $(`.${columnName}-list`);
-    list.insertAdjacentHTML(
-      "afterbegin",
-      new CardModificationForm().template()
-    );
+    const modificationForm = new CardModificationForm();
+    list.insertAdjacentHTML("afterbegin", modificationForm.template());
   }
   hideModificationForm(e) {
     $(".task-deactivate").remove();

@@ -4,14 +4,15 @@
 }
 
 .task-drag {
-  @include task(false, .8);
+  @include task(false, 0.8);
   @include task-input-exclude;
-  backdrop-filter: blur(.4rem);
-  box-shadow: 0 0 .4rem $task-drag-box-shadow-top-left, 0 .2rem .4rem $task-drag-box-shadow-btm-right;
+  backdrop-filter: blur(0.4rem);
+  box-shadow: 0 0 0.4rem $task-drag-box-shadow-top-left,
+    0 0.2rem 0.4rem $task-drag-box-shadow-btm-right;
 }
 
 .task-place {
-  @include task($blue, true, .4);
+  @include task($blue, true, 0.4);
   @include task-input-exclude;
 }
 
@@ -23,9 +24,17 @@
 .task-deactivate {
   @include task($blue, true);
   @include task-input-include(false);
+
+  &__btns {
+    justify-content: space-between;
+  }
 }
 
 .task-delete {
   @include task($red, true, 1, $task-delete);
   @include task-input-exclude(false);
+
+  &__btns {
+    justify-content: space-between;
+  }
 }
