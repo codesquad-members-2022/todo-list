@@ -1,11 +1,16 @@
 import UIKit
 
+protocol TodoBadgeDelegate {
+    func setBadgeCount(_ count: Int)
+}
+
 class TodoTableViewManagement: NSObject {
     
     var todoTableView: TodoTableView
     var todoBoard: TodoBoard
     
     private(set) var dataSource = [CardData]()
+    var badgeDelegate: TodoBadgeDelegate?
     
     init(_ tableView: TodoTableView, in board: TodoBoard) {
         todoTableView = tableView
@@ -47,20 +52,24 @@ class TodoTableViewManagement: NSObject {
         guard 0 <= index, index < dataSource.count else {
             return false
         }
+        
         dataSource[index] = data
+        reloadTodoTableView()
         return true
     }
     
     func setDataSource(data: [CardData]) {
         dataSource = data
+        reloadTodoTableView()
+    }
+    
+    func reloadTodoTableView() {
         DispatchQueue.main.async { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
+            guard let self = self else { return }
             self.todoTableView.reloadData()
         }
+        
+        self.badgeDelegate?.setBadgeCount(self.dataSource.count)
     }
 }
 

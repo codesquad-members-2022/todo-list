@@ -109,22 +109,6 @@ class DataTask: SessionDataTask {
     }
 }
 
-// MARK:- Cards
-struct CardMap: Codable {
-    let cardMap: Cards
-}
-
-struct Cards: Codable {
-    let todo: [Card]
-}
-
-struct Card: Codable {
-    let cardId: Int
-    let cardTitle: String
-    let cardContent: String
-    let boardName: String
-}
-
 // MARK:- ServerAPI
 protocol ServerAPI {
     var endpoint: String { get }
