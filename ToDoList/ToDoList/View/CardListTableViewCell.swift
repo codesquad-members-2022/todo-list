@@ -14,18 +14,14 @@ class CardListTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
+        self.contentView.subviews.first?.layer.borderColor = selected ? UIColor(red: 0, green: 117/255, blue: 222/255, alpha: 1.0).cgColor : nil
+        self.contentView.subviews.first?.layer.borderWidth = selected ? 1 : 0
     }
     
-    func setTitle(title: String) {
+    func configure(title: String, body: String, caption: String = "iOS") {
         self.title.text = title
-    }
-    
-    func setBody(body: String) {
         self.body.text = body
-    }
-    
-    func setCaption(caption: String) {
         self.caption.text = "author by \(caption)"
     }
-    
 }
