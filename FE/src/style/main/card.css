@@ -51,7 +51,7 @@
 
 .column-addBtn {
   background-color: white;
-  border: 1px solid #86C6FF;
+  border: 1px solid #86c6ff;
 }
 
 .card-title {
@@ -62,17 +62,18 @@
   border: none;
 }
 
-.card-title:focus, .card-content:focus {
+.card-title:focus,
+.card-content:focus {
   outline: none;
 }
 
-[contenteditable=true]:empty:before{
+[contenteditable='true']:empty:before {
   content: attr(placeholder);
 }
 
 .card-content {
   border: 1px solid #ddd;
-  color : #333;
+  color: #333;
   font-size: 12px;
   width: 240px;
   padding: 5px;
@@ -85,7 +86,7 @@
   flex-direction: column;
 }
 
-.card-addbtn {
+.card-addBtn {
   width: 120px;
   height: 30px;
   border: none;
@@ -94,10 +95,19 @@
 }
 
 .registerBtn {
-  background-color: #86C6FF;
+  background-color: #86c6ff;
   color: white;
 }
 
 .registerBtn:hover {
-  background-color:#0075DE;
+  background-color: #0075de;
+}
+
+.deleting {
+  background-color: #ffd8d3;
+  border: 1px solid #f00;
+}
+
+.delete-btn:hover {
+  background-color: #f00;
 }
