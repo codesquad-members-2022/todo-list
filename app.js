@@ -5,22 +5,25 @@ import Todo from './components/Todo.js';
 import { getLocalStorageByKey, getTodosByStatus } from './utils/localStorage.js';
 import { onBodyMouseMove, onBodyMouseUp } from './utils/eventDragHandler.js';
 import { $ } from './utils/dom.js';
+import { handleNotice } from './utils/action.js';
 
 const app = () => {
   const todos = getLocalStorageByKey('todos') ? getLocalStorageByKey('todos') : [];
+  const notices = getLocalStorageByKey('notices') ? getLocalStorageByKey('notices') : [];
   localStorage.setItem('todos', JSON.stringify(todos));
+  localStorage.setItem('notices', JSON.stringify(notices));
 
   new TodoNoticeAnimation();
   onBodyMouseMove();
   onBodyMouseUp();
   createColumns();
+  createNotices();
 };
 
 const createColumns = () => {
-  const columns = ['todo', 'ing', 'complete'];
+  const columns = ['해야할일', '하고있는일', '완료한일'];
   const columnsWrapper = $('.column-section');
   columns.forEach(status => {
-    // 컬럼 생성시 컬럼에 맞는 Todo들 셋팅해줘야할듯.
     const column = new TodoColumn(status);
     const todos = getTodosByStatus(status);
     const count = todos.length;
@@ -33,6 +36,13 @@ const createColumns = () => {
       $(`.${element.status}`).insertAdjacentHTML('afterend', newTodo.render());
       newTodo.handleEventListener();
     });
+  });
+};
+
+const createNotices = () => {
+  const notices = getLocalStorageByKey('notices') ? getLocalStorageByKey('notices') : [];
+  notices.forEach(notice => {
+    handleNotice(notice);
   });
 };
 
