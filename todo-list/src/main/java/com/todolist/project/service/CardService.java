@@ -19,8 +19,8 @@ public class CardService {
         return CardUpdateDto.makeUpdateDto(cardRepository.findCardById(id));
     }
 
-    public int addCard(CardAddDto cardAddDto, int size) {
-        return cardRepository.add(cardAddDto.toEntity(), size);
+    public int addCard(CardAddDto cardAddDto) {
+        return cardRepository.add(cardAddDto.toEntity());
     }
 
     public int removeCard(Long id) {

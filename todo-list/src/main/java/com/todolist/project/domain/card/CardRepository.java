@@ -85,14 +85,14 @@ public class CardRepository {
        });
     }
 
-    public int add(Card card, int size){
+    public int add(Card card){
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("index", ++size);
+        mapSqlParameterSource.addValue("index", card.getCardIndex());
         mapSqlParameterSource.addValue("title", card.getTitle());
         mapSqlParameterSource.addValue("contents", card.getContents());
         mapSqlParameterSource.addValue("writer", card.getWriter());
         mapSqlParameterSource.addValue("createTime", card.createTime());
-        mapSqlParameterSource.addValue("card_status", CardStatus.TODO.name());
+        mapSqlParameterSource.addValue("card_status", card.getCardStatus().name());
         return namedParameterJdbcTemplate.update(INSERT_CARD_SQL, mapSqlParameterSource);
     }
 
