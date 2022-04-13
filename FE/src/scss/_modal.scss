@@ -1,0 +1,34 @@
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background-color: #F5F5F7;
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  border-radius: 0.6rem;
+
+  &__container {
+    box-sizing: border-box;
+    width: 40rem;
+    height: 13.8rem;
+    padding: 2.4rem;
+    background-color: $white;
+    margin: auto;
+    font-size: $font-xlarge;
+  }
+
+  &__btns {
+    position: relative;
+    top: 2rem;
+    left: 8rem;
+  }
+
+  &__btn--cancel {
+    @include button-gray;
+  }
+
+  &__btn--remove {
+    @include button-blue($active: true);
+  }
+}
