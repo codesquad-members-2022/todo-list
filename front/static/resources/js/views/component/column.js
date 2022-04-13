@@ -7,13 +7,23 @@ class Column {
     return document.querySelector(`.column[data-title=${columnName}]`);
   }
 
-  toggleDisableAttribute(columnName) {
+  getAddBtn(columnName) {
     const $column = this.getColumnElement(columnName);
     const $addBtn = $column.querySelector('.button--add');
+    return $addBtn;
+  }
+
+  isDisabledBtn($addBtn) {
     const isDisabled = $addBtn.getAttribute('disabled');
-    if (isDisabled) {
-      $addBtn.removeAttribute('disabled');
-    }
+    if (isDisabled) return true;
+  }
+
+  activateAddBtn($addBtn) {
+    $addBtn.removeAttribute('disabled');
+  }
+
+  disableAddBtn($addBtn) {
+    $addBtn.setAttribute('disabled', true);
   }
 
   render(columnName, cards) {

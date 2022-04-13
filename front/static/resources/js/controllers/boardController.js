@@ -1,5 +1,5 @@
 import { fetchRequest, HTTP_REQUEST } from '../utils/fetch.js';
-import { isEmptyInput } from '../utils/util.js';
+import { checkBtnType, isEmptyInput } from '../utils/util.js';
 import { BoardViewModel } from '../viewModels/boardViewModel.js';
 import { Board } from '../views/component/board.js';
 import { Card } from '../views/component/card.js';
@@ -67,17 +67,21 @@ class BoardController {
   }
 
   addWritableCard(target, column) {
-    target.setAttribute('disabled', true);
+    column.disableAddBtn(target);
     column.props.cards = [...column.props.cards, { cardStatus: column.props.title }];
   }
 
   removeWritableCard(column) {
-    column.toggleDisableAttribute(column.props.title);
+    const $addBtn = column.getAddBtn(column.props.title);
+    const isDisabledBtn = column.isDisabledBtn($addBtn);
+    if (isDisabledBtn) {
+      column.activateAddBtn($addBtn);
+    }
     column.props.cards = column.props.cards.slice(0, -1);
   }
 
   updateColumnState(target, column) {
-    const btnType = target.classList.contains('button--add') ? 'add' : 'cancle';
+    const btnType = checkBtnType(target);
     if (btnType === 'add') {
       this.addWritableCard(target, column);
     } else if (btnType === 'cancle') {
