@@ -78,23 +78,26 @@ public class CardDao {
         return Optional.ofNullable(card);
     }
 
-	/**
-	 * userId 조회 결과가 없으면 - order = 1
-	 * userId 조회 결과 있으면 - order = max(order) + 1
-	 * @param card
-	 * @return Card
-	 */
-	private Card insert(Card card) {
-		long nextTodoOrder = getMaxTodoOrder(card.getUserId(), card.getStatus().getText());
-		card.setOrder(nextTodoOrder);
-		SimpleJdbcInsert simpleJdbcInsert =  new SimpleJdbcInsert(jdbcTemplate);
-		simpleJdbcInsert.withTableName(CARD_TABLE_NAME).usingGeneratedKeyColumns(CARD_KEY_COLUMN_NAME);
+    /**
+     * userId 조회 결과가 없으면 - order = 1
+     * userId 조회 결과 있으면 - order = max(order) + 1
+     * @param card
+     * @return Card
+     */
+    private Card insert(Card card) {
+        long nextTodoOrder = getMaxTodoOrder(card.getUserId(), card.getStatus().getText());
+        card.setOrder(nextTodoOrder);
+        Map<String, Object> parameters = getCardMap(card);
 
-		Map<String, Object> parameters = getCardMap(card);
-		Number key = simpleJdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-		card.setCardId(key.longValue());
-		return card;
-	}
+        Number key = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName(CARD_TABLE_NAME)
+                .usingGeneratedKeyColumns(CARD_KEY_COLUMN_NAME)
+                .usingColumns(parameters.keySet().toArray(String[]::new))
+                .executeAndReturnKey(new MapSqlParameterSource(parameters));
+
+        card.setCardId(key.longValue());
+        return card;
+    }
 
     private long getMaxTodoOrder(Long userId, String todoStatus) {
         long maxOrder = ADDED_NEXT_ORDER;
@@ -156,14 +159,14 @@ public class CardDao {
         return namedParameterJdbcTemplate.query(sql, namedParameters, cardRowMapper());
     }
 
-	public List<CardStatusNumber> findGroupByTodoStatus(Long userId) {
-		if (userId < 1) {
-			throw new IllegalArgumentException(ERROR_OF_CARD_DAO_USER_ID);
-		}
-		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_TODO_USER_ID, userId);
-		String sql = "select count(todo_status) as number_of_status, todo_status from springcafe.todo_list_table where todo_user_id = :todo_user_id and deleted = 0 group by todo_status;";
-		return namedParameterJdbcTemplate.query(sql, namedParameters, cardStatusNumberRowMapper());
-	}
+    public List<CardStatusNumber> findGroupByTodoStatus(Long userId) {
+        if (userId < 1) {
+            throw new IllegalArgumentException(ERROR_OF_CARD_DAO_USER_ID);
+        }
+        final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_TODO_USER_ID, userId);
+        String sql = "select count(todo_status) as number_of_status, todo_status from todo_list_table where todo_user_id = :todo_user_id and deleted = 0 group by todo_status;";
+        return namedParameterJdbcTemplate.query(sql, namedParameters, cardStatusNumberRowMapper());
+    }
 
     private RowMapper<CardStatusNumber> cardStatusNumberRowMapper() {
         return (rs, rowNum) -> {
