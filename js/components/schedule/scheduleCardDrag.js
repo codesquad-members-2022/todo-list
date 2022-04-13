@@ -59,6 +59,7 @@ const moveAfterImageCard2DragPoint = (
 };
 
 const mouseMoveOnDraggingEventHandler = (event) => {
+    $main.appendChild(dragCard);
     relocateDragCard(event.pageX, event.pageY);
     const $elementBelowDragPointer = getElementBelowDragPointer(event);
 
@@ -124,6 +125,7 @@ export const mouseDownEventHandler = (event) => {
     selectedCard = target.closest(".schedule-card");
 
     if (!isValid2Drag(target)) {
+        clickCount = 0;
         return;
     }
 
@@ -131,9 +133,7 @@ export const mouseDownEventHandler = (event) => {
 
     selectedCard.classList.replace(CARD, CARD_AFTERIMAGE);
     dragCard.classList.replace(CARD, DRAG_CARD);
-    $main.appendChild(dragCard);
     afterimageCard = selectedCard;
 
-    relocateDragCard(event.pageX, event.pageY);
     addMouseEventOnDragCard();
 };
