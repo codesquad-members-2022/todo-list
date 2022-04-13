@@ -28,7 +28,10 @@ class CardManager: CardManagable {
         return cards.count
     }
     
-    subscript(_ index: Int) -> Cardable {
+    subscript(_ index: Int) -> Cardable? {
+        if index > count-1 {
+            return nil
+        }
         return cards[index]
     }
     

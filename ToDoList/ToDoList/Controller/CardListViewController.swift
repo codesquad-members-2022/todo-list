@@ -70,11 +70,10 @@ extension CardListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardListTableViewCell.identifier, for: indexPath) as? CardListTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardListTableViewCell.identifier, for: indexPath) as? CardListTableViewCell,
+              let newCardModel = cardManager[indexPath.item] else {
             return UITableViewCell()
         }
-        
-        let newCardModel = cardManager[indexPath.item]
         
         cell.configure(title: newCardModel.title, body: newCardModel.body)
         
