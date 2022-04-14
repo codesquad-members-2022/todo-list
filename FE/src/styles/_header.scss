@@ -1,0 +1,20 @@
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  &__title {
+    font-size: $font-xxlarge;
+    font-weight: $wgt-medium;
+    line-height: 4.6rem;
+  }
+
+  &__menu {
+    background-image: url("../assets/menu.svg");
+    background-repeat: no-repeat;
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+    border: 0;
+  }
+}
