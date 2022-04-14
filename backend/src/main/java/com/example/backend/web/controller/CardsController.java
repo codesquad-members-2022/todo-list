@@ -69,7 +69,22 @@ public class CardsController {
 
     @ApiOperation(value = "Card 이동")
     @PutMapping("/cards")
-    public Long move(@RequestBody CardMoveRequestDto dto) {
+    public Columns move(@RequestBody CardMoveRequestDto dto) {
+        Long id = dto.getId();
+        Card currentCard = cardService.findById(id);
+        String title = currentCard.getTitle();
+        String columnName = currentCard.getColumnName();
+
+        if (!columnName.equals(dto.getNewColumnName())) {
+            LogSaveRequestDto logSaveRequestDto = new LogSaveRequestDto.Builder()
+                    .title(title)
+                    .prevColumnName(columnName)
+                    .curColumnName(dto.getNewColumnName())
+                    .actionType(ActionType.MOVE)
+                    .build();
+            logService.save(logSaveRequestDto);
+        }
+
         return cardService.move(dto);
     }
 }
