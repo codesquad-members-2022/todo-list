@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CardService {
+	public static final BiFunction<String, Long, String> ERROR_MESSAGE = String::format;
 	public static final String ERROR_OF_CARD_ID = "error of card id: %d";
 
 	private final CardDao cardDao;
@@ -24,9 +26,8 @@ public class CardService {
 
 	@Transactional(readOnly = true)
 	public CardDto.CardResponse readFrom(Long id) {
-		String errorMessage = String.format(ERROR_OF_CARD_ID, id);
 		Card cardInfo = cardDao.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException(errorMessage));
+			.orElseThrow(() -> new IllegalArgumentException(ERROR_MESSAGE.apply(ERROR_OF_CARD_ID, id)));
 		return new CardDto.CardResponse(cardInfo);
 	}
 
@@ -37,6 +38,28 @@ public class CardService {
 
 		List<CardByStatus> cards = cardByStatusMapper(cardsInfo, numberOfStatusInfo);
 		return new CardDto.CardsResponse(cards);
+	}
+
+	public void updateOf(Long cardId, CardDto.EditRequest request) {
+		Card card = getCard(cardId);
+		card.modify(request.getSubject(), request.getContent());
+		cardDao.save(card);
+	}
+
+	public void deleteFrom(Long cardId) {
+		Card cardInfo = getCard(cardId);
+		cardDao.delete(cardInfo.getCardId());
+	}
+
+	@Transactional
+	public void moveCardTo(Long cardId, Card.TodoStatus toStatus, Long toOrder) {
+		Card cardInfo = getCard(cardId);
+
+		if (cardInfo.isPositionedAt(toStatus, toOrder)) {
+			return;
+		}
+
+		cardDao.updatePosition(cardInfo, toStatus, toOrder);
 	}
 
 	private List<CardByStatus> cardByStatusMapper(Map<Card.TodoStatus, List<Card>> cardsInfo,
@@ -60,30 +83,9 @@ public class CardService {
 			.collect(Collectors.toMap(CardStatusNumber::getStatus, CardStatusNumber::getNumberOfStatus));
 	}
 
-	public void updateOf(Long cardId, CardDto.EditRequest request) {
-		Card card = getCard(cardId);
-		card.modify(request.getSubject(), request.getContent());
-		cardDao.save(card);
-	}
-
+	// todo custom exception
 	private Card getCard(Long cardId) {
 		return cardDao.findById(cardId)
-			.orElseThrow(() -> new IllegalArgumentException(ERROR_OF_CARD_ID));
-	}
-
-	public void deleteFrom(Long cardId) {
-		Card cardInfo = getCard(cardId);
-		cardDao.delete(cardInfo.getCardId());
-	}
-
-	@Transactional
-	public void moveCardTo(Long cardId, Card.TodoStatus toStatus, Long toOrder) {
-		Card cardInfo = getCard(cardId);
-
-		if (cardInfo.isPositionedAt(toStatus, toOrder)) {
-			return;
-		}
-
-		cardDao.updatePosition(cardInfo, toStatus, toOrder);
+			.orElseThrow(() -> new IllegalArgumentException(ERROR_MESSAGE.apply(ERROR_OF_CARD_ID, cardId)));
 	}
 }

@@ -35,6 +35,8 @@ public class CardDao {
     public static final String ERROR_OR_CARD_DAO_UPDATE_NONE = "cardDao 없데이트 대상이 아닙니다.";
     public static final String ERROR_OF_CARD_DAO_BY_FK_USER_ID = "result of null with userId";
     public static final String ERROR_OF_CARD_DAO_USER_ID = "cardDao - userId";
+    public static final int CARD_RESULT_OF_UPDATE_LENGTH = 1;
+    public static final int CARD_MIN_ID = CARD_RESULT_OF_UPDATE_LENGTH;
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
@@ -43,13 +45,12 @@ public class CardDao {
         if (Objects.isNull(card.getCardId())) {
             return insert(card);
         }
-        if (update(card) < ADDED_NEXT_ORDER) {
+        if (update(card) < CARD_RESULT_OF_UPDATE_LENGTH) {
             throw new IllegalArgumentException(ERROR_OF_CARD_DAO_UPDATE);
         }
         return card;
     }
 
-    // 파람 수정 - 속성명이 달라지면서 에러 발생으로 수정
     private int update(Card card) {
         Optional<Card> cardInfo = findById(card.getCardId());
         if (cardInfo.isEmpty()) {
@@ -57,9 +58,9 @@ public class CardDao {
         }
         String sql = "update todo_list_table set subject = :subject, content = :content where todo_id = :todo_id";
         final SqlParameterSource params = new MapSqlParameterSource()
-                .addValue(CARD_SUBJECT, card.getSubject())
-                .addValue(CARD_CONTENT, card.getContent())
-                .addValue(CARD_KEY_COLUMN_NAME, card.getCardId());
+            .addValue(CARD_SUBJECT, card.getSubject())
+            .addValue(CARD_CONTENT, card.getContent())
+            .addValue(CARD_KEY_COLUMN_NAME, card.getCardId());
         return namedParameterJdbcTemplate.update(sql, params);
     }
 
@@ -85,10 +86,10 @@ public class CardDao {
         Map<String, Object> parameters = getCardMap(card);
 
         Number key = new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName(CARD_TABLE_NAME)
-                .usingGeneratedKeyColumns(CARD_KEY_COLUMN_NAME)
-                .usingColumns(parameters.keySet().toArray(String[]::new))
-                .executeAndReturnKey(new MapSqlParameterSource(parameters));
+            .withTableName(CARD_TABLE_NAME)
+            .usingGeneratedKeyColumns(CARD_KEY_COLUMN_NAME)
+            .usingColumns(parameters.keySet().toArray(String[]::new))
+            .executeAndReturnKey(new MapSqlParameterSource(parameters));
 
         card.setCardId(key.longValue());
         return card;
@@ -96,12 +97,12 @@ public class CardDao {
 
     private long getMaxTodoOrder(Long userId, String todoStatus) {
         long maxOrder = ADDED_NEXT_ORDER;
-        if (userId < ADDED_NEXT_ORDER) {
+        if (userId < CARD_MIN_ID) {
             throw new IllegalArgumentException(ERROR_OF_CARD_ID);
         }
         final SqlParameterSource namedParameters = new MapSqlParameterSource()
-                .addValue(CARD_TODO_USER_ID, userId)
-                .addValue(CARD_TODO_STATUS, todoStatus);
+            .addValue(CARD_TODO_USER_ID, userId)
+            .addValue(CARD_TODO_STATUS, todoStatus);
         String sql = "select max(todo_order) from todo_list_table where todo_user_id = :todo_user_id and todo_status = :todo_status and deleted = 0;";
         try {
             maxOrder = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, Long.class) + ADDED_NEXT_ORDER;
@@ -125,26 +126,26 @@ public class CardDao {
 
     private RowMapper<Card> cardRowMapper() {
         return (rs, rowNum) -> {
-            Card article = new Card(
-                    rs.getLong(CARD_KEY_COLUMN_NAME),
-                    rs.getString(CARD_SUBJECT),
-                    rs.getString(CARD_CONTENT),
-                    Card.TodoStatus.from(rs.getString(CARD_TODO_STATUS)),
-                    rs.getLong(CARD_TODO_ORDER),
-                    rs.getBoolean(CARD_DELETED),
-                    rs.getTimestamp(CARD_WRITING_DATE).toLocalDateTime(),
-                    rs.getLong(CARD_TODO_USER_ID));
-            return article;
+            Card card = new Card(
+                rs.getLong(CARD_KEY_COLUMN_NAME),
+                rs.getString(CARD_SUBJECT),
+                rs.getString(CARD_CONTENT),
+                Card.TodoStatus.from(rs.getString(CARD_TODO_STATUS)),
+                rs.getLong(CARD_TODO_ORDER),
+                rs.getBoolean(CARD_DELETED),
+                rs.getTimestamp(CARD_WRITING_DATE).toLocalDateTime(),
+                rs.getLong(CARD_TODO_USER_ID));
+            return card;
         };
     }
 
     public List<Card> findByUserIdAndTodoStatus(Long userId, Card.TodoStatus todo) {
-        if (userId < 1) {
+        if (userId < CARD_MIN_ID) {
             throw new IllegalArgumentException(ERROR_OF_CARD_DAO_USER_ID);
         }
         final SqlParameterSource namedParameters = new MapSqlParameterSource()
-                .addValue(CARD_TODO_USER_ID, userId)
-                .addValue(CARD_TODO_STATUS, todo.getText());
+            .addValue(CARD_TODO_USER_ID, userId)
+            .addValue(CARD_TODO_STATUS, todo.getText());
 		/*
 			TODO (honux)
 			 order by - 인덱싱
@@ -155,7 +156,7 @@ public class CardDao {
     }
 
     public List<CardStatusNumber> findGroupByTodoStatus(Long userId) {
-        if (userId < 1) {
+        if (userId < CARD_MIN_ID) {
             throw new IllegalArgumentException(ERROR_OF_CARD_DAO_USER_ID);
         }
         final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_TODO_USER_ID, userId);
@@ -166,14 +167,14 @@ public class CardDao {
     private RowMapper<CardStatusNumber> cardStatusNumberRowMapper() {
         return (rs, rowNum) -> {
             CardStatusNumber cardStatusNumber = new CardStatusNumber(
-                    Card.TodoStatus.from(rs.getString(CARD_TODO_STATUS)),
-                    rs.getLong(CARD_NUMBER_OF_STATUS));
+                Card.TodoStatus.from(rs.getString(CARD_TODO_STATUS)),
+                rs.getLong(CARD_NUMBER_OF_STATUS));
             return cardStatusNumber;
         };
     }
 
     public void delete(Long cardId) {
-        String sql = "DELETE FROM todo_list_table WHERE todo_id = :todo_id;";
+        String sql = "update todo_list_table set deleted = 1 where todo_id = :todo_id";
         final SqlParameterSource params = new MapSqlParameterSource().addValue(CARD_KEY_COLUMN_NAME, cardId);
         this.namedParameterJdbcTemplate.update(sql, params);
     }
@@ -182,7 +183,7 @@ public class CardDao {
         shiftAffectedCards(card, toStatus, toOrder);
 
         jdbcTemplate.update("UPDATE todo_list_table SET todo_status = ?, todo_order = ? WHERE todo_id = ?;",
-                toStatus.getText(), toOrder, card.getCardId());
+            toStatus.getText(), toOrder, card.getCardId());
     }
 
     private void shiftAffectedCards(Card card, Card.TodoStatus toStatus, Long toOrder) {
@@ -191,23 +192,23 @@ public class CardDao {
         String upperBoundCondition = " AND todo_order < ";
 
         if (!toStatus.equals(card.getStatus())) {
-            lowerBoundCondition += toOrder - 1;
+            lowerBoundCondition += toOrder - CARD_MIN_ID;
             upperBoundCondition = "";
         }
 
         if (toOrder > card.getOrder()) {
             shiftingOperation = " - 1";
             lowerBoundCondition += card.getOrder();
-            upperBoundCondition += toOrder + 1;
+            upperBoundCondition += toOrder + CARD_MIN_ID;
         }
 
         if (toOrder < card.getOrder()) {
-            lowerBoundCondition += toOrder - 1;
+            lowerBoundCondition += toOrder - CARD_MIN_ID;
             upperBoundCondition += card.getOrder();
         }
 
         String sql = "UPDATE todo_list_table SET todo_order = todo_order" + shiftingOperation +
-                " WHERE todo_user_id = ? AND todo_status = ?" + lowerBoundCondition + upperBoundCondition + ";";
+            " WHERE todo_user_id = ? AND todo_status = ?" + lowerBoundCondition + upperBoundCondition + ";";
         jdbcTemplate.update(sql, card.getUserId(), toStatus.getText());
     }
 }
