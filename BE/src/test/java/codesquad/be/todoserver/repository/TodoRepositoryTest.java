@@ -51,4 +51,11 @@ class TodoRepositoryTest {
 
 		assertThat(todos).hasSize(4);
 	}
+
+	@Test
+	void 특정_투두_삭제_성공() {
+		boolean result = todoRepository.deleteById(1L);
+
+		assertThat(result).isTrue();
+	}
 }

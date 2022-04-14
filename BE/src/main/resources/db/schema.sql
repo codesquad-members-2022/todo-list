@@ -8,6 +8,7 @@ CREATE TABLE TODO
     status       VARCHAR(10)                    COMMENT 'Todo의 상태(todo, doing, done)',
     created_at   TIMESTAMP                      COMMENT 'Todo 생성 시간',
     updated_at   TIMESTAMP                      COMMENT 'Todo 업데이트 시간',
+    deleted      BIT NOT NULL DEFAULT 0         COMMENT 'Todo 삭제 여부',
     PRIMARY KEY (id)
 );
 
