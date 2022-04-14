@@ -16,7 +16,16 @@ enum BoardType: CustomStringConvertible {
     case done
     
     var description: String {
-        return "\(self)"
+        switch self {
+        case .todo:
+            return "TODO"
+        case .progress:
+            return "DOING"
+        case .done:
+            return "DONE"
+        default:
+            return ""
+        }
     }
 }
 
@@ -55,7 +64,7 @@ class BoardPersistenceProvider: PersistenceProvider {
             return
         }
         let object = NSManagedObject(entity: entity, insertInto: context)
-        object.setValue(boardType, forKey: "type")
+        object.setValue(boardType.description, forKey: "type")
         object.setValue(id, forKey: "cardId")
         object.setValue(content, forKey: "content")
         object.setValue(title, forKey: "title")
