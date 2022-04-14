@@ -45,7 +45,7 @@ class MemoContainerView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(named: "add"), for: .normal)
         button.addAction(UIAction(handler: { _ in
-            self.delegate?.addButtonDidTap(container: self.containerType!)
+            self.delegate?.addButtonDidTap(containerType: self.containerType!)
         }), for: .touchUpInside)
         return button
     }()

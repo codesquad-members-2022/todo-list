@@ -2,7 +2,9 @@ import UIKit
 
 class PopupViewController: UIViewController {
 
-    var alertTitle: String = ""
+    weak var delegate: PopupViewDelegate?
+    private var alertTitle: String = ""
+    private var containerType: MemoContainerType?
     
     lazy var popupCardView: PopupCardView = {
         let view = PopupCardView()
@@ -12,6 +14,14 @@ class PopupViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    convenience init(containerType: MemoContainerType) {
+        self.init()
+        print("1235")
+        self.containerType = containerType
+        self.alertTitle = "\(containerType) 추가하기"
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +55,12 @@ extension PopupViewController: PopupCardViewDelegate {
     
     func popupCardOkButtonDidTap() {
         // TODO: Server에 데이터 POST
+    }
+    
+    func popupCardOkButtonDidTapTemp(title: String, content: String) {
+        let memo = Memo(title: title, content: content, name: "JK")
+        
+        self.delegate?.addButtonDidTap(memo: memo)
     }
 }
 

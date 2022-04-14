@@ -27,11 +27,18 @@ class MemoContainerViewController: UIViewController {
 }
 
 
+extension MemoContainerViewController: PopupViewDelegate {
+    func addButtonDidTap(memo: Memo) {
+        // TODO: NetworkLayer로 토스
+    }
+}
+
+
 extension MemoContainerViewController: MemoContainerViewDelegate {
-    func addButtonDidTap(container: MemoContainerType) {
-        let popupViewController = PopupViewController()
+    func addButtonDidTap(containerType: MemoContainerType) {
+        let popupViewController = PopupViewController(containerType: containerType)
         popupViewController.modalPresentationStyle = .overCurrentContext
-        popupViewController.alertTitle = "\(container) 추가하기"
+        popupViewController.delegate = self
         present(popupViewController, animated: true)
     }
 }
