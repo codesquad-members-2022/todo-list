@@ -5,15 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d995f52-4be1-415d-b57f-6d6654aa18a1" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Component.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/Component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/TodoCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/TodoCard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoCard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/TodoList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Eventhandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Eventhandler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Node.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Node.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/View.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/View.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/scss/_column.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_column.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/_reset.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_reset.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/scss/_shared.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_shared.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/column.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/header.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/scss/reset.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,24 +47,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/inust/projects/todo-list&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/inust/projects/todo-list/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/inust/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/221.5080.154/WebStorm 2022.1 EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/inust/projects/todo-list",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "/Users/inust/projects/todo-list/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.sourceCode",
+    "ts.external.directory.path": "/Users/inust/projects/todo-list/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/components" />
@@ -82,6 +94,7 @@
       <updated>1649639012342</updated>
       <workItem from="1649639018771" duration="598000" />
       <workItem from="1649640028134" duration="904000" />
+      <workItem from="1649905571442" duration="6613000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />

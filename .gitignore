@@ -17,5 +17,3 @@ rebel.xml
 *.css.map
 /node_modules
 /dist
-./tsconfig.json
-./babel.config.json

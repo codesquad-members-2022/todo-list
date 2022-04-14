@@ -1,21 +1,19 @@
-
-
 import View from "../core/View";
-import { Action,  StateObj } from "../types";
-import { TodoCard } from "./TodoCard";
+import {Action, StateObj} from "../types";
+import {TodoCard} from "./TodoCard";
 
 
 export class TodoList extends View {
-  template() {
-    const {
-    title, todos, editting
-    } = this.$props;
-    return `
+    template() {
+        const {
+            title, todos, editting
+        } = this.$props;
+        return `
           <div class="todo-title">
             <span class="todo-name">${title}
               <span class="count"><span class="number">${
-      todos.length
-    }</span></span>
+            todos.length
+        }</span></span>
             </span>
                 <span class="add">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,37 +31,41 @@ export class TodoList extends View {
                 </span>
           </div>
         ${
-      editting
-        ? `<div class="wrapper">
+            editting
+                ? `<div class="wrapper">
             <span class="title"></span><span class="content"></span>
             </div>
             <div class="frame">
               <div class="button-left"><span>취소</span></div>
               <div class="button-right"><span>등록</span></div>
             </div>`
-        : ""
-    }
+                : ""
+        }
     ${todos
-      .map(
-        (todo:StateObj, idx:number) =>
-       `<div class="todo-card" data-idx="${idx}"></div>`
-    )
-      .join("")}`;
-  }
+            .map(
+                (todo: StateObj, idx: number) =>
+                    `<div class="todo-card" data-idx="${idx}"></div>`
+            )
+            .join("")}`;
+    }
 
-  mount() {
-    const { todos } = this.$props;
-    todos.forEach(
-      (todo:StateObj, idx:number) =>
-          new TodoCard(this.store, this.select(`.todo-card[data-idx="${idx}"]`)!, {todo,idx, listIdx:this.select()?.dataset.idx})
-    );
-  }
-  setEvent(){
-    const{todos}= this.$props;
-    this.addEvent('click', '.add' , e=>{
-      this.store.commit(Action.ONEDIT, {editting:true, idx:this.select()?.dataset.idx}); //target idx
-    })
+    mount() {
+        const {todos} = this.$props;
+        todos.forEach(
+            (todo: StateObj, idx: number) =>
+                new TodoCard(this.store, this.select(`.todo-card[data-idx="${idx}"]`)!, {
+                    todo,
+                    listIdx: this.el.dataset.idx
+                })
+        );
+    }
 
-  }
+    setEvent() {
+        const {todos} = this.$props;
+        this.addEvent('click', '.add', e => {
+            this.store.commit(Action.ONEDIT, {editting: true, listIdx: this.el.dataset.idx}); //target idx
+        })
+
+    }
 }
 
