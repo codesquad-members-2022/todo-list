@@ -2,6 +2,7 @@ package com.example.backend.repository.card.jdbc;
 
 
 import com.example.backend.domain.card.Card;
+import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
 import com.example.backend.repository.card.CardRepositoryHelper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,10 +15,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
+import static java.util.Objects.requireNonNull;
 
 @Repository
 public class CardJdbcRepository implements CardRepository {
@@ -40,7 +40,7 @@ public class CardJdbcRepository implements CardRepository {
         Map<String, Object> params = repositoryHelper.getParamMap(card);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
         namedParameterJdbcTemplate.update(query, mapSqlParameterSource, keyHolder);
-        long key = keyHolder.getKey().longValue();
+        long key = requireNonNull(keyHolder.getKey()).longValue();
         return new Card(key, card.getWriter(), card.getPosition(), card.getTitle(), card.getContent(), card.getCardType(), LocalDateTime.now(), card.getLastModifiedAt(), card.isVisible(), card.getMemberId());
     }
 
@@ -57,7 +57,7 @@ public class CardJdbcRepository implements CardRepository {
                 "visible, " +
                 "member_id " +
                 "FROM card WHERE visible = true";
-        RowMapper<Card> mapper = repositoryHelper.getMapper();
+        RowMapper<Card> mapper = CardRepositoryHelper.mapper;
         return namedParameterJdbcTemplate.query(query, mapper);
     }
 
@@ -66,7 +66,7 @@ public class CardJdbcRepository implements CardRepository {
         String query = "SELECT id, writer, position, title, content, card_type, created_at, last_modified_at, visible, member_id " +
                 "FROM card WHERE id = :id";
         Map<String, Object> params = Collections.singletonMap("id", id);
-        RowMapper<Card> mapper = repositoryHelper.getMapper();
+        RowMapper<Card> mapper = CardRepositoryHelper.mapper;
         return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, mapper));
     }
 
@@ -83,5 +83,18 @@ public class CardJdbcRepository implements CardRepository {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
         String query = "UPDATE card SET visible=false WHERE id=:id";
         namedParameterJdbcTemplate.update(query, namedParameters);
+    }
+
+    private static class CardBuilder {
+        private Long id;
+        private String writer;
+        private Long position;
+        private String title;
+        private String content;
+        private CardType cardType;
+        private LocalDateTime createdAt;
+        private LocalDateTime lastModifiedAt;
+        private boolean visible;
+        private Long memberId;
     }
 }

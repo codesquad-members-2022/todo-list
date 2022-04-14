@@ -1,9 +1,6 @@
 package com.example.backend.repository.card;
 
-import static com.example.backend.utils.TimeUtils.dateTimeOf;
-
 import com.example.backend.domain.card.Card;
-
 import com.example.backend.domain.card.CardType;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,6 +10,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.backend.utils.TimeUtils.dateTimeOf;
 
 @Configuration
 public class CardRepositoryHelper {
@@ -28,18 +27,18 @@ public class CardRepositoryHelper {
     private static final String VISIBLE = "visible";
     private static final String MEMBER_ID = "memberId";
 
-    private static RowMapper<Card> mapper = (rs, rowNum) ->
+    public static RowMapper<Card> mapper = (rs, rowNum) ->
             new Card(
-                    rs.getLong("id"),
-                    rs.getString("writer"),
-                    rs.getLong("position"),
-                    rs.getString("title"),
-                    rs.getString("content"),
-                    CardType.valueOf(rs.getString("card_type")),
-                    dateTimeOf(rs.getTimestamp("created_at")),
-                    dateTimeOf(rs.getTimestamp("last_modified_at")),
-                    rs.getBoolean("visible"),
-                    rs.getLong("member_id")
+                    rs.getLong(ID),
+                    rs.getString(WRITER),
+                    rs.getLong(POSITION),
+                    rs.getString(TITLE),
+                    rs.getString(CONTENT),
+                    CardType.valueOf(rs.getString(CARD_TYPE)),
+                    dateTimeOf(rs.getTimestamp(CREATED_AT)),
+                    dateTimeOf(rs.getTimestamp(LAST_MODIFIED_AT)),
+                    rs.getBoolean(VISIBLE),
+                    rs.getLong(MEMBER_ID)
             );
 
     public Map<String, Object> getParamMap(Card card) {
@@ -65,9 +64,5 @@ public class CardRepositoryHelper {
                 .addValue(POSITION, card.getPosition())
                 .addValue(CARD_TYPE, card.getCardType().toString())
                 .addValue(LAST_MODIFIED_AT, card.getLastModifiedAt());
-    }
-
-    public RowMapper<Card> getMapper() {
-        return mapper;
     }
 }
