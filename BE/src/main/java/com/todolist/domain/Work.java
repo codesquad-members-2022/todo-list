@@ -2,6 +2,7 @@ package com.todolist.domain;
 
 import com.todolist.dto.WorkDto;
 import java.time.LocalDateTime;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -17,25 +18,15 @@ public class Work {
 
     private Work() { }
 
-    public Work(Integer categoryId, String title, String content, String userId) {
+    @Builder
+    public Work(Integer id, Integer categoryId, String title, String content, String userId,
+        boolean deleteFlag, LocalDateTime createdDateTime) {
+        this.id = id;
         this.categoryId = categoryId;
         this.title = title;
         this.content = content;
         this.userId = userId;
-        this.deleteFlag = false;
-        this.createdDateTime = LocalDateTime.now().withNano(0);
-    }
-
-    public Work(Integer id, String title, String content, LocalDateTime createdDateTime) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.createdDateTime = createdDateTime;
-    }
-
-    public Work(Integer id, Integer categoryId, LocalDateTime createdDateTime) {
-        this.id = id;
-        this.categoryId = categoryId;
+        this.deleteFlag = deleteFlag;
         this.createdDateTime = createdDateTime;
     }
 

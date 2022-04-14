@@ -1,23 +1,36 @@
 package com.todolist.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.todolist.domain.UserLog;
 import com.todolist.domain.Work;
+import java.time.LocalDateTime;
+import lombok.Getter;
 
+@Getter
 public class WorkCreationDto {
 
-    private static final String CREATION = "등록";
-
-    @JsonProperty private String userId;
-    @JsonProperty private Integer categoryId;
-    @JsonProperty private String title;
-    @JsonProperty private String content;
+    private String userId;
+    private Integer categoryId;
+    private String title;
+    private String content;
 
     public Work convertToWorkDomain() {
-        return new Work(categoryId, title, content, userId);
+        return Work.builder()
+            .categoryId(categoryId)
+            .title(title)
+            .content(content)
+            .userId(userId)
+            .deleteFlag(false)
+            .createdDateTime(LocalDateTime.now().withNano(0))
+            .build();
     }
 
     public UserLog convertToUserLogDomain(String categoryName) {
-        return new UserLog(userId, title, CREATION, categoryName);
+        return UserLog.builder()
+            .userId(userId)
+            .title(title)
+            .action(Action.CREATION.getAction())
+            .currentCategory(categoryName)
+            .updatedDateTime(LocalDateTime.now())
+            .build();
     }
 }

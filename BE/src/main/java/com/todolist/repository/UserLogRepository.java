@@ -23,21 +23,21 @@ public class UserLogRepository {
     }
 
     public List<UserLog> findAllByUserId(String userId) {
-        return jdbc.query("SELECT title, action, previous_category, changed_category, updated_datetime "
+        return jdbc.query("SELECT title, action, previous_category, current_category, updated_datetime "
             + "FROM user_log WHERE user_id = :userId ORDER BY updated_datetime DESC",
             Collections.singletonMap("userId", userId), userLogRowMapper());
     }
 
     public void saveLogOfCreationByUser(UserLog userLog) {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(userLog);
-        jdbc.update("INSERT INTO user_log (user_id, title, action, previous_category, updated_datetime)"
-            + " VALUES (:userId, :title, :action, :previousCategory, :updatedDateTime)", parameters);
+        jdbc.update("INSERT INTO user_log (user_id, title, action, current_category, updated_datetime)"
+            + " VALUES (:userId, :title, :action, :currentCategory, :updatedDateTime)", parameters);
     }
 
     public void saveLogOfMovementByUser(UserLog userLog) {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(userLog);
-        jdbc.update("INSERT INTO user_log (user_id, title, action, previous_category, changed_category, updated_datetime)"
-            + " VALUES (:userId, :title, :action, :previousCategory, :changedCategory, :updatedDateTime)", parameters);
+        jdbc.update("INSERT INTO user_log (user_id, title, action, previous_category, current_category, updated_datetime)"
+            + " VALUES (:userId, :title, :action, :previousCategory, :currentCategory, :updatedDateTime)", parameters);
     }
 
     private RowMapper<UserLog> userLogRowMapper() {
@@ -45,13 +45,13 @@ public class UserLogRepository {
             Calendar cal = Calendar.getInstance();
             cal.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
 
-            UserLog userLog = new UserLog(
-                rs.getString("title"),
-                rs.getString("action"),
-                rs.getString("previous_category"),
-                rs.getString("changed_category"),
-                rs.getTimestamp("updated_datetime", cal).toLocalDateTime()
-            );
+            UserLog userLog = UserLog.builder()
+                .title(rs.getString("title"))
+                .action(rs.getString("action"))
+                .previousCategory(rs.getString("previous_category"))
+                .currentCategory(rs.getString("current_category"))
+                .updatedDateTime(rs.getTimestamp("updated_datetime", cal).toLocalDateTime())
+                .build();
 
             return userLog;
         };

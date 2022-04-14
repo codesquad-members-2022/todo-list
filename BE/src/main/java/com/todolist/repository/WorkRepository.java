@@ -49,12 +49,13 @@ public class WorkRepository {
         return (rs, rowNum) -> {
             Calendar cal = Calendar.getInstance();
             cal.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
-            Work work = new Work(
-                rs.getObject("id", Integer.class),
-                rs.getString("title"),
-                rs.getString("content"),
-                rs.getTimestamp("created_datetime", cal).toLocalDateTime()
-            );
+
+            Work work = Work.builder()
+                .id(rs.getObject("id", Integer.class))
+                .title(rs.getString("title"))
+                .content(rs.getString("content"))
+                .createdDateTime(rs.getTimestamp("created_datetime", cal).toLocalDateTime())
+                .build();
 
             return work;
         };

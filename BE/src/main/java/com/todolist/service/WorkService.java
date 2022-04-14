@@ -64,7 +64,7 @@ public class WorkService {
         workRepository.update(work);
 
         String previousCategoryName = categoryRepository.findNameById(workMovementDto.getPreviousCategoryId());
-        String changedCategoryName = categoryRepository.findNameById(workMovementDto.getChangedCategoryId());
-        userLogRepository.saveLogOfMovementByUser(workMovementDto.convertToUserLogDomain(previousCategoryName, changedCategoryName));
+        String currentCategoryName = categoryRepository.findNameById(workMovementDto.getCurrentCategoryId());
+        userLogRepository.saveLogOfMovementByUser(workMovementDto.convertToUserLogDomain(previousCategoryName, currentCategoryName));
     }
 }

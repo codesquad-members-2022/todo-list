@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("works")
 public class WorkController {
 
     private final WorkService workService;
@@ -22,17 +24,17 @@ public class WorkController {
         this.workService = workService;
     }
 
-    @GetMapping("/works")
+    @GetMapping
     public ColumnListDto getWorkList(@RequestParam("userId") String userId) {
         return workService.getColumnList(userId);
     }
 
-    @PostMapping("/works")
+    @PostMapping
     public WorkDto create(@RequestBody WorkCreationDto workCreationDto) {
         return workService.create(workCreationDto);
     }
 
-    @PatchMapping("/works")
+    @PatchMapping
     public void move(@RequestBody WorkMovementDto workMovementDto) {
         workService.move(workMovementDto);
     }
