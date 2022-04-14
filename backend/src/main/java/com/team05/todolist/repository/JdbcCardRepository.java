@@ -62,14 +62,14 @@ public class JdbcCardRepository implements CardRepository {
     @Override
     public List<Card> findAll() {
         return jdbcTemplate.query(
-            "SELECT id, order_index, delete_yn, title, content, section FROM card where delete_yn = ?",
+            "SELECT id, order_index, delete_yn, title, content, section, author FROM card where delete_yn = ?",
             cardRowMapper(), NON_DELETED);
     }
 
     @Override
     public Optional<Card> findById(int id) {
         List<Card> result = jdbcTemplate.query(
-            "SELECT id, order_index, delete_yn, title, content, section FROM card WHERE id = ?",
+            "SELECT id, order_index, delete_yn, title, content, section, author FROM card WHERE id = ?",
             cardRowMapper(), id);
         return result.stream().findAny();
     }
@@ -88,7 +88,7 @@ public class JdbcCardRepository implements CardRepository {
     @Override
     public List<Card> findBySection(Section section) {
         return jdbcTemplate.query(
-            "SELECT id, order_index, delete_yn, title, content, section FROM card WHERE section=? AND delete_yn=? ORDER BY order_index",
+            "SELECT id, order_index, delete_yn, title, content, section, author FROM card WHERE section=? AND delete_yn=? ORDER BY order_index",
             cardRowMapper(), section.getSectionType(), NON_DELETED);
     }
 
