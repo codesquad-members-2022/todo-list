@@ -117,7 +117,7 @@ class BoardController {
     const { title, contents } = this.getCardFormData(writableCard, columnName);
     if (isEmptyInput(title) || isEmptyInput(contents)) {
       alert('내용을 입력해주세요.');
-      return;
+      return null;
     }
 
     return {
@@ -148,6 +148,7 @@ class BoardController {
     }
     if (target.classList.contains('card__button--submit')) {
       const newCardData = this.createNewCardData(target);
+      if (!newCardData) return;
       this.viewModel.store.postRequest(newCardData);
       this.viewModel.store.observe();
       this.viewModel.notify();
@@ -178,7 +179,7 @@ class BoardController {
     const columnName = target.closest('.column').dataset.title;
     const writableCard = this.getWritableCard(columnName);
     const $form = writableCard.getFormElement(columnName);
-    
+
     if (!writableCard.getTitle($form) && !writableCard.getContent($form)) {
       writableCard.controllSubmitBtn(columnName, 'button--submit');
     } else {
