@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mBE-x1-Blz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mBE-x1-Blz">
     <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -65,7 +65,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeB-66-GFH">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeB-66-GFH">
                                         <rect key="frame" x="125" y="12" width="24" height="24"/>
                                         <color key="backgroundColor" systemColor="systemGray2Color"/>
                                         <constraints>
@@ -122,7 +122,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7NY-Bk-A39">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7NY-Bk-A39">
                                         <rect key="frame" x="125" y="12" width="24" height="24"/>
                                         <color key="backgroundColor" systemColor="systemGray2Color"/>
                                         <constraints>
@@ -187,7 +187,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmx-AK-Pnk">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmx-AK-Pnk">
                                         <rect key="frame" x="103.5" y="12" width="24" height="24"/>
                                         <color key="backgroundColor" systemColor="systemGray2Color"/>
                                         <constraints>
@@ -261,9 +261,11 @@
                         <outletCollection property="countBadges" destination="7NY-Bk-A39" collectionClass="NSMutableArray" id="TVP-35-D7O"/>
                         <outletCollection property="countBadges" destination="jmx-AK-Pnk" collectionClass="NSMutableArray" id="M2G-VW-etM"/>
                         <outletCollection property="columns" destination="ByC-h1-Sf7" collectionClass="NSMutableArray" id="zE7-EM-622"/>
-                        <outletCollection property="columns" destination="ByC-h1-Sf7" collectionClass="NSMutableArray" id="YHU-DU-4KH"/>
                         <outletCollection property="columns" destination="8ol-N5-aSs" collectionClass="NSMutableArray" id="Hnc-Cc-in6"/>
                         <outletCollection property="columns" destination="HFg-ew-nNp" collectionClass="NSMutableArray" id="HKR-YJ-C1L"/>
+                        <outletCollection property="addButtons" destination="JZE-tC-dbn" collectionClass="NSMutableArray" id="y5I-lZ-q01"/>
+                        <outletCollection property="addButtons" destination="F1t-eo-Cy5" collectionClass="NSMutableArray" id="HPV-bQ-E3e"/>
+                        <outletCollection property="addButtons" destination="Qnd-44-CVn" collectionClass="NSMutableArray" id="adM-P8-hXK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAV-8g-2rJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

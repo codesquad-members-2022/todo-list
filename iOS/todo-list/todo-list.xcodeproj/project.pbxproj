@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B0DC1542806D0AF0052C645 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0DC1532806D0AF0052C645 /* LogManager.swift */; };
 		5B349DA527FA9AFE00AA602E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DA427FA9AFE00AA602E /* AppDelegate.swift */; };
 		5B349DA727FA9AFE00AA602E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DA627FA9AFE00AA602E /* SceneDelegate.swift */; };
 		5B349DA927FA9AFE00AA602E /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DA827FA9AFE00AA602E /* SplitViewController.swift */; };
@@ -22,8 +23,18 @@
 		5B349DEA27FECDC500AA602E /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE927FECDC500AA602E /* Action.swift */; };
 		5B349DEC27FFFB1500AA602E /* dummyLogResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */; };
 		5B349DED27FFFB1500AA602E /* dummyLogResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */; };
+		5B349DF52805205000AA602E /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DF42805205000AA602E /* LogViewModel.swift */; };
+		5B997D8E2805641300A00B42 /* LogManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B997D8D2805641300A00B42 /* LogManagerTests.swift */; };
 		BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
 		BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
+		BC40607F2805419600E03651 /* DataPrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC40607E2805419600E03651 /* DataPrettyPrint.swift */; };
+		BC4060802805419600E03651 /* DataPrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC40607E2805419600E03651 /* DataPrettyPrint.swift */; };
+		BC4060832805575D00E03651 /* TaskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4060822805575D00E03651 /* TaskStorage.swift */; };
+		BC4060842805575D00E03651 /* TaskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4060822805575D00E03651 /* TaskStorage.swift */; };
+		BC406089280578B000E03651 /* SystemLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC406088280578B000E03651 /* SystemLog.swift */; };
+		BC40608A280578B000E03651 /* SystemLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC406088280578B000E03651 /* SystemLog.swift */; };
+		BC4792972803E4BD00CBE369 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4792962803E4BD00CBE369 /* TaskManager.swift */; };
+		BC4792982803E4BD00CBE369 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4792962803E4BD00CBE369 /* TaskManager.swift */; };
 		BC5880DE27FC297C002E3A1D /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */; };
 		BC5880DF27FC297C002E3A1D /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */; };
 		BC5880E027FC297C002E3A1D /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880D927FC297C002E3A1D /* NotoSansKR-Medium.otf */; };
@@ -36,6 +47,16 @@
 		BC5880E727FC297C002E3A1D /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880DC27FC297C002E3A1D /* NotoSansKR-Light.otf */; };
 		BC5880E827FC297C002E3A1D /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880DD27FC297C002E3A1D /* NotoSansKR-Regular.otf */; };
 		BC5880E927FC297C002E3A1D /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC5880DD27FC297C002E3A1D /* NotoSansKR-Regular.otf */; };
+		BC6325032804138C00CE5280 /* ColumnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6325022804138C00CE5280 /* ColumnViewModel.swift */; };
+		BC632505280418B900CE5280 /* Observerble.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC632504280418B900CE5280 /* Observerble.swift */; };
+		BC632508280427BA00CE5280 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC632507280427BA00CE5280 /* DateFormatter.swift */; };
+		BC632509280427BA00CE5280 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC632507280427BA00CE5280 /* DateFormatter.swift */; };
+		BC63250E2804291200CE5280 /* DecodingEcodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC63250D2804291200CE5280 /* DecodingEcodingTests.swift */; };
+		BC6325102804291B00CE5280 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC63250F2804291B00CE5280 /* NetworkManagerTests.swift */; };
+		BC63251228043D7400CE5280 /* TaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC63251128043D7400CE5280 /* TaskManagerTests.swift */; };
+		BC63251428043ECD00CE5280 /* ColumnViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC63251328043ECD00CE5280 /* ColumnViewModelTests.swift */; };
+		BC63251528043EFC00CE5280 /* ColumnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6325022804138C00CE5280 /* ColumnViewModel.swift */; };
+		BC63251628043EFF00CE5280 /* Observerble.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC632504280418B900CE5280 /* Observerble.swift */; };
 		BCC3729127FFEB6000774933 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
 		BCC3729227FFEB6300774933 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
 		BCC3729327FFEB6500774933 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE927FECDC500AA602E /* Action.swift */; };
@@ -64,6 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B0DC1532806D0AF0052C645 /* LogManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		5B349DA127FA9AFE00AA602E /* todo-list.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-list.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B349DA427FA9AFE00AA602E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B349DA627FA9AFE00AA602E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,14 +104,28 @@
 		5B349DE727FECD0C00AA602E /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		5B349DE927FECDC500AA602E /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dummyLogResponse.json; sourceTree = "<group>"; };
+		5B349DF228051F2300AA602E /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
+		5B349DF42805205000AA602E /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
+		5B997D8D2805641300A00B42 /* LogManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManagerTests.swift; sourceTree = "<group>"; };
 		BC3D4A1627FD6F1C009B37FB /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		BC40607E2805419600E03651 /* DataPrettyPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPrettyPrint.swift; sourceTree = "<group>"; };
+		BC4060822805575D00E03651 /* TaskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStorage.swift; sourceTree = "<group>"; };
+		BC406088280578B000E03651 /* SystemLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLog.swift; sourceTree = "<group>"; };
+		BC4792962803E4BD00CBE369 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
 		BC5880D927FC297C002E3A1D /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
 		BC5880DA27FC297C002E3A1D /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		BC5880DB27FC297C002E3A1D /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
 		BC5880DC27FC297C002E3A1D /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.otf"; sourceTree = "<group>"; };
 		BC5880DD27FC297C002E3A1D /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		BC6325022804138C00CE5280 /* ColumnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnViewModel.swift; sourceTree = "<group>"; };
+		BC632504280418B900CE5280 /* Observerble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observerble.swift; sourceTree = "<group>"; };
+		BC632507280427BA00CE5280 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		BC63250D2804291200CE5280 /* DecodingEcodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodingEcodingTests.swift; sourceTree = "<group>"; };
+		BC63250F2804291B00CE5280 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		BC63251128043D7400CE5280 /* TaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerTests.swift; sourceTree = "<group>"; };
+		BC63251328043ECD00CE5280 /* ColumnViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnViewModelTests.swift; sourceTree = "<group>"; };
 		BCC3729527FFF3CD00774933 /* dummyTaskResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dummyTaskResponse.json; sourceTree = "<group>"; };
 		BCC6640F27FC10F10078C1E2 /* KanbanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanViewController.swift; sourceTree = "<group>"; };
 		BCC6641127FC14370078C1E2 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskTableViewCell.swift; path = "todo-list/View/TaskTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
@@ -120,6 +156,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B0DC1522806D0110052C645 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				5B349DF228051F2300AA602E /* LogManager.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		5B349D9827FA9AFE00AA602E = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +171,7 @@
 				5B349DBA27FA9AFF00AA602E /* todo-listTests */,
 				5B349DC427FA9AFF00AA602E /* todo-listUITests */,
 				5B349DA227FA9AFE00AA602E /* Products */,
+				5B0DC1522806D0110052C645 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +188,9 @@
 		5B349DA327FA9AFE00AA602E /* todo-list */ = {
 			isa = PBXGroup;
 			children = (
+				BC632506280427A700CE5280 /* Common */,
+				BC63251728043F9B00CE5280 /* View Model */,
+				BC4060812805574300E03651 /* UseCases */,
 				BC3D4A1527FD6F11009B37FB /* Model */,
 				BC3D4A1327FD6F02009B37FB /* View */,
 				5B349DD727FA9DAA00AA602E /* ViewController */,
@@ -158,6 +206,11 @@
 			isa = PBXGroup;
 			children = (
 				5B349DBB27FA9AFF00AA602E /* todo_listTests.swift */,
+				BC63250D2804291200CE5280 /* DecodingEcodingTests.swift */,
+				BC63250F2804291B00CE5280 /* NetworkManagerTests.swift */,
+				BC63251128043D7400CE5280 /* TaskManagerTests.swift */,
+				5B997D8D2805641300A00B42 /* LogManagerTests.swift */,
+				BC63251328043ECD00CE5280 /* ColumnViewModelTests.swift */,
 			);
 			path = "todo-listTests";
 			sourceTree = "<group>";
@@ -215,11 +268,21 @@
 			isa = PBXGroup;
 			children = (
 				BC3D4A1627FD6F1C009B37FB /* Task.swift */,
-				BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */,
-				5B349DE927FECDC500AA602E /* Action.swift */,
+				BC4060822805575D00E03651 /* TaskStorage.swift */,
+				5B0DC1532806D0AF0052C645 /* LogManager.swift */,
 				5B349DE727FECD0C00AA602E /* Log.swift */,
+				5B349DE927FECDC500AA602E /* Action.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BC4060812805574300E03651 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				BC4792962803E4BD00CBE369 /* TaskManager.swift */,
+				BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		BC5880EA27FC2980002E3A1D /* NotoSansKR */ = {
@@ -233,6 +296,26 @@
 				BC5880D827FC297C002E3A1D /* NotoSansKR-Thin.otf */,
 			);
 			path = NotoSansKR;
+			sourceTree = "<group>";
+		};
+		BC632506280427A700CE5280 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BC632507280427BA00CE5280 /* DateFormatter.swift */,
+				BC40607E2805419600E03651 /* DataPrettyPrint.swift */,
+				BC632504280418B900CE5280 /* Observerble.swift */,
+				BC406088280578B000E03651 /* SystemLog.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		BC63251728043F9B00CE5280 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC6325022804138C00CE5280 /* ColumnViewModel.swift */,
+				5B349DF42805205000AA602E /* LogViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,14 +468,23 @@
 				5B349DE627FECB4700AA602E /* LogTableViewCell.swift in Sources */,
 				5B349DA927FA9AFE00AA602E /* SplitViewController.swift in Sources */,
 				5B349DE827FECD0C00AA602E /* Log.swift in Sources */,
+				5B0DC1542806D0AF0052C645 /* LogManager.swift in Sources */,
 				5B349DA527FA9AFE00AA602E /* AppDelegate.swift in Sources */,
 				BCC6641227FC14370078C1E2 /* TaskTableViewCell.swift in Sources */,
+				BC632508280427BA00CE5280 /* DateFormatter.swift in Sources */,
+				5B349DF52805205000AA602E /* LogViewModel.swift in Sources */,
+				BC632505280418B900CE5280 /* Observerble.swift in Sources */,
 				5B349DE227FD7FF600AA602E /* ActivityRecoderController.swift in Sources */,
+				BC6325032804138C00CE5280 /* ColumnViewModel.swift in Sources */,
+				BC4792972803E4BD00CBE369 /* TaskManager.swift in Sources */,
 				BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */,
 				5B349DA727FA9AFE00AA602E /* SceneDelegate.swift in Sources */,
 				BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */,
+				BC406089280578B000E03651 /* SystemLog.swift in Sources */,
 				5B349DEA27FECDC500AA602E /* Action.swift in Sources */,
 				BCC6641027FC10F10078C1E2 /* KanbanViewController.swift in Sources */,
+				BC40607F2805419600E03651 /* DataPrettyPrint.swift in Sources */,
+				BC4060832805575D00E03651 /* TaskStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,10 +492,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC6325102804291B00CE5280 /* NetworkManagerTests.swift in Sources */,
+				BC40608A280578B000E03651 /* SystemLog.swift in Sources */,
+				BC4060802805419600E03651 /* DataPrettyPrint.swift in Sources */,
+				BC4792982803E4BD00CBE369 /* TaskManager.swift in Sources */,
 				BCC3729227FFEB6300774933 /* NetworkManager.swift in Sources */,
+				BC63251628043EFF00CE5280 /* Observerble.swift in Sources */,
 				BCC3729327FFEB6500774933 /* Action.swift in Sources */,
+				BC632509280427BA00CE5280 /* DateFormatter.swift in Sources */,
 				BCC3729427FFEB6900774933 /* Log.swift in Sources */,
+				BC4060842805575D00E03651 /* TaskStorage.swift in Sources */,
+				BC63251528043EFC00CE5280 /* ColumnViewModel.swift in Sources */,
+				BC63251428043ECD00CE5280 /* ColumnViewModelTests.swift in Sources */,
+				BC63251228043D7400CE5280 /* TaskManagerTests.swift in Sources */,
+				5B997D8E2805641300A00B42 /* LogManagerTests.swift in Sources */,
 				BCC3729127FFEB6000774933 /* Task.swift in Sources */,
+				BC63250E2804291200CE5280 /* DecodingEcodingTests.swift in Sources */,
 				5B349DBC27FA9AFF00AA602E /* todo_listTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

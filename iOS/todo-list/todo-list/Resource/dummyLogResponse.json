@@ -1,13 +1,1 @@
-[
-  {
-    "activityType": "MOVE",
-    "createdAt": "2022-04-08T04:49:05.384Z",
-    "fromStatus": "TODO",
-    "id": 0,
-    "taskId": 0,
-    "readYn": true,
-    "toStatus": "IN_PROGRESS",
-    "userId": "string"
-  }
-]
- 
+[{"taskId":1,"userId":"userId1","action":"ADD","taskTitle":"taskTitle1","fromStatus":"TODO","toStatus":"IN_PROGRESS","createdAt":"2022-04-12T00:00:00","readYn":true},{"taskId":2,"userId":"userId2","action":"MOVE","taskTitle":"taskTitle2","fromStatus":"IN_PROGRESS","toStatus":"DONE","createdAt":"2022-04-12T00:00:00","readYn":false},{"taskId":3,"userId":"userId3","action":"UPDATE","taskTitle":"taskTitle3","fromStatus":"TODO","toStatus":"IN_PROGRESS","createdAt":"2022-04-12T00:00:00","readYn":true}]

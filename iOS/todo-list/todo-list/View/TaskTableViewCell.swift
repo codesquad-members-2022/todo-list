@@ -10,6 +10,8 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
     static let identifier = "taskTableViewCell"
     
+    var taskId: Int?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -41,12 +43,26 @@ class TaskTableViewCell: UITableViewCell {
         ]
     }
     
+    func configure(with viewModel: TaskCellViewModel) {
+        self.taskId = viewModel.id
+        
+        var config = defaultContentConfiguration()
+        var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
+        
+        config.attributedText = self.makePrimaryText(title: viewModel.title)
+        config.secondaryAttributedText = self.makeSecondaryText(contents: viewModel.content, authored: "Authored by \(viewModel.device)")
+        
+        backgroundConfig.cornerRadius = 10
+        
+        self.contentConfiguration = config
+        self.backgroundConfiguration = backgroundConfig
+    }
+    
     func makePrimaryText(title: String) -> NSAttributedString {
         return NSAttributedString(string: title, attributes: Attributes.title)
     }
     
     func makeSecondaryText(contents: String, authored: String) -> NSAttributedString {
-        
         let contentText = NSMutableAttributedString.init(string: "\(contents)", attributes: Attributes.content)
         let newLine = NSAttributedString(string: "\n\n")
         let authoredText = NSMutableAttributedString.init(string: "\(authored)", attributes: Attributes.authored)
