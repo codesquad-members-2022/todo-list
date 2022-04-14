@@ -46,8 +46,6 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                         }
 
 
-
-
                         if (viewSource != null) {
                             val source = viewSource.parent as RecyclerView // 선택한 아이템의 리사이클러뷰
                             val sourceAdapter = source.adapter as TodoAdapter  // 선택한 아이템의 리사이클러뷰의 어댑터
@@ -80,12 +78,9 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                                     }
                                     else -> {
                                         when (target.id) {
-                                            rvTodo -> listener.moveData(ProgressType.TO_DO, prevItemId, targetData.next, sourceData.itemId
-                                            )
-                                            rvInProgress -> listener.moveData(ProgressType.IN_PROGRESS, prevItemId, targetData.next, sourceData.itemId
-                                            )
-                                            rvDone -> listener.moveData(ProgressType.DONE, prevItemId, targetData.next, sourceData.itemId
-                                            )
+                                            rvTodo -> listener.moveData(ProgressType.TO_DO, prevItemId, targetData.next, sourceData.itemId)
+                                            rvInProgress -> listener.moveData(ProgressType.IN_PROGRESS, prevItemId, targetData.next, sourceData.itemId)
+                                            rvDone -> listener.moveData(ProgressType.DONE, prevItemId, targetData.next, sourceData.itemId)
                                         }
                                     }
                                 }
@@ -106,7 +101,7 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
 
 
                         }
-                        //item/  이동할곳 previd  이동할곳 nextID  destination   itemID
+
 
                     }
                 }
