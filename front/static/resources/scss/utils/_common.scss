@@ -10,7 +10,8 @@
 }
 
 .button {
-  min-width: 134px;
+  width: 100%;
+  max-width: 134px;
   height: 40px;
   border-radius: 6px;
   color: $button-main-font-color;
