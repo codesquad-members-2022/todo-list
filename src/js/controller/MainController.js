@@ -9,6 +9,9 @@
     - [ ] 수정 이벤트
     - [ ] 이동 이벤트
   - [ ] 사이드 메뉴 이벤트
+
+  TODO:
+  인풋 인식 한 박자 느린거 고쳐야함!
   */
 
 import { renderEmptyCard } from "../view/EmptyCardView.js";
@@ -16,36 +19,62 @@ import { renderCard } from "../view/CardView.js";
 import { initColumn, onClickColumnAddBtn } from "../view/ColumnView.js";
 import * as util from "../../util/Util.js";
 
+const createMainController = (store) => {
+  init(store);
+};
+
 function init(store) {
   const columns = document.querySelectorAll(".task-column");
   // add 버튼 이벤트 달기
-  onClickColumnAddBtn(columns, handleClickAddBtn, store);
+  onClickColumnAddBtn(columns, handleAddBtn, store);
 }
 
-function checkInput({ target }) {
-  const parent = target.closest(".task-card");
-  const title = parent.querySelector(".task-card__title");
-  const content = parent.querySelector(".task-card__content");
-  const inputs = [title, content].map((input) => input.textContent);
-  if (inputs.includes("")) return;
-
-  parent.querySelector(".task-card__register-btn.cursor-pointer").disabled = false;
-}
-
-function handleClickAddBtn({ target }, store) {
+function handleAddBtn({ target }, store) {
   const parentColumn = target.closest(".task-column");
   const emptyCard = util.$("#empty-card", parentColumn);
   if (emptyCard) return;
-  renderEmptyCard(parentColumn, handleClickRegisterBtn, store);
+  const handler = {
+    inputHandler: handleCardInput,
+    registerBtnHandler: handleRegisterBtn,
+    removeBtnHandler: handleRemoveBtn,
+  };
+  renderEmptyCard(parentColumn, handler, store);
 }
 
-async function handleClickRegisterBtn({ target }, store) {
+function handleCardInput({ target }) {
   const parentCard = target.closest(".task-card");
-  console.log(parentCard);
-  const inputValues = [
-    parentCard.querySelector(".task-card__title"),
-    parentCard.querySelector(".task-card__content"),
-  ].map((input) => input.textContent);
+  const cardTitle = util.$(".task-card__title", parentCard);
+  const cardContent = util.$(".task-card__content", parentCard);
+  const cardTextData = [cardTitle, cardContent].map((input) => input.textContent.trim());
+  const registerBtn = util.$(".task-card__register-btn.cursor-pointer", parentCard);
+
+  // console.log(cardTextData);
+
+  if (cardTextData.includes("")) {
+    registerBtn.disabled = true;
+    return;
+  }
+  registerBtn.disabled = false;
+}
+
+async function handleRegisterBtn({ target }, store) {
+  const parentCard = target.closest(".task-card");
+  const cardTitle = parentCard.querySelector(".task-card__title").textContent;
+  const cardContent = parentCard.querySelector(".task-card__content").textContent;
+
+  console.log(cardTitle, cardContent);
+
+  // title, content을 바탕으로 state 만들기
+  function createState(cardTitle, cardContent) {
+    return {};
+  }
+
+  const newState = createCardState;
+
+  // 만든 state를 store에 저장
+  // store를 서버 db에 저장
+  // 클래스 리스트 추가 및 삭제
+  // 삭제 버튼 & 더블 클릭 & 드래그드랍 이벤트 등록
 
   //   store.setState(inputValues);
   //   const isEmpty = inputValues.includes("");
@@ -57,19 +86,14 @@ async function handleClickRegisterBtn({ target }, store) {
   // store.setState(newState);
 
   // 빈카드 삭제
-  // renderCard(inputValues, removeCard, changeCardState, dragDrop, store);
 }
 
-function removeCard(event, store) {
+function handleRemoveBtn(event, store) {
   const { target } = event;
   target.closest(".task-card").remove();
   //store에서 데이터 삭제
   // 서버에 데이터 삭제 요청
 }
-
-const createMainController = (store) => {
-  init(store);
-};
 
 const dragDrop = (event) => {
   const movingBox = document.createElement("div");
