@@ -2,10 +2,8 @@ package com.example.todolist.ui
 
 import android.graphics.Canvas
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.R
 import kotlin.math.max
 import kotlin.math.min
 
@@ -44,21 +42,21 @@ class ItemTouchCallback(
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-        val isClamped = getTag(viewHolder)
-        setTag(viewHolder, !isClamped && currentDX <= -clamp)
+        val isClamped = (viewHolder as TaskAdapter.TaskViewHolder).getTag()
+        viewHolder.setTag(!isClamped && currentDX <= -clamp)
         return 2f
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         currentDX = 0f
         previousPosition = viewHolder.adapterPosition
-        getDefaultUIUtil().clearView(getView(viewHolder))
+        getDefaultUIUtil().clearView((viewHolder as TaskAdapter.TaskViewHolder).getView())
     }
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         viewHolder?.let {
             currentPosition = viewHolder.adapterPosition
-            getDefaultUIUtil().onSelected(getView(it))
+            getDefaultUIUtil().onSelected((viewHolder as TaskAdapter.TaskViewHolder).getView())
         }
     }
 
@@ -71,11 +69,12 @@ class ItemTouchCallback(
         actionState: Int,
         isCurrentlyActive: Boolean,
     ) {
+        val taskViewHolder = viewHolder as TaskAdapter.TaskViewHolder
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            val view = getView(viewHolder)
-            if (dX < 0) getDeleteView(viewHolder).visibility = View.VISIBLE
-            else if (dX > 0) getDeleteView(viewHolder).visibility = View.GONE
-            val isClamped = getTag(viewHolder)
+            val view = taskViewHolder.getView()
+            if (dX < 0) taskViewHolder.setVisibility(View.VISIBLE)
+            else if (dX > 0) taskViewHolder.setVisibility(View.GONE)
+            val isClamped = taskViewHolder.getTag()
             val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
 
             currentDX = x
@@ -103,26 +102,10 @@ class ItemTouchCallback(
         if (currentPosition == previousPosition) return
         previousPosition?.let {
             val viewHolder = recyclerView.findViewHolderForAdapterPosition(it) ?: return
-            getView(viewHolder).translationX = 0f
-            setTag(viewHolder, false)
+            val taskViewHolder = viewHolder as TaskAdapter.TaskViewHolder
+            taskViewHolder.getView().translationX = 0f
+            taskViewHolder.setTag(false)
             previousPosition = null
         }
-    }
-
-    private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean {
-        return viewHolder.itemView.findViewById<ConstraintLayout>(R.id.swipe_view).tag as? Boolean
-            ?: false
-    }
-
-    private fun setTag(viewHolder: RecyclerView.ViewHolder, isClamped: Boolean) {
-        viewHolder.itemView.findViewById<ConstraintLayout>(R.id.swipe_view).tag = isClamped
-    }
-
-    private fun getView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as TaskAdapter.TaskViewHolder).itemView.findViewById(R.id.swipe_view)
-    }
-
-    private fun getDeleteView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as TaskAdapter.TaskViewHolder).itemView.findViewById(R.id.cl_delete)
     }
 }

@@ -60,6 +60,20 @@ class TaskAdapter(
             }
             return item != null
         }
+
+        fun getView(): View = binding.swipeView
+
+        private fun getDeleteView(): View = binding.clDelete
+
+        fun setVisibility(visibility: Int) {
+            getDeleteView().visibility = visibility
+        }
+
+        fun getTag(): Boolean = binding.swipeView.tag as? Boolean ?: false
+
+        fun setTag(isClamped: Boolean) {
+            binding.swipeView.tag = isClamped
+        }
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
@@ -73,11 +87,17 @@ class TaskAdapter(
 }
 
 object TaskDiffCallback : DiffUtil.ItemCallback<TaskDetailResponse>() {
-    override fun areItemsTheSame(oldItem: TaskDetailResponse, newItem: TaskDetailResponse): Boolean {
+    override fun areItemsTheSame(
+        oldItem: TaskDetailResponse,
+        newItem: TaskDetailResponse,
+    ): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: TaskDetailResponse, newItem: TaskDetailResponse): Boolean {
+    override fun areContentsTheSame(
+        oldItem: TaskDetailResponse,
+        newItem: TaskDetailResponse,
+    ): Boolean {
         return oldItem == newItem
     }
 
