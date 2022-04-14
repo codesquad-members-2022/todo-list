@@ -2,7 +2,7 @@ import TodoEdit from './TodoEdit.js';
 import Modal from './Modal.js';
 import { popupRemoveTitle } from '../constants/modal.js';
 import { createNotice, handleNotice } from '../utils/action.js';
-import { ONCLICK, DBLCLICK } from '../constants/constants.js';
+import { DBLCLICK } from '../constants/constants.js';
 import { getLocalStorageByKey } from '../utils/localStorage.js';
 import { deleteTodo } from '../utils/api.js';
 
@@ -27,49 +27,28 @@ export default class Todo {
       return;
     }
 
-    const dataDrag = e.currentTarget.getAttribute('data-drag');
-
-    if (dataDrag === 'true' && e.detail === ONCLICK) {
-      e.currentTarget.classList.add('spectrum');
-      this.createCopyTodo();
-      return;
-    }
-
     if (e.detail === DBLCLICK) {
-      e.currentTarget.setAttribute('data-drag', false);
       this.showEditForm();
       return;
     }
   };
 
-  createCopyTodo = () => {
-    const copytodoElement = document.createElement('div');
-    document.body.insertAdjacentElement('beforeend', copytodoElement);
-    copytodoElement.classList.add('drag');
-    copytodoElement.classList.add('cursor');
-    Object.assign(copytodoElement.style, {
-      position: 'absolute',
-      left: `${this.todoElement.getBoundingClientRect().left}px`,
-      top: `${this.todoElement.getBoundingClientRect().top}px`,
-    });
-    copytodoElement.setAttribute('data-id', this.todoData.id);
-    copytodoElement.setAttribute('data-status', this.todoData.status);
-    copytodoElement.innerHTML = this.render();
-  };
-
   render = () => {
-    return /*html*/ `<div class="card" id =${this.todoData.id} data-drag="true">
-      <header>
-        <h3 class="card__title">${this.todoData.title}</h3>
-        <button class="card__delete">x</button>
-      </header>
-      <div class="card__content">
-        <p class="card__content-text">${this.todoData.content}</p>
-      </div>
-      <div class="card__author">
-        <p class="card__author-text">author by ${this.todoData.userId}</p>
-      </div>
-    </div>`;
+    return /*html*/ `
+    <div class="start"></div>
+    <article class="card" id =${this.todoData.id}>
+        <header>
+          <h3 class="card__title">${this.todoData.title}</h3>
+          <button class="card__delete">x</button>
+        </header>
+        <div class="card__content">
+          <p class="card__content-text">${this.todoData.content}</p>
+        </div>
+        <div class="card__author">
+          <p class="card__author-text">author by ${this.todoData.userId}</p>
+        </div>
+      </article>
+    `;
   };
 
   handleEventListener = () => {
