@@ -1,7 +1,7 @@
 package com.team26.todolist.service;
 
 import com.team26.todolist.domain.Column;
-import com.team26.todolist.dto.request.ColumnMoveRequest;
+import com.team26.todolist.dto.request.ColumnChangeOrderRequest;
 import com.team26.todolist.dto.request.ColumnRegistrationRequest;
 import com.team26.todolist.dto.request.ColumnUpdateRequest;
 import com.team26.todolist.dto.response.ColumnResponse;
@@ -39,10 +39,10 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     @Override
-    public ColumnResponse changeColumnOrder(ColumnMoveRequest columnMoveRequest) {
-        Column column = columnMoveRequest.toEntity();
-        Column leftColumn = columnRepository.findById(columnMoveRequest.getLeftColumnId());
-        Column rightColumn = columnRepository.findById(columnMoveRequest.getRightColumnId());
+    public ColumnResponse changeColumnOrder(ColumnChangeOrderRequest columnChangeOrderRequest) {
+        Column column = columnChangeOrderRequest.toEntity();
+        Column leftColumn = columnRepository.findById(columnChangeOrderRequest.getLeftColumnId());
+        Column rightColumn = columnRepository.findById(columnChangeOrderRequest.getRightColumnId());
         column.setNewOrder(leftColumn, rightColumn);
 
         Column updatedColumn = columnRepository.updateOrder(column);

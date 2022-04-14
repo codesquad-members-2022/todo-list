@@ -2,7 +2,7 @@ package com.team26.todolist.dto.request;
 
 import com.team26.todolist.domain.Column;
 
-public class ColumnMoveRequest {
+public class ColumnChangeOrderRequest {
 
     private Long id;
     private Long leftColumnId;
@@ -26,7 +26,7 @@ public class ColumnMoveRequest {
 
     @Override
     public String toString() {
-        return "ColumnMoveRequest{" +
+        return "ColumnChangeOrderRequest{" +
                 "id=" + id +
                 ", orderOfLeftColumn=" + leftColumnId +
                 ", orderOfRightColumn=" + rightColumnId +

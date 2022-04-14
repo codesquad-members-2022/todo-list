@@ -1,6 +1,6 @@
 package com.team26.todolist.controller;
 
-import com.team26.todolist.dto.request.ColumnMoveRequest;
+import com.team26.todolist.dto.request.ColumnChangeOrderRequest;
 import com.team26.todolist.dto.request.ColumnRegistrationRequest;
 import com.team26.todolist.dto.request.ColumnUpdateRequest;
 import com.team26.todolist.dto.response.ColumnResponse;
@@ -52,8 +52,8 @@ public class ColumnController {
     }
 
     @PatchMapping
-    public ResponseEntity<ColumnResponse> changeColumnOrder(@RequestBody ColumnMoveRequest columnMoveRequest) {
-        ColumnResponse movedColumn = columnService.changeColumnOrder(columnMoveRequest);
+    public ResponseEntity<ColumnResponse> changeColumnOrder(@RequestBody ColumnChangeOrderRequest columnChangeOrderRequest) {
+        ColumnResponse movedColumn = columnService.changeColumnOrder(columnChangeOrderRequest);
 
         return ResponseEntity.ok()
                 .body(movedColumn);

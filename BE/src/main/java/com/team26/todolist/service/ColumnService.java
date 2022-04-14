@@ -1,7 +1,7 @@
 package com.team26.todolist.service;
 
 import com.team26.todolist.domain.Column;
-import com.team26.todolist.dto.request.ColumnMoveRequest;
+import com.team26.todolist.dto.request.ColumnChangeOrderRequest;
 import com.team26.todolist.dto.request.ColumnRegistrationRequest;
 import com.team26.todolist.dto.request.ColumnUpdateRequest;
 import com.team26.todolist.dto.response.ColumnResponse;
@@ -11,7 +11,7 @@ public interface ColumnService {
 
     List<ColumnResponse> findAll();
     ColumnResponse addColumn(ColumnRegistrationRequest columnRegistrationRequest);
-    ColumnResponse changeColumnOrder(ColumnMoveRequest columnMoveRequest);
+    ColumnResponse changeColumnOrder(ColumnChangeOrderRequest columnChangeOrderRequest);
     ColumnResponse modifyColumn(ColumnUpdateRequest columnUpdateRequest);
     void deleteColumn(Long id);
 
