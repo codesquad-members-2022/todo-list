@@ -4,6 +4,9 @@ import com.hooria.todo.dto.AddCardRequest;
 import com.hooria.todo.dto.CardResponse;
 import com.hooria.todo.dto.UpdateCardRequest;
 import com.hooria.todo.dto.UpdateCardLayoutRequest;
+import com.hooria.todo.error.CardRunTimeException;
+import com.hooria.todo.error.ErrorCode;
+import com.hooria.todo.error.ErrorResponse;
 import com.hooria.todo.service.CardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -15,14 +18,8 @@ import io.swagger.annotations.ApiResponses;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "Card(타스크) Controller")
 @RestController
@@ -129,5 +126,12 @@ public class CardController {
     @PatchMapping("/layout")
     public List<CardResponse> updateCardsLayout(@RequestBody List<UpdateCardLayoutRequest> updateCardLayoutRequests) {
         return cardService.updateCardsLayout(updateCardLayoutRequests);
+    }
+
+    @ExceptionHandler(CardRunTimeException.class)
+    private ResponseEntity<ErrorResponse> handleCardRuntimeException(CardRunTimeException e) {
+        ErrorCode errorCode = e.getErrorCode();
+        final ErrorResponse response = ErrorResponse.of(errorCode);
+        return new ResponseEntity<>(response, errorCode.getStatus());
     }
 }
