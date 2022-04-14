@@ -39,10 +39,6 @@ class TodoAdapter(
                 displayPopupMenu(it)
                 true
             }
-            itemViewBinding.deleteView.setOnClickListener {
-                viewModel.deleteItem(cardItem)
-            }
-        }
 
         private fun displayPopupMenu(view: View) {
             val popupMenu = PopupMenu(context, view)

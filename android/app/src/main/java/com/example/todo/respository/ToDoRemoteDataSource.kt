@@ -2,10 +2,7 @@ package com.example.todo.respository
 
 import android.util.Log
 import com.example.todo.model.TodoItem
-import com.example.todo.network.AddPostBody
-import com.example.todo.network.CardIndex
-import com.example.todo.network.RetrofitClient
-import com.example.todo.network.TodoResponse
+import com.example.todo.network.*
 import retrofit2.Response
 
 class ToDoRemoteDataSource(private val retrofitClient: RetrofitClient) : ToDoDataSource {
@@ -15,7 +12,7 @@ class ToDoRemoteDataSource(private val retrofitClient: RetrofitClient) : ToDoDat
     }
 
     override suspend fun getInProgressId(newItem: TodoItem): Response<CardIndex> {
-        val body = AddPostBody(newItem.title, newItem.content, "inProgress", "Jay")
+        val body = AddPostBody(newItem.title, newItem.content, "ing", "Jay")
         return retrofitClient.getCardIdx(body)
     }
 
@@ -32,6 +29,12 @@ class ToDoRemoteDataSource(private val retrofitClient: RetrofitClient) : ToDoDat
 
     override suspend fun removeItem(cardId: Int): Response<Void> {
         val response = retrofitClient.removeTodo(cardId)
+        Log.d("testDelete", response.isSuccessful.toString())
+        return response
+    }
+
+    override suspend fun updateItem(cardId: Int, body: UpdateTodoBody): Response<Void> {
+        val response = retrofitClient.updateTodo(cardId, body)
         Log.d("testDelete", response.isSuccessful.toString())
         return response
     }

@@ -128,6 +128,7 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
         ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvTodo)
         ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvInProgress)
         ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvDone)
+
         binding.rvTodo.adapter = todoAdapter
         binding.rvInProgress.adapter = inProgressAdapter
         binding.rvDone.adapter = doneAdapter

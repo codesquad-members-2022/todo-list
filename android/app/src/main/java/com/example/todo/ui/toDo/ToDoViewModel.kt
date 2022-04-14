@@ -1,5 +1,6 @@
 package com.example.todo.ui.toDo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.todo.model.ActionLog
 import com.example.todo.model.ProgressType
 import com.example.todo.model.TodoItem
+import com.example.todo.network.UpdateTodoBody
 import com.example.todo.respository.ActionLogRepository
 import com.example.todo.respository.ToDoRepository
 import kotlinx.coroutines.launch
@@ -125,16 +127,22 @@ class ToDoViewModel(
         }
     }
 
-    fun updateTodoItem(updateItem: TodoItem) {
-        _todoList.value = todoList.value?.let { toDoRepository.updateToDoItem(it, updateItem) }
-    }
-
-    fun updateInProgressItem(updateItem: TodoItem) {
-        _inProgressList.value =
-            inProgressList.value?.let { toDoRepository.updateInProgressItem(it, updateItem) }
-    }
-
-    fun updateDoneItem(updateItem: TodoItem) {
-        _doneList.value = doneList.value?.let { toDoRepository.updateDoneItem(it, updateItem) }
+    fun updateTodoItem(item: TodoItem) {
+        viewModelScope.launch {
+            when (item.type) {
+                ProgressType.TO_DO -> {
+                    _todoList.value =
+                        _todoList.value?.let { toDoRepository.updateToDoItem(it, item) }
+                }
+                ProgressType.IN_PROGRESS -> {
+                    _inProgressList.value =
+                        inProgressList.value?.let { toDoRepository.updateToDoItem(it, item) }
+                }
+                ProgressType.DONE -> {
+                    _doneList.value =
+                        _doneList.value?.let { toDoRepository.updateToDoItem(it, item) }
+                }
+            }
+        }
     }
 }
