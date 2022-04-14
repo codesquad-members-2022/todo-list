@@ -11,10 +11,10 @@ final class BoardHeader: UIView {
 
     var delegate : BoardHeaderDelegate?
     
-    private (set) var title = UILabel()
-    private (set) var badge = UIButton()
-    private (set) var addButton = UIButton()
-    private (set) var closeButton = UIButton()
+    private let title = UILabel()
+    private let badge = UIButton()
+    private let addButton = UIButton()
+    private let closeButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -7,17 +7,15 @@
 
 import Foundation
 
-struct CardInfo : Codable {
+struct NewCard : Codable {
+    let id : Int?
     let writer : String?
-    let position : Int?
     let title : String
     let content : String
     let cardType: String
-    let memberId : Int?
     
     func body() -> [String:Any]? {
-        return ["writer":writer,"position":position, "title":title, "content":content, "cardType":cardType, "memberId":memberId]
+        return ["id": id,"writer":writer,"title":title,"content":content,"cardType":cardType]
     }
-    
 }
 

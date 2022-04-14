@@ -37,7 +37,7 @@ class ChildViewController: UIViewController {
         }
     }
     //TODO: 새로운 카드를 insert함.
-    func insertFromList(card:CardInfo) {
+    func insertFromList(card:NewCard) {
       
     }
     
