@@ -21,7 +21,7 @@ final class TableViewController: UIViewController{
 
     private var addCardViewController = AddCardViewController()
 
-    let cardBoard: Board = Board()
+    let cardBoard: Board = Board.shared
 
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
     private var selectedSection: Int?
@@ -163,7 +163,7 @@ extension TableViewController: TableHeaderDelegate{
     func cardWillCreated(at section: Int){
         addCardViewController.modalPresentationStyle = .overCurrentContext
         addCardViewController.modalTransitionStyle = .crossDissolve
-        addCardViewController.board = cardBoard[BoardSubscriptIndex(rawValue: section) ?? BoardSubscriptIndex.none] // addCardVC 한테 해당하는 Board([Card]) 전달
+        addCardViewController.sectionNumber = section
         self.present(addCardViewController, animated: true, completion: nil)
         selectedSection = section
     }

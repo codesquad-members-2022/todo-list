@@ -84,10 +84,6 @@ private extension TableHeader{
     
     @objc
     func touchedPlusButton(_ button: UIButton){
-        //        var section: Int
-        //        if titleLabel.text == "해야할 일" { section = 0}
-        //        else if titleLabel.text == "하고있는 일" { section = 1}
-        //        else { section = 2}
         guard let section = tableHeaderID else { return }
         self.delegate?.cardWillCreated(at: section)
     }

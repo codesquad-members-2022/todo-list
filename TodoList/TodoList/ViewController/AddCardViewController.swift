@@ -9,7 +9,7 @@ import UIKit
 
 final class AddCardViewController: UIViewController {
     var addCardView: AddCardView!
-    var board: [Card]?
+    var sectionNumber: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +33,12 @@ private extension AddCardViewController{
 extension AddCardViewController: AddCardDelegate{
     func makeCardShoudConfirmed(title: String, content: String) {
         
+        guard let section = self.sectionNumber else { return }
+        let newCard = Card(section: section, title: title, content: content, userID: "puco")
+        var board = Board.shared[BoardSubscriptIndex(rawValue: section) ?? BoardSubscriptIndex.none]
+        board.append(newCard)
+  
+        // POST
         self.dismiss(animated: true, completion: nil)
     }
     
