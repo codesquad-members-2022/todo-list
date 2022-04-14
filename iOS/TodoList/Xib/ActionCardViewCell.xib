@@ -72,6 +72,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="content" destination="2FB-gb-F4E" id="5Wt-p4-7XG"/>
+                <outlet property="eventImage" destination="6oh-Yp-WMG" id="7X0-UK-YcV"/>
                 <outlet property="timeStamp" destination="zb1-b7-U3W" id="MXe-SC-UmB"/>
                 <outlet property="userName" destination="akj-tn-OfP" id="KdZ-82-a2f"/>
             </connections>

@@ -30,11 +30,16 @@ class ActionBoardView: UIView {
     
     private func addObserver() {
         NotificationCenter.default.addObserver(forName: .actionFlowButtonTapped, object: nil, queue: .main, using: {_ in
+            URLManager<[RequestEventData]>.request(api: .events, completionHandler: self.setEvents(events:))
             self.toggle()
         })
         NotificationCenter.default.addObserver(forName: .actionFlowCloseButtonTapped, object: nil, queue: .main, using: {_ in
             self.toggle()
         })
+    }
+    
+    private func setEvents(events: [RequestEventData]) {
+        NotificationCenter.default.post(name: .getEventsData, object: nil, userInfo: [NotificationKeyValue.getEventsData: events])
     }
 
 }

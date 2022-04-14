@@ -11,4 +11,5 @@ extension Notification.Name {
     static let postCardData: Notification.Name = Notification.Name("postCardData")
     static let putCardData: Notification.Name = Notification.Name("putCardData")
     static let deleteCardData: Notification.Name = Notification.Name("deleteCardData")
+    static let getEventsData: Notification.Name = Notification.Name("getEventsData")
 }
