@@ -206,9 +206,11 @@ var appendElementsToParent = function appendElementsToParent(parent) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addNewCardToColumn": () => (/* binding */ addNewCardToColumn),
 /* harmony export */   "createCardTemplate": () => (/* binding */ createCardTemplate),
 /* harmony export */   "insertAllCardToColumn": () => (/* binding */ insertAllCardToColumn),
-/* harmony export */   "insertCardToColumn": () => (/* binding */ insertCardToColumn)
+/* harmony export */   "insertCardToColumn": () => (/* binding */ insertCardToColumn),
+/* harmony export */   "onCardDoubleClick": () => (/* binding */ onCardDoubleClick)
 /* harmony export */ });
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
@@ -216,7 +218,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _constants_constant_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants/constant.js */ "./src/js/constants/constant.js");
+/* harmony import */ var core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.array.find.js */ "./node_modules/core-js/modules/es.array.find.js");
+/* harmony import */ var core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.number.constructor.js */ "./node_modules/core-js/modules/es.number.constructor.js");
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _constants_constant_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../constants/constant.js */ "./src/js/constants/constant.js");
+
+
 
 
 
@@ -237,7 +245,69 @@ var insertAllCardToColumn = function insertAllCardToColumn(parent, store) {
   });
 };
 var createCardTemplate = function createCardTemplate(task) {
-  return "\n    <li class=\"task__card\" data-datetime=".concat(task.datetime, ">\n    <div class=\"card__contents\">\n      <header class=\"card__contents__header\">").concat(task.header, "</header>\n      <main class=\"card__contents__main\">").concat(task.main, "</main>\n      <footer class=\"card__contents__footer\">").concat(task.footer, "</footer>\n    </div>\n    <div class=\"card__delete-btn\">\n      ").concat(_constants_constant_js__WEBPACK_IMPORTED_MODULE_3__.icons["delete"], "\n    </div>\n  </li>\n    ");
+  return "\n    <li class=\"task__card\" data-datetime=".concat(task.datetime, ">\n    <div class=\"card__contents\">\n      <header class=\"card__contents__header\">").concat(task.header, "</header>\n      <main class=\"card__contents__main\">").concat(task.main, "</main>\n      <footer class=\"card__contents__footer\">").concat(task.footer, "</footer>\n    </div>\n    <div class=\"card__delete-btn\">\n      ").concat(_constants_constant_js__WEBPACK_IMPORTED_MODULE_5__.icons["delete"], "\n    </div>\n  </li>\n    ");
+};
+var addNewCardToColumn = function addNewCardToColumn(column, taskData, totalCount) {
+  var newTodo = createCardTemplate(taskData);
+  var cardList = column.querySelector('.task__cards');
+  var cardCount = column.querySelector('.title-column__title__count');
+  cardList.insertAdjacentHTML('afterbegin', newTodo);
+  cardCount.textContent = totalCount;
+};
+var onCardDoubleClick = function onCardDoubleClick(store) {
+  var main = document.querySelector('.main');
+  main.addEventListener('dblclick', function (_ref) {
+    var target = _ref.target;
+    if (main.querySelector('.edit-card') || !target.closest('.task__card')) return;
+    cardDoubleClickHandler(target, store);
+  });
+};
+
+var cardDoubleClickHandler = function cardDoubleClickHandler(target, store) {
+  var targetCard = target.closest('.task__card');
+  if (!targetCard.querySelector('.card__delete-btn')) return;
+  var columnName = targetCard.closest('.column').classList[1];
+  var columnData = store.getStore('main').find(function (column) {
+    return column.className === columnName;
+  });
+  var cardId = targetCard.dataset.id;
+  var todoData = columnData.tasks.find(function (task) {
+    return task.cardId === Number(cardId);
+  });
+  targetCard.style.display = 'none';
+  store.notify('edit', targetCard, todoData);
+  var currentColumn = document.querySelector(".".concat(columnName));
+  var editCardElement = currentColumn.querySelector('.edit-card');
+  onCardEditBtnClick(currentColumn, editCardElement, targetCard, todoData, columnData);
+};
+
+var onCardEditBtnClick = function onCardEditBtnClick(currentColumn, editCardElement, targetCard, todoData, columnData) {
+  currentColumn.addEventListener('click', function (_ref2) {
+    var target = _ref2.target;
+    cardEditBtnClickHandler(target, editCardElement, targetCard, todoData, columnData);
+  });
+};
+
+var cardEditBtnClickHandler = function cardEditBtnClickHandler(target, editCardElement, targetCard, todoData, columnData) {
+  if (!target.closest('.footer__buttons')) return;
+
+  if (target.value === '수정') {
+    var editedTitle = editCardElement.querySelector('.card__contents__input--header').value;
+    var editedContents = editCardElement.querySelector('.card__contents__input--main').value;
+    columnData.tasks.forEach(function (v) {
+      if (v.cardId === todoData.cardId) {
+        v.header = editedTitle;
+        v.main = editedContents;
+      }
+    });
+    var targetCardTitle = targetCard.querySelector('.card__contents__header');
+    var targetCardContents = targetCard.querySelector('.card__contents__main');
+    targetCardTitle.innerHTML = editedTitle;
+    targetCardContents.innerHTML = editedContents;
+  }
+
+  targetCard.style.display = '';
+  editCardElement.remove();
 };
 
 /***/ }),
@@ -334,14 +404,91 @@ var createMainElement = function createMainElement() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createNewCardTemplate": () => (/* binding */ createNewCardTemplate),
+/* harmony export */   "insertEditCard": () => (/* binding */ insertEditCard),
 /* harmony export */   "onAddBtnClick": () => (/* binding */ onAddBtnClick)
 /* harmony export */ });
-/* harmony import */ var _constants_constant_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/constant.js */ "./src/js/constants/constant.js");
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.find.js */ "./node_modules/core-js/modules/es.array.find.js");
+/* harmony import */ var core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
 
-var createNewCardTemplate = function createNewCardTemplate() {
-  return "\n  <li class=\"task__card new-card\">\n  <div class=\"card__contents\">\n    <header class=\"card__contents__header\">\n      <input class=\"card__contents__input--header\" type=\"text\" placeholder=\"\uC81C\uBAA9\uC744 \uC785\uB825\uD558\uC138\uC694\" />\n    </header>\n    <main class=\"card__contents__main\">\n      <textarea class=\"card__contents__input--main\" maxlength=\"500\" placeholder=\"\uB0B4\uC6A9\uC744 \uC785\uB825\uD558\uC138\uC694\"></textarea>\n    </main>\n    <footer class=\"card__contents__footer footer__buttons\">\n      <button class=\"footer__buttons__cancel\">\uCDE8\uC18C</button>\n      <button class=\"footer__buttons__save\">\uB4F1\uB85D</button>\n    </footer>\n  </div>\n  <div class=\"card__delete-btn\">\n    ".concat(_constants_constant_js__WEBPACK_IMPORTED_MODULE_0__.icons["delete"], "\n  </div>\n</li>\n  ");
+
+
+var createNewCardTemplate = function createNewCardTemplate(todoData) {
+  return "\n  <li class=\"task__card ".concat(todoData ? 'edit-card' : 'new-card', "\">\n  <div class=\"card__contents\">\n    <header class=\"card__contents__header\">\n      <input class=\"card__contents__input--header\" type=\"text\" placeholder=\"\uC81C\uBAA9\uC744 \uC785\uB825\uD558\uC138\uC694\" value=\"").concat(todoData ? todoData.header : '', "\"/>\n    </header>\n    <main class=\"card__contents__main\">\n      <textarea class=\"card__contents__input--main\" maxlength=\"500\" placeholder=\"\uB0B4\uC6A9\uC744 \uC785\uB825\uD558\uC138\uC694\">").concat(todoData ? todoData.main : '', "</textarea>\n    </main>\n    <footer class=\"card__contents__footer footer__buttons\">\n      <input type=button class=\"footer__buttons__cancel\" value=\"\uCDE8\uC18C\">\n      ").concat(todoData ? '<input type=button class="footer__buttons__edit" value="수정"/>' : '<input type=button class="footer__buttons__save" value="등록" disabled/>', "\n    </footer>\n  </div>\n  <div class=\"card__delete-btn\">\n    ").concat(icons.delete, "\n  </div>\n</li>\n  ");
 };
-var onAddBtnClick = function onAddBtnClick() {
+var insertEditCard = function insertEditCard(targetCard, todoData) {
+  var editCardTemplate = createNewCardTemplate(todoData);
+  targetCard.insertAdjacentHTML('afterend', editCardTemplate);
+  var editCardElement = document.querySelector('.edit-card');
+  var newCardContents = editCardElement.querySelector('.card__contents');
+  var textArea = editCardElement.querySelector('.card__contents__input--main');
+  onNewCardInput(newCardContents);
+  onResizeTextArea(textArea);
+};
+
+var onNewCardClick = function onNewCardClick(newCard, store, columnClassName) {
+  var saveBtn = newCard.querySelector('.footer__buttons__save');
+  saveBtn.addEventListener('click', function () {
+    var titleInputValue = newCard.querySelector('.card__contents__input--header').value;
+    var textAreaValue = newCard.querySelector('.card__contents__input--main').value;
+    saveNewCard(newCard, store, columnClassName, titleInputValue, textAreaValue);
+  });
+};
+
+var saveNewCard = function saveNewCard(newCard, store, columnClassName) {
+  for (var _len = arguments.length, userInput = new Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+    userInput[_key - 3] = arguments[_key];
+  }
+
+  var header = userInput[0],
+      main = userInput[1];
+  var taskData = {
+    header: header,
+    main: main,
+    footer: 'author',
+    datetime: new Date().toISOString(),
+    status: columnClassName,
+    cardId: Date.now()
+  };
+  var columnData = store.getStore('main').find(function (column) {
+    return column.className === columnClassName;
+  });
+  columnData.tasks.unshift(taskData);
+  columnData.total++;
+  var columnElement = document.querySelector(".".concat(columnClassName));
+  store.notify('newTodo', columnElement, taskData, columnData.total);
+  newCard.parentElement.remove();
+};
+
+var onNewCardInput = function onNewCardInput(newCard) {
+  newCard.addEventListener('input', function () {
+    changeSaveBtnStatus(newCard);
+  });
+};
+
+var changeSaveBtnStatus = function changeSaveBtnStatus(newCard) {
+  var titleInput = newCard.querySelector('.card__contents__input--header');
+  var textArea = newCard.querySelector('.card__contents__input--main');
+  var saveBtn = newCard.querySelector('.footer__buttons__save') ? newCard.querySelector('.footer__buttons__save') : newCard.querySelector('.footer__buttons__edit');
+  textArea.value && titleInput.value ? enableBtn(saveBtn) : disableBtn(saveBtn);
+};
+
+var disableBtn = function disableBtn(btn) {
+  btn.disabled = true;
+  btn.style.backgroundColor = '#86c5ff';
+  btn.style.cursor = '';
+};
+
+var enableBtn = function enableBtn(btn) {
+  btn.disabled = false;
+  btn.style.backgroundColor = '#0175de';
+  btn.style.cursor = 'pointer';
+};
+
+var onAddBtnClick = function onAddBtnClick(store) {
   var mainElement = document.querySelector('.main');
   mainElement.addEventListener('click', function (_ref) {
     var target = _ref.target;
@@ -349,8 +496,8 @@ var onAddBtnClick = function onAddBtnClick() {
   });
 };
 
-var handleAddBtnClick = function handleAddBtnClick(mainElement, target) {
-  if (!target.closest(".title-column__btn__add")) {
+var handleAddBtnClick = function handleAddBtnClick(mainElement, target, store) {
+  if (!target.closest('.title-column__btn__add')) {
     return;
   }
 
@@ -379,12 +526,17 @@ var toggleNewCard = function toggleNewCard(cardList) {
 
   if (newCard) {
     newCard.remove();
-  } else {
-    var newCardTemplate = createNewCardTemplate();
-    cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
-    var textArea = cardList.querySelector('.card__contents__input--main');
-    onResizeTextArea(textArea);
+    return;
   }
+
+  var newCardTemplate = createNewCardTemplate();
+  cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
+  var newCardContents = cardList.querySelector('.card__contents');
+  var textArea = cardList.querySelector('.card__contents__input--main');
+  onNewCardInput(newCardContents);
+  onResizeTextArea(textArea);
+  onNewCardClick(newCardContents, store, columnClassName);
+  onCancelBtnClick(newCardContents);
 };
 
 /***/ }),
@@ -446,6 +598,36 @@ var TypeError = global.TypeError;
 module.exports = function (argument) {
   if (typeof argument == 'object' || isCallable(argument)) return argument;
   throw TypeError("Can't set " + String(argument) + ' as a prototype');
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/add-to-unscopables.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/core-js/internals/add-to-unscopables.js ***!
+  \**************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "./node_modules/core-js/internals/well-known-symbol.js");
+var create = __webpack_require__(/*! ../internals/object-create */ "./node_modules/core-js/internals/object-create.js");
+var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "./node_modules/core-js/internals/object-define-property.js");
+
+var UNSCOPABLES = wellKnownSymbol('unscopables');
+var ArrayPrototype = Array.prototype;
+
+// Array.prototype[@@unscopables]
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+if (ArrayPrototype[UNSCOPABLES] == undefined) {
+  definePropertyModule.f(ArrayPrototype, UNSCOPABLES, {
+    configurable: true,
+    value: create(null)
+  });
+}
+
+// add a key to Array.prototype[@@unscopables]
+module.exports = function (key) {
+  ArrayPrototype[UNSCOPABLES][key] = true;
 };
 
 
@@ -1604,6 +1786,34 @@ module.exports = fails(function () {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/inherit-if-required.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/core-js/internals/inherit-if-required.js ***!
+  \***************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isCallable = __webpack_require__(/*! ../internals/is-callable */ "./node_modules/core-js/internals/is-callable.js");
+var isObject = __webpack_require__(/*! ../internals/is-object */ "./node_modules/core-js/internals/is-object.js");
+var setPrototypeOf = __webpack_require__(/*! ../internals/object-set-prototype-of */ "./node_modules/core-js/internals/object-set-prototype-of.js");
+
+// makes subclassing work correct for wrapped built-ins
+module.exports = function ($this, dummy, Wrapper) {
+  var NewTarget, NewTargetPrototype;
+  if (
+    // it can work only with native `setPrototypeOf`
+    setPrototypeOf &&
+    // we haven't completely correct pre-ES6 way for getting `new.target`, so use this
+    isCallable(NewTarget = dummy.constructor) &&
+    NewTarget !== Wrapper &&
+    isObject(NewTargetPrototype = NewTarget.prototype) &&
+    NewTargetPrototype !== Wrapper.prototype
+  ) setPrototypeOf($this, NewTargetPrototype);
+  return $this;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/inspect-source.js":
 /*!**********************************************************!*\
   !*** ./node_modules/core-js/internals/inspect-source.js ***!
@@ -2219,6 +2429,128 @@ module.exports.f = function (C) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/object-create.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/core-js/internals/object-create.js ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/* global ActiveXObject -- old IE, WSH */
+var anObject = __webpack_require__(/*! ../internals/an-object */ "./node_modules/core-js/internals/an-object.js");
+var definePropertiesModule = __webpack_require__(/*! ../internals/object-define-properties */ "./node_modules/core-js/internals/object-define-properties.js");
+var enumBugKeys = __webpack_require__(/*! ../internals/enum-bug-keys */ "./node_modules/core-js/internals/enum-bug-keys.js");
+var hiddenKeys = __webpack_require__(/*! ../internals/hidden-keys */ "./node_modules/core-js/internals/hidden-keys.js");
+var html = __webpack_require__(/*! ../internals/html */ "./node_modules/core-js/internals/html.js");
+var documentCreateElement = __webpack_require__(/*! ../internals/document-create-element */ "./node_modules/core-js/internals/document-create-element.js");
+var sharedKey = __webpack_require__(/*! ../internals/shared-key */ "./node_modules/core-js/internals/shared-key.js");
+
+var GT = '>';
+var LT = '<';
+var PROTOTYPE = 'prototype';
+var SCRIPT = 'script';
+var IE_PROTO = sharedKey('IE_PROTO');
+
+var EmptyConstructor = function () { /* empty */ };
+
+var scriptTag = function (content) {
+  return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT;
+};
+
+// Create object with fake `null` prototype: use ActiveX Object with cleared prototype
+var NullProtoObjectViaActiveX = function (activeXDocument) {
+  activeXDocument.write(scriptTag(''));
+  activeXDocument.close();
+  var temp = activeXDocument.parentWindow.Object;
+  activeXDocument = null; // avoid memory leak
+  return temp;
+};
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var NullProtoObjectViaIFrame = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = documentCreateElement('iframe');
+  var JS = 'java' + SCRIPT + ':';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  html.appendChild(iframe);
+  // https://github.com/zloirock/core-js/issues/475
+  iframe.src = String(JS);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(scriptTag('document.F=Object'));
+  iframeDocument.close();
+  return iframeDocument.F;
+};
+
+// Check for document.domain and active x support
+// No need to use active x approach when document.domain is not set
+// see https://github.com/es-shims/es5-shim/issues/150
+// variation of https://github.com/kitcambridge/es5-shim/commit/4f738ac066346
+// avoid IE GC bug
+var activeXDocument;
+var NullProtoObject = function () {
+  try {
+    activeXDocument = new ActiveXObject('htmlfile');
+  } catch (error) { /* ignore */ }
+  NullProtoObject = typeof document != 'undefined'
+    ? document.domain && activeXDocument
+      ? NullProtoObjectViaActiveX(activeXDocument) // old IE
+      : NullProtoObjectViaIFrame()
+    : NullProtoObjectViaActiveX(activeXDocument); // WSH
+  var length = enumBugKeys.length;
+  while (length--) delete NullProtoObject[PROTOTYPE][enumBugKeys[length]];
+  return NullProtoObject();
+};
+
+hiddenKeys[IE_PROTO] = true;
+
+// `Object.create` method
+// https://tc39.es/ecma262/#sec-object.create
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    EmptyConstructor[PROTOTYPE] = anObject(O);
+    result = new EmptyConstructor();
+    EmptyConstructor[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = NullProtoObject();
+  return Properties === undefined ? result : definePropertiesModule.f(result, Properties);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/object-define-properties.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/core-js/internals/object-define-properties.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
+var V8_PROTOTYPE_DEFINE_BUG = __webpack_require__(/*! ../internals/v8-prototype-define-bug */ "./node_modules/core-js/internals/v8-prototype-define-bug.js");
+var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "./node_modules/core-js/internals/object-define-property.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "./node_modules/core-js/internals/an-object.js");
+var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ "./node_modules/core-js/internals/to-indexed-object.js");
+var objectKeys = __webpack_require__(/*! ../internals/object-keys */ "./node_modules/core-js/internals/object-keys.js");
+
+// `Object.defineProperties` method
+// https://tc39.es/ecma262/#sec-object.defineproperties
+// eslint-disable-next-line es/no-object-defineproperties -- safe
+exports.f = DESCRIPTORS && !V8_PROTOTYPE_DEFINE_BUG ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var props = toIndexedObject(Properties);
+  var keys = objectKeys(Properties);
+  var length = keys.length;
+  var index = 0;
+  var key;
+  while (length > index) definePropertyModule.f(O, key = keys[index++], props[key]);
+  return O;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/object-define-property.js":
 /*!******************************************************************!*\
   !*** ./node_modules/core-js/internals/object-define-property.js ***!
@@ -2376,6 +2708,25 @@ module.exports = function (object, names) {
     ~indexOf(result, key) || push(result, key);
   }
   return result;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/object-keys.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/internals/object-keys.js ***!
+  \*******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var internalObjectKeys = __webpack_require__(/*! ../internals/object-keys-internal */ "./node_modules/core-js/internals/object-keys-internal.js");
+var enumBugKeys = __webpack_require__(/*! ../internals/enum-bug-keys */ "./node_modules/core-js/internals/enum-bug-keys.js");
+
+// `Object.keys` method
+// https://tc39.es/ecma262/#sec-object.keys
+// eslint-disable-next-line es/no-object-keys -- safe
+module.exports = Object.keys || function keys(O) {
+  return internalObjectKeys(O, enumBugKeys);
 };
 
 
@@ -2831,6 +3182,47 @@ module.exports = function (O, defaultConstructor) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/string-trim.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/internals/string-trim.js ***!
+  \*******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "./node_modules/core-js/internals/function-uncurry-this.js");
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "./node_modules/core-js/internals/require-object-coercible.js");
+var toString = __webpack_require__(/*! ../internals/to-string */ "./node_modules/core-js/internals/to-string.js");
+var whitespaces = __webpack_require__(/*! ../internals/whitespaces */ "./node_modules/core-js/internals/whitespaces.js");
+
+var replace = uncurryThis(''.replace);
+var whitespace = '[' + whitespaces + ']';
+var ltrim = RegExp('^' + whitespace + whitespace + '*');
+var rtrim = RegExp(whitespace + whitespace + '*$');
+
+// `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
+var createMethod = function (TYPE) {
+  return function ($this) {
+    var string = toString(requireObjectCoercible($this));
+    if (TYPE & 1) string = replace(string, ltrim, '');
+    if (TYPE & 2) string = replace(string, rtrim, '');
+    return string;
+  };
+};
+
+module.exports = {
+  // `String.prototype.{ trimLeft, trimStart }` methods
+  // https://tc39.es/ecma262/#sec-string.prototype.trimstart
+  start: createMethod(1),
+  // `String.prototype.{ trimRight, trimEnd }` methods
+  // https://tc39.es/ecma262/#sec-string.prototype.trimend
+  end: createMethod(2),
+  // `String.prototype.trim` method
+  // https://tc39.es/ecma262/#sec-string.prototype.trim
+  trim: createMethod(3)
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/task.js":
 /*!************************************************!*\
   !*** ./node_modules/core-js/internals/task.js ***!
@@ -2953,6 +3345,21 @@ module.exports = {
   set: set,
   clear: clear
 };
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/this-number-value.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/core-js/internals/this-number-value.js ***!
+  \*************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "./node_modules/core-js/internals/function-uncurry-this.js");
+
+// `thisNumberValue` abstract operation
+// https://tc39.es/ecma262/#sec-thisnumbervalue
+module.exports = uncurryThis(1.0.valueOf);
 
 
 /***/ }),
@@ -3128,6 +3535,25 @@ module.exports = String(test) === '[object z]';
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/to-string.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/core-js/internals/to-string.js ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
+var classof = __webpack_require__(/*! ../internals/classof */ "./node_modules/core-js/internals/classof.js");
+
+var String = global.String;
+
+module.exports = function (argument) {
+  if (classof(argument) === 'Symbol') throw TypeError('Cannot convert a Symbol value to a string');
+  return String(argument);
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/try-to-string.js":
 /*!*********************************************************!*\
   !*** ./node_modules/core-js/internals/try-to-string.js ***!
@@ -3258,6 +3684,19 @@ module.exports = function (name) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/whitespaces.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/internals/whitespaces.js ***!
+  \*******************************************************/
+/***/ ((module) => {
+
+// a string of all valid unicode whitespaces
+module.exports = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002' +
+  '\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.array.concat.js":
 /*!*********************************************************!*\
   !*** ./node_modules/core-js/modules/es.array.concat.js ***!
@@ -3332,6 +3771,38 @@ $({ target: 'Array', proto: true, forced: FORCED }, {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es.array.find.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/modules/es.array.find.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var $find = (__webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").find);
+var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
+
+var FIND = 'find';
+var SKIPS_HOLES = true;
+
+// Shouldn't skip holes
+if (FIND in []) Array(1)[FIND](function () { SKIPS_HOLES = false; });
+
+// `Array.prototype.find` method
+// https://tc39.es/ecma262/#sec-array.prototype.find
+$({ target: 'Array', proto: true, forced: SKIPS_HOLES }, {
+  find: function find(callbackfn /* , that = undefined */) {
+    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+addToUnscopables(FIND);
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.array.map.js":
 /*!******************************************************!*\
   !*** ./node_modules/core-js/modules/es.array.map.js ***!
@@ -3354,6 +3825,105 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
     return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
 });
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.number.constructor.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/core-js/modules/es.number.constructor.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
+var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
+var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "./node_modules/core-js/internals/function-uncurry-this.js");
+var isForced = __webpack_require__(/*! ../internals/is-forced */ "./node_modules/core-js/internals/is-forced.js");
+var redefine = __webpack_require__(/*! ../internals/redefine */ "./node_modules/core-js/internals/redefine.js");
+var hasOwn = __webpack_require__(/*! ../internals/has-own-property */ "./node_modules/core-js/internals/has-own-property.js");
+var inheritIfRequired = __webpack_require__(/*! ../internals/inherit-if-required */ "./node_modules/core-js/internals/inherit-if-required.js");
+var isPrototypeOf = __webpack_require__(/*! ../internals/object-is-prototype-of */ "./node_modules/core-js/internals/object-is-prototype-of.js");
+var isSymbol = __webpack_require__(/*! ../internals/is-symbol */ "./node_modules/core-js/internals/is-symbol.js");
+var toPrimitive = __webpack_require__(/*! ../internals/to-primitive */ "./node_modules/core-js/internals/to-primitive.js");
+var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
+var getOwnPropertyNames = (__webpack_require__(/*! ../internals/object-get-own-property-names */ "./node_modules/core-js/internals/object-get-own-property-names.js").f);
+var getOwnPropertyDescriptor = (__webpack_require__(/*! ../internals/object-get-own-property-descriptor */ "./node_modules/core-js/internals/object-get-own-property-descriptor.js").f);
+var defineProperty = (__webpack_require__(/*! ../internals/object-define-property */ "./node_modules/core-js/internals/object-define-property.js").f);
+var thisNumberValue = __webpack_require__(/*! ../internals/this-number-value */ "./node_modules/core-js/internals/this-number-value.js");
+var trim = (__webpack_require__(/*! ../internals/string-trim */ "./node_modules/core-js/internals/string-trim.js").trim);
+
+var NUMBER = 'Number';
+var NativeNumber = global[NUMBER];
+var NumberPrototype = NativeNumber.prototype;
+var TypeError = global.TypeError;
+var arraySlice = uncurryThis(''.slice);
+var charCodeAt = uncurryThis(''.charCodeAt);
+
+// `ToNumeric` abstract operation
+// https://tc39.es/ecma262/#sec-tonumeric
+var toNumeric = function (value) {
+  var primValue = toPrimitive(value, 'number');
+  return typeof primValue == 'bigint' ? primValue : toNumber(primValue);
+};
+
+// `ToNumber` abstract operation
+// https://tc39.es/ecma262/#sec-tonumber
+var toNumber = function (argument) {
+  var it = toPrimitive(argument, 'number');
+  var first, third, radix, maxCode, digits, length, index, code;
+  if (isSymbol(it)) throw TypeError('Cannot convert a Symbol value to a number');
+  if (typeof it == 'string' && it.length > 2) {
+    it = trim(it);
+    first = charCodeAt(it, 0);
+    if (first === 43 || first === 45) {
+      third = charCodeAt(it, 2);
+      if (third === 88 || third === 120) return NaN; // Number('+0x1') should be NaN, old V8 fix
+    } else if (first === 48) {
+      switch (charCodeAt(it, 1)) {
+        case 66: case 98: radix = 2; maxCode = 49; break; // fast equal of /^0b[01]+$/i
+        case 79: case 111: radix = 8; maxCode = 55; break; // fast equal of /^0o[0-7]+$/i
+        default: return +it;
+      }
+      digits = arraySlice(it, 2);
+      length = digits.length;
+      for (index = 0; index < length; index++) {
+        code = charCodeAt(digits, index);
+        // parseInt parses a string to a first unavailable symbol
+        // but ToNumber should return NaN if a string contains unavailable symbols
+        if (code < 48 || code > maxCode) return NaN;
+      } return parseInt(digits, radix);
+    }
+  } return +it;
+};
+
+// `Number` constructor
+// https://tc39.es/ecma262/#sec-number-constructor
+if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumber('+0x1'))) {
+  var NumberWrapper = function Number(value) {
+    var n = arguments.length < 1 ? 0 : NativeNumber(toNumeric(value));
+    var dummy = this;
+    // check on 1..constructor(foo) case
+    return isPrototypeOf(NumberPrototype, dummy) && fails(function () { thisNumberValue(dummy); })
+      ? inheritIfRequired(Object(n), dummy, NumberWrapper) : n;
+  };
+  for (var keys = DESCRIPTORS ? getOwnPropertyNames(NativeNumber) : (
+    // ES3:
+    'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
+    // ES2015 (in case, if modules with ES2015 Number statics required before):
+    'EPSILON,MAX_SAFE_INTEGER,MIN_SAFE_INTEGER,isFinite,isInteger,isNaN,isSafeInteger,parseFloat,parseInt,' +
+    // ESNext
+    'fromString,range'
+  ).split(','), j = 0, key; keys.length > j; j++) {
+    if (hasOwn(NativeNumber, key = keys[j]) && !hasOwn(NumberWrapper, key)) {
+      defineProperty(NumberWrapper, key, getOwnPropertyDescriptor(NativeNumber, key));
+    }
+  }
+  NumberWrapper.prototype = NumberPrototype;
+  NumberPrototype.constructor = NumberWrapper;
+  redefine(global, NUMBER, NumberWrapper);
+}
 
 
 /***/ }),
@@ -3842,7 +4412,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  font-family: sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  box-sizing: border-box;\n}\n\nhtml {\n  font-family: sans-serif;\n  font-size: 16px;\n}\n\nbody {\n  font-family: sans-serif;\n}\n\nh1 {\n  margin: 0;\n}\n\na {\n  color: inherit;\n  text-decoration: none;\n}\n\nbutton,\ninput,\nselect,\ntextarea {\n  background-color: transparent;\n  border: 0;\n}\nbutton:focus,\ninput:focus,\nselect:focus,\ntextarea:focus {\n  outline: none;\n  box-shadow: none;\n}\n\na,\nbutton {\n  cursor: pointer;\n}\n\nul,\nol,\nli,\nmenu {\n  padding-left: 0;\n  list-style: none;\n}\n\n/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */\n/* Document\n   ========================================================================== */\n/**\n * 1. Correct the line height in all browsers.\n * 2. Prevent adjustments of font size after orientation changes in iOS.\n */\nhtml {\n  line-height: 1.15;\n  /* 1 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n\n/* Sections\n         ========================================================================== */\n/**\n       * Remove the margin in all browsers.\n       */\nbody {\n  margin: 0;\n}\n\n/**\n       * Render the `main` element consistently in IE.\n       */\nmain {\n  display: block;\n}\n\n/**\n       * Correct the font size and margin on `h1` elements within `section` and\n       * `article` contexts in Chrome, Firefox, and Safari.\n       */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n\n/* Grouping content\n         ========================================================================== */\n/**\n       * 1. Add the correct box sizing in Firefox.\n       * 2. Show the overflow in Edge and IE.\n       */\nhr {\n  box-sizing: content-box;\n  /* 1 */\n  height: 0;\n  /* 1 */\n  overflow: visible;\n  /* 2 */\n}\n\n/**\n       * 1. Correct the inheritance and scaling of font size in all browsers.\n       * 2. Correct the odd `em` font sizing in all browsers.\n       */\npre {\n  font-family: monospace, monospace;\n  /* 1 */\n  font-size: 1em;\n  /* 2 */\n}\n\n/* Text-level semantics\n         ========================================================================== */\n/**\n       * Remove the gray background on active links in IE 10.\n       */\na {\n  background-color: transparent;\n}\n\n/**\n       * 1. Remove the bottom border in Chrome 57-\n       * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\n       */\nabbr[title] {\n  border-bottom: none;\n  /* 1 */\n  text-decoration: underline;\n  /* 2 */\n  text-decoration: underline dotted;\n  /* 2 */\n}\n\n/**\n       * Add the correct font weight in Chrome, Edge, and Safari.\n       */\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/**\n       * 1. Correct the inheritance and scaling of font size in all browsers.\n       * 2. Correct the odd `em` font sizing in all browsers.\n       */\ncode,\nkbd,\nsamp {\n  font-family: monospace, monospace;\n  /* 1 */\n  font-size: 1em;\n  /* 2 */\n}\n\n/**\n       * Add the correct font size in all browsers.\n       */\nsmall {\n  font-size: 80%;\n}\n\n/**\n       * Prevent `sub` and `sup` elements from affecting the line height in\n       * all browsers.\n       */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/* Embedded content\n         ========================================================================== */\n/**\n       * Remove the border on images inside links in IE 10.\n       */\nimg {\n  border-style: none;\n}\n\n/* Forms\n         ========================================================================== */\n/**\n       * 1. Change the font styles in all browsers.\n       * 2. Remove the margin in Firefox and Safari.\n       */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit;\n  /* 1 */\n  font-size: 100%;\n  /* 1 */\n  line-height: 1.15;\n  /* 1 */\n  margin: 0;\n  /* 2 */\n}\n\n/**\n       * Show the overflow in IE.\n       * 1. Show the overflow in Edge.\n       */\nbutton,\ninput {\n  /* 1 */\n  overflow: visible;\n}\n\n/**\n       * Remove the inheritance of text transform in Edge, Firefox, and IE.\n       * 1. Remove the inheritance of text transform in Firefox.\n       */\nbutton,\nselect {\n  /* 1 */\n  text-transform: none;\n}\n\n/**\n       * Correct the inability to style clickable types in iOS and Safari.\n       */\nbutton,\n[type=button],\n[type=reset],\n[type=submit] {\n  -webkit-appearance: button;\n}\n\n/**\n       * Remove the inner border and padding in Firefox.\n       */\nbutton::-moz-focus-inner,\n[type=button]::-moz-focus-inner,\n[type=reset]::-moz-focus-inner,\n[type=submit]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\n\n/**\n       * Restore the focus styles unset by the previous rule.\n       */\nbutton:-moz-focusring,\n[type=button]:-moz-focusring,\n[type=reset]:-moz-focusring,\n[type=submit]:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/**\n       * Correct the padding in Firefox.\n       */\nfieldset {\n  padding: 0.35em 0.75em 0.625em;\n}\n\n/**\n       * 1. Correct the text wrapping in Edge and IE.\n       * 2. Correct the color inheritance from `fieldset` elements in IE.\n       * 3. Remove the padding so developers are not caught out when they zero out\n       *    `fieldset` elements in all browsers.\n       */\nlegend {\n  box-sizing: border-box;\n  /* 1 */\n  color: inherit;\n  /* 2 */\n  display: table;\n  /* 1 */\n  max-width: 100%;\n  /* 1 */\n  padding: 0;\n  /* 3 */\n  white-space: normal;\n  /* 1 */\n}\n\n/**\n       * Add the correct vertical alignment in Chrome, Firefox, and Opera.\n       */\nprogress {\n  vertical-align: baseline;\n}\n\n/**\n       * Remove the default vertical scrollbar in IE 10+.\n       */\ntextarea {\n  overflow: auto;\n}\n\n/**\n       * 1. Add the correct box sizing in IE 10.\n       * 2. Remove the padding in IE 10.\n       */\n[type=checkbox],\n[type=radio] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n\n/**\n       * Correct the cursor style of increment and decrement buttons in Chrome.\n       */\n[type=number]::-webkit-inner-spin-button,\n[type=number]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n       * 1. Correct the odd appearance in Chrome and Safari.\n       * 2. Correct the outline style in Safari.\n       */\n[type=search] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  outline-offset: -2px;\n  /* 2 */\n}\n\n/**\n       * Remove the inner padding in Chrome and Safari on macOS.\n       */\n[type=search]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n       * 1. Correct the inability to style clickable types in iOS and Safari.\n       * 2. Change font properties to `inherit` in Safari.\n       */\n::-webkit-file-upload-button {\n  -webkit-appearance: button;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n}\n\n/* Interactive\n         ========================================================================== */\n/*\n       * Add the correct display in Edge, IE 10+, and Firefox.\n       */\ndetails {\n  display: block;\n}\n\n/*\n       * Add the correct display in all browsers.\n       */\nsummary {\n  display: list-item;\n}\n\n/* Misc\n         ========================================================================== */\n/**\n       * Add the correct display in IE 10+.\n       */\ntemplate {\n  display: none;\n}\n\n/**\n       * Add the correct display in IE 10.\n       */\n[hidden] {\n  display: none;\n}\n\n.task__card {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  width: 308px;\n  padding: 16px;\n  background-color: #fff;\n  border-radius: 6px;\n  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);\n  margin-bottom: 16px;\n  position: relative;\n}\n\n.card__contents__header {\n  font-weight: 700;\n  font-size: 16px;\n  line-height: 23px;\n}\n.card__contents__main {\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 20px;\n  margin: 8px 0;\n}\n.card__contents__footer {\n  font-weight: 400;\n  font-size: 12px;\n  line-height: 17px;\n  color: #bdbdbd;\n}\n.card__contents__input--header {\n  font-weight: 700;\n}\n.card__contents__input--main {\n  font-weight: 400;\n  width: 100%;\n  overflow: hidden;\n}\n\n.card__delete-btn {\n  cursor: pointer;\n  position: absolute;\n  right: 5%;\n  top: 13%;\n}\n\n.footer__buttons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  font-size: 14px;\n  font-weight: 700;\n}\n.footer__buttons__cancel {\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  left: 20px;\n  top: 20px;\n  background: #e0e0e0;\n  border-radius: 6px;\n  margin-right: 8px;\n}\n.footer__buttons__save {\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  left: 20px;\n  top: 20px;\n  color: #fff;\n  background: #0175de;\n  border-radius: 6px;\n}\n\n.new-card {\n  border: 1px solid #0175de;\n}\n\nbody {\n  background-color: #f5f5f7;\n}\n\n#app {\n  padding: 0 80px;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 33px 0;\n}\n.header__title {\n  font-size: 32px;\n}\n\n.main {\n  display: flex;\n  justify-content: flex-start;\n  align-items: flex-start;\n  height: 100%;\n  width: 100%;\n}\n\n.column {\n  margin-right: 16px;\n  width: 308px;\n}\n\n.title-column {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 16px;\n}\n.title-column__title {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.title-column__title__text {\n  font-size: 18px;\n  font-weight: 700;\n  line-height: 26px;\n}\n.title-column__title__count {\n  margin-left: 10px;\n  font-size: 14px;\n  font-weight: 700;\n  background-color: #bdbdbd;\n  width: 26px;\n  height: 26px;\n  border-radius: 50%;\n  text-align: center;\n  line-height: 29px;\n}\n.title-column__btn {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n}\n.title-column__btn__add {\n  margin: 0 5px;\n}\n.title-column__btn__add:hover path {\n  fill: #0175de;\n}\n.title-column__btn__delete {\n  margin: 0 5px;\n}", "",{"version":3,"sources":["webpack://./src/scss/base/_reset.scss","webpack://./src/scss/constants/_typography.scss","webpack://./src/scss/main.scss","webpack://./src/scss/base/_normalize.scss","webpack://./src/scss/components/_card.scss","webpack://./src/scss/mixins/_flexbox.scss","webpack://./src/scss/constants/_colors.scss","webpack://./src/scss/views/_todo.scss"],"names":[],"mappings":"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","sourcesContent":["* {\r\n  margin: 0;\r\n  font-family: $font-main;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  -webkit-font-smoothing: antialiased;\r\n  box-sizing: border-box;\r\n}\r\n\r\nhtml {\r\n  font-family: $font-main;\r\n  font-size: $font-size-16;\r\n}\r\n\r\nbody {\r\n  font-family: $font-main;\r\n}\r\n\r\nh1 {\r\n  margin: 0;\r\n}\r\n\r\na {\r\n  color: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nbutton,\r\ninput,\r\nselect,\r\ntextarea {\r\n  background-color: transparent;\r\n  border: 0;\r\n\r\n  &:focus {\r\n    outline: none;\r\n    box-shadow: none;\r\n  }\r\n}\r\n\r\na,\r\nbutton {\r\n  cursor: pointer;\r\n}\r\n\r\nul,\r\nol,\r\nli,\r\nmenu {\r\n  padding-left: 0;\r\n  list-style: none;\r\n}\r\n","$font-main: sans-serif;\r\n\r\n$font-size-11: 11px;\r\n$font-size-12: 12px;\r\n$font-size-13: 13px;\r\n$font-size-14: 14px;\r\n$font-size-16: 16px;\r\n$font-size-24: 24px;\r\n","* {\n  margin: 0;\n  font-family: sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  box-sizing: border-box;\n}\n\nhtml {\n  font-family: sans-serif;\n  font-size: 16px;\n}\n\nbody {\n  font-family: sans-serif;\n}\n\nh1 {\n  margin: 0;\n}\n\na {\n  color: inherit;\n  text-decoration: none;\n}\n\nbutton,\ninput,\nselect,\ntextarea {\n  background-color: transparent;\n  border: 0;\n}\nbutton:focus,\ninput:focus,\nselect:focus,\ntextarea:focus {\n  outline: none;\n  box-shadow: none;\n}\n\na,\nbutton {\n  cursor: pointer;\n}\n\nul,\nol,\nli,\nmenu {\n  padding-left: 0;\n  list-style: none;\n}\n\n/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */\n/* Document\n   ========================================================================== */\n/**\n * 1. Correct the line height in all browsers.\n * 2. Prevent adjustments of font size after orientation changes in iOS.\n */\nhtml {\n  line-height: 1.15;\n  /* 1 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n\n/* Sections\n         ========================================================================== */\n/**\n       * Remove the margin in all browsers.\n       */\nbody {\n  margin: 0;\n}\n\n/**\n       * Render the `main` element consistently in IE.\n       */\nmain {\n  display: block;\n}\n\n/**\n       * Correct the font size and margin on `h1` elements within `section` and\n       * `article` contexts in Chrome, Firefox, and Safari.\n       */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n\n/* Grouping content\n         ========================================================================== */\n/**\n       * 1. Add the correct box sizing in Firefox.\n       * 2. Show the overflow in Edge and IE.\n       */\nhr {\n  box-sizing: content-box;\n  /* 1 */\n  height: 0;\n  /* 1 */\n  overflow: visible;\n  /* 2 */\n}\n\n/**\n       * 1. Correct the inheritance and scaling of font size in all browsers.\n       * 2. Correct the odd `em` font sizing in all browsers.\n       */\npre {\n  font-family: monospace, monospace;\n  /* 1 */\n  font-size: 1em;\n  /* 2 */\n}\n\n/* Text-level semantics\n         ========================================================================== */\n/**\n       * Remove the gray background on active links in IE 10.\n       */\na {\n  background-color: transparent;\n}\n\n/**\n       * 1. Remove the bottom border in Chrome 57-\n       * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\n       */\nabbr[title] {\n  border-bottom: none;\n  /* 1 */\n  text-decoration: underline;\n  /* 2 */\n  text-decoration: underline dotted;\n  /* 2 */\n}\n\n/**\n       * Add the correct font weight in Chrome, Edge, and Safari.\n       */\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/**\n       * 1. Correct the inheritance and scaling of font size in all browsers.\n       * 2. Correct the odd `em` font sizing in all browsers.\n       */\ncode,\nkbd,\nsamp {\n  font-family: monospace, monospace;\n  /* 1 */\n  font-size: 1em;\n  /* 2 */\n}\n\n/**\n       * Add the correct font size in all browsers.\n       */\nsmall {\n  font-size: 80%;\n}\n\n/**\n       * Prevent `sub` and `sup` elements from affecting the line height in\n       * all browsers.\n       */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/* Embedded content\n         ========================================================================== */\n/**\n       * Remove the border on images inside links in IE 10.\n       */\nimg {\n  border-style: none;\n}\n\n/* Forms\n         ========================================================================== */\n/**\n       * 1. Change the font styles in all browsers.\n       * 2. Remove the margin in Firefox and Safari.\n       */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit;\n  /* 1 */\n  font-size: 100%;\n  /* 1 */\n  line-height: 1.15;\n  /* 1 */\n  margin: 0;\n  /* 2 */\n}\n\n/**\n       * Show the overflow in IE.\n       * 1. Show the overflow in Edge.\n       */\nbutton,\ninput {\n  /* 1 */\n  overflow: visible;\n}\n\n/**\n       * Remove the inheritance of text transform in Edge, Firefox, and IE.\n       * 1. Remove the inheritance of text transform in Firefox.\n       */\nbutton,\nselect {\n  /* 1 */\n  text-transform: none;\n}\n\n/**\n       * Correct the inability to style clickable types in iOS and Safari.\n       */\nbutton,\n[type=button],\n[type=reset],\n[type=submit] {\n  -webkit-appearance: button;\n}\n\n/**\n       * Remove the inner border and padding in Firefox.\n       */\nbutton::-moz-focus-inner,\n[type=button]::-moz-focus-inner,\n[type=reset]::-moz-focus-inner,\n[type=submit]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\n\n/**\n       * Restore the focus styles unset by the previous rule.\n       */\nbutton:-moz-focusring,\n[type=button]:-moz-focusring,\n[type=reset]:-moz-focusring,\n[type=submit]:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/**\n       * Correct the padding in Firefox.\n       */\nfieldset {\n  padding: 0.35em 0.75em 0.625em;\n}\n\n/**\n       * 1. Correct the text wrapping in Edge and IE.\n       * 2. Correct the color inheritance from `fieldset` elements in IE.\n       * 3. Remove the padding so developers are not caught out when they zero out\n       *    `fieldset` elements in all browsers.\n       */\nlegend {\n  box-sizing: border-box;\n  /* 1 */\n  color: inherit;\n  /* 2 */\n  display: table;\n  /* 1 */\n  max-width: 100%;\n  /* 1 */\n  padding: 0;\n  /* 3 */\n  white-space: normal;\n  /* 1 */\n}\n\n/**\n       * Add the correct vertical alignment in Chrome, Firefox, and Opera.\n       */\nprogress {\n  vertical-align: baseline;\n}\n\n/**\n       * Remove the default vertical scrollbar in IE 10+.\n       */\ntextarea {\n  overflow: auto;\n}\n\n/**\n       * 1. Add the correct box sizing in IE 10.\n       * 2. Remove the padding in IE 10.\n       */\n[type=checkbox],\n[type=radio] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n\n/**\n       * Correct the cursor style of increment and decrement buttons in Chrome.\n       */\n[type=number]::-webkit-inner-spin-button,\n[type=number]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n       * 1. Correct the odd appearance in Chrome and Safari.\n       * 2. Correct the outline style in Safari.\n       */\n[type=search] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  outline-offset: -2px;\n  /* 2 */\n}\n\n/**\n       * Remove the inner padding in Chrome and Safari on macOS.\n       */\n[type=search]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n       * 1. Correct the inability to style clickable types in iOS and Safari.\n       * 2. Change font properties to `inherit` in Safari.\n       */\n::-webkit-file-upload-button {\n  -webkit-appearance: button;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n}\n\n/* Interactive\n         ========================================================================== */\n/*\n       * Add the correct display in Edge, IE 10+, and Firefox.\n       */\ndetails {\n  display: block;\n}\n\n/*\n       * Add the correct display in all browsers.\n       */\nsummary {\n  display: list-item;\n}\n\n/* Misc\n         ========================================================================== */\n/**\n       * Add the correct display in IE 10+.\n       */\ntemplate {\n  display: none;\n}\n\n/**\n       * Add the correct display in IE 10.\n       */\n[hidden] {\n  display: none;\n}\n\n.task__card {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  width: 308px;\n  padding: 16px;\n  background-color: #fff;\n  border-radius: 6px;\n  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);\n  margin-bottom: 16px;\n  position: relative;\n}\n\n.card__contents__header {\n  font-weight: 700;\n  font-size: 16px;\n  line-height: 23px;\n}\n.card__contents__main {\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 20px;\n  margin: 8px 0;\n}\n.card__contents__footer {\n  font-weight: 400;\n  font-size: 12px;\n  line-height: 17px;\n  color: #bdbdbd;\n}\n.card__contents__input--header {\n  font-weight: 700;\n}\n.card__contents__input--main {\n  font-weight: 400;\n  width: 100%;\n  overflow: hidden;\n}\n\n.card__delete-btn {\n  cursor: pointer;\n  position: absolute;\n  right: 5%;\n  top: 13%;\n}\n\n.footer__buttons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  font-size: 14px;\n  font-weight: 700;\n}\n.footer__buttons__cancel {\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  left: 20px;\n  top: 20px;\n  background: #e0e0e0;\n  border-radius: 6px;\n  margin-right: 8px;\n}\n.footer__buttons__save {\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  left: 20px;\n  top: 20px;\n  color: #fff;\n  background: #0175de;\n  border-radius: 6px;\n}\n\n.new-card {\n  border: 1px solid #0175de;\n}\n\nbody {\n  background-color: #f5f5f7;\n}\n\n#app {\n  padding: 0 80px;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 33px 0;\n}\n.header__title {\n  font-size: 32px;\n}\n\n.main {\n  display: flex;\n  justify-content: flex-start;\n  align-items: flex-start;\n  height: 100%;\n  width: 100%;\n}\n\n.column {\n  margin-right: 16px;\n  width: 308px;\n}\n\n.title-column {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 16px;\n}\n.title-column__title {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.title-column__title__text {\n  font-size: 18px;\n  font-weight: 700;\n  line-height: 26px;\n}\n.title-column__title__count {\n  margin-left: 10px;\n  font-size: 14px;\n  font-weight: 700;\n  background-color: #bdbdbd;\n  width: 26px;\n  height: 26px;\n  border-radius: 50%;\n  text-align: center;\n  line-height: 29px;\n}\n.title-column__btn {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n}\n.title-column__btn__add {\n  margin: 0 5px;\n}\n.title-column__btn__add:hover path {\n  fill: #0175de;\n}\n.title-column__btn__delete {\n  margin: 0 5px;\n}","// scss-lint:disable all\r\n/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */\r\n\r\n/* Document\r\n   ========================================================================== */\r\n\r\n/**\r\n * 1. Correct the line height in all browsers.\r\n * 2. Prevent adjustments of font size after orientation changes in iOS.\r\n */\r\n\r\nhtml {\r\n  line-height: 1.15; /* 1 */\r\n  -webkit-text-size-adjust: 100%; /* 2 */\r\n}\r\n\r\n/* Sections\r\n         ========================================================================== */\r\n\r\n/**\r\n       * Remove the margin in all browsers.\r\n       */\r\n\r\nbody {\r\n  margin: 0;\r\n}\r\n\r\n/**\r\n       * Render the `main` element consistently in IE.\r\n       */\r\n\r\nmain {\r\n  display: block;\r\n}\r\n\r\n/**\r\n       * Correct the font size and margin on `h1` elements within `section` and\r\n       * `article` contexts in Chrome, Firefox, and Safari.\r\n       */\r\n\r\nh1 {\r\n  font-size: 2em;\r\n  margin: 0.67em 0;\r\n}\r\n\r\n/* Grouping content\r\n         ========================================================================== */\r\n\r\n/**\r\n       * 1. Add the correct box sizing in Firefox.\r\n       * 2. Show the overflow in Edge and IE.\r\n       */\r\n\r\nhr {\r\n  box-sizing: content-box; /* 1 */\r\n  height: 0; /* 1 */\r\n  overflow: visible; /* 2 */\r\n}\r\n\r\n/**\r\n       * 1. Correct the inheritance and scaling of font size in all browsers.\r\n       * 2. Correct the odd `em` font sizing in all browsers.\r\n       */\r\n\r\npre {\r\n  font-family: monospace, monospace; /* 1 */\r\n  font-size: 1em; /* 2 */\r\n}\r\n\r\n/* Text-level semantics\r\n         ========================================================================== */\r\n\r\n/**\r\n       * Remove the gray background on active links in IE 10.\r\n       */\r\n\r\na {\r\n  background-color: transparent;\r\n}\r\n\r\n/**\r\n       * 1. Remove the bottom border in Chrome 57-\r\n       * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\r\n       */\r\n\r\nabbr[title] {\r\n  border-bottom: none; /* 1 */\r\n  text-decoration: underline; /* 2 */\r\n  text-decoration: underline dotted; /* 2 */\r\n}\r\n\r\n/**\r\n       * Add the correct font weight in Chrome, Edge, and Safari.\r\n       */\r\n\r\nb,\r\nstrong {\r\n  font-weight: bolder;\r\n}\r\n\r\n/**\r\n       * 1. Correct the inheritance and scaling of font size in all browsers.\r\n       * 2. Correct the odd `em` font sizing in all browsers.\r\n       */\r\n\r\ncode,\r\nkbd,\r\nsamp {\r\n  font-family: monospace, monospace; /* 1 */\r\n  font-size: 1em; /* 2 */\r\n}\r\n\r\n/**\r\n       * Add the correct font size in all browsers.\r\n       */\r\n\r\nsmall {\r\n  font-size: 80%;\r\n}\r\n\r\n/**\r\n       * Prevent `sub` and `sup` elements from affecting the line height in\r\n       * all browsers.\r\n       */\r\n\r\nsub,\r\nsup {\r\n  font-size: 75%;\r\n  line-height: 0;\r\n  position: relative;\r\n  vertical-align: baseline;\r\n}\r\n\r\nsub {\r\n  bottom: -0.25em;\r\n}\r\n\r\nsup {\r\n  top: -0.5em;\r\n}\r\n\r\n/* Embedded content\r\n         ========================================================================== */\r\n\r\n/**\r\n       * Remove the border on images inside links in IE 10.\r\n       */\r\n\r\nimg {\r\n  border-style: none;\r\n}\r\n\r\n/* Forms\r\n         ========================================================================== */\r\n\r\n/**\r\n       * 1. Change the font styles in all browsers.\r\n       * 2. Remove the margin in Firefox and Safari.\r\n       */\r\n\r\nbutton,\r\ninput,\r\noptgroup,\r\nselect,\r\ntextarea {\r\n  font-family: inherit; /* 1 */\r\n  font-size: 100%; /* 1 */\r\n  line-height: 1.15; /* 1 */\r\n  margin: 0; /* 2 */\r\n}\r\n\r\n/**\r\n       * Show the overflow in IE.\r\n       * 1. Show the overflow in Edge.\r\n       */\r\n\r\nbutton,\r\ninput {\r\n  /* 1 */\r\n  overflow: visible;\r\n}\r\n\r\n/**\r\n       * Remove the inheritance of text transform in Edge, Firefox, and IE.\r\n       * 1. Remove the inheritance of text transform in Firefox.\r\n       */\r\n\r\nbutton,\r\nselect {\r\n  /* 1 */\r\n  text-transform: none;\r\n}\r\n\r\n/**\r\n       * Correct the inability to style clickable types in iOS and Safari.\r\n       */\r\n\r\nbutton,\r\n[type='button'],\r\n[type='reset'],\r\n[type='submit'] {\r\n  -webkit-appearance: button;\r\n}\r\n\r\n/**\r\n       * Remove the inner border and padding in Firefox.\r\n       */\r\n\r\nbutton::-moz-focus-inner,\r\n[type='button']::-moz-focus-inner,\r\n[type='reset']::-moz-focus-inner,\r\n[type='submit']::-moz-focus-inner {\r\n  border-style: none;\r\n  padding: 0;\r\n}\r\n\r\n/**\r\n       * Restore the focus styles unset by the previous rule.\r\n       */\r\n\r\nbutton:-moz-focusring,\r\n[type='button']:-moz-focusring,\r\n[type='reset']:-moz-focusring,\r\n[type='submit']:-moz-focusring {\r\n  outline: 1px dotted ButtonText;\r\n}\r\n\r\n/**\r\n       * Correct the padding in Firefox.\r\n       */\r\n\r\nfieldset {\r\n  padding: 0.35em 0.75em 0.625em;\r\n}\r\n\r\n/**\r\n       * 1. Correct the text wrapping in Edge and IE.\r\n       * 2. Correct the color inheritance from `fieldset` elements in IE.\r\n       * 3. Remove the padding so developers are not caught out when they zero out\r\n       *    `fieldset` elements in all browsers.\r\n       */\r\n\r\nlegend {\r\n  box-sizing: border-box; /* 1 */\r\n  color: inherit; /* 2 */\r\n  display: table; /* 1 */\r\n  max-width: 100%; /* 1 */\r\n  padding: 0; /* 3 */\r\n  white-space: normal; /* 1 */\r\n}\r\n\r\n/**\r\n       * Add the correct vertical alignment in Chrome, Firefox, and Opera.\r\n       */\r\n\r\nprogress {\r\n  vertical-align: baseline;\r\n}\r\n\r\n/**\r\n       * Remove the default vertical scrollbar in IE 10+.\r\n       */\r\n\r\ntextarea {\r\n  overflow: auto;\r\n}\r\n\r\n/**\r\n       * 1. Add the correct box sizing in IE 10.\r\n       * 2. Remove the padding in IE 10.\r\n       */\r\n\r\n[type='checkbox'],\r\n[type='radio'] {\r\n  box-sizing: border-box; /* 1 */\r\n  padding: 0; /* 2 */\r\n}\r\n\r\n/**\r\n       * Correct the cursor style of increment and decrement buttons in Chrome.\r\n       */\r\n\r\n[type='number']::-webkit-inner-spin-button,\r\n[type='number']::-webkit-outer-spin-button {\r\n  height: auto;\r\n}\r\n\r\n/**\r\n       * 1. Correct the odd appearance in Chrome and Safari.\r\n       * 2. Correct the outline style in Safari.\r\n       */\r\n\r\n[type='search'] {\r\n  -webkit-appearance: textfield; /* 1 */\r\n  outline-offset: -2px; /* 2 */\r\n}\r\n\r\n/**\r\n       * Remove the inner padding in Chrome and Safari on macOS.\r\n       */\r\n\r\n[type='search']::-webkit-search-decoration {\r\n  -webkit-appearance: none;\r\n}\r\n\r\n/**\r\n       * 1. Correct the inability to style clickable types in iOS and Safari.\r\n       * 2. Change font properties to `inherit` in Safari.\r\n       */\r\n\r\n::-webkit-file-upload-button {\r\n  -webkit-appearance: button; /* 1 */\r\n  font: inherit; /* 2 */\r\n}\r\n\r\n/* Interactive\r\n         ========================================================================== */\r\n\r\n/*\r\n       * Add the correct display in Edge, IE 10+, and Firefox.\r\n       */\r\n\r\ndetails {\r\n  display: block;\r\n}\r\n\r\n/*\r\n       * Add the correct display in all browsers.\r\n       */\r\n\r\nsummary {\r\n  display: list-item;\r\n}\r\n\r\n/* Misc\r\n         ========================================================================== */\r\n\r\n/**\r\n       * Add the correct display in IE 10+.\r\n       */\r\n\r\ntemplate {\r\n  display: none;\r\n}\r\n\r\n/**\r\n       * Add the correct display in IE 10.\r\n       */\r\n\r\n[hidden] {\r\n  display: none;\r\n}\r\n",".task__card {\r\n  @include flexbox(between);\r\n  width: 308px;\r\n  padding: 16px;\r\n  background-color: $white;\r\n  border-radius: 6px;\r\n  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);\r\n  margin-bottom: 16px;\r\n  position: relative;\r\n}\r\n\r\n.card__contents {\r\n  &__header {\r\n    font-weight: 700;\r\n    font-size: 16px;\r\n    line-height: 23px;\r\n  }\r\n  &__main {\r\n    font-weight: 400;\r\n    font-size: 14px;\r\n    line-height: 20px;\r\n    margin: 8px 0;\r\n  }\r\n  &__footer {\r\n    font-weight: 400;\r\n    font-size: 12px;\r\n    line-height: 17px;\r\n    color: $gray2;\r\n  }\r\n  &__input {\r\n    &--header {\r\n      font-weight: 700;\r\n    }\r\n\r\n    &--main {\r\n      font-weight: 400;\r\n      width: 100%;\r\n      overflow: hidden;\r\n    }\r\n  }\r\n}\r\n.card__delete-btn {\r\n  cursor: pointer;\r\n  position: absolute;\r\n  right: 5%;\r\n  top: 13%;\r\n}\r\n\r\n.footer__buttons {\r\n  @include flexbox(between);\r\n  font-size: 14px;\r\n  font-weight: 700;\r\n\r\n  &__cancel {\r\n    line-height: 20px;\r\n    width: 134px;\r\n    height: 40px;\r\n    left: 20px;\r\n    top: 20px;\r\n    background: $gray3;\r\n    border-radius: 6px;\r\n    margin-right: 8px;\r\n  }\r\n\r\n  &__save {\r\n    line-height: 20px;\r\n    width: 134px;\r\n    height: 40px;\r\n    left: 20px;\r\n    top: 20px;\r\n    color: $white;\r\n    background: $blue;\r\n    border-radius: 6px;\r\n  }\r\n}\r\n\r\n.new-card {\r\n  border: 1px solid $blue;\r\n}\r\n","@function _get-flex-value($key) {\r\n  $flex-map: (\r\n    start: flex-start,\r\n    end: flex-end,\r\n    between: space-between,\r\n    around: space-around,\r\n    stretch: stretch,\r\n    center: center,\r\n  );\r\n  @return map-get($flex-map, $key);\r\n}\r\n\r\n@mixin flexbox($jc: center, $ai: center) {\r\n  display: flex;\r\n  justify-content: _get-flex-value($jc);\r\n  align-items: _get-flex-value($ai);\r\n}\r\n\r\n@mixin column-flexbox($jc: center, $ai: center) {\r\n  flex-direction: column;\r\n  @include flexbox($jc, $ai);\r\n}\r\n","$black: #010101;\r\n$gray1: #828282;\r\n$gray2: #bdbdbd;\r\n$gray3: #e0e0e0;\r\n$white: #fff;\r\n\r\n$blue: #0175de;\r\n$darkblue: #01529b;\r\n$skyblue: #86c5ff;\r\n\r\n$red: #ff4343;\r\n$white-red: #ffeeec;\r\n\r\n$background: #f5f5f7;\r\n","body {\r\n  background-color: $background;\r\n}\r\n\r\n#app {\r\n  padding: 0 80px;\r\n}\r\n\r\n.header {\r\n  @include flexbox(between);\r\n  padding: 33px 0;\r\n\r\n  &__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n.main {\r\n  @include flexbox(start, start);\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n.column {\r\n  margin-right: 16px;\r\n  width: 308px;\r\n}\r\n\r\n.title-column {\r\n  @include flexbox(between);\r\n  margin-bottom: 16px;\r\n\r\n  &__title {\r\n    @include flexbox();\r\n\r\n    &__text {\r\n      font-size: 18px;\r\n      font-weight: 700;\r\n      line-height: 26px;\r\n    }\r\n\r\n    &__count {\r\n      margin-left: 10px;\r\n      font-size: 14px;\r\n      font-weight: 700;\r\n      background-color: $gray2;\r\n      width: 26px;\r\n      height: 26px;\r\n      border-radius: 50%;\r\n      text-align: center;\r\n      line-height: 29px;\r\n    }\r\n  }\r\n\r\n  &__btn {\r\n    @include flexbox();\r\n    cursor: pointer;\r\n\r\n    &__add {\r\n      margin: 0 5px;\r\n    }\r\n\r\n    &__add:hover path {\r\n      fill: $blue;\r\n    }\r\n\r\n    &__delete {\r\n      margin: 0 5px;\r\n    }\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  font-family: sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  box-sizing: border-box;\n}\n\nhtml {\n  font-family: sans-serif;\n  font-size: 16px;\n}\n\nbody {\n  font-family: sans-serif;\n}\n\nh1 {\n  margin: 0;\n}\n\na {\n  color: inherit;\n  text-decoration: none;\n}\n\nbutton,\ninput,\nselect,\ntextarea {\n  background-color: transparent;\n  border: 0;\n}\nbutton:focus,\ninput:focus,\nselect:focus,\ntextarea:focus {\n  outline: none;\n  box-shadow: none;\n}\n\na,\nbutton {\n  cursor: pointer;\n}\n\nul,\nol,\nli,\nmenu {\n  padding-left: 0;\n  list-style: none;\n}\n\n/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */\n/* Document\n   ========================================================================== */\n/**\n * 1. Correct the line height in all browsers.\n * 2. Prevent adjustments of font size after orientation changes in iOS.\n */\nhtml {\n  line-height: 1.15;\n  /* 1 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n\n/* Sections\n         ========================================================================== */\n/**\n       * Remove the margin in all browsers.\n       */\nbody {\n  margin: 0;\n}\n\n/**\n       * Render the `main` element consistently in IE.\n       */\nmain {\n  display: block;\n}\n\n/**\n       * Correct the font size and margin on `h1` elements within `section` and\n       * `article` contexts in Chrome, Firefox, and Safari.\n       */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n\n/* Grouping content\n         ========================================================================== */\n/**\n       * 1. Add the correct box sizing in Firefox.\n       * 2. Show the overflow in Edge and IE.\n       */\nhr {\n  box-sizing: content-box;\n  /* 1 */\n  height: 0;\n  /* 1 */\n  overflow: visible;\n  /* 2 */\n}\n\n/**\n       * 1. Correct the inheritance and scaling of font size in all browsers.\n       * 2. Correct the odd `em` font sizing in all browsers.\n       */\npre {\n  font-family: monospace, monospace;\n  /* 1 */\n  font-size: 1em;\n  /* 2 */\n}\n\n/* Text-level semantics\n         ========================================================================== */\n/**\n       * Remove the gray background on active links in IE 10.\n       */\na {\n  background-color: transparent;\n}\n\n/**\n       * 1. Remove the bottom border in Chrome 57-\n       * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\n       */\nabbr[title] {\n  border-bottom: none;\n  /* 1 */\n  text-decoration: underline;\n  /* 2 */\n  text-decoration: underline dotted;\n  /* 2 */\n}\n\n/**\n       * Add the correct font weight in Chrome, Edge, and Safari.\n       */\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/**\n       * 1. Correct the inheritance and scaling of font size in all browsers.\n       * 2. Correct the odd `em` font sizing in all browsers.\n       */\ncode,\nkbd,\nsamp {\n  font-family: monospace, monospace;\n  /* 1 */\n  font-size: 1em;\n  /* 2 */\n}\n\n/**\n       * Add the correct font size in all browsers.\n       */\nsmall {\n  font-size: 80%;\n}\n\n/**\n       * Prevent `sub` and `sup` elements from affecting the line height in\n       * all browsers.\n       */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/* Embedded content\n         ========================================================================== */\n/**\n       * Remove the border on images inside links in IE 10.\n       */\nimg {\n  border-style: none;\n}\n\n/* Forms\n         ========================================================================== */\n/**\n       * 1. Change the font styles in all browsers.\n       * 2. Remove the margin in Firefox and Safari.\n       */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit;\n  /* 1 */\n  font-size: 100%;\n  /* 1 */\n  line-height: 1.15;\n  /* 1 */\n  margin: 0;\n  /* 2 */\n}\n\n/**\n       * Show the overflow in IE.\n       * 1. Show the overflow in Edge.\n       */\nbutton,\ninput {\n  /* 1 */\n  overflow: visible;\n}\n\n/**\n       * Remove the inheritance of text transform in Edge, Firefox, and IE.\n       * 1. Remove the inheritance of text transform in Firefox.\n       */\nbutton,\nselect {\n  /* 1 */\n  text-transform: none;\n}\n\n/**\n       * Correct the inability to style clickable types in iOS and Safari.\n       */\nbutton,\n[type=button],\n[type=reset],\n[type=submit] {\n  -webkit-appearance: button;\n}\n\n/**\n       * Remove the inner border and padding in Firefox.\n       */\nbutton::-moz-focus-inner,\n[type=button]::-moz-focus-inner,\n[type=reset]::-moz-focus-inner,\n[type=submit]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\n\n/**\n       * Restore the focus styles unset by the previous rule.\n       */\nbutton:-moz-focusring,\n[type=button]:-moz-focusring,\n[type=reset]:-moz-focusring,\n[type=submit]:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/**\n       * Correct the padding in Firefox.\n       */\nfieldset {\n  padding: 0.35em 0.75em 0.625em;\n}\n\n/**\n       * 1. Correct the text wrapping in Edge and IE.\n       * 2. Correct the color inheritance from `fieldset` elements in IE.\n       * 3. Remove the padding so developers are not caught out when they zero out\n       *    `fieldset` elements in all browsers.\n       */\nlegend {\n  box-sizing: border-box;\n  /* 1 */\n  color: inherit;\n  /* 2 */\n  display: table;\n  /* 1 */\n  max-width: 100%;\n  /* 1 */\n  padding: 0;\n  /* 3 */\n  white-space: normal;\n  /* 1 */\n}\n\n/**\n       * Add the correct vertical alignment in Chrome, Firefox, and Opera.\n       */\nprogress {\n  vertical-align: baseline;\n}\n\n/**\n       * Remove the default vertical scrollbar in IE 10+.\n       */\ntextarea {\n  overflow: auto;\n}\n\n/**\n       * 1. Add the correct box sizing in IE 10.\n       * 2. Remove the padding in IE 10.\n       */\n[type=checkbox],\n[type=radio] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n\n/**\n       * Correct the cursor style of increment and decrement buttons in Chrome.\n       */\n[type=number]::-webkit-inner-spin-button,\n[type=number]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n       * 1. Correct the odd appearance in Chrome and Safari.\n       * 2. Correct the outline style in Safari.\n       */\n[type=search] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  outline-offset: -2px;\n  /* 2 */\n}\n\n/**\n       * Remove the inner padding in Chrome and Safari on macOS.\n       */\n[type=search]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n       * 1. Correct the inability to style clickable types in iOS and Safari.\n       * 2. Change font properties to `inherit` in Safari.\n       */\n::-webkit-file-upload-button {\n  -webkit-appearance: button;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n}\n\n/* Interactive\n         ========================================================================== */\n/*\n       * Add the correct display in Edge, IE 10+, and Firefox.\n       */\ndetails {\n  display: block;\n}\n\n/*\n       * Add the correct display in all browsers.\n       */\nsummary {\n  display: list-item;\n}\n\n/* Misc\n         ========================================================================== */\n/**\n       * Add the correct display in IE 10+.\n       */\ntemplate {\n  display: none;\n}\n\n/**\n       * Add the correct display in IE 10.\n       */\n[hidden] {\n  display: none;\n}\n\n.task__card {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  cursor: pointer;\n  width: 308px;\n  padding: 16px;\n  background-color: #fff;\n  border-radius: 6px;\n  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);\n  margin-bottom: 16px;\n  position: relative;\n}\n\n.task__card:hover {\n  background-color: rgba(2, 120, 255, 0.3);\n}\n\n.card__contents__header {\n  font-weight: 700;\n  font-size: 16px;\n  line-height: 23px;\n}\n.card__contents__main {\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 20px;\n  margin: 8px 0;\n}\n.card__contents__footer {\n  font-weight: 400;\n  font-size: 12px;\n  line-height: 17px;\n  color: #bdbdbd;\n}\n.card__contents__input--header {\n  font-weight: 700;\n}\n.card__contents__input--main {\n  font-weight: 400;\n  width: 100%;\n  overflow: hidden;\n}\n\n.card__delete-btn {\n  cursor: pointer;\n  position: absolute;\n  right: 5%;\n  top: 13%;\n}\n\n.footer__buttons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  font-size: 14px;\n  font-weight: 700;\n}\n.footer__buttons__cancel {\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  color: #828282;\n  background: #e0e0e0;\n  border-radius: 6px;\n  margin-right: 8px;\n}\n.footer__buttons__save {\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  color: #fff;\n  background: #0175de;\n  border-radius: 6px;\n}\n.footer__buttons__edit {\n  cursor: pointer;\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  color: #fff;\n  background: #0175de;\n  border-radius: 6px;\n}\n\n.new-card {\n  border: 1px solid #0175de;\n}\n\nbody {\n  background-color: #f5f5f7;\n}\n\n#app {\n  padding: 0 80px;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 33px 0;\n}\n.header__title {\n  font-size: 32px;\n}\n\n.main {\n  display: flex;\n  justify-content: flex-start;\n  align-items: flex-start;\n  height: 100%;\n  width: 100%;\n}\n\n.column {\n  margin-right: 16px;\n  width: 308px;\n}\n\n.title-column {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 16px;\n}\n.title-column__title {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.title-column__title__text {\n  font-size: 18px;\n  font-weight: 700;\n  line-height: 26px;\n}\n.title-column__title__count {\n  margin-left: 10px;\n  font-size: 14px;\n  font-weight: 700;\n  background-color: #bdbdbd;\n  width: 26px;\n  height: 26px;\n  border-radius: 50%;\n  text-align: center;\n  line-height: 29px;\n}\n.title-column__btn {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n}\n.title-column__btn__add {\n  margin: 0 5px;\n}\n.title-column__btn__add:hover path {\n  fill: #0175de;\n}\n.title-column__btn__delete {\n  margin: 0 5px;\n}", "",{"version":3,"sources":["webpack://./src/scss/base/_reset.scss","webpack://./src/scss/constants/_typography.scss","webpack://./src/scss/main.scss","webpack://./src/scss/base/_normalize.scss","webpack://./src/scss/components/_card.scss","webpack://./src/scss/mixins/_flexbox.scss","webpack://./src/scss/constants/_colors.scss","webpack://./src/scss/views/_todo.scss"],"names":[],"mappings":"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","sourcesContent":["* {\r\n  margin: 0;\r\n  font-family: $font-main;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  -webkit-font-smoothing: antialiased;\r\n  box-sizing: border-box;\r\n}\r\n\r\nhtml {\r\n  font-family: $font-main;\r\n  font-size: $font-size-16;\r\n}\r\n\r\nbody {\r\n  font-family: $font-main;\r\n}\r\n\r\nh1 {\r\n  margin: 0;\r\n}\r\n\r\na {\r\n  color: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nbutton,\r\ninput,\r\nselect,\r\ntextarea {\r\n  background-color: transparent;\r\n  border: 0;\r\n\r\n  &:focus {\r\n    outline: none;\r\n    box-shadow: none;\r\n  }\r\n}\r\n\r\na,\r\nbutton {\r\n  cursor: pointer;\r\n}\r\n\r\nul,\r\nol,\r\nli,\r\nmenu {\r\n  padding-left: 0;\r\n  list-style: none;\r\n}\r\n","$font-main: sans-serif;\r\n\r\n$font-size-11: 11px;\r\n$font-size-12: 12px;\r\n$font-size-13: 13px;\r\n$font-size-14: 14px;\r\n$font-size-16: 16px;\r\n$font-size-24: 24px;\r\n","* {\n  margin: 0;\n  font-family: sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  box-sizing: border-box;\n}\n\nhtml {\n  font-family: sans-serif;\n  font-size: 16px;\n}\n\nbody {\n  font-family: sans-serif;\n}\n\nh1 {\n  margin: 0;\n}\n\na {\n  color: inherit;\n  text-decoration: none;\n}\n\nbutton,\ninput,\nselect,\ntextarea {\n  background-color: transparent;\n  border: 0;\n}\nbutton:focus,\ninput:focus,\nselect:focus,\ntextarea:focus {\n  outline: none;\n  box-shadow: none;\n}\n\na,\nbutton {\n  cursor: pointer;\n}\n\nul,\nol,\nli,\nmenu {\n  padding-left: 0;\n  list-style: none;\n}\n\n/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */\n/* Document\n   ========================================================================== */\n/**\n * 1. Correct the line height in all browsers.\n * 2. Prevent adjustments of font size after orientation changes in iOS.\n */\nhtml {\n  line-height: 1.15;\n  /* 1 */\n  -webkit-text-size-adjust: 100%;\n  /* 2 */\n}\n\n/* Sections\n         ========================================================================== */\n/**\n       * Remove the margin in all browsers.\n       */\nbody {\n  margin: 0;\n}\n\n/**\n       * Render the `main` element consistently in IE.\n       */\nmain {\n  display: block;\n}\n\n/**\n       * Correct the font size and margin on `h1` elements within `section` and\n       * `article` contexts in Chrome, Firefox, and Safari.\n       */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n\n/* Grouping content\n         ========================================================================== */\n/**\n       * 1. Add the correct box sizing in Firefox.\n       * 2. Show the overflow in Edge and IE.\n       */\nhr {\n  box-sizing: content-box;\n  /* 1 */\n  height: 0;\n  /* 1 */\n  overflow: visible;\n  /* 2 */\n}\n\n/**\n       * 1. Correct the inheritance and scaling of font size in all browsers.\n       * 2. Correct the odd `em` font sizing in all browsers.\n       */\npre {\n  font-family: monospace, monospace;\n  /* 1 */\n  font-size: 1em;\n  /* 2 */\n}\n\n/* Text-level semantics\n         ========================================================================== */\n/**\n       * Remove the gray background on active links in IE 10.\n       */\na {\n  background-color: transparent;\n}\n\n/**\n       * 1. Remove the bottom border in Chrome 57-\n       * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\n       */\nabbr[title] {\n  border-bottom: none;\n  /* 1 */\n  text-decoration: underline;\n  /* 2 */\n  text-decoration: underline dotted;\n  /* 2 */\n}\n\n/**\n       * Add the correct font weight in Chrome, Edge, and Safari.\n       */\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/**\n       * 1. Correct the inheritance and scaling of font size in all browsers.\n       * 2. Correct the odd `em` font sizing in all browsers.\n       */\ncode,\nkbd,\nsamp {\n  font-family: monospace, monospace;\n  /* 1 */\n  font-size: 1em;\n  /* 2 */\n}\n\n/**\n       * Add the correct font size in all browsers.\n       */\nsmall {\n  font-size: 80%;\n}\n\n/**\n       * Prevent `sub` and `sup` elements from affecting the line height in\n       * all browsers.\n       */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/* Embedded content\n         ========================================================================== */\n/**\n       * Remove the border on images inside links in IE 10.\n       */\nimg {\n  border-style: none;\n}\n\n/* Forms\n         ========================================================================== */\n/**\n       * 1. Change the font styles in all browsers.\n       * 2. Remove the margin in Firefox and Safari.\n       */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit;\n  /* 1 */\n  font-size: 100%;\n  /* 1 */\n  line-height: 1.15;\n  /* 1 */\n  margin: 0;\n  /* 2 */\n}\n\n/**\n       * Show the overflow in IE.\n       * 1. Show the overflow in Edge.\n       */\nbutton,\ninput {\n  /* 1 */\n  overflow: visible;\n}\n\n/**\n       * Remove the inheritance of text transform in Edge, Firefox, and IE.\n       * 1. Remove the inheritance of text transform in Firefox.\n       */\nbutton,\nselect {\n  /* 1 */\n  text-transform: none;\n}\n\n/**\n       * Correct the inability to style clickable types in iOS and Safari.\n       */\nbutton,\n[type=button],\n[type=reset],\n[type=submit] {\n  -webkit-appearance: button;\n}\n\n/**\n       * Remove the inner border and padding in Firefox.\n       */\nbutton::-moz-focus-inner,\n[type=button]::-moz-focus-inner,\n[type=reset]::-moz-focus-inner,\n[type=submit]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\n\n/**\n       * Restore the focus styles unset by the previous rule.\n       */\nbutton:-moz-focusring,\n[type=button]:-moz-focusring,\n[type=reset]:-moz-focusring,\n[type=submit]:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/**\n       * Correct the padding in Firefox.\n       */\nfieldset {\n  padding: 0.35em 0.75em 0.625em;\n}\n\n/**\n       * 1. Correct the text wrapping in Edge and IE.\n       * 2. Correct the color inheritance from `fieldset` elements in IE.\n       * 3. Remove the padding so developers are not caught out when they zero out\n       *    `fieldset` elements in all browsers.\n       */\nlegend {\n  box-sizing: border-box;\n  /* 1 */\n  color: inherit;\n  /* 2 */\n  display: table;\n  /* 1 */\n  max-width: 100%;\n  /* 1 */\n  padding: 0;\n  /* 3 */\n  white-space: normal;\n  /* 1 */\n}\n\n/**\n       * Add the correct vertical alignment in Chrome, Firefox, and Opera.\n       */\nprogress {\n  vertical-align: baseline;\n}\n\n/**\n       * Remove the default vertical scrollbar in IE 10+.\n       */\ntextarea {\n  overflow: auto;\n}\n\n/**\n       * 1. Add the correct box sizing in IE 10.\n       * 2. Remove the padding in IE 10.\n       */\n[type=checkbox],\n[type=radio] {\n  box-sizing: border-box;\n  /* 1 */\n  padding: 0;\n  /* 2 */\n}\n\n/**\n       * Correct the cursor style of increment and decrement buttons in Chrome.\n       */\n[type=number]::-webkit-inner-spin-button,\n[type=number]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n       * 1. Correct the odd appearance in Chrome and Safari.\n       * 2. Correct the outline style in Safari.\n       */\n[type=search] {\n  -webkit-appearance: textfield;\n  /* 1 */\n  outline-offset: -2px;\n  /* 2 */\n}\n\n/**\n       * Remove the inner padding in Chrome and Safari on macOS.\n       */\n[type=search]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n       * 1. Correct the inability to style clickable types in iOS and Safari.\n       * 2. Change font properties to `inherit` in Safari.\n       */\n::-webkit-file-upload-button {\n  -webkit-appearance: button;\n  /* 1 */\n  font: inherit;\n  /* 2 */\n}\n\n/* Interactive\n         ========================================================================== */\n/*\n       * Add the correct display in Edge, IE 10+, and Firefox.\n       */\ndetails {\n  display: block;\n}\n\n/*\n       * Add the correct display in all browsers.\n       */\nsummary {\n  display: list-item;\n}\n\n/* Misc\n         ========================================================================== */\n/**\n       * Add the correct display in IE 10+.\n       */\ntemplate {\n  display: none;\n}\n\n/**\n       * Add the correct display in IE 10.\n       */\n[hidden] {\n  display: none;\n}\n\n.task__card {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  cursor: pointer;\n  width: 308px;\n  padding: 16px;\n  background-color: #fff;\n  border-radius: 6px;\n  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);\n  margin-bottom: 16px;\n  position: relative;\n}\n\n.task__card:hover {\n  background-color: rgba(2, 120, 255, 0.3);\n}\n\n.card__contents__header {\n  font-weight: 700;\n  font-size: 16px;\n  line-height: 23px;\n}\n.card__contents__main {\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 20px;\n  margin: 8px 0;\n}\n.card__contents__footer {\n  font-weight: 400;\n  font-size: 12px;\n  line-height: 17px;\n  color: #bdbdbd;\n}\n.card__contents__input--header {\n  font-weight: 700;\n}\n.card__contents__input--main {\n  font-weight: 400;\n  width: 100%;\n  overflow: hidden;\n}\n\n.card__delete-btn {\n  cursor: pointer;\n  position: absolute;\n  right: 5%;\n  top: 13%;\n}\n\n.footer__buttons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  font-size: 14px;\n  font-weight: 700;\n}\n.footer__buttons__cancel {\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  color: #828282;\n  background: #e0e0e0;\n  border-radius: 6px;\n  margin-right: 8px;\n}\n.footer__buttons__save {\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  color: #fff;\n  background: #0175de;\n  border-radius: 6px;\n}\n.footer__buttons__edit {\n  cursor: pointer;\n  line-height: 20px;\n  width: 134px;\n  height: 40px;\n  color: #fff;\n  background: #0175de;\n  border-radius: 6px;\n}\n\n.new-card {\n  border: 1px solid #0175de;\n}\n\nbody {\n  background-color: #f5f5f7;\n}\n\n#app {\n  padding: 0 80px;\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 33px 0;\n}\n.header__title {\n  font-size: 32px;\n}\n\n.main {\n  display: flex;\n  justify-content: flex-start;\n  align-items: flex-start;\n  height: 100%;\n  width: 100%;\n}\n\n.column {\n  margin-right: 16px;\n  width: 308px;\n}\n\n.title-column {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 16px;\n}\n.title-column__title {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.title-column__title__text {\n  font-size: 18px;\n  font-weight: 700;\n  line-height: 26px;\n}\n.title-column__title__count {\n  margin-left: 10px;\n  font-size: 14px;\n  font-weight: 700;\n  background-color: #bdbdbd;\n  width: 26px;\n  height: 26px;\n  border-radius: 50%;\n  text-align: center;\n  line-height: 29px;\n}\n.title-column__btn {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n}\n.title-column__btn__add {\n  margin: 0 5px;\n}\n.title-column__btn__add:hover path {\n  fill: #0175de;\n}\n.title-column__btn__delete {\n  margin: 0 5px;\n}","// scss-lint:disable all\r\n/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */\r\n\r\n/* Document\r\n   ========================================================================== */\r\n\r\n/**\r\n * 1. Correct the line height in all browsers.\r\n * 2. Prevent adjustments of font size after orientation changes in iOS.\r\n */\r\n\r\nhtml {\r\n  line-height: 1.15; /* 1 */\r\n  -webkit-text-size-adjust: 100%; /* 2 */\r\n}\r\n\r\n/* Sections\r\n         ========================================================================== */\r\n\r\n/**\r\n       * Remove the margin in all browsers.\r\n       */\r\n\r\nbody {\r\n  margin: 0;\r\n}\r\n\r\n/**\r\n       * Render the `main` element consistently in IE.\r\n       */\r\n\r\nmain {\r\n  display: block;\r\n}\r\n\r\n/**\r\n       * Correct the font size and margin on `h1` elements within `section` and\r\n       * `article` contexts in Chrome, Firefox, and Safari.\r\n       */\r\n\r\nh1 {\r\n  font-size: 2em;\r\n  margin: 0.67em 0;\r\n}\r\n\r\n/* Grouping content\r\n         ========================================================================== */\r\n\r\n/**\r\n       * 1. Add the correct box sizing in Firefox.\r\n       * 2. Show the overflow in Edge and IE.\r\n       */\r\n\r\nhr {\r\n  box-sizing: content-box; /* 1 */\r\n  height: 0; /* 1 */\r\n  overflow: visible; /* 2 */\r\n}\r\n\r\n/**\r\n       * 1. Correct the inheritance and scaling of font size in all browsers.\r\n       * 2. Correct the odd `em` font sizing in all browsers.\r\n       */\r\n\r\npre {\r\n  font-family: monospace, monospace; /* 1 */\r\n  font-size: 1em; /* 2 */\r\n}\r\n\r\n/* Text-level semantics\r\n         ========================================================================== */\r\n\r\n/**\r\n       * Remove the gray background on active links in IE 10.\r\n       */\r\n\r\na {\r\n  background-color: transparent;\r\n}\r\n\r\n/**\r\n       * 1. Remove the bottom border in Chrome 57-\r\n       * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\r\n       */\r\n\r\nabbr[title] {\r\n  border-bottom: none; /* 1 */\r\n  text-decoration: underline; /* 2 */\r\n  text-decoration: underline dotted; /* 2 */\r\n}\r\n\r\n/**\r\n       * Add the correct font weight in Chrome, Edge, and Safari.\r\n       */\r\n\r\nb,\r\nstrong {\r\n  font-weight: bolder;\r\n}\r\n\r\n/**\r\n       * 1. Correct the inheritance and scaling of font size in all browsers.\r\n       * 2. Correct the odd `em` font sizing in all browsers.\r\n       */\r\n\r\ncode,\r\nkbd,\r\nsamp {\r\n  font-family: monospace, monospace; /* 1 */\r\n  font-size: 1em; /* 2 */\r\n}\r\n\r\n/**\r\n       * Add the correct font size in all browsers.\r\n       */\r\n\r\nsmall {\r\n  font-size: 80%;\r\n}\r\n\r\n/**\r\n       * Prevent `sub` and `sup` elements from affecting the line height in\r\n       * all browsers.\r\n       */\r\n\r\nsub,\r\nsup {\r\n  font-size: 75%;\r\n  line-height: 0;\r\n  position: relative;\r\n  vertical-align: baseline;\r\n}\r\n\r\nsub {\r\n  bottom: -0.25em;\r\n}\r\n\r\nsup {\r\n  top: -0.5em;\r\n}\r\n\r\n/* Embedded content\r\n         ========================================================================== */\r\n\r\n/**\r\n       * Remove the border on images inside links in IE 10.\r\n       */\r\n\r\nimg {\r\n  border-style: none;\r\n}\r\n\r\n/* Forms\r\n         ========================================================================== */\r\n\r\n/**\r\n       * 1. Change the font styles in all browsers.\r\n       * 2. Remove the margin in Firefox and Safari.\r\n       */\r\n\r\nbutton,\r\ninput,\r\noptgroup,\r\nselect,\r\ntextarea {\r\n  font-family: inherit; /* 1 */\r\n  font-size: 100%; /* 1 */\r\n  line-height: 1.15; /* 1 */\r\n  margin: 0; /* 2 */\r\n}\r\n\r\n/**\r\n       * Show the overflow in IE.\r\n       * 1. Show the overflow in Edge.\r\n       */\r\n\r\nbutton,\r\ninput {\r\n  /* 1 */\r\n  overflow: visible;\r\n}\r\n\r\n/**\r\n       * Remove the inheritance of text transform in Edge, Firefox, and IE.\r\n       * 1. Remove the inheritance of text transform in Firefox.\r\n       */\r\n\r\nbutton,\r\nselect {\r\n  /* 1 */\r\n  text-transform: none;\r\n}\r\n\r\n/**\r\n       * Correct the inability to style clickable types in iOS and Safari.\r\n       */\r\n\r\nbutton,\r\n[type='button'],\r\n[type='reset'],\r\n[type='submit'] {\r\n  -webkit-appearance: button;\r\n}\r\n\r\n/**\r\n       * Remove the inner border and padding in Firefox.\r\n       */\r\n\r\nbutton::-moz-focus-inner,\r\n[type='button']::-moz-focus-inner,\r\n[type='reset']::-moz-focus-inner,\r\n[type='submit']::-moz-focus-inner {\r\n  border-style: none;\r\n  padding: 0;\r\n}\r\n\r\n/**\r\n       * Restore the focus styles unset by the previous rule.\r\n       */\r\n\r\nbutton:-moz-focusring,\r\n[type='button']:-moz-focusring,\r\n[type='reset']:-moz-focusring,\r\n[type='submit']:-moz-focusring {\r\n  outline: 1px dotted ButtonText;\r\n}\r\n\r\n/**\r\n       * Correct the padding in Firefox.\r\n       */\r\n\r\nfieldset {\r\n  padding: 0.35em 0.75em 0.625em;\r\n}\r\n\r\n/**\r\n       * 1. Correct the text wrapping in Edge and IE.\r\n       * 2. Correct the color inheritance from `fieldset` elements in IE.\r\n       * 3. Remove the padding so developers are not caught out when they zero out\r\n       *    `fieldset` elements in all browsers.\r\n       */\r\n\r\nlegend {\r\n  box-sizing: border-box; /* 1 */\r\n  color: inherit; /* 2 */\r\n  display: table; /* 1 */\r\n  max-width: 100%; /* 1 */\r\n  padding: 0; /* 3 */\r\n  white-space: normal; /* 1 */\r\n}\r\n\r\n/**\r\n       * Add the correct vertical alignment in Chrome, Firefox, and Opera.\r\n       */\r\n\r\nprogress {\r\n  vertical-align: baseline;\r\n}\r\n\r\n/**\r\n       * Remove the default vertical scrollbar in IE 10+.\r\n       */\r\n\r\ntextarea {\r\n  overflow: auto;\r\n}\r\n\r\n/**\r\n       * 1. Add the correct box sizing in IE 10.\r\n       * 2. Remove the padding in IE 10.\r\n       */\r\n\r\n[type='checkbox'],\r\n[type='radio'] {\r\n  box-sizing: border-box; /* 1 */\r\n  padding: 0; /* 2 */\r\n}\r\n\r\n/**\r\n       * Correct the cursor style of increment and decrement buttons in Chrome.\r\n       */\r\n\r\n[type='number']::-webkit-inner-spin-button,\r\n[type='number']::-webkit-outer-spin-button {\r\n  height: auto;\r\n}\r\n\r\n/**\r\n       * 1. Correct the odd appearance in Chrome and Safari.\r\n       * 2. Correct the outline style in Safari.\r\n       */\r\n\r\n[type='search'] {\r\n  -webkit-appearance: textfield; /* 1 */\r\n  outline-offset: -2px; /* 2 */\r\n}\r\n\r\n/**\r\n       * Remove the inner padding in Chrome and Safari on macOS.\r\n       */\r\n\r\n[type='search']::-webkit-search-decoration {\r\n  -webkit-appearance: none;\r\n}\r\n\r\n/**\r\n       * 1. Correct the inability to style clickable types in iOS and Safari.\r\n       * 2. Change font properties to `inherit` in Safari.\r\n       */\r\n\r\n::-webkit-file-upload-button {\r\n  -webkit-appearance: button; /* 1 */\r\n  font: inherit; /* 2 */\r\n}\r\n\r\n/* Interactive\r\n         ========================================================================== */\r\n\r\n/*\r\n       * Add the correct display in Edge, IE 10+, and Firefox.\r\n       */\r\n\r\ndetails {\r\n  display: block;\r\n}\r\n\r\n/*\r\n       * Add the correct display in all browsers.\r\n       */\r\n\r\nsummary {\r\n  display: list-item;\r\n}\r\n\r\n/* Misc\r\n         ========================================================================== */\r\n\r\n/**\r\n       * Add the correct display in IE 10+.\r\n       */\r\n\r\ntemplate {\r\n  display: none;\r\n}\r\n\r\n/**\r\n       * Add the correct display in IE 10.\r\n       */\r\n\r\n[hidden] {\r\n  display: none;\r\n}\r\n",".task__card {\r\n  @include flexbox(between);\r\n  cursor: pointer;\r\n  width: 308px;\r\n  padding: 16px;\r\n  background-color: $white;\r\n  border-radius: 6px;\r\n  box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);\r\n  margin-bottom: 16px;\r\n  position: relative;\r\n}\r\n\r\n.task__card:hover {\r\n  background-color: rgba(2, 120, 255, 0.3);\r\n}\r\n\r\n.card__contents {\r\n  &__header {\r\n    font-weight: 700;\r\n    font-size: 16px;\r\n    line-height: 23px;\r\n  }\r\n  &__main {\r\n    font-weight: 400;\r\n    font-size: 14px;\r\n    line-height: 20px;\r\n    margin: 8px 0;\r\n  }\r\n  &__footer {\r\n    font-weight: 400;\r\n    font-size: 12px;\r\n    line-height: 17px;\r\n    color: $gray2;\r\n  }\r\n  &__input {\r\n    &--header {\r\n      font-weight: 700;\r\n    }\r\n\r\n    &--main {\r\n      font-weight: 400;\r\n      width: 100%;\r\n      overflow: hidden;\r\n    }\r\n  }\r\n}\r\n\r\n.card__delete-btn {\r\n  cursor: pointer;\r\n  position: absolute;\r\n  right: 5%;\r\n  top: 13%;\r\n}\r\n\r\n.footer__buttons {\r\n  @include flexbox(between);\r\n  font-size: 14px;\r\n  font-weight: 700;\r\n\r\n  &__cancel {\r\n    line-height: 20px;\r\n    width: 134px;\r\n    height: 40px;\r\n    color: $gray1;\r\n    background: $gray3;\r\n    border-radius: 6px;\r\n    margin-right: 8px;\r\n  }\r\n\r\n  &__save {\r\n    line-height: 20px;\r\n    width: 134px;\r\n    height: 40px;\r\n    color: $white;\r\n    background: $blue;\r\n    border-radius: 6px;\r\n  }\r\n\r\n  &__edit {\r\n    cursor: pointer;\r\n    line-height: 20px;\r\n    width: 134px;\r\n    height: 40px;\r\n    color: $white;\r\n    background: $blue;\r\n    border-radius: 6px;\r\n  }\r\n}\r\n\r\n.new-card {\r\n  border: 1px solid $blue;\r\n}\r\n","@function _get-flex-value($key) {\r\n  $flex-map: (\r\n    start: flex-start,\r\n    end: flex-end,\r\n    between: space-between,\r\n    around: space-around,\r\n    stretch: stretch,\r\n    center: center,\r\n  );\r\n  @return map-get($flex-map, $key);\r\n}\r\n\r\n@mixin flexbox($jc: center, $ai: center) {\r\n  display: flex;\r\n  justify-content: _get-flex-value($jc);\r\n  align-items: _get-flex-value($ai);\r\n}\r\n\r\n@mixin column-flexbox($jc: center, $ai: center) {\r\n  flex-direction: column;\r\n  @include flexbox($jc, $ai);\r\n}\r\n","$black: #010101;\r\n$gray1: #828282;\r\n$gray2: #bdbdbd;\r\n$gray3: #e0e0e0;\r\n$white: #fff;\r\n\r\n$blue: #0175de;\r\n$darkblue: #01529b;\r\n$skyblue: #86c5ff;\r\n\r\n$red: #ff4343;\r\n$white-red: #ffeeec;\r\n\r\n$background: #f5f5f7;\r\n","body {\r\n  background-color: $background;\r\n}\r\n\r\n#app {\r\n  padding: 0 80px;\r\n}\r\n\r\n.header {\r\n  @include flexbox(between);\r\n  padding: 33px 0;\r\n\r\n  &__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n.main {\r\n  @include flexbox(start, start);\r\n  height: 100%;\r\n  width: 100%;\r\n}\r\n\r\n.column {\r\n  margin-right: 16px;\r\n  width: 308px;\r\n}\r\n\r\n.title-column {\r\n  @include flexbox(between);\r\n  margin-bottom: 16px;\r\n\r\n  &__title {\r\n    @include flexbox();\r\n\r\n    &__text {\r\n      font-size: 18px;\r\n      font-weight: 700;\r\n      line-height: 26px;\r\n    }\r\n\r\n    &__count {\r\n      margin-left: 10px;\r\n      font-size: 14px;\r\n      font-weight: 700;\r\n      background-color: $gray2;\r\n      width: 26px;\r\n      height: 26px;\r\n      border-radius: 50%;\r\n      text-align: center;\r\n      line-height: 29px;\r\n    }\r\n  }\r\n\r\n  &__btn {\r\n    @include flexbox();\r\n    cursor: pointer;\r\n\r\n    &__add {\r\n      margin: 0 5px;\r\n    }\r\n\r\n    &__add:hover path {\r\n      fill: $blue;\r\n    }\r\n\r\n    &__delete {\r\n      margin: 0 5px;\r\n    }\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
