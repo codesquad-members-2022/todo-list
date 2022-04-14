@@ -53,6 +53,12 @@ export default class Cards extends Component {
     this.addEvent("click", ".card-button-normal", this.clickNormalButtonHandler.bind(this));
     this.addEvent("input", ".card", this.inputHandler.bind(this));
     this.addEvent("click", ".card-button-accent", this.addNewCard.bind(this));
+    this.addEvent("mouseover", ".card-button-delete", ({ target }) => {
+      this.setCardState(target, "delete");
+    });
+    this.addEvent("mouseout", ".card-button-delete", ({ target }) => {
+      this.setCardState(target, "default");
+    });
   }
   clickNormalButtonHandler() {
     const { cards, undoCreateCard } = this.$props;
@@ -82,5 +88,9 @@ export default class Cards extends Component {
     };
     await postCard(newCard);
     setCards(columnId);
+  }
+  setCardState(target, newCardState) {
+    const $card = target.closest(".card");
+    $card.dataset.cardState = newCardState;
   }
 }
