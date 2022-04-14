@@ -12,9 +12,7 @@ class MyTaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         observe()
-        DispatchQueue.main.async {
-            URLManager.getTasks()
-        }
+        URLManager.getTasks()
         resizeConstant()
         actionBoard.moveView()
     }
