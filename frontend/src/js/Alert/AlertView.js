@@ -29,7 +29,7 @@ class AlertView {
       className: 'todo_container',
     });
 
-    $todo_container.insertAdjacentElement('afterend', this.$alert_container);
+    $todo_container?.insertAdjacentElement('afterend', this.$alert_container);
   }
 
   render() {

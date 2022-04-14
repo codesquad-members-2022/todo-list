@@ -4,12 +4,18 @@ import { cardTemplate } from '../../utils/template';
 export default class CardView {
   constructor() {}
 
-  eventInit({ cardInputHandler, cardAddHandler, cardCancelHandler }) {
+  eventInit({
+    cardInputHandler,
+    cardAddHandler,
+    cardDeleteHandler,
+    hoverHandler,
+  }) {
     const writeCard = document.querySelector('.card.write');
     const accentBtn = writeCard.querySelector('.accent_btn');
-    const cancelBtn = writeCard.querySelector('.normal_btn');
+    const deleteBtn = writeCard.querySelector('.delete_btn');
     writeCard.addEventListener('input', cardInputHandler);
     accentBtn.addEventListener('click', cardAddHandler);
+    deleteBtn.addEventListener('click', cardDeleteHandler);
   }
 
   renderAddCard(targetColumn, cardId) {
@@ -34,7 +40,7 @@ export default class CardView {
     contentInput.value = value.content;
   }
 
-  removeCard(card) {
+  renderDeleted(card) {
     card.remove();
   }
 }
