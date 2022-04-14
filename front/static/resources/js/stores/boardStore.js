@@ -18,12 +18,12 @@ class BoardStore {
     if (!data) return;
 
     const requestOption = HTTP_REQUEST.POST(data);
-    fetchRequest('http://localhost:8080', requestOption);
+    fetchRequest('http://3.39.96.36:8080/card/add', requestOption);
   }
 
-  deleteRequest() {
+  deleteRequest(id) {
     const requestOption = HTTP_REQUEST.DELETE();
-    fetchRequest('http://localhost:8080', requestOption);
+    fetchRequest(`http://3.39.96.36:8080/remove/${id}`, requestOption);
   }
 
   addObserver(observer) {

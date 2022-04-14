@@ -116,11 +116,11 @@ class BoardController {
     }
 
     return {
+      cardIndex: this.columns.length,
       title: title,
       contents: contents,
       writer: '도니',
       cardStatus: columnName,
-      cardIndex: this.columns.length
     };
   }
 
@@ -152,6 +152,8 @@ class BoardController {
     }
     if (target.classList.contains('popup-button--confirm')) {
       this.viewModel.store.deleteRequest();
+      this.viewModel.store.observe();
+      this.viewModel.notify();
       this.popup.hidden();
     }
   }
@@ -168,7 +170,6 @@ class BoardController {
   async init() {
     await this.viewModel.init();
     this.setColumns();
-    console.log(this.viewModel.boardState)
     const columnsTemplate = this.createColumnsTemplate();
     this.board = new Board();
     this.board.render(columnsTemplate);
