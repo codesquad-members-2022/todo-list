@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import OSLog
 
 class PopUpViewController: UIViewController {
     
     private let popUpView = PopUpView()
     private let popUpTextViewDelegate = PopUpContentsTextViewDelegate()
+    private let networkManager = NetworkManager<CardData>(session: URLSession(configuration: .default))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,9 +57,20 @@ extension PopUpViewController {
     
     @objc func didTapSubmitButton() {
         
-        //TODO: - 내용이 없다면 버튼을 비활성화시켜서 이 로직을 애초에 갖지 않게 하기
         guard let title = popUpView.getTitleTextFieldText() else { return }
         let content = popUpView.getContentsTextViewText()
+        
+        let mockData = CardData(userId: "iOS", title: title, content: content, sequence: 52, status: 1)
+        
+        networkManager.post(url: ServerAPI.post.url, data: mockData) { (result: Result<CardData, NetworkError>) in
+            switch result {
+            case .success(let data):
+                //TODO: data 처리 로직 구현 (NC 통해 cell에 추가한 뒤 reload)
+                break
+            case .failure(let error):
+                os_log(.error, log: .default, "\(error)")
+            }
+        }
         
         closePopUpView()
     }
