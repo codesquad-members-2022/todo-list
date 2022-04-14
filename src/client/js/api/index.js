@@ -29,9 +29,19 @@ const HTTP_METHOD = {
 const request = async (url, option = {}) => {
   const response = await fetch(url, option);
   if (!response.ok) {
-    console.error(e);
+    console.error();
+  } else {
+    return response.json();
   }
-  return response.json();
 };
 
-export { request, BASE_URL };
+const requestWithoutJson = async (url, option = {}) => {
+  const response = await fetch(url, option);
+  if (!response.ok) {
+    console.error();
+  } else {
+    return response;
+  }
+};
+
+export { request, requestWithoutJson, BASE_URL, HTTP_METHOD };

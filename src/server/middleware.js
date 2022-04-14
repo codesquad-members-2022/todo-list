@@ -38,7 +38,7 @@ const addAction = (router) => ({ method, path, body }, res, next) => {
 
   if (method === 'GET' || url === 'users') return;
 
-  if (method === 'POST') url === 'tasks' ? newBody.column = getColumnName(router, body.column) : '';
+  if (method === 'POST') url === 'tasks' ? newBody.column = getColumnName(router, body.columnId) : '';
 
   else {
     const prevData = router.db
@@ -52,8 +52,8 @@ const addAction = (router) => ({ method, path, body }, res, next) => {
     }
 
     if (url === 'columns' && method === 'PATCH') newBody.prevName = prevData.name;
-    if (url === 'tasks') newBody.column = getColumnName(router, newBody.column);
-    if (body.column) newBody.prevColumn = getColumnName(router, prevData.column);
+    if (url === 'tasks') newBody.column = getColumnName(router, newBody.columnId);
+    if (body.column) newBody.prevColumn = getColumnName(router, prevData.columnId);
   }
 
   router.db

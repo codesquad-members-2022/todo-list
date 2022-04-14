@@ -1,5 +1,4 @@
 class Store {
-
   constructor() {
     this.state = {};
     this.subscribers = {};
@@ -26,10 +25,10 @@ class Store {
       get() {
         return _value;
       },
-      set: (value) => {
+      set: value => {
         _value = value;
         this.subscribers[state].forEach(subscriber => {
-          subscriber.setState({ [state]: this.state[state] });
+          subscriber.notify({ [state]: this.state[state] });
         });
       },
     });
