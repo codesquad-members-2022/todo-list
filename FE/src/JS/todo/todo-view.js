@@ -100,7 +100,7 @@ export default class View {
           '확인 버튼을 눌러주세요',
           'success'
         );
-        this.getRemoveValue(this);
+        this.getRemoveValue(target);
       } else {
         this.toggleDeletingClass(target);
       }

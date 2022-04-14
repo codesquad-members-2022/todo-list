@@ -4,6 +4,7 @@ export default class Controller {
     this.view = view;
     this.drag = drag;
     this.init();
+    this.totalCategoryId = this.model.categoryId;
   }
 
   init() {
@@ -41,27 +42,26 @@ export default class Controller {
   getHeaderValue = ({ target }) => {
     const cardHeader = target.closest('.column-addBtn').firstElementChild;
     const columnName = target.closest('.column-item').id;
-
-    const totalCategory = this.model.categoryId;
     const id = this.model.userId;
 
     const headerValue = {
       userId: id,
-      categoryId: null,
+      categoryId: this.findCategoryId(columnName),
       title: cardHeader.firstElementChild.value,
       content: cardHeader.lastElementChild.textContent,
     };
 
-    for (const id in totalCategory) {
-      if (id === columnName) {
-        headerValue.categoryId = totalCategory[id];
-        break;
-      }
-    }
-
     target.closest('.column-addBtn').remove();
     this.makeNewCard(headerValue, id, columnName);
   };
+
+  findCategoryId(columnName) {
+    for (const id in this.totalCategoryId) {
+      if (id === columnName) {
+        return this.totalCategoryId[id];
+      }
+    }
+  }
 
   async makeNewCard(headerValue, id, columnName) {
     const newCardData = await this.model.addCardData(headerValue);
@@ -82,8 +82,18 @@ export default class Controller {
   }
 
   getRemoveValue = (target) => {
-    console.log(target);
+    const columnName = target.closest('.column-item').id;
+    const selectedCard = target.closest('.column-item--card');
+    const removeCardInfo = {
+      "userId" : this.model.userId,
+      "workId" : selectedCard.id,
+      "currentCategoryId" : this.findCategoryId(columnName),
+      "title" : target.previousElementSibling.textContent,
+    }
+    selectedCard.remove();
+    this.model.removeCardData(removeCardInfo);
   };
+
   getUpdateValue = () => {};
   changeDraggingCard() {}
 }
