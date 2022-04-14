@@ -32,8 +32,8 @@ const handleCancelButtonClick = ({ target }, notify) => {
   notify();
 };
 
-const handleDeleteButtonClick = ({ listTitle, taskTitle }) => {
-  TodoListStore.deleteListTask(listTitle, taskTitle);
+const handleDeleteButtonClick = ({ listTitle, taskId }) => {
+  TodoListStore.deleteListTask(listTitle, taskId);
 };
 
 const alertDeleteInit = (taskInfo, cancelAlert) => {

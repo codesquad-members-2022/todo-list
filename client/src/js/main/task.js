@@ -34,13 +34,13 @@ export class Task {
 
   createHTML(taskData) {
     taskData = taskData || this.taskData;
-    const { title, comment, author } = taskData;
-    [this.taskTitle, this.comment, this.author] = [title, comment, author];
+    const { title, comment, author, id } = taskData;
+    [this.taskTitle, this.comment, this.author, this.taskId] = [title, comment, author, id];
     return taskData
-      ? `<li class="column__task--item" data-title="${title}">
+      ? `<li class="column__task--item" data-title="${title}" data-id="${id}">
               <section>
                 <div class="section__header">
-                  <input readonly type="text" class="column__task--title" value="${title}" />
+                  <input readonly type="text" class="column__task--title" value="${title}"/>
                   <img src=${iconDelete} class="column__task--delete-button" />
                 </div>
                 <textarea readonly class="column__task--comment" spellcheck="false">${comment}</textarea>
@@ -226,7 +226,7 @@ export class Task {
   }
 
   handleDeleteButtonClick() {
-    alertDeleteInit({ listTitle: this.listTitle, taskTitle: this.taskTitle }, this.cancelAlert.bind(this));
+    alertDeleteInit({ listTitle: this.listTitle, taskId: this.taskId }, this.cancelAlert.bind(this));
   }
 
   cancelAlert() {
