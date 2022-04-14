@@ -11,9 +11,7 @@ import UIKit
 class LogViewController: UITableViewController {
     @IBOutlet weak var activityTableView: UITableView!
     
-    var dummylog = Log(userId: "@sam", action: .Move, created: Date.now, taskId: 0, from: .todo, to: .inProgress, taskTitle: "Title")
-
-    var tempArray = [String]()
+    //let logColumnViewModel = LogViewModel()
     
     let dumyData = ["HTML/CSS공부하기를 해야할 일에서 하고있는 일로 이동하였습니다.",
                     "해야할 일에 HTML/CSS 공부하기를 등록하였습니다.",

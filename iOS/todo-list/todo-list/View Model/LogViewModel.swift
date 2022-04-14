@@ -6,16 +6,24 @@
 //
 
 import Foundation
-import UIKit
 
-// Title: ViewController에게 LogViewModel이 뭘 넘겨야할까??
-// -> Action에 영향에 따른 각각의 다른 String 출력 내용들!
 class LogViewModel {
     
-    let logManager = LogManager()
-    
+    var logManager = LogManager()
     var descriptions: [String] = []
     var userIds: [String] = []
+    
+    var list = Observable( [LogViewModel]() )
+    
+    init(logManager: LogManager) {
+        self.logManager = logManager
+    }
+    
+    var count: Int { list.value.count }
+}
+
+//MARK: - Load to Domain Data
+extension LogViewModel {
     
     func load() {
         logManager.load { logs in
@@ -61,7 +69,6 @@ class LogViewModel {
     func createUserName(_ log: Log) -> String {
         return log.taskTitle
     }
-    
 }
 
 struct logCellViewModel {
