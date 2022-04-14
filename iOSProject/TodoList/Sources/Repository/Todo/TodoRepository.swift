@@ -13,5 +13,5 @@ protocol TodoRepository {
     func moveCard(_ card: Card, from: Column.ColumnType, to: Column.ColumnType, index: Int) -> AnyPublisher<ApiResult<(Card, Column.ColumnType, Column.ColumnType, Int), SessionError>, Never>
     func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<ApiResult<Card, SessionError>, Never>
     func deleteCard(_ cardId: Int) -> AnyPublisher<ApiResult<Int, SessionError>, Never>
-    func loadLogs() -> AnyPublisher<ApiResult<ActivityLog, SessionError>, Never>
+    func loadLogs() -> AnyPublisher<ApiResult<[ActivityLog], SessionError>, Never>
 }

@@ -10,6 +10,7 @@ import Foundation
 class MockDataBase {
     
     private var cards: [MockCard]
+    private var logs: [MockLog]
     
     init() {
         var cardCounting = MockColumnType.allCases.reduce(into: [MockColumnType:Int]()) { $0[$1] = 0 }
@@ -23,6 +24,10 @@ class MockDataBase {
             
             cardCounting[randomColumn] = cardCount + 1
             return newCard
+        }
+        
+        logs = (0..<100).map { index in
+            MockLog(author: "작성자\(index)", createdDate: Date.now.toString(format: "yyyy-MM-dd"), text: "내용물 \(index)")
         }
     }
     
@@ -57,6 +62,10 @@ class MockDataBase {
             return deleteCard(urlRequest)
         }
         
+        if lastPath == "logs" {
+            return logs(urlRequest)
+        }
+        
         return (nil, nil)
     }
     
@@ -84,6 +93,13 @@ class MockDataBase {
 }
 
 extension MockDataBase {
+    private func logs(_ urlRequest: URLRequest) -> (Data?, HTTPURLResponse?) {
+        guard let data = try? JSONEncoder().encode(logs) else {
+            return (nil, HTTPURLResponse(url: urlRequest.url!, statusCode: 402, httpVersion: "2", headerFields: nil))
+        }
+        return (data, HTTPURLResponse(url: urlRequest.url!, statusCode: 200, httpVersion: "2", headerFields: nil))
+    }
+    
     private func deleteCard(_ urlRequest: URLRequest) -> (Data?, HTTPURLResponse?) {
         guard let url = urlRequest.url,
               let id = Int(url.lastPathComponent),

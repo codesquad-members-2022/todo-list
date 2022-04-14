@@ -39,9 +39,9 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
             .eraseToAnyPublisher()
     }
     
-    func loadLogs() -> AnyPublisher<ApiResult<ActivityLog, SessionError>, Never> {
+    func loadLogs() -> AnyPublisher<ApiResult<[ActivityLog], SessionError>, Never> {
         request(.loadLogs)
-            .map { $0.decode(ActivityLog.self) }
+            .map { $0.decode([ActivityLog].self) }
             .eraseToAnyPublisher()
     }
 }

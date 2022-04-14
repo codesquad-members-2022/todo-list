@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		378533AC27FEB45400E86BDC /* LogViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378533AB27FEB45400E86BDC /* LogViewCell.swift */; };
+		E041D6A628083FEC00A9A419 /* MockLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E041D6A528083FEC00A9A419 /* MockLog.swift */; };
 		E0A6BAE127FB1F9F00F00575 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAE027FB1F9F00F00575 /* MainViewController.swift */; };
 		E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAE727FB20DE00F00575 /* MainTitleBarView.swift */; };
 		E0A6BAED27FB255300F00575 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAEA27FB255300F00575 /* Date+Extension.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		378533AB27FEB45400E86BDC /* LogViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewCell.swift; sourceTree = "<group>"; };
+		E041D6A528083FEC00A9A419 /* MockLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLog.swift; sourceTree = "<group>"; };
 		E0A6BAE027FB1F9F00F00575 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E0A6BAE727FB20DE00F00575 /* MainTitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleBarView.swift; sourceTree = "<group>"; };
 		E0A6BAEA27FB255300F00575 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			children = (
 				E0A6BB3928016BA200F00575 /* MockCard.swift */,
 				E0A6BB462801BBB900F00575 /* RequestParser.swift */,
+				E041D6A528083FEC00A9A419 /* MockLog.swift */,
 			);
 			path = MockModel;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */,
 				E0A6BAED27FB255300F00575 /* Date+Extension.swift in Sources */,
 				E0A6BB2A27FE91B100F00575 /* LogViewController.swift in Sources */,
+				E041D6A628083FEC00A9A419 /* MockLog.swift in Sources */,
 				E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */,
 				E0A6BAF727FB3C0B00F00575 /* PaddingLabel.swift in Sources */,
 				E0A6BAF327FB292900F00575 /* ColumnViewModel.swift in Sources */,
