@@ -3,38 +3,35 @@ package com.example.backend.controller.card;
 import com.example.backend.controller.ApiResult;
 import com.example.backend.controller.card.dto.CardDto;
 import com.example.backend.controller.card.dto.CardSaveResponse;
+import com.example.backend.controller.history.dto.HistorySaveRequest;
 import com.example.backend.domain.card.Card;
-import com.example.backend.domain.card.CardType;
+import com.example.backend.domain.history.Action;
+import com.example.backend.domain.history.History;
 import com.example.backend.service.card.CardReadResponse;
 import com.example.backend.service.card.CardService;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Map;
+import com.example.backend.service.history.HistoryService;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/cards")
 public class CardController {
 
     private final CardService cardService;
+    private final HistoryService historyService;
 
-    public CardController(CardService cardService) {
+    public CardController(CardService cardService, HistoryService historyService) {
         this.cardService = cardService;
+        this.historyService = historyService;
     }
 
     @PostMapping
     public ApiResult<CardSaveResponse> writeCard(@RequestBody @Valid CardDto cardDto) {
         Card card = cardService.writeCard(cardDto);
+        History history = historyService.saveHistory(new HistorySaveRequest(card.getContent(), card.getWriter(), Action.CREATE, card.getMemberId(), card.getId()));
         return ApiResult.OK(new CardSaveResponse(card));
     }
 
@@ -45,7 +42,7 @@ public class CardController {
     }
 
     @GetMapping
-    public ApiResult<Map<CardType, List<CardReadResponse>>> getCards() {
+    public ApiResult<Map<String, List<CardReadResponse>>> getCards() {
         return ApiResult.OK(cardService.findAll());
     }
 

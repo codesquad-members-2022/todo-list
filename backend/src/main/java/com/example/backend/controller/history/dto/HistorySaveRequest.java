@@ -27,11 +27,11 @@ public class HistorySaveRequest {
     public HistorySaveRequest() {
     }
 
-    public HistorySaveRequest(String content, String author, Action action, String font, Long memberId, Long cardId) {
+    public HistorySaveRequest(String content, String author, Action action, Long memberId, Long cardId) {
         this.content = content;
         this.author = author;
         this.action = action;
-        this.font = font;
+        this.font = "Helvetica";
         this.memberId = memberId;
         this.cardId = cardId;
         this.createdAt = LocalDateTime.now();

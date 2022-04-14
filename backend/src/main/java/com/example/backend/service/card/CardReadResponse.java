@@ -3,6 +3,7 @@ package com.example.backend.service.card;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 
+import java.beans.Transient;
 import java.time.LocalDateTime;
 
 public class CardReadResponse {
@@ -46,4 +47,8 @@ public class CardReadResponse {
         return cardType;
     }
 
+    @Transient
+    public String getCardTypeName(){
+        return cardType.getName();
+    }
 }

@@ -33,13 +33,12 @@ public class CardService {
         return card;
     }
 
-    public Map<CardType, List<CardReadResponse>> findAll() {
+    public Map<String, List<CardReadResponse>> findAll() {
         List<Card> cards = cardRepository.findAll();
         return cards.stream()
                 .map(CardReadResponse::new)
-                .collect(groupingBy(CardReadResponse::getCardType, toList()));
+                .collect(groupingBy(CardReadResponse::getCardTypeName, toList()));
     }
-
 
     public Card findById(Long id) {
         return cardRepository.findById(id).orElseThrow();

@@ -2,6 +2,7 @@ package com.example.backend.repository.history;
 
 import com.example.backend.controller.history.HistoryResponse;
 import com.example.backend.domain.history.History;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -34,7 +35,7 @@ public class HistoryRepository {
      */
     public List<HistoryResponse> findHistories(Long memberId, Long cardId) {
         String query = "SELECT h.id, h.content, h.created_at, h.action, m.member_login_id AS author, cd.card_type " +
-                "FROM history AS h JOIN member AS m ON m.id=:member_id JOIN card AS cd ON cd.id=:card_id ORDER BY DESC LIMIT 10";
+                "FROM history AS h JOIN member AS m ON m.id=:member_id JOIN card AS cd ON cd.id=:card_id ORDER BY ㅗDESC LIMIT 10";
         SqlParameterSource parameterSource = new MapSqlParameterSource()
                 .addValue(MEMBER_ID, memberId)
                 .addValue(CARD_ID, cardId);
@@ -49,19 +50,6 @@ public class HistoryRepository {
                     rs.getString("action"),
                     rs.getString("author"),
                     rs.getString("card_type")
-
-            );
-
-    private static final RowMapper<History> mapper = (rs, rowNum) ->
-            new History(
-                    rs.getLong("id"),
-                    rs.getString("content"),
-                    dateTimeOf(rs.getTimestamp("created_at")),
-                    dateTimeOf(rs.getTimestamp("last_modified_at")),
-                    rs.getString("action"),
-                    rs.getLong("member_id"),
-                    rs.getLong("card_id"),
-                    rs.getBoolean("visible")
             );
 
     public History save(History history) {

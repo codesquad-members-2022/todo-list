@@ -15,7 +15,6 @@ public class History {
     private boolean visible;
 
     public History(String content, Action action, Long memberId, Long cardId) {
-        this.id = 555L;
         LocalDateTime now = LocalDateTime.now();
         this.content = content;
         this.createdAt = now;
