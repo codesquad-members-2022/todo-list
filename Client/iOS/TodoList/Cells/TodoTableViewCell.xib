@@ -1,53 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="todoCell" rowHeight="98" id="KGk-i7-Jjw" customClass="TodoTableViewCell" customModule="TodoList" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="todoCell" rowHeight="173" id="KGk-i7-Jjw" customClass="TodoTableViewCell" customModule="TodoList" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="610" height="173"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
+                <rect key="frame" x="0.0" y="0.0" width="610" height="173"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fD8-6j-jre">
-                        <rect key="frame" x="4" y="4" width="312" height="19.5"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NI-kI-vJu">
-                        <rect key="frame" x="4" y="27.5" width="312" height="66.5"/>
-                        <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PF-11-PDT">
+                        <rect key="frame" x="0.0" y="0.0" width="610" height="157"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fD8-6j-jre">
+                                <rect key="frame" x="16" y="16" width="578" height="19.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NI-kI-vJu">
+                                <rect key="frame" x="16" y="43.5" width="578" height="72.5"/>
+                                <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="author by iOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmL-b9-NNV">
+                                <rect key="frame" x="16" y="124" width="578" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="EKr-Gc-mh9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <color key="textColor" name="Gray4"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fD8-6j-jre" firstAttribute="leading" secondItem="6PF-11-PDT" secondAttribute="leading" constant="16" id="6tk-1B-LpM"/>
+                            <constraint firstItem="5NI-kI-vJu" firstAttribute="leading" secondItem="6PF-11-PDT" secondAttribute="leading" constant="16" id="8AT-j6-AWW"/>
+                            <constraint firstAttribute="bottom" secondItem="tmL-b9-NNV" secondAttribute="bottom" constant="16" id="C0b-2m-OkX"/>
+                            <constraint firstItem="fD8-6j-jre" firstAttribute="top" secondItem="6PF-11-PDT" secondAttribute="top" constant="16" id="O6t-o4-xcK"/>
+                            <constraint firstAttribute="trailing" secondItem="5NI-kI-vJu" secondAttribute="trailing" constant="16" id="THh-4y-cbb"/>
+                            <constraint firstAttribute="trailing" secondItem="tmL-b9-NNV" secondAttribute="trailing" constant="16" id="Wzw-1N-Uvb"/>
+                            <constraint firstAttribute="trailing" secondItem="fD8-6j-jre" secondAttribute="trailing" constant="16" id="aH0-WA-1Yk"/>
+                            <constraint firstItem="tmL-b9-NNV" firstAttribute="leading" secondItem="6PF-11-PDT" secondAttribute="leading" constant="16" id="bHi-HA-IFd"/>
+                            <constraint firstItem="5NI-kI-vJu" firstAttribute="top" secondItem="fD8-6j-jre" secondAttribute="bottom" constant="8" id="dn3-Ct-qNr"/>
+                            <constraint firstItem="tmL-b9-NNV" firstAttribute="top" secondItem="5NI-kI-vJu" secondAttribute="bottom" constant="8" id="kBE-lZ-kC6"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ShY-pS-eQF">
+                        <rect key="frame" x="0.0" y="157" width="610" height="16"/>
+                        <color key="backgroundColor" name="gray6"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="vKt-UK-mFg"/>
+                        </constraints>
+                    </view>
                 </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" name="gray6"/>
                 <constraints>
-                    <constraint firstItem="5NI-kI-vJu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="8KR-wT-AUx"/>
-                    <constraint firstAttribute="trailing" secondItem="fD8-6j-jre" secondAttribute="trailing" constant="4" id="KE6-rT-Nsv"/>
-                    <constraint firstItem="fD8-6j-jre" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="alF-lM-Sqq"/>
-                    <constraint firstAttribute="trailing" secondItem="5NI-kI-vJu" secondAttribute="trailing" constant="4" id="c7e-VJ-uPK"/>
-                    <constraint firstItem="fD8-6j-jre" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="qnK-KU-DS1"/>
-                    <constraint firstItem="5NI-kI-vJu" firstAttribute="top" secondItem="fD8-6j-jre" secondAttribute="bottom" constant="4" id="qt0-ci-bcZ"/>
-                    <constraint firstAttribute="bottom" secondItem="5NI-kI-vJu" secondAttribute="bottom" constant="4" id="x5L-fM-mqy"/>
+                    <constraint firstItem="6PF-11-PDT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4o6-nw-Sbr"/>
+                    <constraint firstItem="6PF-11-PDT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7Xj-Fg-35B"/>
+                    <constraint firstAttribute="trailing" secondItem="6PF-11-PDT" secondAttribute="trailing" id="Gfe-gH-cRm"/>
+                    <constraint firstItem="ShY-pS-eQF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ekz-Fy-hPr"/>
+                    <constraint firstAttribute="trailing" secondItem="ShY-pS-eQF" secondAttribute="trailing" id="i3T-eM-hjm"/>
+                    <constraint firstItem="ShY-pS-eQF" firstAttribute="top" secondItem="6PF-11-PDT" secondAttribute="bottom" id="oSc-ot-RDR"/>
+                    <constraint firstAttribute="bottom" secondItem="ShY-pS-eQF" secondAttribute="bottom" id="t1S-2a-oHG"/>
+                    <constraint firstAttribute="trailing" secondItem="6PF-11-PDT" secondAttribute="trailing" id="tIE-Ne-XTM"/>
+                    <constraint firstItem="6PF-11-PDT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="wbh-sY-64h"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="contentLabel" destination="5NI-kI-vJu" id="0FX-yp-F7Y"/>
+                <outlet property="roundedView" destination="6PF-11-PDT" id="Ijs-DD-zGU"/>
                 <outlet property="titleLabel" destination="fD8-6j-jre" id="C2d-zm-jzv"/>
             </connections>
-            <point key="canvasLocation" x="11.594202898550726" y="132.58928571428572"/>
+            <point key="canvasLocation" x="221.73913043478262" y="157.70089285714286"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="Gray4">
+            <color red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="gray6">
+            <color red="0.89800000000000002" green="0.89800000000000002" blue="0.89800000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
