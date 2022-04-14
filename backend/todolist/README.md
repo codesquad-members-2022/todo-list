@@ -195,6 +195,23 @@
 
 [1주차 3th PR](https://github.com/codesquad-members-2022/todo-list/pull/126)
 
+``` java
+    public CardDto.WriteResponse readOf(Long id) {
+      String errorMessage = String.format(ERROR_OF_CARD_ID, id);
+      Card cardInfo = cardDao.findById(id)
+          .orElseThrow(() -> new IllegalArgumentException(errorMessage));
+      return new CardDto.WriteResponse(cardInfo);
+  }
+```
+
+
+> `nit`
+> - 이것은 아마 lambda의 function을 이용하면 좀 더 용이하게 바꿔줄 수 있을 것 같아요.
+> - 개선은 하셨지만 여전히 errorMessage가 스택에 쌓이고 있네요.
+>  지금은 이 부분이 문제가 있다는 것을 인지하시고 차후에 개선하셔도 좋습니다.
+>  <br>
+> 이런 것을 나아가 customException으로 분리할 수 있습니다.
+
 
 ### 3rd
 
