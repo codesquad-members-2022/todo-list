@@ -10,6 +10,8 @@ import UIKit
 
 class NewCardView: UIView {
     
+    var actionDelegate: NewCardViewDelegate?
+    
     lazy var newCardLabel: UILabel = {
         let label = UILabel()
         label.text = "새로운 카드 추가"
@@ -44,12 +46,12 @@ class NewCardView: UIView {
         return button
     }()
     
-    override init(frame: CGRect) {
+    override init(frame: CGRect) { // 코드로 뷰 만들 때 선언됨
         super.init(frame: frame)
         setUI()
     }
 
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) { // 스토리보드로 뷰 만들 때 선언됨
         super.init(coder: coder)
         setUI()
     }
@@ -62,14 +64,6 @@ class NewCardView: UIView {
         addSubview(addButton)
         addSubview(cancelButton)
         setUIPropertiesConstraint()
-    }
-    
-    func setViewConstraint() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.widthAnchor.constraint(equalToConstant: 500).isActive = true
-        self.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        self.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        self.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor).isActive = true // superview의 centerX,YAnchor를 가져와야 해서 실패..
     }
     
     private func setUIPropertiesConstraint() {
@@ -95,9 +89,9 @@ class NewCardView: UIView {
     private func setContentTextViewConstraint() {
         contentTextView.translatesAutoresizingMaskIntoConstraints = false
         contentTextView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10).isActive = true
-        contentTextView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: 10).isActive = true
+        contentTextView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -10).isActive = true
         contentTextView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
-        contentTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 15).isActive = true
+        contentTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
         
     }
     
@@ -115,5 +109,12 @@ class NewCardView: UIView {
         cancelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
         cancelButton.widthAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
         cancelButton.heightAnchor.constraint(equalToConstant: CGFloat(50)).isActive = true
+    }
+    
+    private func setAddButtonAction() {
+        addButton.addAction(UIAction {_ in 
+            // 등록 버튼 클릭 시 입력된 카드 정보를 CardBoard? 에게 보내기
+            // newCardViewDelegate.addCardButtonTouched()
+        }, for: .touchUpInside)
     }
 }

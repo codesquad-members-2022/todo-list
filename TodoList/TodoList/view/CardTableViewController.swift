@@ -92,6 +92,7 @@ class CardTableViewController: UIViewController {
 //        guard let newCardView = viewController.view else {
 //            return
 //        }
+//
 //        newCardView.translatesAutoresizingMaskIntoConstraints = false
 //        newCardView.widthAnchor.constraint(equalToConstant: 500).isActive = true
 //        newCardView.heightAnchor.constraint(equalToConstant: 300).isActive = true
