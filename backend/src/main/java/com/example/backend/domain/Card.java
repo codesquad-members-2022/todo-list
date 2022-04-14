@@ -52,6 +52,10 @@ public class Card {
         this.content = content;
     }
 
+    public boolean isSameColumnWith(Card movedCard) {
+        return this.columnName.equals(movedCard.columnName);
+    }
+
     public static class Builder {
         private Long id;
         private String title;

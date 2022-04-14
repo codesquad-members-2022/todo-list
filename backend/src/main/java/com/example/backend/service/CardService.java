@@ -42,8 +42,11 @@ public class CardService {
         }
     }
 
-    public Long move(CardMoveRequestDto dto) {
-        return cardRepository.move(dto);
+    public Columns move(CardMoveRequestDto dto) {
+        Long id = dto.getId();
+        Card originalCard = findById(id);
+        Card movedCard = dto.toEntity();
+        return cardRepository.move(originalCard, movedCard);
     }
 
     public Card findById(Long id) {
