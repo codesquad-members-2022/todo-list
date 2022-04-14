@@ -1,6 +1,10 @@
 import Foundation
 
-final class MemoUseCase {
+enum Path: String {
+    case task
+}
+
+class MemoUseCase {
     func convertStringToURL(url: String) -> URL? {
         guard let url = URL(string: url) else {
             return nil
@@ -18,12 +22,20 @@ final class MemoUseCase {
         }
         
         guard let url = convertStringToURL(url: EndPoint.url + path.rawValue) else { return }
-        NetworkManager.request(data: data, url: url, methodType: methodType)
+        NetWorkManager.request(data: data, url: url, methodType: methodType, responseHandler: self)
+    }
+}
+
+extension MemoUseCase: HttpResponseHandlable {
+    func handleSuccess(data: Data) {
+        
+    }
+    
+    func handleFailure(error: Error) {
+        
     }
 }
 
 
-enum Path: String {
-    case task
-}
+
 

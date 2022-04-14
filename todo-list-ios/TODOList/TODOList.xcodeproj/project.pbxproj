@@ -31,7 +31,7 @@
 		D0999DD8280689D10045491A /* MemoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999DD7280689D10045491A /* MemoEntity.swift */; };
 		D0999DDA28068B620045491A /* MemoStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999DD928068B620045491A /* MemoStatus.swift */; };
 		D09CC02D2807C7B0005E0D29 /* PopupViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09CC02C2807C7B0005E0D29 /* PopupViewDelegate.swift */; };
-		D0A471662808549A00AC9179 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A471652808549A00AC9179 /* NetworkManager.swift */; };
+		D0A471662808549A00AC9179 /* NetWorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A471652808549A00AC9179 /* NetWorkManager.swift */; };
 		D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */; };
 		D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */; };
 		D0FAF3B7280694BF0096A520 /* CommonResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3B6280694BF0096A520 /* CommonResponseType.swift */; };
@@ -40,7 +40,6 @@
 		D0FAF3C228069C750096A520 /* MemoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3C128069C750096A520 /* MemoUseCase.swift */; };
 		D0FAF3C428069CF90096A520 /* HistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3C328069CF90096A520 /* HistoryUseCase.swift */; };
 		D0FAF3D12806A31B0096A520 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D02806A31B0096A520 /* EndPoint.swift */; };
-		D0FAF3D32806A3FF0096A520 /* HTTPRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */; };
 		D0FAF3D52806F7910096A520 /* MemoContainerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */; };
 		D0FAF3D9280724390096A520 /* PopupCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */; };
 		D0FAF3DC28072FC00096A520 /* NSNotification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3DB28072FC00096A520 /* NSNotification+Extension.swift */; };
@@ -73,7 +72,7 @@
 		D0999DD7280689D10045491A /* MemoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEntity.swift; sourceTree = "<group>"; };
 		D0999DD928068B620045491A /* MemoStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStatus.swift; sourceTree = "<group>"; };
 		D09CC02C2807C7B0005E0D29 /* PopupViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewDelegate.swift; sourceTree = "<group>"; };
-		D0A471652808549A00AC9179 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		D0A471652808549A00AC9179 /* NetWorkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkManager.swift; sourceTree = "<group>"; };
 		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/History/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
 		D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewDelegate.swift; sourceTree = "<group>"; };
 		D0FAF3B6280694BF0096A520 /* CommonResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseType.swift; sourceTree = "<group>"; };
@@ -82,7 +81,6 @@
 		D0FAF3C128069C750096A520 /* MemoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUseCase.swift; sourceTree = "<group>"; };
 		D0FAF3C328069CF90096A520 /* HistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCase.swift; sourceTree = "<group>"; };
 		D0FAF3D02806A31B0096A520 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
-		D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestHandler.swift; sourceTree = "<group>"; };
 		D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerViewDelegate.swift; sourceTree = "<group>"; };
 		D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupCardViewDelegate.swift; sourceTree = "<group>"; };
 		D0FAF3DB28072FC00096A520 /* NSNotification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extension.swift"; sourceTree = "<group>"; };
@@ -156,8 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				D0FAF3CF2806A3130096A520 /* Common */,
-				D0999DE22806933F0045491A /* Data */,
-				D0999DD6280689B60045491A /* Domain */,
+				D0FAF3B1280694840096A520 /* Network */,
 				B5EC66F327FEC3E10042EFCF /* Delegates */,
 				D0850A7627FEB27A009C60E5 /* Resources */,
 				D0B4198E27FD636500DBAFDB /* Models */,
@@ -233,14 +230,6 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		D0999DE22806933F0045491A /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				D0FAF3B1280694840096A520 /* Network */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		D0B4198E27FD636500DBAFDB /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,9 +242,9 @@
 		D0FAF3B1280694840096A520 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				D0999DD6280689B60045491A /* Domain */,
 				D0FAF3BA2806951A0096A520 /* Model */,
-				D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */,
-				D0A471652808549A00AC9179 /* NetworkManager.swift */,
+				D0A471652808549A00AC9179 /* NetWorkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -385,7 +374,7 @@
 				D0999DD8280689D10045491A /* MemoEntity.swift in Sources */,
 				D0999D9F2804789D0045491A /* PopupViewController.swift in Sources */,
 				B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */,
-				D0A471662808549A00AC9179 /* NetworkManager.swift in Sources */,
+				D0A471662808549A00AC9179 /* NetWorkManager.swift in Sources */,
 				D0FAF3DC28072FC00096A520 /* NSNotification+Extension.swift in Sources */,
 				D0FAF3D52806F7910096A520 /* MemoContainerViewDelegate.swift in Sources */,
 				B58D833728001A9C008A811C /* Memo.swift in Sources */,
@@ -405,7 +394,6 @@
 				D019328E27FFD12E00A9CE20 /* MemoCanvasViewController.swift in Sources */,
 				B5EC66EC27FC0CD10042EFCF /* HeaderView.swift in Sources */,
 				D0FAF3D9280724390096A520 /* PopupCardViewDelegate.swift in Sources */,
-				D0FAF3D32806A3FF0096A520 /* HTTPRequestHandler.swift in Sources */,
 				D0FAF3C428069CF90096A520 /* HistoryUseCase.swift in Sources */,
 				D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */,
 				B5FBCFD0280885F400494A56 /* MemoManager.swift in Sources */,
