@@ -9,7 +9,7 @@ import UIKit
 
 class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView, UITableViewDelegate, UITableViewDataSource {
     
-    private var list : [Model]?
+    private var list : [Model] = []
     private var cellConfigurator : ((Model, Cell) -> Void)?
     var BoardTableDelegate : BoardTableViewDelegate?
 
@@ -32,21 +32,31 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
         setupStyle()
     }
     
-    
-
     private func setupStyle() {
         self.separatorStyle = .none        
         self.backgroundColor = .secondarySystemBackground
     }
+
+    func removeTodo(todo: Model) {
+        guard let targetTodo = todo as? Todo else { return }
+        guard let todoList = list as? [Todo] else { return }
+        guard let targetIndex = todoList.firstIndex(where: { $0.id == targetTodo.id }) else { return }
+        list.remove(at: targetIndex)
+        deleteRows(at: [IndexPath(row: targetIndex, section: 0)], with: .automatic)
+    }
+    
+    
+    func appendTodo(todo:Model) {
+        self.list.append(todo)
+        insertRows(at: [IndexPath(row: list.count - 1, section: 0)], with: .automatic)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = list?.count else {return 0}
-        return count
+        return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as? Cell,
-              let list = list,
               let config = cellConfigurator
         else {return UITableViewCell()}
 
@@ -56,13 +66,13 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard Cell.self == CardCell.self, let list = list else {return}
+        guard Cell.self == CardCell.self else {return}
         if editingStyle == .delete {
             BoardTableDelegate?.DidTapDelete(item: list[indexPath.row])
         }
     }
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard Cell.self == CardCell.self, let list = list else {return UIContextMenuConfiguration()}
+        guard Cell.self == CardCell.self else {return UIContextMenuConfiguration()}
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let moveToCompleted = UIAction(title: "완료한 일로 이동") { _ in

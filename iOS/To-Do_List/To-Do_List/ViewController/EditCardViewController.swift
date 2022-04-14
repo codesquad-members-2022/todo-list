@@ -47,6 +47,7 @@ final class EditCardViewController: UIViewController {
 extension EditCardViewController : EditCardViewDelegate {
     func didTapConfirmButton(editViewInfo: EditViewInputInfo) {
         delegate?.didTapConfirmButton(editViewInfo: editViewInfo)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func didTapCancelButton() {
