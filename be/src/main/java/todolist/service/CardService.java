@@ -44,15 +44,16 @@ public class CardService {
     public ResponseCardDto updateCard(Long id, RequestCardDto requestCardDto) {
         Card card = repository.findById(id);
         String prevSection = card.getSection();
+
         card.update(requestCardDto);
         repository.update(card);
 
-        if (prevSection.equals(card.getSection())) {
+        if (card.isSectionUpdated(prevSection)) {
             eventService.addEvent(new RequestEventDto(card), Action.UPDATE);
-        } else {
-            eventService.addEvent(new RequestEventDto(prevSection, card), Action.MOVE);
+            return card.toResponseCardDto();
         }
 
+        eventService.addEvent(new RequestEventDto(prevSection, card), Action.MOVE);
         return card.toResponseCardDto();
     }
 
