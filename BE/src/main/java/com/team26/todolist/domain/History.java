@@ -2,7 +2,7 @@ package com.team26.todolist.domain;
 
 import java.time.LocalDateTime;
 
-public class History {
+public class History implements Comparable<History>{
 
     private Long id;
     private CardAction cardAction;
@@ -25,6 +25,11 @@ public class History {
         this.columnTitle = historyBuilder.columnTitle;
         this.columnTitleBefore = historyBuilder.columnTitleBefore;
         this.createdAt = historyBuilder.createdAt;
+    }
+
+    @Override
+    public int compareTo(History history) {
+        return (int) (history.id - this.id);
     }
 
     public static HistoryBuilder builder(CardAction cardAction, String userId,

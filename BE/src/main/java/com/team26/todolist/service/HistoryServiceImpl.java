@@ -26,7 +26,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public List<HistoryResponse> findHistories() {
         List<History> histories = historyRepository.findAll();
-        return histories.stream().map(HistoryResponse::of).collect(Collectors.toList());
+        return histories.stream().sorted().map(HistoryResponse::of).collect(Collectors.toList());
     }
 
     @Override
