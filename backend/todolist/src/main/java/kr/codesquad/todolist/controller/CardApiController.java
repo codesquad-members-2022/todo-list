@@ -4,6 +4,7 @@ import kr.codesquad.todolist.controller.request.CardRequestDto;
 import kr.codesquad.todolist.controller.response.CardResponseDto;
 import kr.codesquad.todolist.domain.Card;
 import kr.codesquad.todolist.service.CardService;
+import kr.codesquad.todolist.service.HistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class CardApiController {
     public static final String API_USER_KEY = "user";
 
     private final CardService cardService;
+    private final HistoryService historyService;
 
     @GetMapping
     public ResponseEntity readAll(@RequestHeader HttpHeaders headers) {
@@ -59,5 +61,10 @@ public class CardApiController {
         Card.TodoStatus toStatus = Card.TodoStatus.from(request.getToStatus());
         Long toOrder = request.getToOrder();
         cardService.moveCardTo(cardId, toStatus, toOrder);
+    }
+
+    @GetMapping("/history")
+    public HistoryDTO.Response readAllHistories(@RequestHeader(API_USER_KEY) Long userId) {
+        return historyService.readAllFrom(userId);
     }
 }
