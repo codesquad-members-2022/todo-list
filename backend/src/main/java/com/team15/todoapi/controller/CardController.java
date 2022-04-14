@@ -1,12 +1,12 @@
 package com.team15.todoapi.controller;
 
+import com.team15.todoapi.controller.dto.DefaultResponse;
 import com.team15.todoapi.controller.dto.card.CardRequest;
 import com.team15.todoapi.controller.dto.card.CardResponse;
 import com.team15.todoapi.service.CardService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +30,9 @@ public class CardController {
 
 	@PostMapping
 	public ResponseEntity add(@RequestBody CardRequest cardRequest){
-		CardResponse.AddInfo cardResponse = cardService.add(cardRequest);
+		DefaultResponse response = cardService.add(cardRequest);
+		CardResponse.AddInfo cardResponse = (CardResponse.AddInfo) response.getCustomResponse();
 
-		return new ResponseEntity(cardResponse, HttpStatus.CREATED);
+		return new ResponseEntity(cardResponse, response.getHttpStatus());
 	}
 }
