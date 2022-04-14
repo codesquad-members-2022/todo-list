@@ -16,7 +16,6 @@ final class NetworkManager {
             return
         }
         var urlRequest = URLRequest(url: url)
-        
         //HTTP Method
         let httpMethod = endpoint.getHttpMethod().rawValue
         urlRequest.httpMethod = httpMethod

@@ -11,7 +11,7 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
     
     private(set) var list : [Model] = []
     private var cellConfigurator : ((Model, Cell) -> Void)?
-    var BoardTableDelegate : BoardTableViewDelegate?
+    var boardTableDelegate : BoardTableViewDelegate?
 
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -69,17 +69,20 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard Cell.self == CardCell.self else {return}
         if editingStyle == .delete {
-            BoardTableDelegate?.DidTapDelete(item: list[indexPath.row])
+            boardTableDelegate?.DidTapDelete(item: list[indexPath.row])
         }
     }
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard Cell.self == CardCell.self else {return UIContextMenuConfiguration()}
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            let moveToCompleted = UIAction(title: "완료한 일로 이동") { _ in
+            let moveToCompleted = UIAction(title: "완료한 일로 이동") { [weak self] _ in
+                guard let self = self,
+                      let foucsdCard = self.list[indexPath.row] as? Todo else { return }
+                self.boardTableDelegate?.DidTapMoveToCompleted(foucsedCard: foucsdCard, from:indexPath.row)
                 print("완료한 일로 이동")
             }
-            
+            //Delegate해도.. 어떻게 가져옵니까.? Edi
             let edit = UIAction(title: "수정하기") { _ in
                 print("수정하기")
             }

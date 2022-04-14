@@ -19,5 +19,6 @@ struct Todo:CardDisplayable, Codable,Equatable {
     let writer:String
     let content:String
     let createdAt:String
+    let cardType:String
 }
 

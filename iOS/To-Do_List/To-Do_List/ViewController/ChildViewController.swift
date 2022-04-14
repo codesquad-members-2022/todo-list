@@ -5,19 +5,22 @@
 //  Created by 박진섭 on 2022/04/05.
 //
 
+typealias MovedCardInfo = (foucsedCard:Todo,from:Int)
 
 import UIKit
 
 class ChildViewController: UIViewController {
 
-    private var tableView: BoardTableView<CardDisplayable,CardCell>!
+    private(set) var tableView: BoardTableView<CardDisplayable,CardCell>!
     
     private var header : BoardHeader!
     var boardType : BoardType?
     
     //Notification
     static let tapCofirmButton = Notification.Name("didTapConfirmButton")
-    static let cardViewInfo = "CardViewInfo"
+    static let tapMoveToCompltedButton = Notification.Name("tapMoveToCompltedButton")
+    static let cardViewInfo = "cardViewInfo"
+    static let movedCardInfo = "movedCardInfo"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +69,7 @@ class ChildViewController: UIViewController {
             cellConfigurator: { card, cell in
             cell.loadCardInfo(info: card)
         })
-        self.tableView.BoardTableDelegate = self
+        self.tableView.boardTableDelegate = self
         self.view.addSubview(tableView)
         setTableViewConstraint()
     }
@@ -136,6 +139,13 @@ extension ChildViewController : BoardHeaderDelegate {
 
 //MARK: -- BoardTableView Delete delegation
 extension ChildViewController : BoardTableViewDelegate {
+    func DidTapMoveToCompleted(foucsedCard: Todo, from: Int) {
+        NotificationCenter.default.post(
+            name: ChildViewController.tapMoveToCompltedButton,
+            object: self,
+            userInfo: [ChildViewController.movedCardInfo:MovedCardInfo(foucsedCard:foucsedCard,from:from)])
+    }
+    
     func DidTapDelete(item: Any) {
         NotificationCenter.default.post(
             name: MainViewController.didDeleteCard,

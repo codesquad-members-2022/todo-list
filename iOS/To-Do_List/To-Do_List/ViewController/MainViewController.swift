@@ -49,6 +49,7 @@ class MainViewController: UIViewController {
         
         [todoViewController,progressingTableViewController,completedTableViewController].forEach {
             addChild($0)
+            
             $0.setTableView(list: [])
             self.statckView.addArrangedSubview($0.view)
         }
@@ -79,6 +80,13 @@ extension MainViewController {
             name: ChildViewController.tapCofirmButton,
             object: nil)
         
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(fetchMovedToCompletedCard),
+            name: ChildViewController.tapMoveToCompltedButton,
+            object: nil
+        )
+        
     }
 }
 
@@ -101,6 +109,35 @@ extension MainViewController {
         }
     }
     
+    @objc func fetchMovedToCompletedCard(_ notification:Notification) {
+        guard let info = notification.userInfo?[ChildViewController.movedCardInfo] as? MovedCardInfo,
+              let childVC = notification.object as? ChildViewController,
+              let completedViewController = self.children.last as? ChildViewController
+        else { return }
+        
+        let cardInfo = info.foucsedCard
+        let originPosition = info.from
+        let goalPosition = completedViewController.tableView.list.count - 1
+        let movedCard = MovedCard(
+            id: cardInfo.id ?? 0,
+            originPosition: originPosition,
+            goalPosition: goalPosition,
+            originCardType: cardInfo.cardType,
+            goalCardType: completedViewController.boardType?.type ?? ""
+        )
+        networkManager?.request(endpoint: EndPointCase.moveToCompleted(movedCard: movedCard).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
+            switch result {
+            case .success(let newTodo):
+                childVC.removeFromList(todo: newTodo.response)
+                completedViewController.insertToList(todo: newTodo.response)
+            case .failure(let error):
+                os_log(.error, "\(error.localizedDescription)")
+            }
+        })
+        
+    }
+    
+    
     @objc func postNewCardInfo(_ notification:Notification) {
         
         guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
@@ -113,7 +150,8 @@ extension MainViewController {
             title: info.title,
             content: info.content,
             cardType:childVC.boardType?.type ?? "",
-            memberId: 1)
+            memberId: 1,
+            position: childVC.tableView.list.count)
         
         networkManager?.request(endpoint: EndPointCase.addCard(card: postModel).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
             switch result {
