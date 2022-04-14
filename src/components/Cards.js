@@ -1,3 +1,4 @@
+import { getCards, postCard } from "../api.js";
 import Component from "../core/Component.js";
 
 export default class Cards extends Component {
@@ -66,11 +67,20 @@ export default class Cards extends Component {
 
     $button.disabled = !isInputEvery;
   }
-  async addNewCard() {
+  async addNewCard({ target }) {
+    const { setCards } = this.$props;
+    const $clickedCard = target.closest(".card");
+    const columnId = target.closest(".column").dataset.index;
     const [title, content] = [".card-title-input", ".card-content-input"].map(
-      (selector) => this.$target.querySelector(selector).value
+      (selector) => $clickedCard.querySelector(selector).value
     );
-    // { title: title, content: content } 카드 데이터 서버로 전송
-    // 서버 데이터로 리렌더링
+    const newCard = {
+      columnId,
+      title,
+      content,
+      author: "나",
+    };
+    await postCard(newCard);
+    setCards(columnId);
   }
 }

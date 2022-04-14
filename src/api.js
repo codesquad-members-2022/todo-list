@@ -4,6 +4,16 @@ const getMockData = async (resource) => {
   return data;
 };
 
+const postData = async (resource, data) => {
+  fetch("http://localhost:3000/" + resource, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(data),
+  });
+};
+
 const getColumns = async () => {
   const columns = await getMockData("columns");
   return columns.map(({ title, id }) => ({
@@ -17,9 +27,13 @@ const getCards = async (columnIndex) => {
   return cards;
 };
 
+const postCard = async (card) => {
+  postData("cards", card);
+};
+
 const getHistories = async () => {
   const histories = await getMockData("histories");
   return histories;
 };
 
-export { getColumns, getCards, getHistories };
+export { getColumns, getCards, postCard, getHistories };
