@@ -50,4 +50,16 @@ extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let card = taskCardList?.getCard(at: indexPath.row) else { return }
+            let id = card.id
+            URLManager<TaskCard>.request(api: .delete(id),completionHandler: {_ in})
+            
+            self.taskCardList?.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            guard let count = taskCardList?.count else { return }
+            self.taskCardListView.setCountBadge(with: count)
+        }
+    }
 }

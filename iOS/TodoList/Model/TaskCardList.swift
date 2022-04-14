@@ -1,6 +1,6 @@
 import Foundation
 
-struct TaskCardList {
+class TaskCardList {
     private var sectionTitle: String
     private var cards: [TaskCard]
     
@@ -15,5 +15,9 @@ struct TaskCardList {
     
     func getCard(at index: Int) -> TaskCard {
         return self.cards[index]
+    }
+    
+    func remove(at index: Int) {
+        self.cards.remove(at: index)
     }
 }
