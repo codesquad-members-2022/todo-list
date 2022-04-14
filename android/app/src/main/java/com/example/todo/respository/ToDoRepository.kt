@@ -52,7 +52,7 @@ class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
         return if (response.isSuccessful) {
             val originList = toDoList.toMutableList()
             newItem.itemId = response?.body()?.card_id ?: -1
-            originList[originList.size].next = newItem.itemId
+            originList[1].next = newItem.itemId
             originList.add(0, newItem)
             originList.toList()
         } else toDoList

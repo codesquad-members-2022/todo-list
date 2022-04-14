@@ -1,3 +1,4 @@
+
 package com.example.todo.ui.toDo
 
 
@@ -34,18 +35,9 @@ class TodoAdapter(
         fun bind(cardItem: TodoItem) {
             this.cardItem = cardItem
             itemViewBinding.toDoItem = cardItem
-            deleteCard()
             itemView.setOnLongClickListener {
                 displayPopupMenu(it)
                 true
-            }
-
-
-        }
-
-        private fun deleteCard() {
-            itemViewBinding.deleteView.setOnClickListener {
-                viewModel.deleteItem(cardItem)
             }
         }
 
@@ -58,13 +50,12 @@ class TodoAdapter(
 
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             when (item?.itemId) {
-                R.id.popup_move_to_done -> viewModel.moveToDone(cardItem)
+                R.id.popup_move_to_done ->  viewModel.moveToDone(cardItem)
                 R.id.popup_update -> listener.updateDialog(cardItem)
                 R.id.popup_delete -> viewModel.deleteItem(cardItem)
             }
             return true
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
