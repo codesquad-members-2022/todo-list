@@ -1,27 +1,27 @@
-package com.example.todolist.ui.ongoing
+package com.example.todolist.ui.adapter
 
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.Intent
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.util.component1
 import androidx.core.util.component2
 import androidx.core.view.DragStartHelper
 import androidx.draganddrop.DropHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.data.Task
+import com.example.todolist.data.Card
 import com.example.todolist.databinding.ItemTodoBinding
-import com.example.todolist.ui.TaskViewModel
+import com.example.todolist.ui.common.CardActionHandler
 import com.example.todolist.ui.common.DiffUtil
 
-class OngoingAdapter(
-    private val viewModel: TaskViewModel
-) : ListAdapter<Task, OngoingAdapter.TodoViewHolder>(DiffUtil) {
+class TodoAdapter(
+    private val cardActionHandler: CardActionHandler
+) : ListAdapter<Card, TodoAdapter.TodoViewHolder>(DiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val binding = ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,43 +35,39 @@ class OngoingAdapter(
     inner class TodoViewHolder(private val binding: ItemTodoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(task: Task) {
-            binding.task = task
+        fun bind(card: Card) {
+            binding.card = card
             binding.executePendingBindings()
-            deleteCard(task)
-            drag(task)
-            dropHelper(task)
+            deleteCard(card)
+            drag(card)
+            dropHelper(card)
         }
 
-        private fun deleteCard(task: Task) {
-            binding.tvDeleteCard?.setOnClickListener {
-                viewModel.deleteOngoingCard(task)
+        private fun deleteCard(card: Card) {
+            binding.tvDeleteCard.setOnClickListener {
+                card.cardId?.let { id -> cardActionHandler.deleteCard(id) }
             }
         }
 
-        private fun drag(task: Task) {
+        private fun drag(card: Card) {
             DragStartHelper(itemView) { view, _ ->
-                val task = task
+
                 val intent = Intent().apply {
-                    putExtra("task", task)
+                    putExtra("card", card)
                 }
-                val dragClipData = ClipData.newIntent("draggedTask", intent)
+                val dragClipData = ClipData.newIntent("draggedCard", intent)
                 val dragShadowBuilder = View.DragShadowBuilder(view)
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    view.startDragAndDrop(
-                        dragClipData,
-                        dragShadowBuilder,
-                        null,
-                        View.DRAG_FLAG_GLOBAL
-                    )
-                } else {
-                    view.startDrag(dragClipData, dragShadowBuilder, view, 0)
-                }
+                view.startDragAndDrop(
+                    dragClipData,
+                    dragShadowBuilder,
+                    null,
+                    View.DRAG_FLAG_GLOBAL
+                )
             }.attach()
         }
 
-        private fun dropHelper(task: Task) {
+        private fun dropHelper(card: Card) {
             DropHelper.configureView(
                 binding.root.context as Activity,
                 itemView,
@@ -82,22 +78,37 @@ class OngoingAdapter(
 
                 when {
                     payload.clip.description.hasMimeType(ClipDescription.MIMETYPE_TEXT_INTENT) ->
-                        handlePlainTextDrop(item, task)
+                        handleCardDrop(item, card)
                 }
                 remaining
             }
         }
 
-        private fun handlePlainTextDrop(item: ClipData.Item, targetTask: Task) {
-            val droppedTask = item.intent.getSerializableExtra("task") as Task
-            when (droppedTask.status) {
-                "todo" -> viewModel.deleteTodoCard(droppedTask)
-                "ongoing" -> viewModel.deleteOngoingCard(droppedTask)
-            }
-            viewModel.dropOngoingCard(droppedTask, targetTask)
+        private fun handleCardDrop(item: ClipData.Item, targetCard: Card) {
 
+            val draggedCard = item.intent.getSerializableExtra("task") as Card
+            cardActionHandler.dropCard(draggedCard, targetCard)
         }
 
+        fun getDeleteTextViewWidth() =
+            binding.tvDeleteCard.width.toFloat()
+
+
+        fun getDeleteTextView() : TextView {
+            return binding.tvDeleteCard
+        }
+
+        fun getSwipeView() =
+            binding.cioScreen
+
+        fun setTag(isClamped: Boolean) {
+            itemView.tag = isClamped
+        }
+
+        fun getTag(): Boolean =
+            itemView.tag as? Boolean ?: false
+
     }
+
 
 }

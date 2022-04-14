@@ -2,16 +2,16 @@ package com.example.todolist.ui.common
 
 import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
-import com.example.todolist.data.Task
+import com.example.todolist.data.Card
 
-object DiffUtil : DiffUtil.ItemCallback<Task>() {
+object DiffUtil : DiffUtil.ItemCallback<Card>() {
 
-    override fun areItemsTheSame(oldItem: Task, newItem: Task) : Boolean  {
+    override fun areItemsTheSame(oldItem: Card, newItem: Card) : Boolean  {
         Log.d("AppTest", "${oldItem == newItem}")
-        return oldItem.id == newItem.id
+        return oldItem.cardId == newItem.cardId
     }
 
-    override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
+    override fun areContentsTheSame(oldItem: Card, newItem: Card): Boolean {
         Log.d("AppTest", "${oldItem == newItem}")
         return oldItem == newItem
     }
