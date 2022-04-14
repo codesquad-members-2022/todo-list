@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static java.time.LocalDateTime.now;
 import static java.util.Objects.requireNonNull;
 
 @Repository
@@ -41,7 +42,18 @@ public class CardJdbcRepository implements CardRepository {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
         namedParameterJdbcTemplate.update(query, mapSqlParameterSource, keyHolder);
         long key = requireNonNull(keyHolder.getKey()).longValue();
-        return new Card(key, card.getWriter(), card.getPosition(), card.getTitle(), card.getContent(), card.getCardType(), LocalDateTime.now(), card.getLastModifiedAt(), card.isVisible(), card.getMemberId());
+        return new CardBuilder()
+                .id(key)
+                .writer(card.getWriter())
+                .position(card.getPosition())
+                .title(card.getTitle())
+                .content(card.getContent())
+                .cardType(card.getCardType())
+                .createdAt(now())
+                .lastModifiedAt(now())
+                .visible(card.isVisible())
+                .memberId(card.getMemberId())
+                .build();
     }
 
     @Override
@@ -96,5 +108,61 @@ public class CardJdbcRepository implements CardRepository {
         private LocalDateTime lastModifiedAt;
         private boolean visible;
         private Long memberId;
+
+        CardBuilder() {};
+
+        CardBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        CardBuilder writer(String writer) {
+            this.writer = writer;
+            return this;
+        }
+
+        CardBuilder position(Long position) {
+            this.position = position;
+            return this;
+        }
+
+        CardBuilder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        CardBuilder content(String content) {
+            this.content = content;
+            return this;
+        }
+
+        CardBuilder cardType(CardType cardType) {
+            this.cardType = cardType;
+            return this;
+        }
+
+        CardBuilder createdAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        CardBuilder lastModifiedAt(LocalDateTime lastModifiedAt) {
+            this.lastModifiedAt = lastModifiedAt;
+            return this;
+        }
+
+        CardBuilder visible(boolean visible) {
+            this.visible = visible;
+            return this;
+        }
+
+        CardBuilder memberId(Long memberId) {
+            this.memberId = memberId;
+            return this;
+        }
+
+        Card build() {
+            return new Card(id, writer, position, title, content, cardType, createdAt, lastModifiedAt, visible, memberId);
+        }
     }
 }

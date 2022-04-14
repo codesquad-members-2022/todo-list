@@ -21,9 +21,10 @@ public class Card {
         this.position = position;
         this.memberId = memberId;
         this.cardType = cardType;
+        this.visible = true;
     }
 
-    public Card(long id, String writer, Long position, String title, String content, CardType cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt, boolean visible, long memberId) {
+    public Card(Long id, String writer, Long position, String title, String content, CardType cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt, boolean visible, long memberId) {
         this.id = id;
         this.writer = writer;
         this.position = position;
@@ -85,6 +86,7 @@ public class Card {
         }
         this.title = title;
         this.content = content;
+        this.lastModifiedAt = LocalDateTime.now();
     }
 }
 

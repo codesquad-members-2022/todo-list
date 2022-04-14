@@ -23,9 +23,9 @@ public class CardRepositoryHelper {
     private static final String CONTENT = "content";
     private static final String CARD_TYPE = "card_type";
     private static final String CREATED_AT = "created_at";
-    private static final String LAST_MODIFIED_AT = "lastModifiedAt";
+    private static final String LAST_MODIFIED_AT = "last_modified_at";
     private static final String VISIBLE = "visible";
-    private static final String MEMBER_ID = "memberId";
+    private static final String MEMBER_ID = "member_id";
 
     public static RowMapper<Card> mapper = (rs, rowNum) ->
             new Card(
@@ -48,11 +48,11 @@ public class CardRepositoryHelper {
             put(POSITION, card.getPosition());
             put(TITLE, card.getTitle());
             put(CONTENT, card.getContent());
-            put(CARD_TYPE, card.getCardType().toString());
-            put(CREATED_AT, LocalDateTime.now());
-            put(LAST_MODIFIED_AT, LocalDateTime.now());
+            put("cardType", card.getCardType().toString());
+            put("createdAt", LocalDateTime.now());
+            put("lastModifiedAt", LocalDateTime.now());
             put(VISIBLE, true);
-            put(MEMBER_ID, card.getMemberId());
+            put("memberId", card.getMemberId());
         }};
     }
 
@@ -62,7 +62,7 @@ public class CardRepositoryHelper {
                 .addValue(TITLE, card.getTitle())
                 .addValue(CONTENT, card.getContent())
                 .addValue(POSITION, card.getPosition())
-                .addValue(CARD_TYPE, card.getCardType().toString())
-                .addValue(LAST_MODIFIED_AT, card.getLastModifiedAt());
+                .addValue("cardType", card.getCardType().toString())
+                .addValue("lastModifiedAt", card.getLastModifiedAt());
     }
 }
