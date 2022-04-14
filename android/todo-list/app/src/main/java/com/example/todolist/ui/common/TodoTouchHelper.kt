@@ -14,6 +14,7 @@ class TodoTouchHelper :
 
     private var currentDx = 0f
     private var deleteTextViewSize = 0f
+    private val clampSpace = 3.5f
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
@@ -22,6 +23,30 @@ class TodoTouchHelper :
         deleteTextViewSize = getDeleteTextViewWidth(viewHolder as TodoAdapter.TodoViewHolder)
         return makeMovementFlags(UP or DOWN, START)
     }
+
+    override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+        setTag((viewHolder as TodoAdapter.TodoViewHolder), currentDx <= -deleteTextViewSize)
+        return 2f
+    }
+
+    private fun getDeleteTextViewWidth(viewHolder: TodoAdapter.TodoViewHolder): Float {
+        return viewHolder.getDeleteTextViewWidth()
+    }
+
+
+    private fun getDeleteTextView(viewHolder: TodoAdapter.TodoViewHolder): TextView? {
+        return viewHolder.getDeleteTextView()
+    }
+
+
+    private fun getSwipeView(viewHolder: TodoAdapter.TodoViewHolder): ConstraintLayout? {
+        return viewHolder.getSwipeView()
+    }
+
+    private fun getTag(viewHolder: TodoAdapter.TodoViewHolder): Boolean {
+        return viewHolder.getTag()
+    }
+
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -70,19 +95,7 @@ class TodoTouchHelper :
         dX: Float,
         textView: View
     ): Float {
-        val newX = if (isClamped) {
-            if (isCurrentlyActive) {
-                if (dX < 0) {
-                    dX / 3 - deleteTextViewSize
-                } else {
-                    dX - deleteTextViewSize
-                }
-            } else {
-                -deleteTextViewSize
-            }
-        } else {
-            dX / 3.5f
-        }
+        val newX = checkClamped(isClamped, isCurrentlyActive, dX)
         return if (newX < 0) {
             textView.visibility = View.VISIBLE
             newX
@@ -92,32 +105,23 @@ class TodoTouchHelper :
         }
     }
 
-    override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-        setTag((viewHolder as TodoAdapter.TodoViewHolder), currentDx <= -deleteTextViewSize)
-        return 2f
+    private fun checkClamped(isClamped: Boolean, isCurrentlyActive: Boolean, dX: Float) = when(isClamped) {
+        true -> checkCurrentlyActive(isCurrentlyActive, dX)
+        false -> -deleteTextViewSize
     }
 
-    private fun getDeleteTextViewWidth(viewHolder: TodoAdapter.TodoViewHolder): Float {
-        return viewHolder.getDeleteTextViewWidth()
+    private fun checkCurrentlyActive(isCurrentlyActive: Boolean, dX: Float) = when(isCurrentlyActive) {
+        true -> checkMoved(dX)
+        false -> dX / clampSpace
     }
 
-
-    private fun getDeleteTextView(viewHolder: TodoAdapter.TodoViewHolder): TextView? {
-        return viewHolder.getDeleteTextView()
+    private fun checkMoved(dX: Float) = when(dX > 0) {
+        true -> dX / 3 - deleteTextViewSize
+        false -> dX - deleteTextViewSize
     }
-
-
-    private fun getSwipeView(viewHolder: TodoAdapter.TodoViewHolder): ConstraintLayout? {
-        return viewHolder.getSwipeView()
-    }
-
 
     private fun setTag(viewHolder: TodoAdapter.TodoViewHolder, isClamped: Boolean) {
         viewHolder.setTag(isClamped)
-    }
-
-    private fun getTag(viewHolder: TodoAdapter.TodoViewHolder): Boolean {
-        return viewHolder.getTag()
     }
 
 }
