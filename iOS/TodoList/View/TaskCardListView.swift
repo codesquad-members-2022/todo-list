@@ -16,8 +16,8 @@ class TaskCardListView: UIView {
     func setTableView(with viewController: UIViewController & UITableViewDelegate & UITableViewDataSource) {
         self.table.delegate = viewController
         self.table.dataSource = viewController
-        let nibName = UINib(nibName: NameSpace.nib.taskCardViewCell, bundle: nil)
-        self.table.register(nibName, forCellReuseIdentifier: NameSpace.identifier.taskCardViewCell)
+        let nibName = UINib(nibName: nibTitle.taskCardViewCell, bundle: nil)
+        self.table.register(nibName, forCellReuseIdentifier: identifier.taskCardViewCell)
     }
 
     @IBAction func addTaskButtonTapped(_ sender: UIButton) {

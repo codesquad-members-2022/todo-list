@@ -41,7 +41,7 @@ extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: NameSpace.identifier.taskCardViewCell, for: indexPath) as? TaskCardViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier.taskCardViewCell, for: indexPath) as? TaskCardViewCell else { return UITableViewCell() }
         if let taskCard = taskCardList?.getCard(at: indexPath.row) {
             cell.setTitle(to: taskCard.title)
             cell.setContents(to: taskCard.content)
