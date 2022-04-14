@@ -5,7 +5,6 @@ struct TaskCard: Codable {
     private(set) var section : String
     private(set) var title : String
     private(set) var content : String
-    
 }
 
 

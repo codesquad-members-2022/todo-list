@@ -12,24 +12,29 @@ class MyTaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         observe()
-        URLManager.getTasks()
+        loadTaskBoard()
         resizeConstant()
         actionBoard.moveView()
     }
     
     private func observe() {
-        NotificationCenter.default.addObserver(forName: .getTaskBoardData, object: nil, queue: .main, using: setChild(with:))
+        NotificationCenter.default.addObserver(forName: .getTaskBoardData, object: nil, queue: .main, using: {_ in self.loadTaskBoard()})
         NotificationCenter.default.addObserver(forName: .addTaskButtonTapped, object: nil, queue: .main, using: self.editCardButtonTapped(noti:))
     }
     
-    func setChild(with notification: Notification) {
-        guard let taskBoard = notification.userInfo?[NotificationKeyValue.getTaskData] as? [String:[TaskCard]] else { return }
-        self.taskBoardView.subviews.forEach { $0.removeFromSuperview() }
-        for (key, value) in taskBoard {
-            let controller = TaskCardListViewController()
-            self.addChild(controller)
-            self.taskBoardView.addArrangedSubview(controller.view)
-            controller.set(key, with: value)
+    private func loadTaskBoard() {
+            URLManager<TaskBoard>.request(api: .get, completionHandler: self.setChild(with:))
+    }
+    
+    private func setChild(with taskBoard: TaskBoard) {
+        DispatchQueue.main.async {
+            self.taskBoardView.subviews.forEach { $0.removeFromSuperview() }
+            for (key, value) in taskBoard.cards {
+                let controller = TaskCardListViewController()
+                self.addChild(controller)
+                self.taskBoardView.addArrangedSubview(controller.view)
+                controller.set(key, with: value)
+            }
         }
     }
     

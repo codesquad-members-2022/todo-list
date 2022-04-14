@@ -22,8 +22,8 @@ class EditCardViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: .editButtonTapped, object: nil, queue: .main, using: { noti in
             guard let cardData = noti.userInfo?[NotificationKeyValue.targetData] as? (String) -> RequestCardData else { return }
             guard let targetTitle = self.targetTitle else { return }
-            URLManager.post(with: cardData(targetTitle))
-
+            URLManager<TaskCard>.request(api: .post(cardData(targetTitle)), completionHandler: {_ in NotificationCenter.default.post(name: .getTaskBoardData, object: nil)})
+            
             self.dismiss(animated: false)
         })
     }
