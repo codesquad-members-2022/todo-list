@@ -12,6 +12,7 @@ final class TableHeader: UIView{
     let numberLabel = UILabel()
     let plusButton = UIButton()
     weak var delegate: TableHeaderDelegate?
+    var tableHeaderID: Int?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,10 +79,16 @@ private extension TableHeader{
         plusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant:  -7).isActive = true
         plusButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         plusButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
     }
     
     @objc
     func touchedPlusButton(_ button: UIButton){
-        self.delegate?.cardWillCreated(at: titleLabel.text ?? "해야할 일")
+        //        var section: Int
+        //        if titleLabel.text == "해야할 일" { section = 0}
+        //        else if titleLabel.text == "하고있는 일" { section = 1}
+        //        else { section = 2}
+        guard let section = tableHeaderID else { return }
+        self.delegate?.cardWillCreated(at: section)
     }
 }

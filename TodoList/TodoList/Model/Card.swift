@@ -14,12 +14,6 @@ struct Card: Codable{
     private(set) var content: String
     private(set) var createdDate: String
     
-    enum State: Int, Codable{
-        case todo = 1
-        case doing
-        case done
-    }
-    
     enum CodingKeys: String, CodingKey {
         case id
         case section
@@ -43,4 +37,10 @@ struct Card: Codable{
     mutating func changeDate(date: String){
         self.createdDate = date
     }
+}
+
+enum State: Int, Codable{
+    case todo = 1
+    case doing
+    case done
 }

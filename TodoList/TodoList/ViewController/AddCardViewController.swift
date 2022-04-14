@@ -9,6 +9,7 @@ import UIKit
 
 final class AddCardViewController: UIViewController {
     var addCardView: AddCardView!
+    var board: [Card]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +31,15 @@ private extension AddCardViewController{
 }
 
 extension AddCardViewController: AddCardDelegate{
-    func makeCardShoudCanceld() {
+    func makeCardShoudConfirmed(title: String, content: String) {
+        
         self.dismiss(animated: true, completion: nil)
     }
     
-    func makeCardShoudConfirmed() {
-        
+    func makeCardShoudCanceld() {
+        self.dismiss(animated: true, completion: nil)
     }
+
     
     
 }

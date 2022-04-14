@@ -24,7 +24,7 @@ final class TableViewController: UIViewController{
     let cardBoard: Board = Board()
 
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
-    
+    private var selectedSection: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +69,7 @@ private extension TableViewController{
     func configureSectionHeader(index: Int) -> TableHeader{
         let header = TableHeader()
         header.titleLabel.text = todo[index]
+        header.tableHeaderID = index
         
         if let indexPath = BoardSubscriptIndex(rawValue: index){
             header.numberLabel.text = String(cardBoard[indexPath].count)
@@ -148,12 +149,22 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    func createNewCard(title: String, body: String){
+        guard let sectionNumber = self.selectedSection else { return }
+        let section = BoardSubscriptIndex(rawValue: sectionNumber) ?? BoardSubscriptIndex.none
+        
+        // 만든 카드를 테이블뷰 셀 추가 & reload
+        todoTable[sectionNumber].reloadRows(at: [IndexPath(row: cardBoard[section].count - 1, section: 0)], with: .automatic)
+    }
 }
 
 extension TableViewController: TableHeaderDelegate{
-    func cardWillCreated(at section: String) {
+    func cardWillCreated(at section: Int){
         addCardViewController.modalPresentationStyle = .overCurrentContext
         addCardViewController.modalTransitionStyle = .crossDissolve
+        addCardViewController.board = cardBoard[BoardSubscriptIndex(rawValue: section) ?? BoardSubscriptIndex.none] // addCardVC 한테 해당하는 Board([Card]) 전달
         self.present(addCardViewController, animated: true, completion: nil)
+        selectedSection = section
     }
 }

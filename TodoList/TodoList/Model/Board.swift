@@ -49,6 +49,19 @@ final class Board{
             newCard.changeDate(date: subData[1])
         }
     }
+    
+    func addCard(_ card: Card, at section: BoardSubscriptIndex){
+        switch section {
+        case .todo:
+            todoCards.append(card)
+        case .doing:
+            doingCards.append(card)
+        case .done:
+            doneCards.append(card)
+        case .none:
+            return
+        }
+    }
 }
 
 private extension Board{
