@@ -5,7 +5,7 @@ import com.example.todolist.data.NewCard
 
 interface CardActionHandler {
 
-    fun addCard(card: NewCard)
+    fun addCard(newCard: NewCard)
 
     fun deleteCard(cardId: Int)
 

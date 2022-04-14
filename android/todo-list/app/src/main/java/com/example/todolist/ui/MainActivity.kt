@@ -11,7 +11,6 @@ import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.ui.common.ActionStatus
 import com.example.todolist.ui.common.TodoTouchHelper
 import com.example.todolist.ui.adapter.TodoAdapter
-import com.example.todolist.ui.common.CardActionHandler
 import com.example.todolist.ui.common.CardStatus
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
 
-    private val viewModel: TaskViewModel by viewModels()
+    private val viewModel: CardViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,33 +33,35 @@ class MainActivity : AppCompatActivity() {
         binding.rvDone.adapter = complete
         setOnClickMenu()
         setOnClickTodoAdd()
-
         val swipeHelperCallback = TodoTouchHelper()
         ItemTouchHelper(swipeHelperCallback).attachToRecyclerView(binding.rvTodo)
         ItemTouchHelper(swipeHelperCallback).attachToRecyclerView(binding.rvProgress)
         ItemTouchHelper(swipeHelperCallback).attachToRecyclerView(binding.rvDone)
 
-        viewModel.todoTaskList.observe(this) {
+        viewModel.todoCardList.observe(this) {
             todoAdapter.submitList(it.toList()) {
                 if (viewModel.actionStatus == ActionStatus.ADD) {
                     binding.rvTodo.smoothScrollToPosition(0)
                 }
+                binding.tvTodoBadge.text = it.size.toString()
             }
         }
 
-        viewModel.onGoingTaskList.observe(this) {
+        viewModel.onGoingCardList.observe(this) {
             ongoingAdapter.submitList(it.toList()) {
                 if (viewModel.actionStatus == ActionStatus.ADD) {
                     binding.rvTodo.smoothScrollToPosition(0)
                 }
+                binding.tvProgressBadge.text = it.size.toString()
             }
         }
 
-        viewModel.completeTaskList.observe(this) {
+        viewModel.completeCardList.observe(this) {
             complete.submitList(it.toList()) {
                 if (viewModel.actionStatus == ActionStatus.ADD) {
                     binding.rvDone.smoothScrollToPosition(0)
                 }
+                binding.tvDoneBadge.text = it.size.toString()
             }
 
         }

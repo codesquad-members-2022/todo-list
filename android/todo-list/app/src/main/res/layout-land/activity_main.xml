@@ -71,8 +71,7 @@
                 android:paddingBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_todo"
                 app:layout_constraintStart_toEndOf="@+id/tv_todo"
-                app:layout_constraintTop_toTopOf="@+id/tv_todo"
-                tools:text="2" />
+                app:layout_constraintTop_toTopOf="@+id/tv_todo" />
 
             <Button
                 android:id="@+id/btn_todo_add"
@@ -124,8 +123,7 @@
                 android:paddingBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_progress"
                 app:layout_constraintStart_toEndOf="@+id/tv_progress"
-                app:layout_constraintTop_toTopOf="@+id/tv_progress"
-                tools:text="2" />
+                app:layout_constraintTop_toTopOf="@+id/tv_progress" />
 
             <Button
                 android:id="@+id/btn_progress_add"
@@ -177,8 +175,7 @@
                 android:paddingBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_done"
                 app:layout_constraintStart_toEndOf="@+id/tv_done"
-                app:layout_constraintTop_toTopOf="@+id/tv_done"
-                tools:text="222" />
+                app:layout_constraintTop_toTopOf="@+id/tv_done" />
 
             <Button
                 android:id="@+id/btn_done_add"

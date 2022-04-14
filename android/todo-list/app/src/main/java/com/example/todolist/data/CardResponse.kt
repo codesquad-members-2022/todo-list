@@ -29,14 +29,14 @@ data class Ongoing(
     @SerializedName("cards")
     val cards: List<Card>?,
     @SerializedName("count")
-    val count: Any?
+    val count: Int?
 )
 
 data class Completed(
     @SerializedName("cards")
     val cards: List<Card>?,
     @SerializedName("count")
-    val count: Any?
+    val count: Int?
 )
 
 data class Card(
