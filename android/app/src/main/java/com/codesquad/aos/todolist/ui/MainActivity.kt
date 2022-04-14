@@ -77,6 +77,14 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
                 val cardEditDialogFragment = CardEditDialogFragment()
                 cardEditDialogFragment.arguments = args
                 cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
+            }, {
+                val preOrder = -1
+                val nextOrder = completeCardListAdapter.getFirstElementOrder()
+                val cardId = it
+                val prevSection = "todo"
+                val nextSection = "done"
+
+                viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
             })
 
         binding.rvTodo.adapter = todoCardListAdapter
@@ -117,6 +125,14 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
                 val cardEditDialogFragment = CardEditDialogFragment()
                 cardEditDialogFragment.arguments = args
                 cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
+            },  {
+                val preOrder = -1
+                val nextOrder = completeCardListAdapter.getFirstElementOrder()
+                val cardId = it
+                val prevSection = "doing"
+                val nextSection = "done"
+
+                viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
             })
 
         binding.rvProgress.adapter = progressCardListAdapter
@@ -155,6 +171,8 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
                 val cardEditDialogFragment = CardEditDialogFragment()
                 cardEditDialogFragment.arguments = args
                 cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
+            }, {
+                Log.d("AppTest", "이미 '완료한 일' 목록에 위치하고 있습니다")
             })
 
         binding.rvComplete.adapter = completeCardListAdapter

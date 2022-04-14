@@ -23,7 +23,7 @@ class TodoCardListAdapter(
     private val deleteTextClick: (deleteCardIndex: Int) -> Unit,  // 메인 액티비티에서 전달하는 메서드
     private val dataChangeListener: DataChangeListener,
     private val openEditDialog: (card: Card) -> Unit,
-    private val moveItemToComplete: (moveCard: Int) -> Unit
+    private val moveItemToComplete: (cardId: Int) -> Unit
 ) : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil), View.OnTouchListener {
 
     inner class CardViewHolder(val binding: ItemTodoCardBinding) :
@@ -69,6 +69,12 @@ class TodoCardListAdapter(
 
                 // 매인액티비티로 Card 객체 이동시키기
 
+                true
+            }
+            menu!!.getItem(0).setOnMenuItemClickListener {
+                Log.d("AppTest", "10 clicked")
+                // 수정하기
+                moveItemToComplete.invoke(getItem(this.absoluteAdapterPosition).cardId)
                 true
             }
             menu!!.getItem(1).setOnMenuItemClickListener {
