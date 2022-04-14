@@ -24,6 +24,7 @@ const getColumns = async () => {
 
 const getCards = async (columnIndex) => {
   const cards = await getMockData(`cards?columnId=${columnIndex}`);
+  cards.sort((a, b) => b.id - a.id);
   return cards;
 };
 
