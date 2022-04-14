@@ -1,17 +1,16 @@
 import { icons } from '../constants/constant.js';
 
-export const insertCardToColumn = (columnData, parent = document) => {
-  const columnElement = parent.querySelector(`.${columnData.className}`);
+export const insertCardToColumn = (column, parent = document) => {
+  const columnElement = parent.querySelector(`.${column.className}`);
   const cardList = columnElement.querySelector('.task__cards');
   const taskCount = columnElement.querySelector('.title-column__title__count');
-  taskCount.textContent = columnData.total;
-
-  columnData.tasks.forEach(task => {
+  taskCount.textContent = column.total;
+  column.tasks.forEach(task => {
     cardList.insertAdjacentHTML('beforeend', createCardTemplate(task));
   });
 };
 
-export const insertAllCardToColumn = (store = store.getStore('main'), parent = document.querySelector('.main')) => {
+export const insertAllCardToColumn = (parent, store) => {
   store.forEach(column => {
     insertCardToColumn(column, parent);
   });
@@ -19,7 +18,7 @@ export const insertAllCardToColumn = (store = store.getStore('main'), parent = d
 
 export const createCardTemplate = task => {
   return `
-    <li class="task__card" data-datetime=${task.datetime} data-id=${task.cardId}>
+    <li class="task__card" data-datetime=${task.datetime}>
     <div class="card__contents">
       <header class="card__contents__header">${task.header}</header>
       <main class="card__contents__main">${task.main}</main>
@@ -30,12 +29,4 @@ export const createCardTemplate = task => {
     </div>
   </li>
     `;
-};
-
-export const addNewCardToColumn = (column, taskData, totalCount) => {
-  const newTodo = createCardTemplate(taskData);
-  const cardList = column.querySelector('.task__cards');
-  const cardCount = column.querySelector('.title-column__title__count');
-  cardList.insertAdjacentHTML('afterbegin', newTodo);
-  cardCount.textContent = totalCount;
 };

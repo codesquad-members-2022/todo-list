@@ -1,27 +1,17 @@
 import { icons } from '../constants/constant.js';
 
-export const insertColumns = (store, parentElement = document.querySelector('.main')) => {
-  const columns = getAllColumns(store);
+export const insertColumns = (parentElement, store) => {
+  const columns = store.map(column => {
+    return createColumnTemplate(column.className, column.title);
+  });
   columns.forEach(column => {
-    parentElement.appendChild(column);
+    parentElement.insertAdjacentHTML('beforeend', column);
   });
-};
-
-const getAllColumns = store => {
-  return store.map(column => {
-    return createColumnElement(column.className, column.title);
-  });
-};
-
-const createColumnElement = (className, title) => {
-  const columnElement = document.createElement('div');
-  columnElement.classList.add('column', className);
-  columnElement.innerHTML = createColumnTemplate(className, title);
-  return columnElement;
 };
 
 const createColumnTemplate = (className, title) => {
   return `
+  <div class="column ${className}">
     <div class="title-column">
       <div class="title-column__title">
         <div class="title-column__title__text">${title}</div>
@@ -38,7 +28,6 @@ const createColumnTemplate = (className, title) => {
     </div>
     <ul class="task__cards">
     </ul>
+  </div>
   `;
 };
-
-const renderColumn = () => {};
