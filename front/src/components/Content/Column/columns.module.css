@@ -10,3 +10,7 @@
   display: flex;
   padding: 0 80px;
 }
+
+.visible {
+  display: flex;
+}
