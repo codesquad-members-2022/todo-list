@@ -31,7 +31,7 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.btnRegister.setOnClickListener {
+        binding.btnUpdate?.setOnClickListener {
             item.content= binding.editCardContent.text.toString()
             item.title= binding.editCardTitle.text.toString()
             when (item.type) {

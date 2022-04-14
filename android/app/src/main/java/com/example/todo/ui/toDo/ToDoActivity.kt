@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.R
 import com.example.todo.ui.action.ActionDiffCallback
@@ -15,6 +16,7 @@ import com.example.todo.databinding.ActivityTodoBinding
 import com.example.todo.model.*
 
 import com.example.todo.ui.action.ActionAdapter
+import com.example.todo.ui.common.ToDoTouchHelper
 import com.example.todo.ui.common.ViewModelFactory
 
 class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
@@ -123,6 +125,9 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
         doneAdapter = TodoAdapter(this,this,toDoViewModel,TodoDiffCallback())
         actionAdapter = ActionAdapter(ActionDiffCallback())
 
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvTodo)
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvInProgress)
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvDone)
         binding.rvTodo.adapter = todoAdapter
         binding.rvInProgress.adapter = inProgressAdapter
         binding.rvDone.adapter = doneAdapter
