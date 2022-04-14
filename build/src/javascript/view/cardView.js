@@ -1,4 +1,10 @@
-import { removeText, isTextLengthExceeded, hideElement } from "../util/util.js";
+import {
+  removeText,
+  isTextLengthExceeded,
+  hideElement,
+  throttle,
+  debounce,
+} from "../util/util.js";
 import {
   addServerCardData,
   updateServerCardData,
@@ -157,6 +163,7 @@ export function renderColumn(columnId, todos) {
   addCardsDragEvent($cards);
 }
 export function addmouseMoveEvent() {
+  const delayTime = 20;
   document.body.addEventListener("mousemove", (event) => {
     const $card = event.target.closest(".card");
     if (isDraggable && $card && dragStart) {
@@ -166,13 +173,21 @@ export function addmouseMoveEvent() {
       addCopiedCardEvent();
     }
     if ($card && isDraggable) {
-      shiftX = event.pageX - $card.offsetWidth / 2;
-      shiftY = event.pageY - $card.offsetHeight / 2;
-      moveAt($card);
+      debounce(function () {
+        moveCopiedCard(event);
+      }, delayTime)();
     }
   });
 }
 
+function moveCopiedCard(event) {
+  const $copiedCard = document.querySelector(".copied-card");
+  if (!$copiedCard) return;
+  shiftX = event.pageX - $copiedCard.offsetWidth / 2;
+  shiftY = event.pageY - $copiedCard.offsetHeight / 2;
+  moveAt($copiedCard);
+}
+// moveCopiedCard.bind(null, $card, event);
 function addCopiedCardEvent() {
   const $copiedCard = document.querySelector(".copied-card");
   $copiedCard.addEventListener("mouseup", () => {
