@@ -11,6 +11,7 @@ public class CardSaveResponse {
     private final String writer;
     private final String content;
     private final LocalDateTime createdAt;
+    private final Long position;
     private final CardType cardType;
 
     public CardSaveResponse(Card card) {
@@ -20,6 +21,7 @@ public class CardSaveResponse {
         this.content = card.getContent();
         this.createdAt = card.getCreatedAt();
         this.cardType = card.getCardType();
+        this.position = card.getPosition();
     }
 
     public Long getId() {
@@ -36,6 +38,10 @@ public class CardSaveResponse {
 
     public String getContent() {
         return content;
+    }
+
+    public Long getPosition() {
+        return position;
     }
 
     public LocalDateTime getCreatedAt() {

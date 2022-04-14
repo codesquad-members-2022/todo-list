@@ -90,7 +90,6 @@ public class CardDto implements Serializable {
         return memberId;
     }
 
-
     public Long getMaxPositionNumber() {
         return maxPositionNumber;
     }

@@ -5,6 +5,7 @@ import com.example.backend.domain.card.Card;
 import com.example.backend.repository.card.CardRepository;
 import com.example.backend.repository.card.CardRepositoryHelper;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,12 +25,14 @@ import javax.sql.DataSource;
 @Repository
 public class CardJdbcRepository implements CardRepository {
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final CardRepositoryHelper repositoryHelper;
 
-    public CardJdbcRepository(DataSource dataSource) {
-        this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-        this.repositoryHelper = new CardRepositoryHelper();
+    public CardJdbcRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, CardRepositoryHelper repositoryHelper) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.repositoryHelper = repositoryHelper;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class CardJdbcRepository implements CardRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         Map<String, Object> params = repositoryHelper.getParams(card);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
-        jdbcTemplate.update(query, mapSqlParameterSource, keyHolder);
+        namedParameterJdbcTemplate.update(query, mapSqlParameterSource, keyHolder);
         long key = keyHolder.getKey().longValue();
         return new Card(key, card.getWriter(), card.getPosition(), card.getTitle(), card.getContent(), card.getCardType(), LocalDateTime.now(), card.getLastModifiedAt(), card.isVisible(), card.getMemberId());
     }
@@ -58,7 +61,7 @@ public class CardJdbcRepository implements CardRepository {
                 "member_id " +
                 "from card where visible = true";
         RowMapper<Card> mapper = repositoryHelper.getMapper();
-        return jdbcTemplate.query(query, mapper);
+        return namedParameterJdbcTemplate.query(query, mapper);
     }
 
     @Override
@@ -76,12 +79,12 @@ public class CardJdbcRepository implements CardRepository {
                 "from card where id = :id";
         Map<String, Object> params = Collections.singletonMap("id", id);
         RowMapper<Card> mapper = repositoryHelper.getMapper();
-        return Optional.ofNullable(jdbcTemplate.queryForObject(query, params, mapper));
+        return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, mapper));
     }
 
     @Override
     public Card update(Card card) {
-        String query = "update card set title=:title, content=:content, position=:position, card_type=:cardType, last_modified_at=:lastModifiedAt where id=:id";
+        String query = "UPDATE card SET title=:title, content=:content, card_type=:cardType, position=:position, last_modified_at=:lastModifiedAt where id=:id";
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
                 .addValue("id", card.getId())
                 .addValue("title", card.getTitle())
@@ -89,7 +92,7 @@ public class CardJdbcRepository implements CardRepository {
                 .addValue("position", card.getPosition())
                 .addValue("cardType", card.getCardType().toString())
                 .addValue("lastModifiedAt", card.getLastModifiedAt());
-        jdbcTemplate.update(query, sqlParameterSource);
+        namedParameterJdbcTemplate.update(query, sqlParameterSource);
         return card;
     }
 
@@ -97,6 +100,6 @@ public class CardJdbcRepository implements CardRepository {
     public void delete(Long id) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
         String query = "update card set visible=false where id=:id";
-        jdbcTemplate.update(query, namedParameters);
+        namedParameterJdbcTemplate.update(query, namedParameters);
     }
 }

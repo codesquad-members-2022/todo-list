@@ -5,12 +5,14 @@ import static com.example.backend.utils.TimeUtils.dateTimeOf;
 import com.example.backend.domain.card.Card;
 
 import com.example.backend.domain.card.CardType;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+@Configuration
 public class CardRepositoryHelper {
 
     private static RowMapper<Card> mapper = (rs, rowNum) ->

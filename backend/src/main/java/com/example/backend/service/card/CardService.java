@@ -43,13 +43,8 @@ public class CardService {
     }
 
     public Card updateCard(Long id, CardDto cardDto) {
-<<<<<<< HEAD
         Card card = cardRepository.findById(id).orElseThrow();
-        card.updateCard(cardDto.getTitle(), cardDto.getContent());
-=======
-        Card card = findById(id);
-        card.updated(cardDto);
->>>>>>> 77d70b02a4af6143070b31c7f862cb6cfc1ce37f
+        card.updateCard(cardDto.getTitle(), cardDto.getContent(), cardDto.getCardType(), cardDto.getMaxPositionNumber());
         return cardRepository.update(card);
     }
 
