@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
-    var delegate: MainViewControllerDelegate?
+    weak var delegate: MainViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

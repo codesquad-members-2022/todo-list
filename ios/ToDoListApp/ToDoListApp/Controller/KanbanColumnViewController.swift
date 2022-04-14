@@ -15,7 +15,7 @@ class KanbanColumnViewController: UIViewController {
     
     private let type: KanbanType
     
-    var delegate: KanbanColumnViewControllerDelegate?
+    weak var delegate: KanbanColumnViewControllerDelegate?
     
     init(type: KanbanType) {
         self.type = type

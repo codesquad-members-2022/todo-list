@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol KanbanColumnViewControllerDelegate {
+protocol KanbanColumnViewControllerDelegate: AnyObject {
     func didTapAddButton()
 }
