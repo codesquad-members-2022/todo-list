@@ -73,8 +73,8 @@ public class JdbcCardRepository implements CardRepository {
 
 			//활동 로그 기록
 			String sqlForActionLog = "INSERT INTO card_action_log "
-				+ "(created_at, card_id, member_id, card_action_code_id) "
-				+ "VALUES (:modifiedAt, :id, :memberId, 1)";
+				+ "(created_at, card_id, member_id, card_action_code_id, current_section) "
+				+ "VALUES (:modifiedAt, :id, :memberId, 1, :section)";
 			int logResult = jdbcTemplate.update(sqlForActionLog, namedParameters);
 
 			transactionManager.commit(transactionStatus);
