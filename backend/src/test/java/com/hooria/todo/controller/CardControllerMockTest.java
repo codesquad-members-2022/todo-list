@@ -12,10 +12,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hooria.todo.domain.Card;
 import com.hooria.todo.domain.Device;
 import com.hooria.todo.domain.Status;
-import com.hooria.todo.dto.AddCardParam;
+import com.hooria.todo.dto.AddCardRequest;
 import com.hooria.todo.dto.CardResponse;
-import com.hooria.todo.dto.UpdateCardLayoutParam;
-import com.hooria.todo.dto.UpdateCardParam;
+import com.hooria.todo.dto.UpdateCardLayoutRequest;
+import com.hooria.todo.dto.UpdateCardRequest;
 import com.hooria.todo.service.CardService;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -75,7 +75,7 @@ class CardControllerMockTest {
     void addCard() throws Exception {
         //given
         LocalDateTime now = LocalDateTime.now();
-        AddCardParam newCard = new AddCardParam("TODO", "add test title", "add test content", "userId1", "IOS");
+        AddCardRequest newCard = new AddCardRequest("TODO", "add test title", "add test content", "userId1", "IOS");
         Card expectedCard = new Card(4, Status.TODO, "add test title", "add test content", "userId1",
             Device.IOS, now, now, false, 0);
         CardResponse expected = expectedCard.toCardResponse();
@@ -129,7 +129,7 @@ class CardControllerMockTest {
         //given
         long id = 1;
         LocalDateTime now = LocalDateTime.now();
-        UpdateCardParam updateCard = new UpdateCardParam(
+        UpdateCardRequest updateCard = new UpdateCardRequest(
             "MOVE",
             id,
             "title1",
@@ -167,9 +167,9 @@ class CardControllerMockTest {
     void updateCardsLayout() throws Exception {
         //given
         String datetime = "2022-04-10T00:00:00";
-        List<UpdateCardLayoutParam> updateCard = List.of(
-            new UpdateCardLayoutParam(1, 9),
-            new UpdateCardLayoutParam(2, 8)
+        List<UpdateCardLayoutRequest> updateCard = List.of(
+            new UpdateCardLayoutRequest(1, 9),
+            new UpdateCardLayoutRequest(2, 8)
         );
         List<CardResponse> cards = List.of(
             new CardResponse(1, "TODO", "title1", "content1", "userId1", "WEB", datetime, datetime,

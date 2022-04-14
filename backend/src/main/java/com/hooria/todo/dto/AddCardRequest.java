@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddCardParam {
+public class AddCardRequest {
 
     private String status;
     private String title;

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCardLayoutParam {
+public class UpdateCardLayoutRequest {
 
     private long id;
     private int rowPosition;
@@ -21,7 +21,7 @@ public class UpdateCardLayoutParam {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UpdateCardLayoutParam that = (UpdateCardLayoutParam) o;
+        UpdateCardLayoutRequest that = (UpdateCardLayoutRequest) o;
         return id == that.id && rowPosition == that.rowPosition;
     }
 

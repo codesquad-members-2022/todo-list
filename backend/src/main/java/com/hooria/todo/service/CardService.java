@@ -2,10 +2,10 @@ package com.hooria.todo.service;
 
 import com.hooria.todo.aop.ExcludeLogging;
 import com.hooria.todo.domain.Card;
-import com.hooria.todo.dto.AddCardParam;
+import com.hooria.todo.dto.AddCardRequest;
 import com.hooria.todo.dto.CardResponse;
-import com.hooria.todo.dto.UpdateCardLayoutParam;
-import com.hooria.todo.dto.UpdateCardParam;
+import com.hooria.todo.dto.UpdateCardLayoutRequest;
+import com.hooria.todo.dto.UpdateCardRequest;
 import com.hooria.todo.repository.CardRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,8 +25,8 @@ public class CardService {
             .collect(Collectors.toList());
     }
 
-    public CardResponse add(AddCardParam addCardParam) {
-        Card newCard = addCardParam.toEntity();
+    public CardResponse add(AddCardRequest addCardRequest) {
+        Card newCard = addCardRequest.toEntity();
         long addedId = cardRepository.add(newCard);
         return cardRepository.findById(addedId)
             .map(Card::toCardResponse)
@@ -40,16 +40,16 @@ public class CardService {
             .orElseThrow();
     }
 
-    public CardResponse update(UpdateCardParam updateCardParam) {
-        Card updatedCard = updateCardParam.toEntity();
+    public CardResponse update(UpdateCardRequest updateCardRequest) {
+        Card updatedCard = updateCardRequest.toEntity();
         long updatedId = cardRepository.update(updatedCard);
         return cardRepository.findById(updatedId)
             .map(Card::toCardResponse)
             .orElseThrow();
     }
 
-    public List<CardResponse> updateCardsLayout(List<UpdateCardLayoutParam> updateCardLayoutParams) {
-        for (UpdateCardLayoutParam updateCardLayoutParam : updateCardLayoutParams) {
+    public List<CardResponse> updateCardsLayout(List<UpdateCardLayoutRequest> updateCardLayoutRequests) {
+        for (UpdateCardLayoutRequest updateCardLayoutParam : updateCardLayoutRequests) {
             cardRepository.updateRowPositionById(updateCardLayoutParam.getId(), updateCardLayoutParam.getRowPosition());
         }
         return selectAll();

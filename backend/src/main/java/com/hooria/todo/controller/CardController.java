@@ -1,9 +1,9 @@
 package com.hooria.todo.controller;
 
-import com.hooria.todo.dto.AddCardParam;
+import com.hooria.todo.dto.AddCardRequest;
 import com.hooria.todo.dto.CardResponse;
-import com.hooria.todo.dto.UpdateCardParam;
-import com.hooria.todo.dto.UpdateCardLayoutParam;
+import com.hooria.todo.dto.UpdateCardRequest;
+import com.hooria.todo.dto.UpdateCardLayoutRequest;
 import com.hooria.todo.service.CardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -38,7 +38,7 @@ public class CardController {
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
-            name = "addCardParam",
+            name = "addCardRequest",
             value = "새로운 타스크"
         )
     })
@@ -47,8 +47,8 @@ public class CardController {
         @ApiResponse(code = 500, message = "서버 에러"),
     })
     @PostMapping
-    public CardResponse addCard(@RequestBody AddCardParam addCardParam) {
-        return cardService.add(addCardParam);
+    public CardResponse addCard(@RequestBody AddCardRequest addCardRequest) {
+        return cardService.add(addCardRequest);
     }
 
     @ApiOperation(
@@ -74,7 +74,7 @@ public class CardController {
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
-            name = "updateCardParam",
+            name = "updateCardRequest",
             value = "새로운 할 일"
         )
     })
@@ -83,8 +83,8 @@ public class CardController {
         @ApiResponse(code = 500, message = "서버 에러"),
     })
     @PatchMapping("/{id}")
-    public CardResponse updateCard(@RequestBody UpdateCardParam updateCardParam) {
-        return cardService.update(updateCardParam);
+    public CardResponse updateCard(@RequestBody UpdateCardRequest updateCardRequest) {
+        return cardService.update(updateCardRequest);
     }
 
     @ApiOperation(
@@ -116,7 +116,7 @@ public class CardController {
     )
     @ApiImplicitParams({
         @ApiImplicitParam(
-            name = "updateCardLayoutParams",
+            name = "updateCardLayoutRequests",
             value = "새로운 할 일"
         )
     })
@@ -125,7 +125,7 @@ public class CardController {
         @ApiResponse(code = 500, message = "서버 에러"),
     })
     @PatchMapping("/layout")
-    public List<CardResponse> updateCardsLayout(@RequestBody List<UpdateCardLayoutParam> updateCardLayoutParams) {
-        return cardService.updateCardsLayout(updateCardLayoutParams);
+    public List<CardResponse> updateCardsLayout(@RequestBody List<UpdateCardLayoutRequest> updateCardLayoutRequests) {
+        return cardService.updateCardsLayout(updateCardLayoutRequests);
     }
 }
