@@ -2,26 +2,29 @@
 package com.example.todo.ui.toDo
 
 
+import android.content.ClipData
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.os.Build
+import android.view.*
 import android.widget.PopupMenu
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.databinding.TodoItemBinding
 import com.example.todo.model.TodoItem
+import com.example.todo.ui.common.DragListener
+import com.example.todo.ui.common.ToDoMoveListener
 
 class TodoAdapter(
     private val context: Context,
     private val listener: UpdateDialogListener,
+    private val toDoMoveListener: ToDoMoveListener,
     private val viewModel: ToDoViewModel,
     todoDiffCallback: DiffUtil.ItemCallback<TodoItem>
 ) :
-    ListAdapter<TodoItem, TodoAdapter.ViewHolder>(todoDiffCallback) {
+    ListAdapter<TodoItem, TodoAdapter.ViewHolder>(todoDiffCallback),View.OnTouchListener  {
 
 
     interface UpdateDialogListener {
@@ -39,7 +42,11 @@ class TodoAdapter(
                 displayPopupMenu(it)
                 true
             }
+            itemViewBinding.deleteView.setOnClickListener {
+                viewModel.deleteItem(cardItem)
+            }
 
+        }
         private fun displayPopupMenu(view: View) {
             val popupMenu = PopupMenu(context, view)
             popupMenu.menuInflater.inflate(R.menu.menu_popup, popupMenu.menu)
@@ -55,7 +62,25 @@ class TodoAdapter(
             }
             return true
         }
+
+
     }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        when (event?.action) {
+            MotionEvent.ACTION_DOWN -> {
+                val data = ClipData.newPlainText("", "")
+                val shadowBuilder = View.DragShadowBuilder(v)
+                v?.startDragAndDrop(data, shadowBuilder, v, 0)
+                return true
+            }
+        }
+        return false
+    }
+
+    val dragInstance: DragListener?
+        get() = DragListener(toDoMoveListener)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = TodoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -64,6 +89,9 @@ class TodoAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.tag= position
+        holder.itemView.setOnTouchListener(this)
+        holder.itemView.setOnDragListener(DragListener(toDoMoveListener))
     }
 
 }

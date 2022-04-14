@@ -32,7 +32,7 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.btnRegister.setOnClickListener {
+        binding.btnRegister?.setOnClickListener {
             val copy = item.copy()
             copy.content = binding.editCardContent.text.toString()
             copy.title = binding.editCardTitle.text.toString()
@@ -78,7 +78,7 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
     }
 
     private fun validationFlagCheck() {
-        binding.btnRegister.isEnabled = titleValidationFlag && contentValidationFlag
+        binding.btnRegister?.isEnabled = titleValidationFlag && contentValidationFlag
 
     }
 

@@ -16,10 +16,11 @@ import com.example.todo.databinding.ActivityTodoBinding
 import com.example.todo.model.*
 
 import com.example.todo.ui.action.ActionAdapter
+import com.example.todo.ui.common.ToDoMoveListener
 import com.example.todo.ui.common.ToDoTouchHelper
 import com.example.todo.ui.common.ViewModelFactory
 
-class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
+class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener, ToDoMoveListener {
 
     private lateinit var binding: ActivityTodoBinding
     private lateinit var todoAdapter: TodoAdapter
@@ -74,55 +75,10 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
         return super.onOptionsItemSelected(item)
     }
 
-//    private fun addDummyDataInRecyclerView() {
-//        val todoList = mutableListOf<TodoItem>()
-//        val inProgressList = mutableListOf<TodoItem>()
-//        val doneList = mutableListOf<TodoItem>()
-//        val actionList = mutableListOf<ActionLog>()
-//
-//        val todo1 = TodoItem("one", "title", "content", ProgressType.TO_DO)
-//        val todo2 = TodoItem("two", "title2", "content2\ncontentcontent", ProgressType.TO_DO)
-//        val todo3 = TodoItem(
-//            "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
-//        )
-//
-//        val action1 = ActionLog(
-//            "one",
-//            ActionType.ADD,
-//            "2022-04-07 12:00:01",
-//            ProgressType.TO_DO,
-//            ProgressType.IN_PROGRESS
-//        )
-//        val action2 = ActionLog(
-//            "one",
-//            ActionType.ADD,
-//            "2022-04-07 10:00:01",
-//            ProgressType.TO_DO,
-//            ProgressType.IN_PROGRESS
-//        )
-//        val action3 = ActionLog(
-//            "one",
-//            ActionType.ADD,
-//            "2022-04-05 09:00:01",
-//            ProgressType.TO_DO,
-//            ProgressType.IN_PROGRESS
-//        )
-//
-//        todoList.addAll(mutableListOf(todo1, todo2, todo3))
-//        inProgressList.addAll(mutableListOf(todo2, todo3, todo1))
-//        doneList.addAll(mutableListOf(todo1, todo3, todo1))
-//        actionList.addAll(mutableListOf(action1, action2, action3))
-//
-//        todoAdapter.submitList(todoList)
-//        inProgressAdapter.submitList(inProgressList)
-//        doneAdapter.submitList(doneList)
-//        actionAdapter.submitList(actionList)
-//    }
-
     private fun initializeRecyclerViews() {
-        todoAdapter = TodoAdapter(this,this,toDoViewModel, TodoDiffCallback())
-        inProgressAdapter = TodoAdapter(this,this,toDoViewModel,TodoDiffCallback())
-        doneAdapter = TodoAdapter(this,this,toDoViewModel,TodoDiffCallback())
+        todoAdapter = TodoAdapter(this, this, this, toDoViewModel, TodoDiffCallback())
+        inProgressAdapter = TodoAdapter(this, this, this,toDoViewModel, TodoDiffCallback())
+        doneAdapter = TodoAdapter(this, this, this,toDoViewModel, TodoDiffCallback())
         actionAdapter = ActionAdapter(ActionDiffCallback())
 
         ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvTodo)
@@ -164,6 +120,11 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
            // binding.todoTitleViewTodo.count.text = it?.size.toString()
         }
 
+
+        binding.rvTodo.setOnDragListener(todoAdapter.dragInstance)
+        binding.rvInProgress.setOnDragListener(inProgressAdapter.dragInstance)
+        binding.rvDone.setOnDragListener(doneAdapter.dragInstance)
+
     }
 
     companion object {
@@ -172,5 +133,37 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
 
     override fun updateDialog(item: TodoItem) {
         UpdateToDoDialog(item).show(supportFragmentManager, "update")
+    }
+
+    override fun swapData(rvType: ProgressType, sourceIndex: Int, targetIndex: Int) {
+        when(rvType){
+//            ProgressType.TO_DO-> toDoViewModel.swapTodoItem(sourceIndex, targetIndex)
+//            ProgressType.IN_PROGRESS-> toDoViewModel.swapInProgressItem(sourceIndex,targetIndex)
+//            ProgressType.DONE-> toDoViewModel.swapDoneItem(sourceIndex,targetIndex)
+        }
+    }
+
+    override fun addDataAtEnd(rvType: ProgressType, item: TodoItem) {
+        when(rvType){
+            ProgressType.TO_DO-> toDoViewModel.addTodoItem(item)
+            ProgressType.IN_PROGRESS-> toDoViewModel.addInProgressItem(item)
+            ProgressType.DONE-> toDoViewModel.addDoneItem(item)
+        }
+    }
+
+    override fun addDataAtInx(rvType: ProgressType, targetIndex: Int, item: TodoItem) {
+        when(rvType){
+//            ProgressType.TO_DO-> toDoViewModel.addTodoItemAtIndex(item, targetIndex)
+//            ProgressType.IN_PROGRESS-> toDoViewModel.addInProgressItemAtIndex(item, targetIndex)
+//            ProgressType.DONE-> toDoViewModel.addDoneItemAtIndex(item, targetIndex)
+        }
+    }
+
+    override fun deleteData(rvType: ProgressType, item: TodoItem) {
+        when (rvType) {
+//            ProgressType.TO_DO -> toDoViewModel.deleteTodoItem(item)
+//            ProgressType.IN_PROGRESS -> toDoViewModel.deleteInProgressItem(item)
+//            ProgressType.DONE -> toDoViewModel.deleteDoneItem(item)
+        }
     }
 }
