@@ -33,11 +33,11 @@ public class CardService {
         return card;
     }
 
-    public Map<CardType, List<CardSaveResponse>> findAll() {
+    public Map<CardType, List<CardReadResponse>> findAll() {
         List<Card> cards = cardRepository.findAll();
         return cards.stream()
-                .map(CardSaveResponse::new)
-                .collect(groupingBy(CardSaveResponse::getCardType, toList()));
+                .map(CardReadResponse::new)
+                .collect(groupingBy(CardReadResponse::getCardType, toList()));
     }
 
 

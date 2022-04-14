@@ -4,6 +4,7 @@ import static com.example.backend.utils.TimeUtils.dateTimeOf;
 
 import com.example.backend.domain.card.Card;
 
+import com.example.backend.domain.card.CardType;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class CardRepositoryHelper {
                     rs.getLong("position"),
                     rs.getString("title"),
                     rs.getString("content"),
-                    rs.getString("card_type"),
+                    CardType.valueOf(rs.getString("card_type")),
                     dateTimeOf(rs.getTimestamp("created_at")),
                     dateTimeOf(rs.getTimestamp("last_modified_at")),
                     rs.getBoolean("visible"),

@@ -5,6 +5,7 @@ import com.example.backend.controller.card.dto.CardDto;
 import com.example.backend.controller.card.dto.CardSaveResponse;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
+import com.example.backend.service.card.CardReadResponse;
 import com.example.backend.service.card.CardService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,9 +33,9 @@ public class CardController {
     }
 
     @PostMapping
-    public ApiResult<CardDto> writeCard(@RequestBody @Valid CardDto cardDto) {
+    public ApiResult<CardSaveResponse> writeCard(@RequestBody @Valid CardDto cardDto) {
         Card card = cardService.writeCard(cardDto);
-        return ApiResult.OK(new CardDto(card));
+        return ApiResult.OK(new CardSaveResponse(card));
     }
 
     @GetMapping("{id}")
@@ -44,7 +45,7 @@ public class CardController {
     }
 
     @GetMapping
-    public ApiResult<Map<CardType, List<CardSaveResponse>>> getCards() {
+    public ApiResult<Map<CardType, List<CardReadResponse>>> getCards() {
         return ApiResult.OK(cardService.findAll());
     }
 

@@ -34,13 +34,14 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Card save(Card card) {
-        String query = "insert card (card_id, writer, position, title, content, card_type, created_at, last_modified_at, `visible`, member_id)" +
-                "values (:id, :writer, :position, :title, :content, :cardType, :createdAt, :lastModifiedAt, :visible, :memberId)";
+        String query = "INSERT card (card_id, writer, position, title, content, card_type, created_at, last_modified_at, `visible`, member_id)" +
+                "VALUES (:id, :writer, :position, :title, :content, :cardType, :createdAt, :lastModifiedAt, :visible, :memberId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         Map<String, Object> params = repositoryHelper.getParams(card);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
         jdbcTemplate.update(query, mapSqlParameterSource, keyHolder);
-        return card;
+        long key = keyHolder.getKey().longValue();
+        return new Card(key, card.getWriter(), card.getPosition(), card.getTitle(), card.getContent(), card.getCardType(), LocalDateTime.now(), card.getLastModifiedAt(), card.isVisible(), card.getMemberId());
     }
 
     @Override
@@ -80,7 +81,7 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Card update(Card card) {
-        String query = "update todo_list.card set title=:title, content=:content, last_modified_at=:lastModifiedAt where id=:id";
+        String query = "update card set title=:title, content=:content, last_modified_at=:lastModifiedAt where id=:id";
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
                 .addValue("id", card.getId())
                 .addValue("title", card.getTitle())
@@ -93,7 +94,7 @@ public class CardJdbcRepository implements CardRepository {
     @Override
     public void delete(Long id) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-        String query = "update todo_list.card set visible=false where card_id=:id";
+        String query = "update card set visible=false where card_id=:id";
         jdbcTemplate.update(query, namedParameters);
     }
 }

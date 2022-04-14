@@ -1,11 +1,11 @@
-package com.example.backend.controller.card.dto;
+package com.example.backend.service.card;
 
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 
 import java.time.LocalDateTime;
 
-public class CardSaveResponse {
+public class CardReadResponse {
     private final Long id;
     private final String title;
     private final String writer;
@@ -13,7 +13,7 @@ public class CardSaveResponse {
     private final LocalDateTime createdAt;
     private final CardType cardType;
 
-    public CardSaveResponse(Card card) {
+    public CardReadResponse(Card card) {
         this.id = card.getId();
         this.title = card.getTitle();
         this.writer = card.getWriter();

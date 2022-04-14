@@ -29,13 +29,13 @@ public class Card {
         this.content = content;
     }
 
-    public Card(long id, String writer, Long position, String title, String content, String cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt, boolean visible, long memberId) {
+    public Card(long id, String writer, Long position, String title, String content, CardType cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt, boolean visible, long memberId) {
         this.id = id;
         this.writer = writer;
         this.position = position;
         this.title = title;
         this.content = content;
-        this.cardType = CardType.valueOf(cardType);
+        this.cardType = cardType;
         this.createdAt = createdAt;
         this.lastModifiedAt = lastModifiedAt;
         this.visible = true;
@@ -81,5 +81,6 @@ public class Card {
     public Long getMemberId() {
         return memberId;
     }
+
 }
 
