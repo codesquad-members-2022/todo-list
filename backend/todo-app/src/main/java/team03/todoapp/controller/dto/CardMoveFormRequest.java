@@ -9,6 +9,9 @@ public class CardMoveFormRequest {
     private Long prevItemId;
     private Long nextItemId;
 
+    public CardMoveFormRequest() {
+    }
+
     public CardMoveFormRequest(String destinationLocation, Long prevItemId, Long nextItemId) {
         this.destinationLocation = destinationLocation;
         this.prevItemId = prevItemId;

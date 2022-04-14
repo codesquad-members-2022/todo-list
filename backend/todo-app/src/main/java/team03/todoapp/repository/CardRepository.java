@@ -1,7 +1,6 @@
 package team03.todoapp.repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import team03.todoapp.controller.CardLocation;
 import team03.todoapp.controller.dto.CardMoveFormRequest;
 import team03.todoapp.repository.domain.Card;
 
@@ -54,13 +54,14 @@ public class CardRepository {
         String updateNextCardOfLastCardSQL = "update card set next_id = ? where card_id = ?";
 
         Integer lastCardId = DataAccessUtils.singleResult(
-            jdbcTemplate.queryForList(getLastCardIdSQL, Integer.class, card.getCurrentLocation()));
+            jdbcTemplate.queryForList(getLastCardIdSQL, Integer.class,
+                card.getCurrentLocation().name()));
 
         Map<String, Object> params = new HashMap<>();
         params.put("title", card.getTitle());
         params.put("content", card.getContent());
         params.put("writer", card.getWriter());
-        params.put("current_location", card.getCurrentLocation());
+        params.put("current_location", card.getCurrentLocation().name());
         params.put("upload_date", card.getUploadDateTime());
         params.put("is_deleted", card.getIsDeleted());
         params.put("next_id", null);
@@ -168,30 +169,33 @@ public class CardRepository {
     }
 
     public Optional<Card> findById(Long cardId) {
+
         String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, is_deleted from card where card_id = ? and is_deleted = false";
-        Card card = jdbcTemplate.queryForObject(sql, getCardRowMapper(), cardId);
+
+        Card card = DataAccessUtils.singleResult(
+            jdbcTemplate.query(sql, getCardRowMapper(), cardId));
+
         return Optional.ofNullable(card);
     }
 
     public List<Card> findAll() {
-        try {
-            String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, is_deleted from card where is_deleted = false";
-            return jdbcTemplate.query(sql, getCardRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            log.debug("e: {}", e);
-        }
+        String sql = "select card_id, title, content, writer, current_location, upload_date, next_id, is_deleted from card where is_deleted = false";
+        return jdbcTemplate.query(sql, getCardRowMapper());
+    }
 
-        return new ArrayList<>();
+    public void deleteAll() {
+        jdbcTemplate.update("delete from card");
     }
 
     private RowMapper<Card> getCardRowMapper() {
-        return (rs, rowNum) -> new Card(
-            rs.getLong("card_id"),
-            rs.getString("title"),
-            rs.getString("content"),
-            rs.getString("writer"),
-            rs.getString("current_location"),
-            rs.getObject("upload_date", LocalDateTime.class),
-            rs.getLong("next_id"));
+        return (rs, rowNum) ->
+            new Card(
+                rs.getLong("card_id"),
+                rs.getString("title"),
+                rs.getString("content"),
+                rs.getString("writer"),
+                CardLocation.valueOf(rs.getString("current_location")),
+                rs.getObject("upload_date", LocalDateTime.class),
+                rs.getLong("next_id"));
     }
 }

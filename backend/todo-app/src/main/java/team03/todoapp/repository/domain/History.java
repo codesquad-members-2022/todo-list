@@ -2,10 +2,10 @@ package team03.todoapp.repository.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 import java.util.Optional;
 
 public class History {
+
     private Long historyId;
     private String actionType;
     private String cardTitle;
@@ -13,7 +13,8 @@ public class History {
     private String nowLocation;
     private LocalDateTime historyDateTime;
 
-    public History(Long historyId, String actionType, String cardTitle, String pastLocation, String nowLocation, LocalDateTime historyDateTime) {
+    public History(Long historyId, String actionType, String cardTitle, String pastLocation,
+        String nowLocation, LocalDateTime historyDateTime) {
         this.historyId = historyId;
         this.actionType = actionType;
         this.cardTitle = cardTitle;
@@ -22,7 +23,8 @@ public class History {
         this.historyDateTime = historyDateTime;
     }
 
-    public History(String actionType, String cardTitle, Optional<String> pastLocation, String nowLocation, LocalDateTime historyDateTime) {
+    public History(String actionType, String cardTitle, Optional<String> pastLocation,
+        String nowLocation, LocalDateTime historyDateTime) {
         this.actionType = actionType;
         this.cardTitle = cardTitle;
         this.pastLocation = pastLocation.orElse(null);

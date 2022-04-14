@@ -56,7 +56,7 @@ public class CardController {
             httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        String pastLocation = cardService.findOne(cardId).getCurrentLocation();
+        CardLocation pastLocation = cardService.findOne(cardId).getCurrentLocation();
         cardService.move(cardId, cardMoveFormRequest);
         putHistoryDataToRequest(request, "move", pastLocation, cardService.findOne(cardId));
     }
@@ -74,7 +74,7 @@ public class CardController {
     }
 
     private void putHistoryDataToRequest(HttpServletRequest request, String actionType,
-        String pastLocation, Card card) {
+        CardLocation pastLocation, Card card) {
         request.setAttribute("actionType", actionType);
         request.setAttribute("cardTitle", card.getTitle());
         request.setAttribute("pastLocation", pastLocation);
