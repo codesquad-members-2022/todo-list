@@ -17,7 +17,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import team03.todoapp.controller.CardLocation;
-import team03.todoapp.controller.dto.CardMoveFormRequest;
 import team03.todoapp.repository.domain.Card;
 
 @Repository
@@ -133,7 +132,7 @@ public class CardRepository {
         String SQL = "select card_id from card where next_id = ?";
         Long findCardId = null;
         try {
-            findCardId =  jdbcTemplate.queryForObject(SQL, Long.class, cardId);
+            findCardId = jdbcTemplate.queryForObject(SQL, Long.class, cardId);
         } catch (EmptyResultDataAccessException e) { // 반환값이 없으면 findCardId null 유지
             log.debug("empty beforePrevId :{}", e);
         }
@@ -144,7 +143,7 @@ public class CardRepository {
         String SQL = "select next_id from card where card_id = ?";
         Long findNextId = null;
         try {
-            findNextId =  jdbcTemplate.queryForObject(SQL, Long.class, cardId);
+            findNextId = jdbcTemplate.queryForObject(SQL, Long.class, cardId);
         } catch (EmptyResultDataAccessException e) { // 반환값이 없으면 findNextId null 유지
             log.debug("empty beforePrevId :{}", e);
         }
@@ -187,4 +186,5 @@ public class CardRepository {
                 rs.getObject("upload_date", LocalDateTime.class),
                 rs.getLong("next_id"));
     }
+
 }

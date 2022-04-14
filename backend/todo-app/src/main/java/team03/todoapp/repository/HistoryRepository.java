@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import team03.todoapp.controller.CardLocation;
 import team03.todoapp.repository.domain.History;
 
 @Repository
@@ -26,8 +27,8 @@ public class HistoryRepository {
             rs.getLong("history_id"),
             rs.getString("action_type"),
             rs.getString("card_title"),
-            rs.getString("past_location"),
-            rs.getString("now_location"),
+            CardLocation.valueOf(rs.getString("past_location")),
+            CardLocation.valueOf(rs.getString("now_location")),
             rs.getObject("history_date", LocalDateTime.class)
         );
 
@@ -43,8 +44,8 @@ public class HistoryRepository {
         Map<String, Object> params = new HashMap<>();
         params.put("action_type", history.getActionType());
         params.put("card_title", history.getCardTitle());
-        params.put("past_location", history.getPastLocation());
-        params.put("now_location", history.getNowLocation());
+        params.put("past_location", history.getPastLocation().name());
+        params.put("now_location", history.getNowLocation().name());
         params.put("history_date", history.getHistoryDateTime());
         return simpleJdbcInsert.executeAndReturnKey(params).longValue();
     }
