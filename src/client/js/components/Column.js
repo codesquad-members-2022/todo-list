@@ -41,7 +41,6 @@ class Column extends Component {
     renderCards({
       container: this.$target.querySelector('.column-card-list'),
       tasks: this.$state.tasks,
-      column: this,
     });
   }
 

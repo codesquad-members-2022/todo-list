@@ -14,57 +14,145 @@ const contents = {
       `<p>새로운 컬럼 <b>${name}</b>을(를) <b>등록</b>하였습니다.</p>`,
     UPDATE: ({ prevName, name }) =>
       `<p><b>${prevName}</b> 컬럼의 이름을 <b>${name}</b>(으)로 <b>변경</b>하였습니다.</p>`,
-    REMOVE: ({ name }) =>
-      `<p><b>${name}</b> 컬럼을 <b>삭제</b>하였습니다.</p>`,
+    REMOVE: ({ name }) => `<p><b>${name}</b> 컬럼을 <b>삭제</b>하였습니다.</p>`,
   },
 };
 
 const createActionContents = (path, method, body) => {
-  let action = method === 'POST' ? 'ADD' :
-    method === 'DELETE' ? 'REMOVE' :
-      path === 'columns' && !body.prevColumn ? 'UPDATE' :
-        path === 'tasks' && !body.prevColumn ? 'UPDATE' : 'MOVE';
+  let action =
+    method === 'POST'
+      ? 'ADD'
+      : method === 'DELETE'
+      ? 'REMOVE'
+      : path === 'columns' && !body.prevColumn
+      ? 'UPDATE'
+      : path === 'tasks' && !body.prevColumn
+      ? 'UPDATE'
+      : 'MOVE';
 
   return contents[path][action](body);
 };
 
-const getColumnName = (router, id) => router.db.get('columns').find({ id }).value().name;
+const getColumnName = (router, id) =>
+  router.db.get('columns').find({ id }).value().name;
 
-const addAction = (router) => ({ method, path, body }, res, next) => {
-  next();
+const addAction =
+  router =>
+  ({ method, path, body }, res, next) => {
+    next();
 
-  const [_, url, id = 0] = path.split('/');
-  let newBody = { ...body };
+    const [_, url, id = 0] = path.split('/');
+    let newBody = { ...body };
 
-  if (method === 'GET' || url === 'users') return;
+    if (method === 'GET' || url === 'users') return;
 
-  if (method === 'POST') url === 'tasks' ? newBody.column = getColumnName(router, body.columnId) : '';
+    if (method === 'POST')
+      url === 'tasks'
+        ? (newBody.column = getColumnName(router, body.columnId))
+        : '';
+    else {
+      const prevData = router.db
+        .get(url)
+        .find({ id: parseInt(id) })
+        .value();
 
-  else {
-    const prevData = router.db
-      .get(url)
-      .find({ id: parseInt(id) })
-      .value();
+      newBody = {
+        ...prevData,
+        ...body,
+      };
 
-    newBody = {
-      ...prevData,
-      ...body,
+      if (url === 'columns' && method === 'PATCH')
+        newBody.prevName = prevData.name;
+      if (url === 'tasks')
+        newBody.column = getColumnName(router, newBody.columnId);
+      if (body.column)
+        newBody.prevColumn = getColumnName(router, prevData.columnId);
     }
 
-    if (url === 'columns' && method === 'PATCH') newBody.prevName = prevData.name;
-    if (url === 'tasks') newBody.column = getColumnName(router, newBody.columnId);
-    if (body.column) newBody.prevColumn = getColumnName(router, prevData.columnId);
-  }
+    router.db
+      .get('actions')
+      .push({
+        id: router.db.get('actions').value().length + 1,
+        userId: 1,
+        contents: createActionContents(url, method, newBody),
+        executedTime: new Date(),
+      })
+      .write();
+  };
 
-  router.db
-    .get('actions')
-    .push({
-      id: router.db.get('actions').value().length + 1,
-      userId: 1,
-      contents: createActionContents(url, method, newBody),
-      executedTime: new Date(),
+const updateOrderOtherColumn = (tasks, taskInfo) => {
+  const { prevColumnId, prevOrder, columnId, order } = taskInfo;
+  tasks
+    .each(task => {
+      if (task.columnId === columnId && task.order >= order) task.order++;
+      if (task.columnId === prevColumnId && task.order > prevOrder)
+        task.order--;
     })
     .write();
 };
 
-export default addAction;
+const updateOrderSameColumn = (tasks, taskInfo) => {
+  const { prevOrder, columnId, order } = taskInfo;
+  if (order > prevOrder) {
+    tasks
+      .each(task => {
+        if (
+          task.columnId === columnId &&
+          task.order > prevOrder &&
+          task.order <= order
+        )
+          task.order--;
+      })
+      .write();
+  }
+
+  if (order < prevOrder) {
+    tasks
+      .each(task => {
+        if (
+          task.columnId === columnId &&
+          task.order < prevOrder &&
+          task.order >= order
+        )
+          task.order++;
+      })
+      .write();
+  }
+};
+
+const updateOrderByPatch = (tasks, task, body) => {
+  const { columnId, order } = body;
+  const prevOrder = task.order;
+  const prevColumnId = task.columnId;
+  const taskInfo = { prevOrder, prevColumnId, order, columnId };
+
+  columnId !== prevColumnId
+    ? updateOrderOtherColumn(tasks, taskInfo)
+    : updateOrderSameColumn(tasks, taskInfo);
+};
+
+const updateOrderByDelete = (tasks, task) => {
+  const { order, columnId } = task;
+  tasks
+    .each(task => {
+      if (task.columnId === columnId && task.order > order) task.order--;
+    })
+    .write();
+};
+
+const findTaskById = (tasks, id) => {
+  return tasks.value().find(task => task.id === Number(id));
+};
+
+const updateOrder = router => (req, res, next) => {
+  next();
+  const { path, method, body } = req;
+  const tasks = router.db.get('tasks');
+  const [_, url, id] = path.split('/');
+  const task = findTaskById(tasks, id);
+
+  if (method === 'DELETE') updateOrderByDelete(tasks, task);
+  if (method === 'PATCH') updateOrderByPatch(tasks, task, body);
+};
+
+export { addAction, updateOrder };
