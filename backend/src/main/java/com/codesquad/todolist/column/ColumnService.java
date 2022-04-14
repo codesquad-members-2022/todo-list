@@ -3,6 +3,8 @@ package com.codesquad.todolist.column;
 import com.codesquad.todolist.card.Card;
 import com.codesquad.todolist.card.CardRepository;
 import com.codesquad.todolist.column.dto.ColumnResponse;
+import com.codesquad.todolist.exception.BusinessException;
+import com.codesquad.todolist.exception.ErrorCode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +48,7 @@ public class ColumnService {
 
             // next Id 가 null 인 card (= 컬럼의 맨 마지막 카드) 를 조회
             Card card = Optional.ofNullable(columnCardMap.remove(null))
-                .orElseThrow(() -> new IllegalStateException("조건을 만족하는 카드가 없습니다."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.ILLEGAL_CARD_ORDER));
 
             // 컬럼 내 정렬된 카드가 저장될 리스트를 초기화
             List<Card> sortedCards = new ArrayList<>(List.of(card));

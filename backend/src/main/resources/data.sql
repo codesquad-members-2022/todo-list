@@ -11,14 +11,13 @@ values (1, '완성한 일');
 insert into card (column_id, author, created_date, title, content, next_id)
 values (1, '작성자', '2022-04-06 00:00:00', 'TODO LIST 만들기', '매주 1시간 동안 TODO LIST 작성하기', null);
 insert into card (column_id, author, created_date, title, content, next_id, deleted)
-values (1, '작성자', '2022-04-06 00:00:00', 'JavaScript 공부하기', '매주 1시간 동안 JavaScript 책 읽기', null,
-        true);
+values (1, '작성자', '2022-04-06 00:00:00', 'JavaScript 공부하기', '매주 1시간 동안 JavaScript 책 읽기', 1, true);
 insert into card (column_id, author, created_date, title, content, next_id)
 values (2, '작성자', '2022-04-06 00:00:00', 'SQL 공부하기', '매주 1시간 동안 SQL 책 읽기', null);
 insert into card (column_id, author, created_date, title, content, next_id)
 values (2, '작성자', '2022-04-06 00:00:00', 'HTML/CSS 공부하기', '매주 1시간 동안 HTML/CSS 책 읽기', 3);
 insert into card (column_id, author, created_date, title, content, next_id, deleted)
-values (2, '작성자', '2022-04-06 00:00:00', 'Java 공부하기', '매주 1시간 동안 Java 책 읽기', null, true);
+values (2, '작성자', '2022-04-06 00:00:00', 'Java 공부하기', '매주 1시간 동안 Java 책 읽기', 4, true);
 
 insert into history (card_id, created_date, action)
 values (1, '2022-04-06 00:00:00', 'CREATE');
