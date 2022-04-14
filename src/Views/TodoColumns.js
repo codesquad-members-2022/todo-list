@@ -9,11 +9,7 @@ export default class TodoColumns {
   }
 
   init(columnsData) {
-    columnsData.forEach(columnData => {
-      const todoColumn = new TodoColumn(columnData);
-      this.todoColumns.push(todoColumn);
-    });
-
+    this.todoColumns = columnsData.map(columnData => new TodoColumn(columnData));
     this.render();
   }
 

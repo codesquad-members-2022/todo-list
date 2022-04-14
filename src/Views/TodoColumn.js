@@ -16,11 +16,7 @@ export default class TodoColumn {
   }
 
   init(cardsData) {
-    cardsData.forEach(cardData => {
-      const todoCard = new TodoCard(cardData);
-      this.todoCards.push(todoCard);
-    });
-
+    this.todoCards = cardsData.map(cardData => new TodoCard(cardData));
     this.render();
   }
 
