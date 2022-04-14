@@ -82,5 +82,9 @@ public class Card {
         return memberId;
     }
 
+    public void updateCard(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
 

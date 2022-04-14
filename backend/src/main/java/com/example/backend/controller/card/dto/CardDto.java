@@ -30,6 +30,8 @@ public class CardDto implements Serializable {
     @NotNull(message = "회원 번호를 반드시 입력해야 합니다.")
     private Long memberId;
 
+    private Long maxPositionNumber;
+
     public CardDto(Long id, String title, String writer, Long position, String content, LocalDateTime createdAt, CardType cardType, Long memberId) {
         this.id = id;
         this.title = title;
@@ -91,7 +93,15 @@ public class CardDto implements Serializable {
         return new Card(id, title, content);
     }
 
+    public Long getMaxPositionNumber() {
+        return maxPositionNumber;
+    }
+
     public Card writeCard() {
-        return new Card(title, writer, content, position, memberId, cardType);
+        Long newPosition = null;
+        if (position == null) {
+            return new Card(title, writer, content, 1L, memberId, cardType);
+        }
+        return new Card(title, writer, content, maxPositionNumber + 1, memberId, cardType);
     }
 }
