@@ -15,9 +15,9 @@
 }
 
 .menu-bar {
-  @include position(absolute, 0, 0);
-  display: none;
+  @include position(fixed, 0, -500px);
   z-index: 1;
+  transition: all 1s ease;
   height: 100vh;
   padding: 80px 40px 0 40px;
   background-color: #ffffff;
@@ -25,9 +25,10 @@
     0px 2px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(4px);
 
-  .close-btn {
+  .menu-close-btn {
     @include position(absolute, 4%, 20px);
   }
+
   li {
     @include size(332px, 137px);
     display: flex;
@@ -40,6 +41,10 @@
       margin-right: 16px;
       background: url('../assets/emoji/user-img.png');
     }
+  }
+
+  &.focus {
+    right: 0;
   }
 }
 
