@@ -65,7 +65,9 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
                                 val cardId = sourceData.cardId
                                 val section = sourceData.section
 
-                                if(positionSource > targetPosition){
+                                // 같은 리사이클러뷰 내에서 순서를 변경 시 아래에서 위로 이동, 위에서 아래로 이동하는 경우를 나눠서 처리해주기
+
+                                if(positionSource > targetPosition){  // 아래에서 위로 이동 시, db 상에서 드롭 한 카드의 다음에 위치하도록 구현, 화면상에서는 드롭 한 카드의 위에 위치
                                     preOrder = adapterTarget.currentList[targetPosition].order
                                     nextOrder = if(targetPosition == 0){
                                         -1
@@ -73,7 +75,7 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
                                         adapterTarget.currentList[targetPosition-1].order
                                     }
                                 }
-                                else if(positionSource < targetPosition){
+                                else if(positionSource < targetPosition){ // 위에서 아래로 이동 시, db 상에서 드롭 한 카드의 전에 위치하도록 구현, 화면상에서는 드롭 한 카드의 밑에 위치
                                     nextOrder = adapterTarget.currentList[targetPosition].order
                                     preOrder = if(targetPosition == adapterTarget.currentList.size - 1){
                                         -1
@@ -83,7 +85,7 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
                                     }
                                 }
 
-                                if(positionSource != targetPosition){
+                                if(positionSource != targetPosition){ // 드래그 후 자기 자신 위치에 놓으면 변화없음
                                     when(target.id){
                                         rvTodo -> dataChangeListener.swapData(1, cardId,  nextOrder, preOrder, section, section)
                                         rvProgress -> dataChangeListener.swapData(2, cardId,  nextOrder, preOrder, section, section)
@@ -111,11 +113,11 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
 
                                 val targetPosition = target.getChildAdapterPosition(view)
 
-                                val preOrder = adapterTarget.currentList[targetPosition].order
+                                val preOrder = adapterTarget.currentList[targetPosition].order  // db 상에서 놓은 카드의 다음에 위치시키기 위함,  화면상에서는 놓은 카드의 위에 위치
                                 val nextOrder = if(targetPosition == 0){
                                     -1
                                 }else{
-                                    adapterTarget.currentList[targetPosition-1].order
+                                    adapterTarget.currentList[targetPosition-1].order // db 상에서 놓은 카드의 다음에 있던 카드를  이동한 카드의 다음에 위치시키기 위함
                                 }
 
                                 val prevSection = sourceData.section
@@ -130,7 +132,7 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
                                 }
 
                             } else {
-                                //sourceData.let { targetList.add(it) }  //그냥 아이템뷰 없는 공간에 놓았을 때
+                                //sourceData.let { targetList.add(it) }  //  아이템뷰 없는 빈 섹션에 놓았을 때 (빈 리스트)
                                // val targetPosition = target.getChildAdapterPosition(view)  // 이 경우 view가 리사이클러뷰 자체라 왼쪽같이 사용하면 오류 발생!!!
 
                                 var preOrder = -2
@@ -140,7 +142,7 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
                                     preOrder = -1
                                     nextOrder = -1
                                 }
-                                else{
+                                else{  // db 상에서 맨 앞에 위치 시키기 위함, 화면상에서는 맨 밑에 위치
                                     preOrder = -1
                                     nextOrder = adapterTarget.currentList[adapterTarget.currentList.size - 1].order
                                 }
