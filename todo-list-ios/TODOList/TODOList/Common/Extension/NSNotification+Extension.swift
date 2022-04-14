@@ -5,3 +5,8 @@ extension NSNotification.Name {
     static let MemoDidUpdate = NSNotification.Name("MemoDidUpdateNotification")
     static let MemoDidDelete = NSNotification.Name("MemoDidDeleteNotification")
 }
+
+
+enum UserInfoKeys {
+    static let memo = "Memo"
+}

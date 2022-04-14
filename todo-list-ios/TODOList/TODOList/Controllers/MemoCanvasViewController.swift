@@ -16,19 +16,16 @@ class MemoCanvasViewController: UIViewController {
         
         initProperties()
         setLayout()
+        subscribeObserver()
     }
     
     private func initProperties() {
         for containerType in MemoContainerType.allCases {
-            for index in 0..<3 {
-                addTableViewModel(containerType: containerType, index: index)
-            }
             addTableViewController(containerType: containerType)
         }
     }
     
-    private func addTableViewModel(containerType: MemoContainerType, index: Int) {
-        let memo = Memo(title: containerType.rawValue, content: "\(index) : 해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK \(index)", status: containerType)
+    private func addTableViewModel(memo: Memo, containerType: MemoContainerType, index: Int) {
         memoTableViewModels[containerType]?.append(memo)
     }
     
@@ -71,6 +68,24 @@ class MemoCanvasViewController: UIViewController {
     
     func insertSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath, memoModel: Memo) {
         memoTableViewModels[containerType]?.insert(memoModel, at: indexPath.section)
+    }
+    
+    private func subscribeObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didMemoAdd(_:)),
+                                               name: .MemoDidAdd,
+                                               object: nil)
+    }
+    
+    @objc func didMemoAdd(_ notification: Notification) {
+        if let memo = notification.userInfo?[UserInfoKeys.memo] as? Memo {
+            addTableViewModel(memo: memo, containerType: memo.status, index: 0)
+            updateView(containerType: memo.status)
+        }
+    }
+    
+    private func updateView(containerType: MemoContainerType) {
+        memoTableViewControllers[containerType]?.memoContainerView.tableView.reloadData()
     }
 }
 

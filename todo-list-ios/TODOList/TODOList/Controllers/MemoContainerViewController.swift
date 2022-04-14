@@ -34,6 +34,9 @@ extension MemoContainerViewController: PopupViewDelegate {
             return
         }
         memoUseCase.sendDataToManager(data: data, methodType: HTTPMethod.post, path: Path.task)
+        
+        NotificationCenter.default.post(name: .MemoDidAdd, object: self, userInfo: [UserInfoKeys.memo: memo])
+        dismiss(animated: true)
     }
 }
 

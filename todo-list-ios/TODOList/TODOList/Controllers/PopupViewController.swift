@@ -57,6 +57,9 @@ extension PopupViewController: PopupCardViewDelegate {
     func popupCardOkButtonDidTap(title: String, content: String, status: MemoContainerType) {
         let memo = Memo(title: title, content: content, name: "JK", status: status)
         self.delegate?.popupViewAddButtonDidTap(memo: memo)
+        
+//        NotificationCenter.
+        self.dismiss(animated: true)
     }
 }
 
