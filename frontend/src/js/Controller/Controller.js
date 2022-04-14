@@ -2,7 +2,7 @@ import { createTagTemplate } from '../utils/createTemplate.js';
 import AlertView from '../Alert/AlertView.js';
 import { Todo } from '../Todo/main.js';
 import Card from '../Todo/Card/main.js';
-import { postCard, deleteCard } from '../Utils/api.js';
+import { postCard, deleteCard, patchCard } from '../Utils/api.js';
 
 class Controller {
   constructor({ Header, History }) {
@@ -175,6 +175,26 @@ class Controller {
 
     if (!targetCard.classList.contains('edit')) {
       targetColumn.model.updateAddStstue();
+      const author = 'web';
+      const columnId = targetColumnID;
+
+      const response = await postCard({
+        card: {
+          author,
+          columnId,
+          content: contentValue,
+          title: titleValue,
+        },
+      });
+    } else {
+      await patchCard({
+        card: {
+          author: 'web',
+          content: contentValue,
+          title: titleValue,
+        },
+        cardId: targetCard.dataset.cardid,
+      });
     }
 
     titleText.innerText = titleValue;
@@ -182,21 +202,24 @@ class Controller {
     this.actionCard.model.title = titleValue;
     this.actionCard.model.content = contentValue;
 
+    //console.log(targetCard);
+    // if (!targetCard.classList.contains('edit')) {
+    //   const { content, title } = this.actionCard.model;
+    //   const author = 'web';
+    //   const columnId = targetColumnID;
+
+    //   const response = await postCard({
+    //     card: {
+    //       author,
+    //       columnId,
+    //       content,
+    //       title,
+    //     },
+    //   });
+    // }
+
     targetCard.classList.remove('write', 'edit');
     targetColumn.model.addCardList(this.actionCard);
-
-    const { content, title } = this.actionCard.model;
-    const author = 'web';
-    const columnId = targetColumnID;
-
-    const response = await postCard({
-      card: {
-        author,
-        columnId,
-        content,
-        title,
-      },
-    });
 
     targetColumn.view.renderCardCount(
       targetColumnBox,

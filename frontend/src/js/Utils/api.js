@@ -37,3 +37,35 @@ export const deleteCard = async ({ cardId }) => {
     headers,
   });
 };
+
+export const patchCard = async ({ card, cardId }) => {
+  return await request(`/cards/${cardId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(card),
+  });
+};
+// if (targetCard.classList.contains('edit')) {
+//   patchCard({
+//     card: {
+//       author: 'web',
+//       content: contentValue,
+//       title: titleValue,
+//     },
+//     cardId,
+//   });
+// }
+
+// const { content, title } = this.actionCard.model;
+// targetColumn.model.updateAddStstue();
+
+// const author = 'web';
+// const columnId = targetColumnID;
+
+// const response = await postCard({
+//   card: {
+//     author,
+//     columnId,
+//     content,
+//     title,
+//   },
+// });
