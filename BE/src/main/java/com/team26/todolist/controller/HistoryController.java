@@ -24,9 +24,6 @@ public class HistoryController {
     public ResponseEntity<List<HistoryResponse>> getHistories() {
 
         List<HistoryResponse> histories = historyService.findHistories();
-        if (histories.size() == 0) {
-            return ResponseEntity.noContent().build();
-        }
         return ResponseEntity.ok().body(histories);
     }
 
