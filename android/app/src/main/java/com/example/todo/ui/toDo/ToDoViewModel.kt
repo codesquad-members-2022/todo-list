@@ -23,9 +23,9 @@ class ToDoViewModel(
     private val _doneList = MutableLiveData<List<TodoItem>>()
     private val _actionList = MutableLiveData<List<ActionLog>>()
 
-    var todoList: LiveData<List<TodoItem>> = _todoList
-    var inProgressList: LiveData<List<TodoItem>> = _inProgressList
-    var doneList: LiveData<List<TodoItem>> = _doneList
+    val todoList: LiveData<List<TodoItem>> = _todoList
+    val inProgressList: LiveData<List<TodoItem>> = _inProgressList
+    val doneList: LiveData<List<TodoItem>> = _doneList
     val actionList: LiveData<List<ActionLog>> = _actionList
 
     init {
@@ -87,7 +87,6 @@ class ToDoViewModel(
     fun addTodoItem(item: TodoItem) {
         viewModelScope.launch {
             _todoList.value = todoList.value?.let { toDoRepository.addToDoItem(it, item) }
-            todoList = _todoList
         }
     }
 
@@ -95,31 +94,26 @@ class ToDoViewModel(
         viewModelScope.launch {
             _inProgressList.value =
                 inProgressList.value?.let { toDoRepository.addToDoItem(it, item) }
-            inProgressList = _inProgressList
         }
     }
 
     fun addDoneItem(item: TodoItem) {
         viewModelScope.launch {
             _doneList.value = doneList.value?.let { toDoRepository.addToDoItem(it, item) }
-            doneList = _doneList
         }
     }
 
     fun deleteTodoItem(item: TodoItem) {
         _todoList.value = todoList.value?.let { toDoRepository.deleteToDoItem(it, item) }
-        todoList = _todoList
     }
 
     fun deleteInProgressItem(item: TodoItem) {
         _inProgressList.value =
             inProgressList.value?.let { toDoRepository.deleteToDoItem(it, item) }
-        inProgressList = _inProgressList
     }
 
     fun deleteDoneItem(item: TodoItem) {
         _doneList.value = doneList.value?.let { toDoRepository.deleteToDoItem(it, item) }
-        doneList = _doneList
     }
 
     fun moveToDone(item: TodoItem) {
@@ -157,17 +151,14 @@ class ToDoViewModel(
 
     fun updateTodoItem(updateItem: TodoItem) {
         _todoList.value = todoList.value?.let { toDoRepository.updateToDoItem(it, updateItem) }
-        todoList = _todoList
     }
 
     fun updateInProgressItem(updateItem: TodoItem) {
         _inProgressList.value =
             inProgressList.value?.let { toDoRepository.updateInProgressItem(it, updateItem) }
-        inProgressList = _inProgressList
     }
 
     fun updateDoneItem(updateItem: TodoItem) {
         _doneList.value = doneList.value?.let { toDoRepository.updateDoneItem(it, updateItem) }
-        doneList = _doneList
     }
 }

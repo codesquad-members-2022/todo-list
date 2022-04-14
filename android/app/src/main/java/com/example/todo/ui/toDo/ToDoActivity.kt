@@ -34,15 +34,12 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
         setToolBar()
         initializeRecyclerViews()
         initializeTodoTitleViews()
-        // addDummyDataInRecyclerView()
-
-
     }
 
     private fun initializeTodoTitleViews() {
-        binding.todoTitleViewTodo.title.text = "해야할 일"
-        binding.todoTitleViewInProgress.title.text = "하고있는 일"
-        binding.todoTitleViewTodoDone.title.text = "완료한 일"
+        binding.todoTitleViewTodo.title.text = resources.getString(R.string.todo_title)
+        binding.todoTitleViewInProgress.title.text = resources.getString(R.string.in_progress_title)
+        binding.todoTitleViewTodoDone.title.text = resources.getString(R.string.done_title)
         binding.todoTitleViewTodo.addButton.setOnClickListener {
             val addDialog = ToDoDialog(ProgressType.TO_DO)
             addDialog.show(supportFragmentManager, "todoAddDialog")
@@ -55,7 +52,6 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
             val addDialog = ToDoDialog(ProgressType.DONE)
             addDialog.show(supportFragmentManager, "doneAddDialog")
         }
-
     }
 
     private fun setToolBar() {
@@ -149,18 +145,18 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
 
         toDoViewModel.todoList.observe(this) {
             todoAdapter.submitList(it)
-            binding.todoTitleViewTodo.count.text = it?.size.toString()
+            binding.todoTitleViewTodo.count.text = it.size.toString()
         }
 
         toDoViewModel.inProgressList.observe(this) {
             inProgressAdapter.submitList(it)
 
-            binding.todoTitleViewInProgress.count.text = (it?.size).toString()
+            binding.todoTitleViewInProgress.count.text = it.size.toString()
         }
 
         toDoViewModel.doneList.observe(this) {
             doneAdapter.submitList(it)
-            binding.todoTitleViewTodoDone.count.text = (it?.size).toString()
+            binding.todoTitleViewTodoDone.count.text = it.size.toString()
         }
 
         toDoViewModel.actionList.observe(this) {

@@ -14,6 +14,9 @@
     <string name="action_move">move</string>
     <string name="action_update">update</string>
 
+    <string name="todo_title">해야할 일</string>
+    <string name="in_progress_title">하고있는 일</string>
+    <string name="done_title">완료한 일</string>
 
     <string name="label_addCard_title">새로운 카드 추가</string>
     <string name="label_addCard_title_hint">제목을 입력해주세요</string>

@@ -8,6 +8,6 @@ data class ActionLogResponseItem(
     val historyDateTime: String,
     val historyId: Int,
     val nowLocation: String,
-    val pastLocation: Any
+    val pastLocation: String?
 )
 

@@ -3,6 +3,7 @@ package com.example.todo.network
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -10,10 +11,7 @@ import retrofit2.http.Query
 interface RetrofitClient {
     @POST("card")
     suspend fun getCardIdx(
-        @Query("title") title: String,
-        @Query("content") content: String,
-        @Query("writer") writer: String,
-        @Query("current_location") current_location: String
+        @Body post: AddPostBody
     ): Response<CardIndex>
 
     @GET("cards")

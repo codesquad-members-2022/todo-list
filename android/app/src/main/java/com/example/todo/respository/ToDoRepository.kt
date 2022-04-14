@@ -3,8 +3,6 @@ package com.example.todo.respository
 import android.util.Log
 import com.example.todo.model.ProgressType
 import com.example.todo.model.TodoItem
-import com.example.todo.network.Done
-import com.example.todo.network.Ing
 import com.example.todo.network.Todo
 import com.example.todo.network.TodoResponseItem
 
@@ -31,7 +29,7 @@ class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
         return list.map { TodoItem(it.title, it.content, ProgressType.TO_DO, it.id, it.nextId) }
     }
 
-    private fun jsonInProgressListToTodoItems(list: List<Ing>): List<TodoItem> {
+    private fun jsonInProgressListToTodoItems(list: List<Todo>): List<TodoItem> {
         return list.map {
             TodoItem(
                 it.title,
@@ -43,16 +41,17 @@ class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
         }
     }
 
-    private fun jsonDoneToTodoItems(list: List<Done>): List<TodoItem> {
+    private fun jsonDoneToTodoItems(list: List<Todo>): List<TodoItem> {
         return list.map { TodoItem(it.title, it.content, ProgressType.DONE, it.id, it.nextId) }
     }
 
     suspend fun addToDoItem(toDoList: List<TodoItem>, newItem: TodoItem): List<TodoItem> {
         val response = toDoDataSource.getTodoId(newItem)
+        Log.d("testApi", response.isSuccessful.toString())
         return if (response.isSuccessful) {
             val originList = toDoList.toMutableList()
-            newItem.itemId = response?.body()?.card_id ?: -1
-            originList[originList.size].next = newItem.itemId
+            newItem.itemId = response?.body()?.cardId ?: -1
+            originList[originList.size-1].next = newItem.itemId
             originList.add(0, newItem)
             originList.toList()
         } else toDoList
