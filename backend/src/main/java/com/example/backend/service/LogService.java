@@ -21,7 +21,7 @@ public class LogService {
 		return logJdbcTemplateRepository.findAll();
 	}
 
-	public Long save(LogSaveRequestDto dto) {
-		return logJdbcTemplateRepository.save(dto.toEntity());
+	public void save(LogSaveRequestDto dto) {
+		logJdbcTemplateRepository.save(dto.toEntity());
 	}
 }
