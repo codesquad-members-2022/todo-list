@@ -5,6 +5,9 @@ import {
   deleteCardData,
 } from "../controller/cardController.js";
 
+let [isDraggable, dragStart, isDowned] = [false, false, false];
+let [shiftX, shiftY] = [0, 0];
+
 export function addPlusBtnEvent() {
   const $plusBtn = document.querySelector("#have-to-do-plus");
   const $cards = document.querySelector("#have-to-do-cards");
@@ -151,6 +154,84 @@ export function renderColumn(columnId, todos) {
   $cards.insertAdjacentHTML("afterbegin", cardTemplate);
   addRegisterBtnsListener($column);
   addCardDoubleClickEvent($cards);
+  addCardsDragEvent($cards);
+}
+export function addmouseMoveEvent() {
+  document.body.addEventListener("mousemove", (event) => {
+    const $card = event.target.closest(".card");
+    if (isDraggable && $card && dragStart) {
+      makeDragElement($card);
+      applyPlaceStyle($card);
+      dragStart = false;
+      addCopiedCardEvent();
+    }
+    if ($card && isDraggable) {
+      shiftX = event.pageX - $card.offsetWidth / 2;
+      shiftY = event.pageY - $card.offsetHeight / 2;
+      moveAt($card);
+    }
+  });
+}
+
+function addCopiedCardEvent() {
+  const $copiedCard = document.querySelector(".copied-card");
+  $copiedCard.addEventListener("mouseup", () => {
+    isDowned = false;
+    dragStart = false;
+    isDraggable = false;
+    $copiedCard.remove();
+  });
+}
+
+function moveAt(element) {
+  Object.assign(element.style, {
+    top: `${shiftY}px`,
+    left: `${shiftX}px`,
+  });
+}
+
+function addCardsDragEvent($cards) {
+  const cardsList = $cards.querySelectorAll(".card");
+
+  for (const card of cardsList) {
+    card.addEventListener("mousedown", (event) => {
+      const $card = event.target.closest(".card");
+      shiftX = event.pageX - $card.offsetWidth / 2;
+      shiftY = event.pageY - $card.offsetHeight / 2;
+      isDowned = true;
+      dragStart = true;
+    });
+    card.addEventListener("mousemove", () => {
+      if (isDowned) {
+        isDraggable = true;
+      }
+    });
+  }
+}
+
+function makeDragElement(element) {
+  const copiedElement = element.cloneNode(true);
+  copiedElement.classList.add("copied-card");
+  Object.assign(copiedElement.style, {
+    position: "absolute",
+    zIndex: 10,
+    top: `${shiftY}px`,
+    left: `${shiftX}px`,
+    opacity: 0.8,
+    boxShadow:
+      "0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25)",
+    backdropFilter: "blur(4px)",
+    margin: 0,
+  });
+  document.body.appendChild(copiedElement);
+}
+
+function applyPlaceStyle(element) {
+  Object.assign(element.style, {
+    opacity: 0.4,
+    border: "1px solid var(--blue)",
+    boxShadow: "0px 1px 30px rgba(224, 224, 224, 0.3)",
+  });
 }
 
 function addRegisterBtnsListener($column) {
