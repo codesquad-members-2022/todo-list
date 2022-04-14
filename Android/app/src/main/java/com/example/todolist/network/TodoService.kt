@@ -1,6 +1,7 @@
 package com.example.todolist.network
 
 import com.example.todolist.history.data.HistoryCard
+import com.example.todolist.tasks.data.NewTask
 import com.example.todolist.tasks.data.Task
 import retrofit2.Response
 import retrofit2.http.*
@@ -20,13 +21,9 @@ interface TodoService {
         @Path("id") id: Int
     ): Response<Task>
 
-    @FormUrlEncoded
     @POST("api/todos")
     suspend fun createTask(
-        @Field("title") title: String,
-        @Field("contents") contents: String,
-        @Field("user") user: String,
-        @Field("status") status: String,
+        @Body newTask: NewTask
     ): Response<Task>
 
     @DELETE("api/todos/{id}")
@@ -34,7 +31,7 @@ interface TodoService {
         @Path("id") id: Int
     ): Response<Unit>
 
-    @FormUrlEncoded
+    // TODO UpdateTask 만들어야 함
     @PATCH("api/todos/{id}")
     suspend fun updateTask(
         @Path("id") id: Int,

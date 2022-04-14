@@ -2,6 +2,7 @@ package com.example.todolist.data
 
 import com.example.todolist.history.data.HistoryCard
 import com.example.todolist.network.NetworkModule
+import com.example.todolist.tasks.data.NewTask
 import com.example.todolist.tasks.data.Task
 import retrofit2.Response
 
@@ -27,10 +28,12 @@ class TasksRepository : Repository {
         status: String
     ): Response<Task> {
         return network.createTask(
-            title,
-            contents,
-            user,
-            status
+            NewTask(
+                title,
+                contents,
+                user,
+                status
+            )
         )
     }
 
