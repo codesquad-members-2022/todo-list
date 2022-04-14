@@ -1,8 +1,8 @@
 import { TODO_LIST_URL } from '../constants/constant.js';
 import { appendElementsToParent, fetchData } from '../utils/util.js';
 import { insertColumns } from '../views/columnsView.js';
-import { addNewCardToColumn, insertAllCardToColumn } from '../views/cardView.js';
-import { onAddBtnClick } from '../views/newCardView.js';
+import { addNewCardToColumn, insertAllCardToColumn, onCardDoubleClick } from '../views/cardView.js';
+import { onAddBtnClick, insertEditCard } from '../views/newCardView.js';
 import { createStore } from '../store/store';
 import { onClickCardDeleteBtn, onMouseOutCardDeleteBtn, onMouseOverCardDeleteBtn } from '../views/cardDeleteView.js';
 
@@ -13,6 +13,7 @@ export const controller = async views => {
   const store = createStore();
   store.setStore('main', todoListData);
   store.subscribe('newTodo', addNewCardToColumn);
+  store.subscribe('edit', insertEditCard);
   appendElementsToParent(app, headerView, mainView);
   insertColumns(store.getStore('main'), mainView);
   insertAllCardToColumn(store.getStore('main'), mainView);
@@ -30,4 +31,5 @@ const addEventListeners = store => {
   onMouseOverCardDeleteBtn();
   onMouseOutCardDeleteBtn();
   onClickCardDeleteBtn(store);
+  onCardDoubleClick(store);
 };

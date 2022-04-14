@@ -1,20 +1,38 @@
-export const createNewCardTemplate = () => {
+export const createNewCardTemplate = todoData => {
   return `
-  <li class="task__card new-card">
+  <li class="task__card ${todoData ? 'edit-card' : 'new-card'}">
   <div class="card__contents">
     <header class="card__contents__header">
-      <input class="card__contents__input--header" type="text" placeholder="제목을 입력하세요" />
+      <input class="card__contents__input--header" type="text" placeholder="제목을 입력하세요" value="${
+        todoData ? todoData.header : ''
+      }"/>
     </header>
     <main class="card__contents__main">
-      <textarea class="card__contents__input--main" maxlength="500" placeholder="내용을 입력하세요"></textarea>
+      <textarea class="card__contents__input--main" maxlength="500" placeholder="내용을 입력하세요">${
+        todoData ? todoData.main : ''
+      }</textarea>
     </main>
     <footer class="card__contents__footer footer__buttons">
       <input type=button class="footer__buttons__cancel" value="취소">
-      <input type=button class="footer__buttons__save" value="등록" disabled/>
+      ${
+        todoData
+          ? '<input type=button class="footer__buttons__edit" value="수정"/>'
+          : '<input type=button class="footer__buttons__save" value="등록" disabled/>'
+      }
     </footer>
   </div>
 </li>
   `;
+};
+
+export const insertEditCard = (targetCard, todoData) => {
+  const editCardTemplate = createNewCardTemplate(todoData);
+  targetCard.insertAdjacentHTML('afterend', editCardTemplate);
+  const editCardElement = document.querySelector('.edit-card');
+  const newCardContents = editCardElement.querySelector('.card__contents');
+  const textArea = editCardElement.querySelector('.card__contents__input--main');
+  onNewCardInput(newCardContents);
+  onResizeTextArea(textArea);
 };
 
 const onNewCardClick = (newCard, store, columnClassName) => {
@@ -53,16 +71,22 @@ const onNewCardInput = newCard => {
 const changeSaveBtnStatus = newCard => {
   const titleInput = newCard.querySelector('.card__contents__input--header');
   const textArea = newCard.querySelector('.card__contents__input--main');
-  const saveBtn = newCard.querySelector('.footer__buttons__save');
-  if (textArea.value && titleInput.value) {
-    saveBtn.disabled = false;
-    saveBtn.style.backgroundColor = '#0175de';
-    saveBtn.style.cursor = 'pointer';
-  } else {
-    saveBtn.disabled = true;
-    saveBtn.style.backgroundColor = '#86c5ff';
-    saveBtn.style.cursor = '';
-  }
+  const saveBtn = newCard.querySelector('.footer__buttons__save')
+    ? newCard.querySelector('.footer__buttons__save')
+    : newCard.querySelector('.footer__buttons__edit');
+  textArea.value && titleInput.value ? enableBtn(saveBtn) : disableBtn(saveBtn);
+};
+
+const disableBtn = btn => {
+  btn.disabled = true;
+  btn.style.backgroundColor = '#86c5ff';
+  btn.style.cursor = '';
+};
+
+const enableBtn = btn => {
+  btn.disabled = false;
+  btn.style.backgroundColor = '#0175de';
+  btn.style.cursor = 'pointer';
 };
 
 export const onAddBtnClick = store => {
@@ -73,7 +97,7 @@ export const onAddBtnClick = store => {
 };
 
 const handleAddBtnClick = (mainElement, target, store) => {
-  if (!target.closest(`.title-column__btn__add`)) {
+  if (!target.closest('.title-column__btn__add')) {
     return;
   }
   const columnClassName = target.closest(`.title-column__btn__add`).dataset.classname;
@@ -104,14 +128,16 @@ const toggleNewCard = (cardList, store, columnClassName) => {
   const newCard = cardList.querySelector('.new-card');
   if (newCard) {
     newCard.remove();
-  } else {
-    const newCardTemplate = createNewCardTemplate();
-    cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
-    const newCard = cardList.querySelector('.card__contents');
-    const textArea = cardList.querySelector('.card__contents__input--main');
-    onNewCardInput(newCard);
-    onResizeTextArea(textArea);
-    onNewCardClick(newCard, store, columnClassName);
-    onCancelBtnClick(newCard);
+    return;
   }
+
+  const newCardTemplate = createNewCardTemplate();
+  cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
+  const newCardContents = cardList.querySelector('.card__contents');
+  const textArea = cardList.querySelector('.card__contents__input--main');
+
+  onNewCardInput(newCardContents);
+  onResizeTextArea(textArea);
+  onNewCardClick(newCardContents, store, columnClassName);
+  onCancelBtnClick(newCardContents);
 };

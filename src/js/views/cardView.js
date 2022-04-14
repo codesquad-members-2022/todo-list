@@ -39,3 +39,58 @@ export const addNewCardToColumn = (column, taskData, totalCount) => {
   cardList.insertAdjacentHTML('afterbegin', newTodo);
   cardCount.textContent = totalCount;
 };
+
+export const onCardDoubleClick = store => {
+  const main = document.querySelector('.main');
+  main.addEventListener('dblclick', ({ target }) => {
+    if (main.querySelector('.edit-card') || !target.closest('.task__card')) return;
+    cardDoubleClickHandler(target, store);
+  });
+};
+
+const cardDoubleClickHandler = (target, store) => {
+  const targetCard = target.closest('.task__card');
+  if (!targetCard.querySelector('.card__delete-btn')) return;
+
+  const columnName = targetCard.closest('.column').classList[1];
+  const columnData = store.getStore('main').find(column => column.className === columnName);
+  const cardId = targetCard.dataset.id;
+  const todoData = columnData.tasks.find(task => task.cardId === Number(cardId));
+
+  targetCard.style.display = 'none';
+  store.notify('edit', targetCard, todoData);
+
+  const currentColumn = document.querySelector(`.${columnName}`);
+  const editCardElement = currentColumn.querySelector('.edit-card');
+  onCardEditBtnClick(currentColumn, editCardElement, targetCard, todoData, columnData);
+};
+
+const onCardEditBtnClick = (currentColumn, editCardElement, targetCard, todoData, columnData) => {
+  currentColumn.addEventListener('click', ({ target }) => {
+    cardEditBtnClickHandler(target, editCardElement, targetCard, todoData, columnData);
+  });
+};
+
+const cardEditBtnClickHandler = (target, editCardElement, targetCard, todoData, columnData) => {
+  if (!target.closest('.footer__buttons')) return;
+
+  if (target.value === '수정') {
+    const editedTitle = editCardElement.querySelector('.card__contents__input--header').value;
+    const editedContents = editCardElement.querySelector('.card__contents__input--main').value;
+
+    columnData.tasks.forEach(v => {
+      if (v.cardId === todoData.cardId) {
+        v.header = editedTitle;
+        v.main = editedContents;
+      }
+    });
+
+    const targetCardTitle = targetCard.querySelector('.card__contents__header');
+    const targetCardContents = targetCard.querySelector('.card__contents__main');
+    targetCardTitle.innerHTML = editedTitle;
+    targetCardContents.innerHTML = editedContents;
+  }
+
+  targetCard.style.display = '';
+  editCardElement.remove();
+};
