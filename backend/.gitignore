@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### db-connection
+application-h2.properties
+application-mysql.properties

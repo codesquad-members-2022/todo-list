@@ -9,22 +9,30 @@ public class Log {
 	private LocalDateTime logTime;
 	private String title;
 	private String prevSection;
-	private String section;
+	private Section section;
 
-	public Log(Event event, LocalDateTime logTime, String title, String prevSection, String section) {
-		this.event = event;
+	public Log(String event, LocalDateTime logTime, String title, String section) {
+		this(event, logTime, title, null, section);
+	}
+
+	public Log(String event, LocalDateTime logTime, String title, String prevSection, String section) {
+		this.event = Event.getEvent(event);
 		this.logTime = logTime;
 		this.title = title;
 		this.prevSection = prevSection;
-		this.section = section;
+		this.section = Section.getSection(section);
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getEvent() {
-		return event.name();
+	public Integer getId() {
+		return id;
+	}
+
+	public String getEventType() {
+		return event.getEventType();
 	}
 
 	public LocalDateTime getLogTime() {
@@ -39,7 +47,7 @@ public class Log {
 		return prevSection;
 	}
 
-	public String getSection() {
-		return section;
+	public String getSectionType() {
+		return section.getSectionType();
 	}
 }
