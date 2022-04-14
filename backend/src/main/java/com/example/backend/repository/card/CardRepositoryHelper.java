@@ -15,7 +15,7 @@ public class CardRepositoryHelper {
 
     private static RowMapper<Card> mapper = (rs, rowNum) ->
             new Card(
-                    rs.getLong("card_id"),
+                    rs.getLong("id"),
                     rs.getString("writer"),
                     rs.getLong("position"),
                     rs.getString("title"),

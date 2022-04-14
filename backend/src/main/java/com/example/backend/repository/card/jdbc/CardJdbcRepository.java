@@ -34,7 +34,7 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Card save(Card card) {
-        String query = "INSERT card (card_id, writer, position, title, content, card_type, created_at, last_modified_at, `visible`, member_id)" +
+        String query = "INSERT card (id, writer, position, title, content, card_type, created_at, last_modified_at, `visible`, member_id)" +
                 "VALUES (:id, :writer, :position, :title, :content, :cardType, :createdAt, :lastModifiedAt, :visible, :memberId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         Map<String, Object> params = repositoryHelper.getParams(card);
@@ -46,7 +46,7 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public List<Card> findAll() {
-        String query = "select card_id, " +
+        String query = "select id, " +
                 "writer, " +
                 "position, " +
                 "title, " +
@@ -63,7 +63,7 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Optional<Card> findById(Long id) {
-        String query = "select card_id, " +
+        String query = "select id, " +
                 "writer, " +
                 "position, " +
                 "title, " +
@@ -73,7 +73,7 @@ public class CardJdbcRepository implements CardRepository {
                 "last_modified_at, " +
                 "visible, " +
                 "member_id " +
-                "from card where card_id = :id";
+                "from card where id = :id";
         Map<String, Object> params = Collections.singletonMap("id", id);
         RowMapper<Card> mapper = repositoryHelper.getMapper();
         return Optional.ofNullable(jdbcTemplate.queryForObject(query, params, mapper));
@@ -94,7 +94,7 @@ public class CardJdbcRepository implements CardRepository {
     @Override
     public void delete(Long id) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-        String query = "update card set visible=false where card_id=:id";
+        String query = "update card set visible=false where id=:id";
         jdbcTemplate.update(query, namedParameters);
     }
 }
