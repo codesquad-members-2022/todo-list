@@ -1,5 +1,13 @@
 package com.codesquad.todolist.card;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
@@ -13,12 +21,6 @@ import com.codesquad.todolist.history.domain.Field;
 import com.codesquad.todolist.history.domain.History;
 import com.codesquad.todolist.history.domain.ModifiedField;
 import com.codesquad.todolist.history.dto.HistoryResponse;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CardService {
@@ -35,6 +37,7 @@ public class CardService {
     }
 
     public HistoryResponse create(CardCreateRequest request) {
+        cardRepository.validateColumnId(request.getColumnId());
         Integer nextId = findNextId(request.getColumnId());
         Card card = request.toEntity(nextId);
         cardRepository.create(card);
