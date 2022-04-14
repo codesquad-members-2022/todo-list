@@ -22,12 +22,12 @@ public class CardController {
     private final CardService cardService;
 
     @GetMapping
-    public List<CardListDto> list() {
+    public List<CardListDto> getCardList() {
         return cardService.findAll();
     }
 
     @GetMapping("/{cardStatus}")
-    public List<CardListDto> listByStatus(@PathVariable String cardStatus) {
+    public List<CardListDto> getCardListByStatus(@PathVariable String cardStatus) {
         return cardService.findByStatus(cardStatus);
     }
 
