@@ -1,5 +1,8 @@
 package codesquad.todo.domain.user;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class User {
 
     private Long id;
