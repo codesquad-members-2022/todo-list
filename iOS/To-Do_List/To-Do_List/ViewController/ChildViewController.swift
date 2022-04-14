@@ -13,7 +13,7 @@ class ChildViewController: UIViewController {
     private var tableView: BoardTableView<CardDisplayable,CardCell>!
     
     private var header : BoardHeader!
-    private var boardType : BoardType?
+    var boardType : BoardType?
     
     //Notification
     static let tapCofirmButton = Notification.Name("didTapConfirmButton")

@@ -107,7 +107,13 @@ extension MainViewController {
               let childVC = notification.object as? ChildViewController
         else { return }
         
-        let postModel = NewCard(id: nil, writer: "iOS", title: info.title, content: info.content, cardType:"TODO", memberId: 1)
+        let postModel = NewCard(
+            id: nil,
+            writer: "iOS",
+            title: info.title,
+            content: info.content,
+            cardType:childVC.boardType?.type ?? "",
+            memberId: 1)
         
         networkManager?.request(endpoint: EndPointCase.addCard(card: postModel).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
             switch result {
