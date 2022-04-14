@@ -32,6 +32,7 @@ export default class Column extends Component {
     new Cards($cardWrapper, {
       cards,
       undoCreateCard: this.undoCreateCard.bind(this),
+      deactivatePlusButton: this.deactivatePlusButton.bind(this),
       setCards: this.setCards.bind(this),
     });
   }
@@ -51,9 +52,19 @@ export default class Column extends Component {
   clickPlusButtonHandler() {
     if (this.state.cards[0]?.cardState === "create") {
       this.undoCreateCard();
+      this.deactivatePlusButton();
     } else {
       this.createCard();
+      this.activatePlusButton();
     }
+  }
+  activatePlusButton() {
+    const $plusButton = this.$target.querySelector(".column-plus-button");
+    $plusButton.classList.add("column-plus-button--active");
+  }
+  deactivatePlusButton() {
+    const $plusButton = this.$target.querySelector(".column-plus-button");
+    $plusButton.classList.remove("column-plus-button--active");
   }
   createCard() {
     const _cards = this.state.cards;
