@@ -17,7 +17,7 @@
 		5B349DBC27FA9AFF00AA602E /* todo_listTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DBB27FA9AFF00AA602E /* todo_listTests.swift */; };
 		5B349DC627FA9AFF00AA602E /* todo_listUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DC527FA9AFF00AA602E /* todo_listUITests.swift */; };
 		5B349DC827FA9AFF00AA602E /* todo_listUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DC727FA9AFF00AA602E /* todo_listUITestsLaunchTests.swift */; };
-		5B349DE227FD7FF600AA602E /* ActivityRecoderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE127FD7FF600AA602E /* ActivityRecoderController.swift */; };
+		5B349DE227FD7FF600AA602E /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE127FD7FF600AA602E /* LogViewController.swift */; };
 		5B349DE627FECB4700AA602E /* LogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE527FECB4700AA602E /* LogTableViewCell.swift */; };
 		5B349DE827FECD0C00AA602E /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE727FECD0C00AA602E /* Log.swift */; };
 		5B349DEA27FECDC500AA602E /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DE927FECDC500AA602E /* Action.swift */; };
@@ -100,7 +100,7 @@
 		5B349DC127FA9AFF00AA602E /* todo-listUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "todo-listUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B349DC527FA9AFF00AA602E /* todo_listUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_listUITests.swift; sourceTree = "<group>"; };
 		5B349DC727FA9AFF00AA602E /* todo_listUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_listUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5B349DE127FD7FF600AA602E /* ActivityRecoderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityRecoderController.swift; path = "todo-list/ViewController/ActivityRecoderController.swift"; sourceTree = SOURCE_ROOT; };
+		5B349DE127FD7FF600AA602E /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogViewController.swift; path = "todo-list/ViewController/LogViewController.swift"; sourceTree = SOURCE_ROOT; };
 		5B349DE527FECB4700AA602E /* LogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewCell.swift; sourceTree = "<group>"; };
 		5B349DE727FECD0C00AA602E /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		5B349DE927FECDC500AA602E /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
@@ -251,7 +251,7 @@
 			children = (
 				BCC6640F27FC10F10078C1E2 /* KanbanViewController.swift */,
 				5B349DA827FA9AFE00AA602E /* SplitViewController.swift */,
-				5B349DE127FD7FF600AA602E /* ActivityRecoderController.swift */,
+				5B349DE127FD7FF600AA602E /* LogViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -475,7 +475,7 @@
 				BC632508280427BA00CE5280 /* DateFormatter.swift in Sources */,
 				5B349DF52805205000AA602E /* LogViewModel.swift in Sources */,
 				BC632505280418B900CE5280 /* Observerble.swift in Sources */,
-				5B349DE227FD7FF600AA602E /* ActivityRecoderController.swift in Sources */,
+				5B349DE227FD7FF600AA602E /* LogViewController.swift in Sources */,
 				BC6325032804138C00CE5280 /* ColumnViewModel.swift in Sources */,
 				BC4792972803E4BD00CBE369 /* TaskManager.swift in Sources */,
 				BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */,
