@@ -7,7 +7,7 @@ class CardRepository(private val cardDataSource: CardRemoteDataSource) {
         return cards.body()?.data
     }
 
-    suspend fun addCard(subject: String, content: String, status: String) : Card? {
+    suspend fun addCard(subject: String, content: String, status: String): Card? {
         return cardDataSource.addCard(NewCard(subject, content, status)).body()
     }
 

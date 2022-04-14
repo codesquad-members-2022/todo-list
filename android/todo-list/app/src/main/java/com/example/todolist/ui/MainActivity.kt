@@ -1,6 +1,10 @@
 package com.example.todolist.ui
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuInflater
+import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -32,8 +36,10 @@ class MainActivity : AppCompatActivity() {
         binding.rvProgress.adapter = ongoingAdapter
         val complete = TodoAdapter(viewModel)
         binding.rvDone.adapter = complete
+
         setOnClickMenu()
         setOnClickTodoAdd()
+
         val swipeHelperCallback = TodoTouchHelper()
         ItemTouchHelper(swipeHelperCallback).attachToRecyclerView(binding.rvTodo)
         ItemTouchHelper(swipeHelperCallback).attachToRecyclerView(binding.rvProgress)
@@ -67,8 +73,8 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        viewModel.error.observe(this) {
-                message -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        viewModel.error.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -106,14 +112,9 @@ class MainActivity : AppCompatActivity() {
                         binding.dloAppbar.openDrawer(GravityCompat.END)
                     }
                 }
-
-                else -> {
-//                    if(binding.dloAppbar.isDrawerOpen(GravityCompat.END)) {
-//                        binding.dloAppbar.closeDrawer(GravityCompat.END)
-//                    }
-                }
             }
             true
         }
     }
+
 }
