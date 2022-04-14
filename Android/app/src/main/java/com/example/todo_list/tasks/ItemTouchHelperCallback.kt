@@ -72,6 +72,7 @@ class ItemTouchHelperCallback(private val TaskAdapter : TaskAdapter) : ItemTouch
         }
     }
 
+
     private fun getView(viewHolder: RecyclerView.ViewHolder): View =
         viewHolder.itemView.findViewById(R.id.todo_item)
 
