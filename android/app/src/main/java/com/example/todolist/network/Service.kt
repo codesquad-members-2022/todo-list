@@ -1,5 +1,6 @@
 package com.example.todolist.network
 
+import com.example.todolist.model.History
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
 import com.example.todolist.model.response.CommonResponse
@@ -23,4 +24,8 @@ interface Service {
         @Path("id") id: Int,
         @Body modifyTaskRequest: ModifyTaskRequest
     ): Response<CommonResponse>
+
+    @Headers("Content-Type: application/json")
+    @GET("activity-logs")
+    suspend fun loadHistory(): Response<List<History>>
 }

@@ -8,19 +8,25 @@
 
     <string name="action_default">&lt;b>%s&lt;/b>에 &lt;b>%s&lt;/b>를 &lt;b>%s&lt;/b>하였습니다.</string>
     <string name="action_move">&lt;b>%s&lt;/b>를 &lt;b>%s&lt;/b>에서 &lt;b>%s&lt;/b>로 &lt;b>%s&lt;/b>하였습니다.</string>
-    <string name="date_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="date_format">yyyy-MM-dd\'T\'HH:mm:ss</string>
 
     <string name="label_todo_title">해야 할 일</string>
+    <string name="label_in_progress_title">하고 있는 일</string>
+    <string name="label_done_title">완료한 일</string>
     <string name="description_add_button">add_button</string>
     <string name="label_add_new_card">새로운 카드 추가</string>
+    <string name="label_update_card">카드 수정</string>
     <string name="label_dialog_register">등록</string>
+    <string name="label_dialog_update">수정</string>
     <string name="label_dialog_cancel">취소</string>
     <string name="label_dialog_add_title">제목을 입력하세요</string>
     <string name="label_dialog_add_contents">내용을 입력하세요</string>
 
     <string name="author">author by %s</string>
-
     <string name="label_go_to_done">완료한 일로 이동</string>
     <string name="label_popup_modify">수정하기</string>
     <string name="label_popup_delete">삭제하기</string>
+    <string name="label_swipe_delete">삭제</string>
+
+    <string name="error_message">서버와의 연결이 실패했습니다.</string>
 </resources>

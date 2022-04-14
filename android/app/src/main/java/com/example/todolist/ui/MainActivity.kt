@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
 
     private fun onDrawerEvent() {
         binding.btnDrawer.setOnClickListener {
-            viewModel.loadDummyData()
+            viewModel.loadHistory()
             binding.dlDrawer.openDrawer(Gravity.RIGHT)
         }
 

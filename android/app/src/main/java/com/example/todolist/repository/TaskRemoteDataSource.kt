@@ -1,6 +1,7 @@
 package com.example.todolist.repository
 
 import android.util.Log
+import com.example.todolist.model.History
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
 import com.example.todolist.model.response.CommonResponse
@@ -44,5 +45,10 @@ class TaskRemoteDataSource : TaskDataSource {
             Log.d("카드 수정 실패", "${response.code()}")
         }
         return task
+    }
+
+    override suspend fun loadHistory(): List<History>? {
+        val response = RetrofitAPI.service.loadHistory()
+        return if (response.isSuccessful) response.body() else null
     }
 }
