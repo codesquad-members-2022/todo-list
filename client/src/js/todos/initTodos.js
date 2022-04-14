@@ -24,4 +24,18 @@ export class InitTodos {
   renderColumns = async (data) => {
     this.target.insertAdjacentHTML('beforeend', data.join(' '));
   };
+
+  getMaxId = async () => {
+    const cardData = await this.getData('cards');
+
+    if (cardData.length) {
+      const maxId = cardData.reduce((prev, current) => {
+        return Number(prev.id) > Number(current.id) ? prev : current;
+      });
+
+      return Number(maxId.id);
+    } else {
+      return 0;
+    }
+  };
 }

@@ -16,9 +16,9 @@ export const createColumnTemplate = (title) => {
   `;
 };
 
-export const createCardTemplate = () => {
+export const createCardTemplate = (id) => {
   return `
-  <li class="list_item active creating">
+  <li class="list_item active creating" data-id="${id}">
     <form class="item-info">
       <input class="item-title" placeholder="제목을 입력하세요""></input>
       <textarea class="item-content" placeholder="내용을 입력하세요"></textarea>
@@ -27,6 +27,7 @@ export const createCardTemplate = () => {
         <button type="submit" class="accent-btn post-btn" disabled="true">등록</button>
       </div>
     </form>
+    
   </li>
   `;
 };

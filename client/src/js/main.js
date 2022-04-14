@@ -11,9 +11,14 @@ import { UpdateCard } from './todos/updateCard.js';
 import { DragAndDrop } from './todos/dragAndDrop.js';
 import { MenuBar } from './todos/menuBar.js';
 
-export const init = () => {
+export const init = async () => {
   const initTodos = new InitTodos(createColumnTemplate);
-  const addCard = new AddCard(createCardTemplate, createPostedCardTemplate);
+  const maxId = await initTodos.getMaxId();
+  const addCard = new AddCard(
+    createCardTemplate,
+    createPostedCardTemplate,
+    maxId
+  );
   const deleteCard = new DeleteCard();
   const dragAndDrop = new DragAndDrop();
   const updateCard = new UpdateCard(

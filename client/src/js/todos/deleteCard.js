@@ -13,7 +13,6 @@ export class DeleteCard {
       'mouseover',
       debounce((e) => this.mouseEnterHandler(e), 500)
     );
-
     this.target.addEventListener('mouseout', (e) => this.mouseLeaveHandler(e));
   }
 
@@ -27,6 +26,7 @@ export class DeleteCard {
     if (containClass(e.target, 'alert-accent-btn')) {
       this.layer.style.display = 'none';
       this.currentCard.remove();
+      this.deleteCardData(this.currentCard.dataset.id);
     }
 
     if (containClass(e.target, 'alert-normal-btn')) {
@@ -46,5 +46,13 @@ export class DeleteCard {
       const listItem = closest('.list_item', e.target);
       listItem.classList.replace('delete', 'default');
     }
+  }
+
+  deleteCardData(id) {
+    const url = `http://localhost:3001/cards/${id}`;
+    fetch(url, {
+      method: 'DELETE',
+      headers: { 'content-type': 'application/json' },
+    });
   }
 }
