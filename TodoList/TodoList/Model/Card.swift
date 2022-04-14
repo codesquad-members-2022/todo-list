@@ -13,6 +13,7 @@ struct Card: Codable{
     private(set) var title: String
     private(set) var content: String
     private(set) var createdDate: String
+    private(set) var userId: String?
     
     enum State: Int, Codable{
         case todo = 0
@@ -34,6 +35,7 @@ struct Card: Codable{
         self.title = title
         self.content = content
         self.createdDate = ""
+        self.userId = userID
     }
     
     mutating func changeId(id: Int){

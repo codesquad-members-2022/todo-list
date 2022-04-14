@@ -41,27 +41,39 @@ final class Board{
         }
     }
     
-    func postCard(card: Card){
+    func postCard(card: Card, section: BoardSubscriptIndex){
         var newCard = card
-        guard let encodingData: Data = JsonConverter.encodeJson(param: newCard) else { return }
+        let postCard = PostCard(section: card.section.rawValue, title: card.title, content: card.content, userID: "chez")
+        guard let encodingData: Data = JsonConverter.encodeJson(param: postCard) else { return }
         
-        URLManager.requestPost(url: "http://3.39.150.251:8080/api/cards?userId=chez", encodingData: encodingData){ data in
-            guard let subData: [String] = JsonConverter.decodeJson(data: data) else { return }
+        URLManager.requestPost(url: "http://3.39.150.251:8080/api/cards", encodingData: encodingData){ data in
+            do{
+                let subData = try JSONDecoder().decode(PostResponse.self, from: data)
+                
+                newCard.changeId(id: subData.id)
+                newCard.changeDate(date: subData.modifiedAt)
+                
+                self.addCard(newCard, at: section)
+            } catch{
+                return
+            }
+            //guard let subData: [PostResponse] = JsonConverter.decodeJson(data: data) else { return }
+            //guard let responseData = subData.first else { return }
             
-            guard let id = Int(subData[0]) else{ return }
-            newCard.changeId(id: id)
-            newCard.changeDate(date: subData[1])
+            
         }
     }
     
     func addCard(_ card: Card, at section: BoardSubscriptIndex){
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addCard"), object: self)
+        
         switch section {
         case .todo:
-            todoCards.append(card)
+            todoCards.insert(card, at: 0)
         case .doing:
-            doingCards.append(card)
+            doingCards.insert(card, at: 0)
         case .done:
-            doneCards.append(card)
+            doneCards.insert(card, at: 0)
         case .none:
             return
         }
