@@ -4,7 +4,7 @@
   <springProperty name="filePath" source="logging.file.path"/>
   <property name="fileName"		value="todolist" />
   <property name="maxHistory"		value="7" />
-  <property name="maxFileSize"	value="5KB" />
+  <property name="maxFileSize"	value="100KB" />
   <property name="totalSizeCap"	value="1GB" />
   <property name="consolePattern"	value="%d{HH:mm:ss.SSS} [%-5level] [%thread] [%logger{36}] - %m%n"/>
   <property name="filePattern"    value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] [%logger{36}] - %m%n"/>
