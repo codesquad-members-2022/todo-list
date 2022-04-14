@@ -75,8 +75,9 @@ extension TodoCreationViewController: UITextViewDelegate {
     // 글자수 제한
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let string = textView.text else { return true }
+        let maxCharactorLength: Int = 500
         let newLength = string.count + text.count - range.length
-        return newLength <= 500
+        return newLength <= maxCharactorLength
     }
     
     // 내용있어야 등록 버튼 활성화

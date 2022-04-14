@@ -8,7 +8,8 @@
 import Foundation
 
 extension Notification.Name {
-    static let fetch = Notification.Name("fetch data from server")
+    static let successfulFetch = Notification.Name("success fetch data from server")
+    static let failedFetch = Notification.Name("fail fetch data from server")
 }
 
 enum NotificationKey {
