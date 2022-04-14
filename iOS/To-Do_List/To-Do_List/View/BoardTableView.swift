@@ -38,6 +38,11 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
         self.separatorStyle = .none        
         self.backgroundColor = .secondarySystemBackground
     }
+
+    func appendTodo(Todo:Model) {
+        self.list?.append(Todo)
+        insertRows(at: [IndexPath(row: (list?.count ?? 1) - 1, section: 0)], with: .automatic)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let count = list?.count else {return 0}

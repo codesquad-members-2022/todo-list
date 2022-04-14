@@ -16,6 +16,7 @@ protocol CardDisplayable {
 struct Todo: CardDisplayable, Codable, Equatable {
     let id:Int?
     let title:String
+    let writer:String
     let content:String
     let createdAt:String
 }

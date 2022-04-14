@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct NewTodo:Codable {
+    let response:Todo
+}
+
 struct NetworkResult:Codable {
     let response:Board
 }

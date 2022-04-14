@@ -8,9 +8,9 @@
 import Foundation
 
 struct Board:Codable {
-    let todoItems:[Todo]
-    let progressingItems:[Todo]
-    let completedItems:[Todo]
+    let todoItems:[Todo]?
+    let progressingItems:[Todo]?
+    let completedItems:[Todo]?
 }
 
 enum BoardType: CustomStringConvertible, Codable {
@@ -34,7 +34,7 @@ enum BoardType: CustomStringConvertible, Codable {
 
 extension BoardType {
     
-    func extractList(from data: NetworkResult) -> [Todo] {
+    func extractList(from data: NetworkResult) -> [Todo]? {
         switch self {
         case .todo:
             return data.response.todoItems
