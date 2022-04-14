@@ -10,14 +10,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CardAddDto {
-    private int cardIndex;
-    private String title;
-    private String contents;
-    private String writer;
-    private String cardStatus;
 
-    public Card toEntity() {
-        CardStatus card_Status = CardStatus.valueOf(this.cardStatus);
-        return new Card(cardIndex, title, contents, writer, card_Status);
-    }
+	private int cardIndex;
+	private String title;
+	private String contents;
+	private String writer;
+	private String cardStatus;
+
+	public Card toEntity() {
+		CardStatus card_Status = CardStatus.valueOf(this.cardStatus);
+		return new Card(cardIndex, title, contents, writer, card_Status);
+	}
 }

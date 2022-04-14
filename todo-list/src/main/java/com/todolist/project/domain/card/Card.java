@@ -25,13 +25,14 @@ public class Card {
         this.cardStatus = cardStatus;
     }
 
-    public Card(int cardIndex, String title, String contents, String writer, CardStatus cardStatus) {
-        this.cardIndex = cardIndex;
-        this.title = title;
-        this.contents = contents;
-        this.writer = writer;
-        this.cardStatus = cardStatus;
-    }
+	public Card(int cardIndex, String title, String contents, String writer,
+		CardStatus cardStatus) {
+		this.cardIndex = cardIndex;
+		this.title = title;
+		this.contents = contents;
+		this.writer = writer;
+		this.cardStatus = cardStatus;
+	}
 
     public Card(int cardIndex, String title, String contents, CardStatus cardStatus) {
         this.cardIndex = cardIndex;
