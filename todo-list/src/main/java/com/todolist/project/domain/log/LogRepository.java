@@ -1,6 +1,8 @@
 package com.todolist.project.domain.log;
 
 import com.todolist.project.web.dto.LogListDto;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -38,14 +40,16 @@ public class LogRepository {
 	}
 
 	public int save(Log log) {
-		MapSqlParameterSource map = new MapSqlParameterSource();
-		map.addValue("title", log.getTitle());
-		map.addValue("prev_status", log.getPrevStatus().name());
-		map.addValue("current_status", log.getCurrentStatus().name());
-		map.addValue("action_status", log.getActionStatus().name());
-		map.addValue("action_time", log.getActionTime());
-		return namedParameterJdbcTemplate.update(LOG_INSERT_SQL,
-			map);
+		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+		Map<String, Object> map = new HashMap<>() {{
+			put("title", log.getTitle());
+			put("prev_status", log.getPrevStatus().name());
+			put("current_status", log.getCurrentStatus().name());
+			put("action_status", log.getActionStatus().name());
+			put("action_time", log.getActionTime());
+		}};
+		mapSqlParameterSource.addValues(map);
+		return namedParameterJdbcTemplate.update(LOG_INSERT_SQL, map);
 	}
 
 }

@@ -3,7 +3,9 @@ package com.todolist.project.domain.card;
 import com.todolist.project.domain.CardStatus;
 import com.todolist.project.web.dto.CardListDto;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -92,12 +94,15 @@ public class CardRepository {
 
 	public int add(Card card) {
 		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-		mapSqlParameterSource.addValue("index", card.getCardIndex());
-		mapSqlParameterSource.addValue("title", card.getTitle());
-		mapSqlParameterSource.addValue("contents", card.getContents());
-		mapSqlParameterSource.addValue("writer", card.getWriter());
-		mapSqlParameterSource.addValue("createTime", card.createTime());
-		mapSqlParameterSource.addValue("card_status", card.getCardStatus().name());
+		Map<String, Object> map = new HashMap<>() {{
+			put("index", card.getCardIndex());
+			put("title", card.getTitle());
+			put("contents", card.getContents());
+			put("writer", card.getWriter());
+			put("createTime", card.createTime());
+			put("card_status", card.getCardStatus().name());
+		}};
+		mapSqlParameterSource.addValues(map);
 		return namedParameterJdbcTemplate.update(INSERT_CARD_SQL, mapSqlParameterSource);
 	}
 
@@ -109,12 +114,16 @@ public class CardRepository {
 
 	public int update(Long id, Card card) {
 		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-		mapSqlParameterSource.addValue("index", card.getCardIndex());
-		mapSqlParameterSource.addValue("title", card.getTitle());
-		mapSqlParameterSource.addValue("contents", card.getContents());
-		mapSqlParameterSource.addValue("card_status", card.getCardStatus().name());
-		mapSqlParameterSource.addValue("createTime", card.createTime());
-		mapSqlParameterSource.addValue("id", id);
+		Map<String, Object> map = new HashMap<>() {{
+			put("id", id);
+			put("index", card.getCardIndex());
+			put("title", card.getTitle());
+			put("contents", card.getContents());
+			put("writer", card.getWriter());
+			put("createTime", card.createTime());
+			put("card_status", card.getCardStatus().name());
+		}};
+		mapSqlParameterSource.addValues(map);
 		return namedParameterJdbcTemplate.update(UPDATE_CARD_SQL, mapSqlParameterSource);
 	}
 }
