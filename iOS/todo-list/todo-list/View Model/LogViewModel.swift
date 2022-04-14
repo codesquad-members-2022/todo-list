@@ -63,3 +63,10 @@ class LogViewModel {
     }
     
 }
+
+struct logCellViewModel {
+    let id: Int
+    let title: String
+    let content: String
+    let timeLog: String
+}

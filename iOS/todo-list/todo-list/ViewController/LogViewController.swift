@@ -40,13 +40,6 @@ extension LogViewController{
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Active") else { return UITableViewCell() }
         
-        var config = cell.defaultContentConfiguration()
-        config.text = dumyData[indexPath.row]
-        
-        config.attributedText = NSAttributedString(string: dummylog.userId, attributes: [ .font: UIFont.systemFont(ofSize: 15, weight: .regular), .foregroundColor: UIColor.black])
-        config.secondaryAttributedText = NSAttributedString(string: "SubText", attributes: [ .font: UIFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: UIColor.systemGreen ])
-        
-        cell.contentConfiguration = config
         
         return cell
     }
