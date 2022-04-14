@@ -56,6 +56,12 @@ class BoardController {
     return columnsTemplate;
   }
 
+  render() {
+    this.setColumns();
+    const columnsTemplate = this.createColumnsTemplate();
+    this.board.render(columnsTemplate);
+  }
+
   getColumn(columnName) {
     for (let column of this.columns) {
       if (column.props.title === columnName) {

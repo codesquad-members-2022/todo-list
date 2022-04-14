@@ -31,9 +31,7 @@ class BoardViewModel {
   notify() {
     this.setState();
     this.observers.forEach(observer => {
-      observer.setColumns();
-      const columnsTemplate = observer.createColumnsTemplate();
-      observer.board.render(columnsTemplate);
+      observer.render();
     });
   }
 
