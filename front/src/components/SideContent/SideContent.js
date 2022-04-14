@@ -3,7 +3,7 @@ import Button from "../../tagComponents/Button";
 import Action from "./Action/Action";
 import styles from "./sideContent.module.css";
 
-const menuBtnTag = `
+const menuBtnImageTemplate = `
   <svg
       width="17"
       height="11"
@@ -18,7 +18,7 @@ const menuBtnTag = `
   </svg>
 `;
 
-const closeBtnTag = `
+const closeBtnImageTemplate = `
   <svg
     width="12"
     height="12"
@@ -33,11 +33,35 @@ const closeBtnTag = `
   </svg>
 `;
 
+const toggleSideContent = (elements) => {
+  elements.forEach(({ elementRef, className }) => {
+    const element = elementRef.current;
+    element.classList.toggle(className);
+  });
+};
+
 const SideContent = ({ todoLogs, columns }) => {
+  const actionsRef = peact.useRef();
+  const menuBtnRef = peact.useRef();
+  const closeBtnRef = peact.useRef();
+
   const newTodoLogs = todoLogs.map((todoLog) => {
     const column = columns?.find((col) => col._id === todoLog.columnId);
     return { ...todoLog, columnTitle: column?.title };
   });
+
+  const toggleElements = [
+    { elementRef: actionsRef, className: styles.active },
+    { elementRef: menuBtnRef, className: styles.btnActive },
+  ];
+
+  const handleClickMenuBtn = () => {
+    toggleSideContent(toggleElements);
+  };
+
+  const handleClickCloseBtn = () => {
+    toggleSideContent(toggleElements);
+  };
 
   const $actionsWrap = peact.createElement({
     tag: "div",
@@ -45,48 +69,25 @@ const SideContent = ({ todoLogs, columns }) => {
     child: newTodoLogs.map((todoLog) => Action({ todoLog })),
   });
 
-  const toggleSideContent = (elements) => {
-    elements.forEach(({ element, className }) => {
-      element.classList.toggle(className);
-    });
-  };
-
-  const handleCloseBtn = ({ target }) => {
-    const $closeBtn = target.closest(`.${styles.closeBtn}`);
-    const $actions = $closeBtn.parentNode;
-    const $menuBtn = $actions.parentNode.querySelector(`.${styles.menuBtn}`);
-    const elements = [
-      { element: $actions, className: styles.active },
-      { element: $menuBtn, className: styles.btnActive },
-    ];
-    toggleSideContent(elements);
-  };
-
   const $closeBtn = Button({
     className: styles.closeBtn,
-    onClick: handleCloseBtn,
-    innerHTML: closeBtnTag,
+    onClick: handleClickCloseBtn,
+    innerHTML: closeBtnImageTemplate,
+    ref: closeBtnRef,
+  });
+
+  const $menuBtn = Button({
+    className: [styles.menuBtn, styles.btnActive],
+    onClick: handleClickMenuBtn,
+    innerHTML: menuBtnImageTemplate,
+    ref: menuBtnRef,
   });
 
   const $actions = peact.createElement({
     tag: "div",
     className: styles.actions,
     child: [$actionsWrap, $closeBtn],
-  });
-
-  const handleMenuBtn = ({ target }) => {
-    const $menuBtn = target.closest(`.${styles.menuBtn}`);
-    const elements = [
-      { element: $actions, className: styles.active },
-      { element: $menuBtn, className: styles.btnActive },
-    ];
-    toggleSideContent(elements);
-  };
-
-  const $menuBtn = Button({
-    className: [styles.menuBtn, styles.btnActive],
-    onClick: handleMenuBtn,
-    innerHTML: menuBtnTag,
+    ref: actionsRef,
   });
 
   return peact.createElement({

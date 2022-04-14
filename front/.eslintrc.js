@@ -34,5 +34,6 @@ module.exports = {
     "import/prefer-default-export": "off",
     "func-names": "off",
     "no-underscore-dangle": ["error", { allow: ["_id"] }],
+    "no-param-reassign": "off",
   },
 };

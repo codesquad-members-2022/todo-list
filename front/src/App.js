@@ -1,4 +1,5 @@
 import styles from "./App.module.css";
+import Columns from "./components/Content/Columns/Columns";
 import Content from "./components/Content/Content";
 import Header from "./components/Header/Header";
 import SideContent from "./components/SideContent/SideContent";
@@ -35,10 +36,12 @@ const App = () => {
     fetchTodoLogs();
   }, [renderFlag]);
 
+  const $columns = Columns({ columns, todos, handleRenderFlag });
+
   const $todoListArea = peact.createElement({
     tag: "div",
     className: styles.todolistArea,
-    child: [Header(), Content({ columns, todos, handleRenderFlag })],
+    child: [Header(), Content({ content: $columns })],
   });
 
   return peact.createElement({

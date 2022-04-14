@@ -24,10 +24,11 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
     });
 
   const createColumnElement = (column) => {
-    const $newCard = CardWritable({ handleNewCardVisibility });
-    function handleNewCardVisibility() {
-      $newCard.classList.toggle(styles.visible);
-    }
+    const newCardRef = peact.useRef();
+    const handleNewCardVisibility = () => {
+      newCardRef.current.classList.toggle(styles.visible);
+    };
+    const $newCard = CardWritable({ handleNewCardVisibility, ref: newCardRef });
 
     return peact.createElement({
       tag: "div",
