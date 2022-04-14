@@ -1,45 +1,7 @@
 {
-  "todo": [
-    {
-      "id": 1649773912728,
-      "title": "수학공부",
-      "content": "678910"
-    },
-    {
-      "title": "영어공부",
-      "content": "abcde",
-      "id": 1649773912733
-    },
-    {
-      "title": "과학공부",
-      "content": "f=ma",
-      "id": 1649773912750
-    },
-    {
-      "title": "아아아",
-      "content": "f=ma",
-      "id": 1649773914400
-    }
-  ],
-  "doing": [
-    {
-      "id": 1649773912726,
-      "title": "GitHub 공부하기",
-      "content": "add, commit, push"
-    },
-    {
-      "id": 1649918016188,
-      "title": "아아아아아",
-      "content": "돼라 얍!"
-    }
-  ],
-  "done": [
-    {
-      "id": 1649773912740,
-      "title": "GitHub 공부 또 하기",
-      "content": "merge vs rebase"
-    }
-  ],
+  "todo": [],
+  "doing": [],
+  "done": [],
   "history": [
     {
       "id": 1,
