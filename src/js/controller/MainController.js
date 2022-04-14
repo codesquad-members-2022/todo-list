@@ -12,7 +12,7 @@
 
   TODO:
   인풋 인식 한 박자 느린거 고쳐야함!
-  */
+*/
 
 import { renderEmptyCard } from "../view/EmptyCardView.js";
 import { renderCard } from "../view/CardView.js";
@@ -48,8 +48,6 @@ function handleCardInput({ target }) {
   const cardTextData = [cardTitle, cardContent].map((input) => input.textContent.trim());
   const registerBtn = util.$(".task-card__register-btn.cursor-pointer", parentCard);
 
-  // console.log(cardTextData);
-
   if (cardTextData.includes("")) {
     registerBtn.disabled = true;
     return;
@@ -62,17 +60,13 @@ async function handleRegisterBtn({ target }, store) {
   const cardTitle = parentCard.querySelector(".task-card__title").textContent;
   const cardContent = parentCard.querySelector(".task-card__content").textContent;
 
-  console.log(cardTitle, cardContent);
-
   // title, content을 바탕으로 state 만들기
-  function createState(cardTitle, cardContent) {
-    return {};
-  }
+  const newState = createCardState(cardTitle, cardContent);
 
-  const newState = createCardState;
+  // 만든 state를 store에 저장(서버에 저장)
+  const dataType = parentCard.parentElement.id;
+  await store.addState(dataType, newState);
 
-  // 만든 state를 store에 저장
-  // store를 서버 db에 저장
   // 클래스 리스트 추가 및 삭제
   // 삭제 버튼 & 더블 클릭 & 드래그드랍 이벤트 등록
 
@@ -86,6 +80,14 @@ async function handleRegisterBtn({ target }, store) {
   // store.setState(newState);
 
   // 빈카드 삭제
+}
+
+function createCardState(cardTitle, cardContent) {
+  return {
+    id: Date.now(),
+    title: cardTitle,
+    content: cardContent,
+  };
 }
 
 function handleRemoveBtn(event, store) {

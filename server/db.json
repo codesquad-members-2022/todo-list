@@ -18,24 +18,29 @@
     {
       "title": "아아아",
       "content": "f=ma",
-      "id": 1649773912750
+      "id": 1649773914400
     }
   ],
   "doing": [
     {
-      "cardId": "1649773912726",
+      "id": 1649773912726,
       "title": "GitHub 공부하기",
       "content": "add, commit, push"
+    },
+    {
+      "id": 1649918016188,
+      "title": "아아아아아",
+      "content": "돼라 얍!"
     }
   ],
   "done": [
     {
-      "id": "1649773912740",
+      "id": 1649773912740,
       "title": "GitHub 공부 또 하기",
       "content": "merge vs rebase"
     }
   ],
-  "historyData": [
+  "history": [
     {
       "id": 1,
       "title": "GitHub 공부하기",
