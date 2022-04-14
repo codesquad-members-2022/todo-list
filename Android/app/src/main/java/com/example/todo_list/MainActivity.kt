@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.todo_list.data.TasksRepository
 import com.example.todo_list.databinding.ActivityMainBinding
 import com.example.todo_list.history.HistoryAdapter
 import com.example.todo_list.tasks.data.Task
@@ -21,8 +20,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        tasksViewModel = ViewModelProvider(this, ViewModelFactory(TasksRepository())).get(
-            TasksViewModel::class.java)
+        val repository = ServiceLocator.provideRepository()
+        tasksViewModel = ViewModelProvider(this, ViewModelFactory(repository)).get(TasksViewModel::class.java)
 
         val historyAdapter = HistoryAdapter()
         binding.recyclerviewHistory.adapter = historyAdapter
