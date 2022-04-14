@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.data.model.Log
 import com.codesquad.aos.todolist.data.model.handlecard.AddCard
+import com.codesquad.aos.todolist.data.model.handlecard.EditCard
 import com.codesquad.aos.todolist.repository.CardItemRepository
+import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.launch
 
 class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
@@ -34,7 +36,7 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
     val progressVisible = MutableLiveData<Boolean>(false)
 
     // 해야할 일 추가
-    fun addTodo(title: String, content: String){
+/*    fun addTodo(title: String, content: String){
         todolist.add(0, Card(cardId++, content, 0, "todo", title))
         _todoListLd.value = todolist
     }
@@ -47,7 +49,7 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
     fun addComplete(title: String, content: String){
         completelist.add(0, Card(cardId++, content, 0, "done", title))
         _completeListLd.value = completelist
-    }
+    }*/
 
     // Card 객체를 바로 리스트 마지막에 추가
     fun addTodoCard(card: Card){
@@ -177,6 +179,7 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
         }
     }
 
+    // 카드 추가
     fun addCard(title:String, content: String, section: String){
         progressVisible.postValue(true)
 
@@ -203,6 +206,25 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
                 android.util.Log.d("AppTest", "카드 추가 실패")
 
                 // 카드 추가 성공 판단용 boolean livedata 설정해보기
+            }
+        }
+
+    }
+
+    // 카드 수정
+    fun editCard(cardId: Int, content: String, order: Int, section: String, title: String){
+        progressVisible.postValue(true)
+        val editCardData = EditCard(content, order, section, title)
+        val cardId = cardId
+
+        viewModelScope.launch {
+            val editCardResponse = repository.editCardItem(cardId, editCardData)
+            if(editCardResponse.isSuccessful){
+
+                // 새로 전체 카드 조회하기 -> 수정 사항 업데이트 위함
+            }
+            else{
+
             }
         }
 

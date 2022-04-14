@@ -13,5 +13,7 @@ data class Card(
     val section: String,
     @SerializedName("title")
     val title: String,
+    @SerializedName("author")
+    val author: String,
     var isSwiped: Boolean = false
 )

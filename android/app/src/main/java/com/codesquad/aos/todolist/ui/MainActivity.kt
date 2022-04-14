@@ -25,6 +25,7 @@ import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
 import com.codesquad.aos.todolist.ui.dialog.CompleteDialogFragment
 import com.codesquad.aos.todolist.ui.dialog.ProgressDialogFragment
 import com.codesquad.aos.todolist.ui.dialog.TodoDialogFragment
+import com.codesquad.aos.todolist.ui.dialog.edit.CardEditDialogFragment
 import kotlin.math.min
 
 class MainActivity : AppCompatActivity(), DataChangeListener {
@@ -59,11 +60,24 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         viewModel.getCardItems()
     }
 
+    // 할 일 전용
     private fun setTodoRecyclerView() {
         todoCardListAdapter = TodoCardListAdapter(
             { deleteIndex ->
                 viewModel.deleteTodo(deleteIndex)
-            }, this
+            }, this, {
+                // CardEidtDialog를 열면서 Card 객체(it) 전달하기
+                val args = Bundle()
+                args.putString("title", it.title)
+                args.putInt("id", it.cardId)
+                args.putString("section", it.section)
+                args.putString("content", it.content)
+                args.putInt("order", it.order)
+
+                val cardEditDialogFragment = CardEditDialogFragment()
+                cardEditDialogFragment.arguments = args
+                cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
+            }
         )
         binding.rvTodo.adapter = todoCardListAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
@@ -93,7 +107,9 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         progressCardListAdapter = TodoCardListAdapter (
             { deleteIndex ->
                 viewModel.deleteProgress(deleteIndex)
-            }, this)
+            }, this, {
+
+            })
         binding.rvProgress.adapter = progressCardListAdapter
         binding.rvProgress.layoutManager = LinearLayoutManager(this)
         binding.rvProgress.addItemDecoration(VerticalItemDecorator(15))
@@ -119,7 +135,9 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         completeCardListAdapter = TodoCardListAdapter (
             { deleteIndex ->
             viewModel.deleteComplete(deleteIndex)
-            }, this)
+            }, this, {
+
+            })
         binding.rvComplete.adapter = completeCardListAdapter
         binding.rvComplete.layoutManager = LinearLayoutManager(this)
         binding.rvComplete.addItemDecoration(VerticalItemDecorator(15))

@@ -21,20 +21,24 @@ import java.util.*
 
 class TodoCardListAdapter(
     private val deleteTextClick: (deleteCardIndex: Int) -> Unit,  // 메인 액티비티에서 전달하는 메서드
-    private val dataChangeListener: DataChangeListener
+    private val dataChangeListener: DataChangeListener,
+    private val openEditDialog: (card: Card) -> Unit
 ) : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil), View.OnTouchListener {
 
     inner class CardViewHolder(val binding: ItemTodoCardBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnCreateContextMenuListener {
 
+        init {
+            itemView.setOnCreateContextMenuListener(this)  // Context 메뉴가 나타나도록 등록
+        }
+
         fun bind(card: Card?, deleteTextClick: (deleteCard: Int) -> Unit) {
             binding.tvCardTitle?.text = card?.title
             binding.tvCardContent?.text = card?.content
 
-            binding.mcItemView?.setOnCreateContextMenuListener(this)
-
             binding.tvRemove?.setOnClickListener {
-                val viewTag =
+                // 현재 tvRemove에 setOnClickListener가 걸려있어서 카드를 이동하는 경우 tvRemove 부분으로 드래그를 하면 안되고, 나머지 왼쪽 부분으로 하면 드래그가 이루어짐짐
+               val viewTag =
                     this.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).tag as? Boolean
                         ?: false
                 if (viewTag) { // true면 삭제 영역 보임
@@ -48,7 +52,7 @@ class TodoCardListAdapter(
             }
         }
 
-        override fun onCreateContextMenu(
+        override fun onCreateContextMenu(  // 메뉴의 형태 지정
             menu: ContextMenu?,
             v: View?,
             menuInfo: ContextMenu.ContextMenuInfo?
@@ -56,6 +60,23 @@ class TodoCardListAdapter(
             val inflater: MenuInflater = MenuInflater(itemView.context)
             inflater.inflate(R.menu.card_items, menu)
 
+            menu!!.getItem(0).setOnMenuItemClickListener {
+                Log.d("AppTest", "0 clicked, ${this.absoluteAdapterPosition}, cardId : ${getItem(this.absoluteAdapterPosition).cardId}")  // 여기서 this = 뷰홀더!
+
+                // 매인액티비티로 Card 객체 이동시키기
+
+                true
+            }
+            menu!!.getItem(1).setOnMenuItemClickListener {
+                Log.d("AppTest", "1 clicked")
+                // 수정하기
+                openEditDialog.invoke(getItem(this.absoluteAdapterPosition))
+                true
+            }
+            menu!!.getItem(2).setOnMenuItemClickListener {
+                Log.d("AppTest", "2 clicked")
+                true
+            }
         }
 
     }
@@ -114,8 +135,6 @@ class TodoCardListAdapter(
             // areItemsTheSame 이 참이면 areContentsTheSame 가 호출된다
         }
 
-        private const val LONG_PRESSED_TIME = 2L
-        private const val MILLIS_OF_SECOND = 1000L
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -125,7 +144,11 @@ class TodoCardListAdapter(
         when (event?.action) {
 
             MotionEvent.ACTION_DOWN -> {
-/*                val isDraggable = if (swipeViewTag != null) {
+                // DOWN에 넣으면 startDragAndDrop에서 드래그 이벤트를 가져가서 ACTION_MOVE 호출이 되지 않는다
+                // + 메뉴도 나타나지 않음(아마 ContextMenu에서도 메뉴를 띄우기 위해 터치하는 순간 이벤트를 받아야 하는 것 같은데,
+                // 그전에 startDragAndDrop이 이벤트를 가져가서 인식이 안되어 메뉴가 나타나지 않는 것 같음,  MOVE로 아래 코드를 옮기면 정상적으로 ContextMenu가 나타난다)
+                Log.d("AppTest", "ACTION_DOWN")
+            /*    val isDraggable = if (swipeViewTag != null) {
                     swipeViewTag as Boolean  // 삭제 영역이 활성화 되어있다면 swipeViewTag 값이 true, tag= any 타입 -> 여러 타입 할당 가능
                 } else {
                     false
@@ -139,7 +162,8 @@ class TodoCardListAdapter(
                 return true*/
             }
             MotionEvent.ACTION_MOVE -> {
-                Log.d("AppTest", "ACTION_MOVE")
+               Log.d("AppTest", "ACTION_MOVE")
+
                 val isDraggable = if (swipeViewTag != null) {
                     swipeViewTag as Boolean  // 삭제 영역이 활성화 되어있다면 swipeViewTag 값이 true, tag= any 타입 -> 여러 타입 할당 가능
                 } else {
