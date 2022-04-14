@@ -151,7 +151,7 @@ extension MainViewController {
             content: info.content,
             cardType:childVC.boardType?.type ?? "",
             memberId: 1,
-            position: childVC.tableView.list.count)
+            maxPositionNumber: childVC.tableView.list.count)
         
         networkManager?.request(endpoint: EndPointCase.addCard(card: postModel).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
             switch result {

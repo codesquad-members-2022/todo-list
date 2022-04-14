@@ -139,14 +139,14 @@ extension ChildViewController : BoardHeaderDelegate {
 
 //MARK: -- BoardTableView Delete delegation
 extension ChildViewController : BoardTableViewDelegate {
-    func DidTapMoveToCompleted(foucsedCard: Todo, from: Int) {
+    func didTapMoveToCompleted(foucsedCard: Todo, from: Int) {
         NotificationCenter.default.post(
             name: ChildViewController.tapMoveToCompltedButton,
             object: self,
             userInfo: [ChildViewController.movedCardInfo:MovedCardInfo(foucsedCard:foucsedCard,from:from)])
     }
     
-    func DidTapDelete(item: Any) {
+    func didTapDelete(item: Any) {
         NotificationCenter.default.post(
             name: MainViewController.didDeleteCard,
             object: self,

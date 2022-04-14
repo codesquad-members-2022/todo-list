@@ -14,9 +14,9 @@ struct NewCard : CardDisplayable, Codable {
     let content : String
     let cardType: String
     let memberId: Int
-    let position: Int
+    let maxPositionNumber: Int
     
     func body() -> [String:Any]? {
-        return ["id": id,"writer":writer,"title":title,"content":content,"cardType":cardType , "memberId":memberId, "position": position]
+        return ["id": id,"writer":writer,"title":title,"content":content,"cardType":cardType , "memberId":memberId, "maxPositionNumber": maxPositionNumber]
     }
 }
