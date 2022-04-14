@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
-        val touchHelper = TodoTouchHelper(todoCardListAdapter, viewModel).apply {
+        val touchHelper = TodoTouchHelper(todoCardListAdapter).apply {
             setClamp(170f)  // 170 이
         }
 
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
         binding.rvProgress.setOnDragListener(progressCardListAdapter.dragInstance)
 
-        val touchHelper = TodoTouchHelper(progressCardListAdapter, viewModel).apply {
+        val touchHelper = TodoTouchHelper(progressCardListAdapter).apply {
             setClamp(170f)  // 170 이
         }
 
@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
         binding.rvComplete.setOnDragListener(completeCardListAdapter.dragInstance)
 
-        val touchHelper = TodoTouchHelper(completeCardListAdapter, viewModel).apply {
+        val touchHelper = TodoTouchHelper(completeCardListAdapter).apply {
             setClamp(170f)  // 170 이
         }
 

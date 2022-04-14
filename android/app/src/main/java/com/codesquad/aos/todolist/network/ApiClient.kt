@@ -1,18 +1,41 @@
 package com.codesquad.aos.todolist.network
 
-import com.codesquad.aos.todolist.data.model.Card
+import com.codesquad.aos.todolist.data.model.handlecard.AddCard
 import com.codesquad.aos.todolist.data.model.GetCardResponse
+import com.codesquad.aos.todolist.data.model.handlecard.EditCard
+import com.codesquad.aos.todolist.data.model.handlecard.HandleCardResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
+import retrofit2.http.*
 
 interface ApiClient {
 
+    // 전체 카드 조회
     @GET("api/cards")
     suspend fun getCard(): Response<GetCardResponse>
+
+    // 카드 추가
+   @POST("api/cards")
+   suspend fun addCard(
+        @Body addCardData: AddCard
+    ): Response<HandleCardResponse>
+
+   // 카드 삭제
+   @DELETE("api/cards/{id}")
+   suspend fun deleteCard(
+       @Path("id")id: Int
+   ): Response<HandleCardResponse>
+
+   // 카드 수정
+   @PUT("api/cards/{id}")
+   suspend fun editCard(
+       @Path("id")id: Int,
+       @Body addCardData: EditCard
+   ): Response<HandleCardResponse>
+
 
     companion object {
 

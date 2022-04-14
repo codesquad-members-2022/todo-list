@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.data.model.Log
+import com.codesquad.aos.todolist.data.model.handlecard.AddCard
 import com.codesquad.aos.todolist.repository.CardItemRepository
 import kotlinx.coroutines.launch
 
@@ -154,14 +155,17 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
                 responseBody?.let {
                     todolist.clear()
                     todolist.addAll(it.classifiedCardsDTO.classifiedCards.todo.toMutableList())
+                    todolist.reverse()
                     _todoListLd.value = todolist
 
                     progresslist.clear()
                     progresslist.addAll(it.classifiedCardsDTO.classifiedCards.doing.toMutableList())
+                    progresslist.reverse()
                     _progressListLd.value = progresslist
 
                     completelist.clear()
                     completelist.addAll(it.classifiedCardsDTO.classifiedCards.done.toMutableList())
+                    completelist.reverse()
                     _completeListLd.value = completelist
                 }
             }
@@ -172,5 +176,22 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
 
         }
     }
+
+    fun addCard(title:String, content: String, section: String){
+        progressVisible.postValue(true)
+
+        val sectionSize = when(section){
+            "todo" -> todolist.size
+            "doing" -> progresslist.size
+            "done" -> completelist.size
+            else -> -1
+        }
+
+        val addCardData = AddCard(content, sectionSize, section, title)
+
+
+    }
+
+
 
 }
