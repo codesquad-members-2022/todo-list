@@ -55,6 +55,12 @@ public class TodoJdbcRepository implements TodoRepository {
 		return todo;
 	}
 
+	@Override
+	public boolean deleteById(Long id) {
+		// 구현 중
+		return false;
+	}
+
 	public RowMapper<Todo> todoRowMapper() {
 		return (rs, rowNum) -> {
 			Todo todo = new Todo(

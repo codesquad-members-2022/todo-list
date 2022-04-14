@@ -47,7 +47,8 @@ public class TodoService {
 	}
 
 	public boolean deleteById(Long id) {
-			// 구현 중
-		return false;
+		todoRepository.findById(id)
+			.orElseThrow(() -> new NoSuchTodoFoundException("id: " + id));
+		return todoRepository.deleteById(id);
 	}
 }

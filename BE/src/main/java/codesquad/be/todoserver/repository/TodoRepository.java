@@ -13,4 +13,6 @@ public interface TodoRepository {
 	List<Todo> findAllTodos();
 
 	Todo saveTodo(Todo todo);
+
+	boolean deleteById(Long id);
 }

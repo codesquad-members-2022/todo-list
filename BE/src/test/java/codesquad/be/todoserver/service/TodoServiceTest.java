@@ -65,6 +65,18 @@ class TodoServiceTest {
 		assertThat(todos).contains(todolist.get(1));
 	}
 
+	@Test
+	void 특정_투두_삭제_성공() {
+		given(todoRepository.findById(2L))
+			.willReturn(Optional.of(new Todo(2L, "Github 공부하기", "add, commit, push", "sam", "todo")));
+		given(todoRepository.deleteById(2L))
+			.willReturn(true);
+
+		boolean result = todoService.deleteById(2L);
+
+		assertThat(result).isTrue();
+	}
+
 	private List<Todo> createTestData() {
 		List<Todo> todolist = new ArrayList<>();
 		todolist.add(new Todo(1L, "Github 공부하기", "add, commit, push", "sam", "todo"));
