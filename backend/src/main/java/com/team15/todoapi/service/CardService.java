@@ -18,21 +18,21 @@ public class CardService {
 	private final CardRepository cardRepository;
 	private final MemberRepository memberRepository;
 
-	public List<CardResponse> findAll(String userId) {
+	public List<CardResponse.ListInfo> findAll(String userId) {
 		Member member = selectMemberInfo(userId);
 
 		List<Card> cards = cardRepository.findAll(member.getId());
 
-		return cards.stream().map(CardResponse::from).collect(Collectors.toList());
+		return cards.stream().map(CardResponse.ListInfo::from).collect(Collectors.toList());
 	}
 
-	public CardResponse add(CardRequest cardRequest) {
+	public CardResponse.AddInfo add(CardRequest cardRequest) {
 		Member member = selectMemberInfo(cardRequest.getUserId());
 
 		Card card = Card.of(cardRequest, member.getId());
 		card = cardRepository.add(card);
 
-		return CardResponse.from(card);
+		return CardResponse.AddInfo.from(card);
 	}
 
 	private Member selectMemberInfo(String userId) {

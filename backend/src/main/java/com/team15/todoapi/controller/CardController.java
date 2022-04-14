@@ -24,13 +24,13 @@ public class CardController {
 	private final CardService cardService;
 
 	@GetMapping
-	public List<CardResponse> retrieveList(@RequestParam String userId){
+	public List<CardResponse.ListInfo> retrieveList(@RequestParam String userId){
 		return cardService.findAll(userId);
 	}
 
 	@PostMapping
 	public ResponseEntity add(@RequestBody CardRequest cardRequest){
-		CardResponse cardResponse = cardService.add(cardRequest);
+		CardResponse.AddInfo cardResponse = cardService.add(cardRequest);
 
 		return new ResponseEntity(cardResponse, HttpStatus.CREATED);
 	}
