@@ -3,7 +3,7 @@ import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
 import { getLocalStorageByKey, getTodosByStatus } from './utils/localStorage.js';
-import { onBodyMouseMove, onBodyMouseUp } from './utils/eventDragHandler.js';
+import { onBodyMouseDown, onBodyMouseMove, onBodyMouseUp } from './utils/eventDragHandler.js';
 import { $ } from './utils/dom.js';
 import { handleNotice } from './utils/action.js';
 
@@ -14,6 +14,7 @@ const app = () => {
   localStorage.setItem('notices', JSON.stringify(notices));
 
   new TodoNoticeAnimation();
+  onBodyMouseDown();
   onBodyMouseMove();
   onBodyMouseUp();
   createColumns();
