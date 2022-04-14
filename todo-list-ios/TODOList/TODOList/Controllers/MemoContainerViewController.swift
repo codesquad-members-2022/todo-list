@@ -29,7 +29,11 @@ class MemoContainerViewController: UIViewController {
 
 extension MemoContainerViewController: PopupViewDelegate {
     func popupViewAddButtonDidTap(memo: Memo) {
-        // TODO: NetworkLayer로 토스
+        let memoUseCase = MemoUseCase()
+        guard let data = memoUseCase.convertMemoToJSON(memo: memo) else {
+            return
+        }
+        memoUseCase.sendDataToManager(data: data, methodType: HTTPMethod.post, path: Path.task)
     }
 }
 
