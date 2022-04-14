@@ -10,7 +10,7 @@ import Combine
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     func loadColumns() -> AnyPublisher<ApiResult<Columns, SessionError>, Never> {
-        request(.loadColumns)
+        request(.loadColumns, isSucccess: true)
             .map { $0.decode(Columns.self) }
             .eraseToAnyPublisher()
     }

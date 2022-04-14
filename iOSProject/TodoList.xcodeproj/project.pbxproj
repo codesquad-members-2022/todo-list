@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		378533AC27FEB45400E86BDC /* LogViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378533AB27FEB45400E86BDC /* LogViewCell.swift */; };
+		37EB0091280855E4004282EA /* logViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EB0090280855E4004282EA /* logViewModel.swift */; };
 		E041D6A628083FEC00A9A419 /* MockLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E041D6A528083FEC00A9A419 /* MockLog.swift */; };
 		E0A6BAE127FB1F9F00F00575 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAE027FB1F9F00F00575 /* MainViewController.swift */; };
 		E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAE727FB20DE00F00575 /* MainTitleBarView.swift */; };
@@ -52,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		378533AB27FEB45400E86BDC /* LogViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewCell.swift; sourceTree = "<group>"; };
+		37EB0090280855E4004282EA /* logViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logViewModel.swift; sourceTree = "<group>"; };
 		E041D6A528083FEC00A9A419 /* MockLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLog.swift; sourceTree = "<group>"; };
 		E0A6BAE027FB1F9F00F00575 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E0A6BAE727FB20DE00F00575 /* MainTitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleBarView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				E0A6BB2927FE91B100F00575 /* LogViewController.swift */,
 				378533AB27FEB45400E86BDC /* LogViewCell.swift */,
+				37EB0090280855E4004282EA /* logViewModel.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				E0A6BAF127FB28CE00F00575 /* ColumnViewController.swift in Sources */,
 				E0A6BAFC27FBCD5800F00575 /* UiViewController+Extension.swift in Sources */,
 				E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */,
+				37EB0091280855E4004282EA /* logViewModel.swift in Sources */,
 				E0A6BAF527FB325800F00575 /* UIColor+Extension.swift in Sources */,
 				E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */,
 				E0A6BB452801BB7900F00575 /* ClientCard.swift in Sources */,
