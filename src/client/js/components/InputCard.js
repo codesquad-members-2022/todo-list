@@ -1,13 +1,8 @@
 import Component from '../core/Component.js';
 import autosize from 'autosize';
-import { UserStore, ColumnStore, TaskStore } from '../store/index.js';
+import { UserStore, TaskStore } from '../store/index.js';
 
 class InputCard extends Component {
-  setup() {
-    ColumnStore.subscribe('columns', this);
-    TaskStore.subscribe('tasks', this);
-  }
-
   template() {
     return `<form class='card deactivate'>
               <textarea class='card-title' name='title' placeholder='제목을 입력하세요' maxlength='100' rows='1'></textarea>
@@ -86,15 +81,14 @@ class InputCard extends Component {
         break;
       }
       case 'edit': {
-        const { id } = this.$props.card.dataset;
-        await TaskStore.editTask({ title, contents }, id);
+        await TaskStore.editTask({ title, contents }, this.$props.taskId);
         break;
       }
     }
   }
 
   getCardInfo() {
-    const columnId = this.$props.column.id;
+    const columnId = this.$props.id;
     const { title, contents } = this.getTitleAndContents();
     const user = UserStore.getUser();
     const userId = user.id;
@@ -110,11 +104,11 @@ class InputCard extends Component {
   removeCard() {
     if (this.$props.mode === 'edit') this.showHiddenList();
     this.$target.remove();
-    TaskStore.unsubscribe('tasks', this);
   }
 
   showHiddenList() {
-    this.$props.card.classList.remove('hidden');
+    const hiddenList = this.$target.closest('.column').querySelector('.hidden');
+    hiddenList.classList.remove('hidden');
   }
 }
 

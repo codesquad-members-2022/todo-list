@@ -25,7 +25,7 @@ class Card extends Component {
       this.$target.querySelector('.card').classList.add('delete');
     });
 
-    this.addEvent('mouseout', '.delete-btn', (event) => {
+    this.addEvent('mouseout', '.delete-btn', event => {
       const alertWrapper = document.querySelector('.alert-wrapper');
       if (event.relatedTarget !== alertWrapper) {
         this.$target.querySelector('.card').classList.remove('delete');
@@ -43,16 +43,32 @@ class Card extends Component {
   }
 
   handleDblclick() {
-    const { inputCard } = this.$props.column;
-    if (inputCard) inputCard.removeCard();
+    this.removeInputCard();
 
     const columnById = columnStore.getColumnWithId(this.$props.columnId);
-    this.$props.column.inputCard = renderEditedInputCard({
+    const taskId = this.$target.dataset.id;
+    const { title, contents } = this.$props;
+
+    renderEditedInputCard({
       target: this.$target,
       column: columnById,
+      title,
+      contents,
+      taskId,
     });
-
     this.$target.classList.add('hidden');
+  }
+
+  removeInputCard() {
+    const column = this.$target.closest('.column');
+    const inputCard = column.querySelector('.deactivate');
+    if (!inputCard) return;
+
+    inputCard.closest('li').remove();
+    const hiddenList = column.querySelector('.hidden');
+    if (!hiddenList) return;
+
+    hiddenList.classList.remove('hidden');
   }
 }
 

@@ -11,7 +11,7 @@ export const renderActions = ({ container, actions }) => {
   const fragment = document.createDocumentFragment();
   if (!actions.length) {
     const listItem = document.createElement('li');
-    listItem.innerText = '활동 기록이 없습니다.'
+    listItem.innerText = '활동 기록이 없습니다.';
     fragment.append(listItem);
   } else {
     actions.reverse().forEach(action => {
@@ -30,22 +30,28 @@ export const renderAlert = ({ cardId }) => {
   new Alert(document.querySelector('.alert-wrapper'), { cardId });
 };
 
-export const renderEditedInputCard = ({ target, column }) => {
+export const renderEditedInputCard = ({
+  target,
+  column,
+  title,
+  contents,
+  taskId,
+}) => {
   const listItem = document.createElement('li');
   const inputCard = new InputCard(listItem, {
     column,
+    title,
+    contents,
+    taskId,
     mode: 'edit',
-    card: target,
-    title: target.querySelector('.card-title').innerText,
-    contents: target.querySelector('.card-contents').innerText,
   });
   target.insertAdjacentElement('afterend', listItem);
   return inputCard;
 };
 
-export const renderNewInputCard = ({ container, column }) => {
+export const renderNewInputCard = ({ container, id }) => {
   const listItem = document.createElement('li');
-  const inputCard = new InputCard(listItem, { column, mode: 'new' });
+  const inputCard = new InputCard(listItem, { id, mode: 'new' });
   container.insertAdjacentElement('afterbegin', listItem);
   return inputCard;
 };
@@ -62,12 +68,11 @@ const renderColumns = ({ container, columns }) => {
   container.append(fragment);
 };
 
-export const renderCards = ({ container, tasks, column }) => {
+export const renderCards = ({ container, tasks }) => {
   const fragment = document.createDocumentFragment();
   tasks.forEach(task => {
     const listItem = document.createElement('li');
     listItem.dataset.id = task.id;
-    task.column = column;
     new Card(listItem, task);
     fragment.appendChild(listItem);
   });

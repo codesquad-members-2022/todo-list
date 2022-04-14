@@ -3,8 +3,6 @@ import { TaskStore } from '../store/index.js';
 import { renderCards, renderNewInputCard } from '../render/index.js';
 
 class Column extends Component {
-  inputCard;
-
   setup() {
     this.$state = {
       column: this.$props.column,
@@ -58,23 +56,17 @@ class Column extends Component {
     this.addEvent('click', '.add-btn', () => this.handleAddBtnClick());
   }
 
-  removeInputCard() {
-    this.inputCard.removeCard();
-    this.inputCard = null;
-  }
-
   handleAddBtnClick() {
-    const isInputCard = !!this.$target.querySelector('.deactivate');
+    const inputCard = this.$target.querySelector('.deactivate');
+    const hiddenList = this.$target.querySelector('.hidden');
 
-    if (isInputCard) {
-      const { mode } = this.inputCard.$props;
-      this.removeInputCard();
-      if (mode === 'new') return;
-    }
+    if (inputCard) inputCard.closest('li').remove();
+    if (hiddenList) hiddenList.classList.remove('hidden');
+    if (inputCard && !hiddenList) return;
 
-    this.inputCard = renderNewInputCard({
+    renderNewInputCard({
       container: this.$target.querySelector('.column-card-list'),
-      column: this.$props.column,
+      id: this.$props.column.id,
     });
   }
 }
