@@ -46,21 +46,49 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
                             val sourceData = adapterSource.currentList[positionSource] // 이동하려는 아이템뷰의 객체 데이터 <- Card
                             val listSource = adapterSource.currentList.toMutableList() // submitList를 위함, listSource는 이동하려는 아이템뷰의 리사이클러뷰의 전체 리스트
 
+                            val targetPosition = target.getChildAdapterPosition(view) // 드래그 하고 카드 아이템뷰 위에 놓은 경우 여기로 온다,
                             if (adapterSource == adapterTarget) {  // 같은 리사이클러뷰 내에서의 이동인 경우 <- 이 부분 없으면 이전처럼 복제 오류 발생
                                 if (positionTarget < 0) { // 탈출, 아무 변화가 없다
                                     return true
                                 }
-                                val targetPosition = target.getChildAdapterPosition(view)  // 드래그 하고 카드 아이템뷰 위에 놓은 경우 여기로 온다,
+                                //val targetPosition = target.getChildAdapterPosition(view)  // 드래그 하고 카드 아이템뷰 위에 놓은 경우 여기로 온다,
                                 // 여기까지 왔으면 view 는 놓는 리사이클러뷰의 itemView 중 하나
                                 //Collections.swap(listSource, positionSource, targetPosition)
 
                                 // 같은 리사이클러뷰 내에서 순서만 변경, listSource의 positionSource와 targetPosition 인덱스에 해당하는 두 데이터의 위치를 서로 변경
                                 //adapterTarget.submitList(listSource) // 바뀐 순서 반영되도록 submitList 호출
 
-                                when(target.id){
-                                    rvTodo -> dataChangeListener.swapData(1, positionSource, targetPosition)
-                                    rvProgress -> dataChangeListener.swapData(2, positionSource, targetPosition)
-                                    rvComplete -> dataChangeListener.swapData(3, positionSource, targetPosition)
+                                var preOrder = -2
+                                var nextOrder = -2
+                                var preSection = ""
+                                var nextSection = ""
+                                val cardId = sourceData.cardId
+                                val section = sourceData.section
+
+                                if(positionSource > targetPosition){
+                                    preOrder = adapterTarget.currentList[targetPosition].order
+                                    nextOrder = if(targetPosition == 0){
+                                        -1
+                                    }else{
+                                        adapterTarget.currentList[targetPosition-1].order
+                                    }
+                                }
+                                else if(positionSource < targetPosition){
+                                    nextOrder = adapterTarget.currentList[targetPosition].order
+                                    preOrder = if(targetPosition == adapterTarget.currentList.size - 1){
+                                        -1
+                                    }
+                                    else{
+                                        adapterTarget.currentList[targetPosition + 1].order
+                                    }
+                                }
+
+                                if(positionSource != targetPosition){
+                                    when(target.id){
+                                        rvTodo -> dataChangeListener.swapData(1, cardId,  nextOrder, preOrder, section, section)
+                                        rvProgress -> dataChangeListener.swapData(2, cardId,  nextOrder, preOrder, section, section)
+                                        rvComplete -> dataChangeListener.swapData(3, cardId,  nextOrder, preOrder, section, section)
+                                    }
                                 }
 
                                 return true
@@ -68,30 +96,60 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
 
                             //listSource.removeAt(positionSource)  // 선택한 아이템뷰의 리사이클러뷰가 아닌 다른 리사이클러뷰로 이동하는 경우  이동하려는 아이템뷰를 우선 삭제
                             //listSource.let { adapterSource.submitList(it) }
-                            when(source.id){  // 선택한 아이템뷰의 리사이클러뷰에서는 선택한 것을 삭제해야 한다
+
+                            // api 연동 시 이동 전 section, 이동 후 section 값을 주면 알아서 section 이 변경된다,  더미 테스트인 경우에만 직접 삭제를 해줬던 것임
+                           /* when(source.id){  // 선택한 아이템뷰의 리사이클러뷰에서는 선택한 것을 삭제해야 한다
                                 rvTodo -> dataChangeListener.deleteData(1, positionSource)
                                 rvProgress -> dataChangeListener.deleteData(2, positionSource)
                                 rvComplete -> dataChangeListener.deleteData(3, positionSource)
-                            }
+                            }*/
 
                             val targetList = adapterTarget.currentList.toMutableList()
                             if (positionTarget >= 0) {  // 다른 리사이클러뷰의 아이템뷰 위에 놓았을 때
                                 //sourceData.let { targetList.add(positionTarget, it) }
                                 //sourceData.let { targetList.add(target.getChildAdapterPosition(view), it) }
 
+                                val preOrder = adapterTarget.currentList[targetPosition].order
+                                val nextOrder = if(targetPosition == 0){
+                                    -1
+                                }else{
+                                    adapterTarget.currentList[targetPosition-1].order
+                                }
+
+                                val prevSection = sourceData.section
+                                val cardId = sourceData.cardId
+                                val nextSection = adapterTarget.currentList[targetPosition].section
+
+
                                 when(target.id){
-                                    rvTodo -> dataChangeListener.addDataAtInx(1, target.getChildAdapterPosition(view), sourceData)
-                                    rvProgress -> dataChangeListener.addDataAtInx(2, target.getChildAdapterPosition(view), sourceData)
-                                    rvComplete -> dataChangeListener.addDataAtInx(3, target.getChildAdapterPosition(view), sourceData)
+                                    rvTodo -> dataChangeListener.addDataAtInx(1, cardId, nextOrder, preOrder, nextSection, prevSection)
+                                    rvProgress -> dataChangeListener.addDataAtInx(2, cardId, nextOrder, preOrder, nextSection, prevSection)
+                                    rvComplete -> dataChangeListener.addDataAtInx(3, cardId, nextOrder, preOrder, nextSection, prevSection)
                                 }
 
                             } else {
                                 //sourceData.let { targetList.add(it) }  //그냥 아이템뷰 없는 공간에 놓았을 때
 
+                                var preOrder = -2
+                                var nextOrder = -2
+
+                                if(adapterTarget.currentList.size == 0){ // 빈 섹션에 추가 시 pre, next order 모두 -1값을 할당한다
+                                    preOrder = -1
+                                    nextOrder = -1
+                                }
+                                else{
+                                    preOrder = -1
+                                    nextOrder = adapterTarget.currentList[adapterTarget.currentList.size - 1].order
+                                }
+
+                                val prevSection = sourceData.section
+                                val cardId = sourceData.cardId
+                                val nextSection = adapterTarget.currentList[targetPosition].section
+
                                 when(target.id){
-                                    rvTodo -> dataChangeListener.addDataAtEnd(1, sourceData)
-                                    rvProgress -> dataChangeListener.addDataAtEnd(2, sourceData)
-                                    rvComplete -> dataChangeListener.addDataAtEnd(3, sourceData)
+                                    rvTodo -> dataChangeListener.addDataAtInx(1, cardId, nextOrder, preOrder, nextSection, prevSection)
+                                    rvProgress -> dataChangeListener.addDataAtInx(2, cardId, nextOrder, preOrder, nextSection, prevSection)
+                                    rvComplete -> dataChangeListener.addDataAtInx(3, cardId, nextOrder, preOrder, nextSection, prevSection)
                                 }
                             }
 

@@ -5,6 +5,7 @@ import com.codesquad.aos.todolist.data.model.GetCardResponse
 import com.codesquad.aos.todolist.data.model.handlecard.AddCard
 import com.codesquad.aos.todolist.data.model.handlecard.EditCard
 import com.codesquad.aos.todolist.data.model.handlecard.HandleCardResponse
+import com.codesquad.aos.todolist.data.model.handlecard.MoveCard
 import retrofit2.Response
 
 class CardItemRepository(private val remoteDataSource: CardItemRemoteDataSource) {
@@ -23,6 +24,10 @@ class CardItemRepository(private val remoteDataSource: CardItemRemoteDataSource)
 
     suspend fun deleteCardItem(cardId: Int): Response<HandleCardResponse> {
         return remoteDataSource.deleteCardItem(cardId)
+    }
+
+    suspend fun moveCardItem(cardId: Int, moveCardData: MoveCard): Response<HandleCardResponse>{
+        return remoteDataSource.moveCardItem(cardId, moveCardData)
     }
 
 }

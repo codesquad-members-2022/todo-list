@@ -4,6 +4,7 @@ import com.codesquad.aos.todolist.data.model.handlecard.AddCard
 import com.codesquad.aos.todolist.data.model.GetCardResponse
 import com.codesquad.aos.todolist.data.model.handlecard.EditCard
 import com.codesquad.aos.todolist.data.model.handlecard.HandleCardResponse
+import com.codesquad.aos.todolist.data.model.handlecard.MoveCard
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -36,10 +37,12 @@ interface ApiClient {
         @Body addCardData: EditCard
     ): Response<HandleCardResponse>
 
-//    @PUT("api/cards/{id}/move")
-//    suspend fun moveCard(
-//        @Path("id") id:Int,
-//    )
+    // 카드 이동
+    @PUT("api/cards/{id}/move")
+    suspend fun moveCard(
+        @Path("id") id:Int,
+        @Body moveCardData: MoveCard
+    ): Response<HandleCardResponse>
 
     companion object {
 

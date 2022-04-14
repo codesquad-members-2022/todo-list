@@ -275,27 +275,27 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     }
 
     // implement DataChangeListener
-    override fun swapData(rvType: Int, sourceIndex: Int, targetIndex: Int) {
+    override fun swapData(rvType: Int, cardId: Int, nextOrder: Int, preOrder: Int, nextSection: String, prevSection: String) {
         when (rvType) {
-            1 -> viewModel.changeTodoOrder(sourceIndex, targetIndex)
-            2 -> viewModel.changeProgressOrder(sourceIndex, targetIndex)
-            3 -> viewModel.changeCompleteOrder(sourceIndex, targetIndex)
+            1 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            2 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            3 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
         }
     }
 
-    override fun addDataAtEnd(rvType: Int, card: Card) {
+    /*override fun addDataAtEnd(rvType: Int, cardId: Int, nextOrder: Int, preOrder: Int, nextSection: String, prevSection: String) {
         when (rvType) {
             1 -> viewModel.addTodoCard(card)
             2 -> viewModel.addProgressCard(card)
             3 -> viewModel.addCompleteCard(card)
         }
-    }
+    }*/
 
-    override fun addDataAtInx(rvType: Int, tartgetIndex: Int, card: Card) {
+    override fun addDataAtInx(rvType: Int, cardId: Int, nextOrder: Int, preOrder: Int, nextSection: String, prevSection: String) {
         when (rvType) {
-            1 -> viewModel.addTodoCardAtInx(tartgetIndex, card)
-            2 -> viewModel.addProgressCardAtInx(tartgetIndex, card)
-            3 -> viewModel.addCompleteCardAtInx(tartgetIndex, card)
+            1 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            2 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            3 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
         }
     }
 

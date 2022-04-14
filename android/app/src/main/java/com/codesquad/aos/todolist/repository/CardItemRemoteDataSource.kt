@@ -5,6 +5,7 @@ import com.codesquad.aos.todolist.data.model.GetCardResponse
 import com.codesquad.aos.todolist.data.model.handlecard.AddCard
 import com.codesquad.aos.todolist.data.model.handlecard.EditCard
 import com.codesquad.aos.todolist.data.model.handlecard.HandleCardResponse
+import com.codesquad.aos.todolist.data.model.handlecard.MoveCard
 import com.codesquad.aos.todolist.network.ApiClient
 import retrofit2.Response
 
@@ -29,5 +30,11 @@ class CardItemRemoteDataSource(private val api: ApiClient) : CardItemDataSource 
         return api.deleteCard(cardId)
     }
 
+    override suspend fun moveCardItem(
+        cardId: Int,
+        moveCardData: MoveCard
+    ): Response<HandleCardResponse> {
+        return api.moveCard(cardId, moveCardData)
+    }
 
 }

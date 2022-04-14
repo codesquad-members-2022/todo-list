@@ -9,6 +9,7 @@ import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.data.model.Log
 import com.codesquad.aos.todolist.data.model.handlecard.AddCard
 import com.codesquad.aos.todolist.data.model.handlecard.EditCard
+import com.codesquad.aos.todolist.data.model.handlecard.MoveCard
 import com.codesquad.aos.todolist.repository.CardItemRepository
 import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.launch
@@ -227,6 +228,7 @@ class TodoViewModel(private val repository: CardItemRepository) : ViewModel() {
         }
     }
 
+    // 카드 삭제
     fun deleteCard(cardId: Int) {
         progressVisible.postValue(true)
 
@@ -236,6 +238,23 @@ class TodoViewModel(private val repository: CardItemRepository) : ViewModel() {
                 progressVisible.postValue(false)
                 getCardItems()
             } else {
+                progressVisible.postValue(false)
+            }
+        }
+    }
+
+    // 카드 이동
+    fun moveCard(cardId: Int, nextOrder: Int, preOrder: Int, nextSection: String, prevSection: String){
+        progressVisible.postValue(true)
+        val moveCardData = MoveCard(nextOrder, preOrder, prevSection, nextSection)
+
+        viewModelScope.launch {
+            val moveCardResponse = repository.moveCardItem(cardId, moveCardData)
+            if(moveCardResponse.isSuccessful){
+                progressVisible.postValue(false)
+                getCardItems()
+            }
+            else{
                 progressVisible.postValue(false)
             }
         }
