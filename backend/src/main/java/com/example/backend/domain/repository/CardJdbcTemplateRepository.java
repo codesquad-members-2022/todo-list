@@ -72,7 +72,7 @@ public class CardJdbcTemplateRepository implements CardRepository {
 
     private Integer getOrderIndex(String columnName) {
         return jdbcTemplate.queryForObject(
-                "SELECT IFNULL(MAX(ORDER_INDEX), 0)+1 FROM CARD WHERE COLUMN_NAME = ? and DELETED = ?", Integer.class, columnName, false);
+                "SELECT IFNULL(MAX(ORDER_INDEX), -1)+1 FROM CARD WHERE COLUMN_NAME = ? and DELETED = ?", Integer.class, columnName, false);
     }
 
     @Override
@@ -125,13 +125,13 @@ public class CardJdbcTemplateRepository implements CardRepository {
         if (originalCard.isSameColumnWith(movedCard)) {
             if (isMovedUpward(prevOrderIndex, newOrderIndex)) {
                 // newOrderIndex > prevOrderIndex -> 위로 이동하는 경우
-                jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX - 1" +
-                        "WHERE COLUMN_NAME = ? and ? < ORDER_INDEX and ORDER_INDEX <= ? and DELETED = ?",
+                jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX - 1 " +
+                                "WHERE COLUMN_NAME = ? and ? < ORDER_INDEX and ORDER_INDEX <= ? and DELETED = ?",
                         prevColumnName, prevOrderIndex, newOrderIndex, false);
             } else {
                 // newOrderIndex <= prevOrderIndex -> 아래로 이동하는 경우
-                jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX + 1" +
-                        "WHERE COLUMN_NAME = ? and ? <= ORDER_INDEX and ORDER_INDEX < ? and DELETED = ?",
+                jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX + 1 " +
+                                "WHERE COLUMN_NAME = ? and ? <= ORDER_INDEX and ORDER_INDEX < ? and DELETED = ?",
                         prevColumnName, newOrderIndex, prevOrderIndex, false);
             }
             jdbcTemplate.update("UPDATE CARD SET COLUMN_NAME = ?, ORDER_INDEX = ? WHERE id = ?",
@@ -141,14 +141,14 @@ public class CardJdbcTemplateRepository implements CardRepository {
         }
 
         // 다른 column 간 이동
-        jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX + 1" +
-                "WHERE COLUMN_NAME = ? and ORDER_INDEX > ? and DELETED = ?",
+        jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX + 1 " +
+                        "WHERE COLUMN_NAME = ? and ORDER_INDEX >= ? and DELETED = ?",
                 newColumnName, newOrderIndex, false);
 
         jdbcTemplate.update("UPDATE CARD SET COLUMN_NAME = ?, ORDER_INDEX = ? WHERE id = ?",
-                newColumnName, newOrderIndex+1, id);
+                newColumnName, newOrderIndex, id);
 
-        jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX - 1" +
+        jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX - 1 " +
                         "WHERE COLUMN_NAME = ? and ORDER_INDEX > ? and DELETED = ?",
                 prevColumnName, prevOrderIndex, false);
 
