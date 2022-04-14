@@ -4,6 +4,7 @@ import com.ijava.todolist.card.domain.Card;
 import com.ijava.todolist.card.exception.CardNotSavedException;
 import com.ijava.todolist.common.domain.Deleted;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.relational.core.sql.Delete;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -157,11 +158,11 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public Optional<Integer> getCountOfCardsOnColumns(Long columnsId) {
-        String getCountSql = "SELECT count(*) FROM card WHERE columns_id = ?";
+        String getCountSql = "SELECT count(*) FROM card WHERE columns_id = ? AND deleted = ?";
 
         log.debug(getCountSql);
 
-        return Optional.ofNullable(jdbcTemplate.queryForObject(getCountSql, Integer.class, columnsId));
+        return Optional.ofNullable(jdbcTemplate.queryForObject(getCountSql, Integer.class, columnsId, Deleted.N));
     }
 
     private RowMapper<Card> cardRowMapper() {
