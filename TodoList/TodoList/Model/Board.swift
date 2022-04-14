@@ -12,6 +12,10 @@ final class Board{
     private(set) var doingCards = [Card]()
     private(set) var doneCards = [Card]()
     
+    static let shared = Board()
+    
+    private init(){ }
+    
     subscript(index: BoardSubscriptIndex) -> [Card]{
         switch index {
         case .none:
@@ -47,6 +51,19 @@ final class Board{
             guard let id = Int(subData[0]) else{ return }
             newCard.changeId(id: id)
             newCard.changeDate(date: subData[1])
+        }
+    }
+    
+    func addCard(_ card: Card, at section: BoardSubscriptIndex){
+        switch section {
+        case .todo:
+            todoCards.append(card)
+        case .doing:
+            doingCards.append(card)
+        case .done:
+            doneCards.append(card)
+        case .none:
+            return
         }
     }
 }

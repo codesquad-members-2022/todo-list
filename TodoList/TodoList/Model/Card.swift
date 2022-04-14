@@ -15,7 +15,7 @@ struct Card: Codable{
     private(set) var createdDate: String
     
     enum State: Int, Codable{
-        case todo = 1
+        case todo = 0
         case doing
         case done
     }

@@ -21,10 +21,10 @@ final class TableViewController: UIViewController{
 
     private var addCardViewController = AddCardViewController()
 
-    let cardBoard: Board = Board()
+    let cardBoard: Board = Board.shared
 
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
-    
+    private var selectedSection: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +69,7 @@ private extension TableViewController{
     func configureSectionHeader(index: Int) -> TableHeader{
         let header = TableHeader()
         header.titleLabel.text = todo[index]
+        header.tableHeaderID = index
         
         if let indexPath = BoardSubscriptIndex(rawValue: index){
             header.numberLabel.text = String(cardBoard[indexPath].count)
@@ -111,6 +112,13 @@ private extension TableViewController{
         tableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
         tableView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor).isActive = true
     }
+    
+    // 셀 클릭 시, 수정 화면 출력 기능
+    func setModalPresent(){
+        addCardViewController.modalPresentationStyle = .overCurrentContext
+        addCardViewController.modalTransitionStyle = .crossDissolve
+        self.present(addCardViewController, animated: true, completion: nil)
+    }
 }
 
 extension TableViewController: UITableViewDataSource, UITableViewDelegate{
@@ -137,6 +145,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell, let customTable = tableView as? TodoTableView, let boardIndexPath = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return UITableViewCell() }
+        cell.selectionStyle = .none
         
         let cards = cardBoard[boardIndexPath]
         let cardData = cards[indexPath.section]
@@ -148,12 +157,33 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    func createNewCard(title: String, body: String){
+        guard let sectionNumber = self.selectedSection else { return }
+        let section = BoardSubscriptIndex(rawValue: sectionNumber) ?? BoardSubscriptIndex.none
+        
+        // 만든 카드를 테이블뷰 셀 추가 & reload
+        todoTable[sectionNumber].reloadRows(at: [IndexPath(row: cardBoard[section].count - 1, section: 0)], with: .automatic)
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        guard let customTable = tableView as? TodoTableView, let index = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return }
+        let cards = cardBoard[index]
+        let title = cards[indexPath.section].title
+        let body = cards[indexPath.section].content
+        
+        addCardViewController.setaddCardView(title: title, body: body)
+        self.setModalPresent()
+
+    }
 }
 
 extension TableViewController: TableHeaderDelegate{
-    func cardWillCreated(at section: String) {
+    func cardWillCreated(at section: Int){
         addCardViewController.modalPresentationStyle = .overCurrentContext
         addCardViewController.modalTransitionStyle = .crossDissolve
+        addCardViewController.sectionNumber = section
         self.present(addCardViewController, animated: true, completion: nil)
+        selectedSection = section
     }
 }

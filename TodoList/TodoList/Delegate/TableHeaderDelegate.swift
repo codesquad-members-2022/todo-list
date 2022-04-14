@@ -8,5 +8,5 @@
 import Foundation
 
 protocol TableHeaderDelegate: AnyObject{
-    func cardWillCreated(at section: String)
+    func cardWillCreated(at section: Int)
 }
