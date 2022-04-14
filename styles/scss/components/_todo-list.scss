@@ -5,6 +5,7 @@
   .todo-item {
     padding: 16px;
     background-color: $white;
+    border: 1px solid transparent;
     border-radius: 6px;
     box-shadow: $item-box-shadow;
 
@@ -99,8 +100,7 @@
 .todo-item {
   // disabled -> js
   &.active-item {
-    margin: -1px;
-    border: 1px solid $blue;
+    border-color: $blue;
 
     .todo-item-author,
     .delete-button {
@@ -113,9 +113,8 @@
   }
 
   &.delete-item {
-    margin: -1px;
     background-color: $white-red;
-    border: 1px solid $red;
+    border-color: $red;
 
     .delete-button {
       color: $red;

@@ -39,9 +39,9 @@ export default class TodoColumn {
 
   // TODO: 타이틀 업데이트
 
-  updateCardCount(cardsData) {
+  updateCardCount() {
     const $todoItemCount = $('.todo-item-count', this.$todoColumn);
-    $todoItemCount.textContent = cardsData.length;
+    $todoItemCount.textContent = this.todoCards.length;
   }
 
   hasActiveCard() {
@@ -49,18 +49,8 @@ export default class TodoColumn {
     return !!$activeCard;
   }
 
-  preRender({ cards: cardsData }) {
-    this.todoCards = [];
-    cardsData.forEach(cardData => {
-      const todoCard = new TodoCard(cardData);
-      this.todoCards.push(todoCard);
-    });
-
-    this.updateCardCount(cardsData);
-    this.render();
-  }
-
   render() {
+    this.updateCardCount();
     const $$todoCard = this.todoCards.map(card => card.$todoCard);
     this.$todoList.textContent = '';
     this.$todoList.append(...$$todoCard);
@@ -83,9 +73,10 @@ export default class TodoColumn {
       detail: { title, desc },
     } = event;
 
-    store.addTodoCard(this.idx, this.id, title, desc, cardsData => {
-      this.preRender(cardsData);
-    });
+    store.addTodoCard(this.idx, this.id, title, desc);
+    const todoCard = new TodoCard({ id: uuidv4(), columnId: this.id, columnIdx: this.idx, title, desc });
+    this.todoCards.unshift(todoCard);
+    this.render();
   }
 }
 

@@ -1,4 +1,4 @@
-import { eventDelegate, emit } from '../utils/utils';
+import { emit, addClass, removeClass, eventDelegate } from '../utils/utils';
 import TodoColumn from './TodoColumn';
 
 export default class TodoColumns {
@@ -53,6 +53,24 @@ export default class TodoColumns {
         this.handleClickDeleteCardButton(event);
       },
     });
+
+    eventDelegate({
+      target: this.$todoColumns,
+      eventName: 'mouseover',
+      selector: '.todo-item .delete-button',
+      handler: event => {
+        this.handleMouseoverDeleteCardButton(event);
+      },
+    });
+
+    eventDelegate({
+      target: this.$todoColumns,
+      eventName: 'mouseout',
+      selector: '.todo-item .delete-button',
+      handler: event => {
+        this.handleMouseoutDeleteCardButton(event);
+      },
+    });
   }
 
   render() {
@@ -80,5 +98,17 @@ export default class TodoColumns {
     const $targetTextarea = event.target;
     $targetTextarea.style.height = 'auto';
     $targetTextarea.style.height = `${$targetTextarea.scrollHeight}px`;
+  }
+
+  handleMouseoverDeleteCardButton(event) {
+    const $targetCard = event.target.closest('.todo-item');
+    addClass('delete-item', $targetCard);
+  }
+
+  handleMouseoutDeleteCardButton(event) {
+    const $modal = event.relatedTarget.closest('.modal');
+    if ($modal) return;
+    const $targetCard = event.target.closest('.todo-item');
+    removeClass('delete-item', $targetCard);
   }
 }

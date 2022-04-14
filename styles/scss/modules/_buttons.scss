@@ -11,7 +11,8 @@
   font-weight: bold;
   background-color: $blue;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: $dark-blue;
   }
 
@@ -27,7 +28,8 @@
   color: $gray3;
   background-color: $gray4;
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $white;
     background-color: $gray3;
   }
