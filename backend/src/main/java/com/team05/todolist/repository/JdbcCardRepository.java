@@ -32,8 +32,8 @@ public class JdbcCardRepository implements CardRepository {
     public int save(Card card) {
         if (card.getId() != null) {
             jdbcTemplate.update(
-                "UPDATE card SET order_index=?, title=?, content=?, section=? WHERE id=?",
-                card.getOrder(), card.getTitle(), card. getContent(), card.getSectionType(), card.getId());
+                "UPDATE card SET order_index=?, title=?, content=?, section=?, author=? WHERE id=?",
+                card.getOrder(), card.getTitle(), card. getContent(), card.getSectionType(), card.getAuthor(), card.getId());
 
             return card.getId();
         }
@@ -49,6 +49,7 @@ public class JdbcCardRepository implements CardRepository {
         params.put("title", card.getTitle());
         params.put("content", card.getContent());
         params.put("section", card.getSectionType());
+        params.put("author", card.getAuthor());
         return params;
     }
 
@@ -98,7 +99,8 @@ public class JdbcCardRepository implements CardRepository {
                 rs.getInt("delete_yn"),
                 rs.getString("title"),
                 rs.getString("content"),
-                rs.getString("section")
+                rs.getString("section"),
+                rs.getString("author")
             );
             card.setId(rs.getInt("id"));
             return card;

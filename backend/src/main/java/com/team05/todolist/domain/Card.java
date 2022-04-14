@@ -9,13 +9,15 @@ public class Card {
 	private String title;
 	private String content;
 	private Section section;
+	private String author;
 
-	public Card(Integer order, Integer deleteYN, String title, String content, String section) {
+	public Card(Integer order, Integer deleteYN, String title, String content, String section, String author) {
 		this.order = order;
 		this.deleteYN = deleteYN;
 		this.title = title;
 		this.content = content;
 		this.section = Section.getSection(section);
+		this.author = author;
 	}
 
 	public void setId(Integer id) {
@@ -44,6 +46,10 @@ public class Card {
 
 	public String getSectionType() {
 		return section.getSectionType();
+	}
+
+	public String getAuthor() {
+		return author;
 	}
 
 	public void changeTitle(String title) {
@@ -80,7 +86,12 @@ public class Card {
 		this.section = Section.getSection(section);
 	}
 
+	public void changeAuthor(String userAgent) {
+		this.author = author;
+	}
+
 	public void setOrder(int order) {
 		this.order = order;
 	}
+
 }
