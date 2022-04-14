@@ -46,12 +46,12 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
                             val sourceData = adapterSource.currentList[positionSource] // 이동하려는 아이템뷰의 객체 데이터 <- Card
                             val listSource = adapterSource.currentList.toMutableList() // submitList를 위함, listSource는 이동하려는 아이템뷰의 리사이클러뷰의 전체 리스트
 
-                            val targetPosition = target.getChildAdapterPosition(view) // 드래그 하고 카드 아이템뷰 위에 놓은 경우 여기로 온다,
+                            //val targetPosition = target.getChildAdapterPosition(view) // 드래그 하고 카드 아이템뷰 위에 놓은 경우 여기로 온다,
                             if (adapterSource == adapterTarget) {  // 같은 리사이클러뷰 내에서의 이동인 경우 <- 이 부분 없으면 이전처럼 복제 오류 발생
                                 if (positionTarget < 0) { // 탈출, 아무 변화가 없다
                                     return true
                                 }
-                                //val targetPosition = target.getChildAdapterPosition(view)  // 드래그 하고 카드 아이템뷰 위에 놓은 경우 여기로 온다,
+                                val targetPosition = target.getChildAdapterPosition(view)  // 드래그 하고 카드 아이템뷰 위에 놓은 경우 여기로 온다,
                                 // 여기까지 왔으면 view 는 놓는 리사이클러뷰의 itemView 중 하나
                                 //Collections.swap(listSource, positionSource, targetPosition)
 
@@ -109,6 +109,8 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
                                 //sourceData.let { targetList.add(positionTarget, it) }
                                 //sourceData.let { targetList.add(target.getChildAdapterPosition(view), it) }
 
+                                val targetPosition = target.getChildAdapterPosition(view)
+
                                 val preOrder = adapterTarget.currentList[targetPosition].order
                                 val nextOrder = if(targetPosition == 0){
                                     -1
@@ -129,6 +131,7 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
 
                             } else {
                                 //sourceData.let { targetList.add(it) }  //그냥 아이템뷰 없는 공간에 놓았을 때
+                               // val targetPosition = target.getChildAdapterPosition(view)  // 이 경우 view가 리사이클러뷰 자체라 왼쪽같이 사용하면 오류 발생!!!
 
                                 var preOrder = -2
                                 var nextOrder = -2
@@ -144,7 +147,14 @@ class DragListener(private val dataChangeListener: DataChangeListener) : View.On
 
                                 val prevSection = sourceData.section
                                 val cardId = sourceData.cardId
-                                val nextSection = adapterTarget.currentList[targetPosition].section
+                                //val nextSection = adapterTarget.currentList[targetPosition].section
+
+                                val nextSection = when(target.id){ // targetPosition을 사용할 수 없어서 놓는 영역의 리사이클러뷰에 따라 처리
+                                    rvTodo -> "todo"
+                                    rvProgress -> "doing"
+                                    rvComplete -> "done"
+                                    else -> ""
+                                }
 
                                 when(target.id){
                                     rvTodo -> dataChangeListener.addDataAtInx(1, cardId, nextOrder, preOrder, nextSection, prevSection)
