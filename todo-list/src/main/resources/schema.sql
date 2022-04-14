@@ -11,7 +11,7 @@ CREATE TABLE CARD (
 
 CREATE TABLE LOG
 (
-    id                  int AUTO_INCREMENT PRIMARY KEY,
+    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
     title               varchar(50) NOT NULL,
     current_status      ENUM('TODO', 'PROGRESS', 'DONE'),
     prev_status         ENUM('TODO', 'PROGRESS', 'DONE') default NULL,

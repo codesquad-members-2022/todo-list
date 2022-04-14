@@ -15,10 +15,6 @@ import java.util.List;
 public class CardService {
     private final CardRepository cardRepository;
 
-    public CardUpdateDto findUpdateCard(Long id){
-        return CardUpdateDto.makeUpdateDto(cardRepository.findCardById(id));
-    }
-
     public int addCard(CardAddDto cardAddDto) {
         return cardRepository.add(cardAddDto.toEntity());
     }
@@ -27,15 +23,21 @@ public class CardService {
         return cardRepository.remove(id);
     }
 
-
     public List<CardListDto> findAll() {
         return cardRepository.findAll();
     }
 
-    public List<CardListDto> findByStatus(String cardStatus) { return cardRepository.findCardsByStatus(cardStatus);}
+    public List<CardListDto> findByStatus(String cardStatus) {
+        return cardRepository.findCardsByStatus(cardStatus);
+    }
 
     public int updateCard(Long id, CardUpdateDto cardUpdateDto) {
         return cardRepository.update(id, cardUpdateDto.toEntity());
     }
 
+    public CardListDto findById(Long id) {
+        Card card = cardRepository.findCardById(id);
+        return new CardListDto(card.getId(), card.getCardIndex(), card.getTitle(),
+                card.getContents(), card.getWriter(), String.valueOf(card.getCardStatus()), card.getCreatedTime());
+    }
 }

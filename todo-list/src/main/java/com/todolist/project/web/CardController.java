@@ -26,17 +26,21 @@ public class CardController {
     }
 
     @PostMapping
-    public int add(@RequestBody CardAddDto dto) {
-        return cardService.addCard(dto);
+    public List<CardListDto> add(@RequestBody CardAddDto dto) {
+        cardService.addCard(dto);
+        return cardService.findByStatus(dto.getCardStatus());
     }
 
     @DeleteMapping("/{id}")
-    public int remove(@PathVariable Long id) {
-        return cardService.removeCard(id);
+    public List<CardListDto> remove(@PathVariable Long id) {
+        CardListDto dto = cardService.findById(id);
+        cardService.removeCard(id);
+        return cardService.findByStatus(dto.getCardStatus());
     }
 
     @PutMapping("/{id}")
-    public int update(@PathVariable Long id, @RequestBody CardUpdateDto dto) {
-        return cardService.updateCard(id, dto);
+    public List<CardListDto> update(@PathVariable Long id, @RequestBody CardUpdateDto dto) {
+       cardService.updateCard(id, dto);
+       return cardService.findByStatus(dto.getCardStatus());
     }
 }

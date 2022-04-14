@@ -2,11 +2,13 @@ package com.todolist.project.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class CardListDto {
     private Long id;
     private int cardIndex;
