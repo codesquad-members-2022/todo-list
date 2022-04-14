@@ -16,8 +16,8 @@ struct Card: Codable{
     
     enum State: Int, Codable{
         case todo = 1
-        case doing = 2
-        case done = 3
+        case doing
+        case done
     }
     
     enum CodingKeys: String, CodingKey {

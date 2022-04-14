@@ -20,13 +20,10 @@ final class TableViewController: UIViewController{
     private var todoTable = [TodoTableView]()
 
     private var addCardViewController = AddCardViewController()
-    private var addCardView: AddCardView!
 
     let cardBoard: Board = Board()
 
-    
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
-    private var listIndex = 0
     
 
     override func viewDidLoad() {
@@ -60,8 +57,10 @@ private extension TableViewController{
                 $0.reloadData()
             }
             
-            for i in 0..<self.todo.count{
-                self.sectionHeader[i].numberLabel.text = String(self.cardBoard[i].count)
+            for (index, header) in self.sectionHeader.enumerated(){
+                guard let indexPath = BoardSubscriptIndex(rawValue: index) else{ return }
+                
+                header.numberLabel.text = String(self.cardBoard[indexPath].count)
             }
         }
     }
@@ -70,7 +69,12 @@ private extension TableViewController{
     func configureSectionHeader(index: Int) -> TableHeader{
         let header = TableHeader()
         header.titleLabel.text = todo[index]
-        header.numberLabel.text = String(cardBoard[index].count)
+        
+        if let indexPath = BoardSubscriptIndex(rawValue: index){
+            header.numberLabel.text = String(cardBoard[indexPath].count)
+        } else{
+            header.numberLabel.text = "0"
+        }
         
         header.delegate = self
         sectionHeader.append(header)
@@ -112,8 +116,8 @@ private extension TableViewController{
 extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     // Footer 관련 메서드(셀 간격용)
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let customTable = tableView as? TodoTableView else { return 0 }
-        let cards = cardBoard[customTable.tableViewId ?? 0]
+        guard let customTable = tableView as? TodoTableView, let indexPath = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return 0 }
+        let cards = cardBoard[indexPath]
         
         return cards.count
     }
@@ -132,17 +136,11 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell, let customTable = tableView as? TodoTableView else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell, let customTable = tableView as? TodoTableView, let boardIndexPath = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return UITableViewCell() }
         
-        let cards = cardBoard[customTable.tableViewId ?? 0]
-        let cardData = cards[listIndex]
+        let cards = cardBoard[boardIndexPath]
+        let cardData = cards[indexPath.section]
         cell.setLabelText(title: cardData.title, contents: cardData.content)
-        
-        if listIndex == cards.count - 1{
-            listIndex = 0
-        } else{
-            listIndex += 1
-        }
         
         return cell
     }

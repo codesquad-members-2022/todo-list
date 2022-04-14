@@ -12,16 +12,16 @@ final class Board{
     private(set) var doingCards = [Card]()
     private(set) var doneCards = [Card]()
     
-    subscript(index: Int) -> [Card]{
-        switch index{
-        case 0:
-            return todoCards
-        case 1:
-            return doingCards
-        case 2:
-            return doneCards
-        default:
+    subscript(index: BoardSubscriptIndex) -> [Card]{
+        switch index {
+        case .none:
             return [Card]()
+        case .todo:
+            return todoCards
+        case .doing:
+            return doingCards
+        case .done:
+            return doneCards
         }
     }
     
