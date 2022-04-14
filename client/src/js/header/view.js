@@ -1,6 +1,6 @@
 import { $, debounce } from "../utils/utils.js";
 import { iconMenu, iconDelete } from "../constants/imagePath.js";
-import * as ActivationStore from "../store/activationStore.js";
+import * as TodoListStore from "../store/todoListStore.js";
 
 const createHTML = () => {
   return `<h1 class="header__title">TO-DO LIST</h1>
@@ -14,7 +14,7 @@ const render = (parent) => {
 };
 
 const handleSideBarMenuBtn = () => {
-  ActivationStore.update("sidebar");
+  TodoListStore.update("sidebar");
 };
 
 const setEvents = () => {
@@ -30,8 +30,10 @@ const notify = (isShow) => {
   sidebarMenuBtn.src = isShow ? iconDelete : iconMenu;
 };
 
-export const headInit = (parent) => {
+const headInit = (parent) => {
   render(parent);
   setEvents();
-  ActivationStore.subscribe("sidebar", notify);
+  TodoListStore.subscribe("sidebar", notify);
 };
+
+export { headInit };

@@ -1,7 +1,7 @@
 import { $ } from "../utils/utils.js";
 import { sidebarData } from "../../../../server/data/sidebar.js";
 import { profileImage } from "../constants/imagePath.js";
-import * as ActivationStore from "../store/activationStore.js";
+import * as TodoListStore from "../store/todoListStore.js";
 
 const getFinalConsonant = (object) => {
   const koreanUnicode = 44032;
@@ -95,7 +95,9 @@ const notify = () => {
   sidebar.classList.toggle("show");
 };
 
-export const sidebarInit = (parent) => {
+const sidebarInit = (parent) => {
   render(parent);
-  ActivationStore.subscribe("sidebar", notify);
+  TodoListStore.subscribe("sidebar", notify);
 };
+
+export { sidebarInit };

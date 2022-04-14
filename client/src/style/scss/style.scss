@@ -10,6 +10,7 @@
 @import "./layout/sidebar/sidebar";
 @import "./layout/main/column-list";
 @import "./layout/main/column-task-list";
+@import "./layout/main/delete-menu";
 
 body {
   background-color: $color-background-body;
