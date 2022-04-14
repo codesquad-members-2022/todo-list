@@ -17,3 +17,10 @@ logging:
   level:
     web: DEBUG
 
+# 배포용
+#spring:
+#  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/TODO_APP
+#    username: donggi
+#    password: Donggikukim!
