@@ -4,8 +4,8 @@ drop table if exists member;
 
 create table card
 (
-    id               bigint       not null
-        primary key auto_increment,
+    card_id          bigint
+        auto_increment primary key,
     writer           varchar(10)  null,
     position         bigint       not null,
     visible          bit          null,
@@ -42,11 +42,11 @@ create table member
 );
 
 INSERT INTO card (writer, position, visible, title, content, card_type, created_at, last_modified_at, member_id)
-VALUES ('Bong', 1, true, '', '', 'progressingItems', '2022-04-12 18:16:53', null, 0);
+VALUES ('Bong', 1, true, '', '', 'PROGRESSING', '2022-04-12 18:16:53', null, 0);
 INSERT INTO card (writer, position, visible, title, content, card_type, created_at, last_modified_at, member_id)
-VALUES ('Kai', 2, true, '', '', 'todoItems', '2022-04-12 18:16:53', null, 0);
+VALUES ('Kai', 2, true, '', '', 'TODO', '2022-04-12 18:16:53', null, 0);
 INSERT INTO card (writer, position, visible, title, content, card_type, created_at, last_modified_at, member_id)
-VALUES ('Terry', 2, true, '', '', 'completedItems', '2022-04-12 18:16:56', null, 0);
+VALUES ('Terry', 2, true, '', '', 'COMPLETED', '2022-04-12 18:16:56', null, 0);
 
 INSERT INTO member (created_at, member_login_id, password, nick_name, visible)
 VALUES ('2022-04-03 14:52:44', 'bongbong', '1234', 'BongBong', true);

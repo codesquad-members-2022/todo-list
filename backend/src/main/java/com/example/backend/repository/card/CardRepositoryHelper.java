@@ -12,6 +12,20 @@ import java.util.Map;
 
 public class CardRepositoryHelper {
 
+    private static RowMapper<Card> mapper = (rs, rowNum) ->
+            new Card(
+                    rs.getLong("card_id"),
+                    rs.getString("writer"),
+                    rs.getLong("position"),
+                    rs.getString("title"),
+                    rs.getString("content"),
+                    rs.getString("card_type"),
+                    dateTimeOf(rs.getTimestamp("created_at")),
+                    dateTimeOf(rs.getTimestamp("last_modified_at")),
+                    rs.getBoolean("visible"),
+                    rs.getLong("member_id")
+            );
+
     public Map<String, Object> getParams(Card card) {
         return toParamMap(card);
     }
@@ -34,18 +48,4 @@ public class CardRepositoryHelper {
     public RowMapper<Card> getMapper() {
         return mapper;
     }
-
-    private static RowMapper<Card> mapper = (rs, rowNum) ->
-            new Card(
-                    rs.getLong("id"),
-                    rs.getString("writer"),
-                    rs.getLong("position"),
-                    rs.getString("title"),
-                    rs.getString("content"),
-                    rs.getString("card_type"),
-                    dateTimeOf(rs.getTimestamp("created_at")),
-                    dateTimeOf(rs.getTimestamp("last_modified_at")),
-                    rs.getBoolean("visible"),
-                    rs.getLong("member_id")
-            );
 }

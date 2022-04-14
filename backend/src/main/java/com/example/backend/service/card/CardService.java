@@ -4,11 +4,11 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 import com.example.backend.controller.card.dto.CardDto;
-import com.example.backend.controller.history.dto.HistorySaveRequest;
+import com.example.backend.controller.card.dto.CardSaveResponse;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
-import com.example.backend.service.history.HistoryService;
+import com.example.backend.repository.history.HistoryRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,23 +20,24 @@ import java.util.Map;
 public class CardService {
 
     private final CardRepository cardRepository;
-    private final HistoryService historyService;
+    private final HistoryRepository historyRepository;
 
-    public CardService(CardRepository cardRepository, HistoryService historyService) {
+    public CardService(CardRepository cardRepository, HistoryRepository historyRepository) {
         this.cardRepository = cardRepository;
-        this.historyService = historyService;
+        this.historyRepository = historyRepository;
     }
 
     @Transactional
     public Card writeCard(CardDto cardDto) {
-        Card card = cardDto.writeCard();
-        HistorySaveRequest historySaveRequest = new HistorySaveRequest();
-        return cardRepository.save(card);
+        Card card = cardRepository.save(cardDto.writeCard());
+        return card;
     }
 
-    public Map<CardType, List<Card>> findAll() {
+    public Map<CardType, List<CardSaveResponse>> findAll() {
         List<Card> cards = cardRepository.findAll();
-        return cards.stream().collect(groupingBy(Card::getCardType, toList()));
+        return cards.stream()
+                .map(CardSaveResponse::new)
+                .collect(groupingBy(CardSaveResponse::getCardType, toList()));
     }
 
 

@@ -31,9 +31,10 @@ public class CardJdbcRepository implements CardRepository {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         this.repositoryHelper = new CardRepositoryHelper();
     }
+
     @Override
     public Card save(Card card) {
-        String query = "insert card (id, writer, position, title, content, card_type, created_at, last_modified_at, `visible`, member_id)" +
+        String query = "insert card (card_id, writer, position, title, content, card_type, created_at, last_modified_at, `visible`, member_id)" +
                 "values (:id, :writer, :position, :title, :content, :cardType, :createdAt, :lastModifiedAt, :visible, :memberId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         Map<String, Object> params = repositoryHelper.getParams(card);
@@ -44,7 +45,7 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public List<Card> findAll() {
-        String query = "select id, " +
+        String query = "select card_id, " +
                 "writer, " +
                 "position, " +
                 "title, " +
@@ -61,7 +62,7 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Optional<Card> findById(Long id) {
-        String query = "select id, " +
+        String query = "select card_id, " +
                 "writer, " +
                 "position, " +
                 "title, " +
@@ -71,7 +72,7 @@ public class CardJdbcRepository implements CardRepository {
                 "last_modified_at, " +
                 "visible, " +
                 "member_id " +
-                "from card where id = :id";
+                "from card where card_id = :id";
         Map<String, Object> params = Collections.singletonMap("id", id);
         RowMapper<Card> mapper = repositoryHelper.getMapper();
         return Optional.ofNullable(jdbcTemplate.queryForObject(query, params, mapper));
@@ -92,7 +93,7 @@ public class CardJdbcRepository implements CardRepository {
     @Override
     public void delete(Long id) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-        String query = "update todo_list.card set visible=false where id=:id";
+        String query = "update todo_list.card set visible=false where card_id=:id";
         jdbcTemplate.update(query, namedParameters);
     }
 }
