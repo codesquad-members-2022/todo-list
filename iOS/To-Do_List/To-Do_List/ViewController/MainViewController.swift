@@ -117,11 +117,11 @@ extension MainViewController {
         
         let cardInfo = info.foucsedCard
         let originPosition = info.from
-        let goalPosition = completedViewController.tableView.list.count - 1
+        let maxPositionNumber = completedViewController.tableView.list.count - 1
         let movedCard = MovedCard(
             id: cardInfo.id ?? 0,
             originPosition: originPosition,
-            goalPosition: goalPosition,
+            maxPositionNumber: maxPositionNumber,
             originCardType: cardInfo.cardType,
             goalCardType: completedViewController.boardType?.type ?? ""
         )

@@ -10,11 +10,11 @@ struct MovedCard : Codable{
     
     let id : Int
     let originPosition : Int
-    let goalPosition : Int
+    let maxPositionNumber : Int
     let originCardType :String
     let goalCardType : String
 
     func body() -> [String:Any]? {
-        return ["originPosition":originPosition,"goalPosition":goalPosition,"originCardType":originCardType,"goalCardType":goalCardType]
+        return ["originPosition":originPosition,"maxPositionNumber":maxPositionNumber,"originCardType":originCardType,"goalCardType":goalCardType]
     }
 }
