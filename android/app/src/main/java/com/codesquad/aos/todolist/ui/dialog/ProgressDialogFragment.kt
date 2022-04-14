@@ -57,16 +57,25 @@ class ProgressDialogFragment : DialogFragment() {
 
         binding.btnEnroll.setOnClickListener {
             if (binding.etEnterContents.text.isNotEmpty() && binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addProgress(
+                viewModel.addCard(
                     binding.etEnterTitle.text.toString(),
-                    binding.etEnterContents.text.toString()
+                    binding.etEnterContents.text.toString(),
+                    "doing"
                 )
                 dismiss()
             } else if (binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addProgress(binding.etEnterTitle.text.toString(), "")
+                viewModel.addCard(
+                    binding.etEnterTitle.text.toString(),
+                    "",
+                    "doing"
+                )
                 dismiss()
             } else if (binding.etEnterContents.text.isNotEmpty()) {
-                viewModel.addProgress(getString(R.string.new_todo), binding.etEnterContents.text.toString())
+                viewModel.addCard(
+                    getString(R.string.new_todo),
+                    binding.etEnterContents.text.toString(),
+                    "doing"
+                )
                 dismiss()
             } else {
                 dismiss()

@@ -38,9 +38,10 @@ class CompleteDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var windowManager: WindowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        var windowManager: WindowManager =
+            context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
-        if(Build.VERSION.SDK_INT < 30){
+        if (Build.VERSION.SDK_INT < 30) {
             val display = windowManager.defaultDisplay
             val size = Point()
 
@@ -48,8 +49,7 @@ class CompleteDialogFragment : DialogFragment() {
 
             val width = (size.x * 400 / 1194).toInt()
             binding.cvDialog.layoutParams.width = width
-        }
-        else{
+        } else {
             val rect = windowManager.currentWindowMetrics.bounds
             val width = rect.width() * 400 / 1194
             binding.cvDialog.layoutParams.width = width
@@ -58,16 +58,25 @@ class CompleteDialogFragment : DialogFragment() {
 
         binding.btnEnroll.setOnClickListener {
             if (binding.etEnterContents.text.isNotEmpty() && binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addComplete(
+                viewModel.addCard(
                     binding.etEnterTitle.text.toString(),
-                    binding.etEnterContents.text.toString()
+                    binding.etEnterContents.text.toString(),
+                    "done"
                 )
                 dismiss()
             } else if (binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addComplete(binding.etEnterTitle.text.toString(), "")
+                viewModel.addCard(
+                    binding.etEnterTitle.text.toString(),
+                    "",
+                    "done"
+                )
                 dismiss()
             } else if (binding.etEnterContents.text.isNotEmpty()) {
-                viewModel.addComplete(getString(R.string.new_todo), binding.etEnterContents.text.toString())
+                viewModel.addCard(
+                    getString(R.string.new_todo),
+                    binding.etEnterContents.text.toString(),
+                    "done"
+                )
                 dismiss()
             } else {
                 dismiss()

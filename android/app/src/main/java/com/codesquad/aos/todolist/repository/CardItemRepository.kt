@@ -2,12 +2,18 @@ package com.codesquad.aos.todolist.repository
 
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.data.model.GetCardResponse
+import com.codesquad.aos.todolist.data.model.handlecard.AddCard
+import com.codesquad.aos.todolist.data.model.handlecard.HandleCardResponse
 import retrofit2.Response
 
 class CardItemRepository(private val remoteDataSource: CardItemRemoteDataSource) {
 
     suspend fun getCardItems(): Response<GetCardResponse> {
         return remoteDataSource.getCardItem()
+    }
+
+    suspend fun addCardItem(addCardData: AddCard): Response<HandleCardResponse>{
+        return remoteDataSource.addCardItem(addCardData)
     }
 
 }

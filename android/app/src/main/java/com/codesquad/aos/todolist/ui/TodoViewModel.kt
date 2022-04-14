@@ -148,7 +148,7 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
             val resopnse = repository.getCardItems()
 
             if(resopnse.isSuccessful){
-                android.util.Log.d("AppTest", "success, ${resopnse.message()}")
+                android.util.Log.d("AppTest", "전체 카드 조회 성공, ${resopnse.message()}")
                 progressVisible.postValue(false)
 
                 val responseBody = resopnse.body()
@@ -186,9 +186,25 @@ class TodoViewModel(private val repository: CardItemRepository): ViewModel() {
             "done" -> completelist.size
             else -> -1
         }
-
         val addCardData = AddCard(content, sectionSize, section, title)
 
+        viewModelScope.launch {
+            val addCardResponse = repository.addCardItem(addCardData)
+            if(addCardResponse.isSuccessful){
+                progressVisible.postValue(false)
+                android.util.Log.d("AppTest", "카드 추가 성공")
+
+                getCardItems()
+
+                // 카드 추가 성공 판단용 boolean livedata 설정해보기
+            }
+            else{
+                progressVisible.postValue(false)
+                android.util.Log.d("AppTest", "카드 추가 실패")
+
+                // 카드 추가 성공 판단용 boolean livedata 설정해보기
+            }
+        }
 
     }
 

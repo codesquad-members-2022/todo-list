@@ -57,16 +57,25 @@ class TodoDialogFragment : DialogFragment() {
 
         binding.btnEnroll.setOnClickListener {
             if (binding.etEnterContents.text.isNotEmpty() && binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addTodo(
+                viewModel.addCard(
                     binding.etEnterTitle.text.toString(),
-                    binding.etEnterContents.text.toString()
+                    binding.etEnterContents.text.toString(),
+                    "todo"
                 )
                 dismiss()
             } else if (binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addTodo(binding.etEnterTitle.text.toString(), "")
+                viewModel.addCard(
+                    binding.etEnterTitle.text.toString(),
+                    "",
+                    "todo"
+                )
                 dismiss()
             } else if (binding.etEnterContents.text.isNotEmpty()) {
-                viewModel.addTodo(getString(R.string.new_todo), binding.etEnterContents.text.toString())
+                viewModel.addCard(
+                    getString(R.string.new_todo),
+                    binding.etEnterContents.text.toString(),
+                    "todo"
+                )
                 dismiss()
             } else {
                 dismiss()
