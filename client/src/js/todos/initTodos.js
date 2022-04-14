@@ -9,7 +9,7 @@ export class InitTodos {
 
   init = async () => {
     await pipe(this.getData, this.createColumns, this.renderColumns)('columns');
-    pipe(this.getData, this.createCards)('cards');
+    pipe(this.getData, this.renderCards)('cards');
   };
 
   getData = async (keyword) => {
@@ -27,25 +27,27 @@ export class InitTodos {
     this.target.insertAdjacentHTML('beforeend', data.join(' '));
   };
 
-  createCards = async (data) => {
+  renderCards = async (data) => {
+    const cardSequence = await this.getData('cardSequence');
+    console.log(cardSequence);
     $$('.column').forEach((column) => {
+      let cardsTemplate = '';
       const columnName = $('.column-title', column).textContent;
       const columnCards = data.filter((e) => e.states === columnName);
-      const cardTemplates = columnCards.reduce((acc, cur) => {
-        return (
-          acc +
-          `
-            <li class="list_item default" data-id="${cur.id}">
-              ${this.cardTemplate(cur.title, cur.content)}
+      cardSequence[columnName].forEach((sequence) => {
+        columnCards.forEach((cardInfo) => {
+          if (sequence === Number(cardInfo.id)) {
+            cardsTemplate += `
+            <li class="list_item default" data-id="${cardInfo.id}">
+              ${this.cardTemplate(cardInfo.title, cardInfo.content)}
             </li>
-            `
-        );
-      }, '');
-      column.lastElementChild.innerHTML = cardTemplates;
+          `;
+          }
+        });
+      });
+      column.lastElementChild.innerHTML = cardsTemplate;
     });
   };
-
-  renderCards = (data) => {};
 
   getMaxId = async () => {
     const cardData = await this.getData('cards');

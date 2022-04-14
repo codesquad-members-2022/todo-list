@@ -54,6 +54,7 @@ export class AddCard {
       const state = $('.column-title', closest('.column', target)).textContent;
       const cardId = cardItem.dataset.id;
       this.postCardData(title, content, state, cardId);
+      this.updateSequence(cardItem);
       this.renderPostedCard(title, content, cardItem);
     }
   }
@@ -76,6 +77,7 @@ export class AddCard {
 
   postCardData(todoTitle, todoContent, state, cardId) {
     const lastTime = new Date();
+
     const data = {
       id: cardId,
       title: todoTitle,
@@ -84,11 +86,29 @@ export class AddCard {
       states: state,
     };
 
-    const url = 'http://localhost:3001/cards';
-    fetch(url, {
+    const url = (router) => `http://localhost:3001/${router}`;
+    fetch('http://localhost:3001/cards', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(data),
+    });
+  }
+
+  async updateSequence(cardItem) {
+    const columnName = $(
+      '.column-title',
+      closest('.column', cardItem)
+    ).textContent;
+    const res = await fetch('http://localhost:3001/cardSequence');
+    const json = await res.json();
+    const sequence = json[columnName];
+    sequence.unshift(Number(cardItem.dataset.id));
+    const patchData = {};
+    patchData[columnName] = sequence;
+    fetch('http://localhost:3001/cardSequence', {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(patchData),
     });
   }
 }
