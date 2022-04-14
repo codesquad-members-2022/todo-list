@@ -10,6 +10,8 @@ class Controller {
     this.todo = null;
     this.deleteAlertView = null;
     this.newCard = null;
+    this.deletedCard = null;
+    this.deletedColumn = null;
     this.init();
   }
 
@@ -30,19 +32,31 @@ class Controller {
     this.initTodo();
   }
 
-  initAlert({ target, content }) {
-    target = new AlertView(content);
-
-    target.onClickCancel(handleClickCancel);
-    target.onClickAccept(handleClickAccept);
+  initAlert() {
+    this.deleteAlertView = new AlertView({
+      title: '선택한 카드를 삭제할까요?',
+      cancel: '취소',
+      accept: '삭제',
+    });
+    this.deleteAlertView.onClickCancel(handleClickCancel.bind(this));
+    this.deleteAlertView.onClickAccept(handleClickAccept.bind(this));
 
     function handleClickCancel() {
-      target.render();
+      this.deleteAlertView.render();
     }
 
     function handleClickAccept() {
-      // Todo: 추후 로직 추가
-      target.render();
+      const targetColumn = this.todo.model.columns[this.deletedColumn.id];
+      const targetCard = targetColumn.model.cardList[this.deletedCard.id];
+      targetCard.view.renderDeleted(this.deletedCard);
+
+      targetColumn.model.deleteCard(this.deletedCard.id);
+      targetColumn.model.updateCardCount();
+      targetColumn.view.renderCardCount(
+        this.deletedColumn,
+        targetColumn.model.cardCount
+      );
+      this.deleteAlertView.render();
     }
   }
 
@@ -80,6 +94,7 @@ class Controller {
       cardInputHandler: this.cardInputHandler.bind(this),
       cardAddHandler: this.cardAddHandler.bind(this),
       cardCancelHandler: this.cardCancelHandler.bind(this),
+      cardDeleteHandler: this.cardDeleteHandler.bind(this),
     });
   }
 
@@ -141,8 +156,18 @@ class Controller {
     if (targetCard.classList.contains('edit')) {
       return;
     }
+
     this.cancelAddCard(targetColumnBox);
     targetColumn.model.updateAddStstue();
+  }
+
+  cardDeleteHandler({ target }) {
+    const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
+    this.deletedColumn = targetColumnBox;
+    this.deletedCard = targetCard;
+
+    targetCard.classList.add('delete_hover');
+    this.deleteAlertView.$alert_container.classList.remove('hidden');
   }
 
   getTargetCardInfo(target) {
