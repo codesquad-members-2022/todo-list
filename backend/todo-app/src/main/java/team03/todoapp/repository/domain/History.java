@@ -23,11 +23,7 @@ public class History {
     }
 
     public History(String actionType, String cardTitle, Optional<String> pastLocation, String nowLocation, LocalDateTime historyDateTime) {
-        this.actionType = actionType;
-        this.cardTitle = cardTitle;
-        this.pastLocation = pastLocation.orElse(null);
-        this.nowLocation = nowLocation;
-        this.historyDateTime = historyDateTime;
+        this(null, actionType, cardTitle, pastLocation.orElse(null), nowLocation, historyDateTime);
     }
 
     public Long getHistoryId() {
