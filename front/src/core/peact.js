@@ -38,7 +38,7 @@ const peact = (function () {
     }
     if (attrs) {
       Object.entries(attrs).forEach(([key, value]) => {
-        if (key.includes("on")) {
+        if (key.slice(0, 2) === "on") {
           addEvent($element, key, value);
         } else {
           $element.setAttribute(key, value);

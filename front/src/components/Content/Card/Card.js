@@ -2,7 +2,7 @@ import peact from "../../../core/peact";
 import Modal from "../../Modal/Modal";
 import styles from "./card.module.css";
 
-const Card = ({ todo, handleRenderFlag }) => {
+const Card = ({ todo, handleRenderFlag, handleDoubleClickCard, ref }) => {
   const showAlert = ({ todoId }) => {
     const $body = document.querySelector("body");
     $body.append(Modal({ todoId, handleRenderFlag }));
@@ -84,8 +84,10 @@ const Card = ({ todo, handleRenderFlag }) => {
     className: styles.card,
     attrs: {
       id: todo._id,
+      onDblClick: handleDoubleClickCard,
     },
     child: [$cardHeaderArea, $cardContent, $cardAuthor],
+    ref,
   });
 
   return $card;

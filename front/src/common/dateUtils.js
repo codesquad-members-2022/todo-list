@@ -21,6 +21,8 @@ export const hour = (h) => {
 };
 
 const diffToString = (date) => {
+  if (date < 1000) return "방금 전";
+
   const dateSecond = Math.floor(date / 1000);
   const dateMinute = Math.floor(dateSecond / 60);
   const dateHour = Math.floor(dateMinute / 60);

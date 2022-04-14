@@ -11,6 +11,10 @@ const cors = (req, res, next) => {
       key: "Access-Control-Allow-Methods",
       value: isProduction ? SERVICE_DOMAIN : "*",
     },
+    {
+      key: "Access-Control-Allow-Headers",
+      value: isProduction ? SERVICE_DOMAIN : "*",
+    },
   ];
   accessControls.forEach((control) => {
     const { key, value } = control;

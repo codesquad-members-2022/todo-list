@@ -2,15 +2,55 @@ import peact from "../../../core/peact";
 import Button from "../../../tagComponents/Button";
 import styles from "./cardWritable.module.css";
 
-const CardWritable = ({ handleNewCardVisibility, ref }) => {
+const activateButton = ($button, deactiveClassName) => {
+  $button.removeAttribute("disabled");
+  $button.classList.remove(deactiveClassName);
+};
+
+const deactivateButton = ($button, deactiveClassName) => {
+  $button.setAttribute("disabled", "");
+  $button.classList.add(deactiveClassName);
+};
+
+const CardWritable = ({
+  handleNewCardVisibility,
+  handleSubmitForm,
+  inputValues,
+  ref,
+}) => {
+  const addButtonRef = peact.useRef();
+
+  const handleKeyUpInput = ({ target }) => {
+    const $addButton = addButtonRef.current;
+    const isInputEmpty = target.value === "";
+    const isInputActive = !$addButton.classList.contains(styles.deactiveButton);
+    if (isInputEmpty && isInputActive) {
+      deactivateButton($addButton, styles.deactiveButton);
+    } else if (!isInputActive) {
+      activateButton($addButton, styles.deactiveButton);
+    }
+  };
+
+  const $inputAuthor = peact.createElement({
+    tag: "input",
+    className: styles.author,
+    attrs: {
+      value: inputValues ? inputValues.author : "",
+      type: "hidden",
+      name: "author",
+    },
+    child: [],
+  });
+
   const $inputDesc = peact.createElement({
     tag: "input",
     className: styles.cardDescInput,
     attrs: {
-      value: "",
+      value: inputValues ? inputValues.desc : "",
       type: "text",
-      name: "card-content",
+      name: "desc",
       placeholder: "내용을 입력하세요",
+      onKeyUp: handleKeyUpInput,
     },
     child: [],
   });
@@ -19,10 +59,11 @@ const CardWritable = ({ handleNewCardVisibility, ref }) => {
     tag: "input",
     className: styles.cardTitleInput,
     attrs: {
-      value: "",
+      value: inputValues ? inputValues.title : "",
       type: "text",
-      name: "card-title",
+      name: "title",
       placeholder: "제목을 입력하세요",
+      onKeyUp: handleKeyUpInput,
     },
     child: [],
   });
@@ -37,11 +78,14 @@ const CardWritable = ({ handleNewCardVisibility, ref }) => {
     onClick: handleNewCardVisibility,
     className: [styles.button, styles.cancelButton],
     innerHTML: "취소",
+    type: "button",
   });
 
   const $confirmButton = Button({
-    className: [styles.button, styles.confirmButton, styles.activeButton],
+    className: [styles.button, styles.confirmButton],
     innerHTML: "등록",
+    type: "submit",
+    ref: addButtonRef,
   });
 
   const $buttonArea = peact.createElement({
@@ -51,9 +95,12 @@ const CardWritable = ({ handleNewCardVisibility, ref }) => {
   });
 
   return peact.createElement({
-    tag: "div",
-    className: [styles.cardWritable],
-    child: [$cardWritableHeader, $inputDesc, $buttonArea],
+    tag: "form",
+    className: styles.cardWritable,
+    attrs: {
+      onSubmit: handleSubmitForm,
+    },
+    child: [$inputAuthor, $cardWritableHeader, $inputDesc, $buttonArea],
     ref,
   });
 };

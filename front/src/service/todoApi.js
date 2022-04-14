@@ -9,12 +9,14 @@ const client = axios.create({
 const todoApi = {
   getTodos: async () => {
     const response = await client.get();
-
     return response.data.results;
   },
-
   deleteTodo: async (id) => {
     const response = await client.delete(`delete/${id}`);
+    return response.data.results;
+  },
+  updateTodo: async (todoId, updateData) => {
+    const response = await client.patch(`update/${todoId}`, updateData);
     return response.data.results;
   },
 };

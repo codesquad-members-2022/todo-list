@@ -57,14 +57,14 @@
 .confirmButton {
   font-weight: 700;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.4);
-  opacity: 0.5;
-  background: #86c6ff;
+  color: #fff;
+  background: #0075de;
   border: 0;
   border-radius: 6px;
 }
 
-.activeButton {
-  color: #fff;
-  background: #0075de;
+.deactiveButton {
+  cursor: default;
+  color: rgba(255, 255, 255, 0.4);
+  background: #86c6ff;
 }
