@@ -16,6 +16,7 @@
         <item name="windowActionBar">false</item>
 
         <item name="android:textViewStyle">@style/NotoSansTextViewStyle</item>
+        <item name="android:editTextStyle">@style/NotoSansTextViewStyle</item>
     </style>
 
 </resources>
