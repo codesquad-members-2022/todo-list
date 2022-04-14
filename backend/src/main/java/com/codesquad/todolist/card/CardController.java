@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,7 +44,7 @@ public class CardController {
     }
 
     @ApiOperation(value = "카드 업데이트", notes = "지정한 카드를 새로운 데이터로 업데이트합니다.")
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public HistoryResponse updateCard(
         @ApiParam(name = "id", value = "업데이트할 카드 Id", required = true)
         @PathVariable(value = "id") Integer cardId,
