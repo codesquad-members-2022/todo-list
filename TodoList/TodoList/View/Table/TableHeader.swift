@@ -7,20 +7,21 @@
 
 import UIKit
 
-final class TableHeader: UITableViewHeaderFooterView{
+final class TableHeader: UIView{
     let titleLabel = UILabel()
     let numberLabel = UILabel()
     let plusButton = UIButton()
+    weak var delegate: TableHeaderDelegate?
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.layer.backgroundColor = ColorMaker.lightGray0.getRawValue().cgColor
         setAttributes()
     }
     
-    required init?(coder: NSCoder) {
+    required init?(coder: NSCoder){
         super.init(coder: coder)
-        self.layer.backgroundColor = UIColor(red: 0.961, green: 0.961, blue: 0.969, alpha: 1).cgColor
+        self.layer.backgroundColor = ColorMaker.lightGray0.getRawValue().cgColor
         setAttributes()
     }
 }
@@ -30,7 +31,6 @@ private extension TableHeader{
         configureTitleLabel()
         configureNumberLabel()
         configurePlusButton()
-        
         setConstraints()
     }
     
@@ -43,21 +43,22 @@ private extension TableHeader{
     }
     
     func configureNumberLabel(){
-        numberLabel.textColor = UIColor(red: 0.004, green: 0.004, blue: 0.004, alpha: 1)
+        numberLabel.textColor = ColorMaker.black.getRawValue()
         numberLabel.font = UIFont(name: "NotoSansKR-Bold", size: 14)
         numberLabel.textAlignment = .center
         numberLabel.clipsToBounds = true
         numberLabel.layer.cornerRadius = 13
-        numberLabel.layer.backgroundColor = UIColor(red: 0.741, green: 0.741, blue: 0.741, alpha: 1).cgColor
+        numberLabel.layer.backgroundColor = ColorMaker.lightGray1.getRawValue().cgColor
         
         self.addSubview(numberLabel)
     }
     
     func configurePlusButton(){
         plusButton.setImage(UIImage(named: "plus")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        plusButton.tintColor = UIColor(red: 0.741, green: 0.741, blue: 0.741, alpha: 1)
+        plusButton.tintColor = ColorMaker.lightGray1.getRawValue()
         
         self.addSubview(plusButton)
+        plusButton.addTarget(self, action: #selector(touchedPlusButton(_:)), for: .touchUpInside)
     }
     
     func setConstraints(){
@@ -75,7 +76,12 @@ private extension TableHeader{
         plusButton.translatesAutoresizingMaskIntoConstraints = false
         plusButton.leadingAnchor.constraint(greaterThanOrEqualTo: self.numberLabel.trailingAnchor, constant: 50).isActive = true
         plusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant:  -7).isActive = true
-        plusButton.heightAnchor.constraint(equalToConstant: 13.79).isActive = true
+        plusButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         plusButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+    }
+    
+    @objc
+    func touchedPlusButton(_ button: UIButton){
+        self.delegate?.cardWillCreated(at: titleLabel.text ?? "해야할 일")
     }
 }

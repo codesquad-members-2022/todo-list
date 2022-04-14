@@ -18,37 +18,73 @@ final class TableViewController: UIViewController{
     
     private var sectionHeader = [TableHeader]()
     private var todoTable = [TodoTableView]()
-    
+
+    private var addCardViewController = AddCardViewController()
+
+    let cardBoard: Board = Board()
+
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
-    let todoList = [["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd"],
-                    ["Github공부하기","add,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commitadd,push,commit"], ["Github공부하기","add,push,commitadd"]]
-    private var listIndex = 0
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
     }
+    
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        self.connectURL()
+    }
+
     
     func setTableAttributes(cell: CollectionCell, index: Int){
         let header = configureSectionHeader(index: index)
-        let table = configureTableView()
+        let table = configureTableView(index: index)
         configureLayout(cell: cell, header: header, tableView: table)
     }
 }
 
 private extension TableViewController{
+    // 서버 통신 및 데이터 변환 작업
+    func connectURL(){
+        NotificationCenter.default.addObserver(self, selector: #selector(setCardData), name: NSNotification.Name(rawValue: "board"), object: cardBoard)
+        self.cardBoard.getAndDivideCard()
+    }
+    
+    @objc
+    func setCardData(){
+        DispatchQueue.main.async {
+            self.todoTable.forEach{
+                $0.reloadData()
+            }
+            
+            for (index, header) in self.sectionHeader.enumerated(){
+                guard let indexPath = BoardSubscriptIndex(rawValue: index) else{ return }
+                
+                header.numberLabel.text = String(self.cardBoard[indexPath].count)
+            }
+        }
+    }
+    
+    // 내부 View layout 작업
     func configureSectionHeader(index: Int) -> TableHeader{
         let header = TableHeader()
         header.titleLabel.text = todo[index]
-        header.numberLabel.text = "0"
         
+        if let indexPath = BoardSubscriptIndex(rawValue: index){
+            header.numberLabel.text = String(cardBoard[indexPath].count)
+        } else{
+            header.numberLabel.text = "0"
+        }
+        
+        header.delegate = self
         sectionHeader.append(header)
         
         return header
     }
     
-    func configureTableView() -> TodoTableView{
+    func configureTableView(index: Int) -> TodoTableView{
         let tableView = TodoTableView()
+        tableView.setTableViewId(number: index)
         tableView.estimatedRowHeight = 108
         tableView.rowHeight = UITableView.automaticDimension
         tableView.delegate = self
@@ -80,7 +116,10 @@ private extension TableViewController{
 extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     // Footer 관련 메서드(셀 간격용)
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        guard let customTable = tableView as? TodoTableView, let indexPath = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return 0 }
+        let cards = cardBoard[indexPath]
+        
+        return cards.count
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -97,21 +136,24 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell, let customTable = tableView as? TodoTableView, let boardIndexPath = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return UITableViewCell() }
         
-        let data = todoList[listIndex]
-        cell.setLabelText(title: data[0], contents: data[1])
-        
-        if listIndex == todoList.count - 1{
-            listIndex = 0
-        } else{
-            listIndex += 1
-        }
+        let cards = cardBoard[boardIndexPath]
+        let cardData = cards[indexPath.section]
+        cell.setLabelText(title: cardData.title, contents: cardData.content)
         
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+}
+
+extension TableViewController: TableHeaderDelegate{
+    func cardWillCreated(at section: String) {
+        addCardViewController.modalPresentationStyle = .overCurrentContext
+        addCardViewController.modalTransitionStyle = .crossDissolve
+        self.present(addCardViewController, animated: true, completion: nil)
     }
 }
