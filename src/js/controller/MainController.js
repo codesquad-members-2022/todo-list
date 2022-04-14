@@ -67,19 +67,11 @@ async function handleRegisterBtn({ target }, store) {
   const dataType = parentCard.parentElement.id;
   await store.addState(dataType, newState);
 
-  // 클래스 리스트 추가 및 삭제
-  // 삭제 버튼 & 더블 클릭 & 드래그드랍 이벤트 등록
-
-  //   store.setState(inputValues);
-  //   const isEmpty = inputValues.includes("");
-  //   if (isEmpty) return;
-
-  // const newState = getNewState(inputValues);
-
-  // UTIL.fetchData(); // 포스트요청 보내야함
-  // store.setState(newState);
-
-  // 빈카드 삭제
+  // 클래스 리스트 추가 및 삭제 & 이벤트 등록
+  // 더블 클릭 수정 이벤트
+  // 드래그 드랍 이벤트
+  // 삭제 버튼 이벤트
+  renderCard(parentCard);
 }
 
 function createCardState(cardTitle, cardContent) {
@@ -94,9 +86,10 @@ function handleRemoveBtn(event, store) {
   const { target } = event;
   target.closest(".task-card").remove();
   //store에서 데이터 삭제
-  // 서버에 데이터 삭제 요청
+  //서버에 데이터 삭제 요청
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ drag & drop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 const dragDrop = (event) => {
   const movingBox = document.createElement("div");
   movingBox.classList.add("box");
