@@ -2,6 +2,9 @@ import TodoEdit from './TodoEdit.js';
 import Modal from './Modal.js';
 import { popupRemoveTitle } from '../constants/modal.js';
 import { createNotice, handleNotice } from '../utils/action.js';
+import { ONCLICK, DBLCLICK } from '../constants/constants.js';
+import { getLocalStorageByKey } from '../utils/localStorage.js';
+import { deleteTodo } from '../utils/api.js';
 
 export default class Todo {
   constructor(todoData, handleMinusCount) {
@@ -20,19 +23,19 @@ export default class Todo {
 
   onMouseDown = e => {
     if (e.target.classList.contains('card__delete')) {
-      this.handleDeleteBtn();
+      this.onModal();
       return;
     }
 
     const dataDrag = e.currentTarget.getAttribute('data-drag');
 
-    if (dataDrag === 'true' && e.detail === 1) {
+    if (dataDrag === 'true' && e.detail === ONCLICK) {
       e.currentTarget.classList.add('spectrum');
       this.createCopyTodo();
       return;
     }
 
-    if (e.detail === 2) {
+    if (e.detail === DBLCLICK) {
       e.currentTarget.setAttribute('data-drag', false);
       this.showEditForm();
       return;
@@ -101,10 +104,19 @@ export default class Todo {
     this.todoElement.classList.remove('card__delete--mouseOver');
   };
 
-  handleDeleteBtn = () => {
-    const modal = new Modal(this.todoData.id, popupRemoveTitle, this.handleMinusCount);
+  onModal = () => {
+    const modal = new Modal(this.todoData.id, popupRemoveTitle, this.handleMinusCount, this.handleDeleteBtn);
     modal.showModal();
     modal.handleEventListener();
+  };
+
+  handleDeleteBtn = () => {
+    const filteredTodos = getLocalStorageByKey('todos').filter(e => e.id !== Number(this.todoData.id));
+    localStorage.setItem('todos', JSON.stringify(filteredTodos));
+    this.handleMinusCount();
+
+    document.getElementById(`${this.todoData.id}`)?.remove();
+    deleteTodo(this.todoData.id);
 
     const notice = createNotice(this.todoData, '삭제');
     handleNotice(notice);

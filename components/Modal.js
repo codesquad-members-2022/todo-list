@@ -1,13 +1,11 @@
-import { deleteTodo } from '../utils/api.js';
-import { getLocalStorageByKey } from '../utils/localStorage.js';
 import { $ } from '../utils/dom.js';
 import { popupCloseText, popupOkText } from '../constants/modal.js';
 export default class Modal {
-  constructor(id, title, handleMinusCount) {
+  constructor(id, title, handleMinusCount, handleDeleteBtn) {
     this.id = id;
     this.title = title;
-    this.onOk = false;
     this.handleMinusCount = handleMinusCount;
+    this.handleDeleteBtn = handleDeleteBtn;
   }
 
   render = () => {
@@ -18,11 +16,13 @@ export default class Modal {
           <button class="modal__button modal--close">${popupCloseText}</button>
           <button class="modal__button modal--remove">${popupOkText}</button>
         </div>
-      </div>`;
+      </div>
+      <div class="modalBackground no-display"></div>
+      `;
   };
 
-  getOnOK = () => {
-    return this.onOk;
+  getOKFlag = () => {
+    return this.okFlag;
   };
 
   showModal = () => {
@@ -36,17 +36,8 @@ export default class Modal {
   };
 
   deleteButton = () => {
-    this.onOk = true;
-    /** TODO
-     * TODO: onOk 속성으로 아래 코드는 모달 클래스가 아닌 상위 클래스에서 해주도록 변경필요
-     * */
-    const filteredTodos = getLocalStorageByKey('todos').filter(e => e.id !== Number(this.id));
-    localStorage.setItem('todos', JSON.stringify(filteredTodos));
-    this.handleMinusCount();
-
-    document.getElementById(`${this.id}`)?.remove();
+    this.handleDeleteBtn();
     this.closeButton();
-    deleteTodo(this.id);
   };
 
   handleEventListener = () => {

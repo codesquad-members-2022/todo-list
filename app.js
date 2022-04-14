@@ -8,8 +8,8 @@ import { $ } from './utils/dom.js';
 import { handleNotice } from './utils/action.js';
 
 const app = () => {
-  const todos = getLocalStorageByKey('todos') ? getLocalStorageByKey('todos') : [];
-  const notices = getLocalStorageByKey('notices') ? getLocalStorageByKey('notices') : [];
+  const todos = getLocalStorageByKey('todos') ?? [];
+  const notices = getLocalStorageByKey('notices') ?? [];
   localStorage.setItem('todos', JSON.stringify(todos));
   localStorage.setItem('notices', JSON.stringify(notices));
 
@@ -40,7 +40,7 @@ const createColumns = () => {
 };
 
 const createNotices = () => {
-  const notices = getLocalStorageByKey('notices') ? getLocalStorageByKey('notices') : [];
+  const notices = getLocalStorageByKey('notices') ?? [];
   notices.forEach(notice => {
     handleNotice(notice);
   });
