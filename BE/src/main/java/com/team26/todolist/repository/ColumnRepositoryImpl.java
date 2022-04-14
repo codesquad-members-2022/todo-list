@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ColumnRepositoryImpl implements ColumnRepository {
 
+    public static final double DIFFERENCE = 1000.0;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final RowMapper<Column> columnRowMapper = columnRowMapper();
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -90,32 +91,19 @@ public class ColumnRepositoryImpl implements ColumnRepository {
     }
 
     @Override
-    public Column save(Column column, Double order) {
+    public Column saveNewColumn(Column column) {
         String sql = "INSERT INTO column_tbl (title, order_index, created_at, deleted) "
-                + " VALUES (:title, :order, :createdAt, :isDeleted)";
+                + "VALUES(:title, IFNULL(SELECT MAX(order_index) FROM column_tbl WHERE deleted = false, -:difference) + :difference, :createdAt, false)";
 
         Map<String, Object> params = new HashMap<>();
         params.put("title", column.getTitle());
-        params.put("order", order);
+        params.put("difference", DIFFERENCE);
         params.put("createdAt", LocalDateTime.now());
-        params.put("isDeleted", false);
 
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params),
                 keyHolder);
 
         return findById(keyHolder.getKey().longValue());
-    }
-
-    @Override
-    public Double getLastOrder() {
-        String sql = "SELECT MAX(order_index) AS last_order FROM column_tbl WHERE deleted = :isDeleted";
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("isDeleted", false);
-
-        Double lastOrder = namedParameterJdbcTemplate.queryForObject(
-                sql, params, Double.class);
-        return lastOrder;
     }
 
     private RowMapper<Column> columnRowMapper() {

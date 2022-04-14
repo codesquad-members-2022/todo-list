@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ColumnServiceImpl implements ColumnService{
+public class ColumnServiceImpl implements ColumnService {
 
     private final double DIFFERENCE = 1000.0;
 
@@ -35,9 +35,7 @@ public class ColumnServiceImpl implements ColumnService{
     }
 
     public ColumnResponse addColumn(ColumnRegistrationRequest columnRegistrationRequest) {
-        Double lastOrder = columnRepository.getLastOrder();
-        Double order = lastOrder + DIFFERENCE;
-        Column saveColumn = columnRepository.save(columnRegistrationRequest.toEntity(), order);
+        Column saveColumn = columnRepository.saveNewColumn(columnRegistrationRequest.toEntity());
         return ColumnResponse.of(saveColumn);
     }
 
@@ -59,7 +57,7 @@ public class ColumnServiceImpl implements ColumnService{
             return rightColumn.getOrder() - DIFFERENCE;
         }
 
-        if(rightColumn == null) {
+        if (rightColumn == null) {
             return leftColumn.getOrder() + DIFFERENCE;
         }
 

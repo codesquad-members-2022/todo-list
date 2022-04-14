@@ -11,7 +11,6 @@ public interface ColumnRepository {
     Column updateOrder(Column column, Double order);
     Column updateTitle(Column column);
     boolean delete(Long id);
-    Column save(Column column, Double order);
-    Double getLastOrder();
+    Column saveNewColumn(Column column);
 
 }
