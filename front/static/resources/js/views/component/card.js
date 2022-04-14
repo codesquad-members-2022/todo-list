@@ -17,11 +17,10 @@ class Card {
 
   writableTemplate() {
     return `<li class="card card--write">
-          <form data-status="${this.props.cardStatus}" action="">
-            <input type="text" name="" id="" maxlength="50" placeholder="제목을 입력하세요" class="card__title" />
+          <form name="writable-form" data-status="${this.props.cardStatus}">
+            <input type="text" name="writable-form" maxlength="50" placeholder="제목을 입력하세요" class="card__title" />
             <textarea
-              name=""
-              id=""
+              name="writable-form"
               maxlength="500"
               placeholder="내용을 입력하세요"
               class="card__content"
