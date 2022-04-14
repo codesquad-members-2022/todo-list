@@ -2,7 +2,8 @@ package com.todolist.project.web;
 
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.CardAddDto;
-import com.todolist.project.web.dto.CardListDto;
+import com.todolist.project.web.dto.CardListRequestDto;
+import com.todolist.project.web.dto.CardListResponseDto;
 import com.todolist.project.web.dto.CardUpdateDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,30 +24,30 @@ public class CardController {
     private final CardService cardService;
 
     @GetMapping
-    public List<CardListDto> getCardList() {
+    public List<CardListResponseDto> getCardList() {
         return cardService.findAll();
     }
 
     @GetMapping("/sort")
-    public List<CardListDto> getCardListByStatus(@RequestParam("status") String cardStatus) {
+    public List<CardListResponseDto> getCardListByStatus(@RequestParam("status") String cardStatus) {
         return cardService.findByStatus(cardStatus);
     }
 
     @PostMapping
-    public List<CardListDto> add(@RequestBody CardAddDto dto) {
+    public List<CardListResponseDto> add(@RequestBody CardAddDto dto) {
         cardService.addCard(dto);
         return cardService.findByStatus(dto.getCardStatus());
     }
 
     @DeleteMapping("/{id}")
-    public List<CardListDto> remove(@PathVariable Long id) {
-        CardListDto dto = cardService.findById(id);
+    public List<CardListResponseDto> remove(@PathVariable Long id) {
+        CardListRequestDto dto = cardService.findById(id);
         cardService.removeCard(id);
         return cardService.findByStatus(dto.getCardStatus());
     }
 
     @PutMapping("/{id}")
-    public List<CardListDto> update(@PathVariable Long id, @RequestBody CardUpdateDto dto) {
+    public List<CardListResponseDto> update(@PathVariable Long id, @RequestBody CardUpdateDto dto) {
        cardService.updateCard(id, dto);
        return cardService.findByStatus(dto.getCardStatus());
     }

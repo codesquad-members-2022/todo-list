@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CardListDto {
+public class CardListRequestDto {
 
 	private Long id;
 	private int cardIndex;

@@ -1,7 +1,6 @@
 package com.todolist.project.web;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -9,13 +8,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.todolist.project.domain.CardStatus;
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.CardAddDto;
-import com.todolist.project.web.dto.CardListDto;
+import com.todolist.project.web.dto.CardListRequestDto;
 import com.todolist.project.web.dto.CardUpdateDto;
 import java.time.LocalDateTime;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,21 +35,21 @@ class CardControllerTest {
 
 	CardAddDto addDto;
 	CardUpdateDto updateDto;
-	CardListDto listDto;
+	CardListRequestDto listDto;
 
 	@BeforeEach
 	void setUp() {
 		updateDto = new CardUpdateDto(1, "title1", "content1", "TODO");
-		listDto = new CardListDto(1L, 1, "title1", "content1", "writer", "TODO",
+		listDto = new CardListRequestDto(1L, 1, "title1", "content1", "writer", "TODO",
 			LocalDateTime.now());
 		addDto = new CardAddDto(1, "title1", "content1", "writer", "TODO");
 	}
 
 	@Test
 	void list() throws Exception {
-		List<CardListDto> list = List.of(this.listDto);
-		given(service.findAll())
-			.willReturn(list);
+//		List<CardListRequestDto> list = List.of(this.listDto);
+//		given(service.findAll())
+//			.willReturn(list);
 
 		ResultActions actions = mockMvc.perform(get("/cards").accept(MediaType.APPLICATION_JSON));
 

@@ -1,6 +1,7 @@
 package com.todolist.project.domain.card;
 
 import com.todolist.project.domain.CardStatus;
+import com.todolist.project.web.dto.CardListResponseDto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -40,4 +41,9 @@ public class Card {
         this.contents = contents;
         this.cardStatus = cardStatus;
     }
+
+	public CardListResponseDto toEntity() {
+		return new CardListResponseDto(id, cardIndex, title, contents, writer, cardStatus.name(),
+			createdTime);
+	}
 }
