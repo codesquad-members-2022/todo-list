@@ -32,7 +32,10 @@ class KanbanTableViewDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            //TODO: Swipe Delete 구현
+            tableView.beginUpdates()
+            cellData.remove(at: indexPath.section)
+            tableView.deleteSections(IndexSet(arrayLiteral: indexPath.section), with: .fade)
+            tableView.endUpdates()
         }
     }
 }
