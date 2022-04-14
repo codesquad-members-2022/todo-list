@@ -37,7 +37,7 @@ public class CardJdbcRepository implements CardRepository {
         String query = "INSERT card (id, writer, position, title, content, card_type, created_at, last_modified_at, `visible`, member_id)" +
                 "VALUES (:id, :writer, :position, :title, :content, :cardType, :createdAt, :lastModifiedAt, :visible, :memberId)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        Map<String, Object> params = repositoryHelper.getParams(card);
+        Map<String, Object> params = repositoryHelper.getParamMap(card);
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
         namedParameterJdbcTemplate.update(query, mapSqlParameterSource, keyHolder);
         long key = keyHolder.getKey().longValue();
@@ -63,17 +63,8 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Optional<Card> findById(Long id) {
-        String query = "select id, " +
-                "writer, " +
-                "position, " +
-                "title, " +
-                "content, " +
-                "card_type, " +
-                "created_at, " +
-                "last_modified_at, " +
-                "visible, " +
-                "member_id " +
-                "from card where id = :id";
+        String query = "SELECT id, writer, position, title, content, card_type, created_at, last_modified_at, visible, member_id " +
+                "FROM card WHERE id = :id";
         Map<String, Object> params = Collections.singletonMap("id", id);
         RowMapper<Card> mapper = repositoryHelper.getMapper();
         return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, mapper));
@@ -82,13 +73,7 @@ public class CardJdbcRepository implements CardRepository {
     @Override
     public Card update(Card card) {
         String query = "UPDATE card SET title=:title, content=:content, card_type=:cardType, position=:position, last_modified_at=:lastModifiedAt WHERE id=:id";
-        SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-                .addValue("id", card.getId())
-                .addValue("title", card.getTitle())
-                .addValue("content", card.getContent())
-                .addValue("position", card.getPosition())
-                .addValue("cardType", card.getCardType().toString())
-                .addValue("lastModifiedAt", card.getLastModifiedAt());
+        SqlParameterSource sqlParameterSource = repositoryHelper.getUpdateParameterSource(card);
         namedParameterJdbcTemplate.update(query, sqlParameterSource);
         return card;
     }
