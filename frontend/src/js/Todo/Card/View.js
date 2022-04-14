@@ -33,4 +33,8 @@ export default class CardView {
     titleInput.value = value.title;
     contentInput.value = value.content;
   }
+
+  removeCard(card) {
+    card.remove();
+  }
 }

@@ -67,7 +67,6 @@ class Controller {
           return;
         }
         if (target.className === 'btn normal_btn') {
-          console.log(target);
           this.cardCancelHandler(target);
           return;
         }
@@ -80,7 +79,7 @@ class Controller {
   }
 
   addCard(target) {
-    const targetColumnBox = target.closest('.todo_column_box');
+    const { targetColumnBox } = this.getTargetCardInfo(target);
     const targetColumnID = targetColumnBox.id;
     const targetColumn = this.todo.model.columns[targetColumnID];
     if (!targetColumn.model.updateAddStstue()) {
@@ -98,7 +97,8 @@ class Controller {
   }
 
   cancelAddCard(targetColumnBox) {
-    targetColumnBox.querySelector('.card.write').remove();
+    const cancelCard = targetColumnBox.querySelector('.card.write');
+    this.newCard.view.removeCard(cancelCard);
     this.updateCardCount('cancelAdd');
   }
 
