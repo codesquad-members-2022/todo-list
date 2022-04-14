@@ -18,4 +18,11 @@ public class GlobalExceptionHandler {
             .forEach(e -> errors.put(((FieldError) e).getField(), e.getDefaultMessage()));
         return ResponseEntity.badRequest().body(errors);
     }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<?> handleBusinessException(BusinessException ex) {
+        ErrorCode errorCode = ex.getErrorCode();
+        ErrorResponse errorResponse = new ErrorResponse(errorCode.getMessage());
+        return new ResponseEntity<>(errorResponse, errorCode.getHttpStatus());
+    }
 }
