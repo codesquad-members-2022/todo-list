@@ -79,7 +79,7 @@ const Card = ({ todo, handleRenderFlag }) => {
     child: [todo.author],
   });
 
-  return peact.createElement({
+  const $card = peact.createElement({
     tag: "div",
     className: styles.card,
     attrs: {
@@ -87,6 +87,8 @@ const Card = ({ todo, handleRenderFlag }) => {
     },
     child: [$cardHeaderArea, $cardContent, $cardAuthor],
   });
+
+  return $card;
 };
 
 export default Card;

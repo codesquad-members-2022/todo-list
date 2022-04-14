@@ -2,7 +2,7 @@ import peact from "../../../core/peact";
 import Button from "../../../tagComponents/Button";
 import styles from "./cardWritable.module.css";
 
-const CardWritable = ({ handleNewCardVisibility }) => {
+const CardWritable = ({ handleNewCardVisibility, ref }) => {
   const $inputDesc = peact.createElement({
     tag: "input",
     className: styles.cardDescInput,
@@ -54,6 +54,7 @@ const CardWritable = ({ handleNewCardVisibility }) => {
     tag: "div",
     className: [styles.cardWritable],
     child: [$cardWritableHeader, $inputDesc, $buttonArea],
+    ref,
   });
 };
 

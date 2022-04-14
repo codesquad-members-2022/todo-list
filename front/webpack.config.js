@@ -52,6 +52,6 @@ module.exports = (env) => {
         },
       ],
     },
-    ...(isDeploy ? { devtool: "source-map" } : {}),
+    ...(isDeploy ? {} : { devtool: "source-map" }),
   };
 };
