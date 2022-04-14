@@ -82,14 +82,11 @@ class HistoryTableViewCell: UITableViewCell {
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
         emojiLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         emojiLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
-        //emojiLabel.trailingAnchor.constraint(equalTo: writerLabel.trailingAnchor, constant: -15).isActive = true
         emojiLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         writerLabel.translatesAutoresizingMaskIntoConstraints = false
         writerLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         writerLabel.leadingAnchor.constraint(equalTo: emojiLabel.trailingAnchor, constant: 15).isActive = true
-        //writerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-        
     }
 
 }
