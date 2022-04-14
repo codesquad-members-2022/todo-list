@@ -31,6 +31,7 @@ public class JdbcTemplateUserRepository implements UserRepository{
         BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(user);
         jdbcTemplate.update(SQL, namedParameters, keyHolder);
         Long userId = keyHolder.getKey().longValue();
+        user.initId(userId);
         log.info("key : {}, user : {}", userId, user);
         return userId;
     }

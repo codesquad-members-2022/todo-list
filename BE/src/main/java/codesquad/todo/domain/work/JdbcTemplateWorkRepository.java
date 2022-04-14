@@ -1,7 +1,9 @@
 package codesquad.todo.domain.work;
 
+import codesquad.todo.domain.user.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -44,31 +46,87 @@ public class JdbcTemplateWorkRepository implements WorkRepository{
 
     @Override
     public Optional<Work> findById(Long id) {
-        return Optional.empty();
+        String SQL = "SELECT w.id, w.title, w.content, w.author_id, w.work_status, w.status_index," +
+                " w.create_date_time, w.last_modified_date_time, w.deleted, u.id, u.name " +
+                "FROM works w JOIN users u " +
+                "WHERE w.id = :id AND w.author_id = u.id";
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
+        return jdbcTemplate.query(SQL, namedParameters, workRowMapper()).stream().findAny();
+    }
+
+    private RowMapper<Work> workRowMapper() {
+        return (rs, rowNum) -> Work.builder()
+                .id(rs.getLong("id"))
+                .title(rs.getString("title"))
+                .content(rs.getString("content"))
+                .author(new User(rs.getLong("author_id"), rs.getString("name")))
+                .workStatus(WorkStatus.valueOf(rs.getString("work_status")))
+                .statusIndex((Integer) rs.getObject("status_index"))
+                .createDateTime(rs.getTimestamp("create_date_time").toLocalDateTime())
+                .lastModifiedDateTime(rs.getTimestamp("last_modified_date_time").toLocalDateTime())
+                .isDeleted(rs.getBoolean("deleted"))
+                .build();
     }
 
     @Override
     public void update(Work updateWork) {
-
+        String SQL = "UPDATE works " +
+                "SET title = :title, content = :content, work_status = :workStatus, status_index = :statusIndex,\n" +
+                "last_modified_date_time = :lastModifiedDateTime, deleted = :deleted\n" +
+                "WHERE id = :id";
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("id", updateWork.getId())
+                .addValue("title", updateWork.getTitle())
+                .addValue("content", updateWork.getContent())
+                .addValue("workStatus", updateWork.getWorkStatus().name())
+                .addValue("statusIndex", updateWork.getStatusIndex())
+                .addValue("lastModifiedDateTime", updateWork.getLastModifiedDateTime())
+                .addValue("deleted", updateWork.isDeleted());
+        jdbcTemplate.update(SQL, namedParameters);
     }
 
     @Override
     public List<Work> findByUserIdAndStatus(WorkStatus workStatus, Long userId) {
-        return null;
+        String SQL = "SELECT w.id, w.title, w.content, w.author_id, w.work_status, w.status_index," +
+                " w.create_date_time, w.last_modified_date_time, w.deleted, u.id, u.name " +
+                "FROM works w JOIN users u " +
+                "WHERE w.author_id = u.id AND w.work_status = :work_status AND w.author_id = :user_id";
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("work_status", workStatus.name())
+                .addValue("user_id", userId);
+        return jdbcTemplate.query(SQL, namedParameters, workRowMapper());
     }
 
     @Override
     public int countOfStatus(Long userId, WorkStatus workStatus) {
-        return 0;
+        String SQL = "SELECT COUNT(id) FROM works\n" +
+                "WHERE work_status = :work_status AND author_id = :author_id";
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("work_status", workStatus.name())
+                .addValue("author_id", userId);
+        return jdbcTemplate.queryForObject(SQL, namedParameters, Integer.class);
     }
 
     @Override
     public List<Work> findAllWorkByUserId(Long userId) {
-        return null;
+        String SQL = "SELECT w.id, w.title, w.content, w.author_id, w.work_status, w.status_index," +
+                " w.create_date_time, w.last_modified_date_time, w.deleted, u.id, u.name " +
+                "FROM works w JOIN users u " +
+                "WHERE w.author_id = :user_id";
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("user_id", userId);
+        return jdbcTemplate.query(SQL, namedParameters, workRowMapper());
     }
 
     @Override
     public Optional<Work> findOne(Long userId, WorkStatus workStatus, Integer statusIndex) {
-        return Optional.empty();
+        String SQL = "SELECT w.id, w.title, w.content, w.author_id, w.work_status, w.status_index," +
+                " w.create_date_time, w.last_modified_date_time, w.deleted, u.id, u.name " +
+                "FROM works w JOIN users u " +
+                "WHERE w.author_id = u.id AND w.author_id = :userId AND w.work_status = :work_status AND w.status_index = :status_index";
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource().addValue("userId", userId)
+                                                        .addValue("work_status", workStatus.name())
+                                                        .addValue("status_index", statusIndex);
+        return jdbcTemplate.query(SQL, namedParameters, workRowMapper()).stream().findAny();
     }
 }
