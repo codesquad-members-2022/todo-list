@@ -126,7 +126,7 @@ class TodoCardListAdapter(
         holder.itemView.alpha = 1f
         holder.itemView.setOnTouchListener(this)
         holder.itemView.setOnDragListener(DragListener(dataChangeListener))
-        holder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).translationX = 0f
+        holder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).translationX = 0f  // 삭제 후 다른 카드 추가 시 드래그 된 상태로 추가되는 부분 해결
     }
 
     companion object {

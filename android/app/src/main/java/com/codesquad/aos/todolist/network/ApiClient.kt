@@ -2,6 +2,7 @@ package com.codesquad.aos.todolist.network
 
 import com.codesquad.aos.todolist.data.model.handlecard.AddCard
 import com.codesquad.aos.todolist.data.model.GetCardResponse
+import com.codesquad.aos.todolist.data.model.LogX
 import com.codesquad.aos.todolist.data.model.handlecard.EditCard
 import com.codesquad.aos.todolist.data.model.handlecard.HandleCardResponse
 import com.codesquad.aos.todolist.data.model.handlecard.MoveCard
@@ -43,6 +44,13 @@ interface ApiClient {
         @Path("id") id:Int,
         @Body moveCardData: MoveCard
     ): Response<HandleCardResponse>
+
+    // 로그 조회, 몇 개씩??
+    @GET("api/logs")
+    suspend fun getLogs(
+        @Query("nowNumberOfLogs") nowNumberOfLogs: Int,
+        @Query("size") size: Int
+    ): List<LogX>
 
     companion object {
 

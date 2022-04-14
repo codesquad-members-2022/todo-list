@@ -10,8 +10,11 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,11 +24,14 @@ import com.codesquad.aos.todolist.common.utils.VerticalItemDecorator
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ActivityMainBinding
 import com.codesquad.aos.todolist.ui.adapter.LogCardListAdapter
+import com.codesquad.aos.todolist.ui.adapter.LogPagingAdapter
 import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
 import com.codesquad.aos.todolist.ui.dialog.CompleteDialogFragment
 import com.codesquad.aos.todolist.ui.dialog.ProgressDialogFragment
 import com.codesquad.aos.todolist.ui.dialog.TodoDialogFragment
 import com.codesquad.aos.todolist.ui.dialog.edit.CardEditDialogFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import kotlin.math.min
 
 class MainActivity : AppCompatActivity(), DataChangeListener {
@@ -34,7 +40,9 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     private lateinit var todoCardListAdapter: TodoCardListAdapter
     private lateinit var progressCardListAdapter: TodoCardListAdapter
     private lateinit var completeCardListAdapter: TodoCardListAdapter
+
     private lateinit var logCardListAdapter: LogCardListAdapter
+    private lateinit var logPaingAdapter: LogPagingAdapter
 
     private val viewModel: TodoViewModel by viewModels { ViewModelFactory(this) }
     private val dragListener = DragListener(this)
@@ -52,6 +60,7 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         setTodoRecyclerView()
         setProgressRecyclerView()
         setCompleteRecyclerView()
+
         setLogRecyclerView()
 
         setProgressBar()
@@ -198,12 +207,30 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
     private fun setLogRecyclerView() {
         logCardListAdapter = LogCardListAdapter()
-        binding.rvLog.adapter = logCardListAdapter
+        logPaingAdapter = LogPagingAdapter()
+
+        binding.rvLog.adapter = logPaingAdapter
         binding.rvLog.layoutManager = LinearLayoutManager(this)
 
-        viewModel.addLog("오늘 할일을 추가했습니다", "1분전")
+        // 로딩 상태
+        logPaingAdapter.addLoadStateListener { combinedLoadStates ->
+            binding.progressBarLog?.isVisible = combinedLoadStates.source.refresh is LoadState.Loading
+
+            if(combinedLoadStates.source.refresh is LoadState.Error){
+                Log.d("AppTest", "loading error")
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.logFlow
+                .collectLatest { logX ->
+                    logPaingAdapter.submitData(logX)
+                }
+        }
+
+       /* viewModel.addLog("오늘 할일을 추가했습니다", "1분전")
         viewModel.addLog("오늘 할일을 추가했습니다", "2분전")
-        viewModel.addLog("오늘 할일을 추가했습니다", "3분전")
+        viewModel.addLog("오늘 할일을 추가했습니다", "3분전")*/
     }
 
 
@@ -253,7 +280,8 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
             override fun onDrawerOpened(drawerView: View) {
                 Log.d("AppTest", "onDrawerOpened called")
-
+                viewModel.getLogs()  // 우측 드로어 열린 경우 로그 데이터 가져오기
+                //binding.rvLog.scrollToPosition(0)
             }
 
             override fun onDrawerClosed(drawerView: View) {

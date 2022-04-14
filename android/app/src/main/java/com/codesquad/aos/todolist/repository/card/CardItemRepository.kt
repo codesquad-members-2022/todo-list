@@ -1,11 +1,11 @@
-package com.codesquad.aos.todolist.repository
+package com.codesquad.aos.todolist.repository.card
 
-import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.data.model.GetCardResponse
 import com.codesquad.aos.todolist.data.model.handlecard.AddCard
 import com.codesquad.aos.todolist.data.model.handlecard.EditCard
 import com.codesquad.aos.todolist.data.model.handlecard.HandleCardResponse
 import com.codesquad.aos.todolist.data.model.handlecard.MoveCard
+import com.codesquad.aos.todolist.repository.card.CardItemRemoteDataSource
 import retrofit2.Response
 
 class CardItemRepository(private val remoteDataSource: CardItemRemoteDataSource) {

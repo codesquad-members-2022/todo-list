@@ -1,20 +1,29 @@
 package com.codesquad.aos.todolist.ui
 
-import android.util.Log.d
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.data.model.Log
+import com.codesquad.aos.todolist.data.model.LogX
 import com.codesquad.aos.todolist.data.model.handlecard.AddCard
 import com.codesquad.aos.todolist.data.model.handlecard.EditCard
 import com.codesquad.aos.todolist.data.model.handlecard.MoveCard
-import com.codesquad.aos.todolist.repository.CardItemRepository
-import com.google.gson.annotations.SerializedName
+import com.codesquad.aos.todolist.repository.card.CardItemRepository
+import com.codesquad.aos.todolist.repository.log.LogRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import java.util.logging.LogRecord
 
-class TodoViewModel(private val repository: CardItemRepository) : ViewModel() {
+class TodoViewModel(
+    private val cardItemRepository: CardItemRepository,
+    private val logRepository: LogRepository
+    ) : ViewModel() {
 
     private val _todoListLd = MutableLiveData<MutableList<Card>>(mutableListOf())
     private val todolist = mutableListOf<Card>()
@@ -148,7 +157,7 @@ class TodoViewModel(private val repository: CardItemRepository) : ViewModel() {
     fun getCardItems() {
         viewModelScope.launch {
             progressVisible.postValue(true)
-            val resopnse = repository.getCardItems()
+            val resopnse = cardItemRepository.getCardItems()
 
             if (resopnse.isSuccessful) {
                 android.util.Log.d("AppTest", "전체 카드 조회 성공, ${resopnse.message()}")
@@ -192,7 +201,7 @@ class TodoViewModel(private val repository: CardItemRepository) : ViewModel() {
         val addCardData = AddCard(content, sectionSize, section, title)
 
         viewModelScope.launch {
-            val addCardResponse = repository.addCardItem(addCardData)
+            val addCardResponse = cardItemRepository.addCardItem(addCardData)
             if (addCardResponse.isSuccessful) {
                 progressVisible.postValue(false)
                 android.util.Log.d("AppTest", "카드 추가 성공")
@@ -217,7 +226,7 @@ class TodoViewModel(private val repository: CardItemRepository) : ViewModel() {
         val cardId = cardId
 
         viewModelScope.launch {
-            val editCardResponse = repository.editCardItem(cardId, editCardData)
+            val editCardResponse = cardItemRepository.editCardItem(cardId, editCardData)
             if (editCardResponse.isSuccessful) {
                 progressVisible.postValue(false)
                 getCardItems()
@@ -233,7 +242,7 @@ class TodoViewModel(private val repository: CardItemRepository) : ViewModel() {
         progressVisible.postValue(true)
 
         viewModelScope.launch {
-            val deleteCardResponse = repository.deleteCardItem(cardId)
+            val deleteCardResponse = cardItemRepository.deleteCardItem(cardId)
             if (deleteCardResponse.isSuccessful) {
                 progressVisible.postValue(false)
                 getCardItems()
@@ -249,7 +258,7 @@ class TodoViewModel(private val repository: CardItemRepository) : ViewModel() {
         val moveCardData = MoveCard(nextOrder, preOrder, prevSection, nextSection)
 
         viewModelScope.launch {
-            val moveCardResponse = repository.moveCardItem(cardId, moveCardData)
+            val moveCardResponse = cardItemRepository.moveCardItem(cardId, moveCardData)
             if(moveCardResponse.isSuccessful){
                 progressVisible.postValue(false)
                 getCardItems()
@@ -260,5 +269,19 @@ class TodoViewModel(private val repository: CardItemRepository) : ViewModel() {
         }
     }
 
+    // 로그 조회
+    private val _logFlow = MutableSharedFlow<Unit>()
 
+    val logFlow =_logFlow.flatMapLatest {
+        getLogData()
+    }.cachedIn(viewModelScope)
+
+    fun getLogs(){
+        viewModelScope.launch {
+            _logFlow.emit(Unit)
+        }
+    }
+
+    private fun getLogData(): Flow<PagingData<LogX>> =
+        logRepository.getLogs()
 }
