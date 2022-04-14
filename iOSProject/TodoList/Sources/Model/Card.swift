@@ -11,5 +11,5 @@ struct Card: Codable, Equatable {
     let id: Int
     let title: String
     let content: String
-    let caption: String
+    let authorSystem: String
 }

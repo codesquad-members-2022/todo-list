@@ -7,9 +7,18 @@
 
 import Foundation
 
-struct Column: Codable {
+struct Columns: Decodable {
+    let columns: [Column]
+}
+
+struct Column: Decodable {
     let type: ColumnType
     let cards: [Card]
+    
+    enum CodingKeys: String, CodingKey {
+        case cards
+        case type = "columnType"
+    }
 }
 
 extension Column {

@@ -108,24 +108,28 @@ class ColumnViewController: UIViewController {
             }.store(in: &cancellables)
         
         model.state.insertedCard
+            .receive(on: DispatchQueue.main)
             .sink {
                 self.cardTableView.insertSections(IndexSet(integer: $0), with: .none)
                 self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         model.state.deletedCard
+            .receive(on: DispatchQueue.main)
             .sink {
                 self.cardTableView.deleteSections(IndexSet(integer: $0), with: .none)
                 self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         model.state.movedCard
+            .receive(on: DispatchQueue.main)
             .sink { card, toColumn in
                 self.delegate?.columnView(self, fromCard: card, toColumn: toColumn)
                 self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         model.state.reloadCard
+            .receive(on: DispatchQueue.main)
             .sink {
                 self.cardTableView.reloadRows(at: [IndexPath(item: 0, section: $0)], with: .none)
             }.store(in: &cancellables)
@@ -177,10 +181,6 @@ extension ColumnViewController: UITableViewDragDelegate {
         }
         return [UIDragItem(itemProvider: NSItemProvider(object: DragCard(card: card, fromColumn: self.model.columnType)))]
     }
-    
-//    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
-//        model.action.endDrag.send()
-//    }
 }
 
 extension ColumnViewController: UITableViewDropDelegate {
@@ -194,7 +194,7 @@ extension ColumnViewController: UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        var destinationIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+        var destinationIndexPath = IndexPath(row: 0, section: 0)
         if let indexpath = coordinator.destinationIndexPath {
             destinationIndexPath = indexpath
         }

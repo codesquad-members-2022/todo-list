@@ -95,6 +95,6 @@ class ColumnViewCell: UITableViewCell {
     func setCard(_ card: Card) {
         titleLabel.text = card.title
         bodyLabel.text = card.content
-        captionLabel.text = card.caption
+        captionLabel.text = "author by \(card.authorSystem)"
     }
 }

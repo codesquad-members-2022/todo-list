@@ -46,17 +46,19 @@ class MainViewController: UIViewController {
     
     private func bind() {
         model.state.loadedColumns
-            .sink { columns in
-                columns.forEach { type, model in
+            .receive(on: DispatchQueue.main)
+            .sink{ models in
+                models.forEach { model in
                     let viewController = ColumnViewController(model: model)
                     viewController.delegate = self
                     viewController.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
                     self.embed(viewController)
                     self.columnStackView.addArrangedSubview(viewController.view)
-                    self.columnTableViews[type] = viewController
+                    self.columnTableViews[model.columnType] = viewController
                 }
                 self.columnStackView.addArrangedSubview(UIView())
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
                 
         titleBar.menuPublisher
             .sink {

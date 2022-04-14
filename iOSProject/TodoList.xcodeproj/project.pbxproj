@@ -43,6 +43,7 @@
 		E0A6BB452801BB7900F00575 /* ClientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB442801BB7900F00575 /* ClientCard.swift */; };
 		E0A6BB472801BBB900F00575 /* RequestParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB462801BBB900F00575 /* RequestParser.swift */; };
 		E0A6BB4E2803C9F600F00575 /* DragCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB4D2803C9F600F00575 /* DragCard.swift */; };
+		E0A6BB502806AF9300F00575 /* ActivityLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB4F2806AF9300F00575 /* ActivityLog.swift */; };
 		E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */; };
 		E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */; };
 		E0BE4C2B27FAAF6F0076403C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0BE4C2A27FAAF6F0076403C /* Assets.xcassets */; };
@@ -85,6 +86,7 @@
 		E0A6BB442801BB7900F00575 /* ClientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCard.swift; sourceTree = "<group>"; };
 		E0A6BB462801BBB900F00575 /* RequestParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParser.swift; sourceTree = "<group>"; };
 		E0A6BB4D2803C9F600F00575 /* DragCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragCard.swift; sourceTree = "<group>"; };
+		E0A6BB4F2806AF9300F00575 /* ActivityLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLog.swift; sourceTree = "<group>"; };
 		E0BE4C1E27FAAF6E0076403C /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 			children = (
 				E0A6BAFD27FBD3AF00F00575 /* Card.swift */,
 				E0A6BB362801682700F00575 /* Columns.swift */,
+				E0A6BB4F2806AF9300F00575 /* ActivityLog.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				E0A6BB1B27FC85D400F00575 /* MockURLSession.swift in Sources */,
 				E0A6BB4E2803C9F600F00575 /* DragCard.swift in Sources */,
 				378533AC27FEB45400E86BDC /* LogViewCell.swift in Sources */,
+				E0A6BB502806AF9300F00575 /* ActivityLog.swift in Sources */,
 				E0A6BAEE27FB255300F00575 /* UIConrtol+Extension.swift in Sources */,
 				E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */,
 				E0A6BAED27FB255300F00575 /* Date+Extension.swift in Sources */,
@@ -569,9 +573,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -584,12 +588,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.team14.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -614,12 +618,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.team14.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

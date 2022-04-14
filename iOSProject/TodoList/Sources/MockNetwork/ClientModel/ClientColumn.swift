@@ -8,6 +8,10 @@
 import Foundation
 
 struct ClientColumn: Encodable {
-    let type: MockColumnType
+    let columnType: MockColumnType
     let cards: [ClientCard]
+}
+
+struct ClientColumns: Encodable {
+    let columns: [ClientColumn]
 }
