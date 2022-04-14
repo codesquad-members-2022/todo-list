@@ -10,9 +10,12 @@ export default class Controller {
     const workListData = this.model.workList;
     this.parseCategoryData(workListData);
     this.parseCardData(workListData);
-    this.drag.addDragEvent();
     this.view.addCardTemplateEvent();
     this.view.getHeaderValue = this.getHeaderValue;
+    this.view.getRemoveValue = this.getRemoveValue;
+    this.view.getUpdateValue = this.getUpdateValue;
+    this.drag.addDragEvent();
+    this.drag.makeDrag = this.makeDrag;
   }
 
   parseCategoryData(workListData) {
@@ -57,10 +60,10 @@ export default class Controller {
     }
 
     target.closest('.column-addBtn').remove();
-    this.renderNewCard(headerValue, id, columnName);
+    this.makeNewCard(headerValue, id, columnName);
   };
 
-  async renderNewCard(headerValue, id, columnName) {
+  async makeNewCard(headerValue, id, columnName) {
     const newCardData = await this.model.addCardData(headerValue);
     const newCard = true;
 
@@ -77,4 +80,10 @@ export default class Controller {
     this.drag.removeDragEvent();
     this.drag.addDragEvent();
   }
+
+  getRemoveValue = (target) => {
+    console.log(target);
+  };
+  getUpdateValue = () => {};
+  changeDraggingCard() {}
 }
