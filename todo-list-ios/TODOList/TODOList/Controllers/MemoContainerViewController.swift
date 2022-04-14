@@ -15,6 +15,7 @@ class MemoContainerViewController: UIViewController {
         self.init()
         
         self.containerType = containerType
+        memoContainerView.countLabel.text = "0"
         memoContainerView.containerType = containerType
         memoContainerView.categoryLabel.text = " \(containerType)"
         view = memoContainerView

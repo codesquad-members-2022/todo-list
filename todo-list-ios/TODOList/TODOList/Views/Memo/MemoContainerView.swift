@@ -27,9 +27,8 @@ class MemoContainerView: UIView {
         return label
     }()
     
-    private let countLabel: UILabel = {
+    let countLabel: UILabel = {
         let label = UILabel()
-        label.text = "3"
         label.font = UIFont(name: FontFactory.bold, size: 14)
         label.textColor = UIColor(named: ColorAsset.black)
         label.backgroundColor = UIColor(named: ColorAsset.gray4)

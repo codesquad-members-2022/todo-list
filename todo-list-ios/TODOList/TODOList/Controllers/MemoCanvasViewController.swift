@@ -86,6 +86,11 @@ class MemoCanvasViewController: UIViewController {
     
     private func updateView(containerType: MemoContainerType) {
         memoTableViewControllers[containerType]?.memoContainerView.tableView.reloadData()
+        
+        guard let currentMemoCount = memoTableViewControllers[containerType]?.memoContainerView.tableView.numberOfSections else {
+            return
+        }
+        memoTableViewControllers[containerType]?.memoContainerView.countLabel.text = "\(currentMemoCount)"
     }
 }
 
