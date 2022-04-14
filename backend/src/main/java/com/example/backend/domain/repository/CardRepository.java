@@ -15,7 +15,7 @@ public interface CardRepository {
 
     Optional<Card> findById(Long id);
 
-    Long deleteById(Long id);
+    Long delete(Card card);
 
     Long move(CardMoveRequestDto dto);
 }

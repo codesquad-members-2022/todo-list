@@ -31,7 +31,15 @@ public class CardService {
     }
 
     public Long delete(Long id) {
-        return cardRepository.deleteById(id);
+        Card card = findById(id);
+        validateAlreadyDeleted(card);
+        return cardRepository.delete(card);
+    }
+
+    private void validateAlreadyDeleted(Card card) {
+        if (card.isDeleted()) {
+            throw new IllegalStateException("이미 삭제된 카드입니다.");
+        }
     }
 
     public Long move(CardMoveRequestDto dto) {
@@ -40,9 +48,13 @@ public class CardService {
 
     public Card findById(Long id) {
         Optional<Card> card = cardRepository.findById(id);
+        validateCardIsNonNull(card);
+        return card.get();
+    }
+
+    private void validateCardIsNonNull(Optional<Card> card) {
         if (card.isEmpty()) {
             throw new IllegalArgumentException("해당 카드가 존재하지 않습니다.");
         }
-        return card.get();
     }
 }
