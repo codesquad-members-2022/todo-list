@@ -30,8 +30,8 @@ export default class View {
 
   findCurrentContainer = (categoryName) => $(`.container${categoryName}`);
 
-  changeCategoryCount(todoInfo, container) {
-    $(`.itemCount${todoInfo.category}`).innerHTML = container.childElementCount;
+  changeCategoryCount({ category }, container) {
+    $(`.itemCount${category}`).innerHTML = container.childElementCount;
   }
 
   addCardTemplateEvent() {

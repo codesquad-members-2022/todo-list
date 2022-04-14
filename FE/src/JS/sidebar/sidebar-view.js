@@ -37,10 +37,10 @@ export default class View {
     </li>`;
   }
 
-  checkAction({ title, action, previousCategory, changedCategory }) {
+  checkAction({ title, action, previousCategory, currentCategory }) {
     if (action === '이동') {
       return `
-      <b>${title}</b>를 <b>${previousCategory}</b>에서<b>${changedCategory}</b>으로<b>${action}</b>하였습니다
+      <b>${title}</b>를 <b>${previousCategory}</b>에서<b>${currentCategory}</b>으로<b>${action}</b>하였습니다
       `;
     }
 

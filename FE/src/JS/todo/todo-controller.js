@@ -27,7 +27,7 @@ export default class Controller {
 
   parseCardData(workListData) {
     const todoInfo = {
-      id: this.model.userId,
+      userId: this.model.userId,
       category: null,
     };
 
@@ -68,7 +68,7 @@ export default class Controller {
     const newCard = true;
 
     const todoInfo = {
-      id: id,
+      userId: id,
       category: columnName,
     };
 
@@ -92,6 +92,8 @@ export default class Controller {
     }
     selectedCard.remove();
     this.model.removeCardData(removeCardInfo);
+    const container = this.view.findCurrentContainer(columnName);
+    this.view.changeCategoryCount({ category : columnName },container)
   };
 
   getUpdateValue = () => {};

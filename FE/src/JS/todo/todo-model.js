@@ -31,6 +31,7 @@ export default class Model {
   updateCardData() {}
   
   removeCardData(removeCardInfo) {
-    fetchRequest(`/works/{${removeCardInfo.workId}}`,"POST",removeCardInfo);
+    // fetchRequest(`/works/{${removeCardInfo.workId}}`,"POST",removeCardInfo);
+    console.log("요청완료")
   }
 }

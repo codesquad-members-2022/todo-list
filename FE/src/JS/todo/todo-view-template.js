@@ -15,15 +15,15 @@ export function makeCategory(categoryName) {
   </div>`;
 }
 
-export function makeCard({ id : author }, { id, title, content }) {
+export function makeCard({ userId }, { workId, title, content }) {
   return `
-  <li id="${id}" class="column-item--card" draggable="true">
+  <li id="${workId}" class="column-item--card" draggable="true">
     <div class="card-header">
       <h3 class="card-title">${title}</h3>
       <input type="button" class="delete-btn" value="del" />
     </div>
     <span class="card-content">${content}</span>
-    <span class="card-author">Author by ${author}</span>
+    <span class="card-author">Author by ${userId}</span>
   </li>`;
 }
 
