@@ -1,7 +1,5 @@
 package todolist.dto.card;
 
-import lombok.Getter;
-import lombok.Setter;
 import todolist.domain.card.Card;
 
 public class RequestCardDto {

@@ -1,6 +1,6 @@
 package todolist.dto.event;
 
-import todolist.dto.card.ResponseCardDto;
+import todolist.domain.card.Card;
 
 public class RequestEventDto {
     private String title;
@@ -8,14 +8,14 @@ public class RequestEventDto {
     private String currentSection;
 
 
-    public RequestEventDto(ResponseCardDto responseCardDto) {
-        this("", responseCardDto);
+    public RequestEventDto(Card card) {
+        this("", card);
     }
 
-    public RequestEventDto(String prevSection, ResponseCardDto responseCardDto) {
-        this.title = responseCardDto.getTitle();
+    public RequestEventDto(String prevSection, Card card) {
+        this.title = card.getTitle();
         this.prevSection = prevSection;
-        this.currentSection = responseCardDto.getSection();
+        this.currentSection = card.getSection();
     }
 
     public String getTitle() {
