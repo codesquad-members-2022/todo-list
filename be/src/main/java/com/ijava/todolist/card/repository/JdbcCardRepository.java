@@ -162,7 +162,7 @@ public class JdbcCardRepository implements CardRepository {
 
         log.debug(getCountSql);
 
-        return Optional.ofNullable(jdbcTemplate.queryForObject(getCountSql, Integer.class, columnsId, Deleted.N));
+        return Optional.ofNullable(jdbcTemplate.queryForObject(getCountSql, Integer.class, columnsId, Deleted.N.name()));
     }
 
     private RowMapper<Card> cardRowMapper() {
