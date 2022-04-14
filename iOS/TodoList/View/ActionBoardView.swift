@@ -2,6 +2,7 @@ import UIKit
 
 class ActionBoardView: UIView {
     private var isInScreen: Bool = false
+    private let width : CGFloat = 428
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,9 +20,8 @@ class ActionBoardView: UIView {
     }
     
     func moveView() {
-        let width : CGFloat = 428
-        let blank = isInScreen ? (UIScreen.main.bounds.width - width) : UIScreen.main.bounds.width
-        self.frame = CGRect(x: blank, y: 0, width: width, height: UIScreen.main.bounds.height)
+        let blank = isInScreen ? (UIScreen.main.bounds.width - self.width) : UIScreen.main.bounds.width
+        self.frame = CGRect(x: blank, y: 0, width: self.width, height: UIScreen.main.bounds.height)
     }
     
     private func animation(with handler: @escaping ()->Void) {
