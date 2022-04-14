@@ -3,10 +3,7 @@ package com.example.todo.network
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface RetrofitClient {
     @POST("card")
@@ -19,6 +16,9 @@ interface RetrofitClient {
 
     @GET("histories")
     suspend fun getActionLog(): Response<ActionLogResponse>
+
+    @DELETE("card/{card_id}")
+    suspend fun removeTodo(@Path("card_id") cardId: Int): Response<Void>
 
     companion object {
         private const val baseUrl = "http://3.37.194.187:8080/"

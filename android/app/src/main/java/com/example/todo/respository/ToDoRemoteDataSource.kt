@@ -30,4 +30,9 @@ class ToDoRemoteDataSource(private val retrofitClient: RetrofitClient) : ToDoDat
         return response
     }
 
+    override suspend fun removeItem(cardId: Int): Response<Void> {
+        val response = retrofitClient.removeTodo(cardId)
+        Log.d("testDelete", response.isSuccessful.toString())
+        return response
+    }
 }

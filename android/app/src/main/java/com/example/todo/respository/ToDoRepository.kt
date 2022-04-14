@@ -5,6 +5,7 @@ import com.example.todo.model.ProgressType
 import com.example.todo.model.TodoItem
 import com.example.todo.network.Todo
 import com.example.todo.network.TodoResponseItem
+import retrofit2.Response
 
 class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
 
@@ -51,16 +52,22 @@ class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
         return if (response.isSuccessful) {
             val originList = toDoList.toMutableList()
             newItem.itemId = response?.body()?.cardId ?: -1
-            originList[originList.size-1].next = newItem.itemId
+            originList[originList.size - 1].next = newItem.itemId
             originList.add(0, newItem)
             originList.toList()
         } else toDoList
     }
 
-    fun deleteToDoItem(toDoList: List<TodoItem>, deleteItem: TodoItem): List<TodoItem> {
+    suspend fun removeToDoItem(toDoList: List<TodoItem>, deleteItem: TodoItem): List<TodoItem> {
         val originList = toDoList.toMutableList()
-        originList.remove(deleteItem)
-        return originList.toList()
+        deleteItem.itemId?.let {
+            val response = toDoDataSource.removeItem(it.toInt())
+            if (response.isSuccessful) {
+                Log.d("testDelete", "ddd")
+                originList.remove(deleteItem)
+            }
+            return originList.toList()
+        } ?: kotlin.run { return originList.toList() }
     }
 
     fun updateToDoItem(toDoList: List<TodoItem>, updateItem: TodoItem): List<TodoItem> {

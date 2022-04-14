@@ -10,4 +10,5 @@ interface ToDoDataSource {
     suspend fun getInProgressId(newItem: TodoItem): Response<CardIndex>
     suspend fun getDoneId(newItem: TodoItem): Response<CardIndex>
     suspend fun getTodoItems(): Response<TodoResponse>
+    suspend fun removeItem(cardId: Int): Response<Void>
 }
