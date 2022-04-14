@@ -1,4 +1,4 @@
-import { axiosRequest } from "../util/util.js";
+import { axiosRequest } from "../API/api.js";
 
 const cardModel = {
   todos: [],
@@ -7,7 +7,7 @@ const cardModel = {
   doneColumn: [],
 };
 
-async function getTodos() {
+export async function getTodos() {
   const todos = await axiosRequest("get", "todos");
   cardModel.todos = todos;
   getAllColumnTodos();
@@ -27,4 +27,14 @@ function getColumnTodos(columnName) {
   return columnTodos;
 }
 
-export { getTodos };
+export function postTodo(cardData) {
+  axiosRequest("post", "todos", cardData);
+}
+
+export function putUpdatedCardData(cardData, dataID) {
+  axiosRequest("put", "todos", cardData, dataID);
+}
+
+export function deleteServerCardData(dataId) {
+  axiosRequest("delete", "todos", {}, dataId);
+}

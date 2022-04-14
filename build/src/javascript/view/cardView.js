@@ -1,124 +1,124 @@
-import { removeText, axiosRequest } from "../util/util.js";
+import { removeText, isTextLengthExceeded, hideElement } from "../util/util.js";
+import {
+  addServerCardData,
+  updateServerCardData,
+  deleteCardData,
+} from "../controller/cardController.js";
 
-function init() {
+export function addPlusBtnEvent() {
   const $plusBtn = document.querySelector("#have-to-do-plus");
-  $plusBtn.addEventListener("click", () => {
-    renderRegisterCard();
-  });
+  $plusBtn.addEventListener("click", renderRegisterCard);
 }
 
 async function renderRegisterCard() {
   const $cards = document.querySelector("#have-to-do-cards");
-  const todoCount = $cards.children.length;
+  const $allCards = document.querySelectorAll(".card");
+  const todoCount = $allCards.length;
   const registerBoxTemp = `
     <div class="card"  id="card${todoCount + 1}">
       <div class="card-contents-wrapper row-sort">
         <div class="card-text-area">
           <div
             class="card-title title-font"
-            contentEditable="true"
+            contenteditable="true"
           >
             제목을 입력하세요
           </div>
-          <div class="card-details"  contentEditable="true">
+          <div class="card-details"
+          contentEditable="true">
             내용을 입력하세요
           </div>
         </div>
-        <figure class="card-cross-button">
+        <button class="card-cross-button">
           <img
             src="./image/crossBtn.svg"
             alt="cross-button-img"
             class="cross-button-img"
           />
-        </figure>
+        </button>
       </div>
       <div class="card-buttons-wrapper">
-        <button class="cancel-button center-sort">취소</button>
-        <button class="register-button center-sort">등록</button>
+        <button class="cancel-button">취소</button>
+        <button class="register-button">등록</button>
       </div>
     </div>
   `;
   $cards.insertAdjacentHTML("afterbegin", registerBoxTemp);
   const cardId = `#card${todoCount + 1}`;
   const $card = document.querySelector(cardId);
+  const $crossBtn = $card.querySelector(".card-cross-button");
+  hideElement($crossBtn);
   handleRegisterCardEvent($cards, $card);
 }
 
 function handleRegisterCardEvent($cards, $card) {
   const $cardTextArea = $card.querySelector(".card-text-area");
   const $registerBtn = $card.querySelector(".register-button");
-  changeRegisterBoxStyle($cards);
-  $cardTextArea.addEventListener("click", ({ target }) => {
-    removeText(target);
-  });
-  $registerBtn.addEventListener("click", ({ target }) => {
-    updateCard(target);
-  });
+  const $firstCard = $cards.firstElementChild;
+  applyRegisterBoxStyle($firstCard);
+  displayBtns($card);
+  const $crossBtn = $card.querySelector(".card-cross-button");
+  const $cancelBtn = $card.querySelector(".cancel-button");
+  $cardTextArea.addEventListener("click", removeText);
+  $registerBtn.addEventListener("click", updateCard);
+  $cancelBtn.addEventListener("click", removeCard);
+  $crossBtn.addEventListener("click", showAlert);
 }
 
-function changeRegisterBoxStyle($cards) {
-  const $registerCard = $cards.firstElementChild;
-  Object.assign($registerCard.style, {
+function applyRegisterBoxStyle($card) {
+  Object.assign($card.style, {
     border: "1px solid var(--blue)",
     opacity: 0.5,
   });
 }
 
-function updateCard(target) {
+function updateCard({ target }) {
   const $selectedCard = target.closest(".card");
-  const $cardDetails = $selectedCard.querySelector(".card-details");
-  const $cardTitle = $selectedCard.querySelector(".card-title");
-  const card = updateCardContents(target);
   applyCardStyle($selectedCard);
-  preventModification($cardTitle, $cardDetails);
-  axiosRequest("post", "todos", card);
-  return card;
+  setTextAreaContenteditable($selectedCard, false);
+  addServerCardData($selectedCard);
 }
 
-function updateCardContents(target) {
+export function getUpdatedCardContent(target) {
   const $selectedCard = target.closest(".card");
   const $cardDetails = $selectedCard.querySelector(".card-details");
-  if (isLengthExceeded($cardDetails)) {
+  const cardDetailsText = $cardDetails.innerText;
+  if (isTextLengthExceeded(cardDetailsText)) {
     alert("글자 수가 초과했습니다 (500자)");
     return;
   }
   const $cardTitle = $selectedCard.querySelector(".card-title");
   const cardColumnName = $selectedCard.closest(".column").id;
   const cardTitleText = $cardTitle.innerText;
-  const cardDetailsText = $cardDetails.innerText;
   const cardRegisterTime = Date.now();
   const card = {
     column: cardColumnName,
     title: cardTitleText,
     detail: cardDetailsText,
-    time: cardRegisterTime,
+    createDate: cardRegisterTime,
   };
   return card;
 }
 
-function isLengthExceeded($cardDetails) {
-  const detailsLength = $cardDetails.innerText.length;
-  const maxLength = 500;
-  return detailsLength > maxLength;
-}
-
 function applyCardStyle($card) {
-  const $buttonWrpper = $card.querySelector(".card-buttons-wrapper");
+  const $buttonWrapper = $card.querySelector(".card-buttons-wrapper");
+  const $crossBtn = $card.querySelector(".card-cross-button");
+  $crossBtn.style.display = "block";
   Object.assign($card.style, {
     opacity: 1,
     border: "none",
   });
-  Object.assign($buttonWrpper.style, {
-    display: "none",
-  });
+  hideElement($buttonWrapper);
 }
 
-function preventModification($cardTitle, $cardDetails) {
-  $cardTitle.setAttribute("contenteditable", "false");
-  $cardDetails.setAttribute("contenteditable", "false");
+function setTextAreaContenteditable($card, boolean) {
+  const $cardTitle = $card.querySelector(".card-title");
+  const $cardDetails = $card.querySelector(".card-details");
+  $cardTitle.setAttribute("contenteditable", boolean);
+  $cardDetails.setAttribute("contenteditable", boolean);
 }
 
-function renderColumn(columnId, todos) {
+export function renderColumn(columnId, todos) {
   const $column = document.querySelector(columnId);
   const $cards = $column.querySelector(".cards");
   const cardTemplate = todos.reduce((template, todo) => {
@@ -126,7 +126,7 @@ function renderColumn(columnId, todos) {
     <div class="card-contents-wrapper row-sort">
       <div class="card-text-area">
         <div class="card-title title-font">${todo.title}</div>
-        <div class="card-details" contenteditable="true">${todo.detail}</div>
+        <div class="card-details">${todo.detail}</div>
       </div>
       <figure class="card-cross-button">
         <img
@@ -137,23 +137,104 @@ function renderColumn(columnId, todos) {
       </figure>
     </div>
     <div class="card-buttons-wrapper">
-      <button class="cancel-button center-sort">취소</button>
-      <button class="register-button center-sort">등록</button>
+      <button class="cancel-button">취소</button>
+      <button class="register-button">등록</button>
     </div>
   </div>`;
     return template;
   }, "");
   $cards.insertAdjacentHTML("afterbegin", cardTemplate);
-  addRegisterBtnsListener();
+  addRegisterBtnsListener($column);
+  addCardDoubleClickEvent($cards);
 }
 
-function addRegisterBtnsListener() {
-  const $registerBtns = document.querySelectorAll(".register-button");
+function addRegisterBtnsListener($column) {
+  const $registerBtns = $column.querySelectorAll(".register-button");
   for (const $registerBtn of $registerBtns) {
-    $registerBtn.addEventListener("click", (event) => {
-      updateCard(event.target);
-    });
+    $registerBtn.addEventListener("click", updateCard);
   }
 }
 
-export { init, renderColumn, updateCard };
+function addCardDoubleClickEvent($cards) {
+  $cards.addEventListener("dblclick", handleDoubleClickEvent);
+}
+
+function handleDoubleClickEvent({ target }) {
+  const $clickedCard = target.closest(".card");
+  if ($clickedCard) {
+    displayBtns($clickedCard);
+    applyRegisterBoxStyle($clickedCard);
+    setTextAreaContenteditable($clickedCard, true);
+    applyEditBtnStyle($clickedCard);
+    addBtnClickEvent($clickedCard);
+  }
+}
+
+function displayBtns($card) {
+  const $buttonWrpper = $card.querySelector(".card-buttons-wrapper");
+  $buttonWrpper.style.display = "flex";
+}
+
+function applyEditBtnStyle($card) {
+  const $registerBtn = $card.querySelector(".register-button");
+  if (!$registerBtn) return;
+  $registerBtn.removeEventListener("click", updateCard);
+  $registerBtn.className = "edit-button";
+  $registerBtn.innerText = "수정";
+}
+
+function addBtnClickEvent($card) {
+  const $editBtn = $card.querySelector(".edit-button");
+  const $cancelBtn = $card.querySelector(".cancel-button");
+  $editBtn.addEventListener("click", handleEditBtnEvent);
+  $cancelBtn.addEventListener("click", handleCancelBtnEvent);
+}
+
+function handleEditBtnEvent({ target }) {
+  const $clickedCard = target.closest(".card");
+  updateServerCardData($clickedCard);
+  applyCardStyle($clickedCard);
+  setTextAreaContenteditable($clickedCard, false);
+}
+
+function handleCancelBtnEvent({ target }) {
+  const $clickedCard = target.closest(".card");
+  applyCardStyle($clickedCard);
+  setTextAreaContenteditable($clickedCard, false);
+}
+
+function removeCard({ target }) {
+  const $selectedCard = target.closest(".card");
+  $selectedCard.remove();
+}
+
+export function addDeleteEvent() {
+  const $cancelBtn = document.querySelector("#alert-cancel-btn");
+  const $crossBtns = document.querySelectorAll(".card-cross-button");
+  for (const $crossBtn of $crossBtns) {
+    $crossBtn.addEventListener("click", showAlert);
+  }
+  $cancelBtn.addEventListener("click", blockAlert);
+}
+
+function blockAlert() {
+  const $alert = document.querySelector("#alert-id");
+  hideElement($alert);
+}
+
+function showAlert({ target }) {
+  const $alert = document.querySelector("#alert-id");
+  $alert.style.display = "flex";
+  const $selectedCard = target.closest(".card");
+  const $editBtn = document.querySelector("#alert-edit-btn");
+  const handeDeleteEvent = function () {
+    deleteCardData($selectedCard);
+    removeCard({ target });
+    blockAlert();
+  };
+  const bindFunc = handeDeleteEvent.bind({ target });
+  $editBtn.addEventListener("click", bindFunc);
+  $alert.addEventListener("mouseleave", () => {
+    $editBtn.removeEventListener("click", bindFunc);
+  });
+}
