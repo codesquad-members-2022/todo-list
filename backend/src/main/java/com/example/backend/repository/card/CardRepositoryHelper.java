@@ -7,6 +7,8 @@ import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -29,11 +31,7 @@ public class CardRepositoryHelper {
                     rs.getLong("member_id")
             );
 
-    public Map<String, Object> getParams(Card card) {
-        return toParamMap(card);
-    }
-
-    private Map<String, Object> toParamMap(Card card) {
+    public Map<String, Object> toParamMap(Card card) {
         return new HashMap<>() {{
             put("id", card.getId());
             put("writer", card.getWriter());
@@ -46,6 +44,16 @@ public class CardRepositoryHelper {
             put("visible", true);
             put("memberId", card.getMemberId());
         }};
+    }
+
+    public SqlParameterSource getUpdateParameterSource(Card card) {
+        return new MapSqlParameterSource()
+                .addValue("id", card.getId())
+                .addValue("title", card.getTitle())
+                .addValue("content", card.getContent())
+                .addValue("position", card.getPosition())
+                .addValue("cardType", card.getCardType().toString())
+                .addValue("lastModifiedAt", card.getLastModifiedAt());
     }
 
     public RowMapper<Card> getMapper() {
