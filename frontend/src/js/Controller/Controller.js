@@ -2,6 +2,7 @@ import { createTagTemplate } from '../utils/createTemplate.js';
 import AlertView from '../Alert/AlertView.js';
 import { Todo } from '../Todo/main.js';
 import Card from '../Todo/Card/main.js';
+import { postCard } from '../Utils/api.js';
 
 class Controller {
   constructor({ Header, History }) {
@@ -152,7 +153,7 @@ class Controller {
     accentBtn.removeAttribute('disabled');
   }
 
-  cardAddHandler({ target }) {
+  async cardAddHandler({ target }) {
     const {
       targetColumnBox,
       targetColumnID,
@@ -177,6 +178,20 @@ class Controller {
 
     targetCard.classList.remove('write', 'edit');
     targetColumn.model.addCardList(this.actionCard);
+
+    const { content, title } = this.actionCard.model;
+    const author = 'web';
+    const columnId = targetColumnID;
+
+    const response = await postCard({
+      card: {
+        author,
+        columnId,
+        content,
+        title,
+      },
+    });
+
     targetColumn.view.renderCardCount(
       targetColumnBox,
       targetColumn.model.getCardCount()
