@@ -1,9 +1,10 @@
 import UIKit
 
-class MemoContainerViewController: UIViewController {
+final class MemoContainerViewController: UIViewController {
 
     private var containerType: MemoContainerType?
     private var selectedIndexPath: IndexPath?
+    private let memoUseCase = MemoUseCase()
     
     private (set) var memoContainerView: MemoContainerView = {
         let containerView = MemoContainerView()
@@ -30,10 +31,7 @@ class MemoContainerViewController: UIViewController {
 
 extension MemoContainerViewController: PopupViewDelegate {
     func popupViewAddButtonDidTap(memo: Memo) {
-        let memoUseCase = MemoUseCase()
-        guard let data = memoUseCase.convertMemoToJSON(memo: memo) else {
-            return
-        }
+        guard let data = memoUseCase.convertMemoToJSON(memo: memo) else { return }
         memoUseCase.sendDataToManager(data: data, methodType: HTTPMethod.post, path: Path.task)
         
         NotificationCenter.default.post(name: .MemoDidAdd, object: self, userInfo: [UserInfoKeys.memo: memo])
