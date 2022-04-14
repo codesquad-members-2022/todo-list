@@ -1,4 +1,4 @@
-package com.team15.todoapi.controller.card;
+package com.team15.todoapi.controller.dto.card;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

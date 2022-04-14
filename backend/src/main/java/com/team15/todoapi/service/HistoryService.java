@@ -1,6 +1,6 @@
 package com.team15.todoapi.service;
 
-import com.team15.todoapi.controller.history.HistoryResponse;
+import com.team15.todoapi.controller.dto.history.HistoryResponse;
 import com.team15.todoapi.domain.Card;
 import com.team15.todoapi.domain.History;
 import com.team15.todoapi.domain.Member;

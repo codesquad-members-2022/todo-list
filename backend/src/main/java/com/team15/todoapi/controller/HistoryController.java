@@ -1,6 +1,6 @@
 package com.team15.todoapi.controller;
 
-import com.team15.todoapi.controller.history.HistoryResponse;
+import com.team15.todoapi.controller.dto.history.HistoryResponse;
 import com.team15.todoapi.service.HistoryService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

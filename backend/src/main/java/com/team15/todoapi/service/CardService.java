@@ -1,7 +1,7 @@
 package com.team15.todoapi.service;
 
-import com.team15.todoapi.controller.card.CardRequest;
-import com.team15.todoapi.controller.card.CardResponse;
+import com.team15.todoapi.controller.dto.card.CardRequest;
+import com.team15.todoapi.controller.dto.card.CardResponse;
 import com.team15.todoapi.domain.Card;
 import com.team15.todoapi.domain.Member;
 import com.team15.todoapi.repository.CardRepository;

@@ -1,6 +1,6 @@
 package com.team15.todoapi.domain;
 
-import com.team15.todoapi.controller.card.CardRequest;
+import com.team15.todoapi.controller.dto.card.CardRequest;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

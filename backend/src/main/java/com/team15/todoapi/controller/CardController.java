@@ -1,7 +1,7 @@
 package com.team15.todoapi.controller;
 
-import com.team15.todoapi.controller.card.CardRequest;
-import com.team15.todoapi.controller.card.CardResponse;
+import com.team15.todoapi.controller.dto.card.CardRequest;
+import com.team15.todoapi.controller.dto.card.CardResponse;
 import com.team15.todoapi.service.CardService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

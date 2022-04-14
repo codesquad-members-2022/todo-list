@@ -1,4 +1,4 @@
-package com.team15.todoapi.controller.history;
+package com.team15.todoapi.controller.dto.history;
 
 import com.team15.todoapi.domain.History;
 import java.time.LocalDateTime;
