@@ -144,6 +144,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell, let customTable = tableView as? TodoTableView, let boardIndexPath = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return UITableViewCell() }
+        cell.selectionStyle = .none
         
         let cards = cardBoard[boardIndexPath]
         let cardData = cards[indexPath.section]
