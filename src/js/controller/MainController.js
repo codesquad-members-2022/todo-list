@@ -45,8 +45,13 @@ function handleCardInput({ target }) {
   const parentCard = target.closest(".task-card");
   const cardTitle = util.$(".task-card__title", parentCard);
   const cardContent = util.$(".task-card__content", parentCard);
-  const cardTextData = [cardTitle, cardContent].map((input) => input.textContent.trim());
-  const registerBtn = util.$(".task-card__register-btn.cursor-pointer", parentCard);
+  const cardTextData = [cardTitle, cardContent].map((input) =>
+    input.textContent.trim()
+  );
+  const registerBtn = util.$(
+    ".task-card__register-btn.cursor-pointer",
+    parentCard
+  );
 
   if (cardTextData.includes("")) {
     registerBtn.disabled = true;
@@ -58,7 +63,9 @@ function handleCardInput({ target }) {
 async function handleRegisterBtn({ target }, store) {
   const parentCard = target.closest(".task-card");
   const cardTitle = parentCard.querySelector(".task-card__title").textContent;
-  const cardContent = parentCard.querySelector(".task-card__content").textContent;
+  const cardContent = parentCard.querySelector(
+    ".task-card__content"
+  ).textContent;
 
   // title, content을 바탕으로 state 만들기
   const newState = createCardState(cardTitle, cardContent);
@@ -71,7 +78,7 @@ async function handleRegisterBtn({ target }, store) {
   // 더블 클릭 수정 이벤트
   // 드래그 드랍 이벤트
   // 삭제 버튼 이벤트
-  renderCard(parentCard);
+  renderCard(parentCard, dragDrop);
 }
 
 function createCardState(cardTitle, cardContent) {
@@ -91,59 +98,67 @@ function handleRemoveBtn(event, store) {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ drag & drop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 const dragDrop = (event) => {
-  const movingBox = document.createElement("div");
-  movingBox.classList.add("box");
-  movingBox.style.position = "absolute";
-  document.querySelector(".zone").appendChild(movingBox); // 이부분 수정필요
-
   const { target, pageX, pageY, clientX, clientY } = event;
-  let shiftX = clientX - target.getBoundingClientRect().left;
-  let shiftY = clientY - target.getBoundingClientRect().top;
+  const card = target.closest(".task-card").cloneNode(true);
+  target.closest(".task-column").appendChild(card);
+
+  card.style.position = "absolute";
+  card.style.backgroundColor = "red";
+  let shiftX =
+    clientX - target.closest(".task-card").getBoundingClientRect().left;
+  let shiftY =
+    clientY - target.closest(".task-card").getBoundingClientRect().top;
+
   const coord = { pageX, pageY, shiftX, shiftY };
-  moveAt(movingBox, coord);
-
-  function onMouseMove(event) {
-    moveAt(event.pageX, event.pageY);
-  }
-
-  document.addEventListener("mousemove", onMouseMove);
+  moveAt(card, coord);
+  card.addEventListener("onmouseup", (event) => {
+    onMouseUp(event);
+  });
+  document.addEventListener("mousemove", (event) => {
+    onMouseMove(event, shiftX, shiftY, card);
+  });
 };
 
-function moveAt(element, { pageX, pageY, shiftX, shiftY }) {
-  Object.assign(element.style, {
+function moveAt(card, { pageX, pageY, shiftX, shiftY }) {
+  Object.assign(card.style, {
     left: pageX - shiftX + "px",
     top: pageY - shiftY + "px",
   });
 }
 
-function onMouseMove() {
-  document.removeEventListener("mousemove", onMouseMove);
-  const movingBoxCoord = movingBox.style.left + movingBox.style.width / 2;
-
-  if (movingBoxCoord > document.querySelectorAll(".zone")[2].style.left) {
-    /*이부분 left 수정해야함*/ // 왜 right는 안되는걸까?
-    document.querySelectorAll(".zone")[2].appendChild(movingBox);
-    Object.assign(movingBox.style, {
-      position: "static",
-      left: "0px",
-      top: "0px",
-    });
-
-    return;
-  }
-
-  if (movingBoxCoord > document.querySelectorAll(".zone")[1].style.left) {
-    document.querySelectorAll(".zone")[1].appendChild(movingBox);
-    Object.assign(movingBox.style, {
-      position: "static",
-      left: "0px",
-      top: "0px",
-    });
-
-    return;
-  }
-
-  movingBox.remove();
+function onMouseMove(event, shiftX, shiftY, card) {
+  const { pageX, pageY } = event;
+  moveAt(card, { pageX, pageY, shiftX, shiftY });
 }
+
+// function onMouseUp() {
+//   document.removeEventListener("mousemove", onMouseMove);
+//   const movingBoxCoord = movingBox.style.left + movingBox.style.width / 2;
+
+//   if (movingBoxCoord > document.querySelectorAll(".zone")[2].style.left) {
+//     /*이부분 left 수정해야함*/ // 왜 right는 안되는걸까?
+//     document.querySelectorAll(".zone")[2].appendChild(movingBox);
+//     Object.assign(movingBox.style, {
+//       position: "static",
+//       left: "0px",
+//       top: "0px",
+//     });
+
+//     return;
+//   }
+
+//   if (movingBoxCoord > document.querySelectorAll(".zone")[1].style.left) {
+//     document.querySelectorAll(".zone")[1].appendChild(movingBox);
+//     Object.assign(movingBox.style, {
+//       position: "static",
+//       left: "0px",
+//       top: "0px",
+//     });
+
+//     return;
+//   }
+
+//   movingBox.remove();
+// }
 
 export { createMainController };

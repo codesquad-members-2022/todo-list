@@ -8,6 +8,7 @@ function createStore(data) {
     async addState(type, newState) {
       data[type].push(newState);
       // fetch API - POST
+      console.log(type, newState);
       util.postData(`http://localhost:${util.port}/${type}`, newState);
     },
     async updateState(type, newState) {
