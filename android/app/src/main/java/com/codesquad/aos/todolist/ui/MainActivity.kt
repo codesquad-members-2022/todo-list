@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     private lateinit var completeCardListAdapter: TodoCardListAdapter
     private lateinit var logCardListAdapter: LogCardListAdapter
 
-    private val viewModel: TodoViewModel by viewModels {ViewModelFactory(this)}
+    private val viewModel: TodoViewModel by viewModels { ViewModelFactory(this) }
     private val dragListener = DragListener(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,8 +63,8 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     // 할 일 전용
     private fun setTodoRecyclerView() {
         todoCardListAdapter = TodoCardListAdapter(
-            { deleteIndex ->
-                viewModel.deleteTodo(deleteIndex)
+            { cardId ->
+                viewModel.deleteCard(cardId)
             }, this, {
                 // CardEidtDialog를 열면서 Card 객체(it) 전달하기
                 val args = Bundle()
@@ -77,8 +77,8 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
                 val cardEditDialogFragment = CardEditDialogFragment()
                 cardEditDialogFragment.arguments = args
                 cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
-            }
-        )
+            })
+
         binding.rvTodo.adapter = todoCardListAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
@@ -104,12 +104,22 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     }
 
     private fun setProgressRecyclerView() {
-        progressCardListAdapter = TodoCardListAdapter (
-            { deleteIndex ->
-                viewModel.deleteProgress(deleteIndex)
+        progressCardListAdapter = TodoCardListAdapter(
+            { cardId ->
+                viewModel.deleteCard(cardId)
             }, this, {
+                val args = Bundle()
+                args.putString("title", it.title)
+                args.putInt("id", it.cardId)
+                args.putString("section", it.section)
+                args.putString("content", it.content)
+                args.putInt("order", it.order)
 
+                val cardEditDialogFragment = CardEditDialogFragment()
+                cardEditDialogFragment.arguments = args
+                cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
             })
+
         binding.rvProgress.adapter = progressCardListAdapter
         binding.rvProgress.layoutManager = LinearLayoutManager(this)
         binding.rvProgress.addItemDecoration(VerticalItemDecorator(15))
@@ -132,12 +142,22 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     }
 
     private fun setCompleteRecyclerView() {
-        completeCardListAdapter = TodoCardListAdapter (
-            { deleteIndex ->
-            viewModel.deleteComplete(deleteIndex)
+        completeCardListAdapter = TodoCardListAdapter(
+            { cardId ->
+                viewModel.deleteCard(cardId)
             }, this, {
+                val args = Bundle()
+                args.putString("title", it.title)
+                args.putInt("id", it.cardId)
+                args.putString("section", it.section)
+                args.putString("content", it.content)
+                args.putInt("order", it.order)
 
+                val cardEditDialogFragment = CardEditDialogFragment()
+                cardEditDialogFragment.arguments = args
+                cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
             })
+
         binding.rvComplete.adapter = completeCardListAdapter
         binding.rvComplete.layoutManager = LinearLayoutManager(this)
         binding.rvComplete.addItemDecoration(VerticalItemDecorator(15))
@@ -256,7 +276,7 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
     // implement DataChangeListener
     override fun swapData(rvType: Int, sourceIndex: Int, targetIndex: Int) {
-        when(rvType){
+        when (rvType) {
             1 -> viewModel.changeTodoOrder(sourceIndex, targetIndex)
             2 -> viewModel.changeProgressOrder(sourceIndex, targetIndex)
             3 -> viewModel.changeCompleteOrder(sourceIndex, targetIndex)
@@ -264,7 +284,7 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     }
 
     override fun addDataAtEnd(rvType: Int, card: Card) {
-        when(rvType){
+        when (rvType) {
             1 -> viewModel.addTodoCard(card)
             2 -> viewModel.addProgressCard(card)
             3 -> viewModel.addCompleteCard(card)
@@ -272,7 +292,7 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     }
 
     override fun addDataAtInx(rvType: Int, tartgetIndex: Int, card: Card) {
-        when(rvType){
+        when (rvType) {
             1 -> viewModel.addTodoCardAtInx(tartgetIndex, card)
             2 -> viewModel.addProgressCardAtInx(tartgetIndex, card)
             3 -> viewModel.addCompleteCardAtInx(tartgetIndex, card)
@@ -280,16 +300,16 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     }
 
     override fun deleteData(rvType: Int, targetIndex: Int) {
-        when(rvType){
+        when (rvType) {
             1 -> viewModel.deleteTodo(targetIndex)
             2 -> viewModel.deleteProgress(targetIndex)
             3 -> viewModel.deleteComplete(targetIndex)
         }
     }
 
-    fun setProgressBar(){
-        viewModel.progressVisible.observe(this){
-            binding.progressBar?.visibility = if(it) View.VISIBLE else View.GONE
+    fun setProgressBar() {
+        viewModel.progressVisible.observe(this) {
+            binding.progressBar?.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 }

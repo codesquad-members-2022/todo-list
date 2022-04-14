@@ -13,12 +13,16 @@ class CardItemRepository(private val remoteDataSource: CardItemRemoteDataSource)
         return remoteDataSource.getCardItem()
     }
 
-    suspend fun addCardItem(addCardData: AddCard): Response<HandleCardResponse>{
+    suspend fun addCardItem(addCardData: AddCard): Response<HandleCardResponse> {
         return remoteDataSource.addCardItem(addCardData)
     }
 
-    suspend fun editCardItem(cardId: Int, editCardData: EditCard): Response<HandleCardResponse>{
+    suspend fun editCardItem(cardId: Int, editCardData: EditCard): Response<HandleCardResponse> {
         return remoteDataSource.editCardItem(cardId, editCardData)
+    }
+
+    suspend fun deleteCardItem(cardId: Int): Response<HandleCardResponse> {
+        return remoteDataSource.deleteCardItem(cardId)
     }
 
 }

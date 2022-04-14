@@ -74,26 +74,35 @@ class CardEditDialogFragment : DialogFragment() {
             binding.cvDialog.layoutParams.width = width
         }
 
+        binding.etEnterTitle.setText(title)
+        binding.etEnterContents.setText(content)
+
         binding.btnEdit.setOnClickListener {
             if (binding.etEnterContents.text.isNotEmpty() && binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addCard(
-                    binding.etEnterTitle.text.toString(),
+                viewModel.editCard(
+                    cardId,
                     binding.etEnterContents.text.toString(),
-                    "todo"
+                    order,
+                    section!!,
+                    binding.etEnterTitle.text.toString()
                 )
                 dismiss()
             } else if (binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addCard(
-                    binding.etEnterTitle.text.toString(),
-                    "",
-                    "todo"
+                viewModel.editCard(
+                    cardId,
+                    binding.etEnterContents.text.toString(),
+                    order,
+                    section!!,
+                    ""
                 )
                 dismiss()
             } else if (binding.etEnterContents.text.isNotEmpty()) {
-                viewModel.addCard(
-                    getString(R.string.new_todo),
-                    binding.etEnterContents.text.toString(),
-                    "todo"
+                viewModel.editCard(
+                    cardId,
+                    "",
+                    order,
+                    section!!,
+                    binding.etEnterTitle.text.toString()
                 )
                 dismiss()
             } else {

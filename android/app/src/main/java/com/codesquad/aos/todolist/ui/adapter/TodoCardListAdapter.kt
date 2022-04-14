@@ -38,12 +38,12 @@ class TodoCardListAdapter(
 
             binding.tvRemove?.setOnClickListener {
                 // 현재 tvRemove에 setOnClickListener가 걸려있어서 카드를 이동하는 경우 tvRemove 부분으로 드래그를 하면 안되고, 나머지 왼쪽 부분으로 하면 드래그가 이루어짐짐
-               val viewTag =
+                val viewTag =
                     this.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).tag as? Boolean
                         ?: false
                 if (viewTag) { // true면 삭제 영역 보임
                     //removeItem(this.layoutPosition)
-                    deleteTextClick.invoke(this.layoutPosition)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
+                    deleteTextClick.invoke(card!!.cardId)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
                 }
                 /*  if (card!!.isSwiped) { // true면 삭제 영역 보임
                       //removeItem(this.layoutPosition)
@@ -61,7 +61,10 @@ class TodoCardListAdapter(
             inflater.inflate(R.menu.card_items, menu)
 
             menu!!.getItem(0).setOnMenuItemClickListener {
-                Log.d("AppTest", "0 clicked, ${this.absoluteAdapterPosition}, cardId : ${getItem(this.absoluteAdapterPosition).cardId}")  // 여기서 this = 뷰홀더!
+                Log.d(
+                    "AppTest",
+                    "0 clicked, ${this.absoluteAdapterPosition}, cardId : ${getItem(this.absoluteAdapterPosition).cardId}"
+                )  // 여기서 this = 뷰홀더!
 
                 // 매인액티비티로 Card 객체 이동시키기
 
@@ -75,6 +78,8 @@ class TodoCardListAdapter(
             }
             menu!!.getItem(2).setOnMenuItemClickListener {
                 Log.d("AppTest", "2 clicked")
+
+                deleteTextClick.invoke(getItem(this.absoluteAdapterPosition).cardId)
                 true
             }
         }
@@ -142,27 +147,26 @@ class TodoCardListAdapter(
         val shadowBuilder: View.DragShadowBuilder = View.DragShadowBuilder(view)
         val swipeViewTag = view?.findViewById<ConstraintLayout>(R.id.cvSwipeView)?.tag
         when (event?.action) {
-
             MotionEvent.ACTION_DOWN -> {
                 // DOWN에 넣으면 startDragAndDrop에서 드래그 이벤트를 가져가서 ACTION_MOVE 호출이 되지 않는다
                 // + 메뉴도 나타나지 않음(아마 ContextMenu에서도 메뉴를 띄우기 위해 터치하는 순간 이벤트를 받아야 하는 것 같은데,
                 // 그전에 startDragAndDrop이 이벤트를 가져가서 인식이 안되어 메뉴가 나타나지 않는 것 같음,  MOVE로 아래 코드를 옮기면 정상적으로 ContextMenu가 나타난다)
                 Log.d("AppTest", "ACTION_DOWN")
-            /*    val isDraggable = if (swipeViewTag != null) {
-                    swipeViewTag as Boolean  // 삭제 영역이 활성화 되어있다면 swipeViewTag 값이 true, tag= any 타입 -> 여러 타입 할당 가능
-                } else {
-                    false
-                }
+                /*    val isDraggable = if (swipeViewTag != null) {
+                        swipeViewTag as Boolean  // 삭제 영역이 활성화 되어있다면 swipeViewTag 값이 true, tag= any 타입 -> 여러 타입 할당 가능
+                    } else {
+                        false
+                    }
 
-                if (!isDraggable) {
-                    val data = ClipData.newPlainText("", "")
-                    view?.startDragAndDrop(data, shadowBuilder, view, 0)
-                    return true
-                }
-                return true*/
+                    if (!isDraggable) {
+                        val data = ClipData.newPlainText("", "")
+                        view?.startDragAndDrop(data, shadowBuilder, view, 0)
+                        return true
+                    }
+                    return true*/
             }
             MotionEvent.ACTION_MOVE -> {
-               Log.d("AppTest", "ACTION_MOVE")
+                Log.d("AppTest", "ACTION_MOVE")
 
                 val isDraggable = if (swipeViewTag != null) {
                     swipeViewTag as Boolean  // 삭제 영역이 활성화 되어있다면 swipeViewTag 값이 true, tag= any 타입 -> 여러 타입 할당 가능

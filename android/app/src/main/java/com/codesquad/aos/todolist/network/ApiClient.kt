@@ -18,28 +18,33 @@ interface ApiClient {
     suspend fun getCard(): Response<GetCardResponse>
 
     // 카드 추가
-   @POST("api/cards")
-   suspend fun addCard(
+    @POST("api/cards")
+    suspend fun addCard(
         @Body addCardData: AddCard
     ): Response<HandleCardResponse>
 
-   // 카드 삭제
-   @DELETE("api/cards/{id}")
-   suspend fun deleteCard(
-       @Path("id")id: Int
-   ): Response<HandleCardResponse>
+    // 카드 삭제
+    @DELETE("api/cards/{id}")
+    suspend fun deleteCard(
+        @Path("id") id: Int
+    ): Response<HandleCardResponse>
 
-   // 카드 수정
-   @PUT("api/cards/{id}")
-   suspend fun editCard(
-       @Path("id")id: Int,
-       @Body addCardData: EditCard
-   ): Response<HandleCardResponse>
+    // 카드 수정
+    @PUT("api/cards/{id}")
+    suspend fun editCard(
+        @Path("id") id: Int,
+        @Body addCardData: EditCard
+    ): Response<HandleCardResponse>
 
+//    @PUT("api/cards/{id}/move")
+//    suspend fun moveCard(
+//        @Path("id") id:Int,
+//    )
 
     companion object {
 
-        private const val baseUrl = "http://ec2-3-35-24-197.ap-northeast-2.compute.amazonaws.com:8080/"
+        private const val baseUrl =
+            "http://ec2-3-35-24-197.ap-northeast-2.compute.amazonaws.com:8080/"
 
         fun create(): ApiClient {
 

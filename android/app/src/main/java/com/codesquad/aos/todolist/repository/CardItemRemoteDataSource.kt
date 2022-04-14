@@ -25,4 +25,9 @@ class CardItemRemoteDataSource(private val api: ApiClient) : CardItemDataSource 
         return api.editCard(cardId, editCardData)
     }
 
+    override suspend fun deleteCardItem(cardId: Int): Response<HandleCardResponse> {
+        return api.deleteCard(cardId)
+    }
+
+
 }

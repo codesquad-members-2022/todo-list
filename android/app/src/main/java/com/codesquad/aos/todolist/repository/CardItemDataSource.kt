@@ -11,4 +11,5 @@ interface CardItemDataSource {
     suspend fun getCardItem(): Response<GetCardResponse>
     suspend fun addCardItem(addCardData: AddCard): Response<HandleCardResponse>
     suspend fun editCardItem(cardId: Int, editCardData: EditCard): Response<HandleCardResponse>
+    suspend fun deleteCardItem(cardId: Int): Response<HandleCardResponse>
 }
