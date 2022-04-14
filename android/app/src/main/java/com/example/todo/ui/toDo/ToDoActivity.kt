@@ -1,6 +1,7 @@
 package com.example.todo.ui.toDo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -135,35 +136,14 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener, ToDo
         UpdateToDoDialog(item).show(supportFragmentManager, "update")
     }
 
-    override fun swapData(rvType: ProgressType, sourceIndex: Int, targetIndex: Int) {
-        when(rvType){
-//            ProgressType.TO_DO-> toDoViewModel.swapTodoItem(sourceIndex, targetIndex)
-//            ProgressType.IN_PROGRESS-> toDoViewModel.swapInProgressItem(sourceIndex,targetIndex)
-//            ProgressType.DONE-> toDoViewModel.swapDoneItem(sourceIndex,targetIndex)
-        }
+    override fun moveData(
+        rvType: ProgressType,
+        prevItemId: Int?,
+        nextItemId: Int?,
+        moveItemId: Int?
+    ) {
+
     }
 
-    override fun addDataAtEnd(rvType: ProgressType, item: TodoItem) {
-        when(rvType){
-            ProgressType.TO_DO-> toDoViewModel.addTodoItem(item)
-            ProgressType.IN_PROGRESS-> toDoViewModel.addInProgressItem(item)
-            ProgressType.DONE-> toDoViewModel.addDoneItem(item)
-        }
-    }
 
-    override fun addDataAtInx(rvType: ProgressType, targetIndex: Int, item: TodoItem) {
-        when(rvType){
-//            ProgressType.TO_DO-> toDoViewModel.addTodoItemAtIndex(item, targetIndex)
-//            ProgressType.IN_PROGRESS-> toDoViewModel.addInProgressItemAtIndex(item, targetIndex)
-//            ProgressType.DONE-> toDoViewModel.addDoneItemAtIndex(item, targetIndex)
-        }
-    }
-
-    override fun deleteData(rvType: ProgressType, item: TodoItem) {
-        when (rvType) {
-//            ProgressType.TO_DO -> toDoViewModel.deleteTodoItem(item)
-//            ProgressType.IN_PROGRESS -> toDoViewModel.deleteInProgressItem(item)
-//            ProgressType.DONE -> toDoViewModel.deleteDoneItem(item)
-        }
-    }
 }

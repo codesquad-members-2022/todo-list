@@ -6,6 +6,8 @@ import android.content.ClipData
 import android.content.Context
 import android.os.Build
 import android.view.*
+
+
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
@@ -70,6 +72,9 @@ class TodoAdapter(
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
+
+            }
+            MotionEvent.ACTION_MOVE->{
                 val data = ClipData.newPlainText("", "")
                 val shadowBuilder = View.DragShadowBuilder(v)
                 v?.startDragAndDrop(data, shadowBuilder, v, 0)
