@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
-@ApiModel(value="CardDTO : 카드 정보를 가지고 있는 모델")
+@ApiModel(value="MoveCardDTO : 카드 이동시 요청데이터를 가지고 있는 모델")
 @Getter
 public class MoveCardDTO {
 
