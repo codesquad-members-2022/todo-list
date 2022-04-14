@@ -45,6 +45,10 @@ public class WorkRepository {
         jdbc.update("UPDATE work SET category_id = :categoryId, created_datetime = :createdDateTime WHERE id = :id", parameters);
     }
 
+    public void delete(Integer workId) {
+        jdbc.update("DELETE FROM work WHERE id = :workId", Collections.singletonMap("workId", workId));
+    }
+
     private RowMapper<Work> workRowMapper() {
         return (rs, rowNum) -> {
             Calendar cal = Calendar.getInstance();

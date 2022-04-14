@@ -4,6 +4,7 @@ import com.todolist.domain.Category;
 import com.todolist.domain.Work;
 import com.todolist.domain.UserLog;
 import com.todolist.dto.ColumnListDto;
+import com.todolist.dto.WorkDeletionDto;
 import com.todolist.dto.WorkDto;
 import com.todolist.dto.WorkListDto;
 import com.todolist.dto.WorkCreationDto;
@@ -66,5 +67,13 @@ public class WorkService {
         String previousCategoryName = categoryRepository.findNameById(workMovementDto.getPreviousCategoryId());
         String currentCategoryName = categoryRepository.findNameById(workMovementDto.getCurrentCategoryId());
         userLogRepository.saveLogOfMovementByUser(workMovementDto.convertToUserLogDomain(previousCategoryName, currentCategoryName));
+    }
+
+    @Transactional
+    public void remove(Integer workId, WorkDeletionDto workDeletionDto) {
+        workRepository.delete(workId);
+
+        String currentCategoryName = categoryRepository.findNameById(workDeletionDto.getCurrentCategoryId());
+        userLogRepository.saveLogOfDeletionByUser(workDeletionDto.convertToUserLogDomain(currentCategoryName));
     }
 }
