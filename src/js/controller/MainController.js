@@ -138,56 +138,42 @@ function onMouseMove(event, shiftX, shiftY, cloneCard) {
 function onMouseUp(event, shiftX, shiftY, cloneCard) {
   document.removeEventListener("mousemove", onMouseMove);
   const cloneCardCoord = cloneCard.style.left + cloneCard.style.width / 2;
-  const a = +cloneCardCoord.replace("p", "").replace("x", "");
+  const cloneCardCoordNum = cloneCardCoord.replace("p", "").replace("x", "");
   const todoColumn = util.$("#todo");
   const doingColumn = util.$("#doing");
   const doneColumn = util.$("#done");
-  console.log(cloneCardCoord);
-  console.log(todoColumn.getBoundingClientRect().left);
-  console.log(doingColumn.getBoundingClientRect().left);
-  console.log(doneColumn.getBoundingClientRect().left);
-
-  if (
-    a > todoColumn.getBoundingClientRect().left &&
-    doingColumn.getBoundingClientRect().left > a
-  ) {
+  if (checkCoord(cloneCardCoordNum, todoColumn)) {
     /*이부분 left 수정해야함*/ // 왜 right는 안되는걸까?
-    todoColumn.appendChild(cloneCard);
-    Object.assign(cloneCard.style, {
-      position: "static",
-      left: "0px",
-      top: "0px",
-    });
-
+    appendCard2Column(todoColumn, cloneCard);
     return;
   }
 
-  if (
-    a > doingColumn.getBoundingClientRect().left &&
-    doneColumn.getBoundingClientRect().left > a
-  ) {
-    doingColumn.appendChild(cloneCard);
-    Object.assign(cloneCard.style, {
-      position: "static",
-      left: "0px",
-      top: "0px",
-    });
-
+  if (checkCoord(cloneCardCoordNum, doingColumn)) {
+    appendCard2Column(doingColumn, cloneCard);
     return;
   }
 
-  if (a > doneColumn.getBoundingClientRect().left) {
-    doneColumn.appendChild(cloneCard);
-    Object.assign(cloneCard.style, {
-      position: "static",
-      left: "0px",
-      top: "0px",
-    });
-
+  if (checkCoord(cloneCardCoordNum, doneColumn)) {
+    appendCard2Column(doneColumn, cloneCard);
     return;
   }
 
   // cloneCard.remove();
 }
 
+function appendCard2Column(targetColumn, targetCard) {
+  targetColumn.appendChild(targetCard);
+  Object.assign(targetCard.style, {
+    position: "static",
+    left: "0px",
+    top: "0px",
+  });
+}
+
+function checkCoord(targetCardCoord, targetColumnCoord) {
+  return (
+    targetCardCoord > targetColumnCoord.getBoundingClientRect().left &&
+    targetColumnCoord.getBoundingClientRect().right > targetCardCoord
+  );
+}
 export { createMainController };
