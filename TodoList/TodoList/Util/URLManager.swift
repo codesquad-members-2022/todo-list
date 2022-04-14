@@ -34,26 +34,21 @@ final class URLManager{
     }
     
     //Post - encode된 Data를 param 인자 값으로 받아옴
-    static func requestPost(url: String, requestParam: Data?) -> Data?{
-        var requestedID: Data?
+    static func requestPost(url: String, encodingData: Data, complete: @escaping (Data) -> ()){
+        guard let validURL = URL(string: url) else { return }
         
-        guard let uploadData = requestParam else { return nil }
-        
-        guard let validURL = URL(string: url) else { return nil }
         var urlRequest = URLRequest(url: validURL)
         urlRequest.httpMethod = HttpMethod.post.getRawValue()
-        urlRequest.httpBody = uploadData
+        urlRequest.httpBody = encodingData
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue("\(uploadData.count)", forHTTPHeaderField: "Content-Length")
+        urlRequest.setValue("\(encodingData.count)", forHTTPHeaderField: "Content-Length")
         
         URLSession.shared.dataTask(with: urlRequest){ data, response, error in
             guard let data = data else { return }
             guard let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else { return }
 
-            requestedID = data
+            complete(data)
         }.resume()
-        
-        return requestedID
     }
 }
 

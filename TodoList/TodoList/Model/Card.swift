@@ -40,7 +40,7 @@ struct Card: Codable{
         self.id = id
     }
     
-    mutating func changeDate(date: Date){
-        self.createdDate = ""
+    mutating func changeDate(date: String){
+        self.createdDate = date
     }
 }

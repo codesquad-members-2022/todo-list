@@ -27,7 +27,7 @@ final class Board{
     
     func getAndDivideCard(){
         URLManager.requestGet(url: "http://3.39.150.251:8080/api/cards?userId=chez"){ data in
-            let cards: [Card] = JsonConverter.decodeJson(data: data)
+            guard let cards: [Card] = JsonConverter.decodeJson(data: data) else { return }
             
             self.todoCards.append(contentsOf: cards.filter{ $0.section == .todo })
             self.doingCards.append(contentsOf: cards.filter{ $0.section == .doing })
@@ -37,19 +37,17 @@ final class Board{
         }
     }
     
-    func postCard(section: Int, title: String, content: String, userID: String){
-        var newCard = Card(section: section, title: title, content: content, userID: userID)
-        let data = JsonConverter.encodeJson(param: newCard)
+    func postCard(card: Card){
+        var newCard = card
+        guard let encodingData: Data = JsonConverter.encodeJson(param: newCard) else { return }
         
-        let responseData = URLManager.requestPost(url: " ", requestParam: data)
-        
-        guard let responseData = responseData else { return }
-        let idAndDate: [String] = JsonConverter.decodeJson(data: responseData)
-        
-        guard let id = Int(idAndDate[0]), let date = dateFormatter(date: idAndDate[1]) else{ return }
-        
-        newCard.changeId(id: id)
-        newCard.changeDate(date: date)
+        URLManager.requestPost(url: "http://3.39.150.251:8080/api/cards?userId=chez", encodingData: encodingData){ data in
+            guard let subData: [String] = JsonConverter.decodeJson(data: data) else { return }
+            
+            guard let id = Int(subData[0]) else{ return }
+            newCard.changeId(id: id)
+            newCard.changeDate(date: subData[1])
+        }
     }
 }
 
