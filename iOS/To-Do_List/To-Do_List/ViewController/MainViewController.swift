@@ -102,13 +102,14 @@ extension MainViewController {
     }
     
     @objc func postNewCardInfo(_ notification:Notification) {
-        let samplePostModel = NewCard(id: nil, writer: "Park", title: "Queen", content: "Dom", cardType: "TODO", memberId: 1)
+        let samplePostModel = CardInfo(writer: "Park", position: 123, title: "Queen", content: "Dom", cardType: "TODO", memberId: 1)
+        
         //TODO: info의 타입에 따라서 수정 혹은 추가를 Post함.
         guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
               let childVC = notification.object as? ChildViewController
         else { return }
         
-        networkManager?.request(endpoint: EndPointCase.addCard(cardInfo: samplePostModel).endpoint, completionHandler: { (result:Result<NewCard,NetworkError>) in
+        networkManager?.request(endpoint: EndPointCase.addCard(card: samplePostModel).endpoint, completionHandler: { (result:Result<CardInfo,NetworkError>) in
             switch result {
             case .success(let cardinfo):
                 childVC.insertFromList(card: cardinfo)

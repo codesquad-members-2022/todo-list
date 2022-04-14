@@ -9,25 +9,25 @@ import Foundation
 
 protocol Endpointable {
     func getHttpMethod() -> HTTPMethod
-    func getBaseURL() -> BaseAddress
-    func getPath() -> optionPath
+    func getBaseURL() -> String
+    func getPath() -> String
     func getHeaders() -> [String:Any]?
     func getBody() -> [String:Any]?
 }
 
 extension Endpointable {
-    func getURL() -> String { return getBaseURL().rawValue + getPath().pathString}
+    func getURL() -> String { return getBaseURL() + getPath() }
 }
 
 
 struct Endpoint:Endpointable {
     private let httpMethod: HTTPMethod
-    private let baseURL: BaseAddress
-    private let path: optionPath
+    private let baseURL: String
+    private let path: String
     private let headers: [String: Any]?
     private let body: [String:Any]?
     
-    init(httpMethod:HTTPMethod, baseURL:BaseAddress, path:optionPath, headers:[String:Any]?, body:[String:Any]? = nil) {
+    init(httpMethod:HTTPMethod, baseURL:String, path:String, headers:[String:Any]?, body:[String:Any]? = nil) {
         self.httpMethod = httpMethod
         self.baseURL = baseURL
         self.path = path
@@ -39,11 +39,11 @@ struct Endpoint:Endpointable {
         return self.httpMethod
     }
     
-    func getBaseURL() -> BaseAddress {
+    func getBaseURL() -> String {
         return self.baseURL
     }
     
-    func getPath() -> optionPath {
+    func getPath() -> String {
         return self.path
     }
     
@@ -58,55 +58,35 @@ struct Endpoint:Endpointable {
 
 enum EndPointCase {
     case getBoard
-    case addCard(cardInfo: NewCard)
+    case addCard(card: CardInfo)
     case deleteCard(card:Todo)
     
     var endpoint:Endpointable {
         switch self {
         case .getBoard:
             return Endpoint(httpMethod: .get,
-                            baseURL: .main,
-                            path: .read,
+                            baseURL: "http://13.125.161.84:8082/",
+                            path: "api/cards",
                             headers: ["Content-Type": "application/json"],
                             body: nil
             )
+       
             
         case .addCard(let cardInfo):
             return Endpoint(httpMethod: .post,
-                            baseURL: .main,
-                            path: .add,
+                            baseURL: "http://13.125.161.84:8082/",
+                            path: "api/cards",
                             headers: ["Content-Type": "application/json"],
                             body: cardInfo.body()
             )
         
         case .deleteCard(let card):
             return Endpoint(httpMethod: .delete,
-                            baseURL: .main,
-                            path: .delete(id: "\(card.id)"),
+                            baseURL: "http://13.125.161.84:8082/",
+                            path: "api/cards/\(card.id)",
                             headers: ["Content-Type": "application/json"],
                             body: nil
             )
-        }
-    }
-}
-
-enum BaseAddress : String {
-    case main = "http://13.125.161.84:8082/"
-}
-
-enum optionPath {
-    case read
-    case add
-    case delete(id: String)
-    
-    var pathString: String {
-        switch self {
-        case .read:
-            return "api/read/cards"
-        case .add:
-            return "api/cards/write"
-        case .delete(let id):
-            return "api/cards/\(id)"
         }
     }
 }

@@ -10,11 +10,13 @@ import UIKit
 
 class ChildViewController: UIViewController {
 
-    private var tableView: BoardTableView<CardDisplayable,CardCell>!
+    private var tableView: BoardTableView<Todo,CardCell>!
     private var header : BoardHeader!
     private var boardType : BoardType?
     
-    private var list:[CardDisplayable]?
+    private var list:[Todo] = []
+    
+    private var editViewController:EditCardViewController?
     
     //Notification
     static let tapCofirmButton = Notification.Name("didTapConfirmButton")
@@ -28,19 +30,17 @@ class ChildViewController: UIViewController {
     }
 
     func removeFromList(card: Todo) {
-        guard var list = list, let targetIndex = list.firstIndex(where: {$0.id == card.id}) else {return}
+        guard let targetIndex = list.firstIndex(where: {$0 == card}) else {return}
         list.remove(at: targetIndex)
-        self.list = list
+        
         let indexPath = IndexPath(row: targetIndex, section: 0)
         DispatchQueue.main.async {
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
-    
-    func insertFromList(card:NewCard) {
-//        DispatchQueue.main.async {
-//            self.tableView.insertRows(at: <#T##[IndexPath]#>, with: T##UITableView.RowAnimation)
-//        }
+    //TODO: 새로운 카드를 insert함.
+    func insertFromList(card:CardInfo) {
+      
     }
     
     
@@ -59,7 +59,6 @@ class ChildViewController: UIViewController {
     
 
     private func setTableView() {
-        guard let list = list else {return}
         self.tableView = BoardTableView(
             frame: .zero,
             style: .plain,
@@ -87,6 +86,7 @@ extension ChildViewController {
     }
     
     private func setTableViewConstraint() {
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
             self.tableView.topAnchor.constraint(equalTo: self.header.bottomAnchor),
@@ -112,11 +112,11 @@ extension ChildViewController {
     
     @objc func reloadTableView(notification:Notification) {
         guard let data = notification.userInfo?[MainViewController.UserInfoBoardData] as? NetworkResult , let boardType = self.boardType else { return }
-        list = boardType.extractList(from: data)
-        
+        guard let cards = boardType.extractList(from: data) else {return}
+        list = cards
         DispatchQueue.main.async {
             self.setTableView()
-            self.header.updateCount(self.list?.count)
+            self.header.updateCount(self.list.count)
             self.tableView.reloadData()
         }
     }
@@ -126,12 +126,15 @@ extension ChildViewController {
 //MARK: -- AddButton delegation
 extension ChildViewController : BoardHeaderDelegate {
     func didTapAddButton() {
-        let editVC = EditCardViewController()
-        editVC.delegate = self
+        editViewController = EditCardViewController()
+        editViewController?.delegate = self
+        
+        guard let editVC = editViewController else { return }
         editVC.setEditCardView(editStyle: .add)
         editVC.modalPresentationStyle = .formSheet
         present(editVC, animated: true)
     }
+   
 }
 
 //MARK: -- BoardTableView Delete delegation
@@ -153,4 +156,5 @@ extension ChildViewController:EditViewControllerDelegate {
         )
     }
 }
+
 
