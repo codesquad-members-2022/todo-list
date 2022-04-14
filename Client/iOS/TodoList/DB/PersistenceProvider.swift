@@ -21,14 +21,14 @@ enum BoardType: CustomStringConvertible {
 }
 
 // MARK:- DataManager
-protocol DataManager {
+protocol PersistenceProvider {
     func insertCard(boardType: BoardType, id: Int, title: String, content: String)
     func fetchAllCard(where boardType: BoardType) -> [Card]
 }
 
 
-class CoreDataManager: DataManager {
-    static var shared = CoreDataManager()
+class BoardPersistenceProvider: PersistenceProvider {
+    static var shared = BoardPersistenceProvider()
     
     private init() {}
         
