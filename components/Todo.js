@@ -2,9 +2,10 @@ import TodoEdit from './TodoEdit.js';
 import Modal from './Modal.js';
 import { popupRemoveTitle } from '../constants/modal.js';
 import { createNotice, handleNotice } from '../utils/action.js';
-import { DBLCLICK } from '../constants/constants.js';
+import { ONCLICK, DBLCLICK } from '../constants/constants.js';
 import { getLocalStorageByKey } from '../utils/localStorage.js';
 import { deleteTodo } from '../utils/api.js';
+import { $ } from '../utils/dom.js';
 
 export default class Todo {
   constructor(todoData, handleMinusCount) {
@@ -27,7 +28,13 @@ export default class Todo {
       return;
     }
 
+    const dataDrag = e.currentTarget.getAttribute('data-drag');
+    if (dataDrag === 'true' && e.detail === ONCLICK) {
+      return;
+    }
+
     if (e.detail === DBLCLICK) {
+      e.currentTarget.setAttribute('data-drag', false);
       this.showEditForm();
       return;
     }
@@ -36,7 +43,7 @@ export default class Todo {
   render = () => {
     return /*html*/ `
     <div class="start"></div>
-    <article class="card" id =${this.todoData.id}>
+    <article class="card" id =${this.todoData.id} data-drag="true">
         <header>
           <h3 class="card__title">${this.todoData.title}</h3>
           <button class="card__delete">x</button>

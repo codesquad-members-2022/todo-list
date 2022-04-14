@@ -18,11 +18,11 @@ function isBefore(element1, element2) {
   return false;
 }
 
-export const onBodyMouseDown = () => {
+export const onBodyMouseDown = e => {
   document.body.addEventListener('mousedown', e => {
-    const targetRemove = e.target.closest('.card');
+    const targetRemove = e.target.closest("[data-drag='true']");
 
-    if (targetRemove === null || targetRemove.className === 'start') {
+    if (e.target.className === 'card__delete' || targetRemove === null || targetRemove.className === 'start') {
       return;
     }
 
@@ -69,14 +69,20 @@ export const onBodyMouseMove = () => {
 };
 
 export const onBodyMouseUp = () => {
-  document.body.addEventListener('mouseup', () => {
-    // 카드 status Update, 로컬스토리지 해당 id 업데이트
+  document.body.addEventListener('mouseup', e => {
+    if (e.target.className !== 'card') return;
 
     if (shadowElement) {
       shadowElement.classList.remove('spectrum');
     }
 
+    /**
+     * TODO // 메뉴 알림창에 데이터 추가 필요
+     *
+     */
+
     if (copyElement) {
+      // 카드 이동 이후 로컬스토리지 해당 id 업데이트
       const id = Number(copyElement.id);
       const todo = {};
       todo.id = id;

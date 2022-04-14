@@ -1,34 +1,57 @@
-// server.js
 import jsonServer from 'json-server';
+import { Low, JSONFile } from 'lowdb';
+import lodash from 'lodash';
+
 const server = jsonServer.create();
-const router = jsonServer.router('todos.json');
+const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
-import lowdb from 'lowdb';
-import FileSync from 'lowdb/adapters/FileSync.js';
-
-const db = lowdb(new FileSync('todos.json'));
 server.use(middlewares);
-// server.use(
-//   jsonServer.rewriter({
-//     '/todos/*': '/$1',
-//   })
-// );
+server.use(jsonServer.bodyParser);
 
-server.delete('/todos/completed/:id', (req, res) => {
+const db = new Low(new JSONFile('db.json'));
+await db.read();
+
+db.chain = lodash.chain(db.data);
+server.delete('/todos/:id', (req, res) => {
   const id = Number(req.params.id);
 
-  /**
-   * TODO // lowdb 버전 체크 필요
-   */
-  // todo.isDeleted = true;
-  db.get('todos').find({ id: id }).assign({ isDeleted: true }).write();
+  const todo = db.chain.get('todos').find({ id: id }).value();
+  if (todo) {
+    todo.isDeleted = true;
+    db.write();
+    res.send({ status: 'OK' });
+    return;
+  }
 
-  res.send(db.get('todos'));
+  res.send({ status: 'FAIL' });
 });
 
-server.get('/todos/completed', (req, res) => {
-  console.log(req);
+server.get('/todos', (req, res) => {
+  const todos = db.chain.get('todos').filter({ isDeleted: false }).value();
+  res.send(todos);
+});
+
+server.post('/todos', (req, res) => {
+  const todo = req.body;
+  const todos = db.chain.get('todos').value();
+  todos.push(todo);
+  db.write();
+
+  res.send({ status: 'OK' });
+});
+
+server.put('/todos', (req, res) => {
+  const todo = req.body;
+
+  const existTodo = db.chain.get('todos').find({ id: todo.id }).value();
+  if (existTodo) {
+    res.send({ status: 'OK' });
+    db.write();
+    return;
+  }
+
+  res.send({ status: 'FAIL' });
 });
 
 server.use(router);

@@ -4,7 +4,7 @@ import { $ } from '../utils/dom.js';
 export default class TodoColumn {
   constructor(status) {
     this.status = status;
-    this.todoInput = new TodoInput(this.status, this.setOnInput, this.handleAddCount);
+    this.todoInput = new TodoInput(this.status, this.setOnInput, this.handleAddCount, this.handleMinusCount);
     this.onInput = false;
     this.count = 0;
   }

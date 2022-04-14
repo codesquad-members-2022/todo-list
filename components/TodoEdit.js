@@ -94,5 +94,6 @@ export default class TodoEdit {
     newNotice.status = this.status;
     const notice = createNotice(newNotice, '수정');
     handleNotice(notice);
+    this.editTodoElement.setAttribute('data-drag', true);
   };
 }
