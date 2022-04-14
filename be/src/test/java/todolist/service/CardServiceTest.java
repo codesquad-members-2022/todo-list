@@ -7,13 +7,17 @@ import todolist.dto.card.RequestCardDto;
 import todolist.dto.card.ResponseCardDto;
 import todolist.repository.CardMemoryRepository;
 import todolist.repository.CardRepository;
+import todolist.repository.EventMemoryRepository;
+import todolist.repository.EventRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CardServiceTest {
 
+    private EventRepository eventRepository = new EventMemoryRepository();
+    private EventService eventService = new EventService(eventRepository);
     private CardRepository<Card> repository= new CardMemoryRepository();
-    private CardService service = new CardService(repository);
+    private CardService service = new CardService(eventService, repository);
 
     @Test
     @DisplayName("요청으로 들어온 CardDto 객체를 넘기면 Id값을 가진 CardDto를 반환한다.")
