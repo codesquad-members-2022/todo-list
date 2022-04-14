@@ -6,6 +6,28 @@ export const getColumns = sendMethodResult(async () => {
   return columns;
 });
 
+export const getColumnById = sendMethodResult(async (req) => {
+  const {
+    params: { id },
+  } = req;
+
+  const column = await Column.findById(id);
+
+  if (!column) {
+    throw Error("해당하는 ID의 Column 이 없습니다.");
+  }
+
+  return column;
+});
+
+export const deleteColumnById = sendMethodResult(async (req) => {
+  const {
+    params: { id },
+  } = req;
+  const deletedColumn = await Column.findByIdAndRemove(id);
+  return deletedColumn;
+});
+
 export const postColumnCreate = sendMethodResult(async (req) => {
   const {
     body: { title },

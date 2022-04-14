@@ -1,19 +1,20 @@
 import styles from "./App.module.css";
-import Actions from "./components/Actions/Actions";
+import Content from "./components/Content/Content";
 import Header from "./components/Header/Header";
-import Main from "./components/Main";
+import SideContent from "./components/SideContent/SideContent";
 import peact from "./core/peact";
 import columnApi from "./service/columnApi";
+import logApi from "./service/logApi";
 import todoApi from "./service/todoApi";
 
 const App = () => {
-  const [actionDisplay, setActionDisplay] = peact.useState("none");
   const [todos, setTodos] = peact.useState([]);
   const [columns, setColumns] = peact.useState([]);
+  const [todoLogs, setTodoLogs] = peact.useState([]);
+  const [renderFlag, setRenderFlag] = peact.useState(false);
 
-  const handleActionDisplay = () => {
-    const display = actionDisplay === "none" ? "visible" : "none";
-    setActionDisplay(display);
+  const handleRenderFlag = () => {
+    setRenderFlag(!renderFlag);
   };
 
   peact.useEffect(() => {
@@ -25,19 +26,26 @@ const App = () => {
       const newColumns = await columnApi.getColumns();
       setColumns(newColumns);
     };
-    fetchColumns();
+    const fetchTodoLogs = async () => {
+      const newTodoLogs = await logApi.getTodoLogs();
+      setTodoLogs(newTodoLogs);
+    };
     fetchTodos();
-  }, []);
+    fetchColumns();
+    fetchTodoLogs();
+  }, [renderFlag]);
 
-  return `
-    <div class="${styles.wrap}">
-        <div class="${styles.todolistArea}">
-            ${Header({ onMenuClick: handleActionDisplay })}
-            ${Main({ columns, todos })}
-        </div>
-        ${Actions({ display: actionDisplay })}
-    </div>
-  `;
+  const $todoListArea = peact.createElement({
+    tag: "div",
+    className: styles.todolistArea,
+    child: [Header(), Content({ columns, todos, handleRenderFlag })],
+  });
+
+  return peact.createElement({
+    tag: "div",
+    className: styles.wrap,
+    child: [$todoListArea, SideContent({ todoLogs, columns })],
+  });
 };
 
 export default App;

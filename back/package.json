@@ -1,16 +1,23 @@
 {
   "name": "back",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.x"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node init.js --delay 1",
+    "build": "babel -d ./build ./src -s",
+    "start": "babel-node src/init.js --delay 1",
+    "start:prod": "node build/init.js",
+    "start:watch": "nodemon --exec npm start",
     "lint": "eslint src --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.9",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/node": "^7.16.8",

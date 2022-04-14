@@ -1,0 +1,58 @@
+.modalWrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(0 0 0 / 50%);
+  height: 100%;
+  overflow: hidden;
+}
+
+.modalPopup {
+  width: 400px;
+  height: 138px;
+  padding: 25px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5);
+  border-radius: 6px;
+}
+
+.alertMessage {
+  font-family: "Noto Sans KR";
+  font-weight: 400;
+  font-size: 18px;
+  color: #010101;
+}
+
+.modalButtons {
+  font-family: "Noto Sans KR";
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancelButton {
+  width: 134px;
+  height: 40px;
+  color: #828282;
+  margin-right: 10px;
+  cursor: pointer;
+  background: #e0e0e0;
+  border-radius: 6px;
+}
+
+.deleteButton {
+  width: 134px;
+  height: 40px;
+  color: #fff;
+  cursor: pointer;
+  background: #0075de;
+  border-radius: 6px;
+}

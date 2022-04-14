@@ -1,0 +1,57 @@
+.sideContent {
+  position: relative;
+  width: var(--side-content-width);
+  height: 100vh;
+  display: block;
+  background-color: var(--bg-base-color);
+}
+
+.closeBtn {
+  position: absolute;
+  top: var(--padding-top);
+  right: var(--padding-top);
+  display: flex;
+  cursor: pointer;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+  z-index: 2;
+}
+
+.menuBtn {
+  position: absolute;
+  top: var(--padding-top);
+  right: var(--padding-top);
+  display: flex;
+  opacity: 0;
+  cursor: pointer;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+  z-index: 2;
+  transition: opacity 0.6s;
+}
+
+.actions {
+  position: absolute;
+  top: 0;
+  right: calc(var(--side-content-width) * -1);
+  width: var(--side-content-width);
+  height: 100%;
+  display: block;
+  background-color: var(--bg-white-color);
+  padding-top: var(--padding-top);
+  transition: right 1s;
+}
+
+.btnActive {
+  opacity: 1;
+}
+
+.active {
+  right: 0px;
+}
+
+.actionWrap {
+  max-height: calc(100vh - 100px);
+  overflow: auto;
+  padding: var(--padding-top);
+}

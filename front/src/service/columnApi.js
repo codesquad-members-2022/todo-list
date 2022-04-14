@@ -1,14 +1,19 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/column/";
+const API_END_POINT = `__API_END_POINT__`; // replace by webpack
+const baseURL = `${API_END_POINT}/column/`;
 const client = axios.create({
   baseURL,
 });
 
 const columnApi = {
   getColumns: async () => {
-    const response = await client.get("");
-    return response.data;
+    const response = await client.get();
+    return response.data.results;
+  },
+  getColumnById: async (id) => {
+    const response = await client.get(id);
+    return response.data.results;
   },
 };
 

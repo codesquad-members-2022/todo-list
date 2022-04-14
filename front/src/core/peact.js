@@ -5,28 +5,78 @@ const peact = (function () {
     isMounted: false,
     updatedStateKey: null,
     $root: null,
+    app: null,
     rootComponent: null,
   };
 
-  const setRoot = ($root, rootComponent) => {
+  const addClassName = ($el, className) => {
+    if (typeof className === "string") {
+      $el.classList.add(className);
+    } else {
+      $el.classList.add(...className);
+    }
+  };
+
+  const addEvent = ($el, onEventType, callback) => {
+    const [, eventType] = onEventType.split("on");
+    $el.addEventListener(eventType.toLowerCase(), callback);
+  };
+
+  const createElement = ({ tag, id, className, attrs = null, child }) => {
+    const $element = document.createElement(tag);
+    if (id) {
+      $element.id = id;
+    }
+    if (className) {
+      addClassName($element, className);
+    }
+    if (attrs) {
+      Object.entries(attrs).forEach(([key, value]) => {
+        if (key.includes("on")) {
+          addEvent($element, key, value);
+        } else {
+          $element.setAttribute(key, value);
+        }
+      });
+    }
+    const isStringChildElement =
+      child.length === 1 && typeof child[0] === "string";
+
+    if (isStringChildElement) {
+      const [elementTextContent] = child;
+      $element.innerHTML = elementTextContent;
+    } else {
+      child.forEach((childElement) => {
+        $element.appendChild(childElement);
+      });
+    }
+    return $element;
+  };
+
+  const setRoot = ($root) => {
     info.$root = $root;
-    info.rootComponent = rootComponent;
   };
 
-  const render = () => {
+  const render = (component) => {
+    if (!info.app) {
+      info.app = component;
+    }
     info.currentStateKey = 0;
-    info.$root.innerHTML = info.rootComponent();
+    info.$root.innerHTML = "";
+    info.$root.appendChild(info.app());
   };
 
-  const useEffect = (callback, watchStates) => {
-    const isUpdate = watchStates.some((wValue) => {
+  const executeAfterStackEmpty = (callback) => {
+    setTimeout(callback, 0);
+  };
+
+  const useEffect = (callback, dependencyList) => {
+    const isUpdate = dependencyList.some((wValue) => {
       return wValue === info.state[info.updatedStateKey];
     });
     const isMounted = !(info.updatedStateKey === null);
     if (isUpdate || !isMounted) {
-      setTimeout(() => {
-        callback();
-      }, 0);
+      executeAfterStackEmpty(callback);
     }
   };
 
@@ -38,17 +88,17 @@ const peact = (function () {
     }
     const value = info.state[currentStateKey];
     const setValue = (newValue) => {
-      setTimeout(() => {
+      executeAfterStackEmpty(() => {
         info.state[currentStateKey] = newValue;
         info.updatedStateKey = currentStateKey;
         render();
-      }, 0);
+      });
     };
     info.currentStateKey += 1;
     return [value, setValue];
   };
 
-  return { setRoot, useState, useEffect, render };
+  return { setRoot, useState, useEffect, render, createElement };
 })();
 
 export default peact;

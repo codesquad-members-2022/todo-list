@@ -1,18 +1,21 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/todo/";
+const API_END_POINT = `__API_END_POINT__`; // replace by webpack
+const baseURL = `${API_END_POINT}/todo/`;
 const client = axios.create({
   baseURL,
 });
 
 const todoApi = {
-  getTodos: async ({ columnId }) => {
-    const response = await client.get("", {
-      params: {
-        columnId,
-      },
-    });
-    return response.data;
+  getTodos: async () => {
+    const response = await client.get();
+
+    return response.data.results;
+  },
+
+  deleteTodo: async (id) => {
+    const response = await client.delete(`delete/${id}`);
+    return response.data.results;
   },
 };
 

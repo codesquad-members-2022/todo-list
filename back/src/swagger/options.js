@@ -8,6 +8,9 @@ const options = {
     },
     servers: [
       {
+        url: "https://bbpark-todolist.herokuapp.com/api",
+      },
+      {
         url: "http://localhost:3000/api",
       },
     ],
