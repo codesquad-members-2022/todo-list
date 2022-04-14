@@ -11,12 +11,12 @@ class CardRepository(private val cardDataSource: CardRemoteDataSource) {
         return cardDataSource.addCard(NewCard(subject, content, status)).body()
     }
 
-    fun deleteCard(cardId: Int) {
-
+    suspend fun deleteCard(cardId: Int) {
+        cardDataSource.deleteCard(cardId)
     }
 
-    fun dropCard(cardId: Int?, order: Int?, status: String?) {
-
+    suspend fun dropCard(cardId: Int, order: Int, status: String) {
+        cardDataSource.moveCard(MovedCard(cardId, order, status))
     }
 
 }

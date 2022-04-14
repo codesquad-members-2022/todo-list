@@ -13,4 +13,12 @@ class CardRemoteDataSource(private val apiClient: ApiClient) : CardDataSource {
         return apiClient.addCard(newCard)
     }
 
+    override suspend fun deleteCard(cardId: Int) {
+        apiClient.deleteCard(cardId)
+    }
+
+    override suspend fun moveCard(movedCard: MovedCard) {
+        apiClient.moveCard(movedCard.cardId, movedCard)
+    }
+
 }
