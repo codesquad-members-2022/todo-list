@@ -1,5 +1,5 @@
 import Foundation
 
 struct TaskBoard: Codable {
-    var cards: [String:[TaskCard]]
+    private(set) var cards: [String:[TaskCard]]
 }

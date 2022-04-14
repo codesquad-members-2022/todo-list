@@ -1,8 +1,14 @@
 import Foundation
 
 struct TaskCardList {
-    var sectionTitle: String
-    var cards: [TaskCard]
+    private var sectionTitle: String
+    private var cards: [TaskCard]
+    
+    init(sectionTitle: String, cards: [TaskCard]) {
+        self.sectionTitle = sectionTitle
+        self.cards = cards
+    }
+    
     var count: Int {
         return self.cards.count
     }
