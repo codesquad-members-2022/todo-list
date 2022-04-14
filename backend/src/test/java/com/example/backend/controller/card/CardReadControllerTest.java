@@ -1,10 +1,5 @@
 package com.example.backend.controller.card;
 
-import com.example.backend.controller.card.dto.Author;
-import com.example.backend.controller.card.dto.DailyPlanResponse;
-import com.example.backend.controller.card.dto.Task;
-import com.example.backend.domain.card.CardType;
-import com.example.backend.service.card.CardReadService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
