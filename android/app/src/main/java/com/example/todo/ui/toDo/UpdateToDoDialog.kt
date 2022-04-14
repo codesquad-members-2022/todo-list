@@ -11,11 +11,12 @@ import androidx.fragment.app.activityViewModels
 import com.example.todo.databinding.DialogUpdateCardBinding
 import com.example.todo.model.ProgressType
 import com.example.todo.model.TodoItem
+import com.example.todo.network.UpdateTodoBody
 
 class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
 
     lateinit var binding: DialogUpdateCardBinding
-    private val viewModel : ToDoViewModel by activityViewModels()
+    private val viewModel: ToDoViewModel by activityViewModels()
     private var titleValidationFlag = true
     private var contentValidationFlag = true
     override fun onCreateView(
@@ -32,16 +33,12 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.btnRegister.setOnClickListener {
-            item.content= binding.editCardContent.text.toString()
-            item.title= binding.editCardTitle.text.toString()
-            when (item.type) {
-                ProgressType.TO_DO ->  viewModel.updateTodoItem(item)
-                ProgressType.IN_PROGRESS -> viewModel.updateInProgressItem(item)
-                else -> viewModel.updateDoneItem(item)
-            }
+            val copy = item.copy()
+            copy.content = binding.editCardContent.text.toString()
+            copy.title = binding.editCardTitle.text.toString()
+            viewModel.updateTodoItem(copy)
             dismiss()
         }
-
         binding.btnCancle.setOnClickListener { dismiss() }
         binding.editCardTitle.addTextChangedListener(titleChangeListener)
         binding.editCardContent.addTextChangedListener(contentChangeListener)

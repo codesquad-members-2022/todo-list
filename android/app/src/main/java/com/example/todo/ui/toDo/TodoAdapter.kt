@@ -39,8 +39,6 @@ class TodoAdapter(
                 displayPopupMenu(it)
                 true
             }
-
-
         }
 
         private fun deleteCard() {
