@@ -75,7 +75,7 @@ public class JdbcCardRepository implements CardRepository {
 
     @Override
     public Integer findNumberOfCards(String section) {
-        return jdbcTemplate.queryForObject("SELECT count(*) FROM card WHERE section=?", Integer.class, section);
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM card WHERE section=? and delete_yn=?", Integer.class, section, NON_DELETED);
     }
 
     @Override
