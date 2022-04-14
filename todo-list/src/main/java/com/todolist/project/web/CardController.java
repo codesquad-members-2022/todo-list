@@ -36,19 +36,19 @@ public class CardController {
     @PostMapping
     public List<CardListResponseDto> add(@RequestBody CardAddDto dto) {
         cardService.addCard(dto);
-        return cardService.findByStatus(dto.getCardStatus());
+        return cardService.findAll();
     }
 
     @DeleteMapping("/{id}")
     public List<CardListResponseDto> remove(@PathVariable Long id) {
         CardListRequestDto dto = cardService.findById(id);
         cardService.removeCard(id);
-        return cardService.findByStatus(dto.getCardStatus());
+        return cardService.findAll();
     }
 
     @PutMapping("/{id}")
     public List<CardListResponseDto> update(@PathVariable Long id, @RequestBody CardUpdateDto dto) {
        cardService.updateCard(id, dto);
-       return cardService.findByStatus(dto.getCardStatus());
+       return cardService.findAll();
     }
 }

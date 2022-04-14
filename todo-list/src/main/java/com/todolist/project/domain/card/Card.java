@@ -35,12 +35,13 @@ public class Card {
 		this.cardStatus = cardStatus;
 	}
 
-    public Card(int cardIndex, String title, String contents, CardStatus cardStatus) {
-        this.cardIndex = cardIndex;
-        this.title = title;
-        this.contents = contents;
-        this.cardStatus = cardStatus;
-    }
+	public Card(int cardIndex, String title, String contents, CardStatus cardStatus) {
+		this.cardIndex = cardIndex;
+		this.title = title;
+		this.contents = contents;
+		this.cardStatus = cardStatus;
+		this.createdTime = LocalDateTime.now();
+	}
 
 	public CardListResponseDto toEntity() {
 		return new CardListResponseDto(id, cardIndex, title, contents, writer, cardStatus.name(),

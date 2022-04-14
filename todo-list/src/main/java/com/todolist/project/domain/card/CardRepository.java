@@ -18,7 +18,7 @@ public class CardRepository {
 	private final static String DELETE_CARD_SQL
 		= "DELETE FROM card WHERE id = :id";
 	private final static String FIND_CARD_SQL
-		= "SELECT id, card_index, title, contents, writer, card_Status, created_date FROM card ORDER BY card_index ASC";
+		= "SELECT id, card_index, title, contents, writer, card_status, created_date FROM card ORDER BY card_index ASC";
 	private final static String FIND_ID_SQL
 		= "SELECT id, card_index, title, contents, writer, card_status, created_date FROM card WHERE id = :id";
 	private final static String UPDATE_CARD_SQL
@@ -55,7 +55,7 @@ public class CardRepository {
 
 	public List<Card> findCardsByStatus(String cardStatus) {
 		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-		mapSqlParameterSource.addValue("cardStatus", cardStatus);
+		mapSqlParameterSource.addValue("card_status", cardStatus);
 		return namedParameterJdbcTemplate.query(FIND_CARD_BY_STATUS_SQL, mapSqlParameterSource,
 			rowMapper);
 	}

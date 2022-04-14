@@ -18,7 +18,7 @@ public class CardAddDto {
 	private String cardStatus;
 
 	public Card toEntity() {
-		CardStatus card_Status = CardStatus.valueOf(this.cardStatus);
-		return new Card(cardIndex, title, contents, writer, card_Status);
+		CardStatus card_status = CardStatus.valueOf(this.cardStatus);
+		return new Card(cardIndex, title, contents, writer, card_status);
 	}
 }
