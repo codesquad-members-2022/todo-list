@@ -197,3 +197,5 @@ tags
 public/
 
 server/
+
+db.json

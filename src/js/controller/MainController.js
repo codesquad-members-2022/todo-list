@@ -60,7 +60,9 @@ function handleCardInput({ target }) {
   registerBtn.disabled = false;
 }
 
-async function handleRegisterBtn({ target }, store) {
+async function handleRegisterBtn(event, store) {
+  const { target } = event;
+  event.stopPropagation();
   const parentCard = target.closest(".task-card");
   const cardTitle = parentCard.querySelector(".task-card__title").textContent;
   const cardContent = parentCard.querySelector(
@@ -99,66 +101,93 @@ function handleRemoveBtn(event, store) {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ drag & drop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 const dragDrop = (event) => {
   const { target, pageX, pageY, clientX, clientY } = event;
-  const card = target.closest(".task-card").cloneNode(true);
-  target.closest(".task-column").appendChild(card);
+  const targetCard = target.closest(".task-card");
+  const cloneCard = targetCard.cloneNode(true);
+  target.closest(".task-column").appendChild(cloneCard);
 
-  card.style.position = "absolute";
-  card.style.backgroundColor = "red";
-  let shiftX =
-    clientX - target.closest(".task-card").getBoundingClientRect().left;
-  let shiftY =
-    clientY - target.closest(".task-card").getBoundingClientRect().top;
+  cloneCard.style.position = "absolute";
+
+  let shiftX = clientX - targetCard.getBoundingClientRect().left;
+  let shiftY = clientY - targetCard.getBoundingClientRect().top;
 
   const coord = { pageX, pageY, shiftX, shiftY };
-  moveAt(card, coord);
-  card.addEventListener("onmouseup", (event) => {
-    onMouseUp(event);
+
+  moveAt(cloneCard, coord);
+
+  cloneCard.addEventListener("mouseup", (event) => {
+    onMouseUp(event, shiftX, shiftY, cloneCard);
   });
+
   document.addEventListener("mousemove", (event) => {
-    onMouseMove(event, shiftX, shiftY, card);
+    onMouseMove(event, shiftX, shiftY, cloneCard);
   });
 };
 
-function moveAt(card, { pageX, pageY, shiftX, shiftY }) {
-  Object.assign(card.style, {
+function moveAt(cloneCard, { pageX, pageY, shiftX, shiftY }) {
+  Object.assign(cloneCard.style, {
     left: pageX - shiftX + "px",
     top: pageY - shiftY + "px",
   });
 }
 
-function onMouseMove(event, shiftX, shiftY, card) {
+function onMouseMove(event, shiftX, shiftY, cloneCard) {
   const { pageX, pageY } = event;
-  moveAt(card, { pageX, pageY, shiftX, shiftY });
+  moveAt(cloneCard, { pageX, pageY, shiftX, shiftY });
 }
 
-// function onMouseUp() {
-//   document.removeEventListener("mousemove", onMouseMove);
-//   const movingBoxCoord = movingBox.style.left + movingBox.style.width / 2;
+function onMouseUp(event, shiftX, shiftY, cloneCard) {
+  document.removeEventListener("mousemove", onMouseMove);
+  const cloneCardCoord = cloneCard.style.left + cloneCard.style.width / 2;
+  const a = +cloneCardCoord.replace("p", "").replace("x", "");
+  const todoColumn = util.$("#todo");
+  const doingColumn = util.$("#doing");
+  const doneColumn = util.$("#done");
+  console.log(cloneCardCoord);
+  console.log(todoColumn.getBoundingClientRect().left);
+  console.log(doingColumn.getBoundingClientRect().left);
+  console.log(doneColumn.getBoundingClientRect().left);
 
-//   if (movingBoxCoord > document.querySelectorAll(".zone")[2].style.left) {
-//     /*이부분 left 수정해야함*/ // 왜 right는 안되는걸까?
-//     document.querySelectorAll(".zone")[2].appendChild(movingBox);
-//     Object.assign(movingBox.style, {
-//       position: "static",
-//       left: "0px",
-//       top: "0px",
-//     });
+  if (
+    a > todoColumn.getBoundingClientRect().left &&
+    doingColumn.getBoundingClientRect().left > a
+  ) {
+    /*이부분 left 수정해야함*/ // 왜 right는 안되는걸까?
+    todoColumn.appendChild(cloneCard);
+    Object.assign(cloneCard.style, {
+      position: "static",
+      left: "0px",
+      top: "0px",
+    });
 
-//     return;
-//   }
+    return;
+  }
 
-//   if (movingBoxCoord > document.querySelectorAll(".zone")[1].style.left) {
-//     document.querySelectorAll(".zone")[1].appendChild(movingBox);
-//     Object.assign(movingBox.style, {
-//       position: "static",
-//       left: "0px",
-//       top: "0px",
-//     });
+  if (
+    a > doingColumn.getBoundingClientRect().left &&
+    doneColumn.getBoundingClientRect().left > a
+  ) {
+    doingColumn.appendChild(cloneCard);
+    Object.assign(cloneCard.style, {
+      position: "static",
+      left: "0px",
+      top: "0px",
+    });
 
-//     return;
-//   }
+    return;
+  }
 
-//   movingBox.remove();
-// }
+  if (a > doneColumn.getBoundingClientRect().left) {
+    doneColumn.appendChild(cloneCard);
+    Object.assign(cloneCard.style, {
+      position: "static",
+      left: "0px",
+      top: "0px",
+    });
+
+    return;
+  }
+
+  // cloneCard.remove();
+}
 
 export { createMainController };
