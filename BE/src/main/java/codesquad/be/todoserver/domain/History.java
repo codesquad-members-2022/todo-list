@@ -1,6 +1,5 @@
 package codesquad.be.todoserver.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
@@ -14,7 +13,6 @@ public class History {
 	private final String action;
 	private final String fromStatus;
 	private final String toStatus;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
 	private final LocalDateTime createdAt;
 
 	public History(Long id, Long todoId, String todoTitle, String user, String action,
