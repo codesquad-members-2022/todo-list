@@ -9,7 +9,7 @@ class Controller {
     this.history = History;
     this.todo = null;
     this.deleteAlertView = null;
-    this.newCard = null;
+    this.actionCard = null;
     this.cardCurValue = {
       title: null,
       content: null,
@@ -70,9 +70,19 @@ class Controller {
   initTodo() {
     this.todo = Todo;
     this.todo.view.init();
-    this.todo.model.setColumns();
+    this.todo.model.fetchColumns(this.carEventInit.bind(this));
     this.todo.view.eventInit({
       ColumnClickHanlder: this.columnClickHanlder.bind(this),
+    });
+  }
+
+  carEventInit(card) {
+    card.view.eventInit({
+      cardId: card.model.id,
+      cardInputHandler: this.cardInputHandler.bind(this),
+      cardAddHandler: this.cardAddHandler.bind(this),
+      cardDeleteHandler: this.cardDeleteHandler.bind(this),
+      hoverHandler: this.cardDeleteHoverHandeler.bind(this),
     });
   }
 
@@ -105,9 +115,10 @@ class Controller {
     }
 
     const cardId = this.updateCardCount('add');
-    this.newCard = new Card({ cardId: cardId });
-    this.newCard.view.renderAddCard(targetColumnBox, cardId);
-    this.newCard.view.eventInit({
+    this.actionCard = new Card({ cardId: cardId });
+    this.actionCard.view.renderAddCard(targetColumnBox, cardId);
+    this.actionCard.view.eventInit({
+      cardId,
       cardInputHandler: this.cardInputHandler.bind(this),
       cardAddHandler: this.cardAddHandler.bind(this),
       cardDeleteHandler: this.cardDeleteHandler.bind(this),
@@ -117,7 +128,7 @@ class Controller {
 
   cancelAddCard(targetColumnBox) {
     const cancelCard = targetColumnBox.querySelector('.card.write');
-    this.newCard.view.renderDeleted(cancelCard);
+    this.actionCard.view.renderDeleted(cancelCard);
     this.updateCardCount('cancelAdd');
   }
 
@@ -152,13 +163,13 @@ class Controller {
 
     titleText.innerText = titleValue;
     contentText.innerText = contentValue;
-    targetCard.classList.remove('write');
+    targetCard.classList.remove('write', 'edit');
 
-    this.newCard.model.title = titleValue;
-    this.newCard.model.content = contentValue;
+    this.actionCard.model.title = titleValue;
+    this.actionCard.model.content = contentValue;
 
     const targetColumn = this.todo.model.columns[targetColumnBox.id];
-    targetColumn.model.addCardList(this.newCard);
+    targetColumn.model.addCardList(this.actionCard);
     targetColumn.model.updateAddStstue();
     targetColumn.view.renderCardCount(
       targetColumnBox,
@@ -202,6 +213,7 @@ class Controller {
     const targetColumnId = targetColumnBox.id;
     const targetColumn = this.todo.model.columns[targetColumnId];
     const editCard = targetColumn.model.cardList[targetCard.id];
+    this.actionCard = editCard;
     let targetText = null;
     if (
       target.className === 'title_text' ||
