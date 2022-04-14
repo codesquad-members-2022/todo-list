@@ -16,6 +16,10 @@ export default class ColumnModel {
     this.updateCardCount();
   }
 
+  deleteCard(cardId) {
+    delete this.cardList[cardId];
+  }
+
   updateCardCount() {
     this.cardCount = Object.keys(this.cardList).length;
   }
