@@ -13,9 +13,9 @@ struct NetworkResult:Codable {
 }
 
 struct Board:Codable {
-    let todoItems:[Todo]
-    let progressingItems:[Todo]
-    let completedItems:[Todo]
+    let todoItems:[Todo]?
+    let progressingItems:[Todo]?
+    let completedItems:[Todo]?
 }
 
 struct Todo:Codable,Equatable {

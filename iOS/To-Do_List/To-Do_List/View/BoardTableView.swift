@@ -59,11 +59,28 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
         guard Cell.self == CardCell.self, let list = list else {return}
         if editingStyle == .delete {
             BoardTableDelegate?.DidTapDelete(item: list[indexPath.row])
-
+        }
+    }
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard Cell.self == CardCell.self, let list = list else {return UIContextMenuConfiguration()}
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let moveToCompleted = UIAction(title: "완료한 일로 이동") { _ in
+                print("완료한 일로 이동")
+            }
+            
+            let edit = UIAction(title: "수정하기") { _ in
+                print("수정하기")
+            }
+       
+            let delete = UIAction(title: "삭제하기",
+                image: nil,
+                attributes: [.destructive]) { action in
+                print("수정하기")
+               }
+            return UIMenu(title : "", children: [moveToCompleted,edit,delete])
         }
     }
 }
-
-
 
 

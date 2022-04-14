@@ -66,15 +66,16 @@ enum EndPointCase {
         case .getBoard:
             return Endpoint(httpMethod: .get,
                             baseURL: "http://13.125.161.84:8082/",
-                            path: "api/read/cards",
+                            path: "api/cards",
                             headers: ["Content-Type": "application/json"],
                             body: nil
             )
+       
             
         case .addCard(let cardInfo):
             return Endpoint(httpMethod: .post,
                             baseURL: "http://13.125.161.84:8082/",
-                            path: "api/cards/write",
+                            path: "api/cards",
                             headers: ["Content-Type": "application/json"],
                             body: cardInfo.body()
             )

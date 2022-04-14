@@ -103,6 +103,7 @@ extension MainViewController {
     
     @objc func postNewCardInfo(_ notification:Notification) {
         let samplePostModel = CardInfo(writer: "Park", position: 123, title: "Queen", content: "Dom", cardType: "TODO", memberId: 1)
+        
         //TODO: info의 타입에 따라서 수정 혹은 추가를 Post함.
         guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
               let childVC = notification.object as? ChildViewController
