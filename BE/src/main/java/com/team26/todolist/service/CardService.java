@@ -19,5 +19,4 @@ public interface CardService {
 
     void deleteCard(CardDeleteRequest cardDeleteRequest);
 
-    void deleteCardByColumnId(Long columnId);
 }

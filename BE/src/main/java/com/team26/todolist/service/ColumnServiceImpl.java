@@ -5,6 +5,7 @@ import com.team26.todolist.dto.request.ColumnChangeOrderRequest;
 import com.team26.todolist.dto.request.ColumnRegistrationRequest;
 import com.team26.todolist.dto.request.ColumnUpdateRequest;
 import com.team26.todolist.dto.response.ColumnResponse;
+import com.team26.todolist.repository.CardRepository;
 import com.team26.todolist.repository.ColumnRepository;
 import java.util.Collections;
 import java.util.List;
@@ -15,12 +16,12 @@ import org.springframework.stereotype.Service;
 public class ColumnServiceImpl implements ColumnService {
 
     private final ColumnRepository columnRepository;
-    private final CardService cardService;
+    private final CardRepository cardRepository;
 
     public ColumnServiceImpl(ColumnRepository columnRepository,
-            CardService cardService) {
+            CardRepository cardRepository) {
         this.columnRepository = columnRepository;
-        this.cardService = cardService;
+        this.cardRepository = cardRepository;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public void deleteColumn(Long id) {
-        cardService.deleteCardByColumnId(id);
+        cardRepository.deleteByColumnId(id);
         columnRepository.delete(id);
     }
 
