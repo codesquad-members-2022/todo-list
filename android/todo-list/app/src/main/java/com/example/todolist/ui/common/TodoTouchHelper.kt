@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.ui.todo.TodoAdapter
+import com.example.todolist.ui.adapter.TodoAdapter
 
 class TodoTouchHelper :
     ItemTouchHelper.Callback() {
@@ -81,7 +81,7 @@ class TodoTouchHelper :
                 -deleteTextViewSize
             }
         } else {
-            dX / 3.5f
+            dX / 2f
         }
         return if (newX < 0) {
             textView.visibility = View.VISIBLE
