@@ -52,7 +52,7 @@ export default class View {
       updateForm.querySelector('.card-content').innerHTML =
         isUpdate.cardContent;
       updateForm.querySelector('.registerBtn').innerHTML = '수정';
-      this.updateCardBtnEvent();
+    
     }
 
     if (!isUpdate) {
@@ -123,9 +123,9 @@ export default class View {
   changeUpdateForm = ({ target }) => {
     const selected_li = target.closest('.column-item--card');
     selected_li.style.display = 'none';
-
     const isUpdate = this.getCardTextContent(selected_li);
     this.showCardTemplate({ target }, isUpdate);
+    this.addUpdateCardBtnEvent(selected_li);
   };
 
   getCardTextContent(selected_li) {
@@ -135,7 +135,17 @@ export default class View {
     return { cardTitle, cardContent };
   }
 
-  updateCardBtnEvent() {
-    console.log('성공');
+  addUpdateCardBtnEvent(selected_li) {
+    $('.registerBtn').addEventListener('click',({target}) => {
+      this.getUpdateValue(target,selected_li.id)
+    } )
+    $('.cancelBtn').addEventListener('click', ({target}) =>{
+      this.removeUpdateForm(target,selected_li)
+    })
+  }
+
+  removeUpdateForm(target,selected_li){
+    target.closest('.column-addBtn').remove();
+    selected_li.style.display = 'flex';
   }
 }

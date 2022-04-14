@@ -84,18 +84,38 @@ export default class Controller {
   getRemoveValue = (target) => {
     const columnName = target.closest('.column-item').id;
     const selectedCard = target.closest('.column-item--card');
+    const workId = selectedCard.id;
     const removeCardInfo = {
       "userId" : this.model.userId,
-      "workId" : selectedCard.id,
       "currentCategoryId" : this.findCategoryId(columnName),
       "title" : target.previousElementSibling.textContent,
     }
     selectedCard.remove();
-    this.model.removeCardData(removeCardInfo);
+    this.model.removeCardData(removeCardInfo,workId);
     const container = this.view.findCurrentContainer(columnName);
     this.view.changeCategoryCount({ category : columnName },container)
   };
 
-  getUpdateValue = () => {};
-  changeDraggingCard() {}
+  getUpdateValue = (target,workId) => {
+    const columnName = target.closest('.column-item').id;
+    const targetCard = target.closest('.column-addBtn');
+
+    const cardTitle = targetCard.querySelector('.card-title').value;
+    const cardContent = targetCard.querySelector('.card-content').textContent;
+
+    const updateInfo = {
+      "userId" : this.model.userId,
+      "currentCategoryId" : this.findCategoryId(columnName),
+      "title" : cardTitle,
+      "content" : cardContent,
+    }
+    
+   this.실행문(updateInfo,workId)
+  }
+ async 실행문 (updateInfo,workId) {
+    const changeUpdateData =await  this.model.updateCardData(updateInfo,workId);
+    console.log(changeUpdateData)
+
+  }
+  changeDraggingCard() {};
 }
