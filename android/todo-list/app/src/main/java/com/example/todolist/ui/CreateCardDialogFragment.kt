@@ -17,7 +17,7 @@ import com.example.todolist.databinding.DialogFragmentBinding
 class CreateCardDialogFragment : DialogFragment() {
 
     private lateinit var binding: DialogFragmentBinding
-    private val viewModel: TaskViewModel by activityViewModels()
+    private val viewModel: CardViewModel by activityViewModels()
     private var title = ""
     private var content = ""
 
