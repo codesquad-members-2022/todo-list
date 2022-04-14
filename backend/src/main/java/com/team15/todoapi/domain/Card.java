@@ -16,17 +16,18 @@ public class Card {
 	private Long memberId;
 	private LocalDateTime modifiedAt;
 	private int section;
+	private int action;
 
 	//목록조회용
 	public static Card of(Long id, String title, String content, Long memberId,
 		LocalDateTime modifiedAt, int section) {
-		return new Card(id, title, content, memberId, modifiedAt, section);
+		return new Card(id, title, content, memberId, modifiedAt, section, 0);
 	}
 
 	//카드 생성용
 	public static Card of(CardRequest cardRequest, Long memberId) {
 		return new Card(null, cardRequest.getTitle(), cardRequest.getContent(),
-			memberId, null, cardRequest.getSection());
+			memberId, null, cardRequest.getSection(), 0);
 	}
 
 	public void insertId(Card card, Long cardId){
@@ -35,5 +36,9 @@ public class Card {
 
 	public void insertModifiedAt(Card card, LocalDateTime now) {
 		card.modifiedAt = now;
+	}
+
+	public void insertAction(Card card, int action){
+		card.action = action;
 	}
 }
