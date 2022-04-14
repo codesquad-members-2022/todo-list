@@ -7,10 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.todolist.data.TasksRepository
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.history.HistoryAdapter
-import com.example.todolist.tasks.data.Task
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -21,8 +19,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        tasksViewModel = ViewModelProvider(this, ViewModelFactory(TasksRepository())).get(
-            TasksViewModel::class.java)
+        val repository = ServiceLocator.provideRepository()
+        tasksViewModel = ViewModelProvider(this, ViewModelFactory(repository)).get(TasksViewModel::class.java)
 
         val historyAdapter = HistoryAdapter()
         binding.recyclerviewHistory.adapter = historyAdapter
