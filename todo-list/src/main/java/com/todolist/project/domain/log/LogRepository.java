@@ -16,7 +16,7 @@ import java.util.List;
 public class LogRepository {
 
 	private static final String LOG_SELECT_SQL
-		= "SELECT title, current_status, prev_status, action_status, action_time FROM LOG";
+		= "SELECT title, current_status, prev_status, action_status, action_time FROM LOG ORDER BY action_time ASC";
 	private static final String LOG_INSERT_SQL
 		= "INSERT INTO LOG (title, current_status, prev_status, action_status, action_time) VALUES (:title, :current_status, :prev_status, :action_status, :action_time)";
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;

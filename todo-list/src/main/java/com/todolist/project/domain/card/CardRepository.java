@@ -22,18 +22,18 @@ public class CardRepository {
 	private final static String FIND_ID_SQL
 		= "SELECT id, card_index, title, contents, writer, card_status, created_date FROM card WHERE id = :id";
 	private final static String UPDATE_CARD_SQL
-		= "UPDATE card SET card_index = :index, title = :title, contents = :contents, card_status = :card_status, created_date = :createTime WHERE id = :id";
+		= "UPDATE card SET card_index = :index, title = :title, contents = :contents, card_status = :card_status, created_date = :created_date WHERE id = :id";
 	private final static String INSERT_CARD_SQL
-		= "INSERT INTO card(card_index, title, contents, writer, created_date, card_status) VALUES (:index,:title,:contents,:writer,:createTime,:card_status)";
+		= "INSERT INTO card(card_index, title, contents, writer, card_status) VALUES (:index,:title,:contents,:writer,:card_status)";
 	private final static String FIND_CARD_BY_STATUS_SQL
-		= "SELECT id, card_index, title, contents, writer, card_status, created_date FROM card WHERE card_status = :cardStatus";
+		= "SELECT id, card_index, title, contents, writer, card_status, created_date FROM card WHERE card_status = :card_status";
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private final RowMapper<Card> rowMapper;
 
 	public CardRepository(DataSource dataSource) {
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		this.rowMapper = (rs, rowNum) -> {
-			String status = rs.getString("card_Status");
+			String status = rs.getString("card_status");
 			return new Card(
 				rs.getLong("id"),
 				rs.getInt("card_index"),
@@ -72,7 +72,6 @@ public class CardRepository {
 			put("title", card.getTitle());
 			put("contents", card.getContents());
 			put("writer", card.getWriter());
-			put("createTime", card.createTime());
 			put("card_status", card.getCardStatus().name());
 		}};
 		mapSqlParameterSource.addValues(map);
@@ -93,7 +92,7 @@ public class CardRepository {
 			put("title", card.getTitle());
 			put("contents", card.getContents());
 			put("writer", card.getWriter());
-			put("createTime", card.createTime());
+			put("created_date", card.getCreatedTime());
 			put("card_status", card.getCardStatus().name());
 		}};
 		mapSqlParameterSource.addValues(map);
