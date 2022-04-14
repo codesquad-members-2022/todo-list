@@ -12,6 +12,10 @@ final class Board{
     private(set) var doingCards = [Card]()
     private(set) var doneCards = [Card]()
     
+    static let shared = Board()
+    
+    private init(){ }
+    
     subscript(index: BoardSubscriptIndex) -> [Card]{
         switch index {
         case .none:
