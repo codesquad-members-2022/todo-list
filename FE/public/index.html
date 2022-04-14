@@ -2,6 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="../src/style/style.css" />
     <title>TO-DO LIST</title>
   </head>
@@ -14,7 +15,11 @@
         <span></span>
         <span></span>
       </label>
-      <div class="sidebar">hi</div>
+      <div class="sidebar">
+        <div class="sidebar-container-wrap">
+          <ul class="container sidebar-container"></ul>
+        </div>
+      </div>
     </header>
     <main>
       <section class="column-list"></section>

@@ -1,36 +1,70 @@
 import { $, $$, throttle } from '../utility/util.js';
 
 export default class Drag {
+  removeDragEvent() {
+    const cardLists = $$('.column-item--card');
+    const containers = $$('.container');
+
+    cardLists.forEach((cardList) => {
+      cardList.removeEventListener(
+        'dragstart',
+        this.addDraggingClass(cardList)
+      );
+
+      cardList.removeEventListener(
+        'dragend',
+        this.removeDraggingClass(cardList)
+      );
+    });
+
+    const MIN_TIME = 500;
+
+    containers.forEach((container) => {
+      container.removeEventListener(
+        'dragover',
+        throttle((e) => {
+          this.dragoverEventHandler(e, container);
+        }, MIN_TIME)
+      );
+    });
+  }
+
   addDragEvent() {
     const cardLists = $$('.column-item--card');
     const containers = $$('.container');
 
     cardLists.forEach((cardList) => {
-      cardList.addEventListener(
-        'dragstart',
-        this.dragstartEventHandler(cardList)
-      );
+      cardList.addEventListener('dragstart', this.addDraggingClass(cardList));
 
-      cardList.addEventListener('dragend', this.dragendEventHandler(cardList));
+      cardList.addEventListener('dragend', this.removeDraggingClass(cardList));
     });
+
+    const MIN_TIME = 500;
 
     containers.forEach((container) => {
       container.addEventListener(
         'dragover',
         throttle((e) => {
           this.dragoverEventHandler(e, container);
-        }, 500)
+        }, MIN_TIME)
       );
     });
   }
 
-  dragstartEventHandler(cardList) {
+  //이벤트 재등록시 toggle이 동작하지 않아 현재 사용X
+  toggleDraggingClass(cardList) {
+    return () => {
+      cardList.classList.toggle('dragging');
+    };
+  }
+
+  addDraggingClass(cardList) {
     return () => {
       cardList.classList.add('dragging');
     };
   }
 
-  dragendEventHandler(cardList) {
+  removeDraggingClass(cardList) {
     return () => {
       cardList.classList.remove('dragging');
     };
@@ -39,12 +73,12 @@ export default class Drag {
   dragoverEventHandler(e, container) {
     e.preventDefault();
     const selectedCard = $('.dragging');
-    const afterElement = this.getDragAfterElement(container, e.clientY);
+    const targetElement = this.getDragTargetElement(container, e.clientY);
 
-    this.changeCurCard(afterElement, container, selectedCard);
+    this.changeCurCard(targetElement, container, selectedCard);
   }
 
-  getDragAfterElement(container, y) {
+  getDragTargetElement(container, y) {
     const unselectedCardEl = [
       ...container.querySelectorAll('.column-item--card:not(.dragging)'),
     ];
@@ -77,5 +111,8 @@ export default class Drag {
     } else {
       container.insertBefore(selectedCard, afterElement);
     }
+
+    //서버에게 바뀐 카드 알려주기
+    this.changeDraggingCard();
   }
 }
