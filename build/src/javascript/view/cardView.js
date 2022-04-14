@@ -162,11 +162,22 @@ export function renderColumn(columnId, todos) {
   addCardDoubleClickEvent($cards);
   addCardsDragEvent($cards);
 }
+function getColumnsLocation() {
+  const columnsArr = document.querySelectorAll(".column");
+  const columnsLocation = [];
+  for (const column of columnsArr) {
+    columnsLocation.push(column.getBoundingClientRect());
+  }
+  return columnsLocation;
+}
 export function addmouseMoveEvent() {
   const delayTime = 20;
+  const columnsLocation = getColumnsLocation();
+  let $originalCard;
   document.body.addEventListener("mousemove", (event) => {
     const $card = event.target.closest(".card");
     if (isDraggable && $card && dragStart) {
+      $originalCard = $card;
       makeDragElement($card);
       applyPlaceStyle($card);
       dragStart = false;
@@ -174,20 +185,38 @@ export function addmouseMoveEvent() {
     }
     if ($card && isDraggable) {
       debounce(function () {
-        moveCopiedCard(event);
+        moveCopiedCard(event, columnsLocation, $originalCard);
       }, delayTime)();
     }
   });
 }
 
-function moveCopiedCard(event) {
+function moveCopiedCard(event, columnsLocation, $originalCard) {
   const $copiedCard = document.querySelector(".copied-card");
   if (!$copiedCard) return;
   shiftX = event.pageX - $copiedCard.offsetWidth / 2;
   shiftY = event.pageY - $copiedCard.offsetHeight / 2;
   moveAt($copiedCard);
+  movePlaceCard(columnsLocation, $originalCard);
 }
-// moveCopiedCard.bind(null, $card, event);
+
+function movePlaceCard(columnsLocation, $originalCard) {
+  const [_, doing, done] = columnsLocation;
+  const $originalCards = $originalCard.closest(".cards");
+  if (shiftX > doing.x && shiftX < done.x) {
+    const $doingCards = document.querySelector("#doing-cards");
+    if ($doingCards === $originalCards) return;
+    $doingCards.appendChild($originalCard);
+  } else if (shiftX > done.x) {
+    const $doneCards = document.querySelector("#done-cards");
+    if ($doneCards === $originalCards) return;
+    $doneCards.appendChild($originalCard);
+  } else {
+    const $haveTodoCards = document.querySelector("#have-to-do-cards");
+    if ($haveTodoCards === $originalCards) return;
+    $haveTodoCards.appendChild($originalCard);
+  }
+}
 function addCopiedCardEvent() {
   const $copiedCard = document.querySelector(".copied-card");
   $copiedCard.addEventListener("mouseup", () => {
