@@ -29,13 +29,17 @@ class MyTaskViewController: UIViewController {
     private func setChild(with taskBoard: TaskBoard) {
         DispatchQueue.main.async {
             self.taskBoardView.subviews.forEach { $0.removeFromSuperview() }
-            for (key, value) in taskBoard.cards {
-                let controller = TaskCardListViewController()
-                self.addChild(controller)
-                self.taskBoardView.addArrangedSubview(controller.view)
-                controller.set(key, with: value)
+            ["해야할 일", "하고 있는 일", "완료된 일"].forEach{
+                self.setTaskList(key: $0, value: taskBoard.cards[$0] ?? [])
             }
         }
+    }
+    
+    private func setTaskList(key: String, value: [TaskCard]) {
+        let controller = TaskCardListViewController()
+        self.addChild(controller)
+        self.taskBoardView.addArrangedSubview(controller.view)
+        controller.set(key, with: value)
     }
     
     @IBAction func actionFlowButtonTapped(_ sender: UIButton) {
