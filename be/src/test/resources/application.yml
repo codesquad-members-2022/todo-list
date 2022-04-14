@@ -1,0 +1,21 @@
+# active profile
+spring:
+  profiles:
+    active: "mem-h2-db"
+
+---
+# mem-h2-db
+spring:
+  config:
+    activate:
+      on-profile: mem-h2-db
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:todolist;mode=MYSQL;
+    username: sa
+    password:
+  sql:
+    init:
+      platform: h2
+      mode: always
+      schema-locations: classpath:sql/ddl-h2.sql

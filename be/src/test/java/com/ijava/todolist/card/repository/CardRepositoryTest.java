@@ -143,7 +143,14 @@ class CardRepositoryTest {
     }
 
     private Card createCardWithColumnsId(Long columnId) {
-        return new Card("제목", "내용", columnId, LocalDateTime.now(), LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        return Card.builder()
+                .title("제목")
+                .content("내용")
+                .columnsId(columnId)
+                .createdDate(now)
+                .modifiedDate(now)
+                .build();
     }
 
     private Card saveCardWithColumnsId(Long columnsId) {

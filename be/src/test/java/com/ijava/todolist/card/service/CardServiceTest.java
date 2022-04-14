@@ -1,5 +1,8 @@
 package com.ijava.todolist.card.service;
 
+import com.ijava.todolist.card.controller.dto.CardCreateRequest;
+import com.ijava.todolist.card.controller.dto.CardMoveRequest;
+import com.ijava.todolist.card.controller.dto.CardUpdateRequest;
 import com.ijava.todolist.card.domain.Card;
 import com.ijava.todolist.card.exception.CardNotFoundException;
 import com.ijava.todolist.card.repository.CardRepository;
@@ -9,12 +12,14 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 class CardServiceTest {
@@ -152,12 +157,107 @@ class CardServiceTest {
         }
     }
 
+    @Nested
+    @DisplayName("카드를 입력할 때")
+    class SaveNewCardTest {
+
+        @Nested
+        @DisplayName("정보가 정상적으로 넘어오면")
+        class SuccessTest {
+
+            @Test
+            @Sql("classpath:sql/test/user-dml-h2.sql")
+            void 카드를_저장하고_저장된_카드를_반환한다() {
+                // given
+                Long expectedColumnId = 1L;
+                String expectedTitle = "카드 제목";
+                String expectedContent = "카드 내용입니다.";
+                CardCreateRequest request = new CardCreateRequest(expectedColumnId, expectedTitle, expectedContent);
+
+                // when
+                Card savedCard = cardService.saveNewCard(request);
+
+                // then
+                assertThat(savedCard).isNotNull();
+                assertThat(savedCard.getId()).isNotNull();
+                assertThat(savedCard.getColumnsId()).isEqualTo(expectedColumnId);
+                assertThat(savedCard.getTitle()).isEqualTo(expectedTitle);
+                assertThat(savedCard.getContent()).isEqualTo(expectedContent);
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("카드를 수정할 때")
+    class CardUpdateTest {
+
+        @Nested
+        @DisplayName("존재하는 카드이면")
+        class CardExistTest {
+
+            @Test
+            void 수정하고_수정된_카드를_반환한다() {
+                // given
+                Card savedCard = saveCard();
+                String updatedTitle = "수정된 제목";
+                String updatedContent = "수정된 내용입니다.";
+                CardUpdateRequest updateRequest = new CardUpdateRequest(updatedTitle, updatedContent);
+
+                // when
+                Card updatedCard = cardService.updateCard(savedCard.getId(), updateRequest);
+
+                // then
+                assertThat(updatedCard).isNotNull();
+                assertThat(updatedCard.getId()).isEqualTo(savedCard.getId());
+                assertThat(updatedCard.getColumnsId()).isEqualTo(savedCard.getColumnsId());
+                assertThat(updatedCard.getTitle()).isEqualTo(updatedTitle);
+                assertThat(updatedCard.getContent()).isEqualTo(updatedContent);
+                assertThat(updatedCard.getCreatedDate()).isEqualTo(savedCard.getCreatedDate());
+                assertThat(updatedCard.getModifiedDate()).isAfter(savedCard.getModifiedDate());
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("카드를 이동할 때")
+    class CardMoveTest {
+
+        @Nested
+        @DisplayName("카드 id, 칼러 id 가 정상적으로 들어오면")
+        class SuccessTest {
+
+            @Test
+            void 카드의_칼럼을_변경하고_변경_전후_칼럼_id_정보를_반환한다() {
+                // given
+                Card savedCard = saveCard();
+                Long cardId = savedCard.getId();
+                Long beforeColumnId = savedCard.getColumnsId();
+                Long afterColumnId = beforeColumnId + 1;
+                CardMoveRequest cardMoveRequest = new CardMoveRequest(cardId, afterColumnId);
+
+                // when
+                Card movedCard = cardService.moveCard(cardMoveRequest);
+
+                // then
+                assertThat(movedCard).isNotNull();
+                assertThat(movedCard.getId()).isEqualTo(cardId);
+                assertThat(movedCard.getColumnsId()).isEqualTo(afterColumnId);
+            }
+        }
+    }
+
     private Card saveCard() {
         return saveCardWithColumnsId(COLUMN_ID);
     }
 
     private Card saveCardWithColumnsId(Long columnsId) {
         LocalDateTime now = LocalDateTime.now();
-        return cardRepository.save(new Card("제목", "내용", columnsId, now, now));
+        return cardRepository.save(Card.builder()
+                .title("제목")
+                .content("내용")
+                .columnsId(columnsId)
+                .createdDate(now)
+                .modifiedDate(now)
+                .build());
     }
 }
