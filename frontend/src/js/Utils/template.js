@@ -63,7 +63,7 @@ const alertBoxTemplate = ({ title, cancel, accept }) => {
 
 const columnBoxTemplate = ({ id = '', title = '', cardCount = '' }) => {
   return /* html */ `
-  <section id="${id}" class="todo_column_box">
+  <section class="todo_column_box" data-columnid="${id}">
     <div class="column_title_box">
       <div class="title_content">
         <h2 class="title">${title}</h2>
@@ -75,15 +75,40 @@ const columnBoxTemplate = ({ id = '', title = '', cardCount = '' }) => {
       </div>
     </div>
     <ul class="card_list">
-      
+      <li class="start"></li>
     </ul>
   </section>
   `;
 };
 
-const cardTemplate = ({ cardId = '' }) => {
+const cardReadTemplate = ({ cardId = '', title = '', content = '' }) => {
   return /* html */ `
-  <li id="${cardId}" class="card write">
+  <li class="card" data-cardId="${cardId}">
+    <div class="card_text">
+      <div class="card_title">
+        <h3 class="title_text">${title}</h3>
+        <input type="text" class="title_input" placeholder="제목을 입력해주세요" value="${title}"/>
+      </div>
+      <div class="card_content">
+        <p class="content_text">${content}</p>
+        <textarea class="content_input" placeholder="내용을 입력해주세요" maxlength="500">${content}</textarea>
+      </div>
+      <span class="card_caption">author by web</span>
+    </div>
+    <div class="card_btn_box">
+      <button type="button" class="btn normal_btn">취소</button>
+      <button type="button" class="btn accent_btn" disabled="true">
+        등록
+      </button>
+    </div>
+    <button class="delete_btn">삭제버튼</button>
+  </li>
+  `;
+};
+
+const cardWriteTemplate = ({ cardId = '' }) => {
+  return /* html */ `
+  <li class="card write" data-cardid="${cardId}">
     <div class="card_text">
       <div class="card_title">
         <h3 class="title_text"></h3>
@@ -111,5 +136,6 @@ export {
   historyTemplate,
   alertBoxTemplate,
   columnBoxTemplate,
-  cardTemplate,
+  cardReadTemplate,
+  cardWriteTemplate,
 };

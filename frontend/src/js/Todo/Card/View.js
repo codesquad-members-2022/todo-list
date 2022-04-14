@@ -1,19 +1,20 @@
 import { targetQuerySelector } from '../../utils/createTemplate';
-import { cardTemplate } from '../../utils/template';
+import { cardWriteTemplate } from '../../utils/template';
 
 export default class CardView {
   constructor() {}
 
   eventInit({
+    cardId,
     cardInputHandler,
     cardAddHandler,
     cardDeleteHandler,
     hoverHandler,
   }) {
-    const writeCard = document.querySelector('.card.write');
-    const accentBtn = writeCard.querySelector('.accent_btn');
-    const deleteBtn = writeCard.querySelector('.delete_btn');
-    writeCard.addEventListener('input', cardInputHandler);
+    const card = document.querySelector(`[data-cardId="${cardId}"]`);
+    const accentBtn = card.querySelector('.accent_btn');
+    const deleteBtn = card.querySelector('.delete_btn');
+    card.addEventListener('input', cardInputHandler);
     accentBtn.addEventListener('click', cardAddHandler);
     deleteBtn.addEventListener('click', cardDeleteHandler);
     deleteBtn.addEventListener('mouseover', hoverHandler);
@@ -21,12 +22,12 @@ export default class CardView {
   }
 
   renderAddCard(targetColumn, cardId) {
-    const cardHtml = cardTemplate({ cardId });
+    const cardHtml = cardWriteTemplate({ cardId });
     const targetList = targetQuerySelector({
       target: targetColumn,
-      className: 'card_list',
+      className: 'start',
     });
-    targetList.insertAdjacentHTML('afterbegin', cardHtml);
+    targetList.insertAdjacentHTML('afterend', cardHtml);
   }
 
   changeEditMode(card, targetText) {
