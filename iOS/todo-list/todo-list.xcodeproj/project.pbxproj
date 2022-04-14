@@ -25,6 +25,7 @@
 		5B349DED27FFFB1500AA602E /* dummyLogResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B349DEB27FFFB1500AA602E /* dummyLogResponse.json */; };
 		5B349DF52805205000AA602E /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349DF42805205000AA602E /* LogViewModel.swift */; };
 		5B997D8E2805641300A00B42 /* LogManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B997D8D2805641300A00B42 /* LogManagerTests.swift */; };
+		5B997D922807B0A400A00B42 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0DC1532806D0AF0052C645 /* LogManager.swift */; };
 		BC3D4A1727FD6F1C009B37FB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1627FD6F1C009B37FB /* Task.swift */; };
 		BC3D4A2027FEA253009B37FB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */; };
 		BC40607F2805419600E03651 /* DataPrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC40607E2805419600E03651 /* DataPrettyPrint.swift */; };
@@ -269,7 +270,6 @@
 			children = (
 				BC3D4A1627FD6F1C009B37FB /* Task.swift */,
 				BC4060822805575D00E03651 /* TaskStorage.swift */,
-				5B0DC1532806D0AF0052C645 /* LogManager.swift */,
 				5B349DE727FECD0C00AA602E /* Log.swift */,
 				5B349DE927FECDC500AA602E /* Action.swift */,
 			);
@@ -281,6 +281,7 @@
 			children = (
 				BC4792962803E4BD00CBE369 /* TaskManager.swift */,
 				BC3D4A1F27FEA253009B37FB /* NetworkManager.swift */,
+				5B0DC1532806D0AF0052C645 /* LogManager.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -492,6 +493,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B997D922807B0A400A00B42 /* LogManager.swift in Sources */,
 				BC6325102804291B00CE5280 /* NetworkManagerTests.swift in Sources */,
 				BC40608A280578B000E03651 /* SystemLog.swift in Sources */,
 				BC4060802805419600E03651 /* DataPrettyPrint.swift in Sources */,
