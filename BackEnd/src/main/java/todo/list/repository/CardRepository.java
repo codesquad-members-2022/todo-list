@@ -76,6 +76,12 @@ public class CardRepository {
         return card;
     }
 
+    public void delete(Long id) {
+        String sql = "delete from card where id = :id";
+        Map<String, Long> params = Collections.singletonMap("id", id);
+        jdbcTemplate.update(sql, params);
+    }
+
     public Card findById(Long id) {
         String sql = "Select id, title, contents, card_status, update_datetime, author from card WHERE id=:id";
         Map<String,Object> params = new HashMap<>();

@@ -53,4 +53,15 @@ public class CardService {
         Card foundCard = cardRepository.findById(card.getId());
         return new CardCommandResponse(foundCard);
     }
+
+    @Transactional
+    public CardCommandResponse delete(Long cardId) {
+        Card foundCard = cardRepository.findById(cardId);
+        cardRepository.delete(cardId);
+
+        ActivityLog activityLog = new ActivityLog(Action.REMOVE, foundCard.getTitle(), foundCard.getStatus());
+        activityLogService.save(activityLog);
+
+        return new CardCommandResponse(foundCard);
+    }
 }
