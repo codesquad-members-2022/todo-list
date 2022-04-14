@@ -50,26 +50,27 @@ export class DragAndDrop {
       this.cloneCard(e);
     }
 
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
+    const { clientX: mouseX, clientY: mouseY } = e;
     this.clonedDragCard.style.left = mouseX + 'px';
     this.clonedDragCard.style.top = mouseY + 'px';
 
     const cloneCardPosData = this.clonedDragCard.getBoundingClientRect();
     const columnPosData = this.column.getBoundingClientRect();
 
-    const draggedX = cloneCardPosData.x;
-    const draggedY = cloneCardPosData.y;
+    const { x: draggedX, y: draggedY } = cloneCardPosData;
 
-    if (columnPosData.x - cloneCardPosData.x > cloneCardPosData.width / 2) {
+    const moveToLeftColumn =
+      columnPosData.x - cloneCardPosData.x > cloneCardPosData.width / 2;
+    const moveToRightColumn =
+      columnPosData.x + columnPosData.width - cloneCardPosData.x <
+      cloneCardPosData.width / 2;
+
+    if (moveToLeftColumn) {
       $(
         '.column-list',
         this.column.parentElement.previousElementSibling
       ).appendChild(this.dragCard);
-    } else if (
-      columnPosData.x + columnPosData.width - cloneCardPosData.x <
-      cloneCardPosData.width / 2
-    ) {
+    } else if (moveToRightColumn) {
       $(
         '.column-list',
         this.column.parentElement.nextElementSibling
@@ -83,24 +84,28 @@ export class DragAndDrop {
       const higherCard = el.y - draggedY > 0 ? cloneCardPosData : el;
       const lowerCard = el.y - draggedY > 0 ? el : cloneCardPosData;
 
-      if (
-        this.dragCard.getBoundingClientRect().x === el.x &&
-        !this.moveCardState
-      ) {
-        if (prevCard.x + prevCard.width - curCard.x > prevCard.width / 2) {
-          if (
-            cloneCardPosData.y < el.y &&
-            higherCard.y + higherCard.height - lowerCard.y >
-              lowerCard.height / 2
-          ) {
+      const isSameColumn =
+        this.dragCard.getBoundingClientRect().x === el.x && !this.moveCardState;
+
+      // 카드가 다른 카드의 측면에서 절반을 넘었는지 판단
+      const overHalfSide =
+        prevCard.x + prevCard.width - curCard.x > prevCard.width / 2;
+      //
+      const overHalfTop =
+        cloneCardPosData.y < el.y &&
+        higherCard.y + higherCard.height - lowerCard.y > lowerCard.height / 2;
+
+      const overHalfBottom =
+        cloneCardPosData.y > el.y &&
+        higherCard.y + higherCard.height - lowerCard.y > higherCard.height / 2;
+
+      if (isSameColumn) {
+        if (overHalfSide) {
+          if (overHalfTop) {
             el.positionedCard.insertAdjacentElement('afterend', this.dragCard);
           }
 
-          if (
-            cloneCardPosData.y > el.y &&
-            higherCard.y + higherCard.height - lowerCard.y >
-              higherCard.height / 2
-          ) {
+          if (overHalfBottom) {
             el.positionedCard.insertAdjacentElement(
               'beforebegin',
               this.dragCard
@@ -110,23 +115,15 @@ export class DragAndDrop {
       } else {
         this.moveCardState = true;
 
-        if (prevCard.x + prevCard.width - curCard.x > prevCard.width / 2) {
-          if (
-            cloneCardPosData.y < el.y &&
-            higherCard.y + higherCard.height - lowerCard.y >
-              lowerCard.height / 2
-          ) {
+        if (overHalfSide) {
+          if (overHalfTop) {
             el.positionedCard.insertAdjacentElement(
               'beforebegin',
               this.dragCard
             );
           }
 
-          if (
-            cloneCardPosData.y > el.y &&
-            higherCard.y + higherCard.height - lowerCard.y >
-              higherCard.height / 2
-          ) {
+          if (overHalfBottom) {
             el.positionedCard.insertAdjacentElement('afterend', this.dragCard);
           }
         }
@@ -136,11 +133,12 @@ export class DragAndDrop {
 
   setCardsPosition() {
     for (const li of $$('.list_item')) {
+      const { x, y, width, height } = li.getBoundingClientRect();
       this.cardPositionInfo.push({
-        x: li.getBoundingClientRect().x,
-        y: li.getBoundingClientRect().y,
-        width: li.getBoundingClientRect().width,
-        height: li.getBoundingClientRect().height,
+        x,
+        y,
+        width,
+        height,
         positionedCard: li,
       });
     }
