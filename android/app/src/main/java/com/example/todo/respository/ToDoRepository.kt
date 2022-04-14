@@ -1,5 +1,6 @@
 package com.example.todo.respository
 
+import android.content.Context
 import android.util.Log
 import com.example.todo.model.ProgressType
 import com.example.todo.model.TodoItem
@@ -8,7 +9,8 @@ import com.example.todo.network.TodoResponseItem
 import com.example.todo.network.UpdateTodoBody
 import retrofit2.Response
 
-class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
+class ToDoRepository(private val context: Context, private val toDoDataSource: ToDoDataSource) {
+
 
     suspend fun getTodoItems(): List<TodoItem>? {
         val response = toDoDataSource.getTodoItems()
@@ -74,7 +76,7 @@ class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
                 // 새로운 next 설정
                 val preItem = toDoList.find { item -> item.itemId == deleteItem.itemId }
                 preItem?.itemId = deleteItem.next
-                Log.d("xx" , preItem?.itemId.toString())
+                Log.d("xx", preItem?.itemId.toString())
                 originList.remove(deleteItem)
             }
             return originList.toList()
@@ -98,6 +100,17 @@ class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
             originList.toList()
         } else todoList
 
+    }
+
+    suspend fun moveTodoItem(
+        itemId: Int,
+        targetProgressType: ProgressType,
+        prevId: Int?,
+        nextId: Int?
+    ): Boolean {
+        val type = context.resources.getString(targetProgressType.value)
+        val response = toDoDataSource.moveItem(itemId, type, prevId, nextId)
+        return response.isSuccessful
     }
 
 

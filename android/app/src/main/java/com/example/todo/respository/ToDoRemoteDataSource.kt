@@ -16,6 +16,7 @@ class ToDoRemoteDataSource(private val retrofitClient: RetrofitClient) : ToDoDat
         return retrofitClient.getCardIdx(body)
     }
 
+
     override suspend fun getDoneId(newItem: TodoItem): Response<CardIndex> {
         val body = AddPostBody(newItem.title, newItem.content, "done", "Jay")
         return retrofitClient.getCardIdx(body)
@@ -38,4 +39,16 @@ class ToDoRemoteDataSource(private val retrofitClient: RetrofitClient) : ToDoDat
         Log.d("testDelete", response.isSuccessful.toString())
         return response
     }
+
+    override suspend fun moveItem(
+        itemId: Int,
+        type: String,
+        prevItemId: Int?,
+        nextItemId: Int?
+    ): Response<Void> {
+        val response = retrofitClient.moveTodo(itemId , MoveTodoBody(type , nextItemId ,prevItemId ))
+        Log.d("testDelete", response?.isSuccessful.toString())
+        return response
+    }
 }
+

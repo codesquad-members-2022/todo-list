@@ -145,4 +145,13 @@ class ToDoViewModel(
             }
         }
     }
+
+    fun moveTodoItem(itemId: Int, type: ProgressType, prevId: Int?, nextId: Int?) {
+        viewModelScope.launch {
+            val isSuccess = toDoRepository.moveTodoItem(itemId, type, prevId, nextId)
+            // 재로드 필요
+            if (isSuccess) loadTodoList()
+        }
+    }
+
 }

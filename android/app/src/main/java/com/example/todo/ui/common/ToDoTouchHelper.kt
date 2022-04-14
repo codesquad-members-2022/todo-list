@@ -37,17 +37,12 @@ class ToDoTouchHelper : ItemTouchHelper.Callback() {
         return true
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-    }
-
-
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         currentDx = 0f
         previousPosition = viewHolder.adapterPosition
         getDefaultUIUtil().clearView(getView(viewHolder))
     }
-
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         viewHolder?.let {
@@ -84,8 +79,6 @@ class ToDoTouchHelper : ItemTouchHelper.Callback() {
             val isClamped = getTag(viewHolder)
             val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
             currentDx = x
-
-
             getDefaultUIUtil().onDraw(
                 c,
                 recyclerView,
@@ -133,6 +126,5 @@ class ToDoTouchHelper : ItemTouchHelper.Callback() {
     private fun getDeleteView(viewHolder: RecyclerView.ViewHolder): View {
         return (viewHolder as TodoAdapter.ViewHolder).itemView.findViewById(R.id.delete_view)
     }
-
 
 }
