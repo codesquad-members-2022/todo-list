@@ -36,6 +36,7 @@ h2 .itemCount {
 }
 
 .column-item--buttons .addBtn {
+  font-size: 15px;
   font-size: var(--font-M);
   color: var(--white);
   border: none;
@@ -45,6 +46,7 @@ h2 .itemCount {
 }
 
 .column-item--buttons .deleteBtn {
+  font-size: 15px;
   font-size: var(--font-M);
   color: var(--white);
   border: none;

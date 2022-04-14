@@ -42,6 +42,7 @@
 }
 .card-author {
   color: var(--transparency-gray);
+  color: var(--transparency-gray);
   font-size: var(--font-XS);
 }
 

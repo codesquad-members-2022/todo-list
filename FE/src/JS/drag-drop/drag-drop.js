@@ -51,6 +51,7 @@ export default class Drag {
     });
   }
 
+  //이벤트 재등록시 toggle이 동작하지 않아 현재 사용X
   toggleDraggingClass(cardList) {
     return () => {
       cardList.classList.toggle('dragging');
