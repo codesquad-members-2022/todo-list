@@ -1,10 +1,11 @@
 package com.codesquad.todolist.card;
 
-import com.codesquad.todolist.history.domain.Field;
-import com.codesquad.todolist.history.domain.ModifiedField;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.codesquad.todolist.history.domain.Field;
+import com.codesquad.todolist.history.domain.ModifiedField;
 
 public class Card implements Cloneable {
 
@@ -36,15 +37,15 @@ public class Card implements Cloneable {
     }
 
     public void update(String title, String content, String author) {
-        if (!this.title.equals(title)) {
+        if (title != null && !this.title.equals(title)) {
             modifiedFields.add(new ModifiedField(Field.TITLE, this.title, title));
             this.title = title;
         }
-        if (!this.content.equals(content)) {
+        if (content != null && !this.content.equals(content)) {
             modifiedFields.add(new ModifiedField(Field.CONTENT, this.content, content));
             this.content = content;
         }
-        if (!this.author.equals(author)) {
+        if (author != null && !this.author.equals(author)) {
             modifiedFields.add(new ModifiedField(Field.AUTHOR, this.author, author));
             this.author = author;
         }
@@ -57,6 +58,10 @@ public class Card implements Cloneable {
 
     public Integer getCardId() {
         return cardId;
+    }
+
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
     }
 
     public Integer getColumnId() {
@@ -87,14 +92,10 @@ public class Card implements Cloneable {
         return modifiedFields;
     }
 
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
-    }
-
     @Override
     public Card clone() {
         try {
-            return (Card) super.clone();
+            return (Card)super.clone();
         } catch (CloneNotSupportedException e) {
             return null;
         }
