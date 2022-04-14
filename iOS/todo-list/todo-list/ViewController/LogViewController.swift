@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class ActivityRecordController: UITableViewController {
+class LogViewController: UITableViewController {
+    @IBOutlet weak var activityTableView: UITableView!
     
     var dummylog = Log(userId: "@sam", action: .Move, created: Date.now, taskId: 0, from: .todo, to: .inProgress, taskTitle: "Title")
 
@@ -18,41 +19,20 @@ class ActivityRecordController: UITableViewController {
                     "해야할 일에 HTML/CSS 공부하기를 등록하였습니다.",
                     "해야할 일에 블로글에 포스팅할 것을 등록하였습니다."]
     
-    @IBOutlet weak var activityTableView: UITableView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        activityTableView.reloadDataAndKeepOffset()
         
     }
     
 }
-
-//MARK: - TableView 관련 Method
-extension ActivityRecordController {
-    
-    // 데이터가 앞에 추가되었을때
-    private func prependData() {
-        print("#fileID", "#function", "#line", "")
-        self.activityTableView.reloadDataAndKeepOffset()
-    }
-    
-    private func appendData() {
-        // 데이터 추가
-    }
-    
-    private func resetData() {
-        print("#fileID", "#function", "#line", "")
-    }
-}
-
 
 //MARK: - UITableViewDataSource에 관련된 Method
-extension ActivityRecordController{
+extension LogViewController{
     
     // TableView 행의 개수 반환 - return 값 변경 예정
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dumyData.count
+        return 0
     }
     
     // TableView 각 셀에 대한 설정
