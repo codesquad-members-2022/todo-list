@@ -7,16 +7,8 @@ class CardRepository(private val cardDataSource: CardRemoteDataSource) {
         return cards.body()?.data
     }
 
-    fun addTodoCard(subject: String, content: String, status: String) {
-
-    }
-
-    fun addOnGoingCard(subject: String, content: String, status: String) {
-
-    }
-
-    fun addCompletedCard(subject: String, content: String, status: String) {
-
+    suspend fun addCard(subject: String, content: String, status: String) : Card? {
+        return cardDataSource.addCard(NewCard(subject, content, status)).body()
     }
 
     fun deleteCard(cardId: Int) {
