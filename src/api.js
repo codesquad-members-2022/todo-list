@@ -14,6 +14,12 @@ const postData = async (resource, data) => {
   });
 };
 
+const deleteData = async (resource) => {
+  fetch("http://localhost:3000/" + resource, {
+    method: "DELETE",
+  });
+};
+
 const getColumns = async () => {
   const columns = await getMockData("columns");
   return columns.map(({ title, id }) => ({
@@ -37,4 +43,4 @@ const getHistories = async () => {
   return histories;
 };
 
-export { getColumns, getCards, postCard, getHistories };
+export { getColumns, getCards, postCard, getHistories, deleteData };

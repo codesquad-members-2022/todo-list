@@ -1,5 +1,6 @@
-import { getCards, postCard } from "../api.js";
+import { deleteData, postCard } from "../api.js";
 import Component from "../core/Component.js";
+import myAlert from "./Alert.js";
 
 export default class Cards extends Component {
   template() {
@@ -8,9 +9,9 @@ export default class Cards extends Component {
     <ul>
       ${cards
         ?.map(
-          ({ cardState, title, content }) =>
+          ({ cardState, title, content, id }) =>
             `<li>
-              <div class="card" data-card-state="${cardState}">
+              <div class="card" data-card-state="${cardState}" data-card-id=${id}>
                 <div class="card-title">
                   ${
                     cardState === "create"
@@ -59,12 +60,29 @@ export default class Cards extends Component {
     this.addEvent("mouseout", ".card-button-delete", ({ target }) => {
       this.setCardState(target, "default");
     });
+    this.addEvent("click", ".card-button-delete", this.clickDeleteButtonHandler.bind(this));
   }
   clickNormalButtonHandler() {
     const { cards, undoCreateCard } = this.$props;
     if (cards[0]?.cardState === "create") {
       undoCreateCard();
     }
+  }
+  clickDeleteButtonHandler({ target }) {
+    myAlert(
+      {
+        message: "선택한 카드를 삭제할까요?",
+        confirmText: "삭제",
+      },
+      async () => {
+        const { setCards } = this.$props;
+        const cardId = target.closest(".card").dataset.cardId;
+        const columnId = target.closest(".column").dataset.index;
+
+        await deleteData(`cards/${cardId}`);
+        setCards(columnId);
+      }
+    );
   }
   inputHandler({ target }) {
     const $inputs = [...this.$target.querySelectorAll("input")];
