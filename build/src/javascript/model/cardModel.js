@@ -1,30 +1,38 @@
-import { axiosRequest } from "../util/util.js";
+import { axiosRequest } from "../API/api.js";
 
-const cardModel = {
-  todos: [],
-  haveToDoColumn: [],
-  doingColumn: [],
-  doneColumn: [],
+const columns = {
+  "have-to-do-column": [],
+  "doing-column": [],
+  "done-column": [],
 };
 
-async function getTodos() {
+export async function getColumns() {
   const todos = await axiosRequest("get", "todos");
-  cardModel.todos = todos;
-  getAllColumnTodos();
-  return cardModel;
+  getAllColumnTodos(todos);
+  return columns;
 }
 
-function getAllColumnTodos() {
-  cardModel.haveToDoColumn = getColumnTodos("have-to-do-column");
-  cardModel.doingColumn = getColumnTodos("doing-column");
-  cardModel.doneColumn = getColumnTodos("done-column");
-  return cardModel;
+function getAllColumnTodos(todos) {
+  const columnNames = Object.keys(columns);
+  for (const columnName of columnNames) {
+    columns[columnName] = getColumnTodos(todos, columnName);
+  }
+  return columns;
 }
 
-function getColumnTodos(columnName) {
-  const todos = cardModel.todos;
+function getColumnTodos(todos, columnName) {
   const columnTodos = todos.filter((todo) => todo.column === columnName);
   return columnTodos;
 }
 
-export { getTodos };
+export function postTodo(cardData) {
+  axiosRequest("post", "todos", cardData);
+}
+
+export function putUpdatedCardData(cardData, dataID) {
+  axiosRequest("put", "todos", cardData, dataID);
+}
+
+export function deleteServerCardData(dataId) {
+  axiosRequest("delete", "todos", {}, dataId);
+}

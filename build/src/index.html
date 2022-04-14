@@ -13,6 +13,21 @@
   </head>
 
   <body>
+    <div class="alert center-sort" id="alert-id">
+      <div class="alert-card">
+        <div class="alert-text-wrap">
+          <div class="alert-text">선택할 카드를 삭제할까요?</div>
+        </div>
+        <div class="alert-buttons">
+          <button class="cancel-button center-sort" id="alert-cancel-button">
+            취소
+          </button>
+          <button class="edit-button center-sort" id="alert-edit-button">
+            삭제
+          </button>
+        </div>
+      </div>
+    </div>
     <header class="row-between">
       <h1 class="header-title title-font">TO-DO LIST</h1>
       <button class="hamburger-button">
@@ -160,6 +175,6 @@
     </div>
     <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script defer type="module" src="./javascript/app.js"></script>
-    <script defer src="../dist/bundle.js"></script>
+    <!-- <script defer src="./dist/bundle.js"></script> -->
   </body>
 </html>
