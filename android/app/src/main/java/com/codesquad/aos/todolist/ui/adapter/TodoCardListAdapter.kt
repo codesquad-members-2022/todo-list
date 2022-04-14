@@ -169,28 +169,4 @@ class TodoCardListAdapter(
         getItem(inx).isSwiped = isSwiped
     }
 
-    private lateinit var touchTimer: Timer
-    private var elapsedSecond = 0
-
-    private fun startTimer(viewHolder: RecyclerView.ViewHolder) {
-        touchTimer = kotlin.concurrent.timer(period = MILLIS_OF_SECOND) {
-            Log.d("timer", "$elapsedSecond")
-            elapsedSecond++
-
-            if(elapsedSecond == 2) {
-                cancel()
-                elapsedSecond = 0
-                Log.d("timer", "타이머 종료")
-            }
-        }
-    }
-
-    private fun checkUserLongPressed(): Boolean {
-        if (elapsedSecond >= LONG_PRESSED_TIME) {
-            return false
-        }
-        return true
-    }
-
-
 }
