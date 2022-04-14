@@ -28,11 +28,9 @@ public class ColumnRepositoryImpl implements ColumnRepository {
 
     @Override
     public List<Column> findAll() {
-        String sql = "SELECT * FROM column_tbl WHERE deleted = :isDeleted";
-        Map<String, Object> params = new HashMap<>();
-        params.put("isDeleted", false);
+        String sql = "SELECT * FROM column_tbl WHERE deleted = false";
         try {
-            return namedParameterJdbcTemplate.query(sql, params, columnRowMapper);
+            return namedParameterJdbcTemplate.query(sql, columnRowMapper);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -80,10 +78,9 @@ public class ColumnRepositoryImpl implements ColumnRepository {
 
     @Override
     public void delete(Long id) {
-        String sql = "UPDATE column_tbl SET deleted = :isDeleted WHERE id = :id";
+        String sql = "UPDATE column_tbl SET deleted = true WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("isDeleted", true);
         params.put("id", id);
 
         namedParameterJdbcTemplate.update(sql, params);
