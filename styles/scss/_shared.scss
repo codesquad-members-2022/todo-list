@@ -141,6 +141,10 @@ $Gray_4: #bdbdbd;
   @include flex_none(1, 8, 0);
 }
 
+@mixin column-left($pos) {
+  left: #{80+$pos*324}px;
+}
+
 @mixin todo_card($background:null, $border:null, $shadow:null) {
   @include custom_flex(row, flex-start);
   padding: 16px;
@@ -240,5 +244,15 @@ $Gray_4: #bdbdbd;
     @include width_height_bypx($width: 276, $height: 51);
 
     @include flex_none(0, 16, 0);
+
+    .title {
+      @extend %card-title;
+      width: 276px;
+    }
+
+    .content {
+      @extend %card-content;
+      width: 276px;
+    }
   }
 }

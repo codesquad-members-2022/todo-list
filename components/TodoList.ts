@@ -1,13 +1,19 @@
 import View from "../core/View";
 import {Action, StateObj} from "../types";
 import {TodoCard} from "./TodoCard";
+import {DOM} from "../utils";
+import {TodoForm} from "./TodoForm";
+import {AddDto} from "../core/DTOs/add.dto";
+import {SelectDto} from "../core/DTOs/select.dto";
 
 
 export class TodoList extends View {
     template() {
+        console.log(this.$props);
         const {
-            title, todos, editting
+            list: {title, todos, selected}
         } = this.$props;
+
         return `
           <div class="todo-title">
             <span class="todo-name">${title}
@@ -30,17 +36,7 @@ export class TodoList extends View {
                     </svg>
                 </span>
           </div>
-        ${
-            editting
-                ? `<div class="wrapper">
-            <span class="title"></span><span class="content"></span>
-            </div>
-            <div class="frame">
-              <div class="button-left"><span>취소</span></div>
-              <div class="button-right"><span>등록</span></div>
-            </div>`
-                : ""
-        }
+       
     ${todos
             .map(
                 (todo: StateObj, idx: number) =>
@@ -49,22 +45,30 @@ export class TodoList extends View {
             .join("")}`;
     }
 
+
     mount() {
-        const {todos} = this.$props;
+        const {list: {todos, selected}, listIdx} = this.$props;
+        console.log(selected);
         todos.forEach(
-            (todo: StateObj, idx: number) =>
-                new TodoCard(this.store, this.select(`.todo-card[data-idx="${idx}"]`)!, {
-                    todo,
-                    listIdx: this.el.dataset.idx
-                })
+            (todo: StateObj, idx: number) => {
+                const target = this.select(`.todo-card[data-idx="${idx}"]`)
+                console.log(target);
+                const listIdx = this.select().dataset.idx;
+                return selected === idx ?
+                    new TodoForm(this.store, target, {todo, listIdx, idx})
+                    : new TodoCard(this.store, target, {todo, idx, listIdx},)
+            }
         );
     }
 
     setEvent() {
-        const {todos} = this.$props;
+        const {list: {todos, editting}, listIdx} = this.$props;
         this.addEvent('click', '.add', e => {
-            this.store.commit(Action.ONEDIT, {editting: true, listIdx: this.el.dataset.idx}); //target idx
+            this.store.commit(Action.ADD, new AddDto({listIdx, title: "", content: ""}));
+            this.store.commit(Action.SELECT, new SelectDto({selected: true, idx: 0, listIdx}));
+            this.$props.editting = true;
         })
+
 
     }
 }

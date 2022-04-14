@@ -10,7 +10,6 @@ export default class View extends Node<HTMLElement> {
     constructor(store: Store, private target: HTMLElement, props: StateObj = {}, parent: View | null = null,) {
         super(target, parent);
         this.store = store;
-        console.log(store);
         this.state = store.state;
 
         this.$props = props;
@@ -18,7 +17,6 @@ export default class View extends Node<HTMLElement> {
             this.setEvent();
             this.render();
         });
-        this.mount();
     }
 
     mount() {
@@ -39,15 +37,20 @@ export default class View extends Node<HTMLElement> {
     setEvent() {
     }
 
-    select(selector: string): HTMLElement {
-        return this.el.querySelector(selector) ?? this.el
+    select(selector: string | undefined = undefined): HTMLElement {
+        return selector ? (this.el.querySelector(selector) ?? this.el) : this.el
     }
 
-    selectAll(selector: string) {
-        return [...this.el.querySelectorAll(selector)] as HTMLElement[]
+    selectAll(selector: string): HTMLElement[] {
+        return <HTMLElement[]>[...this.el.querySelectorAll(selector)]
     }
 
     _render() {
         this.el.innerHTML = this.template();
+        this.mount();
+    }
+
+    toString() {
+        return this.el.outerHTML;
     }
 }

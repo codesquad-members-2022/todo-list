@@ -5,27 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d995f52-4be1-415d-b57f-6d6654aa18a1" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/DTOs/add.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/DTOs/delete.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/DTOs/dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/DTOs/move.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/DTOs/select.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/DTOs/update.dto.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/TodoCard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoCard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/TodoForm.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoForm.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/TodoList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Eventhandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Eventhandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Node.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Node.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Observer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Observer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Store.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/View.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/View.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/express-server/static/db.json" beforeDir="false" afterPath="$PROJECT_DIR$/express-server/static/db.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/scss/_column.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_column.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/_reset.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_reset.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles/scss/_shared.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_shared.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/column.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/header.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/reset.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +66,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/core/DTOs" />
       <recent name="$PROJECT_DIR$/components" />
     </key>
   </component>
@@ -94,7 +94,7 @@
       <updated>1649639012342</updated>
       <workItem from="1649639018771" duration="598000" />
       <workItem from="1649640028134" duration="904000" />
-      <workItem from="1649905571442" duration="6613000" />
+      <workItem from="1649905571442" duration="29181000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />

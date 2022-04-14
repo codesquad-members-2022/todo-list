@@ -1,3 +1,5 @@
+import {Dto} from "./core/DTOs/dto";
+
 export enum Action {
 
     ADD,
@@ -5,36 +7,24 @@ export enum Action {
     DELETE,
     MOVE,
     SELECT,
-    ONEDIT,
+
 }
 
-export type StoreProp = {
-    state: StateObj
-    mutations: Partial<Record<Action, Commit>>
-    actions: Partial<Record<Action, Dispatch>>
-}
-export type StoreContext = {
+//export type Action = "ADD" | "UPDATE" | "DELETE" | "MOVE" | "SELECT"
+
+export type StoreType = {
     state: StateObj,
-    commit: (action: Action, payload: Mutations[Action]) => void,
-    dispatch: (action: Action, payload: Actions[Action]) => any,
+    mutations: { [key in Action]: Commit<key> }
+    actions: { [key in Action]: Dispatch<key> }
 }
-export type Commit = (state: StateObj, payload: Mutations[Action]) => void;
-export type Dispatch = (context: StoreContext, payload: Actions[Action]) => void;
+export type StoreContext<T extends Action> = {
+    state: StateObj,
+    commit: (action: T, payload: Dto<T>) => void,
+    dispatch: (action: T, payload: Dto<T>) => any,
+}
+export type Commit<T extends Action> = (state: StateObj, payload: Dto<T>) => void;
+export type Dispatch<T extends Action> = (context: StoreContext<T>, payload: Dto<T>) => void;
 export type StateObj = Record<string | symbol, any>;
 
-export type Mutations = {
-    [Action.ADD]: any,
-    [Action.DELETE]: any,
-    [Action.MOVE]: any,
-    [Action.SELECT]: { selected: boolean, idx: number, listIdx: number },
-    [Action.UPDATE]: any,
-    [Action.ONEDIT]: { editting: boolean, listIdx: number },
-}
-export type Actions = {
-    [Action.ADD]: any,
-    [Action.DELETE]: any,
-    [Action.MOVE]: any,
-    [Action.SELECT]: { selected: boolean, idx: number },
-    [Action.UPDATE]: any,
-    [Action.ONEDIT]: { editting: boolean, idx: number },
-}
+type Mutations<T extends Action> = Record<T, Commit<T>>;
+type Actions<T extends Action> = Record<T, Commit<T>>;

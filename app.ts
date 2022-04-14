@@ -11,7 +11,6 @@ class App extends View {
 
     template() {
         const {lists} = this.state;
-        console.log(lists);
         return `<header class="todo-header" >
           </header>
           ${lists
@@ -27,7 +26,7 @@ class App extends View {
         new Header(this.store, this.select(".todo-header")!);
         lists.forEach(
             (list: StateObj, idx: number) =>
-                new TodoList(this.store, this.select(`section[data-idx="${idx}"`), list)
+                new TodoList(this.store, this.select(`.todo-column[data-idx="${idx}"`), {list, listIdx: idx})
         );
     }
 }
