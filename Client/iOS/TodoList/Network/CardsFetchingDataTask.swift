@@ -27,13 +27,13 @@ class DataTask: SessionDataTask {
          type: NSURLRequest.NetworkServiceType = .default
          ) {
         self.api = api
-        let urlString = api.getUrlString(type: .all)
+        let urlString = api.urlString(path: .all)
         super.init(as: urlString, using: delegate, in: queue, type: type)
     }
     
     func fetchUser(completionHandler: @escaping (Result<String,DataTaskError>) -> Void) {
-        guard let url = api.toURL(type: .user),
-              let baseUrl = api.toURL(type: .base) else {
+        guard let url = api.toURL(path: .user),
+              let baseUrl = api.toURL(path: .base) else {
             completionHandler(.failure(.invalidURL))
             return
         }
@@ -58,7 +58,7 @@ class DataTask: SessionDataTask {
     
     
     func fetchAll<T: Codable>(dataType: T.Type, completionHandler: @escaping (Result<T,DataTaskError>) -> Void) {
-        guard let url = api.toURL(type: .all) else {
+        guard let url = api.toURL(path: .all) else {
             completionHandler(.failure(.invalidURL))
             return
         }
@@ -80,7 +80,7 @@ class DataTask: SessionDataTask {
     
     private func makeRequestContainCookie(with url: URL) -> URLRequest? {
         var request = URLRequest(url: url)
-        guard let baseUrl = api.toURL(type: .base),
+        guard let baseUrl = api.toURL(path: .base),
             let cookies = HTTPCookieStorage.shared.cookies(for: baseUrl) else {
             return request
         }
@@ -115,24 +115,24 @@ protocol ServerAPI {
 }
 
 extension ServerAPI {
-    func getUrlString(type: URLType) -> String {
-        switch type {
+    func urlString(path: APIPath) -> String {
+        switch path {
         case .base:
             return endpoint
         case .all, .user:
-            return endpoint+"\(type)"
+            return endpoint+"\(path)"
         }
     }
     
-    func toURL(type: URLType) -> URL? {
-        guard let url = URL(string: endpoint+"\(type)") else {
+    func toURL(path: APIPath) -> URL? {
+        guard let url = URL(string: urlString(path: path)) else {
             return nil
         }
         return url
     }
 }
 
-enum URLType: CustomStringConvertible {
+enum APIPath: CustomStringConvertible {
     case base
     case all
     case user

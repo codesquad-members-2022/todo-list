@@ -15,12 +15,12 @@ class DebugDataTask: SessionDataTask {
          type: NSURLRequest.NetworkServiceType = .default
          ) {
         self.api = api
-        let urlString = api.getUrlString(type: .all)
+        let urlString = api.urlString(path: .all)
         super.init(as: urlString, using: delegate, in: queue, type: type)
     }
     
     func fetchAll<T: Codable>(dataType: T.Type, completionHandler: @escaping (Result<T,DataTaskError>) -> Void) {
-        guard let url = api.toURL(type: .all) else {
+        guard let url = api.toURL(path: .all) else {
             completionHandler(.failure(.invalidURL))
             return
         }
