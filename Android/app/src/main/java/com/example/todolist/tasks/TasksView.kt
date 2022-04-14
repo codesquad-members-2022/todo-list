@@ -9,14 +9,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
+import com.example.todolist.databinding.TasksViewBinding
 import com.example.todolist.tasks.data.Task
 
 class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
 
-    private lateinit var tvTitle: TextView
-    private lateinit var tvBadgeCount: TextView
-    private lateinit var btnAddTask: ImageButton
-    private lateinit var recyclerViewTodo: RecyclerView
+    private lateinit var binding: TasksViewBinding
     private val todosAdapter = TodoAdapter()
     init {
         initViews()
@@ -30,8 +28,8 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
             0,
             0).apply {
                 try {
-                    tvTitle.text = getString(R.styleable.TodoView_title)
-                    tvBadgeCount.text = getString(R.styleable.TodoView_badge_count)
+                    binding.todoTitle.text = getString(R.styleable.TodoView_title)
+                    binding.todoBadge.text = getString(R.styleable.TodoView_badge_count)
                 } finally {
                     recycle()
                 }
@@ -43,20 +41,14 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
             Context.LAYOUT_INFLATER_SERVICE
         ) as LayoutInflater
 
-        addView(
-            layoutInflater.inflate(R.layout.tasks_view, this, false)
-        )
+        binding = TasksViewBinding.inflate(layoutInflater, this, false)
+        addView(binding.root)
 
-        tvTitle = findViewById(R.id.todo_title)
-        tvBadgeCount = findViewById(R.id.todo_badge)
-        btnAddTask = findViewById(R.id.btn_task_add)
-        recyclerViewTodo = findViewById(R.id.recyclerview_todo)
-
-        recyclerViewTodo.adapter = todosAdapter
-        recyclerViewTodo.setHasFixedSize(true)
+        binding.recyclerviewTodo.adapter = todosAdapter
+        binding.recyclerviewTodo.setHasFixedSize(true)
         val touchHelper = ItemTouchHelperCallback(todosAdapter)
         val helper = ItemTouchHelper(touchHelper)
-        helper.attachToRecyclerView(recyclerViewTodo)
+        helper.attachToRecyclerView(binding.recyclerviewTodo)
     }
 
     fun addTasks(tasks: List<Task>) {

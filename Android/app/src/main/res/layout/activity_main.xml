@@ -19,7 +19,10 @@
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/background">
+                android:background="@color/background"
+                custom:layout_constraintEnd_toEndOf="parent"
+                custom:layout_constraintStart_toStartOf="parent"
+                custom:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -30,6 +33,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="35dp"
                         android:text="@string/app_bar_title"
                         android:textAppearance="@style/app_logo" />
 
@@ -38,7 +42,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="end"
-                        android:layout_marginEnd="12dp"
+                        android:layout_marginEnd="35dp"
                         android:background="@color/transparent"
                         android:contentDescription="@string/menu"
                         android:src="@drawable/ic_baseline_menu_24" />
@@ -54,10 +58,10 @@
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="51dp"
                 android:layout_marginBottom="51dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/app_bar"
                 custom:badge_count="0"
-                custom:layout_constraintBottom_toBottomOf="parent"
-                custom:layout_constraintStart_toStartOf="parent"
-                custom:layout_constraintTop_toBottomOf="@id/app_bar"
                 custom:title="해야할 일" />
 
             <com.example.todolist.tasks.TasksView
@@ -67,10 +71,10 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="51dp"
                 android:layout_marginBottom="51dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/todo_todo_view"
+                app:layout_constraintTop_toBottomOf="@id/app_bar"
                 custom:badge_count="0"
-                custom:layout_constraintBottom_toBottomOf="parent"
-                custom:layout_constraintStart_toEndOf="@id/todo_todo_view"
-                custom:layout_constraintTop_toBottomOf="@id/app_bar"
                 custom:title="하고 있는 일" />
 
             <com.example.todolist.tasks.TasksView
@@ -80,17 +84,17 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="51dp"
                 android:layout_marginBottom="51dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/todo_inprogress_view"
+                app:layout_constraintTop_toBottomOf="@id/app_bar"
                 custom:badge_count="0"
-                custom:layout_constraintBottom_toBottomOf="parent"
-                custom:layout_constraintStart_toEndOf="@id/todo_inprogress_view"
-                custom:layout_constraintTop_toBottomOf="@id/app_bar"
                 custom:title="완료한 일" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navi_view"
-            android:layout_width="214dp"
+            android:layout_width="428dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:fitsSystemWindows="true">
@@ -100,15 +104,15 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="end"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="48dp"
                 android:background="@color/transparent"
                 android:contentDescription="@string/close"
                 android:src="@drawable/ic_close" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_history"
-                android:layout_width="166dp"
+                android:layout_width="332dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="80dp"
