@@ -7,17 +7,17 @@ function createStore(data) {
     },
     async addState(type, newState) {
       data[type].push(newState);
-      // fetch API - POST
       util.postData(`http://localhost:${util.port}/${type}`, newState);
     },
-    async updateState(type, newState) {
-      /*
-      newState의 id와 data[type]의 id가 일치하는 인덱스를 찾는다.
-      해당 인덱스의 값을 바꾼다.
-      */
+    async updateState(type, id, newState) {
+      data[type].forEach((el, idx) => {
+        if (el.id === +id) data[type][idx] = newState;
+      });
+      util.updateData(`http://localhost:${util.port}/${type}/${id}`, newState);
     },
-    async removeState() {
-      /* state 정보 삭제*/
+    async removeState(type, id) {
+      // TODO: client의 store에서도 삭제해야함.
+      util.deleteData(`http://localhost:${util.port}/${type}/${id}`);
     },
   };
 }
