@@ -1,6 +1,5 @@
 package codesquad.todo.web.works.dto;
 
-import codesquad.todo.domain.work.Work;
 import lombok.Getter;
 
 import java.util.List;
@@ -8,9 +7,9 @@ import java.util.List;
 @Getter
 public class WorkListResponse {
 
-    private final List<Work> works;
+    private final List<WorkDetailResponse> works;
 
-    public WorkListResponse(List<Work> works) {
-        this.works = works;
+    public WorkListResponse(List<WorkDetailResponse> workDetails) {
+        this.works = workDetails;
     }
 }

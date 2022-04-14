@@ -2,7 +2,7 @@ package codesquad.todo.domain.work;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,25 +29,48 @@ public class MemoryWorkRepository implements WorkRepository {
         return Optional.ofNullable(store.get(id));
     }
 
+    @Override
     public void update(Work updateWork) {
         store.put(updateWork.getId(), updateWork);
     }
 
     @Override
-    public void delete(Long id) {
-        store.remove(id);
-    }
-
-    @Override
-    public List<Work> findAll() {
-        return new ArrayList<>(store.values());
-    }
-
-    @Override
-    public List<Work> findByStatus(WorkStatus workStatus) {
-        return store.values()
-                .stream()
-                .filter(work -> work.hasSameStatus(workStatus))
+    public List<Work> findAllWorkByUserId(Long userId) {
+        return store.values().stream()
+                .filter(work -> work.getAuthor().isSameId(userId))
+                .filter(work -> !work.isDeleted())
+                .sorted(Comparator.comparing(Work::getStatusIndex))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Work> findByUserIdAndStatus(WorkStatus workStatus, Long userId) {
+        return store.values()
+                .stream()
+                .filter(work -> work.getAuthor().isSameId(userId))
+                .filter(work -> work.hasSameStatus(workStatus))
+                .sorted(Comparator.comparing(Work::getStatusIndex))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int countOfStatus(Long userId, WorkStatus workStatus) {
+        return (int)store.values()
+                .stream()
+                .filter(work -> work.getAuthor().isSameId(userId))
+                .filter(work -> work.hasSameStatus(workStatus))
+                .count();
+    }
+
+    @Override
+    public Optional<Work> findOne(Long userId, WorkStatus workStatus, Integer statusIndex) {
+        return store.values()
+                .stream()
+                .filter(work -> work.getAuthor().isSameId(userId))
+                .filter(work -> work.hasSameStatus(workStatus))
+                .filter(work -> work.isSameStatusIndex(statusIndex))
+                .findAny();
+    }
+
+
 }
