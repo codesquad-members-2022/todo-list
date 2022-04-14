@@ -111,6 +111,13 @@ private extension TableViewController{
         tableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
         tableView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor).isActive = true
     }
+    
+    // 셀 클릭 시, 수정 화면 출력 기능
+    func setModalPresent(){
+        addCardViewController.modalPresentationStyle = .overCurrentContext
+        addCardViewController.modalTransitionStyle = .crossDissolve
+        self.present(addCardViewController, animated: true, completion: nil)
+    }
 }
 
 extension TableViewController: UITableViewDataSource, UITableViewDelegate{
@@ -137,6 +144,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell, let customTable = tableView as? TodoTableView, let boardIndexPath = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return UITableViewCell() }
+        cell.selectionStyle = .none
         
         let cards = cardBoard[boardIndexPath]
         let cardData = cards[indexPath.section]
@@ -147,6 +155,16 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        guard let customTable = tableView as? TodoTableView, let index = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return }
+        let cards = cardBoard[index]
+        let title = cards[indexPath.section].title
+        let body = cards[indexPath.section].content
+        
+        addCardViewController.setaddCardView(title: title, body: body)
+        self.setModalPresent()
     }
 }
 
