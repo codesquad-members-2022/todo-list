@@ -117,7 +117,7 @@ class ColumnViewModel: ColumnViewModelProtocol {
                 requestDeleateCard.compactMap{ $0.error }
             )
             .sink { error in
-                
+                print(error)
             }.store(in: &cancellables)
 
         action.addCard

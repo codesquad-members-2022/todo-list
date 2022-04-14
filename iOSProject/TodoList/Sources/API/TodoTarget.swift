@@ -37,7 +37,7 @@ extension TodoTarget {
         case .addCard(let title, let body, let column, let authorSystem):
             return ["title": title, "content":body, "columnName":column.rawValue, "authorSystem": authorSystem]
         case .moveCard(let cardId, let toColumn, let index):
-            return ["id": cardId, "column": toColumn.rawValue, "index": index]
+            return ["id": cardId, "newColumnName": toColumn.rawValue, "newOrderIndex": index]
         case .editCard( _, let title, let body):
             return ["title": title, "content":body]
         case .deleteCard, .loadLogs:

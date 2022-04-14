@@ -181,10 +181,6 @@ extension ColumnViewController: UITableViewDragDelegate {
         }
         return [UIDragItem(itemProvider: NSItemProvider(object: DragCard(card: card, fromColumn: self.model.columnType)))]
     }
-    
-//    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
-//        model.action.endDrag.send()
-//    }
 }
 
 extension ColumnViewController: UITableViewDropDelegate {
