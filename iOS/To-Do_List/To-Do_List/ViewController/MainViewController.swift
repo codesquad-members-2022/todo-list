@@ -49,6 +49,7 @@ class MainViewController: UIViewController {
         
         [todoViewController,progressingTableViewController,completedTableViewController].forEach {
             addChild($0)
+            $0.setTableView(list: [])
             self.statckView.addArrangedSubview($0.view)
         }
         
@@ -79,7 +80,6 @@ extension MainViewController {
             object: nil)
         
     }
-  
 }
 
 //MARK: Network
@@ -102,17 +102,17 @@ extension MainViewController {
     }
     
     @objc func postNewCardInfo(_ notification:Notification) {
-        let samplePostModel = CardInfo(writer: "Park", position: 123, title: "Queen", content: "Dom", cardType: "TODO", memberId: 1)
         
-        //TODO: info의 타입에 따라서 수정 혹은 추가를 Post함.
         guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
               let childVC = notification.object as? ChildViewController
         else { return }
         
-        networkManager?.request(endpoint: EndPointCase.addCard(card: samplePostModel).endpoint, completionHandler: { (result:Result<CardInfo,NetworkError>) in
+        let postModel = NewCard(id: nil, writer: "iOS", title: info.title, content: info.content, cardType:"TODO", memberId: 1)
+        
+        networkManager?.request(endpoint: EndPointCase.addCard(card: postModel).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
             switch result {
-            case .success(let cardinfo):
-                childVC.insertFromList(card: cardinfo)
+            case .success(let newTodo):
+                childVC.insertToList(todo: newTodo.response)
             case .failure(let error):
                 os_log(.error, "\(error.localizedDescription)")
             }
@@ -121,12 +121,14 @@ extension MainViewController {
     
     @objc private func deleteCard(notification:Notification) {
         guard let cardInfo = notification.userInfo?[MainViewController.UserInfoCardData] as? Todo,
-              let childVC = notification.object as? ChildViewController else {return}
+              let id = cardInfo.id,
+              let childVC = notification.object as? ChildViewController
+        else { return }
         
-        networkManager?.request(endpoint: EndPointCase.deleteCard(card: cardInfo).endpoint) { (result:Result<String,NetworkError>)  in
+        networkManager?.request(endpoint: EndPointCase.deleteCard(cardId: id).endpoint) { (result:Result<String,NetworkError>)  in
             switch result {
             case .success:
-                childVC.removeFromList(card: cardInfo)
+                childVC.removeFromList(todo: cardInfo)
             case .failure(let error):
                 os_log(.error, "\(error.localizedDescription)")
             }

@@ -35,8 +35,8 @@
 		8DDD3A4928039FE800203BB9 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DF27FD655200C13618 /* HTTPMethod.swift */; };
 		8DDD3A4A2803A34B00203BB9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815E427FD691E00C13618 /* Todo.swift */; };
 		8DEAB47E28067007004D682A /* EditViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAB47D28067007004D682A /* EditViewControllerDelegate.swift */; };
-		8DF2C21428081B76002FBE15 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2C21328081B76002FBE15 /* EndPoint.swift */; };
-		8DF2C21628081C47002FBE15 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2C21528081C47002FBE15 /* MainViewController.swift */; };
+		8DF2C21C28086883002FBE15 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2C21B28086883002FBE15 /* EndPoint.swift */; };
+		8DF2C21E280868B8002FBE15 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2C21D280868B8002FBE15 /* MainViewController.swift */; };
 		B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* BoardHeader.swift */; };
 		B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAF27FED3BE006DC969 /* BoardTableView.swift */; };
 		B74C6AFF2806A93F009A8BFA /* BoardTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74C6AFE2806A93F009A8BFA /* BoardTableDelegate.swift */; };
@@ -84,8 +84,8 @@
 		8DDD3A3E2803079500203BB9 /* MockJsonData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockJsonData.json; sourceTree = "<group>"; };
 		8DDD3A412803107900203BB9 /* TestURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestURLProtocol.swift; sourceTree = "<group>"; };
 		8DEAB47D28067007004D682A /* EditViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewControllerDelegate.swift; sourceTree = "<group>"; };
-		8DF2C21328081B76002FBE15 /* EndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EndPoint.swift; path = ../../../../../../../../Downloads/EndPoint.swift; sourceTree = "<group>"; };
-		8DF2C21528081C47002FBE15 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ../../../../../../../../Downloads/MainViewController.swift; sourceTree = "<group>"; };
+		8DF2C21B28086883002FBE15 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		8DF2C21D280868B8002FBE15 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B70BD64127FBD1E7001BE68F /* BoardHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeader.swift; sourceTree = "<group>"; };
 		B730BBAF27FED3BE006DC969 /* BoardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableView.swift; sourceTree = "<group>"; };
 		B74C6AFE2806A93F009A8BFA /* BoardTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableDelegate.swift; sourceTree = "<group>"; };
@@ -192,7 +192,7 @@
 		8DD815E127FD655C00C13618 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8DF2C21328081B76002FBE15 /* EndPoint.swift */,
+				8DF2C21B28086883002FBE15 /* EndPoint.swift */,
 				8DD815DB27FD642800C13618 /* NetworkManager.swift */,
 				8DD815DD27FD646B00C13618 /* NetworkError.swift */,
 				8DD815DF27FD655200C13618 /* HTTPMethod.swift */,
@@ -246,7 +246,7 @@
 		B771A8532805466900343BAE /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				8DF2C21528081C47002FBE15 /* MainViewController.swift */,
+				8DF2C21D280868B8002FBE15 /* MainViewController.swift */,
 				8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */,
 				B771A8542805469200343BAE /* EditCardViewController.swift */,
 			);
@@ -366,9 +366,8 @@
 				8D5D1AFC28055FE70035EA82 /* EditStyle.swift in Sources */,
 				B74C6B0128071AC3009A8BFA /* Action.swift in Sources */,
 				8DD815E027FD655200C13618 /* HTTPMethod.swift in Sources */,
-				8DF2C21428081B76002FBE15 /* EndPoint.swift in Sources */,
 				B771A84A280457EA00343BAE /* Extension.swift in Sources */,
-				8DF2C21628081C47002FBE15 /* MainViewController.swift in Sources */,
+				8DF2C21E280868B8002FBE15 /* MainViewController.swift in Sources */,
 				8D2AFD7127FB08AE00307CCB /* AppDelegate.swift in Sources */,
 				8D5D1B0128056CCF0035EA82 /* BoardHeaderDelegate.swift in Sources */,
 				B771A846280453EC00343BAE /* LogCell.swift in Sources */,
@@ -383,6 +382,7 @@
 				8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */,
 				8D2AFD7327FB08AE00307CCB /* SceneDelegate.swift in Sources */,
 				B771A8552805469200343BAE /* EditCardViewController.swift in Sources */,
+				8DF2C21C28086883002FBE15 /* EndPoint.swift in Sources */,
 				8D3B5A3D2804494400F6ECF7 /* EditCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
