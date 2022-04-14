@@ -3,11 +3,8 @@ package com.example.todolist.tasks
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.databinding.TasksViewBinding
 import com.example.todolist.tasks.data.Task
@@ -15,7 +12,7 @@ import com.example.todolist.tasks.data.Task
 class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
 
     private lateinit var binding: TasksViewBinding
-    private val todosAdapter = TodoAdapter()
+    private val taskAdapter = TaskAdapter()
     init {
         initViews()
         initAttributes(attrs)
@@ -44,14 +41,14 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
         binding = TasksViewBinding.inflate(layoutInflater, this, false)
         addView(binding.root)
 
-        binding.recyclerviewTodo.adapter = todosAdapter
+        binding.recyclerviewTodo.adapter = taskAdapter
         binding.recyclerviewTodo.setHasFixedSize(true)
-        val touchHelper = ItemTouchHelperCallback(todosAdapter)
+        val touchHelper = ItemTouchHelperCallback(taskAdapter)
         val helper = ItemTouchHelper(touchHelper)
         helper.attachToRecyclerView(binding.recyclerviewTodo)
     }
 
     fun addTasks(tasks: List<Task>) {
-        todosAdapter.submitList(tasks)
+        taskAdapter.submitList(tasks)
     }
 }

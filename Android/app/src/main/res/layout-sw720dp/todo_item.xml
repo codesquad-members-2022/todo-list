@@ -12,48 +12,38 @@
     </data>
 
     <FrameLayout
-        android:id="@+id/item_frame"
-        android:layout_width="258dp"
+        android:id="@+id/todo_frame"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="108dp"
-                    android:background="@color/white"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tvRemove"
+                android:layout_width="112dp"
+                android:layout_height="0dp"
+                android:background="@color/black"
+                android:gravity="center"
+                android:text="삭제"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvRemove"
-                    android:layout_width="112dp"
-                    android:layout_height="108dp"
-                    android:layout_gravity="end"
-                    android:background="@color/black"
-                    android:gravity="center"
-                    android:text="삭제"
-                    android:textColor="@color/white"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/todo_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@color/white">
+                app:layout_constraintTop_toTopOf="parent">
+
 
                 <TextView
                     android:id="@+id/todo_title"
@@ -63,7 +53,10 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
+                    android:gravity=""
                     android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:minHeight="23dp"
                     android:text="TextView"
                     android:textAppearance="@style/tasks_title"
                     app:layout_constraintBottom_toTopOf="@+id/todo_body"
@@ -80,7 +73,10 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
+                    android:gravity=""
                     android:includeFontPadding="false"
+                    android:maxLines="3"
+                    android:minHeight="20dp"
                     android:text="TextView"
                     android:textAppearance="@style/tasks_body"
                     app:layout_constraintBottom_toTopOf="@+id/todo_caption"
@@ -97,7 +93,10 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
+                    android:gravity=""
                     android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:minHeight="17dp"
                     android:text="TextView"
                     android:textAppearance="@style/tasks_caption"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -107,7 +106,7 @@
                     bind:setUser="@{task.user}" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

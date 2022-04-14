@@ -1,14 +1,12 @@
 package com.example.todolist.tasks
 
 import android.graphics.Canvas
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
-import kotlin.math.min
 
-class ItemTouchHelperCallback(val listener: ItemTouchHelperListener) : ItemTouchHelper.Callback() {
+class ItemTouchHelperCallback(private val TaskAdapter : TaskAdapter) : ItemTouchHelper.Callback() {
 
     private var clamp = 0f
     private var currentDx = 0f
@@ -17,27 +15,24 @@ class ItemTouchHelperCallback(val listener: ItemTouchHelperListener) : ItemTouch
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        Log.d("TAGcode", "${ItemTouchHelper.LEFT}")
-        return makeMovementFlags(0, ItemTouchHelper.LEFT)
+        return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT)
     }
 
+    // 왜 안옮겨지지? ..>> 길게클릭해야 이벤트발생
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        return listener.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
+        val fromPos = viewHolder.adapterPosition
+        val toPos = target.adapterPosition
+        TaskAdapter.swapData(fromPos, toPos)
+        return true
     }
 
+    // Swiped 자체가 실행하면 데이터 삭제기능을 겸함, 아래 onChildDraw 에서 swipe 제한길이를 정해둬서 실행되지않음
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        Log.d("TAGonSwiped1", "$direction")
-        Log.d("TAGonSwiped2", "${viewHolder.adapterPosition}") //<< 몇번째 목록을 조작했는지
-        // direction = 방향 >> 왼쪽으로 스와이프했을때 작동
-        listener.onItemSwipe(viewHolder.adapterPosition)
-
     }
-
-    // 터치,스와이프등 뷰에 변화가 생길겨여우
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
@@ -58,11 +53,12 @@ class ItemTouchHelperCallback(val listener: ItemTouchHelperListener) : ItemTouch
 
             // 고정시킬 시 애니메이션 추가
             if (newX == -clamp) {
-                getView(viewHolder).animate().translationX(-clamp).setDuration(100L).start()
+                view.animate().translationX(-clamp).setDuration(50).start()
                 return
             }
 
             currentDx = newX
+          
             getDefaultUIUtil().onDraw(
                 c,
                 recyclerView,
@@ -75,24 +71,28 @@ class ItemTouchHelperCallback(val listener: ItemTouchHelperListener) : ItemTouch
         }
     }
 
-    fun setClamp(clamp: Float) { this.clamp = clamp }
-    private fun getView(viewHolder: RecyclerView.ViewHolder) : View = viewHolder.itemView.findViewById(R.id.todo_item)
-    private fun getTag(viewHolder: RecyclerView.ViewHolder) : Boolean =  viewHolder.itemView.tag as? Boolean ?: false
+
+    private fun getView(viewHolder: RecyclerView.ViewHolder): View =
+        viewHolder.itemView.findViewById(R.id.todo_item)
+
+    private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean =
+        viewHolder.itemView.tag as? Boolean ?: false
 
     private fun clampViewPositionHorizontal(
         dX: Float,
         isClamped: Boolean,
         isCurrentlyActive: Boolean
-    ) : Float {
-        // RIGHT 방향으로 swipe 막기
-        val max = 0f
+
+    ): Float {
 
         // 고정할 수 있으면
         val newX = if (isClamped) {
             // 현재 swipe 중이면 swipe되는 영역 제한
             if (isCurrentlyActive)
             // 오른쪽 swipe일 때
-                if (dX < 0) dX/3 - clamp
+                if (dX < 0) {
+                    dX / 3 - clamp
+                }
                 // 왼쪽 swipe일 때
                 else dX - clamp
             // swipe 중이 아니면 고정시키기
@@ -101,7 +101,7 @@ class ItemTouchHelperCallback(val listener: ItemTouchHelperListener) : ItemTouch
         // 고정할 수 없으면 newX는 스와이프한 만큼
         else dX / 2
 
-        // newX가 0보다 작은지 확인
-        return min(newX, max)
+
+        return newX
     }
 }
