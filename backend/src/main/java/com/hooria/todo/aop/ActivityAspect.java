@@ -25,7 +25,7 @@ public class ActivityAspect {
 
     private final ActivityLogService activityLogService;
 
-//    @Around("execution(* com.hooria.todo.service.CardService..*(..)) && !@annotation(com.hooria.todo.aop.ExcludeLogging)")
+    //    @Around("execution(* com.hooria.todo.service.CardService..*(..)) && !@annotation(com.hooria.todo.aop.ExcludeLogging)")
     public Object doLogging(ProceedingJoinPoint joinPoint) throws Throwable {
 
         HttpServletRequest request =
