@@ -10,28 +10,27 @@
   position: relative;
 }
 
-.task__card:hover {
-  background-color: rgba(2, 120, 255, 0.3);
-}
-
 .card__contents {
   &__header {
     font-weight: 700;
     font-size: 16px;
     line-height: 23px;
   }
+
   &__main {
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
     margin: 8px 0;
   }
+
   &__footer {
     font-weight: 400;
     font-size: 12px;
     line-height: 17px;
     color: $gray2;
   }
+
   &__input {
     &--header {
       font-weight: 700;
@@ -57,33 +56,30 @@
   font-size: 14px;
   font-weight: 700;
 
-  &__cancel {
+  @mixin button-style($color, $background, $cursor: pointer) {
+    cursor: $cursor;
+    @if $cursor == no {
+      cursor: '';
+    }
     line-height: 20px;
     width: 134px;
     height: 40px;
-    color: $gray1;
-    background: $gray3;
+    color: $color;
+    background: $background;
     border-radius: 6px;
     margin-right: 8px;
   }
 
+  &__cancel {
+    @include button-style($gray1, $gray3);
+  }
+
   &__save {
-    line-height: 20px;
-    width: 134px;
-    height: 40px;
-    color: $white;
-    background: $blue;
-    border-radius: 6px;
+    @include button-style($white, $skyblue, no);
   }
 
   &__edit {
-    cursor: pointer;
-    line-height: 20px;
-    width: 134px;
-    height: 40px;
-    color: $white;
-    background: $blue;
-    border-radius: 6px;
+    @include button-style($white, $blue);
   }
 }
 
