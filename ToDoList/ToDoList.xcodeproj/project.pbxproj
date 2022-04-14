@@ -35,6 +35,13 @@
 		02DF5FD527FEAD530064FEC8 /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DF5FD427FEAD530064FEC8 /* CardListViewController.swift */; };
 		F5164AB027FD7A0F00C32212 /* CardListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5164AAE27FD7A0F00C32212 /* CardListTableViewCell.swift */; };
 		F5164AB127FD7A0F00C32212 /* CardListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5164AAF27FD7A0F00C32212 /* CardListTableViewCell.xib */; };
+		F5B0DAF82803BB3400B8EF94 /* LogListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B0DAF62803BB3400B8EF94 /* LogListViewCell.swift */; };
+		F5B0DAF92803BB3400B8EF94 /* LogListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5B0DAF72803BB3400B8EF94 /* LogListViewCell.xib */; };
+		F5DE538328033F0B007E05CE /* LogListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5DE538228033F0B007E05CE /* LogListView.xib */; };
+		F5DE538928034F50007E05CE /* LogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DE538828034F50007E05CE /* LogListViewController.swift */; };
+		F5DE538B280351D4007E05CE /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DE538A280351D4007E05CE /* LogManager.swift */; };
+		F5DE538D28035225007E05CE /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DE538C28035225007E05CE /* Log.swift */; };
+		F5DE538F28035615007E05CE /* LogFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DE538E28035615007E05CE /* LogFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +94,13 @@
 		02DF5FD427FEAD530064FEC8 /* CardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewController.swift; sourceTree = "<group>"; };
 		F5164AAE27FD7A0F00C32212 /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
 		F5164AAF27FD7A0F00C32212 /* CardListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardListTableViewCell.xib; sourceTree = "<group>"; };
+		F5B0DAF62803BB3400B8EF94 /* LogListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListViewCell.swift; sourceTree = "<group>"; };
+		F5B0DAF72803BB3400B8EF94 /* LogListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogListViewCell.xib; sourceTree = "<group>"; };
+		F5DE538228033F0B007E05CE /* LogListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogListView.xib; sourceTree = "<group>"; };
+		F5DE538828034F50007E05CE /* LogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListViewController.swift; sourceTree = "<group>"; };
+		F5DE538A280351D4007E05CE /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
+		F5DE538C28035225007E05CE /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		F5DE538E28035615007E05CE /* LogFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +147,9 @@
 				F5164AAE27FD7A0F00C32212 /* CardListTableViewCell.swift */,
 				F5164AAF27FD7A0F00C32212 /* CardListTableViewCell.xib */,
 				02AC445927FF318A009CF050 /* CardListView.xib */,
+				F5DE538228033F0B007E05CE /* LogListView.xib */,
+				F5B0DAF62803BB3400B8EF94 /* LogListViewCell.swift */,
+				F5B0DAF72803BB3400B8EF94 /* LogListViewCell.xib */,
 				0234A4A128001C4E0017DAD3 /* EditCardView.swift */,
 				0234A49F2800184E0017DAD3 /* EditCardView.xib */,
 			);
@@ -147,6 +164,9 @@
 				02AC445F27FFDCF1009CF050 /* Card.swift */,
 				02AC446127FFDD53009CF050 /* Caption.swift */,
 				02AC446727FFE1F1009CF050 /* CardFactory.swift */,
+				F5DE538A280351D4007E05CE /* LogManager.swift */,
+				F5DE538C28035225007E05CE /* Log.swift */,
+				F5DE538E28035615007E05CE /* LogFactory.swift */,
 				0254E26228050EAE00162513 /* NetworkManager.swift */,
 				0254E2642805552400162513 /* CardList.swift */,
 				0254E268280657C800162513 /* NetworkTarget.swift */,
@@ -159,6 +179,7 @@
 			children = (
 				02DF5F9A27FD6EFF0064FEC8 /* MainViewController.swift */,
 				02DF5FD427FEAD530064FEC8 /* CardListViewController.swift */,
+				F5DE538828034F50007E05CE /* LogListViewController.swift */,
 				0234A4AD280027910017DAD3 /* EditCardViewController.swift */,
 			);
 			path = Controller;
@@ -321,9 +342,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				02DF5FA327FD6F020064FEC8 /* LaunchScreen.storyboard in Resources */,
+				F5DE538328033F0B007E05CE /* LogListView.xib in Resources */,
 				02AC445B27FF318A009CF050 /* CardListView.xib in Resources */,
 				0234A4A02800184E0017DAD3 /* EditCardView.xib in Resources */,
 				02DF5FA027FD6F020064FEC8 /* Assets.xcassets in Resources */,
+				F5B0DAF92803BB3400B8EF94 /* LogListViewCell.xib in Resources */,
 				02DF5F9E27FD6EFF0064FEC8 /* Main.storyboard in Resources */,
 				F5164AB127FD7A0F00C32212 /* CardListTableViewCell.xib in Resources */,
 			);
@@ -353,6 +376,7 @@
 				021F10842803D88B006D8EA1 /* ModelFactoryBase.swift in Sources */,
 				021F10862803D8BC006D8EA1 /* ModelFactoriable.swift in Sources */,
 				02DF5FD527FEAD530064FEC8 /* CardListViewController.swift in Sources */,
+				F5DE538B280351D4007E05CE /* LogManager.swift in Sources */,
 				0254E2652805552400162513 /* CardList.swift in Sources */,
 				02AC446027FFDCF1009CF050 /* Card.swift in Sources */,
 				02DF5F9B27FD6EFF0064FEC8 /* MainViewController.swift in Sources */,
@@ -363,6 +387,10 @@
 				0254E26328050EAE00162513 /* NetworkManager.swift in Sources */,
 				0234A4A228001C4E0017DAD3 /* EditCardView.swift in Sources */,
 				02AC446227FFDD53009CF050 /* Caption.swift in Sources */,
+				F5DE538D28035225007E05CE /* Log.swift in Sources */,
+				F5B0DAF82803BB3400B8EF94 /* LogListViewCell.swift in Sources */,
+				F5DE538F28035615007E05CE /* LogFactory.swift in Sources */,
+				F5DE538928034F50007E05CE /* LogListViewController.swift in Sources */,
 				0254E269280657C800162513 /* NetworkTarget.swift in Sources */,
 				02DF5F9927FD6EFF0064FEC8 /* SceneDelegate.swift in Sources */,
 				0234A4AE280027910017DAD3 /* EditCardViewController.swift in Sources */,
@@ -545,9 +573,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9HYJMYU99M;
+				DEVELOPMENT_TEAM = H42K746U72;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -560,8 +589,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Sol.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sun.ToDoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -573,9 +603,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9HYJMYU99M;
+				DEVELOPMENT_TEAM = H42K746U72;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -588,8 +619,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Sol.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sun.ToDoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
