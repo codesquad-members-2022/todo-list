@@ -30,4 +30,10 @@ public class CardController {
         CardCommandResponse cardCommandResponse = cardService.modify(cardModifyRequest);
         return new CommandResultResponse(200, cardCommandResponse);
     }
+
+    @DeleteMapping("/{cardId}")
+    public CommandResultResponse delete(@PathVariable Long cardId) {
+        CardCommandResponse cardCommandResponse = cardService.delete(cardId);
+        return new CommandResultResponse(200, cardCommandResponse);
+    }
 }
