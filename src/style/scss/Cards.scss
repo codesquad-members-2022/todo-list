@@ -6,6 +6,11 @@ $lightblue: #86c6ff;
   font-size: 16px;
   line-height: 23px;
 }
+@mixin contentText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
 
 .card {
   position: relative;
@@ -39,12 +44,16 @@ $lightblue: #86c6ff;
   }
   &-title {
     @include titleText();
+    &-input {
+      @include titleText();
+    }
   }
   &-content {
     margin: 8px 0;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+    @include contentText();
+    &-input {
+      @include contentText();
+    }
   }
   &-author {
     font-weight: 400;
