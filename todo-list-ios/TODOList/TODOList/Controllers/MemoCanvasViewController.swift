@@ -1,6 +1,6 @@
 import UIKit
 
-class MemoCanvasViewController: UIViewController {
+final class MemoCanvasViewController: UIViewController {
     
     private var memoCanvasView: MemoCanvasView = {
         let view = MemoCanvasView()
@@ -9,7 +9,7 @@ class MemoCanvasViewController: UIViewController {
     }()
     
     private (set) var memoTableViewControllers: [MemoContainerType: MemoContainerViewController] = [:]
-    private (set) var memoTableViewModels: [MemoContainerType: [Memo]] = [.todo:[], .progress:[], .done:[]]
+    private (set) var memoManager: MemoManager = MemoManager()
     
     override func didMove(toParent parent: UIViewController?) {
         view = memoCanvasView
@@ -23,10 +23,6 @@ class MemoCanvasViewController: UIViewController {
         for containerType in MemoContainerType.allCases {
             addTableViewController(containerType: containerType)
         }
-    }
-    
-    private func addTableViewModel(memo: Memo, containerType: MemoContainerType, index: Int) {
-        memoTableViewModels[containerType]?.append(memo)
     }
     
     private func addTableViewController(containerType: MemoContainerType) {
@@ -63,11 +59,11 @@ class MemoCanvasViewController: UIViewController {
     }
     
     func removeSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath) {
-        memoTableViewModels[containerType]? .remove(at: indexPath.section)
+        memoManager.removeSelectedMemoModel(containerType: containerType, index: indexPath.section)
     }
     
     func insertSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath, memoModel: Memo) {
-        memoTableViewModels[containerType]?.insert(memoModel, at: indexPath.section)
+        memoManager.insertSelectedMemoModel(containerType: containerType, index: indexPath.section, memo: memoModel)
     }
     
     private func subscribeObserver() {
