@@ -21,10 +21,10 @@ final class TableViewController: UIViewController{
 
     private var addCardViewController = AddCardViewController()
 
-    let cardBoard: Board = Board()
+    let cardBoard: Board = Board.shared
 
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
-    
+    private var selectedSection: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +69,7 @@ private extension TableViewController{
     func configureSectionHeader(index: Int) -> TableHeader{
         let header = TableHeader()
         header.titleLabel.text = todo[index]
+        header.tableHeaderID = index
         
         if let indexPath = BoardSubscriptIndex(rawValue: index){
             header.numberLabel.text = String(cardBoard[indexPath].count)
@@ -157,6 +158,14 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
         return UITableView.automaticDimension
     }
     
+    func createNewCard(title: String, body: String){
+        guard let sectionNumber = self.selectedSection else { return }
+        let section = BoardSubscriptIndex(rawValue: sectionNumber) ?? BoardSubscriptIndex.none
+        
+        // 만든 카드를 테이블뷰 셀 추가 & reload
+        todoTable[sectionNumber].reloadRows(at: [IndexPath(row: cardBoard[section].count - 1, section: 0)], with: .automatic)
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         guard let customTable = tableView as? TodoTableView, let index = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return }
         let cards = cardBoard[index]
@@ -165,13 +174,16 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
         
         addCardViewController.setaddCardView(title: title, body: body)
         self.setModalPresent()
+
     }
 }
 
 extension TableViewController: TableHeaderDelegate{
-    func cardWillCreated(at section: String) {
+    func cardWillCreated(at section: Int){
         addCardViewController.modalPresentationStyle = .overCurrentContext
         addCardViewController.modalTransitionStyle = .crossDissolve
+        addCardViewController.sectionNumber = section
         self.present(addCardViewController, animated: true, completion: nil)
+        selectedSection = section
     }
 }
