@@ -2,9 +2,9 @@ package com.example.backend.web.controller;
 
 import com.example.backend.domain.ActionType;
 import com.example.backend.domain.Card;
+import com.example.backend.service.CardService;
 import com.example.backend.service.LogService;
 import com.example.backend.web.dto.*;
-import com.example.backend.service.CardService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +30,13 @@ public class CardsController {
     public CardListResponseDto save(@RequestBody CardSaveRequestDto dto) {
         String title = dto.getTitle();
         String columnName = dto.getColumnName();
+        LogSaveRequestDto logSaveRequestDto = new LogSaveRequestDto.Builder()
+                .title(title)
+                .curColumnName(columnName)
+                .actionType(ActionType.ADD)
+                .build();
+        logService.save(logSaveRequestDto);
 
-        logService.save(new LogSaveRequestDto(title, null, columnName, ActionType.ADD));
         return cardService.save(dto);
     }
 
@@ -39,7 +44,12 @@ public class CardsController {
     @PutMapping("/cards/{id}")
     public CardListResponseDto update(@PathVariable Long id, @RequestBody CardUpdateRequestDto dto) {
         String title = dto.getTitle();
-        logService.save(new LogSaveRequestDto(title, null, null, ActionType.UPDATE));
+        LogSaveRequestDto logSaveRequestDto = new LogSaveRequestDto.Builder()
+                .title(title)
+                .actionType(ActionType.UPDATE)
+                .build();
+        logService.save(logSaveRequestDto);
+
         return cardService.update(id, dto);
     }
 
@@ -47,7 +57,13 @@ public class CardsController {
     @DeleteMapping("/cards/{id}")
     public Long delete(@PathVariable Long id) {
         Card card = cardService.findById(id);
-        logService.save(new LogSaveRequestDto(card.getTitle(), null, card.getColumnName(), ActionType.REMOVE));
+        LogSaveRequestDto logSaveRequestDto = new LogSaveRequestDto.Builder()
+                .title(card.getTitle())
+                .curColumnName(card.getColumnName())
+                .actionType(ActionType.REMOVE)
+                .build();
+        logService.save(logSaveRequestDto);
+
         return cardService.delete(id);
     }
 

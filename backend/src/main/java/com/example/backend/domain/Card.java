@@ -6,14 +6,16 @@ public class Card {
     private String content;
     private String authorSystem;
     private String columnName;
+    private boolean deleted;
     private Long orderIndex;
 
-    public Card(Long id, String title, String content, String authorSystem, String columnName, Long orderIndex) {
+    public Card(Long id, String title, String content, String authorSystem, String columnName, boolean deleted, Long orderIndex) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.authorSystem = authorSystem;
         this.columnName = columnName;
+        this.deleted = deleted;
         this.orderIndex = orderIndex;
     }
 
@@ -37,6 +39,14 @@ public class Card {
         return columnName;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public Long getOrderIndex() {
+        return orderIndex;
+    }
+
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
@@ -48,6 +58,7 @@ public class Card {
         private String content;
         private String authorSystem;
         private String columnName;
+        private boolean deleted;
         private Long orderIndex;
 
         public Builder id(Long id) {
@@ -75,13 +86,18 @@ public class Card {
             return this;
         }
 
+        public Builder deleted(boolean deleted) {
+            this.deleted = deleted;
+            return this;
+        }
+
         public Builder orderIndex(Long orderIndex) {
             this.orderIndex = orderIndex;
             return this;
         }
 
         public Card build() {
-            return new Card(id, title, content, authorSystem, columnName, orderIndex);
+            return new Card(id, title, content, authorSystem, columnName, deleted, orderIndex);
         }
     }
 }

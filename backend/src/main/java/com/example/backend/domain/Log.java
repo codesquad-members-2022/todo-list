@@ -21,38 +21,7 @@ public class Log {
 	}
 
 	public String createText() {
-
-		StringBuilder sb = new StringBuilder();
-		switch (actionType.getName()) {
-			case ("add"):
-				sb.append(curColumnName)
-					.append("에 ")
-					.append(title)
-					.append("을(를) 등록하였습니다");
-				return sb.toString();
-
-			case ("remove"):
-				sb.append(curColumnName)
-					.append("의 ")
-					.append(title)
-					.append("이(가) 삭제되었습니다.");
-				return sb.toString();
-
-			case ("update"):
-				sb.append(title)
-					.append("이(가) 수정되었습니다.");
-				return sb.toString();
-
-			case ("move"):
-				sb.append(title)
-					.append("을(를) ")
-					.append(prevColumnName)
-					.append("에서 ")
-					.append(curColumnName)
-					.append("(으)로 이동하였습니다.");
-				return sb.toString();
-		}
-		return null;
+		return actionType.getText(title, prevColumnName, curColumnName);
 	}
 
 	public Long getId() {
