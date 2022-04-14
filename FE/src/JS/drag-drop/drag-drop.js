@@ -72,12 +72,12 @@ export default class Drag {
   dragoverEventHandler(e, container) {
     e.preventDefault();
     const selectedCard = $('.dragging');
-    const targetElement = this.getDragtargetElement(container, e.clientY);
+    const targetElement = this.getDragTargetElement(container, e.clientY);
 
     this.changeCurCard(targetElement, container, selectedCard);
   }
 
-  getDragtargetElement(container, y) {
+  getDragTargetElement(container, y) {
     const unselectedCardEl = [
       ...container.querySelectorAll('.column-item--card:not(.dragging)'),
     ];
@@ -110,5 +110,8 @@ export default class Drag {
     } else {
       container.insertBefore(selectedCard, afterElement);
     }
+
+    //서버에게 바뀐 카드 알려주기
+    this.changeDraggingCard();
   }
 }
