@@ -1,9 +1,9 @@
 package com.codesquad.todolist.card;
 
+import com.codesquad.todolist.util.KeyHolderFactory;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -11,10 +11,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
-import com.codesquad.todolist.exception.ErrorCode;
-import com.codesquad.todolist.exception.NotFoundException;
-import com.codesquad.todolist.util.KeyHolderFactory;
 
 @Repository
 public class CardRepository {
@@ -114,18 +110,6 @@ public class CardRepository {
             .addValue("columnId", columnId);
 
         return jdbcTemplate.queryForObject(sql, source, Integer.class);
-    }
-
-    public void validateColumnId(Integer columnId) {
-        String sql = "select count(*) from `column` where column_id = :columnId";
-
-        MapSqlParameterSource source = new MapSqlParameterSource()
-            .addValue("columnId", columnId);
-
-        int columnCount = jdbcTemplate.queryForObject(sql, source, Integer.class);
-        if (columnCount == 0) {
-            throw new NotFoundException(ErrorCode.COLUMN_NOT_FOUND);
-        }
     }
 
     private RowMapper<Card> getCardRowMapper() {
