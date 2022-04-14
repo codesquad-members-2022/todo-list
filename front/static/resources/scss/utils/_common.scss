@@ -52,6 +52,7 @@
   }
 
   &--disabled {
+    @extend .button;
     background-color: $button-bg-color-light-blue;
   }
 }

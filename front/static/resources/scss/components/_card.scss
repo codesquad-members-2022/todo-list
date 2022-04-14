@@ -48,10 +48,6 @@
   &--write {
     @extend .card--success;
     border: 1px solid $button-bg-color-blue;
-
-    .card__button--submit {
-      @extend .button--disabled;
-    }
   }
 
   &--delete {
