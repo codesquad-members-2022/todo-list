@@ -28,7 +28,7 @@ class MemoContainerViewController: UIViewController {
 
 
 extension MemoContainerViewController: PopupViewDelegate {
-    func addButtonDidTap(memo: Memo) {
+    func popupViewAddButtonDidTap(memo: Memo) {
         // TODO: NetworkLayer로 토스
     }
 }

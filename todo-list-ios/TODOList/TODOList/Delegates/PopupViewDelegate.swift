@@ -1,5 +1,5 @@
 import Foundation
 
 protocol PopupViewDelegate: AnyObject {
-    func addButtonDidTap(memo: Memo)
+    func popupViewAddButtonDidTap(memo: Memo)
 }

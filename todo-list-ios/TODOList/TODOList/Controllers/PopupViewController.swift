@@ -9,6 +9,7 @@ class PopupViewController: UIViewController {
     lazy var popupCardView: PopupCardView = {
         let view = PopupCardView()
         view.alertLabel.text = alertTitle
+        view.memoContainerType = containerType
         view.layer.cornerRadius = 10
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -17,10 +18,9 @@ class PopupViewController: UIViewController {
     
     convenience init(containerType: MemoContainerType) {
         self.init()
-        print("1235")
+        
         self.containerType = containerType
         self.alertTitle = "\(containerType) 추가하기"
-        
     }
     
     override func viewDidLoad() {
@@ -53,14 +53,10 @@ extension PopupViewController: PopupCardViewDelegate {
         dismiss(animated: true)
     }
     
-    func popupCardOkButtonDidTap() {
-        // TODO: Server에 데이터 POST
-    }
-    
-    func popupCardOkButtonDidTapTemp(title: String, content: String) {
-        let memo = Memo(title: title, content: content, name: "JK")
-        
-        self.delegate?.addButtonDidTap(memo: memo)
+    // TODO: Server에 데이터 POST
+    func popupCardOkButtonDidTap(title: String, content: String, status: MemoContainerType) {
+        let memo = Memo(title: title, content: content, name: "JK", status: status)
+        self.delegate?.popupViewAddButtonDidTap(memo: memo)
     }
 }
 

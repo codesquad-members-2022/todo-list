@@ -5,15 +5,18 @@ final class Memo: NSObject, Codable {
     let title: String
     let content: String
     let name: String
+    let status: MemoContainerType
     
-    init(title: String, content: String, name: String) {
+    init(title: String, content: String, name: String, status: MemoContainerType) {
         self.title = title
         self.content = content
         self.name = name
+        self.status = status
         super.init()
     }
-    
 }
+
+
 
 extension Memo: NSItemProviderWriting, NSItemProviderReading {
     

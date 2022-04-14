@@ -28,7 +28,7 @@ class MemoCanvasViewController: UIViewController {
     }
     
     private func addTableViewModel(containerType: MemoContainerType, index: Int) {
-        let memo = Memo(title: containerType.rawValue, content: "\(index) : 해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK \(index)")
+        let memo = Memo(title: containerType.rawValue, content: "\(index) : 해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK \(index)", status: containerType)
         memoTableViewModels[containerType]?.append(memo)
     }
     
