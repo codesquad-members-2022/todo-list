@@ -10,9 +10,7 @@ import Foundation
 class CardBoard {
     private(set) var selectedCard: Card?
     private(set) var selectedIndex: Int?
-    
     private(set) var cards: [CardUsable] = []
-    
     private let cardFactory = CardFactory()
     
     func addCard(title: String, content: String) {

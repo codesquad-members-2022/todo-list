@@ -9,38 +9,49 @@ import UIKit
 
 class CardTableViewController: UIViewController {
 
+    static let identifier = "CardTableViewController"
+    
     @IBOutlet weak var cardLabel: UILabel!
     @IBOutlet weak var cardCountLabel: UILabel!
     @IBOutlet weak var addCardButton: UIButton!
     @IBOutlet weak var cardTableView: UITableView!
+    
     private let tableViewDelegate = CardTableDelegate()
+    private let tableViewDataSource = CardTableDataSource()
     private var cards = [TableCardUsable]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cardTableView.register(CardTableViewCell.self, forCellReuseIdentifier: "CardTableViewCell")
+        cardTableView.register(CardTableViewCell.self, forCellReuseIdentifier: CardTableViewCell.identifier)
         cardTableView.delegate = tableViewDelegate
-        cardTableView.dataSource = tableViewDelegate
+        cardTableView.dataSource = tableViewDataSource
         
-        tableViewDelegate.setCards(cards: cards)
+        tableViewDataSource.setCards(cards: cards)
         
         setUIProperties()
         setUIPropertiesConstraint()
     }
-    
     func setCardTitleLabel(title: String){
         cardLabel.text = title
     }
     
     func appendCard(_ card: TableCardUsable) {
         self.cards.append(card)
-        self.tableViewDelegate.appendCards(card: card)
+        self.tableViewDataSource.appendCards(card: card)
     }
     
     func setCards(_ cards: [TableCardUsable]) {
         self.cards = cards
-        self.tableViewDelegate.setCards(cards: cards)
+        self.tableViewDataSource.setCards(cards: cards)
+    }
+    
+    @IBAction func addCardButtonTouched(_ sender: UIButton) {
+        let newCardVC = NewCardViewController()
+        newCardVC.modalTransitionStyle = .coverVertical
+        newCardVC.modalPresentationStyle = .automatic
+        // setViewConstraintFor(viewController: newCardVC)
+        self.present(newCardVC, animated: true)
     }
     
     private func setCardCountLabel() {
@@ -76,4 +87,16 @@ class CardTableViewController: UIViewController {
         self.addCardButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -10).isActive = true
         self.addCardButton.bottomAnchor.constraint(equalTo: self.cardTableView.topAnchor, constant: -10).isActive = true
     }
+    
+//    private func setViewConstraintFor(viewController: NewCardViewController) {
+//        guard let newCardView = viewController.view else {
+//            return
+//        }
+//
+//        newCardView.translatesAutoresizingMaskIntoConstraints = false
+//        newCardView.widthAnchor.constraint(equalToConstant: 500).isActive = true
+//        newCardView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+//        newCardView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        newCardView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+//    }
 }

@@ -10,9 +10,10 @@ import Foundation
 struct CardFactory {
     
     private let writers = ["ebony", "bibi", "JK", "sol", "mase", "rosa", "jee"]
+    private let writerEbony = "ebony"
     
     func createCard(title: String, contents: String) -> CardUsable {
-        return Card(status: CardStatus.todo, title: title, contents: contents, writer: "ebony")
+        return Card(status: CardStatus.todo, title: title, contents: contents, writer: writerEbony)
     }
     
     func createRandomCard() -> CardUsable {

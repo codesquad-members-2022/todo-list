@@ -8,77 +8,78 @@
 import UIKit
 
 class CardBoardViewController: UIViewController {
-
+    
+    static let cardTableStoryBoardIdentifier = "CardTableStoryboard"
+    
     let factory = CardFactory()
     let cardBoard = CardBoard()
     
     private var todoViewController: CardTableViewController?
     private var doingViewController: CardTableViewController?
     private var doneViewController: CardTableViewController?
+    private var historyViewController: HistoryViewController?
     
     @IBOutlet weak var boardStackView: UIStackView!
-    @IBOutlet weak var todoContainerView: UIView!
-    @IBOutlet weak var doneContainerView: UIView!
-    @IBOutlet weak var doingContainerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initChildViewControllers()
         setUIProperties()
-        setUIPropertiesAutoLayout()
     }
     
     private func initChildViewControllers() {
-        let todoStoryBoard = UIStoryboard(name: "TodoStoryboard", bundle: Bundle(for: CardTableViewController.self))
-        self.todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController
-        self.doingViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController
-        self.doneViewController = todoStoryBoard.instantiateViewController(withIdentifier: "TodoViewController") as? CardTableViewController
+        let todoStoryBoard = UIStoryboard(name: CardBoardViewController.cardTableStoryBoardIdentifier, bundle: Bundle(for: CardTableViewController.self))
+        self.todoViewController = todoStoryBoard.instantiateViewController(withIdentifier: CardTableViewController.identifier) as? CardTableViewController
+        self.doingViewController = todoStoryBoard.instantiateViewController(withIdentifier: CardTableViewController.identifier) as? CardTableViewController
+        self.doneViewController = todoStoryBoard.instantiateViewController(withIdentifier: CardTableViewController.identifier) as? CardTableViewController
+        self.historyViewController = HistoryViewController()
         
         guard let todoViewController = self.todoViewController,
               let doingViewController = self.doingViewController,
-              let doneViewController = self.doneViewController else {
-            return
-        }
+              let doneViewController = self.doneViewController,
+              let historyViewController = self.historyViewController else {
+                  return
+              }
+        
+        boardStackView.addArrangedSubview(todoViewController.view)
+        boardStackView.addArrangedSubview(doingViewController.view)
+        boardStackView.addArrangedSubview(doneViewController.view)
+        view.addSubview(historyViewController.view)
         
         addChild(todoViewController)
         addChild(doingViewController)
         addChild(doneViewController)
+        addChild(historyViewController)
         
-        todoContainerView.addSubview(todoViewController.view)
-        doingContainerView.addSubview(doingViewController.view)
-        doneContainerView.addSubview(doneViewController.view)
+        todoViewController.didMove(toParent: self)
+        doingViewController.didMove(toParent: self)
+        doneViewController.didMove(toParent: self)
+        historyViewController.didMove(toParent: self)
     }
     
     private func setUIProperties() {
         view.backgroundColor = .systemGray5
         boardStackView.backgroundColor = .systemGray5
-        todoViewController?.setCardTitleLabel(title: "해야 할 일")
-        doingViewController?.setCardTitleLabel(title: "하고 있는 일")
-        doneViewController?.setCardTitleLabel(title: "완료한 일")
+        todoViewController?.setCardTitleLabel(title: CardStatus.todo.name)
+        doingViewController?.setCardTitleLabel(title: CardStatus.doing.name)
+        doneViewController?.setCardTitleLabel(title: CardStatus.done.name)
         todoViewController?.appendCard(factory.createRandomCard())
+        //setHistoryConstraint()
     }
     
-    private func setUIPropertiesAutoLayout() {
-        
-        guard let todoViewController = self.todoViewController,
-              let doingViewController = self.doingViewController,
-              let doneViewController = self.doneViewController else {
+    private func setHistoryConstraint(){
+        guard let historyView = historyViewController?.view else {
             return
         }
-        
-        todoViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        todoViewController.view.heightAnchor.constraint(equalTo: todoContainerView.heightAnchor, constant: 0).isActive = true
-        todoViewController.view.widthAnchor.constraint(equalTo: todoContainerView.widthAnchor, constant: 0).isActive = true
-        todoViewController.view.centerXAnchor.constraint(equalTo: todoContainerView.centerXAnchor, constant: 0).isActive = true
-        
-        doingViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        doingViewController.view.heightAnchor.constraint(equalTo: doingContainerView.heightAnchor, constant: 0).isActive = true
-        doingViewController.view.widthAnchor.constraint(equalTo: doingContainerView.widthAnchor, constant: 0).isActive = true
-        doingViewController.view.centerXAnchor.constraint(equalTo: doingContainerView.centerXAnchor, constant: 0).isActive = true
-        
-        doneViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        doneViewController.view.heightAnchor.constraint(equalTo: doneContainerView.heightAnchor, constant: 0).isActive = true
-        doneViewController.view.widthAnchor.constraint(equalTo: doneContainerView.widthAnchor, constant: 0).isActive = true
-        doneViewController.view.centerXAnchor.constraint(equalTo: doneContainerView.centerXAnchor, constant: 0).isActive = true
+        historyView.translatesAutoresizingMaskIntoConstraints = false
+        historyView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        historyView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        historyView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
+    
+    @IBAction func historyAppearButtonTapped(_ sender: Any) {
+        historyViewController?.historyButtonTappedAppear()
+    }
+    
+    
 }
