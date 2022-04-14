@@ -6,6 +6,7 @@ export class UpdateCard {
     this.updateCardTemplate = updateCard;
     this.postCardTemplate = postedCard;
     this.beforeUpdateCard = null;
+    this.currCard;
   }
 
   init() {
@@ -22,14 +23,12 @@ export class UpdateCard {
     if (closest('.item-info', e.target)) {
       this.beforeUpdateCard = closest('.list_item', e.target).innerHTML;
 
-      const currCard = closest('.list_item', e.target);
-      const title = closest('.item-info', e.target).firstElementChild.innerText;
-      const content = closest('.item-info', e.target).lastElementChild
-        .innerText;
+      this.currCard = closest('.list_item', e.target);
+      const title = $('.item-info', this.currCard).firstElementChild.innerText;
+      const content = $('.item-info', this.currCard).lastElementChild.innerText;
 
-      currCard.classList.replace('default', 'active');
-
-      currCard.innerHTML = this.updateCardTemplate(title, content);
+      this.currCard.classList.replace('default', 'active');
+      this.currCard.innerHTML = this.updateCardTemplate(title, content);
     }
   }
 
@@ -45,16 +44,33 @@ export class UpdateCard {
   }
 
   cancelUpdateHandler(target) {
-    const currCard = closest('.list_item', target);
+    this.currCard = closest('.list_item', target);
     currCard.classList.replace('active', 'default');
     currCard.innerHTML = this.beforeUpdateCard;
   }
 
   updateCardHandler(target) {
-    const thisItem = closest('.list_item', target);
-    const title = $('.item-title', thisItem).value;
-    const content = $('.item-content', thisItem).value;
-    thisItem.classList.replace('active', 'default');
-    thisItem.innerHTML = this.postCardTemplate(title, content);
+    this.currCard = closest('.list_item', target);
+    const title = $('.item-title', this.currCard).value;
+    const content = $('.item-content', this.currCard).value;
+    this.currCard.classList.replace('active', 'default');
+    this.currCard.innerHTML = this.postCardTemplate(title, content);
+    this.updateCardData(title, content, this.currCard.dataset.id);
+  }
+
+  updateCardData(todoTitle, todoContent, cardId) {
+    const lastTime = new Date();
+    const data = {
+      title: todoTitle,
+      content: todoContent,
+      lastTime: lastTime,
+    };
+
+    const url = `http://localhost:3001/cards/${cardId}`;
+    fetch(url, {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(data),
+    });
   }
 }

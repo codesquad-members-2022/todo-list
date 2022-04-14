@@ -20,7 +20,7 @@ export class InitTodos {
   createColumns = async (data) => {
     return data.map(this.template);
   };
-
+  ygggggggg;
   renderColumns = async (data) => {
     this.target.insertAdjacentHTML('beforeend', data.join(' '));
   };
