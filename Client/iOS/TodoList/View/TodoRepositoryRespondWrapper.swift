@@ -47,15 +47,14 @@ class TodoRepositoryRespondWrapper: NSObject {
         todoTableView = tableView
     }
     
-    @discardableResult
-    func setDataSource(at index: Int, data: CardData) -> Bool{
-        guard 0 <= index, index < dataSource.count else {
-            return false
-        }
-        
+    private func isEnableIndex(_ index: Int) -> Bool {
+        return (0..<dataSource.count ~= index)
+    }
+    
+    func insertDataSource(data: CardData, at index: Int) {
+        guard isEnableIndex(index) else { return }
         dataSource[index] = data
         reloadTodoTableView()
-        return true
     }
     
     func setDataSource(data: [CardData]) {
@@ -84,7 +83,7 @@ extension TodoRepositoryRespondWrapper: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.applyAllLabels(text: dataSource[indexPath.row])
+        cell.applyTextAllLabels(data: dataSource[indexPath.row])
 
         return cell
     }
