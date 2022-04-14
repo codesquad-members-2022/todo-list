@@ -3,7 +3,6 @@ package com.example.backend.domain.repository;
 import com.example.backend.domain.Card;
 import com.example.backend.domain.ColumnName;
 import com.example.backend.web.dto.CardListResponseDto;
-import com.example.backend.web.dto.CardMoveRequestDto;
 import com.example.backend.web.dto.Column;
 import com.example.backend.web.dto.Columns;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -73,7 +72,7 @@ public class CardJdbcTemplateRepository implements CardRepository {
 
     private Integer getOrderIndex(String columnName) {
         return jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM CARD WHERE COLUMN_NAME = ? and DELETED = ?", Integer.class, columnName, false);
+                "SELECT IFNULL(MAX(ORDER_INDEX), 0)+1 FROM CARD WHERE COLUMN_NAME = ? and DELETED = ?", Integer.class, columnName, false);
     }
 
     @Override
@@ -115,7 +114,48 @@ public class CardJdbcTemplateRepository implements CardRepository {
     }
 
     @Override
-    public Long move(CardMoveRequestDto dto) {
-        return null;
+    public Columns move(Card originalCard, Card movedCard) {
+        Long id = movedCard.getId();
+        String prevColumnName = originalCard.getColumnName();
+        Long prevOrderIndex = originalCard.getOrderIndex();
+        String newColumnName = movedCard.getColumnName();
+        Long newOrderIndex = movedCard.getOrderIndex();
+
+        // 같은 column 내 이동
+        if (originalCard.isSameColumnWith(movedCard)) {
+            if (isMovedUpward(prevOrderIndex, newOrderIndex)) {
+                // newOrderIndex > prevOrderIndex -> 위로 이동하는 경우
+                jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX - 1" +
+                        "WHERE COLUMN_NAME = ? and ? < ORDER_INDEX and ORDER_INDEX <= ? and DELETED = ?",
+                        prevColumnName, prevOrderIndex, newOrderIndex, false);
+            } else {
+                // newOrderIndex <= prevOrderIndex -> 아래로 이동하는 경우
+                jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX + 1" +
+                        "WHERE COLUMN_NAME = ? and ? <= ORDER_INDEX and ORDER_INDEX < ? and DELETED = ?",
+                        prevColumnName, newOrderIndex, prevOrderIndex, false);
+            }
+            jdbcTemplate.update("UPDATE CARD SET COLUMN_NAME = ?, ORDER_INDEX = ? WHERE id = ?",
+                    newColumnName, newOrderIndex, id);
+
+            return findAllDesc();
+        }
+
+        // 다른 column 간 이동
+        jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX + 1" +
+                "WHERE COLUMN_NAME = ? and ORDER_INDEX > ? and DELETED = ?",
+                newColumnName, newOrderIndex, false);
+
+        jdbcTemplate.update("UPDATE CARD SET COLUMN_NAME = ?, ORDER_INDEX = ? WHERE id = ?",
+                newColumnName, newOrderIndex+1, id);
+
+        jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX - 1" +
+                        "WHERE COLUMN_NAME = ? and ORDER_INDEX > ? and DELETED = ?",
+                prevColumnName, prevOrderIndex, false);
+
+        return findAllDesc();
+    }
+
+    private boolean isMovedUpward(Long prevOrderIndex, Long newOrderIndex) {
+        return newOrderIndex > prevOrderIndex;
     }
 }
