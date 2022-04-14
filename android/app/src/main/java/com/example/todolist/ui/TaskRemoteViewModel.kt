@@ -19,14 +19,17 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
     val history: LiveData<List<History>>
         get() = _history
 
+    private var todoItem: MutableList<TaskDetailResponse> = mutableListOf()
     private val _todoTask = MutableLiveData<MutableList<TaskDetailResponse>>()
     val todoTask: LiveData<MutableList<TaskDetailResponse>>
         get() = _todoTask
 
+    private var inProgressItem: MutableList<TaskDetailResponse> = mutableListOf()
     private val _inProgressTask = MutableLiveData<MutableList<TaskDetailResponse>>()
     val inProgressTask: LiveData<MutableList<TaskDetailResponse>>
         get() = _inProgressTask
 
+    private var doneItem: MutableList<TaskDetailResponse> = mutableListOf()
     private val _doneTask = MutableLiveData<MutableList<TaskDetailResponse>>()
     val doneTask: LiveData<MutableList<TaskDetailResponse>>
         get() = _doneTask
@@ -43,8 +46,11 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
         viewModelScope.launch {
             when (val tasks = taskRemoteRepository.loadTask()) {
                 is Result.Success -> {
+                    todoItem = tasks.data.todo
                     _todoTask.value = tasks.data.todo
+                    inProgressItem = tasks.data.inProgress
                     _inProgressTask.value = tasks.data.inProgress
+                    doneItem = tasks.data.done
                     _doneTask.value = tasks.data.done
                 }
                 is Result.Error -> {
@@ -118,6 +124,38 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
         }
     }
 
+    fun deleteTask(task: TaskDetailResponse) {
+        viewModelScope.launch {
+            when (val deleteTask = taskRemoteRepository.deleteTask(task.id)) {
+                is Result.Success -> {
+                    when (deleteTask.data.status) {
+                        Status.TODO -> {
+                            val originalTask = todoItem.find { it.id == deleteTask.data.id }
+                            val index = todoItem.indexOf(originalTask)
+                            if (index != -1) todoItem.removeAt(index)
+                            _todoTask.value = todoItem
+                        }
+                        Status.IN_PROGRESS -> {
+                            val originalTask = inProgressItem.find { it.id == deleteTask.data.id }
+                            val index = inProgressItem.indexOf(originalTask)
+                            if (index != -1) inProgressItem.removeAt(index)
+                            _inProgressTask.value = inProgressItem
+                        }
+                        Status.DONE -> {
+                            val originalTask = doneItem.find { it.id == deleteTask.data.id }
+                            val index = doneItem.indexOf(originalTask)
+                            if (index != -1) doneItem.removeAt(index)
+                            _doneTask.value = doneItem
+                        }
+                    }
+                }
+                is Result.Error -> {
+                    _error.value = deleteTask.error
+                }
+            }
+        }
+    }
+
     fun addTodoTask(task: Task) {}
 
     fun addInProgressTask(task: Task) {}
@@ -125,8 +163,6 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
     fun addDoneTask(task: Task) {}
 
     fun moveDone(task: TaskDetailResponse) {}
-
-    fun deleteTask(task: TaskDetailResponse) {}
 
     fun updateTodoTask(task: TaskDetailResponse) {}
 

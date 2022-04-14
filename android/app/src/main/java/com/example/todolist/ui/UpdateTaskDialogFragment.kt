@@ -13,8 +13,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.todolist.databinding.DialogUpdateCardBinding
 import com.example.todolist.model.Status
-import com.example.todolist.model.Task
-import com.example.todolist.model.request.ModifyTaskRequest
 import com.example.todolist.model.response.TaskDetailResponse
 
 class UpdateTaskDialogFragment(private val task: TaskDetailResponse) : DialogFragment() {
@@ -42,12 +40,12 @@ class UpdateTaskDialogFragment(private val task: TaskDetailResponse) : DialogFra
         binding.etTitle.addTextChangedListener(titleListener)
         binding.etContents.addTextChangedListener(contentsListener)
         binding.etTitle.setText(task.title)
-        binding.etContents.setText(task.content)
+        binding.etContents.setText(task.contents)
 
         binding.btnUpdate.setOnClickListener {
             val updateTask = task.copy(
                 title = binding.etTitle.text.toString(),
-                content = binding.etContents.text.toString()
+                contents = binding.etContents.text.toString()
             )
             when (task.status) {
                 Status.TODO -> viewModel.updateTodoTask(updateTask)
