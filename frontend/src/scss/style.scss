@@ -48,13 +48,13 @@ body {
     color: $white-color;
     background: $blue-color;
 
-    &.disabled {
+    &[disabled] {
       color: rgba(255, 255, 255, 0.4);
       background: $blue-light-color;
       cursor: default;
     }
 
-    &:not(.disabled):hover {
+    &:not([disabled]):hover {
       background: $blue-dark-color;
     }
   }
@@ -151,9 +151,39 @@ body {
       }
     }
 
+    .title_input {
+      display: none;
+    }
+
+    .content_input {
+      display: none;
+    }
+
     &.write {
+      border: 1px solid $blue-color;
+
+      .delete_btn {
+        display: none;
+      }
+
+      .title_text {
+        display: none;
+      }
+
+      .content_text {
+        display: none;
+      }
+
       .card_caption {
         display: none;
+      }
+
+      .title_input {
+        display: block;
+      }
+
+      .content_input {
+        display: block;
       }
 
       .card_btn_box {
@@ -297,5 +327,12 @@ body {
         margin-left: 8px;
       }
     }
+  }
+}
+
+.card {
+  &.shadow {
+    background-color: #ffffffba;
+    border: 1px solid #86c6ff;
   }
 }
