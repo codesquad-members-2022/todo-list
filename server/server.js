@@ -4,28 +4,35 @@ const server = jsonServer.create();
 const router = jsonServer.router('todos.json');
 const middlewares = jsonServer.defaults();
 
-// db.json를 조작하기 위해 lowdb를 사용
-import low from 'lowdb';
-import FileSync from 'lowdb/adapters/FileSync.d.ts';
-const adapter = new FileSync('todos.json');
-const db = low(adapter);
+import lowdb from 'lowdb';
+import FileSync from 'lowdb/adapters/FileSync.js';
 
-// Set default middlewares (logger, static, cors and no-cache)
+const db = lowdb(new FileSync('todos.json'));
 server.use(middlewares);
+// server.use(
+//   jsonServer.rewriter({
+//     '/todos/*': '/$1',
+//   })
+// );
 
-// Add custom routes before JSON Server router
-server.delete('/todos', (req, res) => {
-  // lowdb를 사용해서 db.json에서 completed: true인 todo를 제거
+server.delete('/todos/completed/:id', (req, res) => {
+  const id = Number(req.params.id);
 
-  //db.get('todos').remove({ completed: true }).write();
-  console.log(req);
-  // todos를 응답
-  res.send(db.get('todos').value());
+  /**
+   * TODO // lowdb 버전 체크 필요
+   */
+  // todo.isDeleted = true;
+  db.get('todos').find({ id: id }).assign({ isDeleted: true }).write();
+
+  res.send(db.get('todos'));
 });
 
-// Use default router
+server.get('/todos/completed', (req, res) => {
+  console.log(req);
+});
+
 server.use(router);
 
-server.listen(3000, () => {
+server.listen(5000, () => {
   console.log('JSON Server is running');
 });
