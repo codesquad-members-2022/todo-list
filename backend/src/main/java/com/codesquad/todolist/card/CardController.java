@@ -1,13 +1,7 @@
 package com.codesquad.todolist.card;
 
-import com.codesquad.todolist.card.dto.CardCreateRequest;
-import com.codesquad.todolist.card.dto.CardMoveRequest;
-import com.codesquad.todolist.card.dto.CardUpdateRequest;
-import com.codesquad.todolist.history.dto.HistoryResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +12,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.codesquad.todolist.card.dto.CardCreateRequest;
+import com.codesquad.todolist.card.dto.CardMoveRequest;
+import com.codesquad.todolist.card.dto.CardUpdateRequest;
+import com.codesquad.todolist.history.dto.HistoryResponse;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api(tags = "Card API")
 @RestController

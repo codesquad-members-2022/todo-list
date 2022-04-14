@@ -1,9 +1,9 @@
 package com.codesquad.todolist.card;
 
-import com.codesquad.todolist.util.KeyHolderFactory;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import com.codesquad.todolist.util.KeyHolderFactory;
 
 @Repository
 public class CardRepository {
@@ -42,6 +44,16 @@ public class CardRepository {
             "select card_id, column_id, title, content, author, next_id, created_date from card"
                 + " where deleted = false";
         return jdbcTemplate.query(sql, getCardRowMapper());
+    }
+
+    public List<Card> findByColumnId(Integer columnId) {
+        String sql = "select card_id, column_id, title, content, author, next_id, created_date from card"
+            + " where column_id = :columnId and deleted = false";
+
+        MapSqlParameterSource source = new MapSqlParameterSource()
+            .addValue("columnId", columnId);
+
+        return jdbcTemplate.query(sql, source, getCardRowMapper());
     }
 
     public Optional<Card> findById(int cardId) {
