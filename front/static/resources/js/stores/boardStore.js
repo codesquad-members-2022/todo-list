@@ -1,4 +1,4 @@
-import { fetchRequest } from '../utils/util.js';
+import { fetchRequest, HTTP_REQUEST } from '../utils/fetch.js';
 
 class BoardStore {
   constructor() {
@@ -14,14 +14,25 @@ class BoardStore {
     this.boardState = await this.getInitialData();
   }
 
+  async getColumnState(cardState, method) {
+    const requestOption = HTTP_REQUEST[method](cardState);
+    const newBoadState = await fetchRequest('http://localhost:8080', requestOption);
+    return newBoadState;
+  }
+
+  async setState(cardState, method) {
+    const newBoadState = await this.getColumnState(cardState, method);
+    this.boardState = newBoadState;
+  }
+
   addObserver(observer) {
     this.observers.add(observer);
   }
 
-  async observe() {
-    await this.setState();
+  async observe(cardState, method) {
+    await this.setState(cardState, method);
     this.observers.forEach(observer => {
-      observer.notify(this.boardState);
+      observer.notify();
     });
   }
 

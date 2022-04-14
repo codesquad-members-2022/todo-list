@@ -3,6 +3,16 @@ class Column {
     this.props = props;
   }
 
+  getColumnElement(columnName) {
+    return document.querySelector(`.column[data-title=${columnName}]`);
+  }
+
+  render(columnName, cards) {
+    const $column = this.getColumnElement(columnName);
+    const $cards = $column.querySelector('.cards');
+    $cards.innerHTML = cards;
+  }
+
   template(cards) {
     return `<div class="column">
             <div class="column__top-wrap">

@@ -10,9 +10,7 @@ class BoardViewModel {
 
   parseStoreState() {
     const columnState = this.store.boardState.reduce((parsedData, card) => {
-      if (parsedData[card.cardStatus] === undefined) {
-        parsedData[card.cardStatus] = [];
-      }
+      if (parsedData[card.cardStatus] === undefined) parsedData[card.cardStatus] = [];
       parsedData[card.cardStatus].push(card);
       return parsedData;
     }, {});
@@ -20,24 +18,32 @@ class BoardViewModel {
     return columnState;
   }
 
-  initState() {
+  setState() {
     this.boardState = this.parseStoreState();
+  }
+
+  setColumnState(columnState, columnName) {
+    this.boardState[columnName] = columnState;
   }
 
   addObserver(observer) {
     this.observers.add(observer);
   }
 
+  observe(cardState, method) {
+    this.store.observe(cardState, method);
+  }
+
   notify() {
     this.setState();
     this.observers.forEach(observer => {
-      observer.notify();
+      observer.render();
     });
   }
 
   async init() {
     await this.store.init();
-    this.initState();
+    this.setState();
   }
 }
 
