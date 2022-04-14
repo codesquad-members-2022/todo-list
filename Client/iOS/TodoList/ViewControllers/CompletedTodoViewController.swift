@@ -7,12 +7,12 @@ class CompletedTodoViewController: UIViewController, TodoEndPointViewController,
     @IBOutlet weak var tableView: TodoTableView!
     @IBOutlet weak var dataSourceBadge: UILabel!
     
-    private var tableViewManagement: TodoTableViewManagement?
+    private var repositoryResponder: TodoRepositoryRespondWrapper?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableViewManagement = TodoTableViewManagement(tableView, in: boardType)
-        tableViewManagement?.badgeDelegate = self
+        repositoryResponder = TodoRepositoryRespondWrapper(tableView, in: boardType)
+        repositoryResponder?.badgeDelegate = self
     }
     
     func setBadgeCount(_ count: Int) {
