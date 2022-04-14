@@ -46,13 +46,10 @@
   &--submit {
     @extend .button;
     background-color: $button-bg-color-blue;
-
-    &:hover {
-      background-color: $button-bg-color-dark-blue;
-    }
   }
 
   &--disabled {
+    @extend .button;
     background-color: $button-bg-color-light-blue;
   }
 }

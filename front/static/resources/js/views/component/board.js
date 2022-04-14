@@ -10,7 +10,9 @@ class Board {
   }
 
   addEvent(_this) {
-    document.querySelector('main').addEventListener('click', _this.btnClickHandler.bind(_this));
+    const $main = document.querySelector('main');
+    $main.addEventListener('click', _this.btnClickHandler.bind(_this));
+    $main.addEventListener('input', _this.cardInputHandler.bind(_this));
   }
 }
 

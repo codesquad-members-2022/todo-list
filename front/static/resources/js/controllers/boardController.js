@@ -129,10 +129,15 @@ class BoardController {
     };
   }
 
-  createNewCardData(target) {
-    const columnName = target.dataset.status;
+  getWritableCard(columnName) {
     const column = this.cards[columnName];
     const writableCard = column[column.length - 1];
+    return writableCard;
+  }
+
+  createNewCardData(target) {
+    const columnName = target.dataset.status;
+    const writableCard = this.getWritableCard(columnName);
     const cardInfo = this.getCardInfo(writableCard, columnName);
     return cardInfo;
   }
@@ -167,6 +172,18 @@ class BoardController {
   btnClickHandler({ target }) {
     this.addCardEvent(target);
     this.deleteCardEvent(target);
+  }
+
+  cardInputHandler({ target }) {
+    const columnName = target.closest('.column').dataset.title;
+    const writableCard = this.getWritableCard(columnName);
+    const $form = writableCard.getFormElement(columnName);
+    
+    if (!writableCard.getTitle($form) && !writableCard.getContent($form)) {
+      writableCard.controllSubmitBtn(columnName, 'button--submit');
+    } else {
+      writableCard.controllSubmitBtn(columnName, 'button--disabled');
+    }
   }
 
   addEvent() {
