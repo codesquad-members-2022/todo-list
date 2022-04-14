@@ -11,7 +11,7 @@ class TodoTableViewCell: UITableViewCell {
         return UINib(nibName: String(describing: self), bundle: nil)
     }
 
-    func reloadAllLabels(_ card: CardData) {
+    func applyTextAllLabels(data card: CardData) {
         setTitleLabelAttribute(card.title)
         setContentLabelAttribute(card.contents)
     }
