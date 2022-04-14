@@ -10,6 +10,11 @@ class Controller {
     this.todo = null;
     this.deleteAlertView = null;
     this.newCard = null;
+    this.cardCurValue = {
+      title: null,
+      content: null,
+    };
+    this.hoverCard = null;
     this.deletedCard = null;
     this.deletedColumn = null;
     this.init();
@@ -42,6 +47,8 @@ class Controller {
     this.deleteAlertView.onClickAccept(handleClickAccept.bind(this));
 
     function handleClickCancel() {
+      const targetCard = document.querySelector('.card.delete_hover');
+      this.hoverCard.view.changeDeleteMode(targetCard);
       this.deleteAlertView.render();
     }
 
@@ -69,10 +76,21 @@ class Controller {
     });
   }
 
-  columnClickHanlder({ target }) {
-    switch (target.className) {
-      case 'control_btn add':
-        this.addCard(target);
+  columnClickHanlder({ target, type }) {
+    switch (type) {
+      case 'click':
+        if (target.className === 'control_btn add') {
+          this.addCard(target);
+          return;
+        }
+        if (target.className === 'btn normal_btn') {
+          this.cardCancelHandler(target);
+          return;
+        }
+        break;
+      case 'dblclick':
+        if (target.closest('.write')) return;
+        if (target.closest('.card')) this.cardEditHanler(target);
         break;
     }
   }
@@ -81,7 +99,6 @@ class Controller {
     const targetColumnBox = target.closest('.todo_column_box');
     const targetColumnID = targetColumnBox.id;
     const targetColumn = this.todo.model.columns[targetColumnID];
-
     if (!targetColumn.model.updateAddStstue()) {
       this.cancelAddCard(targetColumnBox);
       return;
@@ -93,13 +110,14 @@ class Controller {
     this.newCard.view.eventInit({
       cardInputHandler: this.cardInputHandler.bind(this),
       cardAddHandler: this.cardAddHandler.bind(this),
-      cardCancelHandler: this.cardCancelHandler.bind(this),
       cardDeleteHandler: this.cardDeleteHandler.bind(this),
+      hoverHandler: this.cardDeleteHoverHandeler.bind(this),
     });
   }
 
   cancelAddCard(targetColumnBox) {
-    targetColumnBox.querySelector('.card.write').remove();
+    const cancelCard = targetColumnBox.querySelector('.card.write');
+    this.newCard.view.renderDeleted(cancelCard);
     this.updateCardCount('cancelAdd');
   }
 
@@ -148,12 +166,30 @@ class Controller {
     );
   }
 
-  cardCancelHandler({ target }) {
-    const targetCard = target.closest('.card');
-    const targetColumnBox = targetCard.closest('.todo_column_box');
+  cardDeleteHoverHandeler({ type, target }) {
+    const alert = document.querySelector('.alert_container.hidden');
+    if (type === 'mouseout' && alert === null) {
+      return;
+    }
+    const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
     const targetColumn = this.todo.model.columns[targetColumnBox.id];
+    this.hoverCard = targetColumn.model.cardList[targetCard.id];
+    this.hoverCard.view.changeDeleteMode(targetCard);
+  }
+
+  cardCancelHandler(target) {
+    const { targetColumnBox, targetCard, titleInput, contentInput } =
+      this.getTargetCardInfo(target);
+    const targetColumn = this.todo.model.columns[targetColumnBox.id];
+    const targetCardInfo = targetColumn.model.cardList[targetCard.id];
 
     if (targetCard.classList.contains('edit')) {
+      targetCardInfo.view.cancelEditMode({
+        targetCard,
+        titleInput,
+        contentInput,
+        value: this.cardCurValue,
+      });
       return;
     }
 
@@ -161,12 +197,31 @@ class Controller {
     targetColumn.model.updateAddStstue();
   }
 
+  cardEditHanler(target) {
+    const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
+    const targetColumnId = targetColumnBox.id;
+    const targetColumn = this.todo.model.columns[targetColumnId];
+    const editCard = targetColumn.model.cardList[targetCard.id];
+    let targetText = null;
+    if (
+      target.className === 'title_text' ||
+      target.className === 'content_text'
+    ) {
+      targetText = target;
+    }
+
+    this.cardCurValue = {
+      title: editCard.model.title,
+      content: editCard.model.content,
+    };
+    editCard.view.changeEditMode(targetCard, targetText);
+  }
+
   cardDeleteHandler({ target }) {
     const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
     this.deletedColumn = targetColumnBox;
     this.deletedCard = targetCard;
 
-    targetCard.classList.add('delete_hover');
     this.deleteAlertView.$alert_container.classList.remove('hidden');
   }
 
