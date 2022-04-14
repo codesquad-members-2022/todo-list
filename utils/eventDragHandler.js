@@ -1,74 +1,91 @@
 import { $ } from '../utils/dom.js';
+import { editLocalStorageById } from '../utils/localStorage.js';
+
+const dragElement = $('.drag');
+let copyElement = null; // 마우스를 따라다니는 복사된 카드
+let shadowElement = null; // 잔상카드
+let status = null;
+
+function isBefore(element1, element2) {
+  if (element2.parentNode === element1.parentNode) {
+    let cur = element1.previousSibling;
+    while (cur) {
+      if (cur === element2) return true;
+      cur = cur.previousSibling;
+    }
+  }
+
+  return false;
+}
+
+export const onBodyMouseDown = () => {
+  document.body.addEventListener('mousedown', e => {
+    const targetRemove = e.target.closest('.card');
+
+    if (targetRemove === null || targetRemove.className === 'start') {
+      return;
+    }
+
+    shadowElement = targetRemove;
+    copyElement = targetRemove.cloneNode(true);
+    shadowElement.classList.add('spectrum');
+
+    dragElement.appendChild(copyElement);
+
+    dragElement.style.left = e.pageX - dragElement.offsetWidth / 2 + 'px';
+    dragElement.style.top = e.pageY - dragElement.offsetHeight / 2 + 'px';
+  });
+};
+
 export const onBodyMouseMove = () => {
   document.body.addEventListener('mousemove', e => {
-    const copyCardElement = $('.drag');
-    if (copyCardElement) {
-      Object.assign(copyCardElement.style, {
-        left: `${e.clientX}px`,
-        top: `${e.clientY}px`,
-      });
-      checkColumnArea(e.clientX);
+    if (!copyElement) return;
+
+    const { pageX, pageY } = e;
+    dragElement.hidden = true;
+    const elemBelow = document.elementFromPoint(pageX, pageY);
+    const card = elemBelow.closest('.card');
+    const columnList = elemBelow.closest('.column-list');
+
+    dragElement.hidden = false;
+    dragElement.style.left = pageX - dragElement.offsetWidth / 2 + 'px';
+    dragElement.style.top = pageY - dragElement.offsetHeight / 2 + 'px';
+
+    if (columnList) {
+      status = columnList.getAttribute('data-status');
+    } else return;
+
+    if (!card) {
+      columnList.appendChild(shadowElement);
+      return;
+    }
+
+    if (isBefore(shadowElement, card) && card.className !== 'start') {
+      card.parentNode.insertBefore(shadowElement, card);
+    } else if (card.parentNode) {
+      card.parentNode.insertBefore(shadowElement, card.nextSibling);
     }
   });
 };
 
 export const onBodyMouseUp = () => {
-  document.body.addEventListener('mouseup', e => {
-    const copyCardElement = $('.drag');
-    if (copyCardElement) {
-      const dataId = copyCardElement.getAttribute('data-id');
-      copyCardElement?.remove();
-      const card = document.getElementById(`${dataId}`);
-      card.classList.remove('spectrum');
+  document.body.addEventListener('mouseup', () => {
+    // 카드 status Update, 로컬스토리지 해당 id 업데이트
+
+    if (shadowElement) {
+      shadowElement.classList.remove('spectrum');
     }
+
+    if (copyElement) {
+      const id = Number(copyElement.id);
+      const todo = {};
+      todo.id = id;
+      todo.status = status;
+      editLocalStorageById(todo, id);
+      copyElement?.remove();
+    }
+
+    copyElement = null;
+    shadowElement = null;
   });
 };
-
-const checkColumnArea = x => {
-  // 복사된 카드가 각 영역 절반정도가 되는거 어떻게 체크?
-  const dataId = $('.drag').getAttribute('data-id');
-  const copyCardStatus = $('.drag').getAttribute('data-status');
-
-  const columns = ['해야할일', '하고있는일', '완료한일'];
-  const todoColumn = $(`.${columns[0]}-wrapper`);
-  const ingColumn = $(`.${columns[1]}-wrapper`);
-  const completeColumn = $(`.${columns[2]}-wrapper`);
-
-  const card = document.getElementById(`${dataId}`);
-  card.classList.remove('spectrum');
-
-  /**
-   * TODO 영역별로 이동경로 절반일 시 카드가 움직여야함
-   */
-  if (x >= todoColumn.getBoundingClientRect().left && x <= todoColumn.getBoundingClientRect().right) {
-    todoColumn.appendChild(card);
-    return;
-  }
-
-  if (x >= ingColumn.getBoundingClientRect().left && x <= ingColumn.getBoundingClientRect().right) {
-    ingColumn.appendChild(card);
-    return;
-  }
-
-  if (x >= completeColumn.getBoundingClientRect().left && x <= completeColumn.getBoundingClientRect().right) {
-    completeColumn.appendChild(card);
-    return;
-  }
-  // if (x >= ingColumn.getBoundingClientRect().left + 154 && x <=) {
-  //   return;
-  // }
-
-  // columnAppendChildCard(x, todoColumn, card);
-  // columnAppendChildCard(x, ingColumn, card);
-  // columnAppendChildCard(x, completeColumn, card);
-};
-
-const columnAppendChildCard = (x, column, card) => {
-  const columnWidth = 154;
-  console.log(column.getBoundingClientRect().left, column.getBoundingClientRect().right);
-  if (x >= column.getBoundingClientRect().left && x <= column.getBoundingClientRect().right) {
-    column.appendChild(card);
-  }
-};
-
-const checkSiblingsCard = () => {};
