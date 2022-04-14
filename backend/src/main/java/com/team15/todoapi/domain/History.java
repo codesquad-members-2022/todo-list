@@ -10,17 +10,15 @@ import lombok.Getter;
 public class History {
 
 	private Long id;
-	private LocalDateTime created_at;
-	private Long card_id;
-	private Long member_id;
-	private int old_section;
-	private int current_section;
-	private String code_description;
+	private LocalDateTime createdAt;
+	private Long cardId;
+	private String oldSection;
+	private String currentSection;
+	private String action;
 	private String title;
-	private String flag_description;
 
-	public static History of(long id, LocalDateTime created_at, long card_id, long member_id, int old_section, int current_section, String code_description, String title,
-		String flag_description) {
-		return new History(id, created_at, card_id, member_id, old_section, current_section, code_description, title, flag_description);
+	public static History of(long id, LocalDateTime createdAt, long cardId,
+		String oldSection, String currentSection, String action, String title) {
+		return new History(id, createdAt, cardId, oldSection, currentSection, action, title);
 	}
 }
