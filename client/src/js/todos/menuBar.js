@@ -6,15 +6,15 @@ export class MenuBar {
   }
 
   init() {
-    this.target.addEventListener('click', this.showMenuHandler);
+    this.target.addEventListener('click', (e) => this.showMenuHandler(e));
   }
 
-  showMenuHandler = (e) => {
+  showMenuHandler(e) {
     if (closest('.menu-btn', e.target)) {
       $('.menu-bar').classList.add('focus');
     }
     if (closest('.menu-close-btn', e.target)) {
       $('.menu-bar').classList.remove('focus');
     }
-  };
+  }
 }

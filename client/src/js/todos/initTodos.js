@@ -1,4 +1,4 @@
-import { $, pipe, closest, containClass } from '../util';
+import { $, pipe } from '../util';
 
 export class InitTodos {
   constructor(template) {
@@ -6,9 +6,9 @@ export class InitTodos {
     this.template = template;
   }
 
-  init() {
+  init = () => {
     pipe(this.getData, this.createColumns, this.renderColumns)('columns');
-  }
+  };
 
   getData = async (keyword) => {
     const url = `http://localhost:3001/${keyword}`;

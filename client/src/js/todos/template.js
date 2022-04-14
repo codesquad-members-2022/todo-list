@@ -1,4 +1,4 @@
-const createColumnTemplate = (title) => {
+export const createColumnTemplate = (title) => {
   return ` 
   <div class="column ${title}">
     <div class="column-header">
@@ -16,7 +16,7 @@ const createColumnTemplate = (title) => {
   `;
 };
 
-const createCardTemplate = () => {
+export const createCardTemplate = () => {
   return `
   <li class="list_item active creating">
     <form class="item-info">
@@ -31,7 +31,7 @@ const createCardTemplate = () => {
   `;
 };
 
-const createUpdateCardTemplate = (title, content) => {
+export const createUpdateCardTemplate = (title, content) => {
   return `
     <form class="item-info">
       <input class="item-title" placeholder="제목을 입력하세요" value="${title}"></input>
@@ -44,7 +44,7 @@ const createUpdateCardTemplate = (title, content) => {
   `;
 };
 
-const createPostedCardTemplate = ({ title, content }) => {
+export const createPostedCardTemplate = (title, content) => {
   return `
     <div class="item-info">
       <h3 class="item-title">${title}</h3>
@@ -54,11 +54,4 @@ const createPostedCardTemplate = ({ title, content }) => {
       <span class="icon-close"></span>
     </button>
   `;
-};
-
-export {
-  createColumnTemplate,
-  createCardTemplate,
-  createPostedCardTemplate,
-  createUpdateCardTemplate,
 };

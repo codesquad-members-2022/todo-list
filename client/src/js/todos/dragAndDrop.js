@@ -14,20 +14,24 @@ export class DragAndDrop {
   }
 
   init() {
-    this.target.addEventListener('mousedown', this.mousedownEventHandler);
-    this.target.addEventListener('mouseup', this.mouseupEventHandler);
-    this.target.addEventListener('mousemove', this.mousemoveEventHandler);
+    this.target.addEventListener('mousedown', (e) =>
+      this.mousedownEventHandler(e)
+    );
+    this.target.addEventListener('mouseup', (e) => this.mouseupEventHandler());
+    this.target.addEventListener('mousemove', (e) =>
+      this.mousemoveEventHandler(e)
+    );
   }
 
-  mousedownEventHandler = (e) => {
+  mousedownEventHandler(e) {
     if (closest('.default', e.target)) {
       this.isDragging = true;
       this.dragCard = closest('.default', e.target);
       this.column = closest('.column-list', e.target);
     }
-  };
+  }
 
-  mouseupEventHandler = (e) => {
+  mouseupEventHandler() {
     this.isDragging = false;
     this.moveCardState = false;
     if (this.isClone) {
@@ -36,9 +40,9 @@ export class DragAndDrop {
       this.isClone = null;
       this.cardPositionInfo = [];
     }
-  };
+  }
 
-  mousemoveEventHandler = (e) => {
+  mousemoveEventHandler(e) {
     if (!this.isDragging) return;
 
     if (!this.isClone) {
@@ -128,7 +132,7 @@ export class DragAndDrop {
         }
       }
     });
-  };
+  }
 
   setCardsPosition() {
     for (const li of $$('.list_item')) {
