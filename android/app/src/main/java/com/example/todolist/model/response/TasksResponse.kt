@@ -12,9 +12,9 @@ data class TasksResponse(
     val done: MutableList<TaskDetailResponse>,
 )
 
-data class Result(
+data class CommonResponse(
     val status: Int,
-    val taskDetailResponse: TaskDetailResponse
+    val taskDetailResponse: TaskDetailResponse,
 )
 
 data class TaskDetailResponse(
@@ -23,5 +23,5 @@ data class TaskDetailResponse(
     val content: String,
     val status: Status,
     val author: String = "Android",
-    val updateDateTime: String? = null
+    val updateDateTime: String? = null,
 )

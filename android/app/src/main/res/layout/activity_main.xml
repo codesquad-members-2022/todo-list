@@ -5,10 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
-            type="com.example.todolist.ui.TaskViewModel" />
+            type="com.example.todolist.ui.TaskRemoteViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout

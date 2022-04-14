@@ -1,20 +1,25 @@
 package com.example.todolist.repository
 
+import com.example.todolist.network.Result
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
-import com.example.todolist.model.response.Result
+import com.example.todolist.model.response.CommonResponse
 import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.model.response.TasksResponse
 
 class TaskRemoteRepository(
-    private val taskRemoteDataSource: TaskRemoteDataSource
+    private val taskRemoteDataSource: TaskRemoteDataSource,
 ) {
 
-    suspend fun loadTask(): TasksResponse? {
-        return taskRemoteDataSource.loadTasks()
+    suspend fun loadTask(): Result<TasksResponse> {
+        val response = taskRemoteDataSource.loadTasks()
+        response?.let {
+            return Result.Success(it)
+        }
+        return Result.Error("error")
     }
 
-    suspend fun addTask(cardData: Task): Result? {
+    suspend fun addTask(cardData: Task): CommonResponse? {
         return taskRemoteDataSource.addTask(cardData)
     }
 

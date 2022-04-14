@@ -10,7 +10,7 @@ import com.example.todolist.databinding.ItemTaskBinding
 import com.example.todolist.model.response.TaskDetailResponse
 
 class TaskAdapter(
-    private val viewModel: TaskViewModel,
+    private val viewModel: TaskRemoteViewModel,
     private val listener: DialogListener,
 ) : ListAdapter<TaskDetailResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback),
     ItemTouchHelperListener {
@@ -54,9 +54,13 @@ class TaskAdapter(
 
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             when (item?.itemId) {
-                R.id.popup_go_done -> viewModel.moveDone(task)
+                R.id.popup_go_done -> {
+//                    viewModel.moveDone(task)
+                }
                 R.id.popup_modify -> listener.updateDialog(task)
-                R.id.popup_delete -> viewModel.deleteTask(task)
+                R.id.popup_delete -> {
+//                    viewModel.deleteTask(task)
+                }
             }
             return item != null
         }
@@ -77,12 +81,12 @@ class TaskAdapter(
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-        viewModel.swapTask(currentList, fromPosition, toPosition)
+//        viewModel.swapTask(currentList, fromPosition, toPosition)
         return true
     }
 
     override fun onItemSwipe(position: Int) {
-        viewModel.deleteTask(getItem(position))
+//        viewModel.deleteTask(getItem(position))
     }
 }
 
