@@ -1,7 +1,6 @@
 import * as scheduleModel from "../model/scheduleModel.js";
 import { changeCardNumber } from "./scheduleCardCount.js";
 
-
 const $main = document.querySelector("#main");
 let dragCard;
 let afterimageCard;
@@ -11,7 +10,7 @@ let selectedCardData;
 const TOP = "top";
 const BOTTOM = "bottom";
 const CARD = "schedule-card";
-const CARDS_CONTAINER = "schedule-column__cards-container"
+const CARDS_CONTAINER = "schedule-column__cards-container";
 const CARD_AFTERIMAGE = "schedule-card--afterimage";
 const DRAG_CARD = "schedule-drag-card";
 
@@ -33,7 +32,7 @@ const getElementBelowDragPointer = (event) => {
 };
 
 const appendAfterimageCardInCards = ($cardsContainer) => {
-    const $cards = $cardsContainer.querySelector(".schedule-column__cards")
+    const $cards = $cardsContainer.querySelector(".schedule-column__cards");
     const tempAfterimageCard = afterimageCard;
     afterimageCard.remove();
     $cards.appendChild(tempAfterimageCard);
@@ -70,11 +69,7 @@ const mouseMoveOnDraggingEventHandler = (event) => {
         return;
     }
 
-    if (
-        $elementBelowDragPointer.classList.contains(
-            CARDS_CONTAINER
-        )
-    ) {
+    if ($elementBelowDragPointer.classList.contains(CARDS_CONTAINER)) {
         appendAfterimageCardInCards($elementBelowDragPointer);
         return;
     }
@@ -109,22 +104,16 @@ const resetGlobalVariables = () => {
 
 const insertAfterimageCardToModel = (afterimageCard) => {
     const columnId = afterimageCard.closest(".schedule-column").dataset.id;
-    const $scheduleCards = afterimageCard.closest(
-        ".schedule-column__cards"
-    );
-    const afterCardBrowserIndex = [
-        ...$scheduleCards.children,
-    ].findIndex(
+    const $scheduleCards = afterimageCard.closest(".schedule-column__cards");
+    const afterCardIndex = [...$scheduleCards.children].findIndex(
         (card) => card.classList.contains("schedule-card--afterimage") === true
     );
-    const afterCardModelIndex =
-        [...$scheduleCards.children].length - afterCardBrowserIndex - 1;
     scheduleModel.insertScheduleCard(
         columnId,
         selectedCardData,
-        afterCardModelIndex
+        afterCardIndex
     );
-    changeCardNumber(columnId)
+    changeCardNumber(columnId);
 };
 
 const mouseUpOnDraggingEventHandler = () => {
@@ -156,7 +145,7 @@ const removeSelectedCardFromModel = (selectedCard) => {
 
     selectedCardData = scheduleModel.getScheduleCardDataById(columnId, cardId);
     scheduleModel.removeScheduleCard(columnId, cardId);
-    changeCardNumber(columnId)
+    changeCardNumber(columnId);
 };
 
 export const mouseDownEventHandler = (event) => {

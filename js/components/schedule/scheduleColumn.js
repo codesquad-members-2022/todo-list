@@ -20,7 +20,7 @@ export class ScheduleColumn {
         this.setDOMElement();
         this.renderCards();
         this.setEvent();
-        changeCardNumber(this.columnId)
+        changeCardNumber(this.columnId);
     }
 
     setDOMElement() {
@@ -43,6 +43,7 @@ export class ScheduleColumn {
                     updateCard: this.updateCard.bind(this),
                     getCardData: this.getCardData.bind(this),
                 },
+                registerState: false,
             };
             new ScheduleCard(scheduleCardParams);
         });
@@ -67,15 +68,14 @@ export class ScheduleColumn {
     }
 
     removeRegisterCard() {
-        this.registerCard.changeState();
         const $registerCard = this.$cards.querySelector(
             ".schedule-register-card"
         );
         $registerCard.remove();
+        this.registerCard.changeState();
     }
 
     showRegisterCard() {
-        this.registerCard.changeState();
         const scheduleRegisterCardParams = {
             $target: this.$cards,
             passedEventHandler: {
@@ -84,6 +84,7 @@ export class ScheduleColumn {
             },
         };
         this.registerCard.init(scheduleRegisterCardParams);
+        this.registerCard.changeState();
     }
 
     render() {
@@ -101,16 +102,18 @@ export class ScheduleColumn {
                 updateCard: this.updateCard.bind(this),
                 getCardData: this.getCardData.bind(this),
             },
+            registerState: true,
         };
         new ScheduleCard(scheduleCardParams);
-        changeCardNumber(this.columnId)
+        changeCardNumber(this.columnId);
     }
 
     removeCard($target) {
         const cardId = $target.dataset.cardId;
-        scheduleModel.removeScheduleCard(this.columnId, cardId);
+        const columnId = $target.closest(".schedule-column").dataset.id;
+        scheduleModel.removeScheduleCard(columnId, cardId);
         $target.remove();
-        changeCardNumber(this.columnId)
+        changeCardNumber(columnId);
     }
 
     updateCard(cardData) {
