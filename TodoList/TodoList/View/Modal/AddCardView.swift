@@ -35,6 +35,11 @@ final class AddCardView: UIView{
         titleTextField.text = title
         bodyTextField.text = body
     }
+    
+    func clear(){
+        titleTextField.text = ""
+        bodyTextField.text = ""
+    }
 }
 
 private extension AddCardView{

@@ -39,11 +39,15 @@ extension AddCardViewController: AddCardDelegate{
         board.append(newCard)
   
         // POST
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.addCardView.clear()
+        })
     }
     
     func makeCardShoudCanceld() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.addCardView.clear()
+        })
     }
 
     
