@@ -2,7 +2,6 @@ import UIKit
 
 class CardDataMiddleWare {
     
-    private var dataTask = DebugDataTask.init(api: Team13API())
     private var fetchResultInBoard = [TodoBoard: Result<[CardData], DataTaskError>]() {
         willSet {
             
@@ -19,6 +18,11 @@ class CardDataMiddleWare {
                 
             }
         }
+    }
+    private var dataTask: DebugDataTask?
+    
+    init(_ dataTaskGenerator: ()->DebugDataTask?) {
+        self.dataTask = dataTaskGenerator()
     }
     
     func fetchAllCards() {

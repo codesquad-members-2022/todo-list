@@ -4,7 +4,7 @@ protocol TodoBadgeDelegate {
     func setBadgeCount(_ count: Int)
 }
 
-class TodoTableViewManagement: NSObject {
+class TodoRepositoryRespondWrapper: NSObject {
     
     var todoTableView: TodoTableView
     var todoBoard: TodoBoard
@@ -47,15 +47,14 @@ class TodoTableViewManagement: NSObject {
         todoTableView = tableView
     }
     
-    @discardableResult
-    func setDataSource(at index: Int, data: CardData) -> Bool{
-        guard 0 <= index, index < dataSource.count else {
-            return false
-        }
-        
+    private func isEnableIndex(_ index: Int) -> Bool {
+        return (0..<dataSource.count ~= index)
+    }
+    
+    func insertDataSource(data: CardData, at index: Int) {
+        guard isEnableIndex(index) else { return }
         dataSource[index] = data
         reloadTodoTableView()
-        return true
     }
     
     func setDataSource(data: [CardData]) {
@@ -73,7 +72,7 @@ class TodoTableViewManagement: NSObject {
     }
 }
 
-extension TodoTableViewManagement: UITableViewDataSource {
+extension TodoRepositoryRespondWrapper: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dataSource.count
@@ -84,10 +83,10 @@ extension TodoTableViewManagement: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.reloadAllLabels(dataSource[indexPath.row])
+        cell.applyTextAllLabels(data: dataSource[indexPath.row])
 
         return cell
     }
 }
 
-extension TodoTableViewManagement: UITableViewDelegate { }
+extension TodoRepositoryRespondWrapper: UITableViewDelegate { }

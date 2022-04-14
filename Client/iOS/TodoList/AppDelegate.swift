@@ -10,7 +10,9 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    static let middleWare = CardDataMiddleWare()
+    static let middleWare = CardDataMiddleWare {
+        DebugDataTask(api: Team13API())
+    }
     
 }
 

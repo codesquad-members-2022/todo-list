@@ -2,8 +2,8 @@ import UIKit
 
 class TodoTableView: UITableView {
     
-    /// TodoTableView가 사용하길 의도한 TodoTableViewManagement가 delegate, datasource를 쓸 수 있도록 하는 내부 프로퍼티.
-    var management: TodoTableViewManagement? {
+    /// TodoTableView가 사용하길 의도한 TodoRepositoryRespondWrapper가 delegate, datasource를 쓸 수 있도록 하는 내부 프로퍼티.
+    var management: TodoRepositoryRespondWrapper? {
         didSet {
             delegate = management
             dataSource = management
