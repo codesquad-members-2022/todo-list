@@ -11,18 +11,17 @@ import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/api")
 public class HomeController {
 
+	private static final int INITIALIZED_LOG_SIZE = 0;
+	private static final int PAGINATION_OFFSET = 10;
 	private final CardService cardService;
 	private final LogService logService;
 	private final Logger logger = LoggerFactory.getLogger(CardController.class);
@@ -36,7 +35,7 @@ public class HomeController {
 	@GetMapping("/cards")
 	public ResponseEntity<ListResponseDTO> inquireAll() {
 		ClassifiedCardsDTO classifiedCards = cardService.findCards();
-		List<LogDTO> logs = logService.findLogs(0, 10);
+		List<LogDTO> logs = logService.findLogs(INITIALIZED_LOG_SIZE, PAGINATION_OFFSET);
 		return ResponseEntity.ok().body(new ListResponseDTO(classifiedCards, logs));
 	}
 
@@ -51,10 +50,10 @@ public class HomeController {
 	@GetMapping("/logs")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "nowNumberOfLogs", value = "현재 로그 개수"),
-		@ApiImplicitParam(name = "number", value = "추가적으로 원하는 로그 개수")
+		@ApiImplicitParam(name = "size", value = "추가적으로 원하는 로그 개수")
 	})
-	public ResponseEntity<List<LogDTO>> logPaging(int nowNumberOfLogs, int number) {
-		List<LogDTO> logs = logService.findLogs(nowNumberOfLogs, number);
+	public ResponseEntity<List<LogDTO>> logPaging(int nowNumberOfLogs, int size) {
+		List<LogDTO> logs = logService.findLogs(nowNumberOfLogs, size);
 		logger.debug("넘겨주는 log의 수: {}", logs.size());
 		return ResponseEntity.ok().body(logs);
 	}
