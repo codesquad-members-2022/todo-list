@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("api/cards")
 public class CardController {
 
     private final CardService cardService;
@@ -31,29 +31,29 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    @PostMapping("/cards")
+    @PostMapping
     public ApiResult<CardDto> writeCard(@RequestBody @Valid CardDto cardDto) {
         Card card = cardService.writeCard(cardDto);
         return ApiResult.OK(new CardDto(card));
     }
 
-    @GetMapping("/cards/{id}")
+    @GetMapping("{id}")
     public ApiResult<CardDto> cardDetailInquiry(@PathVariable Long id) {
         Card card = cardService.findById(id);
         return ApiResult.OK(new CardDto(card));
     }
 
-    @GetMapping("/cards")
+    @GetMapping
     public ApiResult<Map<CardType, List<CardSaveResponse>>> getCards() {
         return ApiResult.OK(cardService.findAll());
     }
 
-    @DeleteMapping("/cards/{id}")
+    @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
         cardService.delete(id);
     }
 
-    @PatchMapping({"/cards/{id}"})
+    @PatchMapping({"{id}"})
     public ApiResult<CardDto> updateCard(@PathVariable Long id, @RequestBody CardDto cardDto) {
         Card card = cardService.updateCard(id, cardDto);
         return ApiResult.OK(new CardDto(card));
