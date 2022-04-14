@@ -1,29 +1,38 @@
 import TodoInput from './TodoInput.js';
+import { $ } from '../utils/dom.js';
 
 export default class TodoColumn {
   constructor(status) {
-    this.parentTarget = document.querySelector('.column-section');
     this.status = status;
-    this.todoInput = new TodoInput(this.status, this.handleCount);
+    this.todoInput = new TodoInput(this.status, this.setOnInput, this.handleAddCount);
     this.onInput = false;
     this.count = 0;
   }
 
+  setOnInput = onInput => {
+    this.onInput = onInput;
+  };
+
   onAddClick = () => {
     if (this.onInput) {
-      document.querySelector(`.input-${this.status}`)?.remove();
-      this.onInput = false;
+      $(`.input-${this.status}`)?.remove();
+      this.setOnInput(false);
       return;
     }
 
-    document.querySelector(`.${this.status}`).insertAdjacentHTML('afterend', this.todoInput.render());
-    this.todoInput.run();
-    this.onInput = true;
+    $(`.${this.status}`).insertAdjacentHTML('afterend', this.todoInput.render());
+    this.todoInput.handleEventListener();
+    this.setOnInput(true);
     return;
   };
 
-  handleCount = () => {
+  handleAddCount = () => {
     this.onAddCount();
+    this.renderCount();
+  };
+
+  handleMinusCount = () => {
+    this.onMinusCount();
     this.renderCount();
   };
 
@@ -35,13 +44,21 @@ export default class TodoColumn {
     this.count++;
   };
 
+  onMinusCount = () => {
+    this.count--;
+  };
+
   renderCount = () => {
-    document.querySelector(`.${this.status} .column__count`).innerText = this.count;
+    $(`.${this.status} .column__count`).innerText = this.count;
+  };
+
+  handleEventListener = () => {
+    $(`.${this.status} .column__add`).addEventListener('click', this.onAddClick);
   };
 
   render = () => {
-    const columnListHTML = /* html */ `
-    <article class="column-list">
+    return /* html */ `
+    <article class="column-list ${this.status}-wrapper">
         <nav class="column ${this.status}">
             <div class="column__left">
                 <span class="column__title">${this.status}</span>
@@ -55,7 +72,5 @@ export default class TodoColumn {
         
     </article>
       `;
-    this.parentTarget.insertAdjacentHTML('beforeend', columnListHTML);
-    document.querySelector(`.${this.status} .column__add`).addEventListener('click', this.onAddClick);
   };
 }

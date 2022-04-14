@@ -1,4 +1,4 @@
-.deleteEventModal {
+.modal {
   width: 400px;
   height: 138px;
   padding: 24px;
@@ -6,19 +6,34 @@
   position: absolute;
   left: 50%;
   top: 50%;
+  transform: translate(-50%, -50%);
   border-radius: 5px;
-  z-index: 200px;
-  display: none;
+  z-index: 200;
 
-  .closeButton {
+  &__title {
+    font-size: $font-18;
+    margin-bottom: 24px;
+  }
+
+  &-button__wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__button {
+    border-radius: 6px;
+  }
+
+  &--close {
     width: 134px;
     height: 40px;
+    margin-right: 8px;
     padding: 10px;
     cursor: pointer;
     color: $color-grey-dark;
     background: $color-grey-mlight;
   }
-  .deletebutton {
+  &--remove {
     width: 134px;
     height: 40px;
     padding: 10px;
@@ -29,7 +44,6 @@
 }
 
 .modalBackground {
-  display: none;
   top: 0px;
   left: 0px;
   z-index: 10;
@@ -37,6 +51,5 @@
   height: 100vh;
   position: absolute;
 
-  //background: $color-grey-slight;
-  background-color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.5);
 }
