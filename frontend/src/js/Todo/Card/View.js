@@ -16,6 +16,8 @@ export default class CardView {
     writeCard.addEventListener('input', cardInputHandler);
     accentBtn.addEventListener('click', cardAddHandler);
     deleteBtn.addEventListener('click', cardDeleteHandler);
+    deleteBtn.addEventListener('mouseover', hoverHandler);
+    deleteBtn.addEventListener('mouseout', hoverHandler);
   }
 
   renderAddCard(targetColumn, cardId) {
@@ -42,5 +44,13 @@ export default class CardView {
 
   renderDeleted(card) {
     card.remove();
+  }
+
+  changeDeleteMode(card) {
+    if (card.classList.contains('delete_hover')) {
+      card.classList.remove('delete_hover');
+      return;
+    }
+    card.classList.add('delete_hover');
   }
 }

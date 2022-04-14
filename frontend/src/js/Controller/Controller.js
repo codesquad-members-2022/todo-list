@@ -14,6 +14,7 @@ class Controller {
       title: null,
       content: null,
     };
+    this.hoverCard = null;
     this.deletedCard = null;
     this.deletedColumn = null;
     this.init();
@@ -46,6 +47,8 @@ class Controller {
     this.deleteAlertView.onClickAccept(handleClickAccept.bind(this));
 
     function handleClickCancel() {
+      const targetCard = document.querySelector('.card.delete_hover');
+      this.hoverCard.view.changeDeleteMode(targetCard);
       this.deleteAlertView.render();
     }
 
@@ -108,6 +111,7 @@ class Controller {
       cardInputHandler: this.cardInputHandler.bind(this),
       cardAddHandler: this.cardAddHandler.bind(this),
       cardDeleteHandler: this.cardDeleteHandler.bind(this),
+      hoverHandler: this.cardDeleteHoverHandeler.bind(this),
     });
   }
 
@@ -162,6 +166,17 @@ class Controller {
     );
   }
 
+  cardDeleteHoverHandeler({ type, target }) {
+    const alert = document.querySelector('.alert_container.hidden');
+    if (type === 'mouseout' && alert === null) {
+      return;
+    }
+    const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
+    const targetColumn = this.todo.model.columns[targetColumnBox.id];
+    this.hoverCard = targetColumn.model.cardList[targetCard.id];
+    this.hoverCard.view.changeDeleteMode(targetCard);
+  }
+
   cardCancelHandler(target) {
     const { targetColumnBox, targetCard, titleInput, contentInput } =
       this.getTargetCardInfo(target);
@@ -207,7 +222,6 @@ class Controller {
     this.deletedColumn = targetColumnBox;
     this.deletedCard = targetCard;
 
-    targetCard.classList.add('delete_hover');
     this.deleteAlertView.$alert_container.classList.remove('hidden');
   }
 
