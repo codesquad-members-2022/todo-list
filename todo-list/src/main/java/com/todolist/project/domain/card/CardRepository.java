@@ -27,12 +27,10 @@ public class CardRepository {
 		= "INSERT INTO card(card_index, title, contents, writer, created_date, card_status) VALUES (:index,:title,:contents,:writer,:createTime,:card_status)";
 	private final static String FIND_CARD_BY_STATUS_SQL
 		= "SELECT id, card_index, title, contents, writer, card_status, created_date FROM card WHERE card_status = :cardStatus";
-	private final JdbcTemplate jdbcTemplate;
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private final RowMapper<Card> rowMapper;
 
 	public CardRepository(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		this.rowMapper = (rs, rowNum) -> {
 			String status = rs.getString("card_Status");
@@ -51,22 +49,19 @@ public class CardRepository {
 	public Card findCardById(Long id) {
 		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 		mapSqlParameterSource.addValue("id", id);
-		return namedParameterJdbcTemplate.query(FIND_ID_SQL, mapSqlParameterSource, rowMapper)
-			.stream()
-			.findAny()
-			.orElseThrow(
-				IllegalAccessError::new
-			);
+		return namedParameterJdbcTemplate.queryForObject(FIND_ID_SQL, mapSqlParameterSource,
+			rowMapper);
 	}
 
 	public List<Card> findCardsByStatus(String cardStatus) {
 		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 		mapSqlParameterSource.addValue("cardStatus", cardStatus);
-		return namedParameterJdbcTemplate.query(FIND_CARD_BY_STATUS_SQL, mapSqlParameterSource, rowMapper);
+		return namedParameterJdbcTemplate.query(FIND_CARD_BY_STATUS_SQL, mapSqlParameterSource,
+			rowMapper);
 	}
 
 	public List<Card> findAll() {
-		return jdbcTemplate.query(FIND_CARD_SQL, rowMapper);
+		return namedParameterJdbcTemplate.query(FIND_CARD_SQL, rowMapper);
 
 	}
 
