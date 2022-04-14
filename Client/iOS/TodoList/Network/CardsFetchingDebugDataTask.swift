@@ -20,7 +20,7 @@ class DebugDataTask: SessionDataTask {
     }
     
     func fetchAll<T: Codable>(dataType: T.Type, completionHandler: @escaping (Result<T,DataTaskError>) -> Void) {
-        guard let url = api.toURL(type: .all) else {
+        guard let url = api.toURL(path: .all) else {
             completionHandler(.failure(.invalidURL))
             return
         }

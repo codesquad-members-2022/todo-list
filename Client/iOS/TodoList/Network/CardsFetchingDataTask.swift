@@ -32,8 +32,8 @@ class DataTask: SessionDataTask {
     }
     
     func fetchUser(completionHandler: @escaping (Result<String,DataTaskError>) -> Void) {
-        guard let url = api.toURL(type: .user),
-              let baseUrl = api.toURL(type: .base) else {
+        guard let url = api.toURL(path: .user),
+              let baseUrl = api.toURL(path: .base) else {
             completionHandler(.failure(.invalidURL))
             return
         }
@@ -58,7 +58,7 @@ class DataTask: SessionDataTask {
     
     
     func fetchAll<T: Codable>(dataType: T.Type, completionHandler: @escaping (Result<T,DataTaskError>) -> Void) {
-        guard let url = api.toURL(type: .all) else {
+        guard let url = api.toURL(path: .all) else {
             completionHandler(.failure(.invalidURL))
             return
         }
@@ -80,7 +80,7 @@ class DataTask: SessionDataTask {
     
     private func makeRequestContainCookie(with url: URL) -> URLRequest? {
         var request = URLRequest(url: url)
-        guard let baseUrl = api.toURL(type: .base),
+        guard let baseUrl = api.toURL(path: .base),
             let cookies = HTTPCookieStorage.shared.cookies(for: baseUrl) else {
             return request
         }
@@ -115,7 +115,7 @@ protocol ServerAPI {
 }
 
 extension ServerAPI {
-    func getUrlString(type: URLType) -> String {
+    func getUrlString(type: APIPath) -> String {
         switch type {
         case .base:
             return endpoint
@@ -124,15 +124,15 @@ extension ServerAPI {
         }
     }
     
-    func toURL(type: URLType) -> URL? {
-        guard let url = URL(string: endpoint+"\(type)") else {
+    func toURL(path: APIPath) -> URL? {
+        guard let url = URL(string: endpoint+"\(path)") else {
             return nil
         }
         return url
     }
 }
 
-enum URLType: CustomStringConvertible {
+enum APIPath: CustomStringConvertible {
     case base
     case all
     case user
