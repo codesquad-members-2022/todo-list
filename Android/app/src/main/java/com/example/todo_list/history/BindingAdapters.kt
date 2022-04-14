@@ -13,9 +13,9 @@ import java.util.*
 private fun convertAction(action: String): String {
     return when (action) {
         "move" -> "이동"
-        "update" -> "갱신"
+        "add" -> "추가"
         "remove" -> "삭제"
-        else -> "추가"
+        else -> "갱신"
     }
 }
 
@@ -27,42 +27,21 @@ private fun convertStatus(status: String): String {
     }
 }
 
-@BindingAdapter("setUsername") // 히스토리 item xml과 바인딩
+@BindingAdapter("setUsername")
 fun setUsername(view: TextView, username: String) {
     view.text = String.format("@%s", username)
 }
 
-@BindingAdapter("setBody") // 히스토리 item xml과 바인딩
+@BindingAdapter("setBody")
 fun setBody(view: TextView, body: HistoryCard) {
     view.text = when (body.action) {
         "move" ->
             HtmlCompat.fromHtml(
                 view.context.getString(
                     R.string.history_move_string,
-                    body.todo.title,
-                    convertStatus(body.from_status),
-                    convertStatus(body.to_status),
-                    convertAction(body.action)
-                ),
-                FROM_HTML_MODE_LEGACY
-            )
-        "remove" ->
-            HtmlCompat.fromHtml(
-                view.context.getString(
-                    R.string.history_remove_string,
-                    body.todo.title,
-                    convertStatus(body.from_status),
-                    convertAction(body.action)
-                ),
-                FROM_HTML_MODE_LEGACY
-            )
-        "update" ->
-            HtmlCompat.fromHtml(
-                view.context.getString(
-                    R.string.history_update_string,
-                    body.todo.title,
-                    body.todo.title,
-                    convertStatus(body.from_status),
+                    body.todoTitle,
+                    convertStatus(body.fromStatus),
+                    convertStatus(body.toStatus),
                     convertAction(body.action)
                 ),
                 FROM_HTML_MODE_LEGACY
@@ -70,9 +49,9 @@ fun setBody(view: TextView, body: HistoryCard) {
         else ->
             HtmlCompat.fromHtml(
                 view.context.getString(
-                    R.string.history_add_string,
-                    convertStatus(body.todo.status),
-                    body.todo.title,
+                    R.string.history_default_string,
+                    convertStatus(body.toStatus),
+                    body.todoTitle,
                     convertAction(body.action)
                 ),
                 FROM_HTML_MODE_LEGACY
@@ -80,7 +59,7 @@ fun setBody(view: TextView, body: HistoryCard) {
     }
 }
 
-@BindingAdapter("setTimeStamp") // 히스토리 item xml과 바인딩
+@BindingAdapter("setTimeStamp")
 fun setTimeStamp(view: TextView, timestamp: String) {
     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA)
     val date: Date? = inputFormat.parse(timestamp)
