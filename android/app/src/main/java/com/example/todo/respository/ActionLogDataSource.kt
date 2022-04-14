@@ -1,8 +1,9 @@
 package com.example.todo.respository
 
-import com.example.todo.model.ActionLog
-import com.example.todo.network.JsonActionLog
+import com.example.todo.network.ActionLogResponse
+import com.example.todo.network.ActionLogResponseItem
+import retrofit2.Response
 
 interface ActionLogDataSource {
-    suspend fun getActionLogs(): List<JsonActionLog>
+    suspend fun getActionLogs(): Response<ActionLogResponse>
 }

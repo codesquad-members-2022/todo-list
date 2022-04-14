@@ -1,7 +1,14 @@
 package com.example.todo.respository
 
 import com.example.todo.model.TodoItem
+import com.example.todo.network.CardIndex
+import com.example.todo.network.TodoResponse
+import retrofit2.Response
 
 interface ToDoDataSource {
-    fun getToDoItems(): List<TodoItem>
+    suspend fun getTodoId(newItem: TodoItem): Response<CardIndex>
+    suspend fun getInProgressId(newItem: TodoItem): Response<CardIndex>
+    suspend fun getDoneId(newItem: TodoItem): Response<CardIndex>
+    suspend fun getTodoItems(): Response<TodoResponse>
+    suspend fun removeItem(cardId: Int): Response<Void>
 }

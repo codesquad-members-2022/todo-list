@@ -1,8 +1,14 @@
 package com.example.todo.model
 
-import com.example.todo.common.ProgressType
+data class TodoItem(
+    var title: String,
+    var content: String,
+    var type: ProgressType,
+    var itemId: Int? = null,
+    var next: Int? = null
+) {
 
-data class TodoItem(var itemId: String, val title: String, val content: String, val type: ProgressType)
+}
 
 
 

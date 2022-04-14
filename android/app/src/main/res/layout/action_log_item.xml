@@ -17,6 +17,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="20dp"
         android:paddingRight="10dp"
+        android:background="@color/todo_background_green"
         android:paddingBottom="20dp">
 
 
@@ -24,7 +25,8 @@
             android:id="@+id/tv_action_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{actionLog.title}"
+            actionLogMessage="@{actionLog}"
+            style="@style/HeadLine6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            style="@style/HeadLine6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_action_content" />
 

@@ -16,7 +16,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_weight="7">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tb_main"
@@ -36,6 +38,44 @@
 
             </androidx.appcompat.widget.Toolbar>
 
+            <com.example.todo.ui.common.TodoTitleView
+                android:id="@+id/todo_title_view_todo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/todo_title_view_in_progress"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tb_main" />
+
+            <com.example.todo.ui.common.TodoTitleView
+                android:id="@+id/todo_title_view_in_progress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/todo_title_view_todo_done"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/todo_title_view_todo"
+                app:layout_constraintTop_toBottomOf="@+id/tb_main" />
+
+            <com.example.todo.ui.common.TodoTitleView
+                android:id="@+id/todo_title_view_todo_done"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/view1"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/todo_title_view_in_progress"
+                app:layout_constraintTop_toBottomOf="@+id/tb_main" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/rv_done" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_todo"
                 android:layout_width="0dp"
@@ -43,7 +83,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/rv_in_progress"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tb_main" />
+                app:layout_constraintTop_toBottomOf="@+id/todo_title_view_todo" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_in_progress"
@@ -52,17 +93,25 @@
                 app:layout_constraintEnd_toStartOf="@id/rv_done"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@id/rv_todo"
-                app:layout_constraintTop_toBottomOf="@+id/tb_main" />
+                app:layout_constraintTop_toBottomOf="@+id/todo_title_view_in_progress" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_done"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/view"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@id/rv_in_progress"
-                app:layout_constraintTop_toBottomOf="@+id/tb_main" />
+                app:layout_constraintTop_toBottomOf="@+id/todo_title_view_todo_done" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/rv_done" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
