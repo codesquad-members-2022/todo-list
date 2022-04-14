@@ -3,10 +3,11 @@ package com.example.backend.controller.card.dto;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class CardDto implements Serializable {
 
@@ -89,9 +90,6 @@ public class CardDto implements Serializable {
         return memberId;
     }
 
-    public Card updateCard(Long id) {
-        return new Card(id, title, content);
-    }
 
     public Long getMaxPositionNumber() {
         return maxPositionNumber;

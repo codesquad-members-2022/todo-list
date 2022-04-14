@@ -1,5 +1,7 @@
 package com.example.backend.domain.card;
 
+import com.example.backend.controller.card.dto.CardDto;
+
 import java.time.LocalDateTime;
 
 public class Card {
@@ -21,12 +23,6 @@ public class Card {
         this.position = position;
         this.memberId = memberId;
         this.cardType = cardType;
-    }
-
-    public Card(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
     }
 
     public Card(long id, String writer, Long position, String title, String content, CardType cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt, boolean visible, long memberId) {
@@ -82,9 +78,18 @@ public class Card {
         return memberId;
     }
 
+<<<<<<< HEAD
     public void updateCard(String title, String content) {
         this.title = title;
         this.content = content;
+=======
+    public void updated(CardDto cardDto) {
+        this.title = cardDto.getTitle();
+        this.content = cardDto.getContent();
+        this.position = cardDto.getPosition();
+        this.lastModifiedAt = LocalDateTime.now();
+        this.cardType = cardDto.getCardType();
+>>>>>>> 77d70b02a4af6143070b31c7f862cb6cfc1ce37f
     }
 }
 
