@@ -202,22 +202,6 @@ class Controller {
     this.actionCard.model.title = titleValue;
     this.actionCard.model.content = contentValue;
 
-    //console.log(targetCard);
-    // if (!targetCard.classList.contains('edit')) {
-    //   const { content, title } = this.actionCard.model;
-    //   const author = 'web';
-    //   const columnId = targetColumnID;
-
-    //   const response = await postCard({
-    //     card: {
-    //       author,
-    //       columnId,
-    //       content,
-    //       title,
-    //     },
-    //   });
-    // }
-
     targetCard.classList.remove('write', 'edit');
     targetColumn.model.addCardList(this.actionCard);
 
