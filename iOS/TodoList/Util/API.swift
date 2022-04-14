@@ -29,14 +29,12 @@ enum API {
         switch self {
         case .post :
             return "POST"
-        case .get :
+        case .get, .events :
             return "GET"
         case .put :
             return "PUT"
         case .delete :
             return "DELETE"
-        case .events :
-            return "GET"
         }
     }
     
