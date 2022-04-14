@@ -27,16 +27,20 @@ class ChildViewController: UIViewController {
     }
 
     func removeFromList(todo: Todo) {
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.tableView.removeTodo(todo: todo)
+            self.header.updateCount(self.tableView.list.count)
         }
     }
     
     func insertToList(todo:Todo) {
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.tableView.appendTodo(todo: todo)
+            self.header.updateCount(self.tableView.list.count)
         }
     }
     

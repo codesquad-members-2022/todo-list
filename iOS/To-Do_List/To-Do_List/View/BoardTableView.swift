@@ -9,7 +9,7 @@ import UIKit
 
 class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView, UITableViewDelegate, UITableViewDataSource {
     
-    private var list : [Model] = []
+    private(set) var list : [Model] = []
     private var cellConfigurator : ((Model, Cell) -> Void)?
     var BoardTableDelegate : BoardTableViewDelegate?
 
@@ -36,7 +36,9 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
         self.separatorStyle = .none        
         self.backgroundColor = .secondarySystemBackground
     }
-
+    
+    
+    
     func removeTodo(todo: Model) {
         guard let targetTodo = todo as? Todo else { return }
         guard let todoList = list as? [Todo] else { return }
@@ -44,7 +46,6 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
         list.remove(at: targetIndex)
         deleteRows(at: [IndexPath(row: targetIndex, section: 0)], with: .automatic)
     }
-    
     
     func appendTodo(todo:Model) {
         self.list.append(todo)
