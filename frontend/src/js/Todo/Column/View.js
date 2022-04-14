@@ -7,9 +7,7 @@ export default class ColumnView {
     const columnHTML = columnBoxTemplate({ id, title, cardCount });
     const todoContainer = document.querySelector('.todo_container');
     todoContainer.insertAdjacentHTML('beforeend', columnHTML);
-    const column = todoContainer.querySelector(
-      `.todo_column_box:nth-child(${id})`
-    );
+    const column = todoContainer.querySelector(`[data-columnid="${id}"]`);
     if (!cards) return;
     cards.forEach((card) => {
       const cardHtml = cardReadTemplate(card);
