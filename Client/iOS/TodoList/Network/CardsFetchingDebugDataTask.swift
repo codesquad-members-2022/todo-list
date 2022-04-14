@@ -15,7 +15,7 @@ class DebugDataTask: SessionDataTask {
          type: NSURLRequest.NetworkServiceType = .default
          ) {
         self.api = api
-        let urlString = api.getUrlString(type: .all)
+        let urlString = api.urlString(path: .all)
         super.init(as: urlString, using: delegate, in: queue, type: type)
     }
     

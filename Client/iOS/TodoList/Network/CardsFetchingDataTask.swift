@@ -27,7 +27,7 @@ class DataTask: SessionDataTask {
          type: NSURLRequest.NetworkServiceType = .default
          ) {
         self.api = api
-        let urlString = api.getUrlString(type: .all)
+        let urlString = api.urlString(path: .all)
         super.init(as: urlString, using: delegate, in: queue, type: type)
     }
     
@@ -115,17 +115,17 @@ protocol ServerAPI {
 }
 
 extension ServerAPI {
-    func getUrlString(type: APIPath) -> String {
-        switch type {
+    func urlString(path: APIPath) -> String {
+        switch path {
         case .base:
             return endpoint
         case .all, .user:
-            return endpoint+"\(type)"
+            return endpoint+"\(path)"
         }
     }
     
     func toURL(path: APIPath) -> URL? {
-        guard let url = URL(string: endpoint+"\(path)") else {
+        guard let url = URL(string: urlString(path: path)) else {
             return nil
         }
         return url
