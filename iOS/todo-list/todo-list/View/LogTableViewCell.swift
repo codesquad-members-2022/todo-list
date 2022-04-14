@@ -44,7 +44,7 @@ class LogTableViewCell: UITableViewCell {
         ]
     }
     
-    func configure(with viewModel: logCellViewModel) {
+    func logConfigure(with viewModel: logCellViewModel) {
         self.taskId = viewModel.id
         
         var config = defaultContentConfiguration()

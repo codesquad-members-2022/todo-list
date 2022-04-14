@@ -13,13 +13,18 @@ class LogViewModel {
     var descriptions: [String] = []
     var userIds: [String] = []
     
-    var list = Observable( [LogViewModel]() )
+    var list = Observable( [logCellViewModel]() )
     
     init(logManager: LogManager) {
         self.logManager = logManager
     }
     
     var count: Int { list.value.count }
+    
+    subscript(index: Int) -> logCellViewModel? {
+        guard index < list.value.count else { return nil }
+        return list.value[index]
+    }
 }
 
 //MARK: - Load to Domain Data
