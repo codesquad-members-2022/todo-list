@@ -1,31 +1,80 @@
 {
-  "todos": [
+  "cardData": {
+    "todo": [],
+
+    "doing": [
+      {
+        "id": "1649773912726",
+        "title": "GitHub 공부하기",
+        "content": "add, commit, push"
+      }
+    ],
+
+    "done": [
+      {
+        "id": "1649773912740",
+        "title": "GitHub 공부 또 하기",
+        "content": "merge vs rebase"
+      }
+    ]
+  },
+
+  "historyData": [
     {
-      "id": 1,
-      "content": "HTML",
-      "completed": true
+      "title": "GitHub 공부하기",
+      "content": "add, commit, push",
+      "action": "add",
+      "prevColumn": "todo",
+      "currColumn": "todo",
+      "date": "22-04-01-00:00"
     },
     {
-      "id": 2,
-      "content": "CSS",
-      "completed": false
+      "title": "GitHub 공부하기 찐막",
+      "content": "commit 수정하는 법",
+      "action": "add",
+      "prevColumn": "todo",
+      "currColumn": "todo",
+      "date": "22-04-01-00:30"
     },
     {
-      "id": 3,
-      "content": "Javascript",
-      "completed": true
-    }
-  ],
-  "users": [
-    {
-      "id": 1,
-      "name": "Lee",
-      "role": "developer"
+      "title": "GitHub 공부하기",
+      "content": "add, commit, push",
+      "action": "move",
+      "prevColumn": "todo",
+      "currColumn": "doing",
+      "date": "22-04-01-01:00"
     },
     {
-      "id": 2,
-      "name": "Kim",
-      "role": "designer"
+      "title": "GitHub 공부 또 하기",
+      "content": "merge vs rebase",
+      "action": "add",
+      "prevColumn": "todo",
+      "currColumn": "todo",
+      "date": "22-04-02-10:00"
+    },
+    {
+      "title": "GitHub 공부하기 찐막",
+      "content": "commit 수정하는 법",
+      "action": "update",
+      "prevColumn": "todo",
+      "currColumn": "done",
+      "date": "22-04-09-23:00"
+    },
+    {
+      "title": "GitHub 공부하기 찐막",
+      "content": "commit 수정하는 법",
+      "action": "remove",
+      "prevColumn": "todo",
+      "currColumn": "todo",
+      "date": "22-04-10-13:00"
+    },
+    {
+      "title": "GitHub 공부 또 하기",
+      "content": "merge vs rebase",
+      "action": "move",
+      "prevColumn": "todo",
+      "currColumn": "done",
+      "date": "22-04-12-10:00"
     }
   ]
 }

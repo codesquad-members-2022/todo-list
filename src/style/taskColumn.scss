@@ -1,0 +1,65 @@
+.task-column__wrapper {
+  border: 1px solid black;
+  display: flex;
+}
+
+.task-column {
+  margin: 15px 0px 15px 15px;
+  padding: 15px 0px 15px 15px;
+  width: 350px;
+}
+
+.task-column__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-column__header__title {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: #010101;
+  display: flex;
+  align-items: center;
+}
+
+.column__card-cnt {
+  text-align: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  margin-left: 10px;
+  background-color: #b0b0b0;
+}
+
+.delete-btn {
+  margin-left: 10px;
+}
+
+.delete-btn svg {
+  fill: #828282;
+}
+
+.delete-btn svg:hover {
+  fill: #ff4343;
+}
+
+.delete-btn path {
+  fill: inherit;
+}
+
+.add-btn svg {
+  fill: #828282;
+}
+
+.add-btn svg:hover {
+  fill: #0075de;
+}
+
+.add-btn path {
+  fill: inherit;
+}
