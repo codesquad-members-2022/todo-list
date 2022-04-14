@@ -6,6 +6,9 @@
 //
 
 protocol BoardTableViewDelegate {
+
     func didTapDelete(item: Any)
     func didTapMoveToCompleted(foucsedCard:Todo,from:Int)
+    func DidTapEdit(item : Any)
+
 }

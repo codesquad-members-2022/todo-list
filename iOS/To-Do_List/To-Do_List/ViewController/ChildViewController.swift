@@ -38,6 +38,14 @@ class ChildViewController: UIViewController {
         }
     }
     
+    
+    func updateList(todo: Todo) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.tableView.updateCell(with:todo)
+        }
+    }
+    
     func insertToList(todo:Todo) {
         
         DispatchQueue.main.async { [weak self] in
@@ -139,11 +147,22 @@ extension ChildViewController : BoardHeaderDelegate {
 
 //MARK: -- BoardTableView Delete delegation
 extension ChildViewController : BoardTableViewDelegate {
+  
+
     func didTapMoveToCompleted(foucsedCard: Todo, from: Int) {
         NotificationCenter.default.post(
             name: ChildViewController.tapMoveToCompltedButton,
             object: self,
             userInfo: [ChildViewController.movedCardInfo:MovedCardInfo(foucsedCard:foucsedCard,from:from)])
+    }
+    
+    func DidTapEdit(item: Any) {
+        guard let cardInfo = item as? Todo else {return}
+        let editVC = EditCardViewController()
+        editVC.delegate = self
+        editVC.setEditCardView(editStyle: .editContent(cardInfo: cardInfo))
+        editVC.modalPresentationStyle = .formSheet
+        present(editVC, animated: true)
     }
     
     func didTapDelete(item: Any) {

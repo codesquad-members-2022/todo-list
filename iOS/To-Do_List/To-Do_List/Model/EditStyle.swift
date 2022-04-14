@@ -7,7 +7,16 @@
 
 enum EditStyle {
     case add
-    case editContent
+    case editContent(cardInfo : Todo)
+    
+    var cardId : Int? {
+        switch self {
+        case .add:
+            return nil
+        case .editContent(let cardInfo):
+            return cardInfo.id
+        }
+    }
     
     var title:String {
         switch self {
@@ -18,12 +27,12 @@ enum EditStyle {
         }
     }
     
-    var headLineTextFieldPlaceholder:String {
+    var headLineText:String {
         switch self {
         case .add:
             return "제목을 입력하세요"
-        case .editContent:
-            return ""
+        case .editContent(let cardInfo):
+            return cardInfo.title
         }
     }
     
@@ -31,8 +40,8 @@ enum EditStyle {
         switch self {
         case .add:
             return "내용을 입력하세요"
-        case .editContent:
-            return ""
+        case .editContent(let cardInfo):
+            return cardInfo.content
         }
     }
     

@@ -47,6 +47,16 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
         deleteRows(at: [IndexPath(row: targetIndex, section: 0)], with: .automatic)
     }
     
+    
+    func updateCell(with todo: Model) {
+        guard let targetTodo = todo as? Todo else { return }
+        guard let todoList = list as? [Todo] else { return }
+        guard let targetIndex = todoList.firstIndex(where: { $0.id == targetTodo.id }) else { return }
+        let targetCell = cellForRow(at: IndexPath(row: targetIndex, section: 0)) as? CardCell
+        targetCell?.loadCardInfo(info: targetTodo)
+    }
+
+    
     func appendTodo(todo:Model) {
         self.list.append(todo)
         insertRows(at: [IndexPath(row: list.count - 1, section: 0)], with: .automatic)
@@ -69,11 +79,16 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard Cell.self == CardCell.self else {return}
         if editingStyle == .delete {
+
             boardTableDelegate?.didTapDelete(item: list[indexPath.row])
+
         }
     }
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard Cell.self == CardCell.self else {return UIContextMenuConfiguration()}
+        
+        let cardInfo = list[indexPath.row]
+        
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let moveToCompleted = UIAction(title: "완료한 일로 이동") { [weak self] _ in
@@ -84,6 +99,8 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
             
             let edit = UIAction(title: "수정하기") { _ in
                 print("수정하기")
+                print(cardInfo)
+                self.boardTableDelegate?.DidTapEdit(item: cardInfo)
             }
        
             let delete = UIAction(title: "삭제하기", image: nil,

@@ -54,6 +54,7 @@ class MainViewController: UIViewController {
             self.statckView.addArrangedSubview($0.view)
         }
         
+     
     }
 }
 
@@ -87,6 +88,7 @@ extension MainViewController {
             object: nil
         )
         
+
     }
 }
 
@@ -122,7 +124,7 @@ extension MainViewController {
             id: cardInfo.id ?? 0,
             originPosition: originPosition,
             maxPositionNumber: maxPositionNumber,
-            originCardType: cardInfo.cardType,
+            originCardType: cardInfo.cardType ?? "",
             goalCardType: completedViewController.boardType?.type ?? ""
         )
         networkManager?.request(endpoint: EndPointCase.moveToCompleted(movedCard: movedCard).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
@@ -143,24 +145,50 @@ extension MainViewController {
         guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
               let childVC = notification.object as? ChildViewController
         else { return }
+
+        switch info.button {
+            case "등록" :
+                let postModel = NewCard(
+                    id: nil,
+                    writer: "iOS",
+                    title: info.title,
+                    content: info.content,
+                    cardType:childVC.boardType?.type ?? "",
+                    memberId: 1, maxPositionNumber: childVC.tableView.list.count)
+            
+            networkManager?.request(endpoint: EndPointCase.addCard(card: postModel).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
+                print(result)
+                switch result {
+                case .success(let newTodo):
+                    childVC.insertToList(todo: newTodo.response)
+                case .failure(let error):
+                    os_log(.error, "\(error.localizedDescription)")
+                }
+            })
+            
+            
+            case "수정" :
+                let postModel = NewCard(
+                    id: info.id,
+                    writer: "iOS",
+                    title: info.title,
+                    content: info.content,
+                    cardType:childVC.boardType?.type ?? "",
+                    memberId: 1, maxPositionNumber: childVC.tableView.list.count)
+           
+            networkManager?.request(endpoint: EndPointCase.editCard(card: postModel).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
+                switch result {
+                case .success(let newTodo):
+                    childVC.updateList(todo: newTodo.response)
+                case .failure(let error):
+                    os_log(.error, "\(error.localizedDescription)")
+                }
+            })
+            
+            default : break
+        }
+
         
-        let postModel = NewCard(
-            id: nil,
-            writer: "iOS",
-            title: info.title,
-            content: info.content,
-            cardType:childVC.boardType?.type ?? "",
-            memberId: 1,
-            maxPositionNumber: childVC.tableView.list.count)
-        
-        networkManager?.request(endpoint: EndPointCase.addCard(card: postModel).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
-            switch result {
-            case .success(let newTodo):
-                childVC.insertToList(todo: newTodo.response)
-            case .failure(let error):
-                os_log(.error, "\(error.localizedDescription)")
-            }
-        })
     }
     
     @objc private func deleteCard(notification:Notification) {
