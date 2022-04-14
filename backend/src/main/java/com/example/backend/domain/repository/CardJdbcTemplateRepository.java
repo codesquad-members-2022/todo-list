@@ -46,14 +46,14 @@ public class CardJdbcTemplateRepository implements CardRepository {
 
 	private List<CardListResponseDto> findResponseDtosByColumnName(String columnName) {
 		return jdbcTemplate.query(
-			"SELECT id, title, content, author_system FROM CARD WHERE COLUMN_NAME = ? and DELETED = 0 ORDER BY ORDER_INDEX DESC",
+			"SELECT id, title, content, author_system FROM CARD WHERE COLUMN_NAME = ? and DELETED = ? ORDER BY ORDER_INDEX DESC",
 			(rs, rowNum) -> {
 				long id = rs.getLong("id");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
 				String authorSystem = rs.getString("author_system");
 				return new CardListResponseDto(id, title, content, authorSystem);
-			}, columnName);
+			}, columnName, false);
 	}
 
 	@Override
@@ -79,32 +79,44 @@ public class CardJdbcTemplateRepository implements CardRepository {
 
 	private Integer getOrderIndex(String columnName) {
 		return jdbcTemplate.queryForObject(
-			"SELECT count(*) FROM CARD WHERE column_name = ?", Integer.class, columnName);
+			"SELECT COUNT(*) FROM CARD WHERE COLUMN_NAME = ? and DELETED = ?", Integer.class, columnName, false);
 	}
 
 	@Override
 	public Optional<Card> findById(Long id) {
 		List<Card> cardList = jdbcTemplate.query(
-			"SELECT id, title, content, column_name, author_system FROM CARD WHERE id = ?",
+			"SELECT id, title, content, column_name, author_system, order_index, deleted FROM CARD WHERE id = ?",
 			(rs, rowNum) -> {
 				long userId = rs.getLong("id");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
 				String columnName = rs.getString("column_name");
 				String authorSystem = rs.getString("author_system");
+				long orderIndex = rs.getLong("order_index");
+				boolean deleted = rs.getBoolean("deleted");
 				return new Card.Builder().title(title)
 					.content(content)
 					.id(userId)
 					.authorSystem(authorSystem)
 					.columnName(columnName)
+					.deleted(deleted)
+					.orderIndex(orderIndex)
 					.build();
 			}, id);
 		return cardList.stream().findAny();
 	}
 
 	@Override
-	public Long deleteById(Long id) {
+	public Long delete(Card card) {
+		Long id = card.getId();
+		String columnName = card.getColumnName();
+		Long orderIndex = card.getOrderIndex();
+
 		jdbcTemplate.update("UPDATE CARD SET DELETED=? WHERE id=?", true, id);
+
+		jdbcTemplate.update("UPDATE CARD SET ORDER_INDEX = ORDER_INDEX - 1" +
+				" WHERE COLUMN_NAME = ? and ORDER_INDEX > ? and DELETED = ?", columnName, orderIndex, false);
+
 		return id;
 	}
 
