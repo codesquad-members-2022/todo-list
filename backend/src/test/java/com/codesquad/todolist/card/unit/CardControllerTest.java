@@ -34,7 +34,7 @@ public class CardControllerTest {
     @DisplayName("카드를 생성하는 요청이 오면 카드가 생성된다")
     public void cardCreateTest() throws Exception {
         // given
-        CardCreateRequest request = new CardCreateRequest(1, "제목", "작성자", "내용", null);
+        CardCreateRequest request = new CardCreateRequest(1, "제목", "작성자", "내용");
 
         // when
         ResultActions actions = mockMvc.perform(post("/cards")

@@ -1,10 +1,17 @@
 package com.codesquad.todolist.card.unit;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.BDDMockito.times;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.BDDMockito.*;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.codesquad.todolist.card.Card;
 import com.codesquad.todolist.card.CardRepository;
@@ -12,14 +19,6 @@ import com.codesquad.todolist.card.CardService;
 import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
-import java.time.LocalDateTime;
-import java.util.Optional;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("CardService 단위 테스트")
@@ -50,7 +49,7 @@ public class CardServiceTest {
     @DisplayName("카드 생성시 저장소에 카드 데이터가 저장된다")
     public void cardCreateTest() {
         // given
-        CardCreateRequest createRequest = new CardCreateRequest(1, "제목", "작성자", "내용", null);
+        CardCreateRequest createRequest = new CardCreateRequest(1, "제목", "작성자", "내용");
         Card card = new Card(1, "제목", "내용", "작성자", 1);
 
         given(cardRepository.create(any(Card.class))).willReturn(card);

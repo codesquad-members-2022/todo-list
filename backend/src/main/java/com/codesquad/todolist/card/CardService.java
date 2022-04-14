@@ -34,7 +34,8 @@ public class CardService {
     }
 
     public HistoryResponse create(CardCreateRequest request) {
-        Card card = request.toEntity();
+        Integer nextId = findNextId(request.getColumnId());
+        Card card = request.toEntity(nextId);
         cardRepository.create(card);
 
         // History 저장
@@ -129,10 +130,10 @@ public class CardService {
         }
     }
 
-    public void validateCreateInput(Integer columnId, Integer nextId) {
+    public Integer findNextId(Integer columnId) {
         List<Card> cards = cardRepository.findByColumnId(columnId);
-        if (cards.size() == 0 && nextId == null) {
-            return;
+        if (cards.size() == 0) {
+            return null;
         }
         Map<Integer, Card> columnCardMap = cards.stream()
             .collect(Collectors.toMap(Card::getNextId, Function.identity()));
@@ -143,8 +144,6 @@ public class CardService {
             card = columnCardMap.remove(card.getCardId());
         }
 
-        if (!card.getCardId().equals(nextId)) {
-            throw new IllegalStateException("조건을 만족하는 카드가 없습니다.");
-        }
+        return card.getCardId();
     }
 }

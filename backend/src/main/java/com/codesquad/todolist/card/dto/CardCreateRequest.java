@@ -1,8 +1,10 @@
 package com.codesquad.todolist.card.dto;
 
-import com.codesquad.todolist.card.Card;
-import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotNull;
+
+import com.codesquad.todolist.card.Card;
+
+import io.swagger.annotations.ApiModelProperty;
 
 public class CardCreateRequest {
 
@@ -22,23 +24,17 @@ public class CardCreateRequest {
     @NotNull(message = "author 값이 있어야 합니다.")
     private String author;
 
-    @ApiModelProperty(value = "목표 컬럼의 최상위 카드 Id")
-    @NotNull(message = "nextId 값이 있어야 합니다.")
-    private Integer nextId;
-
     private CardCreateRequest() {
     }
 
-    public CardCreateRequest(Integer columnId, String title, String author, String content,
-        Integer nextId) {
+    public CardCreateRequest(Integer columnId, String title, String author, String content) {
         this.columnId = columnId;
         this.title = title;
         this.content = content;
         this.author = author;
-        this.nextId = nextId;
     }
 
-    public Card toEntity() {
+    public Card toEntity(Integer nextId) {
         return new Card(columnId, title, content, author, nextId);
     }
 
@@ -58,10 +54,6 @@ public class CardCreateRequest {
         return author;
     }
 
-    public Integer getNextId() {
-        return nextId;
-    }
-
     @Override
     public String toString() {
         return "CardCreateRequest{" +
@@ -69,7 +61,6 @@ public class CardCreateRequest {
             ", title='" + title + '\'' +
             ", content='" + content + '\'' +
             ", author='" + author + '\'' +
-            ", nextId=" + nextId +
             '}';
     }
 }
