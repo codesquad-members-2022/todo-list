@@ -3,6 +3,8 @@ package com.codesquad.todolist.column;
 import com.codesquad.todolist.card.Card;
 import com.codesquad.todolist.card.CardRepository;
 import com.codesquad.todolist.column.dto.ColumnResponse;
+import com.codesquad.todolist.exception.BusinessException;
+import com.codesquad.todolist.exception.ErrorCode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,7 +44,7 @@ public class ColumnService {
                 .collect(Collectors.toMap(Card::getNextId, Function.identity()));
 
             Card card = Optional.ofNullable(columnCardMap.remove(null))
-                .orElseThrow(() -> new IllegalStateException("조건을 만족하는 카드가 없습니다."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.ILLEGAL_CARD_ORDER));
 
             List<Card> sortedCards = new ArrayList<>(List.of(card));
 

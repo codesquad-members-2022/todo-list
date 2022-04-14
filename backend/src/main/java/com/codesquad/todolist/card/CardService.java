@@ -1,16 +1,11 @@
 package com.codesquad.todolist.card;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Service;
-
 import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.dto.CardMoveRequest;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
+import com.codesquad.todolist.exception.BusinessException;
+import com.codesquad.todolist.exception.ErrorCode;
+import com.codesquad.todolist.exception.NotFoundException;
 import com.codesquad.todolist.history.HistoryRepository;
 import com.codesquad.todolist.history.ModifiedFieldRepository;
 import com.codesquad.todolist.history.domain.Action;
@@ -18,6 +13,12 @@ import com.codesquad.todolist.history.domain.Field;
 import com.codesquad.todolist.history.domain.History;
 import com.codesquad.todolist.history.domain.ModifiedField;
 import com.codesquad.todolist.history.dto.HistoryResponse;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CardService {
@@ -47,7 +48,7 @@ public class CardService {
 
     public HistoryResponse update(Integer cardId, CardUpdateRequest request) {
         Card card = cardRepository.findById(cardId)
-            .orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.CARD_NOT_FOUND));
 
         // Card 필드 업데이트 및 저장
         card.update(request.getTitle(), request.getContent(), request.getAuthor());
@@ -68,7 +69,7 @@ public class CardService {
 
     public HistoryResponse delete(Integer cardId) {
         Card card = cardRepository.findById(cardId)
-            .orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.CARD_NOT_FOUND));
 
         // Column 내 Card 간 링크 및 삭제
         cardRepository.linkPrev(card);
@@ -86,7 +87,7 @@ public class CardService {
         validateNextId(request.getColumnId(), request.getNextId());
 
         Card oldCard = cardRepository.findById(cardId)
-            .orElseThrow(() -> new IllegalArgumentException("카드를 찾을 수 없습니다."));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.CARD_NOT_FOUND));
 
         Card newCard = oldCard.clone();
         newCard.move(request.getColumnId(), request.getNextId());
@@ -110,7 +111,7 @@ public class CardService {
 
     private HistoryResponse getHistoryResponse(Integer historyId) {
         History history = historyRepository.findById(historyId)
-            .orElseThrow(() -> new IllegalArgumentException("히스토리를 찾을 수 없습니다."));
+            .orElseThrow(() -> new NotFoundException(ErrorCode.HISTORY_NOT_FOUND));
 
         if (history.getAction() == Action.MOVE || history.getAction() == Action.UPDATE) {
             List<ModifiedField> modifiedFields = modifiedFieldRepository.findByHistoryId(historyId);
@@ -126,7 +127,7 @@ public class CardService {
         Integer count = cardRepository.countByColumnIdAndNextId(columnId, nextId);
 
         if (count == 0) {
-            throw new IllegalStateException("해당 컬럼에서 다음 카드를 찾을 수 없습니다.");
+            throw new NotFoundException(ErrorCode.NEXT_CARD_NOT_FOUND);
         }
     }
 
@@ -138,7 +139,7 @@ public class CardService {
         Map<Integer, Card> columnCardMap = cards.stream()
             .collect(Collectors.toMap(Card::getNextId, Function.identity()));
         Card card = Optional.ofNullable(columnCardMap.remove(null))
-            .orElseThrow(() -> new IllegalArgumentException("조건을 만족하는 카드가 없습니다."));
+            .orElseThrow(() -> new BusinessException(ErrorCode.ILLEGAL_CARD_ORDER));
 
         while (columnCardMap.size() > 0) {
             card = columnCardMap.remove(card.getCardId());
