@@ -5,10 +5,10 @@ import todolist.dto.event.RequestEventDto;
 import java.util.function.BiFunction;
 
 public enum Action {
-    ADD((dto, action) -> new Event(dto.getTitle(), dto.getCurrentSection(), action)),
-    MOVE((dto, action) -> new Event(dto.getTitle(),dto.getPrevSection(), dto.getCurrentSection(), action)),
-    UPDATE((dto, action) -> new Event(dto.getTitle(), dto.getCurrentSection(), action)),
-    REMOVE((dto, action) -> new Event(dto.getTitle(), dto.getCurrentSection(), action));
+    ADD((dto, action) -> new Event(dto, action)),
+    MOVE((dto, action) -> new Event(dto, action)),
+    UPDATE((dto, action) -> new Event(dto, action)),
+    REMOVE((dto, action) -> new Event(dto, action));
 
 
     private BiFunction<RequestEventDto, Action, Event> eventFunction;
