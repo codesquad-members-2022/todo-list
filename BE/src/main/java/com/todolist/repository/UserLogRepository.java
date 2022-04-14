@@ -46,6 +46,12 @@ public class UserLogRepository {
             + " VALUES (:userId, :title, :action, :currentCategory, :updatedDateTime)", parameters);
     }
 
+    public void saveLogOfModificationByUser(UserLog userLog) {
+        SqlParameterSource parameters = new BeanPropertySqlParameterSource(userLog);
+        jdbc.update("INSERT INTO user_log (user_id, title, action, current_category, updated_datetime)"
+            + " VALUES (:userId, :title, :action, :currentCategory, :updatedDateTime)", parameters);
+    }
+
     private RowMapper<UserLog> userLogRowMapper() {
         return (rs, rowNum) -> {
             Calendar cal = Calendar.getInstance();

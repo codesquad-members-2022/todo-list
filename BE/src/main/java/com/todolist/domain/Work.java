@@ -1,5 +1,6 @@
 package com.todolist.domain;
 
+import com.todolist.dto.ModifiedWorkDto;
 import com.todolist.dto.WorkDto;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -36,5 +37,9 @@ public class Work {
 
     public WorkDto convertToDtoForCreation(Integer id) {
         return new WorkDto(id, title, content, createdDateTime);
+    }
+
+    public ModifiedWorkDto convertToDtoForModification() {
+        return new ModifiedWorkDto(title, content);
     }
 }
