@@ -28,23 +28,23 @@ public class JdbcHistoryRepository implements HistoryRepository {
 		Map namedParameters = Collections.singletonMap("memberId", memberId);
 
 		String sql ="SELECT log.id, "
-			+ "log.created_at, "
-			+ "log.card_id, "
-			+ "scode.flag_description old_section, "
-			+ "scode2.flag_description current_section, "
-			+ "acode.code_description action, "
-			+ "card.title "
-			+ "FROM card_action_log log	"
-			+ "LEFT JOIN card_action_code acode "
-			+ "ON log.card_action_code_id = acode.id "
-			+ "LEFT JOIN card "
-			+ "ON log.card_id = card.id "
-			+ "LEFT JOIN card_section_code scode "
-			+ "ON log.old_section = scode.id "
-			+ "LEFT JOIN card_section_code scode2 "
-			+ "ON log.current_section = scode2.id "
-			+ "WHERE log.member_id = :memberId "
-			+ "ORDER BY log.created_at DESC";
+						+ "log.created_at, "
+						+ "log.card_id, "
+						+ "scode.flag_description old_section, "
+						+ "scode2.flag_description current_section, "
+						+ "acode.code_description action, "
+						+ "card.title "
+						+ "FROM card_action_log log	"
+						+ "LEFT JOIN card_action_code acode "
+						+ "ON log.card_action_code_id = acode.id "
+						+ "LEFT JOIN card "
+						+ "ON log.card_id = card.id "
+						+ "LEFT JOIN card_section_code scode "
+						+ "ON log.old_section = scode.id "
+						+ "LEFT JOIN card_section_code scode2 "
+						+ "ON log.current_section = scode2.id "
+						+ "WHERE log.member_id = :memberId "
+						+ "ORDER BY log.created_at DESC";
 
 		List<History> histories = jdbcTemplate.query(sql, namedParameters, rowMapper);
 		return histories;
@@ -55,8 +55,8 @@ public class JdbcHistoryRepository implements HistoryRepository {
 			rs.getLong("id"),
 			rs.getTimestamp("created_at").toLocalDateTime(),
 			rs.getLong("card_id"),
-			rs.getInt("old_section"),
-			rs.getInt("current_section"),
+			rs.getString("old_section"),
+			rs.getString("current_section"),
 			rs.getString("action"),
 			rs.getString("title"));
 }

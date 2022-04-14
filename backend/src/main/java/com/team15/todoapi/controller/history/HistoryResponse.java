@@ -14,8 +14,8 @@ public class HistoryResponse {
 	private LocalDateTime createdAt;
 	private Long cardId;
 //	private Long memberId;
-	private int oldSection;
-	private int currentSection;
+	private String oldSection;
+	private String currentSection;
 	private String action;
 	private String title;
 

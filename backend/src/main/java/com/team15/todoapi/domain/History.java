@@ -13,13 +13,13 @@ public class History {
 	private LocalDateTime createdAt;
 	private Long cardId;
 	//	private Long memberId;
-	private int oldSection;
-	private int currentSection;
+	private String oldSection;
+	private String currentSection;
 	private String action;
 	private String title;
 
 	public static History of(long id, LocalDateTime createdAt, long cardId,
-		int oldSection, int currentSection, String action, String title) {
+		String oldSection, String currentSection, String action, String title) {
 		return new History(id, createdAt, cardId, oldSection, currentSection, action, title);
 	}
 }
