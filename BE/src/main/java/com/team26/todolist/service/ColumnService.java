@@ -13,7 +13,7 @@ public interface ColumnService {
     ColumnResponse addColumn(ColumnRegistrationRequest columnRegistrationRequest);
     ColumnResponse changeColumnOrder(ColumnMoveRequest columnMoveRequest);
     ColumnResponse modifyColumn(ColumnUpdateRequest columnUpdateRequest);
-    boolean deleteCard(Long id);
+    void deleteColumn(Long id);
 
     Column findById(Long columnId);
 }

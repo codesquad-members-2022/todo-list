@@ -79,15 +79,14 @@ public class ColumnRepositoryImpl implements ColumnRepository {
 
 
     @Override
-    public boolean delete(Long id) {
+    public void delete(Long id) {
         String sql = "UPDATE column_tbl SET deleted = :isDeleted WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
         params.put("isDeleted", true);
         params.put("id", id);
 
-        int countAffected = namedParameterJdbcTemplate.update(sql, params);
-        return countAffected == 1;
+        namedParameterJdbcTemplate.update(sql, params);
     }
 
     @Override

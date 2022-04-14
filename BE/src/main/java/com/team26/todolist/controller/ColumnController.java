@@ -61,7 +61,7 @@ public class ColumnController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteColumn(@RequestBody Long id) {
-        columnService.deleteCard(id);
+        columnService.deleteColumn(id);
         return ResponseEntity.noContent().build();
     }
 }

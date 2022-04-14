@@ -32,11 +32,13 @@ public class ColumnServiceImpl implements ColumnService {
         return columns.stream().map(ColumnResponse::of).collect(Collectors.toList());
     }
 
+    @Override
     public ColumnResponse addColumn(ColumnRegistrationRequest columnRegistrationRequest) {
         Column saveColumn = columnRepository.saveNewColumn(columnRegistrationRequest.toEntity());
         return ColumnResponse.of(saveColumn);
     }
 
+    @Override
     public ColumnResponse changeColumnOrder(ColumnMoveRequest columnMoveRequest) {
         Column column = columnMoveRequest.toEntity();
         Column leftColumn = columnRepository.findById(columnMoveRequest.getLeftColumnId());
@@ -47,14 +49,16 @@ public class ColumnServiceImpl implements ColumnService {
         return ColumnResponse.of(updatedColumn);
     }
 
+    @Override
     public ColumnResponse modifyColumn(ColumnUpdateRequest columnUpdateRequest) {
         Column updatedColumn = columnRepository.updateTitle(columnUpdateRequest.toEntity());
 
         return ColumnResponse.of(updatedColumn);
     }
 
-    public boolean deleteCard(Long id) {
-        return columnRepository.delete(id);
+    @Override
+    public void deleteColumn(Long id) {
+        columnRepository.delete(id);
     }
 
 }

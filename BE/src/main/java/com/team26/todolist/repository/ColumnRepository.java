@@ -10,7 +10,7 @@ public interface ColumnRepository {
     Column findById(Long id);
     Column updateOrder(Column column);
     Column updateTitle(Column column);
-    boolean delete(Long id);
+    void delete(Long id);
     Column saveNewColumn(Column column);
 
 }
