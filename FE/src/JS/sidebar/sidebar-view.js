@@ -22,7 +22,7 @@ export default class View {
       (pre, curData) => (pre += this.sidebarActionLog(userId, curData)),
       ''
     );
-    console.log(sidebarDataTemplate);
+
     $sidebarContainer.innerHTML = sidebarDataTemplate;
   }
 
