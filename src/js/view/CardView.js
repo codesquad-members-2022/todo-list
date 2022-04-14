@@ -1,24 +1,43 @@
 import * as util from "../../util/Util.js";
 
-function renderCard(targetCard, callbackRemoveEvt, callbackChangeEvt) {
-  renderRegisteredStyle(targetCard);
-  // const deleteBtn = card.querySelector(".delete-btn.cursor-pointer");
-  // deleteBtn.addEventListener("click", callbackRemoveEvt);
-  // // card.addEvnetListener("dblclick", callbackChangeEvt);
-  // const parent = util.$(`.task-column`);
-  // parent.appendChild(card);
+function renderCard(
+  targetCard,
+  removeBtnHandler,
+  doubleClickTextHandler,
+  store,
+  dataType,
+  newState
+) {
+  // 카드 렌더링
+  renderRegisteredStyle(targetCard, newState);
+
+  // 삭제 버튼 이벤트
+  const deleteBtn = util.$(".delete-btn.cursor-pointer", targetCard);
+  util.on("click", deleteBtn, (event) => {
+    removeBtnHandler(event, store, dataType);
+  });
+
+  // 수정 이벤트
+  util.on("dblclick", targetCard, (event) => {
+    doubleClickTextHandler(event, store, dataType);
+  });
 }
 
-function renderRegisteredStyle(targetCard) {
+function renderRegisteredStyle(targetCard, newState) {
   targetCard.classList.add("registered");
-  targetCard.removeAttribute("id");
+  if (targetCard.id !== "empty-card") {
+    util.$(".task-card__title", targetCard).textContent = newState.title;
+    util.$(".task-card__content", targetCard).textContent = newState.content;
+  }
+  targetCard.id = newState.id;
   util.$(".delete-btn.cursor-pointer", targetCard).classList.remove("hidden");
   util.$(".task-card__cancle-btn.cursor-pointer", targetCard).classList.add("hidden");
   util.$(".task-card__register-btn.cursor-pointer", targetCard).classList.add("hidden");
   util.$(".task-card__footer", targetCard).classList.remove("hidden");
-  console.log(util.$(".task-card__title", targetCard));
   util.$(".task-card__title", targetCard).contentEditable = false;
+  util.$(".task-card__title", targetCard).classList.add("font-black");
   util.$(".task-card__content", targetCard).contentEditable = false;
+  util.$(".task-card__content", targetCard).classList.add("font-black");
 }
 
-export { renderCard };
+export { renderCard, renderRegisteredStyle };

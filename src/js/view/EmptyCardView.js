@@ -1,6 +1,6 @@
 import * as util from "../../util/Util.js";
 
-const renderEmptyCard = (parent, { inputHandler, registerBtnHandler, removeBtnHandler }, store) => {
+const renderEmptyCard = (parent, { inputHandler, registerBtnHandler, cancleBtnHandler }, store) => {
   // 입력 값 확인 후 버튼 활성화 이벤트
   const newCard = getEmptyCardNode();
   util.on("keydown", newCard, inputHandler);
@@ -13,7 +13,9 @@ const renderEmptyCard = (parent, { inputHandler, registerBtnHandler, removeBtnHa
 
   // 취소 버튼 클릭 핸들링 이벤트
   const removeBtn = util.$(".task-card__cancle-btn.cursor-pointer", newCard);
-  util.on("click", removeBtn, removeBtnHandler);
+  util.on("click", removeBtn, (event) => {
+    cancleBtnHandler(event, store);
+  });
 
   parent.insertBefore(newCard, parent.children[1]);
 };
