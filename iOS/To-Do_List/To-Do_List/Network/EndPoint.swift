@@ -56,10 +56,13 @@ struct Endpoint:Endpointable {
     }
 }
 
+
 enum EndPointCase {
     case getBoard
     case addCard(card: NewCard)
     case deleteCard(cardId:Int)
+    case moveToCompleted(movedCard : MovedCard)
+    case editCard(card: NewCard)
     
     var endpoint:Endpointable {
         switch self {
@@ -87,6 +90,22 @@ enum EndPointCase {
                             headers: ["Content-Type": "application/json"],
                             body: nil
             )
+            
+        case .moveToCompleted(let movedCard):
+            return Endpoint(httpMethod: .patch,
+                            baseURL: .main,
+                            path: .edit(cardId: movedCard.id),
+                            headers: ["Content-Type": "application/json"],
+                            body: movedCard.body()
+            )
+            
+        case .editCard(let cardInfo):
+            return Endpoint(httpMethod: .patch,
+                            baseURL: .main,
+                            path: .edit(cardId: cardInfo.id ?? 0),
+                            headers: ["Content-Type": "application/json"],
+                            body: cardInfo.body()
+            )
         }
     }
 }
@@ -106,6 +125,7 @@ enum Path {
     case get
     case post
     case delete(cardId:Int)
+    case edit(cardId:Int)
     
     var pathString:String {
         switch self {
@@ -114,6 +134,8 @@ enum Path {
         case .post:
             return "api/cards"
         case .delete(let id):
+            return "api/cards/\(id)"
+        case .edit(let id):
             return "api/cards/\(id)"
         }
     }
