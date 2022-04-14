@@ -28,6 +28,10 @@ class BoardViewModel {
     this.observers.add(observer);
   }
 
+  observe(cardState, method) {
+    this.store.observe(cardState, method);
+  }
+
   notify() {
     this.setState();
     this.observers.forEach(observer => {
