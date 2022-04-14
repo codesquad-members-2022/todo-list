@@ -1,8 +1,10 @@
 package com.example.todo.network
 
+import com.google.gson.annotations.SerializedName
+
 // Insert
 data class CardIndex(
-    val card_id: Int
+    val cardId: Int
 )
 
 data class TodoResponse(
@@ -27,28 +29,8 @@ data class Todo(
     val writer: String
 )
 
-data class Ing(
-    val content: String,
-    val id: Int,
-    val nextId: Int,
-    val title: String,
-    val uploadDateTime: String,
-    val writer: String
-)
-
-
-data class Done(
-    val content: String,
-    val id: Int,
-    val nextId: Int,
-    val title: String,
-    val uploadDateTime: String,
-    val writer: String
-)
-
-
 data class CardsClassifiedByLocation(
     val todo: List<Todo>,
-    val ing: List<Ing>,
-    val done: List<Done>
+    val ing: List<Todo>,
+    val done: List<Todo>
 )
