@@ -52,6 +52,7 @@ class CardPopupViewController: UIViewController {
         textField.textColor = .black
         textField.attributedPlaceholder = NSAttributedString(string: Constants.titlePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray3])
         textField.textAlignment = .left
+        textField.returnKeyType = .done
         return textField
     }()
     
@@ -63,6 +64,7 @@ class CardPopupViewController: UIViewController {
         textView.textAlignment = .left
         textView.placeholder = Constants.bodyPlaceHolder
         textView.isScrollEnabled = false
+        textView.returnKeyType = .continue
         return textView
     }()
     
@@ -118,6 +120,9 @@ class CardPopupViewController: UIViewController {
     
     var delegate: CardPopupViewDeletegate?
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+         self.view.endEditing(true)
+   }
     
     init(model: CardPopupViewModelProtocol) {
         self.model = model

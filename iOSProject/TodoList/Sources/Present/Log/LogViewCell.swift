@@ -69,7 +69,7 @@ class LogViewCell: UITableViewCell{
             labelTime.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 72),
             labelTime.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            self.contentView.bottomAnchor.constraint(equalTo: labelTime.bottomAnchor, constant: 16)
+            contentView.bottomAnchor.constraint(equalTo: labelTime.bottomAnchor, constant: 16)
         ])
     }
 }

@@ -122,6 +122,7 @@ class ColumnViewController: UIViewController {
             }.store(in: &cancellables)
         
         model.state.movedCard
+            .receive(on: DispatchQueue.main)
             .sink { card, toColumn in
                 self.delegate?.columnView(self, fromCard: card, toColumn: toColumn)
                 self.countLabel.text = String(self.model.cardCount)
@@ -197,7 +198,7 @@ extension ColumnViewController: UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        var destinationIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+        var destinationIndexPath = IndexPath(row: 0, section: 0)
         if let indexpath = coordinator.destinationIndexPath {
             destinationIndexPath = indexpath
         }
