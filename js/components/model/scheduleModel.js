@@ -1,3 +1,5 @@
+import { DEFAULT_AUTHOR } from "../../utils/styleNames.js";
+
 const findScheduleColumn = (columnId) => {
     return scheduleModel.find(
         (scheduleColumnData) => scheduleColumnData.columnId === columnId
@@ -18,7 +20,7 @@ const addScheduleCard = (columnId, cardData) => {
 };
 
 const removeScheduleCard = (columnId, cardId) => {
-    let cardsInScheduleColumn = findScheduleColumn(columnId).cards;
+    const cardsInScheduleColumn = findScheduleColumn(columnId).cards;
     findScheduleColumn(columnId).cards = cardsInScheduleColumn.filter(
         (card) => card.id !== cardId
     );
@@ -26,13 +28,10 @@ const removeScheduleCard = (columnId, cardId) => {
 
 const updateScheduleCard = (columnId, cardData) => {
     const cardsInScheduleColumn = findScheduleColumn(columnId).cards;
-    cardsInScheduleColumn.find((card, index) => {
-        if (card.id === cardData.id) {
-            cardsInScheduleColumn[index] = cardData;
-            return true;
-        }
-        return false;
-    });
+    const index = cardsInScheduleColumn.findIndex(
+        (card) => card.id === cardData.id
+    );
+    cardsInScheduleColumn[index] = cardData;
 };
 
 const insertScheduleCard = (columnId, cardData, index) => {
@@ -50,7 +49,7 @@ const getScheduleCardDataById = (columnId, cardId) => {
 const getScheduleCardNumberInColumn = (columnId) => {
     const cardsInScheduleColumn = findScheduleColumn(columnId).cards;
     return cardsInScheduleColumn.length;
-}
+};
 
 const scheduleModel = [
     {
@@ -60,13 +59,13 @@ const scheduleModel = [
             {
                 title: "제목",
                 body: "내용",
-                caption: "author by web",
+                caption: DEFAULT_AUTHOR,
                 id: "0",
             },
             {
                 title: "제목2",
                 body: "내용2",
-                caption: "author by web",
+                caption: DEFAULT_AUTHOR,
                 id: "1",
             },
         ],
@@ -78,7 +77,7 @@ const scheduleModel = [
             {
                 title: "제목",
                 body: "내용",
-                caption: "author by web",
+                caption: DEFAULT_AUTHOR,
                 id: "3",
             },
         ],
@@ -94,5 +93,5 @@ export {
     updateScheduleCard,
     getScheduleCardDataById,
     insertScheduleCard,
-    getScheduleCardNumberInColumn
+    getScheduleCardNumberInColumn,
 };

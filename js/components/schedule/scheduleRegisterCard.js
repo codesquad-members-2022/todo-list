@@ -1,4 +1,14 @@
-import { getId, TEXT_LENGTH_LIMIT } from "../../utils.js";
+import {
+    REGISTER_CANCLE_BTN,
+    REGISTER_BTN,
+    REGISTER_CARD_TITLE,
+    REGISTER_CARD_BODY,
+    INACTIVE,
+    ACTIVE,
+    REGISTER_CARD,
+    DEFAULT_AUTHOR,
+} from "../../utils/styleNames.js";
+import { getId, TEXT_LENGTH_LIMIT } from "../../utils/utils.js";
 
 export class ScheduleRegisterCard {
     constructor() {
@@ -24,15 +34,15 @@ export class ScheduleRegisterCard {
     }
 
     setDOMElement($target) {
-        this.$registerCard = $target.querySelector(".schedule-register-card");
+        this.$registerCard = $target.querySelector(`.${REGISTER_CARD}`);
         this.$cardTitle = this.$registerCard.querySelector(
-            ".schedule-register-card__title"
+            `.${REGISTER_CARD_TITLE}`
         );
         this.$cardBody = this.$registerCard.querySelector(
-            ".schedule-register-card__body"
+            `.${REGISTER_CARD_BODY}`
         );
         this.$registerBtn = this.$registerCard.querySelector(
-            ".schedule-register-card__register-btn"
+            `.${REGISTER_BTN}`
         );
     }
 
@@ -52,14 +62,11 @@ export class ScheduleRegisterCard {
     }
 
     changeState() {
-        this.state = this.state ? false : true;
+        this.state = !this.state;
     }
 
     registerCardClickEventHandler({ target }) {
-        const CANCLE_BTN = "schedule-register-card__cancel-btn";
-        const REGISTER_BTN = "schedule-register-card__register-btn";
-
-        if (target.classList.contains(CANCLE_BTN)) {
+        if (target.classList.contains(REGISTER_CANCLE_BTN)) {
             this.passedEventHandler.removeRegisterCard();
         }
         if (target.classList.contains(REGISTER_BTN)) {
@@ -68,9 +75,6 @@ export class ScheduleRegisterCard {
     }
 
     registerCardInputEventHandler({ target }) {
-        const REGISTER_CARD_TITLE = "schedule-register-card__title";
-        const REGISTER_CARD_BODY = "schedule-register-card__body";
-
         if (target.classList.contains(REGISTER_CARD_TITLE)) {
             this.cardTitleInputEventHandler(target);
         }
@@ -89,25 +93,26 @@ export class ScheduleRegisterCard {
     }
 
     registerBtnClickEventHandler(target) {
-        if (target.classList.contains("inactive")) {
+        if (target.classList.contains(INACTIVE)) {
             return;
         }
 
         const cardData = {
             title: this.$cardTitle.value.replace(/\n/g, "<br>"),
             body: this.$cardBody.value.replace(/\n/g, "<br>"),
-            caption: "author by web",
+            caption: DEFAULT_AUTHOR,
             id: getId(),
         };
+
         this.passedEventHandler.addCard(cardData);
         this.passedEventHandler.removeRegisterCard();
     }
 
     toggleRegisterBtn(booleanValue) {
         if (booleanValue) {
-            this.$registerBtn.classList.replace("inactive", "active");
+            this.$registerBtn.classList.replace(INACTIVE, ACTIVE);
         } else {
-            this.$registerBtn.classList.replace("active", "inactive");
+            this.$registerBtn.classList.replace(ACTIVE, INACTIVE);
         }
     }
 
@@ -118,26 +123,26 @@ export class ScheduleRegisterCard {
     }
 
     template() {
-        return `<div class="schedule-register-card">
+        return `<div class="${REGISTER_CARD}">
                 <form class="schedule-register-card__text-container">
                     <textarea 
-                        class="schedule-register-card__title"  
+                        class="${REGISTER_CARD_TITLE}"  
                         placeholder="제목을 입력하세요"
                         rows="1"
                         maxLength="${TEXT_LENGTH_LIMIT}"
                     ></textarea>
                     <textarea 
-                        class="schedule-register-card__body" 
+                        class="${REGISTER_CARD_BODY}" 
                         placeholder="내용을 입력하세요"
                         rows="1"
                         maxLength="${TEXT_LENGTH_LIMIT}"
                     ></textarea>
                 </form>
                 <div class="schedule-register-card__btns-container">
-                    <button class="schedule-register-card__cancel-btn">
+                    <button class="${REGISTER_CANCLE_BTN}">
                         취소
                     </button>
-                    <button class="schedule-register-card__register-btn inactive">
+                    <button class="${REGISTER_BTN} ${INACTIVE}">
                         등록
                     </button>
                 </div>
