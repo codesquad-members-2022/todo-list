@@ -40,9 +40,19 @@ public class History {
 		this.createdAt = LocalDateTime.now();
 	}
 
-	public static History createAddHistoryBy(Todo todo) {
-		return new History(todo.getId(), todo.getTitle(), todo.getUser(), "add",
-			"", todo.getStatus());
+	public static History of(Todo todo, Action action) {
+		switch (action) {
+			case ADD:
+				return new History(todo.getId(), todo.getTitle(), todo.getUser(), "add",
+					"", todo.getStatus());
+			case REMOVE:
+				return new History(todo.getId(), todo.getTitle(), todo.getUser(), "remove",
+					"", todo.getStatus());
+			case MOVE:
+			case UPDATE:
+				break;
+		}
+		return null;
 	}
 
 }
