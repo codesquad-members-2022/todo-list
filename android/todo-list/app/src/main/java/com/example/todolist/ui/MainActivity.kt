@@ -8,8 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
+import com.example.todolist.ui.common.ActionStatus
 import com.example.todolist.ui.common.TodoTouchHelper
-import com.example.todolist.ui.todo.TodoAdapter
+import com.example.todolist.ui.adapter.TodoAdapter
+import com.example.todolist.ui.common.CardActionHandler
+import com.example.todolist.ui.common.CardStatus
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.todoTaskList.observe(this) {
             todoAdapter.submitList(it.toList()) {
-                if (viewModel.state == 1) {
+                if (viewModel.actionStatus == ActionStatus.ADD) {
                     binding.rvTodo.smoothScrollToPosition(0)
                 }
             }
@@ -47,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.onGoingTaskList.observe(this) {
             ongoingAdapter.submitList(it.toList()) {
-                if (viewModel.state == 1) {
+                if (viewModel.actionStatus == ActionStatus.ADD) {
                     binding.rvTodo.smoothScrollToPosition(0)
                 }
             }
@@ -55,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.completeTaskList.observe(this) {
             complete.submitList(it.toList()) {
-                if (viewModel.state == 1) {
+                if (viewModel.actionStatus == ActionStatus.ADD) {
                     binding.rvDone.smoothScrollToPosition(0)
                 }
             }
@@ -74,17 +77,17 @@ class MainActivity : AppCompatActivity() {
     private fun setOnClickTodoAdd() {
         binding.btnTodoAdd.setOnClickListener {
             val dialog = CreateCardDialogFragment()
-            dialog.show(supportFragmentManager, null)
+            dialog.show(supportFragmentManager, CardStatus.TODO.status)
         }
 
         binding.btnProgressAdd.setOnClickListener {
             val dialog = CreateCardDialogFragment()
-            dialog.show(supportFragmentManager, null)
+            dialog.show(supportFragmentManager, CardStatus.ONGOING.status)
         }
 
         binding.btnDoneAdd.setOnClickListener {
             val dialog = CreateCardDialogFragment()
-            dialog.show(supportFragmentManager, null)
+            dialog.show(supportFragmentManager, CardStatus.COMPLETE.status)
         }
     }
 
