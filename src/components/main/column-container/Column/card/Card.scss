@@ -2,7 +2,7 @@
 
 .card {
     padding: 16px;
-    margin: 15px 0px;
+    margin-top: 15px;
     border-radius: 6px;
     width: $column-width;
     background-color: $white;
@@ -17,8 +17,6 @@
     }
 
     &-contents {
-        margin-bottom: 16px;
-        height: 51px;
         
         &__title {
             font-size: 1.125rem;
@@ -74,4 +72,14 @@
         background-color: $light-blue;
         color: $white;
     }
+}
+
+.shadow {
+    opacity: 0.2;
+    box-shadow: 0 0 0 1px $blue inset; 
+}
+
+.following {
+    position: absolute;
+    z-index: 100;
 }
