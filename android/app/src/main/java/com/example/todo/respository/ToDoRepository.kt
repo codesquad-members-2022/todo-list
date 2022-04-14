@@ -57,7 +57,9 @@ class ToDoRepository(private val toDoDataSource: ToDoDataSource) {
         Log.d("testApi", response.isSuccessful.toString())
         return if (response.isSuccessful) {
             val originList = toDoList.toMutableList()
+
             newItem.itemId = response?.body()?.cardId ?: -1
+
             if (originList.size != 0) originList[originList.size - 1].next = newItem.itemId
             originList.add(0, newItem)
             originList.toList()

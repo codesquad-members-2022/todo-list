@@ -37,6 +37,7 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
             copy.content = binding.editCardContent.text.toString()
             copy.title = binding.editCardTitle.text.toString()
             viewModel.updateTodoItem(copy)
+
             dismiss()
         }
         binding.btnCancle.setOnClickListener { dismiss() }

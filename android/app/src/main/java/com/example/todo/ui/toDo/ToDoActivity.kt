@@ -10,11 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.R
-import com.example.todo.databinding.ActivityTodoBinding
-import com.example.todo.model.ProgressType
-import com.example.todo.model.TodoItem
-import com.example.todo.ui.action.ActionAdapter
 import com.example.todo.ui.action.ActionDiffCallback
+
+import com.example.todo.databinding.ActivityTodoBinding
+import com.example.todo.model.*
+
+import com.example.todo.ui.action.ActionAdapter
 import com.example.todo.ui.common.ToDoTouchHelper
 import com.example.todo.ui.common.ViewModelFactory
 
@@ -119,15 +120,14 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
 //    }
 
     private fun initializeRecyclerViews() {
-        todoAdapter = TodoAdapter(this, this, toDoViewModel, TodoDiffCallback())
-        inProgressAdapter = TodoAdapter(this, this, toDoViewModel, TodoDiffCallback())
-        doneAdapter = TodoAdapter(this, this, toDoViewModel, TodoDiffCallback())
+        todoAdapter = TodoAdapter(this,this,toDoViewModel, TodoDiffCallback())
+        inProgressAdapter = TodoAdapter(this,this,toDoViewModel,TodoDiffCallback())
+        doneAdapter = TodoAdapter(this,this,toDoViewModel,TodoDiffCallback())
         actionAdapter = ActionAdapter(ActionDiffCallback())
 
         ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvTodo)
-        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvDone)
         ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvInProgress)
-
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvDone)
 
         binding.rvTodo.adapter = todoAdapter
         binding.rvInProgress.adapter = inProgressAdapter
@@ -161,7 +161,7 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
         toDoViewModel.actionList.observe(this) {
             actionAdapter.submitList(it)
             // 테스트용
-            // binding.todoTitleViewTodo.count.text = it?.size.toString()
+           // binding.todoTitleViewTodo.count.text = it?.size.toString()
         }
 
     }
@@ -173,5 +173,4 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener {
     override fun updateDialog(item: TodoItem) {
         UpdateToDoDialog(item).show(supportFragmentManager, "update")
     }
-
 }

@@ -18,7 +18,7 @@ class ToDoTouchHelper : ItemTouchHelper.Callback() {
     private var currentPosition: Int? = null
     private var previousPosition: Int? = null
     private var currentDx = 0f
-    private var clamp = 220f
+    private var clamp = 180f
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
