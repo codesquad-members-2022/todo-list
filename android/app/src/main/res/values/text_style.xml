@@ -22,5 +22,78 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="tvCategoryDescription.for_small_device">
+        <item name="android:textSize">7sp</item>
+    </style>
+
+    <style name="tvBadgeStyle.for_small_device">
+        <item name="android:textSize">5sp</item>
+    </style>
+
+    <style name="tvItemCardTitle">
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tvItemCardContent">
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="tvItemCardDevice">
+        <item name="android:textColor">@color/Gray4</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="tvItemLogUserName">
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="tvItemLogContent">
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="tvItemLogTime">
+        <item name="android:textColor">@color/Gray3</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="tvItemCardContent.newCard">
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="hintTextColor">@color/Gray3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tvItemCardContent.enrollCard">
+        <item name="android:textColor">@color/Gray3</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="tvItemCardContent.cancelCard">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="tvItemCardContent.newCard.content">
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="hintTextColor">@color/Gray3</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 
 </resources>
