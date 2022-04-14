@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.model.Status
-import com.example.todolist.model.Task
-import com.example.todolist.model.request.ModifyTaskRequest
 import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.ui.common.ViewModelFactory
 
@@ -56,8 +54,9 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
         with(binding.includeTodo.rvTodo) {
             ItemTouchHelper(todoItemTouchCallback).attachToRecyclerView(this)
             adapter = toDoAdapter
-            setOnTouchListener { _, _ ->
+            setOnTouchListener { view, _ ->
                 todoItemTouchCallback.removePreviousClamp(this)
+                view.performClick()
                 false
             }
         }
@@ -69,8 +68,9 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
         with(binding.includeInProgress.rvInProgress) {
             ItemTouchHelper(inProgressItemTouchCallback).attachToRecyclerView(this)
             adapter = inProgressAdapter
-            setOnTouchListener { _, _ ->
+            setOnTouchListener { view, _ ->
                 inProgressItemTouchCallback.removePreviousClamp(this)
+                view.performClick()
                 false
             }
         }
@@ -85,8 +85,9 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
         with(binding.includeDone.rvDone) {
             ItemTouchHelper(doneItemTouchCallback).attachToRecyclerView(this)
             adapter = doneAdapter
-            setOnTouchListener { _, _ ->
+            setOnTouchListener { view, _ ->
                 doneItemTouchCallback.removePreviousClamp(this)
+                view.performClick()
                 false
             }
         }
