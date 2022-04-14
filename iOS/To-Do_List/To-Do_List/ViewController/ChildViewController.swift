@@ -10,11 +10,11 @@ import UIKit
 
 class ChildViewController: UIViewController {
 
-    private var tableView: BoardTableView<Todo,CardCell>!
+    private var tableView: BoardTableView<CardDisplayable,CardCell>!
     private var header : BoardHeader!
     private var boardType : BoardType?
     
-    private var list:[Todo]?
+    private var list:[CardDisplayable]?
     
     //Notification
     static let tapCofirmButton = Notification.Name("didTapConfirmButton")
@@ -28,7 +28,7 @@ class ChildViewController: UIViewController {
     }
 
     func removeFromList(card: Todo) {
-        guard var list = list, let targetIndex = list.firstIndex(where: {$0 == card}) else {return}
+        guard var list = list, let targetIndex = list.firstIndex(where: {$0.id == card.id}) else {return}
         list.remove(at: targetIndex)
         self.list = list
         let indexPath = IndexPath(row: targetIndex, section: 0)
@@ -36,9 +36,11 @@ class ChildViewController: UIViewController {
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
-    //TODO: 새로운 카드를 insert함.
+    
     func insertFromList(card:NewCard) {
-      
+//        DispatchQueue.main.async {
+//            self.tableView.insertRows(at: <#T##[IndexPath]#>, with: T##UITableView.RowAnimation)
+//        }
     }
     
     

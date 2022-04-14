@@ -20,6 +20,8 @@
 		8D5D1B0128056CCF0035EA82 /* BoardHeaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D1B0028056CCF0035EA82 /* BoardHeaderDelegate.swift */; };
 		8DA3CE5C27FF11DD00139BA3 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */; };
 		8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB585127FBD8F500D129E2 /* CardCell.swift */; };
+		8DBC3EA92807E7390096968A /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC3EA82807E7390096968A /* Board.swift */; };
+		8DBC3EAB2807E7470096968A /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC3EAA2807E7470096968A /* NetworkResult.swift */; };
 		8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */; };
 		8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282A27FB1CFE002FB533 /* MainViewController.swift */; };
 		8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DB27FD642800C13618 /* NetworkManager.swift */; };
@@ -37,7 +39,6 @@
 		8DDD3A4A2803A34B00203BB9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815E427FD691E00C13618 /* Todo.swift */; };
 		8DEAB47E28067007004D682A /* EditViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAB47D28067007004D682A /* EditViewControllerDelegate.swift */; };
 		B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* BoardHeader.swift */; };
-		B730BBAE27FECB33006DC969 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAD27FECB33006DC969 /* constants.swift */; };
 		B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAF27FED3BE006DC969 /* BoardTableView.swift */; };
 		B74C6AFF2806A93F009A8BFA /* BoardTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74C6AFE2806A93F009A8BFA /* BoardTableDelegate.swift */; };
 		B74C6B0128071AC3009A8BFA /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74C6B0028071AC3009A8BFA /* Action.swift */; };
@@ -75,6 +76,8 @@
 		8D5D1B0028056CCF0035EA82 /* BoardHeaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeaderDelegate.swift; sourceTree = "<group>"; };
 		8DA3CE5B27FF11DD00139BA3 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		8DBB585127FBD8F500D129E2 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		8DBC3EA82807E7390096968A /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		8DBC3EAA2807E7470096968A /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewController.swift; sourceTree = "<group>"; };
 		8DC2282A27FB1CFE002FB533 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8DD815DB27FD642800C13618 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -85,7 +88,6 @@
 		8DDD3A412803107900203BB9 /* TestURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestURLProtocol.swift; sourceTree = "<group>"; };
 		8DEAB47D28067007004D682A /* EditViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewControllerDelegate.swift; sourceTree = "<group>"; };
 		B70BD64127FBD1E7001BE68F /* BoardHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeader.swift; sourceTree = "<group>"; };
-		B730BBAD27FECB33006DC969 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		B730BBAF27FED3BE006DC969 /* BoardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableView.swift; sourceTree = "<group>"; };
 		B74C6AFE2806A93F009A8BFA /* BoardTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableDelegate.swift; sourceTree = "<group>"; };
 		B74C6B0028071AC3009A8BFA /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
@@ -233,9 +235,10 @@
 			children = (
 				8DD815E427FD691E00C13618 /* Todo.swift */,
 				B771A84F2805434E00343BAE /* NewCard.swift */,
+				8DBC3EAA2807E7470096968A /* NetworkResult.swift */,
+				8DBC3EA82807E7390096968A /* Board.swift */,
 				B74C6B0028071AC3009A8BFA /* Action.swift */,
 				B771A84328044C9A00343BAE /* Log.swift */,
-				B730BBAD27FECB33006DC969 /* constants.swift */,
 				8D5D1AFB28055FE70035EA82 /* EditStyle.swift */,
 			);
 			path = Model;
@@ -357,7 +360,6 @@
 				8D46807727FB3FBB00FA9F34 /* ChildViewController.swift in Sources */,
 				8DC2282B27FB1CFE002FB533 /* MainViewController.swift in Sources */,
 				8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */,
-				B730BBAE27FECB33006DC969 /* constants.swift in Sources */,
 				8DDD3A422803107900203BB9 /* TestURLProtocol.swift in Sources */,
 				8DD815E527FD691E00C13618 /* Todo.swift in Sources */,
 				8D5D1AFE28056A470035EA82 /* EditCardViewDelegate.swift in Sources */,
@@ -372,8 +374,10 @@
 				B771A846280453EC00343BAE /* LogCell.swift in Sources */,
 				B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */,
 				8DEAB47E28067007004D682A /* EditViewControllerDelegate.swift in Sources */,
+				8DBC3EA92807E7390096968A /* Board.swift in Sources */,
 				B74C6AFF2806A93F009A8BFA /* BoardTableDelegate.swift in Sources */,
 				B771A8502805434F00343BAE /* NewCard.swift in Sources */,
+				8DBC3EAB2807E7470096968A /* NetworkResult.swift in Sources */,
 				8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */,
 				B771A84428044C9A00343BAE /* Log.swift in Sources */,
 				8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */,

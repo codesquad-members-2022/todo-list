@@ -1,11 +1,17 @@
 //
-//  constants.swift
+//  Board.swift
 //  To-Do_List
 //
-//  Created by Kai Kim on 2022/04/07.
+//  Created by 박진섭 on 2022/04/14.
 //
 
 import Foundation
+
+struct Board:Codable {
+    let todoItems:[Todo]
+    let progressingItems:[Todo]
+    let completedItems:[Todo]
+}
 
 enum BoardType: CustomStringConvertible, Codable {
     
@@ -38,5 +44,4 @@ extension BoardType {
             return data.response.completedItems
         }
     }
-    
 }
