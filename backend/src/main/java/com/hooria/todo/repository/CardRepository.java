@@ -87,7 +87,7 @@ public class CardRepository {
         parameters.put("deleted_yn", card.isDeletedYn());
         parameters.put("row_position", card.getRowPosition());
 
-        return (long) insertJdbc.executeAndReturnKey(parameters);
+        return insertJdbc.executeAndReturnKey(parameters).longValue();
     }
 
     public long update(Card card) {
