@@ -56,4 +56,9 @@ class TaskRemoteDataSource : TaskDataSource {
         val response = RetrofitAPI.service.deleteTask(id)
         return if (response.isSuccessful) response.body() else null
     }
+
+    override suspend fun moveTask(id: Int, status: String): CommonResponse? {
+        val response = RetrofitAPI.service.moveTask(id, status)
+        return if (response.isSuccessful) response.body() else null
+    }
 }

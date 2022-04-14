@@ -17,4 +17,6 @@ interface TaskDataSource {
     suspend fun loadHistory(): List<History>?
 
     suspend fun deleteTask(id: Int): CommonResponse?
+
+    suspend fun moveTask(id: Int, status: String): CommonResponse?
 }

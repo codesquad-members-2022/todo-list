@@ -12,6 +12,7 @@ import com.example.todolist.model.request.ModifyTaskRequest
 import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.repository.TaskRemoteRepository
 import kotlinx.coroutines.launch
+import java.util.*
 
 class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository) : ViewModel() {
 
@@ -156,19 +157,62 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
         }
     }
 
-    fun addTodoTask(task: Task) {}
+    fun moveDone(task: TaskDetailResponse, status: Status) {
+        viewModelScope.launch {
+            when (val updateTask = taskRemoteRepository.moveTask(task.id, status)) {
+                is Result.Success -> {
+                    when (task.status) {
+                        Status.TODO -> {
+                            todoItem.remove(task)
+                            _todoTask.value = todoItem
+                        }
+                        Status.IN_PROGRESS -> {
+                            inProgressItem.remove(task)
+                            _inProgressTask.value = inProgressItem
+                        }
+                        Status.DONE -> {
+                            doneItem.remove(task)
+                            _doneTask.value = doneItem
+                        }
+                    }
 
-    fun addInProgressTask(task: Task) {}
+                    when (updateTask.data.status) {
+                        Status.TODO -> {
+                            todoItem.add(0, updateTask.data)
+                            _todoTask.value = todoItem
+                        }
+                        Status.IN_PROGRESS -> {
+                            inProgressItem.add(0, updateTask.data)
+                            _inProgressTask.value = inProgressItem
+                        }
+                        Status.DONE -> {
+                            doneItem.add(0, updateTask.data)
+                            _doneTask.value = doneItem
+                        }
+                    }
+                }
+                is Result.Error -> {
+                    _error.value = updateTask.error
+                }
+            }
+        }
+    }
 
-    fun addDoneTask(task: Task) {}
+    fun swapTask(currentList: List<TaskDetailResponse>, fromPosition: Int, toPosition: Int) {
+        when (currentList) {
+            todoItem -> {
+                Collections.swap(todoItem, fromPosition, toPosition)
+                _todoTask.value = todoItem
+            }
+            inProgressItem -> {
+                Collections.swap(inProgressItem, fromPosition, toPosition)
+                _inProgressTask.value = inProgressItem
+            }
+            doneItem -> {
+                Collections.swap(doneItem, fromPosition, toPosition)
+                _doneTask.value = doneItem
+            }
+        }
+    }
 
-    fun moveDone(task: TaskDetailResponse) {}
-
-    fun updateTodoTask(task: TaskDetailResponse) {}
-
-    fun updateInProgressTask(task: TaskDetailResponse) {}
-
-    fun updateDoneTask(task: TaskDetailResponse) {}
-
-    fun swapTask(currentList: List<TaskDetailResponse>, fromPosition: Int, toPosition: Int) {}
 }

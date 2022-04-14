@@ -32,4 +32,6 @@ interface Service {
     @DELETE("cards/{id}")
     suspend fun deleteTask(@Path("id") id: Int): Response<CommonResponse>
 
+    @PATCH("cards/{id}/move")
+    suspend fun moveTask(@Path("id") id: Int, @Body nowStatus: String): Response<CommonResponse>
 }

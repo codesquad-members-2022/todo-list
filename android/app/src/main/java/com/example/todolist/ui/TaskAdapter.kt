@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.databinding.ItemTaskBinding
+import com.example.todolist.model.Status
 import com.example.todolist.model.response.TaskDetailResponse
 
 class TaskAdapter(
@@ -54,7 +55,7 @@ class TaskAdapter(
 
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             when (item?.itemId) {
-                R.id.popup_go_done -> viewModel.moveDone(task)
+                R.id.popup_go_done -> viewModel.moveDone(task, Status.DONE)
                 R.id.popup_modify -> listener.updateDialog(task)
                 R.id.popup_delete -> viewModel.deleteTask(task)
             }

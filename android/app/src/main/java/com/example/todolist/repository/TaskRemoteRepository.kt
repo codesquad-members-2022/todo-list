@@ -1,6 +1,7 @@
 package com.example.todolist.repository
 
 import com.example.todolist.model.History
+import com.example.todolist.model.Status
 import com.example.todolist.network.Result
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
@@ -38,6 +39,14 @@ class TaskRemoteRepository(
 
     suspend fun deleteTask(id: Int): Result<TaskDetailResponse> {
         val response = taskRemoteDataSource.deleteTask(id)
+        response?.let {
+            return Result.Success(it.taskDetailResponse)
+        }
+        return Result.Error("error")
+    }
+
+    suspend fun moveTask(id: Int, status: Status): Result<TaskDetailResponse> {
+        val response = taskRemoteDataSource.moveTask(id, status.status)
         response?.let {
             return Result.Success(it.taskDetailResponse)
         }
