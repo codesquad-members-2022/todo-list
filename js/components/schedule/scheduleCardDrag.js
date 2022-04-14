@@ -15,6 +15,7 @@ let dragCard;
 let afterimageCard;
 let selectedCard;
 let selectedCardData;
+let columnIdBeforeMove;
 
 const TOP = "top";
 const BOTTOM = "bottom";
@@ -105,6 +106,7 @@ const resetGlobalVariables = () => {
     selectedCard = null;
     selectedCardData = null;
     dragCard = null;
+    columnIdBeforeMove = null;
 };
 
 const insertAfterimageCardToModel = (afterimageCard) => {
@@ -122,7 +124,18 @@ const insertAfterimageCardToModel = (afterimageCard) => {
     changeCardNumber(columnId);
 };
 
+const removeSelectedCardFromModel = () => {
+    const cardId = selectedCard.dataset.cardId;
+    selectedCardData = scheduleModel.getScheduleCardDataById(
+        columnIdBeforeMove,
+        cardId
+    );
+    scheduleModel.removeScheduleCard(columnIdBeforeMove, cardId);
+    changeCardNumber(columnIdBeforeMove);
+};
+
 const mouseUpOnDraggingEventHandler = () => {
+    removeSelectedCardFromModel();
     removeMouseEventOnDragging();
     insertAfterimageCardToModel(afterimageCard);
     afterimageCard.classList.replace(SCHEDULE_CARD_AFTERIMAGE, SCHEDULE_CARD);
@@ -145,15 +158,6 @@ const relocateDragCard = (pageX, pageY) => {
     dragCard.style.top = `${pageY - dragCard.offsetHeight / 2}px`;
 };
 
-const removeSelectedCardFromModel = (selectedCard) => {
-    const columnId = selectedCard.closest(`.${SCHEDULE_COLUMN}`).dataset.id;
-    const cardId = selectedCard.dataset.cardId;
-
-    selectedCardData = scheduleModel.getScheduleCardDataById(columnId, cardId);
-    scheduleModel.removeScheduleCard(columnId, cardId);
-    changeCardNumber(columnId);
-};
-
 export const mouseDownEventHandler = (event) => {
     const target = event.target;
     selectedCard = target.closest(`.${SCHEDULE_CARD}`);
@@ -162,8 +166,7 @@ export const mouseDownEventHandler = (event) => {
         return;
     }
 
-    removeSelectedCardFromModel(selectedCard);
-
+    columnIdBeforeMove = selectedCard.closest(`.${SCHEDULE_COLUMN}`).dataset.id;
     dragCard = selectedCard.cloneNode(true);
     selectedCard.classList.replace(SCHEDULE_CARD, SCHEDULE_CARD_AFTERIMAGE);
     dragCard.classList.replace(SCHEDULE_CARD, DRAG_CARD);
