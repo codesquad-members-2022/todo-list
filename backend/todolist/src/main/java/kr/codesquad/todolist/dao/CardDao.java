@@ -189,28 +189,34 @@ public class CardDao {
     }
 
     private void shiftAffectedCards(Card card, Card.TodoStatus toStatus, Long toOrder) {
-        String shiftingOperation = " + 1";
+        String shiftingOperation = "";
         String lowerBoundCondition = " AND todo_order > ";
         String upperBoundCondition = " AND todo_order < ";
+        Long fromOrder = card.getOrder();
 
-        if (!toStatus.equals(card.getStatus())) {
-            lowerBoundCondition += toOrder - CARD_MIN_ID;
+        if (toStatus.equals(card.getStatus())) {
+
+            if (fromOrder < toOrder) {
+                shiftingOperation = " - 1";
+                lowerBoundCondition += fromOrder;
+                upperBoundCondition += toOrder + 1;
+            }
+
+            if (fromOrder > toOrder) {
+                shiftingOperation = " + 1";
+                lowerBoundCondition += toOrder - 1;
+                upperBoundCondition += fromOrder;
+            }
+
+        } else {
+            shiftingOperation = " + 1";
+            lowerBoundCondition += toOrder - 1;
             upperBoundCondition = "";
-        }
-
-        if (toOrder > card.getOrder()) {
-            shiftingOperation = " - 1";
-            lowerBoundCondition += card.getOrder();
-            upperBoundCondition += toOrder + CARD_MIN_ID;
-        }
-
-        if (toOrder < card.getOrder()) {
-            lowerBoundCondition += toOrder - CARD_MIN_ID;
-            upperBoundCondition += card.getOrder();
         }
 
         String sql = "UPDATE todo_list_table SET todo_order = todo_order" + shiftingOperation +
             " WHERE todo_user_id = ? AND todo_status = ?" + lowerBoundCondition + upperBoundCondition + ";";
+
         jdbcTemplate.update(sql, card.getUserId(), toStatus.getText());
     }
 }
