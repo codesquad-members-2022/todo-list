@@ -21,21 +21,23 @@ public class LogAddInterceptor implements HandlerInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(LogAddInterceptor.class);
 
+    private final LogService logService;
+    public LogAddInterceptor(LogService logService) {
+        this.logService = logService;
+    }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("prehandle");
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("prehandle");
-        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+        log.info("post handle");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        log.info("prehandle");
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 }
