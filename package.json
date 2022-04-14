@@ -4,9 +4,10 @@
   "description": "그룹 프로젝트 #1",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --open --mode=development",
     "build": "webpack --mode=production",
-    "start": "webpack serve --open --mode=development"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/Cola-Dori/todo-list#readme",
   "dependencies": {
+    "html-webpack-plugin": "^5.5.0",
     "lowdb": "^3.0.0",
     "uuid": "^8.3.2"
   },
@@ -43,6 +45,7 @@
     "sass-loader": "^12.6.0",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "^4.7.4",
+    "gh-pages": "^3.2.3"
   }
 }
