@@ -9,24 +9,24 @@ class BoardController {
   constructor() {
     this.viewModel = new BoardViewModel();
     this.viewModel.addObserver(this);
-    this.cards = [];
+    this.cards = {};
     this.columns = [];
   }
 
-  setCards(cardsState) {
+  setCards(cardsState, columnName) {
     const cards = cardsState.map(cardState => {
       const card = new Card(cardState);
 
       return card;
     });
 
-    this.cards = cards;
+    this.cards[columnName] = cards;
   }
 
   setColumns() {
     const columns = Object.keys(this.viewModel.boardState).map(columnName => {
       const column = new Column({ title: columnName, cards: this.viewModel.boardState[columnName] });
-      this.setCards(this.viewModel.boardState[columnName]);
+      this.setCards(this.viewModel.boardState[columnName], columnName);
 
       return column;
     });
@@ -34,10 +34,9 @@ class BoardController {
     this.columns = columns;
   }
 
-  createCardsTemplate() {
-    const cardsTemplate = this.cards.reduce((cardsTemplate, card) => {
+  createCardsTemplate(columnName) {
+    const cardsTemplate = this.cards[columnName].reduce((cardsTemplate, card) => {
       const currentTemplate = card.props.hasOwnProperty('id') ? card.nomalTemplate() : card.writableTemplate();
-
       cardsTemplate = currentTemplate + cardsTemplate;
 
       return cardsTemplate;
@@ -48,7 +47,7 @@ class BoardController {
 
   createColumnsTemplate() {
     const columnsTemplate = this.columns.reduce((columnsTemplate, column) => {
-      const cardsTemplate = this.createCardsTemplate(column.props.cards);
+      const cardsTemplate = this.createCardsTemplate(column.props.title);
       columnsTemplate += column.template(cardsTemplate);
 
       return columnsTemplate;
@@ -65,12 +64,12 @@ class BoardController {
     }
   }
 
-  addWritableCard(target, column) {
+  enableWriting(target, column) {
     column.disableAddBtn(target);
     column.props.cards = [...column.props.cards, { cardStatus: column.props.title }];
   }
 
-  removeWritableCard(column) {
+  disableWriting(column) {
     const $addBtn = column.getAddBtn(column.props.title);
     const isDisabledBtn = column.isDisabledBtn($addBtn);
     if (isDisabledBtn) {
@@ -82,15 +81,15 @@ class BoardController {
   updateColumnState(target, column) {
     const btnType = checkBtnType(target);
     if (btnType === 'add') {
-      this.addWritableCard(target, column);
+      this.enableWriting(target, column);
     } else if (btnType === 'cancle') {
-      this.removeWritableCard(column);
+      this.disableWriting(column);
     }
-    this.setCards(column.props.cards);
+    this.setCards(column.props.cards, column.props.title);
   }
 
   renderSingleColumn(column) {
-    const cardsTemplate = this.createCardsTemplate(column.props.cards);
+    const cardsTemplate = this.createCardsTemplate(column.props.title);
     column.render(column.props.title, cardsTemplate);
   }
 
@@ -120,13 +119,14 @@ class BoardController {
       title: title,
       contents: contents,
       writer: '도니',
-      cardStatus: columnName,
+      cardStatus: columnName
     };
   }
 
-  createNewCard(target) {
+  createNewCardData(target) {
     const columnName = target.dataset.status;
-    const writableCard = this.cards[this.cards.length - 1];
+    const column = this.cards[columnName];
+    const writableCard = column[column.length - 1];
     const cardInfo = this.getCardInfo(writableCard, columnName);
     return cardInfo;
   }
@@ -136,8 +136,8 @@ class BoardController {
       this.toggleWritableCard(target);
     }
     if (target.classList.contains('card__button--submit')) {
-      const newCard = this.createNewCard(target);
-      this.viewModel.store.postRequest(newCard);
+      const newCardData = this.createNewCardData(target);
+      this.viewModel.store.postRequest(newCardData);
       this.viewModel.store.observe();
       this.viewModel.notify();
     }
