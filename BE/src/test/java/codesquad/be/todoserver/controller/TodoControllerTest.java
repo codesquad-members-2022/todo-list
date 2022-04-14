@@ -1,6 +1,7 @@
 package codesquad.be.todoserver.controller;
 
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -64,6 +65,18 @@ class TodoControllerTest {
 		perform
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+	}
+
+	@Test
+	void 특정_투두_삭제_성공() throws Exception {
+		List<Todo> todos = createTestData();
+
+		given(todoService.getById(1L))
+			.willReturn(new Todo(1L, "Github 공부하기", "add, commit, push", "sam", "todo"));
+
+		ResultActions perform = mockMvc.perform(delete("/api/todos/1"));
+
+		perform.andExpect(status().isNoContent());
 	}
 
 	private List<Todo> createTestData() {

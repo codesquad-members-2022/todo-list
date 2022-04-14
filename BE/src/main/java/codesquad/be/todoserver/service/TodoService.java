@@ -2,6 +2,7 @@ package codesquad.be.todoserver.service;
 
 import codesquad.be.todoserver.controller.TodoDtoMapper;
 import codesquad.be.todoserver.controller.model.RegisterTodoDto;
+import codesquad.be.todoserver.domain.Action;
 import codesquad.be.todoserver.domain.History;
 import codesquad.be.todoserver.domain.Todo;
 import codesquad.be.todoserver.exception.NoSuchTodoFoundException;
@@ -41,8 +42,15 @@ public class TodoService {
 		Todo saveTodo = todoRepository.saveTodo(
 			TodoDtoMapper.toDomainFromRegisterTodoDto(registerTodoDto));
 
-		History history = History.createAddHistoryBy(saveTodo);
-		historyRepository.saveHistory(history);
+		historyRepository.saveHistory(History.of(saveTodo, Action.ADD));
 		return saveTodo;
+	}
+
+	public boolean deleteById(Long id) {
+		Todo todo = todoRepository.findById(id)
+			.orElseThrow(() -> new NoSuchTodoFoundException("id: " + id));
+
+		historyRepository.saveHistory(History.of(todo, Action.REMOVE));
+		return todoRepository.deleteById(id);
 	}
 }

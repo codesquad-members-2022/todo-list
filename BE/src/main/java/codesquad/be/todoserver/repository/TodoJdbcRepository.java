@@ -22,7 +22,7 @@ public class TodoJdbcRepository implements TodoRepository {
 
 	@Override
 	public Optional<Todo> findById(Long id) {
-		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO WHERE id = ?";
+		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO WHERE id = ? AND DELETED = 0";
 		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper(), id);
 
 		return todos.stream().findAny();
@@ -30,7 +30,7 @@ public class TodoJdbcRepository implements TodoRepository {
 
 	@Override
 	public List<Todo> findAllTodos() {
-		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO";
+		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO WHERE DELETED = 0";
 		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper());
 		return todos;
 	}
@@ -53,6 +53,12 @@ public class TodoJdbcRepository implements TodoRepository {
 		todo.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
 
 		return todo;
+	}
+
+	@Override
+	public boolean deleteById(Long id) {
+		String sql = "UPDATE TODO SET deleted = 1 WHERE id = ?";
+		return jdbcTemplate.update(sql, id) == 1;
 	}
 
 	public RowMapper<Todo> todoRowMapper() {

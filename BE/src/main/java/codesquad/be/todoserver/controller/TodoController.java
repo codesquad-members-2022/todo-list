@@ -6,6 +6,7 @@ import codesquad.be.todoserver.service.TodoService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,5 +37,11 @@ public class TodoController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Todo registerTodo(@Valid @RequestBody RegisterTodoDto registerTodoDto) {
 		return todoService.registerTodo(registerTodoDto);
+	}
+
+	@DeleteMapping("/todos/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteTodo(@PathVariable Long id) {
+		todoService.deleteById(id);
 	}
 }
