@@ -32,7 +32,6 @@ class TaskRemoteRepository(
     suspend fun loadHistory(): Result<List<History>> {
         val response = taskRemoteDataSource.loadHistory()
         response?.let {
-            Log.d("test", "loadHistory: $it")
             return Result.Success(it)
         }
         return Result.Error("error")
