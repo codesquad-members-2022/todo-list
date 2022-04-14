@@ -76,4 +76,9 @@ class MemoTableViewCell: UITableViewCell {
         contentLabel.text = memo.content
         nameLabel.text = memo.name
     }
+    
+    func updateStyle(){
+        clipsToBounds = true
+        layer.cornerRadius = 15
+    }
 }
