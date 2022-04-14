@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todolist.R
 import com.example.todolist.databinding.TasksViewBinding
@@ -43,11 +44,7 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
 
         binding = TasksViewBinding.inflate(layoutInflater, this, false)
         addView(binding.root)
-
-        binding.recyclerviewTodo.adapter = taskAdapter
-        val touchHelper = ItemTouchHelperCallback()
-        val helper = ItemTouchHelper(touchHelper)
-        helper.attachToRecyclerView(binding.recyclerviewTodo)
+        setRecyclerView()
 
         val fragmentManager = (context as FragmentActivity).supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
@@ -57,25 +54,35 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
                 transaction.remove(prev)
             }
             transaction.addToBackStack(null)
+            showDialog(fragmentManager)
+        }
+    }
 
-            val dialog = TaskDialogFragment()
-            dialog.arguments = bundleOf(
-                "action" to DialogAction.ADD
-            )
-            fragmentManager.setFragmentResultListener("addTask", context as FragmentActivity) { resultKey, result ->
-                when (resultKey) {
-                    "addTask" -> {
-                        Log.d("AAAA", result["title"].toString())
-                        Log.d("AAAA", result["body"].toString())
-                    }
+    private fun setRecyclerView() {
+        binding.recyclerviewTodo.adapter = taskAdapter
+        val touchHelper = ItemTouchHelperCallback()
+        val helper = ItemTouchHelper(touchHelper)
+        helper.attachToRecyclerView(binding.recyclerviewTodo)
+    }
+
+    private fun showDialog(fragmentManager: FragmentManager) {
+        val dialog = TaskDialogFragment()
+        dialog.arguments = bundleOf(
+            "action" to DialogAction.ADD
+        )
+        fragmentManager.setFragmentResultListener("addTask", context as FragmentActivity) { resultKey, result ->
+            when (resultKey) {
+                "addTask" -> {
+                    Log.d("AAAA", result["title"].toString())
+                    Log.d("AAAA", result["body"].toString())
                 }
             }
-
-            dialog.show(
-                (context as FragmentActivity).supportFragmentManager,
-                "taskDialog"
-            )
         }
+
+        dialog.show(
+            (context as FragmentActivity).supportFragmentManager,
+            "taskDialog"
+        )
     }
 
     fun addTasks(tasks: List<Task>) {
