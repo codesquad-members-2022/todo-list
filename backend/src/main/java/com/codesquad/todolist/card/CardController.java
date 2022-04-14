@@ -53,7 +53,7 @@ public class CardController {
 
     @ApiOperation(value = "카드 이동", notes = "카드를 현재 컬럼 혹은 다른 컬럼으로 이동하고 순서를 변경합니다.")
     @PutMapping("/{id}/move")
-    public ResponseEntity<?> moveCard(
+    public ResponseEntity<HistoryResponse> moveCard(
         @ApiParam(name = "id", value = "이동할 카드 Id", required = true)
         @PathVariable(value = "id") Integer cardId,
         @RequestBody @Valid CardMoveRequest request) {
@@ -63,11 +63,10 @@ public class CardController {
 
     @ApiOperation(value = "카드 삭제", notes = "지정한 카드를 삭제합니다.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCard(
+    public HistoryResponse deleteCard(
         @ApiParam(name = "id", value = "삭제할 카드 Id", required = true)
         @PathVariable(value = "id") Integer cardId) {
-        HistoryResponse historyResponse = cardService.delete(cardId);
-        return new ResponseEntity<>(historyResponse, HttpStatus.NO_CONTENT);
+        return cardService.delete(cardId);
     }
 
 }
