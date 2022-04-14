@@ -16,8 +16,6 @@ class ChildViewController: UIViewController {
     
     private var list:[Todo]?
     
-    private var editViewController:EditCardViewController?
-    
     //Notification
     static let tapCofirmButton = Notification.Name("didTapConfirmButton")
     static let cardViewInfo = "CardViewInfo"
@@ -126,15 +124,12 @@ extension ChildViewController {
 //MARK: -- AddButton delegation
 extension ChildViewController : BoardHeaderDelegate {
     func didTapAddButton() {
-        editViewController = EditCardViewController()
-        editViewController?.delegate = self
-        
-        guard let editVC = editViewController else { return }
+        let editVC = EditCardViewController()
+        editVC.delegate = self
         editVC.setEditCardView(editStyle: .add)
         editVC.modalPresentationStyle = .formSheet
         present(editVC, animated: true)
     }
-   
 }
 
 //MARK: -- BoardTableView Delete delegation
