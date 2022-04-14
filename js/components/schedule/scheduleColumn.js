@@ -49,6 +49,7 @@ export class ScheduleColumn {
                     updateCard: this.updateCard.bind(this),
                     getCardData: this.getCardData.bind(this),
                 },
+                registerState: false,
             };
             new ScheduleCard(scheduleCardParams);
         });
@@ -76,10 +77,10 @@ export class ScheduleColumn {
         this.registerCard.changeState();
         const $registerCard = this.$cards.querySelector(`.${REGISTER_CARD}`);
         $registerCard.remove();
+        this.registerCard.changeState();
     }
 
     showRegisterCard() {
-        this.registerCard.changeState();
         const scheduleRegisterCardParams = {
             $target: this.$cards,
             passedEventHandler: {
@@ -88,6 +89,7 @@ export class ScheduleColumn {
             },
         };
         this.registerCard.init(scheduleRegisterCardParams);
+        this.registerCard.changeState();
     }
 
     render() {
@@ -105,6 +107,7 @@ export class ScheduleColumn {
                 updateCard: this.updateCard.bind(this),
                 getCardData: this.getCardData.bind(this),
             },
+            registerState: true,
         };
         new ScheduleCard(scheduleCardParams);
         changeCardNumber(this.columnId);
@@ -112,9 +115,10 @@ export class ScheduleColumn {
 
     removeCard($target) {
         const cardId = $target.dataset.cardId;
-        scheduleModel.removeScheduleCard(this.columnId, cardId);
+        const columnId = $target.closest(`.${SCHEDULE_COLUMN}`).dataset.id;
+        scheduleModel.removeScheduleCard(columnId, cardId);
         $target.remove();
-        changeCardNumber(this.columnId);
+        changeCardNumber(columnId);
     }
 
     updateCard(cardData) {

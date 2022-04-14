@@ -16,7 +16,7 @@ const getScheduleCards = (columnId) => {
 
 const addScheduleCard = (columnId, cardData) => {
     const cardsInScheduleColumn = findScheduleColumn(columnId).cards;
-    cardsInScheduleColumn.push(cardData);
+    cardsInScheduleColumn.unshift(cardData);
 };
 
 const removeScheduleCard = (columnId, cardId) => {

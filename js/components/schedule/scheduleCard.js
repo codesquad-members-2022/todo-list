@@ -8,12 +8,13 @@ import { deleteConfirmInit } from "./scheduleDeleteConfirm.js";
 import { ScheduleEditCard } from "./scheduleEditCard.js";
 
 export class ScheduleCard {
-    constructor({ target, cardData, passedEventHandler }) {
+    constructor({ target, cardData, passedEventHandler, registerState }) {
         this.$target = target;
         this.$scheduleCard;
         this.cardData = cardData;
         this.passedEventHandler = passedEventHandler;
         this.editCard;
+        this.registerState = registerState;
         this.init();
     }
 
@@ -25,7 +26,11 @@ export class ScheduleCard {
 
     render() {
         const scheduleCardTemplate = this.template();
-        this.$target.insertAdjacentHTML("afterbegin", scheduleCardTemplate);
+        if (this.registerState) {
+            this.$target.insertAdjacentHTML("afterbegin", scheduleCardTemplate);
+        } else {
+            this.$target.insertAdjacentHTML("beforeend", scheduleCardTemplate);
+        }
     }
 
     setDOMElement() {
@@ -44,7 +49,7 @@ export class ScheduleCard {
     }
 
     setDeleteCardEvent() {
-        const $scheduleCardDeleteBtn = this.$target.querySelector(
+        const $scheduleCardDeleteBtn = this.$scheduleCard.querySelector(
             `.${SCHEDULE_CARD_DELETE_BTN}`
         );
         $scheduleCardDeleteBtn.addEventListener(

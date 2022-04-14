@@ -110,15 +110,14 @@ const resetGlobalVariables = () => {
 const insertAfterimageCardToModel = (afterimageCard) => {
     const columnId = afterimageCard.closest(`.${SCHEDULE_COLUMN}`).dataset.id;
     const $scheduleCards = afterimageCard.closest(`.${SCHEDULE_CARDS}`);
-    const afterCardBrowserIndex = [...$scheduleCards.children].findIndex(
+    const afterCardIndex = [...$scheduleCards.children].findIndex(
         (card) => card.classList.contains(SCHEDULE_CARD_AFTERIMAGE) === true
     );
-    const afterCardModelIndex =
-        [...$scheduleCards.children].length - afterCardBrowserIndex - 1;
+
     scheduleModel.insertScheduleCard(
         columnId,
         selectedCardData,
-        afterCardModelIndex
+        afterCardIndex
     );
     changeCardNumber(columnId);
 };
