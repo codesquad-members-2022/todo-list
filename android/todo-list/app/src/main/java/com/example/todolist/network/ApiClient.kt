@@ -2,6 +2,7 @@ package com.example.todolist.network
 
 import com.example.todolist.data.Card
 import com.example.todolist.data.CardResponse
+import com.example.todolist.data.MovedCard
 import com.example.todolist.data.NewCard
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +24,13 @@ interface ApiClient {
     @DELETE("/api/todo/card/{id}")
     suspend fun deleteCard(
         @Path("id") cardId: Int
-    ): Response<Any>
+    ): Response<Unit>
+
+    @PATCH("/api/todo/card/{id}/move")
+    suspend fun moveCard(
+        @Path("id") cardId: Int,
+        @Body movedCard: MovedCard
+    )
 
     companion object {
 

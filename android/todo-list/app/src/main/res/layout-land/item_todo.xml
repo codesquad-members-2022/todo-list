@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/background_white">
+        android:background="@drawable/background_white"
+        >
 
         <TextView
             android:id="@+id/tv_delete_card"

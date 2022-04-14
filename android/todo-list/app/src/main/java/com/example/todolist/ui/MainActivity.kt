@@ -1,6 +1,7 @@
 package com.example.todolist.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -47,16 +48,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.onGoingCardList.observe(this) {
+        viewModel.ongoingCardList.observe(this) {
             ongoingAdapter.submitList(it.toList()) {
                 if (viewModel.actionStatus == ActionStatus.ADD) {
-                    binding.rvTodo.smoothScrollToPosition(0)
+                    binding.rvProgress.smoothScrollToPosition(0)
                 }
                 binding.tvProgressBadge.text = it.size.toString()
             }
         }
 
-        viewModel.completeCardList.observe(this) {
+        viewModel.completedCardList.observe(this) {
             complete.submitList(it.toList()) {
                 if (viewModel.actionStatus == ActionStatus.ADD) {
                     binding.rvDone.smoothScrollToPosition(0)
@@ -65,6 +66,11 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        viewModel.error.observe(this) {
+                message -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun onBackPressed() {

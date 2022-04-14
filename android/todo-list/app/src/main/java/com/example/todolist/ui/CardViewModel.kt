@@ -18,23 +18,29 @@ class CardViewModel : ViewModel(), CardActionHandler {
     val todoCardList: LiveData<List<Card>> = _todoCardList
 
     private val _onGoingCardList = MutableLiveData<List<Card>>()
-    val onGoingCardList: LiveData<List<Card>> = _onGoingCardList
+    val ongoingCardList: LiveData<List<Card>> = _onGoingCardList
 
     private val _completeCardList = MutableLiveData<List<Card>>()
-    val completeCardList: LiveData<List<Card>> = _completeCardList
+    val completedCardList: LiveData<List<Card>> = _completeCardList
 
     private var _actionStatus = ActionStatus.NONE
     val actionStatus: ActionStatus
         get() = _actionStatus
 
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+
     init {
         viewModelScope.launch {
-            val cards = cardRepository.getCards()
-
-            cards?.todo?.cards?.let { setTodoList(it) }
-            cards?.ongoing?.cards?.let { setOngoingList(it) }
-            cards?.completed?.cards?.let { setCompletedList(it) }
+            loadCards()
         }
+    }
+
+    private suspend fun loadCards() {
+        val cards = cardRepository.getCards()
+        cards?.todo?.cards?.sortedByDescending { it.order }?.let { setTodoList(it) }
+        cards?.ongoing?.cards?.sortedByDescending { it.order }?.let { setOngoingList(it) }
+        cards?.completed?.cards?.sortedByDescending { it.order }?.let { setCompletedList(it) }
     }
 
     private fun setTodoList(cards: List<Card>) {
@@ -49,6 +55,7 @@ class CardViewModel : ViewModel(), CardActionHandler {
         _completeCardList.value = cards
     }
 
+
     override fun addCard(newCard: NewCard) {
         viewModelScope.launch {
             val card = cardRepository.addCard(newCard.subject, newCard.content, newCard.status)
@@ -56,31 +63,54 @@ class CardViewModel : ViewModel(), CardActionHandler {
                 "todo" -> {
                     val newCards = _todoCardList.value?.toMutableList()
                     newCards?.add(card)
+                    newCards?.sortByDescending { it.order }
                     newCards.let { _todoCardList.value = it }
                 }
 
                 "ongoing" -> {
                     val newCards = _onGoingCardList.value?.toMutableList()
                     newCards?.add(card)
+                    newCards?.sortByDescending { it.order }
                     newCards.let { _onGoingCardList.value = it }
                 }
 
                 "completed" -> {
                     val newCards = _completeCardList.value?.toMutableList()
                     newCards?.add(card)
+                    newCards?.sortByDescending { it.order }
                     newCards.let { _completeCardList.value = it }
                 }
             }
+            _actionStatus = ActionStatus.ADD
         }
     }
 
     override fun deleteCard(cardId: Int) {
-        cardRepository.deleteCard(cardId)
+        viewModelScope.launch {
+            cardRepository.deleteCard(cardId)
+            loadCards()
+            _actionStatus = ActionStatus.DELETE
+        }
     }
 
     override fun dropCard(draggedCard: Card, targetCard: Card) {
-        cardRepository.dropCard(draggedCard.cardId, targetCard.order, targetCard.status)
+        kotlin.runCatching {
+            viewModelScope.launch {
+                val cardId = draggedCard.cardId?.let { it } ?: throw IllegalArgumentException("cardId is null!")
+                val order = targetCard.order?.let { it } ?: throw IllegalArgumentException("order is null!")
+                val status = targetCard.status?.let { it } ?: throw IllegalArgumentException("status id null")
+
+                cardRepository.dropCard(cardId, order, status)
+                loadCards()
+                _actionStatus = ActionStatus.DROP
+            }
+        }.onFailure {
+            handleError(it)
+        }
     }
 
+    private fun handleError(exception: Throwable) {
+        _error.value = exception.message
+    }
 
 }
