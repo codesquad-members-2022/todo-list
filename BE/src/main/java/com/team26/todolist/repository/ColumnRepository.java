@@ -8,7 +8,7 @@ public interface ColumnRepository {
 
     List<Column> findAll();
     Column findById(Long id);
-    Column updateOrder(Column column, Double order);
+    Column updateOrder(Column column);
     Column updateTitle(Column column);
     boolean delete(Long id);
     Column saveNewColumn(Column column);

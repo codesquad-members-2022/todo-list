@@ -52,11 +52,11 @@ public class ColumnRepositoryImpl implements ColumnRepository {
     }
 
     @Override
-    public Column updateOrder(Column column, Double newOrder) {
+    public Column updateOrder(Column column) {
         String sql = "UPDATE column_tbl SET order_index = :order WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("order", newOrder);
+        params.put("order", column.getOrder());
         params.put("id", column.getId());
 
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params));

@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ColumnServiceImpl implements ColumnService {
 
-    private final double DIFFERENCE = 1000.0;
-
     private final ColumnRepository columnRepository;
 
     public ColumnServiceImpl(ColumnRepository columnRepository) {
@@ -40,28 +38,13 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     public ColumnResponse changeColumnOrder(ColumnMoveRequest columnMoveRequest) {
-        Double newOrder = getNewOrder(columnMoveRequest);
-        Column updatedColumn = columnRepository.updateOrder(columnMoveRequest.toEntity(), newOrder);
-        return ColumnResponse.of(updatedColumn);
-    }
-
-    private double getNewOrder(ColumnMoveRequest columnMoveRequest) {
+        Column column = columnMoveRequest.toEntity();
         Column leftColumn = columnRepository.findById(columnMoveRequest.getLeftColumnId());
         Column rightColumn = columnRepository.findById(columnMoveRequest.getRightColumnId());
+        column.setNewOrder(leftColumn, rightColumn);
 
-        if (leftColumn == null && rightColumn == null) {
-            return 0.0;
-        }
-
-        if (leftColumn == null) {
-            return rightColumn.getOrder() - DIFFERENCE;
-        }
-
-        if (rightColumn == null) {
-            return leftColumn.getOrder() + DIFFERENCE;
-        }
-
-        return (leftColumn.getOrder() + rightColumn.getOrder()) / 2;
+        Column updatedColumn = columnRepository.updateOrder(column);
+        return ColumnResponse.of(updatedColumn);
     }
 
     public ColumnResponse modifyColumn(ColumnUpdateRequest columnUpdateRequest) {
