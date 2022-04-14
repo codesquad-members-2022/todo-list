@@ -27,12 +27,12 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-//        onDrawerEvent()
+        onDrawerEvent()
 
-//        binding.rvHistory.adapter = historyAdapter
-//        viewModel.history.observe(this) { histories ->
-//            historyAdapter.submitList(histories)
-//        }
+        binding.rvHistory.adapter = historyAdapter
+        viewModel.history.observe(this) { histories ->
+            historyAdapter.submitList(histories)
+        }
 
         viewModel.error.observe(this) {
             Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show()
@@ -101,16 +101,16 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
         }
     }
 
-//    private fun onDrawerEvent() {
-//        binding.btnDrawer.setOnClickListener {
-//            viewModel.loadDummyData()
-//            binding.dlDrawer.openDrawer(Gravity.RIGHT)
-//        }
-//
-//        binding.btnClose.setOnClickListener {
-//            binding.dlDrawer.closeDrawer(Gravity.RIGHT)
-//        }
-//    }
+    private fun onDrawerEvent() {
+        binding.btnDrawer.setOnClickListener {
+            viewModel.loadDummyData()
+            binding.dlDrawer.openDrawer(Gravity.RIGHT)
+        }
+
+        binding.btnClose.setOnClickListener {
+            binding.dlDrawer.closeDrawer(Gravity.RIGHT)
+        }
+    }
 
     override fun updateDialog(task: TaskDetailResponse) {
         UpdateTaskDialogFragment(task).show(supportFragmentManager, "updateDialog")

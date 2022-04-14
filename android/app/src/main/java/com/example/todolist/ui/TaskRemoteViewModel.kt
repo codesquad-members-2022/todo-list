@@ -5,6 +5,7 @@ import com.example.todolist.network.Result
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.todolist.model.History
 import com.example.todolist.model.Status
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
@@ -13,6 +14,10 @@ import com.example.todolist.repository.TaskRemoteRepository
 import kotlinx.coroutines.launch
 
 class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository) : ViewModel() {
+
+    private val _history = MutableLiveData<List<History>>()
+    val history: LiveData<List<History>>
+        get() = _history
 
     private val _todoTask = MutableLiveData<MutableList<TaskDetailResponse>>()
     val todoTask: LiveData<MutableList<TaskDetailResponse>>
@@ -99,4 +104,24 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
             }
         }
     }
+
+    fun loadDummyData() {}
+
+    fun addTodoTask(task: Task) {}
+
+    fun addInProgressTask(task: Task) {}
+
+    fun addDoneTask(task: Task) {}
+
+    fun moveDone(task: TaskDetailResponse) {}
+
+    fun deleteTask(task: TaskDetailResponse) {}
+
+    fun updateTodoTask(task: TaskDetailResponse) {}
+
+    fun updateInProgressTask(task: TaskDetailResponse) {}
+
+    fun updateDoneTask(task: TaskDetailResponse) {}
+
+    fun swapTask(currentList: List<TaskDetailResponse>, fromPosition: Int, toPosition: Int) {}
 }

@@ -54,13 +54,9 @@ class TaskAdapter(
 
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             when (item?.itemId) {
-                R.id.popup_go_done -> {
-//                    viewModel.moveDone(task)
-                }
+                R.id.popup_go_done -> viewModel.moveDone(task)
                 R.id.popup_modify -> listener.updateDialog(task)
-                R.id.popup_delete -> {
-//                    viewModel.deleteTask(task)
-                }
+                R.id.popup_delete -> viewModel.deleteTask(task)
             }
             return item != null
         }
@@ -81,12 +77,12 @@ class TaskAdapter(
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-//        viewModel.swapTask(currentList, fromPosition, toPosition)
+        viewModel.swapTask(currentList, fromPosition, toPosition)
         return true
     }
 
     override fun onItemSwipe(position: Int) {
-//        viewModel.deleteTask(getItem(position))
+        viewModel.deleteTask(getItem(position))
     }
 }
 
