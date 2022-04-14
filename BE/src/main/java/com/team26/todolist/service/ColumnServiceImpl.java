@@ -15,9 +15,12 @@ import org.springframework.stereotype.Service;
 public class ColumnServiceImpl implements ColumnService {
 
     private final ColumnRepository columnRepository;
+    private final CardService cardService;
 
-    public ColumnServiceImpl(ColumnRepository columnRepository) {
+    public ColumnServiceImpl(ColumnRepository columnRepository,
+            CardService cardService) {
         this.columnRepository = columnRepository;
+        this.cardService = cardService;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public void deleteColumn(Long id) {
+        cardService.deleteCardByColumnId(id);
         columnRepository.delete(id);
     }
 

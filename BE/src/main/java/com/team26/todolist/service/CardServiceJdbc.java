@@ -94,4 +94,10 @@ public class CardServiceJdbc implements CardService {
 
         return (upperCard.getOrder() + lowerCard.getOrder()) / 2;
     }
+
+    @Override
+    public void deleteCardByColumnId(Long columnId) {
+        cardRepository.deleteByColumnId(columnId);
+
+    }
 }

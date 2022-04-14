@@ -141,4 +141,13 @@ public class CardRepository {
                 sql, params, Double.class);
         return firstOrder;
     }
+
+    public void deleteByColumnId(Long columnId) {
+        String sql = "UPDATE card SET deleted = true WHERE column_id = :columnId";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("columnId", columnId);
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
 }
