@@ -10,11 +10,20 @@ import com.example.backend.domain.history.History;
 import com.example.backend.service.card.CardReadResponse;
 import com.example.backend.service.card.CardService;
 import com.example.backend.service.history.HistoryService;
-import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 import java.util.Map;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/cards")
@@ -52,8 +61,8 @@ public class CardController {
     }
 
     @PatchMapping({"{id}"})
-    public ApiResult<CardDto> updateCard(@PathVariable Long id, @RequestBody CardDto cardDto) {
+    public ApiResult<CardSaveResponse> updateCard(@PathVariable Long id, @RequestBody CardDto cardDto) {
         Card card = cardService.updateCard(id, cardDto);
-        return ApiResult.OK(new CardDto(card));
+        return ApiResult.OK(new CardSaveResponse(card));
     }
 }

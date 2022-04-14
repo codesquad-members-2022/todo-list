@@ -4,9 +4,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 import com.example.backend.controller.card.dto.CardDto;
-import com.example.backend.controller.card.dto.CardSaveResponse;
 import com.example.backend.domain.card.Card;
-import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
 import com.example.backend.repository.history.HistoryRepository;
 
@@ -45,7 +43,8 @@ public class CardService {
     }
 
     public Card updateCard(Long id, CardDto cardDto) {
-        Card card = cardDto.updateCard(id);
+        Card card = findById(id);
+        card.updated(cardDto);
         return cardRepository.update(card);
     }
 

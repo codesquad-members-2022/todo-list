@@ -81,12 +81,14 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Card update(Card card) {
-        String query = "update card set title=:title, content=:content, last_modified_at=:lastModifiedAt where id=:id";
+        String query = "update card set title=:title, content=:content, position=:position, card_type=:cardType, last_modified_at=:lastModifiedAt where id=:id";
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
                 .addValue("id", card.getId())
                 .addValue("title", card.getTitle())
                 .addValue("content", card.getContent())
-                .addValue("lastModifiedAt", LocalDateTime.now());
+                .addValue("position", card.getPosition())
+                .addValue("cardType", card.getCardType().toString())
+                .addValue("lastModifiedAt", card.getLastModifiedAt());
         jdbcTemplate.update(query, sqlParameterSource);
         return card;
     }
