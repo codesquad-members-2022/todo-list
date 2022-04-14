@@ -107,7 +107,7 @@ ex) CREATE USER 'minri'@'%' IDENTIFIED BY '1234';
 
 ```
 GRANT ALL PRIVILEGES ON *.* TO 'root 또는 원하는계정'@'본인IP';
-Ex)GRANT ALL PRIVILEGES ON *.* TO 'meenzino'@'%';  <- %는 모든 IP허용 
+Ex)GRANT ALL PRIVILEGES ON *.* TO 'meenzino'@'%';  <- %는 모든 IP허용
 ```
 
 <br/>
