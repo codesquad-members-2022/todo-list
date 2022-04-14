@@ -5,11 +5,10 @@ import Cards from "./Cards.js";
 export default class Column extends Component {
   async setup() {
     const columnIndex = Number(this.$target.dataset.index);
-    const cards = await getCards(columnIndex);
     this.setState({
-      columnIndex: columnIndex,
-      cards: cards.map((card) => ({ ...card, cardState: "default" })),
+      columnIndex,
     });
+    this.setCards(columnIndex);
   }
   template() {
     const { title, cards } = this.state;
@@ -30,11 +29,21 @@ export default class Column extends Component {
   mounted() {
     const { cards } = this;
     const $cardWrapper = this.$target.querySelector(".card-wrapper");
-    new Cards($cardWrapper, { cards, undoCreateCard: this.undoCreateCard.bind(this) });
+    new Cards($cardWrapper, {
+      cards,
+      undoCreateCard: this.undoCreateCard.bind(this),
+      setCards: this.setCards.bind(this),
+    });
   }
   get cards() {
     const { cards } = this.state;
     return cards;
+  }
+  async setCards(columnIndex) {
+    const cards = await getCards(columnIndex);
+    this.setState({
+      cards: cards.map((card) => ({ ...card, cardState: "default" })),
+    });
   }
   setEvent() {
     this.addEvent("click", ".column-plus-button", this.clickPlusButtonHandler.bind(this));
