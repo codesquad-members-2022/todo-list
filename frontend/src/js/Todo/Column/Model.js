@@ -8,7 +8,8 @@ export default class ColumnModel {
   }
 
   updateAddStstue() {
-    return this.addStatus ? (this.addStatus = false) : (this.addStatus = true);
+    this.addStatus = !this.addStatus;
+    return this.addStatus;
   }
 
   addCardList(card) {

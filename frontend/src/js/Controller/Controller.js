@@ -53,11 +53,15 @@ class Controller {
     }
 
     function handleClickAccept() {
-      const targetColumn = this.todo.model.columns[this.deletedColumn.id];
-      const targetCard = targetColumn.model.cardList[this.deletedCard.id];
+      const targetColumn = this.findTodoColumn(
+        this.deletedColumn.dataset.columnid
+      );
+      const deleteCardId = this.deletedCard.dataset.cardid;
+      console.log(deleteCardId);
+      const targetCard = this.findTodoCard(targetColumn, deleteCardId);
       targetCard.view.renderDeleted(this.deletedCard);
 
-      targetColumn.model.deleteCard(this.deletedCard.id);
+      targetColumn.model.deleteCard(deleteCardId);
       targetColumn.model.updateCardCount();
       targetColumn.view.renderCardCount(
         this.deletedColumn,
@@ -107,8 +111,7 @@ class Controller {
 
   addCard(target) {
     const targetColumnBox = target.closest('.todo_column_box');
-    const targetColumnID = targetColumnBox.id;
-    const targetColumn = this.todo.model.columns[targetColumnID];
+    const targetColumn = this.findTodoColumn(targetColumnBox.dataset.columnid);
     if (!targetColumn.model.updateAddStstue()) {
       this.cancelAddCard(targetColumnBox);
       return;
@@ -152,6 +155,7 @@ class Controller {
   cardAddHandler({ target }) {
     const {
       targetColumnBox,
+      targetColumnID,
       targetCard,
       titleInput,
       contentInput,
@@ -160,17 +164,19 @@ class Controller {
     } = this.getTargetCardInfo(target);
     const titleValue = titleInput.value;
     const contentValue = contentInput.value;
+    const targetColumn = this.findTodoColumn(targetColumnID);
+
+    if (!targetCard.classList.contains('edit')) {
+      targetColumn.model.updateAddStstue();
+    }
 
     titleText.innerText = titleValue;
     contentText.innerText = contentValue;
-    targetCard.classList.remove('write', 'edit');
-
     this.actionCard.model.title = titleValue;
     this.actionCard.model.content = contentValue;
 
-    const targetColumn = this.todo.model.columns[targetColumnBox.id];
+    targetCard.classList.remove('write', 'edit');
     targetColumn.model.addCardList(this.actionCard);
-    targetColumn.model.updateAddStstue();
     targetColumn.view.renderCardCount(
       targetColumnBox,
       targetColumn.model.getCardCount()
@@ -182,17 +188,24 @@ class Controller {
     if (type === 'mouseout' && alert === null) {
       return;
     }
-    const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
-    const targetColumn = this.todo.model.columns[targetColumnBox.id];
-    this.hoverCard = targetColumn.model.cardList[targetCard.id];
+    const { targetColumnBox, targetColumnID, targetCard, targetCardId } =
+      this.getTargetCardInfo(target);
+    const targetColumn = this.findTodoColumn(targetColumnID);
+    this.hoverCard = this.findTodoCard(targetColumn, targetCardId);
     this.hoverCard.view.changeDeleteMode(targetCard);
   }
 
   cardCancelHandler(target) {
-    const { targetColumnBox, targetCard, titleInput, contentInput } =
-      this.getTargetCardInfo(target);
-    const targetColumn = this.todo.model.columns[targetColumnBox.id];
-    const targetCardInfo = targetColumn.model.cardList[targetCard.id];
+    const {
+      targetColumnBox,
+      targetColumnID,
+      targetCard,
+      targetCardId,
+      titleInput,
+      contentInput,
+    } = this.getTargetCardInfo(target);
+    const targetColumn = this.findTodoColumn(targetColumnID);
+    const targetCardInfo = this.findTodoCard(targetColumn, targetCardId);
 
     if (targetCard.classList.contains('edit')) {
       targetCardInfo.view.cancelEditMode({
@@ -209,10 +222,10 @@ class Controller {
   }
 
   cardEditHanler(target) {
-    const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
-    const targetColumnId = targetColumnBox.id;
-    const targetColumn = this.todo.model.columns[targetColumnId];
-    const editCard = targetColumn.model.cardList[targetCard.id];
+    const { targetColumnID, targetCard, targetCardId } =
+      this.getTargetCardInfo(target);
+    const targetColumn = this.findTodoColumn(targetColumnID);
+    const editCard = this.findTodoCard(targetColumn, targetCardId);
     this.actionCard = editCard;
     let targetText = null;
     if (
@@ -239,21 +252,32 @@ class Controller {
 
   getTargetCardInfo(target) {
     const targetColumnBox = target.closest('.todo_column_box');
+    const targetColumnID = targetColumnBox.dataset.columnid;
     const targetCard = target.closest('.card');
     const titleText = targetCard.querySelector('.title_text');
     const contentText = targetCard.querySelector('.content_text');
     const titleInput = targetCard.querySelector('.title_input');
     const contentInput = targetCard.querySelector('.content_input');
     const accentBtn = targetCard.querySelector('.accent_btn');
+    const targetCardId = targetCard.dataset.cardid;
     return {
       targetColumnBox,
+      targetColumnID,
       targetCard,
+      targetCardId,
       titleInput,
       titleText,
       contentInput,
       contentText,
       accentBtn,
     };
+  }
+
+  findTodoColumn(columnId) {
+    return this.todo.model.columns[columnId];
+  }
+  findTodoCard(targetColumn, cardId) {
+    return targetColumn.model.cardList[cardId];
   }
 
   menuBtnClickHandler() {

@@ -12,7 +12,6 @@ export default class CardView {
     hoverHandler,
   }) {
     const card = document.querySelector(`[data-cardId="${cardId}"]`);
-    console.log(card);
     const accentBtn = card.querySelector('.accent_btn');
     const deleteBtn = card.querySelector('.delete_btn');
     card.addEventListener('input', cardInputHandler);

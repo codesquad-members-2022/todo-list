@@ -63,7 +63,7 @@ const alertBoxTemplate = ({ title, cancel, accept }) => {
 
 const columnBoxTemplate = ({ id = '', title = '', cardCount = '' }) => {
   return /* html */ `
-  <section id="${id}" class="todo_column_box">
+  <section class="todo_column_box" data-columnid="${id}">
     <div class="column_title_box">
       <div class="title_content">
         <h2 class="title">${title}</h2>
@@ -83,7 +83,7 @@ const columnBoxTemplate = ({ id = '', title = '', cardCount = '' }) => {
 
 const cardReadTemplate = ({ cardId = '', title = '', content = '' }) => {
   return /* html */ `
-  <li id="${cardId}" class="card" data-cardId="${cardId}">
+  <li class="card" data-cardId="${cardId}">
     <div class="card_text">
       <div class="card_title">
         <h3 class="title_text">${title}</h3>
@@ -108,7 +108,7 @@ const cardReadTemplate = ({ cardId = '', title = '', content = '' }) => {
 
 const cardWriteTemplate = ({ cardId = '' }) => {
   return /* html */ `
-  <li id="${cardId}" class="card write" data-cardId="${cardId}">
+  <li class="card write" data-cardid="${cardId}">
     <div class="card_text">
       <div class="card_title">
         <h3 class="title_text"></h3>
@@ -136,7 +136,6 @@ export {
   historyTemplate,
   alertBoxTemplate,
   columnBoxTemplate,
-  // cardTemplate,
   cardReadTemplate,
   cardWriteTemplate,
 };
