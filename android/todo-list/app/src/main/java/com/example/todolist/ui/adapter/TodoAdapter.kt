@@ -4,16 +4,16 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.Intent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.core.util.component1
 import androidx.core.util.component2
-import androidx.core.view.DragStartHelper
 import androidx.draganddrop.DropHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.R
 import com.example.todolist.data.Card
 import com.example.todolist.databinding.ItemTodoBinding
 import com.example.todolist.ui.common.CardActionHandler
@@ -41,7 +41,8 @@ class TodoAdapter(
             deleteCard(card)
             drag(card)
             dropHelper(card)
-            binding.cioScreen.translationX= 0f
+            popupMenu()
+            binding.cioScreen.translationX = 0f
         }
 
         private fun deleteCard(card: Card) {
@@ -51,21 +52,12 @@ class TodoAdapter(
         }
 
         private fun drag(card: Card) {
-            DragStartHelper(itemView) { view, _ ->
-
-                val intent = Intent().apply {
-                    putExtra("card", card)
-                }
-                val dragClipData = ClipData.newIntent("draggedCard", intent)
-                val dragShadowBuilder = View.DragShadowBuilder(view)
-
-                view.startDragAndDrop(
-                    dragClipData,
-                    dragShadowBuilder,
-                    null,
-                    View.DRAG_FLAG_GLOBAL
-                )
-            }.attach()
+            itemView.setOnTouchListener { view, event ->
+                Log.d("TAG", "터치")
+                onTouch(event, card)
+                view.performClick()
+                false
+            }
         }
 
         private fun dropHelper(card: Card) {
@@ -85,30 +77,72 @@ class TodoAdapter(
             }
         }
 
-        private fun handleCardDrop(item: ClipData.Item, targetCard: Card) {
-            val draggedCard = item.intent.getSerializableExtra("card") as Card
-            cardActionHandler.dropCard(draggedCard, targetCard)
-        }
-
         fun getDeleteTextViewWidth() =
             binding.tvDeleteCard.width.toFloat()
 
 
-        fun getDeleteTextView() : TextView {
+        fun getDeleteTextView(): TextView {
             return binding.tvDeleteCard
         }
 
         fun getSwipeView() =
             binding.cioScreen
 
+        fun getTag(): Boolean =
+            itemView.tag as? Boolean ?: false
+
+        private fun handleCardDrop(item: ClipData.Item, targetCard: Card) {
+            val draggedCard = item.intent.getSerializableExtra("card") as Card
+            cardActionHandler.dropCard(draggedCard, targetCard)
+        }
+
+        private fun onTouch(event: MotionEvent, card: Card) {
+            when (event.action) {
+                MotionEvent.ACTION_MOVE -> {
+                    Log.d("TAG", "무브")
+                    startDrag(card)
+                }
+            }
+        }
+
+        private fun popupMenu() {
+            itemView.setOnLongClickListener {
+                Log.d("TAG", "long click!")
+                val popup = PopupMenu(binding.root.context, it)
+                MenuInflater(binding.root.context).inflate(R.menu.menu_popup, popup.menu)
+
+                popup.setOnMenuItemClickListener { menu ->
+                    when (menu.itemId) {
+                        R.id.action_move_to_completed -> Log.d("TAG", "변경")
+                        R.id.action_modify -> Log.d("TAG", "수정")
+                        R.id.action_delete -> Log.d("TAG", "삭제")
+                    }
+                    false
+                }
+                popup.show()
+                true
+            }
+        }
+
+        private fun startDrag(card: Card) {
+            val intent = Intent().apply {
+                putExtra("card", card)
+            }
+            val dragClipData = ClipData.newIntent("draggedCard", intent)
+            val dragShadowBuilder = View.DragShadowBuilder(itemView)
+
+            itemView.startDragAndDrop(
+                dragClipData,
+                dragShadowBuilder,
+                null,
+                View.DRAG_FLAG_GLOBAL
+            )
+        }
+
         fun setTag(isClamped: Boolean) {
             itemView.tag = isClamped
         }
 
-        fun getTag(): Boolean =
-            itemView.tag as? Boolean ?: false
-
     }
-
 
 }

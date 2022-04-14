@@ -46,12 +46,13 @@ class CreateCardDialogFragment : DialogFragment() {
 
         setCancelClickListener()
 
-        setAddTaskListener()
+        setAddCardListener()
 
     }
 
     private fun setAddContentChangedListener() {
         binding.tvEditContent.addTextChangedListener(object : TextWatcher {
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -62,10 +63,11 @@ class CreateCardDialogFragment : DialogFragment() {
                 content = s.toString()
                 binding.btnDialogRegister.isEnabled = title.isNotBlank() && content.isNotBlank()
             }
+
         })
     }
 
-    private fun setAddTaskListener() {
+    private fun setAddCardListener() {
         binding.btnDialogRegister.setOnClickListener {
             kotlin.runCatching {
                 val newCard = this.tag?.let { status -> NewCard(title, content, status) }
@@ -75,12 +77,6 @@ class CreateCardDialogFragment : DialogFragment() {
             }.onFailure {
                 Toast.makeText(requireContext(), "입력 값이 정확하지 않습니다!", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    private fun setCancelClickListener() {
-        binding.btnDialogCancel.setOnClickListener {
-            dialog?.cancel()
         }
     }
 
@@ -98,5 +94,13 @@ class CreateCardDialogFragment : DialogFragment() {
             }
         })
     }
+
+    private fun setCancelClickListener() {
+        binding.btnDialogCancel.setOnClickListener {
+            dialog?.cancel()
+        }
+    }
+
+
 
 }

@@ -6,7 +6,7 @@ import com.example.todolist.data.Card
 
 object DiffUtil : DiffUtil.ItemCallback<Card>() {
 
-    override fun areItemsTheSame(oldItem: Card, newItem: Card) : Boolean  {
+    override fun areItemsTheSame(oldItem: Card, newItem: Card): Boolean {
         Log.d("AppTest", "${oldItem == newItem}")
         return oldItem.cardId == newItem.cardId
     }

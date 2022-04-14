@@ -59,7 +59,7 @@ class CardViewModel : ViewModel(), CardActionHandler {
     override fun addCard(newCard: NewCard) {
         viewModelScope.launch {
             val card = cardRepository.addCard(newCard.subject, newCard.content, newCard.status)
-            when(card?.status) {
+            when (card?.status) {
                 "todo" -> {
                     val newCards = _todoCardList.value?.toMutableList()
                     newCards?.add(card)
@@ -81,7 +81,9 @@ class CardViewModel : ViewModel(), CardActionHandler {
                     newCards.let { _completeCardList.value = it }
                 }
             }
+
             _actionStatus = ActionStatus.ADD
+
         }
     }
 
@@ -96,9 +98,12 @@ class CardViewModel : ViewModel(), CardActionHandler {
     override fun dropCard(draggedCard: Card, targetCard: Card) {
         kotlin.runCatching {
             viewModelScope.launch {
-                val cardId = draggedCard.cardId?.let { it } ?: throw IllegalArgumentException("cardId is null!")
-                val order = targetCard.order?.let { it } ?: throw IllegalArgumentException("order is null!")
-                val status = targetCard.status?.let { it } ?: throw IllegalArgumentException("status id null")
+                val cardId = draggedCard.cardId?.let { it }
+                    ?: throw IllegalArgumentException("cardId is null!")
+                val order =
+                    targetCard.order?.let { it } ?: throw IllegalArgumentException("order is null!")
+                val status = targetCard.status?.let { it }
+                    ?: throw IllegalArgumentException("status id null")
 
                 cardRepository.dropCard(cardId, order, status)
                 loadCards()
