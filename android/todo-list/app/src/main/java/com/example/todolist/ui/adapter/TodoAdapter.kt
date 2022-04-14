@@ -41,6 +41,7 @@ class TodoAdapter(
             deleteCard(card)
             drag(card)
             dropHelper(card)
+            binding.cioScreen.translationX= 0f
         }
 
         private fun deleteCard(card: Card) {
@@ -85,8 +86,7 @@ class TodoAdapter(
         }
 
         private fun handleCardDrop(item: ClipData.Item, targetCard: Card) {
-
-            val draggedCard = item.intent.getSerializableExtra("task") as Card
+            val draggedCard = item.intent.getSerializableExtra("card") as Card
             cardActionHandler.dropCard(draggedCard, targetCard)
         }
 

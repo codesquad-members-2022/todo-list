@@ -81,7 +81,7 @@ class TodoTouchHelper :
                 -deleteTextViewSize
             }
         } else {
-            dX / 2f
+            dX / 3.5f
         }
         return if (newX < 0) {
             textView.visibility = View.VISIBLE
