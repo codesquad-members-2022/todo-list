@@ -1,5 +1,5 @@
 import {
-  getTodos,
+  getColumns,
   postTodo,
   putUpdatedCardData,
   deleteServerCardData,
@@ -11,10 +11,11 @@ import {
 } from "../view/cardView.js";
 
 export async function renderTodos() {
-  const todos = await getTodos();
-  renderColumn("#have-to-do-column", todos.haveToDoColumn);
-  renderColumn("#doing-column", todos.doingColumn);
-  renderColumn("#done-column", todos.doneColumn);
+  const columns = await getColumns();
+  const columnNames = Object.keys(columns);
+  for (const columnName of columnNames) {
+    renderColumn(columnName, columns[columnName]);
+  }
   addDeleteEvent();
 }
 

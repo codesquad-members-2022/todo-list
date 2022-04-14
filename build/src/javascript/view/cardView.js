@@ -7,11 +7,13 @@ import {
 
 export function addPlusBtnEvent() {
   const $plusBtn = document.querySelector("#have-to-do-plus");
-  $plusBtn.addEventListener("click", renderRegisterCard);
+  const $cards = document.querySelector("#have-to-do-cards");
+  $plusBtn.addEventListener("click", () => {
+    renderRegisterCard($cards);
+  });
 }
 
-async function renderRegisterCard() {
-  const $cards = document.querySelector("#have-to-do-cards");
+async function renderRegisterCard($cards) {
   const $allCards = document.querySelectorAll(".card");
   const todoCount = $allCards.length;
   const registerBoxTemp = `
@@ -59,10 +61,13 @@ function handleRegisterCardEvent($cards, $card) {
   displayBtns($card);
   const $crossBtn = $card.querySelector(".card-cross-button");
   const $cancelBtn = $card.querySelector(".cancel-button");
+  const $alert = document.querySelector("#alert-id");
   $cardTextArea.addEventListener("click", removeText);
   $registerBtn.addEventListener("click", updateCard);
   $cancelBtn.addEventListener("click", removeCard);
-  $crossBtn.addEventListener("click", showAlert);
+  $crossBtn.addEventListener("click", ({ target }) => {
+    showAlert({ target }, $alert);
+  });
 }
 
 function applyRegisterBoxStyle($card) {
@@ -79,8 +84,7 @@ function updateCard({ target }) {
   addServerCardData($selectedCard);
 }
 
-export function getUpdatedCardContent(target) {
-  const $selectedCard = target.closest(".card");
+export function getUpdatedCardContent($selectedCard) {
   const $cardDetails = $selectedCard.querySelector(".card-details");
   const cardDetailsText = $cardDetails.innerText;
   if (isTextLengthExceeded(cardDetailsText)) {
@@ -101,14 +105,14 @@ export function getUpdatedCardContent(target) {
 }
 
 function applyCardStyle($card) {
-  const $buttonWrapper = $card.querySelector(".card-buttons-wrapper");
+  const $btnWrapper = $card.querySelector(".card-buttons-wrapper");
   const $crossBtn = $card.querySelector(".card-cross-button");
   $crossBtn.style.display = "block";
   Object.assign($card.style, {
     opacity: 1,
     border: "none",
   });
-  hideElement($buttonWrapper);
+  hideElement($btnWrapper);
 }
 
 function setTextAreaContenteditable($card, boolean) {
@@ -119,7 +123,8 @@ function setTextAreaContenteditable($card, boolean) {
 }
 
 export function renderColumn(columnId, todos) {
-  const $column = document.querySelector(columnId);
+  const columnSelector = `#${columnId}`;
+  const $column = document.querySelector(columnSelector);
   const $cards = $column.querySelector(".cards");
   const cardTemplate = todos.reduce((template, todo) => {
     template += `<div class="card" id="card${todo.id}">
@@ -171,8 +176,8 @@ function handleDoubleClickEvent({ target }) {
 }
 
 function displayBtns($card) {
-  const $buttonWrpper = $card.querySelector(".card-buttons-wrapper");
-  $buttonWrpper.style.display = "flex";
+  const $btnsWrpper = $card.querySelector(".card-buttons-wrapper");
+  $btnsWrpper.style.display = "flex";
 }
 
 function applyEditBtnStyle($card) {
@@ -209,28 +214,27 @@ function removeCard({ target }) {
 }
 
 export function addDeleteEvent() {
-  const $cancelBtn = document.querySelector("#alert-cancel-btn");
+  const $cancelBtn = document.querySelector("#alert-cancel-button");
   const $crossBtns = document.querySelectorAll(".card-cross-button");
+  const $alert = document.querySelector("#alert-id");
   for (const $crossBtn of $crossBtns) {
-    $crossBtn.addEventListener("click", showAlert);
+    $crossBtn.addEventListener("click", ({ target }) => {
+      showAlert({ target }, $alert);
+    });
   }
-  $cancelBtn.addEventListener("click", blockAlert);
+  $cancelBtn.addEventListener("click", () => {
+    hideElement($alert);
+  });
 }
 
-function blockAlert() {
-  const $alert = document.querySelector("#alert-id");
-  hideElement($alert);
-}
-
-function showAlert({ target }) {
-  const $alert = document.querySelector("#alert-id");
+function showAlert({ target }, $alert) {
   $alert.style.display = "flex";
   const $selectedCard = target.closest(".card");
-  const $editBtn = document.querySelector("#alert-edit-btn");
+  const $editBtn = document.querySelector("#alert-edit-button");
   const handeDeleteEvent = function () {
     deleteCardData($selectedCard);
     removeCard({ target });
-    blockAlert();
+    hideElement($alert);
   };
   const bindFunc = handeDeleteEvent.bind({ target });
   $editBtn.addEventListener("click", bindFunc);
