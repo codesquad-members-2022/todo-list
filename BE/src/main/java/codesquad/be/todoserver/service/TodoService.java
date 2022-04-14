@@ -45,4 +45,9 @@ public class TodoService {
 		historyRepository.saveHistory(history);
 		return saveTodo;
 	}
+
+	public boolean deleteById(Long id) {
+			// 구현 중
+		return false;
+	}
 }
