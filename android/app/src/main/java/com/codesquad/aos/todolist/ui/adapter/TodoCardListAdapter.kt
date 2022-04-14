@@ -22,7 +22,8 @@ import java.util.*
 class TodoCardListAdapter(
     private val deleteTextClick: (deleteCardIndex: Int) -> Unit,  // 메인 액티비티에서 전달하는 메서드
     private val dataChangeListener: DataChangeListener,
-    private val openEditDialog: (card: Card) -> Unit
+    private val openEditDialog: (card: Card) -> Unit,
+    private val moveItemToComplete: (moveCard: Int) -> Unit
 ) : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil), View.OnTouchListener {
 
     inner class CardViewHolder(val binding: ItemTodoCardBinding) :
@@ -195,6 +196,13 @@ class TodoCardListAdapter(
 
     fun setSwipe(inx: Int, isSwiped: Boolean) {
         getItem(inx).isSwiped = isSwiped
+    }
+
+    fun getFirstElementOrder(): Int {
+        if (currentList.size == 0) {
+            return -1
+        }
+        return getItem(currentList.size - 1).order
     }
 
 }
