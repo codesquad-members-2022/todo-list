@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.R
 import com.example.todo_list.databinding.TodoItemBinding
 import com.example.todo_list.tasks.data.Task
+import java.util.*
 
-class TodoAdapter : ListAdapter<Task, TodoAdapter.TodoViewHolder>(diffUtil),
+class TaskAdapter : ListAdapter<Task, TaskAdapter.TodoViewHolder>(diffUtil),
     ItemTouchHelperListener {
     inner class TodoViewHolder(private val binding: TodoItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
@@ -38,6 +39,12 @@ class TodoAdapter : ListAdapter<Task, TodoAdapter.TodoViewHolder>(diffUtil),
     }
 
     override fun onItemSwipe(position: Int) {
+    }
+
+    fun swapData(from: Int, to: Int) {
+        val newList = currentList.toMutableList()
+        Collections.swap(newList, from, to)
+        submitList(newList)
     }
 }
 

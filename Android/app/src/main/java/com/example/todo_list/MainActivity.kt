@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val task1 = Task(
             1,
-            "테스트하기1",
-            "콘텐츠테스트1",
+            "테스트하기1테스트하기1테스트하기1테스트하기1테스트하기1테스트하기1테스트하기1테스트하기1테스트하기1테스트하기1테스트하기1",
+            "콘텐츠테스트1v콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1v콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1v콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1v콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1콘텐츠테스트1",
             "jung",
             "doing",
             "2022-04-06T15:30:00.000+09:00",
@@ -64,7 +64,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             "2022-04-06T15:30:00.000+09:00"
         )
 
-        binding.todoTodoView.addTasks(listOf(task1, task2))
+        val task3 = Task(
+            2,
+            "테스트하기3",
+            "콘텐츠테스트3",
+            "park",
+            "todo",
+            "2022-04-06T15:30:00.000+09:00",
+            "2022-04-06T15:30:00.000+09:00"
+        )
+
+        binding.todoTodoView.addTasks(listOf(task1, task2, task3))
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

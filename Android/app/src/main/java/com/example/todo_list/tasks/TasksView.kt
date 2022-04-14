@@ -17,7 +17,8 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
     private lateinit var tvBadgeCount: TextView
     private lateinit var btnAddTask: ImageButton
     private lateinit var recyclerViewTodo: RecyclerView
-    private val todosAdapter = TodoAdapter()
+    private val tasksAdapter = TaskAdapter()
+    
     init {
         initViews()
         initAttributes(attrs)
@@ -52,14 +53,13 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
         btnAddTask = findViewById(R.id.btn_task_add)
         recyclerViewTodo = findViewById(R.id.recyclerview_todo)
 
-        recyclerViewTodo.adapter = todosAdapter
-        recyclerViewTodo.setHasFixedSize(true)
-        val touchHelper = ItemTouchHelperCallback(todosAdapter)
+        recyclerViewTodo.adapter = tasksAdapter
+        val touchHelper = ItemTouchHelperCallback(tasksAdapter)
         val helper = ItemTouchHelper(touchHelper)
         helper.attachToRecyclerView(recyclerViewTodo)
     }
 
     fun addTasks(tasks: List<Task>) {
-        todosAdapter.submitList(tasks)
+        tasksAdapter.submitList(tasks)
     }
 }
