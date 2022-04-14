@@ -11,7 +11,7 @@ final class TableHeader: UIView{
     let titleLabel = UILabel()
     let numberLabel = UILabel()
     let plusButton = UIButton()
-    var delegate: TableHeaderDelegate?
+    weak var delegate: TableHeaderDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

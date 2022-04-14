@@ -8,9 +8,9 @@
 import UIKit
 
 final class ContainerViewController: UIViewController{
-    var headerVC: HeaderViewController!
-    var contentVC: ContentViewController!
-    var menuVC: ActivityMenuViewController!
+    private var headerVC: HeaderViewController!
+    private var contentVC: ContentViewController!
+    private var menuVC: ActivityMenuViewController!
     
     let menuViewWidth: CGFloat = 428.0
     

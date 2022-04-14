@@ -10,7 +10,7 @@ import UIKit
 final class ActivityMenuView: UIView {
     private var closeButton: UIButton!
     var tableView: UITableView!
-    var delegate: ActivityViewDelegate?
+    weak var delegate: ActivityViewDelegate?
     
     override init(frame: CGRect){
         super.init(frame: frame)

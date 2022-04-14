@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AddCardDelegate{
+protocol AddCardDelegate: AnyObject{
     func makeCardShoudCanceld()
     func makeCardShoudConfirmed()
 }

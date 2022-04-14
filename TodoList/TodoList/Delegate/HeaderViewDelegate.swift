@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol HeaderViewDelegate{
+protocol HeaderViewDelegate: AnyObject{
     func headerMenuButtonDidTouched()
 }

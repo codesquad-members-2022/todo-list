@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol ActivityViewDelegate{
+protocol ActivityViewDelegate: AnyObject{
     func closeButtonDidTouched()
 }

@@ -10,7 +10,7 @@ import UIKit
 final class HeaderView: UIView{
     private var headerLabel: UILabel!
     private var menuButton: UIButton!
-    var delegate: HeaderViewDelegate?
+    weak var delegate: HeaderViewDelegate?
     
     override init(frame: CGRect){
         super.init(frame: frame)

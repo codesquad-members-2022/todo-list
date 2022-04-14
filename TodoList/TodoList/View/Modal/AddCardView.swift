@@ -13,7 +13,7 @@ final class AddCardView: UIView{
     private var bodyTextField: UITextField!
     private var cancelButton: UIButton!
     private var confirmButton: UIButton!
-    var delegate: AddCardDelegate?
+    weak var delegate: AddCardDelegate?
     
     override init(frame: CGRect){
         super.init(frame: frame)

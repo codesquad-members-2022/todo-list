@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol TableHeaderDelegate{
+protocol TableHeaderDelegate: AnyObject{
     func cardWillCreated(at section: String)
 }

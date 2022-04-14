@@ -8,7 +8,6 @@
 import UIKit
 
 final class MenuActivityCell: UITableViewCell{
-    
     private var emoji: UILabel!
     private var authorLabel: UILabel!
     private var contentLabel: UILabel!
