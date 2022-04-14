@@ -11,10 +11,9 @@ import UIKit
 class ChildViewController: UIViewController {
 
     private var tableView: BoardTableView<CardDisplayable,CardCell>!
+    
     private var header : BoardHeader!
     private var boardType : BoardType?
-    
-    private var list:[CardDisplayable] = []
     
     //Notification
     static let tapCofirmButton = Notification.Name("didTapConfirmButton")
@@ -27,23 +26,19 @@ class ChildViewController: UIViewController {
         setHeader()
     }
 
-    func removeFromList(card: Todo) {
-        guard let targetIndex = list.firstIndex(where: {$0.id == card.id}) else {return}
-        list.remove(at: targetIndex)
-        let indexPath = IndexPath(row: targetIndex, section: 0)
-        DispatchQueue.main.async {
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+    func removeFromList(todo: Todo) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.tableView.removeTodo(todo: todo)
         }
     }
     
     func insertToList(todo:Todo) {
-        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.tableView.appendTodo(Todo: todo)
+            self.tableView.appendTodo(todo: todo)
         }
     }
-    
     
     func setBoardType(type : BoardType) {
         self.boardType = type
@@ -59,7 +54,7 @@ class ChildViewController: UIViewController {
     }
     
 
-    private func setTableView() {
+    func setTableView(list:[CardDisplayable]) {
         self.tableView = BoardTableView(
             frame: .zero,
             style: .plain,
@@ -89,10 +84,10 @@ extension ChildViewController {
     private func setTableViewConstraint() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.header.bottomAnchor),
-            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+                self.tableView.topAnchor.constraint(equalTo: self.header.bottomAnchor),
+                self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+                self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
 }
@@ -113,10 +108,10 @@ extension ChildViewController {
     @objc func reloadTableView(notification:Notification) {
         guard let data = notification.userInfo?[MainViewController.UserInfoBoardData] as? NetworkResult , let boardType = self.boardType else { return }
         guard let cards = boardType.extractList(from: data) else {return}
-        list = cards
-        DispatchQueue.main.async {
-            self.setTableView()
-            self.header.updateCount(self.list.count)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.setTableView(list: cards)
+            self.header.updateCount(cards.count)
             self.tableView.reloadData()
         }
     }

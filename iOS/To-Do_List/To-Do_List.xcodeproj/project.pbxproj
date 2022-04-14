@@ -212,11 +212,11 @@
 		B70BD64027FBD1CF001BE68F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B730BBAF27FED3BE006DC969 /* BoardTableView.swift */,
 				8D3B5A3C2804494400F6ECF7 /* EditCardView.swift */,
 				B70BD64127FBD1E7001BE68F /* BoardHeader.swift */,
 				8DBB585127FBD8F500D129E2 /* CardCell.swift */,
 				B771A845280453EC00343BAE /* LogCell.swift */,
-				B730BBAF27FED3BE006DC969 /* BoardTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

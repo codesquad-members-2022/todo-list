@@ -30,6 +30,18 @@ enum BoardType: CustomStringConvertible, Codable {
         }
     }
     
+    var type:String {
+        switch self {
+        case .todo:
+            return "TODO"
+        case .progressing:
+            return "PROGRESSING"
+        case .completed:
+            return "COMPLETED"
+        }
+    }
+    
+    
 }
 
 extension BoardType {

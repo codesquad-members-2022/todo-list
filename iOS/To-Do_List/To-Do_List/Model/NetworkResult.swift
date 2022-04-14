@@ -20,3 +20,5 @@ extension NetworkResult:Equatable {
         lhs.response.completedItems == rhs.response.completedItems && lhs.response.progressingItems == rhs.response.progressingItems && lhs.response.todoItems == rhs.response.todoItems
     }
 }
+
+
