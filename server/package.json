@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "server": "json-server --watch todos.json --port 5000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "json-server": "^0.17.0",
+    "lodash": "^4.17.21",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "lowdb": "^3.0.0"
+  }
+}
