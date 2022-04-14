@@ -2,24 +2,21 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    enum mainConstant {
-        static let serviceName = "TO-DO LIST - team10"
-    }
+    static let serviceName = "TO-DO LIST - team10"
+    
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var cardListStackView: UIStackView!
-    
-    private let todoViewController = CardListViewController(title: "해야할 일", cardManager: CardManager(listName: "해야할 일", cardFactory: ModelFactory()))
-    private let inProgressViewController = CardListViewController(title: "진행중인 일", cardManager: CardManager(listName: "진행중인 일", cardFactory: ModelFactory()))
-    private let doneViewController = CardListViewController(title: "완료한 일", cardManager: CardManager(listName: "완료한 일", cardFactory: ModelFactory()))
-    var logViewController: LogListViewController? = nil
+    @IBOutlet weak var cardListStackView: UIStackView!    
 
+    private let todoViewController = CardListViewController(type: .todo, cardManager: CardManager(cardListType: .todo, cardFactory: ModelFactory()))
+    private let inProgressViewController = CardListViewController(type: .inProgress, cardManager: CardManager(cardListType: .inProgress, cardFactory: ModelFactory()))
+    private let doneViewController = CardListViewController(type: .done, cardManager: CardManager(cardListType: .done, cardFactory: ModelFactory()))
+    var logViewController: LogListViewController? = nil
+      
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.logViewController = LogListViewController(coder: self)
-        
-        self.titleLabel.text = mainConstant.serviceName
+        self.titleLabel.text = MainViewController.serviceName
         
         self.addChild(todoViewController)
         self.addChild(inProgressViewController)
