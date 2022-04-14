@@ -1,10 +1,10 @@
 package todo.list.service.dto;
 
-public class CommandResultResponse<T> {
+public class CommandResultResponse {
     private int status;
-    private T resources;
+    private CardCommandResponse resources;
 
-    public CommandResultResponse(int status, T resources) {
+    public CommandResultResponse(int status, CardCommandResponse resources) {
         this.status = status;
         this.resources = resources;
     }
@@ -13,7 +13,7 @@ public class CommandResultResponse<T> {
         return status;
     }
 
-    public T getResources() {
+    public CardCommandResponse getResources() {
         return resources;
     }
 }

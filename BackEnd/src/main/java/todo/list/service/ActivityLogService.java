@@ -23,4 +23,8 @@ public class ActivityLogService {
                 .map(ActivityLogResponse::new)
                 .collect(Collectors.toList());
     }
+
+    public void save(ActivityLog activityLog) {
+        activityLogRepository.save(activityLog);
+    }
 }
