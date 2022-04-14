@@ -82,6 +82,8 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
             false
         }
 
+
+        registerForContextMenu(binding.rvTodo)
         // 더미데이터
         //viewModel.addTodo("rvTODO", "TAG 1")
         //viewModel.addTodo("rvTODO", "TAG 2")

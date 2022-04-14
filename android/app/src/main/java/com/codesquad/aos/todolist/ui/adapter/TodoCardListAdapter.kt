@@ -4,10 +4,7 @@ import android.content.ClipData
 import android.graphics.Color
 import android.os.Build
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
@@ -19,6 +16,7 @@ import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ItemTodoCardBinding
 import com.codesquad.aos.todolist.ui.DataChangeListener
 import com.codesquad.aos.todolist.ui.DragListener
+import kotlinx.coroutines.*
 import java.util.*
 
 class TodoCardListAdapter(
@@ -27,24 +25,39 @@ class TodoCardListAdapter(
 ) : ListAdapter<Card, TodoCardListAdapter.CardViewHolder>(diffUtil), View.OnTouchListener {
 
     inner class CardViewHolder(val binding: ItemTodoCardBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), View.OnCreateContextMenuListener {
 
         fun bind(card: Card?, deleteTextClick: (deleteCard: Int) -> Unit) {
             binding.tvCardTitle?.text = card?.title
             binding.tvCardContent?.text = card?.content
 
+            binding.mcItemView?.setOnCreateContextMenuListener(this)
+
             binding.tvRemove?.setOnClickListener {
-                val viewTag = this.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).tag as Boolean
+                val viewTag =
+                    this.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).tag as? Boolean
+                        ?: false
                 if (viewTag) { // true면 삭제 영역 보임
                     //removeItem(this.layoutPosition)
                     deleteTextClick.invoke(this.layoutPosition)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
                 }
-              /*  if (card!!.isSwiped) { // true면 삭제 영역 보임
-                    //removeItem(this.layoutPosition)
-                    deleteTextClick.invoke(this.layoutPosition)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
-                }*/
+                /*  if (card!!.isSwiped) { // true면 삭제 영역 보임
+                      //removeItem(this.layoutPosition)
+                      deleteTextClick.invoke(this.layoutPosition)  // 메인 액티비티에 구현된 메서드에 삭제할 카드의 인덱스 정보를 전달한다
+                  }*/
             }
         }
+
+        override fun onCreateContextMenu(
+            menu: ContextMenu?,
+            v: View?,
+            menuInfo: ContextMenu.ContextMenuInfo?
+        ) {
+            val inflater: MenuInflater = MenuInflater(itemView.context)
+            inflater.inflate(R.menu.card_items, menu)
+
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -100,6 +113,9 @@ class TodoCardListAdapter(
             }
             // areItemsTheSame 이 참이면 areContentsTheSame 가 호출된다
         }
+
+        private const val LONG_PRESSED_TIME = 2L
+        private const val MILLIS_OF_SECOND = 1000L
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -107,7 +123,23 @@ class TodoCardListAdapter(
         val shadowBuilder: View.DragShadowBuilder = View.DragShadowBuilder(view)
         val swipeViewTag = view?.findViewById<ConstraintLayout>(R.id.cvSwipeView)?.tag
         when (event?.action) {
+
             MotionEvent.ACTION_DOWN -> {
+/*                val isDraggable = if (swipeViewTag != null) {
+                    swipeViewTag as Boolean  // 삭제 영역이 활성화 되어있다면 swipeViewTag 값이 true, tag= any 타입 -> 여러 타입 할당 가능
+                } else {
+                    false
+                }
+
+                if (!isDraggable) {
+                    val data = ClipData.newPlainText("", "")
+                    view?.startDragAndDrop(data, shadowBuilder, view, 0)
+                    return true
+                }
+                return true*/
+            }
+            MotionEvent.ACTION_MOVE -> {
+                Log.d("AppTest", "ACTION_MOVE")
                 val isDraggable = if (swipeViewTag != null) {
                     swipeViewTag as Boolean  // 삭제 영역이 활성화 되어있다면 swipeViewTag 값이 true, tag= any 타입 -> 여러 타입 할당 가능
                 } else {
@@ -119,17 +151,46 @@ class TodoCardListAdapter(
                     view?.startDragAndDrop(data, shadowBuilder, view, 0)
                     return true
                 }
-                return false
+            }
+            MotionEvent.ACTION_UP -> {
+                Log.d("AppTest", "ACTION_UP")
+
+                return true
             }
         }
         return false
     }
 
-    fun getIsSwiped(inx: Int): Boolean{
+    fun getIsSwiped(inx: Int): Boolean {
         return getItem(inx).isSwiped
     }
 
-    fun setSwipe(inx: Int, isSwiped: Boolean){
+    fun setSwipe(inx: Int, isSwiped: Boolean) {
         getItem(inx).isSwiped = isSwiped
     }
+
+    private lateinit var touchTimer: Timer
+    private var elapsedSecond = 0
+
+    private fun startTimer(viewHolder: RecyclerView.ViewHolder) {
+        touchTimer = kotlin.concurrent.timer(period = MILLIS_OF_SECOND) {
+            Log.d("timer", "$elapsedSecond")
+            elapsedSecond++
+
+            if(elapsedSecond == 2) {
+                cancel()
+                elapsedSecond = 0
+                Log.d("timer", "타이머 종료")
+            }
+        }
+    }
+
+    private fun checkUserLongPressed(): Boolean {
+        if (elapsedSecond >= LONG_PRESSED_TIME) {
+            return false
+        }
+        return true
+    }
+
+
 }

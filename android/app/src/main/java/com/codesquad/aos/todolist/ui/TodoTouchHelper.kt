@@ -39,7 +39,7 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter) :
         /*val fromPos: Int = viewHolder.absoluteAdapterPosition
         val toPos: Int = target.absoluteAdapterPosition
         viewModel.changeTodoOrder(fromPos, toPos)*/
-        return true
+        return false
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
