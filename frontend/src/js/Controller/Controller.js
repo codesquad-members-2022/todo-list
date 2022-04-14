@@ -2,7 +2,7 @@ import { createTagTemplate } from '../utils/createTemplate.js';
 import AlertView from '../Alert/AlertView.js';
 import { Todo } from '../Todo/main.js';
 import Card from '../Todo/Card/main.js';
-import { postCard } from '../Utils/api.js';
+import { postCard, deleteCard } from '../Utils/api.js';
 
 class Controller {
   constructor({ Header, History }) {
@@ -53,16 +53,22 @@ class Controller {
       this.deleteAlertView.render();
     }
 
-    function handleClickAccept() {
+    async function handleClickAccept() {
       const targetColumn = this.findTodoColumn(
         this.deletedColumn.dataset.columnid
       );
       const deleteCardId = this.deletedCard.dataset.cardid;
-      console.log(deleteCardId);
+
       const targetCard = this.findTodoCard(targetColumn, deleteCardId);
       targetCard.view.renderDeleted(this.deletedCard);
 
       targetColumn.model.deleteCard(deleteCardId);
+
+      const response = await deleteCard({ cardId: deleteCardId });
+      if (!response.ok) {
+        throw new Error('api failed');
+      }
+
       targetColumn.model.updateCardCount();
       targetColumn.view.renderCardCount(
         this.deletedColumn,

@@ -13,7 +13,7 @@ const request = async (url, options = {}) => {
     });
 
     if (!response.ok) {
-      throw new Error('server error');
+      throw new Error('api failed');
     }
 
     const data = await response.json();
@@ -28,5 +28,12 @@ export const postCard = async ({ card }) => {
   return await request('/cards', {
     method: 'POST',
     body: JSON.stringify(card),
+  });
+};
+
+export const deleteCard = async ({ cardId }) => {
+  return await fetch(`${SERVER_END_POINT}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers,
   });
 };
