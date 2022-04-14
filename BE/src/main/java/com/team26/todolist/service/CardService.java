@@ -9,13 +9,13 @@ import com.team26.todolist.dto.response.CardResponse;
 import java.util.List;
 
 public interface CardService {
-    List<CardResponse> findByCardStatus(String cardStatus);
+    List<CardResponse> findByColumnId(Long columnId);
 
     CardResponse addCard(CardRegistrationRequest cardRegistrationRequest);
 
     CardResponse modifyCard(CardUpdateRequest cardUpdateRequest);
 
-    CardResponse changeCardStatus(CardMoveRequest cardMoveRequest);
+    CardResponse changeCardLocation(CardMoveRequest cardMoveRequest);
 
     void deleteCard(CardDeleteRequest cardDeleteRequest);
 }

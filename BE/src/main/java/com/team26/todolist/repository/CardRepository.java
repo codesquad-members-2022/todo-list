@@ -1,7 +1,7 @@
 package com.team26.todolist.repository;
 
 import com.team26.todolist.domain.Card;
-import com.team26.todolist.domain.CardStatus;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -27,83 +27,93 @@ public class CardRepository {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public Card save(Card card) {
-        String sql = "INSERT INTO card (user_id, title, contents, card_status, deleted, created_at) " +
-                "VALUES (:user_id, :title, :contents, :card_status, :deleted, :created_at)";
+    public Card save(Card card, Double order) {
+        String sql =
+                "INSERT INTO card (user_id, title, contents, column_id, order_index, deleted, created_at) "
+                        +
+                        "VALUES (:userId, :title, :contents, :columnId, :order, :isDeleted, :createdAt)";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("user_id", card.getUserId());
+        params.put("userId", card.getUserId());
         params.put("title", card.getTitle());
         params.put("contents", card.getContents());
-        params.put("card_status", card.getCardStatus().name());
-        params.put("deleted", false);
-        params.put("created_at", LocalDateTime.now());
+        params.put("columnId", card.getColumnId());
+        params.put("order", order);
+        params.put("isDeleted", false);
+        params.put("createdAt", LocalDateTime.now());
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params),
+                keyHolder);
 
         return findById(Objects.requireNonNull(keyHolder.getKey()).longValue());
     }
 
-    public List<Card> findByCardStatus(String cardStatus) {
-        String sql = "SELECT id, user_id, title, contents, card_status, created_at " +
+    public List<Card> findByColumnId(Long columnId) {
+        String sql = "SELECT id, user_id, title, contents, column_id, order_index, created_at " +
                 "FROM card " +
-                "WHERE deleted = :isDeleted AND card_status = :card_status";
+                "WHERE deleted = :isDeleted AND column_id = :columnId";
 
         Map<String, Object> params = new HashMap<>();
         params.put("isDeleted", false);
-        params.put("card_status", cardStatus);
+        params.put("columnId", columnId);
 
-        return namedParameterJdbcTemplate.query(sql, params, cardRowMapper);
+        try {
+            return namedParameterJdbcTemplate.query(sql, params, cardRowMapper);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public Card findById(Long id) {
-        String sql = "SELECT id, user_id, title, contents, card_status, created_at " +
+        String sql = "SELECT id, user_id, title, contents, column_id, order_index, created_at " +
                 "FROM card " +
                 "WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
 
-        return namedParameterJdbcTemplate.queryForObject(sql, params, cardRowMapper);
+        try {
+            return namedParameterJdbcTemplate.queryForObject(sql, params, cardRowMapper);
+        } catch (
+                EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public void delete(Card findCard) {
-        String sql = "UPDATE card " +
-                "SET deleted = :deleted " +
-                "WHERE id = :id";
+        String sql = "UPDATE card SET deleted = :isDeleted WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("deleted", true);
+        params.put("isDeleted", true);
         params.put("id", findCard.getId());
 
-        namedParameterJdbcTemplate.update(sql,params);
+        namedParameterJdbcTemplate.update(sql, params);
     }
 
     public Card update(Card cardBefore) {
-        String sql = "UPDATE card " +
-                "SET title = :title, contents = :contents " + 
-                "WHERE id = :id";
+        String sql = "UPDATE card SET title = :title, contents = :contents WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
         params.put("title", cardBefore.getTitle());
         params.put("contents", cardBefore.getContents());
         params.put("id", cardBefore.getId());
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params),
+                keyHolder);
 
         return findById(Objects.requireNonNull(keyHolder.getKey()).longValue());
     }
 
-    public Card updateCardStatus(Card cardBefore) {
-        String sql = "UPDATE card " +
-                "SET card_status = :cardStatus " +
-                "WHERE id = :id";
+    public Card updateLocation(Card card, Double newOrder) {
+        String sql = "UPDATE card SET column_id = :columnId, order_index = :order WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("cardStatus", cardBefore.getCardStatus().name());
-        params.put("id", cardBefore.getId());
+        params.put("columnId", card.getColumnId());
+        params.put("order", newOrder);
+        params.put("id", card.getId());
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params), keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params),
+                keyHolder);
 
         return findById(Objects.requireNonNull(keyHolder.getKey()).longValue());
     }
@@ -115,8 +125,20 @@ public class CardRepository {
                         rs.getString("title"),
                         rs.getString("contents"),
                         rs.getString("user_id"),
-                        CardStatus.valueOf(rs.getString("card_status")),
+                        rs.getLong("column_id"),
+                        rs.getDouble("order_index"),
                         rs.getObject("created_at", LocalDateTime.class)
                 ));
+    }
+
+    public Double getFirstOrder() {
+        String sql = "SELECT MIN(order_index) AS first_order FROM card WHERE deleted = :isDeleted";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("isDeleted", false);
+
+        Double firstOrder = namedParameterJdbcTemplate.queryForObject(
+                sql, params, Double.class);
+        return firstOrder;
     }
 }

@@ -5,19 +5,19 @@ import com.team26.todolist.domain.Column;
 public class ColumnMoveRequest {
 
     private Long id;
-    private Double orderOfLeftColumn;
-    private Double orderOfRightColumn;
+    private Long leftColumnId;
+    private Long rightColumnId;
 
     public Long getId() {
         return id;
     }
 
-    public Double getOrderOfLeftColumn() {
-        return orderOfLeftColumn;
+    public Long getLeftColumnId() {
+        return leftColumnId;
     }
 
-    public Double getOrderOfRightColumn() {
-        return orderOfRightColumn;
+    public Long getRightColumnId() {
+        return rightColumnId;
     }
 
     public Column toEntity() {
@@ -28,8 +28,8 @@ public class ColumnMoveRequest {
     public String toString() {
         return "ColumnMoveRequest{" +
                 "id=" + id +
-                ", orderOfLeftColumn=" + orderOfLeftColumn +
-                ", orderOfRightColumn=" + orderOfRightColumn +
+                ", orderOfLeftColumn=" + leftColumnId +
+                ", orderOfRightColumn=" + rightColumnId +
                 '}';
     }
 }

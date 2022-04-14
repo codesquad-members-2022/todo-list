@@ -2,7 +2,7 @@ package com.team26.todolist.domain;
 
 import java.time.LocalDateTime;
 
-public class Column {
+public class Column implements Comparable<Column> {
 
     private Long id;
     private String title;
@@ -16,6 +16,11 @@ public class Column {
         this.order = columnBuilder.order;
         this.createdAt = columnBuilder.createdAt;
         this.isDeleted = columnBuilder.isDeleted;
+    }
+
+    @Override
+    public int compareTo(Column column) {
+        return Double.compare(getOrder(), column.getOrder());
     }
 
     public void setId(Long id) {

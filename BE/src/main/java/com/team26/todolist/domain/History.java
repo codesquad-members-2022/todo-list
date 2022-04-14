@@ -2,16 +2,16 @@ package com.team26.todolist.domain;
 
 import java.time.LocalDateTime;
 
-public class History {
+public class History implements Comparable<History>{
 
     private Long id;
-    private CardAction cardAction;  // 필수
-    private String userId;// 필수
-    private String cardTitle;// 필수
+    private CardAction cardAction;
+    private String userId;
+    private String cardTitle;
     private String cardTitleBefore;
-    private CardStatus cardStatus;// 필수
-    private CardStatus cardStatusBefore;
-    private LocalDateTime createdAt;// 필수
+    private String columnTitle;
+    private String columnTitleBefore;
+    private LocalDateTime createdAt;
 
     public void initId(Long id) {
         this.id = id;
@@ -22,9 +22,14 @@ public class History {
         this.userId = historyBuilder.userId;
         this.cardTitle = historyBuilder.cardTitle;
         this.cardTitleBefore = historyBuilder.cardTitleBefore;
-        this.cardStatus = historyBuilder.cardStatus;
-        this.cardStatusBefore = historyBuilder.cardStatusBefore;
+        this.columnTitle = historyBuilder.columnTitle;
+        this.columnTitleBefore = historyBuilder.columnTitleBefore;
         this.createdAt = historyBuilder.createdAt;
+    }
+
+    @Override
+    public int compareTo(History history) {
+        return (int) (history.id - this.id);
     }
 
     public static HistoryBuilder builder(CardAction cardAction, String userId,
@@ -38,8 +43,8 @@ public class History {
         private String userId;
         private String cardTitle;
         private String cardTitleBefore;
-        private CardStatus cardStatus;
-        private CardStatus cardStatusBefore;
+        private String columnTitle;
+        private String columnTitleBefore;
         private LocalDateTime createdAt;
 
         public HistoryBuilder(CardAction cardAction, String userId, LocalDateTime createdAt) {
@@ -58,13 +63,13 @@ public class History {
             return this;
         }
 
-        public HistoryBuilder cardStatus(CardStatus cardStatus) {
-            this.cardStatus = cardStatus;
+        public HistoryBuilder columnTitle(String columnTitle) {
+            this.columnTitle = columnTitle;
             return this;
         }
 
-        public HistoryBuilder cardStatusBefore(CardStatus cardStatusBefore) {
-            this.cardStatusBefore = cardStatusBefore;
+        public HistoryBuilder columnTitleBefore(String columnTitleBefore) {
+            this.columnTitleBefore = columnTitleBefore;
             return this;
         }
 
@@ -89,12 +94,12 @@ public class History {
         return cardTitleBefore;
     }
 
-    public CardStatus getCardStatus() {
-        return cardStatus;
+    public String getColumnTitle() {
+        return columnTitle;
     }
 
-    public CardStatus getCardStatusBefore() {
-        return cardStatusBefore;
+    public String getColumnTitleBefore() {
+        return columnTitleBefore;
     }
 
     public LocalDateTime getCreatedAt() {

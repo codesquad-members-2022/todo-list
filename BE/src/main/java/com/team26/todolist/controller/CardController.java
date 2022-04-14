@@ -7,8 +7,6 @@ import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
 import com.team26.todolist.exception.EmptyCardStatusException;
 import com.team26.todolist.service.CardService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,22 +16,21 @@ import java.util.List;
 @RequestMapping("/cards")
 public class CardController {
 
-    private Logger logger = LoggerFactory.getLogger(CardController.class);
     private final CardService cardService;
 
     public CardController(CardService cardService) {
         this.cardService = cardService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<CardResponse>> getCards(@RequestParam String cardStatus) {
+    @GetMapping("/{columnId}")
+    public ResponseEntity<List<CardResponse>> getCards(@PathVariable Long columnId) {
         //TODO
         // validation 적용예정
-        if (cardStatus.equals("")) {
-            throw new EmptyCardStatusException("cardStatus는 비어있을 수 없습니다.");
+        if (columnId == null) {
+            throw new EmptyCardStatusException("columnId는 비어있을 수 없습니다.");
         }
 
-        List<CardResponse> cards = cardService.findByCardStatus(cardStatus);
+        List<CardResponse> cards = cardService.findByColumnId(columnId);
 
         return ResponseEntity.ok()
                 .body(cards);
@@ -57,14 +54,14 @@ public class CardController {
 
     @PatchMapping
     public ResponseEntity<CardResponse> changeCardStatus(@RequestBody CardMoveRequest cardMoveRequest) {
-        CardResponse movedCard = cardService.changeCardStatus(cardMoveRequest);
+        CardResponse movedCard = cardService.changeCardLocation(cardMoveRequest);
 
         return ResponseEntity.ok()
                 .body(movedCard);
     }
 
     @DeleteMapping
-    public ResponseEntity deleteCard(@RequestBody CardDeleteRequest cardDeleteRequest) {
+    public ResponseEntity<Void> deleteCard(@RequestBody CardDeleteRequest cardDeleteRequest) {
         cardService.deleteCard(cardDeleteRequest);
 
         return ResponseEntity.noContent()
