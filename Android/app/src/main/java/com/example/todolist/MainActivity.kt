@@ -1,4 +1,4 @@
-package com.example.todo_list
+package com.example.todolist
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.todo_list.data.TasksRepository
-import com.example.todo_list.databinding.ActivityMainBinding
-import com.example.todo_list.history.HistoryAdapter
-import com.example.todo_list.history.HistoryViewModel
-import com.example.todo_list.tasks.data.Task
+import com.example.todolist.data.TasksRepository
+import com.example.todolist.databinding.ActivityMainBinding
+import com.example.todolist.history.HistoryAdapter
+import com.example.todolist.history.HistoryViewModel
+import com.example.todolist.tasks.data.Task
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {

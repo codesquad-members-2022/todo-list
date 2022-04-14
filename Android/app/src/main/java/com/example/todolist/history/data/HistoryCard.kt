@@ -1,4 +1,4 @@
-package com.example.todo_list.history.data
+package com.example.todolist.history.data
 
 data class HistoryCard(
     val id: Int,

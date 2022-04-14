@@ -1,11 +1,11 @@
-package com.example.todo_list.history
+package com.example.todolist.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todo_list.data.Repository
-import com.example.todo_list.history.data.HistoryCard
+import com.example.todolist.data.Repository
+import com.example.todolist.history.data.HistoryCard
 import kotlinx.coroutines.launch
 
 class HistoryViewModel(private val repository: Repository): ViewModel() {

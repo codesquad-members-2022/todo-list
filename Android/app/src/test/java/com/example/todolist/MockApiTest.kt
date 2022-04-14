@@ -1,6 +1,6 @@
-package com.example.todo_list
+package com.example.todolist
 
-import com.example.todo_list.data.TasksRepository
+import com.example.todolist.data.TasksRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 

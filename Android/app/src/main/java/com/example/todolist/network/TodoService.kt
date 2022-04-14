@@ -1,7 +1,7 @@
-package com.example.todo_list.network
+package com.example.todolist.network
 
-import com.example.todo_list.history.data.HistoryCard
-import com.example.todo_list.tasks.data.Task
+import com.example.todolist.history.data.HistoryCard
+import com.example.todolist.tasks.data.Task
 import retrofit2.Response
 import retrofit2.http.*
 

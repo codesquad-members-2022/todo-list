@@ -1,4 +1,4 @@
-package com.example.todo_list.network
+package com.example.todolist.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

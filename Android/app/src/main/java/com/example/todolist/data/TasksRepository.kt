@@ -1,8 +1,8 @@
-package com.example.todo_list.data
+package com.example.todolist.data
 
-import com.example.todo_list.history.data.HistoryCard
-import com.example.todo_list.network.NetworkModule
-import com.example.todo_list.tasks.data.Task
+import com.example.todolist.history.data.HistoryCard
+import com.example.todolist.network.NetworkModule
+import com.example.todolist.tasks.data.Task
 import retrofit2.Response
 
 class TasksRepository : Repository {

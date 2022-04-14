@@ -1,4 +1,4 @@
-package com.example.todo_list.tasks
+package com.example.todolist.tasks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.R
-import com.example.todo_list.databinding.TodoItemBinding
-import com.example.todo_list.tasks.data.Task
+import com.example.todolist.R
+import com.example.todolist.databinding.TodoItemBinding
+import com.example.todolist.tasks.data.Task
 
 class TodoAdapter : ListAdapter<Task, TodoAdapter.TodoViewHolder>(diffUtil),
     ItemTouchHelperListener {

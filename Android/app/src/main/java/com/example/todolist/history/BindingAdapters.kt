@@ -1,12 +1,12 @@
-package com.example.todo_list.history
+package com.example.todolist.history
 
 import android.text.format.DateUtils
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.databinding.BindingAdapter
-import com.example.todo_list.R
-import com.example.todo_list.history.data.HistoryCard
+import com.example.todolist.R
+import com.example.todolist.history.data.HistoryCard
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.example.todo_list.tasks.data
+package com.example.todolist.tasks.data
 
 data class Task(
     val id: Int,

@@ -51,7 +51,7 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <com.example.todo_list.tasks.TasksView
+            <com.example.todolist.tasks.TasksView
                 android:id="@+id/todo_todo_view"
                 android:layout_width="256dp"
                 android:layout_height="0dp"
@@ -64,7 +64,7 @@
                 custom:layout_constraintTop_toBottomOf="@id/app_bar"
                 custom:title="해야할 일" />
 
-            <com.example.todo_list.tasks.TasksView
+            <com.example.todolist.tasks.TasksView
                 android:id="@+id/todo_inprogress_view"
                 android:layout_width="256dp"
                 android:layout_height="0dp"
@@ -77,7 +77,7 @@
                 custom:layout_constraintTop_toBottomOf="@id/app_bar"
                 custom:title="하고 있는 일" />
 
-            <com.example.todo_list.tasks.TasksView
+            <com.example.todolist.tasks.TasksView
                 android:id="@+id/todo_done_view"
                 android:layout_width="256dp"
                 android:layout_height="0dp"

@@ -1,4 +1,4 @@
-package com.example.todo_list.tasks
+package com.example.todolist.tasks
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter

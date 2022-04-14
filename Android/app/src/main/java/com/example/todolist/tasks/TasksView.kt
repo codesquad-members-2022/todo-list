@@ -1,4 +1,4 @@
-package com.example.todo_list.tasks
+package com.example.todolist.tasks
 
 import android.content.Context
 import android.util.AttributeSet
@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.R
-import com.example.todo_list.tasks.data.Task
+import com.example.todolist.R
+import com.example.todolist.tasks.data.Task
 
 class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
 

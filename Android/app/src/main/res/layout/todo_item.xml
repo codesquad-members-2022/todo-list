@@ -8,7 +8,7 @@
 
         <variable
             name="task"
-            type="com.example.todo_list.tasks.data.Task" />
+            type="com.example.todolist.tasks.data.Task" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

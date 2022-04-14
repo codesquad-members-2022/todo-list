@@ -1,9 +1,9 @@
-package com.example.todo_list
+package com.example.todolist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.todo_list.data.Repository
-import com.example.todo_list.history.HistoryViewModel
+import com.example.todolist.data.Repository
+import com.example.todolist.history.HistoryViewModel
 
 class ViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

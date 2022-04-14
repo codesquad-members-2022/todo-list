@@ -1,11 +1,11 @@
-package com.example.todo_list.tasks
+package com.example.todolist.tasks
 
 import android.graphics.Canvas
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.R
+import com.example.todolist.R
 import kotlin.math.min
 
 class ItemTouchHelperCallback(val listener: ItemTouchHelperListener) : ItemTouchHelper.Callback() {

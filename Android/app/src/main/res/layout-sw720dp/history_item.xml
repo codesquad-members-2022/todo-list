@@ -8,7 +8,7 @@
 
         <variable
             name="historyCard"
-            type="com.example.todo_list.history.data.HistoryCard" />
+            type="com.example.todolist.history.data.HistoryCard" />
 
     </data>
 
