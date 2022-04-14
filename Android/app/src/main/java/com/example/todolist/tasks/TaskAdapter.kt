@@ -1,6 +1,5 @@
 package com.example.todolist.tasks
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -8,15 +7,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
+import com.example.todolist.TasksViewModel
 import com.example.todolist.databinding.TodoItemBinding
 import com.example.todolist.tasks.data.Task
 import java.util.*
 
-class TaskAdapter : ListAdapter<Task, TaskAdapter.TodoViewHolder>(diffUtil) {
-    inner class TodoViewHolder(private val binding: TodoItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+class TaskAdapter(private val viewModel: TasksViewModel) : ListAdapter<Task, TaskAdapter.TodoViewHolder>(diffUtil),
+    ItemTouchHelperListener {
+    inner class TodoViewHolder(private val binding: TodoItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
             binding.task = task
+            binding.viewmodel = viewModel
+            binding.executePendingBindings()
         }
     }
 
@@ -41,6 +43,12 @@ class TaskAdapter : ListAdapter<Task, TaskAdapter.TodoViewHolder>(diffUtil) {
         Collections.swap(newList, fromPos, toPos)
         notifyItemMoved(fromPos, toPos)
     }
+
+    override fun onItemMove(from_position: Int, to_position: Int): Boolean {
+        return true
+    }
+
+    override fun onItemSwipe(position: Int) {}
 }
 
 private val diffUtil = object : DiffUtil.ItemCallback<Task>() {

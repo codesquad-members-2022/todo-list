@@ -17,12 +17,8 @@ class TasksViewModel(private val repository: Repository): ViewModel() {
     private val _checkLoading = MutableLiveData<Boolean>()
     val checkLoading: LiveData<Boolean> get() = _checkLoading
 
-    private val _taskList = MutableLiveData<List<Task>>()
-    val taskList: LiveData<List<Task>> get() = _taskList
-
-    init {
-        getAllTasks()
-    }
+    private val _tasksList = MutableLiveData<List<Task>>()
+    val tasksList: LiveData<List<Task>> get() = _tasksList
 
     fun getHistories() {
         _checkLoading.value = true
@@ -35,36 +31,26 @@ class TasksViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun getSomeTasks(): List<Task> {
-        val task1 = Task(
-            1,
-            "테스트하기1",
-            "콘텐츠테스트1",
-            "jung",
-            "doing",
-            "2022-04-06T15:30:00.000+09:00",
-            "2022-04-06T15:30:00.000+09:00"
-        )
-
-        val task2 = Task(
-            2,
-            "테스트하기2",
-            "콘텐츠테스트2",
-            "park",
-            "todo",
-            "2022-04-06T15:30:00.000+09:00",
-            "2022-04-06T15:30:00.000+09:00"
-        )
-
-        return listOf(task1, task2)
+    fun addTask(title: String, contents: String, user: String, status: String) {
+        viewModelScope.launch {
+            repository.createTask(title, contents, user, status)
+            _tasksList.value = repository.getAllTasks().body()
+        }
     }
 
     fun getAllTasks() {
         viewModelScope.launch {
             val response = repository.getAllTasks()
             if (response.isSuccessful) {
-                _taskList.value = response.body()
+                _tasksList.value = response.body()
             }
+        }
+    }
+
+    fun deleteTask(task: Task) {
+        viewModelScope.launch {
+            repository.deleteTask(task.id)
+            _tasksList.value = repository.getAllTasks().body()
         }
     }
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.history.HistoryAdapter
 import com.example.todolist.tasks.TaskAdapter
+import com.example.todolist.tasks.TasksView
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -29,10 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerViewTodo = findViewById(R.id.recyclerview_todo)
 
         val historyAdapter = HistoryAdapter()
-        val taskAdapter = TaskAdapter()
-
         binding.recyclerviewHistory.adapter = historyAdapter
-        recyclerViewTodo.adapter = taskAdapter
 
         binding.btnMenu.setOnClickListener {
             binding.mainLayout.openDrawer(GravityCompat.END)
@@ -55,9 +53,41 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        binding.todoTodoView.addTasks(tasksViewModel.getSomeTasks())
-        tasksViewModel.taskList.observe(this) {
-            taskAdapter.submitList(it)
+        tasksViewModel.getAllTasks()
+
+        binding.todoTodoView.setOnAddEditTaskListener = (object : TasksView.OnAddEditTaskListener{
+            override fun onSubmitTask(title: String, contents: String, status: String) {
+                tasksViewModel.addTask(title, contents, "sam", status)
+            }
+        })
+
+        binding.todoInprogressView.setOnAddEditTaskListener = (object : TasksView.OnAddEditTaskListener{
+            override fun onSubmitTask(title: String, contents: String, status: String) {
+                tasksViewModel.addTask(title, contents, "sam", status)
+            }
+        })
+
+        binding.todoDoneView.setOnAddEditTaskListener = (object : TasksView.OnAddEditTaskListener{
+            override fun onSubmitTask(title: String, contents: String, status: String) {
+                tasksViewModel.addTask(title, contents, "sam", status)
+            }
+        })
+
+        binding.todoTodoView.viewModel = tasksViewModel
+        binding.todoInprogressView.viewModel = tasksViewModel
+        binding.todoDoneView.viewModel = tasksViewModel
+        tasksViewModel.tasksList.observe(this) { result ->
+            binding.todoTodoView.addTasks(
+                result.filter { it.status == "todo" }
+            )
+
+            binding.todoInprogressView.addTasks(
+                result.filter { it.status == "doing" }
+            )
+
+            binding.todoDoneView.addTasks(
+                result.filter { it.status == "done" }
+            )
         }
     }
 
