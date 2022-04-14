@@ -26,28 +26,34 @@ public class ColumnService {
     }
 
     public List<ColumnResponse> findAll() {
+        // 모든 column 객체와 모든 card 객체를 조회
         List<Column> columns = columnRepository.findAll();
-
         List<Card> cards = cardRepository.findAll();
 
+        // map 자료구조에 column Id 별로 그룹화된 card 리스트를 저장
         Map<Integer, List<Card>> allCardMap = cards.stream()
             .collect(Collectors.groupingBy(Card::getColumnId));
 
         for (Column column : columns) {
+            // 각 column 을 순회하면서 해당 column 의 card 리스트를 조회
             List<Card> columnCards = allCardMap.get(column.getColumnId());
 
             if (columnCards == null || columnCards.size() == 0) {
                 continue;
             }
 
+            // map 자료구조에 nextId 별로 card 객체를 저장
             Map<Integer, Card> columnCardMap = columnCards.stream()
                 .collect(Collectors.toMap(Card::getNextId, Function.identity()));
 
+            // next Id 가 null 인 card (= 컬럼의 맨 마지막 카드) 를 조회
             Card card = Optional.ofNullable(columnCardMap.remove(null))
                 .orElseThrow(() -> new BusinessException(ErrorCode.ILLEGAL_CARD_ORDER));
 
+            // 컬럼 내 정렬된 카드가 저장될 리스트를 초기화
             List<Card> sortedCards = new ArrayList<>(List.of(card));
 
+            // map 자료구조에서 이전 카드의 card Id 가 next Id 인 card 를 추출 후 정렬된 리스트에 추가
             while (columnCardMap.size() > 0) {
                 card = columnCardMap.remove(card.getCardId());
                 sortedCards.add(card);
