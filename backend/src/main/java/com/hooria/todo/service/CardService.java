@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class CardService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public CardResponse add(AddCardRequest addCardRequest) {
         Card newCard = addCardRequest.toEntity();
         long addedId = cardRepository.add(newCard);
@@ -37,6 +39,7 @@ public class CardService {
                 .orElseThrow(() -> new CardRunTimeException(ErrorCode.ADD_CARD_ERROR));
     }
 
+    @Transactional
     public CardResponse delete(long id) {
         long deletedId = cardRepository.delete(id);
         return cardRepository.findById(deletedId)
@@ -44,6 +47,7 @@ public class CardService {
                 .orElseThrow(() -> new CardRunTimeException(ErrorCode.DELETE_CARD_ERROR));
     }
 
+    @Transactional
     public CardResponse update(UpdateCardRequest updateCardRequest) {
         Card updatedCard = updateCardRequest.toEntity();
         long updatedId = cardRepository.update(updatedCard);
@@ -52,6 +56,7 @@ public class CardService {
                 .orElseThrow(() -> new CardRunTimeException(ErrorCode.UPDATE_CARD_ERROR));
     }
 
+    @Transactional
     public List<CardResponse> updateCardsLayout(List<UpdateCardLayoutRequest> updateCardLayoutRequests) {
         for (UpdateCardLayoutRequest updateCardLayoutParam : updateCardLayoutRequests) {
             cardRepository.updateRowPositionById(updateCardLayoutParam.getId(), updateCardLayoutParam.getRowPosition());
