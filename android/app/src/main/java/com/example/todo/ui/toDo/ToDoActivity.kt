@@ -78,8 +78,8 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener, ToDo
 
     private fun initializeRecyclerViews() {
         todoAdapter = TodoAdapter(this, this, this, toDoViewModel, TodoDiffCallback())
-        inProgressAdapter = TodoAdapter(this, this, this,toDoViewModel, TodoDiffCallback())
-        doneAdapter = TodoAdapter(this, this, this,toDoViewModel, TodoDiffCallback())
+        inProgressAdapter = TodoAdapter(this, this, this, toDoViewModel, TodoDiffCallback())
+        doneAdapter = TodoAdapter(this, this, this, toDoViewModel, TodoDiffCallback())
         actionAdapter = ActionAdapter(ActionDiffCallback())
 
         ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvTodo)
@@ -118,14 +118,11 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener, ToDo
         toDoViewModel.actionList.observe(this) {
             actionAdapter.submitList(it)
             // 테스트용
-           // binding.todoTitleViewTodo.count.text = it?.size.toString()
+            // binding.todoTitleViewTodo.count.text = it?.size.toString()
         }
-
-
         binding.rvTodo.setOnDragListener(todoAdapter.dragInstance)
         binding.rvInProgress.setOnDragListener(inProgressAdapter.dragInstance)
         binding.rvDone.setOnDragListener(doneAdapter.dragInstance)
-
     }
 
     companion object {
@@ -142,7 +139,7 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener, ToDo
         nextItemId: Int?,
         moveItemId: Int?
     ) {
-
+        toDoViewModel.moveTodoItem(moveItemId,rvType,prevItemId,nextItemId)
     }
 
 

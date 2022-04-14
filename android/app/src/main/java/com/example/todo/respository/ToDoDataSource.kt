@@ -13,4 +13,10 @@ interface ToDoDataSource {
     suspend fun getTodoItems(): Response<TodoResponse>
     suspend fun removeItem(cardId: Int): Response<Void>
     suspend fun updateItem(cardId: Int, body: UpdateTodoBody): Response<Void>
+    suspend fun moveItem(
+        itemId: Int,
+        type: String,
+        prevItemId: Int?,
+        nextItemId: Int?
+    ): Response<Void>
 }

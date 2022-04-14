@@ -24,5 +24,4 @@ class TodoTitleView(context: Context, attrs: AttributeSet) :
         addButton = findViewById(R.id.btn_add)
     }
 
-
 }

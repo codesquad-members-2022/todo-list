@@ -14,7 +14,9 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             val repository =
                 ActionLogRepository(context, ActionLogRemoteDataSource(RetrofitClient.create()))
 
-            val toDoRepository= ToDoRepository(ToDoRemoteDataSource(RetrofitClient.create()))
+            val toDoRepository =
+                ToDoRepository(context, ToDoRemoteDataSource(RetrofitClient.create()))
+
             ToDoViewModel(repository, toDoRepository) as T
         } else {
             throw IllegalArgumentException()

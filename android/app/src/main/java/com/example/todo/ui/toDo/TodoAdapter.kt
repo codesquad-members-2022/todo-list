@@ -1,4 +1,3 @@
-
 package com.example.todo.ui.toDo
 
 
@@ -26,7 +25,7 @@ class TodoAdapter(
     private val viewModel: ToDoViewModel,
     todoDiffCallback: DiffUtil.ItemCallback<TodoItem>
 ) :
-    ListAdapter<TodoItem, TodoAdapter.ViewHolder>(todoDiffCallback),View.OnTouchListener  {
+    ListAdapter<TodoItem, TodoAdapter.ViewHolder>(todoDiffCallback), View.OnTouchListener {
 
 
     interface UpdateDialogListener {
@@ -47,8 +46,8 @@ class TodoAdapter(
             itemViewBinding.deleteView.setOnClickListener {
                 viewModel.deleteItem(cardItem)
             }
-
         }
+
         private fun displayPopupMenu(view: View) {
             val popupMenu = PopupMenu(context, view)
             popupMenu.menuInflater.inflate(R.menu.menu_popup, popupMenu.menu)
@@ -58,7 +57,7 @@ class TodoAdapter(
 
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             when (item?.itemId) {
-                R.id.popup_move_to_done ->  viewModel.moveToDone(cardItem)
+                R.id.popup_move_to_done -> viewModel.moveToDone(cardItem)
                 R.id.popup_update -> listener.updateDialog(cardItem)
                 R.id.popup_delete -> viewModel.deleteItem(cardItem)
             }
@@ -74,7 +73,7 @@ class TodoAdapter(
             MotionEvent.ACTION_DOWN -> {
 
             }
-            MotionEvent.ACTION_MOVE->{
+            MotionEvent.ACTION_MOVE -> {
                 val data = ClipData.newPlainText("", "")
                 val shadowBuilder = View.DragShadowBuilder(v)
                 v?.startDragAndDrop(data, shadowBuilder, v, 0)
@@ -94,7 +93,7 @@ class TodoAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.tag= position
+        holder.itemView.tag = position
         holder.itemView.setOnTouchListener(this)
         holder.itemView.setOnDragListener(DragListener(toDoMoveListener))
     }
