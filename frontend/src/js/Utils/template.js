@@ -75,7 +75,7 @@ const columnBoxTemplate = ({ id = '', title = '', cardCount = '' }) => {
       </div>
     </div>
     <ul class="card_list">
-      
+      <li class="start"></li>
     </ul>
   </section>
   `;

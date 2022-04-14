@@ -25,9 +25,9 @@ export default class CardView {
     const cardHtml = cardWriteTemplate({ cardId });
     const targetList = targetQuerySelector({
       target: targetColumn,
-      className: 'card_list',
+      className: 'start',
     });
-    targetList.insertAdjacentHTML('afterbegin', cardHtml);
+    targetList.insertAdjacentHTML('afterend', cardHtml);
   }
 
   changeEditMode(card, targetText) {
