@@ -1,8 +1,11 @@
 package com.codesquad.todolist.card;
 
+import com.codesquad.todolist.card.dto.BundleResponse;
 import com.codesquad.todolist.card.dto.CardCreateRequest;
 import com.codesquad.todolist.card.dto.CardMoveRequest;
+import com.codesquad.todolist.card.dto.CardResponse;
 import com.codesquad.todolist.card.dto.CardUpdateRequest;
+import com.codesquad.todolist.column.ColumnRepository;
 import com.codesquad.todolist.exception.BusinessException;
 import com.codesquad.todolist.exception.ErrorCode;
 import com.codesquad.todolist.exception.NotFoundException;
@@ -24,19 +27,20 @@ import org.springframework.stereotype.Service;
 public class CardService {
 
     private final CardRepository cardRepository;
+    private final ColumnRepository columnRepository;
     private final HistoryRepository historyRepository;
     private final ModifiedFieldRepository modifiedFieldRepository;
 
-    public CardService(CardRepository cardRepository, HistoryRepository historyRepository,
-        ModifiedFieldRepository modifiedFieldRepository) {
+    public CardService(CardRepository cardRepository, ColumnRepository columnRepository,
+        HistoryRepository historyRepository, ModifiedFieldRepository modifiedFieldRepository) {
         this.cardRepository = cardRepository;
+        this.columnRepository = columnRepository;
         this.historyRepository = historyRepository;
         this.modifiedFieldRepository = modifiedFieldRepository;
     }
 
-    public HistoryResponse create(CardCreateRequest request) {
-        cardRepository.validateColumnId(request.getColumnId());
-        Integer nextId = findNextId(request.getColumnId());
+    public BundleResponse create(CardCreateRequest request) {
+        Integer nextId = findLastCardId(request.getColumnId());
         Card card = request.toEntity(nextId);
         cardRepository.create(card);
 
@@ -44,10 +48,10 @@ public class CardService {
         History history = new History(card.getCardId(), Action.CREATE);
         historyRepository.create(history);
 
-        return getHistoryResponse(history.getHistoryId());
+        return toResponse(history.getHistoryId(), card);
     }
 
-    public HistoryResponse update(Integer cardId, CardUpdateRequest request) {
+    public BundleResponse update(Integer cardId, CardUpdateRequest request) {
         Card card = cardRepository.findById(cardId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.CARD_NOT_FOUND));
 
@@ -65,10 +69,10 @@ public class CardService {
         }
         modifiedFieldRepository.createAll(modifiedFields);
 
-        return getHistoryResponse(history.getHistoryId());
+        return toResponse(history.getHistoryId(), card);
     }
 
-    public HistoryResponse delete(Integer cardId) {
+    public BundleResponse delete(Integer cardId) {
         Card card = cardRepository.findById(cardId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.CARD_NOT_FOUND));
 
@@ -80,10 +84,10 @@ public class CardService {
         History history = new History(card.getCardId(), Action.DELETE);
         historyRepository.create(history);
 
-        return getHistoryResponse(history.getHistoryId());
+        return toResponse(history.getHistoryId(), card);
     }
 
-    public HistoryResponse move(Integer cardId, CardMoveRequest request) {
+    public BundleResponse move(Integer cardId, CardMoveRequest request) {
         // 이동할 컬럼에서 지정된 다음 노드가 있는지 확인
         validateNextId(request.getColumnId(), request.getNextId());
 
@@ -107,10 +111,10 @@ public class CardService {
             newCard.getColumnId().toString());
         modifiedFieldRepository.create(modifiedField);
 
-        return getHistoryResponse(history.getHistoryId());
+        return toResponse(history.getHistoryId(), newCard);
     }
 
-    private HistoryResponse getHistoryResponse(Integer historyId) {
+    private BundleResponse toResponse(Integer historyId, Card card) {
         History history = historyRepository.findById(historyId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.HISTORY_NOT_FOUND));
 
@@ -118,7 +122,9 @@ public class CardService {
             List<ModifiedField> modifiedFields = modifiedFieldRepository.findByHistoryId(historyId);
             history.setFields(modifiedFields);
         }
-        return HistoryResponse.from(history);
+        return BundleResponse.of(
+            CardResponse.from(card), HistoryResponse.from(history)
+        );
     }
 
     private void validateNextId(int columnId, Integer nextId) {
@@ -132,7 +138,11 @@ public class CardService {
         }
     }
 
-    public Integer findNextId(Integer columnId) {
+    public Integer findLastCardId(Integer columnId) {
+        // column 이 존재하는지 확인
+        columnRepository.findById(columnId)
+            .orElseThrow(() -> new NotFoundException(ErrorCode.COLUMN_NOT_FOUND));
+
         // column 내 모든 card 객체를 조회
         List<Card> cards = cardRepository.findByColumnId(columnId);
 
