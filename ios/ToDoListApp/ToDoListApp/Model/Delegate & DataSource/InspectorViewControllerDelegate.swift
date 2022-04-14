@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol InspectorViewControllerDelegate {
+protocol InspectorViewControllerDelegate: AnyObject {
     func didTapInspectorCloseButton()
 }

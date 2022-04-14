@@ -19,7 +19,7 @@ class InspectorViewController: UIViewController {
         return button
     }()
     
-    var delegate: InspectorViewControllerDelegate?
+    weak var delegate: InspectorViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
