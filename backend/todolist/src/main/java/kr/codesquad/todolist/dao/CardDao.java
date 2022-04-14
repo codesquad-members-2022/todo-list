@@ -1,5 +1,7 @@
-package kr.codesquad.todolist.card;
+package kr.codesquad.todolist.dao;
 
+import kr.codesquad.todolist.domain.Card;
+import kr.codesquad.todolist.service.CardStatusNumber;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -64,7 +66,7 @@ public class CardDao {
         return namedParameterJdbcTemplate.update(sql, params);
     }
 
-    protected Optional<Card> findById(Long todoId) {
+    public Optional<Card> findById(Long todoId) {
         if (todoId < ADDED_NEXT_ORDER) {
             throw new IllegalArgumentException(ERROR_OF_CARD_ID);
         }

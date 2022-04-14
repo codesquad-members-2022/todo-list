@@ -1,5 +1,7 @@
-package kr.codesquad.todolist.card;
+package kr.codesquad.todolist.controller;
 
+import kr.codesquad.todolist.domain.Card;
+import kr.codesquad.todolist.service.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

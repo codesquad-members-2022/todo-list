@@ -1,5 +1,7 @@
-package kr.codesquad.todolist.card;
+package kr.codesquad.todolist.service;
 
+import kr.codesquad.todolist.controller.CardDto;
+import kr.codesquad.todolist.domain.Card;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
