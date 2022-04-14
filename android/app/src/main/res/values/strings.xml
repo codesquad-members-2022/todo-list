@@ -29,6 +29,5 @@
     <string name="label_popup_delete_title">삭제하기</string>
     <string name="label_updateCard_title">카드수정</string>
     <string name="label_update_btn_title">수정</string>
-    <string name="label_item_delete_title">삭제</string>
 
 </resources>
