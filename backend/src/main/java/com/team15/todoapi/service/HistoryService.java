@@ -1,6 +1,7 @@
 package com.team15.todoapi.service;
 
 import com.team15.todoapi.controller.history.HistoryResponse;
+import com.team15.todoapi.domain.Card;
 import com.team15.todoapi.domain.History;
 import com.team15.todoapi.domain.Member;
 import com.team15.todoapi.repository.HistoryRepository;
@@ -22,6 +23,10 @@ public class HistoryService {
 
 		List<History> histories = historyRepository.findAll(member.getId());
 		return histories.stream().map(HistoryResponse::from).collect(Collectors.toList());
+	}
+
+	public int add(Card card) {
+		return historyRepository.insert(card);
 	}
 
 	private Member selectMemberInfo(String userId) {

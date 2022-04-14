@@ -1,11 +1,13 @@
 package com.team15.todoapi.repository;
 
+import com.team15.todoapi.domain.Card;
 import com.team15.todoapi.domain.History;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
@@ -48,6 +50,19 @@ public class JdbcHistoryRepository implements HistoryRepository {
 
 		List<History> histories = jdbcTemplate.query(sql, namedParameters, rowMapper);
 		return histories;
+	}
+
+	@Override
+	public int insert(Card card) {
+		BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(card);
+
+		String sqlForActionLog = "INSERT INTO card_action_log "
+			+ "(created_at, card_id, member_id, card_action_code_id, current_section) "
+			+ "VALUES (:modifiedAt, :id, :memberId, 6, :section)";
+
+		int result = jdbcTemplate.update(sqlForActionLog, namedParameters);
+
+		return result;
 	}
 
 	private static RowMapper<History> rowMapper =
