@@ -56,34 +56,6 @@ struct Endpoint:Endpointable {
     }
 }
 
-enum BaseAddress : String {
-    case main = "http://13.125.161.84:8082/"
-}
-
-
-enum optionPath {
-    case read
-    case add
-    case delete(id: String)
-    
-    
-    
-    var pathString: String {
-        switch self {
-        case .read:
-            return "api/read/cards"
-        case .add:
-            return "api/cards/write"
-        case .delete(let id):
-            return "api/cards/\(id)"
-        }
-    }
-    
-    
-}
-
-
-
 enum EndPointCase {
     case getBoard
     case addCard(cardInfo: NewCard)
@@ -114,6 +86,27 @@ enum EndPointCase {
                             headers: ["Content-Type": "application/json"],
                             body: nil
             )
+        }
+    }
+}
+
+enum BaseAddress : String {
+    case main = "http://13.125.161.84:8082/"
+}
+
+enum optionPath {
+    case read
+    case add
+    case delete(id: String)
+    
+    var pathString: String {
+        switch self {
+        case .read:
+            return "api/read/cards"
+        case .add:
+            return "api/cards/write"
+        case .delete(let id):
+            return "api/cards/\(id)"
         }
     }
 }
