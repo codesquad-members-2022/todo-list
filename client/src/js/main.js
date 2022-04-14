@@ -12,7 +12,10 @@ import { DragAndDrop } from './todos/dragAndDrop.js';
 import { MenuBar } from './todos/menuBar.js';
 
 export const init = async () => {
-  const initTodos = new InitTodos(createColumnTemplate);
+  const initTodos = new InitTodos(
+    createColumnTemplate,
+    createPostedCardTemplate
+  );
   const maxId = await initTodos.getMaxId();
   const addCard = new AddCard(
     createCardTemplate,
