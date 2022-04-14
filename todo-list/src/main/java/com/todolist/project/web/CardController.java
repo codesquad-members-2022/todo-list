@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -26,8 +27,8 @@ public class CardController {
         return cardService.findAll();
     }
 
-    @GetMapping("/{cardStatus}")
-    public List<CardListDto> getCardListByStatus(@PathVariable String cardStatus) {
+    @GetMapping("/sort")
+    public List<CardListDto> getCardListByStatus(@RequestParam("status") String cardStatus) {
         return cardService.findByStatus(cardStatus);
     }
 
