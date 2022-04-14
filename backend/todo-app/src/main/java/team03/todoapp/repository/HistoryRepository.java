@@ -21,6 +21,15 @@ public class HistoryRepository {
     private Logger log = LoggerFactory.getLogger(HistoryRepository.class);
     private JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
+    private RowMapper<History> historyRowMapper = (rs, count) ->
+        new History(
+            rs.getLong("history_id"),
+            rs.getString("action_type"),
+            rs.getString("card_title"),
+            rs.getString("past_location"),
+            rs.getString("now_location"),
+            rs.getObject("history_date", LocalDateTime.class)
+        );
 
     @Autowired
     public HistoryRepository(DataSource dataSource) {
@@ -45,23 +54,10 @@ public class HistoryRepository {
         List<History> histories = null;
 
         try {
-            histories = jdbcTemplate.query(selectAllHistories, historyRowMapper());
+            histories = jdbcTemplate.query(selectAllHistories, historyRowMapper);
         } catch (EmptyResultDataAccessException e) { // 결과가 empty이면 exception 터지므로 null값을 유지
             log.debug("history table empty!");
         }
         return histories;
-    }
-
-    private RowMapper<History> historyRowMapper() {
-        return (rs, count) ->
-            new History(
-                rs.getLong("history_id"),
-                rs.getString("action_type"),
-                rs.getString("card_title"),
-                rs.getString("past_location"),
-                rs.getString("now_location"),
-                rs.getObject("history_date", LocalDateTime.class)
-            );
-
     }
 }

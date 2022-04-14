@@ -2,6 +2,7 @@ package team03.todoapp.Service;
 
 import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import team03.todoapp.controller.dto.CardAddFormRequest;
 import team03.todoapp.controller.dto.CardMoveFormRequest;
 import team03.todoapp.controller.dto.CardUpdateFormRequest;
@@ -27,8 +28,27 @@ public class CardService {
         return cardRepository.insert(card);
     }
 
+    @Transactional
     public void move(Long cardId, CardMoveFormRequest cardMoveFormRequest) {
-        cardRepository.updateLocation(cardId, cardMoveFormRequest);
+        /**
+         * 정상흐름: 데이터 사이에서 사이로 이동하는 경우
+         *  0. next를 cardId로 갖고있는 table의 id 조회 - Long beforePrevId에 저장
+         *  1. cardId로 이동할 card 컬럼의 next 조회    - Long beforeNextId
+         *  2. 이동할 곳의 cardMoveFormRequest의 prevItemId의 next를 cardId로 update
+         *  3. cardId의 next를 cardMoveFormRequest의 nextItemId로, location을 cardMoveFormRequest의 destinationLocation으로 update
+         *  4. beforePrevId의 next를 beforeNextId로 업데이트
+         *
+         *  edge - cases:
+         *  0. beforePrevId가 null인 경우(card가 첫번째 데이터)
+         *  1. cardMoveFormRequest의  nextItemId 혹은 prevItemId 가 null인 경우
+         *  2.
+         *
+         */
+        Long beforePrevId = cardRepository.findCardIdByNextId(cardId);
+        Long beforeNextId = cardRepository.findNextIdByCardId(cardId);
+        cardRepository.updateNextIdByCardId(cardId, cardMoveFormRequest.getPrevItemId());
+        cardRepository.updateNextIdAndLocationByCardId(cardMoveFormRequest.getNextItemId(), cardMoveFormRequest.getDestinationLocation(), cardId);
+        cardRepository.updateNextIdByCardId(beforeNextId, beforePrevId);
     }
 
     public void update(Long cardId, CardUpdateFormRequest request) {
