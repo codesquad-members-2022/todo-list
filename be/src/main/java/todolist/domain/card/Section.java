@@ -1,11 +1,6 @@
 package todolist.domain.card;
 
-import todolist.dto.card.ResponseCardDto;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public enum Section {
     TODO("해야할 일"),
@@ -23,9 +18,9 @@ public enum Section {
         return sectionTitle;
     }
 
-    public static Map<String, List<ResponseCardDto>> categorizeCards(List<Card> cardlist) {
+    public static Map<String, List<Card>> categorizeCards(List<Card> cardlist) {
 
-        Map<String, List<ResponseCardDto>> result = new HashMap<>() {{
+        Map<String, List<Card>> result = new HashMap<>() {{
             put(TODO.sectionTitle, new ArrayList<>());
             put(DOING.sectionTitle, new ArrayList<>());
             put(DONE.sectionTitle, new ArrayList<>());
@@ -33,13 +28,16 @@ public enum Section {
 
         for (Card card : cardlist) {
             String section = card.getSection();
-            List<ResponseCardDto> responseSection = result.get(findTitle(section));
-            responseSection.add(card.toResponseCardDto());
+            List<Card> responseSection = result.get(findSection(section).sectionTitle);
+            responseSection.add(card);
         }
         return result;
     }
 
-    private static String findTitle(String sectionTitle) {
-        return Section.valueOf(sectionTitle).getSectionTitle();
+    private static Section findSection(String sectionTitle) {
+        return Arrays.stream(Section.values())
+                .filter(s -> s.getSectionTitle().equals(sectionTitle))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException());
     }
 }

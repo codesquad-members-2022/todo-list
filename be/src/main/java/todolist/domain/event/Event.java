@@ -1,7 +1,6 @@
 package todolist.domain.event;
 
 import todolist.dto.event.RequestEventDto;
-import todolist.dto.event.ResponseEventDto;
 
 import java.time.LocalDateTime;
 
@@ -45,9 +44,4 @@ public class Event {
     public Action getAction() {
         return action;
     }
-
-    public ResponseEventDto toResponseEventDto() {
-        return new ResponseEventDto(id, cardTitle, prevSection, currentSection, action, createdAt);
-    }
-
 }
