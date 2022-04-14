@@ -50,13 +50,8 @@ public class History {
     public WorkStatus getAfterStatus() {
         return currentStatus;
     }
+
+    public Long getWorkId() {
+        return work.getId();
+    }
 }
-//writer:String
-//title: String
-//beforeStatus: CardStatus
-//afterStatus: CardStatus?
-//action: CardAction
-//date: Date
-//history 타입입니다
-//cardStatus는 todo인지doing인지done인지
-//string으로 주시면 될듯해요!
