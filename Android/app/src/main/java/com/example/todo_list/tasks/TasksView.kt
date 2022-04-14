@@ -18,6 +18,7 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
     private lateinit var btnAddTask: ImageButton
     private lateinit var recyclerViewTodo: RecyclerView
     private val tasksAdapter = TaskAdapter()
+    
     init {
         initViews()
         initAttributes(attrs)

@@ -33,7 +33,6 @@ class ItemTouchHelperCallback(private val TaskAdapter : TaskAdapter) : ItemTouch
     // Swiped 자체가 실행하면 데이터 삭제기능을 겸함, 아래 onChildDraw 에서 swipe 제한길이를 정해둬서 실행되지않음
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
     }
-
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
@@ -59,7 +58,7 @@ class ItemTouchHelperCallback(private val TaskAdapter : TaskAdapter) : ItemTouch
             }
 
             currentDx = newX
-
+          
             getDefaultUIUtil().onDraw(
                 c,
                 recyclerView,
@@ -83,6 +82,7 @@ class ItemTouchHelperCallback(private val TaskAdapter : TaskAdapter) : ItemTouch
         dX: Float,
         isClamped: Boolean,
         isCurrentlyActive: Boolean
+
     ): Float {
 
         // 고정할 수 있으면
@@ -100,6 +100,7 @@ class ItemTouchHelperCallback(private val TaskAdapter : TaskAdapter) : ItemTouch
         }
         // 고정할 수 없으면 newX는 스와이프한 만큼
         else dX / 2
+
 
         return newX
     }
