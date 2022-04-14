@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.domain.card.Card;
+import todolist.domain.card.Section;
 import todolist.domain.event.Action;
 import todolist.dto.card.RequestCardDto;
 import todolist.dto.card.ResponseCardDto;
@@ -27,10 +28,7 @@ public class CardService {
 
     public ResponseCardsDto getCards() {
         List<Card> cards = repository.findAll();
-
-        ResponseCardsDto responseCardsDto = new ResponseCardsDto();
-        responseCardsDto.categorizeCards(cards);
-        return responseCardsDto;
+        return new ResponseCardsDto(Section.categorizeCards(cards));
     }
 
     @Transactional
