@@ -98,7 +98,8 @@ public class JdbcCardRepository implements CardRepository {
                 rs.getInt("delete_yn"),
                 rs.getString("title"),
                 rs.getString("content"),
-                rs.getString("section")
+                rs.getString("section"),
+                rs.getString("author")
             );
             card.setId(rs.getInt("id"));
             return card;

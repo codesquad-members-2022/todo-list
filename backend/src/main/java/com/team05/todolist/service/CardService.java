@@ -6,8 +6,8 @@ import com.team05.todolist.domain.dto.CardDTO;
 import com.team05.todolist.domain.dto.ClassifiedCardsDTO;
 import com.team05.todolist.domain.dto.CreateCardDTO;
 import com.team05.todolist.domain.dto.MoveCardDTO;
+import com.team05.todolist.domain.dto.UpdateCardDTO;
 import com.team05.todolist.repository.CardRepository;
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public CardDTO save(CreateCardDTO cardDto) {
+    public CardDTO save(CreateCardDTO cardDto, String userAgent) {
         /*
         해당 섹션의 카드 수를 구해와서 order 값과 비교한다. 이 때 같아야만 통과된다.
          */
@@ -42,10 +42,10 @@ public class CardService {
         }
 
         Card card = new Card((cardDto.getNumber()+1)*INCREMENT, NON_DELETED, cardDto.getTitle(), cardDto.getContent(),
-            cardDto.getSection());
+            cardDto.getSection(), userAgent);
 
         int newCardId = cardRepository.save(card);
-        CardDTO newCardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), card.getSectionType());
+        CardDTO newCardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), card.getSectionType(), userAgent);
         newCardDto.setCardId(newCardId);
         return newCardDto;
     }
@@ -56,30 +56,32 @@ public class CardService {
         return card.orElseThrow();
     }
 
-    public CardDTO update(int id, CardDTO cardDto) {
+    public CardDTO update(int id, UpdateCardDTO updateCardDto, String userAgent) {
         Card updateTargetCard = findOne(id);
 
-        updateTargetCard.changeTitle(cardDto.getTitle());
-        updateTargetCard.changeOrder(cardDto.getOrder());
-        updateTargetCard.changeContent(cardDto.getContent());
-        updateTargetCard.changeSection(cardDto.getSection());
+        updateTargetCard.changeTitle(updateCardDto.getTitle());
+        updateTargetCard.changeOrder(updateCardDto.getOrder());
+        updateTargetCard.changeContent(updateCardDto.getContent());
+        updateTargetCard.changeSection(updateCardDto.getSection());
+        updateTargetCard.changeAuthor(userAgent);
 
         cardRepository.save(updateTargetCard);
 
         CardDTO updatedCardDTO = new CardDTO(updateTargetCard.getOrder(), updateTargetCard.getTitle(),
-            updateTargetCard.getContent(), updateTargetCard.getSectionType());
+            updateTargetCard.getContent(), updateTargetCard.getSectionType(), userAgent);
         updatedCardDTO.setCardId(id);
         return updatedCardDTO;
 
     }
 
-    public CardDTO move(int id, MoveCardDTO moveCardDTO) {
+    public CardDTO move(int id, MoveCardDTO moveCardDTO, String userAgent) {
         Card moveTargetCard = findOne(id);
         moveTargetCard.changeSection(moveCardDTO.getSection());
         moveTargetCard.changeOrder(moveCardDTO.getPreOrder(), moveCardDTO.getNextOrder());
 
         cardRepository.move(moveTargetCard);
-        CardDTO moveTargetCardDTO = new CardDTO(moveTargetCard.getOrder(), moveTargetCard.getTitle(), moveTargetCard.getContent(), moveTargetCard.getSectionType());
+        CardDTO moveTargetCardDTO = new CardDTO(moveTargetCard.getOrder(), moveTargetCard.getTitle(), moveTargetCard.getContent(),
+            moveTargetCard.getSectionType(), userAgent);
         moveTargetCardDTO.setCardId(id);
         return moveTargetCardDTO;
     }
@@ -88,7 +90,7 @@ public class CardService {
         int deletedId = cardRepository.delete(id);
         Card card = cardRepository.findById(deletedId)
             .orElseThrow(() -> new IllegalStateException("삭제를 위한 카드가 존재하지 않습니다."));
-        CardDTO cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), card.getSectionType());
+        CardDTO cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), card.getSectionType(), card.getAuthor());
         cardDto.setCardId(deletedId);
         return cardDto;
     }
@@ -106,7 +108,7 @@ public class CardService {
         CardDTO cardDto;
         for (Card card : cards) {
             sectionCards = classifiedCards.get(card.getSectionType());
-            cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), card.getSectionType());
+            cardDto = new CardDTO(card.getOrder(), card.getTitle(), card.getContent(), card.getSectionType(), card.getAuthor());
             cardDto.setCardId(card.getId());
             sectionCards.add(cardDto);
         }
