@@ -1,5 +1,7 @@
 package com.example.todolist.repository
 
+import android.util.Log
+import com.example.todolist.model.History
 import com.example.todolist.network.Result
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
@@ -28,6 +30,14 @@ class TaskRemoteRepository(
 
     suspend fun modifyTask(modifyTaskRequest: ModifyTaskRequest): Result<CommonResponse> {
         val response = taskRemoteDataSource.modifyTask(modifyTaskRequest)
+        response?.let {
+            return Result.Success(it)
+        }
+        return Result.Error("error")
+    }
+
+    suspend fun loadHistory(): Result<List<History>> {
+        val response = taskRemoteDataSource.loadHistory()
         response?.let {
             return Result.Success(it)
         }

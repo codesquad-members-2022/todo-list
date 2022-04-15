@@ -120,7 +120,18 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
         }
     }
 
-    fun loadDummyData() {}
+    fun loadHistory() {
+        viewModelScope.launch {
+            when (val history = taskRemoteRepository.loadHistory()) {
+                is Result.Success -> {
+                    _history.value = history.data
+                }
+                is Result.Error -> {
+                    _error.value = history.error
+                }
+            }
+        }
+    }
 
     fun moveDone(task: TaskDetailResponse) {}
 
