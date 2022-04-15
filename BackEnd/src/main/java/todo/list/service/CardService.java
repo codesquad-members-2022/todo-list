@@ -35,9 +35,9 @@ public class CardService {
 
     @Transactional(readOnly = true)
     public CardCollectionResponse findCollections() {
-        List<Card> todoCards = cardRepository.findAllSameStatus(CardStatus.TODO);
-        List<Card> inProgressCards = cardRepository.findAllSameStatus(CardStatus.IN_PROGRESS);
-        List<Card> doneCards = cardRepository.findAllSameStatus(CardStatus.DONE);
+        List<Card> todoCards = cardRepository.findSameStatusOrderByUpdateDatetimeDesc(CardStatus.TODO);
+        List<Card> inProgressCards = cardRepository.findSameStatusOrderByUpdateDatetimeDesc(CardStatus.IN_PROGRESS);
+        List<Card> doneCards = cardRepository.findSameStatusOrderByUpdateDatetimeDesc(CardStatus.DONE);
 
         return new CardCollectionResponse(todoCards, inProgressCards, doneCards);
     }

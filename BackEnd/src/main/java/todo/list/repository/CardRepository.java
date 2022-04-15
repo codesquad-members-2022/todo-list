@@ -44,7 +44,7 @@ public class CardRepository {
         return new Card(cardId, card.getTitle(), card.getContents(), card.getStatus(), card.getUpdateDateTime(), card.getAuthor());
     }
 
-    public List<Card> findAllSameStatus(CardStatus cardStatus) {
+    public List<Card> findSameStatusOrderByUpdateDatetimeDesc(CardStatus cardStatus) {
         String sql = "Select id, title, contents, card_status, update_datetime, author from card WHERE card_status=:card_status order by update_datetime desc";
         Map<String, String> params = Collections.singletonMap("card_status", cardStatus.name());
         return jdbcTemplate.query(sql, params, cardsRowMapper());
