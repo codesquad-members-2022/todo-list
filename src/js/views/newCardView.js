@@ -21,6 +21,9 @@ export const createNewCardTemplate = todoData => {
       }
     </footer>
   </div>
+  <div class="card__delete-btn">
+    ${icons.delete}
+  </div>
 </li>
   `;
 };
@@ -92,7 +95,7 @@ const enableBtn = btn => {
 export const onAddBtnClick = store => {
   const mainElement = document.querySelector('.main');
   mainElement.addEventListener('click', ({ target }) => {
-    handleAddBtnClick(mainElement, target, store);
+    handleAddBtnClick(mainElement, target);
   });
 };
 
@@ -100,10 +103,10 @@ const handleAddBtnClick = (mainElement, target, store) => {
   if (!target.closest('.title-column__btn__add')) {
     return;
   }
-  const columnClassName = target.closest(`.title-column__btn__add`).dataset.classname;
-  const column = mainElement.querySelector(`.${columnClassName}`);
+  const className = target.closest(`.title-column__btn__add`).dataset.classname;
+  const column = mainElement.querySelector(`.${className}`);
   const cardList = column.querySelector('.task__cards');
-  toggleNewCard(cardList, store, columnClassName);
+  toggleNewCard(cardList);
 };
 
 const resizeTextArea = textArea => {
@@ -112,19 +115,15 @@ const resizeTextArea = textArea => {
 };
 
 const onResizeTextArea = textArea => {
-  textArea.addEventListener('input', () => {
+  textArea.addEventListener('keyup', () => {
+    resizeTextArea(textArea);
+  });
+  textArea.addEventListener('keydown', () => {
     resizeTextArea(textArea);
   });
 };
 
-const onCancelBtnClick = newCard => {
-  const cancelBtn = newCard.querySelector('.footer__buttons__cancel');
-  cancelBtn.addEventListener('click', () => {
-    newCard.parentElement.remove();
-  });
-};
-
-const toggleNewCard = (cardList, store, columnClassName) => {
+const toggleNewCard = cardList => {
   const newCard = cardList.querySelector('.new-card');
   if (newCard) {
     newCard.remove();
