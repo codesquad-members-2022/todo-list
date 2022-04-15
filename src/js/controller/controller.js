@@ -1,7 +1,7 @@
 import { TODO_LIST_URL } from '../constants/constant.js';
-import { appendElementsToParent, fetchData, saveToDB } from '../utils/util.js';
-import { insertColumns, onDeleteAllCardInnerColumn } from '../views/columnsView.js';
-import { addNewCardToColumn, insertAllCardToColumn } from '../views/cardView.js';
+import { appendElementsToParent, fetchData } from '../utils/util.js';
+import { insertColumns, onDeleteAllCardsInColumn } from '../views/columnsView.js';
+import { addNewCardToColumn, insertAllCardToColumn, onCardDoubleClick } from '../views/cardView.js';
 import { insertEditCard, onAddBtnClick } from '../views/newCardView.js';
 import { createStore } from '../store/store';
 import { attatchDeleteEventsToView } from '../views/cardDeleteView.js';
@@ -18,10 +18,10 @@ export const controller = async views => {
   appendElementsToParent(app, headerView, mainView);
   insertColumns(store.getStore('main'), mainView);
   insertAllCardToColumn(store.getStore('main'), mainView);
-  onDeleteAllCardInnerColumn(store);
+  onDeleteAllCardsInColumn(store);
   store.setObserverPipe(insertColumns, insertAllCardToColumn);
   attatchDeleteEventsToView(mainView, store);
   onAddBtnClick(store);
-  // onCardDoubleClick(store);
+  onCardDoubleClick(store);
   onDragEvent(store);
 };

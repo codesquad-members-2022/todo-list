@@ -45,30 +45,25 @@ const createColumnTemplate = (className, title) => {
   `;
 };
 
-export const onDeleteAllCardInnerColumn = store => {
+export const onDeleteAllCardsInColumn = store => {
   const mainElement = $('main');
-  mainElement.addEventListener('click', e => {
-    deleteColumnAllCard(e, store);
+  mainElement.addEventListener('click', ({ target }) => {
+    deleteAllCardsHandler(target, store);
   });
 };
 
-const deleteColumnAllCard = (e, store) => {
-  const target = e.target;
+const deleteAllCardsHandler = (target, store) => {
   const targetBtn = target.closest('.title-column__btn__delete');
   if (!targetBtn) {
     return;
   }
-  const targetColumn = targetBtn.parentElement.parentElement.parentElement;
+  const targetColumn = target.closest('.column');
   const targetColumnTitle = [...targetColumn.classList].find(className => className !== 'column');
-  const columns = store.getStore('main');
-  columns.forEach(column => {
-    if (column.className !== targetColumnTitle) {
-      return;
-    }
-    column.total = 0;
-    column.tasks = [];
-    const url = TODO_LIST_URL + '/' + column.id;
-    saveToDB(url, column);
-  });
+  const todoListData = store.getStore('main');
+  const targetColumnData = todoListData.find(column => column.className === targetColumnTitle);
+  targetColumnData.total = 0;
+  targetColumnData.tasks = [];
+  const url = TODO_LIST_URL + '/' + targetColumnData.id;
+  saveToDB(url, targetColumnData);
   rerender(store);
 };
