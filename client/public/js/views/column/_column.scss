@@ -1,5 +1,6 @@
 .column-list {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
@@ -15,8 +16,18 @@
     }
 
     &--title {
+      cursor: pointer;
       font-size: 18px;
       font-weight: 700;
+      word-wrap: break-word;
+      max-width: 185px;
+
+      &:empty:not(:focus)::before {
+        font-size: 16px;
+        color: $gray-strong;
+        font-weight: 400;
+        content: attr(placeholder);
+      }
     }
 
     &--card-count {

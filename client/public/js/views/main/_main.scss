@@ -8,17 +8,17 @@ body {
   position: relative;
   max-width: 1440px;
   min-width: 600px;
+  height: 500px;
   max-height: 1024px;
   margin: 0 auto;
   padding: 33px 80px;
+
+  .column--add-btn {
+    position: absolute;
+    right: 75px;
+    bottom: 0;
+  }
 }
 
 .main {
-  position: relative;
-
-  .column-add {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
 }

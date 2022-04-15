@@ -5,7 +5,7 @@ export function createColumn({ id, title, length }) {
     <li class="column" data-column="${id}">
       <div class="column__header">
         <div class="column__header__content">
-          <h2 class="column__header--title">${title}</h2>
+          <h2 class="column__header--title" placeholder="Enter a column name">${title}</h2>
           <div class="column__header--card-count">${length}</div>
         </div>
         <div class="column__header__btn">

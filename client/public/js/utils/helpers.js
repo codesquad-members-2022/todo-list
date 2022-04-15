@@ -11,7 +11,9 @@ export function insertElement(target, option, element) {
 } // For Rendering
 
 export function on(target, eventName, handler) {
-  target.addEventListener(eventName, handler);
+  const controller = new AbortController();
+  target.addEventListener(eventName, handler, { signal: controller.signal });
+  return controller;
 }
 
 export function delegate(target, eventName, selector, handler) {
@@ -57,4 +59,10 @@ export function getParentElementByDataset(target, dataName) {
     return parentEl;
   }
   return getParentElementByDataset(parentEl, dataName);
+}
+
+export async function getUserData(userId) {
+  const userData = (await import("../tempStorage.js")).default.find((data) => data.id === userId);
+  if (!userData) throw "no user";
+  return userData;
 }

@@ -13,9 +13,22 @@ export default class Store {
     return this.items;
   }
 
-  addColumn() {}
+  addColumn() {
+    const columnIds = this.columns.map(({ id }) => id);
+    const lastColumnId = Math.max(...columnIds);
+    const newColumn = {
+      id: this.columns.length ? lastColumnId + 1 : 1,
+      title: "",
+      length: 0,
+    };
+    this.columns.push(newColumn);
+    return newColumn;
+  }
   removeColumn() {}
-  updateColumn() {}
+  updateColumn(columnId, newTitle) {
+    const newColumn = this.columns.find(({ id }) => id === columnId);
+    newColumn.title = newTitle;
+  }
 
   addItem() {}
   removeItem() {}

@@ -1,7 +1,6 @@
 import "../stylesheet/style.scss";
 
 import Store from "./model/Store.js";
-import usersData from "./tempStorage.js";
 
 import {
   renderHeader,
@@ -10,15 +9,16 @@ import {
   renderAllColumns,
   renderAllItems,
   renderAllHistory,
-  renderColumn,
 } from "./views/renderer.js";
 
 import { bindEvents } from "./handler/eventHandler.js";
 
+import { getUserData } from "./utils/helpers.js";
+
 document.addEventListener("DOMContentLoaded", app);
 
-function app() {
-  const userData = getUserData("mansaout");
+async function app() {
+  const userData = await getUserData("mansaout");
 
   const store = new Store(userData);
 
@@ -33,12 +33,5 @@ function app() {
   renderAllHistory(store.history);
 
   // bind events
-  bindEvents();
-}
-
-function getUserData(userId) {
-  const [userData] = usersData.filter((data) => data.id === userId);
-  if (!userData) throw "no user";
-
-  return userData;
+  bindEvents(store);
 }

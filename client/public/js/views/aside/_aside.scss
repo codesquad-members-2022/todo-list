@@ -4,6 +4,7 @@
   position: absolute;
   top: 0;
   right: -492px;
+  opacity: 0%;
   transition: 0.2s ease-out;
   max-width: 452px;
   height: 1024px;
@@ -12,6 +13,7 @@
   overflow: scroll;
 
   &.show {
+    opacity: 100%;
     right: 0px;
   }
 }

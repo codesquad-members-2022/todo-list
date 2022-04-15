@@ -4,7 +4,7 @@ export function createMain() {
   return `
     <main class="main">
       <ul class="column-list"></ul>
-      <img class="column-add" src=${btnPlusColumn}>
     </main>
+    <img class="column--add-btn" src=${btnPlusColumn}>
   `;
 }
