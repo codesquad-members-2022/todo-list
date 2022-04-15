@@ -55,7 +55,7 @@ public class CardController {
     }
 
     @PatchMapping
-    public ResponseEntity<CardResponse> changeCardStatus(
+    public ResponseEntity<CardResponse> changeCardLocation(
             @RequestBody CardChangeLocationRequest cardChangeLocationRequest) {
         CardResponse movedCard = cardService.changeCardLocation(cardChangeLocationRequest);
 
