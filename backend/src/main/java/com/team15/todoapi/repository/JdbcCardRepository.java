@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -14,6 +15,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+@Slf4j
 @Repository
 public class JdbcCardRepository implements CardRepository {
 
@@ -71,11 +73,12 @@ public class JdbcCardRepository implements CardRepository {
 		card.insertModifiedAt(card, now);
 		BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(card);
 
-		String sqlForUpdate = "UPDATE card set title = :title , content = :content "
+		String sqlForUpdate = "UPDATE card SET title = :title , content = :content "
 							+ "WHERE id =  :id "
 							+ "AND member_id = :memberId";
 
 		jdbcTemplate.update(sqlForUpdate, namedParameters);
+		log.info("CARD UPDATE - CardRepositor.update SUCESS!");
 
 		return card;
 	}
