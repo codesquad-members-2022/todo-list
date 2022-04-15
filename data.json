@@ -40,6 +40,13 @@
       "title": "html css",
       "content": "study html css",
       "author": "나"
+    },
+    {
+      "columnId": "1",
+      "title": "안녕하세요",
+      "content": "반갑습니다",
+      "author": "나",
+      "id": 4
     }
   ],
   "histories": [
@@ -47,8 +54,8 @@
       "id": 1,
       "user": "sam",
       "todo": "HTML/CSS 공부하기",
-      "beforePosition": "해야할 일",
-      "afterPosition": "하고 있는 일",
+      "beforePosition": "1",
+      "afterPosition": "2",
       "action": "이동"
     },
     {
@@ -56,7 +63,7 @@
       "user": "sam",
       "todo": "HTML/CSS 공부하기",
       "beforePosition": "",
-      "afterPosition": "해야할 일",
+      "afterPosition": "1",
       "action": "등록"
     },
     {
@@ -64,7 +71,7 @@
       "user": "sam",
       "todo": "블로그에 포스팅할 것",
       "beforePosition": "",
-      "afterPosition": "해야할 일",
+      "afterPosition": "1",
       "action": "등록"
     },
     {
@@ -72,8 +79,16 @@
       "user": "sam",
       "todo": "Github 공부하기",
       "beforePosition": "",
-      "afterPosition": "해야할 일",
+      "afterPosition": "1",
       "action": "등록"
+    },
+    {
+      "user": "sam",
+      "todo": "안녕하세요",
+      "beforePosition": "",
+      "afterPosition": "1",
+      "action": "등록",
+      "id": 5
     }
   ],
   "data": [

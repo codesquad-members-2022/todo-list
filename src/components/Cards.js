@@ -1,4 +1,4 @@
-import { getCards, postCard, postHistories } from "../api.js";
+import { postCard, postHistories, deleteData } from "../api.js";
 import Component from "../core/Component.js";
 import myAlert from "./Alert.js";
 
@@ -45,7 +45,7 @@ export default class Cards extends Component {
   setEvent() {
     this.addEvent("click", ".card-button-normal", this.clickNormalButtonHandler.bind(this));
     this.addEvent("input", ".card", this.inputHandler.bind(this));
-    this.addEvent("click", ".card-button-accent", this.addNewCard.bind(this));
+    this.addEvent("click", ".card-button-accent", this.update.bind(this));
     this.addEvent("mouseover", ".card-button-delete", ({ target }) => {
       this.setCardState(target, "delete");
     });
@@ -83,24 +83,19 @@ export default class Cards extends Component {
 
     $button.disabled = !isInputEvery;
   }
-  async addNewCard({ target }) {
-    const { setCards, notifyNewHistoryData } = this.$props;
-    const $clickedCard = target.closest(".card");
-    const columnId = target.closest(".column").dataset.index;
-    const [title, content] = [".card-title-input", ".card-content-input"].map((selector) => $clickedCard.querySelector(selector).value);
 
+  async update({ target }) {
+    this.addNewCard(target);
+    await this.notifyNewHistory(target);
+  }
+
+  async notifyNewHistory(target) {
+    const { notifyNewHistoryData } = this.$props;
     const user = "sam";
-    const todo = title;
+    const todo = target.closest(".card").querySelector(".card-title-input").value;
     const beforePosition = "";
-    const afterPosition = columnId;
+    const afterPosition = target.closest(".column").dataset.index;
     const action = "등록";
-
-    const newCard = {
-      columnId,
-      title,
-      content,
-      author: "나",
-    };
     const newHistory = {
       user,
       todo,
@@ -108,13 +103,26 @@ export default class Cards extends Component {
       afterPosition,
       action,
     };
-    await postCard(newCard);
-    setCards(columnId);
     await postHistories(newHistory);
     notifyNewHistoryData();
   }
   setCardState(target, newCardState) {
     const $card = target.closest(".card");
     $card.dataset.cardState = newCardState;
+  }
+
+  async addNewCard(target) {
+    const { setCards } = this.$props;
+    const $clickedCard = target.closest(".card");
+    const columnId = target.closest(".column").dataset.index;
+    const [title, content] = [".card-title-input", ".card-content-input"].map((selector) => $clickedCard.querySelector(selector).value);
+    const newCard = {
+      columnId,
+      title,
+      content,
+      author: "나",
+    };
+    await postCard(newCard);
+    setCards(columnId);
   }
 }
