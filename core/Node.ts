@@ -1,3 +1,4 @@
+
 import {EventHandler} from "./Eventhandler";
 
 
@@ -43,4 +44,5 @@ export default abstract class Node<T> extends EventHandler {
     abstract select(selector: string): T ;
 
     abstract selectAll(selector: string): T[] ;
+
 }

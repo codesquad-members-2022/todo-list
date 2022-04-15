@@ -1,3 +1,4 @@
+
 import {StateObj} from "../types";
 import {EventHandler} from "./Eventhandler";
 
@@ -68,4 +69,5 @@ export default class Observer extends WeakMap {
     }
 
 }
+
 

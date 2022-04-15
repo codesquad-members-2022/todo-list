@@ -1,3 +1,4 @@
+
 import {Store} from "./Store";
 import Node from "./Node";
 import {StateObj} from "../types";
@@ -53,4 +54,5 @@ export default class View extends Node<HTMLElement> {
     toString() {
         return this.el.outerHTML;
     }
+
 }

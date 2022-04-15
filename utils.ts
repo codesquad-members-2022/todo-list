@@ -1,7 +1,3 @@
-// const tag = (el,props)=>{
-//   if(el instanceof HTMLElement){el[]}
-// }
-
 
 import {StateObj} from "./types";
 
@@ -29,3 +25,4 @@ export const delay = (time: number) =>
     new Promise((res) => setTimeout(res, time));
 
 Array.prototype.unshift()
+

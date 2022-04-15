@@ -1,3 +1,4 @@
+
 import {AddDto} from "./core/DTOs/add.dto";
 import {SelectDto} from "./core/DTOs/select.dto";
 import {MoveDto} from "./core/DTOs/move.dto";
@@ -38,4 +39,5 @@ export type Mutation = {
     [Action.MOVE]: MoveDto,
     [Action.UPDATE]: UpdateDto,
     [Action.DELETE]: DeleteDto
+
 }

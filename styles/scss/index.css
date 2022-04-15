@@ -270,6 +270,15 @@ input:focus {
 .todo-column[data-idx="2"] {
   left: 728px;
 }
+.todo-column[data-idx="0"] {
+  left: 80px;
+}
+.todo-column[data-idx="1"] {
+  left: 404px;
+}
+.todo-column[data-idx="2"] {
+  left: 728px;
+}
 .todo-column .todo-card {
   display: flex;
   flex-direction: row;

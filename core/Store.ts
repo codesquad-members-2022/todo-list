@@ -1,3 +1,4 @@
+
 import Observer from "./Observer";
 import {Action, Mutation, StateObj, StoreContext, StoreType} from "../types";
 import {load} from "../utils";
@@ -88,6 +89,7 @@ export async function loadStore() {
             }
         },
     })
+
 }
 
 

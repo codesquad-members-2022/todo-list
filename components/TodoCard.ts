@@ -18,6 +18,7 @@ export class TodoCard extends View {
         <path
         d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
         fill="#828282" />
+
         </svg></span>`;
     }
 
@@ -25,11 +26,12 @@ export class TodoCard extends View {
         const {todo, listIdx, idx} = this.$props;
         this.addEvent("dblclick", ".wrapper", (e) => {
 
-            this.store.commit(Action.SELECT, {selected: true, listIdx, idx});
+            this.store.commit(Action.SELECT, new SelectDto(true, idx, listIdx));
         });
         this.addEvent('click', '.delete-card', e => {
-            this.store.dispatch(Action.DELETE, {listIdx, idx});
+            this.store.dispatch(Action.DELETE, new DeleteDto(listIdx, idx));
         });
 
     }
+
 }
