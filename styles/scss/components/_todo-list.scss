@@ -1,4 +1,5 @@
 .todo-list {
+  @include scrollbar-hidden;
   width: 100%;
   padding: 1px;
 
@@ -8,6 +9,7 @@
     border: 1px solid transparent;
     border-radius: 6px;
     box-shadow: $item-box-shadow;
+    transition: transform 200ms ease-in-out;
 
     &:not(:last-child) {
       margin-bottom: 16px;
@@ -128,7 +130,6 @@
   }
 
   &.place-item {
-    margin: -1px;
     border: 1px solid $blue;
     opacity: 0.4;
   }

@@ -18,5 +18,13 @@
     i {
       @include font(12px, $black);
     }
+
+    &:hover i {
+      color: $blue;
+    }
+
+    &:active i {
+      opacity: 0.7;
+    }
   }
 }
