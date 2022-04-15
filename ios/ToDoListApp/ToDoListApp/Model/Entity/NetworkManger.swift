@@ -78,9 +78,9 @@ class NetworkManager<T: Codable> {
             guard let data = data else {
                 return completion(.failure(.emptyData))
             }
-
+            
             let decoder = JSONDecoder()
-
+            
             do {
                 let data = try decoder.decode([T].self, from: data)
                 return completion(.success(data))

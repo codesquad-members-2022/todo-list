@@ -89,6 +89,9 @@ class InspectorTableViewCell: UITableViewCell {
         emojiLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }
+
+// MARK: - Functions
+
 extension InspectorTableViewCell {
     func changeEmojiLabel(text: String) {
         emojiLabel.text = text

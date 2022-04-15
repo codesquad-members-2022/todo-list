@@ -78,7 +78,7 @@ class TableTitleView: UIView {
     }
 }
 
-// MARK: - functions
+// MARK: - Functions
 
 extension TableTitleView {
     func changeBadgeLabel(text count: Int){

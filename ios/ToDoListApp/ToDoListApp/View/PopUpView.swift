@@ -149,6 +149,8 @@ class PopUpView: UIView {
     }
 }
 
+// MARK: - Functions
+
 extension PopUpView {
     func resetContentsTextViewPlaceholder() {
         containerContentsTextView.text = Constant.PopUpViewText.contentsTextViewPlaceholder

@@ -85,7 +85,6 @@ extension InspectorViewController {
     }
 }
 
-
 //MARK: - Selector Functions
 
 extension InspectorViewController {
