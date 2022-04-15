@@ -10,13 +10,13 @@ export default class HistoryModel {
     );
     const historiesData = await reponse.json();
     this.histories.push(...historiesData.data);
-    console.log(historiesData);
+
     if (!historiesData.hasNext) return;
     await this.fetchHistories();
   }
 
   addHistory(history) {
-    this.histories.upshift(history);
+    this.histories.unshift(history);
   }
 
   getHistories() {
