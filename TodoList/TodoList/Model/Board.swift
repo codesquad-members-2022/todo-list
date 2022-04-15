@@ -64,6 +64,17 @@ final class Board{
         }
     }
     
+    func deleteCard(id: Int, userID: Int){
+        
+        guard let encodingData: Data = JsonConverter.encodeJson(param: [id,userID]) else { return }
+        
+        URLManager.requestDelete(url: "http://3.39.150.251:8080/api/cards", encodingData: encodingData) { data in
+            
+        }
+        
+        
+    }
+    
     func addCard(_ card: Card, at section: BoardSubscriptIndex){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addCard"), object: self)
         
