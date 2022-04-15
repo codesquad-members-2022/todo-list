@@ -71,6 +71,16 @@ export function bindEvents(store) {
     renderItem(newItem);
     removeItemForm();
   }
+
+  function removeItem(event) {
+    const itemId = _getItemId(event.target);
+    Store.removeItem(itemId);
+
+    const columnId = _getColumnId(event.target);
+    renderColumnLength(columnId, false);
+
+    const itemEl = getParentElementByDataset(event.target, "card");
+    itemEl.remove();
   }
 
   function addColumn(event) {

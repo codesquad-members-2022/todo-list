@@ -17,9 +17,13 @@ export default class Store {
   removeColumn() {}
   updateColumn() {}
 
-  removeItem() {}
   addItem({ id, columnId, title, content, date }) {
     this.items.push({ id, columnId, title, content, date });
+  }
+
+  removeItem(itemId) {
+    const itemIndex = this.items.findIndex((item) => item.id === itemId);
+    this.items.splice(itemIndex, 1);
   }
 
   updateItem() {}
