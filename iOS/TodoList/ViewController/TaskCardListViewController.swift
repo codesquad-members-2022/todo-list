@@ -52,14 +52,42 @@ extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let card = taskCardList?.getCard(at: indexPath.row) else { return }
-            let id = card.id
-            URLManager<TaskCard>.request(api: .delete(id),completionHandler: {_ in})
-            
-            self.taskCardList?.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            guard let count = taskCardList?.count else { return }
-            self.taskCardListView.setCountBadge(with: count)
+            deleteCard(at: indexPath, from: tableView)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let card = taskCardList?.getCard(at: indexPath.row) else { return nil }
+        let id = card.id
+        
+        
+        let moveToDoneTask = UIAction(title: "완료된 일로 이동") { _ in
+            let requestCard = RequestCardData(section: "완료된 일", title: card.title, content: card.content)
+            DispatchQueue.global().sync {
+                URLManager<TaskCard>.request(api: .put(id, requestCard))
+                NotificationCenter.default.post(name: .getTaskBoardData, object: nil)
+            }
+        }
+        let editCard = UIAction(title: "수정하기") { _ in
+            NotificationCenter.default.post(name: .editMenuTapped, object: nil, userInfo: [NotificationKeyValue.editTaskData:card])
+        }
+        let removeCard = UIAction(title: "삭제하기") { _ in
+            self.deleteCard(at: indexPath, from: tableView)
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            UIMenu(title:"", children: [moveToDoneTask, editCard, removeCard])
+        }
+    }
+    
+    private func deleteCard(at indexPath: IndexPath, from tableView: UITableView) {
+        guard let card = taskCardList?.getCard(at: indexPath.row) else { return }
+        let id = card.id
+        URLManager<TaskCard>.request(api: .delete(id),completionHandler: {_ in})
+        
+        self.taskCardList?.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        guard let count = taskCardList?.count else { return }
+        self.taskCardListView.setCountBadge(with: count)
     }
 }

@@ -21,7 +21,7 @@ struct ContentConverter {
             return .delete
         case "MOVE":
             return .move
-        case "EDIT":
+        case "UPDATE":
             return .edit
         default:
             return .add
