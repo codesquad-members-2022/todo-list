@@ -109,19 +109,4 @@ class CardRepositoryTest {
         assertThat(cardRepository.findById(savedCardId)).isEmpty();
     }
 
-//    @Test 변경예정
-//    @DisplayName("이동할 카드ID와 위치정보를 전달하면, 전달받은 카드의 위치를 수정한다.")
-//    void updateLocationTest() {
-//        //given
-//        Long savedCardId = cardRepository.insert(card);
-//        CardMoveFormRequest cardMoveFormRequest = new CardMoveFormRequest("ing", savedCardId, null);
-//
-//        //when
-//        cardRepository.updateLocation(savedCardId, cardMoveFormRequest);
-//        Card card = cardRepository.findById(savedCardId).get();
-//
-//        //then
-//        assertThat(card.getCurrentLocation()).isEqualTo(CardLocation.ing);
-//    }
-
 }
