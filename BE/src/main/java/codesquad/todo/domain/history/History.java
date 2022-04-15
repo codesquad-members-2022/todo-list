@@ -54,4 +54,16 @@ public class History {
     public Long getWorkId() {
         return work.getId();
     }
+
+    public String getBeforeStatusName() {
+        return (beforeStatus == null) ? null : beforeStatus.name();
+    }
+
+    public String getCurrentStatusName() {
+        return (currentStatus == null) ? null : currentStatus.name();
+    }
+
+    public String getHistoryTypeName() {
+        return (historyType == null) ? null : historyType.name();
+    }
 }

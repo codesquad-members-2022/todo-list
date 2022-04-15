@@ -11,6 +11,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +36,7 @@ public class JdbcTemplateWorkRepository implements WorkRepository{
                 .addValue("title", work.getTitle())
                 .addValue("content", work.getContent())
                 .addValue("author", work.getAuthor().getId())
-                .addValue("workStatus", work.getWorkStatus().name())
+                .addValue("workStatus", work.getStatusName())
                 .addValue("statusIndex", work.getStatusIndex())
                 .addValue("createDateTime", work.getCreateDateTime())
                 .addValue("lastModifiedDateTime", work.getLastModifiedDateTime())
@@ -60,12 +62,17 @@ public class JdbcTemplateWorkRepository implements WorkRepository{
                 .title(rs.getString("title"))
                 .content(rs.getString("content"))
                 .author(new User(rs.getLong("author_id"), rs.getString("name")))
-                .workStatus(WorkStatus.valueOf(rs.getString("work_status")))
+                .workStatus(getWorkStatus(rs))
                 .statusIndex((Integer) rs.getObject("status_index"))
                 .createDateTime(rs.getTimestamp("create_date_time").toLocalDateTime())
                 .lastModifiedDateTime(rs.getTimestamp("last_modified_date_time").toLocalDateTime())
                 .isDeleted(rs.getBoolean("deleted"))
                 .build();
+    }
+
+    private WorkStatus getWorkStatus(ResultSet rs) throws SQLException {
+        String workStatusName = rs.getString("work_status");
+        return (workStatusName == null) ? null : WorkStatus.valueOf(workStatusName);
     }
 
     @Override
@@ -78,7 +85,7 @@ public class JdbcTemplateWorkRepository implements WorkRepository{
                 .addValue("id", updateWork.getId())
                 .addValue("title", updateWork.getTitle())
                 .addValue("content", updateWork.getContent())
-                .addValue("workStatus", updateWork.getWorkStatus().name())
+                .addValue("workStatus", updateWork.getStatusName())
                 .addValue("statusIndex", updateWork.getStatusIndex())
                 .addValue("lastModifiedDateTime", updateWork.getLastModifiedDateTime())
                 .addValue("deleted", updateWork.isDeleted());

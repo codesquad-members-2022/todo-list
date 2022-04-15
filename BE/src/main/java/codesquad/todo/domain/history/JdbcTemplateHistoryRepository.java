@@ -29,10 +29,10 @@ public class JdbcTemplateHistoryRepository implements HistoryRepository{
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("work_id", history.getWorkId())
-                .addValue("history_type", history.getHistoryType())
+                .addValue("history_type", history.getHistoryType().name())
                 .addValue("history_time", history.getHistoryTime())
-                .addValue("before_status", history.getBeforeStatus())
-                .addValue("after_status", history.getAfterStatus());
+                .addValue("before_status", history.getBeforeStatusName())
+                .addValue("after_status", history.getCurrentStatusName());
         jdbcTemplate.update(SQL, namedParameters, keyHolder);
         history.initId(keyHolder.getKey().longValue());
         return history.getId();

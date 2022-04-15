@@ -54,4 +54,8 @@ public class Work {
         this.statusIndex = null;
         this.lastModifiedDateTime = LocalDateTime.now();
     }
+
+    public String getStatusName() {
+        return (workStatus == null) ? null : workStatus.name();
+    }
 }
