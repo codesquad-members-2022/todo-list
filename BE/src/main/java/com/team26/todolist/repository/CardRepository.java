@@ -29,9 +29,9 @@ public class CardRepository {
 
     public Card save(Card card, Double order) {
         String sql =
-                "INSERT INTO card (user_id, title, contents, column_id, order_index, deleted, created_at) "
+                "INSERT INTO card (user_id, title, contents, column_id, order_index, created_at) "
                         +
-                        "VALUES (:userId, :title, :contents, :columnId, :order, :isDeleted, :createdAt)";
+                        "VALUES (:userId, :title, :contents, :columnId, :order, :createdAt)";
 
         Map<String, Object> params = new HashMap<>();
         params.put("userId", card.getUserId());
@@ -39,13 +39,14 @@ public class CardRepository {
         params.put("contents", card.getContents());
         params.put("columnId", card.getColumnId());
         params.put("order", order);
-        params.put("isDeleted", false);
         params.put("createdAt", LocalDateTime.now());
 
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params),
                 keyHolder);
 
-        return findById(Objects.requireNonNull(keyHolder.getKey()).longValue());
+        card.initId(Objects.requireNonNull(keyHolder.getKey()).longValue());
+
+        return card;
     }
 
     public List<Card> findByColumnId(Long columnId) {

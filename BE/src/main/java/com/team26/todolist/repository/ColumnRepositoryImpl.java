@@ -88,8 +88,8 @@ public class ColumnRepositoryImpl implements ColumnRepository {
 
     @Override
     public Column saveNewColumn(Column column) {
-        String sql = "INSERT INTO column_tbl (title, order_index, created_at, deleted) "
-                + "VALUES(:title, IFNULL(SELECT MAX(order_index) FROM column_tbl WHERE deleted = false, -:difference) + :difference, :createdAt, false)";
+        String sql = "INSERT INTO column_tbl (title, order_index, created_at) "
+                + "VALUES(:title, IFNULL(SELECT MAX(order_index) FROM column_tbl WHERE deleted = false, -:difference) + :difference, :createdAt)";
 
         Map<String, Object> params = new HashMap<>();
         params.put("title", column.getTitle());

@@ -1,7 +1,7 @@
 package com.team26.todolist.controller;
 
 import com.team26.todolist.dto.request.CardDeleteRequest;
-import com.team26.todolist.dto.request.CardMoveRequest;
+import com.team26.todolist.dto.request.CardChangeLocationRequest;
 import com.team26.todolist.dto.request.CardRegistrationRequest;
 import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
@@ -53,8 +53,8 @@ public class CardController {
     }
 
     @PatchMapping
-    public ResponseEntity<CardResponse> changeCardStatus(@RequestBody CardMoveRequest cardMoveRequest) {
-        CardResponse movedCard = cardService.changeCardLocation(cardMoveRequest);
+    public ResponseEntity<CardResponse> changeCardStatus(@RequestBody CardChangeLocationRequest cardChangeLocationRequest) {
+        CardResponse movedCard = cardService.changeCardLocation(cardChangeLocationRequest);
 
         return ResponseEntity.ok()
                 .body(movedCard);

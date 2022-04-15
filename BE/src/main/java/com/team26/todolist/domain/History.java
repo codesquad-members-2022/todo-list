@@ -1,8 +1,13 @@
 package com.team26.todolist.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 
 public class History implements Comparable<History>{
+
+    Logger logger = LoggerFactory.getLogger(History.class);
 
     private Long id;
     private CardAction cardAction;
@@ -18,6 +23,7 @@ public class History implements Comparable<History>{
     }
 
     private History(HistoryBuilder historyBuilder) {
+        this.id = historyBuilder.id;
         this.cardAction = historyBuilder.cardAction;
         this.userId = historyBuilder.userId;
         this.cardTitle = historyBuilder.cardTitle;
@@ -29,6 +35,8 @@ public class History implements Comparable<History>{
 
     @Override
     public int compareTo(History history) {
+        logger.debug("historyId = {}", history.id);
+        logger.debug("thisId = {}", this.id);
         return (int) (history.id - this.id);
     }
 
@@ -39,6 +47,7 @@ public class History implements Comparable<History>{
 
     public static class HistoryBuilder {
 
+        private Long id;
         private CardAction cardAction;
         private String userId;
         private String cardTitle;
@@ -70,6 +79,11 @@ public class History implements Comparable<History>{
 
         public HistoryBuilder columnTitleBefore(String columnTitleBefore) {
             this.columnTitleBefore = columnTitleBefore;
+            return this;
+        }
+
+        public HistoryBuilder id(Long id) {
+            this.id = id;
             return this;
         }
 

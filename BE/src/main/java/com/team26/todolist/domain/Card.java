@@ -89,4 +89,8 @@ public class Card implements Comparable<Card> {
     public Double getOrder() {
         return order;
     }
+
+    public void initId(long id) {
+        this.id = id;
+    }
 }

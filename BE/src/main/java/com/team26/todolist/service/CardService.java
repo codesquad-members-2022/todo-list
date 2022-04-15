@@ -1,7 +1,7 @@
 package com.team26.todolist.service;
 
 import com.team26.todolist.dto.request.CardDeleteRequest;
-import com.team26.todolist.dto.request.CardMoveRequest;
+import com.team26.todolist.dto.request.CardChangeLocationRequest;
 import com.team26.todolist.dto.request.CardRegistrationRequest;
 import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
@@ -15,7 +15,7 @@ public interface CardService {
 
     CardResponse modifyCard(CardUpdateRequest cardUpdateRequest);
 
-    CardResponse changeCardLocation(CardMoveRequest cardMoveRequest);
+    CardResponse changeCardLocation(CardChangeLocationRequest cardChangeLocationRequest);
 
     void deleteCard(CardDeleteRequest cardDeleteRequest);
 
