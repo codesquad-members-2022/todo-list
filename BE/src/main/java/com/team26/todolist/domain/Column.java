@@ -2,6 +2,7 @@ package com.team26.todolist.domain;
 
 import com.team26.todolist.util.Constant;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Column implements Comparable<Column> {
 
@@ -98,6 +99,25 @@ public class Column implements Comparable<Column> {
 
         public Column build() {
             return new Column(this);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+
+            if (!(obj instanceof Column)) {
+                return false;
+            }
+
+            Column column = (Column) obj;
+            return this.id == column.id;
         }
     }
 }
