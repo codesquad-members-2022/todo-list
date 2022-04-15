@@ -57,3 +57,8 @@ export function getParentElementByDataset(target, dataName) {
   }
   return getParentElementByDataset(parentEl, dataName);
 }
+
+export function createNextId(list = []) {
+  const lastValue = list[list.length - 1];
+  return lastValue ? lastValue.id + 1 : 1;
+}
