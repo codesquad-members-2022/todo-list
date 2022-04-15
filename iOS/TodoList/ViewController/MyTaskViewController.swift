@@ -19,7 +19,8 @@ class MyTaskViewController: UIViewController {
     
     private func observe() {
         NotificationCenter.default.addObserver(forName: .getTaskBoardData, object: nil, queue: .main, using: {_ in self.loadTaskBoard()})
-        NotificationCenter.default.addObserver(forName: .addTaskButtonTapped, object: nil, queue: .main, using: self.editCardButtonTapped(noti:))
+        NotificationCenter.default.addObserver(forName: .addTaskButtonTapped, object: nil, queue: .main, using: self.addCardButtonTapped(noti:))
+        NotificationCenter.default.addObserver(forName: .editMenuTapped, object: nil, queue: .main, using: self.editCardButtonTapped(noti:))
     }
     
     private func loadTaskBoard() {
@@ -56,11 +57,20 @@ class MyTaskViewController: UIViewController {
         stackViewTrailing.constant = UIScreen.main.isPortrait ? 48 : 330
     }
     
-    private func editCardButtonTapped(noti: Notification) {
+    private func addCardButtonTapped(noti: Notification) {
         guard let popupViewController = storyboard?.instantiateViewController(withIdentifier: identifier.popupViewController) as? EditCardViewController else { return }
         popupViewController.modalPresentationStyle = .overFullScreen
         guard let title = noti.userInfo?[NotificationKeyValue.targetViewTitle] as? String else { return }
-        popupViewController.targetTitle = title
+        popupViewController.section = title
+        self.present(popupViewController, animated: false)
+    }
+    
+    private func editCardButtonTapped(noti: Notification) {
+        guard let popupViewController = storyboard?.instantiateViewController(withIdentifier: identifier.popupViewController) as? EditCardViewController else { return }
+        popupViewController.modalPresentationStyle = .overFullScreen
+        guard let card = noti.userInfo?[NotificationKeyValue.editTaskData] as? TaskCard else { return }
+        popupViewController.card = card
+        popupViewController.section = card.section
         self.present(popupViewController, animated: false)
     }
     
