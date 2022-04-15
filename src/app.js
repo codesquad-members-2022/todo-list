@@ -16,12 +16,10 @@ export default class App extends Component {
   }
   template() {
     return `
-      <header></header>
-      <div class="menu hidden-menu"></div>
+      <header class="header"></header>
+      <div class="menu hidden-menu display-none"></div>
       <main class="flex">
-        ${this.state.columns
-          ?.map((column) => `<div class="column" data-index="${column.id}"></div>`)
-          .join("")}
+        ${this.state.columns?.map((column) => `<div class="column" data-index="${column.id}"></div>`).join("")}
       </main>
     `;
   }

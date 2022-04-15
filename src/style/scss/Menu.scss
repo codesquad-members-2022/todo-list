@@ -1,26 +1,42 @@
-body {
-  overflow: hidden;
-}
-
 .menu {
-  position: absolute;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
   top: 0;
   right: 0;
   background-color: white;
   width: 452px;
   height: 100%;
-  padding: 80px 80px 80px 40px;
+  padding: 45px 80px 80px 40px;
   box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(4px);
   z-index: 100;
   box-sizing: border-box;
   transition: 0.5s;
+  overflow-y: scroll;
+
+  .action-alert {
+    font-family: "Noto Sans KR";
+    width: 452px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.7rem;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #ff0000;
+    color: white;
+    transition: 0.5s;
+  }
+
+  .hidden-alert {
+    top: -38px;
+  }
 
   .close-button {
     cursor: pointer;
-    position: absolute;
-    top: 43px;
-    right: 80px;
+    align-self: end;
     width: 12px;
   }
 
@@ -70,4 +86,8 @@ body {
 
 .hidden-menu {
   right: -452px;
+}
+
+.display-none {
+  display: none;
 }
