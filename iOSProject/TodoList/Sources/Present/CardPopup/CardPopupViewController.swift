@@ -5,13 +5,12 @@
 //  Created by seongha shin on 2022/04/05.
 //
 
-import Foundation
-import UIKit
 import Combine
+import UIKit
 
 protocol CardPopupViewDeletegate {
+    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card, toIndex: Int)
     func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card)
-    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card)
 }
 
 class CardPopupViewController: UIViewController {
@@ -53,6 +52,7 @@ class CardPopupViewController: UIViewController {
         textField.textColor = .black
         textField.attributedPlaceholder = NSAttributedString(string: Constants.titlePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray3])
         textField.textAlignment = .left
+        textField.returnKeyType = .done
         return textField
     }()
     
@@ -64,6 +64,7 @@ class CardPopupViewController: UIViewController {
         textView.textAlignment = .left
         textView.placeholder = Constants.bodyPlaceHolder
         textView.isScrollEnabled = false
+        textView.returnKeyType = .continue
         return textView
     }()
     
@@ -72,7 +73,7 @@ class CardPopupViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "(0/\(Constants.maxBodyLength))"
         label.font = .systemFont(ofSize: 14)
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.textColor = .gray3
         return label
     }()
@@ -115,18 +116,21 @@ class CardPopupViewController: UIViewController {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: CardPopupViewModelBinding?
+    private let model: CardPopupViewModelProtocol
     
     var delegate: CardPopupViewDeletegate?
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+         self.view.endEditing(true)
+   }
     
-    init(model: CardPopupViewModelBinding) {
+    init(model: CardPopupViewModelProtocol) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
-        self.model = nil
+        self.model = CardPopupViewModel(popupData: CardPopupData(columnType: .todo))
         super.init(coder: coder)
     }
     
@@ -136,7 +140,7 @@ class CardPopupViewController: UIViewController {
         attribute()
         layout()
         
-        self.model?.action.loadModel.send()
+        model.action.loadModel.send()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -145,12 +149,8 @@ class CardPopupViewController: UIViewController {
     }
     
     private func bind() {
-        self.titleTextField.delegate = self
-        self.bodyTextView.delegate = self
-        
-        guard let model = self.model else {
-            return
-        }
+        titleTextField.delegate = self
+        bodyTextView.delegate = self
         
         model.state.loadedModel
             .sink {
@@ -162,7 +162,7 @@ class CardPopupViewController: UIViewController {
                 self.editButton.isHidden = $0.id == nil
             }.store(in: &cancellables)
         
-        self.bodyTextView.changePublisher()
+        bodyTextView.changePublisher()
             .sink(receiveValue: self.reSizeTextView)
             .store(in: &cancellables)
         
@@ -181,24 +181,29 @@ class CardPopupViewController: UIViewController {
                 self.editButton.isEnabled = isEnable
             }.store(in: &cancellables)
         
+        cancelButton.publisher(for: .touchUpInside)
+            .sink {self.dismiss(animated: false) }
+            .store(in: &cancellables)
 
-        self.confimButton.publisher(for: .touchUpInside)
+        confimButton.publisher(for: .touchUpInside)
             .map { (self.titleTextField.text ?? "", self.bodyTextView.text ?? "") }
             .sink(receiveValue: model.action.tappedAddButton.send(_:))
             .store(in: &cancellables)
         
         model.state.addedCard
+            .receive(on: DispatchQueue.main)
             .sink { card in
-                self.delegate?.cardPopupView(self, addedCard: card)
+                self.delegate?.cardPopupView(self, addedCard: card, toIndex: 0)
                 self.dismiss(animated: false)
             }.store(in: &cancellables)
         
-        self.editButton.publisher(for: .touchUpInside)
+        editButton.publisher(for: .touchUpInside)
             .map { (self.titleTextField.text ?? "", self.bodyTextView.text ?? "") }
             .sink(receiveValue: model.action.tappedEditButton.send(_:))
             .store(in: &cancellables)
         
         model.state.editedCard
+            .receive(on: DispatchQueue.main)
             .sink { card in
                 self.delegate?.cardPopupView(self, editedCard: card)
                 self.dismiss(animated: false)
@@ -206,11 +211,11 @@ class CardPopupViewController: UIViewController {
     }
     
     private func attribute() {
-        self.view.backgroundColor = .black.withAlphaComponent(0.4)
+        view.backgroundColor = .black.withAlphaComponent(0.4)
     }
     
     private func layout() {
-        self.view.addSubview(popupBackgroundView)
+        view.addSubview(popupBackgroundView)
         popupBackgroundView.addSubview(popupTitleLabel)
         popupBackgroundView.addSubview(titleTextField)
         popupBackgroundView.addSubview(bodyTextView)
@@ -220,8 +225,8 @@ class CardPopupViewController: UIViewController {
         popupBackgroundView.addSubview(cancelButton)
         
         NSLayoutConstraint.activate([
-            popupBackgroundView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            popupBackgroundView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            popupBackgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popupBackgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             popupBackgroundView.widthAnchor.constraint(equalToConstant: 400),
             
             popupTitleLabel.topAnchor.constraint(equalTo: popupBackgroundView.topAnchor, constant: 16),
@@ -237,16 +242,16 @@ class CardPopupViewController: UIViewController {
             bodyTextView.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
             bodyTextView.heightAnchor.constraint(equalToConstant: 40),
             
-            maxBodyLengthLabel.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 8),
+            maxBodyLengthLabel.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 16),
             maxBodyLengthLabel.leadingAnchor.constraint(equalTo: popupBackgroundView.leadingAnchor, constant: 16),
-            maxBodyLengthLabel.trailingAnchor.constraint(equalTo: popupBackgroundView.trailingAnchor, constant: -16),
+            maxBodyLengthLabel.trailingAnchor.constraint(equalTo: cancelButton.leadingAnchor, constant: -16),
             
-            editButton.topAnchor.constraint(equalTo: maxBodyLengthLabel.bottomAnchor, constant: 16),
+            editButton.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 16),
             editButton.rightAnchor.constraint(equalTo: popupBackgroundView.rightAnchor, constant: -16),
             editButton.widthAnchor.constraint(equalToConstant: 108),
             editButton.heightAnchor.constraint(equalToConstant: 40),
             
-            confimButton.topAnchor.constraint(equalTo: maxBodyLengthLabel.bottomAnchor, constant: 16),
+            confimButton.topAnchor.constraint(equalTo: bodyTextView.bottomAnchor, constant: 16),
             confimButton.rightAnchor.constraint(equalTo: popupBackgroundView.rightAnchor, constant: -16),
             confimButton.widthAnchor.constraint(equalToConstant: 108),
             confimButton.heightAnchor.constraint(equalToConstant: 40),

@@ -5,13 +5,13 @@
 //  Created by seongha shin on 2022/04/05.
 //
 
-import Foundation
 import Combine
 
 protocol TodoRepository {
-    func loadColumn(_ columnType: Card.Column) -> AnyPublisher<Result<[Card], SessionError>, Never>
-    func moveCard(_ cardId: Int, from: Card.Column, to: Card.Column) -> AnyPublisher<Result<(Int, Card.Column), SessionError>, Never>
-    func deleteCard(_ cardId: Int) -> AnyPublisher<Result<Int, SessionError>, Never>
-    func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<Result<Card, SessionError>, Never>
-    func addCard(title: String, body: String, column: Card.Column) -> AnyPublisher<Result<Card, SessionError>, Never>
+    func loadColumns() -> AnyPublisher<ApiResult<Columns, SessionError>, Never>
+    func addCard(title: String, body: String, column: Column.ColumnType) -> AnyPublisher<ApiResult<Card, SessionError>, Never>
+    func moveCard(_ card: Card, from: Column.ColumnType, to: Column.ColumnType, index: Int) -> AnyPublisher<ApiResult<(Card, Column.ColumnType, Column.ColumnType, Int), SessionError>, Never>
+    func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<ApiResult<Card, SessionError>, Never>
+    func deleteCard(_ cardId: Int) -> AnyPublisher<ApiResult<Int, SessionError>, Never>
+    func loadLogs() -> AnyPublisher<ApiResult<[ActivityLog], SessionError>, Never>
 }

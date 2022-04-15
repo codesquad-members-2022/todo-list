@@ -8,50 +8,53 @@
 import Foundation
 
 enum TodoTarget: BaseTarget {
-    case loadColumn(_ column: Card.Column)
-    case moveCard(_ cardId: Int, fromColumn: Card.Column, toColumn: Card.Column)
+    case loadColumns
+    case moveCard(_ cardId: Int, toColumn: Column.ColumnType, toIndex: Int)
     case deleteCard(_ cardId: Int)
     case editCard(_ cardId: Int, title: String, body: String)
-    case addCard(title: String, body: String, column: Card.Column)
+    case addCard(title: String, body: String, column: Column.ColumnType, authorSystem: String)
+    case loadLogs
 }
 
 extension TodoTarget {
     var path: String {
         switch self {
-        case .loadColumn:
-            return "/loadColumn"
-        case .moveCard:
-            return "/moveCard"
-        case .deleteCard:
-            return "/deleteCard"
-        case .editCard:
-            return "/editCard"
-        case .addCard:
-            return "/addCard"
+        case .loadColumns, .addCard, .moveCard:
+            return "/cards"
+        case .deleteCard(let cardId):
+            return "/cards/\(cardId)"
+        case .editCard(let cardId, _, _):
+            return "/cards/\(cardId)"
+        case .loadLogs:
+            return "/logs"
         }
     }
     
     var parameter: [String:Any]? {
         switch self {
-        case .loadColumn(let column):
-            return ["column": column.rawValue]
-        case .addCard(let title, let body, let column):
-            return ["title": title, "content":body, "column":column.rawValue]
-        case .moveCard(let cardId, let fromColumn, let toColumn):
-            return ["id": cardId, "from_column": fromColumn.rawValue, "to_column": toColumn.rawValue]
-        case .editCard(let cardId, let title, let body):
-            return ["id": cardId, "title": title, "content":body]
-        case .deleteCard(let cardId):
-            return ["id": cardId]
+        case .loadColumns:
+            return nil
+        case .addCard(let title, let body, let column, let authorSystem):
+            return ["title": title, "content":body, "columnName":column.rawValue, "authorSystem": authorSystem]
+        case .moveCard(let cardId, let toColumn, let index):
+            return ["id": cardId, "newColumnName": toColumn.rawValue, "newOrderIndex": index]
+        case .editCard( _, let title, let body):
+            return ["title": title, "content":body]
+        case .deleteCard, .loadLogs:
+            return nil
         }
     }
     
     var method: String {
         switch self {
-        case .loadColumn:
+        case .loadColumns, .loadLogs:
             return "GET"
-        case .moveCard, .deleteCard, .editCard, .addCard:
+        case .moveCard, .editCard:
+            return "PUT"
+        case .addCard:
             return "POST"
+        case .deleteCard:
+            return "DELETE"
         }
     }
 }

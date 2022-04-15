@@ -5,8 +5,8 @@
 //  Created by seongha shin on 2022/03/31.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 extension UIControl {
     struct EventPublisher<T>: Publisher {

@@ -5,16 +5,14 @@
 //  Created by Joobang Lee on 2022/04/07.
 //
 
-import Foundation
 import UIKit
 
 class LogViewCell: UITableViewCell{
-
+    
     private let labelName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .blue
-        label.text = "@sam"
         return label
     }()
     
@@ -24,7 +22,6 @@ class LogViewCell: UITableViewCell{
         label.lineBreakStrategy = .hangulWordPriority
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.text = "해야할 일에 대한 정보 입력 및 데이터 테스트를 진행해봅니다."
         return label
     }()
     
@@ -32,7 +29,6 @@ class LogViewCell: UITableViewCell{
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
-        label.text = "1분전"
         return label
     }()
 
@@ -70,7 +66,13 @@ class LogViewCell: UITableViewCell{
             labelTime.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 72),
             labelTime.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            self.contentView.bottomAnchor.constraint(equalTo: labelTime.bottomAnchor, constant: 16)
+            contentView.bottomAnchor.constraint(equalTo: labelTime.bottomAnchor, constant: 16)
         ])
+    }
+    
+    func inputData(_ activityLog: ActivityLog){
+        labelName.text = activityLog.author
+        labelTime.text = activityLog.createdDate
+        labelContent.text = activityLog.text
     }
 }

@@ -5,7 +5,6 @@
 //  Created by seongha shin on 2022/04/04.
 //
 
-import Foundation
 import UIKit
 
 class ColumnViewCell: UITableViewCell {
@@ -56,12 +55,15 @@ class ColumnViewCell: UITableViewCell {
     }
     
     private func attribute() {
-        self.backgroundColor = .clear
-        self.selectionStyle = .none
+        backgroundColor = .clear
+        selectionStyle = .none
+        clipsToBounds = true
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
     }
     
     private func layout() {
-        let contentView = self.contentView
+        let contentView = contentView
         
         contentView.addSubview(cellBackgroundView)
         contentView.addSubview(titleLabel)
@@ -86,13 +88,13 @@ class ColumnViewCell: UITableViewCell {
             captionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             
             cellBackgroundView.bottomAnchor.constraint(equalTo: captionLabel.bottomAnchor, constant: 16),
-            contentView.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor, constant: 16)
+            contentView.bottomAnchor.constraint(equalTo: cellBackgroundView.bottomAnchor),
         ])
     }
     
     func setCard(_ card: Card) {
-        self.titleLabel.text = card.title
-        self.bodyLabel.text = card.body
-        self.captionLabel.text = card.caption
+        titleLabel.text = card.title
+        bodyLabel.text = card.content
+        captionLabel.text = "author by \(card.authorSystem)"
     }
 }

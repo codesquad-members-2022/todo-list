@@ -9,72 +9,39 @@ import Foundation
 import Combine
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
-    func loadColumn(_ column: Card.Column) -> AnyPublisher<Result<[Card], SessionError>, Never> {
-        self.request(.loadColumn(column), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success(let data):
-                    guard let cards = try? JSONDecoder().decode([Card].self, from: data) else {
-                        return .failure(.pasingError)
-                    }
-                    return .success(cards)
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+    func loadColumns() -> AnyPublisher<ApiResult<Columns, SessionError>, Never> {
+        request(.loadColumns)
+            .map { $0.decode(Columns.self) }
+            .eraseToAnyPublisher()
     }
     
-    func addCard(title: String, body: String, column: Card.Column) -> AnyPublisher<Result<Card, SessionError>, Never> {
-        self.request(.addCard(title: title, body: body, column: column), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success(let data):
-                    guard let card = try? JSONDecoder().decode(Card.self, from: data) else {
-                        return .failure(.pasingError)
-                    }
-                    return .success(card)
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+    func addCard(title: String, body: String, column: Column.ColumnType) -> AnyPublisher<ApiResult<Card, SessionError>, Never> {
+        request(.addCard(title: title, body: body, column: column, authorSystem: "iOS"))
+            .map { $0.decode(Card.self) }
+            .eraseToAnyPublisher()
     }
     
-    func moveCard(_ cardId: Int, from: Card.Column, to: Card.Column) -> AnyPublisher<Result<(Int, Card.Column), SessionError>, Never> {
-        self.request(.moveCard(cardId, fromColumn: from, toColumn: to), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success:
-                    return .success((cardId, to))
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+    func moveCard(_ card: Card, from: Column.ColumnType, to: Column.ColumnType, index: Int) -> AnyPublisher<ApiResult<(Card, Column.ColumnType, Column.ColumnType, Int), SessionError>, Never> {
+        request(.moveCard(card.id, toColumn: to, toIndex: index))
+            .map { result in result.mapValue((card, from, to, index)) }
+            .eraseToAnyPublisher()
     }
     
-    func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<Result<Card, SessionError>, Never> {
-        self.request(.editCard(cardId, title: title, body: body), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success(let data):
-                    guard let card = try? JSONDecoder().decode(Card.self, from: data) else {
-                        return .failure(.pasingError)
-                    }
-                    return .success(card)
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+    func editCard(_ cardId: Int, title: String, body: String) -> AnyPublisher<ApiResult<Card, SessionError>, Never> {
+        request(.editCard(cardId, title: title, body: body))
+            .map { $0.decode(Card.self) }
+            .eraseToAnyPublisher()
     }
     
-    func deleteCard(_ cardId: Int) -> AnyPublisher<Result<Int, SessionError>, Never> {
-        self.request(.deleteCard(cardId), isSucccess: true)
-            .map { result in
-                switch result {
-                case .success:
-                    return .success(cardId)
-                case .failure(let error):
-                    return .failure(error)
-                }
-            }.eraseToAnyPublisher()
+    func deleteCard(_ cardId: Int) -> AnyPublisher<ApiResult<Int, SessionError>, Never> {
+        request(.deleteCard(cardId))
+            .map { result in result.mapValue(cardId) }
+            .eraseToAnyPublisher()
+    }
+    
+    func loadLogs() -> AnyPublisher<ApiResult<[ActivityLog], SessionError>, Never> {
+        request(.loadLogs)
+            .map { $0.decode([ActivityLog].self) }
+            .eraseToAnyPublisher()
     }
 }

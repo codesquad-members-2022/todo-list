@@ -5,7 +5,6 @@
 //  Created by seongha shin on 2022/04/04.
 //
 
-import Foundation
 import UIKit
 import Combine
 
@@ -15,14 +14,6 @@ class MainViewController: UIViewController {
         let titleBarView = MainTitleBarView()
         titleBarView.translatesAutoresizingMaskIntoConstraints = false
         return titleBarView
-    }()
-    
-    private let columnTableViews: [ColumnViewProperty&ColumnViewInput] = {
-        return [
-            ColumnViewController(model: ColumnViewModel(columnType: .todo)),
-            ColumnViewController(model: ColumnViewModel(columnType: .progress)),
-            ColumnViewController(model: ColumnViewModel(columnType: .done))
-        ]
     }()
     
     private let logViewController: LogViewController = {
@@ -39,24 +30,56 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
+    private var columnTableViews: [Column.ColumnType:ColumnViewControllerProtocol] = [:]
+    
     private var cancellables = Set<AnyCancellable>()
+    private let model: MainViewModelProtocol = MainViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
         attribute()
         layout()
+        
+        model.action.loadColumns.send()
     }
     
     private func bind() {
-        columnTableViews.forEach{ value in
-            value.controller.delegate = self
-        }
-        
-        self.titleBar.menuPublisher
+        model.state.loadedColumns
+            .receive(on: DispatchQueue.main)
+            .sink{ models in
+                models.forEach { model in
+                    let viewController = ColumnViewController(model: model)
+                    viewController.delegate = self
+                    viewController.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
+                    self.embed(viewController)
+                    self.columnStackView.addArrangedSubview(viewController.view)
+                    self.columnTableViews[model.columnType] = viewController
+                }
+                self.columnStackView.addArrangedSubview(UIView())
+            }
+            .store(in: &cancellables)
+                
+        titleBar.menuPublisher
             .sink {
                 self.logViewController.view.isHidden = false
             }.store(in: &cancellables)
+        
+        model.state.movedCard
+            .sink { card, from, to, row in
+                guard let fromColumn = self.columnTableViews[from],
+                      let toColumn = self.columnTableViews[to] else {
+                    return
+                }
+                
+                if from == to {
+                    fromColumn.moveCard(card, toRow: row)
+                } else {
+                    fromColumn.deleteCard(card)
+                    toColumn.addCard(card, at: row)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func attribute() {
@@ -64,13 +87,13 @@ class MainViewController: UIViewController {
     }
     
     private func layout() {
-        let safeArea = self.view.safeAreaLayoutGuide
+        let safeArea = view.safeAreaLayoutGuide
 
-        self.embed(logViewController)
+        embed(logViewController)
         
-        self.view.addSubview(titleBar.view)
-        self.view.addSubview(columnStackView)
-        self.view.addSubview(logViewController.view)
+        view.addSubview(titleBar.view)
+        view.addSubview(columnStackView)
+        view.addSubview(logViewController.view)
         
         NSLayoutConstraint.activate([
             titleBar.view.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -88,18 +111,15 @@ class MainViewController: UIViewController {
             logViewController.view.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
             logViewController.view.widthAnchor.constraint(equalToConstant: 428)
         ])
-        
-        columnTableViews.forEach {
-            self.embed($0.controller)
-            $0.controller.view.widthAnchor.constraint(equalToConstant: 256).isActive = true
-            columnStackView.addArrangedSubview($0.controller.view)
-        }
-        columnStackView.addArrangedSubview(UIView())
     }
 }
 
 extension MainViewController: ColumnViewDelegate {
-    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Column) {
-        self.columnTableViews[toColumn.index].addCard(fromCard)
+    func columnView(_ columnView: ColumnViewController, dragCard: DragCard, toColumn: Column.ColumnType, toRow: Int) {
+        model.action.moveCard.send((dragCard, toColumn, toRow))
+    }
+    
+    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Column.ColumnType) {
+        columnTableViews[toColumn]?.addCard(fromCard, at: 0)
     }
 }

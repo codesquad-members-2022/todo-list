@@ -5,23 +5,23 @@
 //  Created by seongha shin on 2022/04/04.
 //
 
-import Foundation
-import UIKit
 import Combine
+import UIKit
 
 protocol ColumnViewDelegate {
-    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Card.Column)
-}
-
-protocol ColumnViewProperty {
-    var controller: ColumnViewController { get }
+    func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Column.ColumnType)
+    func columnView(_ columnView: ColumnViewController, dragCard: DragCard, toColumn: Column.ColumnType, toRow: Int)
 }
 
 protocol ColumnViewInput {
-    func addCard(_ card: Card)
+    func addCard(_ card: Card, at toIndex: Int)
+    func moveCard(_ card: Card, toRow: Int)
+    func deleteCard(_ card: Card)
 }
 
-class ColumnViewController: UIViewController, ColumnViewProperty {
+typealias ColumnViewControllerProtocol = UIViewController & ColumnViewInput
+
+class ColumnViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -63,21 +63,17 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    private let model: (ColumnViewModelBinding & ColumnViewModelProperty)?
-    
-    var controller: ColumnViewController {
-        self
-    }
+    private let model: ColumnViewModelProtocol
     
     var delegate: ColumnViewDelegate?
     
-    init(model: ColumnViewModelBinding & ColumnViewModelProperty) {
+    init(model: ColumnViewModelProtocol) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
-        self.model = nil
+        self.model = ColumnViewModel(column: Column(type: .todo, cards: []))
         super.init(coder: coder)
     }
     
@@ -86,16 +82,16 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
         bind()
         layout()
         
-        model?.action.loadColumn.send()
+        model.action.viewDidLoad.send()
     }
     
     private func bind() {
         cardTableView.delegate = self
         cardTableView.dataSource = self
         
-        guard let model = self.model else {
-            return
-        }
+        cardTableView.dragInteractionEnabled = true
+        cardTableView.dragDelegate = self
+        cardTableView.dropDelegate = self
         
         addButton.publisher(for: .touchUpInside)
             .sink(receiveValue: model.action.tappedAddButton.send(_:))
@@ -106,98 +102,165 @@ class ColumnViewController: UIViewController, ColumnViewProperty {
             .store(in: &cancellables)
         
         model.state.loadedColumn
-            .sink { count, colunm in
+            .sink { colunm in
                 self.titleLabel.text = colunm.titleName
-                self.countLabel.text = String(count)
+                self.countLabel.text = String(self.model.cardCount)
                 self.cardTableView.reloadData()
             }.store(in: &cancellables)
         
         model.state.insertedCard
+            .receive(on: DispatchQueue.main)
             .sink {
-                self.cardTableView.insertRows(at: [IndexPath(item: $0, section: 0)], with: .none)
-                self.countLabel.text = String(model.cardCount)
+                self.cardTableView.insertSections(IndexSet(integer: $0), with: .none)
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         model.state.deletedCard
+            .receive(on: DispatchQueue.main)
             .sink {
-                self.cardTableView.deleteRows(at: [IndexPath(item: $0, section: 0)], with: .none)
-                self.countLabel.text = String(model.cardCount)
+                self.cardTableView.deleteSections(IndexSet(integer: $0), with: .none)
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
-        model.state.movedCard
+        model.state.movedColumn
+            .receive(on: DispatchQueue.main)
             .sink { card, toColumn in
                 self.delegate?.columnView(self, fromCard: card, toColumn: toColumn)
-                self.countLabel.text = String(model.cardCount)
+                self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
         model.state.reloadCard
+            .receive(on: DispatchQueue.main)
             .sink {
-                self.cardTableView.reloadRows(at: [IndexPath(item: $0, section: 0)], with: .none)
+                self.cardTableView.reloadRows(at: [IndexPath(item: 0, section: $0)], with: .none)
             }.store(in: &cancellables)
+        
+        model.state.movedCard
+            .sink { from, to in
+                self.cardTableView.moveSection(from, toSection: to)
+            }
+            .store(in: &cancellables)
     }
     
     private func layout() {
-        self.view.addSubview(titleLabel)
-        self.view.addSubview(countLabel)
-        self.view.addSubview(addButton)
-        self.view.addSubview(cardTableView)
+        view.addSubview(titleLabel)
+        view.addSubview(countLabel)
+        view.addSubview(addButton)
+        view.addSubview(cardTableView)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor),
-            titleLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
             
             countLabel.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8),
             countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             countLabel.heightAnchor.constraint(equalToConstant: 26),
             
             addButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            addButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -8),
+            addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
             addButton.widthAnchor.constraint(equalToConstant: 24),
             addButton.heightAnchor.constraint(equalToConstant: 24),
             
             cardTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-            cardTableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            cardTableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            cardTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -10)
-
+            cardTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            cardTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            cardTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -10)
         ])
     }
     
     private func showCardPopup(_ popupData: CardPopupData) {
         let popup = CardPopupViewController(model: CardPopupViewModel(popupData: popupData) )
         popup.modalPresentationStyle = .overCurrentContext
-        self.present(popup, animated: false)
+        present(popup, animated: false)
         popup.delegate = self
     }
 }
 
+extension ColumnViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let card = model[indexPath.section] else {
+            return []
+        }
+        return [UIDragItem(itemProvider: NSItemProvider(object: DragCard(card: card, fromColumn: self.model.columnType)))]
+    }
+}
+
+extension ColumnViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        session.canLoadObjects(ofClass: DragCard.self)
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        guard session.items.count == 1 else { return UITableViewDropProposal(operation: .cancel) }
+        return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        var destinationIndexPath = IndexPath(row: 0, section: 0)
+        if let indexpath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexpath
+        }
+        
+        coordinator.session.loadObjects(ofClass: DragCard.self) { items in
+            let dragCards = items.compactMap{ $0 as? DragCard }
+            
+            dragCards.forEach { dragCard in
+                self.delegate?.columnView(self, dragCard: dragCard, toColumn: self.model.columnType, toRow: destinationIndexPath.section + destinationIndexPath.item)
+            }
+        }
+    }
+}
+
 extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        model.cardCount
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.model?.cardCount ?? 0
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        16
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        " "
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ColumnViewCell") as? ColumnViewCell,
-              let card = self.model?[indexPath.item] else {
+              let card = model[indexPath.section] else {
             return UITableViewCell()
         }
         cell.setCard(card)
         return cell
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "삭제") { [weak self] action, view, completionHandler in
+            self?.model.action.tappedDeleteButton.send(indexPath.section)
+            completionHandler(true)
+        }
+        let config = UISwipeActionsConfiguration(actions: [action])
+        config.performsFirstActionWithFullSwipe = false
+
+        return config
+    }
+    
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
             let moveDone = UIAction(title: "완료한 일로 이동") { _ in
-                self.model?.action.tappedMoveCardButton.send(indexPath.item)
+                self?.model.action.tappedMoveDoneColumnButton.send(indexPath.section)
             }
             
             let edit = UIAction(title: "수정하기") { _ in
-                self.model?.action.tappedEditButton.send(indexPath.item)
+                self?.model.action.tappedEditButton.send(indexPath.section)
             }
             
             let delete = UIAction(title: "삭제하기", attributes: .destructive) { _ in
-                self.model?.action.tappedDeleteButton.send(indexPath.item)
+                self?.model.action.tappedDeleteButton.send(indexPath.section)
             }
             return UIMenu(title: "", children: [moveDone, edit, delete])
         }
@@ -205,17 +268,38 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ColumnViewController: ColumnViewInput {
-    func addCard(_ card: Card) {
-        self.model?.action.addCard.send(card)
+    func moveCard(_ card: Card, toRow: Int) {
+        model.action.moveCard.send((card, toRow))
+    }
+    
+    func deleteCard(_ card: Card) {
+        model.action.deleteCard.send(card)
+    }
+    
+    func addCard(_ card: Card, at toIndex: Int) {
+        model.action.addCard.send((card, toIndex))
     }
 }
 
 extension ColumnViewController: CardPopupViewDeletegate {
-    func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card) {
-        self.model?.action.editCard.send(editedCard)
+    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card, toIndex: Int) {
+        model.action.addCard.send((addedCard, toIndex))
     }
     
-    func cardPopupView(_ cardPopupView: CardPopupViewController, addedCard: Card) {
-        self.model?.action.addCard.send(addedCard)
+    func cardPopupView(_ cardPopupView: CardPopupViewController, editedCard: Card) {
+        model.action.editCard.send(editedCard)
+    }
+}
+
+extension Column.ColumnType {
+    var titleName: String {
+        switch self {
+        case .todo:
+            return "해야할 일"
+        case .progress:
+            return "하고 있는 일"
+        case .done:
+            return "완료한 일"
+        }
     }
 }

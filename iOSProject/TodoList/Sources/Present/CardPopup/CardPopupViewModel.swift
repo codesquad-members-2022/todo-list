@@ -5,55 +5,70 @@
 //  Created by seongha shin on 2022/04/06.
 //
 
-import Foundation
 import Combine
 
 protocol CardPopupViewModelBinding {
-    var action: CardPopupViewModel.Action { get }
-    var state: CardPopupViewModel.State { get }
+    var action: CardPopupViewModelAction { get }
+    var state: CardPopupViewModelState { get }
+}
+
+struct CardPopupViewModelAction {
+    let loadModel = PassthroughSubject<Void, Never>()
+    let changeText = PassthroughSubject<(String, String), Never>()
+    
+    let tappedAddButton = PassthroughSubject<(String, String), Never>()
+    let tappedEditButton = PassthroughSubject<(String, String), Never>()
+}
+
+struct CardPopupViewModelState {
+    let loadedModel = PassthroughSubject<CardPopupData, Never>()
+    let isEnableButton = PassthroughSubject<Bool, Never>()
+    
+    let addedCard = PassthroughSubject<Card, Never>()
+    let editedCard = PassthroughSubject<Card, Never>()
 }
 
 struct CardPopupData {
     let id: Int?
     let title: String
     let body: String
-    let column: Card.Column
+    let column: Column.ColumnType
+    
+    init(card: Card, columnType: Column.ColumnType) {
+        id = card.id
+        title = card.title
+        body = card.content
+        column = columnType
+    }
+    
+    init(columnType: Column.ColumnType) {
+        id = nil
+        title = ""
+        body = ""
+        column = columnType
+    }
 }
 
-class CardPopupViewModel: CardPopupViewModelBinding {
-    struct Action {
-        let loadModel = PassthroughSubject<Void, Never>()
-        let changeText = PassthroughSubject<(String, String), Never>()
-        
-        let tappedAddButton = PassthroughSubject<(String, String), Never>()
-        let tappedEditButton = PassthroughSubject<(String, String), Never>()
-    }
-    
-    struct State {
-        let loadedModel = PassthroughSubject<CardPopupData, Never>()
-        let isEnableButton = PassthroughSubject<Bool, Never>()
-        
-        let addedCard = PassthroughSubject<Card, Never>()
-        let editedCard = PassthroughSubject<Card, Never>()
-    }
-    
+typealias CardPopupViewModelProtocol = CardPopupViewModelBinding
+
+final class CardPopupViewModel: CardPopupViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
     
     private let popupData: CardPopupData
     
-    let action = Action()
-    let state = State()
+    let action = CardPopupViewModelAction()
+    let state = CardPopupViewModelState()
     
     init(popupData: CardPopupData) {
         self.popupData = popupData
         
-        self.action.loadModel
+        action.loadModel
             .map{ self.popupData }
             .sink(receiveValue: self.state.loadedModel.send(_:))
             .store(in: &cancellables)
         
-        self.action.changeText
+        action.changeText
             .map { title, body in
                 let equalBaseText = self.popupData.title == title && self.popupData.body == body
                 let isEmpty = title.isEmpty || body.isEmpty
@@ -62,32 +77,37 @@ class CardPopupViewModel: CardPopupViewModelBinding {
             .sink(receiveValue: self.state.isEnableButton.send(_:))
             .store(in: &cancellables)
         
-        self.action.tappedAddButton
-            .map { self.todoRepository.addCard(title: $0, body: $1, column: self.popupData.column) }
+        let requestAddCard = action.tappedAddButton
+            .map { title, body in self.todoRepository.addCard(title: title, body: body, column: self.popupData.column) }
             .switchToLatest()
-            .sink {
-                switch $0 {
-                case .success(let card):
-                    self.state.addedCard.send(card)
-                case .failure(let error):
-                    print(error)
-                }
-            }.store(in: &cancellables)
+            .share()
         
-        self.action.tappedEditButton
-            .compactMap{
+        requestAddCard
+            .compactMap{ $0.value}
+            .sink(receiveValue: state.addedCard.send(_:))
+            .store(in: &cancellables)
+        
+        let requestEditCard = action.tappedEditButton
+            .compactMap{ title, body in
                 guard let id = self.popupData.id else { return nil }
-                return (id, $0, $1)
+                return (id, title, body)
             }
             .map { self.todoRepository.editCard($0, title: $1, body: $2) }
             .switchToLatest()
-            .sink {
-                switch $0 {
-                case .success(let card):
-                    self.state.editedCard.send(card)
-                case .failure(let error):
-                    print(error)
-                }
+            .share()
+        
+        requestEditCard
+            .compactMap{ $0.value}
+            .sink(receiveValue: state.editedCard.send(_:))
+            .store(in: &cancellables)
+        
+        Publishers
+            .Merge(
+                requestAddCard.compactMap{ $0.error },
+                requestEditCard.compactMap{ $0.error }
+            )
+            .sink { error in
+                
             }.store(in: &cancellables)
     }
 }

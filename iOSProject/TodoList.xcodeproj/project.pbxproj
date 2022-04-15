@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		378533AC27FEB45400E86BDC /* LogViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378533AB27FEB45400E86BDC /* LogViewCell.swift */; };
+		37EB0091280855E4004282EA /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EB0090280855E4004282EA /* LogViewModel.swift */; };
+		E041D6A628083FEC00A9A419 /* MockLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E041D6A528083FEC00A9A419 /* MockLog.swift */; };
 		E0A6BAE127FB1F9F00F00575 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAE027FB1F9F00F00575 /* MainViewController.swift */; };
 		E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAE727FB20DE00F00575 /* MainTitleBarView.swift */; };
 		E0A6BAED27FB255300F00575 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BAEA27FB255300F00575 /* Date+Extension.swift */; };
@@ -35,6 +37,15 @@
 		E0A6BB2527FD9E6400F00575 /* CardPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */; };
 		E0A6BB2A27FE91B100F00575 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2927FE91B100F00575 /* LogViewController.swift */; };
 		E0A6BB2F27FEF2A400F00575 /* MockDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB2E27FEF2A400F00575 /* MockDatabase.swift */; };
+		E0A6BB332800437100F00575 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB322800437100F00575 /* NetworkResult.swift */; };
+		E0A6BB35280166E700F00575 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB34280166E700F00575 /* MainViewModel.swift */; };
+		E0A6BB372801682700F00575 /* Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB362801682700F00575 /* Columns.swift */; };
+		E0A6BB3A28016BA200F00575 /* MockCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB3928016BA200F00575 /* MockCard.swift */; };
+		E0A6BB432801BB6B00F00575 /* ClientColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB422801BB6B00F00575 /* ClientColumn.swift */; };
+		E0A6BB452801BB7900F00575 /* ClientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB442801BB7900F00575 /* ClientCard.swift */; };
+		E0A6BB472801BBB900F00575 /* RequestParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB462801BBB900F00575 /* RequestParser.swift */; };
+		E0A6BB4E2803C9F600F00575 /* DragCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB4D2803C9F600F00575 /* DragCard.swift */; };
+		E0A6BB502806AF9300F00575 /* ActivityLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A6BB4F2806AF9300F00575 /* ActivityLog.swift */; };
 		E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */; };
 		E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */; };
 		E0BE4C2B27FAAF6F0076403C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0BE4C2A27FAAF6F0076403C /* Assets.xcassets */; };
@@ -42,6 +53,8 @@
 
 /* Begin PBXFileReference section */
 		378533AB27FEB45400E86BDC /* LogViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewCell.swift; sourceTree = "<group>"; };
+		37EB0090280855E4004282EA /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
+		E041D6A528083FEC00A9A419 /* MockLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLog.swift; sourceTree = "<group>"; };
 		E0A6BAE027FB1F9F00F00575 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E0A6BAE727FB20DE00F00575 /* MainTitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleBarView.swift; sourceTree = "<group>"; };
 		E0A6BAEA27FB255300F00575 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -69,6 +82,15 @@
 		E0A6BB2427FD9E6400F00575 /* CardPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPopupViewModel.swift; sourceTree = "<group>"; };
 		E0A6BB2927FE91B100F00575 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		E0A6BB2E27FEF2A400F00575 /* MockDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDatabase.swift; sourceTree = "<group>"; };
+		E0A6BB322800437100F00575 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		E0A6BB34280166E700F00575 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		E0A6BB362801682700F00575 /* Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Columns.swift; sourceTree = "<group>"; };
+		E0A6BB3928016BA200F00575 /* MockCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCard.swift; sourceTree = "<group>"; };
+		E0A6BB422801BB6B00F00575 /* ClientColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientColumn.swift; sourceTree = "<group>"; };
+		E0A6BB442801BB7900F00575 /* ClientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCard.swift; sourceTree = "<group>"; };
+		E0A6BB462801BBB900F00575 /* RequestParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParser.swift; sourceTree = "<group>"; };
+		E0A6BB4D2803C9F600F00575 /* DragCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragCard.swift; sourceTree = "<group>"; };
+		E0A6BB4F2806AF9300F00575 /* ActivityLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLog.swift; sourceTree = "<group>"; };
 		E0BE4C1E27FAAF6E0076403C /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BE4C2127FAAF6E0076403C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0BE4C2327FAAF6E0076403C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +114,7 @@
 			children = (
 				E0A6BAE627FB20CE00F00575 /* View */,
 				E0A6BAE027FB1F9F00F00575 /* MainViewController.swift */,
+				E0A6BB34280166E700F00575 /* MainViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -107,6 +130,7 @@
 		E0A6BAEF27FB28B700F00575 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				E0A6BB4C2803C9E500F00575 /* Model */,
 				E0A6BAF827FB3DC700F00575 /* View */,
 				E0A6BAF027FB28CE00F00575 /* ColumnViewController.swift */,
 				E0A6BAF227FB292900F00575 /* ColumnViewModel.swift */,
@@ -134,7 +158,6 @@
 		E0A6BB1C27FD210A00F00575 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				E0A6BB3027FEF2C000F00575 /* Mock */,
 				E0A6BB2127FD214E00F00575 /* SessionError.swift */,
 				E0A6BB1F27FD213700F00575 /* URLSessionProtocol.swift */,
 				E0A6BB1D27FD211C00F00575 /* URLSessionProvider.swift */,
@@ -156,17 +179,47 @@
 			children = (
 				E0A6BB2927FE91B100F00575 /* LogViewController.swift */,
 				378533AB27FEB45400E86BDC /* LogViewCell.swift */,
+				37EB0090280855E4004282EA /* LogViewModel.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
 		};
-		E0A6BB3027FEF2C000F00575 /* Mock */ = {
+		E0A6BB312800432D00F00575 /* MockNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				E0A6BB412801BB5B00F00575 /* ClientModel */,
+				E0A6BB3828016B9500F00575 /* MockModel */,
 				E0A6BB2E27FEF2A400F00575 /* MockDatabase.swift */,
 				E0A6BB1A27FC85D400F00575 /* MockURLSession.swift */,
 			);
-			path = Mock;
+			path = MockNetwork;
+			sourceTree = "<group>";
+		};
+		E0A6BB3828016B9500F00575 /* MockModel */ = {
+			isa = PBXGroup;
+			children = (
+				E0A6BB3928016BA200F00575 /* MockCard.swift */,
+				E0A6BB462801BBB900F00575 /* RequestParser.swift */,
+				E041D6A528083FEC00A9A419 /* MockLog.swift */,
+			);
+			path = MockModel;
+			sourceTree = "<group>";
+		};
+		E0A6BB412801BB5B00F00575 /* ClientModel */ = {
+			isa = PBXGroup;
+			children = (
+				E0A6BB422801BB6B00F00575 /* ClientColumn.swift */,
+				E0A6BB442801BB7900F00575 /* ClientCard.swift */,
+			);
+			path = ClientModel;
+			sourceTree = "<group>";
+		};
+		E0A6BB4C2803C9E500F00575 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E0A6BB4D2803C9F600F00575 /* DragCard.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		E0BE4C1527FAAF6E0076403C = {
@@ -198,6 +251,7 @@
 		E0BE4C3527FAAF9D0076403C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E0A6BB312800432D00F00575 /* MockNetwork */,
 				E0BE4C3D27FAB0090076403C /* Model */,
 				E0BE4C3C27FAB0020076403C /* API */,
 				E0BE4C3B27FAAFFB0076403C /* Repository */,
@@ -272,6 +326,7 @@
 		E0BE4C3C27FAB0020076403C /* API */ = {
 			isa = PBXGroup;
 			children = (
+				E0A6BB322800437100F00575 /* NetworkResult.swift */,
 				E0A6BB0327FBD49D00F00575 /* BaseTarget.swift */,
 				E0A6BB0A27FBD63F00F00575 /* TodoTarget.swift */,
 			);
@@ -282,6 +337,8 @@
 			isa = PBXGroup;
 			children = (
 				E0A6BAFD27FBD3AF00F00575 /* Card.swift */,
+				E0A6BB362801682700F00575 /* Columns.swift */,
+				E0A6BB4F2806AF9300F00575 /* ActivityLog.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -362,29 +419,40 @@
 				E0A6BB1327FC309400F00575 /* UITextFieldView+Extension.swift in Sources */,
 				E0A6BB1727FC37B900F00575 /* PlaceholderTextView.swift in Sources */,
 				E0A6BAFA27FB3DE300F00575 /* ColumnViewCell.swift in Sources */,
+				E0A6BB372801682700F00575 /* Columns.swift in Sources */,
 				E0A6BAF127FB28CE00F00575 /* ColumnViewController.swift in Sources */,
 				E0A6BAFC27FBCD5800F00575 /* UiViewController+Extension.swift in Sources */,
 				E0A6BB0627FBD4BE00F00575 /* TodoRepository.swift in Sources */,
+				37EB0091280855E4004282EA /* LogViewModel.swift in Sources */,
 				E0A6BAF527FB325800F00575 /* UIColor+Extension.swift in Sources */,
 				E0A6BAE827FB20DE00F00575 /* MainTitleBarView.swift in Sources */,
+				E0A6BB452801BB7900F00575 /* ClientCard.swift in Sources */,
 				E0BE4C2227FAAF6E0076403C /* AppDelegate.swift in Sources */,
 				E0A6BB1E27FD211C00F00575 /* URLSessionProvider.swift in Sources */,
+				E0A6BB3A28016BA200F00575 /* MockCard.swift in Sources */,
+				E0A6BB472801BBB900F00575 /* RequestParser.swift in Sources */,
 				E0A6BB2527FD9E6400F00575 /* CardPopupViewModel.swift in Sources */,
 				E0A6BB2F27FEF2A400F00575 /* MockDatabase.swift in Sources */,
 				E0A6BB1B27FC85D400F00575 /* MockURLSession.swift in Sources */,
+				E0A6BB4E2803C9F600F00575 /* DragCard.swift in Sources */,
 				378533AC27FEB45400E86BDC /* LogViewCell.swift in Sources */,
+				E0A6BB502806AF9300F00575 /* ActivityLog.swift in Sources */,
 				E0A6BAEE27FB255300F00575 /* UIConrtol+Extension.swift in Sources */,
 				E0A6BB0B27FBD63F00F00575 /* TodoTarget.swift in Sources */,
 				E0A6BAED27FB255300F00575 /* Date+Extension.swift in Sources */,
 				E0A6BB2A27FE91B100F00575 /* LogViewController.swift in Sources */,
+				E041D6A628083FEC00A9A419 /* MockLog.swift in Sources */,
 				E0BE4C2427FAAF6E0076403C /* SceneDelegate.swift in Sources */,
 				E0A6BAF727FB3C0B00F00575 /* PaddingLabel.swift in Sources */,
 				E0A6BAF327FB292900F00575 /* ColumnViewModel.swift in Sources */,
 				E0A6BAE127FB1F9F00F00575 /* MainViewController.swift in Sources */,
 				E0A6BB0427FBD49D00F00575 /* BaseTarget.swift in Sources */,
+				E0A6BB432801BB6B00F00575 /* ClientColumn.swift in Sources */,
+				E0A6BB332800437100F00575 /* NetworkResult.swift in Sources */,
 				E0A6BB1927FC3DA700F00575 /* UITextView+Extension.swift in Sources */,
 				E0A6BB0927FBD5FE00F00575 /* TodoRepositoryImpl.swift in Sources */,
 				E0A6BAFE27FBD3AF00F00575 /* Card.swift in Sources */,
+				E0A6BB35280166E700F00575 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,7 +583,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -528,12 +596,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.team14.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -545,7 +613,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TodoList/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -558,12 +626,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.team14.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

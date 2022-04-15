@@ -5,7 +5,6 @@
 //  Created by seongha shin on 2022/04/04.
 //
 
-import Foundation
 import UIKit
 import Combine
 
@@ -54,14 +53,17 @@ class MainTitleBarView: UIView, MainTitleBar {
     }
     
     private func layout() {
-        self.addSubview(titleLabel)
-        titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 48).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        addSubview(titleLabel)
+        addSubview(menu)
         
-        self.addSubview(menu)
-        menu.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -37).isActive = true
-        menu.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        menu.widthAnchor.constraint(equalToConstant: 46).isActive = true
-        menu.heightAnchor.constraint(equalToConstant: 46).isActive = true
+        NSLayoutConstraint.activate([
+            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 48),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            menu.rightAnchor.constraint(equalTo: rightAnchor, constant: -37),
+            menu.centerYAnchor.constraint(equalTo: centerYAnchor),
+            menu.widthAnchor.constraint(equalToConstant: 46),
+            menu.heightAnchor.constraint(equalToConstant: 46)
+        ])
     }
 }

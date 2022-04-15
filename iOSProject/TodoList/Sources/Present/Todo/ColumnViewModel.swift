@@ -5,139 +5,157 @@
 //  Created by seongha shin on 2022/04/04.
 //
 
-import Foundation
 import Combine
-import UIKit
+
+struct ColumnViewModelAction {
+    let viewDidLoad = PassthroughSubject<Void, Never>()
+    let tappedAddButton = PassthroughSubject<Void, Never>()
+    let tappedMoveDoneColumnButton = PassthroughSubject<Int, Never>()
+    let tappedEditButton = PassthroughSubject<Int, Never>()
+    let tappedDeleteButton = PassthroughSubject<Int, Never>()
+    
+    let addCard = PassthroughSubject<(Card, Int), Never>()
+    let moveCard = PassthroughSubject<(Card, Int), Never>()
+    let deleteCard = PassthroughSubject<Card, Never>()
+    let editCard = PassthroughSubject<Card, Never>()
+}
+
+struct ColumnViewModelState {
+    let loadedColumn = PassthroughSubject<Column.ColumnType, Never>()
+    let insertedCard = PassthroughSubject<Int, Never>()
+    let movedColumn = PassthroughSubject<(Card, Column.ColumnType), Never>()
+    let deletedCard = PassthroughSubject<Int, Never>()
+    let reloadCard = PassthroughSubject<Int, Never>()
+    let movedCard = PassthroughSubject<(Int, Int), Never>()
+    let showCardPopup = PassthroughSubject<CardPopupData, Never>()
+}
 
 protocol ColumnViewModelBinding {
-    var action: ColumnViewModel.Action { get }
-    var state: ColumnViewModel.State { get }
+    var action: ColumnViewModelAction { get }
+    var state: ColumnViewModelState { get }
 }
 
 protocol ColumnViewModelProperty {
     subscript(index: Int) -> Card? { get }
     var cardCount: Int { get }
+    var columnType: Column.ColumnType { get }
 }
 
-class ColumnViewModel: ColumnViewModelBinding, ColumnViewModelProperty {
-    struct Action {
-        let loadColumn = PassthroughSubject<Void, Never>()
-        let tappedAddButton = PassthroughSubject<Void, Never>()
-        let tappedMoveCardButton = PassthroughSubject<Int, Never>()
-        let tappedEditButton = PassthroughSubject<Int, Never>()
-        let tappedDeleteButton = PassthroughSubject<Int, Never>()
-        
-        let addCard = PassthroughSubject<Card, Never>()
-        let editCard = PassthroughSubject<Card, Never>()
-    }
-    
-    struct State {
-        let loadedColumn = PassthroughSubject<(Int, Card.Column), Never>()
-        let insertedCard = PassthroughSubject<Int, Never>()
-        let movedCard = PassthroughSubject<(Card, Card.Column), Never>()
-        let deletedCard = PassthroughSubject<Int, Never>()
-        let reloadCard = PassthroughSubject<Int, Never>()
-        
-        let showCardPopup = PassthroughSubject<CardPopupData, Never>()
-    }
-    
+typealias ColumnViewModelProtocol = ColumnViewModelBinding & ColumnViewModelProperty
+
+final class ColumnViewModel: ColumnViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
-    private var sortIds: [Int] = []
-    private var cards: [Int:Card] = [:]
-    private let columnType: Card.Column
+    private var cards: [Card]
+    let columnType: Column.ColumnType
     
-    let action = Action()
-    let state = State()
+    let action = ColumnViewModelAction()
+    let state = ColumnViewModelState()
     
     var cardCount: Int {
         cards.count
     }
     
     subscript(index: Int) -> Card? {
-        cards[sortIds[index]]
+        cards[index]
     }
     
-    init(columnType: Card.Column) {
-        self.columnType = columnType
+    init(column: Column) {
+        columnType = column.type
+        cards = column.cards
         
-        action.loadColumn
-            .map { _ in self.todoRepository.loadColumn(columnType) }
-            .switchToLatest()
+        action.viewDidLoad
             .sink {
-                switch $0 {
-                case .success(let column):
-                    self.sortIds = column.map{ $0.id }
-                    self.cards = column.reduce(into: [Int:Card]()) { $0[$1.id] = $1}
-                    self.state.loadedColumn.send((self.cards.count, self.columnType))
-                case .failure(let error):
-                    print(error)
-                }
+                self.state.loadedColumn.send(self.columnType)
             }.store(in: &cancellables)
         
         action.tappedAddButton
-            .map { CardPopupData(id: nil, title: "", body: "", column: self.columnType) }
+            .map { CardPopupData(columnType: self.columnType) }
             .sink(receiveValue: self.state.showCardPopup.send(_:))
             .store(in: &cancellables)
-        
-        action.tappedMoveCardButton
-            .map { self.todoRepository.moveCard(self.sortIds[$0], from: self.columnType, to: .done )}
-            .switchToLatest()
-            .sink {
-                switch $0 {
-                case .success((let cardId, let toColumn)):
-                    guard let cardIndex = self.sortIds.firstIndex(of: cardId),
-                          let removedCard = self.cards.removeValue(forKey: cardId) else {
-                        return
-                    }
-                    self.sortIds.remove(at: cardIndex)
-                    self.state.deletedCard.send(cardIndex)
-                    self.state.movedCard.send((removedCard, toColumn))
-                case .failure(let error):
-                    print(error)
-                }
-            }.store(in: &cancellables)
         
         action.tappedEditButton
-            .map {
-                let cardId = self.sortIds[$0]
-                let card = self.cards[cardId]
-                return CardPopupData(id: cardId, title: card?.title ?? "", body: card?.body ?? "", column: self.columnType)
-            }
+            .map { index in CardPopupData(card: self.cards[index], columnType: self.columnType)}
             .sink(receiveValue: self.state.showCardPopup.send(_:))
             .store(in: &cancellables)
         
-        action.tappedDeleteButton
-            .map { self.todoRepository.deleteCard(self.sortIds[$0]) }
+        let requestMoveDoneColumn = action.tappedMoveDoneColumnButton
+            .map { index in self.todoRepository.moveCard(self.cards[index], from: self.columnType, to: .done, index: 0) }
             .switchToLatest()
-            .sink {
-                switch $0 {
-                case .success(let cardId):
-                    guard let index = self.sortIds.firstIndex(of: cardId) else {
-                        return
-                    }
-                    self.cards.removeValue(forKey: cardId)
-                    self.sortIds.remove(at: index)
-                    self.state.deletedCard.send(index)
-                case .failure(let error):
-                    print(error)
-                }
-            }.store(in: &cancellables)
+            .share()
         
+        requestMoveDoneColumn
+            .compactMap{ $0.value }
+            .compactMap{ card, _, _, _ in self.cards.firstIndex(where: { $0.id == card.id}) }
+            .sink { index in
+                let card = self.cards.remove(at: index)
+                self.state.deletedCard.send(index)
+                self.state.movedColumn.send((card, .done))
+            }
+            .store(in: &cancellables)
+        
+        let requestDeleateCard = action.tappedDeleteButton
+            .map{ index in self.todoRepository.deleteCard(self.cards[index].id) }
+            .switchToLatest()
+            .share()
+        
+        requestDeleateCard
+            .compactMap{ $0.value }
+            .compactMap{ cardId in self.cards.firstIndex(where: { $0.id == cardId})}
+            .sink { index in
+                self.cards.remove(at: index)
+                self.state.deletedCard.send(index)
+            }
+            .store(in: &cancellables)
+        
+        Publishers
+            .Merge(
+                requestMoveDoneColumn.compactMap{ $0.error },
+                requestDeleateCard.compactMap{ $0.error }
+            )
+            .sink { error in
+            }.store(in: &cancellables)
+
         action.addCard
-            .sink { card in
-                self.sortIds.insert(card.id, at: 0)
-                self.cards[card.id] = card
-                self.state.insertedCard.send(0)
+            .sink { card, index in
+                self.cards.insert(card, at: index)
+                self.state.insertedCard.send(index)
             }.store(in: &cancellables)
-        
+
         action.editCard
-            .sink { card in
-                guard let index = self.sortIds.firstIndex(of: card.id) else {
+            .sink { newCard in
+                guard let index = self.cards.firstIndex(where: { $0.id == newCard.id}) else {
                     return
                 }
-                self.cards[card.id] = card
+                self.cards[index] = newCard
                 self.state.reloadCard.send(index)
+            }.store(in: &cancellables)
+        
+        action.moveCard
+            .sink { card, row in
+                guard let prevIndex = self.cards.firstIndex(where: { $0.id == card.id}) else {
+                    return
+                }
+                
+                let insertRow = prevIndex < row ? row - 1 : row
+                
+                if prevIndex > insertRow {
+                    self.cards.remove(at: prevIndex)
+                    self.cards.insert(card, at: row)
+                } else {
+                    self.cards.insert(card, at: row)
+                    self.cards.remove(at: prevIndex)
+                }
+                self.state.movedCard.send((prevIndex, insertRow))
+            }.store(in: &cancellables)
+        
+        action.deleteCard
+            .sink { card in
+                guard let index = self.cards.firstIndex(where: { $0.id == card.id}) else {
+                    return
+                }
+                self.cards.remove(at: index)
+                self.state.deletedCard.send(index)
             }.store(in: &cancellables)
     }
 }
