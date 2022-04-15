@@ -1,6 +1,6 @@
 import "./alert.scss";
-import { CARD_TYPE } from "../../../../../../common/variable.js";
-import { Store } from "../../../../../../stores/ColumnStore.js";
+import { CARD_TYPE } from "@/common/variable.js";
+import { Store } from "@/stores/ColumnStore.js";
 
 export const activateAlert = (columnID, cardID) => {
   const alertDOM = document.querySelector(".alert-container");

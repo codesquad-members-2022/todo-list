@@ -40,35 +40,36 @@ export const request = {
   },
 
   async changeCard(columnID, cardID, requestBody) {
+    const requestMessage = makeRequestMessage("PATCH", requestBody);
     const changedColumnState = await (
-      await fetch(`${URL}/columns/${columnID}/${cardID}/update`, {
-        method: "PATCH",
-        body: JSON.stringify(requestBody),
-        headers: { "Content-type": "application/json; charset=UTF-8" }
-      })
+      await fetch(`${URL}/columns/${columnID}/${cardID}/update`, requestMessage)
     ).json();
     return changedColumnState;
   },
 
   async addCard(columnID, requestBody) {
-    const updatedColumnState = await (
-      await fetch(`${URL}/columns/${columnID}/add`, {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-        headers: { "Content-type": "application/json; charset=UTF-8" }
-      })
-    ).json();
+    const requestMessage = makeRequestMessage("POST", requestBody);
+    const updatedColumnState = await (await fetch(`${URL}/columns/${columnID}/add`, requestMessage)).json();
     return updatedColumnState;
   },
 
   async moveCard(originalParentColumnID, cardID, newParentColumnID, movedIdx) {
+    const requestMessage = makeRequestMessage("POST");
     const updatedColumnStates = await (
-      await fetch(`${URL}/columns/${originalParentColumnID}/${cardID}/${newParentColumnID}/${movedIdx}`, {
-        method: "POST",
-        headers: { "Content-type": "application/json; charset=UTF-8" }
-      })
+      await fetch(
+        `${URL}/columns/${originalParentColumnID}/${cardID}/${newParentColumnID}/${movedIdx}`,
+        requestMessage
+      )
     ).json();
     return updatedColumnStates;
   }
 };
+
+const makeRequestMessage = (methodType, requestBody) => {
+  return {
+    method: methodType,
+    body: JSON.stringify(requestBody),
+    headers: { "Content-type": "application/json; charset=UTF-8" }
+  };
+}; 
 

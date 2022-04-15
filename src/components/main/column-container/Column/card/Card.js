@@ -1,14 +1,8 @@
 import "./Card.scss";
-import {
-  insertNodeBefore,
-  insertNodeAfter,
-  removeNodeself,
-  hasClassName,
-  getNodeIndex
-} from "../../../../../common/util.js";
-import { CARD_TYPE } from "../../../../../common/variable.js";
-import { Store } from "../../../../../stores/ColumnStore.js";
-import { activateAlert } from "./alert/Alert.js";
+import { insertNodeBefore, insertNodeAfter, removeNodeself, hasClassName, getNodeIndex } from "@/common/util";
+import { CARD_TYPE } from "@/common/variable";
+import { Store } from "@/stores/ColumnStore";
+import { activateAlert } from "./alert/Alert";
 
 export const initCard = (parentNode, cardState) => {
   const cardNode = makeCardNode(cardState);
@@ -47,17 +41,19 @@ const makeCardInnerTemplate = (cardState) => {
 };
 
 const getNormalContentTemplate = (cardState) => {
+  const { title, description, author } = cardState;
   return `      
   <div class="card-contents">
-    <div class="card-contents__title">${cardState.title}</div>
-    <div class="card-contents__description">${cardState.description}</div>
-    <div class="card-contents__author">${cardState.author}</div>
+    <div class="card-contents__title">${title}</div>
+    <div class="card-contents__description">${description}</div>
+    <div class="card-contents__author">${author}</div>
   </div>`;
 };
 
 const getTempContentTemplate = (cardState) => {
-  const titleInput = `<input placeholder="제목을 입력하세요" value='${cardState.title || ""}' />`;
-  const descriptionInput = `<input placeholder="내용을입력하세요" value='${cardState.description || ""}' />`;
+  const { title, description } = cardState;
+  const titleInput = `<input placeholder="제목을 입력하세요" value='${title || ""}' />`;
+  const descriptionInput = `<input placeholder="내용을 입력하세요" value='${description || ""}' />`;
   return `
     <div class="card-contents">
       <div class="card-contents__title">${titleInput}</div>
@@ -350,13 +346,13 @@ const endDragDropEvent = (
   originalCardIdx
 ) => {
   document.body.removeEventListener("mousemove", mouseMoveHandler);
-  putFollowingCardOnShawdow(followingCardNode, shadowCardNode);
+  putFollowingCardOnShadow(followingCardNode, shadowCardNode);
   disconnectFollowingCard(followingCardNode);
   removeNodeself(shadowCardNode);
   updateResult(followingCardNode, originalParentColumnID, originalCardIdx);
 };
 
-const putFollowingCardOnShawdow = (followingCardNode, shadowCardNode) => {
+const putFollowingCardOnShadow = (followingCardNode, shadowCardNode) => {
   insertNodeBefore(followingCardNode, shadowCardNode);
 };
 
@@ -376,7 +372,6 @@ const updateResult = (followingCardNode, originalParentColumnID, originalCardIdx
 const isCardPositionChanged = (originalParentColumnID, newParentColumnID, originalCardIdx, movedIdx) => {
   return originalParentColumnID !== newParentColumnID || originalCardIdx !== movedIdx;
 };
-
 
 export const reRenderCard = (cardState) => {
   const cardNode = findCardNode(cardState._id);

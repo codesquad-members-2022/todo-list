@@ -1,7 +1,7 @@
 import "./Column.scss";
-import { hasClassName } from "../../../../common/util.js";
-import { Store } from "../../../../stores/ColumnStore.js";
-import { initCard } from "./card/Card.js";
+import { hasClassName } from "@/common/util";
+import { Store } from "@/stores/ColumnStore";
+import { initCard } from "./card/Card";
 
 export const initColumn = (parentNode, columnState) => {
   const columnNode = makeColumnNode(columnState);
@@ -34,14 +34,15 @@ const makeColumnInnerTemplate = (columnState) => {
 };
 
 const getHeaderTemplate = (columnState) => {
+  const { title, cardOrder, addBtnActivated } = columnState;
   return `
     <div class="column-header">
       <div class="column-header__info">
-        <div class="column-header__title">${columnState.title}</div>
-        <div class="column-header__count">${columnState.cardOrder.length}</div>
+        <div class="column-header__title">${title}</div>
+        <div class="column-header__count">${cardOrder.length}</div>
       </div>
       <div class="column-header__util">
-        <div class="column-header__add-btn${columnState.addBtnActivated ? " activated" : ""}"></div>
+        <div class="column-header__add-btn${addBtnActivated ? " activated" : ""}"></div>
         <div class="column-header__delete-btn"></div>
       </div>
     </div>

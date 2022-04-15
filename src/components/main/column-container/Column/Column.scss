@@ -1,4 +1,4 @@
-@import '../../../../scss/variable.scss';
+@import '@/scss/variable.scss';
 
 .column {
     margin-right: 15px;
@@ -46,24 +46,24 @@
             width: 24px;
             height: 24px;
             margin-right: 5px;
-            background: url(../../../../images/column-plus.png) no-repeat center;
+            background: url(@/images/column-plus.png) no-repeat center;
 
             &:hover {
-                background: url(../../../../images/column-plus-activated.png) no-repeat center;
+                background: url(@/images/column-plus-activated.png) no-repeat center;
             }
         }
 
         &__add-btn.activated {
-            background: url(../../../../images/column-plus-activated.png) no-repeat center;
+            background: url(@/images/column-plus-activated.png) no-repeat center;
         }
 
         &__delete-btn{
             width: 24px;
             height: 24px;
-            background-image: url(../../../../images/column-close.png);
+            background-image: url(@/images/column-close.png);
 
             &:hover {
-                background-image: url(../../../../images/column-close-activated.png);
+                background-image: url(@/images/column-close-activated.png);
             }
         }
     }

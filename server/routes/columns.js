@@ -36,8 +36,12 @@ router.post("/", async (req, res) => {
 
 //Updating One
 router.patch("/:columnId", getColumn, async (req, res) => {
-  if (req.body.title !== null) {
-    res.column.title = req.body.title;
+  const {
+    body: { title }
+  } = req;
+
+  if (title !== null) {
+    res.column.title = title;
   }
 
   try {
@@ -60,18 +64,21 @@ router.delete("/:columnId", getColumn, async (req, res) => {
 
 //Add Card
 router.post("/:columnId/add", getColumn, async (req, res) => {
+  const {
+    body: { title, description }
+  } = req;
   const card = new Card({
-    title: req.body.title,
-    description: req.body.description,
+    title: title,
+    description: description
   });
 
   const log = new Log({
-    log: `${res.column.title}에 ${card.title}를 등록하였습니다.`,
+    log: `${res.column.title}에 ${card.title}를 등록하였습니다.`
   });
 
   try {
     const newCard = await card.save();
-    const newLog = await log.save();
+    await log.save();
     res.column.cards.unshift(newCard);
     res.column.save();
     res.json(res.column);
@@ -92,23 +99,26 @@ router.get("/:columnId/:cardId", getColumn, async (req, res) => {
 
 //Update Card
 router.patch("/:columnId/:cardId/update", getColumn, async (req, res) => {
+  const {
+    body: { name, title, description }
+  } = req;
   const card = res.column.cards.filter((v) => v["_id"] == req.params.cardId)[0];
   const temp = card.title;
 
-  if (req.body.title !== null) {
+  if (title !== null) {
     card.title = req.body.title;
   }
 
-  if (req.body.description !== null) {
-    card.description = req.body.description;
+  if (description !== null) {
+    card.description = description;
   }
 
   const log = new Log({
-    log: `${temp}이/가 ${card.title}로 변경되었습니다.`,
+    log: `${temp}이/가 ${card.title}로 변경되었습니다.`
   });
 
   try {
-    const newLog = await log.save();
+    await log.save();
     res.column.save();
     res.json(res.column);
   } catch (err) {
@@ -120,13 +130,13 @@ router.patch("/:columnId/:cardId/update", getColumn, async (req, res) => {
 router.delete("/:columnId/:cardId/delete/", getColumn, async (req, res) => {
   const card = res.column.cards.filter((v) => v["_id"] == req.params.cardId)[0];
   const log = new Log({
-    log: `${card.title}이/가 ${res.column.title}에서 삭제되었습니다.`,
+    log: `${card.title}이/가 ${res.column.title}에서 삭제되었습니다.`
   });
 
   try {
     res.column.cards.splice(res.column.cards.indexOf(card), 1);
     await Card.deleteOne({ _id: card["_id"] });
-    const newLog = await log.save();
+    await log.save();
     res.column.save();
     res.json(res.column);
   } catch (err) {

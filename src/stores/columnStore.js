@@ -1,5 +1,5 @@
-import { pipe, request } from "../common/util.js";
-import { CARD_TYPE } from "../common/variable.js";
+import { pipe, request } from "@/common/util";
+import { CARD_TYPE } from "@/common/variable";
 
 export const Store = {
   state: {},

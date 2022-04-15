@@ -1,5 +1,5 @@
 import "./Menu.scss";
-import { hasClassName } from "../../../common/util.js";
+import { hasClassName } from "@/common/util";
 
 export const initMenu = () => {
   renderMenu();
