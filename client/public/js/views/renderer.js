@@ -23,7 +23,7 @@ export function renderAllItems(itemList) {
 
 export function renderItem({ id, columnId, title, content }) {
   const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
-  insertElement(itemListEl, "beforeend", createItem({ id, title, content }));
+  insertElement(itemListEl, "afterbegin", createItem({ id, title, content }));
   renderColumnLength(columnId);
 }
 
