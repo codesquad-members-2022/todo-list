@@ -70,7 +70,7 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as? Cell,
               let config = cellConfigurator
         else {return UITableViewCell()}
-
+        
         let card = list[indexPath.row]
         config(card, cell)
         return cell

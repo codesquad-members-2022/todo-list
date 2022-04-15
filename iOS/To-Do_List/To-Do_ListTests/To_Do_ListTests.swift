@@ -28,8 +28,8 @@ class To_Do_ListTests: XCTestCase {
         
         //mockEndpoint
         let mockEndPoint = Endpoint(httpMethod: .get,
-                                    baseURL: "www.mockdata.com",
-                                    path: "88888",
+                                    baseURL: .main,
+                                    path: .get,
                                     headers: ["Content-Type": "application/json"],
                                     body: nil
                                     )

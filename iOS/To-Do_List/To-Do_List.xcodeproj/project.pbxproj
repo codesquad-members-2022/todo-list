@@ -19,24 +19,30 @@
 		8D5D1AFE28056A470035EA82 /* EditCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D1AFD28056A470035EA82 /* EditCardViewDelegate.swift */; };
 		8D5D1B0128056CCF0035EA82 /* BoardHeaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D1B0028056CCF0035EA82 /* BoardHeaderDelegate.swift */; };
 		8DBB585227FBD8F500D129E2 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB585127FBD8F500D129E2 /* CardCell.swift */; };
-		8DBC3EA92807E7390096968A /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC3EA82807E7390096968A /* Board.swift */; };
-		8DBC3EAB2807E7470096968A /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC3EAA2807E7470096968A /* NetworkResult.swift */; };
 		8DC2282927FB1C4C002FB533 /* LogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */; };
-		8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DB27FD642800C13618 /* NetworkManager.swift */; };
 		8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DD27FD646B00C13618 /* NetworkError.swift */; };
 		8DD815E027FD655200C13618 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DF27FD655200C13618 /* HTTPMethod.swift */; };
 		8DD815E527FD691E00C13618 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815E427FD691E00C13618 /* Todo.swift */; };
 		8DDD3A3F2803079500203BB9 /* MockJsonData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD3A3E2803079500203BB9 /* MockJsonData.json */; };
 		8DDD3A422803107900203BB9 /* TestURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD3A412803107900203BB9 /* TestURLProtocol.swift */; };
 		8DDD3A4328039FD600203BB9 /* TestURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD3A412803107900203BB9 /* TestURLProtocol.swift */; };
-		8DDD3A4428039FD800203BB9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DB27FD642800C13618 /* NetworkManager.swift */; };
 		8DDD3A4728039FE300203BB9 /* MockJsonData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD3A3E2803079500203BB9 /* MockJsonData.json */; };
 		8DDD3A4828039FE600203BB9 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DD27FD646B00C13618 /* NetworkError.swift */; };
 		8DDD3A4928039FE800203BB9 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DF27FD655200C13618 /* HTTPMethod.swift */; };
 		8DDD3A4A2803A34B00203BB9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815E427FD691E00C13618 /* Todo.swift */; };
 		8DEAB47E28067007004D682A /* EditViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAB47D28067007004D682A /* EditViewControllerDelegate.swift */; };
-		8DF2C21C28086883002FBE15 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2C21B28086883002FBE15 /* EndPoint.swift */; };
 		8DF2C21E280868B8002FBE15 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2C21D280868B8002FBE15 /* MainViewController.swift */; };
+		8DF2C22128091702002FBE15 /* MovedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76252A22808757300044A20 /* MovedCard.swift */; };
+		8DF2C2242809176C002FBE15 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC3EAA2807E7470096968A /* NetworkResult.swift */; };
+		8DF2C2252809177B002FBE15 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC3EAA2807E7470096968A /* NetworkResult.swift */; };
+		8DF2C22628091789002FBE15 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2C21B28086883002FBE15 /* EndPoint.swift */; };
+		8DF2C22728091789002FBE15 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2C21B28086883002FBE15 /* EndPoint.swift */; };
+		8DF2C2282809179D002FBE15 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DB27FD642800C13618 /* NetworkManager.swift */; };
+		8DF2C2292809179E002FBE15 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD815DB27FD642800C13618 /* NetworkManager.swift */; };
+		8DF2C22A280917E1002FBE15 /* NewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84F2805434E00343BAE /* NewCard.swift */; };
+		8DF2C22B280917E1002FBE15 /* NewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84F2805434E00343BAE /* NewCard.swift */; };
+		8DF2C22C280917EE002FBE15 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC3EA82807E7390096968A /* Board.swift */; };
+		8DF2C22D280917EE002FBE15 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC3EA82807E7390096968A /* Board.swift */; };
 		B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70BD64127FBD1E7001BE68F /* BoardHeader.swift */; };
 		B730BBB027FED3BE006DC969 /* BoardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730BBAF27FED3BE006DC969 /* BoardTableView.swift */; };
 		B74C6AFF2806A93F009A8BFA /* BoardTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74C6AFE2806A93F009A8BFA /* BoardTableDelegate.swift */; };
@@ -44,7 +50,6 @@
 		B771A84428044C9A00343BAE /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84328044C9A00343BAE /* Log.swift */; };
 		B771A846280453EC00343BAE /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A845280453EC00343BAE /* LogCell.swift */; };
 		B771A84A280457EA00343BAE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A849280457EA00343BAE /* Extension.swift */; };
-		B771A8502805434F00343BAE /* NewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A84F2805434E00343BAE /* NewCard.swift */; };
 		B771A8552805469200343BAE /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771A8542805469200343BAE /* EditCardViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -140,7 +145,6 @@
 				B70BD64027FBD1CF001BE68F /* View */,
 				B771A842280447C000343BAE /* Model */,
 				8DD815E127FD655C00C13618 /* Network */,
-				8DC2282D27FB1D22002FB533 /* LogTable */,
 				B730BBAC27FECAFC006DC969 /* Utils */,
 				8D5D1AFF28056CC10035EA82 /* Delegate */,
 				8D2AFD7627FB08AE00307CCB /* Main.storyboard */,
@@ -168,14 +172,6 @@
 				B74C6AFE2806A93F009A8BFA /* BoardTableDelegate.swift */,
 			);
 			path = Delegate;
-			sourceTree = "<group>";
-		};
-		8DC2282D27FB1D22002FB533 /* LogTable */ = {
-			isa = PBXGroup;
-			children = (
-				8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */,
-			);
-			path = LogTable;
 			sourceTree = "<group>";
 		};
 		8DC876B727FB0C560014FC94 /* SupportingFiles */ = {
@@ -249,6 +245,7 @@
 				8DF2C21D280868B8002FBE15 /* MainViewController.swift */,
 				8D46807627FB3FBB00FA9F34 /* ChildViewController.swift */,
 				B771A8542805469200343BAE /* EditCardViewController.swift */,
+				8DC2282827FB1C4C002FB533 /* LogTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -372,18 +369,18 @@
 				8D5D1B0128056CCF0035EA82 /* BoardHeaderDelegate.swift in Sources */,
 				B771A846280453EC00343BAE /* LogCell.swift in Sources */,
 				B70BD64227FBD1E7001BE68F /* BoardHeader.swift in Sources */,
+				8DF2C22B280917E1002FBE15 /* NewCard.swift in Sources */,
 				8DEAB47E28067007004D682A /* EditViewControllerDelegate.swift in Sources */,
-				8DBC3EA92807E7390096968A /* Board.swift in Sources */,
+				8DF2C22D280917EE002FBE15 /* Board.swift in Sources */,
 				B74C6AFF2806A93F009A8BFA /* BoardTableDelegate.swift in Sources */,
-				B771A8502805434F00343BAE /* NewCard.swift in Sources */,
-				8DBC3EAB2807E7470096968A /* NetworkResult.swift in Sources */,
-				8DD815DC27FD642800C13618 /* NetworkManager.swift in Sources */,
 				B771A84428044C9A00343BAE /* Log.swift in Sources */,
 				8DD815DE27FD646B00C13618 /* NetworkError.swift in Sources */,
 				8D2AFD7327FB08AE00307CCB /* SceneDelegate.swift in Sources */,
 				B771A8552805469200343BAE /* EditCardViewController.swift in Sources */,
-				8DF2C21C28086883002FBE15 /* EndPoint.swift in Sources */,
+				8DF2C2292809179E002FBE15 /* NetworkManager.swift in Sources */,
 				8D3B5A3D2804494400F6ECF7 /* EditCardView.swift in Sources */,
+				8DF2C22728091789002FBE15 /* EndPoint.swift in Sources */,
+				8DF2C2252809177B002FBE15 /* NetworkResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,12 +388,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DF2C22A280917E1002FBE15 /* NewCard.swift in Sources */,
+				8DF2C2282809179D002FBE15 /* NetworkManager.swift in Sources */,
+				8DF2C22128091702002FBE15 /* MovedCard.swift in Sources */,
 				8DDD3A4A2803A34B00203BB9 /* Todo.swift in Sources */,
-				8DDD3A4428039FD800203BB9 /* NetworkManager.swift in Sources */,
+				8DF2C22C280917EE002FBE15 /* Board.swift in Sources */,
+				8DF2C22628091789002FBE15 /* EndPoint.swift in Sources */,
 				8D2AFD8827FB08B100307CCB /* To_Do_ListTests.swift in Sources */,
 				8DDD3A4928039FE800203BB9 /* HTTPMethod.swift in Sources */,
 				8DDD3A4328039FD600203BB9 /* TestURLProtocol.swift in Sources */,
 				8DDD3A4828039FE600203BB9 /* NetworkError.swift in Sources */,
+				8DF2C2242809176C002FBE15 /* NetworkResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
