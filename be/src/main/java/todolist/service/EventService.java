@@ -14,7 +14,6 @@ public class EventService {
 
     private EventRepository repository;
 
-    @Autowired
     public EventService(EventRepository repository) {
         this.repository = repository;
     }

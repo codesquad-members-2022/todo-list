@@ -19,8 +19,7 @@ public class CardService {
 
     private final EventService eventService;
     private final CardRepository<Card> repository;
-
-    @Autowired
+    
     public CardService(EventService eventService, CardRepository<Card> repository) {
         this.eventService = eventService;
         this.repository = repository;
