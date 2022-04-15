@@ -14,7 +14,7 @@ import java.util.Map;
 import static com.example.backend.utils.TimeUtils.dateTimeOf;
 
 @Configuration
-public class CardRepositoryHelper {
+public class CardRepositoryQueryHelper {
 
     private static final String ID = "id";
     private static final String WRITER = "writer";

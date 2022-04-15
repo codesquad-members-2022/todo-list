@@ -48,6 +48,7 @@ public class CardService {
         return cardRepository.update(card);
     }
 
+    @Transactional
     public void delete(Long id) {
         cardRepository.delete(id);
     }

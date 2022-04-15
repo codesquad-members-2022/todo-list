@@ -4,8 +4,7 @@ package com.example.backend.repository.card.jdbc;
 import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
-import com.example.backend.repository.card.CardRepositoryHelper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.backend.repository.card.CardRepositoryQueryHelper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -25,25 +24,23 @@ import static java.time.LocalDateTime.now;
 @Repository
 public class CardJdbcRepository implements CardRepository {
 
-    private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
+    private final CardRepositoryQueryHelper queryHelper;
 
-    @Autowired
-    private final CardRepositoryHelper repositoryHelper;
-
-    public CardJdbcRepository(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, CardRepositoryHelper repositoryHelper) {
+    public CardJdbcRepository(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, CardRepositoryQueryHelper queryHelper) {
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("card")
                 .usingGeneratedKeyColumns("id");
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-        this.repositoryHelper = repositoryHelper;
+        this.queryHelper = queryHelper;
     }
 
     @Override
     public Card save(Card card) {
-        Map<String, Object> params = repositoryHelper.getParamMap(card);
+        Map<String, Object> params = queryHelper.getParamMap(card);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
         Long id = jdbcInsert.executeAndReturnKey(sqlParameterSource).longValue();
         return new CardBuilder()
@@ -73,21 +70,21 @@ public class CardJdbcRepository implements CardRepository {
                 "visible, " +
                 "member_id " +
                 "FROM card WHERE visible = true";
-        return namedParameterJdbcTemplate.query(query, CardRepositoryHelper.mapper);
+        return namedParameterJdbcTemplate.query(query, CardRepositoryQueryHelper.mapper);
     }
 
     @Override
     public Optional<Card> findById(Long id) {
         String query = "SELECT id, writer, position, title, content, card_type, created_at, last_modified_at, visible, member_id " +
-                "FROM card WHERE id = :id AND visible = true";
+                "FROM card WHERE id = :id";
         Map<String, Object> params = Collections.singletonMap("id", id);
-        return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, CardRepositoryHelper.mapper));
+        return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, CardRepositoryQueryHelper.mapper));
     }
 
     @Override
     public Card update(Card card) {
         String query = "UPDATE card SET title=:title, content=:content, card_type=:cardType, position=:position, last_modified_at=:lastModifiedAt WHERE id=:id AND visible = true";
-        SqlParameterSource sqlParameterSource = repositoryHelper.getUpdateParameterSource(card);
+        SqlParameterSource sqlParameterSource = queryHelper.getUpdateParameterSource(card);
         namedParameterJdbcTemplate.update(query, sqlParameterSource);
         return card;
     }
@@ -100,9 +97,9 @@ public class CardJdbcRepository implements CardRepository {
         if (result == 0) {
             throw new IllegalArgumentException("이미 삭제된 카드입니다.");
         }
-        Card card = findById(id).orElseThrow();
-        String orderQuery = "UPDATE card SET position = position-1 WHERE cardType = ? AND position > ?";
-        jdbcTemplate.update(orderQuery, card.getCardType(), card.getPosition());
+        Card card = findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카드입니다."));
+        String orderQuery = "UPDATE card SET position = position-1 WHERE card_type = ? AND position > ?";
+        jdbcTemplate.update(orderQuery, card.getCardType().name(), card.getPosition());
     }
 
     private static class CardBuilder {
