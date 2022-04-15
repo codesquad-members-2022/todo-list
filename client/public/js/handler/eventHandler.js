@@ -25,12 +25,16 @@ export function bindEvents(store) {
   };
 
   on(el.columnAdd, "click", addColumn);
+
   on(el.showHistoryBtn, "click", showHistoryBar);
   on(el.hideHistoryBtn, "click", hideHistoryBar);
 
+  // Item Form Card
   delegate(el.columnList, "submit", selector.itemForm, (event) => registItem(event));
   delegate(el.columnList, "click", selector.addItemBtn, (event) => showItemForm(event));
   delegate(el.columnList, "click", selector.itemFormCancelBtn, removeItemForm);
+
+  // Item Card
   delegate(el.columnList, "click", selector.removeItemBtn, (event) => removeItem(event));
   delegate(el.columnList, "click", selector.removeColumnBtn, (event) => removeColumn(event));
 
