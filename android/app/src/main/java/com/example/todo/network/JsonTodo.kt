@@ -1,6 +1,5 @@
 package com.example.todo.network
 
-import android.icu.text.CaseMap
 import com.google.gson.annotations.SerializedName
 
 data class JsonTodo(

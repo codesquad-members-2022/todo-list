@@ -1,26 +1,27 @@
 package com.example.todo.ui.toDo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.R
-import com.example.todo.common.ActionDiffCallback
-import com.example.todo.common.ActionType
-import com.example.todo.common.ProgressType
-import com.example.todo.common.TodoDiffCallback
+import com.example.todo.ui.action.ActionDiffCallback
+
 import com.example.todo.databinding.ActivityTodoBinding
-import com.example.todo.model.ActionLog
+import com.example.todo.model.*
 
-import com.example.todo.model.TodoItem
 import com.example.todo.ui.action.ActionAdapter
+import com.example.todo.ui.common.ToDoMoveListener
+import com.example.todo.ui.common.ToDoTouchHelper
+import com.example.todo.ui.common.ViewModelFactory
 
-class ToDoActivity : AppCompatActivity() {
+class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener, ToDoMoveListener {
 
     private lateinit var binding: ActivityTodoBinding
     private lateinit var todoAdapter: TodoAdapter
@@ -35,7 +36,25 @@ class ToDoActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_todo)
         setToolBar()
         initializeRecyclerViews()
-        addDummyDataInRecyclerView()
+        initializeTodoTitleViews()
+    }
+
+    private fun initializeTodoTitleViews() {
+        binding.todoTitleViewTodo.title.text = resources.getString(R.string.todo_title)
+        binding.todoTitleViewInProgress.title.text = resources.getString(R.string.in_progress_title)
+        binding.todoTitleViewTodoDone.title.text = resources.getString(R.string.done_title)
+        binding.todoTitleViewTodo.addButton.setOnClickListener {
+            val addDialog = ToDoDialog(ProgressType.TO_DO)
+            addDialog.show(supportFragmentManager, "todoAddDialog")
+        }
+        binding.todoTitleViewInProgress.addButton.setOnClickListener {
+            val addDialog = ToDoDialog(ProgressType.IN_PROGRESS)
+            addDialog.show(supportFragmentManager, "inProgressAddDialog")
+        }
+        binding.todoTitleViewTodoDone.addButton.setOnClickListener {
+            val addDialog = ToDoDialog(ProgressType.DONE)
+            addDialog.show(supportFragmentManager, "doneAddDialog")
+        }
     }
 
     private fun setToolBar() {
@@ -57,56 +76,15 @@ class ToDoActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun addDummyDataInRecyclerView() {
-        val todoList = mutableListOf<TodoItem>()
-        val inProgressList = mutableListOf<TodoItem>()
-        val doneList = mutableListOf<TodoItem>()
-        val actionList = mutableListOf<ActionLog>()
-
-        val todo1 = TodoItem("one", "title", "content", ProgressType.TO_DO)
-        val todo2 = TodoItem("two", "title2", "content2\ncontentcontent", ProgressType.TO_DO)
-        val todo3 = TodoItem(
-            "two", "title2", "content2\ncontentcontent\n sdfsd", ProgressType.TO_DO
-        )
-
-        val action1 = ActionLog(
-            "one",
-            ActionType.ADD,
-            "2022-04-07 12:00:01",
-            ProgressType.TO_DO,
-            ProgressType.IN_PROGRESS
-        )
-        val action2 = ActionLog(
-            "one",
-            ActionType.ADD,
-            "2022-04-07 10:00:01",
-            ProgressType.TO_DO,
-            ProgressType.IN_PROGRESS
-        )
-        val action3 = ActionLog(
-            "one",
-            ActionType.ADD,
-            "2022-04-05 09:00:01",
-            ProgressType.TO_DO,
-            ProgressType.IN_PROGRESS
-        )
-
-        todoList.addAll(mutableListOf(todo1, todo2, todo3))
-        inProgressList.addAll(mutableListOf(todo2, todo3, todo1))
-        doneList.addAll(mutableListOf(todo1, todo3, todo1))
-        actionList.addAll(mutableListOf(action1, action2, action3))
-
-        todoAdapter.submitList(todoList)
-        inProgressAdapter.submitList(inProgressList)
-        doneAdapter.submitList(doneList)
-        actionAdapter.submitList(actionList)
-    }
-
     private fun initializeRecyclerViews() {
-        todoAdapter = TodoAdapter(TodoDiffCallback())
-        inProgressAdapter = TodoAdapter(TodoDiffCallback())
-        doneAdapter = TodoAdapter(TodoDiffCallback())
+        todoAdapter = TodoAdapter(this, this, this, toDoViewModel, TodoDiffCallback())
+        inProgressAdapter = TodoAdapter(this, this, this, toDoViewModel, TodoDiffCallback())
+        doneAdapter = TodoAdapter(this, this, this, toDoViewModel, TodoDiffCallback())
         actionAdapter = ActionAdapter(ActionDiffCallback())
+
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvTodo)
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvInProgress)
+        ItemTouchHelper(ToDoTouchHelper()).attachToRecyclerView(binding.rvDone)
 
         binding.rvTodo.adapter = todoAdapter
         binding.rvInProgress.adapter = inProgressAdapter
@@ -123,22 +101,48 @@ class ToDoActivity : AppCompatActivity() {
 
         toDoViewModel.todoList.observe(this) {
             todoAdapter.submitList(it)
+            binding.todoTitleViewTodo.count.text = it.size.toString()
         }
 
         toDoViewModel.inProgressList.observe(this) {
             inProgressAdapter.submitList(it)
+
+            binding.todoTitleViewInProgress.count.text = it.size.toString()
         }
 
         toDoViewModel.doneList.observe(this) {
             doneAdapter.submitList(it)
+            binding.todoTitleViewTodoDone.count.text = it.size.toString()
         }
 
         toDoViewModel.actionList.observe(this) {
             actionAdapter.submitList(it)
+            // 테스트용
+            // binding.todoTitleViewTodo.count.text = it?.size.toString()
         }
+        binding.rvTodo.setOnDragListener(todoAdapter.dragInstance)
+        binding.rvInProgress.setOnDragListener(inProgressAdapter.dragInstance)
+        binding.rvDone.setOnDragListener(doneAdapter.dragInstance)
     }
 
     companion object {
         const val TAG = "ToDoActivity"
     }
+
+    override fun updateDialog(item: TodoItem) {
+        UpdateToDoDialog(item).show(supportFragmentManager, "update")
+    }
+
+    override fun moveData(
+        rvType: ProgressType,
+        prevItemId: Int?,
+        nextItemId: Int?,
+        moveItemId: Int?
+    ) {
+        if (moveItemId != null) {
+            toDoViewModel.moveTodoItem(moveItemId,rvType,prevItemId,nextItemId)
+        }
+    }
+
+
 }
