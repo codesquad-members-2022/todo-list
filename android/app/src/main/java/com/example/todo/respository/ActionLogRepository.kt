@@ -15,7 +15,7 @@ class ActionLogRepository(
         val response = actionLogDataSource.getActionLogs()
         val jsonActionLogs = if (response.isSuccessful) response.body() else null
         jsonActionLogs?.let {
-            return it.map { log -> stringActionLogToActionLog(log) }
+            return it.map { log -> stringActionLogToActionLog(log) }.reversed()
         } ?: return null
     }
 

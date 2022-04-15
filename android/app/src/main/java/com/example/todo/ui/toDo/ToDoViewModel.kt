@@ -46,7 +46,9 @@ class ToDoViewModel(
             _todoList.value = reOrganize(tempTodoList)
             _inProgressList.value = reOrganize(progressList)
             _doneList.value = reOrganize(doneList)
+        loadActionLog()
         }
+
     }
 
 
@@ -88,9 +90,6 @@ class ToDoViewModel(
     ): Int {
         val addItem = list.find { it.next == nextId }
         addItem?.let { resultList.add(it) }
-        Log.d("testx", addItem?.next.toString())
-        println(addItem?.title)
-        println(addItem?.itemId)
         return addItem?.itemId!!
     }
 

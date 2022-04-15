@@ -55,13 +55,10 @@ class ToDoRepository(private val context: Context, private val toDoDataSource: T
             ProgressType.IN_PROGRESS -> toDoDataSource.getInProgressId(newItem)
             ProgressType.DONE -> toDoDataSource.getDoneId(newItem)
         }
-        //val response = toDoDataSource.getTodoId(newItem)
         Log.d("testApi", response.isSuccessful.toString())
         return if (response.isSuccessful) {
             val originList = toDoList.toMutableList()
-
             newItem.itemId = response?.body()?.cardId ?: -1
-
             if (originList.size != 0) originList[originList.size - 1].next = newItem.itemId
             originList.add(0, newItem)
             originList.toList()

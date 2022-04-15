@@ -32,13 +32,12 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
         binding.editCardContent.setText(item.content)
         binding.editCardTitle.setText(item.title)
         dialog?.setCanceledOnTouchOutside(false)
-        btn = view?.findViewById<Button>(R.id.btn_modify)!!
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("testtt", (binding.btnModify == null).toString())
-        binding.btnModify?.setOnClickListener {
+        Log.d("testtt", (binding.btnDialogUpdate == null).toString())
+        binding.btnDialogUpdate?.setOnClickListener {
             Log.d("testtt", "ss")
             val copy = item.copy()
             copy.content = binding.editCardContent.text.toString()
@@ -85,7 +84,7 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
     }
 
     private fun validationFlagCheck() {
-        binding.btnModify?.isEnabled = titleValidationFlag && contentValidationFlag
+        binding.btnDialogUpdate?.isEnabled = titleValidationFlag && contentValidationFlag
 
     }
 
