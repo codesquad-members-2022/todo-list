@@ -5,7 +5,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-const request = async (url, options = {}) => {
+export const request = async (url, options = {}) => {
   try {
     const response = await fetch(`${SERVER_END_POINT}${url}`, {
       headers,

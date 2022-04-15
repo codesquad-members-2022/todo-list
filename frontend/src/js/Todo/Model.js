@@ -1,5 +1,6 @@
 import Card from './Card/main';
 import Column from './Column/main';
+import { request } from '../Utils/api.js';
 
 export default class TodoModel {
   constructor() {
@@ -8,8 +9,8 @@ export default class TodoModel {
   }
 
   async fetchColumns(cardEventHandler) {
-    const response = await fetch('http://13.124.223.73:8080/columns');
-    const columnsData = await response.json();
+    const PATH = '/columns';
+    const columnsData = await request(PATH);
 
     columnsData.forEach(({ columnId, columnName, cards }) => {
       const cardCount = cards ? cards.length : 0;

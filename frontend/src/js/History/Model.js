@@ -1,3 +1,5 @@
+import { request } from '../Utils/api.js';
+
 export default class HistoryModel {
   constructor() {
     this.histories = [];
@@ -5,10 +7,8 @@ export default class HistoryModel {
   }
 
   async fetchHistories() {
-    const reponse = await fetch(
-      `http://13.124.223.73:8080/histories?length=${this.histories.length}`
-    );
-    const historiesData = await reponse.json();
+    const PATH = `/histories?length=${this.histories.length}`;
+    const historiesData = await request(PATH);
     this.histories.push(...historiesData.data);
 
     if (!historiesData.hasNext) return;

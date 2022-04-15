@@ -33,6 +33,7 @@ class Controller {
       'afterbegin',
       createTagTemplate('main', '', 'main')
     );
+    body.insertAdjacentHTML('beforeend', createTagTemplate('div', '', 'dim'));
     this.header.view.render();
     this.initHistory();
     this.initTodo();
@@ -373,13 +374,13 @@ class Controller {
         historyContent = `
         <strong>${history.columnName}</strong>에 <strong>${
           history.title
-        }</strong>를
+        }</strong>을(를)
         <strong>${actionDic[history.action]}</strong>하였습니다.
         `;
         break;
       case 'UPDATE':
         historyContent = `
-        <strong>${history.fields[0].oldValue}</strong>를 <strong>${
+        <strong>${history.fields[0].oldValue}</strong>을(를) <strong>${
           history.fields[0].newValue
         }</strong>로
         <strong>${actionDic[history.action]}</strong>하였습니다.
@@ -389,7 +390,7 @@ class Controller {
         historyContent = `
         <strong>${history.columnName}</strong>에 <strong>${
           history.title
-        }</strong>를
+        }</strong>을(를)
         <strong>${actionDic[history.action]}</strong>하였습니다.
         `;
         break;
@@ -409,6 +410,15 @@ class Controller {
   menuBtnClickHandler() {
     this.header.model.updateStatus();
     const menuStatus = this.header.model.getMenuStatus();
+    if (menuStatus) {
+      this.history.model
+        .getHistories()
+        .map(({ createDateTime }) => createDateTime)
+        .forEach((historyData, idx) => {
+          const historyTime = this.calcHistoryTime(historyData);
+          this.history.view.resetHistoryTime(historyTime, idx);
+        });
+    }
     this.history.view.animation(menuStatus);
   }
 }
