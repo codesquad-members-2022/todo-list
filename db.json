@@ -3,15 +3,15 @@
     {
       "title": "블로그에 포스팅",
       "contents": "Github 공부내용\n모던 자바스크립트 공부내용",
-      "columnId": 1,
+      "columnId": 2,
       "userId": 1,
-      "order": 3,
+      "order": 1,
       "id": 1
     },
     {
       "title": "제목",
       "contents": "내용",
-      "columnId": 1,
+      "columnId": 3,
       "userId": 1,
       "order": 1,
       "id": 3
@@ -19,7 +19,7 @@
     {
       "title": "투두",
       "contents": "내용",
-      "columnId": 1,
+      "columnId": 2,
       "userId": 1,
       "order": 2,
       "id": 5
@@ -82,6 +82,88 @@
       },
       "action": "MOVE",
       "executedTime": "2022-04-14T20:52:28.064Z"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "type": "tasks",
+      "contents": {
+        "column": "In Progress",
+        "title": "블로그에 포스팅",
+        "prevColumn": "Have To Do"
+      },
+      "action": "MOVE",
+      "executedTime": "2022-04-15T02:30:19.893Z"
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "type": "tasks",
+      "contents": {
+        "column": "Done",
+        "title": "제목",
+        "prevColumn": "Have To Do"
+      },
+      "action": "MOVE",
+      "executedTime": "2022-04-15T02:30:21.390Z"
+    },
+    {
+      "id": 6,
+      "userId": 1,
+      "type": "tasks",
+      "contents": {
+        "column": "In Progress",
+        "title": "투두",
+        "prevColumn": "Have To Do"
+      },
+      "action": "MOVE",
+      "executedTime": "2022-04-15T02:39:15.936Z"
+    },
+    {
+      "id": 7,
+      "userId": 1,
+      "type": "tasks",
+      "contents": {
+        "column": "Have To Do",
+        "title": "블로그에 포스팅",
+        "prevColumn": "In Progress"
+      },
+      "action": "MOVE",
+      "executedTime": "2022-04-15T02:39:17.032Z"
+    },
+    {
+      "id": 8,
+      "userId": 1,
+      "type": "tasks",
+      "contents": {
+        "column": "Have To Do",
+        "title": "fdsafdsa"
+      },
+      "action": "ADD",
+      "executedTime": "2022-04-15T02:39:21.522Z"
+    },
+    {
+      "id": 9,
+      "userId": 1,
+      "type": "tasks",
+      "contents": {
+        "column": "Have To Do",
+        "title": "fdsafdsa"
+      },
+      "action": "REMOVE",
+      "executedTime": "2022-04-15T02:39:24.521Z"
+    },
+    {
+      "id": 10,
+      "userId": 1,
+      "type": "tasks",
+      "contents": {
+        "column": "In Progress",
+        "title": "블로그에 포스팅",
+        "prevColumn": "Have To Do"
+      },
+      "action": "MOVE",
+      "executedTime": "2022-04-15T04:13:09.281Z"
     }
   ]
 }

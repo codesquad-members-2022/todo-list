@@ -8,7 +8,7 @@ const router = jsonServer.router('db.json');
 const adapter = new JSONFile('db.json');
 const db = new Low(adapter);
 
-await db.read();
+db.read();
 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
