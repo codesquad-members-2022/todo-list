@@ -19,9 +19,9 @@ import com.example.todolist.databinding.ItemTodoBinding
 import com.example.todolist.ui.common.CardActionHandler
 import com.example.todolist.ui.common.DiffUtil
 
-class TodoAdapter(
+class CardAdapter(
     private val cardActionHandler: CardActionHandler
-) : ListAdapter<Card, TodoAdapter.TodoViewHolder>(DiffUtil) {
+) : ListAdapter<Card, CardAdapter.TodoViewHolder>(DiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val binding = ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -79,7 +79,6 @@ class TodoAdapter(
 
         fun getDeleteTextViewWidth() =
             binding.tvDeleteCard.width.toFloat()
-
 
         fun getDeleteTextView(): TextView {
             return binding.tvDeleteCard
