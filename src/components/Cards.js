@@ -11,12 +11,20 @@ export default class Cards extends Component {
         ?.map(
           ({ cardState, title, content, id }) =>
             `<li>
-              <div class="card" data-card-state="${cardState}" data-card-id=${id}>
+              <div class="card" data-card-state="${cardState}" data-card-id=${id} data-draggable>
                 <div class="card-title">
-                  ${cardState === "create" ? `<input class="card-title-input" placeholder="제목을 입력하세요">` : title}
+                  ${
+                    cardState === "create"
+                      ? `<input class="card-title-input" placeholder="제목을 입력하세요">`
+                      : title
+                  }
                 </div>
                 <div class="card-content">
-                  ${cardState === "create" ? `<input class="card-content-input" placeholder="내용을 입력하세요"></textarea>` : content}
+                  ${
+                    cardState === "create"
+                      ? `<input class="card-content-input" placeholder="내용을 입력하세요"></textarea>`
+                      : content
+                  }
                 </div>
                 ${
                   cardState === "create" || cardState === "update"
@@ -115,7 +123,9 @@ export default class Cards extends Component {
     const { setCards } = this.$props;
     const $clickedCard = target.closest(".card");
     const columnId = target.closest(".column").dataset.index;
-    const [title, content] = [".card-title-input", ".card-content-input"].map((selector) => $clickedCard.querySelector(selector).value);
+    const [title, content] = [".card-title-input", ".card-content-input"].map(
+      (selector) => $clickedCard.querySelector(selector).value
+    );
     const newCard = {
       columnId,
       title,
