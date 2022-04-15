@@ -1,7 +1,6 @@
 package team03.todoapp.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -41,24 +40,19 @@ public class CardController {
     }
 
     @DeleteMapping("/card/{cardId}")
-    public void removeCard(@PathVariable("cardId") Long cardId, HttpServletRequest request) {
-        putHistoryDataToRequest(request, "remove", null, cardService.findOne(cardId));
+    public void removeCard(@PathVariable("cardId") Long cardId) {
+        // putHistoryDataToRequest(request, "remove", null, cardService.findOne(cardId));
 
         cardService.remove(cardId);
     }
 
     @PatchMapping("/card/move/{cardId}")
     public void moveCard(@Validated @RequestBody CardMoveFormRequest cardMoveFormRequest,
-        BindingResult bindingResult, HttpServletResponse httpServletResponse,
-        @PathVariable("cardId") Long cardId, HttpServletRequest request) {
-        if (bindingResult.hasErrors()) {
-            log.error("bindingResult: {}", bindingResult);
-            httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-        CardLocation pastLocation = cardService.findOne(cardId).getCurrentLocation();
+        BindingResult bindingResult, @PathVariable("cardId") Long cardId) {
+
+        //CardLocation pastLocation = cardService.findOne(cardId).getCurrentLocation();
+        //putHistoryDataToRequest(request, "move", pastLocation, cardService.findOne(cardId));
         cardService.move(cardId, cardMoveFormRequest);
-        putHistoryDataToRequest(request, "move", pastLocation, cardService.findOne(cardId));
     }
 
     @PatchMapping("/card/{cardId}")

@@ -91,8 +91,8 @@ public class CardRepository {
         Long prevId = null;
         Long nextId = null;
         String getBeforeCardId = "select card_id from card where next_id = ?";
-        String getNextCardId = "select next_id from card where card_id = ?" + cardId;
-        String deleteCurrentCard = "delete from card where card_id = ?";
+        String getNextCardId = "select next_id from card where card_id = ?";
+        String softDeleteCurrentCard = "update card set is_deleted = true where card_id = ?";//"delete from card where card_id = ?";
         String updateCardRelations = "update card set next_id = ? where card_id = ?";
 
         try {
@@ -109,7 +109,7 @@ public class CardRepository {
             log.debug("e: {}", e);
         }
 
-        jdbcTemplate.update(deleteCurrentCard, cardId);
+        jdbcTemplate.update(softDeleteCurrentCard, cardId);
 
         if (prevId != null) {
             log.debug("prev{} next{}", prevId, nextId);

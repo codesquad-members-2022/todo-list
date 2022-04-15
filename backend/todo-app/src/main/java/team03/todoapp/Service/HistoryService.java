@@ -24,6 +24,7 @@ public class HistoryService {
     }
 
     public void add(History history) {
+
         historyRepository.insert(history);
     }
 

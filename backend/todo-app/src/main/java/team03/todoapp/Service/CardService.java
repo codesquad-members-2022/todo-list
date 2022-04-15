@@ -1,26 +1,39 @@
 package team03.todoapp.Service;
 
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team03.todoapp.controller.CardLocation;
 import team03.todoapp.controller.dto.CardAddFormRequest;
 import team03.todoapp.controller.dto.CardMoveFormRequest;
 import team03.todoapp.controller.dto.CardUpdateFormRequest;
 import team03.todoapp.controller.dto.CardsResponse;
 import team03.todoapp.repository.CardRepository;
 import team03.todoapp.repository.domain.Card;
+import team03.todoapp.repository.domain.History;
 
 @Service
 public class CardService {
 
     private final CardRepository cardRepository;
+    private final HistoryService historyService;
 
-    public CardService(CardRepository cardRepository) {
+    public CardService(CardRepository cardRepository, HistoryService historyService) {
         this.cardRepository = cardRepository;
+        this.historyService = historyService;
     }
 
+    @Transactional
     public void remove(Long cardId) {
+        Card card = findOne(cardId);
+        CardLocation pastLocation = card.getCurrentLocation();
+
         cardRepository.delete(cardId);
+
+        historyService.add(new History("remove", card.getTitle(), Optional.ofNullable(pastLocation), card.getCurrentLocation(),
+            LocalDateTime.now()));
     }
 
     public Long add(CardAddFormRequest cardAddFormRequest) {
@@ -44,11 +57,15 @@ public class CardService {
          *  2.
          *
          */
+        Card card = findOne(cardId);
         Long beforePrevId = cardRepository.findCardIdByNextId(cardId);
         Long beforeNextId = cardRepository.findNextIdByCardId(cardId);
         cardRepository.updateNextIdByCardId(cardId, cardMoveFormRequest.getPrevItemId());
-        cardRepository.updateNextIdAndLocationByCardId(cardMoveFormRequest.getNextItemId(), cardMoveFormRequest.getDestinationLocation(), cardId);
+        cardRepository.updateNextIdAndLocationByCardId(cardMoveFormRequest.getNextItemId(), cardMoveFormRequest.getDestinationLocation().name(), cardId);
         cardRepository.updateNextIdByCardId(beforeNextId, beforePrevId);
+
+        historyService.add(new History("move", card.getTitle(), Optional.ofNullable(card.getCurrentLocation()), cardMoveFormRequest.getDestinationLocation(),
+            LocalDateTime.now()));
     }
 
     public void update(Long cardId, CardUpdateFormRequest request) {

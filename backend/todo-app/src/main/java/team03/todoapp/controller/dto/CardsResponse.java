@@ -27,6 +27,8 @@ public class CardsResponse {
 
     private void classifyCard(List<CardResponse> todos, List<CardResponse> ings,
         List<CardResponse> dones, Card card) {
+        // enum으로 관리
+        // 로직은 딴데서 해라
         switch (card.getCurrentLocation()) {
             case todo:
                 todos.add(new CardResponse(card));
