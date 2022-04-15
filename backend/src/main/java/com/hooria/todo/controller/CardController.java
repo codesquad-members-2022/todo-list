@@ -131,7 +131,6 @@ public class CardController {
     @ExceptionHandler(CardRunTimeException.class)
     private ResponseEntity<ErrorResponse> handleCardRuntimeException(CardRunTimeException e) {
         ErrorCode errorCode = e.getErrorCode();
-        final ErrorResponse response = ErrorResponse.of(errorCode);
-        return new ResponseEntity<>(response, errorCode.getStatus());
+        return new ResponseEntity<>(ErrorResponse.of(errorCode), errorCode.getStatus());
     }
 }
