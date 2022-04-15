@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_list.R
+import com.example.todo_list.TasksViewModel
 import com.example.todo_list.tasks.data.Task
 
 class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
@@ -18,7 +19,7 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
     private lateinit var btnAddTask: ImageButton
     private lateinit var recyclerViewTodo: RecyclerView
     private val tasksAdapter = TaskAdapter()
-    
+
     init {
         initViews()
         initAttributes(attrs)
@@ -53,8 +54,7 @@ class TasksView(context: Context, attrs: AttributeSet?) : ConstraintLayout(conte
         btnAddTask = findViewById(R.id.btn_task_add)
         recyclerViewTodo = findViewById(R.id.recyclerview_todo)
 
-        recyclerViewTodo.adapter = tasksAdapter
-        val touchHelper = ItemTouchHelperCallback(tasksAdapter)
+        val touchHelper = ItemTouchHelperCallback()
         val helper = ItemTouchHelper(touchHelper)
         helper.attachToRecyclerView(recyclerViewTodo)
     }
