@@ -5,7 +5,7 @@ class Column {
   }
 
   #isDisabledBtn(columnName) {
-    const $column = document.querySelector(`.column[data-title=${columnName}}`);
+    const $column = document.querySelector(`.column[data-title=${columnName}`);
     const isDisabled = $column.querySelector('.button--add').getAttribute('disabled');
     return isDisabled ? true : false;
   }
@@ -14,8 +14,10 @@ class Column {
     $addBtn.removeAttribute('disabled');
   }
 
-  disableWriting(columnName) {
+  disableWriting(target, columnName) {
     const isDisabledBtn = this.#isDisabledBtn(columnName);
+    const $addBtn = target.closest('.column').querySelector('.card-button--add');
+    console.log($addBtn);
     if (isDisabledBtn) this.#activateBtnToAddCard($addBtn);
   }
 
@@ -56,9 +58,8 @@ class Column {
           </div>`;
   }
 
-  render(columnName) {
+  render($column) {
     const cardsTemplate = this.#getCardsTemplate();
-    const $column = document.querySelector(`.column[data-title=${columnName}}`);
     const $cards = $column.querySelector('.cards');
     $cards.innerHTML = cardsTemplate;
   }

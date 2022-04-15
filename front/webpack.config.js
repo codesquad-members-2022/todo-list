@@ -34,6 +34,6 @@ module.exports = {
     },
     open: true,
     hot: true,
-    port: '8080'
+    port: '9000'
   }
 };

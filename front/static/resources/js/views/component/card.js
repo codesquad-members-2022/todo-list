@@ -9,7 +9,7 @@ class Card {
     this.contents = contents;
     this.writer = writer;
     this.creatTime = creatTime;
-    this.cardeStatus = cardStatus;
+    this.cardStatus = cardStatus;
     this.completion = completion;
   }
 
@@ -17,7 +17,7 @@ class Card {
     return $card.querySelector('.card__title').value;
   }
 
-  getContent($card) {
+  getContents($card) {
     return $card.querySelector('.card__content').value;
   }
 

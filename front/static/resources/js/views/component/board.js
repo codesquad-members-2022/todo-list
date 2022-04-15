@@ -49,7 +49,7 @@ class Board {
       column.disableAddBtn(target);
       this.#addNewCardState(column, createCard);
     } else if (target.classList.contains('button--cancle')) {
-      column.disableWriting(column.title);
+      column.disableWriting(target, column.title);
       this.#deleteNewCardState(column);
     }
   }
@@ -59,11 +59,11 @@ class Board {
     const columnName = $column.dataset.title;
     const column = this.columns[columnName];
     this.#updateColumnState(target, column, createCard);
-    column.render(columnName);
+    column.render($column);
   }
 
   #isNewCard($card) {
-    return $card.dataset.id ? true : false;
+    return $card.dataset.id ? false : true;
   }
 
   #hasInputValue(title, contents) {
@@ -87,8 +87,9 @@ class Board {
     const id = $card.dataset.id;
 
     if (this.#isNewCard($card, newCardData)) {
+      console.log('a');
       newCardData.cardIndex = this.columns[columnName].cards.length;
-      newCardData.writer = $card.dataset.writer;
+      newCardData.writer = '도니';
       method = 'POST';
     }
     return this.#hasInputValue(title, contents) ? { newCardData, method, id } : null;
@@ -100,18 +101,19 @@ class Board {
     if (newCardData) observe(newCardData, method, id);
   }
 
-  #reRenderSelectedCard($card) {
-    const selectedCard = this.columns[$card.dataset.status].cards[$card.dataset.index];
+  #reRenderSelectedCard($card, completion) {
+    const selectedColumn = this.columns[$card.dataset.status];
+    const selectedCard = selectedColumn.cards[$card.dataset.index ? $card.dataset.index : 0];
+    selectedCard.completion = completion;
     selectedCard.reRender($card);
-    selectedCard.completion = selectedCard.completion ? false : true;
   }
 
   #cardClickEventHandler(target, [createCard, observe, showPopup]) {
     const $card = this.#setTarget(target, 'card');
     if (this.#isfindedTarget(target, 'card-button--add')) this.#toggleWritableCard(target, createCard);
-    else if (this.#isfindedTarget(target, 'card__button--cancle') && $card.dataset.id)
-      this.#reRenderSelectedCard($card);
-    else if (this.#isfindedTarget(target, 'card__button--cancle') && !$card.dataset.id)
+    else if (this.#isfindedTarget(target, 'card__button--cancle') && $card.dataset.id !== 'undefined') {
+      this.#reRenderSelectedCard($card, true);
+    } else if (this.#isfindedTarget(target, 'card__button--cancle') && $card.dataset.id === 'undefined')
       this.#toggleWritableCard(target, createCard);
     else if (this.#isfindedTarget(target, 'card__button--submit')) this.#sendNewCardData(target, $card, observe);
     else if (this.#isfindedTarget(target, 'card__button--delete')) showPopup($card.dataset.id);
@@ -126,7 +128,7 @@ class Board {
   #addCardDblClickEvent() {
     document.querySelector('.column-wrap').addEventListener('dblclick', ({ target }) => {
       const $card = this.#setTarget(target, 'card');
-      if (this.#isfindedTarget(target, 'card')) this.#reRenderSelectedCard($card);
+      if (this.#isfindedTarget(target, 'card')) this.#reRenderSelectedCard($card, false);
     });
   }
 

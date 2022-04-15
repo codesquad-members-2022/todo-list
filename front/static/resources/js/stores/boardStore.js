@@ -16,7 +16,8 @@ class BoardStore {
 
   async getColumnState(cardState, method, id) {
     const requestOption = HTTP_REQUEST[method](cardState);
-    const newBoadState = await fetchRequest(`http://3.39.96.36:8080/cards$/${id ? id : ''}`, requestOption);
+    console.log(cardState);
+    const newBoadState = await fetchRequest(`http://3.39.96.36:8080/cards/${id ? id : ''}`, requestOption);
     return newBoadState;
   }
 
