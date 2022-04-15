@@ -1,4 +1,11 @@
-import { $, $$, closest, getURL } from '../util.js';
+import {
+  $,
+  $$,
+  closest,
+  getURL,
+  requestToServer,
+  getSequenceData,
+} from '../util.js';
 
 export class DragAndDrop {
   constructor() {
@@ -171,20 +178,14 @@ export class DragAndDrop {
   }
 
   async deleteSequence() {
-    const res = await fetch(getURL('cardSequence'));
-    const json = await res.json();
-    const sequence = json[this.columnName];
-
+    const sequence = await getSequenceData(this.columnName);
     const patchData = {};
     patchData[this.columnName] = sequence.filter(
       (el) => el !== Number(this.dragCard.dataset.id)
     );
 
-    fetch(getURL('cardSequence'), {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(patchData),
-    });
+    const url = getURL('cardSequence');
+    requestToServer(url, 'PATCH', patchData);
   }
 
   async updateSequence(cardItem) {
@@ -195,16 +196,12 @@ export class DragAndDrop {
     ).textContent;
 
     const patchData = {};
-
     patchData[columnName] = Array.prototype.slice
       .call($$('.list_item', columnList))
       .map((el) => Number(el.dataset.id));
 
-    fetch(getURL('cardSequence'), {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(patchData),
-    });
+    const url = getURL('cardSequence');
+    requestToServer(url, 'PATCH', patchData);
   }
 
   async updateCardState(cardItem) {
@@ -213,16 +210,12 @@ export class DragAndDrop {
       closest('.column', cardItem)
     ).textContent;
 
-    const lastTime = new Date();
+    const url = getURL(`cards/${this.dragCard.dataset.id}`);
     const data = {
       states: columnName,
-      lastTime: lastTime,
+      lastTime: new Date(),
     };
 
-    fetch(getURL(`cards/${this.dragCard.dataset.id}`), {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    requestToServer(url, 'PATCH', data);
   }
 }

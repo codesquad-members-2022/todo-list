@@ -1,4 +1,11 @@
-import { $, closest, containClass, getURL } from '../util';
+import {
+  $,
+  closest,
+  containClass,
+  getURL,
+  requestToServer,
+  getSequenceData,
+} from '../util';
 
 export class AddCard {
   constructor(newCard, postedCard, cardId) {
@@ -76,21 +83,16 @@ export class AddCard {
   }
 
   postCardData(todoTitle, todoContent, state, cardId) {
-    const lastTime = new Date();
-
+    const url = getURL('cards');
     const data = {
       id: cardId,
       title: todoTitle,
       content: todoContent,
-      lastTime: lastTime,
+      lastTime: new Date(),
       states: state,
     };
 
-    fetch(getURL('cards'), {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    requestToServer(url, 'POST', data);
   }
 
   async updateSequence(cardItem) {
@@ -99,19 +101,14 @@ export class AddCard {
       closest('.column', cardItem)
     ).textContent;
 
-    const res = await fetch(getURL('cardSequence'));
-    const json = await res.json();
-    const sequence = json[columnName];
-
+    const sequence = await getSequenceData(columnName);
     sequence.unshift(Number(cardItem.dataset.id));
 
     const patchData = {};
     patchData[columnName] = sequence;
 
-    fetch(getURL('cardSequence'), {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(patchData),
-    });
+    const url = getURL('cardSequence');
+
+    requestToServer(url, 'PATCH', patchData);
   }
 }

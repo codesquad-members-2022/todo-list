@@ -1,4 +1,12 @@
-import { $, closest, containClass, debounce, getURL } from '../util';
+import {
+  $,
+  closest,
+  containClass,
+  debounce,
+  getURL,
+  requestToServer,
+  getSequenceData,
+} from '../util';
 
 export class DeleteCard {
   constructor() {
@@ -50,10 +58,8 @@ export class DeleteCard {
   }
 
   deleteCardData(id) {
-    fetch(getURL(id), {
-      method: 'DELETE',
-      headers: { 'content-type': 'application/json' },
-    });
+    const url = getURL(`cards/${id}`);
+    requestToServer(url, 'DELETE');
   }
 
   async deleteSequence(cardItem) {
@@ -62,19 +68,13 @@ export class DeleteCard {
       closest('.column', cardItem)
     ).textContent;
 
-    const res = await fetch(getURL('cardSequence'));
-    const json = await res.json();
-    const sequence = json[columnName];
-
+    const sequence = await getSequenceData(columnName);
     const patchData = {};
     patchData[columnName] = sequence.filter(
       (el) => el !== Number(cardItem.dataset.id)
     );
+    const url = getURL('cardSequence');
 
-    fetch(getURL('cardSequence'), {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(patchData),
-    });
+    requestToServer(url, 'PATCH', patchData);
   }
 }

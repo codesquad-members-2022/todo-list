@@ -23,3 +23,36 @@ export const debounce = (callback, delay) => {
 };
 
 export const getURL = (router) => `http://localhost:3002/${router}`;
+
+export const requestToServer = async (url, method = 'GET', data) => {
+  switch (method) {
+    case 'POST':
+      fetch(url, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      break;
+    case 'PATCH':
+      fetch(url, {
+        method: 'PATCH',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      break;
+    case 'Delete':
+      fetch(url, {
+        method: 'DELETE',
+        headers: { 'content-type': 'application/json' },
+      });
+      break;
+  }
+};
+
+export const getSequenceData = async (columnName) => {
+  const res = await fetch(getURL('cardSequence'));
+  const json = await res.json();
+  const sequence = json[columnName];
+
+  return sequence;
+};
