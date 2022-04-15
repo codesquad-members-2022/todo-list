@@ -12,6 +12,7 @@ import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.ui.common.ActionStatus
 import com.example.todolist.ui.common.CardTouchHelper
 import com.example.todolist.ui.adapter.CardAdapter
+import com.example.todolist.ui.adapter.HistoryAdapter
 import com.example.todolist.ui.common.CardStatus
 
 class MainActivity : AppCompatActivity() {
@@ -20,18 +21,21 @@ class MainActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
 
-    private val viewModel: CardViewModel by viewModels()
+    private val cardViewModel: CardViewModel by viewModels()
+    private val historyViewModel: HistoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val todoAdapter = CardAdapter(viewModel)
+        val todoAdapter = CardAdapter(cardViewModel)
         binding.rvTodo.adapter = todoAdapter
-        val ongoingAdapter = CardAdapter(viewModel)
+        val ongoingAdapter = CardAdapter(cardViewModel)
         binding.rvOngoing.adapter = ongoingAdapter
-        val complete = CardAdapter(viewModel)
-        binding.rvCompleted.adapter = complete
+        val completedAdapter = CardAdapter(cardViewModel)
+        binding.rvCompleted.adapter = completedAdapter
+        val historyAdapter = HistoryAdapter()
+        binding.rvHistory?.adapter = historyAdapter
 
         setOnClickMenu()
         setOnClickTodoAdd()
@@ -41,38 +45,42 @@ class MainActivity : AppCompatActivity() {
         ItemTouchHelper(swipeHelperCallback).attachToRecyclerView(binding.rvOngoing)
         ItemTouchHelper(swipeHelperCallback).attachToRecyclerView(binding.rvCompleted)
 
-        viewModel.todoCardList.observe(this) {
+        cardViewModel.todoCardList.observe(this) {
             todoAdapter.submitList(it.toList()) {
-                if (viewModel.actionStatus == ActionStatus.ADD) {
+                if (cardViewModel.actionStatus == ActionStatus.CREATE) {
                     binding.rvTodo.smoothScrollToPosition(0)
                 }
                 binding.tvTodoBadge.text = it.size.toString()
             }
         }
 
-        viewModel.ongoingCardList.observe(this) {
+        cardViewModel.ongoingCardList.observe(this) {
             ongoingAdapter.submitList(it.toList()) {
-                if (viewModel.actionStatus == ActionStatus.ADD) {
+                if (cardViewModel.actionStatus == ActionStatus.CREATE) {
                     binding.rvOngoing.smoothScrollToPosition(0)
                 }
                 binding.tvOngoingBadge.text = it.size.toString()
             }
         }
 
-        viewModel.completedCardList.observe(this) {
-            complete.submitList(it.toList()) {
-                if (viewModel.actionStatus == ActionStatus.ADD) {
+        cardViewModel.completedCardList.observe(this) {
+            completedAdapter.submitList(it.toList()) {
+                if (cardViewModel.actionStatus == ActionStatus.CREATE) {
                     binding.rvCompleted.smoothScrollToPosition(0)
                 }
                 binding.tvCompletedBadge.text = it.size.toString()
             }
-
         }
 
-        viewModel.error.observe(this) { message ->
+        cardViewModel.error.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
+        historyViewModel.historyList.observe(this) {
+            historyAdapter.submitList(it.toList()) {
+                binding.rvHistory?.smoothScrollToPosition(0)
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -96,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnCompletedAdd.setOnClickListener {
             val dialog = CreateCardDialogFragment()
-            dialog.show(supportFragmentManager, CardStatus.COMPLETE.status)
+            dialog.show(supportFragmentManager, CardStatus.COMPLETED.status)
         }
     }
 
@@ -104,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         binding.topAppbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.log -> {
+                    historyViewModel.loadHistoryList()
                     if (!binding.dloAppbar.isDrawerOpen(GravityCompat.END)) {
                         binding.dloAppbar.openDrawer(GravityCompat.END)
                     }

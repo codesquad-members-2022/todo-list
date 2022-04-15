@@ -82,7 +82,7 @@ class CardViewModel : ViewModel(), CardActionHandler {
                 }
             }
 
-            _actionStatus = ActionStatus.ADD
+            _actionStatus = ActionStatus.CREATE
 
         }
     }
@@ -107,7 +107,7 @@ class CardViewModel : ViewModel(), CardActionHandler {
 
                 cardRepository.dropCard(cardId, order, status)
                 loadCards()
-                _actionStatus = ActionStatus.DROP
+                _actionStatus = ActionStatus.MOVE
             }
         }.onFailure {
             handleError(it)

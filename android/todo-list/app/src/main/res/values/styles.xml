@@ -42,11 +42,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextBody.Grey" parent="TextAppearance.MaterialComponents.Body2">
+    <style name="TextBody.Grey04" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textColor">@color/todo_grey_04</item>
     </style>
 
-    <style name="TextBody.Grey.Bold">
+    <style name="TextBody.Grey04.Bold">
         <item name="android:textStyle">bold</item>
     </style>
 

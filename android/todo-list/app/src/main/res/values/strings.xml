@@ -24,4 +24,6 @@
     <string name="move_to_completed">완료한일로 이동</string>
     <string name="modify">수정하기</string>
     <string name="action_delete">삭제하기</string>
+    <string name="log_user_image">log_user_image</string>
+    <string name="user_name">\@sam</string>
 </resources>

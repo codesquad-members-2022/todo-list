@@ -14,34 +14,34 @@ class CardTouchHelper :
 
     private var currentDx = 0f
     private var deleteTextViewSize = 0f
-    private val clampSpace = 2.8f
+    private val clampSpace = 2.5f
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        deleteTextViewSize = getDeleteTextViewWidth(viewHolder as CardAdapter.TodoViewHolder)
+        deleteTextViewSize = getDeleteTextViewWidth(viewHolder as CardAdapter.CardViewHolder)
         return makeMovementFlags(UP or DOWN, START)
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-        setTag((viewHolder as CardAdapter.TodoViewHolder), currentDx <= -deleteTextViewSize)
+        setTag((viewHolder as CardAdapter.CardViewHolder), currentDx <= -deleteTextViewSize)
         return 2f
     }
 
-    private fun getDeleteTextViewWidth(viewHolder: CardAdapter.TodoViewHolder): Float {
+    private fun getDeleteTextViewWidth(viewHolder: CardAdapter.CardViewHolder): Float {
         return viewHolder.getDeleteTextViewWidth()
     }
 
-    private fun getDeleteTextView(viewHolder: CardAdapter.TodoViewHolder): TextView? {
+    private fun getDeleteTextView(viewHolder: CardAdapter.CardViewHolder): TextView? {
         return viewHolder.getDeleteTextView()
     }
 
-    private fun getSwipeView(viewHolder: CardAdapter.TodoViewHolder): ConstraintLayout? {
+    private fun getSwipeView(viewHolder: CardAdapter.CardViewHolder): ConstraintLayout? {
         return viewHolder.getSwipeView()
     }
 
-    private fun getTag(viewHolder: CardAdapter.TodoViewHolder): Boolean {
+    private fun getTag(viewHolder: CardAdapter.CardViewHolder): Boolean {
         return viewHolder.getTag()
     }
 
@@ -66,7 +66,7 @@ class CardTouchHelper :
         isCurrentlyActive: Boolean
     ) {
         if (actionState == ACTION_STATE_SWIPE) {
-            viewHolder as CardAdapter.TodoViewHolder
+            viewHolder as CardAdapter.CardViewHolder
             val view = getSwipeView(viewHolder)
             val isClamped = getTag(viewHolder)
             val deleteTextView = getDeleteTextView(viewHolder)
@@ -104,21 +104,22 @@ class CardTouchHelper :
     private fun checkClamped(isClamped: Boolean, isCurrentlyActive: Boolean, dX: Float) =
         when (isClamped) {
             true -> checkCurrentlyActive(isCurrentlyActive, dX)
-            false -> -deleteTextViewSize
+            false -> dX / clampSpace
+
         }
 
     private fun checkCurrentlyActive(isCurrentlyActive: Boolean, dX: Float) =
         when (isCurrentlyActive) {
             true -> checkMoved(dX)
-            false -> dX / clampSpace
+            false -> -deleteTextViewSize
         }
 
-    private fun checkMoved(dX: Float) = when (dX > 0) {
+    private fun checkMoved(dX: Float) = when (dX < 0) {
         true -> dX / 3 - deleteTextViewSize
         false -> dX - deleteTextViewSize
     }
 
-    private fun setTag(viewHolder: CardAdapter.TodoViewHolder, isClamped: Boolean) {
+    private fun setTag(viewHolder: CardAdapter.CardViewHolder, isClamped: Boolean) {
         viewHolder.setTag(isClamped)
     }
 
