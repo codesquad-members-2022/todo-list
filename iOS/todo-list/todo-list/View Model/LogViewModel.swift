@@ -71,18 +71,16 @@ extension LogViewModel {
             return "\(log.taskTitle)을 \(from)에서 삭제하였습니다."
             
         case .Move:
-//            guard let to = log.to else { return "" }
-//            guard let from = log.from else { return "" }
-//
-//            if log.from == log.to {
-//                return "\(log.taskTitle)의 내용을 변경하였습니다."
-//            } else {
-//                return "\(log.taskTitle)을 \(from)에서 \(to)로 이동하였습니다."
-//            }
-            return ""
+            guard let to = log.toStatus else { return "" }
+            guard let from = log.fromStatus else { return "" }
+
+            if log.fromStatus == log.toStatus {
+                return "\(log.taskTitle)의 내용을 변경하였습니다."
+            } else {
+                return "\(log.taskTitle)을 \(from)에서 \(to)로 이동하였습니다."
+            }
         }
     }
-    
 }
 
 struct LogCellViewModel {

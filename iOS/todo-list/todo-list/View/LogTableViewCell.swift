@@ -48,8 +48,8 @@ class LogTableViewCell: UITableViewCell {
         
         var config = defaultContentConfiguration()
         
-        config.text = viewModel.description
-        config.secondaryText = viewModel.userName
+        config.attributedText = self.makePrimaryText(title: viewModel.userName)
+        config.secondaryAttributedText = self.makeSecondaryText(contents: viewModel.description, timeLog: viewModel.timeLog)
 
         self.contentConfiguration = config
     }
