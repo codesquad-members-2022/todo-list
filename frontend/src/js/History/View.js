@@ -1,4 +1,4 @@
-import { historyTemplate } from '../utils/template.js';
+import { historyTemplate, historyCardTemplate } from '../utils/template.js';
 
 export default class HistoryView {
   constructor() {
@@ -10,6 +10,20 @@ export default class HistoryView {
     const historyContainer = historyTemplate();
     main.insertAdjacentHTML('afterbegin', historyContainer);
     this.historyContainer = document.querySelector('.history_container');
+  }
+
+  renderInitHistoryCard({ userName, content, time }) {
+    const historyHTML = historyCardTemplate({ userName, content, time });
+    this.historyContainer
+      .querySelector('.history_list')
+      .insertAdjacentHTML('beforebegin', historyHTML);
+  }
+
+  renderAddHistoryCard({ userName, content, time }) {
+    const historyHTML = historyCardTemplate({ userName, content, time });
+    this.historyContainer
+      .querySelector('.history_list')
+      .insertAdjacentHTML('afterbegin', historyHTML);
   }
 
   eventInit(closeBtnHandler) {
