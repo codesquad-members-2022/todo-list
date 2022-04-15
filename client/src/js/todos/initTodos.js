@@ -1,4 +1,4 @@
-import { $, $$, pipe, url } from '../util';
+import { $, $$, pipe, getURL } from '../util';
 
 export class InitTodos {
   constructor(columnTemplate, cardTemplate) {
@@ -13,7 +13,7 @@ export class InitTodos {
   };
 
   getData = async (keyword) => {
-    const keywordUrl = url(keyword);
+    const keywordUrl = getURL(keyword);
     const res = await fetch(keywordUrl);
     const json = await res.json();
     return json;

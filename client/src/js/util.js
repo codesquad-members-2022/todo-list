@@ -22,4 +22,4 @@ export const debounce = (callback, delay) => {
   };
 };
 
-export const url = (router) => `http://localhost:3002/${router}`;
+export const getURL = (router) => `http://localhost:3002/${router}`;

@@ -1,4 +1,4 @@
-import { $, closest, containClass, url } from '../util';
+import { $, closest, containClass, getURL } from '../util';
 
 export class AddCard {
   constructor(newCard, postedCard, cardId) {
@@ -86,7 +86,7 @@ export class AddCard {
       states: state,
     };
 
-    fetch(url('cards'), {
+    fetch(getURL('cards'), {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(data),
@@ -99,7 +99,7 @@ export class AddCard {
       closest('.column', cardItem)
     ).textContent;
 
-    const res = await fetch(url('cardSequence'));
+    const res = await fetch(getURL('cardSequence'));
     const json = await res.json();
     const sequence = json[columnName];
 
@@ -108,7 +108,7 @@ export class AddCard {
     const patchData = {};
     patchData[columnName] = sequence;
 
-    fetch(url('cardSequence'), {
+    fetch(getURL('cardSequence'), {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(patchData),
