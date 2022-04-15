@@ -10,7 +10,7 @@ import Combine
 
 class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     func loadColumns() -> AnyPublisher<ApiResult<Columns, SessionError>, Never> {
-        request(.loadColumns, isSucccess: true)
+        request(.loadColumns)
             .map { $0.decode(Columns.self) }
             .eraseToAnyPublisher()
     }
@@ -22,7 +22,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     }
     
     func moveCard(_ card: Card, from: Column.ColumnType, to: Column.ColumnType, index: Int) -> AnyPublisher<ApiResult<(Card, Column.ColumnType, Column.ColumnType, Int), SessionError>, Never> {
-        request(.moveCard(card.id, toColumn: to, toIndex: index), isSucccess: true)
+        request(.moveCard(card.id, toColumn: to, toIndex: index))
             .map { result in result.mapValue((card, from, to, index)) }
             .eraseToAnyPublisher()
     }

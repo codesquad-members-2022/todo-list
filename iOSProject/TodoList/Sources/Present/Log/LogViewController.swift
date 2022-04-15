@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Combine
+
 class LogViewController: UIViewController {
     
     private let tableView: UITableView = {
@@ -29,22 +31,32 @@ class LogViewController: UIViewController {
         return button
     }()
     
-    let logViewModel = LogViewModel()
-    var count: Int = 0
-    var loadData = [ActivityLog]()
+    private var cancellables = Set<AnyCancellable>()
+    let model = LogViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
         attribute()
         layout()
-        loadData = logViewModel.loadData()
+        model.action.loadLog.send()
     }
     
     private func bind(){
         tableView.delegate = self
         tableView.dataSource = self
-        closeButton.addAction(UIAction(handler: { _ in self.view.isHidden = true }), for: .touchUpInside)
+        
+        closeButton.publisher(for: .touchUpInside)
+            .sink {
+                self.view.isHidden = true
+            }
+            .store(in: &cancellables)
+        
+        model.state.loadedLog
+            .receive(on: DispatchQueue.main)
+            .sink {
+                self.tableView.reloadData()
+            }.store(in: &cancellables)
     }
     
     private func attribute(){
@@ -78,12 +90,13 @@ class LogViewController: UIViewController {
 
 extension LogViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return loadData.count
+        return model.logCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LogViewCell", for: indexPath) as? LogViewCell else { return UITableViewCell() }
-        cell.inputData(loadData[indexPath.item])
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LogViewCell", for: indexPath) as? LogViewCell,
+              let log = model[indexPath.item] else { return UITableViewCell() }
+        cell.inputData(log)
         return cell
     }
 }
