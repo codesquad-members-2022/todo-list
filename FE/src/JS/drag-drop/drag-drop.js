@@ -1,20 +1,25 @@
 import { $, $$, throttle } from '../utility/util.js';
 
 export default class Drag {
+  constructor() {
+    this.moveInfo = {
+      previousContainer: null,
+      currentContainer: null,
+      selectedCard: null,
+    };
+  }
   removeDragEvent() {
     const cardLists = $$('.column-item--card');
     const containers = $$('.container');
 
     cardLists.forEach((cardList) => {
-      cardList.removeEventListener(
-        'dragstart',
-        this.addDraggingClass(cardList)
-      );
+      cardList.removeEventListener('dragstart', () => {
+        this.addDraggingClass(cardList);
+      });
 
-      cardList.removeEventListener(
-        'dragend',
-        this.removeDraggingClass(cardList)
-      );
+      cardList.removeEventListener('dragend', () => {
+        this.removeDraggingClass(cardList);
+      });
     });
 
     const MIN_TIME = 500;
@@ -34,9 +39,14 @@ export default class Drag {
     const containers = $$('.container');
 
     cardLists.forEach((cardList) => {
-      cardList.addEventListener('dragstart', this.addDraggingClass(cardList));
+      cardList.addEventListener('dragstart', () => {
+        this.addDraggingClass(cardList);
+      });
 
-      cardList.addEventListener('dragend', this.removeDraggingClass(cardList));
+      cardList.addEventListener('dragend', () => {
+        this.removeDraggingClass(cardList);
+        this.getDragValue(this.moveInfo);
+      });
     });
 
     const MIN_TIME = 500;
@@ -59,23 +69,22 @@ export default class Drag {
   }
 
   addDraggingClass(cardList) {
-    return () => {
-      cardList.classList.add('dragging');
-    };
+    cardList.classList.add('dragging');
+    this.moveInfo.previousContainer = cardList.parentNode;
   }
 
   removeDraggingClass(cardList) {
-    return () => {
-      cardList.classList.remove('dragging');
-    };
+    cardList.classList.remove('dragging');
+    this.moveInfo.currentContainer = cardList.parentNode;
+    this.moveInfo.selectedCard = cardList;
   }
 
   dragoverEventHandler(e, container) {
     e.preventDefault();
-    const selectedCard = $('.dragging');
-    const targetElement = this.getDragTargetElement(container, e.clientY);
 
-    this.changeCurCard(targetElement, container, selectedCard);
+    const selectedCard = $('.dragging');
+    const afterElement = this.getDragTargetElement(container, e.clientY);
+    this.changeCurCard(afterElement, container, selectedCard);
   }
 
   getDragTargetElement(container, y) {
@@ -111,8 +120,5 @@ export default class Drag {
     } else {
       container.insertBefore(selectedCard, afterElement);
     }
-
-    //서버에게 바뀐 카드 알려주기
-    this.changeDraggingCard();
   }
 }
