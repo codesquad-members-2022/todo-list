@@ -63,13 +63,12 @@ public class CardRepository {
     }
 
     public Card update(Card card) {
-        String updateSql = "UPDATE card SET title=:title, contents=:contents, author=:author, update_datetime=:update_datetime WHERE id=:id";
+        String updateSql = "UPDATE card SET title=:title, contents=:contents, author=:author WHERE id=:id";
         Map<String,Object> params = new HashMap<>();
 
         params.put("title", card.getTitle());
         params.put("contents", card.getContents());
         params.put("author", card.getAuthor().name());
-        params.put("update_datetime", card.getUpdateDateTime());
         params.put("id", card.getId());
 
         jdbcTemplate.update(updateSql, params);

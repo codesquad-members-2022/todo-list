@@ -15,7 +15,7 @@ public class Card {
     }
 
     public Card(Long id, String title, String contents, Author author) {
-        this(id, title, contents, null, LocalDateTime.now(), author);
+        this(id, title, contents, null, null, author);
     }
 
     public Card(Long id, String title, String contents, CardStatus status, LocalDateTime updateDateTime, Author author) {
