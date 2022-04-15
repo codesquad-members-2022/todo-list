@@ -14,22 +14,19 @@ struct ColumnViewModelAction {
     let tappedEditButton = PassthroughSubject<Int, Never>()
     let tappedDeleteButton = PassthroughSubject<Int, Never>()
     
-    let dropCard = PassthroughSubject<(DragCard, Int), Never>()
-    
     let addCard = PassthroughSubject<(Card, Int), Never>()
+    let moveCard = PassthroughSubject<(Card, Int), Never>()
+    let deleteCard = PassthroughSubject<Card, Never>()
     let editCard = PassthroughSubject<Card, Never>()
-    
-    let finishDropedCard = PassthroughSubject<Int, Never>()
 }
 
 struct ColumnViewModelState {
     let loadedColumn = PassthroughSubject<Column.ColumnType, Never>()
     let insertedCard = PassthroughSubject<Int, Never>()
-    let movedCard = PassthroughSubject<(Card, Column.ColumnType), Never>()
+    let movedColumn = PassthroughSubject<(Card, Column.ColumnType), Never>()
     let deletedCard = PassthroughSubject<Int, Never>()
     let reloadCard = PassthroughSubject<Int, Never>()
-    
-    let notifiyFinishDropedCard = PassthroughSubject<(Int, Column.ColumnType), Never>()
+    let movedCard = PassthroughSubject<(Int, Int), Never>()
     let showCardPopup = PassthroughSubject<CardPopupData, Never>()
 }
 
@@ -93,7 +90,7 @@ class ColumnViewModel: ColumnViewModelProtocol {
             .sink { index in
                 let card = self.cards.remove(at: index)
                 self.state.deletedCard.send(index)
-                self.state.movedCard.send((card, .done))
+                self.state.movedColumn.send((card, .done))
             }
             .store(in: &cancellables)
         
@@ -135,29 +132,31 @@ class ColumnViewModel: ColumnViewModelProtocol {
                 self.state.reloadCard.send(index)
             }.store(in: &cancellables)
         
-        let requestDropCard = action.dropCard
-            .compactMap{ dropCard, index -> (Card, Column.ColumnType, Column.ColumnType, Int)? in
-                guard let card = dropCard.card else { return nil }
-                return (card, dropCard.fromColumn, self.columnType, index)
-            }
-            .map { (card, from, to, index) in self.todoRepository.moveCard(card, from: from, to: to, index: index) }
-            .switchToLatest()
-            .share()
+        action.moveCard
+            .sink { card, row in
+                guard let prevIndex = self.cards.firstIndex(where: { $0.id == card.id}) else {
+                    return
+                }
+                
+                let insertRow = prevIndex < row ? row - 1 : row
+                
+                if prevIndex > insertRow {
+                    self.cards.remove(at: prevIndex)
+                    self.cards.insert(card, at: row)
+                } else {
+                    self.cards.insert(card, at: row)
+                    self.cards.remove(at: prevIndex)
+                }
+                self.state.movedCard.send((prevIndex, insertRow))
+            }.store(in: &cancellables)
         
-        requestDropCard
-            .compactMap{ $0.value }
-            .sink { card, from, to, index in
-                self.cards.insert(card, at: index)
-                self.state.insertedCard.send(index)
-                self.state.notifiyFinishDropedCard.send((card.id, from))
-            }
-            .store(in: &cancellables)
-        
-        action.finishDropedCard
-            .compactMap{ cardId in self.cards.firstIndex(where: { $0.id == cardId})}
-            .sink { index in
+        action.deleteCard
+            .sink { card in
+                guard let index = self.cards.firstIndex(where: { $0.id == card.id}) else {
+                    return
+                }
                 self.cards.remove(at: index)
-                self.state.deletedCard.send(index)                
+                self.state.deletedCard.send(index)
             }.store(in: &cancellables)
     }
 }

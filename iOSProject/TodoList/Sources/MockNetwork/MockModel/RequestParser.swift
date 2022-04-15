@@ -15,8 +15,8 @@ struct AddCard: Decodable {
 
 struct MoveCard: Decodable {
     let id: Int
-    let column: MockColumnType
-    let index: Int
+    let newColumnName: MockColumnType
+    let newOrderIndex: Int
 }
 
 struct EditCard: Decodable {

@@ -10,12 +10,13 @@ import UIKit
 
 protocol ColumnViewDelegate {
     func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Column.ColumnType)
-    func columnView(_ columnView: ColumnViewController, dropedCardId: Int, targetColumn: Column.ColumnType)
+    func columnView(_ columnView: ColumnViewController, dragCard: DragCard, toColumn: Column.ColumnType, toRow: Int)
 }
 
 protocol ColumnViewInput {
     func addCard(_ card: Card, at toIndex: Int)
-    func finishDropedCard(_ cardId: Int)
+    func moveCard(_ card: Card, toRow: Int)
+    func deleteCard(_ card: Card)
 }
 
 typealias ColumnViewControllerProtocol = UIViewController & ColumnViewInput
@@ -121,7 +122,7 @@ class ColumnViewController: UIViewController {
                 self.countLabel.text = String(self.model.cardCount)
             }.store(in: &cancellables)
         
-        model.state.movedCard
+        model.state.movedColumn
             .receive(on: DispatchQueue.main)
             .sink { card, toColumn in
                 self.delegate?.columnView(self, fromCard: card, toColumn: toColumn)
@@ -134,10 +135,11 @@ class ColumnViewController: UIViewController {
                 self.cardTableView.reloadRows(at: [IndexPath(item: 0, section: $0)], with: .none)
             }.store(in: &cancellables)
         
-        model.state.notifiyFinishDropedCard
-            .sink { cardId, column in
-                self.delegate?.columnView(self, dropedCardId: cardId, targetColumn: column)
-            }.store(in: &cancellables)
+        model.state.movedCard
+            .sink { from, to in
+                self.cardTableView.moveSection(from, toSection: to)
+            }
+            .store(in: &cancellables)
     }
     
     private func layout() {
@@ -203,7 +205,8 @@ extension ColumnViewController: UITableViewDropDelegate {
             let dragCards = items.compactMap{ $0 as? DragCard }
             
             dragCards.forEach { dragCard in
-                self.model.action.dropCard.send((dragCard, destinationIndexPath.section + destinationIndexPath.item))
+                print(destinationIndexPath)
+                self.delegate?.columnView(self, dragCard: dragCard, toColumn: self.model.columnType, toRow: destinationIndexPath.section + destinationIndexPath.item)
             }
         }
     }
@@ -266,8 +269,12 @@ extension ColumnViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ColumnViewController: ColumnViewInput {
-    func finishDropedCard(_ cardId: Int) {
-        model.action.finishDropedCard.send(cardId)
+    func moveCard(_ card: Card, toRow: Int) {
+        model.action.moveCard.send((card, toRow))
+    }
+    
+    func deleteCard(_ card: Card) {
+        model.action.deleteCard.send(card)
     }
     
     func addCard(_ card: Card, at toIndex: Int) {

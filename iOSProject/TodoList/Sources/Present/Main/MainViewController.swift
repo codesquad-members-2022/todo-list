@@ -64,6 +64,22 @@ class MainViewController: UIViewController {
             .sink {
                 self.logViewController.view.isHidden = false
             }.store(in: &cancellables)
+        
+        model.state.movedCard
+            .sink { card, from, to, row in
+                guard let fromColumn = self.columnTableViews[from],
+                      let toColumn = self.columnTableViews[to] else {
+                    return
+                }
+                
+                if from == to {
+                    fromColumn.moveCard(card, toRow: row)
+                } else {
+                    fromColumn.deleteCard(card)
+                    toColumn.addCard(card, at: row)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func attribute() {
@@ -99,8 +115,8 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: ColumnViewDelegate {
-    func columnView(_ columnView: ColumnViewController, dropedCardId: Int, targetColumn: Column.ColumnType) {
-        columnTableViews[targetColumn]?.finishDropedCard(dropedCardId)
+    func columnView(_ columnView: ColumnViewController, dragCard: DragCard, toColumn: Column.ColumnType, toRow: Int) {
+        model.action.moveCard.send((dragCard, toColumn, toRow))
     }
     
     func columnView(_ columnView: ColumnViewController, fromCard: Card, toColumn: Column.ColumnType) {

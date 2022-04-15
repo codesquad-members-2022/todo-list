@@ -22,7 +22,7 @@ class TodoRepositoryImpl: NetworkRepository<TodoTarget>, TodoRepository {
     }
     
     func moveCard(_ card: Card, from: Column.ColumnType, to: Column.ColumnType, index: Int) -> AnyPublisher<ApiResult<(Card, Column.ColumnType, Column.ColumnType, Int), SessionError>, Never> {
-        request(.moveCard(card.id, toColumn: to, toIndex: index))
+        request(.moveCard(card.id, toColumn: to, toIndex: index), isSucccess: true)
             .map { result in result.mapValue((card, from, to, index)) }
             .eraseToAnyPublisher()
     }

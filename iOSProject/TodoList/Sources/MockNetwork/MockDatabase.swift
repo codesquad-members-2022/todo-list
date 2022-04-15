@@ -177,11 +177,11 @@ extension MockDataBase {
         let fromColumnCards = getCards(column: card.column_name).filter{ $0.order_id > card.order_id}
         refreshOrderId(cards: fromColumnCards, moveValue: -1)
         
-        let toColumnCards = getCards(column: moveCardData.column).filter{ $0.order_id >= moveCardData.index}
+        let toColumnCards = getCards(column: moveCardData.newColumnName).filter{ $0.order_id >= moveCardData.newOrderIndex}
         refreshOrderId(cards: toColumnCards, moveValue: 1)
         
-        card.changeColumn(moveCardData.column)
-        card.changeOrderId(moveCardData.index)
+        card.changeColumn(moveCardData.newColumnName)
+        card.changeOrderId(moveCardData.newOrderIndex)
         
         return (Data(), HTTPURLResponse(url: urlRequest.url!, statusCode: 200, httpVersion: "2", headerFields: nil))
     }
