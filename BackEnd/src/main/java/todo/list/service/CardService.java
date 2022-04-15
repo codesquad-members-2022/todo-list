@@ -45,12 +45,12 @@ public class CardService {
     @Transactional
     public CardCommandResponse modify(CardModifyRequest cardModifyRequest) {
         Card card = cardModifyRequest.toEntity();
-        Card modifiedCard = cardRepository.update(card);
+        cardRepository.update(card);
+        Card foundCard = cardRepository.findById(card.getId());
 
-        ActivityLog activityLog = new ActivityLog(Action.UPDATE, card.getTitle(), card.getStatus());
+        ActivityLog activityLog = new ActivityLog(Action.UPDATE, foundCard.getTitle(), foundCard.getStatus());
         activityLogService.save(activityLog);
 
-        Card foundCard = cardRepository.findById(card.getId());
         return new CardCommandResponse(foundCard);
     }
 
