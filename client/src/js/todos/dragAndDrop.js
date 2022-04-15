@@ -1,4 +1,11 @@
-import { $, $$, closest } from '../util.js';
+import {
+  $,
+  $$,
+  closest,
+  getURL,
+  requestToServer,
+  getSequenceData,
+} from '../util.js';
 
 export class DragAndDrop {
   constructor() {
@@ -41,9 +48,14 @@ export class DragAndDrop {
     this.isDragging = false;
     this.moveCardState = false;
     if (this.isClone) {
-      this.updateCardState(this.movedDragCard);
-      this.updateSequence(this.movedDragCard);
+      const columnName = $(
+        '.column-title',
+        closest('.column', this.movedDragCard)
+      ).textContent;
+      this.updateCardState(columnName);
+      this.updateSequence(columnName);
       this.deleteSequence();
+
       this.clonedDragCard.remove();
       this.dragCard.classList.replace('place', 'default');
       this.isClone = null;
@@ -76,6 +88,7 @@ export class DragAndDrop {
       const leftColumn = this.columnList.parentElement.previousElementSibling;
       $('.column-list', leftColumn).appendChild(this.dragCard);
       this.movedDragCard = $('.column-list', leftColumn).firstElementChild;
+
       if (!$('.column-list', leftColumn).children.length) {
         return;
       }
@@ -83,6 +96,7 @@ export class DragAndDrop {
       const rightColumn = this.columnList.parentElement.nextElementSibling;
       $('.column-list', rightColumn).appendChild(this.dragCard);
       this.movedDragCard = $('.column-list', rightColumn).firstElementChild;
+
       if (!$('.column-list', rightColumn).children.length) {
         return;
       }
@@ -169,59 +183,35 @@ export class DragAndDrop {
   }
 
   async deleteSequence() {
-    const res = await fetch('http://localhost:3002/cardSequence');
-    const json = await res.json();
-    const sequence = json[this.columnName];
+    const sequence = await getSequenceData(this.columnName);
     const patchData = {};
-
     patchData[this.columnName] = sequence.filter(
       (el) => el !== Number(this.dragCard.dataset.id)
     );
 
-    fetch('http://localhost:3002/cardSequence', {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(patchData),
-    });
+    const url = getURL('cardSequence');
+    requestToServer(url, 'PATCH', patchData);
   }
 
-  async updateSequence(cardItem) {
-    const columnList = closest('.column', cardItem).lastElementChild;
-    const columnName = $(
-      '.column-title',
-      closest('.column', cardItem)
-    ).textContent;
+  async updateSequence(columnName) {
+    const columnList = closest('.column', this.movedDragCard).lastElementChild;
 
     const patchData = {};
-
     patchData[columnName] = Array.prototype.slice
       .call($$('.list_item', columnList))
       .map((el) => Number(el.dataset.id));
 
-    fetch('http://localhost:3002/cardSequence', {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(patchData),
-    });
+    const url = getURL('cardSequence');
+    requestToServer(url, 'PATCH', patchData);
   }
 
-  async updateCardState(cardItem) {
-    const columnName = $(
-      '.column-title',
-      closest('.column', cardItem)
-    ).textContent;
-
-    const lastTime = new Date();
+  async updateCardState(columnName) {
+    const url = getURL(`cards/${this.dragCard.dataset.id}`);
     const data = {
       states: columnName,
-      lastTime: lastTime,
+      lastTime: new Date(),
     };
 
-    const url = `http://localhost:3002/cards/${this.dragCard.dataset.id}`;
-    fetch(url, {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    requestToServer(url, 'PATCH', data);
   }
 }

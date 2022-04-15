@@ -1,4 +1,4 @@
-import { $, closest, containClass } from '../util';
+import { $, closest, containClass, getURL, requestToServer } from '../util';
 
 export class UpdateCard {
   constructor(updateCard, postedCard) {
@@ -59,18 +59,13 @@ export class UpdateCard {
   }
 
   updateCardData(todoTitle, todoContent, cardId) {
-    const lastTime = new Date();
+    const url = getURL(`cards/${cardId}`);
     const data = {
       title: todoTitle,
       content: todoContent,
-      lastTime: lastTime,
+      lastTime: new Date(),
     };
 
-    const url = `http://localhost:3002/cards/${cardId}`;
-    fetch(url, {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    requestToServer(url, 'PATCH', data);
   }
 }

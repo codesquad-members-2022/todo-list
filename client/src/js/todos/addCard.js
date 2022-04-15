@@ -1,4 +1,11 @@
-import { $, closest, containClass } from '../util';
+import {
+  $,
+  closest,
+  containClass,
+  getURL,
+  requestToServer,
+  getSequenceData,
+} from '../util';
 
 export class AddCard {
   constructor(newCard, postedCard, cardId) {
@@ -76,22 +83,16 @@ export class AddCard {
   }
 
   postCardData(todoTitle, todoContent, state, cardId) {
-    const lastTime = new Date();
-
+    const url = getURL('cards');
     const data = {
       id: cardId,
       title: todoTitle,
       content: todoContent,
-      lastTime: lastTime,
+      lastTime: new Date(),
       states: state,
     };
 
-    const url = (router) => `http://localhost:3002/${router}`;
-    fetch('http://localhost:3002/cards', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    requestToServer(url, 'POST', data);
   }
 
   async updateSequence(cardItem) {
@@ -99,16 +100,15 @@ export class AddCard {
       '.column-title',
       closest('.column', cardItem)
     ).textContent;
-    const res = await fetch('http://localhost:3002/cardSequence');
-    const json = await res.json();
-    const sequence = json[columnName];
+
+    const sequence = await getSequenceData(columnName);
     sequence.unshift(Number(cardItem.dataset.id));
+
     const patchData = {};
     patchData[columnName] = sequence;
-    fetch('http://localhost:3002/cardSequence', {
-      method: 'PATCH',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(patchData),
-    });
+
+    const url = getURL('cardSequence');
+
+    requestToServer(url, 'PATCH', patchData);
   }
 }
