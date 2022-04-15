@@ -2,16 +2,16 @@ export const getLocalStorageByKey = key => {
   return JSON.parse(localStorage.getItem(key));
 };
 
-export const editLocalStorageById = (editLocalStorageObj, id) => {
+export const editLocalStorageById = (key, editLocalStorageObj, id) => {
   if (!id) return;
-  const objIndex = getLocalStorageByKey('todos').findIndex(e => e.id === id);
-  const todos = getLocalStorageByKey('todos');
+  const objIndex = getLocalStorageByKey(key).findIndex(e => e.id === id);
+  const todos = getLocalStorageByKey(key);
 
   for (const [key, value] of Object.entries(editLocalStorageObj)) {
     todos[objIndex][key] = value;
   }
 
-  localStorage.setItem('todos', JSON.stringify(todos));
+  localStorage.setItem(key, JSON.stringify(todos));
 };
 
 export const getLastIdByKey = key => {
@@ -19,8 +19,8 @@ export const getLastIdByKey = key => {
   return lastNum.length === 0 ? 0 : lastNum[lastNum.length - 1].id;
 };
 
-export const getTodosByStatus = status => {
-  const todos = getLocalStorageByKey('todos');
+export const getTodosByStatus = (key, status) => {
+  const todos = getLocalStorageByKey(key);
   if (!todos) return;
   return todos.filter(todo => todo.status === status);
 };

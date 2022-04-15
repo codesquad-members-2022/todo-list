@@ -96,18 +96,20 @@ export const onBodyMouseUp = () => {
     if (copyElement) {
       // 카드 이동 이후 로컬스토리지 해당 id 업데이트
       const id = Number(copyElement.id);
-      const todo = {};
-      todo.id = id;
-      todo.status = status;
-      editLocalStorageById(todo, id);
+      const todo = {
+        id,
+        status,
+      };
+      editLocalStorageById('todos', todo, id);
       copyElement?.remove();
 
       const [title, content] = getCardData(copyElement);
-      const notice = {};
-      notice.title = title;
-      notice.status = status;
-      notice.content = content;
-      notice.firstStatus = firstStatus;
+      const notice = {
+        title,
+        status,
+        content,
+        firstStatus,
+      };
 
       const newNotice = createNotice(notice, '이동');
       handleNotice(newNotice);
