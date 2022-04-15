@@ -35,4 +35,15 @@ public class CardResponse {
 			return new CardResponse.AddInfo(card.getId(), card.getModifiedAt().toString());
 		}
 	}
+
+	@Getter
+	@AllArgsConstructor(access = AccessLevel.PRIVATE)
+	public static class UpdateInfo {
+
+		private boolean success;
+
+		public static CardResponse.UpdateInfo isSuccess(boolean success) {
+			return new CardResponse.UpdateInfo(success);
+		}
+	}
 }
