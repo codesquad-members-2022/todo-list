@@ -2,6 +2,7 @@ import { createTagTemplate } from '../utils/createTemplate.js';
 import AlertView from '../Alert/AlertView.js';
 import { Todo } from '../Todo/main.js';
 import Card from '../Todo/Card/main.js';
+import { postCard, deleteCard, patchCard } from '../Utils/api.js';
 
 class Controller {
   constructor({ Header, History }) {
@@ -52,15 +53,22 @@ class Controller {
       this.deleteAlertView.render();
     }
 
-    function handleClickAccept() {
+    async function handleClickAccept() {
       const targetColumn = this.findTodoColumn(
         this.deletedColumn.dataset.columnid
       );
       const deleteCardId = this.deletedCard.dataset.cardid;
+
       const targetCard = this.findTodoCard(targetColumn, deleteCardId);
       targetCard.view.renderDeleted(this.deletedCard);
 
       targetColumn.model.deleteCard(deleteCardId);
+
+      const response = await deleteCard({ cardId: deleteCardId });
+      if (!response.ok) {
+        throw new Error('api failed');
+      }
+
       targetColumn.model.updateCardCount();
       targetColumn.view.renderCardCount(
         this.deletedColumn,
@@ -151,7 +159,7 @@ class Controller {
     accentBtn.removeAttribute('disabled');
   }
 
-  cardAddHandler({ target }) {
+  async cardAddHandler({ target }) {
     const {
       targetColumnBox,
       targetColumnID,
@@ -167,6 +175,26 @@ class Controller {
 
     if (!targetCard.classList.contains('edit')) {
       targetColumn.model.updateAddStstue();
+      const author = 'web';
+      const columnId = targetColumnID;
+
+      const response = await postCard({
+        card: {
+          author,
+          columnId,
+          content: contentValue,
+          title: titleValue,
+        },
+      });
+    } else {
+      await patchCard({
+        card: {
+          author: 'web',
+          content: contentValue,
+          title: titleValue,
+        },
+        cardId: targetCard.dataset.cardid,
+      });
     }
 
     titleText.innerText = titleValue;
@@ -176,6 +204,7 @@ class Controller {
 
     targetCard.classList.remove('write', 'edit');
     targetColumn.model.addCardList(this.actionCard);
+
     targetColumn.view.renderCardCount(
       targetColumnBox,
       targetColumn.model.getCardCount()
