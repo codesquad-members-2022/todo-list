@@ -66,3 +66,8 @@ export async function getUserData(userId) {
   if (!userData) throw "no user";
   return userData;
 }
+
+export function createNextId(list = []) {
+  const lastValue = list[list.length - 1];
+  return lastValue ? lastValue.id + 1 : 1;
+}

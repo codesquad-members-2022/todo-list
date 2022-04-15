@@ -13,6 +13,10 @@ export default class Store {
     return this.items;
   }
 
+  getHistory() {
+    return this.history;
+  }
+
   addColumn() {
     const columnIds = this.columns.map(({ id }) => id);
     const lastColumnId = Math.max(...columnIds);
@@ -24,15 +28,24 @@ export default class Store {
     this.columns.push(newColumn);
     return newColumn;
   }
+
   removeColumn() {}
+
   updateColumn(columnId, newTitle) {
     const newColumn = this.columns.find(({ id }) => id === columnId);
     newColumn.title = newTitle;
   }
 
-  addItem() {}
-  removeItem() {}
+  addItem({ id, columnId, title, content, date }) {
+    const newItem = { id, columnId, title, content, date };
+    this.items.push(newItem);
+    return newItem;
+  }
+
+  removeItem(itemId) {
+    const itemIndex = this.items.findIndex((item) => item.id === itemId);
+    this.items[itemIndex].state = false;
+  }
+
   updateItem() {}
 }
-
-// 컬럼과 아이템 데이터를 관리(가져오기, 생성하기, 삭제하기, 변경하기)

@@ -1,24 +1,20 @@
 body {
   background-color: $gray-body;
   margin: 0 auto;
-  overflow: hidden;
 }
 
 .todo-container {
   position: relative;
   max-width: 1440px;
   min-width: 600px;
-  height: 500px;
-  max-height: 1024px;
+  height: 100%;
   margin: 0 auto;
   padding: 33px 80px;
-
-  .column--add-btn {
-    position: absolute;
-    right: 75px;
-    bottom: 0;
-  }
+  overflow: hidden;
 }
 
-.main {
+.column--add-btn {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
 }

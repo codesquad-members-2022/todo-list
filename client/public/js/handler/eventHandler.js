@@ -1,6 +1,5 @@
-import { qs, on, delegate, getParentElementByDataset } from "../utils/helpers.js";
-
-import { renderItemForm, renderColumn } from "../views/renderer.js";
+import { qs, on, delegate, getParentElementByDataset, createNextId } from "../utils/helpers.js";
+import { renderItemForm, renderColumn, renderItem, renderColumnLength, renderAllHistory } from "../views/renderer.js";
 
 export function bindEvents(store) {
   const el = {
@@ -17,6 +16,7 @@ export function bindEvents(store) {
     removeItemBtn: ".card--delete-card",
     removeColumnBtn: ".column__header--delete-card",
     columnTitle: ".column__header--title",
+    itemCard: ".card",
     itemForm: ".card__register-form",
     itemFormInput: ".card-box .card__content--title",
     itemFormTextarea: ".card-box .card__content--text",
@@ -28,9 +28,12 @@ export function bindEvents(store) {
   on(el.showHistoryBtn, "click", showHistoryBar);
   on(el.hideHistoryBtn, "click", hideHistoryBar);
 
+  // Item Form Card
   delegate(el.columnList, "submit", selector.itemForm, (event) => registItem(event));
   delegate(el.columnList, "click", selector.addItemBtn, (event) => showItemForm(event));
   delegate(el.columnList, "click", selector.itemFormCancelBtn, removeItemForm);
+
+  // Item Card
   delegate(el.columnList, "click", selector.removeItemBtn, (event) => removeItem(event));
 
   // column
@@ -39,7 +42,7 @@ export function bindEvents(store) {
 
   function showHistoryBar() {
     el.historyBar.classList.toggle("show");
-    // 히스토리 상대 날짜 리렌더링
+    renderAllHistory(store.history);
   }
 
   function hideHistoryBar() {
@@ -48,8 +51,8 @@ export function bindEvents(store) {
 
   function showItemForm(event) {
     removeItemForm();
-    const columnEl = getParentElementByDataset(event.target, "column");
-    const columnId = columnEl.dataset.column;
+
+    const columnId = _getColumnId(event.target);
     renderItemForm(columnId);
     qs(selector.itemFormInput).focus();
   }
@@ -61,13 +64,28 @@ export function bindEvents(store) {
 
   function registItem(event) {
     event.preventDefault();
-    console.log("registItem");
-    console.log(event.target);
-    // 타이틀, 내용, 작성 날짜, 칼럼 넘버 가져오기
-    // 스토어에 데이터 추가(아이템 아이디 생성)
-    // input에
-    // 아이템 렌더링
-    // 폼 삭제
+
+    const id = createNextId(store.getItems());
+    const columnId = _getColumnId(event.target);
+    const title = qs(selector.itemFormInput).value;
+    const content = qs(selector.itemFormTextarea).value;
+    const date = new Date();
+
+    const newItem = { id, columnId, title, content, date };
+
+    renderItem(store.addItem(newItem));
+    removeItemForm();
+  }
+
+  function removeItem(event) {
+    const itemId = _getItemId(event.target);
+    store.removeItem(itemId);
+
+    const columnId = _getColumnId(event.target);
+    renderColumnLength(columnId, false);
+
+    const itemEl = getParentElementByDataset(event.target, "card");
+    itemEl.remove();
   }
 
   function addColumn(event) {
@@ -95,5 +113,13 @@ export function bindEvents(store) {
   function removeColumn(event) {
     console.log("removeColumn");
     console.log(event.target);
+  }
+
+  function _getColumnId(eventTarget) {
+    return Number(getParentElementByDataset(eventTarget, "column").dataset.column);
+  }
+
+  function _getItemId(eventTarget) {
+    return Number(getParentElementByDataset(eventTarget, "card").dataset.card);
   }
 }

@@ -7,7 +7,7 @@
 }
 
 .card {
-  @include flex(flex-start, flex-start);
+  @include flex(space-around, flex-start);
   width: inherit;
   // min-height: 113px;
   background-color: $card-body;
@@ -18,7 +18,7 @@
   &__content {
     @include flex(flex-start, flex-start);
     flex-direction: column;
-    margin: 16px;
+    margin: 16px 0;
     gap: 8px;
 
     &--title {

@@ -28,9 +28,9 @@ async function app() {
   renderAside();
 
   // render initial user data
-  renderAllColumns(store.columns);
-  renderAllItems(store.items);
-  renderAllHistory(store.history);
+  renderAllColumns(store.getColumns());
+  renderAllItems(store.getItems());
+  renderAllHistory(store.getHistory());
 
   // bind events
   bindEvents(store);
