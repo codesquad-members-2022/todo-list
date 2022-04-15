@@ -179,13 +179,13 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
         
         addCardViewController.setaddCardView(title: title, body: body)
         self.setModalPresent()
-
     }
 }
 
 extension TableViewController: TableHeaderDelegate{
     func cardWillCreated(at section: Int){
         addCardViewController.sectionNumber = section
+        addCardViewController.setaddCardView(title: nil, body: nil)
         addCardViewController.modalPresentationStyle = .overCurrentContext
         addCardViewController.modalTransitionStyle = .crossDissolve
         self.present(addCardViewController, animated: true, completion: nil)

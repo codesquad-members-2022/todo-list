@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Codable{
+struct Card: Codable, Equatable{
     private(set) var id: Int
     private(set) var section: State
     private(set) var title: String
@@ -44,5 +44,13 @@ struct Card: Codable{
     
     mutating func changeDate(date: String){
         self.createdDate = date
+    }
+    
+    mutating func changeTitle(title: String){
+        self.title = title
+    }
+    
+    mutating func changeContent(content: String){
+        self.content = content
     }
 }

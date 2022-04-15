@@ -11,10 +11,10 @@ final class AddCardViewController: UIViewController {
     var addCardView: AddCardView!
     var sectionNumber: Int?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .clear
-        configureCardView()
     }
     
     func configureCardView(){
