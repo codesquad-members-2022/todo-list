@@ -22,6 +22,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Subtitle1.white">
+        <item name="android:textColor">@color/todo_white</item>
+    </style>
+
     <style name="Subtitle1.bold">
         <item name="android:textStyle">bold</item>
     </style>

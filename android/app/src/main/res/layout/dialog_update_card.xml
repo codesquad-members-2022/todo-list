@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_dialog"
+            android:layout_width="540dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:background="@drawable/dialog_background_white"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_update_dialog_title"
+                style="@style/TextHeadline5.bold.20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_update_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_title"
+                style="@style/Subtitle1.bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/label_dialog_add_title"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textCursorDrawable="@drawable/edittext_cursor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_update_dialog_title" />
+
+            <EditText
+                android:id="@+id/et_contents"
+                style="@style/Subtitle1.14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="14dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/label_dialog_add_contents"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textCursorDrawable="@drawable/edittext_cursor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_title" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/able_dialog_button"
+                android:text="@string/label_dialog_update"
+                android:textColor="@drawable/selector_dialog_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/dialog_button_cancel"
+                android:text="@string/label_dialog_cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_update" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+</layout>
