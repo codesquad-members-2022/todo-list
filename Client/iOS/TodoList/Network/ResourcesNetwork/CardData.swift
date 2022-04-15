@@ -9,9 +9,10 @@ import Foundation
 
 struct CardData: Codable, Identifiable
 {
-    let id: String // Identifiable required property
+    let id: Int // Identifiable required property
     let title: String
     let contents: String
+    let boardName: String
     let creationDate: String
     let index: Int
     let status: Int
@@ -20,48 +21,37 @@ struct CardData: Codable, Identifiable
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CardDataJsonKeys.self)
         
-        guard let objectId = try? container.decode(String.self, forKey: .objectId) else {
+        guard let objectId = try? container.decode(Int.self, forKey: .cardId) else {
             throw CardDataDecodedError.objectIdError
         }
         
-        guard let title = try? container.decode(String.self, forKey: .title) else {
+        guard let title = try? container.decode(String.self, forKey: .cardTitle) else {
             throw CardDataDecodedError.titleError
         }
         
-        guard let contents = try? container.decode(String.self, forKey: .contents) else {
+        guard let contents = try? container.decode(String.self, forKey: .cardContent) else {
             throw CardDataDecodedError.contentsError
         }
         
-        guard let creationDate = try? container.decode(String.self, forKey: .creationDate) else {
-            throw CardDataDecodedError.creationDateError
-        }
-        
-        guard let index = try? container.decode(Int.self, forKey: .index) else {
-            throw CardDataDecodedError.indexError
-        }
-        
-        guard let status = try? container.decode(Int.self, forKey: .status) else {
-            throw CardDataDecodedError.statusError
-        }
-        
-        guard let updateDate = try? container.decode(String.self, forKey: .updateDate) else {
-            throw CardDataDecodedError.updateDateError
+        guard let boardName = try? container.decode(String.self, forKey: .boardName) else {
+            throw CardDataDecodedError.boardNameError
         }
         
         self.id = objectId
         self.title = title
         self.contents = contents
-        self.creationDate = creationDate
-        self.index = index
-        self.status = status
-        self.updateDate = updateDate
+        self.boardName = boardName
+        self.creationDate = (try? container.decode(String.self, forKey: .creationDate)) ?? ""
+        self.index = (try? container.decode(Int.self, forKey: .index)) ?? 0
+        self.status = (try? container.decode(Int.self, forKey: .status)) ?? 0
+        self.updateDate = (try? container.decode(String.self, forKey: .updateDate)) ?? ""
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CardDataJsonKeys.self)
-        try container.encode(id, forKey: .objectId)
-        try container.encode(title, forKey: .title)
-        try container.encode(contents, forKey: .contents)
+        try container.encode(id, forKey: .cardId)
+        try container.encode(title, forKey: .cardTitle)
+        try container.encode(contents, forKey: .cardContent)
         try container.encode(creationDate, forKey: .creationDate)
         try container.encode(index, forKey: .index)
         try container.encode(status, forKey: .status)
@@ -69,9 +59,10 @@ struct CardData: Codable, Identifiable
     }
     
     enum CardDataJsonKeys: String, CodingKey {
-        case objectId = "objectId"
-        case title = "title"
-        case contents = "contents"
+        case cardId = "cardId"
+        case cardTitle = "cardTitle"
+        case cardContent = "cardContent"
+        case boardName = "boardName"
         case creationDate = "creationDate"
         case index = "index"
         case status = "status"
@@ -79,12 +70,13 @@ struct CardData: Codable, Identifiable
     }
     
     enum CardDataDecodedError: String, Error {
-        case objectIdError = "objectId 값 디코딩에 실패하였습니다."
+        case objectIdError = "cardId 값 디코딩에 실패하였습니다."
         case titleError = "title 값 디코딩에 실패하였습니다."
         case contentsError = "contents 값 디코딩에 실패하였습니다."
         case creationDateError = "creationDate 값 디코딩에 실패하였습니다."
         case indexError = "index 값 디코딩에 실패하였습니다."
         case statusError = "status 값 디코딩에 실패하였습니다."
         case updateDateError = "updateDate 값 디코딩에 실패하였습니다."
+        case boardNameError = "boardNameError 값 디코딩에 실패하였습니다."
     }
 }
