@@ -20,7 +20,7 @@ class TodoTableViewCell: UITableViewCell {
         roundedView.layer.masksToBounds = true
     }
     
-    func applyTextAllLabels(data card: CardData) {
+    func applyTextAllLabels(data card: Card) {
         setTitleLabelAttribute(card.title)
         setContentLabelAttribute(card.contents)
     }
