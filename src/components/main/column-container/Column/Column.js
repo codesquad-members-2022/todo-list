@@ -1,4 +1,5 @@
 import "./Column.scss";
+import { hasClassName } from "../../../../common/util.js";
 import { Store } from "../../../../stores/ColumnStore.js";
 import { initCard } from "./card/Card.js";
 
@@ -71,7 +72,7 @@ const setAddBtnEvent = (columnNode) => {
 
 const handleAddBtnClick = (columnNode, addBtn) => {
   const columnID = columnNode.dataset.id;
-  if (addBtn.classList.contains("activated")) {
+  if (hasClassName(addBtn, "activated")) {
     Store.unsetAddingCardState(columnID);
   } else {
     Store.setAddingCardState(columnID);

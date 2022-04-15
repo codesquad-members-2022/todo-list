@@ -4,6 +4,22 @@ export const pipe = (...fns) => {
   return (value) => fns.reduce((acc, fn) => fn(acc), value);
 };
 
+export const insertNodeBefore = (targetNode, referenceNode) => {
+  referenceNode.parentNode.insertBefore(targetNode, referenceNode);
+};
+
+export const insertNodeAfter = (targetNode, referenceNode) => {
+  referenceNode.parentNode.insertBefore(targetNode, referenceNode.nextSibling);
+};
+
+export const removeNodeself = (node) => {
+  node.parentNode.removeChild(node);
+};
+
+export const hasClassName = (element, className) => {
+  return element.classList.contains(className);
+};
+
 export const request = {
   async allState() {
     const rawState = await (await fetch(`${URL}/columns`)).json();

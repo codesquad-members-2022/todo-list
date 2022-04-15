@@ -1,4 +1,10 @@
 import "./Card.scss";
+import {
+  insertNodeBefore,
+  insertNodeAfter,
+  removeNodeself,
+  hasClassName
+} from "../../../../../common/util.js";
 import { CARD_TYPE } from "../../../../../common/variable.js";
 import { Store } from "../../../../../stores/ColumnStore.js";
 import { activateAlert } from "./alert/Alert.js";
@@ -76,7 +82,6 @@ const setEvents = (cardNode, cardState) => {
   switch (cardState.type) {
     case CARD_TYPE.NORMAL:
       setDeleteBtnEvent(cardNode);
-      setDoubleClickEvent(cardNode);
       setMouseDownEvent(cardNode);
       break;
     case CARD_TYPE.ADDING:
@@ -89,13 +94,13 @@ const setEvents = (cardNode, cardState) => {
 
 const setDeleteBtnEvent = (cardNode) => {
   const deleteBtn = cardNode.querySelector(".card__delete-btn");
-  deleteBtn.addEventListener("click", () => handleDeleteBtnClickEvent(cardNode));
+  deleteBtn.addEventListener("mouseup", (e) => handleDeleteBtnClickEvent(e, cardNode));
   deleteBtn.addEventListener("mouseenter", () => handleDeleteBtnMouseEvent(cardNode));
   deleteBtn.addEventListener("mouseleave", () => handleDeleteBtnMouseEvent(cardNode));
 };
 
-const setDoubleClickEvent = (cardNode) => {
-  cardNode.addEventListener("dblclick", () => handleDoubleClickEvent(cardNode));
+const setMouseDownEvent = (cardNode) => {
+  cardNode.addEventListener("mousedown", (e) => handleMouseDownEvent(e, cardNode));
 };
 
 const setCancelBtnEvent = (cardNode, cardType) => {
@@ -112,17 +117,27 @@ const setInputEvent = (cardNode) => {
   cardNode.addEventListener("input", () => handleInputEvent(cardNode));
 };
 
-const handleDeleteBtnClickEvent = (cardNode) => {
+const handleDeleteBtnClickEvent = (e, cardNode) => {
   const [parentColumnID, cardID] = getIDs(cardNode);
   changeCardType(cardNode, CARD_TYPE.DELETING);
   activateAlert(parentColumnID, cardID);
+  e.stopPropagation();
 };
 
 const handleDeleteBtnMouseEvent = (cardNode) => {
   cardNode.classList.toggle("card--deleting");
 };
 
-const handleDoubleClickEvent = (cardNode) => {
+const handleMouseDownEvent = (e, cardNode) => {
+  if (e.detail === 1) {
+    handleSingleMouseDownEvent(e, cardNode);
+  }
+  if (e.detail >= 2) {
+    handleDoubleMouseDownEvent(cardNode);
+  }
+};
+
+const handleDoubleMouseDownEvent = (cardNode) => {
   changeCardType(cardNode, CARD_TYPE.EDITING);
 };
 
@@ -135,7 +150,7 @@ const handleCancelBtnEvent = (cardNode, cardType) => {
 };
 
 const handleConfirmBtnEvent = (confirmBtn, cardNode) => {
-  if (!confirmBtn.classList.contains("activated")) return;
+  if (!hasClassName(confirmBtn, "activated")) return;
   if (confirmBtn.dataset.type === CARD_TYPE.ADDING) {
     registerCardState(cardNode);
   } else if (confirmBtn.dataset.type === CARD_TYPE.EDITING) {
@@ -198,112 +213,82 @@ const getIDs = (cardNode) => {
   return [parentColumnID, cardID];
 };
 
-export const reRenderCard = (cardState) => {
-  const cardNode = findCardNode(cardState._id);
-  renderCard(cardNode, cardState);
-  setEvents(cardNode, cardState);
+const handleSingleMouseDownEvent = (e, cardNode) => {
+  const [originalCardTop, originalCardLeft] = getOriginalCardPositions(cardNode);
+  const shadowCardNode = makeShadowCardNode(cardNode);
+  const followingCardNode = makeFollowingCardNode(cardNode, originalCardTop, originalCardLeft);
+
+  const shiftX = e.clientX - originalCardLeft;
+  const shiftY = e.clientY - originalCardTop;
+
+  const mouseMoveHandler = getMouseMoveHandler(shiftX, shiftY, shadowCardNode, followingCardNode);
+  const mouseUpHandler = getMouseUpHandler(mouseMoveHandler, shadowCardNode, followingCardNode);
+  document.body.addEventListener("mousemove", mouseMoveHandler);
+  document.body.addEventListener("mouseup", mouseUpHandler, { once: true });
 };
 
-const findCardNode = (cardID) => {
-  return document.querySelector(`[data-id="${cardID}"]`);
+const getOriginalCardPositions = (cardNode) => {
+  const originalCardTop = cardNode.getBoundingClientRect().top;
+  const originalCardLeft = cardNode.getBoundingClientRect().left;
+  return [originalCardTop, originalCardLeft];
 };
 
-//drag n drop
-function classifyByEventCnt(singleEventHandler, interval) {
-  let cnt = 0;
-  let timer;
-
-  return (...args) => {
-    cnt++;
-    timer = setTimeout(() => {
-      if (cnt === 1) {
-        singleEventHandler(...args);
-        cnt = 0;
-      }
-    }, interval);
-    if (cnt === 2) {
-      clearTimeout(timer);
-      // doubleEventHandler(...args);
-      cnt = 0;
-    }
-  };
-}
-
-const setMouseDownEvent = (cardNode) => {
-  const singleMouseDownEventHandler = getSingleMouseDownEventHandler(cardNode);
-  //const doubleMouseDownEventHandler = getDoubleMouseDownEventHandler(cardNode);
-  cardNode.addEventListener("mousedown", classifyByEventCnt(singleMouseDownEventHandler, 200));
+const makeShadowCardNode = (cardNode) => {
+  const shadowCardNode = cardNode.cloneNode(true);
+  shadowCardNode.classList.add("shadow");
+  insertNodeBefore(shadowCardNode, cardNode);
+  return shadowCardNode;
 };
 
-const getSingleMouseDownEventHandler = (cardNode) => (e) => {
-  handleSingleMouseDownEvent(cardNode, e);
-};
-
-const getDoubleMouseDownEventHandler = (cardNode) => () => {
-  handleDoubleClickEvent(cardNode);
-};
-
-const handleSingleMouseDownEvent = (cardNode, e) => {
-  //readyForMove
-  // const shadowCardNode = cardNode.cloneNode(true);
-  const followingCardNode = cardNode.cloneNode(true);
+const makeFollowingCardNode = (cardNode, originalCardTop, originalCardLeft) => {
+  const followingCardNode = cardNode;
   followingCardNode.classList.add("following");
-  document.body.append(followingCardNode);
-  followingCardNode.style.left = cardNode.getBoundingClientRect().left + "px";
-  followingCardNode.style.top = cardNode.getBoundingClientRect().top - 15 + "px";
-  const shiftX = e.clientX - cardNode.getBoundingClientRect().left;
-  const shiftY = e.clientY - cardNode.getBoundingClientRect().top;
-
-  cardNode.classList.add("shadow");
-
-  const handleMouseMove = getMouseMoveHandler(shiftX, shiftY, cardNode, followingCardNode);
-  const handleMouseUp = getMouseUpHandler(handleMouseMove, cardNode, followingCardNode);
-  document.body.addEventListener("mousemove", handleMouseMove);
-  document.body.addEventListener("mouseup", handleMouseUp, { once: true });
+  moveFollowingCard(followingCardNode, originalCardLeft, originalCardTop);
+  return followingCardNode;
 };
 
-const getMouseMoveHandler = (shiftX, shiftY, cardNode, followingCardNode) => (event) => {
+const moveFollowingCard = (followingCardNode, posX, posY) => {
+  followingCardNode.style.left = posX + "px";
+  followingCardNode.style.top = posY + "px";
+};
+
+const getMouseMoveHandler = (shiftX, shiftY, shadowCardNode, followingCardNode) => (event) => {
   handleFollowingCard(shiftX, shiftY, followingCardNode, event);
-  handleCardShadow(cardNode, followingCardNode, event);
+  handleCardShadow(shadowCardNode, followingCardNode, event);
 };
 
-const getMouseUpHandler = (mouseMoveHandler, cardNode, followingCardNode) => () => {
-  endDragDropEvent(mouseMoveHandler, cardNode, followingCardNode);
+const getMouseUpHandler = (mouseMoveHandler, shadowCardNode, followingCardNode) => () => {
+  endDragDropEvent(mouseMoveHandler, shadowCardNode, followingCardNode);
 };
 
 const handleFollowingCard = (shiftX, shiftY, followingCardNode, event) => {
-  const [x, y] = getCardPosition(shiftX, shiftY, event);
-  moveFollowingCard(followingCardNode, x, y);
+  const [posX, posY] = getCardPosition(shiftX, shiftY, event);
+  moveFollowingCard(followingCardNode, posX, posY);
 };
 
 const getCardPosition = (shiftX, shiftY, event) => {
-  const x = event.pageX - shiftX + "px";
-  const y = event.pageY - shiftY + "px";
+  const x = event.pageX - shiftX;
+  const y = event.pageY - shiftY;
   return [x, y];
 };
 
-const moveFollowingCard = (followingCardNode, x, y) => {
-  followingCardNode.style.left = x;
-  followingCardNode.style.top = y;
-};
-
-const handleCardShadow = (cardNode, followingCardNode, event) => {
+const handleCardShadow = (shadowCardNode, followingCardNode, event) => {
   const underMouseElement = getUnderMouseElement(followingCardNode, event.clientX, event.clientY);
   const underMouseElementClass = inspectElementClass(underMouseElement);
-  moveCardShadow(underMouseElementClass, underMouseElement, cardNode, event);
+  moveCardShadow(underMouseElementClass, underMouseElement, shadowCardNode, event);
 };
 
-const moveCardShadow = (underMouseElementClass, underMouseElement, cardNode, event) => {
+const moveCardShadow = (underMouseElementClass, underMouseElement, shadowCardNode, event) => {
   switch (underMouseElementClass) {
     case "card":
-      moveToAroundCard(underMouseElement, cardNode, event);
+      moveToAroundCard(underMouseElement, shadowCardNode, event);
       return;
     case "card-content":
       const parentCardElement = underMouseElement.closest(".card");
-      moveToAroundCard(parentCardElement, cardNode, event);
+      moveToAroundCard(parentCardElement, shadowCardNode, event);
       return;
     case "column":
-      moveToColumn(underMouseElement, cardNode);
+      moveToColumn(underMouseElement, shadowCardNode);
       return;
   }
 };
@@ -311,9 +296,9 @@ const moveCardShadow = (underMouseElementClass, underMouseElement, cardNode, eve
 const moveToAroundCard = (underMouseCardElement, cardNode, event) => {
   const rect = underMouseCardElement.getBoundingClientRect();
   if (event.clientY < (rect.top + rect.bottom) / 2) {
-    underMouseCardElement.parentNode.insertBefore(cardNode, underMouseCardElement);
+    insertNodeBefore(cardNode, underMouseCardElement);
   } else {
-    underMouseCardElement.parentNode.insertBefore(cardNode, underMouseCardElement.nextElementSibling);
+    insertNodeAfter(cardNode, underMouseCardElement);
   }
 };
 
@@ -341,13 +326,30 @@ const inspectElementClass = (underMouseElement) => {
   }
 };
 
-const hasClassName = (element, className) => {
-  return element.classList.contains(className);
+const endDragDropEvent = (mouseMoveHandler, shadowCardNode, followingCardNode) => {
+  document.body.removeEventListener("mousemove", mouseMoveHandler);
+  putFollowingCardOnShawdow(followingCardNode, shadowCardNode);
+  disconnectFollowingCard(followingCardNode);
+  removeNodeself(shadowCardNode);
+  //서버한테 전송하는 등의 마무리 작업 로직 추가 필요
 };
 
-const endDragDropEvent = (mouseMoveHandler, cardNode, followingCardNode) => {
-  document.body.removeEventListener("mousemove", mouseMoveHandler);
-  document.body.removeChild(followingCardNode);
-  cardNode.classList.remove("shadow");
-  //서버한테 전송하는 등의 마무리 작업 로직 추가 필요
+const putFollowingCardOnShawdow = (followingCardNode, shadowCardNode) => {
+  insertNodeBefore(followingCardNode, shadowCardNode);
+};
+
+const disconnectFollowingCard = (followingCardNode) => {
+  followingCardNode.classList.remove("following");
+  followingCardNode.style.left = 0;
+  followingCardNode.style.top = 0;
+};
+
+export const reRenderCard = (cardState) => {
+  const cardNode = findCardNode(cardState._id);
+  renderCard(cardNode, cardState);
+  setEvents(cardNode, cardState);
+};
+
+const findCardNode = (cardID) => {
+  return document.querySelector(`[data-id="${cardID}"]`);
 };
