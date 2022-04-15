@@ -9,8 +9,10 @@ import com.team15.todoapi.repository.MemberRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class HistoryService {
@@ -26,6 +28,8 @@ public class HistoryService {
 	}
 
 	public int add(Card card) {
+		log.info("History ADD - Card 객체 확인");
+		log.info(card.toString());
 		return historyRepository.insert(card);
 	}
 
