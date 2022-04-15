@@ -69,6 +69,7 @@ extension AddCardViewController: AddCardDelegate{
     }
     
     func makeCardShoudCanceld() {
+        self.selectedCard = nil
         self.dismiss(animated: true, completion: {
             self.addCardView.clear()
         })
