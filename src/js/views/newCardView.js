@@ -1,3 +1,6 @@
+import { TODO_LIST_URL } from '../constants/constant.js';
+import { saveToDB } from '../utils/util.js';
+
 export const createNewCardTemplate = todoData => {
   return `
   <li class="task__card ${todoData ? 'edit-card' : 'new-card'}">
@@ -21,9 +24,6 @@ export const createNewCardTemplate = todoData => {
       }
     </footer>
   </div>
-  <div class="card__delete-btn">
-    ${icons.delete}
-  </div>
 </li>
   `;
 };
@@ -44,6 +44,15 @@ const onNewCardClick = (newCard, store, columnClassName) => {
     const titleInputValue = newCard.querySelector('.card__contents__input--header').value;
     const textAreaValue = newCard.querySelector('.card__contents__input--main').value;
     saveNewCard(newCard, store, columnClassName, titleInputValue, textAreaValue);
+    reflectStoreToDB(store);
+  });
+};
+
+const reflectStoreToDB = store => {
+  const columns = store.getStore('main');
+  columns.forEach(column => {
+    const url = TODO_LIST_URL + '/' + column.id;
+    saveToDB(url, column);
   });
 };
 
@@ -95,18 +104,18 @@ const enableBtn = btn => {
 export const onAddBtnClick = store => {
   const mainElement = document.querySelector('.main');
   mainElement.addEventListener('click', ({ target }) => {
-    handleAddBtnClick(mainElement, target);
+    handleAddBtnClick(mainElement, target, store);
   });
 };
 
 const handleAddBtnClick = (mainElement, target, store) => {
-  if (!target.closest('.title-column__btn__add')) {
+  if (!target.closest(`.title-column__btn__add`)) {
     return;
   }
-  const className = target.closest(`.title-column__btn__add`).dataset.classname;
-  const column = mainElement.querySelector(`.${className}`);
+  const columnClassName = target.closest(`.title-column__btn__add`).dataset.classname;
+  const column = mainElement.querySelector(`.${columnClassName}`);
   const cardList = column.querySelector('.task__cards');
-  toggleNewCard(cardList);
+  toggleNewCard(cardList, store, columnClassName);
 };
 
 const resizeTextArea = textArea => {
@@ -115,28 +124,23 @@ const resizeTextArea = textArea => {
 };
 
 const onResizeTextArea = textArea => {
-  textArea.addEventListener('keyup', () => {
-    resizeTextArea(textArea);
-  });
-  textArea.addEventListener('keydown', () => {
+  textArea.addEventListener('input', () => {
     resizeTextArea(textArea);
   });
 };
 
-const toggleNewCard = cardList => {
+const toggleNewCard = (cardList, store, columnClassName) => {
   const newCard = cardList.querySelector('.new-card');
   if (newCard) {
     newCard.remove();
     return;
+  } else {
+    const newCardTemplate = createNewCardTemplate();
+    cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
+    const newCard = cardList.querySelector('.card__contents');
+    const textArea = cardList.querySelector('.card__contents__input--main');
+    onNewCardInput(newCard);
+    onResizeTextArea(textArea);
+    onNewCardClick(newCard, store, columnClassName);
   }
-
-  const newCardTemplate = createNewCardTemplate();
-  cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
-  const newCardContents = cardList.querySelector('.card__contents');
-  const textArea = cardList.querySelector('.card__contents__input--main');
-
-  onNewCardInput(newCardContents);
-  onResizeTextArea(textArea);
-  onNewCardClick(newCardContents, store, columnClassName);
-  onCancelBtnClick(newCardContents);
 };
