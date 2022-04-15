@@ -5,7 +5,7 @@ import CardWritable from "../CardWritable/CardWritable";
 import ColumnHeader from "../ColumnHeader/ColumnHeader";
 import styles from "./columns.module.css";
 
-const Columns = ({ columns, todos, handleRenderFlag }) => {
+const Columns = ({ columns, todos, handlers }) => {
   const getTodosByColumnId = (columnId) => {
     return todos.filter((todo) => todo.columnId === columnId);
   };
@@ -21,7 +21,7 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
     Cards({
       $newCard,
       todos: getTodosByColumnId(column._id),
-      handleRenderFlag,
+      handlers,
     });
 
   const handleSubmitForm = async (event) => {
@@ -41,7 +41,7 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
     };
 
     await todoApi.createTodo(requestBody);
-    handleRenderFlag();
+    handlers.handleRenderFlag();
   };
 
   const createColumnElement = (column) => {

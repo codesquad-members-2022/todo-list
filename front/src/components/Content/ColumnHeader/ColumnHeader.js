@@ -2,15 +2,20 @@ import peact from "../../../core/peact";
 import styles from "./columnHeader.module.css";
 
 const ColumnHeader = ({ column, todos, toggleCardVisible }) => {
+  const plusButtonRef = peact.useRef();
+  const deleteButtonRef = peact.useRef();
+
   const hoverButton = ($button, className) => {
     $button.classList.toggle(className);
   };
 
   const handleHoverPlusButton = () => {
+    const $plusButton = plusButtonRef.current;
     hoverButton($plusButton, styles.plusButtonHover);
   };
 
   const handleHoverDeleteButton = () => {
+    const $deleteButton = deleteButtonRef.current;
     hoverButton($deleteButton, styles.deleteButtonHover);
   };
 
@@ -41,6 +46,7 @@ const ColumnHeader = ({ column, todos, toggleCardVisible }) => {
       onMouseOut: handleHoverPlusButton,
       onClick: handleClickPlusButton,
     },
+    ref: plusButtonRef,
     child: [plusButtonImgTemplate],
   });
 
@@ -56,6 +62,7 @@ const ColumnHeader = ({ column, todos, toggleCardVisible }) => {
       onMouseOver: handleHoverDeleteButton,
       onMouseOut: handleHoverDeleteButton,
     },
+    ref: deleteButtonRef,
     child: [deleteButtonImgTemplate],
   });
 

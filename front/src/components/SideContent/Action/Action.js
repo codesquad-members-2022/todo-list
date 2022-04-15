@@ -19,7 +19,7 @@ const Action = ({ todoLog }) => {
   const actionTemplate = `
     <div class="${styles.icon}">🥳</div>
     <div class="content">
-        <p class="author">${author}</p>
+        <p class="author">@${author}</p>
         <p class="content">
             <strong>${columnTitle}</strong>에 <strong>${title}</strong>를
             <strong>${LOG_TYPE[type.toUpperCase()]}</strong>하였습니다.

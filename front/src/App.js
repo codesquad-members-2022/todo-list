@@ -2,6 +2,7 @@ import styles from "./App.module.css";
 import Columns from "./components/Content/Columns/Columns";
 import Content from "./components/Content/Content";
 import Header from "./components/Header/Header";
+import Modal from "./components/Modal/Modal";
 import SideContent from "./components/SideContent/SideContent";
 import peact from "./core/peact";
 import columnApi from "./service/columnApi";
@@ -13,9 +14,21 @@ const App = () => {
   const [columns, setColumns] = peact.useState([]);
   const [todoLogs, setTodoLogs] = peact.useState([]);
   const [renderFlag, setRenderFlag] = peact.useState(false);
+  const [selectedTodoId, setSelectedTodoId] = peact.useState(null);
+  const [isModalVisible, setIsModalVisible] = peact.useState(false);
+
+  const modalRef = peact.useRef();
 
   const handleRenderFlag = () => {
     setRenderFlag(!renderFlag);
+  };
+
+  const handleModalVisibility = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
+  const handleSelectedTodoId = (todoId) => {
+    setSelectedTodoId(todoId);
   };
 
   peact.useEffect(() => {
@@ -36,7 +49,30 @@ const App = () => {
     fetchTodoLogs();
   }, [renderFlag]);
 
-  const $columns = Columns({ columns, todos, handleRenderFlag });
+  const modalHandlers = {
+    handleRenderFlag,
+    handleSelectedTodoId,
+    handleModalVisibility,
+  };
+
+  const $modal = Modal({
+    handlers: modalHandlers,
+    ref: modalRef,
+    isModalVisible,
+    selectedTodoId,
+  });
+
+  const columnsHandlers = {
+    handleRenderFlag,
+    handleSelectedTodoId,
+    handleModalVisibility,
+  };
+
+  const $columns = Columns({
+    columns,
+    todos,
+    handlers: columnsHandlers,
+  });
 
   const $todoListArea = peact.createElement({
     tag: "div",
@@ -47,7 +83,7 @@ const App = () => {
   return peact.createElement({
     tag: "div",
     className: styles.wrap,
-    child: [$todoListArea, SideContent({ todoLogs, columns })],
+    child: [$todoListArea, SideContent({ todoLogs, columns }), $modal],
   });
 };
 

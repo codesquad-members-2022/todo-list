@@ -1,14 +1,11 @@
 import peact from "../../../core/peact";
-import Modal from "../../Modal/Modal";
 import styles from "./card.module.css";
 
-const Card = ({ todo, handleRenderFlag, handleDoubleClickCard, ref }) => {
-  const showAlert = ({ todoId }) => {
-    const $body = document.querySelector("body");
-    $body.append(Modal({ todoId, handleRenderFlag }));
-  };
+const Card = ({ todo, handlers, ref }) => {
+  const { handleSelectedTodoId, handleModalVisibility, handleDoubleClickCard } =
+    handlers;
 
-  const handleXButton = (target) => {
+  const handleXButtonHover = ({ target }) => {
     const $path = target.querySelector(`.${styles.path}`) || target;
     const $cardElement = target.closest(`.${styles.card}`);
 
@@ -16,20 +13,13 @@ const Card = ({ todo, handleRenderFlag, handleDoubleClickCard, ref }) => {
     $cardElement.classList.toggle(styles.cardMouseOver);
   };
 
-  const onXButtonOver = ({ target }) => {
-    handleXButton(target);
-  };
-
-  const onXButtonOut = ({ target }) => {
-    handleXButton(target);
-  };
-
   const onXButtonClick = ({ target }) => {
     const todoId = target.closest(`.${styles.card}`).id;
-    showAlert({ todoId });
+    handleModalVisibility();
+    handleSelectedTodoId(todoId);
   };
 
-  const xButtonInnerHTML = `
+  const xButtonImgTemplate = `
     <svg
     width="12"
     height="12"
@@ -53,12 +43,13 @@ const Card = ({ todo, handleRenderFlag, handleDoubleClickCard, ref }) => {
 
   const $xButtonWrap = peact.createElement({
     tag: "div",
+    className: styles.xButtonWrap,
     attrs: {
       onClick: onXButtonClick,
-      onMouseOver: onXButtonOver,
-      onMouseOut: onXButtonOut,
+      onMouseOver: handleXButtonHover,
+      onMouseOut: handleXButtonHover,
     },
-    child: [xButtonInnerHTML],
+    child: [xButtonImgTemplate],
   });
 
   const $cardHeaderArea = peact.createElement({

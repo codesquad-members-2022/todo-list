@@ -1,3 +1,4 @@
+import { getISODateDiff } from "../../../common/dateUtils";
 import peact from "../../../core/peact";
 import todoApi from "../../../service/todoApi";
 import Card from "../Card/Card";
@@ -5,12 +6,16 @@ import cardStyles from "../Card/card.module.css";
 import CardWritable from "../CardWritable/CardWritable";
 import styles from "./cards.module.css";
 
-const Cards = ({ $newCard, todos, handleRenderFlag }) => {
-  const cardsRef = peact.useRef();
-  const setTodosSortByLatest = (a, b) =>
-    new Date(b.updatedAt) - new Date(a.updatedAt);
+const getSortedDatabyLatest = (data) => {
+  return data.sort((a, b) => getISODateDiff(b.updatedAt, a.updatedAt));
+};
 
-  const getCard = (todo) => {
+const Cards = ({ $newCard, todos, handlers }) => {
+  const { handleRenderFlag } = handlers;
+
+  const cardsRef = peact.useRef();
+
+  const createCard = (todo) => {
     const cardRef = peact.useRef();
     const cardWritableRef = peact.useRef();
 
@@ -59,13 +64,12 @@ const Cards = ({ $newCard, todos, handleRenderFlag }) => {
 
     return Card({
       todo,
-      handleRenderFlag,
-      handleDoubleClickCard,
       ref: cardRef,
+      handlers: { ...handlers, handleDoubleClickCard },
     });
   };
 
-  const todoElements = todos.sort(setTodosSortByLatest).map(getCard);
+  const todoElements = getSortedDatabyLatest(todos).map(createCard);
 
   return peact.createElement({
     tag: "div",

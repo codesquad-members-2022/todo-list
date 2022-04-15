@@ -36,7 +36,7 @@ const CardWritable = ({
     tag: "input",
     className: styles.author,
     attrs: {
-      value: inputValues ? inputValues.author : "",
+      value: inputValues ? inputValues.author : "비발디파크",
       type: "hidden",
       name: "author",
     },

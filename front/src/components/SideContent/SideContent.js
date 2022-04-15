@@ -1,3 +1,5 @@
+import { getISODateDiff } from "../../common/dateUtils";
+import { pipe } from "../../common/utils";
 import peact from "../../core/peact";
 import Button from "../../tagComponents/Button";
 import Action from "./Action/Action";
@@ -45,10 +47,20 @@ const SideContent = ({ todoLogs, columns }) => {
   const menuBtnRef = peact.useRef();
   const closeBtnRef = peact.useRef();
 
-  const newTodoLogs = todoLogs.map((todoLog) => {
-    const column = columns?.find((col) => col._id === todoLog.columnId);
-    return { ...todoLog, columnTitle: column?.title };
-  });
+  const insertColumnTitle = (todoLogs) => {
+    return todoLogs.map((todoLog) => {
+      const column = columns?.find((col) => col._id === todoLog.columnId);
+      return { ...todoLog, columnTitle: column?.title };
+    });
+  };
+
+  const sortTodoLogs = (todoLogs) => {
+    return todoLogs.sort((aTodo, bTodo) =>
+      getISODateDiff(bTodo.createdAt, aTodo.createdAt)
+    );
+  };
+
+  const sortedTodoLogs = pipe(insertColumnTitle, sortTodoLogs)(todoLogs);
 
   const toggleElements = [
     { elementRef: actionsRef, className: styles.active },
@@ -66,7 +78,7 @@ const SideContent = ({ todoLogs, columns }) => {
   const $actionsWrap = peact.createElement({
     tag: "div",
     className: styles.actionWrap,
-    child: newTodoLogs.map((todoLog) => Action({ todoLog })),
+    child: sortedTodoLogs.map((todoLog) => Action({ todoLog })),
   });
 
   const $closeBtn = Button({
