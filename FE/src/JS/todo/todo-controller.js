@@ -148,7 +148,6 @@ export default class Controller {
       previousCategoryId: this.findCategoryId(previousColumn.id),
       currentCategoryId: this.findCategoryId(currentColumn.id),
       title: cardTitle,
-      updatedDateTime: null,
     };
 
     this.model.dragCardData(dragInfo);

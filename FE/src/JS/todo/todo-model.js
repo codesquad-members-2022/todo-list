@@ -16,40 +16,26 @@ export default class Model {
   }
 
   async addCardData(headerValue) {
-    // const newCardData = await fetchRequest('/works', 'POST', headerValue);
-
-    const newCardData = {
-      workId: 4,
-      title: '호눅스 강의 수강',
-      content: '멀티 스레드 개념 및 동작 원리 이해',
-      createdDateTime: '2022-04-12T18:20:51',
-    };
+    const newCardData = await fetchRequest('/works', 'POST', headerValue);
 
     return newCardData;
   }
 
   async updateCardData(updateInfo, workId) {
-    // const changedCardData = await fetchRequest(
-    //   `/works/${workId}`,
-    //   'PATCH',
-    //   updateInfo
-    // );
-
-    const changedCardData = {
-      title: '자바스크립트 공부',
-      content: 'setTimeOut 메서드 공부',
-    };
+    const changedCardData = await fetchRequest(
+      `/works/${workId}`,
+      'PATCH',
+      updateInfo
+    );
 
     return changedCardData;
   }
 
   removeCardData(removeCardInfo, workId) {
-    // fetchRequest(`/works/${workId}`, 'POST', removeCardInfo);
-    console.log('삭제완료');
+    fetchRequest(`/works/${workId}`, 'POST', removeCardInfo);
   }
 
   dragCardData(dragInfo) {
-    // fetchRequest(`/works`, 'PATCH', dragInfo);
-    console.log('drag & drop');
+    fetchRequest(`/works`, 'PATCH', dragInfo);
   }
 }
