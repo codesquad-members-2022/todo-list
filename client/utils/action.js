@@ -1,4 +1,4 @@
-import TodoNotice from '../client/components/TodoNotice.js';
+import TodoNotice from '../components/TodoNotice.js';
 import { $ } from '../utils/dom.js';
 import { getLastIdByKey, getLocalStorageByKey } from './localStorage.js';
 

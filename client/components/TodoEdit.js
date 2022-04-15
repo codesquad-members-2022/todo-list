@@ -1,6 +1,6 @@
-import { editLocalStorageById } from '../../utils/localStorage.js';
-import { activationForm } from '../../utils/handleStyle.js';
-import { createNotice, handleNotice } from '../../utils/action.js';
+import { editLocalStorageById } from '../utils/localStorage.js';
+import { activationForm } from '../utils/handleStyle.js';
+import { createNotice, handleNotice } from '../utils/action.js';
 
 export default class TodoEdit {
   constructor(editObj, todoRender, setTodoData, todoHandleEventListener) {

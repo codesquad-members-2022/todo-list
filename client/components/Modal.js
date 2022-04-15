@@ -1,4 +1,4 @@
-import { $ } from '../../utils/dom.js';
+import { $ } from '../utils/dom.js';
 import { popupCloseText, popupOkText } from '../constants/modal.js';
 export default class Modal {
   constructor(id, title, handleMinusCount, handleDeleteBtn) {

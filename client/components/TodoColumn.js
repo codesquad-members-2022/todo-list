@@ -1,6 +1,6 @@
-import { getLocalStorageByKey } from '../../utils/localStorage.js';
+import { getLocalStorageByKey } from '../utils/localStorage.js';
 import TodoInput from './TodoInput.js';
-import { $ } from '../../utils/dom.js';
+import { $ } from '../utils/dom.js';
 
 export default class TodoColumn {
   constructor(status) {

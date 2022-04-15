@@ -1,12 +1,12 @@
 import css from './style/index.scss';
-import TodoNoticeAnimation from './client/components/TodoNoticeAnimation.js.js';
+import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
 import { getLocalStorageByKey, getTodosByStatus } from './utils/localStorage.js';
 import { onBodyMouseDown, onBodyMouseMove, onBodyMouseUp, onContextMenu } from './utils/eventDragHandler.js';
 import { $ } from './utils/dom.js';
 import { handleNotice } from './utils/action.js';
-import Fab from './client/components/Fab.js.js';
+import Fab from './components/Fab.js';
 
 const app = () => {
   const todos = getLocalStorageByKey('todos') ?? [];
