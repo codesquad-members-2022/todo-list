@@ -17,8 +17,11 @@ export default class Store {
   removeColumn() {}
   updateColumn() {}
 
-  addItem() {}
   removeItem() {}
+  addItem({ id, columnId, title, content, date }) {
+    this.items.push({ id, columnId, title, content, date });
+  }
+
   updateItem() {}
 }
 

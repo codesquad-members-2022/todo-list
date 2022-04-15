@@ -1,6 +1,6 @@
-import { qs, on, delegate, getParentElementByDataset } from "../utils/helpers.js";
+import { qs, on, delegate, getParentElementByDataset, createNextId } from "../utils/helpers.js";
+import { renderItemForm, renderItem, renderColumnLength } from "../views/renderer.js";
 
-import { renderItemForm } from "../views/renderer.js";
 export function bindEvents(store) {
   const Store = store;
 
@@ -16,6 +16,7 @@ export function bindEvents(store) {
     addItemBtn: ".column__header--add-card",
     removeItemBtn: ".card--delete-card",
     removeColumnBtn: ".column__header--delete-card",
+    itemCard: ".card",
     itemForm: ".card__register-form",
     itemFormInput: ".card-box .card__content--title",
     itemFormTextarea: ".card-box .card__content--text",
@@ -57,13 +58,19 @@ export function bindEvents(store) {
 
   function registItem(event) {
     event.preventDefault();
-    console.log("registItem");
-    console.log(event.target);
-    // 타이틀, 내용, 작성 날짜, 칼럼 넘버 가져오기
-    // 스토어에 데이터 추가(아이템 아이디 생성)
-    // input에
-    // 아이템 렌더링
-    // 폼 삭제
+
+    const id = createNextId(Store.getItems());
+    const columnId = _getColumnId(event.target);
+    const title = qs(selector.itemFormInput).value;
+    const content = qs(selector.itemFormTextarea).value;
+    const date = new Date();
+
+    const newItem = { id, columnId, title, content, date };
+
+    Store.addItem(newItem);
+    renderItem(newItem);
+    removeItemForm();
+  }
   }
 
   function addColumn(event) {
