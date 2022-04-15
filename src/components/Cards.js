@@ -11,7 +11,7 @@ export default class Cards extends Component {
         ?.map(
           ({ cardState, title, content, id }) =>
             `<li>
-              <div class="card" data-card-state="${cardState}" data-card-id=${id}>
+              <div class="card" data-card-state="${cardState}" data-card-id=${id} data-draggable>
                 <div class="card-title">
                   ${
                     cardState === "create"

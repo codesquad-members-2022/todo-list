@@ -3,6 +3,7 @@ import Column from "./components/Column.js";
 import Header from "./components/Header.js";
 import Menu from "./components/Menu.js";
 import Component from "./core/Component.js";
+import {} from "./drag.js";
 
 export default class App extends Component {
   async setup() {
@@ -19,7 +20,9 @@ export default class App extends Component {
       <header class="header"></header>
       <div class="menu hidden-menu display-none"></div>
       <main class="flex">
-        ${this.state.columns?.map((column) => `<div class="column" data-index="${column.id}"></div>`).join("")}
+        ${this.state.columns
+          ?.map((column) => `<div class="column" data-index="${column.id}"></div>`)
+          .join("")}
       </main>
     `;
   }
