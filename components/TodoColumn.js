@@ -1,3 +1,4 @@
+import { getLocalStorageByKey } from '../utils/localStorage.js';
 import TodoInput from './TodoInput.js';
 import { $ } from '../utils/dom.js';
 
@@ -52,8 +53,25 @@ export default class TodoColumn {
     $(`.${this.status} .column__count`).innerText = this.count;
   };
 
+  onDeleteClick = () => {
+    const columnTitle = $(`.${this.status} .column__title`).textContent;
+
+    const filteredColumn = getLocalStorageByKey('column').filter(e => e !== columnTitle);
+    localStorage.setItem('column', JSON.stringify(filteredColumn));
+    document.getElementById(`${this.status}-wrapper`)?.remove();
+  };
+
+  onEditClick = () => {
+    $(`.${this.status} .column__left`).innerHTML = `<input type="text" class="editedTitle">`;
+  };
+  onEditTitle = () => {
+    console.log('body');
+  };
   handleEventListener = () => {
+    $(`.${this.status} .column__title`).addEventListener('dblclick', this.onEditClick);
     $(`.${this.status} .column__add`).addEventListener('click', this.onAddClick);
+    $(`.${this.status} .column__delete`).addEventListener('click', this.onDeleteClick);
+    document.body.addEventListener('click', this.onEditTitle);
   };
 
   render = () => {
