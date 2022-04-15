@@ -16,7 +16,7 @@ export default class HistoryView {
     const historyHTML = historyCardTemplate({ userName, content, time });
     this.historyContainer
       .querySelector('.history_list')
-      .insertAdjacentHTML('beforebegin', historyHTML);
+      .insertAdjacentHTML('beforeend', historyHTML);
   }
 
   renderAddHistoryCard({ userName, content, time }) {
@@ -33,10 +33,16 @@ export default class HistoryView {
   }
 
   animation(menuStatus) {
+    const body = document.querySelector('body');
+    const dim = document.querySelector('.dim');
     if (menuStatus) {
+      body.classList.add('scroll_none');
+      dim.classList.add('show');
       this.historyContainer.classList.add('show');
       return;
     }
+    body.classList.remove('scroll_none');
+    dim.classList.remove('show');
     this.historyContainer.classList.remove('show');
   }
 }

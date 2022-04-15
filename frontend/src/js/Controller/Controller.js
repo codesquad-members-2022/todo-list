@@ -33,6 +33,7 @@ class Controller {
       'afterbegin',
       createTagTemplate('main', '', 'main')
     );
+    body.insertAdjacentHTML('beforeend', createTagTemplate('div', '', 'dim'));
     this.header.view.render();
     this.initHistory();
     this.initTodo();
