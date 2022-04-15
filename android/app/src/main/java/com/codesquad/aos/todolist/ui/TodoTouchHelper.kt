@@ -13,7 +13,7 @@ import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
 import kotlin.math.max
 import kotlin.math.min
 
-class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, private val viewModel: TodoViewModel) :
+class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter) :
     ItemTouchHelper.Callback() {
 
     private var currentPosition: Int? = null
@@ -39,23 +39,23 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
         /*val fromPos: Int = viewHolder.absoluteAdapterPosition
         val toPos: Int = target.absoluteAdapterPosition
         viewModel.changeTodoOrder(fromPos, toPos)*/
-        return true
+        return false
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
     }
 
-    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        Log.d("helperCallBack", "clearView")
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {  // onSelectedChanged 호출 후 바로 clearView 호출된다
+        Log.d("AppTest", "clearView")
         currentDx = 0f
         getDefaultUIUtil().clearView(getView(viewHolder))
         previousPosition = viewHolder.absoluteAdapterPosition
     }
 
-    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-        Log.d("helperCallBack", "onSelectedChanged")
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) { // 스와이프를 하는 경우 호출(선택이 된거니까)
         viewHolder?.let {
             currentPosition = viewHolder.absoluteAdapterPosition
+            Log.d("AppTest", "onSelectedChanged, currentposition : ${currentPosition}")
             getDefaultUIUtil().onSelected(getView(it))
         }
     }
@@ -66,6 +66,7 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
         val isClamped = getTag(viewHolder)
+        Log.d("AppTest", "getSwipeThreshold")
         // 현재 View가 고정되어있지 않고 사용자가 -clamp 이상 swipe시 isClamped true로 변경 아닐시 false로 변경 -> -clamp 이상 swipe 했다는 것은 삭제 영역이 보인다는 것
         setTag(viewHolder, currentDx <= -clamp)  // -clamp
         return 2f
@@ -127,11 +128,13 @@ class TodoTouchHelper(private val recyclerViewAdapter: TodoCardListAdapter, priv
     private fun setTag(viewHolder: RecyclerView.ViewHolder, isClamped: Boolean) {
         // isClamped를 view의 tag로 관리
         viewHolder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).tag = isClamped
+        //recyclerViewAdapter.setSwipe(currentPosition!!, isClamped)
     }
 
     private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean {
         // isClamped를 view의 tag로 관리
         return viewHolder.itemView.findViewById<ConstraintLayout>(R.id.cvSwipeView).tag as? Boolean ?: false
+        //return recyclerViewAdapter.getIsSwiped(currentPosition!!)
     }
 
     private fun getView(viewHolder: RecyclerView.ViewHolder): View {

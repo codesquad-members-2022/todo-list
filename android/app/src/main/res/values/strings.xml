@@ -19,4 +19,9 @@
     <string name="cancel_card">취소</string>
     <string name="new_todo">새로운 카드</string>
     <string name="delete_card">삭제</string>
+    <string name="card_delete_menu">삭제하기</string>
+    <string name="card_edit_menu">수정하기</string>
+    <string name="card_move_to_complete">완료한 일로 이동</string>
+    <string name="edit_cards">수정</string>
+    <string name="edit_card">카드 수정</string>
 </resources>

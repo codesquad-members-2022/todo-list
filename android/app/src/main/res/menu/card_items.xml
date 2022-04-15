@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/card_move_to_complete"
+        android:title="@string/card_move_to_complete"/>
+
+    <item android:id="@+id/card_content_modification"
+        android:title="@string/card_edit_menu"/>
+
+    <item android:id="@+id/card_delete"
+        android:title="@string/card_delete_menu"/>
+</menu>

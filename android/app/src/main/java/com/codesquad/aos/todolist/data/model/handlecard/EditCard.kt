@@ -1,10 +1,8 @@
-package com.codesquad.aos.todolist.data.model
+package com.codesquad.aos.todolist.data.model.handlecard
 
 import com.google.gson.annotations.SerializedName
 
-data class Card(
-    @SerializedName("cardId")
-    val cardId: Int,
+data class EditCard(
     @SerializedName("content")
     val content: String,
     @SerializedName("order")
@@ -12,8 +10,5 @@ data class Card(
     @SerializedName("section")
     val section: String,
     @SerializedName("title")
-    val title: String,
-    @SerializedName("author")
-    val author: String,
-    var isSwiped: Boolean = false
+    val title: String
 )
