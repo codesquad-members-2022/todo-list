@@ -12,17 +12,6 @@ let [isDraggable, dragStart, isDowned] = [false, false, false];
 let [shiftX, shiftY] = [0, 0];
 let $originalCard;
 
-export function addPlusBtnEvent() {
-  const $columns = document.querySelectorAll(".column");
-  $columns.forEach(($column) => {
-    const $plusBtn = $column.querySelector(".plus-button");
-    const $cards = $column.querySelector(".cards");
-    $plusBtn.addEventListener("click", () => {
-      renderRegisterCard($cards);
-    });
-  });
-}
-
 export function renderColumn(columnId, todos) {
   const columnSelector = `#${columnId}`;
   const $column = document.querySelector(columnSelector);
@@ -55,16 +44,54 @@ export function renderColumn(columnId, todos) {
   addCardsDragEvent($cards);
 }
 
-function getColumnsLocation() {
-  const columnsArr = document.querySelectorAll(".column");
-  const columnsLocation = [];
-  for (const column of columnsArr) {
-    columnsLocation.push(column.getBoundingClientRect());
-  }
-  return columnsLocation;
+export function addPlusBtnEvent() {
+  const $columns = document.querySelectorAll(".column");
+  $columns.forEach(($column) => {
+    const $plusBtn = $column.querySelector(".plus-button");
+    const $cards = $column.querySelector(".cards");
+    $plusBtn.addEventListener("click", () => {
+      renderRegisterCard($cards);
+    });
+  });
 }
+
+function addCardsDragEvent($cards) {
+  const cardsList = $cards.querySelectorAll(".card");
+  for (const card of cardsList) {
+    addCardDragEvent(card);
+  }
+}
+
+export function addCardDragEvent(card) {
+  card.addEventListener("mousedown", (event) => {
+    const $card = event.target.closest(".card");
+    shiftX = event.pageX - $card.offsetWidth / 2;
+    shiftY = event.pageY - $card.offsetHeight / 2;
+    isDowned = true;
+    dragStart = true;
+  });
+  card.addEventListener("mousemove", () => {
+    if (isDowned) {
+      isDraggable = true;
+    }
+  });
+}
+
 export function addmouseMoveEvent() {
   document.body.addEventListener("mousemove", handleMouseMoveEvent);
+}
+
+function addCopiedCardEvent() {
+  const $copiedCard = document.querySelector(".copied-card");
+  $copiedCard.addEventListener("mouseup", () => {
+    isDowned = false;
+    dragStart = false;
+    isDraggable = false;
+    $copiedCard.remove();
+    changeOriginalCardStyle($originalCard);
+    updateDraggedCardData();
+    $originalCard.classList.remove("original-card");
+  });
 }
 
 function handleMouseMoveEvent(event) {
@@ -83,6 +110,41 @@ function handleMouseMoveEvent(event) {
       moveCopiedCard(event, columnsLocation, $originalCard);
     }, delayTime)();
   }
+}
+
+function getColumnsLocation() {
+  const columnsArr = document.querySelectorAll(".column");
+  const columnsLocation = [];
+  for (const column of columnsArr) {
+    columnsLocation.push(column.getBoundingClientRect());
+  }
+  return columnsLocation;
+}
+
+function makeDragElement(element) {
+  const copiedElement = element.cloneNode(true);
+  element.classList.add("original-card");
+  copiedElement.classList.add("copied-card");
+  Object.assign(copiedElement.style, {
+    position: "absolute",
+    zIndex: 10,
+    top: `${shiftY}px`,
+    left: `${shiftX}px`,
+    opacity: 0.8,
+    boxShadow:
+      "0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25)",
+    backdropFilter: "blur(4px)",
+    margin: 0,
+  });
+  document.body.appendChild(copiedElement);
+}
+
+function applyPlaceStyle(element) {
+  Object.assign(element.style, {
+    opacity: 0.4,
+    border: "1px solid var(--blue)",
+    boxShadow: "0px 1px 30px rgba(224, 224, 224, 0.3)",
+  });
 }
 
 function moveCopiedCard(event, columnsLocation, $originalCard) {
@@ -142,69 +204,8 @@ function checkVerticalMove(currentCards, $originalCard) {
   }
 }
 
-function addCopiedCardEvent() {
-  const $copiedCard = document.querySelector(".copied-card");
-  $copiedCard.addEventListener("mouseup", () => {
-    isDowned = false;
-    dragStart = false;
-    isDraggable = false;
-    $copiedCard.remove();
-    changeOriginalCardStyle($originalCard);
-    updateDraggedCardData();
-    $originalCard.classList.remove("original-card");
-  });
-}
-
 function updateDraggedCardData() {
   const cardData = getUpdatedCardContent($originalCard);
   const dataID = $originalCard.id.slice(4);
   putUpdatedCardData(cardData, dataID);
-}
-
-function addCardsDragEvent($cards) {
-  const cardsList = $cards.querySelectorAll(".card");
-  for (const card of cardsList) {
-    addCardDragEvent(card);
-  }
-}
-
-export function addCardDragEvent(card) {
-  card.addEventListener("mousedown", (event) => {
-    const $card = event.target.closest(".card");
-    shiftX = event.pageX - $card.offsetWidth / 2;
-    shiftY = event.pageY - $card.offsetHeight / 2;
-    isDowned = true;
-    dragStart = true;
-  });
-  card.addEventListener("mousemove", () => {
-    if (isDowned) {
-      isDraggable = true;
-    }
-  });
-}
-
-function makeDragElement(element) {
-  const copiedElement = element.cloneNode(true);
-  element.classList.add("original-card");
-  copiedElement.classList.add("copied-card");
-  Object.assign(copiedElement.style, {
-    position: "absolute",
-    zIndex: 10,
-    top: `${shiftY}px`,
-    left: `${shiftX}px`,
-    opacity: 0.8,
-    boxShadow:
-      "0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25)",
-    backdropFilter: "blur(4px)",
-    margin: 0,
-  });
-  document.body.appendChild(copiedElement);
-}
-
-function applyPlaceStyle(element) {
-  Object.assign(element.style, {
-    opacity: 0.4,
-    border: "1px solid var(--blue)",
-    boxShadow: "0px 1px 30px rgba(224, 224, 224, 0.3)",
-  });
 }
