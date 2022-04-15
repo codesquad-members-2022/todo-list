@@ -52,7 +52,7 @@ export default class Observer extends WeakMap {
                     return new Proxy(prop, handler);
                 }
 
-                return Reflect.get(target, name);
+                return prop;
             },
             set: (target, name, value, receiver) => {
                 if (target[name] == value) return true;

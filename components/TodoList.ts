@@ -5,12 +5,13 @@ import { Action,  StateObj } from "../types";
 import { TodoCard } from "./TodoCard";
 import {AddDto} from "../core/DTOs/add.dto";
 import {SelectDto} from "../core/DTOs/select.dto";
+import {TodoForm} from "./TodoForm";
 
 
 export class TodoList extends View {
   template() {
     const {
-    title, todos, editting
+    title, todos, selectedIndex
     } = this.$props;
     return `
           <div class="todo-title">
@@ -34,17 +35,7 @@ export class TodoList extends View {
                     </svg>
                 </span>
           </div>
-        ${
-      editting
-        ? `<div class="wrapper">
-            <span class="title"></span><span class="content"></span>
-            </div>
-            <div class="frame">
-              <div class="button-left"><span>취소</span></div>
-              <div class="button-right"><span>등록</span></div>
-            </div>`
-        : ""
-    }
+      
     ${todos
       .map(
         (todo:StateObj, idx:number) =>
@@ -54,10 +45,19 @@ export class TodoList extends View {
   }
 
   mount() {
-    const { todos } = this.$props;
+    const { todos,selectedIndex } = this.$props;
     todos.forEach(
-      (todo:StateObj, idx:number) =>
-          new TodoCard(this.store, this.select(`.todo-card[data-idx="${idx}"]`)!, {todo,idx, listIdx:this.select()?.dataset.idx})
+      (todo:StateObj, idx:number) => {
+        const target = this.select(`.todo-card[data-idx="${idx}"]`)
+        const listIdx = this.select().dataset.idx;
+        selectedIndex===idx?
+            new TodoForm(this.store, target, {todo,listIdx,idx}):
+        new TodoCard(this.store, target, {
+          todo,
+          idx,
+          listIdx
+        })
+      }
     );
   }
   setEvent(){

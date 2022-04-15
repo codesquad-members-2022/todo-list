@@ -9,8 +9,6 @@ export class TodoCard extends View {
     template() {
 
         const {todo: {title, content, caption}, listIdx, idx} = this.$props;
-        const {selectedIndex} = this.state.lists[listIdx]
-
         return `<div class="wrapper"><h2 class="card-title">${title}</h2><span class="card-content">${content}</span><span class="card-caption">${caption}</span>
         </div>
         <span class="delete-card">
@@ -25,7 +23,6 @@ export class TodoCard extends View {
     setEvent() {
         const {todo, listIdx, idx} = this.$props;
         this.addEvent("dblclick", ".wrapper", (e) => {
-
             this.store.commit(Action.SELECT, new SelectDto(true, idx, listIdx));
         });
         this.addEvent('click', '.delete-card', e => {
