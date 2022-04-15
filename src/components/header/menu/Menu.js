@@ -1,4 +1,5 @@
 import "./Menu.scss";
+import { hasClassName } from "@/common/util";
 
 export const initMenu = () => {
   renderMenu();
@@ -101,7 +102,7 @@ const logCloseBtnHandler = () => {
 };
 
 const otherClickHandler = (e) => {
-  if (e.target.classList.contains("modal")) {
+  if (hasClassName(e.target, "modal")) {
     toggleLogContainerDisplay();
   }
 };

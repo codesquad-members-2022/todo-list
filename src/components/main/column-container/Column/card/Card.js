@@ -1,7 +1,8 @@
 import "./Card.scss";
-import { CARD_TYPE } from "../../../../../common/variable.js";
-import { Store } from "../../../../../stores/ColumnStore.js";
-import { activateAlert } from "./alert/Alert.js";
+import { insertNodeBefore, insertNodeAfter, removeNodeself, hasClassName, getNodeIndex } from "@/common/util";
+import { CARD_TYPE } from "@/common/variable";
+import { Store } from "@/stores/ColumnStore";
+import { activateAlert } from "./alert/Alert";
 
 export const initCard = (parentNode, cardState) => {
   const cardNode = makeCardNode(cardState);
@@ -40,17 +41,19 @@ const makeCardInnerTemplate = (cardState) => {
 };
 
 const getNormalContentTemplate = (cardState) => {
+  const { title, description, author } = cardState;
   return `      
   <div class="card-contents">
-    <div class="card-contents__title">${cardState.title}</div>
-    <div class="card-contents__description">${cardState.description}</div>
-    <div class="card-contents__author">${cardState.author}</div>
+    <div class="card-contents__title">${title}</div>
+    <div class="card-contents__description">${description}</div>
+    <div class="card-contents__author">${author}</div>
   </div>`;
 };
 
 const getTempContentTemplate = (cardState) => {
-  const titleInput = `<input placeholder="제목을 입력하세요" value='${cardState.title || ""}' />`;
-  const descriptionInput = `<input placeholder="내용을입력하세요" value='${cardState.description || ""}' />`;
+  const { title, description } = cardState;
+  const titleInput = `<input placeholder="제목을 입력하세요" value='${title || ""}' />`;
+  const descriptionInput = `<input placeholder="내용을 입력하세요" value='${description || ""}' />`;
   return `
     <div class="card-contents">
       <div class="card-contents__title">${titleInput}</div>
@@ -76,7 +79,7 @@ const setEvents = (cardNode, cardState) => {
   switch (cardState.type) {
     case CARD_TYPE.NORMAL:
       setDeleteBtnEvent(cardNode);
-      setDoubleClickEvent(cardNode);
+      setMouseDownEvent(cardNode);
       break;
     case CARD_TYPE.ADDING:
     case CARD_TYPE.EDITING:
@@ -88,13 +91,13 @@ const setEvents = (cardNode, cardState) => {
 
 const setDeleteBtnEvent = (cardNode) => {
   const deleteBtn = cardNode.querySelector(".card__delete-btn");
-  deleteBtn.addEventListener("click", () => handleDeleteBtnClickEvent(cardNode));
+  deleteBtn.addEventListener("mouseup", (e) => handleDeleteBtnClickEvent(e, cardNode));
   deleteBtn.addEventListener("mouseenter", () => handleDeleteBtnMouseEvent(cardNode));
   deleteBtn.addEventListener("mouseleave", () => handleDeleteBtnMouseEvent(cardNode));
 };
 
-const setDoubleClickEvent = (cardNode) => {
-  cardNode.addEventListener("dblclick", () => handleDoubleClickEvent(cardNode));
+const setMouseDownEvent = (cardNode) => {
+  cardNode.addEventListener("mousedown", (e) => handleMouseDownEvent(e, cardNode));
 };
 
 const setCancelBtnEvent = (cardNode, cardType) => {
@@ -111,17 +114,27 @@ const setInputEvent = (cardNode) => {
   cardNode.addEventListener("input", () => handleInputEvent(cardNode));
 };
 
-const handleDeleteBtnClickEvent = (cardNode) => {
+const handleDeleteBtnClickEvent = (e, cardNode) => {
   const [parentColumnID, cardID] = getIDs(cardNode);
   changeCardType(cardNode, CARD_TYPE.DELETING);
   activateAlert(parentColumnID, cardID);
+  e.stopPropagation();
 };
 
 const handleDeleteBtnMouseEvent = (cardNode) => {
   cardNode.classList.toggle("card--deleting");
 };
 
-const handleDoubleClickEvent = (cardNode) => {
+const handleMouseDownEvent = (e, cardNode) => {
+  if (e.detail === 1) {
+    handleSingleMouseDownEvent(e, cardNode);
+  }
+  if (e.detail >= 2) {
+    handleDoubleMouseDownEvent(cardNode);
+  }
+};
+
+const handleDoubleMouseDownEvent = (cardNode) => {
   changeCardType(cardNode, CARD_TYPE.EDITING);
 };
 
@@ -134,7 +147,7 @@ const handleCancelBtnEvent = (cardNode, cardType) => {
 };
 
 const handleConfirmBtnEvent = (confirmBtn, cardNode) => {
-  if (!confirmBtn.classList.contains("activated")) return;
+  if (!hasClassName(confirmBtn, "activated")) return;
   if (confirmBtn.dataset.type === CARD_TYPE.ADDING) {
     registerCardState(cardNode);
   } else if (confirmBtn.dataset.type === CARD_TYPE.EDITING) {
@@ -195,6 +208,169 @@ const getIDs = (cardNode) => {
   const parentColumnID = cardNode.closest(".column").dataset.id;
   const cardID = cardNode.dataset.id;
   return [parentColumnID, cardID];
+};
+
+const handleSingleMouseDownEvent = (e, cardNode) => {
+  const [originalCardTop, originalCardLeft] = getOriginalCardPositions(cardNode);
+  const originalParentColumnID = getIDs(cardNode)[0];
+  const originalCardIdx = getNodeIndex(cardNode);
+  const shadowCardNode = makeShadowCardNode(cardNode);
+  const followingCardNode = makeFollowingCardNode(cardNode, originalCardTop, originalCardLeft);
+
+  const shiftX = e.clientX - originalCardLeft;
+  const shiftY = e.clientY - originalCardTop;
+
+  const mouseMoveHandler = getMouseMoveHandler(shiftX, shiftY, shadowCardNode, followingCardNode);
+  const mouseUpHandler = getMouseUpHandler(
+    mouseMoveHandler,
+    shadowCardNode,
+    followingCardNode,
+    originalParentColumnID,
+    originalCardIdx
+  );
+  document.body.addEventListener("mousemove", mouseMoveHandler);
+  document.body.addEventListener("mouseup", mouseUpHandler, { once: true });
+};
+
+const getOriginalCardPositions = (cardNode) => {
+  const originalCardTop = cardNode.getBoundingClientRect().top;
+  const originalCardLeft = cardNode.getBoundingClientRect().left;
+  return [originalCardTop, originalCardLeft];
+};
+
+const makeShadowCardNode = (cardNode) => {
+  const shadowCardNode = cardNode.cloneNode(true);
+  shadowCardNode.classList.add("shadow");
+  insertNodeBefore(shadowCardNode, cardNode);
+  return shadowCardNode;
+};
+
+const makeFollowingCardNode = (cardNode, originalCardTop, originalCardLeft) => {
+  const followingCardNode = cardNode;
+  followingCardNode.classList.add("following");
+  moveFollowingCard(followingCardNode, originalCardLeft, originalCardTop);
+  return followingCardNode;
+};
+
+const moveFollowingCard = (followingCardNode, posX, posY) => {
+  followingCardNode.style.left = posX + "px";
+  followingCardNode.style.top = posY + "px";
+};
+
+const getMouseMoveHandler = (shiftX, shiftY, shadowCardNode, followingCardNode) => (event) => {
+  handleFollowingCard(shiftX, shiftY, followingCardNode, event);
+  handleCardShadow(shadowCardNode, followingCardNode, event);
+};
+
+const getMouseUpHandler =
+  (mouseMoveHandler, shadowCardNode, followingCardNode, originalParentColumnID, originalCardIdx) => () => {
+    endDragDropEvent(
+      mouseMoveHandler,
+      shadowCardNode,
+      followingCardNode,
+      originalParentColumnID,
+      originalCardIdx
+    );
+  };
+
+const handleFollowingCard = (shiftX, shiftY, followingCardNode, event) => {
+  const [posX, posY] = getCardPosition(shiftX, shiftY, event);
+  moveFollowingCard(followingCardNode, posX, posY);
+};
+
+const getCardPosition = (shiftX, shiftY, event) => {
+  const x = event.pageX - shiftX;
+  const y = event.pageY - shiftY;
+  return [x, y];
+};
+
+const handleCardShadow = (shadowCardNode, followingCardNode, event) => {
+  const underMouseElement = getUnderMouseElement(followingCardNode, event.clientX, event.clientY);
+  const underMouseElementClass = inspectElementClass(underMouseElement);
+  moveCardShadow(underMouseElementClass, underMouseElement, shadowCardNode, event);
+};
+
+const moveCardShadow = (underMouseElementClass, underMouseElement, shadowCardNode, event) => {
+  switch (underMouseElementClass) {
+    case "card":
+      moveToAroundCard(underMouseElement, shadowCardNode, event);
+      return;
+    case "card-content":
+      const parentCardElement = underMouseElement.closest(".card");
+      moveToAroundCard(parentCardElement, shadowCardNode, event);
+      return;
+    case "column":
+      moveToColumn(underMouseElement, shadowCardNode);
+      return;
+  }
+};
+
+const moveToAroundCard = (underMouseCardElement, cardNode, event) => {
+  const rect = underMouseCardElement.getBoundingClientRect();
+  if (event.clientY < (rect.top + rect.bottom) / 2) {
+    insertNodeBefore(cardNode, underMouseCardElement);
+  } else {
+    insertNodeAfter(cardNode, underMouseCardElement);
+  }
+};
+
+const moveToColumn = (underMouseColumnElement, cardNode) => {
+  const cardList = underMouseColumnElement.querySelector(".card-list");
+  cardList.append(cardNode);
+};
+
+const getUnderMouseElement = (followingCardNode, x, y) => {
+  followingCardNode.hidden = true;
+  const underMouseElement = document.elementFromPoint(x, y);
+  followingCardNode.hidden = false;
+  return underMouseElement;
+};
+
+const inspectElementClass = (underMouseElement) => {
+  if (hasClassName(underMouseElement, "card") && !hasClassName(underMouseElement, "shadow")) {
+    return "card";
+  } else if (hasClassName(underMouseElement, "column")) {
+    return "column";
+  } else if (underMouseElement.closest(".card")) {
+    return "card-content";
+  } else {
+    return "others";
+  }
+};
+
+const endDragDropEvent = (
+  mouseMoveHandler,
+  shadowCardNode,
+  followingCardNode,
+  originalParentColumnID,
+  originalCardIdx
+) => {
+  document.body.removeEventListener("mousemove", mouseMoveHandler);
+  putFollowingCardOnShadow(followingCardNode, shadowCardNode);
+  disconnectFollowingCard(followingCardNode);
+  removeNodeself(shadowCardNode);
+  updateResult(followingCardNode, originalParentColumnID, originalCardIdx);
+};
+
+const putFollowingCardOnShadow = (followingCardNode, shadowCardNode) => {
+  insertNodeBefore(followingCardNode, shadowCardNode);
+};
+
+const disconnectFollowingCard = (followingCardNode) => {
+  followingCardNode.classList.remove("following");
+  followingCardNode.style.left = 0;
+  followingCardNode.style.top = 0;
+};
+
+const updateResult = (followingCardNode, originalParentColumnID, originalCardIdx) => {
+  const [newParentColumnID, cardID] = getIDs(followingCardNode);
+  const movedIdx = getNodeIndex(followingCardNode);
+  if (isCardPositionChanged(originalParentColumnID, newParentColumnID, originalCardIdx, movedIdx))
+    Store.changeCardPosition(originalParentColumnID, cardID, newParentColumnID, movedIdx);
+};
+
+const isCardPositionChanged = (originalParentColumnID, newParentColumnID, originalCardIdx, movedIdx) => {
+  return originalParentColumnID !== newParentColumnID || originalCardIdx !== movedIdx;
 };
 
 export const reRenderCard = (cardState) => {
