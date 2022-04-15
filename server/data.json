@@ -2,42 +2,42 @@
   "todos": [
     {
       "column": "have-to-do-column",
-      "title": "Github 공부하기",
+      "title": "Github 공부하기1",
       "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
       "createDate": 1649741352426,
       "id": 1
     },
     {
       "column": "have-to-do-column",
-      "title": "Github 공부하기",
+      "title": "Github 공부하기2",
       "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
       "createDate": 1649741384402,
       "id": 2
     },
     {
       "column": "have-to-do-column",
-      "title": "Github 공부하기",
+      "title": "Github 공부하기3",
       "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
       "createDate": 1649741475906,
       "id": 3
     },
     {
       "column": "have-to-do-column",
-      "title": "Github 공부하기",
+      "title": "Github 공부하기4",
       "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
       "createDate": 1649741527970,
       "id": 4
     },
     {
       "column": "doing-column",
-      "title": "Github 공부하기",
+      "title": "Github 공부하기5",
       "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
       "createDate": 1649741535561,
       "id": 5
     },
     {
       "column": "doing-column",
-      "title": "Github 공부하기",
+      "title": "Github 공부하기6",
       "detail": "GitHub 공부 내용<br>모던 자바스크립트 1장 공부내용",
       "createDate": 1649741688217,
       "id": 6
