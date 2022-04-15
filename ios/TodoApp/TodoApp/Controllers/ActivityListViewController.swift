@@ -15,7 +15,7 @@ class ActivityListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureTableView()
-        ActivityRepository.getData(resource: "https://1dc4c1231242352f3-00b4-446d-a22a-d6920eaee622.mock.pstmn.io/history")
+        ActivityRepository.getData(resource: "http://3.38.240.18:8080/history")
     }
     
     override func viewWillAppear(_ animated: Bool) {
