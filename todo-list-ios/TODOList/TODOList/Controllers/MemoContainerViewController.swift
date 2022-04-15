@@ -31,11 +31,8 @@ final class MemoContainerViewController: UIViewController {
 
 extension MemoContainerViewController: PopupViewDelegate {
     func popupViewAddButtonDidTap(memo: Memo) {
-        guard let data = memoUseCase.convertMemoToJSON(memo: memo) else { return }
-        memoUseCase.sendDataToManager(data: data, methodType: HTTPMethod.post, path: Path.task)
-        
-        NotificationCenter.default.post(name: .MemoDidAdd, object: self, userInfo: [UserInfoKeys.memo: memo])
-        dismiss(animated: true)
+        guard let parentViewController = parent as? MemoCanvasViewController else { return }
+        parentViewController.memoManager.sendModelDataToNetworkManager(memo: memo, taskType: .memoAdd, methodType: .post)
     }
 }
 
