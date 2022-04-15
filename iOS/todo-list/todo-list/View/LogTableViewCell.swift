@@ -46,10 +46,17 @@ class LogTableViewCell: UITableViewCell {
     
     func configure(with viewModel: LogCellViewModel) {
         
+        let imageSize = CGSize(width: 30.0, height: 30.0)
+        UIGraphicsBeginImageContextWithOptions(imageSize, false, 0.0)
+        let imageRect = CGRect(x: 0.0, y: 0.0, width: imageSize.width, height: imageSize.height)
+        
         var config = defaultContentConfiguration()
         
         config.attributedText = self.makePrimaryText(title: viewModel.userName)
         config.secondaryAttributedText = self.makeSecondaryText(contents: viewModel.description, timeLog: viewModel.timeLog)
+        config.image = UIImage(named: "Party Face Emoji")
+        config.image?.draw(in: imageRect)
+        config.image = UIGraphicsGetImageFromCurrentImageContext()!
 
         self.contentConfiguration = config
     }
