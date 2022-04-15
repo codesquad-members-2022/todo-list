@@ -28,7 +28,7 @@ protocol LogViewModelProperty {
 
 typealias LogViewModelProtocol = LogViewModelBinding & LogViewModelProperty
 
-class LogViewModel: LogViewModelBinding {
+class LogViewModel: LogViewModelBinding, LogViewModelProperty {
     private var cancellables = Set<AnyCancellable>()
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
     

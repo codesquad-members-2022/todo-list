@@ -32,7 +32,7 @@ class LogViewController: UIViewController {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    let model = LogViewModel()
+    private let model: LogViewModelProtocol = LogViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
