@@ -1,9 +1,9 @@
 import TodoEdit from './TodoEdit.js';
-import Modal from './Modal.js';
 import { popupRemoveTitle } from '../constants/modal.js';
 import { createNotice, handleNotice } from '../utils/action.js';
 import { ONCLICK, DBLCLICK } from '../constants/constants.js';
 import { getLocalStorageByKey } from '../utils/localStorage.js';
+import TodoDeleteModal from './TodoDeleteModal.js';
 
 export default class Todo {
   constructor(todoData, handleMinusCount) {
@@ -89,7 +89,7 @@ export default class Todo {
   };
 
   onModal = () => {
-    const modal = new Modal(this.todoData.id, popupRemoveTitle, this.handleMinusCount, this.handleDeleteBtn);
+    const modal = new TodoDeleteModal(this.todoData.id, popupRemoveTitle, this.handleMinusCount, this.handleDeleteBtn);
     modal.showModal();
     modal.handleEventListener();
   };
@@ -97,10 +97,8 @@ export default class Todo {
   handleDeleteBtn = () => {
     const filteredTodos = getLocalStorageByKey('todos').filter(e => e.id !== Number(this.todoData.id));
     localStorage.setItem('todos', JSON.stringify(filteredTodos));
-    this.handleMinusCount();
 
     document.getElementById(`${this.todoData.id}`)?.remove();
-
     const notice = createNotice(this.todoData, '삭제');
     handleNotice(notice);
   };
