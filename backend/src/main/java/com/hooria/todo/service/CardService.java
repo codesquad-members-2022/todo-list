@@ -56,6 +56,7 @@ public class CardService {
                 .orElseThrow(() -> new CardRunTimeException(ErrorCode.UPDATE_CARD_ERROR));
     }
 
+    @ExcludeLogging
     @Transactional
     public List<CardResponse> updateCardsLayout(List<UpdateCardLayoutRequest> updateCardLayoutRequests) {
         for (UpdateCardLayoutRequest updateCardLayoutParam : updateCardLayoutRequests) {
