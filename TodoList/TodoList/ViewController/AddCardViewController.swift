@@ -10,6 +10,7 @@ import UIKit
 final class AddCardViewController: UIViewController {
     var addCardView: AddCardView!
     var sectionNumber: Int?
+    private var alert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ final class AddCardViewController: UIViewController {
         
         addCardView.delegate = self
         self.view.addSubview(addCardView)
+        configureAlert()
     }
     
     func setaddCardView(title: String?, body: String?){
@@ -35,6 +37,12 @@ final class AddCardViewController: UIViewController {
         } else{
             addCardView.setCardText(title: nil, body: nil)
         }
+    }
+    
+    func configureAlert(){
+        alert = UIAlertController(title: "등록할 수 없습니다.", message: "제목과 내용을 모두 입력해주세요", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(alertAction)
     }
 }
 
@@ -56,7 +64,8 @@ extension AddCardViewController: AddCardDelegate{
             self.addCardView.clear()
         })
     }
-
     
-    
+    func cardshoudNotMake(){
+        self.present(alert, animated: true, completion: nil)
+    }
 }
