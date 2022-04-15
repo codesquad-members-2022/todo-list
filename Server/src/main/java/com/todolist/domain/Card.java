@@ -14,6 +14,7 @@ public class Card {
     private String cardTitle;
     private String cardContent;
     private String boardName;
+    private Long boardIdx;
     private LocalDateTime createdTime;
     private boolean removed;
 }
