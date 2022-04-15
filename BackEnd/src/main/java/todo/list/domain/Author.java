@@ -1,9 +1,16 @@
 package todo.list.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Author {
-    ANDROID;
+    ANDROID("Android");
+    @JsonValue
+    private String stringValue;
+
+    Author(String stringValue) {
+        this.stringValue = stringValue;
+    }
 
     @JsonCreator
     public static Author valueOfWithCaseInsensitive(String name) {
