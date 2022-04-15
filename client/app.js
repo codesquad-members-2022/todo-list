@@ -1,5 +1,5 @@
-import css from './style/index.scss';
-import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
+// import css from './style/index.scss';
+import TodoNoticeAnimation from './utils/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
 import { getLocalStorageByKey, getTodosByStatus } from './utils/localStorage.js';
@@ -38,12 +38,15 @@ const createColumns = () => {
     column.setCount(count);
     columnsWrapper.insertAdjacentHTML('beforeend', column.render());
     column.handleEventListener();
+    createTodos(column, todos);
+  });
+};
 
-    todos.forEach(element => {
-      const newTodo = new Todo(element, column.handleMinusCount);
-      $(`.${element.status}`).insertAdjacentHTML('afterend', newTodo.render());
-      newTodo.handleEventListener();
-    });
+const createTodos = (column, todos) => {
+  todos.forEach(element => {
+    const newTodo = new Todo(element, column.handleMinusCount);
+    $(`.${element.status}`).insertAdjacentHTML('afterend', newTodo.render());
+    newTodo.handleEventListener();
   });
 };
 
