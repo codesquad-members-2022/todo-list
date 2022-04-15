@@ -366,7 +366,7 @@ class Controller {
         break;
       case 'UPDATE':
         historyContent = `
-        <strong>${history.fields[0].oldValue}</strong>를 <strong>${
+        <strong>${history.fields[0].oldValue}</strong>을(를) <strong>${
           history.fields[0].newValue
         }</strong>로
         <strong>${actionDic[history.action]}</strong>하였습니다.
@@ -396,6 +396,15 @@ class Controller {
   menuBtnClickHandler() {
     this.header.model.updateStatus();
     const menuStatus = this.header.model.getMenuStatus();
+    if (menuStatus) {
+      this.history.model
+        .getHistories()
+        .map(({ createDateTime }) => createDateTime)
+        .forEach((historyData, idx) => {
+          const historyTime = this.calcHistoryTime(historyData);
+          this.history.view.resetHistoryTime(historyTime, idx);
+        });
+    }
     this.history.view.animation(menuStatus);
   }
 }
