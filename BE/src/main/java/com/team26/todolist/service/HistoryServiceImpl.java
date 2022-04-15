@@ -4,9 +4,9 @@ import com.team26.todolist.domain.Card;
 import com.team26.todolist.domain.CardAction;
 import com.team26.todolist.domain.Column;
 import com.team26.todolist.domain.History;
+import com.team26.todolist.domain.HistoryFactory;
 import com.team26.todolist.dto.response.HistoryResponse;
 import com.team26.todolist.repository.HistoryRepository;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -42,13 +42,9 @@ public class HistoryServiceImpl implements HistoryService {
             return;
         }
 
-        // TODO : Optional 사용 고려
-        History history = History.builder(cardAction, userId, LocalDateTime.now())
-                .cardTitle(columnNow != null ? cardNow.getTitle() : null)
-                .cardTitleBefore(columnBefore != null ? cardBefore.getTitle() : null)
-                .columnTitle(columnNow != null ? columnNow.getTitle() : null)
-                .columnTitleBefore(columnBefore != null ? columnBefore.getTitle() : null)
-                .build();
+        // TODO : Optional 사용 고려?
+        History history = HistoryFactory.getHistory(cardAction, cardBefore, cardNow, columnBefore,
+                columnNow);
         historyRepository.save(history);
     }
 
