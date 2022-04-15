@@ -119,7 +119,7 @@ public class JdbcTemplateWorkRepository implements WorkRepository{
         String SQL = "SELECT w.id, w.title, w.content, w.author_id, w.work_status, w.status_index," +
                 " w.create_date_time, w.last_modified_date_time, w.deleted, u.id, u.name " +
                 "FROM works w JOIN users u " +
-                "WHERE w.author_id = :user_id";
+                "WHERE w.author_id = :user_id AND w.deleted = false";
         MapSqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("user_id", userId);
         return jdbcTemplate.query(SQL, namedParameters, workRowMapper());
