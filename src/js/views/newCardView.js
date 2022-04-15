@@ -16,11 +16,11 @@ export const createNewCardTemplate = todoData => {
       }</textarea>
     </main>
     <footer class="card__contents__footer footer__buttons">
-      <input type=button class="footer__buttons__cancel" value="취소">
+      <button type=button class="footer__buttons__cancel">취소</button>
       ${
         todoData
-          ? '<input type=button class="footer__buttons__edit" value="수정"/>'
-          : '<input type=button class="footer__buttons__save" value="등록" disabled/>'
+          ? '<button type=button class="footer__buttons__edit">수정</button>'
+          : '<button type=button class="footer__buttons__save" disabled>등록</button>'
       }
     </footer>
   </div>
@@ -44,13 +44,13 @@ const onNewCardClick = (newCard, store, columnClassName) => {
     const titleInputValue = newCard.querySelector('.card__contents__input--header').value;
     const textAreaValue = newCard.querySelector('.card__contents__input--main').value;
     saveNewCard(newCard, store, columnClassName, titleInputValue, textAreaValue);
-    reflectStoreToDB(store);
+    // reflectStoreToDB(store);
   });
 };
 
 const reflectStoreToDB = store => {
-  const columns = store.getStore('main');
-  columns.forEach(column => {
+  const todoListData = store.getStore('main');
+  todoListData.forEach(column => {
     const url = TODO_LIST_URL + '/' + column.id;
     saveToDB(url, column);
   });
@@ -129,18 +129,27 @@ const onResizeTextArea = textArea => {
   });
 };
 
+const onCancelBtnClick = newCard => {
+  const cancelBtn = newCard.querySelector('.footer__buttons__cancel');
+  cancelBtn.addEventListener('click', () => {
+    newCard.parentElement.remove();
+  });
+};
+
 const toggleNewCard = (cardList, store, columnClassName) => {
   const newCard = cardList.querySelector('.new-card');
   if (newCard) {
     newCard.remove();
     return;
-  } else {
-    const newCardTemplate = createNewCardTemplate();
-    cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
-    const newCard = cardList.querySelector('.card__contents');
-    const textArea = cardList.querySelector('.card__contents__input--main');
-    onNewCardInput(newCard);
-    onResizeTextArea(textArea);
-    onNewCardClick(newCard, store, columnClassName);
   }
+
+  const newCardTemplate = createNewCardTemplate();
+  cardList.insertAdjacentHTML('afterbegin', newCardTemplate);
+  const newCardContents = cardList.querySelector('.card__contents');
+  const textArea = cardList.querySelector('.card__contents__input--main');
+
+  onNewCardInput(newCardContents);
+  onResizeTextArea(textArea);
+  onNewCardClick(newCardContents, store, columnClassName);
+  onCancelBtnClick(newCardContents);
 };

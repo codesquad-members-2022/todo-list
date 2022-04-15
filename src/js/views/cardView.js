@@ -1,5 +1,5 @@
 import { icons } from '../constants/constant.js';
-import { $, $$ } from '../utils/util.js';
+import { $ } from '../utils/util.js';
 
 export const insertCardToColumn = (columnData, parent = document) => {
   const columnElement = $(`.${columnData.className}`, parent);
@@ -26,7 +26,7 @@ export const insertAllCardToColumn = (store, parent) => {
 
 export const createCardTemplate = task => {
   return `
-    <li class="task__card" data-datetime=${task.datetime}>
+    <li class="task__card" data-datetime=${task.datetime} data-id=${task.cardId}>
     <div class="card__contents">
       <header class="card__contents__header">${task.header}</header>
       <main class="card__contents__main">${task.main}</main>
@@ -62,7 +62,7 @@ const cardDoubleClickHandler = (target, store) => {
   const columnName = targetCard.closest('.column').classList[1];
   const columnData = store.getStore('main').find(column => column.className === columnName);
   const cardId = targetCard.dataset.id;
-  const todoData = columnData.tasks.find(task => task.cardId === Number(cardId));
+  const todoData = columnData.tasks.find(task => task.cardId == cardId);
 
   targetCard.style.display = 'none';
   store.notify('edit', targetCard, todoData);
