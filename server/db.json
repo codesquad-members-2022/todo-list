@@ -16,6 +16,11 @@
       "id": 1650003606469,
       "title": "11",
       "content": "11"
+    },
+    {
+      "id": 1650005349364,
+      "title": "asdfasd",
+      "content": "czvzxcv"
     }
   ],
   "done": [],
@@ -82,6 +87,18 @@
       "prevColumn": "todo",
       "currColumn": "done",
       "date": "22-04-12-10:00"
+    },
+    {
+      "id": "empty-card",
+      "column": {},
+      "title": "asdf",
+      "action": "register"
+    },
+    {
+      "id": "1650005484481",
+      "column": {},
+      "title": "테스트",
+      "action": "remove"
     }
   ]
 }

@@ -32,11 +32,11 @@ function checkTitleAndType(title, type) {
   }
 }
 
-function renderHistoryCard(card, type) {
+function renderHistoryCard({ column, title, action }) {
   const menu = document.querySelector(".side-menu-bar__wrapper");
-  const targetColumn = card.closest(".task-column").id;
-  const targetTitle = util.$(".task-card__title", card).textContent;
-  const historyCard = getHistoryCard(targetColumn, targetTitle, type);
+  const targetColumn = column;
+  const targetTitle = title;
+  const historyCard = getHistoryCard(targetColumn, targetTitle, action);
   const prevHistoryCard = util.$(".history-card", menu);
 
   menu.insertBefore(historyCard, prevHistoryCard);

@@ -18,10 +18,16 @@
 */
 
 import * as util from "../../util/Util.js";
-import { renderEmptyCard, getRegisteredCardNode } from "../view/EmptyCardView.js";
+import {
+  renderEmptyCard,
+  getRegisteredCardNode,
+} from "../view/EmptyCardView.js";
 import { renderCard, renderRegisteredStyle } from "../view/CardView.js";
 import { onClickColumnAddBtn } from "../view/ColumnView.js";
-import { renderHistoryCard, onClickMeunRemoveBtn } from "../view/historyView.js";
+import {
+  renderHistoryCard,
+  onClickMeunRemoveBtn,
+} from "../view/historyView.js";
 
 const createMainController = (store) => {
   init(store);
@@ -44,12 +50,18 @@ function init(store) {
       // 이벤트를 부착해라
       util.on("keydown", newCard, handleCardInput);
       //// 등록 버튼 클릭 핸들링 이벤트
-      const registerBtn = util.$(".task-card__register-btn.cursor-pointer", newCard);
+      const registerBtn = util.$(
+        ".task-card__register-btn.cursor-pointer",
+        newCard
+      );
       util.on("click", registerBtn, (event) => {
         handleRegisterBtn(event, store);
       });
       //// 취소 버튼 클릭 핸들링 이벤트
-      const removeBtn = util.$(".task-card__cancle-btn.cursor-pointer", newCard);
+      const removeBtn = util.$(
+        ".task-card__cancle-btn.cursor-pointer",
+        newCard
+      );
       util.on("click", removeBtn, (event) => {
         handleCancleBtn(event, store);
       });
@@ -78,10 +90,10 @@ function init(store) {
     const cardsCount = columnTag.querySelector(".column__card-cnt");
     cardsCount.textContent = columnTag.childElementCount - 1;
   });
-  store.getState("historyData").forEach((el) => {
-    // 템플릿 만들고
-    // 메뉴바에 붙이기
-  });
+  // store.getState("history").forEach((el) => {
+  //   // 템플릿 만들고
+  //   // 메뉴바에 붙이기
+  // });
   onClickMeunRemoveBtn();
 }
 
@@ -101,8 +113,13 @@ function handleCardInput({ target }) {
   const parentCard = target.closest(".task-card");
   const cardTitle = util.$(".task-card__title", parentCard);
   const cardContent = util.$(".task-card__content", parentCard);
-  const cardTextData = [cardTitle, cardContent].map((input) => input.textContent.trim());
-  const registerBtn = util.$(".task-card__register-btn.cursor-pointer", parentCard);
+  const cardTextData = [cardTitle, cardContent].map((input) =>
+    input.textContent.trim()
+  );
+  const registerBtn = util.$(
+    ".task-card__register-btn.cursor-pointer",
+    parentCard
+  );
 
   if (cardTextData.includes("")) {
     registerBtn.disabled = true;
@@ -117,7 +134,9 @@ async function handleRegisterBtn(event, store) {
   const parentCard = target.closest(".task-card");
   const parentCardId = parentCard.id;
   const cardTitle = parentCard.querySelector(".task-card__title").textContent;
-  const cardContent = parentCard.querySelector(".task-card__content").textContent;
+  const cardContent = parentCard.querySelector(
+    ".task-card__content"
+  ).textContent;
   const dataType = parentCard.parentElement.id;
 
   if (parentCardId !== "empty-card") {
@@ -125,15 +144,22 @@ async function handleRegisterBtn(event, store) {
     const newState = createCardState(cardTitle, cardContent, parentCardId);
     // 수정된 state를 store 및 서버에 저장
     await store.updateState(dataType, parentCardId, newState);
-    store.addState("history");
-    renderHistoryCard(parentCard, "update");
+    const cardHistory = extractCardState(parentCard, "update");
+    const cardHistoryState = creatHistoryState(cardHistory);
+
+    store.addState("history", cardHistoryState);
+    renderHistoryCard(parentCard, cardHistoryState);
     renderRegisteredStyle(parentCard, newState);
   } else {
     // title, content을 바탕으로 state 만들기
     const newState = createCardState(cardTitle, cardContent);
     // 만든 state를 store 및 서버에 저장
     await store.addState(dataType, newState);
-    renderHistoryCard(parentCard, "register");
+    const cardHistory = extractCardState(parentCard, "register");
+    const cardHistoryState = creatHistoryState(cardHistory);
+
+    store.addState("history", cardHistoryState);
+    renderHistoryCard(parentCard, cardHistoryState);
     renderCard(
       parentCard,
       handleRemoveBtn,
@@ -180,14 +206,11 @@ function handleRemoveBtn({ target }, store, dataType) {
     return;
   }
 
-<<<<<<< HEAD
-=======
   store.removeState(dataType, cardToRemove.id);
-  const cardState = extractCardState(card, "remove");
+  const cardState = extractCardState(cardToRemove, "remove");
   const historyState = creatHistoryState(cardState);
   store.addState("history", historyState);
->>>>>>> Dott-feature
-  renderHistoryCard(cardToRemove, "remove");
+  renderHistoryCard(cardToRemove, historyState);
   const parentColumn = cardToRemove.closest(`#${dataType}`);
   const cardsCount = parentColumn.querySelector(".column__card-cnt");
   cardsCount.textContent--;
@@ -202,8 +225,12 @@ function handleTextDoubleClick({ target }, store, dataType) {
   targetCard.classList.remove("registered");
   // targetCard.id = newState.id;
   util.$(".delete-btn.cursor-pointer", targetCard).classList.add("hidden");
-  util.$(".task-card__cancle-btn.cursor-pointer", targetCard).classList.remove("hidden");
-  util.$(".task-card__register-btn.cursor-pointer", targetCard).classList.remove("hidden");
+  util
+    .$(".task-card__cancle-btn.cursor-pointer", targetCard)
+    .classList.remove("hidden");
+  util
+    .$(".task-card__register-btn.cursor-pointer", targetCard)
+    .classList.remove("hidden");
   util.$(".task-card__footer", targetCard).classList.add("hidden");
   util.$(".task-card__title", targetCard).contentEditable = true;
   util.$(".task-card__title", targetCard).classList.remove("font-black");
