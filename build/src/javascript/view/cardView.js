@@ -238,10 +238,12 @@ function checkVerticalMove(currentCardColumn, $originalCard) {
   const cardAreaHeight = cardHeight + cardMargin;
   const diffY = shiftY - currentCardsY;
   const prevCardCount = Math.floor(diffY / cardAreaHeight);
-  if (prevCardCount <= cardCount) {
+  if (prevCardCount <= cardCount && prevCardCount >= 1) {
     const prevCardSelector = `.card:nth-child(${prevCardCount})`;
     const $prevCard = currentCardColumn.querySelector(prevCardSelector);
     $prevCard.after($originalCard);
+  } else if (prevCardCount < 1) {
+    currentCardColumn.insertAdjacentElement("afterbegin", $originalCard);
   }
 }
 
@@ -252,7 +254,15 @@ function addCopiedCardEvent() {
     dragStart = false;
     isDraggable = false;
     $copiedCard.remove();
+    changeOriginalCardStyle();
   });
+}
+
+function changeOriginalCardStyle() {
+  const $originalCard = document.querySelector(".original-card");
+  applyCardStyle($originalCard);
+  $originalCard.style.boxShadow = "";
+  $originalCard.classList.remove("original-card");
 }
 
 function moveAt(element) {
@@ -283,6 +293,7 @@ function addCardsDragEvent($cards) {
 
 function makeDragElement(element) {
   const copiedElement = element.cloneNode(true);
+  element.classList.add("original-card");
   copiedElement.classList.add("copied-card");
   Object.assign(copiedElement.style, {
     position: "absolute",
