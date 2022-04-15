@@ -26,6 +26,60 @@
       "title": "HTML/CSS 공부하기",
       "timeStamp": "Fri Apr 15 2022 05:19:27 GMT+0900",
       "id": 3
+    },
+    {
+      "action": "등록",
+      "category": [
+        "progress"
+      ],
+      "title": "Hemtori 완성하기",
+      "timeStamp": "Fri Apr 15 2022 18:31:32 GMT+0900",
+      "id": 4
+    },
+    {
+      "action": "등록",
+      "category": [
+        "progress"
+      ],
+      "title": "드래그 앤 드랍 뿌시기",
+      "timeStamp": "Fri Apr 15 2022 18:31:48 GMT+0900",
+      "id": 5
+    },
+    {
+      "action": "등록",
+      "category": [
+        "done"
+      ],
+      "title": "도톨이랑 회고하기",
+      "timeStamp": "Fri Apr 15 2022 18:32:01 GMT+0900",
+      "id": 6
+    },
+    {
+      "action": "등록",
+      "category": [
+        "done"
+      ],
+      "title": "그룹 리뷰 해치우기...",
+      "timeStamp": "Fri Apr 15 2022 18:32:47 GMT+0900",
+      "id": 7
+    },
+    {
+      "action": "삭제",
+      "category": [
+        "done"
+      ],
+      "title": "그룹 리뷰 해치우기...",
+      "timeStamp": "Fri Apr 15 2022 18:32:52 GMT+0900",
+      "id": 8
+    },
+    {
+      "action": "변경",
+      "category": [
+        "done"
+      ],
+      "title": "도톨이랑 회고하기",
+      "timeStamp": "Fri Apr 15 2022 18:33:06 GMT+0900",
+      "id": 9
     }
   ],
   "todoList": [
@@ -48,7 +102,6 @@
       ]
     },
     {
-      "id": 2,
       "title": "progress",
       "task": [
         {
@@ -56,13 +109,33 @@
           "title": "HTML/CSS 공부하기",
           "comment": "input 태그 실습",
           "author": "web"
+        },
+        {
+          "id": 2,
+          "title": "Hemtori 완성하기",
+          "comment": "완성하기",
+          "author": "web"
+        },
+        {
+          "id": 3,
+          "title": "드래그 앤 드랍 뿌시기",
+          "comment": "^0^)g",
+          "author": "web"
         }
-      ]
+      ],
+      "id": 2
     },
     {
-      "id": 3,
       "title": "done",
-      "task": []
+      "task": [
+        {
+          "id": 1,
+          "title": "도톨이랑 회고하기",
+          "comment": "^0^)/ 야호!",
+          "author": "web"
+        }
+      ],
+      "id": 3
     }
   ],
   "user": [

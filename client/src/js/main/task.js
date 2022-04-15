@@ -31,12 +31,7 @@ export class Task {
     }
   }
 
-  createHTML(taskData) {
-    if (taskData) {
-      const { title, comment, author, id } = taskData;
-      [this.taskTitle, this.comment, this.author, this.taskId] = [title, comment, author, id];
-    }
-
+  createHTML() {
     return this.taskId
       ? `<li class="column__task--item" data-title="${this.taskTitle}" data-id="${this.taskId}">
               <section>
@@ -110,9 +105,10 @@ export class Task {
   handleClickEvent(target) {
     if (!this.isTaskButton(target)) return;
 
-    if (this.isCancelButton(target))
+    if (this.isCancelButton(target)) {
       if (this.isRegistrationCard()) return this.removeRegistrationCard();
-      else if (this.isEditCard()) return this.restoreOriginCard();
+      return this.restoreOriginCard();
+    }
 
     if (this.isInactivation()) return;
 
@@ -192,11 +188,21 @@ export class Task {
     if (taskTitle || comment) {
       this.target.classList.remove("inactivation");
     }
-    if (
-      (!taskTitle && !comment) ||
-      (this.isEditCard() && taskTitle === this.taskTitle && comment === this.comment)
-    )
+    if (isInactivate(taskTitle, comment)) {
       this.target.classList.add("inactivation");
+    }
+  }
+
+  isEmpty(taskTitle, comment) {
+    return !taskTitle && !comment;
+  }
+
+  isSame(taskTitle, comment) {
+    return this.isEditCard() && taskTitle === this.taskTitle && comment === this.comment;
+  }
+
+  isInactivate(taskTitle, comment) {
+    return isEmpty(taskTitle, comment) || isSame(taskTitle, comment);
   }
 
   setDeleteButtonMouseEvent() {
