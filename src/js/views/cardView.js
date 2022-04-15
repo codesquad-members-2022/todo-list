@@ -1,16 +1,24 @@
 import { icons } from '../constants/constant.js';
+import { $, $$ } from '../utils/util.js';
 
-export const insertCardToColumn = (column, parent = document) => {
-  const columnElement = parent.querySelector(`.${column.className}`);
-  const cardList = columnElement.querySelector('.task__cards');
-  const taskCount = columnElement.querySelector('.title-column__title__count');
-  taskCount.textContent = column.total;
-  column.tasks.forEach(task => {
+export const insertCardToColumn = (columnData, parent = document) => {
+  const columnElement = $(`.${columnData.className}`, parent);
+  const cardList = $('.task__cards', columnElement);
+  const taskCount = $('.title-column__title__count', columnElement);
+  taskCount.textContent = columnData.total;
+
+  columnData.tasks.forEach(task => {
     cardList.insertAdjacentHTML('beforeend', createCardTemplate(task));
   });
 };
 
-export const insertAllCardToColumn = (parent, store) => {
+export const insertAllCardToColumn = (store, parent) => {
+  if (!store) {
+    store = store.getStore('main');
+  }
+  if (!parent) {
+    parent = $('.main');
+  }
   store.forEach(column => {
     insertCardToColumn(column, parent);
   });
@@ -33,8 +41,8 @@ export const createCardTemplate = task => {
 
 export const addNewCardToColumn = (column, taskData, totalCount) => {
   const newTodo = createCardTemplate(taskData);
-  const cardList = column.querySelector('.task__cards');
-  const cardCount = column.querySelector('.title-column__title__count');
+  const cardList = $('.task__cards', column);
+  const cardCount = $('.title-column__title__count', column);
   cardList.insertAdjacentHTML('afterbegin', newTodo);
   cardCount.textContent = totalCount;
 };

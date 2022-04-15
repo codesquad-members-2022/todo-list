@@ -1,17 +1,31 @@
-import { icons } from '../constants/constant.js';
+import { icons, TODO_LIST_URL } from '../constants/constant.js';
+import { $, rerender, saveToDB } from '../utils/util.js';
 
-export const insertColumns = (parentElement, store) => {
-  const columns = store.map(column => {
-    return createColumnTemplate(column.className, column.title);
-  });
+export const insertColumns = (store, parentElement) => {
+  if (!parentElement) {
+    parentElement = $('.main');
+  }
+  const columns = getAllColumns(store);
   columns.forEach(column => {
-    parentElement.insertAdjacentHTML('beforeend', column);
+    parentElement.appendChild(column);
   });
+};
+
+const getAllColumns = store => {
+  return store.map(column => {
+    return createColumnElement(column.className, column.title);
+  });
+};
+
+const createColumnElement = (className, title) => {
+  const columnElement = document.createElement('div');
+  columnElement.classList.add('column', className);
+  columnElement.innerHTML = createColumnTemplate(className, title);
+  return columnElement;
 };
 
 const createColumnTemplate = (className, title) => {
   return `
-  <div class="column ${className}">
     <div class="title-column">
       <div class="title-column__title">
         <div class="title-column__title__text">${title}</div>
@@ -28,6 +42,33 @@ const createColumnTemplate = (className, title) => {
     </div>
     <ul class="task__cards">
     </ul>
-  </div>
   `;
+};
+
+export const onDeleteAllCardInnerColumn = store => {
+  const mainElement = $('main');
+  mainElement.addEventListener('click', e => {
+    deleteColumnAllCard(e, store);
+  });
+};
+
+const deleteColumnAllCard = (e, store) => {
+  const target = e.target;
+  const targetBtn = target.closest('.title-column__btn__delete');
+  if (!targetBtn) {
+    return;
+  }
+  const targetColumn = targetBtn.parentElement.parentElement.parentElement;
+  const targetColumnTitle = [...targetColumn.classList].find(className => className !== 'column');
+  const columns = store.getStore('main');
+  columns.forEach(column => {
+    if (column.className !== targetColumnTitle) {
+      return;
+    }
+    column.total = 0;
+    column.tasks = [];
+    const url = TODO_LIST_URL + '/' + column.id;
+    saveToDB(url, column);
+  });
+  rerender(store);
 };
