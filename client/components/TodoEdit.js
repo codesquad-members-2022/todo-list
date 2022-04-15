@@ -85,6 +85,7 @@ export default class TodoEdit {
     const newTodoData = {
       id: this.id,
       title: this.title,
+      status: this.status,
       content: this.content,
       userId: this.userId,
     };
