@@ -1,4 +1,4 @@
-import { $, closest, containClass } from '../util';
+import { $, closest, containClass, url } from '../util';
 
 export class AddCard {
   constructor(newCard, postedCard, cardId) {
@@ -86,8 +86,7 @@ export class AddCard {
       states: state,
     };
 
-    const url = (router) => `http://localhost:3002/${router}`;
-    fetch('http://localhost:3002/cards', {
+    fetch(url('cards'), {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(data),
@@ -99,13 +98,17 @@ export class AddCard {
       '.column-title',
       closest('.column', cardItem)
     ).textContent;
-    const res = await fetch('http://localhost:3002/cardSequence');
+
+    const res = await fetch(url('cardSequence'));
     const json = await res.json();
     const sequence = json[columnName];
+
     sequence.unshift(Number(cardItem.dataset.id));
+
     const patchData = {};
     patchData[columnName] = sequence;
-    fetch('http://localhost:3002/cardSequence', {
+
+    fetch(url('cardSequence'), {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(patchData),

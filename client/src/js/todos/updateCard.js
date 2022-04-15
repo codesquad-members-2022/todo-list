@@ -66,8 +66,7 @@ export class UpdateCard {
       lastTime: lastTime,
     };
 
-    const url = `http://localhost:3002/cards/${cardId}`;
-    fetch(url, {
+    fetch(url(`cards/${cardId}`), {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(data),

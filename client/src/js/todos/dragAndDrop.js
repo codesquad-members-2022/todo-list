@@ -1,4 +1,4 @@
-import { $, $$, closest } from '../util.js';
+import { $, $$, closest, url } from '../util.js';
 
 export class DragAndDrop {
   constructor() {
@@ -169,7 +169,7 @@ export class DragAndDrop {
   }
 
   async deleteSequence() {
-    const res = await fetch('http://localhost:3002/cardSequence');
+    const res = await fetch(url('cardSequence'));
     const json = await res.json();
     const sequence = json[this.columnName];
     const patchData = {};
@@ -178,7 +178,7 @@ export class DragAndDrop {
       (el) => el !== Number(this.dragCard.dataset.id)
     );
 
-    fetch('http://localhost:3002/cardSequence', {
+    fetch(url('cardSequence'), {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(patchData),
@@ -198,7 +198,7 @@ export class DragAndDrop {
       .call($$('.list_item', columnList))
       .map((el) => Number(el.dataset.id));
 
-    fetch('http://localhost:3002/cardSequence', {
+    fetch(url('cardSequence'), {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(patchData),
@@ -217,8 +217,7 @@ export class DragAndDrop {
       lastTime: lastTime,
     };
 
-    const url = `http://localhost:3002/cards/${this.dragCard.dataset.id}`;
-    fetch(url, {
+    fetch(url(`cards/${this.dragCard.dataset.id}`), {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(data),

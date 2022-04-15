@@ -1,4 +1,4 @@
-import { $, closest, containClass, debounce } from '../util';
+import { $, closest, containClass, debounce, url } from '../util';
 
 export class DeleteCard {
   constructor() {
@@ -63,7 +63,7 @@ export class DeleteCard {
       closest('.column', cardItem)
     ).textContent;
 
-    const res = await fetch('http://localhost:3002/cardSequence');
+    const res = await fetch(url('cardSequence'));
     const json = await res.json();
     const sequence = json[columnName];
 
@@ -72,7 +72,7 @@ export class DeleteCard {
       (el) => el !== Number(cardItem.dataset.id)
     );
 
-    fetch('http://localhost:3002/cardSequence', {
+    fetch(url('cardSequence'), {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(patchData),

@@ -21,3 +21,5 @@ export const debounce = (callback, delay) => {
     timerId = setTimeout(callback, delay, event);
   };
 };
+
+export const url = (router) => `http://localhost:3002/${router}`;
