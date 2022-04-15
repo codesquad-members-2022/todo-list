@@ -62,7 +62,7 @@ class TaskRepository {
                 0, TaskDetailResponse(
                     todoIndex++,
                     task.title,
-                    task.content,
+                    task.contents,
                     task.status
                 )
             )
@@ -70,7 +70,7 @@ class TaskRepository {
                 0, TaskDetailResponse(
                     inProgressIndex++,
                     task.title,
-                    task.content,
+                    task.contents,
                     task.status
                 )
             )
@@ -78,7 +78,7 @@ class TaskRepository {
                 0, TaskDetailResponse(
                     doneIndex++,
                     task.title,
-                    task.content,
+                    task.contents,
                     task.status
                 )
             )

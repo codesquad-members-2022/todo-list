@@ -14,13 +14,14 @@ data class TasksResponse(
 
 data class CommonResponse(
     val status: Int,
+    @SerializedName("resources")
     val taskDetailResponse: TaskDetailResponse,
 )
 
 data class TaskDetailResponse(
     val id: Int,
     val title: String,
-    val content: String,
+    val contents: String,
     val status: Status,
     val author: String = "Android",
     val updateDateTime: String? = null,
