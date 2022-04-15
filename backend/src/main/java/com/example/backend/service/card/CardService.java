@@ -1,18 +1,18 @@
 package com.example.backend.service.card;
 
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.toList;
-
 import com.example.backend.controller.card.dto.CardDto;
 import com.example.backend.domain.card.Card;
+import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
 import com.example.backend.repository.history.HistoryRepository;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class CardService {
@@ -28,6 +28,15 @@ public class CardService {
     @Transactional
     public Card writeCard(CardDto cardDto) {
         Card card = cardRepository.save(cardDto.writeCard());
+        return card;
+    }
+
+    @Transactional
+    public Card changePosition(Long id, CardPositionChangeRequest request) {
+        Card card = findById(id);
+        CardType type = request.getCardType();
+        Long newPosition = request.getNewPosition();
+        cardRepository.changePosition(card, type, newPosition);
         return card;
     }
 

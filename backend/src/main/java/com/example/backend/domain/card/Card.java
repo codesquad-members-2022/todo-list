@@ -94,5 +94,13 @@ public class Card {
         this.content = content;
         this.lastModifiedAt = LocalDateTime.now();
     }
+
+    public void changePosition(Long newPosition) {
+        this.position = newPosition;
+    }
+
+    public void changeCardType(CardType newCardType) {
+        this.cardType = newCardType;
+    }
 }
 

@@ -88,13 +88,53 @@ public class CardJdbcRepository implements CardRepository {
             throw new IllegalArgumentException("이미 삭제된 카드입니다.");
         }
         Card card = findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카드입니다."));
-        String orderQuery = "UPDATE card SET position = position-1 WHERE card_type = ? AND position > ?";
-        jdbcTemplate.update(orderQuery, card.getCardTypeName(), card.getPosition());
+        String orderQuery = "UPDATE card SET position = position-1 WHERE position > ? AND card_type=?";
+        jdbcTemplate.update(orderQuery, card.getPosition(), card.getCardTypeName());
     }
 
     @Override
-    public Card changePosition(Card card, CardType cardType) {
-        return null;
+    public Card changePosition(Card card, CardType newCardType, Long newPosition) {
+        CardType fromCardType = card.getCardType();
+        if (fromCardType.equals(newCardType)) {
+            return changeSameCardTypePosition(card, newPosition);
+        }
+        Card cCard = changeDifferentCardTypePosition(card, newCardType, newPosition);
+        cCard.changePosition(newPosition);
+        update(cCard);
+        return cCard;
+    }
+
+    private Card changeSameCardTypePosition(Card card, Long newPosition) {
+        Long oldPosition = card.getPosition();
+        Long id = card.getId();
+        if (newPosition > oldPosition) {
+            decreasePosition(id, oldPosition, newPosition);
+        } else {
+            increasePosition(id, oldPosition, newPosition);
+        }
+        card.changePosition(newPosition);
+        return update(card);
+    }
+
+    private void decreasePosition(Long id, Long oldPosition, Long newPosition) {
+        String query = "UPDATE card SET position = position-1 WHERE position<= ? AND position > ? AND id <> ?";
+        jdbcTemplate.update(query, newPosition, oldPosition, id);
+    }
+
+    private void increasePosition(Long id, Long oldPosition, Long newPosition) {
+        String query = "UPDATE card SET position = position+1 WHERE position>= ? AND position < ? AND id <> ?";
+        jdbcTemplate.update(query, newPosition, oldPosition, id);
+    }
+
+    private Card changeDifferentCardTypePosition(Card card, CardType newCardType, Long newPosition) {
+        Long id = card.getId();
+//        card.changeCardType(newCardType);
+//        card.changePosition(newPosition);
+        String newCardTypeQuery = "UPDATE card SET position = position +1 WHERE position >= ? AND card_type = ? AND id <>?";
+        jdbcTemplate.update(newCardTypeQuery, newPosition, newCardType.name(), id);
+        String orderCardTypeQuery = "UPDATE card SET position = position -1 WHERE position >= ? AND card_type = ? AND id <>?";
+        jdbcTemplate.update(orderCardTypeQuery, card.getPosition(), card.getCardType().name(), id);
+        return card;
     }
 
     private static class CardBuilder {

@@ -8,6 +8,7 @@ import com.example.backend.domain.card.Card;
 import com.example.backend.domain.history.Action;
 import com.example.backend.service.card.CardReadResponse;
 import com.example.backend.service.card.CardService;
+import com.example.backend.service.card.CardPositionChangeRequest;
 import com.example.backend.service.history.HistoryService;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,6 +61,12 @@ public class CardController {
         HistorySaveRequest request = new HistorySaveRequest(card.getContent(), card.getWriter(), Action.MODIFY, card.getMemberId(), card.getId());
         historyService.saveHistory(request);
         return ApiResult.OK(new CardSaveResponse(card));
+    }
+
+    @PatchMapping("move/{id}")
+    public String dragAndDrop(@PathVariable Long id, @RequestBody CardPositionChangeRequest request) {
+        cardService.changePosition(id, request);
+        return "SUCCESS";
     }
 
 //    @PostMapping

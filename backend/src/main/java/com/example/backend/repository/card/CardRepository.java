@@ -18,5 +18,5 @@ public interface CardRepository {
 
     void delete(Long id);
 
-    Card changePosition(Card card, CardType cardType);
+    Card changePosition(Card card, CardType cardType, Long position);
 }
