@@ -71,7 +71,7 @@ public class CardDao {
             throw new IllegalArgumentException(ERROR_OF_CARD_ID);
         }
         final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(CARD_KEY_COLUMN_NAME, todoId);
-        String sql = "select * from todo_list_table where todo_id = :todo_id;";
+        String sql = "select * from todo_list_table where deleted = 0 and todo_id = :todo_id;";
         Card card = namedParameterJdbcTemplate.queryForObject(sql, namedParameters, cardRowMapper());
         return Optional.ofNullable(card);
     }
