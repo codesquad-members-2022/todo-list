@@ -4,16 +4,9 @@ import {
   updateServerCardData,
   deleteCardData,
 } from "../controller/cardController.js";
+import { addCardDragEvent } from "./columnView.js";
 
-export function addPlusBtnEvent() {
-  const $plusBtn = document.querySelector("#have-to-do-plus");
-  const $cards = document.querySelector("#have-to-do-cards");
-  $plusBtn.addEventListener("click", () => {
-    renderRegisterCard($cards);
-  });
-}
-
-async function renderRegisterCard($cards) {
+export async function renderRegisterCard($cards) {
   const $allCards = document.querySelectorAll(".card");
   const todoCount = $allCards.length;
   const registerBoxTemp = `
@@ -82,6 +75,7 @@ function updateCard({ target }) {
   applyCardStyle($selectedCard);
   setTextAreaContenteditable($selectedCard, false);
   addServerCardData($selectedCard);
+  addCardDragEvent($selectedCard);
 }
 
 export function getUpdatedCardContent($selectedCard) {
@@ -104,7 +98,7 @@ export function getUpdatedCardContent($selectedCard) {
   return card;
 }
 
-function applyCardStyle($card) {
+export function applyCardStyle($card) {
   const $btnWrapper = $card.querySelector(".card-buttons-wrapper");
   const $crossBtn = $card.querySelector(".card-cross-button");
   $crossBtn.style.display = "block";
@@ -122,45 +116,14 @@ function setTextAreaContenteditable($card, boolean) {
   $cardDetails.setAttribute("contenteditable", boolean);
 }
 
-export function renderColumn(columnId, todos) {
-  const columnSelector = `#${columnId}`;
-  const $column = document.querySelector(columnSelector);
-  const $cards = $column.querySelector(".cards");
-  const cardTemplate = todos.reduce((template, todo) => {
-    template += `<div class="card" id="card${todo.id}">
-    <div class="card-contents-wrapper row-sort">
-      <div class="card-text-area">
-        <div class="card-title title-font">${todo.title}</div>
-        <div class="card-details">${todo.detail}</div>
-      </div>
-      <figure class="card-cross-button">
-        <img
-          src="./image/crossBtn.svg"
-          alt="cross-button-img"
-          class="cross-button-img"
-        />
-      </figure>
-    </div>
-    <div class="card-buttons-wrapper">
-      <button class="cancel-button">취소</button>
-      <button class="register-button">등록</button>
-    </div>
-  </div>`;
-    return template;
-  }, "");
-  $cards.insertAdjacentHTML("afterbegin", cardTemplate);
-  addRegisterBtnsListener($column);
-  addCardDoubleClickEvent($cards);
-}
-
-function addRegisterBtnsListener($column) {
+export function addRegisterBtnsListener($column) {
   const $registerBtns = $column.querySelectorAll(".register-button");
   for (const $registerBtn of $registerBtns) {
     $registerBtn.addEventListener("click", updateCard);
   }
 }
 
-function addCardDoubleClickEvent($cards) {
+export function addCardDoubleClickEvent($cards) {
   $cards.addEventListener("dblclick", handleDoubleClickEvent);
 }
 
@@ -241,4 +204,9 @@ function showAlert({ target }, $alert) {
   $alert.addEventListener("mouseleave", () => {
     $editBtn.removeEventListener("click", bindFunc);
   });
+}
+
+export function changeOriginalCardStyle($originalCard) {
+  applyCardStyle($originalCard);
+  $originalCard.style.boxShadow = "";
 }
