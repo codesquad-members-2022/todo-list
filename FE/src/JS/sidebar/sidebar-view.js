@@ -33,7 +33,6 @@ export default class View {
   }
 
   renderSidebar(info, userId, $sidebarContainer) {
-    console.log(info);
     const sidebarDataTemplate = info.reduce(
       (pre, curData) => (pre += this.sidebarActionLog(userId, curData)),
       ''
@@ -60,7 +59,7 @@ export default class View {
     }
 
     return `
-    <b>${previousCategory}</b>에 <b>${title}</b>를 <b>${action}</b>하였습니다
+    <b>${currentCategory}</b>에 <b>${title}</b>를 <b>${action}</b>하였습니다
     `;
   }
 

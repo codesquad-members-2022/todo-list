@@ -31,24 +31,12 @@ export default class Controller {
       category: null,
     };
 
-    Object.entries(workListData).map((vl) =>
-      vl.map((categoryName) => {
-        if (typeof categoryName === 'string') {
-          todoInfo.category = categoryName;
-        }
-        if (Array.isArray(categoryName))
-          categoryName.map((data) => {
-            this.view.renderTodoCard(todoInfo, data);
-          });
-      })
-    );
-
-    // for (const categoryName in workListData) {
-    //   todoInfo.category = categoryName;
-    //   for (const data of workListData[categoryName]) {
-    //     this.view.renderTodoCard(todoInfo, data);
-    //   }
-    // }
+    for (const categoryName in workListData) {
+      todoInfo.category = categoryName;
+      for (const data of workListData[categoryName]) {
+        this.view.renderTodoCard(todoInfo, data);
+      }
+    }
   }
 
   getHeaderValue = ({ target }) => {
