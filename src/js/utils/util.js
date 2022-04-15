@@ -59,7 +59,7 @@ const cardToJSON = (cardElement, columnName) => {
   const main = cardElement.querySelector('.card__contents__main').innerHTML;
   const footer = cardElement.querySelector('.card__contents__footer').innerHTML;
   const cardId = cardElement.dataset.id;
-  const dataTime = cardElement.dataset.datatime;
+  const datetime = cardElement.dataset.datetime;
   const status = columnName;
-  return { header, main, footer, cardId, dataTime, status };
+  return { header, main, footer, cardId, datetime, status };
 };

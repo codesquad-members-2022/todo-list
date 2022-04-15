@@ -3,39 +3,38 @@
     {
       "className": "todo",
       "title": "해야할 일",
-      "total": 3,
+      "total": 0,
       "id": 1,
+      "tasks": []
+    },
+    {
+      "className": "doing",
+      "title": "하고 있는 일",
+      "total": 3,
+      "id": 2,
       "tasks": [
         {
-          "header": "첫번째 할일",
-          "main": "main",
-          "footer": "footer",
-          "status": "todo"
+          "header": "CodeSquad",
+          "main": "Study Hard",
+          "footer": "author",
+          "cardId": "1650000165633",
+          "datetime": "2022-04-15T05:22:45.633Z",
+          "status": "doing"
         },
         {
           "header": "두번째 할일",
           "main": "main",
           "footer": "footer",
-          "status": "todo"
+          "cardId": "2",
+          "datetime": "2022040711:07am",
+          "status": "doing"
         },
         {
-          "header": "세번째 할일",
-          "main": "main",
+          "header": "첫번째 할일",
+          "main": "Finish Team Project",
           "footer": "footer",
-          "status": "todo"
-        }
-      ]
-    },
-    {
-      "className": "doing",
-      "title": "하고 있는 일",
-      "total": 1,
-      "id": 2,
-      "tasks": [
-        {
-          "header": "하는중1",
-          "main": "main",
-          "footer": "footer",
+          "cardId": "1",
+          "datetime": "2022040711:07am",
           "status": "doing"
         }
       ]
@@ -47,15 +46,19 @@
       "id": 3,
       "tasks": [
         {
-          "header": "끝난일1",
-          "main": "main",
-          "footer": "footer",
+          "header": "자바스크립트 공부",
+          "main": "클로저",
+          "footer": "author",
+          "cardId": "1650000177283",
+          "datetime": "2022-04-15T05:22:57.283Z",
           "status": "done"
         },
         {
-          "header": "끝난일2",
-          "main": "main",
+          "header": "세번째 할일",
+          "main": "Functional Programming",
           "footer": "footer",
+          "cardId": "3",
+          "datetime": "2022040711:07am",
           "status": "done"
         }
       ]
