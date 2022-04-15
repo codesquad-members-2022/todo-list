@@ -1,5 +1,6 @@
 package com.example.todo.ui.toDo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -50,17 +51,34 @@ class ToDoViewModel(
 
 
     private fun reOrganize(list: List<TodoItem>): List<TodoItem> {
+
         val newList = mutableListOf<TodoItem>()
-        val header = list.find { it.next == 0 }
-        header?.let { newList.add(header) }
-        var statKey = header?.itemId?:return list
-        println(statKey)
-        var count = list.size - 1
-        while (count > 0) {
-            statKey = findByNextId(statKey, list, newList)
-            count--
-        }
+        if (list.size > 1) {
+            val header = list.find { it.next == 0 }
+            header?.let { newList.add(header) }
+            var statKey = header?.itemId ?: return list
+            println(statKey)
+
+            loop@ while (true) {
+                val nextItem = findNextTodoItem(list, statKey)
+                nextItem?.let {
+                    statKey = nextItem.itemId!!
+                    newList.add(nextItem)
+                } ?: break
+            }
+
+//           // var count = list.size - 1
+//            while (count > 0) {
+//                statKey = findByNextId(statKey, list, newList)
+//                count--
+//            }
+        } else return list
         return newList.toList()
+    }
+
+    private fun findNextTodoItem(list: List<TodoItem>, itemId: Int): TodoItem? {
+        val item = list.find { it.next == itemId }
+        return item
     }
 
     private fun findByNextId(
@@ -70,6 +88,9 @@ class ToDoViewModel(
     ): Int {
         val addItem = list.find { it.next == nextId }
         addItem?.let { resultList.add(it) }
+        Log.d("testx", addItem?.next.toString())
+        println(addItem?.title)
+        println(addItem?.itemId)
         return addItem?.itemId!!
     }
 

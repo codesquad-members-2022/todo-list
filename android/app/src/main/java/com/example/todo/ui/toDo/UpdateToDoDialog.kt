@@ -3,11 +3,14 @@ package com.example.todo.ui.toDo
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.example.todo.R
 import com.example.todo.databinding.DialogUpdateCardBinding
 import com.example.todo.model.ProgressType
 import com.example.todo.model.TodoItem
@@ -19,6 +22,7 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
     private val viewModel: ToDoViewModel by activityViewModels()
     private var titleValidationFlag = true
     private var contentValidationFlag = true
+    lateinit var btn: Button
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,16 +32,19 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
         binding.editCardContent.setText(item.content)
         binding.editCardTitle.setText(item.title)
         dialog?.setCanceledOnTouchOutside(false)
+        btn = view?.findViewById<Button>(R.id.btn_modify)!!
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.btnRegister?.setOnClickListener {
+        Log.d("testtt", (binding.btnModify == null).toString())
+        binding.btnModify?.setOnClickListener {
+            Log.d("testtt", "ss")
             val copy = item.copy()
             copy.content = binding.editCardContent.text.toString()
             copy.title = binding.editCardTitle.text.toString()
             viewModel.updateTodoItem(copy)
-
+            Log.d("testtt", "ss")
             dismiss()
         }
         binding.btnCancle.setOnClickListener { dismiss() }
@@ -78,7 +85,7 @@ class UpdateToDoDialog(private val item: TodoItem) : DialogFragment() {
     }
 
     private fun validationFlagCheck() {
-        binding.btnRegister?.isEnabled = titleValidationFlag && contentValidationFlag
+        binding.btnModify?.isEnabled = titleValidationFlag && contentValidationFlag
 
     }
 

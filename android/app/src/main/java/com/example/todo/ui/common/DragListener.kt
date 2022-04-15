@@ -121,11 +121,6 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                                 println(targetList)
                                 println(positionTarget)
 
-
-                                val targetData = targetList[targetList.lastIndex]
-                                println(targetData.itemId)
-                                val prevDataId =
-                                    targetList.find { it.next == targetData.itemId }?.itemId ?: 0
                                 if (targetList.isEmpty()) {
                                     when (target.id) {
                                         rvTodo -> listener.moveData(
@@ -148,6 +143,10 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                                     }
                                 }
                                 else{
+                                    val targetData = targetList[targetList.lastIndex]
+                                    println(targetData.itemId)
+                                    val prevDataId =
+                                        targetList.find { it.next == targetData.itemId }?.itemId ?: 0
                                     when (target.id) {
                                         rvTodo -> listener.moveData(
                                             ProgressType.TO_DO,
