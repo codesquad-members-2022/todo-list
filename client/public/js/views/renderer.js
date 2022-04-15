@@ -22,6 +22,7 @@ export function renderAllItems(itemList) {
 export function renderItem({ id, columnId, title, content }) {
   const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
   insertElement(itemListEl, "beforeend", createItem({ id, title, content }));
+  renderColumnLength(columnId);
 }
 
 export function renderItemForm(columnId) {
@@ -56,4 +57,9 @@ export function renderAside() {
 export function renderMain() {
   const todoContainerEl = qs(".todo-container");
   insertElement(todoContainerEl, "beforeend", createMain());
+}
+
+export function renderColumnLength(columnId, boolean = true) {
+  const columnLengthEl = qs(`.column[data-column="${columnId}"] .column__header--card-count`);
+  boolean ? columnLengthEl.textContent++ : columnLengthEl.textContent--;
 }

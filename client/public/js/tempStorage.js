@@ -5,9 +5,9 @@ const database = [
     gender: "male",
     email: "mansaout@gmail.com",
     columns: [
-      { id: 1, title: "해야할 일", length: 2 },
-      { id: 2, title: "하고 있는 일", length: 1 },
-      { id: 3, title: "완료한 일", length: 0 },
+      { id: 1, title: "해야할 일" },
+      { id: 2, title: "하고 있는 일" },
+      { id: 3, title: "완료한 일" },
     ],
     items: [
       {
@@ -25,7 +25,7 @@ const database = [
         date: "2021-04-05",
       },
       {
-        id: 4,
+        id: 3,
         columnId: 2,
         title: "HTML/CSS 공부하기",
         content: "input 태그 실습",
