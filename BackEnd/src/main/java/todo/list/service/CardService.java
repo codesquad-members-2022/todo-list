@@ -12,6 +12,7 @@ import todo.list.repository.CardRepository;
 import java.util.List;
 
 @Service
+@Transactional
 public class CardService {
 
     private final CardRepository cardRepository;
@@ -22,7 +23,6 @@ public class CardService {
         this.activityLogService = activityLogService;
     }
 
-    @Transactional
     public CardCommandResponse save(CardSaveRequest cardSaveRequest) {
         Card card = cardSaveRequest.toEntity();
         Card savedCard = cardRepository.save(card);
@@ -42,7 +42,6 @@ public class CardService {
         return new CardCollectionResponse(todoCards, inProgressCards, doneCards);
     }
 
-    @Transactional
     public CardCommandResponse modify(CardModifyRequest cardModifyRequest) {
         Card card = cardModifyRequest.toEntity();
         cardRepository.update(card);
@@ -54,12 +53,23 @@ public class CardService {
         return new CardCommandResponse(foundCard);
     }
 
-    @Transactional
     public CardCommandResponse delete(Long cardId) {
         Card foundCard = cardRepository.findById(cardId);
         cardRepository.delete(cardId);
 
         ActivityLog activityLog = new ActivityLog(Action.REMOVE, foundCard.getTitle(), foundCard.getStatus());
+        activityLogService.save(activityLog);
+
+        return new CardCommandResponse(foundCard);
+    }
+
+    public CardCommandResponse move(Long cardId, CardMoveRequest cardMoveRequest) {
+        Card card = new Card(cardId, cardMoveRequest.getNowStatus());
+        cardRepository.move(card);
+
+        Card foundCard = cardRepository.findById(cardId);
+
+        ActivityLog activityLog = new ActivityLog(Action.MOVE, foundCard.getTitle(), cardMoveRequest.getNowStatus(), cardMoveRequest.getBeforeStatus());
         activityLogService.save(activityLog);
 
         return new CardCommandResponse(foundCard);

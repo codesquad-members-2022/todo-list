@@ -32,14 +32,14 @@ public class CardRepository {
                 "(title, contents, card_status, author, update_datetime) values" +
                 "(:title, :contents, :card_status, :author, :update_datetime)";
 
-        SqlParameterSource namedParameters = new MapSqlParameterSource()
+        SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("title", card.getTitle())
                 .addValue("contents", card.getContents())
                 .addValue("card_status", card.getStatus().name())
                 .addValue("author", card.getAuthor().name())
                 .addValue("update_datetime", card.getUpdateDateTime());
 
-        jdbcTemplate.update(sql, namedParameters, keyHolder);
+        jdbcTemplate.update(sql, params, keyHolder);
         Long cardId = keyHolder.getKey().longValue();
         return new Card(cardId, card.getTitle(), card.getContents(), card.getStatus(), card.getUpdateDateTime(), card.getAuthor());
     }
@@ -86,5 +86,14 @@ public class CardRepository {
         Map<String,Object> params = new HashMap<>();
         params.put("id", id);
         return jdbcTemplate.queryForObject(sql, params, cardsRowMapper());
+    }
+
+    public void move(Card card) {
+        String sql = "update card set card_status=:card_status, update_datetime=:update_datetime where id=:id";
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("card_status", card.getStatus().name())
+                .addValue("update_datetime", card.getUpdateDateTime())
+                .addValue("id", card.getId());
+        jdbcTemplate.update(sql, params);
     }
 }

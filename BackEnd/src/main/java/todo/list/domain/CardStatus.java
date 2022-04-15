@@ -12,4 +12,5 @@ public enum CardStatus {
             return null;
         }
     }
+
 }

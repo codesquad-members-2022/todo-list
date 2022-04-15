@@ -2,6 +2,9 @@ package todo.list.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import todo.list.domain.Action;
 import todo.list.domain.ActivityLog;
@@ -13,9 +16,9 @@ import java.util.List;
 @Repository
 public class ActivityLogRepository {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public ActivityLogRepository(JdbcTemplate jdbcTemplate) {
+    public ActivityLogRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -36,7 +39,20 @@ public class ActivityLogRepository {
     }
 
     public void save(ActivityLog activityLog) {
-        String sql = "insert into activity_log (activity_log_action, title, now_status, before_status, create_datetime) values(?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, activityLog.getAction().name(), activityLog.getTitle(), activityLog.getNowStatus().name(), null, activityLog.getCreateDateTime());
+        String sql = "insert into activity_log (activity_log_action, title, now_status, create_datetime) " +
+                                        "values(:activity_log_action, :title, :now_status, :create_datetime)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("activity_log_action", activityLog.getAction().name())
+                .addValue("title", activityLog.getTitle())
+                .addValue("now_status", activityLog.getNowStatus().name())
+                .addValue("create_datetime", activityLog.getCreateDateTime());
+
+        if (activityLog.actionIsMove()) {
+            sql = "insert into activity_log (activity_log_action, title, now_status, before_status, create_datetime) " +
+                                    "values(:activity_log_action, :title, :now_status, :before_status, :create_datetime)";
+            params.addValue("before_status", activityLog.getBeforeStatus().name());
+        }
+        jdbcTemplate.update(sql, params);
     }
 }

@@ -1,6 +1,7 @@
 package todo.list.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import todo.list.domain.ActivityLog;
 import todo.list.repository.ActivityLogRepository;
 import todo.list.service.dto.ActivityLogResponse;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ActivityLogService {
 
     private final ActivityLogRepository activityLogRepository;
@@ -17,6 +19,7 @@ public class ActivityLogService {
         this.activityLogRepository = activityLogRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<ActivityLogResponse> findActivityLogs() {
         List<ActivityLog> activityLogs = activityLogRepository.findAll();
         return activityLogs.stream()
