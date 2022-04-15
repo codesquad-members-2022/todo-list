@@ -68,7 +68,6 @@ export default class View {
     const updateTime = new Date(updatedDateTime);
     const diffMinutes = currentTime.getTime() - updateTime.getTime();
     const result = Math.abs(diffMinutes / (1000 * 60));
-
     if (result < 60) {
       return `${result.toFixed()}분전`;
     }

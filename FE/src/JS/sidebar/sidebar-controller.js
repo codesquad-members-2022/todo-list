@@ -14,7 +14,6 @@ export default class Controller {
 
   async getLogData() {
     const sidebarData = await fetchRequest('/user-logs?userId=ikjo');
-
     const actionLogData = this.model.returnLogData(sidebarData);
     let userId = '';
 

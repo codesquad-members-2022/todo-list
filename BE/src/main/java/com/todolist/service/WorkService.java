@@ -2,13 +2,14 @@ package com.todolist.service;
 
 import com.todolist.domain.Category;
 import com.todolist.domain.Work;
-import com.todolist.domain.WorkLog;
+import com.todolist.domain.UserLog;
 import com.todolist.dto.ColumnListDto;
 import com.todolist.dto.WorkDto;
 import com.todolist.dto.WorkListDto;
-import com.todolist.dto.WorkRequestFormDto;
+import com.todolist.dto.WorkCreationDto;
+import com.todolist.dto.WorkMovementDto;
 import com.todolist.repository.CategoryRepository;
-import com.todolist.repository.WorkLogRepository;
+import com.todolist.repository.UserLogRepository;
 import com.todolist.repository.WorkRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,50 +22,49 @@ public class WorkService {
 
     private final CategoryRepository categoryRepository;
     private final WorkRepository workRepository;
-    private final WorkLogRepository workLogRepository;
+    private final UserLogRepository userLogRepository;
 
-    public WorkService(CategoryRepository categoryRepository, WorkRepository workRepository, WorkLogRepository workLogRepository) {
+    public WorkService(CategoryRepository categoryRepository, WorkRepository workRepository, UserLogRepository userLogRepository) {
         this.categoryRepository = categoryRepository;
         this.workRepository = workRepository;
-        this.workLogRepository = workLogRepository;
+        this.userLogRepository = userLogRepository;
     }
 
     public ColumnListDto getColumnList(String userId) {
         List<WorkListDto> workLists = new ArrayList<>();
+        List<Category> categoryList = categoryRepository.findAll(userId);
 
-        List<Category> categoryList = categoryRepository.findAll();
         for (Category category : categoryList) {
             int categoryId = category.getId();
             String categoryName = category.getName();
-            List<WorkDto> workDtoList = workRepository.findAllByCategoryId(categoryId, userId)
+            List<WorkDto> works = workRepository.findAllByCategoryId(categoryId)
                 .stream().map(Work::convertToDto).collect(Collectors.toList());
 
-            workLists.add(
-                WorkListDto.builder()
-                    .categoryId(categoryId)
-                    .categoryName(categoryName)
-                    .works(workDtoList)
-                    .build()
-            );
+            workLists.add(new WorkListDto(categoryId, categoryName, works));
         }
 
-        return ColumnListDto.builder()
-            .userId(userId)
-            .workList(workLists)
-            .build();
+        return new ColumnListDto(userId, workLists);
     }
 
     @Transactional
-    public WorkDto create(WorkRequestFormDto workRequestFormDto, String userId, Integer categoryId) {
-        // 카드 저장
-        Work work = workRequestFormDto.convertToDomain(categoryId, userId);
+    public WorkDto create(WorkCreationDto workCreationDto) {
+        Work work = workCreationDto.convertToWorkDomain();
         WorkDto workDto = workRepository.save(work);
 
-        // 활동 기록 저장
-        Integer workId = workDto.getId();
-        String categoryName = categoryRepository.findNameById(categoryId);
-        workLogRepository.saveCreationLog(workId, categoryName);
+        String categoryName = categoryRepository.findNameById(work.getCategoryId());
+        UserLog userLog = workCreationDto.convertToUserLogDomain(categoryName);
+        userLogRepository.saveLogOfCreationByUser(userLog);
 
         return workDto;
+    }
+
+    @Transactional
+    public void move(WorkMovementDto workMovementDto) {
+        Work work = workMovementDto.convertToWorkDomain();
+        workRepository.update(work);
+
+        String previousCategoryName = categoryRepository.findNameById(workMovementDto.getPreviousCategoryId());
+        String changedCategoryName = categoryRepository.findNameById(workMovementDto.getChangedCategoryId());
+        userLogRepository.saveLogOfMovementByUser(workMovementDto.convertToUserLogDomain(previousCategoryName, changedCategoryName));
     }
 }

@@ -42,7 +42,6 @@ export default class View {
   showCardTemplate = ({ target }) => {
     const columnName = target.closest('.column-item').id;
     const column = this.findCurrentContainer(columnName);
-
     column.insertAdjacentHTML('afterBegin', addCardTemplate());
     this.addCardBtnEvent();
   };

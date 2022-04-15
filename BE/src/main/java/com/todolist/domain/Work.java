@@ -23,7 +23,7 @@ public class Work {
         this.content = content;
         this.userId = userId;
         this.deleteFlag = false;
-        this.createdDateTime = LocalDateTime.now();
+        this.createdDateTime = LocalDateTime.now().withNano(0);
     }
 
     public Work(Integer id, String title, String content, LocalDateTime createdDateTime) {
@@ -33,21 +33,17 @@ public class Work {
         this.createdDateTime = createdDateTime;
     }
 
-    public WorkDto convertToDtoForCreation(Integer id) {
-        return WorkDto.builder()
-            .id(id)
-            .title(title)
-            .content(content)
-            .createdDateTime(createdDateTime)
-            .build();
+    public Work(Integer id, Integer categoryId, LocalDateTime createdDateTime) {
+        this.id = id;
+        this.categoryId = categoryId;
+        this.createdDateTime = createdDateTime;
     }
 
     public WorkDto convertToDto() {
-        return WorkDto.builder()
-            .id(id)
-            .title(title)
-            .content(content)
-            .createdDateTime(createdDateTime)
-            .build();
+        return new WorkDto(id, title, content, createdDateTime);
+    }
+
+    public WorkDto convertToDtoForCreation(Integer id) {
+        return new WorkDto(id, title, content, createdDateTime);
     }
 }

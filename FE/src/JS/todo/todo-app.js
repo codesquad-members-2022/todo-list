@@ -6,7 +6,6 @@ import { fetchRequest } from '../utility/fetchRequest.js';
 
 export async function initTodo() {
   const workListData = await fetchRequest('/works?userId=ikjo');
-
   const model = new Model(workListData);
   const view = new View();
   const drag = new Drag();
