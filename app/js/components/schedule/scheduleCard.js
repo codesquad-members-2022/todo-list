@@ -66,7 +66,8 @@ export class ScheduleCard {
         );
     }
 
-    cardDeleteBtnClickEventHandler() {
+    cardDeleteBtnClickEventHandler(event) {
+        event.preventDefault();
         const scheduleDeleteConfirmParams = {
             $scheduleCard: this.$scheduleCard,
             passedEventHandler: {

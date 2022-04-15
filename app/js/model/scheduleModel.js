@@ -1,8 +1,20 @@
-import { DEFAULT_AUTHOR } from "../../utils/styleNames.js";
+import { request2Server, getUrl, parseScheduleModel } from "../utils/utils.js";
+
+let scheduleModel;
+const URL = getUrl();
+
+const init = async () => {
+    const fetchedData = await request2Server(URL);
+    scheduleModel = parseScheduleModel(fetchedData);
+};
+
+const getScheduleModel = () => {
+    return scheduleModel;
+};
 
 const findScheduleColumn = (columnId) => {
     return scheduleModel.find(
-        (scheduleColumnData) => scheduleColumnData.columnId === columnId
+        (scheduleColumnData) => scheduleColumnData.id === columnId
     );
 };
 
@@ -12,6 +24,21 @@ const getScheduleColumnTitle = (columnId) => {
 
 const getScheduleCards = (columnId) => {
     return findScheduleColumn(columnId).cards;
+};
+
+const getColumnTitle = (columnId) => {
+    return scheduleModel.find((column) => column.id === columnId).title;
+};
+
+const getCardDataForServer = (columnId, cardData) => {
+    return {
+        id: cardData.id,
+        title: cardData.title,
+        body: cardData.body,
+        caption: cardData.caption,
+        columnTitle: getColumnTitle(columnId),
+        columnId: columnId,
+    };
 };
 
 const addScheduleCard = (columnId, cardData) => {
@@ -48,44 +75,12 @@ const getScheduleCardDataById = (columnId, cardId) => {
 
 const getScheduleCardNumberInColumn = (columnId) => {
     const cardsInScheduleColumn = findScheduleColumn(columnId).cards;
-    return cardsInScheduleColumn.length;
+    return cardsInScheduleColumn.length - 1;
 };
 
-const scheduleModel = [
-    {
-        columnId: "0",
-        title: "해야할 일",
-        cards: [
-            {
-                title: "제목",
-                body: "내용",
-                caption: DEFAULT_AUTHOR,
-                id: "0",
-            },
-            {
-                title: "제목2",
-                body: "내용2",
-                caption: DEFAULT_AUTHOR,
-                id: "1",
-            },
-        ],
-    },
-    {
-        columnId: "1",
-        title: "하고 있는 일",
-        cards: [
-            {
-                title: "제목",
-                body: "내용",
-                caption: DEFAULT_AUTHOR,
-                id: "3",
-            },
-        ],
-    },
-];
-
 export {
-    scheduleModel,
+    init,
+    getScheduleModel,
     getScheduleColumnTitle,
     getScheduleCards,
     addScheduleCard,

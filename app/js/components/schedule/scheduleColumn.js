@@ -1,7 +1,8 @@
 import { ScheduleCard } from "./scheduleCard.js";
 import { ScheduleRegisterCard } from "./scheduleRegisterCard.js";
-import * as scheduleModel from "../model/scheduleModel.js";
+import * as scheduleModel from "../../model/scheduleModel.js";
 import { changeCardNumber } from "./scheduleCardCount.js";
+import { recordPostEvent, recordDeleteEvent } from "../../model/history.js";
 import {
     REGISTER_CARD,
     SCHEDULE_ADD_BTN,
@@ -41,6 +42,9 @@ export class ScheduleColumn {
     renderCards() {
         const cards = scheduleModel.getScheduleCards(this.columnId);
         cards.forEach((cardData) => {
+            if (!cardData.id) {
+                return;
+            }
             const scheduleCardParams = {
                 target: this.$cards,
                 cardData: cardData,
@@ -74,7 +78,6 @@ export class ScheduleColumn {
     }
 
     removeRegisterCard() {
-        this.registerCard.changeState();
         const $registerCard = this.$cards.querySelector(`.${REGISTER_CARD}`);
         $registerCard.remove();
         this.registerCard.changeState();
@@ -99,6 +102,7 @@ export class ScheduleColumn {
 
     addCard(cardData) {
         scheduleModel.addScheduleCard(this.columnId, cardData);
+        recordPostEvent(this.columnId, this.columnTitle, cardData);
         const scheduleCardParams = {
             target: this.$cards,
             cardData: cardData,
@@ -116,7 +120,9 @@ export class ScheduleColumn {
     removeCard($target) {
         const cardId = $target.dataset.cardId;
         const columnId = $target.closest(`.${SCHEDULE_COLUMN}`).dataset.id;
+
         scheduleModel.removeScheduleCard(columnId, cardId);
+        recordDeleteEvent(cardId);
         $target.remove();
         changeCardNumber(columnId);
     }
@@ -134,7 +140,7 @@ export class ScheduleColumn {
     }
 
     template() {
-        return `<div class="${SCHEDULE_COLUMN}" data-id="${this.columnId}">
+        return `<div class="${SCHEDULE_COLUMN}" data-id="${this.columnId}" data-title="${this.columnTitle}">
             <div class="schedule-column__header">
                 <h2 class="schedule-column__title">${this.columnTitle}</h2>
                 <div class="schedule-column__count-box">

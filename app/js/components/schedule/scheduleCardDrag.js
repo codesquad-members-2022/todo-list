@@ -7,8 +7,9 @@ import {
     SCHEDULE_COLUMN,
     DRAG_CARD,
 } from "../../utils/styleNames.js";
-import * as scheduleModel from "../model/scheduleModel.js";
+import * as scheduleModel from "../../model/scheduleModel.js";
 import { changeCardNumber } from "./scheduleCardCount.js";
+import { recordDeleteEvent, recordPostEvent } from "../../model/history.js";
 
 const $main = document.querySelector("#main");
 let dragCard;
@@ -110,7 +111,9 @@ const resetGlobalVariables = () => {
 };
 
 const insertAfterimageCardToModel = (afterimageCard) => {
-    const columnId = afterimageCard.closest(`.${SCHEDULE_COLUMN}`).dataset.id;
+    const $scheduleColumn = afterimageCard.closest(`.${SCHEDULE_COLUMN}`);
+    const columnId = $scheduleColumn.dataset.id;
+    const columnTitle = $scheduleColumn.dataset.title;
     const $scheduleCards = afterimageCard.closest(`.${SCHEDULE_CARDS}`);
     const afterCardIndex = [...$scheduleCards.children].findIndex(
         (card) => card.classList.contains(SCHEDULE_CARD_AFTERIMAGE) === true
@@ -121,6 +124,7 @@ const insertAfterimageCardToModel = (afterimageCard) => {
         selectedCardData,
         afterCardIndex
     );
+    recordPostEvent(columnId, columnTitle, selectedCardData);
     changeCardNumber(columnId);
 };
 
@@ -131,6 +135,7 @@ const removeSelectedCardFromModel = () => {
         cardId
     );
     scheduleModel.removeScheduleCard(columnIdBeforeMove, cardId);
+    recordDeleteEvent(cardId);
     changeCardNumber(columnIdBeforeMove);
 };
 

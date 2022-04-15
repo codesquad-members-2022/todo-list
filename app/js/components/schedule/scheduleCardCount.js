@@ -1,5 +1,5 @@
 import { SCHEDULE_COUNT_NUM } from "../../utils/styleNames.js";
-import * as scheduleModel from "../model/scheduleModel.js";
+import * as scheduleModel from "../../model/scheduleModel.js";
 
 export const changeCardNumber = (columnId) => {
     const $curColumn = document.querySelector(`[data-id="${columnId}"]`);
