@@ -26,7 +26,7 @@ public class WorkRepository {
     }
 
     public List<Work> findAllByCategoryId(Integer categoryId) {
-        return jdbc.query("SELECT id, title, content, created_datetime "
+        return jdbc.query("SELECT id, title, content "
                 + "FROM work WHERE delete_flag = 0 AND category_id = :categoryId ORDER BY created_datetime DESC",
             Collections.singletonMap("categoryId", categoryId), workRowMapper());
     }
@@ -47,7 +47,7 @@ public class WorkRepository {
 
     public void updateCategory(Work work) {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(work);
-        jdbc.update("UPDATE work SET category_id = :categoryId, created_datetime = :createdDateTime WHERE id = :id", parameters);
+        jdbc.update("UPDATE work SET category_id = :categoryId WHERE id = :id", parameters);
     }
 
     public void delete(Integer workId) {
@@ -63,14 +63,10 @@ public class WorkRepository {
 
     private RowMapper<Work> workRowMapper() {
         return (rs, rowNum) -> {
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
-
             Work work = Work.builder()
                 .id(rs.getObject("id", Integer.class))
                 .title(rs.getString("title"))
                 .content(rs.getString("content"))
-                .createdDateTime(rs.getTimestamp("created_datetime", cal).toLocalDateTime())
                 .build();
 
             return work;

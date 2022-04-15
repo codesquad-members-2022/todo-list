@@ -32,11 +32,11 @@ public class Work {
     }
 
     public WorkDto convertToDto() {
-        return new WorkDto(id, title, content, createdDateTime);
+        return new WorkDto(id, title, content);
     }
 
     public WorkDto convertToDtoForCreation(Integer id) {
-        return new WorkDto(id, title, content, createdDateTime);
+        return new WorkDto(id, title, content);
     }
 
     public ModifiedWorkDto convertToDtoForModification() {

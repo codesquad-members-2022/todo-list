@@ -13,13 +13,11 @@ public class WorkMovementDto {
     private Integer previousCategoryId;
     private Integer currentCategoryId;
     private String title;
-    private LocalDateTime updatedDateTime;
 
     public Work convertToWorkDomain() {
         return Work.builder()
             .id(workId)
             .categoryId(currentCategoryId)
-            .createdDateTime(updatedDateTime)
             .build();
     }
 
