@@ -15,6 +15,7 @@ export default class CardView {
     const accentBtn = card.querySelector('.accent_btn');
     const deleteBtn = card.querySelector('.delete_btn');
     card.addEventListener('input', cardInputHandler);
+
     accentBtn.addEventListener('click', cardAddHandler);
     deleteBtn.addEventListener('click', cardDeleteHandler);
     deleteBtn.addEventListener('mouseover', hoverHandler);

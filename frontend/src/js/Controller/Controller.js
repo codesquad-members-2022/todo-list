@@ -33,6 +33,7 @@ class Controller {
       'afterbegin',
       createTagTemplate('main', '', 'main')
     );
+
     body.insertAdjacentHTML('beforeend', createTagTemplate('div', '', 'dim'));
     this.header.view.render();
     this.initHistory();
@@ -68,7 +69,7 @@ class Controller {
       const response = await deleteCard({ cardId: deleteCardId });
 
       this.updateHistory(response);
-
+      
       targetColumn.model.updateCardCount();
       targetColumn.view.renderCardCount(
         this.deletedColumn,
@@ -81,6 +82,7 @@ class Controller {
   initTodo() {
     this.todo = Todo;
     this.todo.view.init();
+
     this.todo.model.fetchColumns(this.carEventInit.bind(this));
     this.todo.view.eventInit({
       ColumnClickHanlder: this.columnClickHanlder.bind(this),
@@ -119,12 +121,14 @@ class Controller {
   addCard(target) {
     const targetColumnBox = target.closest('.todo_column_box');
     const targetColumn = this.findTodoColumn(targetColumnBox.dataset.columnid);
+
     if (!targetColumn.model.updateAddStstue()) {
       this.cancelAddCard(targetColumnBox);
       return;
     }
 
     const cardId = this.updateCardCount('add');
+
     this.actionCard = new Card({ cardId: cardId });
     this.actionCard.view.renderAddCard(targetColumnBox, cardId);
     this.actionCard.view.eventInit({
@@ -138,6 +142,7 @@ class Controller {
 
   cancelAddCard(targetColumnBox) {
     const cancelCard = targetColumnBox.querySelector('.card.write');
+    
     this.actionCard.view.renderDeleted(cancelCard);
     this.updateCardCount('cancelAdd');
   }
@@ -219,7 +224,6 @@ class Controller {
 
     targetCard.classList.remove('write', 'edit');
     targetColumn.model.addCardList(this.actionCard);
-
     targetColumn.view.renderCardCount(
       targetColumnBox,
       targetColumn.model.getCardCount()
@@ -231,6 +235,7 @@ class Controller {
     if (type === 'mouseout' && alert === null) {
       return;
     }
+    
     const { targetColumnBox, targetColumnID, targetCard, targetCardId } =
       this.getTargetCardInfo(target);
     const targetColumn = this.findTodoColumn(targetColumnID);

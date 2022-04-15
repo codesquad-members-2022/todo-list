@@ -13,7 +13,7 @@ const historyTemplate = () => {
   return `
   <article class="history_container">
     <ul class="history_list">
-    
+
     </ul>
     <button class="close_btn">
       <img src="./src/img/close.png" alt="close icon" />
@@ -53,6 +53,7 @@ const alertBoxTemplate = ({ title, cancel, accept }) => {
 
 const columnBoxTemplate = ({ id = '', title = '', cardCount = '' }) => {
   return /* html */ `
+
   <section class="todo_column_box" data-columnid="${id}">
     <div class="column_title_box">
       <div class="title_content">
@@ -66,6 +67,7 @@ const columnBoxTemplate = ({ id = '', title = '', cardCount = '' }) => {
     </div>
     <ul class="card_list">
       <li class="start"></li>
+
     </ul>
   </section>
   `;
