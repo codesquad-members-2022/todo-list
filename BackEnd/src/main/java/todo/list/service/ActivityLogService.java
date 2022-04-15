@@ -21,7 +21,7 @@ public class ActivityLogService {
 
     @Transactional(readOnly = true)
     public List<ActivityLogResponse> findActivityLogs() {
-        List<ActivityLog> activityLogs = activityLogRepository.findAll();
+        List<ActivityLog> activityLogs = activityLogRepository.findAllOrderByCreateDatetimeDesc();
         return activityLogs.stream()
                 .map(ActivityLogResponse::new)
                 .collect(Collectors.toList());

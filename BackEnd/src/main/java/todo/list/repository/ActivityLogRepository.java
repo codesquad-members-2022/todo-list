@@ -22,7 +22,7 @@ public class ActivityLogRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ActivityLog> findAll() {
+    public List<ActivityLog> findAllOrderByCreateDatetimeDesc() {
         return jdbcTemplate.query("select id, activity_log_action, title, now_status, before_status, create_datetime from activity_log order by create_datetime desc", activityLogRowMapper());
     }
 
