@@ -27,4 +27,12 @@ public class User {
     public boolean isSameId(Long userId) {
         return this.id.equals(userId);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
