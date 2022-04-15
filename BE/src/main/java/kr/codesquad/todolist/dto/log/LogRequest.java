@@ -24,8 +24,6 @@ public class LogRequest {
     private LogRequest() {
     }
 
-    ;
-
     public static LogRequest addRequest(CreateCardRequest cardRequest) {
         LogRequest logRequest = new LogRequest();
         logRequest.memberId = cardRequest.getAuthor();
@@ -61,7 +59,7 @@ public class LogRequest {
         }
 
         logRequest.previousSubject = currentCard.getSubject();
-        logRequest.activity = Activity.REMOVE;
+        logRequest.activity = Activity.MOVE;
 
         return logRequest;
     }

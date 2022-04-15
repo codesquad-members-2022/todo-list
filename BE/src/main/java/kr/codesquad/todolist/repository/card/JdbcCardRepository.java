@@ -142,7 +142,7 @@ public class JdbcCardRepository implements CardRepository {
                 .addValue("memberId", card.getMemberId())
                 .addValue("sectionId", card.getSectionId())
                 .addValue("subject", card.getSubject())
-                .addValue("contents", card.getSubject())
+                .addValue("contents", card.getContents())
                 .addValue("orderIndex", orderIndex)
                 .addValue("createdAt", card.getCreatedAt())
                 .addValue("updatedAt", card.getUpdatedAt());
