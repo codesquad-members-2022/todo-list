@@ -60,7 +60,6 @@ extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource
         guard let card = taskCardList?.getCard(at: indexPath.row) else { return nil }
         let id = card.id
         
-        
         let moveToDoneTask = UIAction(title: "완료된 일로 이동") { _ in
             let requestCard = RequestCardData(section: "완료된 일", title: card.title, content: card.content)
             DispatchQueue.global().sync {
@@ -71,7 +70,7 @@ extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource
         let editCard = UIAction(title: "수정하기") { _ in
             NotificationCenter.default.post(name: .editMenuTapped, object: nil, userInfo: [NotificationKeyValue.editTaskData:card])
         }
-        let removeCard = UIAction(title: "삭제하기") { _ in
+        let removeCard = UIAction(title: "삭제하기", attributes: .destructive) { _ in
             self.deleteCard(at: indexPath, from: tableView)
         }
         
