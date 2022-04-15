@@ -39,25 +39,12 @@ export default class View {
     addBtn.forEach((el) => el.addEventListener('click', this.showCardTemplate));
   }
 
-  showCardTemplate = ({ target }, isUpdate = false) => {
+  showCardTemplate = ({ target }) => {
     const columnName = target.closest('.column-item').id;
     const column = this.findCurrentContainer(columnName);
 
     column.insertAdjacentHTML('afterBegin', addCardTemplate());
-
-    if (isUpdate) {
-      const updateForm = column.firstElementChild;
-
-      updateForm.querySelector('.card-title').value = isUpdate.cardTitle;
-      updateForm.querySelector('.card-content').innerHTML =
-        isUpdate.cardContent;
-      updateForm.querySelector('.registerBtn').innerHTML = '수정';
-    
-    }
-
-    if (!isUpdate) {
-      this.addCardBtnEvent();
-    }
+    this.addCardBtnEvent();
   };
 
   addCardBtnEvent() {
@@ -124,7 +111,8 @@ export default class View {
     const selected_li = target.closest('.column-item--card');
     selected_li.style.display = 'none';
     const isUpdate = this.getCardTextContent(selected_li);
-    this.showCardTemplate({ target }, isUpdate);
+
+    this.showUpdateForm(target, isUpdate);
     this.addUpdateCardBtnEvent(selected_li);
   };
 
@@ -135,17 +123,41 @@ export default class View {
     return { cardTitle, cardContent };
   }
 
-  addUpdateCardBtnEvent(selected_li) {
-    $('.registerBtn').addEventListener('click',({target}) => {
-      this.getUpdateValue(target,selected_li.id)
-    } )
-    $('.cancelBtn').addEventListener('click', ({target}) =>{
-      this.removeUpdateForm(target,selected_li)
-    })
+  showUpdateForm(target, isUpdate) {
+    const targetElement = target.closest('.column-item--card');
+    targetElement.insertAdjacentHTML('Beforebegin', addCardTemplate());
+
+    const updateForm = targetElement.previousElementSibling;
+
+    updateForm.querySelector('.card-title').value = isUpdate.cardTitle;
+    updateForm.querySelector('.card-content').innerHTML = isUpdate.cardContent;
+    updateForm.querySelector('.registerBtn').innerHTML = '수정';
   }
 
-  removeUpdateForm(target,selected_li){
+  addUpdateCardBtnEvent(selected_li) {
+    $('.registerBtn').addEventListener('click', ({ target }) =>
+      this.getUpdateValue(target, selected_li.id)
+    );
+
+    $('.cancelBtn').addEventListener('click', ({ target }) =>
+      this.removeUpdateForm(target, selected_li)
+    );
+  }
+
+  removeUpdateForm(target, selected_li) {
     target.closest('.column-addBtn').remove();
     selected_li.style.display = 'flex';
+  }
+
+  renderUpdateCard(target, { title, content }) {
+    const updateFormElement = target.closest('.column-item--card');
+    const targetElement = updateFormElement.nextElementSibling;
+    const cardTitle = targetElement.querySelector('.card-title');
+    const cardContent = targetElement.querySelector('.card-content');
+
+    this.removeUpdateForm(updateFormElement, targetElement);
+
+    cardTitle.innerHTML = title;
+    cardContent.innerHTML = content;
   }
 }

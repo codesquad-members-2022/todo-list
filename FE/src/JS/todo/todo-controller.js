@@ -16,7 +16,7 @@ export default class Controller {
     this.view.getRemoveValue = this.getRemoveValue;
     this.view.getUpdateValue = this.getUpdateValue;
     this.drag.addDragEvent();
-    this.drag.makeDrag = this.makeDrag;
+    this.drag.getDragValue = this.getDragValue;
   }
 
   parseCategoryData(workListData) {
@@ -31,12 +31,24 @@ export default class Controller {
       category: null,
     };
 
-    for (const categoryName in workListData) {
-      todoInfo.category = categoryName;
-      for (const data of workListData[categoryName]) {
-        this.view.renderTodoCard(todoInfo, data);
-      }
-    }
+    Object.entries(workListData).map((vl) =>
+      vl.map((categoryName) => {
+        if (typeof categoryName === 'string') {
+          todoInfo.category = categoryName;
+        }
+        if (Array.isArray(categoryName))
+          categoryName.map((data) => {
+            this.view.renderTodoCard(todoInfo, data);
+          });
+      })
+    );
+
+    // for (const categoryName in workListData) {
+    //   todoInfo.category = categoryName;
+    //   for (const data of workListData[categoryName]) {
+    //     this.view.renderTodoCard(todoInfo, data);
+    //   }
+    // }
   }
 
   getHeaderValue = ({ target }) => {
@@ -85,18 +97,21 @@ export default class Controller {
     const columnName = target.closest('.column-item').id;
     const selectedCard = target.closest('.column-item--card');
     const workId = selectedCard.id;
+
     const removeCardInfo = {
-      "userId" : this.model.userId,
-      "currentCategoryId" : this.findCategoryId(columnName),
-      "title" : target.previousElementSibling.textContent,
-    }
+      userId: this.model.userId,
+      currentCategoryId: this.findCategoryId(columnName),
+      title: target.previousElementSibling.textContent,
+    };
+
     selectedCard.remove();
-    this.model.removeCardData(removeCardInfo,workId);
+    this.model.removeCardData(removeCardInfo, workId);
+
     const container = this.view.findCurrentContainer(columnName);
-    this.view.changeCategoryCount({ category : columnName },container)
+    this.view.changeCategoryCount({ category: columnName }, container);
   };
 
-  getUpdateValue = (target,workId) => {
+  getUpdateValue = (target, workId) => {
     const columnName = target.closest('.column-item').id;
     const targetCard = target.closest('.column-addBtn');
 
@@ -104,18 +119,53 @@ export default class Controller {
     const cardContent = targetCard.querySelector('.card-content').textContent;
 
     const updateInfo = {
-      "userId" : this.model.userId,
-      "currentCategoryId" : this.findCategoryId(columnName),
-      "title" : cardTitle,
-      "content" : cardContent,
-    }
-    
-   this.실행문(updateInfo,workId)
-  }
- async 실행문 (updateInfo,workId) {
-    const changeUpdateData =await  this.model.updateCardData(updateInfo,workId);
-    console.log(changeUpdateData)
+      userId: this.model.userId,
+      currentCategoryId: this.findCategoryId(columnName),
+      title: cardTitle,
+      content: cardContent,
+    };
 
+    this.makeUpdateInfo(target, updateInfo, workId);
+  };
+
+  async makeUpdateInfo(target, updateInfo, workId) {
+    const changeUpdateData = await this.model.updateCardData(
+      updateInfo,
+      workId
+    );
+
+    this.view.renderUpdateCard(target, changeUpdateData);
   }
-  changeDraggingCard() {};
+
+  getDragValue = ({ previousContainer, currentContainer, selectedCard }) => {
+    const previousColumn = previousContainer.closest('.column-item');
+    const currentColumn = currentContainer.closest('.column-item');
+    const cardTitle = selectedCard.querySelector('.card-title').textContent;
+
+    const dragInfo = {
+      userId: this.model.userId,
+      workId: selectedCard.id,
+      previousCategoryId: this.findCategoryId(previousColumn.id),
+      currentCategoryId: this.findCategoryId(currentColumn.id),
+      title: cardTitle,
+      updatedDateTime: null,
+    };
+
+    this.model.dragCardData(dragInfo);
+    this.changeCardCounter(previousColumn, currentColumn);
+  };
+
+  changeCardCounter(previousColumn, currentColumn) {
+    const previousContainer = previousColumn.lastElementChild;
+    const currentContainer = currentColumn.lastElementChild;
+
+    this.view.changeCategoryCount(
+      { category: previousColumn.id },
+      previousContainer
+    );
+    this.view.changeCategoryCount(
+      { category: currentColumn.id },
+      currentContainer
+    );
+  }
 }
