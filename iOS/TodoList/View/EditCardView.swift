@@ -36,6 +36,10 @@ class EditCardView: UIView {
         self.content.text = card.content
     }
     
+    @IBAction func titleDidChanged(_ sender: UITextField) {
+        self.editButton.isEnabled = (self.title.text != "")
+    }
+    
     @IBAction func editButtonTapped(_ sender: UIButton) {
         let inputData: (String) -> RequestCardData = { section in RequestCardData(section: section, title: self.title.text ?? "", content: self.content.text ?? "") }
         delegate?.didAddButtonTouched(completion: inputData)
