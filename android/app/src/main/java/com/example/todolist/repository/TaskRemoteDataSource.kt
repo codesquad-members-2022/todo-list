@@ -1,9 +1,12 @@
 package com.example.todolist.repository
 
 import com.example.todolist.model.History
+import com.example.todolist.model.Status
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
+import com.example.todolist.model.request.MoveTaskRequest
 import com.example.todolist.model.response.CommonResponse
+import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.model.response.TasksResponse
 import com.example.todolist.network.RetrofitAPI
 
@@ -31,6 +34,11 @@ class TaskRemoteDataSource : TaskDataSource {
 
     override suspend fun deleteTask(id: Int): CommonResponse? {
         val response = RetrofitAPI.service.deleteTask(id)
+        return if (response.isSuccessful) response.body() else null
+    }
+
+    override suspend fun moveTask(request: MoveTaskRequest, id: Int): CommonResponse? {
+        val response = RetrofitAPI.service.moveTask(id, request)
         return if (response.isSuccessful) response.body() else null
     }
 }
