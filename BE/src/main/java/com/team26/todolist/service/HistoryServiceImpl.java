@@ -8,6 +8,7 @@ import com.team26.todolist.dto.response.HistoryResponse;
 import com.team26.todolist.repository.HistoryRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
@@ -34,15 +35,14 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public void saveHistory(CardAction cardAction, String userId, Card cardBefore, Card cardNow) {
-        Column columnBefore =
-                cardBefore != null ? columnService.findById(cardBefore.getColumnId()) : null;
-        Column columnNow = cardNow != null ? columnService.findById(cardNow.getColumnId()) : null;
+        Column columnBefore = getColumnOfCard(cardBefore);
+        Column columnNow = getColumnOfCard(cardNow);
 
-        if (cardBefore != null && cardNow != null && cardBefore.getColumnId()
-                .equals(cardNow.getColumnId())) {
+        if (Objects.equals(columnBefore, columnNow)) {
             return;
         }
 
+        // TODO : Optional 사용 고려
         History history = History.builder(cardAction, userId, LocalDateTime.now())
                 .cardTitle(columnNow != null ? cardNow.getTitle() : null)
                 .cardTitleBefore(columnBefore != null ? cardBefore.getTitle() : null)
@@ -50,5 +50,13 @@ public class HistoryServiceImpl implements HistoryService {
                 .columnTitleBefore(columnBefore != null ? columnBefore.getTitle() : null)
                 .build();
         historyRepository.save(history);
+    }
+
+    private Column getColumnOfCard(Card card) {
+        if (card == null) {
+            return null;
+        }
+
+        return columnService.findById(card.getColumnId());
     }
 }
