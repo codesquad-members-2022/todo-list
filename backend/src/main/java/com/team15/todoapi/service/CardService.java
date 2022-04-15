@@ -56,7 +56,7 @@ public class CardService {
 	}
 
 	@Transactional
-	public DefaultResponse upate(CardRequest cardRequest) {
+	public DefaultResponse update(CardRequest cardRequest) {
 		Member member = selectMemberInfo(cardRequest.getUserId());
 
 		DefaultResponse defaultResponse = new DefaultResponse();
