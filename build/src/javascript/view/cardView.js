@@ -201,22 +201,50 @@ function moveCopiedCard(event, columnsLocation, $originalCard) {
 }
 
 function movePlaceCard(columnsLocation, $originalCard) {
-  const [_, doing, done] = columnsLocation;
   const $originalCards = $originalCard.closest(".cards");
-  if (shiftX > doing.x && shiftX < done.x) {
+  const currentCardColumn = checkHorizontalMove(
+    columnsLocation,
+    $originalCard,
+    $originalCards
+  );
+  checkVerticalMove(currentCardColumn, $originalCard);
+}
+
+function checkHorizontalMove(columnsLocation, $originalCard, $originalCards) {
+  const [_, doingColumn, doneColumn] = columnsLocation;
+  if (shiftX > doingColumn.x && shiftX < doneColumn.x) {
     const $doingCards = document.querySelector("#doing-cards");
-    if ($doingCards === $originalCards) return;
+    if ($doingCards === $originalCards) return $doingCards;
     $doingCards.appendChild($originalCard);
-  } else if (shiftX > done.x) {
+    return $doingCards;
+  } else if (shiftX > doneColumn.x) {
     const $doneCards = document.querySelector("#done-cards");
-    if ($doneCards === $originalCards) return;
+    if ($doneCards === $originalCards) return $doneCards;
     $doneCards.appendChild($originalCard);
+    return $doneCards;
   } else {
     const $haveTodoCards = document.querySelector("#have-to-do-cards");
-    if ($haveTodoCards === $originalCards) return;
+    if ($haveTodoCards === $originalCards) return $haveTodoCards;
     $haveTodoCards.appendChild($originalCard);
+    return $haveTodoCards;
   }
 }
+
+function checkVerticalMove(currentCardColumn, $originalCard) {
+  const currentCardsY = currentCardColumn.getBoundingClientRect().y;
+  const cardCount = currentCardColumn.children.length;
+  const cardHeight = $originalCard.offsetHeight;
+  const cardMargin = 16;
+  const cardAreaHeight = cardHeight + cardMargin;
+  const diffY = shiftY - currentCardsY;
+  const prevCardCount = Math.floor(diffY / cardAreaHeight);
+  if (prevCardCount <= cardCount) {
+    const prevCardSelector = `.card:nth-child(${prevCardCount})`;
+    const $prevCard = currentCardColumn.querySelector(prevCardSelector);
+    $prevCard.after($originalCard);
+  }
+}
+
 function addCopiedCardEvent() {
   const $copiedCard = document.querySelector(".copied-card");
   $copiedCard.addEventListener("mouseup", () => {
