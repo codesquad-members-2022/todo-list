@@ -1,4 +1,4 @@
-import { $, $$, pipe } from '../util';
+import { $, $$, pipe, url } from '../util';
 
 export class InitTodos {
   constructor(columnTemplate, cardTemplate) {
@@ -13,8 +13,8 @@ export class InitTodos {
   };
 
   getData = async (keyword) => {
-    const url = `http://localhost:3002/${keyword}`;
-    const res = await fetch(url);
+    const keywordUrl = url(keyword);
+    const res = await fetch(keywordUrl);
     const json = await res.json();
     return json;
   };
@@ -29,37 +29,39 @@ export class InitTodos {
 
   renderCards = async (data) => {
     const cardSequence = await this.getData('cardSequence');
-    console.log(cardSequence);
     $$('.column').forEach((column) => {
-      let cardsTemplate = '';
       const columnName = $('.column-title', column).textContent;
       const columnCards = data.filter((e) => e.states === columnName);
-      cardSequence[columnName].forEach((sequence) => {
-        columnCards.forEach((cardInfo) => {
-          if (sequence === Number(cardInfo.id)) {
-            cardsTemplate += `
-            <li class="list_item default" data-id="${cardInfo.id}">
-              ${this.cardTemplate(cardInfo.title, cardInfo.content)}
-            </li>
-          `;
-          }
-        });
-      });
-      column.lastElementChild.innerHTML = cardsTemplate;
+
+      column.lastElementChild.innerHTML = cardSequence[columnName].reduce(
+        (acc, cur) => {
+          return (acc += this.createCards(cur, columnCards));
+        },
+        ''
+      );
     });
+  };
+
+  createCards = (sequence, columnCards) => {
+    let cardsTemplate = '';
+    columnCards.forEach((cardInfo) => {
+      if (sequence === Number(cardInfo.id)) {
+        cardsTemplate += `
+        <li class="list_item default" data-id="${cardInfo.id}">
+          ${this.cardTemplate(cardInfo.title, cardInfo.content)}
+        </li>
+      `;
+      }
+    });
+    return cardsTemplate;
   };
 
   getMaxId = async () => {
     const cardData = await this.getData('cards');
+    const maxId = cardData.reduce((prev, current) => {
+      return Number(prev.id) > Number(current.id) ? prev : current;
+    });
 
-    if (cardData.length) {
-      const maxId = cardData.reduce((prev, current) => {
-        return Number(prev.id) > Number(current.id) ? prev : current;
-      });
-
-      return Number(maxId.id);
-    } else {
-      return 0;
-    }
+    return cardData.length ? Number(maxId.id) : 0;
   };
 }
