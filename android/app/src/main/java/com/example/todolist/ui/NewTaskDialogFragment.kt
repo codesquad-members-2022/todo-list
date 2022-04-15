@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,7 @@ import com.example.todolist.model.Task
 
 class NewTaskDialogFragment(private val status: Status) : DialogFragment() {
     private lateinit var binding: DialogNewCardBinding
-    private val viewModel: TaskViewModel by activityViewModels()
+    private val viewModel: TaskRemoteViewModel by activityViewModels()
     private var titleFlag = false
     private var contentsFlag = false
 
@@ -42,30 +43,27 @@ class NewTaskDialogFragment(private val status: Status) : DialogFragment() {
 
         binding.btnRegister.setOnClickListener {
             when (status) {
-                Status.TODO -> {
-                    val task = Task(
+                Status.TODO -> viewModel.addTask(
+                    Task(
                         binding.etTitle.text.toString(),
                         binding.etContents.text.toString(),
                         Status.TODO
                     )
-                    viewModel.addTodoTask(task)
-                }
-                Status.IN_PROGRESS -> {
-                    val task = Task(
+                )
+                Status.IN_PROGRESS -> viewModel.addTask(
+                    Task(
                         binding.etTitle.text.toString(),
                         binding.etContents.text.toString(),
                         Status.IN_PROGRESS
                     )
-                    viewModel.addInProgressTask(task)
-                }
-                else -> {
-                    val task = Task(
+                )
+                Status.DONE -> viewModel.addTask(
+                    Task(
                         binding.etTitle.text.toString(),
                         binding.etContents.text.toString(),
                         Status.DONE
                     )
-                    viewModel.addDoneTask(task)
-                }
+                )
             }
             dismiss()
         }

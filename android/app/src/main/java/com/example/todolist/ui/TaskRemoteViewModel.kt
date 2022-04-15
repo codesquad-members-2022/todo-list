@@ -50,62 +50,71 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
                 is Result.Success -> {
                     todoItem = tasks.data.todo
                     _todoTask.value = tasks.data.todo
+
                     inProgressItem = tasks.data.inProgress
                     _inProgressTask.value = tasks.data.inProgress
+
                     doneItem = tasks.data.done
                     _doneTask.value = tasks.data.done
                 }
-                is Result.Error -> {
-                    _error.value = tasks.error
-                }
+                is Result.Error -> _error.value = tasks.error
             }
         }
     }
 
     fun addTask(task: Task) {
         viewModelScope.launch {
-            taskRemoteRepository.addTask(task)?.let {
-                when (it.taskDetailResponse.status) {
-                    Status.TODO -> {
-                        _todoTask.value?.add(it.taskDetailResponse)
-                    }
-                    Status.IN_PROGRESS -> {
-                        _inProgressTask.value?.add(it.taskDetailResponse)
-                    }
-                    Status.DONE -> {
-                        _doneTask.value?.add(it.taskDetailResponse)
+            when (val tasks = taskRemoteRepository.addTask(task)) {
+                is Result.Success -> {
+                    when (tasks.data.taskDetailResponse.status) {
+                        Status.TODO -> {
+                            todoItem.add(0, tasks.data.taskDetailResponse)
+                            _todoTask.value = todoItem
+                        }
+                        Status.IN_PROGRESS -> {
+                            inProgressItem.add(0, tasks.data.taskDetailResponse)
+                            _inProgressTask.value = inProgressItem
+                        }
+                        Status.DONE -> {
+                            doneItem.add(0, tasks.data.taskDetailResponse)
+                            _doneTask.value = doneItem
+                        }
                     }
                 }
+                is Result.Error -> _error.value = tasks.error
             }
         }
     }
 
     fun modifyTask(modifyTaskRequest: ModifyTaskRequest) {
         viewModelScope.launch {
-            taskRemoteRepository.modifyTask(modifyTaskRequest)?.let {
-                when (it.status) {
-                    Status.TODO -> {
-                        val originalTask =
-                            _todoTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
-                        val index = _todoTask.value?.indexOf(originalTask)
-                        if (index != null) {
-                            _todoTask.value?.set(index, it)
+            when (val tasks = taskRemoteRepository.modifyTask(modifyTaskRequest)) {
+                is Result.Success -> {
+                    when (tasks.data.taskDetailResponse.status) {
+                        Status.TODO -> {
+                            val originalTask = _todoTask.value?.find { resources ->
+                                modifyTaskRequest.id == resources.id
+                            }
+                            _todoTask.value?.indexOf(originalTask)?.let { index ->
+                                todoItem[index] = tasks.data.taskDetailResponse
+                                _todoTask.value = todoItem
+                            }
                         }
-                    }
-                    Status.IN_PROGRESS -> {
-                        val originalTask =
-                            _inProgressTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
-                        val index = _inProgressTask.value?.indexOf(originalTask)
-                        if (index != null) {
-                            _inProgressTask.value?.set(index, it)
+                        Status.IN_PROGRESS -> {
+                            val originalTask =
+                                _inProgressTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
+                            _inProgressTask.value?.indexOf(originalTask)?.let { index ->
+                                inProgressItem[index] = tasks.data.taskDetailResponse
+                                _inProgressTask.value = inProgressItem
+                            }
                         }
-                    }
-                    Status.DONE -> {
-                        val originalTask =
-                            _doneTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
-                        val index = _doneTask.value?.indexOf(originalTask)
-                        if (index != null) {
-                            _doneTask.value?.set(index, it)
+                        Status.DONE -> {
+                            val originalTask =
+                                _doneTask.value?.find { resources -> modifyTaskRequest.id == resources.id }
+                            _doneTask.value?.indexOf(originalTask)?.let { index ->
+                                doneItem[index] = tasks.data.taskDetailResponse
+                                _doneTask.value = doneItem
+                            }
                         }
                     }
                 }
@@ -160,7 +169,7 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
 
     fun moveDone(task: TaskDetailResponse, status: Status) {
         viewModelScope.launch {
-            when (val updateTask = taskRemoteRepository.moveTask(task.id, status)) {
+            when (val updateTask = taskRemoteRepository.moveTask(task, status)) {
                 is Result.Success -> {
                     when (task.status) {
                         Status.TODO -> {

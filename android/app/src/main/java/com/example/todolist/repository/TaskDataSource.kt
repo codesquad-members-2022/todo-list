@@ -1,9 +1,12 @@
 package com.example.todolist.repository
 
 import com.example.todolist.model.History
+import com.example.todolist.model.Status
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
+import com.example.todolist.model.request.MoveTaskRequest
 import com.example.todolist.model.response.CommonResponse
+import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.model.response.TasksResponse
 
 interface TaskDataSource {
@@ -18,5 +21,5 @@ interface TaskDataSource {
 
     suspend fun deleteTask(id: Int): CommonResponse?
 
-    suspend fun moveTask(id: Int, status: String): CommonResponse?
+    suspend fun moveTask(request: MoveTaskRequest, id: Int): CommonResponse?
 }

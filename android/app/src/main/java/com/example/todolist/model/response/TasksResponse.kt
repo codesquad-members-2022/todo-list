@@ -14,7 +14,8 @@ data class TasksResponse(
 
 data class CommonResponse(
     val status: Int,
-    @SerializedName("resources") val taskDetailResponse: TaskDetailResponse,
+    @SerializedName("resources")
+    val taskDetailResponse: TaskDetailResponse,
 )
 
 data class TaskDetailResponse(
