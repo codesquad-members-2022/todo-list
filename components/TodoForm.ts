@@ -21,15 +21,15 @@ export class TodoForm extends View {
         this.addEvent('click', '.button-right', e => {
             const title = <HTMLInputElement>this.select('.title')
             const content = <HTMLInputElement>this.select('.content');
-            this.store.dispatch(Action.ADD, new AddDto({title: title.value, content: content.value, listIdx}))
+            this.store.dispatch(Action.ADD, new AddDto(listIdx, title.value, content.value));
 
         });
         this.addEvent('click', '.button-left', e => {
             if (this.state.lists[listIdx].editting) {
-                this.store.commit(Action.DELETE, new DeleteDto({listIdx, idx}));
-                this.store.commit(Action.SELECT, new SelectDto({idx, listIdx, selected: false}))
+                this.store.commit(Action.DELETE, new DeleteDto(listIdx, idx));
+                this.store.commit(Action.SELECT, new SelectDto(false, idx, listIdx))
             } else {
-                this.store.commit(Action.SELECT, new SelectDto({idx, listIdx, selected: false}));
+                this.store.commit(Action.SELECT, new SelectDto(false, idx, listIdx));
             }
         })
     }

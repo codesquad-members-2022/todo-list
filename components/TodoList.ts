@@ -9,9 +9,8 @@ import {SelectDto} from "../core/DTOs/select.dto";
 
 export class TodoList extends View {
     template() {
-        console.log(this.$props);
         const {
-            list: {title, todos, selected}
+            list: {title, todos, selectedIndex}
         } = this.$props;
 
         return `
@@ -40,33 +39,29 @@ export class TodoList extends View {
     ${todos
             .map(
                 (todo: StateObj, idx: number) =>
-                    `<div class="todo-card" data-idx="${idx}"></div>`
+                    `<div class="todo-card ${idx === selectedIndex ? "selected" : ""}" data-idx="${idx}"></div>`
             )
             .join("")}`;
     }
 
 
     mount() {
-        const {list: {todos, selected}, listIdx} = this.$props;
-        console.log(selected);
+        const {list: {todos, selectedIndex}, listIdx} = this.$props;
         todos.forEach(
             (todo: StateObj, idx: number) => {
                 const target = this.select(`.todo-card[data-idx="${idx}"]`)
-                console.log(target);
-                const listIdx = this.select().dataset.idx;
-                return selected === idx ?
-                    new TodoForm(this.store, target, {todo, listIdx, idx})
-                    : new TodoCard(this.store, target, {todo, idx, listIdx},)
+                // return selectedIndex === idx ?
+                //     new TodoForm(this.store, target, {todo, listIdx, idx}) :
+                new TodoCard(this.store, target, {todo, idx, listIdx})
             }
         );
     }
 
     setEvent() {
-        const {list: {todos, editting}, listIdx} = this.$props;
+        const {list: {todos, selectedIndex}, listIdx} = this.$props;
         this.addEvent('click', '.add', e => {
-            this.store.commit(Action.ADD, new AddDto({listIdx, title: "", content: ""}));
-            this.store.commit(Action.SELECT, new SelectDto({selected: true, idx: 0, listIdx}));
-            this.$props.editting = true;
+            this.store.commit(Action.ADD, new AddDto(listIdx, "", ""));
+            this.store.commit(Action.SELECT, new SelectDto(true, 0, listIdx));
         })
 
 

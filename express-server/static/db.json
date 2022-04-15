@@ -14,7 +14,7 @@
           "caption": ""
         }
       ],
-      "selected": -1,
+      "selectedIndex": -1,
       "editting": false
     },
     {
@@ -26,7 +26,7 @@
           "caption": ""
         }
       ],
-      "selected": -1,
+      "selectedIndex": -1,
       "editting": false
     }
   ]

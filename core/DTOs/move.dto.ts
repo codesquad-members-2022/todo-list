@@ -1,7 +1,6 @@
-import {Dto} from "./dto";
 import {Action} from "../../types";
 
-export class MoveDto implements Dto<Action.MOVE> {
+export class MoveDto {
     constructor(public readonly payload: {}) {
     }
 

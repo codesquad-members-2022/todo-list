@@ -23,11 +23,12 @@
 
   .todo-card {
     @include shared.todo-card($background: White, $border: shadow_normal);
+
+    &.selected {
+      @include shared.selected();
+    }
   }
 
-  .selected {
-    @include shared.selected();
-  }
 
 }
 

@@ -1,8 +1,7 @@
-import {Dto} from "./dto";
 import {Action} from "../../types";
 
-export class DeleteDto implements Dto<Action.DELETE> {
+export class DeleteDto {
     constructor(
-        public readonly payload: { listIdx: number, idx: number }) {
+        public readonly listIdx: number, public readonly idx: number) {
     }
 }

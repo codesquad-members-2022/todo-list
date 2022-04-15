@@ -27,3 +27,5 @@ export const DOM = (el: string) => {
 
 export const delay = (time: number) =>
     new Promise((res) => setTimeout(res, time));
+
+Array.prototype.unshift()

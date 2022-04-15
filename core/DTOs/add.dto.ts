@@ -1,8 +1,13 @@
-import {Dto} from "./dto";
-import {Action} from "../../types";
+import {Action, StateObj} from "../../types";
 
-export class AddDto implements Dto<Action.ADD> {
-    constructor(
-        public readonly payload: { listIdx: number, title: string, content: string }) {
+
+export class AddDto {
+
+
+    constructor(public readonly listIdx: number,
+                public readonly title: string,
+                public readonly content: string) {
+
     }
 }
+

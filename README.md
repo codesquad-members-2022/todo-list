@@ -1,8 +1,8 @@
 ### TEAM 23 Inu-Maeve
 
-### 04-14 스크럼
+### 04-15 스크럼
 
-1. SASS loader 플러그인 사용할 것
+1. unshift, splice 메서드 사용시에 set 트랩에서 곧장 get 트랩을 호출하는 경우가 발생 - 이경우 proxy에 대해서는
 
 ## 액션 시나리오
 

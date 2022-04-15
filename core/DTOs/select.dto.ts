@@ -1,8 +1,7 @@
-import {Dto} from "./dto";
 import {Action} from "../../types";
 
-export class SelectDto implements Dto<Action.SELECT> {
+export class SelectDto {
     constructor(
-        public readonly payload: { selected: boolean, idx: number, listIdx: number }) {
+        public readonly selected: boolean, public readonly idx: number, public readonly listIdx: number) {
     }
 }

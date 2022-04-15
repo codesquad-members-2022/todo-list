@@ -1,7 +1,6 @@
 import Observer from "./Observer";
-import {Action, StateObj, StoreContext, StoreType} from "../types";
+import {Action, Mutation, StateObj, StoreContext, StoreType} from "../types";
 import {load} from "../utils";
-import {Dto} from "./DTOs/dto";
 import {AddDto} from "./DTOs/add.dto";
 import {DeleteDto} from "./DTOs/delete.dto";
 import {SelectDto} from "./DTOs/select.dto";
@@ -23,11 +22,11 @@ export class Store extends Observer {
         });
     }
 
-    commit<T extends Action>(action: T, payload: Dto<T>) {
+    commit<T extends Action>(action: T, payload: Mutation[T]) {
         this.mutations[action]!(this._state, payload);
     }
 
-    dispatch<T extends Action>(action: T, payload: Dto<T>) {
+    dispatch<T extends Action>(action: T, payload: Mutation[T]) {
         const {_state, commit, dispatch, actions} = this;
         actions[action]!({
             state: _state,
@@ -44,14 +43,22 @@ export async function loadStore() {
     return new Store({
         state,
         mutations: {
-            [Action.ADD]: (state, {payload}) => {
-                const {title, content, listIdx} = payload;
-                const todos = state.lists[listIdx]
-                todos.unshift({title, content, caption: "", selected: false});
+
+            [Action.ADD]: (state, {title, content, listIdx}) => {
+                const list = state.lists[listIdx]
+
+                const newTodo = {title, content, caption: ""};
+                const todos = list.todos
+                for (let i = 0; i < todos.length; i++) {
+                    todos[i + 1] = todos[i];
+                }
+                todos[0] = newTodo;
+
             },
-            [Action.DELETE]: (state, {payload}) => {
-                const {listIdx, idx} = payload;
+            [Action.DELETE]: (state, {listIdx, idx}) => {
+
                 const todos = state.lists[listIdx].todos
+                console.log(todos);
                 todos.splice(idx, 1);
             },
             [Action.UPDATE]: (state, payload) => {
@@ -59,10 +66,9 @@ export async function loadStore() {
             },
             [Action.MOVE]: (state, payload) => {
             },
-            [Action.SELECT]: (state, {payload}) => {
-                const {listIdx, selected, idx} = payload;
-                const todos = state.lists[listIdx].todos
-                todos[idx].selected = selected ? idx : -1;
+            [Action.SELECT]: (state, {listIdx, selected, idx}) => {
+                const list = state.lists[listIdx];
+                list.selectedIndex = selected ? idx : -1;
             }
         },
         actions: {
@@ -70,15 +76,15 @@ export async function loadStore() {
             },
             [Action.MOVE]: ({state, commit, dispatch}, payload) => {
             },
-            [Action.ADD]: async ({state, commit, dispatch}, {payload}) => {
-                const {listIdx, title, content} = payload
-                commit(Action.ADD, new AddDto({listIdx, title, content}));
+            [Action.ADD]: async ({state, commit, dispatch}, {listIdx, title, content}) => {
+                commit(Action.ADD, new AddDto(listIdx, title, content));
                 await load("PUT", state);
             },
-            [Action.DELETE]: async ({state, commit, dispatch}, {payload}) => {
-                const {listIdx, idx} = payload;
-                commit(Action.DELETE, new DeleteDto({listIdx, idx}));
+            [Action.DELETE]: async ({state, commit, dispatch}, {listIdx, idx}) => {
+                commit(Action.DELETE, new DeleteDto(listIdx, idx));
                 await load('POST', state);
+            },
+            [Action.UPDATE]: async ({state, commit, dispatch}, payload) => {
             }
         },
     })

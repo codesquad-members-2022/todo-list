@@ -1,9 +1,8 @@
 import {StateObj} from "../types";
 import {EventHandler} from "./Eventhandler";
 
-export default class Observer {
+export default class Observer extends WeakMap {
     protected currentObserver: (() => void) | null = null;
-    protected targetMap = new WeakMap;
     private eventHandler = new EventHandler();
     observe = (fn: () => void) => {
         this.currentObserver = this.eventHandler.debounce(fn);
@@ -15,9 +14,9 @@ export default class Observer {
             return;
         }
 
-        let depsMap = this.targetMap.get(target);
+        let depsMap = super.get(target);
         if (!depsMap) {
-            this.targetMap.set(target, (depsMap = new Map()));
+            super.set(target, (depsMap = new Map()));
         }
         let dep = depsMap.get(name);
         if (!dep) {
@@ -28,7 +27,7 @@ export default class Observer {
         }
     }
     trigger = (target: StateObj, name: string | symbol) => {
-        const depsMap = this.targetMap.get(target);
+        const depsMap = super.get(target);
         if (!depsMap) {
             return;
         }
@@ -40,26 +39,33 @@ export default class Observer {
 
     proxy(state: StateObj) {
         const isProxy = Symbol("isProxy");
+
         const handler: ProxyHandler<StateObj> = {
             get: (target, name, receiver) => {
+
                 if (name === isProxy) return true;
-                const prop = Reflect.get(target, name, receiver);
+                const prop = Reflect.get(target, name);
                 if (typeof prop == undefined) return;
                 this.track(target, name);
                 if (!prop.isProxy && typeof prop == "object") {
                     return new Proxy(prop, handler);
                 }
-                return prop;
+
+                return Reflect.get(target, name);
             },
             set: (target, name, value, receiver) => {
-                if (target[name] == value) return false;
+                if (target[name] == value) return true;
                 Reflect.set(target, name, value);
                 this.trigger(target, name);
                 return true;
+            },
+            apply(target: StateObj, thisArg: any, argArray: any[]): any {
             }
+
         };
 
         return new Proxy(state, handler);
     }
 
 }
+

@@ -30,8 +30,8 @@ export default abstract class Node<T> extends EventHandler {
 
     render() {
         this._render();
-        if (this.next) this.next.render();
-        if (this.head) this.head.render();
+        // if (this.next) this.next.render();
+        // if (this.head) this.head.render();
     }
 
     abstract _render(): void;
