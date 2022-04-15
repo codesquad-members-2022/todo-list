@@ -5,7 +5,6 @@ import com.team26.todolist.dto.request.CardDeleteRequest;
 import com.team26.todolist.dto.request.CardRegistrationRequest;
 import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
-import com.team26.todolist.exception.EmptyCardStatusException;
 import com.team26.todolist.service.CardService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +30,6 @@ public class CardController {
 
     @GetMapping("/{columnId}")
     public ResponseEntity<List<CardResponse>> getCards(@PathVariable Long columnId) {
-        //TODO
-        // validation 적용예정
-        if (columnId == null) {
-            throw new EmptyCardStatusException("columnId는 비어있을 수 없습니다.");
-        }
-
         List<CardResponse> cards = cardService.findByColumnId(columnId);
 
         return ResponseEntity.ok()
