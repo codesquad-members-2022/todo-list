@@ -11,7 +11,9 @@ export function insertElement(target, option, element) {
 } // For Rendering
 
 export function on(target, eventName, handler) {
-  target.addEventListener(eventName, handler);
+  const controller = new AbortController();
+  target.addEventListener(eventName, handler, { signal: controller.signal });
+  return controller;
 }
 
 export function delegate(target, eventName, selector, handler) {
@@ -36,6 +38,7 @@ export function formatRelativeDate(date = new Date()) {
   const A_WEEK = 7 * A_DAY;
 
   const diff = new Date() - date;
+  console.log(diff, A_WEEK);
 
   if (diff < TEN_SECOND) return `방금 전`;
   if (diff < A_MINUTE) return `${Math.floor(diff / 1000)}초 전`;
@@ -56,4 +59,10 @@ export function getParentElementByDataset(target, dataName) {
     return parentEl;
   }
   return getParentElementByDataset(parentEl, dataName);
+}
+
+export async function getUserData(userId) {
+  const userData = (await import("../tempStorage.js")).default.find((data) => data.id === userId);
+  if (!userData) throw "no user";
+  return userData;
 }

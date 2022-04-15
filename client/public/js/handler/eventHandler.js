@@ -1,12 +1,12 @@
 import { qs, on, delegate, getParentElementByDataset } from "../utils/helpers.js";
 
-import Store from "../model/Store.js";
-import { renderItemForm } from "../views/renderer.js";
+import { renderItemForm, renderColumn } from "../views/renderer.js";
 
-export function bindEvents() {
+export function bindEvents(store) {
   const el = {
+    body: qs("body"),
     columnList: qs(".column-list"),
-    columnAdd: qs(".column-add"),
+    columnAddBtn: qs(".column--add-btn"),
     historyBar: qs(".history__bar"),
     showHistoryBtn: qs(".header--history-btn"),
     hideHistoryBtn: qs(".history--close-btn"),
@@ -16,6 +16,7 @@ export function bindEvents() {
     addItemBtn: ".column__header--add-card",
     removeItemBtn: ".card--delete-card",
     removeColumnBtn: ".column__header--delete-card",
+    columnTitle: ".column__header--title",
     itemForm: ".card__register-form",
     itemFormInput: ".card-box .card__content--title",
     itemFormTextarea: ".card-box .card__content--text",
@@ -23,7 +24,7 @@ export function bindEvents() {
     itemFormCancelBtn: ".card-box .card__btn--cancel",
   };
 
-  on(el.columnAdd, "click", addColumn);
+  on(el.columnAddBtn, "click", addColumn);
   on(el.showHistoryBtn, "click", showHistoryBar);
   on(el.hideHistoryBtn, "click", hideHistoryBar);
 
@@ -31,6 +32,9 @@ export function bindEvents() {
   delegate(el.columnList, "click", selector.addItemBtn, (event) => showItemForm(event));
   delegate(el.columnList, "click", selector.itemFormCancelBtn, removeItemForm);
   delegate(el.columnList, "click", selector.removeItemBtn, (event) => removeItem(event));
+
+  // column
+  delegate(el.columnList, "dblclick", selector.columnTitle, modifyColumnTitle);
   delegate(el.columnList, "click", selector.removeColumnBtn, (event) => removeColumn(event));
 
   function showHistoryBar() {
@@ -67,8 +71,25 @@ export function bindEvents() {
   }
 
   function addColumn(event) {
-    console.log("addColumn");
-    console.log(event.target);
+    renderColumn(store.addColumn());
+  }
+
+  function modifyColumnTitle(event) {
+    event.target.setAttribute("contenteditable", "true");
+    event.target.focus();
+    const controller = on(el.body, "click", (registEvent) => registColumnTitle(event, registEvent, controller));
+  }
+
+  function registColumnTitle(event, registEvent, controller) {
+    if (event.target === registEvent.target) return;
+
+    event.target.removeAttribute("contenteditable");
+    controller.abort();
+
+    const columnEl = getParentElementByDataset(event.target, "column");
+    const columnId = Number(columnEl.dataset.column);
+    const newTitle = event.target.innerHTML.trim();
+    store.updateColumn(columnId, newTitle);
   }
 
   function removeColumn(event) {

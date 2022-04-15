@@ -4,6 +4,7 @@
   position: absolute;
   top: 0;
   right: -492px;
+  opacity: 0%;
   transition: 0.2s ease-out;
   max-width: 452px;
   height: 1024px;
@@ -12,9 +13,45 @@
   overflow: scroll;
 
   &.show {
+    opacity: 100%;
     right: 0px;
   }
 }
 
 .history-list {
+}
+
+.history {
+  @include flex(flex-start, flex-start);
+  gap: 16px;
+
+  max-width: 332px;
+  max-height: 137px;
+  padding: 16px;
+
+  &:first-child {
+    margin-top: 19px;
+  }
+
+  &--profile-img {
+  }
+
+  &__item {
+    &--name {
+      font-weight: 400;
+    }
+    &--activity {
+      margin: 8px 0;
+    }
+    &--time-record {
+      font-size: 14px;
+      color: $gray-strong;
+    }
+  }
+
+  &--close-btn {
+    position: absolute;
+    right: 86px;
+    cursor: pointer;
+  }
 }
