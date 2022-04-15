@@ -1,12 +1,21 @@
 import { $ } from '../utils/dom.js';
 import { editLocalStorageById } from '../utils/localStorage.js';
+import { createNotice, handleNotice } from './action.js';
 
 const dragElement = $('.drag');
 let copyElement = null; // 마우스를 따라다니는 복사된 카드
 let shadowElement = null; // 잔상카드
+let firstStatus = null;
 let status = null;
 
-function isBefore(element1, element2) {
+const setInitValues = () => {
+  copyElement = null;
+  shadowElement = null;
+  firstStatus = null;
+  status = null;
+};
+
+const isBefore = (element1, element2) => {
   if (element2.parentNode === element1.parentNode) {
     let cur = element1.previousSibling;
     while (cur) {
@@ -16,11 +25,14 @@ function isBefore(element1, element2) {
   }
 
   return false;
-}
+};
 
 export const onBodyMouseDown = e => {
   document.body.addEventListener('mousedown', e => {
     const targetRemove = e.target.closest("[data-drag='true']");
+    if (!targetRemove) return;
+
+    firstStatus = targetRemove.parentNode.getAttribute('data-status');
 
     if (e.target.className === 'card__delete' || targetRemove === null || targetRemove.className === 'start') {
       return;
@@ -76,11 +88,6 @@ export const onBodyMouseUp = () => {
       shadowElement.classList.remove('spectrum');
     }
 
-    /**
-     * TODO // 메뉴 알림창에 데이터 추가 필요
-     *
-     */
-
     if (copyElement) {
       // 카드 이동 이후 로컬스토리지 해당 id 업데이트
       const id = Number(copyElement.id);
@@ -89,9 +96,24 @@ export const onBodyMouseUp = () => {
       todo.status = status;
       editLocalStorageById(todo, id);
       copyElement?.remove();
+
+      const [title, content] = getCardData(copyElement);
+      const notice = {};
+      notice.title = title;
+      notice.status = status;
+      notice.content = content;
+      notice.firstStatus = firstStatus;
+
+      const newNotice = createNotice(notice, '이동');
+      handleNotice(newNotice);
     }
 
-    copyElement = null;
-    shadowElement = null;
+    setInitValues();
   });
+};
+
+const getCardData = () => {
+  const title = copyElement.querySelector('.card__title').innerText.trim();
+  const content = copyElement.querySelector('.card__content').innerText.trim();
+  return [title, content];
 };
