@@ -75,18 +75,55 @@ class TodoRepositoryRespondWrapper: NSObject {
 extension TodoRepositoryRespondWrapper: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSource.count
+        let result = (dataSource.count * 2) - 1
+        return result < 0 ? 0 : result
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if 0 < indexPath.row, indexPath.row.isMultiple(of: 2) == false {
+            let cell = UITableViewCell()
+            cell.heightAnchor.constraint(equalToConstant: 16).isActive = true
+            cell.contentView.backgroundColor = UIColor(named: "gray6")
+            return cell
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.cellName, for: indexPath) as? TodoTableViewCell else {
             return UITableViewCell()
         }
 
-        cell.applyTextAllLabels(data: dataSource[indexPath.row])
-
+        cell.applyTextAllLabels(data: dataSource[indexPath.row / 2])
+        cell.isUserInteractionEnabled = true
         return cell
     }
 }
 
-extension TodoRepositoryRespondWrapper: UITableViewDelegate { }
+extension TodoRepositoryRespondWrapper: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? TodoTableViewCell {
+            cell.roundedView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+        }
+        
+        let action = UIContextualAction(
+            style: .destructive,
+            title: "Delete")
+        { [weak self] action, view, completion in
+            
+            guard let self = self else { return }
+            
+            AppDelegate.middleWare.deleteCard(id: self.dataSource[indexPath.row].id, at: self.todoBoard)
+            completion(true)
+            action.backgroundColor = .red
+        }
+        
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? TodoTableViewCell {
+            cell.roundedView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        }
+    }
+}

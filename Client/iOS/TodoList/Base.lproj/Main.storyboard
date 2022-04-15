@@ -22,6 +22,7 @@
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U8l-VO-PVk">
                                         <rect key="frame" x="0.0" y="0.0" width="256" height="638"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="256" id="Nxu-Is-f3p"/>
                                         </constraints>
@@ -48,6 +49,7 @@
                                         </connections>
                                     </containerView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQh-7P-Cmq">
                                 <rect key="frame" x="0.0" y="0.0" width="1194" height="74"/>
@@ -106,7 +108,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0SC-7T-nbF" customClass="TodoTableView" customModule="TodoList" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="60" width="256" height="578"/>
-                                <color key="backgroundColor" name="gray6"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wbo-O3-mRX" userLabel="header view">
                                 <rect key="frame" x="0.0" y="0.0" width="256" height="60"/>
@@ -152,6 +155,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dTh-RU-Ln0"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0SC-7T-nbF" firstAttribute="leading" secondItem="dTh-RU-Ln0" secondAttribute="leading" id="GRk-gx-EiQ"/>
                             <constraint firstItem="0SC-7T-nbF" firstAttribute="top" secondItem="Wbo-O3-mRX" secondAttribute="bottom" id="Rvh-cb-bxr"/>
@@ -179,9 +183,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="256" height="638"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cq0-cd-q25" customClass="TodoTableView" customModule="TodoList" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cq0-cd-q25" customClass="TodoTableView" customModule="TodoList" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="60" width="256" height="578"/>
-                                <color key="backgroundColor" name="gray6"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nbd-tq-n0l" userLabel="header view">
                                 <rect key="frame" x="0.0" y="0.0" width="256" height="60"/>
@@ -254,7 +258,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="256" height="638"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QqX-tp-SRV" customClass="TodoTableView" customModule="TodoList" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QqX-tp-SRV" customClass="TodoTableView" customModule="TodoList" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="60" width="256" height="578"/>
                                 <color key="backgroundColor" name="gray6"/>
                             </tableView>
@@ -329,7 +333,7 @@
             <color red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="gray6">
-            <color red="0.89800000000000002" green="0.89800000000000002" blue="0.89800000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89800000190734863" green="0.89800000190734863" blue="0.89800000190734863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
