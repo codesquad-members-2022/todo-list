@@ -1,0 +1,11 @@
+.dragOriginal {
+  opacity: 0.5;
+  border: 1px solid #0075de;
+}
+
+.dragging {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  opacity: 1;
+}
