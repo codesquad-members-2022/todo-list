@@ -7,11 +7,9 @@ import com.example.todolist.R
 
 class DragListener : View.OnDragListener {
 
-    private var isDrop = false
     override fun onDrag(view: View, event: DragEvent): Boolean {
         when (event.action) {
             DragEvent.ACTION_DROP -> {
-                isDrop = true
                 var positionTarget = -1
                 val viewSource = event.localState as View?
                 val viewId = view.id
@@ -40,11 +38,16 @@ class DragListener : View.OnDragListener {
                             val adapterTarget = target.adapter as TaskAdapter
                             val positionSource = source.getChildAdapterPosition(viewSource)
                             val sourceData = adapterSource.currentList[positionSource]
-                            val listSource = adapterSource.currentList
-                            val listTarget = adapterTarget.currentList
-
                             if (adapterSource == adapterTarget) {
-                                if (positionTarget < 0) return true
+                                if (positionTarget < 0) {
+                                    adapterSource.remove(positionSource, sourceData)
+                                    when (target.id) {
+                                        rvTodo -> adapterTarget.add(1, -1, sourceData)
+                                        rvInProgress -> adapterTarget.add(2, -1, sourceData)
+                                        rvDone -> adapterTarget.add(3, -1, sourceData)
+                                    }
+                                    return true
+                                }
 
                                 val targetPosition = target.getChildAdapterPosition(view)
                                 adapterTarget.onItemMove(positionSource, targetPosition)
