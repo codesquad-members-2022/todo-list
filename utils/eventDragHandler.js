@@ -33,6 +33,7 @@ export const onBodyMouseDown = e => {
     if (!targetRemove) return;
 
     firstStatus = targetRemove.parentNode.getAttribute('data-status');
+    status = targetRemove.parentNode.getAttribute('data-status');
 
     if (e.target.className === 'card__delete' || targetRemove === null || targetRemove.className === 'start') {
       return;
@@ -82,10 +83,14 @@ export const onBodyMouseMove = () => {
 
 export const onBodyMouseUp = () => {
   document.body.addEventListener('mouseup', e => {
-    if (e.target.className !== 'card') return;
-
     if (shadowElement) {
       shadowElement.classList.remove('spectrum');
+    }
+
+    if (e.target.className !== 'card' || status === firstStatus) {
+      copyElement?.remove();
+      setInitValues();
+      return;
     }
 
     if (copyElement) {
@@ -106,9 +111,17 @@ export const onBodyMouseUp = () => {
 
       const newNotice = createNotice(notice, '이동');
       handleNotice(newNotice);
+      setInitValues();
     }
+  });
+};
 
-    setInitValues();
+export const onContextMenu = () => {
+  document.body.addEventListener('contextmenu', e => {
+    if (e.target.className === 'card') {
+      e.preventDefault();
+      return;
+    }
   });
 };
 

@@ -4,8 +4,6 @@ import { popupRemoveTitle } from '../constants/modal.js';
 import { createNotice, handleNotice } from '../utils/action.js';
 import { ONCLICK, DBLCLICK } from '../constants/constants.js';
 import { getLocalStorageByKey } from '../utils/localStorage.js';
-import { deleteTodo } from '../utils/api.js';
-import { $ } from '../utils/dom.js';
 
 export default class Todo {
   constructor(todoData, handleMinusCount) {
@@ -102,7 +100,6 @@ export default class Todo {
     this.handleMinusCount();
 
     document.getElementById(`${this.todoData.id}`)?.remove();
-    deleteTodo(this.todoData.id);
 
     const notice = createNotice(this.todoData, '삭제');
     handleNotice(notice);

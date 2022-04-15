@@ -60,7 +60,7 @@ export default class Fab {
     document.querySelector('.input-fab .fab--register').addEventListener('click', this.register);
   };
 
-  onHandle = () => {
+  handleEventListener = () => {
     document.querySelector('.fabBtn').addEventListener('click', this.showModal);
   };
 }

@@ -3,7 +3,7 @@ import TodoNoticeAnimation from './components/TodoNoticeAnimation.js';
 import TodoColumn from './components/TodoColumn.js';
 import Todo from './components/Todo.js';
 import { getLocalStorageByKey, getTodosByStatus } from './utils/localStorage.js';
-import { onBodyMouseDown, onBodyMouseMove, onBodyMouseUp } from './utils/eventDragHandler.js';
+import { onBodyMouseDown, onBodyMouseMove, onBodyMouseUp, onContextMenu } from './utils/eventDragHandler.js';
 import { $ } from './utils/dom.js';
 import { handleNotice } from './utils/action.js';
 import Fab from './components/Fab.js';
@@ -18,19 +18,15 @@ const app = () => {
   onBodyMouseDown();
   onBodyMouseMove();
   onBodyMouseUp();
+  onContextMenu();
   createColumns();
   createNotices();
 
   const fab = new Fab();
-  //fab.showModal();
-  // fab.fabModal();
-  fab.onHandle();
+  fab.handleEventListener();
 };
 
 const createColumns = () => {
-  //const columns = ['해야할일', '하고있는일', '완료한일'];
-  //localStorage.setItem('column', JSON.stringify(columns));
-
   const columns = getLocalStorageByKey('column') ?? [];
   localStorage.setItem('column', JSON.stringify(columns));
 
