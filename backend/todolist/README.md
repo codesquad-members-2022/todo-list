@@ -2,17 +2,24 @@
 
 
 [swagger 실행 URL](http://localhost:8080/swagger-ui/index.html)
+[ERD](https://www.erdcloud.com/d/MR5jNfSsokwxpxJ3Z)
+
 
 ### Api 정의서
 
-| URL            | 기능                              |
-|----------------|---------------------------------|
-| GET /api/todo  | `해야할 일/하고있는 일/완료한 일` 별 카드 목록 조회 |
-| POST /api/todo | 새 카드 등록                         |
+| URL                     | 기능                              |
+|-------------------------|---------------------------------|
+| GET /api/todo           | `해야할 일/하고있는 일/완료한 일` 별 카드 목록 조회 |
+| POST /api/todo          | 새 카드 등록                         |
+| GET /api/todo/card/{id} | 카드 상세 조회                        |
+| PATCH /api/todo         | 카드 수정 (제목/내용)                   |
+| DELETE /api/todo/card/{id}  | 카드 삭제 하기                       |
+| PATCH /api/todo/card/{id}/move  | 카드 이동 하기                    |
+| GET /api/todo/my-activity-record  | 나의 활동 기록 List 반환         |
 
 <br>
 
-### DB(todo_list_table)와 서버(Card)의 분리
+### DB(todo_list_table)와 서버(Card)
 
 | server (Card)  | DB (todo_list_table) |
 |----------------|----------------------|
@@ -134,17 +141,12 @@
   - 카드 목록 조회 기능 구현
   - 카드 이동 요청 기능 구현
   - 카드 수정/삭제 기능 구현
-  - **리뷰 수정 할 것**
-    - 메서드 컨벤션상 public을 상단에 올리시는 것을 추천합니다.
-      - CardService updateOf()
-    - 패키징을 통해 dto의 사용 레이어를 구분해보면 어떨까요?
-      흐름을 볼 떄 request, response는 controller 영역에서 쓰이는 dto들인 것 같습니다.
-      최소한 controller에서 쓰이는 dto, service에서 쓰이는 dto 정도는 분리가 되어야 할 것 같습니다.
-
-
+  - 카드 활동 기록 기능 구현 
+    
 
 <details markdown="1">
 <summary>📑 from reviewer </summary>
+
 
 #### 참고
 
@@ -191,6 +193,7 @@
   public static final int COLUMN_INDEX_DELETED = 5;
   ```
 
+
 ### 2nd
 
 [1주차 3th PR](https://github.com/codesquad-members-2022/todo-list/pull/126)
@@ -223,7 +226,7 @@
 - GET /api/todo 는 api 해석상 조회아닌가요?
   - 이후 welcomePage로 가는지 여부는 `백엔드의 관심사`가 아닌 것 같습니다.
 - 메서드 컨벤션상 public을 상단에 올리시는 것을 추천합니다.
-- 패키징을 통해 dto의 사용 레이어를 구분해보면 어떨까요?
+- **패키징을 통해 dto의 사용 레이어를 구분해보면 어떨까요?**
   흐름을 볼 떄 request, response는 controller 영역에서 쓰이는 dto들인 것 같습니다.
   최소한 controller에서 쓰이는 dto, service에서 쓰이는 dto 정도는 분리가 되어야 할 것 같습니다.
 - forEach() -> map() or collect()
@@ -250,6 +253,5 @@
 - to라는 접두어는 A객체가 B객체로 변한다는 의미로 A객체의 메서드로서 존재하는 것이 직관적입니다.
   지금의 로직은 mapper와 같은 단어가 더 적합해 보입니다.
 
-
-
+  
 </details>
