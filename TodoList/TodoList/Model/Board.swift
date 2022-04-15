@@ -78,6 +78,31 @@ final class Board{
             return
         }
     }
+    
+    func deleteCard(_ id: Int, at section: BoardSubscriptIndex){
+        switch section {
+        case .todo:
+            for (index,card) in todoCards.enumerated(){
+                if card.id == id{
+                    todoCards.remove(at: index)
+                }
+            }
+        case .doing:
+            for (index,card) in doingCards.enumerated(){
+                if card.id == id{
+                    doingCards.remove(at: index)
+                }
+            }
+        case .done:
+            for (index,card) in doneCards.enumerated(){
+                if card.id == id{
+                    doneCards.remove(at: index)
+                }
+            }
+        case .none:
+            return
+        }
+    }
 }
 
 private extension Board{
