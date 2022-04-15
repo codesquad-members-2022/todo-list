@@ -9,14 +9,12 @@ import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
 import com.team26.todolist.repository.CardRepository;
 import com.team26.todolist.util.Constant;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Primary
 public class CardServiceJdbc implements CardService {
 
     private final CardRepository cardRepository;
