@@ -51,12 +51,11 @@ public class CardController {
 
     @ApiOperation(value = "카드 이동", notes = "카드를 현재 컬럼 혹은 다른 컬럼으로 이동하고 순서를 변경합니다.")
     @PutMapping("/{id}/move")
-    public ResponseEntity<BundleResponse> moveCard(
+    public BundleResponse moveCard(
         @ApiParam(name = "id", value = "이동할 카드 Id", required = true)
         @PathVariable(value = "id") Integer cardId,
         @RequestBody @Valid CardMoveRequest request) {
-        BundleResponse bundleResponse = cardService.move(cardId, request);
-        return new ResponseEntity<>(bundleResponse, HttpStatus.CREATED);
+        return cardService.move(cardId, request);
     }
 
     @ApiOperation(value = "카드 삭제", notes = "지정한 카드를 삭제합니다.")
