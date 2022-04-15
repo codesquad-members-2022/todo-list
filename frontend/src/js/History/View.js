@@ -14,9 +14,10 @@ export default class HistoryView {
 
   renderInitHistoryCard({ userName, content, time }) {
     const historyHTML = historyCardTemplate({ userName, content, time });
+
     this.historyContainer
       .querySelector('.history_list')
-      .insertAdjacentHTML('beforebegin', historyHTML);
+      .insertAdjacentHTML('beforeend', historyHTML);
   }
 
   renderAddHistoryCard({ userName, content, time }) {
