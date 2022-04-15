@@ -56,7 +56,7 @@ extension AddCardViewController: AddCardDelegate{
         if let selectedCard = self.selectedCard{
             Board.shared.patchCard(card: selectedCard, section: section)
         } else{
-            let newCard = Card(section: section.rawValue, title: title, content: content, userID: "puco")
+            let newCard = Card(section: section.rawValue, title: title, content: content, userID: "chez")
             Board.shared.postCard(card: newCard, section: section)
         }
         

@@ -73,8 +73,4 @@ struct Card: Codable, Equatable{
     mutating func changeContent(content: String){
         self.content = content
     }
-    
-    mutating func setUserId(userId: String){
-        self.userId = userId
-    }
 }
