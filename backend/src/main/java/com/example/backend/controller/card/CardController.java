@@ -43,14 +43,13 @@ public class CardController {
 
     @GetMapping
     public ApiResult<Map<String, List<CardReadResponse>>> getCards() {
-
         return ApiResult.OK(cardService.findAll());
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
         Card card = cardService.findById(id);
-        HistorySaveRequest request = new HistorySaveRequest(card.getContent(), card.getWriter(), Action.CREATE, card.getMemberId(), card.getId());
+        HistorySaveRequest request = new HistorySaveRequest(card.getContent(), card.getWriter(), Action.DELETE, card.getMemberId(), card.getId());
         historyService.saveHistory(request);
         cardService.delete(id);
     }
@@ -62,4 +61,9 @@ public class CardController {
         historyService.saveHistory(request);
         return ApiResult.OK(new CardSaveResponse(card));
     }
+
+//    @PostMapping
+//    public ApiResult<?> dragAndDrop(@RequestBody CardDto cardDto){
+//
+//    }
 }

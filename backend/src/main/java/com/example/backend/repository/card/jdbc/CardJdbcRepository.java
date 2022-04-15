@@ -5,29 +5,37 @@ import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
 import com.example.backend.repository.card.CardRepositoryHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
-import static java.util.Objects.requireNonNull;
 
 @Repository
 public class CardJdbcRepository implements CardRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final SimpleJdbcInsert jdbcInsert;
+
+    @Autowired
     private final CardRepositoryHelper repositoryHelper;
 
-    public CardJdbcRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, CardRepositoryHelper repositoryHelper) {
+    public CardJdbcRepository(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, CardRepositoryHelper repositoryHelper) {
+        this.jdbcInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("card")
+                .usingGeneratedKeyColumns("id");
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         this.repositoryHelper = repositoryHelper;
@@ -35,15 +43,11 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Card save(Card card) {
-        String query = "INSERT card (id, writer, position, title, content, card_type, created_at, last_modified_at, `visible`, member_id)" +
-                "VALUES (:id, :writer, :position, :title, :content, :cardType, :createdAt, :lastModifiedAt, :visible, :memberId)";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
         Map<String, Object> params = repositoryHelper.getParamMap(card);
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
-        namedParameterJdbcTemplate.update(query, mapSqlParameterSource, keyHolder);
-        long key = requireNonNull(keyHolder.getKey()).longValue();
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
+        Long id = jdbcInsert.executeAndReturnKey(sqlParameterSource).longValue();
         return new CardBuilder()
-                .id(key)
+                .id(id)
                 .writer(card.getWriter())
                 .position(card.getPosition())
                 .title(card.getTitle())
@@ -69,22 +73,20 @@ public class CardJdbcRepository implements CardRepository {
                 "visible, " +
                 "member_id " +
                 "FROM card WHERE visible = true";
-        RowMapper<Card> mapper = CardRepositoryHelper.mapper;
-        return namedParameterJdbcTemplate.query(query, mapper);
+        return namedParameterJdbcTemplate.query(query, CardRepositoryHelper.mapper);
     }
 
     @Override
     public Optional<Card> findById(Long id) {
         String query = "SELECT id, writer, position, title, content, card_type, created_at, last_modified_at, visible, member_id " +
-                "FROM card WHERE id = :id";
+                "FROM card WHERE id = :id AND visible = true";
         Map<String, Object> params = Collections.singletonMap("id", id);
-        RowMapper<Card> mapper = CardRepositoryHelper.mapper;
-        return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, mapper));
+        return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, CardRepositoryHelper.mapper));
     }
 
     @Override
     public Card update(Card card) {
-        String query = "UPDATE card SET title=:title, content=:content, card_type=:cardType, position=:position, last_modified_at=:lastModifiedAt WHERE id=:id";
+        String query = "UPDATE card SET title=:title, content=:content, card_type=:cardType, position=:position, last_modified_at=:lastModifiedAt WHERE id=:id AND visible = true";
         SqlParameterSource sqlParameterSource = repositoryHelper.getUpdateParameterSource(card);
         namedParameterJdbcTemplate.update(query, sqlParameterSource);
         return card;
@@ -93,8 +95,14 @@ public class CardJdbcRepository implements CardRepository {
     @Override
     public void delete(Long id) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-        String query = "UPDATE card SET visible=false WHERE id=:id";
-        namedParameterJdbcTemplate.update(query, namedParameters);
+        String deleteQuery = "UPDATE card SET visible=false WHERE id=:id AND visible = true";
+        int result = namedParameterJdbcTemplate.update(deleteQuery, namedParameters);
+        if (result == 0) {
+            throw new IllegalArgumentException("이미 삭제된 카드입니다.");
+        }
+        Card card = findById(id).orElseThrow();
+        String orderQuery = "UPDATE card SET position = position-1 WHERE cardType = ? AND position > ?";
+        jdbcTemplate.update(orderQuery, card.getCardType(), card.getPosition());
     }
 
     private static class CardBuilder {
@@ -109,7 +117,10 @@ public class CardJdbcRepository implements CardRepository {
         private boolean visible;
         private Long memberId;
 
-        CardBuilder() {};
+        CardBuilder() {
+        }
+
+        ;
 
         CardBuilder id(Long id) {
             this.id = id;
