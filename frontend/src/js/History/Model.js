@@ -16,7 +16,7 @@ export default class HistoryModel {
   }
 
   addHistory(history) {
-    this.histories.upshift(history);
+    this.histories.unshift(history);
   }
 
   getHistories() {

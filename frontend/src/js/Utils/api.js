@@ -32,10 +32,13 @@ export const postCard = async ({ card }) => {
 };
 
 export const deleteCard = async ({ cardId }) => {
-  return await fetch(`${SERVER_END_POINT}/cards/${cardId}`, {
+  const response = await fetch(`${SERVER_END_POINT}/cards/${cardId}`, {
     method: 'DELETE',
     headers,
   });
+  const data = await response.json();
+
+  return data;
 };
 
 export const patchCard = async ({ card, cardId }) => {

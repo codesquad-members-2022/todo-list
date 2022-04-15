@@ -66,9 +66,8 @@ class Controller {
       targetColumn.model.deleteCard(deleteCardId);
 
       const response = await deleteCard({ cardId: deleteCardId });
-      if (!response.ok) {
-        throw new Error('api failed');
-      }
+
+      this.updateHistory(response);
 
       targetColumn.model.updateCardCount();
       targetColumn.view.renderCardCount(
@@ -160,6 +159,18 @@ class Controller {
     accentBtn.removeAttribute('disabled');
   }
 
+  updateHistory({ history }) {
+    const { userName, createDateTime } = history;
+
+    this.history.model.addHistory(history);
+    const calcTime = this.calcHistoryTime(createDateTime);
+    this.history.view.renderAddHistoryCard({
+      userName,
+      content: this.creatHistoryContent(history),
+      time: calcTime,
+    });
+  }
+
   async cardAddHandler({ target }) {
     const {
       targetColumnBox,
@@ -187,8 +198,9 @@ class Controller {
           title: titleValue,
         },
       });
+      this.updateHistory(response);
     } else {
-      await patchCard({
+      const response = await patchCard({
         card: {
           author: 'web',
           content: contentValue,
@@ -196,6 +208,8 @@ class Controller {
         },
         cardId: targetCard.dataset.cardid,
       });
+
+      this.updateHistory(response);
     }
 
     titleText.innerText = titleValue;
