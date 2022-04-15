@@ -360,7 +360,7 @@ class Controller {
         historyContent = `
         <strong>${history.columnName}</strong>에 <strong>${
           history.title
-        }</strong>를
+        }</strong>을(를)
         <strong>${actionDic[history.action]}</strong>하였습니다.
         `;
         break;
@@ -376,7 +376,7 @@ class Controller {
         historyContent = `
         <strong>${history.columnName}</strong>에 <strong>${
           history.title
-        }</strong>를
+        }</strong>을(를)
         <strong>${actionDic[history.action]}</strong>하였습니다.
         `;
         break;
