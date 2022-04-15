@@ -9,20 +9,31 @@ class Card {
     this.contents = contents;
     this.writer = writer;
     this.creatTime = creatTime;
-    this.cardStatus = cardStatus;
+    this.cardeStatus = cardStatus;
     this.completion = completion;
-  }
-
-  hasInputValue() {
-    return this.title && this.contents ? true : false;
   }
 
   getTitle($card) {
     return $card.querySelector('.card__title').value;
   }
 
-  getContents($card) {
+  getContent($card) {
     return $card.querySelector('.card__content').value;
+  }
+
+  #activateSubmitBtn($submitBtn) {
+    $submitBtn.classList.replace('button--disabled', 'button--submit');
+    $submitBtn.removeAttribute('disabled');
+  }
+
+  #disableSubmitBtn($submitBtn) {
+    $submitBtn.classList.replace('button--submit', 'button--disabled');
+    $submitBtn.setAttribute('disabled', true);
+  }
+
+  toggleSubmitButton($card) {
+    if (this.getTitle($card) && this.getContent($card)) this.#activateSubmitBtn();
+    else this.#disableSubmitBtn();
   }
 
   template() {

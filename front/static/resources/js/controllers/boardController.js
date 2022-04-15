@@ -1,4 +1,3 @@
-import { checkBtnType, isEmptyInput } from '../utils/util.js';
 import { BoardViewModel } from '../viewModels/boardViewModel.js';
 import { Board } from '../views/component/board.js';
 import { Card } from '../views/component/card.js';
@@ -50,20 +49,10 @@ class BoardController {
     await this.viewModel.init();
     this.board = new Board();
     this.render();
-    this.board.addEvent([this.#observe.bind(this)]);
-  }
-
-  async init() {
-    await this.viewModel.init();
-    this.setColumns();
-    const columnsTemplate = this.createColumnsTemplate();
-    this.board = new Board();
-    this.board.render(columnsTemplate);
-
     this.popup = new Popup();
     this.popup.render();
-
-    this.addEvent();
+    this.board.addEvent([this.#createCard, this.#observe.bind(this), this.popup.show.bind(this.popup)]);
+    this.popup.addEvent([this.#observe.bind(this)]);
   }
 }
 

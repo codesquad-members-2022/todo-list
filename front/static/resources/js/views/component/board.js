@@ -36,8 +36,34 @@ class Board {
     return $target;
   }
 
+  #addNewCardState(column, createCard) {
+    column.cards = [...column.cards, createCard({ cardStatus: column.title }, false)];
+  }
+
+  #deleteNewCardState(column) {
+    column.cards = column.cards.slice(0, -1);
+  }
+
+  #updateColumnState(target, column, createCard) {
+    if (target.classList.contains('button--add')) {
+      column.disableAddBtn(target);
+      this.#addNewCardState(column, createCard);
+    } else if (target.classList.contains('button--cancle')) {
+      column.disableWriting(column.title);
+      this.#deleteNewCardState(column);
+    }
+  }
+
+  #toggleWritableCard(target, createCard) {
+    const $column = this.#setTarget(target, 'column');
+    const columnName = $column.dataset.title;
+    const column = this.columns[columnName];
+    this.#updateColumnState(target, column, createCard);
+    column.render(columnName);
+  }
+
   #isNewCard($card) {
-    return $card.dataset.id ? false : true;
+    return $card.dataset.id ? true : false;
   }
 
   #hasInputValue(title, contents) {
@@ -80,12 +106,21 @@ class Board {
     selectedCard.completion = selectedCard.completion ? false : true;
   }
 
-  #addCardClickEvent(observe) {
-    document.querySelector('.column-wrap').addEventListener('click', ({ target }) => {
-      const $card = this.#setTarget(target, 'card');
-      if (this.#isfindedTarget(target, 'card__button--cancle') && $card.dataset.id) this.#reRenderSelectedCard($card);
-      else if (this.#isfindedTarget(target, 'card__button--submit')) this.#sendNewCardData(target, $card, observe);
-    });
+  #cardClickEventHandler(target, [createCard, observe, showPopup]) {
+    const $card = this.#setTarget(target, 'card');
+    if (this.#isfindedTarget(target, 'card-button--add')) this.#toggleWritableCard(target, createCard);
+    else if (this.#isfindedTarget(target, 'card__button--cancle') && $card.dataset.id)
+      this.#reRenderSelectedCard($card);
+    else if (this.#isfindedTarget(target, 'card__button--cancle') && !$card.dataset.id)
+      this.#toggleWritableCard(target, createCard);
+    else if (this.#isfindedTarget(target, 'card__button--submit')) this.#sendNewCardData(target, $card, observe);
+    else if (this.#isfindedTarget(target, 'card__button--delete')) showPopup($card.dataset.id);
+  }
+
+  #addCardClickEvent([createCard, observe, showPopup]) {
+    document
+      .querySelector('.column-wrap')
+      .addEventListener('click', ({ target }) => this.#cardClickEventHandler(target, [createCard, observe, showPopup]));
   }
 
   #addCardDblClickEvent() {
@@ -95,9 +130,18 @@ class Board {
     });
   }
 
-  addEvent([observe]) {
-    this.#addCardClickEvent(observe);
+  #addCardInputEvent() {
+    document.querySelector('.column-wrap').addEventListener('input', ({ target }) => {
+      const $card = this.#setTarget(target, 'card');
+      const card = this.columns[$card.dataset.cardeStatus][$card.dataset.cardIndex];
+      card.toggleSubmitButton($card);
+    });
+  }
+
+  addEvent([createCard, observe, showPopup]) {
+    this.#addCardClickEvent([createCard, observe, showPopup]);
     this.#addCardDblClickEvent();
+    this.#addCardInputEvent();
   }
 }
 
