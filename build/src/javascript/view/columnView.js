@@ -1,9 +1,11 @@
+import { putUpdatedCardData } from "../model/cardModel.js";
 import { debounce, moveAt } from "../util/util.js";
 import {
   renderRegisterCard,
   addRegisterBtnsListener,
   addCardDoubleClickEvent,
   changeOriginalCardStyle,
+  getUpdatedCardContent,
 } from "./cardView.js";
 
 let [isDraggable, dragStart, isDowned] = [false, false, false];
@@ -147,10 +149,16 @@ function addCopiedCardEvent() {
     dragStart = false;
     isDraggable = false;
     $copiedCard.remove();
-    const $originalCard = document.querySelector(".original-card");
     changeOriginalCardStyle($originalCard);
+    updateDraggedCardData();
     $originalCard.classList.remove("original-card");
   });
+}
+
+function updateDraggedCardData() {
+  const cardData = getUpdatedCardContent($originalCard);
+  const dataID = $originalCard.id.slice(4);
+  putUpdatedCardData(cardData, dataID);
 }
 
 function addCardsDragEvent($cards) {
