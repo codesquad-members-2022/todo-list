@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(historyMakerInterCeptor)
             .order(1)
             .addPathPatterns("/card")
-            .addPathPatterns("/card/{cardId}")
+            //.addPathPatterns("/card/{cardId}");  // 서비스단으로 옮김
             .addPathPatterns("/card/move/{cardId}");
     }
 

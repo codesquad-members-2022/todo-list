@@ -1,6 +1,7 @@
 package team03.todoapp.repository.domain;
 
 import java.time.LocalDateTime;
+import team03.todoapp.controller.CardLocation;
 
 public class Card {
 
@@ -8,17 +9,18 @@ public class Card {
     private String title;
     private String content;
     private String writer;
-    private String currentLocation;
+    private CardLocation currentLocation;
     private LocalDateTime uploadDateTime;
     private Long nextId;
     private boolean isDeleted;
 
-    public Card(String title, String content, String writer, String currentLocation,
+    public Card(String title, String content, String writer, CardLocation currentLocation,
         LocalDateTime uploadDate, Long nextId) {
         this(null, title, content, writer, currentLocation, uploadDate, nextId);
     }
 
-    public Card(Long id, String title, String content, String writer, String currentLocation,
+    public Card(Long id, String title, String content, String writer,
+        CardLocation currentLocation,
         LocalDateTime uploadDateTime, Long nextId) {
         this.id = id;
         this.title = title;
@@ -45,7 +47,7 @@ public class Card {
         return writer;
     }
 
-    public String getCurrentLocation() {
+    public CardLocation getCurrentLocation() {
         return currentLocation;
     }
 

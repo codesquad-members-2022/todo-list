@@ -1,21 +1,25 @@
 package team03.todoapp.controller.dto;
 
 import javax.validation.constraints.NotNull;
+import team03.todoapp.controller.CardLocation;
 
 public class CardMoveFormRequest {
 
     @NotNull
-    private String destinationLocation;
+    private CardLocation destinationLocation;
     private Long prevItemId;
     private Long nextItemId;
 
-    public CardMoveFormRequest(String destinationLocation, Long prevItemId, Long nextItemId) {
+    public CardMoveFormRequest() {
+    }
+
+    public CardMoveFormRequest(CardLocation destinationLocation, Long prevItemId, Long nextItemId) {
         this.destinationLocation = destinationLocation;
         this.prevItemId = prevItemId;
         this.nextItemId = nextItemId;
     }
 
-    public void setDestinationLocation(String destinationLocation) {
+    public void setDestinationLocation(CardLocation destinationLocation) {
         this.destinationLocation = destinationLocation;
     }
 
@@ -27,7 +31,7 @@ public class CardMoveFormRequest {
         this.nextItemId = nextItemId;
     }
 
-    public String getDestinationLocation() {
+    public CardLocation getDestinationLocation() {
         return destinationLocation;
     }
 

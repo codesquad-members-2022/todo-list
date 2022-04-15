@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import team03.todoapp.Service.HistoryService;
+import team03.todoapp.controller.CardLocation;
 import team03.todoapp.repository.domain.History;
 
 @Component
@@ -31,8 +32,8 @@ public class HistoryMakerInterCeptor implements HandlerInterceptor {
         History history = new History(
             request.getAttribute("actionType").toString(),
             request.getAttribute("cardTitle").toString(),
-            Optional.ofNullable((String) request.getAttribute("pastLocation")),
-            request.getAttribute("nowLocation").toString(),
+            Optional.ofNullable((CardLocation) request.getAttribute("pastLocation")),
+            CardLocation.valueOf(request.getAttribute("nowLocation").toString()),
             LocalDateTime.now()
         );
 

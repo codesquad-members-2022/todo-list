@@ -2,18 +2,20 @@ package team03.todoapp.repository.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 import java.util.Optional;
+import team03.todoapp.controller.CardLocation;
 
 public class History {
+
     private Long historyId;
     private String actionType;
     private String cardTitle;
-    private String pastLocation;
-    private String nowLocation;
+    private CardLocation pastLocation;
+    private CardLocation nowLocation;
     private LocalDateTime historyDateTime;
 
-    public History(Long historyId, String actionType, String cardTitle, String pastLocation, String nowLocation, LocalDateTime historyDateTime) {
+    public History(Long historyId, String actionType, String cardTitle, CardLocation pastLocation,
+        CardLocation nowLocation, LocalDateTime historyDateTime) {
         this.historyId = historyId;
         this.actionType = actionType;
         this.cardTitle = cardTitle;
@@ -22,12 +24,9 @@ public class History {
         this.historyDateTime = historyDateTime;
     }
 
-    public History(String actionType, String cardTitle, Optional<String> pastLocation, String nowLocation, LocalDateTime historyDateTime) {
-        this.actionType = actionType;
-        this.cardTitle = cardTitle;
-        this.pastLocation = pastLocation.orElse(null);
-        this.nowLocation = nowLocation;
-        this.historyDateTime = historyDateTime;
+    public History(String actionType, String cardTitle, Optional<CardLocation> pastLocation,
+        CardLocation nowLocation, LocalDateTime historyDateTime) {
+        this(null, actionType, cardTitle, pastLocation.orElse(null), nowLocation, historyDateTime);
     }
 
     public Long getHistoryId() {
@@ -42,11 +41,11 @@ public class History {
         return cardTitle;
     }
 
-    public String getPastLocation() {
+    public CardLocation getPastLocation() {
         return pastLocation;
     }
 
-    public String getNowLocation() {
+    public CardLocation getNowLocation() {
         return nowLocation;
     }
 
