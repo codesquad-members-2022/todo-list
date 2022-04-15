@@ -117,8 +117,9 @@ export class Task {
       id: this.taskData ? this.taskData.id : undefined,
       title: this.taskTitle,
       comment: this.comment,
-      author: this.author,
+      author: this.author ? this.author : "web",
     };
+
     return TodoListStore.update("newTask", this.listTitle, this.taskData);
   }
 

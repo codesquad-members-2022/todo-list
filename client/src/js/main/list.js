@@ -15,7 +15,26 @@ export class List {
     this.createTask(this.taskData);
     this.setEvents();
     TodoListStore.subscribe("registration", this.notifyRegistration.bind(this));
+<<<<<<< HEAD
     TodoListStore.subscribe("newTask");
+=======
+    TodoListStore.subscribe("newTask", this.notifyListUpdate.bind(this));
+  }
+
+  async notifyListUpdate(id, listTitle, newTask) {
+    if (this.listTitle !== listTitle) {
+      return;
+    }
+
+    const allListData = await TodoListStore.getTodoListData();
+    const currentListData = allListData.filter((listData) => listData.title === listTitle)[0];
+    this.taskData = currentListData.task;
+    const column_list = this.target.querySelector(".column__task--list");
+    const column_task_count = this.target.querySelector(".column__task--count");
+    column_list.innerHTML = "";
+    column_task_count.innerText = this.taskData.length;
+    this.createTask(this.taskData);
+>>>>>>> a40f77b (feat: 카드 삭제 시 리스트 리렌더링 기능 추가)
   }
 
   notifyRegistration(activation, title) {

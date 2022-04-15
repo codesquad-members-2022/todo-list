@@ -136,7 +136,7 @@ const subscribe = (key, notify = null, defaultValue = false) => {
 };
 
 const update = (key, title = null, newTask = null) => {
-  if (newTask) return (activation[key] = [activation[key] + 1, title, newTask]);
+  if (key === "newTask") return (activation[key] = [activation[key] + newTask ? 1 : -1, title, newTask]);
   return (activation[key] = [!activation[key], title]);
 };
 
