@@ -48,9 +48,14 @@ export class DragAndDrop {
     this.isDragging = false;
     this.moveCardState = false;
     if (this.isClone) {
-      this.updateCardState(this.movedDragCard);
-      this.updateSequence(this.movedDragCard);
+      const columnName = $(
+        '.column-title',
+        closest('.column', this.movedDragCard)
+      ).textContent;
+      this.updateCardState(columnName);
+      this.updateSequence(columnName);
       this.deleteSequence();
+
       this.clonedDragCard.remove();
       this.dragCard.classList.replace('place', 'default');
       this.isClone = null;
@@ -188,12 +193,8 @@ export class DragAndDrop {
     requestToServer(url, 'PATCH', patchData);
   }
 
-  async updateSequence(cardItem) {
-    const columnList = closest('.column', cardItem).lastElementChild;
-    const columnName = $(
-      '.column-title',
-      closest('.column', cardItem)
-    ).textContent;
+  async updateSequence(columnName) {
+    const columnList = closest('.column', this.movedDragCard).lastElementChild;
 
     const patchData = {};
     patchData[columnName] = Array.prototype.slice
@@ -204,12 +205,7 @@ export class DragAndDrop {
     requestToServer(url, 'PATCH', patchData);
   }
 
-  async updateCardState(cardItem) {
-    const columnName = $(
-      '.column-title',
-      closest('.column', cardItem)
-    ).textContent;
-
+  async updateCardState(columnName) {
     const url = getURL(`cards/${this.dragCard.dataset.id}`);
     const data = {
       states: columnName,
