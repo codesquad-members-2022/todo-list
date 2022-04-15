@@ -1,12 +1,19 @@
 import * as util from "../../util/Util.js";
 
-function renderEmptyCard(parent, { inputHandler, registerBtnHandler, cancleBtnHandler }, store) {
+function renderEmptyCard(
+  parent,
+  { inputHandler, registerBtnHandler, cancleBtnHandler },
+  store
+) {
   // 입력 값 확인 후 버튼 활성화 이벤트
   const newCard = getEmptyCardNode();
   util.on("keydown", newCard, inputHandler);
 
   // 등록 버튼 클릭 핸들링 이벤트
-  const registerBtn = util.$(".task-card__register-btn.cursor-pointer", newCard);
+  const registerBtn = util.$(
+    ".task-card__register-btn.cursor-pointer",
+    newCard
+  );
   util.on("click", registerBtn, (event) => {
     registerBtnHandler(event, store);
   });
@@ -17,7 +24,8 @@ function renderEmptyCard(parent, { inputHandler, registerBtnHandler, cancleBtnHa
     cancleBtnHandler(event, store);
   });
 
-  parent.insertBefore(newCard, parent.children[1]);
+  const existCard = util.$(".task-card", parent);
+  parent.insertBefore(newCard, existCard);
 }
 
 function getEmptyCardNode() {

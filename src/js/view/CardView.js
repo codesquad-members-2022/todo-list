@@ -24,9 +24,9 @@ function renderCard(
   });
 
   // 이동 이벤트
-  util.on("mousedown", targetCard, (event) => {
-    dragDropHandler(event);
-  });
+  // util.on("mousedown", targetCard, (event) => {
+  //   dragDropHandler(event);
+  // });
 }
 
 function renderRegisteredStyle(targetCard, newState) {
@@ -37,8 +37,12 @@ function renderRegisteredStyle(targetCard, newState) {
   }
   targetCard.id = newState.id;
   util.$(".delete-btn.cursor-pointer", targetCard).classList.remove("hidden");
-  util.$(".task-card__cancle-btn.cursor-pointer", targetCard).classList.add("hidden");
-  util.$(".task-card__register-btn.cursor-pointer", targetCard).classList.add("hidden");
+  util
+    .$(".task-card__cancle-btn.cursor-pointer", targetCard)
+    .classList.add("hidden");
+  util
+    .$(".task-card__register-btn.cursor-pointer", targetCard)
+    .classList.add("hidden");
   util.$(".task-card__footer", targetCard).classList.remove("hidden");
   util.$(".task-card__title", targetCard).contentEditable = false;
   util.$(".task-card__title", targetCard).classList.add("font-black");
