@@ -50,9 +50,9 @@ export class TodoList extends View {
         todos.forEach(
             (todo: StateObj, idx: number) => {
                 const target = this.select(`.todo-card[data-idx="${idx}"]`)
-                // return selectedIndex === idx ?
-                //     new TodoForm(this.store, target, {todo, listIdx, idx}) :
-                new TodoCard(this.store, target, {todo, idx, listIdx})
+                return selectedIndex === idx ?
+                    new TodoForm(this.store, target, {todo, listIdx, idx}) :
+                    new TodoCard(this.store, target, {todo, idx, listIdx})
             }
         );
     }

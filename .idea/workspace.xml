@@ -6,23 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7d995f52-4be1-415d-b57f-6d6654aa18a1" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/TodoCard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoCard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/TodoForm.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoForm.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/TodoList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/TodoList.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DTOs/add.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/DTOs/add.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DTOs/delete.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/DTOs/delete.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DTOs/dto.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DTOs/move.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/DTOs/move.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DTOs/select.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/DTOs/select.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DTOs/update.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/DTOs/update.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Node.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Node.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Observer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Observer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/core/Store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/express-server/static/db.json" beforeDir="false" afterPath="$PROJECT_DIR$/express-server/static/db.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/scss/_column.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/scss/_column.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +78,7 @@
       <workItem from="1649639018771" duration="598000" />
       <workItem from="1649640028134" duration="904000" />
       <workItem from="1649905571442" duration="42834000" />
-      <workItem from="1649983311272" duration="10540000" />
+      <workItem from="1649983311272" duration="10655000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
