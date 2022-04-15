@@ -7,6 +7,7 @@ import { onBodyMouseDown, onBodyMouseMove, onBodyMouseUp, onContextMenu } from '
 import { $ } from './utils/dom.js';
 import { handleNotice } from './utils/action.js';
 import Fab from './components/Fab.js';
+import { Store, observer } from './store/store.js';
 
 const app = () => {
   const todos = getLocalStorageByKey('todos') ?? [];
@@ -29,11 +30,13 @@ const app = () => {
 const createColumns = () => {
   const columns = ['해야할일', '하고있는일', '완료한일'];
   localStorage.setItem('column', JSON.stringify(columns));
+  observer.subscribe('column', columns);
 
   const columnsWrapper = $('.column-section');
   columns.forEach(status => {
     const column = new TodoColumn(status);
-    const todos = getTodosByStatus(status);
+    const todos = getTodosByStatus('todos', status);
+    observer.subscribe('todos', todos);
     const count = todos.length;
     column.setCount(count);
     columnsWrapper.insertAdjacentHTML('beforeend', column.render());
@@ -52,6 +55,7 @@ const createTodos = (column, todos) => {
 
 const createNotices = () => {
   const notices = getLocalStorageByKey('notices') ?? [];
+  observer.subscribe('notices', notices);
   notices.forEach(notice => {
     handleNotice(notice);
   });
