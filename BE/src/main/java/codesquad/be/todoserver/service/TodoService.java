@@ -30,7 +30,7 @@ public class TodoService {
 	}
 
 	public List<Todo> findTodos() {
-		List<Todo> todos = todoRepository.findAllTodos();
+		List<Todo> todos = todoRepository.findAll();
 
 		if (todos.isEmpty()) {
 			throw new NoSuchElementException("Empty Todos");
@@ -39,18 +39,18 @@ public class TodoService {
 	}
 
 	public Todo registerTodo(RegisterTodoDto registerTodoDto) {
-		Todo saveTodo = todoRepository.saveTodo(
+		Todo todo = todoRepository.save(
 			TodoDtoMapper.toDomainFromRegisterTodoDto(registerTodoDto));
 
-		historyRepository.saveHistory(History.of(saveTodo, Action.ADD));
-		return saveTodo;
+		historyRepository.save(History.of(todo, Action.ADD));
+		return todo;
 	}
 
 	public boolean deleteById(Long id) {
 		Todo todo = todoRepository.findById(id)
 			.orElseThrow(() -> new NoSuchTodoFoundException("id: " + id));
 
-		historyRepository.saveHistory(History.of(todo, Action.REMOVE));
+		historyRepository.save(History.of(todo, Action.REMOVE));
 		return todoRepository.deleteById(id);
 	}
 }

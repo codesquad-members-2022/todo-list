@@ -29,14 +29,14 @@ public class TodoJdbcRepository implements TodoRepository {
 	}
 
 	@Override
-	public List<Todo> findAllTodos() {
+	public List<Todo> findAll() {
 		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO WHERE DELETED = 0";
 		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper());
 		return todos;
 	}
 
 	@Override
-	public Todo saveTodo(Todo todo) {
+	public Todo save(Todo todo) {
 		String sql = "INSERT INTO TODO (TITLE, CONTENTS, USER, STATUS, CREATED_AT, UPDATED_AT) VALUES (?, ?, ?, ?, ?, ?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();

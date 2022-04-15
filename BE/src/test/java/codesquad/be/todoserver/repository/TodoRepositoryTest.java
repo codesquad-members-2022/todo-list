@@ -47,7 +47,7 @@ class TodoRepositoryTest {
 
 	@Test
 	void 전체_투두리스트_조회_성공() {
-		List<Todo> todos = todoRepository.findAllTodos();
+		List<Todo> todos = todoRepository.findAll();
 
 		assertThat(todos).hasSize(4);
 	}

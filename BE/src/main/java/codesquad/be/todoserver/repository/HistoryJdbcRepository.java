@@ -20,14 +20,14 @@ public class HistoryJdbcRepository implements HistoryRepository {
 
 
 	@Override
-	public List<History> findAllHistory() {
+	public List<History> findAll() {
 		String sql = "SELECT id, todo_id, todo_title, user, action, from_status, to_status, created_at FROM HISTORY";
 
 		return jdbcTemplate.query(sql, historyRowMapper());
 	}
 
 	@Override
-	public void saveHistory(History history) {
+	public void save(History history) {
 		String sql =
 			"INSERT INTO HISTORY (todo_id, todo_title, user, action, from_status, to_status, created_at)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?)";

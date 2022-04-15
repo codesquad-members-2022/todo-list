@@ -56,7 +56,7 @@ class TodoServiceTest {
 	void 전체_투두리스트_조회_성공() {
 		List<Todo> todolist = createTestData();
 
-		given(todoRepository.findAllTodos())
+		given(todoRepository.findAll())
 			.willReturn(todolist);
 
 		List<Todo> todos = todoService.findTodos();
