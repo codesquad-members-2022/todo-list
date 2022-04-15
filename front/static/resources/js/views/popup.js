@@ -4,12 +4,12 @@ class Popup {
   }
 
   hide() {
-    document.querySelector('.popup-wrap').style.display = 'none';
+    document.querySelector('.popup-wrap').classList.remove('show');
   }
 
   show(cardId) {
     this.cardId = cardId;
-    document.querySelector('.popup-wrap').style.display = 'block';
+    document.querySelector('.popup-wrap').classList.add('show');
   }
 
   template() {
