@@ -1,5 +1,6 @@
 package com.example.todolist
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,13 @@ class TasksViewModel(private val repository: Repository): ViewModel() {
 
     private val _checkLoading = MutableLiveData<Boolean>()
     val checkLoading: LiveData<Boolean> get() = _checkLoading
+
+    private val _taskList = MutableLiveData<List<Task>>()
+    val taskList: LiveData<List<Task>> get() = _taskList
+
+    init {
+        getAllTasks()
+    }
 
     fun getHistories() {
         _checkLoading.value = true
@@ -49,5 +57,14 @@ class TasksViewModel(private val repository: Repository): ViewModel() {
         )
 
         return listOf(task1, task2)
+    }
+
+    fun getAllTasks() {
+        viewModelScope.launch {
+            val response = repository.getAllTasks()
+            if (response.isSuccessful) {
+                _taskList.value = response.body()
+            }
+        }
     }
 }
