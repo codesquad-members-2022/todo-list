@@ -13,6 +13,7 @@
   z-index: 100;
   box-sizing: border-box;
   transition: 0.5s;
+  overflow-y: scroll;
 
   .action-alert {
     font-family: "Noto Sans KR";
@@ -27,7 +28,6 @@
     background-color: #ff0000;
     color: white;
     transition: 0.5s;
-    border-radius: 0 0 0.5rem 0.5rem;
   }
 
   .hidden-alert {

@@ -10,7 +10,7 @@ export default class Header extends Component {
       setTimeout(() => $menu.classList.remove("hidden-menu"), 0);
     });
     document.addEventListener("scroll", () => {
-      document.querySelector("html").scrollTop > 98 ? this.$target.classList.add("fixed-header") : this.$target.classList.remove("fixed-header");
+      document.querySelector("html").scrollTop > 30 ? this.$target.classList.add("fixed-header") : this.$target.classList.remove("fixed-header");
     });
   }
 
