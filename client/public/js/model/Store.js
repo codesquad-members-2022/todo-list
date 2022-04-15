@@ -48,4 +48,8 @@ export default class Store {
   }
 
   updateItem() {}
+
+  addHistory({ date, username = "yellow", action, content }) {
+    this.history.push({ date, username, action, content });
+  }
 }

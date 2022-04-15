@@ -75,16 +75,25 @@ export function bindEvents(store) {
 
     renderItem(store.addItem(newItem));
     removeItemForm();
+
+    const columnTitle = _getColumnTitle(columnId);
+    const historyContent = `<strong>${columnTitle}</strong>에 <strong>${title}</strong>를 <strong>등록</strong>하였습니다.`;
+    store.addHistory({ date, action: "add", content: historyContent });
   }
 
   function removeItem(event) {
     const itemId = _getItemId(event.target);
-    store.removeItem(itemId);
+    const itemTitle = _getItemTitle(itemId);
+    const itemEl = getParentElementByDataset(event.target, "card");
 
     const columnId = _getColumnId(event.target);
-    renderColumnLength(columnId, false);
+    const columnTitle = _getColumnTitle(columnId);
 
-    const itemEl = getParentElementByDataset(event.target, "card");
+    const historyContent = `<strong>${columnTitle}</strong>에서 <strong>${itemTitle}</strong>를 <strong>삭제</strong>하였습니다.`;
+
+    store.addHistory({ date: new Date(), action: "remove", content: historyContent });
+    store.removeItem(itemId);
+    renderColumnLength(columnId, false);
     itemEl.remove();
   }
 
@@ -121,5 +130,13 @@ export function bindEvents(store) {
 
   function _getItemId(eventTarget) {
     return Number(getParentElementByDataset(eventTarget, "card").dataset.card);
+  }
+
+  function _getColumnTitle(columnId) {
+    return qs(`[data-column="${columnId}"] .column__header--title`).textContent;
+  }
+
+  function _getItemTitle(itemId) {
+    return qs(`[data-card="${itemId}"] .card__content--title`).value;
   }
 }
