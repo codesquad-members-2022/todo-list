@@ -8,6 +8,7 @@ import com.team26.todolist.dto.request.CardRegistrationRequest;
 import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
 import com.team26.todolist.repository.CardRepository;
+import com.team26.todolist.util.Constant;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,6 @@ import java.util.stream.Collectors;
 @Service
 @Primary
 public class CardServiceJdbc implements CardService {
-
-    public static final double DIFFERENCE = 1000.0;
 
     private final CardRepository cardRepository;
     private final HistoryService historyService;
@@ -38,7 +37,7 @@ public class CardServiceJdbc implements CardService {
     @Override
     public CardResponse addCard(CardRegistrationRequest cardRegistrationRequest) {
         Double firstOrder = cardRepository.getFirstOrder();
-        Double newOrder = firstOrder != null ? firstOrder - DIFFERENCE : 0;
+        Double newOrder = firstOrder != null ? firstOrder - Constant.ORDER_BASIC_DIFFERENCE : 0;
         Card saveCard = cardRepository.save(cardRegistrationRequest.toEntity(), newOrder);
         historyService.saveHistory(CardAction.ADD, "", null, saveCard);
 
@@ -58,10 +57,14 @@ public class CardServiceJdbc implements CardService {
 
     @Override
     public CardResponse changeCardLocation(CardChangeLocationRequest cardChangeLocationRequest) {
-        Double newOrder = getNewOrder(cardChangeLocationRequest);
         Card card = cardChangeLocationRequest.toEntity();
+
+        Card upperCard = cardRepository.findById(cardChangeLocationRequest.getUpperCardId());
+        Card lowerCard = cardRepository.findById(cardChangeLocationRequest.getLowerCardId());
+        card.setNewOrder(upperCard, lowerCard);
+
         Card cardBefore = cardRepository.findById(cardChangeLocationRequest.getId());
-        Card cardAfter = cardRepository.updateLocation(card, newOrder);
+        Card cardAfter = cardRepository.updateLocation(card);
 
         historyService.saveHistory(CardAction.MOVE, "", cardBefore, cardAfter);
 
@@ -74,24 +77,5 @@ public class CardServiceJdbc implements CardService {
 
         cardRepository.delete(findCard);
         historyService.saveHistory(CardAction.DELETE, "", findCard, null);
-    }
-
-    private double getNewOrder(CardChangeLocationRequest cardChangeLocationRequest) {
-        Card upperCard = cardRepository.findById(cardChangeLocationRequest.getUpperCardId());
-        Card lowerCard = cardRepository.findById(cardChangeLocationRequest.getLowerCardId());
-
-        if (upperCard == null && lowerCard == null) {
-            return 0.0;
-        }
-
-        if (upperCard == null) {
-            return lowerCard.getOrder() - DIFFERENCE;
-        }
-
-        if (lowerCard == null) {
-            return upperCard.getOrder() + DIFFERENCE;
-        }
-
-        return (upperCard.getOrder() + lowerCard.getOrder()) / 2;
     }
 }

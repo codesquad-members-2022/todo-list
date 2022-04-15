@@ -105,12 +105,12 @@ public class CardRepository {
         return findById(Objects.requireNonNull(keyHolder.getKey()).longValue());
     }
 
-    public Card updateLocation(Card card, Double newOrder) {
+    public Card updateLocation(Card card) {
         String sql = "UPDATE card SET column_id = :columnId, order_index = :order WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
         params.put("columnId", card.getColumnId());
-        params.put("order", newOrder);
+        params.put("order", card.getOrder());
         params.put("id", card.getId());
 
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource().addValues(params),

@@ -1,8 +1,10 @@
 package com.team26.todolist.domain;
 
+import com.team26.todolist.util.Constant;
 import java.time.LocalDateTime;
 
 public class Card implements Comparable<Card> {
+
     private Long id;
     private String title;
     private String contents;
@@ -43,6 +45,25 @@ public class Card implements Comparable<Card> {
     public Card(Long id, Long columnId) {
         this.id = id;
         this.columnId = columnId;
+    }
+
+    public void setNewOrder(Card upperCard, Card lowerCard) {
+        if (upperCard == null && lowerCard == null) {
+            order = 0.0;
+            return;
+        }
+
+        if (upperCard == null) {
+            order = lowerCard.getOrder() - Constant.ORDER_BASIC_DIFFERENCE;
+            return;
+        }
+
+        if (lowerCard == null) {
+            order = upperCard.getOrder() + Constant.ORDER_BASIC_DIFFERENCE;
+            return;
+        }
+
+        order = (upperCard.getOrder() + lowerCard.getOrder()) / 2;
     }
 
     public Long getId() {
