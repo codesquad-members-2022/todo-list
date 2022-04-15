@@ -28,7 +28,7 @@ public class CardController {
 
     @PostMapping("/cards")
     public ResponseEntity<CardResponse> create(@RequestBody CreateCardRequest cardRequest) {
-        log.info("new card");
+        log.debug("REQUEST create card : {}", cardRequest);
         CardResponse cardResponse = cardService.create(cardRequest);
 
         return new ResponseEntity<>(cardResponse, HttpStatus.CREATED);
@@ -36,6 +36,7 @@ public class CardController {
 
     @GetMapping("/cards")
     public ResponseEntity<List<CardsOfSection>> findAll() {
+        log.debug("REQUEST get categorized cards all");
         List<CardsOfSection> all = cardService.findAllbySections();
 
         return new ResponseEntity<>(all, HttpStatus.OK);
@@ -43,6 +44,7 @@ public class CardController {
 
     @GetMapping("/cards/{id}")
     public ResponseEntity<CardResponse> findOne(@PathVariable Long id) {
+        log.debug("REQUEST find card, id : {}", id);
         CardResponse cardResponse = cardService.findOne(id);
 
         return new ResponseEntity<>(cardResponse, HttpStatus.OK);
@@ -50,6 +52,7 @@ public class CardController {
 
     @DeleteMapping("/cards/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable Long id) {
+        log.debug("REQUEST delete card, id : {}", id);
         boolean isDeleted = cardService.delete(id);
 
         return new ResponseEntity<>(isDeleted, HttpStatus.OK);
@@ -57,7 +60,7 @@ public class CardController {
 
     @PatchMapping("/cards/{id}")
     public ResponseEntity<CardResponse> updateOne(@PathVariable Long id, @RequestBody UpdateCardRequest cardRequest) {
-
+        log.debug("REQUEST update card, id : {}, updateInfo : {}", id, cardRequest);
         CardResponse cardResponse = cardService.update(id, cardRequest);
 
         return new ResponseEntity<>(cardResponse, HttpStatus.OK);
@@ -65,7 +68,7 @@ public class CardController {
 
     @GetMapping("/cards/section/{sectionId}")
     public ResponseEntity<CardsOfSection> findCardsBySectionId(@PathVariable Integer sectionId) {
-
+        log.debug("REQUEST categorized cards by section, sectionId : {}", sectionId);
         Section section = cardService.findSection(sectionId);
         List<CardResponse> cards = cardService.findCardsOfSection(sectionId);
 
@@ -74,6 +77,8 @@ public class CardController {
 
     @PatchMapping("/cards/move/{movingCardId}")
     public ResponseEntity<Boolean> moveOne(@PathVariable Long movingCardId, @RequestBody MotionInfo motionInfo) {
+        log.debug("REQUEST move card[{}] to section {}, targetCardId : {} ",
+                movingCardId, motionInfo.getSectionId(), motionInfo.getTargetCardId());
         boolean isMoved = cardService.move(motionInfo.getSectionId(), motionInfo.getTargetCardId(), movingCardId);
         return new ResponseEntity<>(isMoved, HttpStatus.OK);
     }
