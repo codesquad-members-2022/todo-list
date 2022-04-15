@@ -57,17 +57,17 @@ extension LogViewModel {
         switch log.action {
             
         case .Add:
-            guard let to = log.to else { return "" }
+            guard let to = log.toStatus else { return "" }
             return "\(log.taskTitle)을 \(to)에 추가하였습니다."
             
         case .Update:
-            guard let to = log.to else { return "" }
-            guard let from = log.from else { return "" }
+            guard let to = log.toStatus else { return "" }
+            guard let from = log.fromStatus else { return "" }
             
             return "\(log.taskTitle)을 \(from)에서 \(to)로 변경하였습니다."
             
         case .Delete:
-            guard let from = log.from else { return "" }
+            guard let from = log.fromStatus else { return "" }
             return "\(log.taskTitle)을 \(from)에서 삭제하였습니다."
             
         case .Move:
