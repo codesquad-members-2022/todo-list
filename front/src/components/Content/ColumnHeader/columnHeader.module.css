@@ -34,15 +34,15 @@
 }
 
 .plusButton,
-.xButton {
+.deleteButton {
   cursor: pointer;
   fill: #bdbdbd;
 }
 
-.plusButtonOver {
+.plusButtonHover {
   fill: #0075de;
 }
 
-.xButtonOver {
+.deleteButtonHover {
   fill: #ff4343;
 }

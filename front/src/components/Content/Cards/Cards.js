@@ -14,7 +14,7 @@ const Cards = ({ $newCard, todos, handleRenderFlag }) => {
     const cardRef = peact.useRef();
     const cardWritableRef = peact.useRef();
 
-    const handleNewCardVisibility = () => {
+    const toggleCardVisible = () => {
       cardsRef.current.removeChild(cardWritableRef.current);
       cardRef.current.classList.toggle(cardStyles.hide);
     };
@@ -45,7 +45,7 @@ const Cards = ({ $newCard, todos, handleRenderFlag }) => {
       };
 
       const $cardWritable = CardWritable({
-        handleNewCardVisibility,
+        toggleCardVisible,
         handleSubmitForm,
         inputValues,
         ref: cardWritableRef,

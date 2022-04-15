@@ -1,4 +1,5 @@
 import peact from "../../../core/peact";
+import todoApi from "../../../service/todoApi";
 import Cards from "../Cards/Cards";
 import CardWritable from "../CardWritable/CardWritable";
 import ColumnHeader from "../ColumnHeader/ColumnHeader";
@@ -9,11 +10,11 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
     return todos.filter((todo) => todo.columnId === columnId);
   };
 
-  const createColumnHeaderElement = ({ column, handleNewCardVisibility }) =>
+  const createColumnHeaderElement = ({ column, toggleCardVisible }) =>
     ColumnHeader({
       column,
       todos: getTodosByColumnId(column._id),
-      handleNewCardVisibility,
+      toggleCardVisible,
     });
 
   const createCardsElement = ({ $newCard, column }) =>
@@ -23,18 +24,43 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
       handleRenderFlag,
     });
 
+  const handleSubmitForm = async (event) => {
+    event.preventDefault();
+    const {
+      title,
+      desc,
+      author,
+      dataset: { columnId },
+    } = event.target;
+
+    const requestBody = {
+      title: title.value,
+      desc: desc.value,
+      author: author.value,
+      columnId,
+    };
+
+    await todoApi.createTodo(requestBody);
+    handleRenderFlag();
+  };
+
   const createColumnElement = (column) => {
     const newCardRef = peact.useRef();
-    const handleNewCardVisibility = () => {
+    const toggleCardVisible = () => {
       newCardRef.current.classList.toggle(styles.visible);
     };
-    const $newCard = CardWritable({ handleNewCardVisibility, ref: newCardRef });
+    const $newCard = CardWritable({
+      toggleCardVisible,
+      ref: newCardRef,
+      handleSubmitForm,
+      columnId: column._id,
+    });
 
     return peact.createElement({
       tag: "div",
       className: styles.column,
       child: [
-        createColumnHeaderElement({ column, handleNewCardVisibility }),
+        createColumnHeaderElement({ column, toggleCardVisible }),
         createCardsElement({ $newCard, column }),
       ],
     });

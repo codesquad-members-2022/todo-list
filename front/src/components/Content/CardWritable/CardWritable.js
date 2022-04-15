@@ -13,9 +13,10 @@ const deactivateButton = ($button, deactiveClassName) => {
 };
 
 const CardWritable = ({
-  handleNewCardVisibility,
+  toggleCardVisible,
   handleSubmitForm,
   inputValues,
+  columnId,
   ref,
 }) => {
   const addButtonRef = peact.useRef();
@@ -26,7 +27,7 @@ const CardWritable = ({
     const isInputActive = !$addButton.classList.contains(styles.deactiveButton);
     if (isInputEmpty && isInputActive) {
       deactivateButton($addButton, styles.deactiveButton);
-    } else if (!isInputActive) {
+    } else if (!isInputEmpty && !isInputActive) {
       activateButton($addButton, styles.deactiveButton);
     }
   };
@@ -75,29 +76,40 @@ const CardWritable = ({
   });
 
   const $cancelButton = Button({
-    onClick: handleNewCardVisibility,
+    onClick: toggleCardVisible,
     className: [styles.button, styles.cancelButton],
     innerHTML: "취소",
     type: "button",
   });
 
-  const $confirmButton = Button({
-    className: [styles.button, styles.confirmButton],
+  const addButtonProps = {
+    className: [styles.button, styles.addButton],
     innerHTML: "등록",
     type: "submit",
     ref: addButtonRef,
-  });
+  };
+
+  if (!inputValues) {
+    addButtonProps.className = [
+      ...addButtonProps.className,
+      styles.deactiveButton,
+    ];
+    addButtonProps.disabled = "";
+  }
+
+  const $addButton = Button(addButtonProps);
 
   const $buttonArea = peact.createElement({
     tag: "div",
     className: styles.buttons,
-    child: [$cancelButton, $confirmButton],
+    child: [$cancelButton, $addButton],
   });
 
   return peact.createElement({
     tag: "form",
     className: styles.cardWritable,
     attrs: {
+      "data-column-id": columnId,
       onSubmit: handleSubmitForm,
     },
     child: [$inputAuthor, $cardWritableHeader, $inputDesc, $buttonArea],
