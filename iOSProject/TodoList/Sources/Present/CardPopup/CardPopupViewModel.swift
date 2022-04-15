@@ -51,7 +51,7 @@ struct CardPopupData {
 
 typealias CardPopupViewModelProtocol = CardPopupViewModelBinding
 
-class CardPopupViewModel: CardPopupViewModelProtocol {
+final class CardPopupViewModel: CardPopupViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
     

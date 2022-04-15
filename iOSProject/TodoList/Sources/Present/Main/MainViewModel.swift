@@ -25,7 +25,7 @@ protocol MainViewModelBinding {
 
 typealias MainViewModelProtocol = MainViewModelBinding
 
-class MainViewModel: MainViewModelProtocol {
+final class MainViewModel: MainViewModelProtocol {
     
     private var cancellables = Set<AnyCancellable>()
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
@@ -65,7 +65,6 @@ class MainViewModel: MainViewModelProtocol {
         requestLoadColumns
             .compactMap{ $0.error }
             .sink { error in
-                print(error)
             }.store(in: &cancellables)
     }
 }

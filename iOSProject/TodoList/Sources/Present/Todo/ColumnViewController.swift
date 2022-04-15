@@ -205,7 +205,6 @@ extension ColumnViewController: UITableViewDropDelegate {
             let dragCards = items.compactMap{ $0 as? DragCard }
             
             dragCards.forEach { dragCard in
-                print(destinationIndexPath)
                 self.delegate?.columnView(self, dragCard: dragCard, toColumn: self.model.columnType, toRow: destinationIndexPath.section + destinationIndexPath.item)
             }
         }

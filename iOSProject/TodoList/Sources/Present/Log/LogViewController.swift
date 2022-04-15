@@ -9,7 +9,6 @@ import UIKit
 import Combine
 
 class LogViewController: UIViewController {
-    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +86,6 @@ class LogViewController: UIViewController {
     }
 }
 
-
 extension LogViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return model.logCount
@@ -100,5 +98,3 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
 }
-
-

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockDataBase {
+final class MockDataBase {
     
     private var cards: [MockCard]
     private var logs: [MockLog]

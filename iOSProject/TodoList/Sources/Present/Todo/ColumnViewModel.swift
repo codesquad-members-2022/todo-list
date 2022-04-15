@@ -43,7 +43,7 @@ protocol ColumnViewModelProperty {
 
 typealias ColumnViewModelProtocol = ColumnViewModelBinding & ColumnViewModelProperty
 
-class ColumnViewModel: ColumnViewModelProtocol {
+final class ColumnViewModel: ColumnViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     private let todoRepository: TodoRepository = TodoRepositoryImpl()
     private var cards: [Card]
@@ -114,7 +114,6 @@ class ColumnViewModel: ColumnViewModelProtocol {
                 requestDeleateCard.compactMap{ $0.error }
             )
             .sink { error in
-                print(error)
             }.store(in: &cancellables)
 
         action.addCard
