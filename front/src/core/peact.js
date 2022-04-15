@@ -22,7 +22,13 @@ const peact = (function () {
     $el.addEventListener(eventType.toLowerCase(), callback);
   };
 
-  const createElement = ({ tag, id, className, attrs = null, child }) => {
+  const useRef = () => {
+    return {
+      current: null,
+    };
+  };
+
+  const createElement = ({ tag, id, ref, className, attrs = null, child }) => {
     const $element = document.createElement(tag);
     if (id) {
       $element.id = id;
@@ -32,7 +38,7 @@ const peact = (function () {
     }
     if (attrs) {
       Object.entries(attrs).forEach(([key, value]) => {
-        if (key.includes("on")) {
+        if (key.slice(0, 2) === "on") {
           addEvent($element, key, value);
         } else {
           $element.setAttribute(key, value);
@@ -49,6 +55,9 @@ const peact = (function () {
       child.forEach((childElement) => {
         $element.appendChild(childElement);
       });
+    }
+    if (ref) {
+      ref.current = $element;
     }
     return $element;
   };
@@ -98,7 +107,7 @@ const peact = (function () {
     return [value, setValue];
   };
 
-  return { setRoot, useState, useEffect, render, createElement };
+  return { setRoot, useState, useEffect, render, createElement, useRef };
 })();
 
 export default peact;

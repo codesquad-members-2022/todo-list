@@ -23,7 +23,7 @@
   line-height: 20px;
 }
 
-.xButton {
+.xButtonWrap {
   cursor: pointer;
 }
 
@@ -50,4 +50,8 @@
   font-weight: 400;
   font-size: 12px;
   color: var(--dark-gray);
+}
+
+.hide {
+  display: none;
 }

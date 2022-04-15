@@ -1,4 +1,8 @@
-.cardsArea {
+.cards {
   max-height: calc(100vh - 190px);
   overflow: auto;
+}
+
+.cardWritableVisible {
+  display: flex;
 }

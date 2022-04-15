@@ -1,24 +1,80 @@
-import peact from "../../../core/peact";
-import Card from "../Card/Card";
+import { getISODateDiff } from "common/dateUtils";
+import Card from "components/Content/Card/Card";
+import cardStyles from "components/Content/Card/card.module.css";
+import CardWritable from "components/Content/CardWritable/CardWritable";
+import peact from "core/peact";
+import todoApi from "service/todoApi";
+
 import styles from "./cards.module.css";
 
-const Cards = ({ todos, handleRenderFlag }) => {
-  const setTodosSortByLatest = (a, b) =>
-    new Date(b.updatedAt) - new Date(a.updatedAt);
+const getSortedDatabyLatest = (data) => {
+  return data.sort((a, b) => getISODateDiff(b.updatedAt, a.updatedAt));
+};
 
-  const getCardsTemplate = (todo) => {
-    return peact.createElement({
-      tag: "div",
-      className: styles.cardsArea,
-      child: [Card({ todo, handleRenderFlag })],
+const Cards = ({ $newCard, todos, handlers }) => {
+  const { handleRenderFlag } = handlers;
+
+  const cardsRef = peact.useRef();
+
+  const createCard = (todo) => {
+    const cardRef = peact.useRef();
+    const cardWritableRef = peact.useRef();
+
+    const toggleCardVisible = () => {
+      cardsRef.current.removeChild(cardWritableRef.current);
+      cardRef.current.classList.toggle(cardStyles.hide);
+    };
+
+    const handleSubmitForm = async (event) => {
+      event.preventDefault();
+      const { title, desc, author } = event.target;
+      const requestBody = {
+        title: title.value,
+        desc: desc.value,
+        author: author.value,
+      };
+      await todoApi.updateTodo(todo._id, requestBody);
+      cardsRef.current.removeChild(cardWritableRef.current);
+      handleRenderFlag();
+    };
+
+    const handleDoubleClickCard = () => {
+      const $card = cardRef.current;
+      const $title = $card.querySelector(`.${cardStyles.title}`);
+      const $desc = $card.querySelector(`.${cardStyles.cardContent}`);
+      const $author = $card.querySelector(`.${cardStyles.author}`);
+
+      const inputValues = {
+        title: $title.textContent,
+        desc: $desc.textContent,
+        author: $author.textContent,
+      };
+
+      const $cardWritable = CardWritable({
+        toggleCardVisible,
+        handleSubmitForm,
+        inputValues,
+        isVisible: true,
+        ref: cardWritableRef,
+      });
+      cardsRef.current.insertBefore($cardWritable, $card);
+      $card.classList.toggle(cardStyles.hide);
+    };
+
+    return Card({
+      todo,
+      ref: cardRef,
+      handlers: { ...handlers, handleDoubleClickCard },
     });
   };
 
-  const childElements = todos.sort(setTodosSortByLatest).map(getCardsTemplate);
+  const todoElements = getSortedDatabyLatest(todos).map(createCard);
 
   return peact.createElement({
     tag: "div",
-    child: childElements,
+    className: styles.cards,
+    child: [$newCard, ...todoElements],
+    ref: cardsRef,
   });
 };
 

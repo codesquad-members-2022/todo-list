@@ -1,17 +1,18 @@
 .cardWritable {
   height: 140px;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   background-color: #fff;
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
+  margin-bottom: 15px;
   padding: 15px;
   border: 1px solid #0075de;
   border-radius: 6px;
 }
 
-.cardWritable:not(:last-child) {
-  margin-bottom: 15px;
+.cardWritable.show {
+  display: flex;
 }
 
 .headerArea {
@@ -45,6 +46,7 @@
 .button {
   width: 130px;
   height: 40px;
+  cursor: pointer;
 }
 
 .cancelButton {
@@ -56,16 +58,17 @@
   border-radius: 6px;
 }
 
-.confirmButton {
+.addButton {
   font-weight: 700;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.4);
-  background: #86c6ff;
+  color: #fff;
+  background: #0075de;
   border: 0;
   border-radius: 6px;
 }
 
-.activeButton {
-  color: #fff;
-  background: #0075de;
+.deactiveButton {
+  cursor: default;
+  color: rgba(255, 255, 255, 0.4);
+  background: #86c6ff;
 }

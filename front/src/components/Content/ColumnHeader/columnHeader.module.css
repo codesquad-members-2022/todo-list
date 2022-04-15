@@ -1,4 +1,4 @@
-.header {
+.titleArea {
   display: flex;
   justify-content: space-between;
   padding: 15px;
@@ -31,4 +31,18 @@
 
 .buttonArea :not(:last-child) {
   margin-right: 10px;
+}
+
+.plusButton,
+.deleteButton {
+  cursor: pointer;
+  fill: #bdbdbd;
+}
+
+.plusButtonHover {
+  fill: #0075de;
+}
+
+.deleteButtonHover {
+  fill: #ff4343;
 }

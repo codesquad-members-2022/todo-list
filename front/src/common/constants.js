@@ -1,6 +1,6 @@
 export const LOG_TYPE = {
-  create: "등록",
-  delete: "삭제",
-  update: "변경",
-  move: "이동",
+  CREATE: "등록",
+  DELETE: "삭제",
+  UPDATE: "변경",
+  MOVE: "이동",
 };

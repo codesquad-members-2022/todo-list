@@ -1,4 +1,5 @@
-import peact from "../../core/peact";
+import peact from "core/peact";
+
 import styles from "./header.module.css";
 
 const Header = () => {

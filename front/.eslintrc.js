@@ -11,6 +11,15 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:import/recommended",
   ],
+  settings: {
+    "import/resolver": {
+      webpack: {
+        env: {
+          DEPLOY: true,
+        },
+      },
+    },
+  },
   rules: {
     "prettier/prettier": [
       "error",
@@ -34,5 +43,6 @@ module.exports = {
     "import/prefer-default-export": "off",
     "func-names": "off",
     "no-underscore-dangle": ["error", { allow: ["_id"] }],
+    "no-param-reassign": "off",
   },
 };
