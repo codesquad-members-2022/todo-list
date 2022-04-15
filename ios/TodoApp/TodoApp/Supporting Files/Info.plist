@@ -8,7 +8,7 @@
 		<true/>
 	</dict>
 	<key>SERVER_BASE_URL</key>
-	<string>https://1dc4c2f3-00b4-446d-a22a-d6920eaee622.mock.pstmn.io</string>
+	<string>http://3.38.240.18:8080</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
