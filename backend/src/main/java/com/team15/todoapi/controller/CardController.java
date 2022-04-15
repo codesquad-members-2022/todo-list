@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,21 @@ public class CardController {
 		}
 
 		DefaultResponse response = cardService.add(cardRequest);
+		CardResponse.AddInfo cardResponse = (CardResponse.AddInfo) response.getCustomResponse();
+
+		return new ResponseEntity(cardResponse, response.getHttpStatus());
+	}
+
+	@PatchMapping
+	public ResponseEntity update(@RequestBody @Validated CardRequest cardRequest,
+		BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			log.info("Card UPDATE - 검증 오류 발생! error = {} ", bindingResult);
+			return new ResponseEntity(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+		}
+
+		DefaultResponse response = cardService.upate(cardRequest);
 		CardResponse.AddInfo cardResponse = (CardResponse.AddInfo) response.getCustomResponse();
 
 		return new ResponseEntity(cardResponse, response.getHttpStatus());
