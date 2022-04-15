@@ -27,9 +27,11 @@ class EditCardView: UIView {
     func setPreviousCardData(with card: TaskCard?) {
         guard let card = card else {
             self.instruction.text = "새로운 카드 추가"
+            self.editButton.titleLabel?.text = "등록"
             return
         }
         self.instruction.text = "카드 수정"
+        self.editButton.titleLabel?.text = "수정"
         self.title.text = card.title
         self.content.text = card.content
     }
