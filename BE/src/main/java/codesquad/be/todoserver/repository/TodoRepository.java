@@ -10,7 +10,9 @@ public interface TodoRepository {
 
 	Optional<Todo> findById(Long id);
 
-	List<Todo> findAllTodos();
+	List<Todo> findAll();
 
-	Todo saveTodo(Todo todo);
+	Todo save(Todo todo);
+
+	boolean deleteById(Long id);
 }

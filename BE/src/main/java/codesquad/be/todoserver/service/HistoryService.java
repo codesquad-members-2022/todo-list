@@ -18,7 +18,7 @@ public class HistoryService {
 	}
 
 	public List<History> getAllHistory() {
-		List<History> histories = historyRepository.findAllHistory();
+		List<History> histories = historyRepository.findAll();
 
 		if (histories.isEmpty()) {
 			throw new NoSuchElementException("Empty History");

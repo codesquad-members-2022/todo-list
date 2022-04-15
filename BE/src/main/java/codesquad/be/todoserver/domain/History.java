@@ -1,10 +1,11 @@
 package codesquad.be.todoserver.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class History {
 
 	private Long id;
@@ -14,7 +15,6 @@ public class History {
 	private final String action;
 	private final String fromStatus;
 	private final String toStatus;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
 	private final LocalDateTime createdAt;
 
 	public History(Long id, Long todoId, String todoTitle, String user, String action,
@@ -40,9 +40,8 @@ public class History {
 		this.createdAt = LocalDateTime.now();
 	}
 
-	public static History createAddHistoryBy(Todo todo) {
-		return new History(todo.getId(), todo.getTitle(), todo.getUser(), "add",
-			"", todo.getStatus());
+	public static History of(Todo todo, Action action) {
+		return action.createHistoryBy(todo);
 	}
 
 }

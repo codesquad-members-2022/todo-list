@@ -47,8 +47,15 @@ class TodoRepositoryTest {
 
 	@Test
 	void 전체_투두리스트_조회_성공() {
-		List<Todo> todos = todoRepository.findAllTodos();
+		List<Todo> todos = todoRepository.findAll();
 
 		assertThat(todos).hasSize(4);
+	}
+
+	@Test
+	void 특정_투두_삭제_성공() {
+		boolean result = todoRepository.deleteById(1L);
+
+		assertThat(result).isTrue();
 	}
 }

@@ -22,21 +22,21 @@ public class TodoJdbcRepository implements TodoRepository {
 
 	@Override
 	public Optional<Todo> findById(Long id) {
-		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO WHERE id = ?";
+		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO WHERE id = ? AND DELETED = 0";
 		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper(), id);
 
 		return todos.stream().findAny();
 	}
 
 	@Override
-	public List<Todo> findAllTodos() {
-		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO";
+	public List<Todo> findAll() {
+		String sql = "SELECT id, title, contents, user, status, created_at, updated_at FROM TODO WHERE DELETED = 0";
 		List<Todo> todos = jdbcTemplate.query(sql, todoRowMapper());
 		return todos;
 	}
 
 	@Override
-	public Todo saveTodo(Todo todo) {
+	public Todo save(Todo todo) {
 		String sql = "INSERT INTO TODO (TITLE, CONTENTS, USER, STATUS, CREATED_AT, UPDATED_AT) VALUES (?, ?, ?, ?, ?, ?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -46,13 +46,19 @@ public class TodoJdbcRepository implements TodoRepository {
 			ps.setString(2, todo.getContents());
 			ps.setString(3, todo.getUser());
 			ps.setString(4, todo.getStatus());
-			ps.setDate(5, java.sql.Date.valueOf(todo.getCreatedAt().toLocalDate()));
-			ps.setDate(6, java.sql.Date.valueOf(todo.getUpdatedAt().toLocalDate()));
+			ps.setTimestamp(5, java.sql.Timestamp.valueOf(todo.getCreatedAt()));
+			ps.setTimestamp(6, java.sql.Timestamp.valueOf(todo.getUpdatedAt()));
 			return ps;
 		}, keyHolder);
 		todo.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
 
 		return todo;
+	}
+
+	@Override
+	public boolean deleteById(Long id) {
+		String sql = "UPDATE TODO SET deleted = 1 WHERE id = ?";
+		return jdbcTemplate.update(sql, id) == 1;
 	}
 
 	public RowMapper<Todo> todoRowMapper() {

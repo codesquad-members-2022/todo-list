@@ -41,13 +41,6 @@ class HistoriesApiAcceptanceTest {
 			.andExpect(jsonPath("$.[0].id").value(1))
 			.andExpect(jsonPath("$.[0].todoId").value(1))
 			.andExpect(jsonPath("$.[0].todoTitle").value("Github 공부하기"))
-			.andExpect(jsonPath("$.[0].action").value("add"))
-
-			.andExpect(jsonPath("$.[1].id").value(2))
-			.andExpect(jsonPath("$.[1].todoId").value(1))
-			.andExpect(jsonPath("$.[1].todoTitle").value("Github 공부하기"))
-			.andExpect(jsonPath("$.[1].action").value("move"))
-			.andExpect(jsonPath("$.[1].fromStatus").value("todo"))
-			.andExpect(jsonPath("$.[1].toStatus").value("doing"));
+			.andExpect(jsonPath("$.[0].action").value("add"));
 	}
 }

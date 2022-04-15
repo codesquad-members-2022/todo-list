@@ -20,14 +20,14 @@ public class HistoryJdbcRepository implements HistoryRepository {
 
 
 	@Override
-	public List<History> findAllHistory() {
+	public List<History> findAll() {
 		String sql = "SELECT id, todo_id, todo_title, user, action, from_status, to_status, created_at FROM HISTORY";
 
 		return jdbcTemplate.query(sql, historyRowMapper());
 	}
 
 	@Override
-	public void saveHistory(History history) {
+	public void save(History history) {
 		String sql =
 			"INSERT INTO HISTORY (todo_id, todo_title, user, action, from_status, to_status, created_at)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -40,7 +40,7 @@ public class HistoryJdbcRepository implements HistoryRepository {
 			ps.setString(4, history.getAction());
 			ps.setString(5, history.getFromStatus());
 			ps.setString(6, history.getToStatus());
-			ps.setDate(7, java.sql.Date.valueOf(history.getCreatedAt().toLocalDate()));
+			ps.setTimestamp(7, java.sql.Timestamp.valueOf(history.getCreatedAt()));
 			return ps;
 		});
 	}
