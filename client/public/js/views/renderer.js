@@ -21,7 +21,9 @@ export function renderAllItems(itemList) {
   itemList.forEach(renderItem);
 }
 
-export function renderItem({ id, columnId, title, content }) {
+export function renderItem({ id, columnId, title, content, state }) {
+  if (state === false) return;
+
   const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
   insertElement(itemListEl, "afterbegin", createItem({ id, title, content }));
   renderColumnLength(columnId);
@@ -37,6 +39,8 @@ export function renderItemDeleteAlert() {
 }
 
 export function renderAllHistory(historyList) {
+  const historyListEl = qs(".history-list");
+  historyListEl.innerHTML = "";
   historyList.forEach(renderHistory);
 }
 

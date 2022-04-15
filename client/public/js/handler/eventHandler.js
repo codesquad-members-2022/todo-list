@@ -1,9 +1,7 @@
 import { qs, on, delegate, getParentElementByDataset, createNextId } from "../utils/helpers.js";
-import { renderItemForm, renderItem, renderColumnLength } from "../views/renderer.js";
+import { renderItemForm, renderItem, renderColumnLength, renderAllHistory } from "../views/renderer.js";
 
 export function bindEvents(store) {
-  const Store = store;
-
   const el = {
     columnList: qs(".column-list"),
     columnAdd: qs(".column-add"),
@@ -40,7 +38,7 @@ export function bindEvents(store) {
 
   function showHistoryBar() {
     el.historyBar.classList.toggle("show");
-    // 히스토리 상대 날짜 리렌더링
+    renderAllHistory(store.history);
   }
 
   function hideHistoryBar() {
@@ -63,7 +61,7 @@ export function bindEvents(store) {
   function registItem(event) {
     event.preventDefault();
 
-    const id = createNextId(Store.getItems());
+    const id = createNextId(store.getItems());
     const columnId = _getColumnId(event.target);
     const title = qs(selector.itemFormInput).value;
     const content = qs(selector.itemFormTextarea).value;
@@ -71,14 +69,14 @@ export function bindEvents(store) {
 
     const newItem = { id, columnId, title, content, date };
 
-    Store.addItem(newItem);
-    renderItem(newItem);
+    renderItem(store.addItem(newItem));
     removeItemForm();
+
   }
 
   function removeItem(event) {
     const itemId = _getItemId(event.target);
-    Store.removeItem(itemId);
+    store.removeItem(itemId);
 
     const columnId = _getColumnId(event.target);
     renderColumnLength(columnId, false);

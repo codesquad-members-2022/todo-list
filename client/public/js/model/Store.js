@@ -13,19 +13,24 @@ export default class Store {
     return this.items;
   }
 
+  getHistory() {
+    return this.history;
+  }
+
   addColumn() {}
   removeColumn() {}
   updateColumn() {}
 
   addItem({ id, columnId, title, content, date }) {
-    this.items.push({ id, columnId, title, content, date });
+    const newItem = { id, columnId, title, content, date };
+    this.items.push(newItem);
+    return newItem;
   }
 
   removeItem(itemId) {
     const itemIndex = this.items.findIndex((item) => item.id === itemId);
-    this.items.splice(itemIndex, 1);
+    this.items[itemIndex].state = false;
   }
 
   updateItem() {}
 }
-
