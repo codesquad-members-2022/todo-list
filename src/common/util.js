@@ -20,6 +20,15 @@ export const hasClassName = (element, className) => {
   return element.classList.contains(className);
 };
 
+export const getNodeIndex = (node) => {
+  let idx = 0;
+  while (node.previousSibling) {
+    idx++;
+    node = node.previousSibling;
+  }
+  return idx;
+};
+
 export const request = {
   async allState() {
     const rawState = await (await fetch(`${URL}/columns`)).json();
@@ -50,6 +59,16 @@ export const request = {
       })
     ).json();
     return updatedColumnState;
+  },
+
+  async moveCard(originalParentColumnID, cardID, newParentColumnID, movedIdx) {
+    const updatedColumnStates = await (
+      await fetch(`${URL}/columns/${originalParentColumnID}/${cardID}/${newParentColumnID}/${movedIdx}`, {
+        method: "POST",
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+      })
+    ).json();
+    return updatedColumnStates;
   }
 };
 

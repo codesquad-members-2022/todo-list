@@ -134,6 +134,27 @@ router.delete("/:columnId/:cardId/delete/", getColumn, async (req, res) => {
   }
 });
 
+//Move Card
+router.post("/:columnId/:cardId/:targetColumnId/:index", getColumn, async (req, res) => {
+  const card = res.column.cards.filter((v) => v["_id"] == req.params.cardId)[0];
+  const targetColumn = await Column.findById(req.params.targetColumnId);
+  const log = new Log({
+    log: `${card.title}이/가 ${res.column.title}에서 ${targetColumn.title}로 이동되었습니다.`,
+  });
+
+  try {
+    const tempCard = res.column.cards.splice(res.column.cards.indexOf(card), 1)[0];
+    targetColumn.cards.splice(req.params.index, 0, tempCard);
+    await res.column.save();
+    await targetColumn.save();
+    await log.save();
+    const columns = await Column.find();
+    res.json(columns);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 //Middleware
 async function getColumn(req, res, next) {
   let column;

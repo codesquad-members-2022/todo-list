@@ -6,13 +6,7 @@ export const Store = {
 
   async setInitialState() {
     const rawColumnStates = await request.allState();
-    const parsedColumnStates = {};
-    this.state = pipe(
-      arrangeColumnOrder,
-      storeEachColumnState,
-      arrangeEachColumnCardOrder,
-      storeEachColumnCardStates
-    )([rawColumnStates, parsedColumnStates]);
+    this.state = parseRawColumnStates(rawColumnStates);
   },
 
   setAddingCardState(columnID) {
@@ -48,7 +42,28 @@ export const Store = {
   changeCardType(columnID, cardID, type) {
     this.state[columnID].cards[cardID].type = type;
     observer.notify("column", this.state[columnID]);
+  },
+
+  async changeCardPosition(originalParentColumnID, cardID, newParentColumnID, movedIdx) {
+    const resultColumnStates = await request.moveCard(
+      originalParentColumnID,
+      cardID,
+      newParentColumnID,
+      movedIdx
+    );
+    const parsedColumnStates = parseRawColumnStates(resultColumnStates);
+    this.state = parsedColumnStates;
   }
+};
+
+const parseRawColumnStates = (rawColumnStates) => {
+  const parsedRawColumnStates = pipe(
+    arrangeColumnOrder,
+    storeEachColumnState,
+    arrangeEachColumnCardOrder,
+    storeEachColumnCardStates
+  )([rawColumnStates, {}]);
+  return parsedRawColumnStates;
 };
 
 const arrangeColumnOrder = ([rawColumnStates, parsedColumnStates]) => {

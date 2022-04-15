@@ -3,7 +3,8 @@ import {
   insertNodeBefore,
   insertNodeAfter,
   removeNodeself,
-  hasClassName
+  hasClassName,
+  getNodeIndex
 } from "../../../../../common/util.js";
 import { CARD_TYPE } from "../../../../../common/variable.js";
 import { Store } from "../../../../../stores/ColumnStore.js";
@@ -215,6 +216,8 @@ const getIDs = (cardNode) => {
 
 const handleSingleMouseDownEvent = (e, cardNode) => {
   const [originalCardTop, originalCardLeft] = getOriginalCardPositions(cardNode);
+  const originalParentColumnID = getIDs(cardNode)[0];
+  const originalCardIdx = getNodeIndex(cardNode);
   const shadowCardNode = makeShadowCardNode(cardNode);
   const followingCardNode = makeFollowingCardNode(cardNode, originalCardTop, originalCardLeft);
 
@@ -222,7 +225,13 @@ const handleSingleMouseDownEvent = (e, cardNode) => {
   const shiftY = e.clientY - originalCardTop;
 
   const mouseMoveHandler = getMouseMoveHandler(shiftX, shiftY, shadowCardNode, followingCardNode);
-  const mouseUpHandler = getMouseUpHandler(mouseMoveHandler, shadowCardNode, followingCardNode);
+  const mouseUpHandler = getMouseUpHandler(
+    mouseMoveHandler,
+    shadowCardNode,
+    followingCardNode,
+    originalParentColumnID,
+    originalCardIdx
+  );
   document.body.addEventListener("mousemove", mouseMoveHandler);
   document.body.addEventListener("mouseup", mouseUpHandler, { once: true });
 };
@@ -257,9 +266,16 @@ const getMouseMoveHandler = (shiftX, shiftY, shadowCardNode, followingCardNode) 
   handleCardShadow(shadowCardNode, followingCardNode, event);
 };
 
-const getMouseUpHandler = (mouseMoveHandler, shadowCardNode, followingCardNode) => () => {
-  endDragDropEvent(mouseMoveHandler, shadowCardNode, followingCardNode);
-};
+const getMouseUpHandler =
+  (mouseMoveHandler, shadowCardNode, followingCardNode, originalParentColumnID, originalCardIdx) => () => {
+    endDragDropEvent(
+      mouseMoveHandler,
+      shadowCardNode,
+      followingCardNode,
+      originalParentColumnID,
+      originalCardIdx
+    );
+  };
 
 const handleFollowingCard = (shiftX, shiftY, followingCardNode, event) => {
   const [posX, posY] = getCardPosition(shiftX, shiftY, event);
@@ -326,12 +342,18 @@ const inspectElementClass = (underMouseElement) => {
   }
 };
 
-const endDragDropEvent = (mouseMoveHandler, shadowCardNode, followingCardNode) => {
+const endDragDropEvent = (
+  mouseMoveHandler,
+  shadowCardNode,
+  followingCardNode,
+  originalParentColumnID,
+  originalCardIdx
+) => {
   document.body.removeEventListener("mousemove", mouseMoveHandler);
   putFollowingCardOnShawdow(followingCardNode, shadowCardNode);
   disconnectFollowingCard(followingCardNode);
   removeNodeself(shadowCardNode);
-  //서버한테 전송하는 등의 마무리 작업 로직 추가 필요
+  updateResult(followingCardNode, originalParentColumnID, originalCardIdx);
 };
 
 const putFollowingCardOnShawdow = (followingCardNode, shadowCardNode) => {
@@ -343,6 +365,18 @@ const disconnectFollowingCard = (followingCardNode) => {
   followingCardNode.style.left = 0;
   followingCardNode.style.top = 0;
 };
+
+const updateResult = (followingCardNode, originalParentColumnID, originalCardIdx) => {
+  const [newParentColumnID, cardID] = getIDs(followingCardNode);
+  const movedIdx = getNodeIndex(followingCardNode);
+  if (isCardPositionChanged(originalParentColumnID, newParentColumnID, originalCardIdx, movedIdx))
+    Store.changeCardPosition(originalParentColumnID, cardID, newParentColumnID, movedIdx);
+};
+
+const isCardPositionChanged = (originalParentColumnID, newParentColumnID, originalCardIdx, movedIdx) => {
+  return originalParentColumnID !== newParentColumnID || originalCardIdx !== movedIdx;
+};
+
 
 export const reRenderCard = (cardState) => {
   const cardNode = findCardNode(cardState._id);
