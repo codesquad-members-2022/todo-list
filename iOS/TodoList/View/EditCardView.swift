@@ -24,6 +24,16 @@ class EditCardView: UIView {
         super.init(coder: coder)
     }
     
+    func setPreviousCardData(with card: TaskCard?) {
+        guard let card = card else {
+            self.instruction.text = "새로운 카드 추가"
+            return
+        }
+        self.instruction.text = "카드 수정"
+        self.title.text = card.title
+        self.content.text = card.content
+    }
+    
     @IBAction func editButtonTapped(_ sender: UIButton) {
         let inputData: (String) -> RequestCardData = { section in RequestCardData(section: section, title: self.title.text ?? "", content: self.content.text ?? "") }
         delegate?.didAddButtonTouched(completion: inputData)

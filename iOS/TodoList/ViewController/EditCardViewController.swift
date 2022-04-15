@@ -16,6 +16,7 @@ class EditCardViewController: UIViewController {
     private func setUpView() {
         self.editCardView.delegate = self
         self.centerView.addSubview(editCardView)
+        self.editCardView.setPreviousCardData(with: card)
     }
     
 }
