@@ -224,4 +224,40 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
         }
     }
 
+    fun addTask(type: Int, index: Int, task: TaskDetailResponse) {
+        when(type) {
+            1 -> {
+                if(index == -1) todoItem.add(task.copy(status = Status.TODO))
+                else todoItem.add(index, task.copy(status = Status.TODO))
+                _todoTask.value = todoItem
+            }
+            2 -> {
+                if(index == -1) inProgressItem.add(task.copy(status = Status.IN_PROGRESS))
+                else inProgressItem.add(index, task.copy(status = Status.IN_PROGRESS))
+                _inProgressTask.value = inProgressItem
+            }
+            else -> {
+                if(index == -1) doneItem.add(task.copy(status = Status.DONE))
+                else doneItem.add(index, task.copy(status = Status.DONE))
+                _doneTask.value = doneItem
+            }
+        }
+    }
+
+    fun remove(index: Int, task: TaskDetailResponse) {
+        when(task.status) {
+            Status.TODO -> {
+                todoItem.removeAt(index)
+                _todoTask.value = todoItem
+            }
+            Status.IN_PROGRESS -> {
+                inProgressItem.removeAt(index)
+                _inProgressTask.value = inProgressItem
+            }
+            else -> {
+                doneItem.removeAt(index)
+                _doneTask.value = doneItem
+            }
+        }
+    }
 }
