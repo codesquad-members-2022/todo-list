@@ -1,9 +1,9 @@
 import TodoEdit from './TodoEdit.js';
 import Modal from './Modal.js';
 import { popupRemoveTitle } from '../constants/modal.js';
-import { createNotice, handleNotice } from '../utils/action.js';
+import { createNotice, handleNotice } from '../../utils/action.js';
 import { ONCLICK, DBLCLICK } from '../constants/constants.js';
-import { getLocalStorageByKey } from '../utils/localStorage.js';
+import { getLocalStorageByKey } from '../../utils/localStorage.js';
 
 export default class Todo {
   constructor(todoData, handleMinusCount) {

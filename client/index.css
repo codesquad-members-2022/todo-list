@@ -245,6 +245,7 @@ button {
 
 .input-wrapper {
   padding: 16px;
+  margin-bottom: 20px;
 }
 
 .input-wrapper,
@@ -388,7 +389,7 @@ body {
 
 .column-section {
   width: 1440px;
-  height: 100vh;
+  height: calc(100vh - 112px);
   display: flex;
   margin: 0 auto;
 }
@@ -491,7 +492,8 @@ body {
   border-radius: 50%;
   background-color: #0075de;
   position: absolute;
-  right: 0%;
+  right: 0;
+  bottom: 0;
 }
 .fabBtn .fab__addBtn {
   text-align: center;

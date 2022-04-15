@@ -1,76 +1,19 @@
 {
-  "todos": [
+  "posts": [
     {
       "id": 1,
-      "title": "GitHub 공부하기",
-      "content": "add, commit, push",
-      "status": "ing",
-      "isDeleted": false,
-      "userId": 1
-    },
-    {
-      "id": 2,
-      "title": "GitHub 공부하기",
-      "content": "add, commit, push",
-      "status": "todo",
-      "isDeleted": false,
-      "userId": 1
-    },
-    {
-      "id": 3,
-      "title": "GitHub 공부하기",
-      "content": "add, commit, push",
-      "status": "complete",
-      "isDeleted": false,
-      "userId": 2
-    },
-    {
-      "id": 4,
-      "title": "GitHub 공부하기",
-      "content": "add, commit, push",
-      "status": "complete",
-      "userId": 2
-    },
-    {
-      "id": 5,
-      "title": "GitHub 공부하기",
-      "content": "add, commit, push",
-      "status": "complete",
-      "isDeleted": false,
-      "userId": 3
-    },
-    {
-      "id": 6,
-      "title": "GitHub 공부하기",
-      "content": "add, commit, push",
-      "status": "complete",
-      "isDeleted": false,
-      "userId": 3
-    },
-    {
-      "id": 7,
-      "title": "test777",
-      "content": "test777content",
-      "status": "complete",
-      "isDeleted": false,
-      "userId": 1
+      "title": "json-server",
+      "author": "typicode"
     }
   ],
-  "columns": [
+  "comments": [
     {
       "id": 1,
-      "title": "해야할일",
-      "isDeleted": false
-    },
-    {
-      "id": 2,
-      "title": "하고있는일",
-      "isDeleted": false
-    },
-    {
-      "id": 3,
-      "title": "완료한일",
-      "isDeleted": false
+      "body": "some comment",
+      "postId": 1
     }
-  ]
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }

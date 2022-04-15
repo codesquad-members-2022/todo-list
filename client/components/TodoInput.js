@@ -1,9 +1,9 @@
 import Todo from './Todo.js';
-import { activationForm } from '../utils/handleStyle.js';
+import { activationForm } from '../../utils/handleStyle.js';
 import { TEXTAREA_DEFAULT_HEIGHT, TEXTAREA_RESIZE_HEIGHT } from '../constants/constants.js';
-import { getLocalStorageByKey, getLastIdByKey } from '../utils/localStorage.js';
-import { $ } from '../utils/dom.js';
-import { createNotice, handleNotice } from '../utils/action.js';
+import { getLocalStorageByKey, getLastIdByKey } from '../../utils/localStorage.js';
+import { $ } from '../../utils/dom.js';
+import { createNotice, handleNotice } from '../../utils/action.js';
 
 export default class TodoInput {
   constructor(status, setOnInput, handleAddCount, handleMinusCount) {
