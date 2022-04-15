@@ -184,7 +184,13 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let customTable = tableView as? TodoTableView, let index = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return }
+
         if editingStyle == .delete{
+            let card = cardBoard[index]
+            let deleteId = card[indexPath.section].id
+            Board.shared.deleteCard(deleteId, at: index)
+            customTable.deleteSections([indexPath.section], with: .fade)
+            
         }
     }
 }
