@@ -2,26 +2,30 @@ package todolist.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import todolist.domain.Card;
-import todolist.dto.RequestCardDto;
-import todolist.dto.ResponseCardDto;
-import todolist.repository.TodoRepository;
+import todolist.domain.card.Card;
+import todolist.dto.card.RequestCardDto;
+import todolist.dto.card.ResponseCardDto;
+import todolist.dto.card.ResponseCardsDto;
+import todolist.repository.CardRepository;
 
 import java.util.*;
 
 @Service
 public class CardService {
 
-    private final TodoRepository<Card> repository;
+    private final CardRepository<Card> repository;
 
     @Autowired
-    public CardService(TodoRepository<Card> repository) {
+    public CardService(CardRepository<Card> repository) {
         this.repository = repository;
     }
 
-    public Map<String, List<Card>> getCards() {
+    public ResponseCardsDto getCards() {
         List<Card> cards = repository.findAll();
-        return categorizeCards(cards);
+
+        ResponseCardsDto responseCardsDto = new ResponseCardsDto();
+        responseCardsDto.categorizeCards(cards);
+        return responseCardsDto;
     }
 
     public ResponseCardDto addCard(RequestCardDto requestCardDto) {
@@ -29,36 +33,21 @@ public class CardService {
         return card.toResponseCardDto();
     }
 
-    public void updateCard(Long id, RequestCardDto requestCardDto) {
-        Card existingCard = repository.findById(id);
-        existingCard.update(requestCardDto);
-
-//        if (card.getSection().equals(requestCardDto.getSection())) {
-//            카드 내용 수정 이벤트
-//            eventMaker.create(new Event(Action.UPDATE)
-//        } else {
-//            섹션 이동 이벤트
-//            eventMaker.create(new Event(Action.MOVE)
-//        }
-//        repository.update(existingCard);
+    public ResponseCardDto updateCard(Long id, RequestCardDto requestCardDto) {
+        Card card = repository.findById(id);
+        card.update(requestCardDto);
+        repository.update(card);
+        return card.toResponseCardDto();
     }
 
-    public void deleteCard(Long id) {
+    public ResponseCardDto deleteCard(Long id) {
+        Card card = repository.findById(id);
         repository.delete(id);
+        return card.toResponseCardDto();
     }
 
-    private Map<String, List<Card>> categorizeCards(List<Card> cards) {
-        Map<String, List<Card>> result = new HashMap<>();
-
-        for (Card card : cards) {
-            String section = card.getSection();
-            if (result.containsKey(section)) {
-                List<Card> cardList = result.get(section);
-                cardList.add(card);
-            } else {
-                result.put(section, new ArrayList<>(Arrays.asList(card)));
-            }
-        }
-        return result;
+    public String getPrevSection(Long id) {
+        Card card = repository.findById(id);
+        return card.getSection();
     }
 }

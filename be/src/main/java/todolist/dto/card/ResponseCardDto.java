@@ -1,4 +1,4 @@
-package todolist.dto;
+package todolist.dto.card;
 
 public class ResponseCardDto {
 
@@ -31,6 +31,3 @@ public class ResponseCardDto {
     }
 
 }
-
-//이름
-//id

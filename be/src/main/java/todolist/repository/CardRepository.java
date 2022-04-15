@@ -1,9 +1,8 @@
 package todolist.repository;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface TodoRepository<T> {
+public interface CardRepository<T> {
     T save(T entity);
 
     T findById(Long id);

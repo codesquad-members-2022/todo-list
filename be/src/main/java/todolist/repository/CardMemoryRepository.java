@@ -1,17 +1,14 @@
 package todolist.repository;
 
-import org.springframework.stereotype.Repository;
-import todolist.domain.Card;
-import todolist.dto.RequestCardDto;
+import todolist.domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
-public class CardMemoryRepository implements TodoRepository<Card> {
+//@Repository
+public class CardMemoryRepository implements CardRepository<Card> {
 
     private static List<Card> store = new ArrayList<>();
     private static AtomicLong id = new AtomicLong();

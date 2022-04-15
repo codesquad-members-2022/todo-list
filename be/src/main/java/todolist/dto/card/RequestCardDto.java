@@ -1,11 +1,9 @@
-package todolist.dto;
+package todolist.dto.card;
 
 import lombok.Getter;
 import lombok.Setter;
-import todolist.domain.Card;
+import todolist.domain.card.Card;
 
-@Getter
-@Setter
 public class RequestCardDto {
 
     private String section;
@@ -16,6 +14,18 @@ public class RequestCardDto {
         this.section = section;
         this.title = title;
         this.content = content;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     public Card toCard() {

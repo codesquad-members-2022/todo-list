@@ -2,13 +2,13 @@ package todolist.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import todolist.domain.Card;
+import todolist.domain.card.Card;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CardMemoryRepositoryTest {
 
-    private TodoRepository<Card> repository = new CardMemoryRepository();
+    private CardRepository<Card> repository = new CardMemoryRepository();
 
     @Test
     @DisplayName("Card 객체를 저장한다.")

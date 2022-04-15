@@ -1,8 +1,8 @@
-package todolist.domain;
+package todolist.domain.card;
 
 import lombok.Getter;
-import todolist.dto.RequestCardDto;
-import todolist.dto.ResponseCardDto;
+import todolist.dto.card.RequestCardDto;
+import todolist.dto.card.ResponseCardDto;
 
 @Getter
 public class Card {

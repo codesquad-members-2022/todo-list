@@ -2,17 +2,17 @@ package todolist.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import todolist.domain.Card;
-import todolist.dto.RequestCardDto;
-import todolist.dto.ResponseCardDto;
+import todolist.domain.card.Card;
+import todolist.dto.card.RequestCardDto;
+import todolist.dto.card.ResponseCardDto;
 import todolist.repository.CardMemoryRepository;
-import todolist.repository.TodoRepository;
+import todolist.repository.CardRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CardServiceTest {
 
-    private TodoRepository<Card> repository= new CardMemoryRepository();
+    private CardRepository<Card> repository= new CardMemoryRepository();
     private CardService service = new CardService(repository);
 
     @Test
