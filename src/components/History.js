@@ -7,13 +7,13 @@ export default class History extends Component {
     const behavior =
       beforePosition === ""
         ? `
-      <span class="user-state">${columnTitle[afterPosition]}</span>에
+      <span class="user-state">${columnTitle[afterPosition - 1]}</span>에
       <span class="user-state">${todo}</span>를(을) ${action}하였습니다.
     `
         : `
       <span class="user-state">${todo}</span>를(을)
-      <span class="user-state">${columnTitle[beforePosition]}</span>에서
-      <span class="user-state">${columnTitle[afterPosition]}</span>로 ${action}하였습니다.
+      <span class="user-state">${columnTitle[beforePosition - 1]}</span>에서
+      <span class="user-state">${columnTitle[afterPosition - 1]}</span>로 ${action}하였습니다.
     `;
 
     return /* html */ `

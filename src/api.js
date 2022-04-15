@@ -46,4 +46,4 @@ const getHistories = async () => {
 const postHistories = async (histories) => {
   postData("histories", histories);
 };
-export { getColumns, getCards, postCard, getHistories, postHistories };
+export { getColumns, getCards, postCard, getHistories, postHistories, deleteData };
