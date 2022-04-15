@@ -6,4 +6,7 @@ public enum Action {
     UPDATE,
     MOVE;
 
+    public boolean isMove() {
+        return this == MOVE;
+    }
 }

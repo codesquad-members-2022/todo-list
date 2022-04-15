@@ -1,8 +1,8 @@
 package todo.list.controller;
 
 import org.springframework.web.bind.annotation.*;
-import todo.list.service.dto.*;
 import todo.list.service.CardService;
+import todo.list.service.dto.*;
 
 @RestController
 @RequestMapping("/cards")
@@ -34,6 +34,12 @@ public class CardController {
     @DeleteMapping("/{cardId}")
     public CommandResultResponse delete(@PathVariable Long cardId) {
         CardCommandResponse cardCommandResponse = cardService.delete(cardId);
+        return new CommandResultResponse(200, cardCommandResponse);
+    }
+
+    @PatchMapping("/{cardId}/move")
+    public CommandResultResponse move(@PathVariable Long cardId, @RequestBody CardMoveRequest cardMoveRequest) {
+        CardCommandResponse cardCommandResponse = cardService.move(cardId, cardMoveRequest);
         return new CommandResultResponse(200, cardCommandResponse);
     }
 }

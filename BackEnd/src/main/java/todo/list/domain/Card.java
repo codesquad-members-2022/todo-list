@@ -10,6 +10,10 @@ public class Card {
     private Author author;
     private LocalDateTime updateDateTime;
 
+    public Card(Long id, CardStatus status) {
+        this(id, null, null, status, LocalDateTime.now(), null);
+    }
+
     public Card(String title, String contents, CardStatus status, Author author) {
         this(null, title, contents, status, LocalDateTime.now(), author);
     }
