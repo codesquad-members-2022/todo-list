@@ -6,7 +6,6 @@ protocol TodoEndPointViewController {
 }
 
 class ViewController: UIViewController {
-    private var dataManager: PersistenceProvider?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,10 +14,6 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         AppDelegate.middleWare.fetchAllCards()
-    }
-    
-    func setDataManager(_ manager: PersistenceProvider) {
-        self.dataManager = manager
     }
 }
 

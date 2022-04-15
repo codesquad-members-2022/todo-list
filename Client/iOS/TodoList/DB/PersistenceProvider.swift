@@ -37,10 +37,6 @@ protocol PersistenceProvider {
 
 
 class BoardPersistenceProvider: PersistenceProvider {
-    static var shared = BoardPersistenceProvider()
-    
-    private init() {}
-        
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")
         container.loadPersistentStores { description, error in
