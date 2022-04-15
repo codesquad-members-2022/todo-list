@@ -45,8 +45,8 @@ export function bindEvents(store) {
 
   function showItemForm(event) {
     removeItemForm();
-    const columnEl = getParentElementByDataset(event.target, "column");
-    const columnId = columnEl.dataset.column;
+
+    const columnId = _getColumnId(event.target);
     renderItemForm(columnId);
     qs(selector.itemFormInput).focus();
   }
