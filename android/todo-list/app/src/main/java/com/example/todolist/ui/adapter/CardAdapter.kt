@@ -19,20 +19,20 @@ import com.example.todolist.databinding.ItemTodoBinding
 import com.example.todolist.ui.common.CardActionHandler
 import com.example.todolist.ui.common.DiffUtil
 
-class TodoAdapter(
+class CardAdapter(
     private val cardActionHandler: CardActionHandler
-) : ListAdapter<Card, TodoAdapter.TodoViewHolder>(DiffUtil) {
+) : ListAdapter<Card, CardAdapter.CardViewHolder>(DiffUtil) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val binding = ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TodoViewHolder(binding)
+        return CardViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class TodoViewHolder(private val binding: ItemTodoBinding) :
+    inner class CardViewHolder(private val binding: ItemTodoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(card: Card) {
@@ -42,7 +42,7 @@ class TodoAdapter(
             drag(card)
             dropHelper(card)
             popupMenu()
-            binding.cioScreen.translationX = 0f
+            binding.cloScreen.translationX = 0f
         }
 
         private fun deleteCard(card: Card) {
@@ -80,13 +80,12 @@ class TodoAdapter(
         fun getDeleteTextViewWidth() =
             binding.tvDeleteCard.width.toFloat()
 
-
         fun getDeleteTextView(): TextView {
             return binding.tvDeleteCard
         }
 
         fun getSwipeView() =
-            binding.cioScreen
+            binding.cloScreen
 
         fun getTag(): Boolean =
             itemView.tag as? Boolean ?: false

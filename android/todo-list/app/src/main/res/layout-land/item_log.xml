@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="history"
             type="com.example.todolist.data.History" />
@@ -12,16 +13,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_log_image"
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/log_user_image"
             android:scaleType="center"
             android:src="@drawable/user_img"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tv_user"
@@ -29,7 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
+            android:includeFontPadding="false"
             android:text="@string/user_name"
             app:layout_constraintStart_toEndOf="@id/iv_log_image"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,11 +42,12 @@
         <TextView
             android:id="@+id/tv_log_body"
             style="@style/TextSubtitle.Black"
-            android:layout_width="wrap_content"
+            textBinding="@{history}"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            textBinding="@{history}"
+            android:includeFontPadding="false"
             app:layout_constraintStart_toEndOf="@id/iv_log_image"
             app:layout_constraintTop_toBottomOf="@id/tv_user"
             tools:text="테스트입니다" />
@@ -53,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            timeStamp="@{history.createdAt}"
             app:layout_constraintStart_toEndOf="@id/iv_log_image"
             app:layout_constraintTop_toBottomOf="@id/tv_log_body"
             tools:text="5분전" />

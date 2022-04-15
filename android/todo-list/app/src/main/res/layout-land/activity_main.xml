@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/todo_grey_02"
+            android:background="@color/todo_grey_01"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.AppBarLayout
@@ -66,12 +66,14 @@
                 android:background="@drawable/background_badge_grey"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:paddingStart="7dp"
-                android:paddingEnd="7dp"
-                android:paddingBottom="2dp"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_todo"
                 app:layout_constraintStart_toEndOf="@+id/tv_todo"
-                app:layout_constraintTop_toTopOf="@+id/tv_todo" />
+                app:layout_constraintTop_toTopOf="@+id/tv_todo"
+                tools:text="2" />
 
             <Button
                 android:id="@+id/btn_todo_add"
@@ -91,26 +93,26 @@
                 android:layout_marginStart="48dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/rv_progress"
+                app:layout_constraintEnd_toStartOf="@+id/rv_ongoing"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_todo"
                 tools:listitem="@layout/item_todo" />
 
             <TextView
-                android:id="@+id/tv_progress"
+                android:id="@+id/tv_ongoing"
                 style="@style/TextTitle.Black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="51dp"
                 android:text="@string/card_progress"
-                app:layout_constraintBottom_toTopOf="@+id/rv_progress"
-                app:layout_constraintEnd_toStartOf="@+id/tv_progress_badge"
-                app:layout_constraintStart_toStartOf="@+id/rv_progress"
+                app:layout_constraintBottom_toTopOf="@+id/rv_ongoing"
+                app:layout_constraintEnd_toStartOf="@+id/tv_ongoing_badge"
+                app:layout_constraintStart_toStartOf="@+id/rv_ongoing"
                 app:layout_constraintTop_toBottomOf="@+id/top_appbar_layout" />
 
             <TextView
-                android:id="@+id/tv_progress_badge"
+                android:id="@+id/tv_ongoing_badge"
                 style="@style/TextBody.Black.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,51 +120,52 @@
                 android:background="@drawable/background_badge_grey"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:paddingStart="7dp"
-                android:paddingEnd="7dp"
-                android:paddingBottom="2dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_progress"
-                app:layout_constraintStart_toEndOf="@+id/tv_progress"
-                app:layout_constraintTop_toTopOf="@+id/tv_progress" />
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_ongoing"
+                app:layout_constraintStart_toEndOf="@+id/tv_ongoing"
+                app:layout_constraintTop_toTopOf="@+id/tv_ongoing" />
 
             <Button
-                android:id="@+id/btn_progress_add"
+                android:id="@+id/btn_ongoing_add"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:background="@drawable/ic_add"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_progress_badge"
-                app:layout_constraintEnd_toEndOf="@+id/rv_progress"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_ongoing_badge"
+                app:layout_constraintEnd_toEndOf="@+id/rv_ongoing"
                 app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintStart_toEndOf="@+id/tv_progress_badge"
-                app:layout_constraintTop_toTopOf="@+id/tv_progress_badge" />
+                app:layout_constraintStart_toEndOf="@+id/tv_ongoing_badge"
+                app:layout_constraintTop_toTopOf="@+id/tv_ongoing_badge" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_progress"
+                android:id="@+id/rv_ongoing"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="22dp"
                 android:paddingTop="5dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/rv_done"
+                app:layout_constraintEnd_toStartOf="@+id/rv_completed"
                 app:layout_constraintStart_toEndOf="@+id/rv_todo"
-                app:layout_constraintTop_toBottomOf="@+id/tv_progress" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_ongoing" />
 
             <TextView
-                android:id="@+id/tv_done"
+                android:id="@+id/tv_completed"
                 style="@style/TextTitle.Black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="51dp"
                 android:text="@string/card_done"
-                app:layout_constraintBottom_toTopOf="@+id/rv_done"
-                app:layout_constraintEnd_toStartOf="@+id/tv_done_badge"
-                app:layout_constraintStart_toStartOf="@+id/rv_done"
+                app:layout_constraintBottom_toTopOf="@+id/rv_completed"
+                app:layout_constraintEnd_toStartOf="@+id/tv_completed_badge"
+                app:layout_constraintStart_toStartOf="@+id/rv_completed"
                 app:layout_constraintTop_toBottomOf="@+id/top_appbar_layout" />
 
             <TextView
-                android:id="@+id/tv_done_badge"
+                android:id="@+id/tv_completed_badge"
                 style="@style/TextBody.Black.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -170,35 +173,37 @@
                 android:background="@drawable/background_badge_grey"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:paddingStart="7dp"
-                android:paddingEnd="7dp"
-                android:paddingBottom="2dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_done"
-                app:layout_constraintStart_toEndOf="@+id/tv_done"
-                app:layout_constraintTop_toTopOf="@+id/tv_done" />
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_completed"
+                app:layout_constraintStart_toEndOf="@+id/tv_completed"
+                app:layout_constraintTop_toTopOf="@+id/tv_completed" />
 
             <Button
-                android:id="@+id/btn_done_add"
+                android:id="@+id/btn_completed_add"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:background="@drawable/ic_add"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_done_badge"
-                app:layout_constraintEnd_toEndOf="@+id/rv_done"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_completed_badge"
+                app:layout_constraintEnd_toEndOf="@+id/rv_completed"
                 app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintStart_toEndOf="@+id/tv_done_badge"
-                app:layout_constraintTop_toTopOf="@+id/tv_done_badge" />
+                app:layout_constraintStart_toEndOf="@+id/tv_completed_badge"
+                app:layout_constraintTop_toTopOf="@+id/tv_completed_badge" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_done"
+                android:id="@+id/rv_completed"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="22dp"
+                android:layout_marginEnd="240dp"
                 android:paddingTop="5dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rv_progress"
-                app:layout_constraintTop_toBottomOf="@+id/tv_done" />
+                app:layout_constraintStart_toEndOf="@+id/rv_ongoing"
+                app:layout_constraintTop_toBottomOf="@+id/tv_completed" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -223,10 +228,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_history"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_menu_cancel" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_menu_cancel"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:layout_editor_absoluteX="-132dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

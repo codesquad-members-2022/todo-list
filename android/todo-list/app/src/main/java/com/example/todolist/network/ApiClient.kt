@@ -1,9 +1,6 @@
 package com.example.todolist.network
 
-import com.example.todolist.data.Card
-import com.example.todolist.data.CardResponse
-import com.example.todolist.data.MovedCard
-import com.example.todolist.data.NewCard
+import com.example.todolist.data.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -31,6 +28,10 @@ interface ApiClient {
         @Path("id") cardId: Int,
         @Body movedCard: MovedCard
     )
+
+    @Headers("user:1")
+    @GET("/api/todo/history")
+    suspend fun getHistories(): Response<HistoryResponse>
 
     companion object {
 
