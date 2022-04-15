@@ -1,0 +1,70 @@
+{
+  "todo": [],
+  "doing": [],
+  "done": [],
+  "history": [
+    {
+      "id": 1,
+      "title": "GitHub 공부하기",
+      "content": "add, commit, push",
+      "action": "add",
+      "prevColumn": "todo",
+      "currColumn": "todo",
+      "date": "22-04-01-00:00"
+    },
+    {
+      "id": 2,
+      "title": "GitHub 공부하기 찐막",
+      "content": "commit 수정하는 법",
+      "action": "add",
+      "prevColumn": "todo",
+      "currColumn": "todo",
+      "date": "22-04-01-00:30"
+    },
+    {
+      "id": 3,
+      "title": "GitHub 공부하기",
+      "content": "add, commit, push",
+      "action": "move",
+      "prevColumn": "todo",
+      "currColumn": "doing",
+      "date": "22-04-01-01:00"
+    },
+    {
+      "id": 4,
+      "title": "GitHub 공부 또 하기",
+      "content": "merge vs rebase",
+      "action": "add",
+      "prevColumn": "todo",
+      "currColumn": "todo",
+      "date": "22-04-02-10:00"
+    },
+    {
+      "id": 5,
+      "title": "GitHub 공부하기 찐막",
+      "content": "commit 수정하는 법",
+      "action": "update",
+      "prevColumn": "todo",
+      "currColumn": "done",
+      "date": "22-04-09-23:00"
+    },
+    {
+      "id": 6,
+      "title": "GitHub 공부하기 찐막",
+      "content": "commit 수정하는 법",
+      "action": "remove",
+      "prevColumn": "todo",
+      "currColumn": "todo",
+      "date": "22-04-10-13:00"
+    },
+    {
+      "id": 7,
+      "title": "GitHub 공부 또 하기",
+      "content": "merge vs rebase",
+      "action": "move",
+      "prevColumn": "todo",
+      "currColumn": "done",
+      "date": "22-04-12-10:00"
+    }
+  ]
+}
