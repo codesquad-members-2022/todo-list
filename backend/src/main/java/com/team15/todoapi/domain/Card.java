@@ -16,18 +16,24 @@ public class Card {
 	private Long memberId;
 	private LocalDateTime modifiedAt;
 	private int section;
-	private int action;
+	private Integer action;
 
 	//목록조회용
 	public static Card of(Long id, String title, String content, Long memberId,
 		LocalDateTime modifiedAt, int section) {
-		return new Card(id, title, content, memberId, modifiedAt, section, 0);
+		return new Card(id, title, content, memberId, modifiedAt, section, null);
 	}
 
 	//카드 생성용
 	public static Card of(CardRequest cardRequest, Long memberId) {
-		return new Card(null, cardRequest.getTitle(), cardRequest.getContent(),
-			memberId, null, cardRequest.getSection(), 0);
+
+		if(cardRequest.getId() == null){
+			return new Card(null, cardRequest.getTitle(), cardRequest.getContent(),
+				memberId, null, cardRequest.getSection(), null);
+		}
+
+		return new Card(cardRequest.getId(), cardRequest.getTitle(), cardRequest.getContent(),
+			memberId, null, cardRequest.getSection(), null);
 	}
 
 	public void insertId(Card card, Long cardId){
@@ -40,5 +46,18 @@ public class Card {
 
 	public void insertAction(Card card, int action){
 		card.action = action;
+	}
+
+	@Override
+	public String toString() {
+		return "Card{" +
+			"id=" + id +
+			", title='" + title + '\'' +
+			", content='" + content + '\'' +
+			", memberId=" + memberId +
+			", modifiedAt=" + modifiedAt +
+			", section=" + section +
+			", action=" + action +
+			'}';
 	}
 }
