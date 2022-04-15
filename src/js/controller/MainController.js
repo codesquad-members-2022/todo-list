@@ -1,16 +1,13 @@
 /*
   TODO:
-- [ ] 초기 화면 카드 그리기 - 올리버
+- [ ] 드래그 앤 드랍
 
-- [ ] 드래그 앤 드랍 - 도트
-
-- [ ] 사이드 메뉴 이벤트 - 올리버
+- [ ] 사이드 메뉴 이벤트
   - 카드 추가, 수정, 삭제, 이동 이벤트 핸들러에서 history data 저장
   - history data 가지고 렌더링
   - 시간 표기
 
-- [ ] 칼럼 옆 카드 숫자 이벤트 - 도트
-
+- [ ] 칼럼 옆 카드 숫자 이벤트
 
 < 리팩토링 >
 - [ ] 수정 시 등록버튼의 text를 등록에서 수정으로 변경
@@ -20,7 +17,7 @@
 - [ ] 카드에서 키 다운 인식 한 박자 느린거 수정
 */
 
-import { renderEmptyCard } from "../view/EmptyCardView.js";
+import { renderEmptyCard, getRegisteredCardNode } from "../view/EmptyCardView.js";
 import { renderCard, renderRegisteredStyle } from "../view/CardView.js";
 import { initColumn, onClickColumnAddBtn } from "../view/ColumnView.js";
 import * as util from "../../util/Util.js";
@@ -33,6 +30,49 @@ function init(store) {
   const columns = document.querySelectorAll(".task-column");
   // add 버튼 이벤트 달기
   onClickColumnAddBtn(columns, handleAddBtn, store);
+
+  // 페이지 로드 후 렌더링 및 이벤트 부착
+
+  ["todo", "doing", "done"].forEach((dataType) => {
+    // documentfragment 만들어라
+    const columnFragment = new DocumentFragment();
+
+    store.getState(dataType).forEach((data) => {
+      // 카드 템플릿을 만들어라
+      const newCard = getRegisteredCardNode(data);
+      // 이벤트를 부착해라
+      util.on("keydown", newCard, handleCardInput);
+      //// 등록 버튼 클릭 핸들링 이벤트
+      const registerBtn = util.$(".task-card__register-btn.cursor-pointer", newCard);
+      util.on("click", registerBtn, (event) => {
+        handleRegisterBtn(event, store);
+      });
+      //// 취소 버튼 클릭 핸들링 이벤트
+      const removeBtn = util.$(".task-card__cancle-btn.cursor-pointer", newCard);
+      util.on("click", removeBtn, (event) => {
+        handleCancleBtn(event, store);
+      });
+      //// 삭제 버튼 이벤트
+      const deleteBtn = util.$(".delete-btn.cursor-pointer", newCard);
+      util.on("click", deleteBtn, (event) => {
+        handleRemoveBtn(event, store, dataType);
+      });
+      //// 수정 이벤트
+      util.on("dblclick", newCard, (event) => {
+        handleTextDoubleClick(event, store, dataType);
+      });
+      //// 이동 이벤트
+      util.on("mousedown", newCard, (event) => {
+        handleDragDrop(event, store);
+      });
+      // documentfragment에 붙여라
+      columnFragment.appendChild(newCard);
+    });
+    // dataType으로 컬럼 노드를 찾아라
+    const columnTag = document.getElementById(dataType);
+    columnTag.appendChild(columnFragment);
+    // 컬럼 노드에 documentfragment 부착해라
+  });
 }
 
 function handleAddBtn({ target }, store) {
@@ -81,7 +121,15 @@ async function handleRegisterBtn(event, store) {
     const newState = createCardState(cardTitle, cardContent);
     // 만든 state를 store 및 서버에 저장
     await store.addState(dataType, newState);
-    renderCard(parentCard, handleRemoveBtn, handleTextDoubleClick, store, dataType, newState);
+    renderCard(
+      parentCard,
+      handleRemoveBtn,
+      handleTextDoubleClick,
+      handleDragDrop,
+      store,
+      dataType,
+      newState
+    );
   }
 }
 
@@ -104,14 +152,6 @@ function handleCancleBtn({ target }, store) {
   } else {
     parentCard.remove();
   }
-}
-
-function createCardState(cardTitle, cardContent, id) {
-  return {
-    id: +id || +Date.now(),
-    title: cardTitle,
-    content: cardContent,
-  };
 }
 
 function handleRemoveBtn({ target }, store, dataType) {
@@ -145,29 +185,30 @@ function handleTextDoubleClick({ target }, store, dataType) {
   // 등록 버튼 클릭 시 서버로 데이터 전송
 }
 
+function createCardState(cardTitle, cardContent, id) {
+  return {
+    id: +id || +Date.now(),
+    title: cardTitle,
+    content: cardContent,
+  };
+}
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ drag & drop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-const dragDrop = (event) => {
-  const { target, pageX, pageY, clientX, clientY } = event;
-  const targetCard = target.closest(".task-card");
-  const cloneCard = targetCard.cloneNode(true);
-  target.closest(".task-column").appendChild(cloneCard);
-
-  cloneCard.style.position = "absolute";
-
-  let shiftX = clientX - targetCard.getBoundingClientRect().left;
-  let shiftY = clientY - targetCard.getBoundingClientRect().top;
-
-  const coord = { pageX, pageY, shiftX, shiftY };
-
-  moveAt(cloneCard, coord);
-
-  document.addEventListener("mousemove", (event) => {
-    onMouseMove(event, shiftX, shiftY, cloneCard);
-  });
-
-  cloneCard.addEventListener("mouseup", (event) => {
-    onMouseUp(targetCard, cloneCard);
-  });
+const handleDragDrop = (event, store) => {
+  // const { target, pageX, pageY, clientX, clientY } = event;
+  // const targetCard = target.closest(".task-card");
+  // const cloneCard = targetCard.cloneNode(true);
+  // target.closest(".task-column").appendChild(cloneCard);
+  // cloneCard.style.position = "absolute";
+  // let shiftX = clientX - targetCard.getBoundingClientRect().left;
+  // let shiftY = clientY - targetCard.getBoundingClientRect().top;
+  // const coord = { pageX, pageY, shiftX, shiftY };
+  // moveAt(cloneCard, coord);
+  // document.addEventListener("mousemove", (event) => {
+  //   onMouseMove(event, shiftX, shiftY, cloneCard);
+  // });
+  // cloneCard.addEventListener("mouseup", (event) => {
+  //   onMouseUp(targetCard, cloneCard);
+  // });
 };
 
 function moveAt(cloneCard, { pageX, pageY, shiftX, shiftY }) {
@@ -228,4 +269,5 @@ function checkCoord(targetCardCoord, targetColumnCoord) {
     targetColumnCoord.getBoundingClientRect().right > targetCardCoord
   );
 }
+
 export { createMainController };

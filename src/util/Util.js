@@ -50,4 +50,4 @@ async function deleteData(url) {
   //return response.json();
 }
 
-export { $, $All, on, port, fetchData, postData, updateData, deleteData };
+export { port, $, $All, on, fetchData, postData, updateData, deleteData };
