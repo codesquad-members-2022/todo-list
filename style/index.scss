@@ -33,7 +33,7 @@ body {
 }
 .column-section {
   width: 1440px;
-  height: 100vh;
+  height: calc(100vh - 112px);
   display: flex;
   @include margincenter();
 }
@@ -130,7 +130,8 @@ body {
 
   background-color: $color-blue;
   position: absolute;
-  right: 0%;
+  right: 0;
+  bottom: 0;
   .fab__addBtn {
     text-align: center;
     line-height: 64px;
