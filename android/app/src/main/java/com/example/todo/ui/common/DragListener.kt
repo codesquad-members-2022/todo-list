@@ -1,6 +1,5 @@
 package com.example.todo.ui.common
 
-import android.util.Log
 import android.view.DragEvent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +16,7 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                 isDrop = true
                 var positionTarget = -1
                 val viewSource = event.localState as View?
+
                 val viewId = view.id
                 val rvTodo = R.id.rv_todo
                 val todoItem = R.id.todo_item
@@ -29,7 +29,6 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                         when (viewId) {
                             rvTodo -> {
                                 target = view.rootView.findViewById(R.id.rv_todo) as RecyclerView
-                                Log.d("ToDoid", "${viewId}")
                             }
                             rvInProgress -> target =
                                 view.rootView.findViewById(R.id.rv_in_progress) as RecyclerView
@@ -39,8 +38,6 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                             else -> {
                                 target = view.parent as RecyclerView
                                 positionTarget = view.tag as Int
-                                Log.d("id", "${viewId}")
-                                Log.d("test", "${target}")
                             }
                         }
 
@@ -52,40 +49,25 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                             //getChildAdapterPosition 어댑터에서 해당 아아템의 위치 반환
                             val sourcePosition =
                                 source.getChildAdapterPosition(viewSource)  //선택한 아이템의 어댑터에서의 위치 반환
-                            val sourceData =
-                                sourceAdapter.currentList[sourcePosition]  // 선택한 ToDoItem
+
+                            val sourceList = sourceAdapter.currentList.toMutableList()
+
+                            val sourceData = sourceList[sourcePosition]  // 선택한 ToDoItem
                             val targetList = targetAdapter.currentList.toMutableList()
 
                             if (positionTarget >= 0) {
+                                println(targetList)
+                                println(positionTarget)
                                 val targetData = targetAdapter.currentList[positionTarget]
-                                println(targetData.title)
-                                println(sourceData.title)
                                 val prevItemId =
-                                    targetList.find { it.next == targetData.itemId }?.itemId
+                                    targetList.find { it.itemId == targetData.itemId }?.itemId
+                                println("test ${positionTarget}")
                                 when (positionTarget) {
                                     0 -> {
-                                        when (target.id) {
-                                            rvTodo -> listener.moveData(
-                                                ProgressType.TO_DO,
-                                                null,
-                                                targetData.next,
-                                                sourceData.itemId
-                                            )
-                                            rvInProgress -> listener.moveData(
-                                                ProgressType.IN_PROGRESS,
-                                                null,
-                                                targetData.next,
-                                                sourceData.itemId
-                                            )
-                                            rvDone -> listener.moveData(
-                                                ProgressType.DONE,
-                                                null,
-                                                targetData.next,
-                                                sourceData.itemId
-                                            )
-                                        }
-                                    }
-                                    targetList.lastIndex -> {
+                                        println("there!!!!!!!!!!!!!!!!!!!")
+                                        println(prevItemId)
+                                        println(targetData.next)
+                                        println(sourceData.itemId)
                                         when (target.id) {
                                             rvTodo -> listener.moveData(
                                                 ProgressType.TO_DO,
@@ -108,24 +90,27 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                                         }
                                     }
                                     else -> {
+                                        println("here!!!!!!!!!!!!!!!!!")
+                                        println(prevItemId)
+                                        println(targetData.itemId)
+                                        println(targetData.next)
                                         when (target.id) {
-
 
                                             rvTodo -> listener.moveData(
                                                 ProgressType.TO_DO,
-                                                prevItemId,
+                                                targetData.itemId,
                                                 targetData.next,
                                                 sourceData.itemId
                                             )
                                             rvInProgress -> listener.moveData(
                                                 ProgressType.IN_PROGRESS,
-                                                prevItemId,
+                                                targetData.itemId,
                                                 targetData.next,
                                                 sourceData.itemId
                                             )
                                             rvDone -> listener.moveData(
                                                 ProgressType.DONE,
-                                                prevItemId,
+                                                targetData.itemId,
                                                 targetData.next,
                                                 sourceData.itemId
                                             )
@@ -133,24 +118,55 @@ class DragListener(private val listener: ToDoMoveListener) : View.OnDragListener
                                     }
                                 }
                             } else {
+                                println(targetList)
+                                println(positionTarget)
+
+
                                 val targetData = targetList[targetList.lastIndex]
+                                println(targetData.itemId)
                                 val prevDataId =
-                                    targetList.find { it.next == targetData.itemId }?.itemId
-                                println(targetData.title)
-                                println(sourceData.title)
-                                when (target.id) {
-                                    rvTodo -> listener.moveData(
-                                        ProgressType.TO_DO, prevDataId, null, sourceData.itemId
-                                    )
-                                    rvInProgress -> listener.moveData(
-                                        ProgressType.IN_PROGRESS,
-                                        prevDataId,
-                                        null,
-                                        sourceData.itemId
-                                    )
-                                    rvDone -> listener.moveData(
-                                        ProgressType.DONE, prevDataId, null, sourceData.itemId
-                                    )
+                                    targetList.find { it.next == targetData.itemId }?.itemId ?: 0
+                                if (targetList.isEmpty()) {
+                                    when (target.id) {
+                                        rvTodo -> listener.moveData(
+                                            ProgressType.TO_DO,
+                                            null,
+                                            null,
+                                            sourceData.itemId
+                                        )
+                                        rvInProgress -> listener.moveData(
+                                            ProgressType.IN_PROGRESS,
+                                            null, null,
+                                            sourceData.itemId
+                                        )
+                                        rvDone -> listener.moveData(
+                                            ProgressType.DONE,
+                                            null,
+                                            null,
+                                            sourceData.itemId
+                                        )
+                                    }
+                                }
+                                else{
+                                    when (target.id) {
+                                        rvTodo -> listener.moveData(
+                                            ProgressType.TO_DO,
+                                            null,
+                                            targetData.itemId,
+                                            sourceData.itemId
+                                        )
+                                        rvInProgress -> listener.moveData(
+                                            ProgressType.IN_PROGRESS,
+                                            null, targetData.itemId,
+                                            sourceData.itemId
+                                        )
+                                        rvDone -> listener.moveData(
+                                            ProgressType.DONE,
+                                            null,
+                                            targetData.itemId,
+                                            sourceData.itemId
+                                        )
+                                    }
                                 }
                             }
                         }

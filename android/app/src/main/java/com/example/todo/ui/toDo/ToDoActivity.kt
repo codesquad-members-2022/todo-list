@@ -139,7 +139,9 @@ class ToDoActivity : AppCompatActivity(), TodoAdapter.UpdateDialogListener, ToDo
         nextItemId: Int?,
         moveItemId: Int?
     ) {
-        toDoViewModel.moveTodoItem(moveItemId,rvType,prevItemId,nextItemId)
+//        if (moveItemId != null) {
+//            toDoViewModel.moveTodoItem(moveItemId,rvType,prevItemId,nextItemId)
+//        }
     }
 
 

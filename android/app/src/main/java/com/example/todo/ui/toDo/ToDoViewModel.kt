@@ -1,6 +1,5 @@
 package com.example.todo.ui.toDo
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.todo.model.ActionLog
 import com.example.todo.model.ProgressType
 import com.example.todo.model.TodoItem
-import com.example.todo.network.UpdateTodoBody
 import com.example.todo.respository.ActionLogRepository
 import com.example.todo.respository.ToDoRepository
 import kotlinx.coroutines.launch
@@ -44,16 +42,41 @@ class ToDoViewModel(
                 else if (it.type == ProgressType.IN_PROGRESS) progressList.add(it)
                 if (it.type == ProgressType.DONE) doneList.add(it)
             }
-            _todoList.value = tempTodoList
-            _inProgressList.value = progressList
-            _doneList.value = doneList
+            _todoList.value = reOrganize(tempTodoList)
+            _inProgressList.value = reOrganize(progressList)
+            _doneList.value = reOrganize(doneList)
         }
+    }
+
+
+    private fun reOrganize(list: List<TodoItem>): List<TodoItem> {
+        val newList = mutableListOf<TodoItem>()
+        val header = list.find { it.next == 0 }
+        header?.let { newList.add(header) }
+        var statKey = header?.itemId?:return list
+        println(statKey)
+        var count = list.size - 1
+        while (count > 0) {
+            statKey = findByNextId(statKey, list, newList)
+            count--
+        }
+        return newList.toList()
+    }
+
+    private fun findByNextId(
+        nextId: Int,
+        list: List<TodoItem>,
+        resultList: MutableList<TodoItem>
+    ): Int {
+        val addItem = list.find { it.next == nextId }
+        addItem?.let { resultList.add(it) }
+        return addItem?.itemId!!
     }
 
     private fun loadActionLog() {
         viewModelScope.launch {
             val actionLogs = actionLogRepository.getActionLogs()
-            actionLogs?.let { _actionList.value = actionLogs }
+            actionLogs?.let { _actionList.value = actionLogs!! }
         }
     }
 
