@@ -10,9 +10,7 @@ class BoardViewModel {
 
   parseStoreState() {
     const columnState = this.store.boardState.reduce((parsedData, card) => {
-      if (parsedData[card.cardStatus] === undefined) {
-        parsedData[card.cardStatus] = [];
-      }
+      if (parsedData[card.cardStatus] === undefined) parsedData[card.cardStatus] = [];
       parsedData[card.cardStatus].push(card);
       return parsedData;
     }, {});
@@ -26,6 +24,10 @@ class BoardViewModel {
 
   addObserver(observer) {
     this.observers.add(observer);
+  }
+
+  observe(cardState, method, id) {
+    this.store.observe(cardState, method, id);
   }
 
   notify() {

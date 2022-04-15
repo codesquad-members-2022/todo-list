@@ -24,7 +24,7 @@ const HTTP_REQUEST = {
   }
 };
 
-const fetchRequest = async (url, option = {}) => {
+const fetchRequest = async (url, option = { method: 'GET' }) => {
   const response = await fetch(url, option);
   if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
   return response.json();
