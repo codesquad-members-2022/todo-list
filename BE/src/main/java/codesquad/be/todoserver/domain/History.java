@@ -2,8 +2,10 @@ package codesquad.be.todoserver.domain;
 
 import java.time.LocalDateTime;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class History {
 
 	private Long id;
@@ -39,18 +41,7 @@ public class History {
 	}
 
 	public static History of(Todo todo, Action action) {
-		switch (action) {
-			case ADD:
-				return new History(todo.getId(), todo.getTitle(), todo.getUser(), "add",
-					"", todo.getStatus());
-			case REMOVE:
-				return new History(todo.getId(), todo.getTitle(), todo.getUser(), "remove",
-					"", todo.getStatus());
-			case MOVE:
-			case UPDATE:
-				break;
-		}
-		return null;
+		return action.createHistoryBy(todo);
 	}
 
 }
