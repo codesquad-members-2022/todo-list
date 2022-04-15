@@ -48,6 +48,18 @@ class CardDataMiddleWare {
         }
     }
     
+    func deleteCard(id cardId: Int, at boardType: TodoBoard) {
+        dataTask?.requestDelete(parameter: cardId) { [weak self] result in
+            
+            guard let id = try? result.get(), var fetchedResult = try? self?.fetchResultInBoard[boardType]?.get() else {
+                return
+            }
+            
+            fetchedResult.removeAll(where: {data in data.id == id})
+            self?.fetchResultInBoard[boardType] = Result.success(fetchedResult)
+        }
+    }
+    
     func getCards(in board: TodoBoard) -> Result<[Card], DataTaskError> {
         guard fetchResultInBoard.keys.contains(board), let result = fetchResultInBoard[board] else {
             return Result.failure(DataTaskError.notConnect)
