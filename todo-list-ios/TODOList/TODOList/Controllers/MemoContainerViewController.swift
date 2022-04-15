@@ -89,12 +89,18 @@ extension MemoContainerViewController: UITableViewDataSource & UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let parentViewController = parent as? MemoCanvasViewController,
+              let containerType = containerType,
+              let memos = parentViewController.memoTableViewModels[containerType] else { return }
+        
+        let memo = memos[indexPath.section]
+        
         let popupViewController = PopupViewController()
+        popupViewController.memoTitle = memo.title
+        popupViewController.memoContent = memo.content
         popupViewController.modalPresentationStyle = .overCurrentContext
         
         switch indexPath.section {
-        case 0:
-            self.present(popupViewController, animated: true)
         default:
             self.present(popupViewController, animated: true)
         }

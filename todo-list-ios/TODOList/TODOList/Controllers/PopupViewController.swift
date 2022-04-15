@@ -5,10 +5,14 @@ class PopupViewController: UIViewController {
     weak var delegate: PopupViewDelegate?
     private var alertTitle: String = ""
     private var containerType: MemoContainerType?
+    var memoTitle: String = ""
+    var memoContent: String = ""
     
     lazy var popupCardView: PopupCardView = {
         let view = PopupCardView()
         view.alertLabel.text = alertTitle
+        view.titleField.text = memoTitle
+        view.contentField.text = memoContent
         view.memoContainerType = containerType
         view.layer.cornerRadius = 10
         view.backgroundColor = .white
@@ -58,7 +62,6 @@ extension PopupViewController: PopupCardViewDelegate {
         let memo = Memo(title: title, content: content, name: "JK", status: status)
         self.delegate?.popupViewAddButtonDidTap(memo: memo)
         
-//        NotificationCenter.
         self.dismiss(animated: true)
     }
 }

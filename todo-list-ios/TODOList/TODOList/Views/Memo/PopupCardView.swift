@@ -19,7 +19,7 @@ class PopupCardView: UIView {
         return label
     }()
     
-    private let titleField: UITextField = {
+    let titleField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "제목을 입력하세요"
@@ -29,7 +29,7 @@ class PopupCardView: UIView {
         return textField
     }()
     
-    private let contentField: UITextField = {
+    let contentField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "내용을 입력하세요"
