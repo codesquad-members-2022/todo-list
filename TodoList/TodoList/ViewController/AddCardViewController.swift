@@ -8,9 +8,9 @@
 import UIKit
 
 final class AddCardViewController: UIViewController {
-    var addCardView: AddCardView!
-    var sectionNumber: Int?
-    var isPatch: Bool?
+    private var addCardView: AddCardView!
+    private var sectionIndex: BoardSubscriptIndex?
+    private var selectedCard: Card?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,25 +27,32 @@ final class AddCardViewController: UIViewController {
         self.view.addSubview(addCardView)
     }
     
-    func setaddCardView(title: String?, body: String?){
+    func setaddCardView(sectionNumber: Int){
         configureCardView()
-        
-        if let title = title, let body = body {
-            addCardView.setCardText(title: title, body: body)
-            self.isPatch = true
-        } else{
-            addCardView.setCardText(title: nil, body: nil)
-            self.isPatch = false
-        }
+        self.sectionIndex = BoardSubscriptIndex(rawValue: sectionNumber) ?? BoardSubscriptIndex.none
+        addCardView.setCardText(title: nil, body: nil)
+    }
+    
+    func patchCardView(card: Card, section: BoardSubscriptIndex){
+        configureCardView()
+        self.sectionIndex = section
+        self.selectedCard = card
+        addCardView.setCardText(title: card.title, body: card.content)
     }
 }
 
 extension AddCardViewController: AddCardDelegate{
     func makeCardShoudConfirmed(title: String, content: String) {
-        guard let number = self.sectionNumber, let section = BoardSubscriptIndex(rawValue: number) else { return }
-        let newCard = Card(section: number, title: title, content: content, userID: "puco")
-  
-        Board.shared.postCard(card: newCard, section: section)
+        guard let section = self.sectionIndex else { return }
+        
+        if let selectedCard = self.selectedCard{
+            Board.shared.patchCard(card: selectedCard, section: section)
+        } else{
+            let newCard = Card(section: section.rawValue, title: title, content: content, userID: "puco")
+            Board.shared.postCard(card: newCard, section: section)
+        }
+        
+        self.selectedCard = nil
         
         // POST
         self.dismiss(animated: true, completion: {

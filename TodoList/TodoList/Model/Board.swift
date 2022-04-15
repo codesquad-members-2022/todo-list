@@ -59,19 +59,17 @@ final class Board{
     func patchCard(card: Card, section: BoardSubscriptIndex){
         guard let encodingData: Data = JsonConverter.encodeJson(param: card) else { return }
         
-        URLManager.requestPost(url: "http://3.39.150.251:8080/api/cards", encodingData: encodingData){ data in
+        URLManager.requestPost(url: "http://3.39.150.251:8080/api/cards\("?")", encodingData: encodingData){ data in
             guard let subData: Bool = JsonConverter.decodeJson(data: data) else { return }
             
             switch subData{
             case true:
-                self.addCard(card, at: section)
+                self.patchCard(card: card, section: section)
             case false:
                 break
             }
         }
     }
-    
-
 }
 
 private extension Board{
