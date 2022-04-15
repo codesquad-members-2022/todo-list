@@ -64,6 +64,7 @@ public class HistoryRepositoryImpl implements HistoryRepository {
                         .cardTitleBefore(rs.getString("card_title_before"))
                         .columnTitle(rs.getString("column_title"))
                         .columnTitleBefore(rs.getString("column_title_before"))
+                        .id(rs.getLong("id"))
                         .build();
     }
 }

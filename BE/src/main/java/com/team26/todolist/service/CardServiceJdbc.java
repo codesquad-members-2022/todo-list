@@ -3,7 +3,7 @@ package com.team26.todolist.service;
 import com.team26.todolist.domain.Card;
 import com.team26.todolist.domain.CardAction;
 import com.team26.todolist.dto.request.CardDeleteRequest;
-import com.team26.todolist.dto.request.CardMoveRequest;
+import com.team26.todolist.dto.request.CardChangeLocationRequest;
 import com.team26.todolist.dto.request.CardRegistrationRequest;
 import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
@@ -57,10 +57,10 @@ public class CardServiceJdbc implements CardService {
     }
 
     @Override
-    public CardResponse changeCardLocation(CardMoveRequest cardMoveRequest) {
-        Double newOrder = getNewOrder(cardMoveRequest);
-        Card card = cardMoveRequest.toEntity();
-        Card cardBefore = cardRepository.findById(cardMoveRequest.getId());
+    public CardResponse changeCardLocation(CardChangeLocationRequest cardChangeLocationRequest) {
+        Double newOrder = getNewOrder(cardChangeLocationRequest);
+        Card card = cardChangeLocationRequest.toEntity();
+        Card cardBefore = cardRepository.findById(cardChangeLocationRequest.getId());
         Card cardAfter = cardRepository.updateLocation(card, newOrder);
 
         historyService.saveHistory(CardAction.MOVE, "", cardBefore, cardAfter);
@@ -76,9 +76,9 @@ public class CardServiceJdbc implements CardService {
         historyService.saveHistory(CardAction.DELETE, "", findCard, null);
     }
 
-    private double getNewOrder(CardMoveRequest cardMoveRequest) {
-        Card upperCard = cardRepository.findById(cardMoveRequest.getUpperCardId());
-        Card lowerCard = cardRepository.findById(cardMoveRequest.getLowerCardId());
+    private double getNewOrder(CardChangeLocationRequest cardChangeLocationRequest) {
+        Card upperCard = cardRepository.findById(cardChangeLocationRequest.getUpperCardId());
+        Card lowerCard = cardRepository.findById(cardChangeLocationRequest.getLowerCardId());
 
         if (upperCard == null && lowerCard == null) {
             return 0.0;
