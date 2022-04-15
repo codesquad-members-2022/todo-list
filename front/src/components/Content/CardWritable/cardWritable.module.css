@@ -11,6 +11,10 @@
   border-radius: 6px;
 }
 
+.cardWritable.show {
+  display: flex;
+}
+
 .headerArea {
   display: flex;
   height: 20px;

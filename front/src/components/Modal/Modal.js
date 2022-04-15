@@ -1,5 +1,6 @@
-import peact from "../../core/peact";
-import todoApi from "../../service/todoApi";
+import peact from "core/peact";
+import todoApi from "service/todoApi";
+
 import styles from "./modal.module.css";
 
 const Modal = ({ handlers, isModalVisible, selectedTodoId, ref }) => {

@@ -1,4 +1,4 @@
-import peact from "../../core/peact";
+import peact from "core/peact";
 
 const Content = ({ content }) => {
   return peact.createElement({

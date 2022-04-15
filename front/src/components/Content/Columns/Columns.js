@@ -1,8 +1,9 @@
-import peact from "../../../core/peact";
-import todoApi from "../../../service/todoApi";
-import Cards from "../Cards/Cards";
-import CardWritable from "../CardWritable/CardWritable";
-import ColumnHeader from "../ColumnHeader/ColumnHeader";
+import Cards from "components/Content/Cards/Cards";
+import CardWritable from "components/Content/CardWritable/CardWritable";
+import ColumnHeader from "components/Content/ColumnHeader/ColumnHeader";
+import peact from "core/peact";
+import todoApi from "service/todoApi";
+
 import styles from "./columns.module.css";
 
 const Columns = ({ columns, todos, handlers }) => {
@@ -49,11 +50,13 @@ const Columns = ({ columns, todos, handlers }) => {
     const toggleCardVisible = () => {
       newCardRef.current.classList.toggle(styles.visible);
     };
+
     const $newCard = CardWritable({
       toggleCardVisible,
-      ref: newCardRef,
       handleSubmitForm,
       columnId: column._id,
+      isVisible: false,
+      ref: newCardRef,
     });
 
     return peact.createElement({

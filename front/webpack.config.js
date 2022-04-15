@@ -52,6 +52,16 @@ module.exports = (env) => {
         },
       ],
     },
+    resolve: {
+      alias: {
+        common: path.resolve(__dirname, "./src/common/"),
+        components: path.resolve(__dirname, "./src/components/"),
+        core: path.resolve(__dirname, "./src/core/"),
+        hooks: path.resolve(__dirname, "./src/hooks/"),
+        service: path.resolve(__dirname, "./src/service/"),
+        tagComponents: path.resolve(__dirname, "./src/tagComponents/"),
+      },
+    },
     ...(isDeploy ? {} : { devtool: "source-map" }),
   };
 };

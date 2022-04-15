@@ -1,9 +1,10 @@
-import { getISODateDiff } from "../../../common/dateUtils";
-import peact from "../../../core/peact";
-import todoApi from "../../../service/todoApi";
-import Card from "../Card/Card";
-import cardStyles from "../Card/card.module.css";
-import CardWritable from "../CardWritable/CardWritable";
+import { getISODateDiff } from "common/dateUtils";
+import Card from "components/Content/Card/Card";
+import cardStyles from "components/Content/Card/card.module.css";
+import CardWritable from "components/Content/CardWritable/CardWritable";
+import peact from "core/peact";
+import todoApi from "service/todoApi";
+
 import styles from "./cards.module.css";
 
 const getSortedDatabyLatest = (data) => {
@@ -53,11 +54,9 @@ const Cards = ({ $newCard, todos, handlers }) => {
         toggleCardVisible,
         handleSubmitForm,
         inputValues,
+        isVisible: true,
         ref: cardWritableRef,
       });
-      // TODO: CardWritable 만들 때 display 속성 props 로 넘겨서 만드는게 좋을 듯
-      $cardWritable.style.display = "flex";
-      //
       cardsRef.current.insertBefore($cardWritable, $card);
       $card.classList.toggle(cardStyles.hide);
     };

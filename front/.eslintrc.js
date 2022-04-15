@@ -11,6 +11,15 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:import/recommended",
   ],
+  settings: {
+    "import/resolver": {
+      webpack: {
+        env: {
+          DEPLOY: true,
+        },
+      },
+    },
+  },
   rules: {
     "prettier/prettier": [
       "error",

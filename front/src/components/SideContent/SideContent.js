@@ -1,8 +1,9 @@
-import { getISODateDiff } from "../../common/dateUtils";
-import { pipe } from "../../common/utils";
-import peact from "../../core/peact";
-import Button from "../../tagComponents/Button";
-import Action from "./Action/Action";
+import { getISODateDiff } from "common/dateUtils";
+import { pipe } from "common/utils";
+import Action from "components/SideContent/Action/Action";
+import peact from "core/peact";
+import Button from "tagComponents/Button";
+
 import styles from "./sideContent.module.css";
 
 const menuBtnImageTemplate = `
@@ -47,15 +48,15 @@ const SideContent = ({ todoLogs, columns }) => {
   const menuBtnRef = peact.useRef();
   const closeBtnRef = peact.useRef();
 
-  const insertColumnTitle = (todoLogs) => {
-    return todoLogs.map((todoLog) => {
+  const insertColumnTitle = (originTodoLogs) => {
+    return originTodoLogs.map((todoLog) => {
       const column = columns?.find((col) => col._id === todoLog.columnId);
       return { ...todoLog, columnTitle: column?.title };
     });
   };
 
-  const sortTodoLogs = (todoLogs) => {
-    return todoLogs.sort((aTodo, bTodo) =>
+  const sortTodoLogs = (todoLogsWithColumnTitle) => {
+    return todoLogsWithColumnTitle.sort((aTodo, bTodo) =>
       getISODateDiff(bTodo.createdAt, aTodo.createdAt)
     );
   };

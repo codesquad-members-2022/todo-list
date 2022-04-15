@@ -1,4 +1,5 @@
-import peact from "../../../core/peact";
+import peact from "core/peact";
+
 import styles from "./card.module.css";
 
 const Card = ({ todo, handlers, ref }) => {

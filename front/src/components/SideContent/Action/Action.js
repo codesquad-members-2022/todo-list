@@ -1,6 +1,7 @@
-import { LOG_TYPE } from "../../../common/constants";
-import { getDateDiffFormat, getMongoNow } from "../../../common/dateUtils";
-import peact from "../../../core/peact";
+import { LOG_TYPE } from "common/constants";
+import { getDateDiffFormat, getMongoNow } from "common/dateUtils";
+import peact from "core/peact";
+
 import styles from "./action.module.css";
 
 /*

@@ -1,13 +1,14 @@
+import Columns from "components/Content/Columns/Columns";
+import Content from "components/Content/Content";
+import Header from "components/Header/Header";
+import Modal from "components/Modal/Modal";
+import SideContent from "components/SideContent/SideContent";
+import peact from "core/peact";
+import columnApi from "service/columnApi";
+import logApi from "service/logApi";
+import todoApi from "service/todoApi";
+
 import styles from "./App.module.css";
-import Columns from "./components/Content/Columns/Columns";
-import Content from "./components/Content/Content";
-import Header from "./components/Header/Header";
-import Modal from "./components/Modal/Modal";
-import SideContent from "./components/SideContent/SideContent";
-import peact from "./core/peact";
-import columnApi from "./service/columnApi";
-import logApi from "./service/logApi";
-import todoApi from "./service/todoApi";
 
 const App = () => {
   const [todos, setTodos] = peact.useState([]);
