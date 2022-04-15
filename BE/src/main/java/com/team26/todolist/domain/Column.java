@@ -1,5 +1,6 @@
 package com.team26.todolist.domain;
 
+import com.team26.todolist.util.Constant;
 import java.time.LocalDateTime;
 
 public class Column implements Comparable<Column> {
@@ -41,6 +42,25 @@ public class Column implements Comparable<Column> {
 
     public static ColumnBuilder builder() {
         return new ColumnBuilder();
+    }
+
+    public void setNewOrder(Column leftColumn, Column rightColumn) {
+        if (leftColumn == null && rightColumn == null) {
+            order = 0.0;
+            return;
+        }
+
+        if (leftColumn == null) {
+            order = rightColumn.getOrder() - Constant.ORDER_BASIC_DIFFERENCE;
+            return;
+        }
+
+        if (rightColumn == null) {
+            order = leftColumn.getOrder() + Constant.ORDER_BASIC_DIFFERENCE;
+            return;
+        }
+
+        order = (leftColumn.getOrder() + rightColumn.getOrder()) / 2;
     }
 
     public static class ColumnBuilder {

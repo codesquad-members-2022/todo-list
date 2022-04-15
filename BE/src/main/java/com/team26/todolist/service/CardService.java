@@ -18,4 +18,5 @@ public interface CardService {
     CardResponse changeCardLocation(CardMoveRequest cardMoveRequest);
 
     void deleteCard(CardDeleteRequest cardDeleteRequest);
+
 }
