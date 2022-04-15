@@ -3,6 +3,7 @@ import { $ } from '../utility/util.js';
 export default class View {
   constructor() {
     this.$menuIcon = $('#menu-icon');
+    this.timer = null;
   }
 
   addClickEvent() {
@@ -10,19 +11,33 @@ export default class View {
   }
 
   checKInputCheckbox = () => {
-    if (!this.$menuIcon.checked) return;
+    if (!this.$menuIcon.checked) {
+      clearInterval(this.timer);
+      return;
+    }
 
     this.getLogData();
   };
 
-  renderSidebar(userId, info) {
+  startSidebarTimer(userId, info) {
     const $sidebarContainer = $('.sidebar-container');
 
+    if (!this.timer) {
+      this.renderSidebar(info, userId, $sidebarContainer);
+    }
+
+    const ONE_MINUTE_MS = 60000;
+    this.timer = setInterval(() => {
+      this.renderSidebar(info, userId, $sidebarContainer);
+    }, ONE_MINUTE_MS);
+  }
+
+  renderSidebar(info, userId, $sidebarContainer) {
+    console.log(info);
     const sidebarDataTemplate = info.reduce(
       (pre, curData) => (pre += this.sidebarActionLog(userId, curData)),
       ''
     );
-
     $sidebarContainer.innerHTML = sidebarDataTemplate;
   }
 
@@ -54,6 +69,7 @@ export default class View {
     const updateTime = new Date(updatedDateTime);
     const diffMinutes = currentTime.getTime() - updateTime.getTime();
     const result = Math.abs(diffMinutes / (1000 * 60));
+
     if (result < 60) {
       return `${result.toFixed()}분전`;
     }

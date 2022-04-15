@@ -13,8 +13,11 @@ export default class Controller {
   }
 
   async getLogData() {
+    // const sidebarData = await fetchRequest(
+    //   '/user-logs'
+    // );
     const sidebarData = await fetchRequest(
-      '/user-logs'
+      '../src/js/mok-data/sidebar-mokData.json'
     );
     const actionLogData = this.model.returnLogData(sidebarData);
     let userId = '';
@@ -23,7 +26,7 @@ export default class Controller {
       if (typeof logData === 'string') userId = logData;
 
       if (Array.isArray(logData)) {
-        this.view.renderSidebar(userId, logData);
+        this.view.startSidebarTimer(userId, logData);
       }
     }
   }
