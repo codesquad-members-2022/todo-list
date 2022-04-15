@@ -1,11 +1,11 @@
 package com.example.todolist.repository
 
-import android.util.Log
 import com.example.todolist.model.History
 import com.example.todolist.network.Result
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
 import com.example.todolist.model.response.CommonResponse
+import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.model.response.TasksResponse
 
 class TaskRemoteRepository(
@@ -40,6 +40,14 @@ class TaskRemoteRepository(
         val response = taskRemoteDataSource.loadHistory()
         response?.let {
             return Result.Success(it)
+        }
+        return Result.Error("error")
+    }
+
+    suspend fun deleteTask(id: Int): Result<TaskDetailResponse> {
+        val response = taskRemoteDataSource.deleteTask(id)
+        response?.let {
+            return Result.Success(it.taskDetailResponse)
         }
         return Result.Error("error")
     }

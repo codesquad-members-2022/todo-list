@@ -47,13 +47,13 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
             when (val tasks = taskRemoteRepository.loadTask()) {
                 is Result.Success -> {
                     todoItem = tasks.data.todo
-                    _todoTask.value = todoItem
+                    _todoTask.value = tasks.data.todo
 
                     inProgressItem = tasks.data.inProgress
-                    _inProgressTask.value = inProgressItem
+                    _inProgressTask.value = tasks.data.inProgress
 
                     doneItem = tasks.data.done
-                    _doneTask.value = doneItem
+                    _doneTask.value = tasks.data.done
                 }
                 is Result.Error -> _error.value = tasks.error
             }
@@ -133,9 +133,39 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
         }
     }
 
-    fun moveDone(task: TaskDetailResponse) {}
+    fun deleteTask(task: TaskDetailResponse) {
+        viewModelScope.launch {
+            when (val deleteTask = taskRemoteRepository.deleteTask(task.id)) {
+                is Result.Success -> {
+                    when (deleteTask.data.status) {
+                        Status.TODO -> {
+                            val originalTask = todoItem.find { it.id == deleteTask.data.id }
+                            val index = todoItem.indexOf(originalTask)
+                            if (index != -1) todoItem.removeAt(index)
+                            _todoTask.value = todoItem
+                        }
+                        Status.IN_PROGRESS -> {
+                            val originalTask = inProgressItem.find { it.id == deleteTask.data.id }
+                            val index = inProgressItem.indexOf(originalTask)
+                            if (index != -1) inProgressItem.removeAt(index)
+                            _inProgressTask.value = inProgressItem
+                        }
+                        Status.DONE -> {
+                            val originalTask = doneItem.find { it.id == deleteTask.data.id }
+                            val index = doneItem.indexOf(originalTask)
+                            if (index != -1) doneItem.removeAt(index)
+                            _doneTask.value = doneItem
+                        }
+                    }
+                }
+                is Result.Error -> {
+                    _error.value = deleteTask.error
+                }
+            }
+        }
+    }
 
-    fun deleteTask(task: TaskDetailResponse) {}
+    fun moveDone(task: TaskDetailResponse) {}
 
     fun swapTask(currentList: List<TaskDetailResponse>, fromPosition: Int, toPosition: Int) {}
 }

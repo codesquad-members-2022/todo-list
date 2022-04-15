@@ -28,4 +28,8 @@ interface Service {
     @Headers("Content-Type: application/json")
     @GET("activity-logs")
     suspend fun loadHistory(): Response<List<History>>
+
+    @DELETE("cards/{id}")
+    suspend fun deleteTask(@Path("id") id: Int): Response<CommonResponse>
+
 }
