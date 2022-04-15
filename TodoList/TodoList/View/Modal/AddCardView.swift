@@ -138,7 +138,14 @@ private extension AddCardView{
     
     @objc
     func touchedConfirmButton(_ sender: UIButton){
-        guard let title = titleTextField.text, let body = bodyTextField.text else { return }
-        self.delegate?.makeCardShoudConfirmed(title: title, content: body)
+        guard let title = titleTextField.text, let body = bodyTextField.text else {
+            return
+        }
+        if title == "" || body == "" {
+            self.delegate?.cardshoudNotMake()
+        }
+        else {
+            self.delegate?.makeCardShoudConfirmed(title: title, content: body)
+        }
     }
 }
