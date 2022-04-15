@@ -3,6 +3,7 @@ package com.team26.todolist.dto.response;
 import com.team26.todolist.domain.Column;
 
 public class ColumnResponse {
+
     private Long id;
     private String title;
 

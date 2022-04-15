@@ -1,26 +1,21 @@
 package com.team26.todolist.domain;
 
+import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.LocalDateTime;
-
-public class History implements Comparable<History>{
+public class History implements Comparable<History> {
 
     Logger logger = LoggerFactory.getLogger(History.class);
 
     private Long id;
-    private CardAction cardAction;
-    private String userId;
-    private String cardTitle;
-    private String cardTitleBefore;
-    private String columnTitle;
-    private String columnTitleBefore;
-    private LocalDateTime createdAt;
-
-    public void initId(Long id) {
-        this.id = id;
-    }
+    private final CardAction cardAction;
+    private final String userId;
+    private final String cardTitle;
+    private final String cardTitleBefore;
+    private final String columnTitle;
+    private final String columnTitleBefore;
+    private final LocalDateTime createdAt;
 
     private History(HistoryBuilder historyBuilder) {
         this.id = historyBuilder.id;
@@ -33,6 +28,15 @@ public class History implements Comparable<History>{
         this.createdAt = historyBuilder.createdAt;
     }
 
+    public static HistoryBuilder builder(CardAction cardAction, String userId,
+            LocalDateTime createdAt) {
+        return new HistoryBuilder(cardAction, userId, createdAt);
+    }
+
+    public void initId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public int compareTo(History history) {
         logger.debug("historyId = {}", history.id);
@@ -40,21 +44,44 @@ public class History implements Comparable<History>{
         return (int) (history.id - this.id);
     }
 
-    public static HistoryBuilder builder(CardAction cardAction, String userId,
-            LocalDateTime createdAt) {
-        return new HistoryBuilder(cardAction, userId, createdAt);
+    public CardAction getCardAction() {
+        return cardAction;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getCardTitle() {
+        return cardTitle;
+    }
+
+    public String getCardTitleBefore() {
+        return cardTitleBefore;
+    }
+
+    public String getColumnTitle() {
+        return columnTitle;
+    }
+
+    public String getColumnTitleBefore() {
+        return columnTitleBefore;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public static class HistoryBuilder {
 
         private Long id;
-        private CardAction cardAction;
-        private String userId;
+        private final CardAction cardAction;
+        private final String userId;
         private String cardTitle;
         private String cardTitleBefore;
         private String columnTitle;
         private String columnTitleBefore;
-        private LocalDateTime createdAt;
+        private final LocalDateTime createdAt;
 
         public HistoryBuilder(CardAction cardAction, String userId, LocalDateTime createdAt) {
             this.cardAction = cardAction;
@@ -90,33 +117,5 @@ public class History implements Comparable<History>{
         public History build() {
             return new History(this);
         }
-    }
-
-    public CardAction getCardAction() {
-        return cardAction;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getCardTitle() {
-        return cardTitle;
-    }
-
-    public String getCardTitleBefore() {
-        return cardTitleBefore;
-    }
-
-    public String getColumnTitle() {
-        return columnTitle;
-    }
-
-    public String getColumnTitleBefore() {
-        return columnTitleBefore;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 }

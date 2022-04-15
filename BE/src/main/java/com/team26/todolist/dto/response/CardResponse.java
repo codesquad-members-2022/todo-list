@@ -3,6 +3,7 @@ package com.team26.todolist.dto.response;
 import com.team26.todolist.domain.Card;
 
 public class CardResponse {
+
     private Long id;
     private String userId;
     private String title;

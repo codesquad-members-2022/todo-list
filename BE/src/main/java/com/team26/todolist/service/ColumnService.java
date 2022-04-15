@@ -10,9 +10,13 @@ import java.util.List;
 public interface ColumnService {
 
     List<ColumnResponse> findAll();
+
     ColumnResponse addColumn(ColumnRegistrationRequest columnRegistrationRequest);
+
     ColumnResponse changeColumnOrder(ColumnChangeOrderRequest columnChangeOrderRequest);
+
     ColumnResponse modifyColumn(ColumnUpdateRequest columnUpdateRequest);
+
     void deleteColumn(Long id);
 
     Column findById(Long columnId);

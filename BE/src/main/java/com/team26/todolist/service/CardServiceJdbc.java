@@ -2,17 +2,16 @@ package com.team26.todolist.service;
 
 import com.team26.todolist.domain.Card;
 import com.team26.todolist.domain.CardAction;
-import com.team26.todolist.dto.request.CardDeleteRequest;
 import com.team26.todolist.dto.request.CardChangeLocationRequest;
+import com.team26.todolist.dto.request.CardDeleteRequest;
 import com.team26.todolist.dto.request.CardRegistrationRequest;
 import com.team26.todolist.dto.request.CardUpdateRequest;
 import com.team26.todolist.dto.response.CardResponse;
 import com.team26.todolist.repository.CardRepository;
 import com.team26.todolist.util.Constant;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CardServiceJdbc implements CardService {

@@ -29,6 +29,13 @@ public class HistoryResponse {
         this.createdAt = createdAt;
     }
 
+    public static HistoryResponse of(History history) {
+        return new HistoryResponse(history.getCardAction(), history.getUserId(),
+                history.getCardTitle(), history.getCardTitleBefore(),
+                history.getColumnTitle(), history.getColumnTitleBefore(),
+                history.getCreatedAt());
+    }
+
     public CardAction getCardAction() {
         return cardAction;
     }
@@ -64,12 +71,5 @@ public class HistoryResponse {
                 .cardTitle(this.cardTitle)
                 .cardTitleBefore(this.cardTitleBefore)
                 .build();
-    }
-
-    public static HistoryResponse of(History history) {
-        return new HistoryResponse(history.getCardAction(), history.getUserId(),
-                history.getCardTitle(), history.getCardTitleBefore(),
-                history.getColumnTitle(), history.getColumnTitleBefore(),
-                history.getCreatedAt());
     }
 }

@@ -8,5 +8,6 @@ import java.util.List;
 public interface HistoryService {
 
     List<HistoryResponse> findHistories();
+
     void saveHistory(CardAction cardAction, String userId, Card cardBefore, Card cardNow);
 }

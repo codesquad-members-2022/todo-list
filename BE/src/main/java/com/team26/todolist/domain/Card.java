@@ -25,11 +25,6 @@ public class Card implements Comparable<Card> {
         this.createdAt = createdAt;
     }
 
-    @Override
-    public int compareTo(Card card) {
-        return Double.compare(getOrder(), card.getOrder());
-    }
-
     public Card(String title, String contents, Long columnId) {
         this.title = title;
         this.contents = contents;
@@ -45,6 +40,11 @@ public class Card implements Comparable<Card> {
     public Card(Long id, Long columnId) {
         this.id = id;
         this.columnId = columnId;
+    }
+
+    @Override
+    public int compareTo(Card card) {
+        return Double.compare(getOrder(), card.getOrder());
     }
 
     public void setNewOrder(Card upperCard, Card lowerCard) {

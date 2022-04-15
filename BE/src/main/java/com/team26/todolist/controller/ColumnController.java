@@ -25,7 +25,7 @@ public class ColumnController {
     public ColumnController(ColumnService columnService) {
         this.columnService = columnService;
     }
-    
+
     @GetMapping
     public ResponseEntity<List<ColumnResponse>> getColumns() {
         List<ColumnResponse> columns = columnService.findAll();
@@ -35,16 +35,17 @@ public class ColumnController {
     }
 
     @PostMapping
-    public ResponseEntity<ColumnResponse> createColumn(@RequestBody ColumnRegistrationRequest columnRegistrationRequest) {
+    public ResponseEntity<ColumnResponse> createColumn(
+            @RequestBody ColumnRegistrationRequest columnRegistrationRequest) {
         ColumnResponse savedColumn = columnService.addColumn(columnRegistrationRequest);
-
 
         return ResponseEntity.ok()
                 .body(savedColumn);
     }
 
     @PutMapping
-    public ResponseEntity<ColumnResponse> updateColumn(@RequestBody ColumnUpdateRequest columnUpdateRequest) {
+    public ResponseEntity<ColumnResponse> updateColumn(
+            @RequestBody ColumnUpdateRequest columnUpdateRequest) {
         ColumnResponse updatedCard = columnService.modifyColumn(columnUpdateRequest);
 
         return ResponseEntity.ok()
@@ -52,7 +53,8 @@ public class ColumnController {
     }
 
     @PatchMapping
-    public ResponseEntity<ColumnResponse> changeColumnOrder(@RequestBody ColumnChangeOrderRequest columnChangeOrderRequest) {
+    public ResponseEntity<ColumnResponse> changeColumnOrder(
+            @RequestBody ColumnChangeOrderRequest columnChangeOrderRequest) {
         ColumnResponse movedColumn = columnService.changeColumnOrder(columnChangeOrderRequest);
 
         return ResponseEntity.ok()

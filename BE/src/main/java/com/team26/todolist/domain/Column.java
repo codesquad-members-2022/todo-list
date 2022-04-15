@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 public class Column implements Comparable<Column> {
 
     private Long id;
-    private String title;
+    private final String title;
     private Double order;
-    private LocalDateTime createdAt;
-    private boolean isDeleted;
+    private final LocalDateTime createdAt;
+    private final boolean isDeleted;
 
     public Column(ColumnBuilder columnBuilder) {
         this.id = columnBuilder.id;
@@ -19,17 +19,21 @@ public class Column implements Comparable<Column> {
         this.isDeleted = columnBuilder.isDeleted;
     }
 
+    public static ColumnBuilder builder() {
+        return new ColumnBuilder();
+    }
+
     @Override
     public int compareTo(Column column) {
         return Double.compare(getOrder(), column.getOrder());
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -38,10 +42,6 @@ public class Column implements Comparable<Column> {
 
     public Double getOrder() {
         return order;
-    }
-
-    public static ColumnBuilder builder() {
-        return new ColumnBuilder();
     }
 
     public void setNewOrder(Column leftColumn, Column rightColumn) {

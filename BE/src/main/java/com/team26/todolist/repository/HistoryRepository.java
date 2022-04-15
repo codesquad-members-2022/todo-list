@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface HistoryRepository {
 
     List<History> findAll();
+
     History findById(Long id);
+
     History save(History history);
 }
