@@ -39,3 +39,10 @@ export function throttle(callback, limit = 100) {
     }
   };
 }
+
+export function moveAt(element, shiftX, shiftY) {
+  Object.assign(element.style, {
+    top: `${shiftY}px`,
+    left: `${shiftX}px`,
+  });
+}
