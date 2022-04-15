@@ -43,8 +43,8 @@ final class Board{
     
     func postCard(card: Card, section: BoardSubscriptIndex){
         var newCard = card
-        let postCard = PostCard(section: card.section.rawValue, title: card.title, content: card.content, userID: "chez")
-        guard let encodingData: Data = JsonConverter.encodeJson(param: postCard) else { return }
+        newCard.setUserId(userId: "chez")
+        guard let encodingData: Data = JsonConverter.encodeJson(param: newCard) else { return }
         
         URLManager.requestPost(url: "http://3.39.150.251:8080/api/cards", encodingData: encodingData){ data in
             guard let subData: PostResponse = JsonConverter.decodeJson(data: data) else { return }

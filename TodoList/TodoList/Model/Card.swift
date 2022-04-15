@@ -27,6 +27,26 @@ struct Card: Codable, Equatable{
         case title
         case content
         case createdDate = "modifiedAt"
+        case userId
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(section, forKey: .section)
+        try container.encode(title, forKey: .title)
+        try container.encode(content, forKey: .content)
+        try container.encode(createdDate, forKey: .createdDate)
+        try container.encode(userId, forKey: .userId)
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        section = try container.decode(State.self, forKey: .section)
+        title = try container.decode(String.self, forKey: .title)
+        content = try container.decode(String.self, forKey: .content)
+        createdDate = try container.decode(String.self, forKey: .createdDate)
     }
     
     init(section: Int, title: String, content: String, userID: String){
@@ -52,5 +72,9 @@ struct Card: Codable, Equatable{
     
     mutating func changeContent(content: String){
         self.content = content
+    }
+    
+    mutating func setUserId(userId: String){
+        self.userId = userId
     }
 }

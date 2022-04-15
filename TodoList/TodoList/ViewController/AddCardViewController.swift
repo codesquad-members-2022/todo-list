@@ -10,7 +10,7 @@ import UIKit
 final class AddCardViewController: UIViewController {
     var addCardView: AddCardView!
     var sectionNumber: Int?
-    
+    var isPatch: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +32,10 @@ final class AddCardViewController: UIViewController {
         
         if let title = title, let body = body {
             addCardView.setCardText(title: title, body: body)
+            self.isPatch = true
         } else{
             addCardView.setCardText(title: nil, body: nil)
+            self.isPatch = false
         }
     }
 }
