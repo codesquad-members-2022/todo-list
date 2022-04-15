@@ -12,9 +12,11 @@ final class MemoCanvasViewController: UIViewController {
     private (set) var memoManager: MemoManager = MemoManager()
     
     override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
         view = memoCanvasView
         
         initProperties()
+        initNotificationCenter()
         setLayout()
         subscribeObserver()
     }
@@ -23,6 +25,14 @@ final class MemoCanvasViewController: UIViewController {
         for containerType in MemoContainerType.allCases {
             addTableViewController(containerType: containerType)
         }
+    }
+    
+    private func initNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(addingMemoCompleted(_:)), name: .MemoDidAdd, object: memoManager)
+    }
+    
+    @objc func addingMemoCompleted(_ notification: Notification) {
+        
     }
     
     private func addTableViewController(containerType: MemoContainerType) {
