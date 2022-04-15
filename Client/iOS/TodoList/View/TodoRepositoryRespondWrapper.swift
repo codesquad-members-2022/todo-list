@@ -113,7 +113,7 @@ extension TodoRepositoryRespondWrapper: UITableViewDelegate {
             
             guard let self = self else { return }
             
-            AppDelegate.middleWare.deleteCard(id: self.dataSource[indexPath.row].id, at: self.todoBoard)
+            AppDelegate.middleWare.deleteCard(id: self.dataSource[indexPath.row/2].id, at: self.todoBoard)
             completion(true)
             action.backgroundColor = .red
         }
