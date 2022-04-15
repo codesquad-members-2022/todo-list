@@ -2,6 +2,10 @@ import Foundation
 
 class MemoManager {
     
+    enum ObserverInfoKey: String {
+        case memoDidAdd = "memoDidAdd"
+    }
+    
     private (set) var memoTableViewModels: [MemoContainerType: [Memo]] = [.todo:[], .progress:[], .done:[]]
     
     //임시로 생성자에서 테스트할 객체 생성
@@ -34,4 +38,44 @@ class MemoManager {
         return memoTableViewModels[containerType]?[index] ?? nil
     }
     
+    func convertStringToURL(url: String) -> URL? {
+        guard let url = URL(string: url) else {
+            return nil
+        }
+        return url
+    }
+    
+    func sendModelDataToNetworkManager(memo: Memo, taskType: Task, methodType: HTTPMethod) {
+        guard let data = JSONHandler.convertObjectToJSON(model: memo) else { return }
+        guard let url = convertStringToURL(url: EndPoint.url + taskType.path) else { return }
+        NetworkHandler.request(data: data, url: url, methodType: methodType, taskType: taskType, responseHandler: self)
+    }
+    
 }
+
+extension MemoManager: HttpResponseHandlable {
+    func handleSuccess(data: Data, taskType: Task) {
+        //decode json into object
+        //let model = JSONHandler.convertJSONToObject(data: data)
+        
+        //send object to model layer via NotificationCenter
+        switch taskType {
+        case .memoList:
+            return
+        case .memoAdd:
+            NotificationCenter.default.post(name: .MemoDidAdd, object: self, userInfo: [:])
+            return
+        case .memoContentUpdate:
+            return
+        case .memoStatusUpdate:
+            return
+        case .memoDelete:
+            return
+        }
+    }
+    
+    func handleFailure(error: Error) {
+        //잘못된 응답
+    }
+}
+
