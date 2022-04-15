@@ -27,10 +27,7 @@ class ActionLayer extends Component {
   }
 
   setEvent() {
-    this.addEvent('click', '.close-btn', () => {
-      this.$target.classList.remove('active');
-      ActionStore.toggleIsActionLayerActive();
-    });
+    this.addEvent('click', '.close-btn', () => this.closeActionLayer());
   }
 
   mounted() {
@@ -41,7 +38,7 @@ class ActionLayer extends Component {
   }
 
   notify(state) {
-    if (this.isActionLayerToggled(state)) {
+    if (state.isActionLayerActive) {
       state.isActionLayerActive ? this.clearInterval = this.changeActionTime() : this.clearInterval();
     } else {
       this.setState({
@@ -50,8 +47,9 @@ class ActionLayer extends Component {
     }
   }
 
-  isActionLayerToggled(state) {
-    return !Array.isArray(state);
+  closeActionLayer() {
+    this.$target.classList.remove('active');
+    ActionStore.toggleIsActionLayerActive();
   }
 
   changeActionTime() {

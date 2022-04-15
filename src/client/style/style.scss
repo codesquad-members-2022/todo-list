@@ -215,6 +215,10 @@ main {
     gap: 16px;
     overflow: scroll;
   }
+
+  &-list-item.dragging {
+    opacity: 0.5;
+  }
 }
 
 /* Action Layer */

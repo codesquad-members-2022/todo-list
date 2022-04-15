@@ -7,8 +7,7 @@ class ActionStore extends Store {
   #toggleKey = 'isActionLayerActive';
 
   async init() {
-    const actions = await ActionApi.getAllActions();
-    this.setState(this.#key, actions);
+    await this.setActions();
     this.setState(this.#toggleKey, false);
   }
 
@@ -22,6 +21,11 @@ class ActionStore extends Store {
 
   toggleIsActionLayerActive() {
     this.setState(this.#toggleKey, !this.getState('isActionLayerActive'));
+  }
+
+  async setActions() {
+    const actions = await ActionApi.getAllActions();
+    this.setState(this.#key, actions);
   }
 }
 

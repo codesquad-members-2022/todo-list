@@ -73,6 +73,8 @@ export const renderCards = ({ container, tasks }) => {
   tasks.forEach(task => {
     const listItem = document.createElement('li');
     listItem.dataset.id = task.id;
+    listItem.classList.add('column-list-item');
+    listItem.draggable = true;
     new Card(listItem, task);
     fragment.appendChild(listItem);
   });

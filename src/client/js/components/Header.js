@@ -13,10 +13,12 @@ class Header extends Component {
   }
 
   setEvent() {
-    this.addEvent('click', '.menu-btn', () => {
-      ActionStore.toggleIsActionLayerActive();
-      document.querySelector('.action-layer').classList.add('active');
-    })
+    this.addEvent('click', '.menu-btn', () => this.openActionLayer())
+  }
+
+  openActionLayer() {
+    ActionStore.toggleIsActionLayerActive();
+    document.querySelector('.action-layer').classList.add('active');
   }
 }
 

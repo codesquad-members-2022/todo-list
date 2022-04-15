@@ -15,8 +15,8 @@ class InputCard extends Component {
   }
 
   setEvent() {
-    this.addEvent('input', 'textarea', this.handleTextareaInput.bind(this));
-    this.addEvent('click', 'button', this.handleButtonClick.bind(this));
+    this.addEvent('input', 'textarea', (event) => this.checkTextareaValue(event));
+    this.addEvent('click', 'button', (event) => this.checkButtonType(event));
   }
 
   mounted() {
@@ -47,7 +47,7 @@ class InputCard extends Component {
     enrollBtn.innerText = enrollBtnName[this.$props.mode];
   }
 
-  handleTextareaInput() {
+  checkTextareaValue() {
     const { title, contents } = this.getTitleAndContents();
 
     const isTextareaEmpty = title.value === '' || contents.value === '';
@@ -59,7 +59,7 @@ class InputCard extends Component {
     enrollBtn.disabled = isTextareaEmpty || isSameTitleAndContents;
   }
 
-  async handleButtonClick(event) {
+  async checkButtonType(event) {
     event.preventDefault();
     const { target } = event;
     const isEnrolled = target.classList.contains('card-btn-enroll');

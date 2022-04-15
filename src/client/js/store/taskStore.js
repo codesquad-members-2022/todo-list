@@ -1,5 +1,6 @@
 import TaskApi from '../api/taskApi.js';
 import Store from './store.js';
+import { ActionStore } from './index.js';
 
 class TaskStore extends Store {
   #key = 'tasks';
@@ -14,16 +15,20 @@ class TaskStore extends Store {
   }
 
   async editTask(taskInfo, taskId) {
-    const isServerRespondedOK = await TaskApi.editTask(taskInfo, taskId); // 서버에 저장
-    if (!isServerRespondedOK) return false;
+    if (taskInfo.order && !this.isMoving(taskInfo, taskId)) return;
+    const editedTask = await TaskApi.editTask(taskInfo, taskId);
+    if (!editedTask) return false;
     await this.setTasks();
+    await ActionStore.setActions();
     return true;
   }
 
   async enrollTask(taskInfo) {
-    const isServerRespondedOK = await TaskApi.enrollTask(taskInfo); // 서버에 저장
-    if (!isServerRespondedOK) return false;
+    const order = this.getTasksFilteredWithColumn(taskInfo.columnId).length + 1;
+    const newTask = await TaskApi.enrollTask({ ...taskInfo, order });
+    if (!newTask) return false;
     await this.setTasks();
+    await ActionStore.setActions();
     return true;
   }
 
@@ -33,12 +38,22 @@ class TaskStore extends Store {
 
   getTasksFilteredWithColumn(columnId) {
     const tasks = this.getState(this.#key);
-    return tasks.filter(task => task.columnId === columnId);
+    return tasks.filter(task => task.columnId === columnId).sort((taskA, taskB) => taskB.order - taskA.order);
+  }
+
+  getTask(taskId) {
+    return this.getState(this.#key).find(task => task.id === parseInt(taskId));
   }
 
   async deleteTask(taskId) {
     await TaskApi.deleteTask(taskId);
     await this.setTasks();
+    await ActionStore.setActions();
+  }
+
+  isMoving(taskInfo, taskId) {
+    const originTask = this.getTask(taskId);
+    return !(taskInfo.columnId === originTask.columnId && taskInfo.order === originTask.order);
   }
 }
 

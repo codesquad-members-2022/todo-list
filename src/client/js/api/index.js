@@ -35,13 +35,4 @@ const request = async (url, option = {}) => {
   }
 };
 
-const requestWithoutJson = async (url, option = {}) => {
-  const response = await fetch(url, option);
-  if (!response.ok) {
-    console.error();
-  } else {
-    return response;
-  }
-};
-
-export { request, requestWithoutJson, BASE_URL, HTTP_METHOD };
+export { request, BASE_URL, HTTP_METHOD };

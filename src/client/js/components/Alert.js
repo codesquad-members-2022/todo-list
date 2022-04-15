@@ -17,17 +17,24 @@ class Alert extends Component {
   }
 
   setEvent() {
-    this.addEvent('click', '.btn-normal', () => {
-      this.$target.classList.remove('active');
-      this.destroy();
-      document.querySelector('.delete').classList.remove('delete');
-    })
+    this.addEvent('click', '.btn-normal', () => this.undeleteCard());
 
-    this.addEvent('click', '.btn-accent', async () => {
-      await TaskStore.deleteTask(this.$props.cardId);
-      this.$target.classList.remove('active');
-      this.destroy();
-    })
+    this.addEvent('click', '.btn-accent', () => this.deleteCard());
+  }
+
+  undeleteCard() {
+    document.querySelector('.delete').classList.remove('delete');
+    this.closeAlert();
+  }
+
+  async deleteCard() {
+    await TaskStore.deleteTask(this.$props.cardId);
+    this.closeAlert();
+  }
+
+  closeAlert() {
+    this.$target.classList.remove('active');
+    this.destroy();
   }
 }
 

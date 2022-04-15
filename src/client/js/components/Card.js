@@ -21,28 +21,31 @@ class Card extends Component {
   }
 
   setEvent() {
-    this.addEvent('mouseover', '.delete-btn', () => {
-      this.$target.querySelector('.card').classList.add('delete');
-    });
+    this.addEvent('mouseover', '.delete-btn', () => this.addCardStyle());
 
-    this.addEvent('mouseout', '.delete-btn', event => {
-      const alertWrapper = document.querySelector('.alert-wrapper');
-      if (event.relatedTarget !== alertWrapper) {
-        this.$target.querySelector('.card').classList.remove('delete');
-      }
-    });
+    this.addEvent('mouseout', '.delete-btn', () => this.removeCardStyle());
 
-    this.addEvent('click', '.delete-btn', () => {
-      this.$target.querySelector('.card').classList.add('delete');
-      renderAlert({
-        cardId: this.$props.id,
-      });
-    });
+    this.addEvent('click', '.delete-btn', () => this.openAlert());
 
-    this.addEvent('dblclick', '.card', () => this.handleDblclick());
+    this.addEvent('dblclick', '.card', () => this.showEditedInputCard());
   }
 
-  handleDblclick() {
+  addCardStyle() {
+    this.$target.querySelector('.card').classList.add('delete');
+  }
+
+  removeCardStyle() {
+    this.$target.querySelector('.card').classList.remove('delete');
+  }
+
+  openAlert() {
+    this.$target.querySelector('.card').classList.add('delete');
+    renderAlert({
+      cardId: this.$props.id,
+    });
+  }
+
+  showEditedInputCard() {
     this.removeInputCard();
 
     const columnById = columnStore.getColumnWithId(this.$props.columnId);
