@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.example.backend.repository.card.CardRepositoryQueryHelper.*;
 import static java.time.LocalDateTime.now;
 
 @Repository
@@ -31,8 +32,8 @@ public class CardJdbcRepository implements CardRepository {
 
     public CardJdbcRepository(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, CardRepositoryQueryHelper queryHelper) {
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
-                .withTableName("card")
-                .usingGeneratedKeyColumns("id");
+                .withTableName(CARD)
+                .usingGeneratedKeyColumns(ID);
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         this.queryHelper = queryHelper;
@@ -40,7 +41,7 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Card save(Card card) {
-        Map<String, Object> params = queryHelper.getParamMap(card);
+        Map<String, Object> params = queryHelper.getSaveParamMap(card);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource(params);
         Long id = jdbcInsert.executeAndReturnKey(sqlParameterSource).longValue();
         return new CardBuilder()
@@ -59,47 +60,41 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public List<Card> findAll() {
-        String query = "SELECT id, " +
-                "writer, " +
-                "position, " +
-                "title, " +
-                "content, " +
-                "card_type, " +
-                "created_at, " +
-                "last_modified_at, " +
-                "visible, " +
-                "member_id " +
-                "FROM card WHERE visible = true";
-        return namedParameterJdbcTemplate.query(query, CardRepositoryQueryHelper.mapper);
+        String query = "SELECT id, writer, position, title, content, card_type, created_at, last_modified_at, visible, member_id FROM card WHERE visible = TRUE";
+        return namedParameterJdbcTemplate.query(query, generalMapper);
     }
 
     @Override
     public Optional<Card> findById(Long id) {
-        String query = "SELECT id, writer, position, title, content, card_type, created_at, last_modified_at, visible, member_id " +
-                "FROM card WHERE id = :id";
-        Map<String, Object> params = Collections.singletonMap("id", id);
-        return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, CardRepositoryQueryHelper.mapper));
+        String query = "SELECT id, writer, position, title, content, card_type, created_at, last_modified_at, visible, member_id FROM card WHERE id = :id";
+        Map<String, Object> params = Collections.singletonMap(ID, id);
+        return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, generalMapper));
     }
 
     @Override
     public Card update(Card card) {
-        String query = "UPDATE card SET title=:title, content=:content, card_type=:cardType, position=:position, last_modified_at=:lastModifiedAt WHERE id=:id AND visible = true";
-        SqlParameterSource sqlParameterSource = queryHelper.getUpdateParameterSource(card);
+        String query = "UPDATE card SET title=:title, content=:content, card_type=:cardType, position=:position, last_modified_at=:lastModifiedAt WHERE id=:id AND visible = TRUE";
+        SqlParameterSource sqlParameterSource = queryHelper.getUpdateParamSource(card);
         namedParameterJdbcTemplate.update(query, sqlParameterSource);
         return card;
     }
 
     @Override
     public void delete(Long id) {
-        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-        String deleteQuery = "UPDATE card SET visible=false WHERE id=:id AND visible = true";
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue(ID, id);
+        String deleteQuery = "UPDATE card SET visible = FALSE WHERE id=:id AND visible = TRUE";
         int result = namedParameterJdbcTemplate.update(deleteQuery, namedParameters);
         if (result == 0) {
             throw new IllegalArgumentException("이미 삭제된 카드입니다.");
         }
         Card card = findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카드입니다."));
         String orderQuery = "UPDATE card SET position = position-1 WHERE card_type = ? AND position > ?";
-        jdbcTemplate.update(orderQuery, card.getCardType().name(), card.getPosition());
+        jdbcTemplate.update(orderQuery, card.getCardTypeName(), card.getPosition());
+    }
+
+    @Override
+    public Card changePosition(Card card, CardType cardType) {
+        return null;
     }
 
     private static class CardBuilder {
@@ -114,62 +109,62 @@ public class CardJdbcRepository implements CardRepository {
         private boolean visible;
         private Long memberId;
 
-        CardBuilder() {
+        private CardBuilder() {
         }
 
         ;
 
-        CardBuilder id(Long id) {
+        private CardBuilder id(Long id) {
             this.id = id;
             return this;
         }
 
-        CardBuilder writer(String writer) {
+        private CardBuilder writer(String writer) {
             this.writer = writer;
             return this;
         }
 
-        CardBuilder position(Long position) {
+        private CardBuilder position(Long position) {
             this.position = position;
             return this;
         }
 
-        CardBuilder title(String title) {
+        private CardBuilder title(String title) {
             this.title = title;
             return this;
         }
 
-        CardBuilder content(String content) {
+        private CardBuilder content(String content) {
             this.content = content;
             return this;
         }
 
-        CardBuilder cardType(CardType cardType) {
+        private CardBuilder cardType(CardType cardType) {
             this.cardType = cardType;
             return this;
         }
 
-        CardBuilder createdAt(LocalDateTime createdAt) {
+        private CardBuilder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
-        CardBuilder lastModifiedAt(LocalDateTime lastModifiedAt) {
+        private CardBuilder lastModifiedAt(LocalDateTime lastModifiedAt) {
             this.lastModifiedAt = lastModifiedAt;
             return this;
         }
 
-        CardBuilder visible(boolean visible) {
+        private CardBuilder visible(boolean visible) {
             this.visible = visible;
             return this;
         }
 
-        CardBuilder memberId(Long memberId) {
+        private CardBuilder memberId(Long memberId) {
             this.memberId = memberId;
             return this;
         }
 
-        Card build() {
+        private Card build() {
             return new Card(id, writer, position, title, content, cardType, createdAt, lastModifiedAt, visible, memberId);
         }
     }

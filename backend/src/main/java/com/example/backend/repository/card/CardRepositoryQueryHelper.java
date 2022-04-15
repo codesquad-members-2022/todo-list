@@ -16,18 +16,20 @@ import static com.example.backend.utils.TimeUtils.dateTimeOf;
 @Configuration
 public class CardRepositoryQueryHelper {
 
-    private static final String ID = "id";
-    private static final String WRITER = "writer";
-    private static final String POSITION = "position";
-    private static final String TITLE = "title";
-    private static final String CONTENT = "content";
-    private static final String CARD_TYPE = "card_type";
-    private static final String CREATED_AT = "created_at";
-    private static final String LAST_MODIFIED_AT = "last_modified_at";
-    private static final String VISIBLE = "visible";
-    private static final String MEMBER_ID = "member_id";
+    public static final String CARD = "card";
+    public static final String ID = "id";
+    public static final String WRITER = "writer";
+    public static final String POSITION = "position";
+    public static final String TITLE = "title";
+    public static final String CONTENT = "content";
+    public static final String CARD_TYPE = "card_type";
+    public static final String CREATED_AT = "created_at";
+    public static final String LAST_MODIFIED_AT = "last_modified_at";
+    public static final String VISIBLE = "visible";
+    public static final String MEMBER_ID = "member_id";
+    public static final Boolean TRUE = Boolean.TRUE;
 
-    public static RowMapper<Card> mapper = (rs, rowNum) ->
+    public static RowMapper<Card> generalMapper = (rs, rowNum) ->
             new Card(
                     rs.getLong(ID),
                     rs.getString(WRITER),
@@ -41,7 +43,7 @@ public class CardRepositoryQueryHelper {
                     rs.getLong(MEMBER_ID)
             );
 
-    public Map<String, Object> getParamMap(Card card) {
+    public Map<String, Object> getSaveParamMap(Card card) {
         return new HashMap<>() {{
             put(ID, card.getId());
             put(WRITER, card.getWriter());
@@ -51,12 +53,12 @@ public class CardRepositoryQueryHelper {
             put("cardType", card.getCardType().toString());
             put("createdAt", LocalDateTime.now());
             put("lastModifiedAt", LocalDateTime.now());
-            put(VISIBLE, true);
+            put(VISIBLE, TRUE);
             put("memberId", card.getMemberId());
         }};
     }
 
-    public SqlParameterSource getUpdateParameterSource(Card card) {
+    public SqlParameterSource getUpdateParamSource(Card card) {
         return new MapSqlParameterSource()
                 .addValue(ID, card.getId())
                 .addValue(TITLE, card.getTitle())

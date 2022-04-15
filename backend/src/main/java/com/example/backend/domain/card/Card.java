@@ -1,5 +1,6 @@
 package com.example.backend.domain.card;
 
+import java.beans.Transient;
 import java.time.LocalDateTime;
 
 public class Card {
@@ -63,6 +64,11 @@ public class Card {
 
     public CardType getCardType() {
         return cardType;
+    }
+
+    @Transient
+    public String getCardTypeName(){
+        return cardType.name();
     }
 
     public String getWriter() {
