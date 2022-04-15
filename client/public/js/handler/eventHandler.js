@@ -75,4 +75,12 @@ export function bindEvents() {
     console.log("removeColumn");
     console.log(event.target);
   }
+
+  function _getColumnId(eventTarget) {
+    return Number(getParentElementByDataset(eventTarget, "column").dataset.column);
+  }
+
+  function _getItemId(eventTarget) {
+    return Number(getParentElementByDataset(eventTarget, "card").dataset.card);
+  }
 }
