@@ -46,34 +46,34 @@
     {
       "id": 1,
       "user": "sam",
-      "todo": "Github 공부하기",
-      "beforePosition": "",
-      "afterPosition": "1",
-      "action": "등록"
+      "todo": "HTML/CSS 공부하기",
+      "beforePosition": "해야할 일",
+      "afterPosition": "하고 있는 일",
+      "action": "이동"
     },
     {
       "id": 2,
       "user": "sam",
-      "todo": "블로그에 포스팅할 것",
+      "todo": "HTML/CSS 공부하기",
       "beforePosition": "",
-      "afterPosition": "1",
+      "afterPosition": "해야할 일",
       "action": "등록"
     },
     {
       "id": 3,
       "user": "sam",
-      "todo": "HTML/CSS 공부하기",
+      "todo": "블로그에 포스팅할 것",
       "beforePosition": "",
-      "afterPosition": "1",
+      "afterPosition": "해야할 일",
       "action": "등록"
     },
     {
       "id": 4,
       "user": "sam",
-      "todo": "HTML/CSS 공부하기",
-      "beforePosition": "1",
-      "afterPosition": "2",
-      "action": "이동"
+      "todo": "Github 공부하기",
+      "beforePosition": "",
+      "afterPosition": "해야할 일",
+      "action": "등록"
     }
   ],
   "data": [
@@ -117,29 +117,29 @@
         {
           "user": "sam",
           "todo": "HTML/CSS 공부하기",
-          "beforePosition": "1",
-          "afterPosition": "2",
+          "beforePosition": "해야할 일",
+          "afterPosition": "하고 있는 일",
           "action": "이동"
         },
         {
           "user": "sam",
           "todo": "HTML/CSS 공부하기",
           "beforePosition": "",
-          "afterPosition": "1",
+          "afterPosition": "해야할 일",
           "action": "등록"
         },
         {
           "user": "sam",
           "todo": "블로그에 포스팅할 것",
           "beforePosition": "",
-          "afterPosition": "1",
+          "afterPosition": "해야할 일",
           "action": "등록"
         },
         {
           "user": "sam",
           "todo": "Github 공부하기",
           "beforePosition": "",
-          "afterPosition": "1",
+          "afterPosition": "해야할 일",
           "action": "등록"
         }
       ]
