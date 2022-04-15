@@ -35,10 +35,10 @@ class HomeControllerTest {
 
 	@Test
 	void 전체_카드_및_로그_조회() {
-		final CardDTO card1 = new CardDTO(1000, "제목1", "내용1", "todo");
-		final CardDTO card2 = new CardDTO(2000, "제목2", "내용2", "todo");
-		final CardDTO card3 = new CardDTO(1000, "제목3", "내용3", "doing");
-		final CardDTO card4 = new CardDTO(1000, "제목4", "내용4", "done");
+		final CardDTO card1 = new CardDTO(1000, "제목1", "내용1", "todo", "android");
+		final CardDTO card2 = new CardDTO(2000, "제목2", "내용2", "todo", "android");
+		final CardDTO card3 = new CardDTO(1000, "제목3", "내용3", "doing", "android");
+		final CardDTO card4 = new CardDTO(1000, "제목4", "내용4", "done", "android");
 
 		final ClassifiedCardsDTO classifiedCards = new ClassifiedCardsDTO();
 		classifiedCards.get("todo").add(card1);

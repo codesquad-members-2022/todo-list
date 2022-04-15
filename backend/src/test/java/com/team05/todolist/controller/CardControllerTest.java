@@ -47,15 +47,15 @@ public class CardControllerTest {
 	void 카드_등록() throws Exception {
 		mapper.registerModule(new JavaTimeModule());
 		final CreateCardDTO createCardDTO =new CreateCardDTO(0, "제목1", "내용1", "todo");
-		final CardDTO cardDTO = new CardDTO(1000, "제목1", "내용1", "todo");
+		final CardDTO cardDTO = new CardDTO(1000, "제목1", "내용1", "todo", "android");
 		final LogDTO log = new LogDTO(1, "create", LocalDateTime.now(), "로그1", "todo");
 
-		given(cardService.save(any(CreateCardDTO.class))).willReturn(cardDTO);
+		given(cardService.save(any(CreateCardDTO.class), "android")).willReturn(cardDTO);
 		given(logService.save(Event.CREATE, createCardDTO.getTitle(), createCardDTO.getSection())).willReturn(log);
 
 		mockMvc.perform(MockMvcRequestBuilders
 			.post("/api/cards").header("user-agent", "android")
-			.content(mapper.writeValueAsString(new ResponseDTO(cardDTO, log, "android")))
+			.content(mapper.writeValueAsString(new ResponseDTO(cardDTO, log)))
 			.contentType(APPLICATION_JSON)
 			.accept(APPLICATION_JSON))
 			.andDo(print())
