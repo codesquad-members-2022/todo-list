@@ -34,7 +34,6 @@ public class HistoryService {
 	}
 
 	private Member selectMemberInfo(String userId) {
-		Member member = memberRepository.findByUserId(userId);
-		return member;
+		return memberRepository.findByUserId(userId);
 	}
 }
