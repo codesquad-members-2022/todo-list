@@ -24,6 +24,10 @@ import { renderEmptyCard } from "../view/EmptyCardView.js";
 import { renderCard, renderRegisteredStyle } from "../view/CardView.js";
 import { initColumn, onClickColumnAddBtn } from "../view/ColumnView.js";
 import * as util from "../../util/Util.js";
+import {
+  renderHistoryCard,
+  onClickMeunRemoveBtn,
+} from "../view/historyView.js";
 
 const createMainController = (store) => {
   init(store);
@@ -33,6 +37,7 @@ function init(store) {
   const columns = document.querySelectorAll(".task-column");
   // add 버튼 이벤트 달기
   onClickColumnAddBtn(columns, handleAddBtn, store);
+  onClickMeunRemoveBtn();
 }
 
 function handleAddBtn({ target }, store) {
@@ -51,8 +56,13 @@ function handleCardInput({ target }) {
   const parentCard = target.closest(".task-card");
   const cardTitle = util.$(".task-card__title", parentCard);
   const cardContent = util.$(".task-card__content", parentCard);
-  const cardTextData = [cardTitle, cardContent].map((input) => input.textContent.trim());
-  const registerBtn = util.$(".task-card__register-btn.cursor-pointer", parentCard);
+  const cardTextData = [cardTitle, cardContent].map((input) =>
+    input.textContent.trim()
+  );
+  const registerBtn = util.$(
+    ".task-card__register-btn.cursor-pointer",
+    parentCard
+  );
 
   if (cardTextData.includes("")) {
     registerBtn.disabled = true;
@@ -67,7 +77,9 @@ async function handleRegisterBtn(event, store) {
   const parentCard = target.closest(".task-card");
   const parentCardId = parentCard.id;
   const cardTitle = parentCard.querySelector(".task-card__title").textContent;
-  const cardContent = parentCard.querySelector(".task-card__content").textContent;
+  const cardContent = parentCard.querySelector(
+    ".task-card__content"
+  ).textContent;
   const dataType = parentCard.parentElement.id;
 
   if (parentCardId !== "empty-card") {
@@ -75,13 +87,23 @@ async function handleRegisterBtn(event, store) {
     const newState = createCardState(cardTitle, cardContent, parentCardId);
     // 수정된 state를 store 및 서버에 저장
     await store.updateState(dataType, parentCardId, newState);
+    renderHistoryCard(parentCard, "update");
     renderRegisteredStyle(parentCard, newState);
   } else {
     // title, content을 바탕으로 state 만들기
     const newState = createCardState(cardTitle, cardContent);
     // 만든 state를 store 및 서버에 저장
     await store.addState(dataType, newState);
-    renderCard(parentCard, handleRemoveBtn, handleTextDoubleClick, store, dataType, newState);
+    renderHistoryCard(parentCard, "register");
+    renderCard(
+      parentCard,
+      handleRemoveBtn,
+      handleTextDoubleClick,
+      dragDrop,
+      store,
+      dataType,
+      newState
+    );
   }
 }
 
@@ -125,6 +147,7 @@ function handleRemoveBtn({ target }, store, dataType) {
   }
 
   store.removeState(dataType, cardToRemove.id);
+  renderHistoryCard(cardToRemove, "remove");
   cardToRemove.remove();
 }
 
@@ -134,8 +157,12 @@ function handleTextDoubleClick({ target }, store, dataType) {
   targetCard.classList.remove("registered");
   // targetCard.id = newState.id;
   util.$(".delete-btn.cursor-pointer", targetCard).classList.add("hidden");
-  util.$(".task-card__cancle-btn.cursor-pointer", targetCard).classList.remove("hidden");
-  util.$(".task-card__register-btn.cursor-pointer", targetCard).classList.remove("hidden");
+  util
+    .$(".task-card__cancle-btn.cursor-pointer", targetCard)
+    .classList.remove("hidden");
+  util
+    .$(".task-card__register-btn.cursor-pointer", targetCard)
+    .classList.remove("hidden");
   util.$(".task-card__footer", targetCard).classList.add("hidden");
   util.$(".task-card__title", targetCard).contentEditable = true;
   util.$(".task-card__title", targetCard).classList.remove("font-black");
