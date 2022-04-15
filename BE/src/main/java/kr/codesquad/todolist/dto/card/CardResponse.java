@@ -49,4 +49,12 @@ public class CardResponse {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    public boolean hasSameSubject(String subject) {
+        return this.subject.equals(subject);
+    }
+
+    public boolean isSameSection(Integer sectionId) {
+        return this.sectionId.equals(sectionId);
+    }
 }
