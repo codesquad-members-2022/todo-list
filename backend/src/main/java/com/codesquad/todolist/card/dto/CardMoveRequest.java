@@ -10,7 +10,6 @@ public class CardMoveRequest {
     private Integer columnId;
 
     @ApiModelProperty(value = "목표 위치의 아래 카드 Id")
-    @NotNull(message = "nextId 값이 있어야 합니다")
     private Integer nextId;
 
     private CardMoveRequest() {
