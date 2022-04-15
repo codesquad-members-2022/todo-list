@@ -55,8 +55,32 @@ public class CardService {
 		return defaultResponse;
 	}
 
-	private Member selectMemberInfo(String userId) {
-		Member member = memberRepository.findByUserId(userId);
-		return member;
+	@Transactional
+	public DefaultResponse upate(CardRequest cardRequest) {
+		Member member = selectMemberInfo(cardRequest.getUserId());
+
+		DefaultResponse defaultResponse = new DefaultResponse();
+		Card card = Card.of(cardRequest, member.getId());
+
+		card = cardRepository.update(card);
+		try {
+			card.insertAction(card, CardAction.UPDATE.getCode());
+			historyService.add(card);
+
+			defaultResponse.setHttpStatus(HttpStatus.OK);
+		} catch (Exception e) {
+			defaultResponse.setHttpStatus(HttpStatus.MULTI_STATUS);
+			log.info("CARD UPDATE - CardService.update Exception = {}" + e.getMessage());
+		}finally{
+			defaultResponse.setCustomResponse(CardResponse.UpdateInfo.isSuccess(true));
+		}
+
+		return defaultResponse;
 	}
+
+	private Member selectMemberInfo(String userId) {
+		return memberRepository.findByUserId(userId);
+	}
+
+
 }

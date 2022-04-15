@@ -65,6 +65,21 @@ public class JdbcCardRepository implements CardRepository {
 		return card;
 	}
 
+	@Override
+	public Card update(Card card) {
+		LocalDateTime now = LocalDateTime.now();
+		card.insertModifiedAt(card, now);
+		BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(card);
+
+		String sqlForUpdate = "UPDATE card set title = :title , content = :content "
+							+ "WHERE id =  :id "
+							+ "AND member_id = :memberId";
+
+		jdbcTemplate.update(sqlForUpdate, namedParameters);
+
+		return card;
+	}
+
 	private static RowMapper<Card> rowMapper = (rs, rowNum) -> Card.of(rs.getLong("id"),
 		rs.getString("title"),
 		rs.getString("content"),
