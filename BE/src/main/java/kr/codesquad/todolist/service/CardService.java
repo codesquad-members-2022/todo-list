@@ -6,7 +6,7 @@ import kr.codesquad.todolist.dto.card.CardResponse;
 import kr.codesquad.todolist.dto.card.CreateCardRequest;
 import kr.codesquad.todolist.dto.card.UpdateCardRequest;
 import kr.codesquad.todolist.dto.section.CardsOfSection;
-import kr.codesquad.todolist.repository.CardRepository;
+import kr.codesquad.todolist.repository.card.CardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -49,7 +49,7 @@ public class CardService {
     }
 
     public CardResponse findOne(Long id) {
-        Card card = cardRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Card card = cardRepository.findById(id).orElseThrow(() -> new NoSuchElementException("카드를 찾을 수 없습니다."));
         return CardResponse.from(card);
     }
 
@@ -70,7 +70,7 @@ public class CardService {
     }
 
     public Section findSection(Integer sectionId) {
-        return cardRepository.findSection(sectionId).orElseThrow(NoSuchElementException::new);
+        return cardRepository.findSection(sectionId).orElseThrow(() -> new NoSuchElementException("섹션을 찾을 수 없습니다."));
     }
 
 }

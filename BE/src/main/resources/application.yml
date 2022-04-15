@@ -1,8 +1,9 @@
 spring:
   config:
-    import: optional:secret.yml
+    import: secret.yml
   datasource:
     url:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username:
     password:
+
