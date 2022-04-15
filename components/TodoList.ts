@@ -3,6 +3,8 @@
 import View from "../core/View";
 import { Action,  StateObj } from "../types";
 import { TodoCard } from "./TodoCard";
+import {AddDto} from "../core/DTOs/add.dto";
+import {SelectDto} from "../core/DTOs/select.dto";
 
 
 export class TodoList extends View {
@@ -59,9 +61,10 @@ export class TodoList extends View {
     );
   }
   setEvent(){
-    const{todos}= this.$props;
+    const{todos, listIdx}= this.$props;
     this.addEvent('click', '.add' , e=>{
-      this.store.commit(Action.ONEDIT, {editting:true, idx:this.select()?.dataset.idx}); //target idx
+      this.store.commit(Action.ADD, new AddDto(listIdx, "", "")); //target idx
+      this.store.commit(Action.SELECT, new SelectDto(true, 0, listIdx));
     })
 
   }
