@@ -32,4 +32,36 @@ public class LogResponse {
         return new LogResponse(log.getId(), log.getMemberId(), log.getPreviousSubject(), log.getCurrentSubject(),
                 log.getPreviousSectionId(), log.getCurrentSectionId(), log.getActivatedAt(), log.getActivityString());
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public String getPreviousSubject() {
+        return previousSubject;
+    }
+
+    public String getCurrentSubject() {
+        return currentSubject;
+    }
+
+    public Integer getPreviousSectionId() {
+        return previousSectionId;
+    }
+
+    public Integer getCurrentSectionId() {
+        return currentSectionId;
+    }
+
+    public LocalDateTime getActivatedAt() {
+        return activatedAt;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
 }
