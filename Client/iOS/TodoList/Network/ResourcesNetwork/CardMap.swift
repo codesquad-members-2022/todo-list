@@ -11,6 +11,6 @@ struct CardMap: Codable {
     var cardMap: TodoList
     
     struct TodoList: Codable {
-        var todo: [CardData]
+        var TODO: [CardData]
     }
 }

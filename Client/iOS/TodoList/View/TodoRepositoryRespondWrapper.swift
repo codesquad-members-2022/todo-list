@@ -9,7 +9,7 @@ class TodoRepositoryRespondWrapper: NSObject {
     var todoTableView: TodoTableView
     var todoBoard: TodoBoard
     
-    private(set) var dataSource = [CardData]()
+    private(set) var dataSource = [Card]()
     var badgeDelegate: TodoBadgeDelegate?
     
     init(_ tableView: TodoTableView, in board: TodoBoard) {
@@ -28,7 +28,7 @@ class TodoRepositoryRespondWrapper: NSObject {
             
             guard
                 let info = noti.userInfo,
-                let result = info["result"] as? Result<[CardData], DataTaskError>
+                let result = info["result"] as? Result<[Card], DataTaskError>
             else {
                 return
             }
@@ -51,13 +51,13 @@ class TodoRepositoryRespondWrapper: NSObject {
         return (0..<dataSource.count ~= index)
     }
     
-    func insertDataSource(data: CardData, at index: Int) {
+    func insertDataSource(data: Card, at index: Int) {
         guard isEnableIndex(index) else { return }
         dataSource[index] = data
         reloadTodoTableView()
     }
     
-    func setDataSource(data: [CardData]) {
+    func setDataSource(data: [Card]) {
         dataSource = data
         reloadTodoTableView()
     }

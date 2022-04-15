@@ -11,8 +11,13 @@ struct Team13API: ServerAPI {
     let endpoint: String = "http://13.125.216.180:8080"
 }
 
+protocol APIService {
+    func fetchUser(completionHandler: @escaping (Result<String,DataTaskError>) -> Void)
+    func fetchAll<T: Codable>(dataType: T.Type, completionHandler: @escaping (Result<T,DataTaskError>) -> Void)
+}
 
-class DataTask: SessionDataTask {
+
+class DataTask: SessionDataTask, APIService {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private let api: ServerAPI
