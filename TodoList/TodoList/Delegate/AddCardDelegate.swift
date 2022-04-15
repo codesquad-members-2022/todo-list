@@ -10,4 +10,5 @@ import Foundation
 protocol AddCardDelegate: AnyObject{
     func makeCardShoudCanceld()
     func makeCardShoudConfirmed(title: String, content: String)
+    func cardshoudNotMake()
 }
