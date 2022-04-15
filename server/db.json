@@ -1,32 +1,25 @@
 {
   "cards": [
     {
+      "id": "1",
+      "title": "dd",
+      "content": "ddd",
+      "lastTime": "2022-04-15T07:46:37.724Z",
+      "states": "todo"
+    },
+    {
       "id": "2",
-      "title": "aa",
-      "content": "dd",
-      "lastTime": "2022-04-14T15:33:07.075Z",
-      "states": "doing"
+      "title": "ss",
+      "content": "ss",
+      "lastTime": "2022-04-15T07:47:04.766Z",
+      "states": "todo"
     },
     {
       "id": "3",
-      "title": "ff",
-      "content": "ddd",
-      "lastTime": "2022-04-14T15:33:12.221Z",
-      "states": "doing"
-    },
-    {
-      "id": "4",
       "title": "aa",
-      "content": "fff",
-      "lastTime": "2022-04-14T15:33:27.468Z",
-      "states": "done"
-    },
-    {
-      "id": "5",
-      "title": "dd",
-      "content": "fff",
-      "lastTime": "2022-04-14T15:33:51.745Z",
-      "states": "done"
+      "content": "aa",
+      "lastTime": "2022-04-15T07:46:53.210Z",
+      "states": "doing"
     }
   ],
   "columns": [
@@ -35,14 +28,13 @@
     "done"
   ],
   "cardSequence": {
-    "todo": [],
-    "doing": [
-      3,
+    "todo": [
+      1,
       2
     ],
-    "done": [
-      5,
-      4
-    ]
+    "doing": [
+      3
+    ],
+    "done": []
   }
 }

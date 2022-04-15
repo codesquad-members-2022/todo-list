@@ -45,8 +45,8 @@ export class UpdateCard {
 
   cancelUpdateHandler(target) {
     this.currCard = closest('.list_item', target);
-    currCard.classList.replace('active', 'default');
-    currCard.innerHTML = this.beforeUpdateCard;
+    this.currCard.classList.replace('active', 'default');
+    this.currCard.innerHTML = this.beforeUpdateCard;
   }
 
   updateCardHandler(target) {
@@ -66,7 +66,7 @@ export class UpdateCard {
       lastTime: lastTime,
     };
 
-    const url = `http://localhost:3001/cards/${cardId}`;
+    const url = `http://localhost:3002/cards/${cardId}`;
     fetch(url, {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },

@@ -13,7 +13,7 @@ export class InitTodos {
   };
 
   getData = async (keyword) => {
-    const url = `http://localhost:3001/${keyword}`;
+    const url = `http://localhost:3002/${keyword}`;
     const res = await fetch(url);
     const json = await res.json();
     return json;

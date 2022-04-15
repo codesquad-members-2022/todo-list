@@ -25,8 +25,9 @@ export class DeleteCard {
 
     if (containClass(e.target, 'alert-accent-btn')) {
       this.layer.style.display = 'none';
-      this.currentCard.remove();
       this.deleteCardData(this.currentCard.dataset.id);
+      this.deleteSequence(this.currentCard);
+      this.currentCard.remove();
     }
 
     if (containClass(e.target, 'alert-normal-btn')) {
@@ -49,10 +50,32 @@ export class DeleteCard {
   }
 
   deleteCardData(id) {
-    const url = `http://localhost:3001/cards/${id}`;
+    const url = `http://localhost:3002/cards/${id}`;
     fetch(url, {
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
+    });
+  }
+
+  async deleteSequence(cardItem) {
+    const columnName = $(
+      '.column-title',
+      closest('.column', cardItem)
+    ).textContent;
+
+    const res = await fetch('http://localhost:3002/cardSequence');
+    const json = await res.json();
+    const sequence = json[columnName];
+
+    const patchData = {};
+    patchData[columnName] = sequence.filter(
+      (el) => el !== Number(cardItem.dataset.id)
+    );
+
+    fetch('http://localhost:3002/cardSequence', {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(patchData),
     });
   }
 }

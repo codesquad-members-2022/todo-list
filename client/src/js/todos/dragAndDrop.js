@@ -11,13 +11,15 @@ export class DragAndDrop {
     this.clonedDragCard = null;
     this.cardPositionInfo = [];
     this.moveCardState = false;
+    this.movedDragCard = null;
+    this.columnName = null;
   }
 
   init() {
     this.target.addEventListener('mousedown', (e) =>
       this.mousedownEventHandler(e)
     );
-    this.target.addEventListener('mouseup', (e) => this.mouseupEventHandler());
+    this.target.addEventListener('mouseup', () => this.mouseupEventHandler());
     this.target.addEventListener('mousemove', (e) =>
       this.mousemoveEventHandler(e)
     );
@@ -27,7 +29,11 @@ export class DragAndDrop {
     if (closest('.default', e.target)) {
       this.isDragging = true;
       this.dragCard = closest('.default', e.target);
-      this.column = closest('.column-list', e.target);
+      this.columnList = closest('.column-list', e.target);
+      this.columnName = $(
+        '.column-title',
+        closest('.column', e.target)
+      ).textContent;
     }
   }
 
@@ -35,6 +41,9 @@ export class DragAndDrop {
     this.isDragging = false;
     this.moveCardState = false;
     if (this.isClone) {
+      this.updateCardState(this.movedDragCard);
+      this.updateSequence(this.movedDragCard);
+      this.deleteSequence();
       this.clonedDragCard.remove();
       this.dragCard.classList.replace('place', 'default');
       this.isClone = null;
@@ -55,26 +64,28 @@ export class DragAndDrop {
     this.clonedDragCard.style.top = mouseY + 'px';
 
     const cloneCardPosData = this.clonedDragCard.getBoundingClientRect();
-    const columnPosData = this.column.getBoundingClientRect();
+    const columnPosData = this.columnList.getBoundingClientRect();
 
-    const { x: draggedX, y: draggedY } = cloneCardPosData;
+    const { x: draggedX, y: draggedY, width: draggedWidth } = cloneCardPosData;
 
-    const moveToLeftColumn =
-      columnPosData.x - cloneCardPosData.x > cloneCardPosData.width / 2;
+    const moveToLeftColumn = columnPosData.x - draggedX > draggedWidth / 2;
     const moveToRightColumn =
-      columnPosData.x + columnPosData.width - cloneCardPosData.x <
-      cloneCardPosData.width / 2;
+      columnPosData.x + columnPosData.width - draggedX < draggedWidth / 2;
 
     if (moveToLeftColumn) {
-      $(
-        '.column-list',
-        this.column.parentElement.previousElementSibling
-      ).appendChild(this.dragCard);
+      const leftColumn = this.columnList.parentElement.previousElementSibling;
+      $('.column-list', leftColumn).appendChild(this.dragCard);
+      this.movedDragCard = $('.column-list', leftColumn).firstElementChild;
+      if (!$('.column-list', leftColumn).children.length) {
+        return;
+      }
     } else if (moveToRightColumn) {
-      $(
-        '.column-list',
-        this.column.parentElement.nextElementSibling
-      ).appendChild(this.dragCard);
+      const rightColumn = this.columnList.parentElement.nextElementSibling;
+      $('.column-list', rightColumn).appendChild(this.dragCard);
+      this.movedDragCard = $('.column-list', rightColumn).firstElementChild;
+      if (!$('.column-list', rightColumn).children.length) {
+        return;
+      }
     }
 
     this.cardPositionInfo.forEach((el) => {
@@ -90,7 +101,7 @@ export class DragAndDrop {
       // 카드가 다른 카드의 측면에서 절반을 넘었는지 판단
       const overHalfSide =
         prevCard.x + prevCard.width - curCard.x > prevCard.width / 2;
-      //
+
       const overHalfTop =
         cloneCardPosData.y < el.y &&
         higherCard.y + higherCard.height - lowerCard.y > lowerCard.height / 2;
@@ -112,6 +123,7 @@ export class DragAndDrop {
             );
           }
         }
+        this.movedDragCard = el.positionedCard;
       } else {
         this.moveCardState = true;
 
@@ -127,6 +139,8 @@ export class DragAndDrop {
             el.positionedCard.insertAdjacentElement('afterend', this.dragCard);
           }
         }
+
+        this.movedDragCard = el.positionedCard;
       }
     });
   }
@@ -152,5 +166,62 @@ export class DragAndDrop {
     this.dragCard.classList.replace('default', 'place');
 
     this.isClone = true;
+  }
+
+  async deleteSequence() {
+    const res = await fetch('http://localhost:3002/cardSequence');
+    const json = await res.json();
+    const sequence = json[this.columnName];
+    const patchData = {};
+
+    patchData[this.columnName] = sequence.filter(
+      (el) => el !== Number(this.dragCard.dataset.id)
+    );
+
+    fetch('http://localhost:3002/cardSequence', {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(patchData),
+    });
+  }
+
+  async updateSequence(cardItem) {
+    const columnList = closest('.column', cardItem).lastElementChild;
+    const columnName = $(
+      '.column-title',
+      closest('.column', cardItem)
+    ).textContent;
+
+    const patchData = {};
+
+    patchData[columnName] = Array.prototype.slice
+      .call($$('.list_item', columnList))
+      .map((el) => Number(el.dataset.id));
+
+    fetch('http://localhost:3002/cardSequence', {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(patchData),
+    });
+  }
+
+  async updateCardState(cardItem) {
+    const columnName = $(
+      '.column-title',
+      closest('.column', cardItem)
+    ).textContent;
+
+    const lastTime = new Date();
+    const data = {
+      states: columnName,
+      lastTime: lastTime,
+    };
+
+    const url = `http://localhost:3002/cards/${this.dragCard.dataset.id}`;
+    fetch(url, {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(data),
+    });
   }
 }
