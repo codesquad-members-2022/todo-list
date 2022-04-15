@@ -1,7 +1,8 @@
-import { $, $$, reflectStore, rerender } from '../utils/util';
+import { $, $$, delay, reflectStore, rerender } from '../utils/util';
 
 export const onDragEvent = store => {
   const mainElement = $('.main');
+  let dragFlag = false;
   mainElement.addEventListener('mousedown', async e => {
     const target = e.target;
     const cardDeleteBtn = target.closest('.card__delete-btn');
@@ -10,7 +11,25 @@ export const onDragEvent = store => {
       return;
     }
     e.preventDefault();
+    dragFlag = false;
+    await delay(150);
+    if (dragFlag) {
+      return;
+    }
+    dragFlag = true;
     cardElement.classList.add('dragOriginal');
+  });
+  mainElement.addEventListener('dblclick', e => {
+    e.preventDefault();
+    const target = e.target;
+    const cardElement = target.closest('.task__card:not(.new-card)');
+    if (!cardElement) {
+      return;
+    }
+    if (!dragFlag) {
+      dragFlag = true;
+      return;
+    }
   });
 
   mainElement.addEventListener('mousemove', e => {
@@ -44,6 +63,10 @@ export const onDragEvent = store => {
 
   const finishDragEvents = e => {
     e.preventDefault();
+    if (!dragFlag) {
+      dragFlag = true;
+      return;
+    }
     const target = e.target;
     const dragOriginal = $('.dragOriginal');
     const dragging = target.closest('.dragging');
