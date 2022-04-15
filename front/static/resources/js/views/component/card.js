@@ -2,13 +2,19 @@ class Card {
   #CARD_TITLE_PLACEHLODER = '제목을 입력하세요';
   #CARD_CONTENT_PLACEHLODER = '내용을 입력하세요';
 
-  constructor(props) {
-    this.props = props;
-    this.completion = true;
+  constructor({ id, cardIndex, title, contents, writer, creatTime, cardStatus }, completion = true) {
+    this.id = id;
+    this.cardIndex = cardIndex;
+    this.title = title;
+    this.contents = contents;
+    this.writer = writer;
+    this.creatTime = creatTime;
+    this.cardStatus = cardStatus;
+    this.completion = completion;
   }
 
   hasInputValue() {
-    return this.props.title && this.props.contents ? true : false;
+    return this.title && this.contents ? true : false;
   }
 
   getTitle($card) {
@@ -19,52 +25,47 @@ class Card {
     return $card.querySelector('.card__content').value;
   }
 
-  writableTemplate() {
-    return `<li class="card card--write" data-id="${this.props.id}" data-status="${
-      this.props.cardStatus
-    }" data-index="${this.props.cardIndex}">
-          <form action="">
-            <input type="text" name="" id="" maxlength="50" placeholder="${this.#CARD_TITLE_PLACEHLODER}"
-            value="${this.props.title}" class="card__title" />
+  template() {
+    const writableCard = `<li class="card card--write" data-id="${this.id}" data-status="${
+      this.cardStatus
+    }" data-index="${this.cardIndex}">
+          <form name="writable-form" data-status="${this.cardStatus}">
+            <input type="text" name="writable-form" maxlength="50" placeholder="${
+              this.#CARD_TITLE_PLACEHLODER
+            }" value="${this.title ? this.title : ''}" class="card__title" />
             <textarea
-              name=""
-              id=""
+              name="writable-form"
               maxlength="500"
               placeholder="${this.#CARD_CONTENT_PLACEHLODER}"
-              class="card__content">${this.props.contents}</textarea>
+              class="card__content"
+            >${this.contents ? this.contents : ''}</textarea>
+            <span class="card__writer">도니</span>
             <div class="button-wrap card__button-wrap">
-              <button type="button" class="button--cancle card__button--cancle">취소</button>
+              <button type="button" class="button--cancle card__button--cancle" data-status="${
+                this.cardStatus
+              }">취소</button>
               <button type="button" class="button--${
-                this.hasInputValue() ? 'submit' : 'disabled'
-              } card__button--submit">등록</button>
+                this.title && this.contents ? 'submit' : 'disabled'
+              } card__button--submit" data-status="${this.cardStatus}" ${this.id ? '' : 'disabled'}>등록</button>
             </div>
           </form>
         </li>`;
-  }
-
-  normalTemplate() {
-    return `<li class="card" data-id="${this.props.id}" data-status="${this.props.cardStatus}" data-index="${this.props.cardIndex}">
-          <h3 class="card__title">${this.props.title}</h3>
+    const normalCard = `<li class="card" data-id="${this.id}" data-status="${this.cardStatus}" data-index="${this.cardIndex}">
+          <h3 class="card__title">${this.title}</h3>
           <div class="card__content">
-            <p>${this.props.contents}</p>
+            <p>${this.contents}</p>
           </div>
-          <p class="card__writer">${this.props.writer}</p>
+          <p class="card__writer">${this.writer}</p>
           <button type="button" class="button--delete card__button--delete">
             <span class="hidden-text">카드 삭제 버튼</span>
           </button>
         </li>`;
-  }
 
-  checkInputValue($card) {
-    const title = this.getTitle($card);
-    const contents = this.getContents($card);
-
-    return title && contents ? true : false;
+    return this.completion ? normalCard : writableCard;
   }
 
   reRender($card) {
-    const changedCard = this.completion ? this.writableTemplate() : this.normalTemplate();
-    $card.insertAdjacentHTML('beforebegin', changedCard);
+    $card.insertAdjacentHTML('beforebegin', this.template());
     $card.remove();
   }
 }

@@ -24,7 +24,8 @@ const HTTP_REQUEST = {
   }
 };
 
-const fetchRequest = async (url, option = {}) => {
+const fetchRequest = async (url, option = { method: 'GET' }) => {
+  console.log(url, option);
   const response = await fetch(url, option);
   if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
   return response.json();

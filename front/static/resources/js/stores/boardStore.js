@@ -7,21 +7,21 @@ class BoardStore {
   }
 
   async getInitialData() {
-    return await fetchRequest('./mockData.json');
+    return await fetchRequest('http://3.39.96.36:8080/cards');
   }
 
   async initState() {
     this.boardState = await this.getInitialData();
   }
 
-  async getColumnState(cardState, method) {
+  async getColumnState(cardState, method, id) {
     const requestOption = HTTP_REQUEST[method](cardState);
-    const newBoadState = await fetchRequest('http://localhost:8080', requestOption);
+    const newBoadState = await fetchRequest(`http://3.39.96.36:8080/cards$/${id ? id : ''}`, requestOption);
     return newBoadState;
   }
 
-  async setState(cardState, method) {
-    const newBoadState = await this.getColumnState(cardState, method);
+  async setState(cardState, method, id) {
+    const newBoadState = await this.getColumnState(cardState, method, id);
     this.boardState = newBoadState;
   }
 
@@ -29,8 +29,8 @@ class BoardStore {
     this.observers.add(observer);
   }
 
-  async observe(cardState, method) {
-    await this.setState(cardState, method);
+  async observe(cardState, method, id) {
+    await this.setState(cardState, method, id);
     this.observers.forEach(observer => {
       observer.notify();
     });

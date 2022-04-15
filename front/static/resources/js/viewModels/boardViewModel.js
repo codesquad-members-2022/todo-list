@@ -22,16 +22,12 @@ class BoardViewModel {
     this.boardState = this.parseStoreState();
   }
 
-  setColumnState(columnState, columnName) {
-    this.boardState[columnName] = columnState;
-  }
-
   addObserver(observer) {
     this.observers.add(observer);
   }
 
-  observe(cardState, method) {
-    this.store.observe(cardState, method);
+  observe(cardState, method, id) {
+    this.store.observe(cardState, method, id);
   }
 
   notify() {
