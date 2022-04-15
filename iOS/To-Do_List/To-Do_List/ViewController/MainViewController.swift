@@ -21,7 +21,7 @@ class MainViewController: UIViewController {
     static let didFetchBoard = NSNotification.Name("DidFetchToList")
     static let didDeleteCard = NSNotification.Name("DidDeleteCard")
     static let UserInfoBoardData = "BoardData"
-    static let UserInfoCardData = "CardData"
+    static let deletedCard = "CardData"
     
 
     //Constraint for logView animation
@@ -53,8 +53,6 @@ class MainViewController: UIViewController {
             $0.setTableView(list: [])
             self.statckView.addArrangedSubview($0.view)
         }
-        
-     
     }
 }
 
@@ -88,7 +86,6 @@ extension MainViewController {
             object: nil
         )
         
-
     }
 }
 
@@ -98,7 +95,6 @@ extension MainViewController {
     private func setNetworkManager() {
         self.networkManager = NetworkManager(session: URLSession(configuration: URLSessionConfiguration.default))
     }
-    
     
     private func propagateData() {
         networkManager?.request(endpoint: EndPointCase.getBoard.endpoint) { (result:Result<NetworkResult,NetworkError>)  in
@@ -120,6 +116,7 @@ extension MainViewController {
         let cardInfo = info.foucsedCard
         let originPosition = info.from
         let maxPositionNumber = completedViewController.tableView.list.count - 1
+        
         let movedCard = MovedCard(
             id: cardInfo.id ?? 0,
             originPosition: originPosition,
@@ -127,6 +124,7 @@ extension MainViewController {
             originCardType: cardInfo.cardType ?? "",
             goalCardType: completedViewController.boardType?.type ?? ""
         )
+
         networkManager?.request(endpoint: EndPointCase.moveToCompleted(movedCard: movedCard).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
             switch result {
             case .success(let newTodo):
@@ -135,64 +133,42 @@ extension MainViewController {
             case .failure(let error):
                 os_log(.error, "\(error.localizedDescription)")
             }
-        })
-        
-    }
-    
+        }
+    )
+}
     
     @objc func postNewCardInfo(_ notification:Notification) {
         
-        guard let info = notification.userInfo?[ChildViewController.cardViewInfo] as? EditViewInputInfo,
+        guard let newCard = notification.userInfo?[ChildViewController.newCard] as? NewCard,
               let childVC = notification.object as? ChildViewController
         else { return }
-
-        switch info.button {
-            case "등록" :
-                let postModel = NewCard(
-                    id: nil,
-                    writer: "iOS",
-                    title: info.title,
-                    content: info.content,
-                    cardType:childVC.boardType?.type ?? "",
-                    memberId: 1, maxPositionNumber: childVC.tableView.list.count)
-            
-            networkManager?.request(endpoint: EndPointCase.addCard(card: postModel).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
-                print(result)
-                switch result {
-                case .success(let newTodo):
-                    childVC.insertToList(todo: newTodo.response)
-                case .failure(let error):
-                    os_log(.error, "\(error.localizedDescription)")
-                }
-            })
-            
-            
-            case "수정" :
-                let postModel = NewCard(
-                    id: info.id,
-                    writer: "iOS",
-                    title: info.title,
-                    content: info.content,
-                    cardType:childVC.boardType?.type ?? "",
-                    memberId: 1, maxPositionNumber: childVC.tableView.list.count)
-           
-            networkManager?.request(endpoint: EndPointCase.editCard(card: postModel).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
-                switch result {
-                case .success(let newTodo):
-                    childVC.updateList(todo: newTodo.response)
-                case .failure(let error):
-                    os_log(.error, "\(error.localizedDescription)")
-                }
-            })
-            
-            default : break
-        }
-
         
+        //Add new card if card no have id
+        if newCard.id == nil {
+                networkManager?.request(endpoint: EndPointCase.addCard(card: newCard).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
+                    switch result {
+                    case .success(let newTodo):
+                        childVC.insertToList(todo: newTodo.response)
+                    case .failure(let error):
+                        os_log(.error, "\(error.localizedDescription)")
+                    }
+                }
+            )
+        } else {
+                networkManager?.request(endpoint: EndPointCase.editCard(card: newCard).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
+                    switch result {
+                    case .success(let newTodo):
+                        childVC.updateList(todo: newTodo.response)
+                    case .failure(let error):
+                        os_log(.error, "\(error.localizedDescription)")
+                    }
+                }
+            )
+        }
     }
     
     @objc private func deleteCard(notification:Notification) {
-        guard let cardInfo = notification.userInfo?[MainViewController.UserInfoCardData] as? Todo,
+        guard let cardInfo = notification.userInfo?[MainViewController.deletedCard] as? Todo,
               let id = cardInfo.id,
               let childVC = notification.object as? ChildViewController
         else { return }
@@ -206,7 +182,6 @@ extension MainViewController {
             }
         }
     }
-
 }
 
 

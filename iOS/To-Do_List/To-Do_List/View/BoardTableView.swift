@@ -78,10 +78,9 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard Cell.self == CardCell.self else {return}
+        
         if editingStyle == .delete {
-
             boardTableDelegate?.didTapDelete(item: list[indexPath.row])
-
         }
     }
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
@@ -91,19 +90,17 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
         
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            let moveToCompleted = UIAction(title: "완료한 일로 이동") { [weak self] _ in
+            let moveToCompleted = UIAction(title: Action.moveToComplete.description) { [weak self] _ in
                 guard let self = self,
                       let foucsdCard = self.list[indexPath.row] as? Todo else { return }
                 self.boardTableDelegate?.didTapMoveToCompleted(foucsedCard: foucsdCard, from:indexPath.row)
             }
             
-            let edit = UIAction(title: "수정하기") { _ in
-                print("수정하기")
-                print(cardInfo)
-                self.boardTableDelegate?.DidTapEdit(item: cardInfo)
+            let edit = UIAction(title: Action.edit.description) { _ in
+                self.boardTableDelegate?.didTapEdit(item: cardInfo)
             }
        
-            let delete = UIAction(title: "삭제하기", image: nil,
+            let delete = UIAction(title: Action.delete.description, image: nil,
                 attributes: [.destructive]) { [weak self] _ in
                 guard let self = self ,
                       let foucsdCard = self.list[indexPath.row] as? Todo else { return }
@@ -115,3 +112,19 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
 }
 
 
+enum Action:CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .moveToComplete:
+            return "완료한 일로 이동"
+        case .edit:
+            return "수정하기"
+        case .delete:
+            return "삭제하기"
+        }
+    }
+    
+    case moveToComplete
+    case edit
+    case delete
+}

@@ -23,12 +23,3 @@ struct Todo:CardDisplayable, Codable,Equatable {
     let cardType:String?
     let memberId:Int?
 }
-
-//"id": 122,
-//     "title": "수정한내용",
-//     "writer": null,
-//     "position": null,
-//     "content": "제발",
-//     "createdAt": null,
-//     "cardType": null,
-//     "memberId": null

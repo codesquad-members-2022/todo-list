@@ -19,7 +19,7 @@ class ChildViewController: UIViewController {
     //Notification
     static let tapCofirmButton = Notification.Name("didTapConfirmButton")
     static let tapMoveToCompltedButton = Notification.Name("tapMoveToCompltedButton")
-    static let cardViewInfo = "cardViewInfo"
+    static let newCard = "newCard"
     static let movedCardInfo = "movedCardInfo"
     
     override func viewDidLoad() {
@@ -156,7 +156,7 @@ extension ChildViewController : BoardTableViewDelegate {
             userInfo: [ChildViewController.movedCardInfo:MovedCardInfo(foucsedCard:foucsedCard,from:from)])
     }
     
-    func DidTapEdit(item: Any) {
+    func didTapEdit(item: Any) {
         guard let cardInfo = item as? Todo else {return}
         let editVC = EditCardViewController()
         editVC.delegate = self
@@ -169,16 +169,26 @@ extension ChildViewController : BoardTableViewDelegate {
         NotificationCenter.default.post(
             name: MainViewController.didDeleteCard,
             object: self,
-            userInfo: [MainViewController.UserInfoCardData:item])
+            userInfo: [MainViewController.deletedCard:item])
     }
 }
 
 extension ChildViewController:EditViewControllerDelegate {
     func didTapConfirmButton(editViewInfo: EditViewInputInfo) {
+        
+        let newCardInfo = NewCard(
+            id: nil,
+            writer: "iOS",
+            title: editViewInfo.title,
+            content: editViewInfo.content,
+            cardType:self.boardType?.type ?? "",
+            memberId: 1, maxPositionNumber: self.tableView.list.count
+        )
+        
         NotificationCenter.default.post(
             name: ChildViewController.tapCofirmButton,
             object: self,
-            userInfo: [ChildViewController.cardViewInfo:editViewInfo]
+            userInfo: [ChildViewController.newCard:newCardInfo]
         )
     }
 }

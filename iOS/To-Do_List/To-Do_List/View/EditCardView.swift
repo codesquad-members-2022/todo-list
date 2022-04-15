@@ -5,7 +5,7 @@
 //  Created by 박진섭 on 2022/04/11.
 //
 
-typealias EditViewInputInfo = (id : Int?, button:String, title:String, content:String)
+typealias EditViewInputInfo = (id : Int?, title:String, content:String)
 
 import UIKit
 
@@ -145,12 +145,12 @@ extension EditCardView {
         switch editStyle {
         case .add:
             self.headLineInputTextField.placeholder = editStyle.headLineText
-            self.contentInputTextField.placeholder = editStyle.contentTextFieldPlaceholder
-        case .editContent(_):
+            self.contentInputTextField.placeholder = editStyle.contentTextFieldText
+        case .editContent:
             self.headLineInputTextField.text = editStyle.headLineText
-            self.contentInputTextField.text = editStyle.contentTextFieldPlaceholder
+            self.contentInputTextField.text = editStyle.contentTextFieldText
         }
- 
+        //button
         self.confirmButton.setTitle(editStyle.buttonText, for: .normal)
     }
 }
@@ -169,16 +169,18 @@ extension EditCardView {
     }
     
     @objc func didTapConfirmButton() {
-        guard let buttonTitle = confirmButton.titleLabel?.text, let editStyle = editStyle else { return }
+        guard let editStyle = editStyle else { return }
         
         let titleText = headLineInputTextField.text ?? ""
         let contentText = contentInputTextField.text ?? ""
         
-        delegate?.didTapConfirmButton(editViewInfo: EditViewInputInfo(id : editStyle.cardId ?? 0 , button:buttonTitle, title:titleText, content:contentText))
+        delegate?.didTapConfirmButton(editViewInfo: EditViewInputInfo(
+                                                    id : editStyle.cardId ?? 0 ,
+                                                    title:titleText,
+                                                    content:contentText
+            )
+        )
     }
-    
-    
-    
 }
 
 

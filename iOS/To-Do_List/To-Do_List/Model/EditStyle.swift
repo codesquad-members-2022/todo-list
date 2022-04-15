@@ -36,7 +36,7 @@ enum EditStyle {
         }
     }
     
-    var contentTextFieldPlaceholder:String {
+    var contentTextFieldText:String {
         switch self {
         case .add:
             return "내용을 입력하세요"
