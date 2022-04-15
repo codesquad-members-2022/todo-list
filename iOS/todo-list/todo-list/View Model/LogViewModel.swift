@@ -6,6 +6,11 @@
 //
 
 import Foundation
+import UIKit
+
+protocol LogViewModelDelegate {
+    func update()
+}
 
 class LogViewModel {
     
@@ -13,30 +18,37 @@ class LogViewModel {
     var descriptions: [String] = []
     var userIds: [String] = []
     
-    var list = Observable( [logCellViewModel]() )
+    var delegate: LogViewModelDelegate?
     
     init(logManager: LogManager) {
         self.logManager = logManager
     }
     
-    var count: Int { list.value.count }
+    var cellViewModels = [LogCellViewModel]()
+    var count: Int { cellViewModels.count }
     
-    subscript(index: Int) -> logCellViewModel? {
-        guard index < list.value.count else { return nil }
-        return list.value[index]
+    func get(index: Int) -> LogCellViewModel {
+        return cellViewModels[index]
     }
+
 }
 
 //MARK: - Load to Domain Data
 extension LogViewModel {
     
     func load() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
+        dateFormatter.locale = Locale(identifier: "ko_kr")
+        
         logManager.load { logs in
             for log in logs {
-                self.descriptions.append(self.createDescription(log))
-                self.userIds.append(self.createUserName(log))
+                let cellViewModel = LogCellViewModel(userName: log.userId, emoji: UIImage(named: "Party Face Emoji")!, description: self.createDescription(log), timeLog: dateFormatter.string(from: log.createdAt))
+                self.cellViewModels.append(cellViewModel)
             }
         }
+        delegate?.update()
     }
     
     // 필요한 요소 = TaskTitle, From-state, To-status
@@ -59,26 +71,23 @@ extension LogViewModel {
             return "\(log.taskTitle)을 \(from)에서 삭제하였습니다."
             
         case .Move:
-            guard let to = log.to else { return "" }
-            guard let from = log.from else { return "" }
-            
-            if log.from == log.to {
-                return "\(log.taskTitle)의 내용을 변경하였습니다."
-            } else {
-                return "\(log.taskTitle)을 \(from)에서 \(to)로 이동하였습니다."
-            }
+//            guard let to = log.to else { return "" }
+//            guard let from = log.from else { return "" }
+//
+//            if log.from == log.to {
+//                return "\(log.taskTitle)의 내용을 변경하였습니다."
+//            } else {
+//                return "\(log.taskTitle)을 \(from)에서 \(to)로 이동하였습니다."
+//            }
+            return ""
         }
     }
     
-    //(UserName) @{UserID}
-    func createUserName(_ log: Log) -> String {
-        return log.taskTitle
-    }
 }
 
-struct logCellViewModel {
-    let id: Int
-    let title: String
-    let content: String
+struct LogCellViewModel {
+    let userName: String
+    let emoji : UIImage
+    let description: String
     let timeLog: String
 }

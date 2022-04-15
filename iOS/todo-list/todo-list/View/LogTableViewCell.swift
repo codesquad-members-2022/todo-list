@@ -44,19 +44,14 @@ class LogTableViewCell: UITableViewCell {
         ]
     }
     
-    func logConfigure(with viewModel: logCellViewModel) {
-        self.taskId = viewModel.id
+    func configure(with viewModel: LogCellViewModel) {
         
         var config = defaultContentConfiguration()
-        var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
         
-        config.attributedText = self.makePrimaryText(title: viewModel.title)
-        config.secondaryAttributedText = self.makeSecondaryText(contents: viewModel.content, timeLog: viewModel.timeLog)
-        
-        backgroundConfig.cornerRadius = 10
-        
+        config.text = viewModel.description
+        config.secondaryText = viewModel.userName
+
         self.contentConfiguration = config
-        self.backgroundConfiguration = backgroundConfig
     }
     
     func makePrimaryText(title: String) -> NSAttributedString {
