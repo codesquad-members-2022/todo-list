@@ -3,7 +3,7 @@ package kr.codesquad.todolist.service;
 import kr.codesquad.todolist.domain.Card;
 import kr.codesquad.todolist.dto.card.CardResponse;
 import kr.codesquad.todolist.dto.card.CreateCardRequest;
-import kr.codesquad.todolist.repository.CardRepository;
+import kr.codesquad.todolist.repository.card.CardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
