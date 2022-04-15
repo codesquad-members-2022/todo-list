@@ -32,7 +32,7 @@ class NetworkManager<T: Codable> {
             return completion(.failure(.encodingError))
         }
         
-        let task = URLSession.shared.dataTask(with: request) { _, response, error in
+        let task = session.dataTask(with: request) { _, response, error in
             
             if error != nil {
                 return completion(.failure(.error))
@@ -62,7 +62,7 @@ class NetworkManager<T: Codable> {
         request.httpMethod = HTTPMethod.get.description
         request.addValue(HTTPHeader.applicationJson, forHTTPHeaderField: HTTPHeader.ContentType)
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = session.dataTask(with: request) { data, response, error in
             if error != nil {
                 return completion(.failure(.error))
             }
