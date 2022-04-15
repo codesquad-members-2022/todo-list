@@ -181,6 +181,12 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
         self.setModalPresent()
 
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let customTable = tableView as? TodoTableView, let index = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return }
+        if editingStyle == .delete{
+        }
+    }
 }
 
 extension TableViewController: TableHeaderDelegate{
