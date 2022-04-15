@@ -12,14 +12,12 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.todolist.databinding.DialogUpdateCardBinding
-import com.example.todolist.model.Status
-import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
 import com.example.todolist.model.response.TaskDetailResponse
 
 class UpdateTaskDialogFragment(private val task: TaskDetailResponse) : DialogFragment() {
     private lateinit var binding: DialogUpdateCardBinding
-    private val viewModel: TaskViewModel by activityViewModels()
+    private val viewModel: TaskRemoteViewModel by activityViewModels()
     private var titleFlag = false
     private var contentsFlag = false
 
@@ -42,18 +40,17 @@ class UpdateTaskDialogFragment(private val task: TaskDetailResponse) : DialogFra
         binding.etTitle.addTextChangedListener(titleListener)
         binding.etContents.addTextChangedListener(contentsListener)
         binding.etTitle.setText(task.title)
-        binding.etContents.setText(task.content)
+        binding.etContents.setText(task.contents)
 
         binding.btnUpdate.setOnClickListener {
-            val updateTask = task.copy(
-                title = binding.etTitle.text.toString(),
-                content = binding.etContents.text.toString()
+            val modifyTaskRequest = ModifyTaskRequest(
+                task.id,
+                binding.etTitle.text.toString(),
+                binding.etContents.text.toString(),
+                "Android",
+                task.status.toString()
             )
-            when (task.status) {
-                Status.TODO -> viewModel.updateTodoTask(updateTask)
-                Status.IN_PROGRESS -> viewModel.updateInProgressTask(updateTask)
-                else -> viewModel.updateDoneTask(updateTask)
-            }
+            viewModel.modifyTask(modifyTaskRequest)
             dismiss()
         }
     }
