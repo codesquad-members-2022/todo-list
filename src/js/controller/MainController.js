@@ -17,17 +17,11 @@
 - [ ] 카드에서 키 다운 인식 한 박자 느린거 수정
 */
 
-import {
-  renderEmptyCard,
-  getRegisteredCardNode,
-} from "../view/EmptyCardView.js";
-import { renderCard, renderRegisteredStyle } from "../view/CardView.js";
-import { initColumn, onClickColumnAddBtn } from "../view/ColumnView.js";
 import * as util from "../../util/Util.js";
-import {
-  renderHistoryCard,
-  onClickMeunRemoveBtn,
-} from "../view/historyView.js";
+import { renderEmptyCard, getRegisteredCardNode } from "../view/EmptyCardView.js";
+import { renderCard, renderRegisteredStyle } from "../view/CardView.js";
+import { onClickColumnAddBtn } from "../view/ColumnView.js";
+import { renderHistoryCard, onClickMeunRemoveBtn } from "../view/historyView.js";
 
 const createMainController = (store) => {
   init(store);
@@ -50,18 +44,12 @@ function init(store) {
       // 이벤트를 부착해라
       util.on("keydown", newCard, handleCardInput);
       //// 등록 버튼 클릭 핸들링 이벤트
-      const registerBtn = util.$(
-        ".task-card__register-btn.cursor-pointer",
-        newCard
-      );
+      const registerBtn = util.$(".task-card__register-btn.cursor-pointer", newCard);
       util.on("click", registerBtn, (event) => {
         handleRegisterBtn(event, store);
       });
       //// 취소 버튼 클릭 핸들링 이벤트
-      const removeBtn = util.$(
-        ".task-card__cancle-btn.cursor-pointer",
-        newCard
-      );
+      const removeBtn = util.$(".task-card__cancle-btn.cursor-pointer", newCard);
       util.on("click", removeBtn, (event) => {
         handleCancleBtn(event, store);
       });
@@ -79,14 +67,21 @@ function init(store) {
         handleDragDrop(event, store);
       });
       // documentfragment에 붙여라
-      columnFragment.appendChild(newCard);
+      columnFragment.insertBefore(newCard, columnFragment.childNodes[0]);
     });
     // dataType으로 컬럼 노드를 찾아라
     const columnTag = document.getElementById(dataType);
-    columnTag.appendChild(columnFragment);
     // 컬럼 노드에 documentfragment 부착해라
-  });
+    columnTag.appendChild(columnFragment);
 
+    // 칼럼 옆 카드 숫자 표기
+    const cardsCount = columnTag.querySelector(".column__card-cnt");
+    cardsCount.textContent = columnTag.childElementCount - 1;
+  });
+  store.getState("historyData").forEach((el) => {
+    // 템플릿 만들고
+    // 메뉴바에 붙이기
+  });
   onClickMeunRemoveBtn();
 }
 
@@ -106,13 +101,8 @@ function handleCardInput({ target }) {
   const parentCard = target.closest(".task-card");
   const cardTitle = util.$(".task-card__title", parentCard);
   const cardContent = util.$(".task-card__content", parentCard);
-  const cardTextData = [cardTitle, cardContent].map((input) =>
-    input.textContent.trim()
-  );
-  const registerBtn = util.$(
-    ".task-card__register-btn.cursor-pointer",
-    parentCard
-  );
+  const cardTextData = [cardTitle, cardContent].map((input) => input.textContent.trim());
+  const registerBtn = util.$(".task-card__register-btn.cursor-pointer", parentCard);
 
   if (cardTextData.includes("")) {
     registerBtn.disabled = true;
@@ -127,9 +117,7 @@ async function handleRegisterBtn(event, store) {
   const parentCard = target.closest(".task-card");
   const parentCardId = parentCard.id;
   const cardTitle = parentCard.querySelector(".task-card__title").textContent;
-  const cardContent = parentCard.querySelector(
-    ".task-card__content"
-  ).textContent;
+  const cardContent = parentCard.querySelector(".task-card__content").textContent;
   const dataType = parentCard.parentElement.id;
 
   if (parentCardId !== "empty-card") {
@@ -154,6 +142,9 @@ async function handleRegisterBtn(event, store) {
       dataType,
       newState
     );
+    const parentColumn = target.closest(`#${dataType}`);
+    const cardsCount = parentColumn.querySelector(".column__card-cnt");
+    cardsCount.textContent++;
   }
 }
 
@@ -182,14 +173,18 @@ function handleRemoveBtn({ target }, store, dataType) {
   const cardToRemove = target.closest(".task-card");
   cardToRemove.classList.add("delete-active");
 
-  const deleteConfiem = confirm("선택한 카드를 삭제할까요?");
-  if (!deleteConfiem) {
+  const deleteConfirm = confirm("선택한 카드를 삭제할까요?");
+  if (!deleteConfirm) {
     cardToRemove.classList.remove("delete-active");
     return;
   }
 
-  store.removeState(dataType, cardToRemove.id);
   renderHistoryCard(cardToRemove, "remove");
+  const parentColumn = cardToRemove.closest(`#${dataType}`);
+  const cardsCount = parentColumn.querySelector(".column__card-cnt");
+  cardsCount.textContent--;
+
+  store.removeState(dataType, cardToRemove.id);
   cardToRemove.remove();
 }
 
@@ -199,12 +194,8 @@ function handleTextDoubleClick({ target }, store, dataType) {
   targetCard.classList.remove("registered");
   // targetCard.id = newState.id;
   util.$(".delete-btn.cursor-pointer", targetCard).classList.add("hidden");
-  util
-    .$(".task-card__cancle-btn.cursor-pointer", targetCard)
-    .classList.remove("hidden");
-  util
-    .$(".task-card__register-btn.cursor-pointer", targetCard)
-    .classList.remove("hidden");
+  util.$(".task-card__cancle-btn.cursor-pointer", targetCard).classList.remove("hidden");
+  util.$(".task-card__register-btn.cursor-pointer", targetCard).classList.remove("hidden");
   util.$(".task-card__footer", targetCard).classList.add("hidden");
   util.$(".task-card__title", targetCard).contentEditable = true;
   util.$(".task-card__title", targetCard).classList.remove("font-black");
