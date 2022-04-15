@@ -11,7 +11,7 @@ import {
 export default class TodoCard {
   constructor({ id, columnId, columnIdx, title = '', desc = '', author = 'web', createdAt }) {
     this.id = id;
-    this.columnId = columnId;   // -> db저장용 key
+    this.columnId = columnId; // -> db저장용 key
     this.columnIdx = columnIdx; // -> 카드의 위치 (브라우저에 렌더링 해야하는 위치 정보)
     this.title = title;
     this.desc = desc;
@@ -103,9 +103,10 @@ export default class TodoCard {
     $todoCard.parentNode.removeChild($todoCard);
   }
 
-  handleClickDeleteButton() {
+  handleClickDeleteButton(event) {
+    const $targetCard = event.target;
     modal.setContents({ title: '선택한 카드를 삭제할까요?', accentText: '삭제' });
-    modal.openModal();
+    modal.openModal($targetCard);
   }
 
   handleClickRegisterButton() {

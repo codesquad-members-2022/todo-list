@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'eval-cheap-source-map',
@@ -22,7 +23,12 @@ module.exports = {
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin({ filename: 'css/style.css' })],
+  plugins: [
+    new MiniCssExtractPlugin({ filename: 'css/style.css' }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, './index.html'),
+    }),
+  ],
 
   devServer: {
     devMiddleware: { publicPath: '/dist' },

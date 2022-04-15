@@ -1,24 +1,31 @@
-import { $, addClass, eventDelegate, removeClass } from '../utils/utils';
+import { $, hasClass, addClass, removeClass, eventDelegate } from '../utils/utils';
 
 class Modal {
   constructor() {
     this.$modal = $('.modal');
+    this.$target = null;
     this.contents = { title: '', accentText: '' };
     this.addEventHandlers();
   }
 
   addEventHandlers() {
+    const $modalButtons = $('.modal-buttons', this.$modal);
     eventDelegate({
-      target: this.$modal,
+      target: $modalButtons,
       eventName: 'click',
-      selector: '.cancel-button',
-      handler: () => {
+      selector: 'button',
+      handler: event => {
+        const $button = event.target;
+        removeClass('delete-item', this.$target);
+        if (hasClass('delete-button', $button)) console.log('삭제로직 수행');
+
         this.closeModal();
       },
     });
   }
 
-  openModal() {
+  openModal($target) {
+    this.setTargetElement($target);
     const { title, accentText } = this.contents;
     const $modalTitle = $('.modal-title', this.$modal);
     const $modalAccentText = $('.button-accent', this.$modal);
@@ -29,10 +36,15 @@ class Modal {
 
   closeModal() {
     addClass('hidden', this.$modal);
+    this.setTargetElement(null);
   }
 
   setContents({ title, accentText }) {
     this.contents = { title, accentText };
+  }
+
+  setTargetElement($target) {
+    this.$target = $target;
   }
 }
 

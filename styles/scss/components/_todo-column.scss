@@ -1,7 +1,8 @@
 .todo-columns {
   @include flexbox(flex-start, flex-start);
-  height: 100%;
+  height: 80vh;
   overflow-x: auto;
+  user-select: none;
 
   &::-webkit-scrollbar {
     display: none;
@@ -12,8 +13,10 @@
   $main-wrapper-width: 1280px;
   $column-margin: 16px;
   $column-width: calc((#{$main-wrapper-width} - #{$column-margin * 3}) / 4);
+
   @include column-flexbox(flex-start, flex-start);
   width: $column-width;
+  height: 100%;
   min-width: $column-width;
 
   &:not(:last-child) {
@@ -67,6 +70,9 @@
   }
 
   &-body {
+    @include scrollbar-hidden;
     width: 100%;
+    height: 100%;
+    overflow: auto;
   }
 }

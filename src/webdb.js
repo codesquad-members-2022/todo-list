@@ -2,20 +2,29 @@
 import { LowSync, LocalStorage } from 'lowdb';
 import { v4 as uuidv4 } from 'uuid';
 
-const getData = key => {
+const getDb = key => {
   const db = new LowSync(new LocalStorage(key));
   db.read();
+  return db;
+};
+
+const getData = key => {
+  const db = getDb(key);
   return db.data;
 };
 
 const setData = (key, value) => {
-  const db = new LowSync(new LocalStorage(key));
-  db.data = value;
-  db.write();
-  return db.data;
+  try {
+    const db = getDb(key);
+    db.data = value;
+    db.write();
+    return true;
+  } catch (err) {
+    return false;
+  }
 };
 
-const columns = new LowSync(new LocalStorage('columns'));
+const columns = getDb('columns');
 
 const getColumns = () => {
   const columnsData = columns.data.reduce((result, columnKey) => {
@@ -33,9 +42,9 @@ const initDb = columnKeys => {
   const column2Key = uuidv4();
   const column3Key = uuidv4();
 
-  const column1 = new LowSync(new LocalStorage(column1Key));
-  const column2 = new LowSync(new LocalStorage(column2Key));
-  const column3 = new LowSync(new LocalStorage(column3Key));
+  const column1 = getDb(column1Key);
+  const column2 = getDb(column2Key);
+  const column3 = getDb(column3Key);
 
   columnKeys.data = [column1Key, column2Key, column3Key];
 

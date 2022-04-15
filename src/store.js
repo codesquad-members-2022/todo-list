@@ -10,7 +10,7 @@ class Store {
     return this.state;
   }
 
-  addTodoCard(columnIdx, columnId, title, desc, callback) {
+  addTodoCard(columnIdx, columnId, title, desc) {
     const newCard = {
       id: uuidv4(),
       columnId,
@@ -25,8 +25,7 @@ class Store {
     const oldCards = column.cards;
     column.cards = [newCard, ...oldCards];
     db.setData(columnId, column);
-
-    if (callback) callback(db.getData(columnId));
+    return true;
   }
 }
 
