@@ -3,7 +3,9 @@ package kr.codesquad.todolist.service;
 import kr.codesquad.todolist.controller.request.CardRequestDto;
 import kr.codesquad.todolist.controller.response.CardResponseDto;
 import kr.codesquad.todolist.dao.CardDao;
+import kr.codesquad.todolist.dao.HistoryDao;
 import kr.codesquad.todolist.domain.Card;
+import kr.codesquad.todolist.domain.History;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +23,13 @@ public class CardService {
 	public static final String ERROR_OF_CARD_ID = "error of card id: %d";
 
 	private final CardDao cardDao;
+	private final HistoryDao historyDao;
 
 	@Transactional
 	public CardResponseDto.Redirection create(CardRequestDto.WriteRequest request) {
 		Card card = request.toEntity();
 		Card cardInfo = cardDao.save(card);
+		historyDao.save(History.buildWith(History.Action.CREATE, cardInfo).build());
 		return new CardResponseDto.Redirection(cardInfo.getCardId());
 	}
 
@@ -48,11 +52,13 @@ public class CardService {
 		Card card = getCard(cardId);
 		card.modify(request.getSubject(), request.getContent());
 		cardDao.save(card);
+		historyDao.save(History.buildWith(History.Action.UPDATE, card).build());
 	}
 
 	public void deleteFrom(Long cardId) {
 		Card cardInfo = getCard(cardId);
 		cardDao.delete(cardInfo.getCardId());
+		historyDao.save(History.buildWith(History.Action.DELETE, cardInfo).build());
 	}
 
 	@Transactional
@@ -64,6 +70,13 @@ public class CardService {
 		}
 
 		cardDao.updatePosition(cardInfo, toStatus, toOrder);
+
+		if (!toStatus.equals(cardInfo.getStatus())) {
+			History history = History.buildWith(History.Action.MOVE, cardInfo)
+					.currentCardStatus(toStatus)
+					.build();
+			historyDao.save(history);
+		}
 	}
 
 	/**

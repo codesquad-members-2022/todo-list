@@ -1,15 +1,14 @@
 package kr.codesquad.todolist.controller.request;
 
-import java.time.LocalDateTime;
+import kr.codesquad.todolist.domain.Card;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import kr.codesquad.todolist.domain.Card;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 public class CardRequestDto {
 	@Data

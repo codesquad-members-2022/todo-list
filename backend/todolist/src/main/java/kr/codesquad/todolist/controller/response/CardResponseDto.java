@@ -1,11 +1,11 @@
 package kr.codesquad.todolist.controller.response;
 
+import kr.codesquad.todolist.domain.Card;
+import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import kr.codesquad.todolist.domain.Card;
-import lombok.Data;
 
 public class CardResponseDto {
 	@Data
