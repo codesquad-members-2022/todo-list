@@ -27,7 +27,7 @@ const app = () => {
 };
 
 const createColumns = () => {
-  const columns = getLocalStorageByKey('column') ?? [];
+  const columns = ['해야할일', '하고있는일', '완료한일'];
   localStorage.setItem('column', JSON.stringify(columns));
 
   const columnsWrapper = $('.column-section');
