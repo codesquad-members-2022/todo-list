@@ -6,6 +6,8 @@ import { createHeader } from "./header/header.js";
 import { createAside } from "./aside/aside.js";
 import { createMain } from "./main/main.js";
 
+const todoContainerEl = qs(".todo-container");
+
 export function renderAllColumns(columnList) {
   columnList.forEach(renderColumn);
 }
@@ -31,7 +33,6 @@ export function renderItemForm(columnId) {
 }
 
 export function renderItemDeleteAlert() {
-  const todoContainerEl = qs(".todo-container");
   insertElement(todoContainerEl, "afterbegin", createItemDeleteAlert());
 }
 
@@ -45,17 +46,14 @@ export function renderHistory({ username, date, content }) {
 }
 
 export function renderHeader() {
-  const todoContainerEl = qs(".todo-container");
   insertElement(todoContainerEl, "afterbegin", createHeader());
 }
 
 export function renderAside() {
-  const todoContainerEl = qs(".todo-container");
   insertElement(todoContainerEl, "beforeend", createAside());
 }
 
 export function renderMain() {
-  const todoContainerEl = qs(".todo-container");
   insertElement(todoContainerEl, "beforeend", createMain());
 }
 
