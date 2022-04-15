@@ -1,4 +1,6 @@
 import { getLocalStorageByKey } from '../utils/localStorage.js';
+import TodoColumn from './TodoColumn.js';
+import { $ } from '../utils/dom.js';
 export default class Fab {
   constructor() {
     this.id = 0;
@@ -6,22 +8,6 @@ export default class Fab {
     this.count = 0;
     this.isDeleted = false;
   }
-  insertColumn = () => {
-    return /* html */ `
-    <article class="column-list ${this.status}-wrapper" data-status="${this.status}">
-        <nav class="column ${this.status}">
-            <div class="column__left">
-                <span class="column__title">${this.status}</span>
-                <div class="column__count">${this.count}</div>
-            </div>
-            <div class="column__right">
-            <button class="column__add">+</button>
-            <button class="column__delete">x</button>
-            </div>
-        </nav>
-    </article>
-      `;
-  };
 
   fabModal = () => {
     return /*html*/ `
@@ -37,30 +23,30 @@ export default class Fab {
   };
 
   register = () => {
-    this.status = document.querySelector('.input-header').value;
+    this.status = $('.input-header').value;
     const columns = getLocalStorageByKey('column') ?? [];
     columns.push(this.status);
 
     localStorage.setItem('column', JSON.stringify(columns));
 
     this.cancelBtn();
-    const columnsWrapper = document.querySelector('.column-section');
-    columnsWrapper.insertAdjacentHTML('beforeend', this.insertColumn());
+    const columnsWrapper = $('.column-section');
+    const newColumn = new TodoColumn(this.status);
+    columnsWrapper.insertAdjacentHTML('beforeend', newColumn.render());
   };
 
   cancelBtn = () => {
-    console.log('gg');
-    document.querySelector('.input-fab').remove();
-    document.querySelector('.modalBackground').remove();
+    $('.input-fab').remove();
+    $('.modalBackground').remove();
   };
 
   showModal = () => {
     document.body.insertAdjacentHTML('beforeend', this.fabModal());
-    document.querySelector('.input-fab .fab--cancel').addEventListener('click', this.cancelBtn);
-    document.querySelector('.input-fab .fab--register').addEventListener('click', this.register);
+    $('.input-fab .fab--cancel').addEventListener('click', this.cancelBtn);
+    $('.input-fab .fab--register').addEventListener('click', this.register);
   };
 
   handleEventListener = () => {
-    document.querySelector('.fabBtn').addEventListener('click', this.showModal);
+    $('.fabBtn').addEventListener('click', this.showModal);
   };
 }
