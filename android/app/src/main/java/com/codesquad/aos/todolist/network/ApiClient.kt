@@ -52,6 +52,10 @@ interface ApiClient {
         @Query("size") size: Int
     ): List<LogX>
 
+    // 카드 order값 재배치
+    @GET("api/batch-process")
+    suspend fun batchProcess(): Response<Void>
+
     companion object {
 
         private const val baseUrl =

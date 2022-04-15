@@ -30,4 +30,6 @@ class CardItemRepository(private val remoteDataSource: CardItemRemoteDataSource)
         return remoteDataSource.moveCardItem(cardId, moveCardData)
     }
 
+    suspend fun batchProcess() = remoteDataSource.batchProcess()
+
 }

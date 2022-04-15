@@ -357,4 +357,10 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
             binding.progressBar?.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        // 앱 선택기로 빠지는 등 앱에서 잠시 멀어진 후 복귀 시 카드들의 order 값 재배치 위함
+        viewModel.batchProcess()
+    }
 }

@@ -1,5 +1,6 @@
 package com.codesquad.aos.todolist.ui
 
+import android.util.Log.d
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -284,4 +285,21 @@ class TodoViewModel(
 
     private fun getLogData(): Flow<PagingData<LogX>> =
         logRepository.getLogs()
+
+
+    // order 재배치
+    fun batchProcess(){
+        progressVisible.postValue(true)
+        viewModelScope.launch {
+            val batchResponse = cardItemRepository.batchProcess()
+            if(batchResponse.isSuccessful){
+                progressVisible.postValue(false)
+                android.util.Log.d("AppTest", "batch process 성공")
+            }
+            else{
+                progressVisible.postValue(false)
+                android.util.Log.d("AppTest", "batch process 실패")
+            }
+        }
+    }
 }

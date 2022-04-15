@@ -37,4 +37,8 @@ class CardItemRemoteDataSource(private val api: ApiClient) : CardItemDataSource 
         return api.moveCard(cardId, moveCardData)
     }
 
+    override suspend fun batchProcess(): Response<Void> {
+        return api.batchProcess()
+    }
+
 }

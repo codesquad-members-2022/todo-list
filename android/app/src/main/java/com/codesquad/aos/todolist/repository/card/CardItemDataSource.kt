@@ -14,4 +14,5 @@ interface CardItemDataSource {
     suspend fun editCardItem(cardId: Int, editCardData: EditCard): Response<HandleCardResponse>
     suspend fun deleteCardItem(cardId: Int): Response<HandleCardResponse>
     suspend fun moveCardItem(cardId: Int, moveCardData: MoveCard): Response<HandleCardResponse>
+    suspend fun batchProcess(): Response<Void>
 }
