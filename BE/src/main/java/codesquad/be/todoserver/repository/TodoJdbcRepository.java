@@ -46,8 +46,8 @@ public class TodoJdbcRepository implements TodoRepository {
 			ps.setString(2, todo.getContents());
 			ps.setString(3, todo.getUser());
 			ps.setString(4, todo.getStatus());
-			ps.setDate(5, java.sql.Date.valueOf(todo.getCreatedAt().toLocalDate()));
-			ps.setDate(6, java.sql.Date.valueOf(todo.getUpdatedAt().toLocalDate()));
+			ps.setTimestamp(5, java.sql.Timestamp.valueOf(todo.getCreatedAt()));
+			ps.setTimestamp(6, java.sql.Timestamp.valueOf(todo.getUpdatedAt()));
 			return ps;
 		}, keyHolder);
 		todo.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());

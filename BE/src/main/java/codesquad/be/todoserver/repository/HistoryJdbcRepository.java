@@ -40,7 +40,7 @@ public class HistoryJdbcRepository implements HistoryRepository {
 			ps.setString(4, history.getAction());
 			ps.setString(5, history.getFromStatus());
 			ps.setString(6, history.getToStatus());
-			ps.setDate(7, java.sql.Date.valueOf(history.getCreatedAt().toLocalDate()));
+			ps.setTimestamp(7, java.sql.Timestamp.valueOf(history.getCreatedAt()));
 			return ps;
 		});
 	}
