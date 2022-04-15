@@ -20,12 +20,12 @@ public class HistoryDao {
     private static final String HISTORY_TABLE_NAME = "todo_history_table";
     private static final String HISTORY_PRIMARY_KEY = "id";
     private static final String HISTORY_ACTION = "action";
-    private static final String HISTORY_CARD_SUBJECT = "cardSubject";
-    private static final String HISTORY_PREV_CARD_STATUS = "prevCardStatus";
-    private static final String HISTORY_CURRENT_CARD_STATUS = "currentCardStatus";
-    private static final String HISTORY_CREATED_AT = "createdAt";
-    private static final String HISTORY_USER_ID = "userId";
-    private static final String HISTORY_CARD_ID = "cardId";
+    private static final String HISTORY_CARD_SUBJECT = "card_subject";
+    private static final String HISTORY_PREV_CARD_STATUS = "prev_card_status";
+    private static final String HISTORY_CURRENT_CARD_STATUS = "current_card_status";
+    private static final String HISTORY_CREATED_AT = "created_at";
+    private static final String HISTORY_USER_ID = "user_id";
+    private static final String HISTORY_CARD_ID = "card_id";
 
     private final JdbcTemplate jdbcTemplate;
 
