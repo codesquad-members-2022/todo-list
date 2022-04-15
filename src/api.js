@@ -37,4 +37,7 @@ const getHistories = async () => {
   return histories;
 };
 
-export { getColumns, getCards, postCard, getHistories };
+const postHistories = async (histories) => {
+  postData("histories", histories);
+};
+export { getColumns, getCards, postCard, getHistories, postHistories };

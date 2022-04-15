@@ -34,6 +34,7 @@ export default class Column extends Component {
       undoCreateCard: this.undoCreateCard.bind(this),
       deactivatePlusButton: this.deactivatePlusButton.bind(this),
       setCards: this.setCards.bind(this),
+      notifyNewHistoryData: this.notifyNewHistoryData,
     });
   }
   get cards() {
@@ -45,6 +46,11 @@ export default class Column extends Component {
     this.setState({
       cards: cards.map((card) => ({ ...card, cardState: "default" })),
     });
+  }
+  async notifyNewHistoryData() {
+    const $menu = document.querySelector(".menu");
+    const $actionAlert = $menu.querySelector(".action-alert");
+    $actionAlert.classList.remove("hidden-alert");
   }
   setEvent() {
     this.addEvent("click", ".column-plus-button", this.clickPlusButtonHandler.bind(this));
