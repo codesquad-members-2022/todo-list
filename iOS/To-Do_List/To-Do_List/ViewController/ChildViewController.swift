@@ -5,8 +5,6 @@
 //  Created by 박진섭 on 2022/04/05.
 //
 
-typealias MovedCardInfo = (foucsedCard:Todo,from:Int)
-
 import UIKit
 
 class ChildViewController: UIViewController {
@@ -149,11 +147,11 @@ extension ChildViewController : BoardHeaderDelegate {
 extension ChildViewController : BoardTableViewDelegate {
   
 
-    func didTapMoveToCompleted(foucsedCard: Todo, from: Int) {
+    func didTapMoveToCompleted(foucsedCard: Todo) {
         NotificationCenter.default.post(
             name: ChildViewController.tapMoveToCompltedButton,
             object: self,
-            userInfo: [ChildViewController.movedCardInfo:MovedCardInfo(foucsedCard:foucsedCard,from:from)])
+            userInfo: [ChildViewController.movedCardInfo:foucsedCard])
     }
     
     func didTapEdit(item: Any) {
@@ -177,7 +175,7 @@ extension ChildViewController:EditViewControllerDelegate {
     func didTapConfirmButton(editViewInfo: EditViewInputInfo) {
         
         let newCardInfo = NewCard(
-            id: nil,
+            id: editViewInfo.id,
             writer: "iOS",
             title: editViewInfo.title,
             content: editViewInfo.content,

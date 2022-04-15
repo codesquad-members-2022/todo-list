@@ -108,23 +108,21 @@ extension MainViewController {
     }
     
     @objc func fetchMovedToCompletedCard(_ notification:Notification) {
-        guard let info = notification.userInfo?[ChildViewController.movedCardInfo] as? MovedCardInfo,
+        guard let info = notification.userInfo?[ChildViewController.movedCardInfo] as? Todo,
               let childVC = notification.object as? ChildViewController,
               let completedViewController = self.children.last as? ChildViewController
         else { return }
         
-        let cardInfo = info.foucsedCard
-        let originPosition = info.from
         let maxPositionNumber = completedViewController.tableView.list.count - 1
-        
+        //완료한일로 이동
         let movedCard = MovedCard(
-            id: cardInfo.id ?? 0,
-            originPosition: originPosition,
+            id: info.id ?? 0,
+            title: info.title,
+            content: info.content,
             maxPositionNumber: maxPositionNumber,
-            originCardType: cardInfo.cardType ?? "",
             goalCardType: completedViewController.boardType?.type ?? ""
         )
-
+        
         networkManager?.request(endpoint: EndPointCase.moveToCompleted(movedCard: movedCard).endpoint, completionHandler: { (result:Result<NewTodo,NetworkError>) in
             switch result {
             case .success(let newTodo):

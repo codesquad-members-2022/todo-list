@@ -93,7 +93,7 @@ class BoardTableView<Model,Cell: UITableViewCell&CellIdentifiable>: UITableView,
             let moveToCompleted = UIAction(title: Action.moveToComplete.description) { [weak self] _ in
                 guard let self = self,
                       let foucsdCard = self.list[indexPath.row] as? Todo else { return }
-                self.boardTableDelegate?.didTapMoveToCompleted(foucsedCard: foucsdCard, from:indexPath.row)
+                self.boardTableDelegate?.didTapMoveToCompleted(foucsedCard: foucsdCard)
             }
             
             let edit = UIAction(title: Action.edit.description) { _ in

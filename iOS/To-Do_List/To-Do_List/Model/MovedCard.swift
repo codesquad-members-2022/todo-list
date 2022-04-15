@@ -9,15 +9,16 @@ import Foundation
 
 struct MovedCard : Codable{
     let id : Int
-    let originPosition : Int
+    let title : String
+    let content : String
     let maxPositionNumber : Int
-    let originCardType :String
     let goalCardType : String
-
+    
+    
     func body() -> [String:Any]? {
-        return ["originPosition":originPosition,
+        return ["title":title,
+                "content":content,
                 "maxPositionNumber":maxPositionNumber,
-                "originCardType":originCardType,
                 "goalCardType":goalCardType
         ]
     }

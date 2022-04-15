@@ -175,7 +175,7 @@ extension EditCardView {
         let contentText = contentInputTextField.text ?? ""
         
         delegate?.didTapConfirmButton(editViewInfo: EditViewInputInfo(
-                                                    id : editStyle.cardId ?? 0 ,
+                                                    id : editStyle.cardId ?? nil ,
                                                     title:titleText,
                                                     content:contentText
             )
