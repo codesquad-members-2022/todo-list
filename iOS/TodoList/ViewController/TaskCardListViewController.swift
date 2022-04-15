@@ -59,14 +59,8 @@ extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let card = taskCardList?.getCard(at: indexPath.row) else { return nil }
         let id = card.id
+        let sectionList = ["해야할 일", "하고 있는 일", "완료된 일"]
         
-        let moveToDoneTask = UIAction(title: "완료된 일로 이동") { _ in
-            let requestCard = RequestCardData(section: "완료된 일", title: card.title, content: card.content)
-            DispatchQueue.global().sync {
-                URLManager<TaskCard>.request(api: .put(id, requestCard))
-                NotificationCenter.default.post(name: .getTaskBoardData, object: nil)
-            }
-        }
         let editCard = UIAction(title: "수정하기") { _ in
             NotificationCenter.default.post(name: .editMenuTapped, object: nil, userInfo: [NotificationKeyValue.editTaskData:card])
         }
@@ -75,7 +69,25 @@ extension TaskCardListViewController: UITableViewDelegate, UITableViewDataSource
         }
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            UIMenu(title:"", children: [moveToDoneTask, editCard, removeCard])
+            var menuList: [UIAction] = []
+            
+            for section in sectionList {
+                if section == card.section { continue }
+                menuList.append(self.makeMoveAction(title: section, card: card, id: id))
+            }
+            let children: [UIAction] = menuList + [editCard, removeCard]
+            
+            return UIMenu(title:"", children: children)
+        }
+    }
+    
+    private func makeMoveAction(title: String, card: TaskCard, id: Int) -> UIAction {
+        return UIAction(title: "\(title)로 이동") { _ in
+            let requestCard = RequestCardData(section: title, title: card.title, content: card.content)
+            DispatchQueue.global().sync {
+                URLManager<TaskCard>.request(api: .put(id, requestCard))
+                NotificationCenter.default.post(name: .getTaskBoardData, object: nil)
+            }
         }
     }
     
