@@ -114,12 +114,12 @@ const dragDrop = (event) => {
 
   moveAt(cloneCard, coord);
 
-  cloneCard.addEventListener("mouseup", (event) => {
-    onMouseUp(event, shiftX, shiftY, cloneCard);
-  });
-
   document.addEventListener("mousemove", (event) => {
     onMouseMove(event, shiftX, shiftY, cloneCard);
+  });
+
+  cloneCard.addEventListener("mouseup", (event) => {
+    onMouseUp(targetCard, cloneCard);
   });
 };
 
@@ -135,7 +135,7 @@ function onMouseMove(event, shiftX, shiftY, cloneCard) {
   moveAt(cloneCard, { pageX, pageY, shiftX, shiftY });
 }
 
-function onMouseUp(event, shiftX, shiftY, cloneCard) {
+function onMouseUp(targetCard, cloneCard) {
   document.removeEventListener("mousemove", onMouseMove);
   const cloneCardCoord = cloneCard.style.left + cloneCard.style.width / 2;
   const cloneCardCoordNum = cloneCardCoord.replace("p", "").replace("x", "");
@@ -145,20 +145,25 @@ function onMouseUp(event, shiftX, shiftY, cloneCard) {
   if (checkCoord(cloneCardCoordNum, todoColumn)) {
     /*이부분 left 수정해야함*/ // 왜 right는 안되는걸까?
     appendCard2Column(todoColumn, cloneCard);
+    targetCard.remove();
+    document.removeEventListener("mousemove", onMouseMove);
     return;
   }
 
   if (checkCoord(cloneCardCoordNum, doingColumn)) {
     appendCard2Column(doingColumn, cloneCard);
+    targetCard.remove();
+    document.removeEventListener("mousemove", onMouseMove);
+
     return;
   }
 
   if (checkCoord(cloneCardCoordNum, doneColumn)) {
     appendCard2Column(doneColumn, cloneCard);
+    targetCard.remove();
+
     return;
   }
-
-  // cloneCard.remove();
 }
 
 function appendCard2Column(targetColumn, targetCard) {
