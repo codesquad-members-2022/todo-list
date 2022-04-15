@@ -1,10 +1,11 @@
 import { TODO_LIST_URL } from '../constants/constant.js';
-import { appendElementsToParent, fetchData } from '../utils/util.js';
-import { insertColumns } from '../views/columnsView.js';
-import { addNewCardToColumn, insertAllCardToColumn, onCardDoubleClick } from '../views/cardView.js';
-import { onAddBtnClick, insertEditCard } from '../views/newCardView.js';
+import { appendElementsToParent, fetchData, saveToDB } from '../utils/util.js';
+import { insertColumns, onDeleteAllCardInnerColumn } from '../views/columnsView.js';
+import { addNewCardToColumn, insertAllCardToColumn } from '../views/cardView.js';
+import { insertEditCard, onAddBtnClick } from '../views/newCardView.js';
 import { createStore } from '../store/store';
-import { onClickCardDeleteBtn, onMouseOutCardDeleteBtn, onMouseOverCardDeleteBtn } from '../views/cardDeleteView.js';
+import { attatchDeleteEventsToView } from '../views/cardDeleteView.js';
+import { onDragEvent } from '../views/dragView.js';
 
 export const controller = async views => {
   const { headerView, mainView } = views;
@@ -17,19 +18,10 @@ export const controller = async views => {
   appendElementsToParent(app, headerView, mainView);
   insertColumns(store.getStore('main'), mainView);
   insertAllCardToColumn(store.getStore('main'), mainView);
-  setObserver(store);
-  addEventListeners(store);
-};
-
-const setObserver = store => {
-  store.setObserver(insertColumns);
-  store.setObserver(insertAllCardToColumn);
-};
-
-const addEventListeners = store => {
+  onDeleteAllCardInnerColumn(store);
+  store.setObserverPipe(insertColumns, insertAllCardToColumn);
+  attatchDeleteEventsToView(mainView, store);
   onAddBtnClick(store);
-  onMouseOverCardDeleteBtn();
-  onMouseOutCardDeleteBtn();
-  onClickCardDeleteBtn(store);
-  onCardDoubleClick(store);
+  // onCardDoubleClick(store);
+  onDragEvent(store);
 };
