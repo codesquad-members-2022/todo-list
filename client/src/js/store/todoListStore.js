@@ -37,7 +37,6 @@ const getHistoryData = async () => {
       return historyList;
     },
     set: ([actionType, categories, { title }]) => {
-      debugger;
       const newHistory = {
         action: actionType,
         category: categories,

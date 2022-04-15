@@ -7,44 +7,45 @@ import { alertDeleteInit } from "./alertDelete.js";
 export class Task {
   constructor(listTitle, taskData) {
     this.listTitle = listTitle;
-    this.taskData = taskData;
-    this.init();
-    this.setEvents();
+    if (!taskData) return;
+    const { title, comment, author, id } = taskData;
+    [this.taskTitle, this.comment, this.author, this.taskId] = [title, comment, author, id];
   }
 
   init() {
     this.render();
+    this.setTarget();
+    this.setEvents();
   }
 
   render() {
     const lists = $$(".column__item");
-    const position = this.taskData ? "beforeend" : "afterbegin";
+    const position = this.taskId ? "beforeend" : "afterbegin";
 
     for (const list of lists) {
       if (list.dataset.title === this.listTitle) {
         list
           .querySelector(".column__task--list")
-          .insertAdjacentHTML(
-            position,
-            this.taskData ? this.createHTML() : this.createRegistrationCardHTML()
-          );
+          .insertAdjacentHTML(position, this.taskId ? this.createHTML() : this.createRegistrationCardHTML());
       }
     }
   }
 
   createHTML(taskData) {
-    taskData = taskData || this.taskData;
-    const { title, comment, author, id } = taskData;
-    [this.taskTitle, this.comment, this.author, this.taskId] = [title, comment, author, id];
-    return taskData
-      ? `<li class="column__task--item" data-title="${title}" data-id="${id}">
+    if (taskData) {
+      const { title, comment, author, id } = taskData;
+      [this.taskTitle, this.comment, this.author, this.taskId] = [title, comment, author, id];
+    }
+
+    return this.taskId
+      ? `<li class="column__task--item" data-title="${this.taskTitle}" data-id="${this.taskId}">
               <section>
                 <div class="section__header">
-                  <input readonly type="text" class="column__task--title" value="${title}"/>
+                  <input readonly type="text" class="column__task--title" value="${this.taskTitle}"/>
                   <img src=${iconDelete} class="column__task--delete-button" />
                 </div>
-                <textarea readonly class="column__task--comment" spellcheck="false">${comment}</textarea>
-                <span class="column__task--author">author by ${author}</span>
+                <textarea readonly class="column__task--comment" spellcheck="false">${this.comment}</textarea>
+                <span class="column__task--author">author by ${this.author}</span>
               </section>
               
             </li>`
@@ -70,7 +71,6 @@ export class Task {
   }
 
   setEvents() {
-    this.setTarget();
     this.setClickEvent();
     this.setDoubleClickEvent();
     this.setInputEvent();
@@ -80,10 +80,15 @@ export class Task {
   }
 
   setTarget() {
-    const tasks = $$(".column__task--item");
-    for (const task of tasks) {
-      if (task.dataset.title === this.taskTitle) {
-        this.target = task;
+    const lists = $$(".column__item");
+    for (const list of lists) {
+      if (list.dataset.title === this.listTitle) {
+        const tasks = list.querySelectorAll(".column__task--item");
+        for (const task of tasks) {
+          if (task.dataset.id == this.taskId) {
+            this.target = task;
+          }
+        }
       }
     }
   }
@@ -114,7 +119,7 @@ export class Task {
     this.taskTitle = this.target.querySelector("input").value;
     this.comment = this.target.querySelector("textarea").value;
     this.taskData = {
-      id: this.taskData ? this.taskData.id : undefined,
+      id: this.taskId || null,
       title: this.taskTitle,
       comment: this.comment,
       author: this.author ? this.author : "web",

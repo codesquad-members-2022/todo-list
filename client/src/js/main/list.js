@@ -15,9 +15,6 @@ export class List {
     this.createTask(this.taskData);
     this.setEvents();
     TodoListStore.subscribe("registration", this.notifyRegistration.bind(this));
-<<<<<<< HEAD
-    TodoListStore.subscribe("newTask");
-=======
     TodoListStore.subscribe("newTask", this.notifyListUpdate.bind(this));
   }
 
@@ -34,7 +31,6 @@ export class List {
     column_list.innerHTML = "";
     column_task_count.innerText = this.taskData.length;
     this.createTask(this.taskData);
->>>>>>> a40f77b (feat: 카드 삭제 시 리스트 리렌더링 기능 추가)
   }
 
   notifyRegistration(activation, title) {
@@ -48,8 +44,9 @@ export class List {
   }
 
   createTask(tasksData) {
-    for (const task of tasksData) {
-      new Task(this.listTitle, task);
+    for (const taskData of tasksData) {
+      const task = new Task(this.listTitle, taskData);
+      task.init();
     }
   }
 
@@ -99,7 +96,8 @@ export class List {
   }
 
   addRegistrationCard() {
-    new Task(this.listTitle);
+    const registrationCard = new Task(this.listTitle);
+    registrationCard.init();
   }
 
   removeRegistrationCard() {
