@@ -78,7 +78,7 @@ class Board {
     const contents = selectedCard.getContents($card);
     const columnName = $column.dataset.title;
     const newCardData = {
-      cardIndex: $card.dataset.cardIndex,
+      cardIndex: $card.dataset.index,
       title: title,
       contents: contents,
       cardStatus: columnName
