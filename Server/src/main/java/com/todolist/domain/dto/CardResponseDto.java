@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class CardResponseDto {
-    private Integer cardId;
+    private final Integer cardId;
 
     public CardResponseDto(Integer cardId) {
         this.cardId = cardId;
