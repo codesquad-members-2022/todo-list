@@ -56,8 +56,8 @@ public class CardController {
 			return new ResponseEntity(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 
-		DefaultResponse response = cardService.upate(cardRequest);
-		CardResponse.AddInfo cardResponse = (CardResponse.AddInfo) response.getCustomResponse();
+		DefaultResponse response = cardService.update(cardRequest);
+		CardResponse.UpdateInfo cardResponse = (CardResponse.UpdateInfo) response.getCustomResponse();
 
 		return new ResponseEntity(cardResponse, response.getHttpStatus());
 	}
