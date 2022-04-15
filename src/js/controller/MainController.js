@@ -125,6 +125,7 @@ async function handleRegisterBtn(event, store) {
     const newState = createCardState(cardTitle, cardContent, parentCardId);
     // 수정된 state를 store 및 서버에 저장
     await store.updateState(dataType, parentCardId, newState);
+    store.addState("history");
     renderHistoryCard(parentCard, "update");
     renderRegisteredStyle(parentCard, newState);
   } else {
@@ -179,6 +180,13 @@ function handleRemoveBtn({ target }, store, dataType) {
     return;
   }
 
+<<<<<<< HEAD
+=======
+  store.removeState(dataType, cardToRemove.id);
+  const cardState = extractCardState(card, "remove");
+  const historyState = creatHistoryState(cardState);
+  store.addState("history", historyState);
+>>>>>>> Dott-feature
   renderHistoryCard(cardToRemove, "remove");
   const parentColumn = cardToRemove.closest(`#${dataType}`);
   const cardsCount = parentColumn.querySelector(".column__card-cnt");
@@ -210,6 +218,24 @@ function createCardState(cardTitle, cardContent, id) {
     id: +id || +Date.now(),
     title: cardTitle,
     content: cardContent,
+  };
+}
+
+function creatHistoryState({ cardID, cardColumn, cardTitle, cardAction }) {
+  return {
+    id: cardID,
+    column: cardColumn,
+    title: cardTitle,
+    action: cardAction,
+  };
+}
+
+function extractCardState(card, action) {
+  return {
+    cardID: card.id,
+    cardColumn: card.closest(".task-column"),
+    cardTitle: card.querySelector(".task-card__title").textContent,
+    cardAction: action,
   };
 }
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ drag & drop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
