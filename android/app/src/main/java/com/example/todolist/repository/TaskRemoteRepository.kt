@@ -5,6 +5,7 @@ import com.example.todolist.model.Status
 import com.example.todolist.network.Result
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
+import com.example.todolist.model.request.MoveTaskRequest
 import com.example.todolist.model.response.CommonResponse
 import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.model.response.TasksResponse
@@ -21,12 +22,20 @@ class TaskRemoteRepository(
         return Result.Error("error")
     }
 
-    suspend fun addTask(cardData: Task): CommonResponse? {
-        return taskRemoteDataSource.addTask(cardData)
+    suspend fun addTask(cardData: Task): Result<CommonResponse> {
+        val response = taskRemoteDataSource.addTask(cardData)
+        response?.let {
+            return Result.Success(it)
+        }
+        return Result.Error("error")
     }
 
-    suspend fun modifyTask(modifyTaskRequest: ModifyTaskRequest): TaskDetailResponse? {
-        return taskRemoteDataSource.modifyTask(modifyTaskRequest)?.taskDetailResponse
+    suspend fun modifyTask(modifyTaskRequest: ModifyTaskRequest): Result<CommonResponse> {
+        val response = taskRemoteDataSource.modifyTask(modifyTaskRequest)
+        response?.let {
+            return Result.Success(it)
+        }
+        return Result.Error("error")
     }
 
     suspend fun loadHistory(): Result<List<History>> {
@@ -45,8 +54,8 @@ class TaskRemoteRepository(
         return Result.Error("error")
     }
 
-    suspend fun moveTask(id: Int, status: Status): Result<TaskDetailResponse> {
-        val response = taskRemoteDataSource.moveTask(id, status.status)
+    suspend fun moveTask(task: TaskDetailResponse, status: Status): Result<TaskDetailResponse> {
+        val response = taskRemoteDataSource.moveTask(MoveTaskRequest(task.status, status), task.id)
         response?.let {
             return Result.Success(it.taskDetailResponse)
         }

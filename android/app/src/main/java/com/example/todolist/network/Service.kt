@@ -3,6 +3,7 @@ package com.example.todolist.network
 import com.example.todolist.model.History
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
+import com.example.todolist.model.request.MoveTaskRequest
 import com.example.todolist.model.response.CommonResponse
 import com.example.todolist.model.response.TasksResponse
 import retrofit2.Response
@@ -33,5 +34,5 @@ interface Service {
     suspend fun deleteTask(@Path("id") id: Int): Response<CommonResponse>
 
     @PATCH("cards/{id}/move")
-    suspend fun moveTask(@Path("id") id: Int, @Body nowStatus: String): Response<CommonResponse>
+    suspend fun moveTask(@Path("id") id: Int, @Body request: MoveTaskRequest): Response<CommonResponse>
 }

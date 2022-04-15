@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.databinding.ItemTaskBinding
 import com.example.todolist.model.Status
+import com.example.todolist.model.request.MoveTaskRequest
 import com.example.todolist.model.response.TaskDetailResponse
 
 class TaskAdapter(
