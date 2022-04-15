@@ -22,7 +22,7 @@ export function createItemForm() {
         <textarea class="card__content--text" autosize spellcheck="false" rows="1" placeholder="내용을 입력하세요"></textarea>
       </div>
       <div class="card__btn">
-        <button class="card__btn--cancel" >취소</button>
+        <button type="button" class="card__btn--cancel" >취소</button>
         <button type="submit" class="card__btn--regist" >등록</button>
       </div>
     </form>
