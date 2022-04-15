@@ -1,5 +1,5 @@
 insert into user(user_name, profile_image)
-values ('Miller', NULL);
+values ('team-17', NULL);
 
 insert into `column` (user_id, column_name)
 values (1, '해야할 일');
