@@ -12,9 +12,11 @@ export function renderAllColumns(columnList) {
   columnList.forEach(renderColumn);
 }
 
-export function renderColumn({ id, title, length }) {
+export function renderColumn({ id, title, state }) {
+  if (state === false) return;
+
   const columnListEl = qs(".column-list");
-  insertElement(columnListEl, "beforeend", createColumn({ id, title, length }));
+  insertElement(columnListEl, "beforeend", createColumn({ id, title }));
 }
 
 export function renderAllItems(itemList) {

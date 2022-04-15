@@ -5,9 +5,9 @@ const database = [
     gender: "male",
     email: "mansaout@gmail.com",
     columns: [
-      { id: 1, title: "해야할 일" },
-      { id: 2, title: "하고 있는 일" },
-      { id: 3, title: "완료한 일" },
+      { id: 1, title: "해야할 일", state: true },
+      { id: 2, title: "하고 있는 일", state: true },
+      { id: 3, title: "완료한 일", state: true },
     ],
     items: [
       {

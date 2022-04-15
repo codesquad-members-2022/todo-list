@@ -23,13 +23,16 @@ export default class Store {
     const newColumn = {
       id: this.columns.length ? lastColumnId + 1 : 1,
       title: "",
-      length: 0,
+      state: true,
     };
     this.columns.push(newColumn);
     return newColumn;
   }
 
-  removeColumn() {}
+  removeColumn(columnId) {
+    const columnIndex = this.items.findIndex((column) => column.id === columnId);
+    this.columns[columnIndex].state = false;
+  }
 
   updateColumn(columnId, newTitle) {
     const newColumn = this.columns.find(({ id }) => id === columnId);

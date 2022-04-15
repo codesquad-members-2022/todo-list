@@ -79,6 +79,8 @@ export function bindEvents(store) {
     const columnTitle = _getColumnTitle(columnId);
     const historyContent = `<strong>${columnTitle}</strong>에 <strong>${title}</strong>를 <strong>등록</strong>하였습니다.`;
     store.addHistory({ date, action: "add", content: historyContent });
+
+    renderAllHistory(store.history);
   }
 
   function removeItem(event) {
@@ -95,6 +97,8 @@ export function bindEvents(store) {
     store.removeItem(itemId);
     renderColumnLength(columnId, false);
     itemEl.remove();
+
+    renderAllHistory(store.history);
   }
 
   function addColumn(event) {
@@ -120,8 +124,16 @@ export function bindEvents(store) {
   }
 
   function removeColumn(event) {
-    console.log("removeColumn");
-    console.log(event.target);
+    const columnEl = getParentElementByDataset(event.target, "column");
+    const columnId = _getColumnId(event.target);
+    const columnTitle = _getColumnTitle(columnId);
+
+    const historyContent = `<strong>${columnTitle}</strong>을 <strong>삭제</strong>하였습니다.`;
+
+    store.addHistory({ date: new Date(), action: "remove", content: historyContent });
+    columnEl.remove();
+
+    renderAllHistory(store.history);
   }
 
   function _getColumnId(eventTarget) {
