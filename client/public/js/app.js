@@ -33,7 +33,7 @@ function app() {
   renderAllHistory(store.history);
 
   // bind events
-  bindEvents();
+  bindEvents(store);
 }
 
 function getUserData(userId) {

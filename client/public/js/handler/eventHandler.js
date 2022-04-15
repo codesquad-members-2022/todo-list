@@ -1,9 +1,9 @@
 import { qs, on, delegate, getParentElementByDataset } from "../utils/helpers.js";
 
-import Store from "../model/Store.js";
 import { renderItemForm } from "../views/renderer.js";
+export function bindEvents(store) {
+  const Store = store;
 
-export function bindEvents() {
   const el = {
     columnList: qs(".column-list"),
     columnAdd: qs(".column-add"),
