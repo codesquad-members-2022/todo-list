@@ -28,17 +28,17 @@ public class CardControllerTest {
     @Autowired
     private SetUp setUp;
 
+    private User user;
+    private Column column;
+    private Card card;
+
     @BeforeEach
     public void setUp() {
         RestAssured.port = port;
 
-        User user = setUp.createUser(new User("유저 이름"));
-        Column column = setUp.createColumn(new Column(user.getUserId(), "컬럼 이름"));
-        Card card = setUp.createCard(new Card(column.getColumnId(), "제목", "내용", "작성자", null));
-
-        Column column2 = setUp.createColumn(new Column(user.getUserId(), "컬럼 이름2"));
-        Card card2 = setUp.createCard(new Card(column2.getColumnId(), "제목2", "내용2", "작성자2", null));
-        Card card3 = setUp.createCard(new Card(column.getColumnId(), "제목3", "내용3", "작성자3", 1));
+        user = setUp.createUser(new User("유저 이름"));
+        column = setUp.createColumn(new Column(user.getUserId(), "컬럼 이름"));
+        card = setUp.createCard(new Card(column.getColumnId(), "제목", "내용", "작성자", null));
     }
 
     @Test
@@ -46,19 +46,19 @@ public class CardControllerTest {
     public void createCardTest() {
 
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("columnId", 1);
-        requestBody.put("title", "제목4");
-        requestBody.put("content", "내용4");
-        requestBody.put("author", "작성자4");
-        requestBody.put("nextId", "3");
+        requestBody.put("columnId", column.getColumnId());
+        requestBody.put("title", "제목");
+        requestBody.put("content", "내용");
+        requestBody.put("author", "작성자");
+        requestBody.put("nextId", card.getCardId());
 
         given()
             .contentType("application/json")
             .body(requestBody)
             .log().all()
-        .when()
+            .when()
             .post("cards/")
-        .then()
+            .then()
             .statusCode(201);
     }
 
@@ -72,11 +72,11 @@ public class CardControllerTest {
 
         given()
             .contentType("application/json")
-            .pathParam("id", 1)
+            .pathParam("id", card.getCardId())
             .body(requestBody)
             .log().all()
-        .when()
-            .put("cards/{id}")
+            .when()
+            .patch("cards/{id}")
         .then()
             .statusCode(200);
     }
@@ -86,31 +86,33 @@ public class CardControllerTest {
     public void deleteCardTest() {
 
         given()
-            .pathParam("id", 1)
+            .pathParam("id", card.getCardId())
             .log().all()
             .when()
             .delete("cards/{id}")
             .then()
-            .statusCode(204);
+            .statusCode(200);
     }
 
-    // Todo : 테스트 해결하기
     @Test
-    @DisplayName("카드 이동 요청을 보내면 201 CREATED 를 응답 받는다")
+    @DisplayName("카드 이동 요청을 보내면 200 OK 를 응답 받는다")
     public void moveCardTest() {
+        Column column_2 = setUp.createColumn(new Column(user.getUserId(), "컬럼 이름2"));
+        Card card_2 = setUp.createCard(new Card(column_2.getColumnId(), "제목", "내용", "작성자", null));
+
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("columnId", "1");
+        requestBody.put("columnId", column.getColumnId());
         requestBody.put("nextId", null);
 
         given()
             .contentType("application/json")
-            .pathParam("id", 3)
+            .pathParam("id", card_2.getCardId())
             .body(requestBody)
             .log().all()
             .when()
             .put("cards/{id}/move")
             .then()
-            .statusCode(201);
+            .statusCode(200);
     }
 
 }
