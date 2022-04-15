@@ -34,7 +34,7 @@ class Controller {
       createTagTemplate('main', '', 'main')
     );
     this.header.view.render();
-    this.history.view.render();
+    this.initHistory();
     this.initTodo();
   }
 
@@ -306,6 +306,90 @@ class Controller {
   }
   findTodoCard(targetColumn, cardId) {
     return targetColumn.model.cardList[cardId];
+  }
+
+  async initHistory() {
+    this.history.view.render();
+    await this.history.model.fetchHistories();
+    const histories = await this.history.model.getHistories();
+    histories.forEach((history) => {
+      const content = this.creatHistoryContent(history);
+      const calcTime = this.calcHistoryTime(history.createDateTime);
+      this.history.view.renderInitHistoryCard({
+        userName: history.userName,
+        content,
+        time: calcTime,
+      });
+    });
+  }
+
+  calcHistoryTime(historyTime) {
+    const nowTime = new Date();
+    const timeValue = new Date(historyTime);
+
+    const betweenTime = Math.floor(
+      (nowTime.getTime() - timeValue.getTime()) / 1000 / 60
+    );
+    if (betweenTime < 1) return '방금전';
+    if (betweenTime < 60) {
+      return `${betweenTime}분전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+      return `${betweenTimeHour}시간전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+      return `${betweenTimeDay}일전`;
+    }
+  }
+
+  creatHistoryContent(history) {
+    const actionDic = {
+      CREATE: '등록',
+      UPDATE: '수정',
+      DELETE: '삭제',
+      MOVE: '이동',
+    };
+    let historyContent = '';
+    switch (history.action) {
+      case 'CREATE':
+        historyContent = `
+        <strong>${history.columnName}</strong>에 <strong>${
+          history.title
+        }</strong>를
+        <strong>${actionDic[history.action]}</strong>하였습니다.
+        `;
+        break;
+      case 'UPDATE':
+        historyContent = `
+        <strong>${history.fields[0].oldValue}</strong>를 <strong>${
+          history.fields[0].newValue
+        }</strong>로
+        <strong>${actionDic[history.action]}</strong>하였습니다.
+        `;
+        break;
+      case 'DELETE':
+        historyContent = `
+        <strong>${history.columnName}</strong>에 <strong>${
+          history.title
+        }</strong>를
+        <strong>${actionDic[history.action]}</strong>하였습니다.
+        `;
+        break;
+      case 'MOVE':
+        historyContent = `
+        <strong>${history.title}</strong>을 <strong>${
+          history.fields[0].oldValue
+        }</strong>에서 <strong>${history.columnName}</strong>로 
+        <strong>${actionDic[history.action]}</strong>하였습니다.
+        `;
+        break;
+    }
+
+    return historyContent;
   }
 
   menuBtnClickHandler() {
