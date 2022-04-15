@@ -40,35 +40,35 @@ struct FieldFactory {
         case .body:
             switch activity.action {
             case "ADD":
-                string += String(activity.newColumn)
+                string += String(activity.newColumnName)
                 string += "에 "
-                string += String(activity.id)
-                string += "을 등록하였습니다."
-            case "DELETE":
-                string += String(activity.newColumn)
+                string += String(activity.cardTitle)
+                string += "를 등록하였습니다."
+            case "REMOVE":
+                string += String(activity.newColumnName)
                 string += "에 "
-                string += String(activity.id)
-                string += "을 삭제하였습니다."
+                string += String(activity.cardTitle)
+                string += "를 삭제하였습니다."
             case "MOVE":
-                string += String(activity.id)
-                string += "을 "
-                string += String(activity.oldColumn)
+                string += String(activity.cardTitle)
+                string += "를 "
+                string += String(activity.oldColumnName)
                 string += "에서 "
-                string += String(activity.newColumn)
+                string += String(activity.newColumnName)
                 string += "로 "
                 string += "을 이동하였습니다."
             case "UPDATE":
-                string += String(activity.newColumn)
+                string += String(activity.newColumnName)
                 string += "에 "
-                string += String(activity.id)
-                string += "을 수정하였습니다."
+                string += String(activity.cardTitle)
+                string += "를 수정하였습니다."
             default:
                 print("\(activity.action) NOT FOUND")
             }
             return ActivityBody(text: string)
         case .footer:
             //TODO: - DataFormatter 이용하여 "~분전" 설정
-            string += activity.modifiedAt
+            string += activity.modifiedDate
             return ActivityFooter(text: string)
         }
     }
