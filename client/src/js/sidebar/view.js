@@ -52,23 +52,23 @@ const identifyCategory = (activity) => {
   const { action, category, title } = activity;
   switch (action) {
     case "등록":
-      return `${category[0]}에 ${title}${appendEulReul(title)} 
+      return `${category[0]}에 <strong>${title}</strong>${appendEulReul(title)} 
       ${action}하였습니다.`;
     case "이동":
-      return `${title}${appendEulReul(title)} ${category[0]}에서 
+      return `<strong>${title}</strong>${appendEulReul(title)} ${category[0]}에서 
       ${category[1]}${appendRoEro(category[1])} ${action}하였습니다.`;
     case "삭제":
-      return `${category}에서 ${title}${appendEulReul(title)} 
+      return `${category}에서 <strong>${title}</strong>${appendEulReul(title)} 
       ${action}하였습니다.`;
     case "변경":
-      return `${category}에서 ${title}이 ${action}되었습니다.`;
+      return `${category}에서 <strong>${title}</strong>이 ${action}되었습니다.`;
     default:
       return "동작이 잘못 되었습니다.";
   }
 };
 
-const createHTML = () => {
-  const sidebarList = sidebarData.reduce(
+const createHTML = (historyData) => {
+  const sidebarList = historyData.reduce(
     (acc, cur) =>
       acc +
       `<li class="sidebar__item">
@@ -86,8 +86,9 @@ const createHTML = () => {
   return `<ul class="sidebar__list"><div class="sidebar__scroll">${sidebarList}</div></ul>`;
 };
 
-const render = (parent) => {
-  parent.innerHTML = createHTML();
+const render = async (parent) => {
+  const historyData = await TodoListStore.getHistoryData();
+  parent.innerHTML = createHTML(historyData);
 };
 
 const notify = () => {
@@ -95,9 +96,14 @@ const notify = () => {
   sidebar.classList.toggle("show");
 };
 
+const historyNotify = (historyList) => {
+  $("aside").innerHTML = createHTML(historyList);
+};
+
 const sidebarInit = (parent) => {
   render(parent);
   TodoListStore.subscribe("sidebar", notify);
+  TodoListStore.subscribe("history", historyNotify);
 };
 
 export { sidebarInit };

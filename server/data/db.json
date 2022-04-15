@@ -1,32 +1,31 @@
 {
-  "sidebar": [
+  "history": [
     {
-      "id": 1,
       "action": "등록",
-      "category": ["해야할 일"],
-      "title": "GitHub 공부하기",
-      "timeStamp": "Wed Apr 06 2022 12:16:00 GMT+0900"
+      "category": [
+        "todo"
+      ],
+      "title": "GitHub 공부",
+      "timeStamp": "Fri Apr 15 2022 05:17:47 GMT+0900",
+      "id": 1
     },
     {
-      "id": 2,
       "action": "등록",
-      "category": ["해야할 일"],
-      "title": "블로그에 포스팅할 것",
-      "timeStamp": "Wed Apr 06 2022 12:16:00 GMT+0900"
+      "category": [
+        "todo"
+      ],
+      "title": "블로그에 포스팅 할 것",
+      "timeStamp": "Fri Apr 15 2022 05:19:00 GMT+0900",
+      "id": 2
     },
     {
-      "id": 3,
       "action": "등록",
-      "category": ["해야할 일"],
-      "title": "HTML/CSS공부하기",
-      "timeStamp": "Wed Apr 06 2022 12:16:00 GMT+0900"
-    },
-    {
-      "id": 4,
-      "action": "이동",
-      "category": ["해야할 일", "하고 있는 일"],
-      "title": "HTML/CSS공부하기",
-      "timeStamp": "Wed Apr 06 2022 12:16:00 GMT+0900"
+      "category": [
+        "progress"
+      ],
+      "title": "HTML/CSS 공부하기",
+      "timeStamp": "Fri Apr 15 2022 05:19:27 GMT+0900",
+      "id": 3
     }
   ],
   "todoList": [

@@ -15,7 +15,7 @@ export const debounce = (callback, delay) => {
 };
 
 const handleError = async (response) => {
-  if (response.status === 200) {
+  if (response.status >= 200 && response.status < 300) {
     const data = await response.json();
     return data;
   } else {
@@ -31,6 +31,15 @@ export const fetchData = async (url) => {
 export const putData = async (url, data) => {
   const response = await fetch(url, {
     method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return handleError(response);
+};
+
+export const postData = async (url, data) => {
+  const response = await fetch(url, {
+    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
