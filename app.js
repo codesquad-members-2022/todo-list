@@ -6,6 +6,7 @@ import { getLocalStorageByKey, getTodosByStatus } from './utils/localStorage.js'
 import { onBodyMouseDown, onBodyMouseMove, onBodyMouseUp } from './utils/eventDragHandler.js';
 import { $ } from './utils/dom.js';
 import { handleNotice } from './utils/action.js';
+import Fab from './components/Fab.js';
 
 const app = () => {
   const todos = getLocalStorageByKey('todos') ?? [];
@@ -19,10 +20,20 @@ const app = () => {
   onBodyMouseUp();
   createColumns();
   createNotices();
+
+  const fab = new Fab();
+  //fab.showModal();
+  // fab.fabModal();
+  fab.onHandle();
 };
 
 const createColumns = () => {
-  const columns = ['해야할일', '하고있는일', '완료한일'];
+  //const columns = ['해야할일', '하고있는일', '완료한일'];
+  //localStorage.setItem('column', JSON.stringify(columns));
+
+  const columns = getLocalStorageByKey('column') ?? [];
+  localStorage.setItem('column', JSON.stringify(columns));
+
   const columnsWrapper = $('.column-section');
   columns.forEach(status => {
     const column = new TodoColumn(status);
