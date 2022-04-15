@@ -1,5 +1,6 @@
 package com.example.todo_list.tasks
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,9 +12,9 @@ import com.example.todo_list.databinding.TodoItemBinding
 import com.example.todo_list.tasks.data.Task
 import java.util.*
 
-class TaskAdapter : ListAdapter<Task, TaskAdapter.TodoViewHolder>(diffUtil),
-    ItemTouchHelperListener {
-    inner class TodoViewHolder(private val binding: TodoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class TaskAdapter : ListAdapter<Task, TaskAdapter.TodoViewHolder>(diffUtil) {
+    inner class TodoViewHolder(private val binding: TodoItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
             binding.task = task
         }
@@ -32,19 +33,13 @@ class TaskAdapter : ListAdapter<Task, TaskAdapter.TodoViewHolder>(diffUtil),
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.itemView.translationX = 0f
     }
 
-    override fun onItemMove(from_position: Int, to_position: Int): Boolean {
-        return true
-    }
-
-    override fun onItemSwipe(position: Int) {
-    }
-
-    fun swapData(from: Int, to: Int) {
+    fun moveItem(fromPos: Int, toPos: Int) {
         val newList = currentList.toMutableList()
-        Collections.swap(newList, from, to)
-        submitList(newList)
+        Collections.swap(newList, fromPos, toPos)
+        notifyItemMoved(fromPos, toPos)
     }
 }
 
