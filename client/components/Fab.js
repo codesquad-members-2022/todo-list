@@ -2,14 +2,9 @@ import { getLocalStorageByKey } from '../utils/localStorage.js';
 import TodoColumn from './TodoColumn.js';
 import { $ } from '../utils/dom.js';
 export default class Fab {
-  constructor() {
-    this.id = 0;
-    this.status = '';
-    this.count = 0;
-    this.isDeleted = false;
-  }
+  constructor() {}
 
-  fabModal = () => {
+  render() {
     return /*html*/ `
         <article class="input-wrapper todo-border input-fab">
             <input class="input-header"placeholder="칼럼을 추가하세요" maxlength ='500' /> 
@@ -20,33 +15,37 @@ export default class Fab {
         </article>
         <div class="modalBackground"></div>
     `;
-  };
+  }
 
-  register = () => {
-    this.status = $('.input-header').value;
+  onRegisterBtn() {
+    const value = $('.input-header').value;
     const columns = getLocalStorageByKey('column') ?? [];
-    columns.push(this.status);
+    columns.push(value);
 
     localStorage.setItem('column', JSON.stringify(columns));
 
-    this.cancelBtn();
+    this.onCancelBtn();
     const columnsWrapper = $('.column-section');
-    const newColumn = new TodoColumn(this.status);
+    const newColumn = new TodoColumn(value);
     columnsWrapper.insertAdjacentHTML('beforeend', newColumn.render());
-  };
+  }
 
-  cancelBtn = () => {
+  onCancelBtn() {
     $('.input-fab').remove();
     $('.modalBackground').remove();
+  }
+
+  showModal = callback => {
+    document.body.insertAdjacentHTML('beforeend', this.render());
+    callback();
   };
 
-  showModal = () => {
-    document.body.insertAdjacentHTML('beforeend', this.fabModal());
-    $('.input-fab .fab--cancel').addEventListener('click', this.cancelBtn);
-    $('.input-fab .fab--register').addEventListener('click', this.register);
-  };
-
-  handleEventListener = () => {
-    $('.fabBtn').addEventListener('click', this.showModal);
-  };
+  handleEventListener() {
+    $('.fabBtn').addEventListener('click', () =>
+      this.showModal(() => {
+        $('.input-fab .fab--cancel').addEventListener('click', this.onCancelBtn);
+        $('.input-fab .fab--register').addEventListener('click', this.onRegisterBtn);
+      })
+    );
+  }
 }
