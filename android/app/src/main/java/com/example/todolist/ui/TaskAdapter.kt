@@ -10,7 +10,7 @@ import com.example.todolist.databinding.ItemTaskBinding
 import com.example.todolist.model.response.TaskDetailResponse
 
 class TaskAdapter(
-    private val viewModel: TaskViewModel,
+    private val viewModel: TaskRemoteViewModel,
     private val listener: DialogListener,
 ) : ListAdapter<TaskDetailResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback),
     ItemTouchHelperListener {

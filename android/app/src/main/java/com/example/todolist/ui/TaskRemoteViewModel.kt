@@ -1,9 +1,11 @@
 package com.example.todolist.ui
 
 import androidx.lifecycle.LiveData
+import com.example.todolist.network.Result
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.todolist.model.History
 import com.example.todolist.model.Status
 import com.example.todolist.model.Task
 import com.example.todolist.model.request.ModifyTaskRequest
@@ -12,6 +14,10 @@ import com.example.todolist.repository.TaskRemoteRepository
 import kotlinx.coroutines.launch
 
 class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository) : ViewModel() {
+
+    private val _history = MutableLiveData<List<History>>()
+    val history: LiveData<List<History>>
+        get() = _history
 
     private val _todoTask = MutableLiveData<MutableList<TaskDetailResponse>>()
     val todoTask: LiveData<MutableList<TaskDetailResponse>>
@@ -25,16 +31,26 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
     val doneTask: LiveData<MutableList<TaskDetailResponse>>
         get() = _doneTask
 
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String>
+        get() = _error
+
     init {
         loadTasks()
     }
 
     private fun loadTasks() {
         viewModelScope.launch {
-            val tasks = taskRemoteRepository.loadTask()
-            _todoTask.value = tasks?.todo
-            _inProgressTask.value = tasks?.inProgress
-            _doneTask.value = tasks?.done
+            when (val tasks = taskRemoteRepository.loadTask()) {
+                is Result.Success -> {
+                    _todoTask.value = tasks.data.todo
+                    _inProgressTask.value = tasks.data.inProgress
+                    _doneTask.value = tasks.data.done
+                }
+                is Result.Error -> {
+                    _error.value = tasks.error
+                }
+            }
         }
     }
 
@@ -88,4 +104,24 @@ class TaskRemoteViewModel(private val taskRemoteRepository: TaskRemoteRepository
             }
         }
     }
+
+    fun loadDummyData() {}
+
+    fun addTodoTask(task: Task) {}
+
+    fun addInProgressTask(task: Task) {}
+
+    fun addDoneTask(task: Task) {}
+
+    fun moveDone(task: TaskDetailResponse) {}
+
+    fun deleteTask(task: TaskDetailResponse) {}
+
+    fun updateTodoTask(task: TaskDetailResponse) {}
+
+    fun updateInProgressTask(task: TaskDetailResponse) {}
+
+    fun updateDoneTask(task: TaskDetailResponse) {}
+
+    fun swapTask(currentList: List<TaskDetailResponse>, fromPosition: Int, toPosition: Int) {}
 }

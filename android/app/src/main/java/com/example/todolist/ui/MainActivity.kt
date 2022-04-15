@@ -3,6 +3,7 @@ package com.example.todolist.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -13,7 +14,7 @@ import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.ui.common.ViewModelFactory
 
 class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
-    private val viewModel: TaskViewModel by viewModels { ViewModelFactory() }
+    private val viewModel: TaskRemoteViewModel by viewModels { ViewModelFactory() }
     private lateinit var binding: ActivityMainBinding
     private val historyAdapter: HistoryAdapter by lazy { HistoryAdapter() }
     private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
         binding.rvHistory.adapter = historyAdapter
         viewModel.history.observe(this) { histories ->
             historyAdapter.submitList(histories)
+        }
+
+        viewModel.error.observe(this) {
+            Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show()
         }
 
         with(binding) {
