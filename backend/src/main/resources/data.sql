@@ -19,7 +19,7 @@ create table card
 
 create table history
 (
-    id         bigint auto_increment
+    id         bigint
         primary key auto_increment,
     content    varchar(255) not null,
     created_at datetime(6)  null,
@@ -32,7 +32,7 @@ create table history
 
 create table member
 (
-    id              bigint auto_increment
+    id              bigint
         primary key auto_increment,
     created_at      datetime(6)  not null,
     member_login_id varchar(10)  not null,
@@ -42,11 +42,11 @@ create table member
 );
 
 INSERT INTO card (writer, position, visible, title, content, card_type, created_at, last_modified_at, member_id)
-VALUES ('Bong', 1, true, '', '', 'progressingItems', '2022-04-12 18:16:53', null, 0);
+VALUES ('Bong', 1, true, '', '', 'PROGRESSING', '2022-04-12 18:16:53', null, 0);
 INSERT INTO card (writer, position, visible, title, content, card_type, created_at, last_modified_at, member_id)
-VALUES ('Kai', 2, true, '', '', 'todoItems', '2022-04-12 18:16:53', null, 0);
+VALUES ('Kai', 2, true, '', '', 'TODO', '2022-04-12 18:16:53', null, 0);
 INSERT INTO card (writer, position, visible, title, content, card_type, created_at, last_modified_at, member_id)
-VALUES ('Terry', 2, true, '', '', 'completedItems', '2022-04-12 18:16:56', null, 0);
+VALUES ('Terry', 2, true, '', '', 'COMPLETED', '2022-04-12 18:16:56', null, 0);
 
 INSERT INTO member (created_at, member_login_id, password, nick_name, visible)
 VALUES ('2022-04-03 14:52:44', 'bongbong', '1234', 'BongBong', true);

@@ -1,12 +1,23 @@
 package com.example.backend.controller.history;
 
-import com.example.backend.controller.ApiResult;
-import com.example.backend.domain.history.History;
-import org.springframework.web.bind.annotation.*;
+import static com.example.backend.controller.ApiResult.OK;
 
+import com.example.backend.controller.ApiResult;
+import com.example.backend.controller.history.dto.HistorySaveRequest;
+import com.example.backend.domain.history.History;
+import com.example.backend.service.history.HistoryService;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 import java.util.List;
 
-import static com.example.backend.controller.ApiResult.OK;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/histories")
@@ -18,8 +29,8 @@ public class HistoryController {
         this.historyService = historyService;
     }
 
-    @PostMapping("")
-    public ApiResult<History> saveHistory(@RequestBody HistorySaveRequest request) {
+    @PostMapping
+    public ApiResult<History> saveHistory(@RequestBody @Valid HistorySaveRequest request) {
         return OK(historyService.saveHistory(request));
     }
 

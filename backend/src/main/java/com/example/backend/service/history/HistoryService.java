@@ -1,6 +1,9 @@
-package com.example.backend.controller.history;
+package com.example.backend.service.history;
 
+import com.example.backend.controller.history.HistoryResponse;
+import com.example.backend.controller.history.dto.HistorySaveRequest;
 import com.example.backend.domain.history.History;
+import com.example.backend.repository.history.HistoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

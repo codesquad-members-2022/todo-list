@@ -1,5 +1,6 @@
-package com.example.backend.controller.history;
+package com.example.backend.repository.history;
 
+import com.example.backend.controller.history.dto.HistoryRead;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.domain.history.Action;
 import com.example.backend.domain.history.History;
@@ -42,17 +43,7 @@ public class HistoryQueryHelper {
         }};
     }
 
-    public RowMapper<HistoryRead> getMapper() {
-        return mapper;
-    }
-    private Long id;
-    private String content;
-    private LocalDateTime createdAt;
-    private Action action;
-    private Long memberId;
-    private Long cardId;
-    private String author;
-    private CardType cardType;
+
     private static final RowMapper<HistoryRead> mapper = (rs, rowNum) ->
             new HistoryRead(
                     rs.getLong(ID),

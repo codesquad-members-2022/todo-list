@@ -1,5 +1,6 @@
 package com.example.backend.domain.card;
 
+import java.beans.Transient;
 import java.time.LocalDateTime;
 
 public class Card {
@@ -21,21 +22,16 @@ public class Card {
         this.position = position;
         this.memberId = memberId;
         this.cardType = cardType;
+        this.visible = true;
     }
 
-    public Card(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-    }
-
-    public Card(long id, String writer, Long position, String title, String content, String cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt, boolean visible, long memberId) {
+    public Card(Long id, String writer, Long position, String title, String content, CardType cardType, LocalDateTime createdAt, LocalDateTime lastModifiedAt, boolean visible, long memberId) {
         this.id = id;
         this.writer = writer;
         this.position = position;
         this.title = title;
         this.content = content;
-        this.cardType = CardType.valueOf(cardType);
+        this.cardType = cardType;
         this.createdAt = createdAt;
         this.lastModifiedAt = lastModifiedAt;
         this.visible = true;
@@ -70,6 +66,11 @@ public class Card {
         return cardType;
     }
 
+    @Transient
+    public String getCardTypeName(){
+        return cardType.name();
+    }
+
     public String getWriter() {
         return writer;
     }
@@ -80,6 +81,26 @@ public class Card {
 
     public Long getMemberId() {
         return memberId;
+    }
+
+    public void updateCard(String title, String content, CardType cardType, Long maxPositionNumber) {
+        if (cardType != null) {
+            this.cardType = cardType;
+        }
+        if (maxPositionNumber != null) {
+            this.position = maxPositionNumber + 1;
+        }
+        this.title = title;
+        this.content = content;
+        this.lastModifiedAt = LocalDateTime.now();
+    }
+
+    public void changePosition(Long newPosition) {
+        this.position = newPosition;
+    }
+
+    public void changeCardType(CardType newCardType) {
+        this.cardType = newCardType;
     }
 }
 
