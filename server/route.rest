@@ -55,6 +55,10 @@ Content-Type: application/json
 //DELETE http://localhost:3000/columns/:columnid/:cardid/delete
 DELETE http://localhost:3000/columns/62543ac2651b34cc1543ced8/62562fa82b961644a3d43f55/delete
 
+### Move card
+//POST http://localhost:3000/columns/:columnId/:cardId/:targetColumnId/:index
+POST http://localhost:3000/columns/62543ac2651b34cc1543ced8/6258df8a26197691d1a1119c/62543ad5651b34cc1543ceda/1
+
 ### Get log
 //GET http://localhost:3000/log
 GET http://localhost:3000/log

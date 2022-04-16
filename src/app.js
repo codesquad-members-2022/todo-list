@@ -1,9 +1,9 @@
 import "./app.scss";
-import { Store, observer } from "./stores/ColumnStore.js";
-import { initHeader } from "./components/header/Header.js";
-import { initMain } from "./components/main/Main.js";
-import { reRenderColumn } from "./components/main/column-container/Column/Column.js";
-import { reRenderCard } from "./components/main/column-container/Column/card/Card.js";
+import { Store, observer } from "@/stores/ColumnStore";
+import { initHeader } from "@/components/header/Header";
+import { initMain } from "@/components/main/Main";
+import { reRenderColumn } from "@/components/main/column-container/Column/Column";
+import { reRenderCard } from "@/components/main/column-container/Column/card/Card";
 
 (async () => {
   await Store.setInitialState();
