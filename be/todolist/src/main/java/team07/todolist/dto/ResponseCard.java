@@ -6,16 +6,16 @@ public class ResponseCard {
 	private String userId;
 	private String title;
 	private String content;
-	private Integer row;
+	private Integer sequence;
 	private Integer status;
 
 	public ResponseCard(Long id, String userId, String title, String content,
-		Integer row, Integer status) {
+		Integer sequence, Integer status) {
 		this.id = id;
 		this.userId = userId;
 		this.title = title;
 		this.content = content;
-		this.row = row;
+		this.sequence = sequence;
 		this.status = status;
 	}
 
@@ -35,11 +35,23 @@ public class ResponseCard {
 		return content;
 	}
 
-	public Integer getRow() {
-		return row;
+	public Integer getSequence() {
+		return sequence;
 	}
 
 	public Integer getStatus() {
 		return status;
+	}
+
+	@Override
+	public String toString() {
+		return "ResponseCard{" +
+			"id=" + id +
+			", userId='" + userId + '\'' +
+			", title='" + title + '\'' +
+			", content='" + content + '\'' +
+			", row=" + sequence +
+			", status=" + status +
+			'}';
 	}
 }

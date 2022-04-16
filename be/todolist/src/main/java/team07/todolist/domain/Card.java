@@ -4,136 +4,117 @@ import team07.todolist.dto.ResponseCard;
 
 public class Card {
 
-	private static final int TODO = 1;
-	private static final int PROGRESS = 2;
-	private static final int DONE = 3;
-
 	private Long id;
 	private String userId;
 	private String title;
 	private String content;
-	private Integer row;
-	private Integer status;
+	private int sequence;
+	private int status;
 	private boolean isDeleted;
 
-	public Card(Builder builder) {
-		this.id = builder.id;
-		this.userId = builder.userId;
-		this.title = builder.title;
-		this.content = builder.content;
-		this.row = builder.row;
-		this.status = builder.status;
-		this.isDeleted = builder.isDeleted;
+	public Card(Long id, String userId, String title, String content, int sequence, int status,
+		boolean isDeleted) {
+		this.id = id;
+		this.userId = userId;
+		this.title = title;
+		this.content = content;
+		this.sequence = sequence;
+		this.status = status;
+		this.isDeleted = isDeleted;
+	}
+
+	public Card(String userId, String title, String content, Integer sequence, Integer status) {
+		this.userId = userId;
+		this.title = title;
+		this.content = content;
+		this.sequence = sequence;
+		this.status = status;
+	}
+
+	public Card(Card card, Long id, Integer sequence, Integer status) {
+		this.id = id;
+		this.userId = card.userId;
+		this.title = card.title;
+		this.content = card.content;
+		this.sequence = sequence;
+		this.status = status;
+	}
+
+	public Card(Card card, String title, String content) {
+		this.id = card.id;
+		this.userId = card.userId;
+		this.title = title;
+		this.content = content;
+		this.sequence = card.sequence;
+		this.status = card.status;
+	}
+
+	public Card(Card card, Long id) {
+		this.id = id;
+		this.userId = card.userId;
+		this.title = card.title;
+		this.content = card.content;
+		this.sequence = card.sequence;
+		this.status = card.status;
 	}
 
 	public void delete() {
 		isDeleted = true;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Integer getRow() {
-		return row;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
 	public void decreaseRow() {
-		this.row = this.row - 1;
+		this.sequence = this.sequence - 1;
 	}
 
 	public void increaseRow() {
-		this.row = this.row + 1;
+		this.sequence = this.sequence + 1;
 	}
 
 	public boolean isValid() {
 		return !isDeleted;
 	}
 
+	public boolean isSameStatus(int status) {
+		return this.status == status;
+	}
+
+	public boolean overRow(int row) {
+		return this.sequence > row;
+	}
+
+	public boolean andOverRow(int row) {
+		return this.sequence >= row;
+	}
+
 	public ResponseCard createResponseCard() {
-		return new ResponseCard(id, userId, title, content, row, status);
+		return new ResponseCard(id, userId, title, content, sequence, status);
 	}
 
-	public boolean isDifferentStatus(Integer status) {
-		return !this.status.equals(status);
+	public Long getId() {
+		return id;
 	}
 
-	public static class Builder {
-
-		private Long id;
-		private String userId;
-		private String title;
-		private String content;
-		private Integer row;
-		private Integer status;
-		private boolean isDeleted;
-
-		public Builder() {
-		}
-
-		public Builder(Card card) {
-			this.userId = card.userId;
-			this.title = card.title;
-			this.content = card.content;
-			this.row = card.row;
-			this.status = card.status;
-			this.isDeleted = card.isDeleted;
-		}
-
-		public Builder id(Long id) {
-			this.id = id;
-			return this;
-		}
-
-		public Builder userId(String userId) {
-			this.userId = userId;
-			return this;
-		}
-
-		public Builder title(String title) {
-			this.title = title;
-			return this;
-		}
-
-		public Builder content(String content) {
-			this.content = content;
-			return this;
-		}
-
-		public Builder row(Integer row) {
-			this.row = row;
-			return this;
-		}
-
-		public Builder status(Integer status) {
-			this.status = status;
-			return this;
-		}
-
-		public Builder isDeleted(boolean isDeleted) {
-			this.isDeleted = isDeleted;
-			return this;
-		}
-
-		public Card build() {
-			return new Card(this);
-		}
+	public String getUserId() {
+		return userId;
 	}
 
-	@Override
-	public String toString() {
-		return "Card{" +
-			"id=" + id +
-			", userId='" + userId + '\'' +
-			", title='" + title + '\'' +
-			", content='" + content + '\'' +
-			", row=" + row +
-			", status=" + status +
-			", isDeleted=" + isDeleted +
-			'}';
+	public String getTitle() {
+		return title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public int getSequence() {
+		return sequence;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
 	}
 }
