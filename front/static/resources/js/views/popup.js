@@ -17,8 +17,8 @@ class Popup {
     <div class="popup card-delete-pop">
     <p class="popup__description">선택한 카드를 삭제할까요?</p>
     <div class="button-wrap">
-    <button type="button" class="button--cancle popup-button--cancle">취소</button>
-    <button type="button" class="button--submit popup-button--confirm">확인</button>
+    <button type="button" class="button--cancle popup__button--cancle">취소</button>
+    <button type="button" class="button--submit popup__button--confirm">확인</button>
     </div>
     </div>
     </div>`;
@@ -34,9 +34,9 @@ class Popup {
   }
 
   #addClickEvent(observe) {
-    document.querySelector('.popup-button--cancle').addEventListener('click', this.hide);
+    document.querySelector('.popup__button--cancle').addEventListener('click', this.hide);
     document
-      .querySelector('.popup-button--confirm')
+      .querySelector('.popup__button--confirm')
       .addEventListener('click', this.#sendDeleteCard.bind(this, observe));
   }
 

@@ -118,7 +118,7 @@ class Board {
     const $card = this.#setTarget(target, 'card');
     const $column = this.#setTarget(target, 'column');
     switch (true) {
-      case this.#isfindedTarget(target, 'card-button--add'):
+      case this.#isfindedTarget(target, 'card-add-button'):
         this.#addNewCardState($column, createCard);
         this.#renderColumn($column);
         break;

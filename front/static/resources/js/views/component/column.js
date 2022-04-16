@@ -7,7 +7,7 @@ class Column {
 
   #getAddColumnBtn() {
     const $column = document.querySelector(`.column[data-title=${this.title}]`);
-    const $addBtn = $column.querySelector('.card-button--add');
+    const $addBtn = $column.querySelector('.card-add-button');
     return $addBtn;
   }
 
@@ -40,7 +40,7 @@ class Column {
                 <span class="card-num">${this.cards.length}</span>
               </div>
               <div class="column__button-wrap">
-                <button type="button" class="button--add card-button--add" data-status="${this.title}">
+                <button type="button" class="button--add card-add-button" data-status="${this.title}">
                   <span class="hidden-text">카드 추가 버튼</span>
                 </button>
                 <button type="button" class="button--delete column__button--delete">
