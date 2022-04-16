@@ -10,4 +10,5 @@
 
     <color name="background">#F5F5F7</color>
     <color name="transparent">#00ff0000</color>
+    <color name="number_badge_bg">#9e9e9e</color>
 </resources>
