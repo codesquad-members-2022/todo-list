@@ -1,37 +1,38 @@
-import { $, closest, containClass } from '../util';
+import { $, closest, containClass, getURL, requestToServer } from '../util';
 
 export class UpdateCard {
   constructor(updateCard, postedCard) {
     this.target = $('main');
-    {
-      this.updateCardTemplate = updateCard;
-      this.postCardTemplate = postedCard;
-    }
-
+    this.updateCardTemplate = updateCard;
+    this.postCardTemplate = postedCard;
     this.beforeUpdateCard = null;
+    this.currCard;
   }
 
   init() {
-    this.target.addEventListener('dblclick', this.updateCardDblclickHanlder);
-    this.target.addEventListener('click', this.updateCardClickHandler);
+    this.target.addEventListener('dblclick', (e) =>
+      this.updateCardDblclickHanlder(e)
+    );
+    this.target.addEventListener('click', (e) =>
+      this.updateCardClickHandler(e)
+    );
   }
 
-  updateCardDblclickHanlder = (e) => {
+  updateCardDblclickHanlder(e) {
     if (!closest('.default', e.target)) return;
     if (closest('.item-info', e.target)) {
       this.beforeUpdateCard = closest('.list_item', e.target).innerHTML;
 
-      const currCard = closest('.list_item', e.target);
-      const title = closest('.item-info', e.target).firstElementChild.innerText;
-      const content = closest('.item-info', e.target).lastElementChild
-        .innerText;
+      this.currCard = closest('.list_item', e.target);
+      const title = $('.item-info', this.currCard).firstElementChild.innerText;
+      const content = $('.item-info', this.currCard).lastElementChild.innerText;
 
-      currCard.classList.replace('default', 'active');
-      currCard.innerHTML = this.updateCardTemplate(title, content);
+      this.currCard.classList.replace('default', 'active');
+      this.currCard.innerHTML = this.updateCardTemplate(title, content);
     }
-  };
+  }
 
-  updateCardClickHandler = (e) => {
+  updateCardClickHandler(e) {
     if (containClass(e.target, 'update-delete-btn')) {
       this.cancelUpdateHandler(e.target);
     }
@@ -40,22 +41,31 @@ export class UpdateCard {
       e.preventDefault();
       this.updateCardHandler(e.target);
     }
-  };
+  }
 
-  cancelUpdateHandler = (target) => {
-    const currCard = closest('.list_item', target);
-    currCard.classList.replace('active', 'default');
-    currCard.innerHTML = this.beforeUpdateCard;
-  };
+  cancelUpdateHandler(target) {
+    this.currCard = closest('.list_item', target);
+    this.currCard.classList.replace('active', 'default');
+    this.currCard.innerHTML = this.beforeUpdateCard;
+  }
 
-  updateCardHandler = (target) => {
-    const thisItem = closest('.list_item', target);
-    const title = $('.item-title', thisItem).value;
-    const content = $('.item-content', thisItem).value;
-    thisItem.classList.replace('active', 'default');
-    thisItem.innerHTML = this.postCardTemplate({
-      title,
-      content,
-    });
-  };
+  updateCardHandler(target) {
+    this.currCard = closest('.list_item', target);
+    const title = $('.item-title', this.currCard).value;
+    const content = $('.item-content', this.currCard).value;
+    this.currCard.classList.replace('active', 'default');
+    this.currCard.innerHTML = this.postCardTemplate(title, content);
+    this.updateCardData(title, content, this.currCard.dataset.id);
+  }
+
+  updateCardData(todoTitle, todoContent, cardId) {
+    const url = getURL(`cards/${cardId}`);
+    const data = {
+      title: todoTitle,
+      content: todoContent,
+      lastTime: new Date(),
+    };
+
+    requestToServer(url, 'PATCH', data);
+  }
 }

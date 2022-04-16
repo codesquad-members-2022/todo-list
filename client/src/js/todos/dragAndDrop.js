@@ -1,4 +1,11 @@
-import { $, $$, closest } from '../util.js';
+import {
+  $,
+  $$,
+  closest,
+  getURL,
+  requestToServer,
+  getSequenceData,
+} from '../util.js';
 
 export class DragAndDrop {
   constructor() {
@@ -11,34 +18,52 @@ export class DragAndDrop {
     this.clonedDragCard = null;
     this.cardPositionInfo = [];
     this.moveCardState = false;
+    this.movedDragCard = null;
+    this.columnName = null;
   }
 
   init() {
-    this.target.addEventListener('mousedown', this.mousedownEventHandler);
-    this.target.addEventListener('mouseup', this.mouseupEventHandler);
-    this.target.addEventListener('mousemove', this.mousemoveEventHandler);
+    this.target.addEventListener('mousedown', (e) =>
+      this.mousedownEventHandler(e)
+    );
+    this.target.addEventListener('mouseup', () => this.mouseupEventHandler());
+    this.target.addEventListener('mousemove', (e) =>
+      this.mousemoveEventHandler(e)
+    );
   }
 
-  mousedownEventHandler = (e) => {
+  mousedownEventHandler(e) {
     if (closest('.default', e.target)) {
       this.isDragging = true;
       this.dragCard = closest('.default', e.target);
-      this.column = closest('.column-list', e.target);
+      this.columnList = closest('.column-list', e.target);
+      this.columnName = $(
+        '.column-title',
+        closest('.column', e.target)
+      ).textContent;
     }
-  };
+  }
 
-  mouseupEventHandler = (e) => {
+  mouseupEventHandler() {
     this.isDragging = false;
     this.moveCardState = false;
     if (this.isClone) {
+      const columnName = $(
+        '.column-title',
+        closest('.column', this.movedDragCard)
+      ).textContent;
+      this.updateCardState(columnName);
+      this.updateSequence(columnName);
+      this.deleteSequence();
+
       this.clonedDragCard.remove();
       this.dragCard.classList.replace('place', 'default');
       this.isClone = null;
       this.cardPositionInfo = [];
     }
-  };
+  }
 
-  mousemoveEventHandler = (e) => {
+  mousemoveEventHandler(e) {
     if (!this.isDragging) return;
 
     if (!this.isClone) {
@@ -46,30 +71,35 @@ export class DragAndDrop {
       this.cloneCard(e);
     }
 
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
+    const { clientX: mouseX, clientY: mouseY } = e;
     this.clonedDragCard.style.left = mouseX + 'px';
     this.clonedDragCard.style.top = mouseY + 'px';
 
     const cloneCardPosData = this.clonedDragCard.getBoundingClientRect();
-    const columnPosData = this.column.getBoundingClientRect();
+    const columnPosData = this.columnList.getBoundingClientRect();
 
-    const draggedX = cloneCardPosData.x;
-    const draggedY = cloneCardPosData.y;
+    const { x: draggedX, y: draggedY, width: draggedWidth } = cloneCardPosData;
 
-    if (columnPosData.x - cloneCardPosData.x > cloneCardPosData.width / 2) {
-      $(
-        '.column-list',
-        this.column.parentElement.previousElementSibling
-      ).appendChild(this.dragCard);
-    } else if (
-      columnPosData.x + columnPosData.width - cloneCardPosData.x <
-      cloneCardPosData.width / 2
-    ) {
-      $(
-        '.column-list',
-        this.column.parentElement.nextElementSibling
-      ).appendChild(this.dragCard);
+    const moveToLeftColumn = columnPosData.x - draggedX > draggedWidth / 2;
+    const moveToRightColumn =
+      columnPosData.x + columnPosData.width - draggedX < draggedWidth / 2;
+
+    if (moveToLeftColumn) {
+      const leftColumn = this.columnList.parentElement.previousElementSibling;
+      $('.column-list', leftColumn).appendChild(this.dragCard);
+      this.movedDragCard = $('.column-list', leftColumn).firstElementChild;
+
+      if (!$('.column-list', leftColumn).children.length) {
+        return;
+      }
+    } else if (moveToRightColumn) {
+      const rightColumn = this.columnList.parentElement.nextElementSibling;
+      $('.column-list', rightColumn).appendChild(this.dragCard);
+      this.movedDragCard = $('.column-list', rightColumn).firstElementChild;
+
+      if (!$('.column-list', rightColumn).children.length) {
+        return;
+      }
     }
 
     this.cardPositionInfo.forEach((el) => {
@@ -79,64 +109,64 @@ export class DragAndDrop {
       const higherCard = el.y - draggedY > 0 ? cloneCardPosData : el;
       const lowerCard = el.y - draggedY > 0 ? el : cloneCardPosData;
 
-      if (
-        this.dragCard.getBoundingClientRect().x === el.x &&
-        !this.moveCardState
-      ) {
-        if (prevCard.x + prevCard.width - curCard.x > prevCard.width / 2) {
-          if (
-            cloneCardPosData.y < el.y &&
-            higherCard.y + higherCard.height - lowerCard.y >
-              lowerCard.height / 2
-          ) {
+      const isSameColumn =
+        this.dragCard.getBoundingClientRect().x === el.x && !this.moveCardState;
+
+      // 카드가 다른 카드의 측면에서 절반을 넘었는지 판단
+      const overHalfSide =
+        prevCard.x + prevCard.width - curCard.x > prevCard.width / 2;
+
+      const overHalfTop =
+        cloneCardPosData.y < el.y &&
+        higherCard.y + higherCard.height - lowerCard.y > lowerCard.height / 2;
+
+      const overHalfBottom =
+        cloneCardPosData.y > el.y &&
+        higherCard.y + higherCard.height - lowerCard.y > higherCard.height / 2;
+
+      if (isSameColumn) {
+        if (overHalfSide) {
+          if (overHalfTop) {
             el.positionedCard.insertAdjacentElement('afterend', this.dragCard);
           }
 
-          if (
-            cloneCardPosData.y > el.y &&
-            higherCard.y + higherCard.height - lowerCard.y >
-              higherCard.height / 2
-          ) {
+          if (overHalfBottom) {
             el.positionedCard.insertAdjacentElement(
               'beforebegin',
               this.dragCard
             );
           }
         }
+        this.movedDragCard = el.positionedCard;
       } else {
         this.moveCardState = true;
 
-        if (prevCard.x + prevCard.width - curCard.x > prevCard.width / 2) {
-          if (
-            cloneCardPosData.y < el.y &&
-            higherCard.y + higherCard.height - lowerCard.y >
-              lowerCard.height / 2
-          ) {
+        if (overHalfSide) {
+          if (overHalfTop) {
             el.positionedCard.insertAdjacentElement(
               'beforebegin',
               this.dragCard
             );
           }
 
-          if (
-            cloneCardPosData.y > el.y &&
-            higherCard.y + higherCard.height - lowerCard.y >
-              higherCard.height / 2
-          ) {
+          if (overHalfBottom) {
             el.positionedCard.insertAdjacentElement('afterend', this.dragCard);
           }
         }
+
+        this.movedDragCard = el.positionedCard;
       }
     });
-  };
+  }
 
   setCardsPosition() {
     for (const li of $$('.list_item')) {
+      const { x, y, width, height } = li.getBoundingClientRect();
       this.cardPositionInfo.push({
-        x: li.getBoundingClientRect().x,
-        y: li.getBoundingClientRect().y,
-        width: li.getBoundingClientRect().width,
-        height: li.getBoundingClientRect().height,
+        x,
+        y,
+        width,
+        height,
         positionedCard: li,
       });
     }
@@ -150,5 +180,38 @@ export class DragAndDrop {
     this.dragCard.classList.replace('default', 'place');
 
     this.isClone = true;
+  }
+
+  async deleteSequence() {
+    const sequence = await getSequenceData(this.columnName);
+    const patchData = {};
+    patchData[this.columnName] = sequence.filter(
+      (el) => el !== Number(this.dragCard.dataset.id)
+    );
+
+    const url = getURL('cardSequence');
+    requestToServer(url, 'PATCH', patchData);
+  }
+
+  async updateSequence(columnName) {
+    const columnList = closest('.column', this.movedDragCard).lastElementChild;
+
+    const patchData = {};
+    patchData[columnName] = Array.prototype.slice
+      .call($$('.list_item', columnList))
+      .map((el) => Number(el.dataset.id));
+
+    const url = getURL('cardSequence');
+    requestToServer(url, 'PATCH', patchData);
+  }
+
+  async updateCardState(columnName) {
+    const url = getURL(`cards/${this.dragCard.dataset.id}`);
+    const data = {
+      states: columnName,
+      lastTime: new Date(),
+    };
+
+    requestToServer(url, 'PATCH', data);
   }
 }

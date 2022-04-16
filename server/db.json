@@ -1,12 +1,40 @@
 {
   "cards": [
     {
-      "states": "해야할 일",
-      "id": 1,
-      "title": "아침에 일찍 일어나기",
-      "content": "가능할까?",
-      "lastTime": 2020
+      "id": "1",
+      "title": "dd",
+      "content": "ddd",
+      "lastTime": "2022-04-15T07:46:37.724Z",
+      "states": "todo"
+    },
+    {
+      "id": "2",
+      "title": "ss",
+      "content": "ss",
+      "lastTime": "2022-04-15T07:47:04.766Z",
+      "states": "todo"
+    },
+    {
+      "id": "3",
+      "title": "aa",
+      "content": "aa",
+      "lastTime": "2022-04-15T07:46:53.210Z",
+      "states": "doing"
     }
   ],
-  "columns": ["todo", "doing", "done"]
+  "columns": [
+    "todo",
+    "doing",
+    "done"
+  ],
+  "cardSequence": {
+    "todo": [
+      1,
+      2
+    ],
+    "doing": [
+      3
+    ],
+    "done": []
+  }
 }

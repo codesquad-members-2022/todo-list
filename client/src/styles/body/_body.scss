@@ -78,10 +78,6 @@ main {
     &:focus {
       outline: none;
     }
-
-    &:read-only {
-      cursor: move;
-    }
   }
 
   .item-title {

@@ -1,4 +1,12 @@
-import { $, closest, containClass, debounce } from '../util';
+import {
+  $,
+  closest,
+  containClass,
+  debounce,
+  getURL,
+  requestToServer,
+  getSequenceData,
+} from '../util';
 
 export class DeleteCard {
   constructor() {
@@ -8,15 +16,15 @@ export class DeleteCard {
   }
 
   init() {
-    document.addEventListener('click', this.deleteCardEventHandler);
+    document.addEventListener('click', (e) => this.deleteCardEventHandler(e));
     this.target.addEventListener(
       'mouseover',
-      debounce(this.mouseEnterHandler, 500)
+      debounce((e) => this.mouseEnterHandler(e), 500)
     );
-    this.target.addEventListener('mouseout', this.mouseLeaveHandler);
+    this.target.addEventListener('mouseout', (e) => this.mouseLeaveHandler(e));
   }
 
-  deleteCardEventHandler = (e) => {
+  deleteCardEventHandler(e) {
     if (closest('.card-close-btn', e.target)) {
       this.currentCard = closest('.list_item', e.target);
       this.layer.style.display = 'block';
@@ -25,25 +33,48 @@ export class DeleteCard {
 
     if (containClass(e.target, 'alert-accent-btn')) {
       this.layer.style.display = 'none';
+      this.deleteCardData(this.currentCard.dataset.id);
+      this.deleteSequence(this.currentCard);
       this.currentCard.remove();
     }
 
     if (containClass(e.target, 'alert-normal-btn')) {
       this.layer.style.display = 'none';
     }
-  };
+  }
 
-  mouseEnterHandler = (e) => {
+  mouseEnterHandler(e) {
     if (closest('.card-close-btn', e.target)) {
       const listItem = closest('.list_item', e.target);
       listItem.classList.replace('default', 'delete');
     }
-  };
+  }
 
-  mouseLeaveHandler = (e) => {
+  mouseLeaveHandler(e) {
     if (closest('.card-close-btn', e.target)) {
       const listItem = closest('.list_item', e.target);
       listItem.classList.replace('delete', 'default');
     }
-  };
+  }
+
+  deleteCardData(id) {
+    const url = getURL(`cards/${id}`);
+    requestToServer(url, 'DELETE');
+  }
+
+  async deleteSequence(cardItem) {
+    const columnName = $(
+      '.column-title',
+      closest('.column', cardItem)
+    ).textContent;
+
+    const sequence = await getSequenceData(columnName);
+    const patchData = {};
+    patchData[columnName] = sequence.filter(
+      (el) => el !== Number(cardItem.dataset.id)
+    );
+    const url = getURL('cardSequence');
+
+    requestToServer(url, 'PATCH', patchData);
+  }
 }
