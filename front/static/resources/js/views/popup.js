@@ -12,7 +12,7 @@ class Popup {
     document.querySelector('.popup-wrap').classList.add('show');
   }
 
-  template() {
+  #template() {
     return `<div class="popup-wrap">
     <div class="popup card-delete-pop">
     <p class="popup__description">선택한 카드를 삭제할까요?</p>
@@ -25,11 +25,11 @@ class Popup {
   }
 
   render() {
-    document.querySelector('main').insertAdjacentHTML('beforeend', this.template());
+    document.querySelector('main').insertAdjacentHTML('beforeend', this.#template());
   }
 
   #sendDeleteCard(observe) {
-    observe(null, 'DELETE', this.cardId);
+    observe('DELETE', null, this.cardId);
     this.hide();
   }
 
