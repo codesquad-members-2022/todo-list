@@ -128,6 +128,9 @@ public class CardJdbcRepository implements CardRepository {
         return update(card);
     }
 
+    /**
+     * 부정문은 인덱스를 타지 않는다.
+     * */
     private void decreasePosition(Long id, Long oldPosition, Long newPosition) {
         String query = "UPDATE card SET position = position-1 WHERE position<= ? AND position > ? AND id <> ?";
         jdbcTemplate.update(query, newPosition, oldPosition, id);
