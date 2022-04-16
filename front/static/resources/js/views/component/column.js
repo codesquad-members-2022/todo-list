@@ -2,26 +2,22 @@ class Column {
   constructor({ title, cards }) {
     this.title = title;
     this.cards = cards;
+    this.hasWritableCard = false;
   }
 
-  #isDisabledBtn(columnName) {
-    const $column = document.querySelector(`.column[data-title=${columnName}`);
-    const isDisabled = $column.querySelector('.button--add').getAttribute('disabled');
-    return isDisabled ? true : false;
+  #getAddColumnBtn() {
+    const $column = document.querySelector(`.column[data-title=${this.title}]`);
+    const $addBtn = $column.querySelector('.card-button--add');
+    return $addBtn;
   }
 
-  #activateBtnToAddCard($addBtn) {
+  #activateAddColumnBtn() {
+    const $addBtn = this.#getAddColumnBtn();
     $addBtn.removeAttribute('disabled');
   }
 
-  disableWriting(target, columnName) {
-    const isDisabledBtn = this.#isDisabledBtn(columnName);
-    const $addBtn = target.closest('.column').querySelector('.card-button--add');
-    console.log($addBtn);
-    if (isDisabledBtn) this.#activateBtnToAddCard($addBtn);
-  }
-
-  disableAddBtn($addBtn) {
+  #disableAddColumnBtn() {
+    const $addBtn = this.#getAddColumnBtn();
     $addBtn.setAttribute('disabled', true);
   }
 
@@ -58,10 +54,12 @@ class Column {
           </div>`;
   }
 
-  render($column) {
+  reRender($column) {
+    console.log(this.hasWritableCard);
     const cardsTemplate = this.#getCardsTemplate();
     const $cards = $column.querySelector('.cards');
     $cards.innerHTML = cardsTemplate;
+    this.hasWritableCard ? this.#disableAddColumnBtn() : this.#activateAddColumnBtn();
   }
 }
 

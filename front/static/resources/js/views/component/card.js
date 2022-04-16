@@ -32,18 +32,19 @@ class Card {
   }
 
   toggleSubmitButton($card) {
-    if (this.getTitle($card) && this.getContent($card)) this.#activateSubmitBtn();
-    else this.#disableSubmitBtn();
+    const $submitBtn = $card.querySelector('.card__button--submit');
+    if (this.getTitle($card) && this.getContents($card)) this.#activateSubmitBtn($submitBtn);
+    else this.#disableSubmitBtn($submitBtn);
   }
 
-  template() {
+  #getWritableCard() {
     const writableCard = `<li class="card card--write" data-id="${this.id}" data-status="${
       this.cardStatus
     }" data-index="${this.cardIndex}">
           <form name="writable-form" data-status="${this.cardStatus}">
             <input type="text" name="writable-form" maxlength="50" placeholder="${
               this.#CARD_TITLE_PLACEHLODER
-            }" value="${this.title ? this.title : ''}" class="card__title" />
+            }" value="${this.title ? this.title : ''}" autocomplete="off" class="card__title" />
             <textarea
               name="writable-form"
               maxlength="500"
@@ -61,6 +62,11 @@ class Card {
             </div>
           </form>
         </li>`;
+
+    return writableCard;
+  }
+
+  #getNormalCard() {
     const normalCard = `<li class="card" data-id="${this.id}" data-status="${this.cardStatus}" data-index="${this.cardIndex}">
           <h3 class="card__title">${this.title}</h3>
           <div class="card__content">
@@ -72,7 +78,11 @@ class Card {
           </button>
         </li>`;
 
-    return this.completion ? normalCard : writableCard;
+    return normalCard;
+  }
+
+  template() {
+    return this.completion ? this.#getNormalCard() : this.#getWritableCard();
   }
 
   reRender($card) {

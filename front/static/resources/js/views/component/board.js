@@ -36,87 +36,104 @@ class Board {
     return $target;
   }
 
-  #addNewCardState(column, createCard) {
-    column.cards = [...column.cards, createCard({ cardStatus: column.title }, false)];
-  }
-
-  #deleteNewCardState(column) {
-    column.cards = column.cards.slice(0, -1);
-  }
-
-  #updateColumnState(target, column, createCard) {
-    if (target.classList.contains('button--add')) {
-      column.disableAddBtn(target);
-      this.#addNewCardState(column, createCard);
-    } else if (target.classList.contains('button--cancle')) {
-      column.disableWriting(target, column.title);
-      this.#deleteNewCardState(column);
-    }
-  }
-
-  #toggleWritableCard(target, createCard) {
-    const $column = this.#setTarget(target, 'column');
+  #addNewCardState($column, createCard) {
     const columnName = $column.dataset.title;
     const column = this.columns[columnName];
-    this.#updateColumnState(target, column, createCard);
-    column.render($column);
+    column.cards = [...column.cards, createCard({ cardStatus: column.title, cardIndex: column.cards.length }, false)];
+    column.hasWritableCard = true;
+  }
+
+  #deleteNewCardState($column) {
+    const columnName = $column.dataset.title;
+    const column = this.columns[columnName];
+    column.cards = column.cards.slice(0, -1);
+    column.hasWritableCard = false;
+  }
+
+  #renderColumn($column) {
+    const columnName = $column.dataset.title;
+    const column = this.columns[columnName];
+    column.reRender($column);
   }
 
   #isNewCard($card) {
-    return $card.dataset.id ? false : true;
+    return $card.dataset.id === 'undefined' ? true : false;
   }
 
-  #hasInputValue(title, contents) {
-    if (title || contents) return true;
-    alert('내용을 입력해주세요.');
-    return false;
-  }
-
-  #createNewCardData($column, $card) {
+  #getInputValue($card) {
     const selectedCard = this.columns[$card.dataset.status].cards[$card.dataset.index];
     const title = selectedCard.getTitle($card);
     const contents = selectedCard.getContents($card);
-    const columnName = $column.dataset.title;
-    const newCardData = {
+
+    return { title, contents };
+  }
+
+  #createNewCardData($card, $column) {
+    const { title, contents } = this.#getInputValue($card);
+    if (!title || !contents) return;
+
+    const cardData = {
       cardIndex: $card.dataset.index,
       title: title,
       contents: contents,
-      cardStatus: columnName
+      cardStatus: $column.dataset.title,
+      writer: '도니'
     };
-    let method = 'PUT';
-    const id = $card.dataset.id;
+    const method = 'POST';
 
-    if (this.#isNewCard($card, newCardData)) {
-      console.log('a');
-      newCardData.cardIndex = this.columns[columnName].cards.length;
-      newCardData.writer = '도니';
-      method = 'POST';
-    }
-    return this.#hasInputValue(title, contents) ? { newCardData, method, id } : null;
+    return { method, cardData };
   }
 
-  #sendNewCardData(target, $card, observe) {
-    const $column = this.#setTarget(target, 'column');
-    const { newCardData, method, id } = this.#createNewCardData($column, $card);
-    if (newCardData) observe(newCardData, method, id);
+  #createModifiedCardData($card, $column) {
+    const { title, contents } = this.#getInputValue($card);
+    if (!title || !contents) return;
+
+    const cardData = {
+      cardIndex: $card.dataset.index,
+      title: title,
+      contents: contents,
+      cardStatus: $column.dataset.title
+    };
+    const method = 'PUT';
+    const id = $card.dataset.id;
+
+    return { method, cardData, id };
+  }
+
+  #sendCardData($card, $column, observe) {
+    const { method, cardData, id } = this.#isNewCard($card)
+      ? this.#createNewCardData($card, $column)
+      : this.#createModifiedCardData($card, $column);
+    observe(method, cardData, id);
   }
 
   #reRenderSelectedCard($card, completion) {
     const selectedColumn = this.columns[$card.dataset.status];
-    const selectedCard = selectedColumn.cards[$card.dataset.index ? $card.dataset.index : 0];
+    const selectedCard = selectedColumn.cards[$card.dataset.index];
     selectedCard.completion = completion;
     selectedCard.reRender($card);
   }
 
   #cardClickEventHandler(target, [createCard, observe, showPopup]) {
     const $card = this.#setTarget(target, 'card');
-    if (this.#isfindedTarget(target, 'card-button--add')) this.#toggleWritableCard(target, createCard);
-    else if (this.#isfindedTarget(target, 'card__button--cancle') && $card.dataset.id !== 'undefined') {
-      this.#reRenderSelectedCard($card, true);
-    } else if (this.#isfindedTarget(target, 'card__button--cancle') && $card.dataset.id === 'undefined')
-      this.#toggleWritableCard(target, createCard);
-    else if (this.#isfindedTarget(target, 'card__button--submit')) this.#sendNewCardData(target, $card, observe);
-    else if (this.#isfindedTarget(target, 'card__button--delete')) showPopup($card.dataset.id);
+    const $column = this.#setTarget(target, 'column');
+    switch (true) {
+      case this.#isfindedTarget(target, 'card-button--add'):
+        this.#addNewCardState($column, createCard);
+        this.#renderColumn($column);
+        break;
+      case this.#isfindedTarget(target, 'card__button--cancle'):
+        if (this.#isNewCard($card)) {
+          this.#deleteNewCardState($column);
+          this.#renderColumn($column);
+        } else this.#reRenderSelectedCard($card, true);
+        break;
+      case this.#isfindedTarget(target, 'card__button--submit'):
+        this.#sendCardData($card, $column, observe);
+        break;
+      case this.#isfindedTarget(target, 'card__button--delete'):
+        showPopup($card.dataset.id);
+    }
   }
 
   #addCardClickEvent([createCard, observe, showPopup]) {
@@ -135,7 +152,7 @@ class Board {
   #addCardInputEvent() {
     document.querySelector('.column-wrap').addEventListener('input', ({ target }) => {
       const $card = this.#setTarget(target, 'card');
-      const card = this.columns[$card.dataset.cardeStatus][$card.dataset.cardIndex];
+      const card = this.columns[$card.dataset.status].cards[$card.dataset.index];
       card.toggleSubmitButton($card);
     });
   }

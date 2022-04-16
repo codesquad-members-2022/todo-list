@@ -24,19 +24,25 @@ class BoardController {
     return cards;
   }
 
+  #createColumn(columnName) {
+    const cards = this.#createCards(this.viewModel.boardState[columnName]);
+    const column = new Column({ title: columnName, cards: cards });
+
+    return column;
+  }
+
   #createColumns() {
     const columns = {};
     Object.keys(this.viewModel.boardState).forEach(columnName => {
-      const cards = this.#createCards(this.viewModel.boardState[columnName]);
-      const column = new Column({ title: columnName, cards: cards });
+      const column = this.#createColumn(columnName);
       columns[columnName] = column;
     });
 
     return columns;
   }
 
-  #observe(newCardData, method, id) {
-    this.viewModel.observe(newCardData, method, id);
+  #observe(method, cardData, id) {
+    this.viewModel.observe(method, cardData, id);
   }
 
   render() {
@@ -45,14 +51,18 @@ class BoardController {
     this.board.render();
   }
 
+  #addCardEvent() {
+    this.board.addEvent([this.#createCard, this.#observe.bind(this), this.popup.show.bind(this.popup)]);
+    this.popup.addEvent([this.#observe.bind(this)]);
+  }
+
   async init() {
     await this.viewModel.init();
     this.board = new Board();
     this.render();
     this.popup = new Popup();
     this.popup.render();
-    this.board.addEvent([this.#createCard, this.#observe.bind(this), this.popup.show.bind(this.popup)]);
-    this.popup.addEvent([this.#observe.bind(this)]);
+    this.#addCardEvent();
   }
 }
 

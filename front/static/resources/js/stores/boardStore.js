@@ -1,4 +1,4 @@
-import { fetchRequest, HTTP_REQUEST } from '../utils/fetch.js';
+import { fetchRequest, FETCH_OPTION } from '../utils/fetch.js';
 
 class BoardStore {
   constructor() {
@@ -6,39 +6,60 @@ class BoardStore {
     this.observers = new Set();
   }
 
-  async getInitialData() {
+  async #getBoadData() {
     return await fetchRequest('http://3.39.96.36:8080/cards');
   }
 
-  async initState() {
-    this.boardState = await this.getInitialData();
-  }
+  async #postCardData(cardState) {
+    const requestOption = FETCH_OPTION.POST(cardState);
+    const newBoadState = await fetchRequest('http://3.39.96.36:8080/cards', requestOption);
 
-  async getColumnState(cardState, method, id) {
-    const requestOption = HTTP_REQUEST[method](cardState);
-    console.log(cardState);
-    const newBoadState = await fetchRequest(`http://3.39.96.36:8080/cards/${id ? id : ''}`, requestOption);
     return newBoadState;
   }
 
-  async setState(cardState, method, id) {
-    const newBoadState = await this.getColumnState(cardState, method, id);
-    this.boardState = newBoadState;
+  async #deleteCardData(id) {
+    const requestOption = FETCH_OPTION.DELETE();
+    const newBoadState = await fetchRequest(`http://3.39.96.36:8080/cards/${id}`, requestOption);
+
+    return newBoadState;
+  }
+
+  async #putCardData(cardState, id) {
+    const requestOption = FETCH_OPTION.PUT(cardState);
+    const newBoadState = await fetchRequest(`http://3.39.96.36:8080/cards/${id}`, requestOption);
+
+    return newBoadState;
+  }
+
+  async #setState(method, cardState, id) {
+    switch (method) {
+      case 'GET':
+        this.boardState = await this.#getBoadData();
+        break;
+      case 'POST':
+        this.boardState = await this.#postCardData(cardState);
+        break;
+      case 'DELETE':
+        this.boardState = await this.#deleteCardData(id);
+        break;
+      case 'PUT':
+        this.boardState = await this.#putCardData(cardState, id);
+    }
   }
 
   addObserver(observer) {
     this.observers.add(observer);
   }
 
-  async observe(cardState, method, id) {
-    await this.setState(cardState, method, id);
+  async observe(method, cardState, id) {
+    await this.#setState(method, cardState, id);
     this.observers.forEach(observer => {
       observer.notify();
     });
   }
 
   async init() {
-    await this.initState();
+    await this.#setState('GET');
   }
 }
 
