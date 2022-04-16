@@ -1,7 +1,16 @@
 import { ScheduleCard } from "./scheduleCard.js";
 import { ScheduleRegisterCard } from "./scheduleRegisterCard.js";
-import * as scheduleModel from "../model/scheduleModel.js";
+import * as scheduleModel from "../../model/scheduleModel.js";
 import { changeCardNumber } from "./scheduleCardCount.js";
+import { recordPostEvent, recordDeleteEvent } from "../../model/history.js";
+import {
+    REGISTER_CARD,
+    SCHEDULE_ADD_BTN,
+    SCHEDULE_CARDS,
+    SCHEDULE_CARDS_CONTAINER,
+    SCHEDULE_COLUMN,
+    SCHEDULE_COUNT_NUM,
+} from "../../utils/styleNames.js";
 
 export class ScheduleColumn {
     constructor(target, columnId) {
@@ -20,21 +29,22 @@ export class ScheduleColumn {
         this.setDOMElement();
         this.renderCards();
         this.setEvent();
-        changeCardNumber(this.columnId)
+        changeCardNumber(this.columnId);
     }
 
     setDOMElement() {
         this.$scheduleColumn = this.$target.querySelector(
             `[data-id="${this.columnId}"]`
         );
-        this.$cards = this.$scheduleColumn.querySelector(
-            ".schedule-column__cards"
-        );
+        this.$cards = this.$scheduleColumn.querySelector(`.${SCHEDULE_CARDS}`);
     }
 
     renderCards() {
         const cards = scheduleModel.getScheduleCards(this.columnId);
         cards.forEach((cardData) => {
+            if (!cardData.id) {
+                return;
+            }
             const scheduleCardParams = {
                 target: this.$cards,
                 cardData: cardData,
@@ -43,6 +53,7 @@ export class ScheduleColumn {
                     updateCard: this.updateCard.bind(this),
                     getCardData: this.getCardData.bind(this),
                 },
+                registerState: false,
             };
             new ScheduleCard(scheduleCardParams);
         });
@@ -50,7 +61,7 @@ export class ScheduleColumn {
 
     setEvent() {
         const $addBtn = this.$scheduleColumn.querySelector(
-            ".schedule-column__add-btn"
+            `.${SCHEDULE_ADD_BTN}`
         );
         $addBtn.addEventListener(
             "click",
@@ -67,15 +78,12 @@ export class ScheduleColumn {
     }
 
     removeRegisterCard() {
-        this.registerCard.changeState();
-        const $registerCard = this.$cards.querySelector(
-            ".schedule-register-card"
-        );
+        const $registerCard = this.$cards.querySelector(`.${REGISTER_CARD}`);
         $registerCard.remove();
+        this.registerCard.changeState();
     }
 
     showRegisterCard() {
-        this.registerCard.changeState();
         const scheduleRegisterCardParams = {
             $target: this.$cards,
             passedEventHandler: {
@@ -84,6 +92,7 @@ export class ScheduleColumn {
             },
         };
         this.registerCard.init(scheduleRegisterCardParams);
+        this.registerCard.changeState();
     }
 
     render() {
@@ -93,6 +102,7 @@ export class ScheduleColumn {
 
     addCard(cardData) {
         scheduleModel.addScheduleCard(this.columnId, cardData);
+        recordPostEvent(this.columnId, this.columnTitle, cardData);
         const scheduleCardParams = {
             target: this.$cards,
             cardData: cardData,
@@ -101,16 +111,20 @@ export class ScheduleColumn {
                 updateCard: this.updateCard.bind(this),
                 getCardData: this.getCardData.bind(this),
             },
+            registerState: true,
         };
         new ScheduleCard(scheduleCardParams);
-        changeCardNumber(this.columnId)
+        changeCardNumber(this.columnId);
     }
 
     removeCard($target) {
         const cardId = $target.dataset.cardId;
-        scheduleModel.removeScheduleCard(this.columnId, cardId);
+        const columnId = $target.closest(`.${SCHEDULE_COLUMN}`).dataset.id;
+
+        scheduleModel.removeScheduleCard(columnId, cardId);
+        recordDeleteEvent(cardId);
         $target.remove();
-        changeCardNumber(this.columnId)
+        changeCardNumber(columnId);
     }
 
     updateCard(cardData) {
@@ -126,14 +140,14 @@ export class ScheduleColumn {
     }
 
     template() {
-        return `<div class="schedule-column" data-id="${this.columnId}">
+        return `<div class="${SCHEDULE_COLUMN}" data-id="${this.columnId}" data-title="${this.columnTitle}">
             <div class="schedule-column__header">
                 <h2 class="schedule-column__title">${this.columnTitle}</h2>
                 <div class="schedule-column__count-box">
-                    <span class="schedule-column__count-number"></span>
+                    <span class="${SCHEDULE_COUNT_NUM}"></span>
                 </div>
                 <svg
-                    class="schedule-column__add-btn column-btn"
+                    class="${SCHEDULE_ADD_BTN} column-btn"
                     width="14"
                     height="14"
                     viewBox="0 0 14 14"
@@ -159,8 +173,8 @@ export class ScheduleColumn {
                     />
                 </svg>
             </div>
-            <div class="schedule-column__cards-container">
-                <div class="schedule-column__cards">
+            <div class="${SCHEDULE_CARDS_CONTAINER}">
+                <div class="${SCHEDULE_CARDS}">
                 </div>
             </div>
         </div>`;

@@ -1,13 +1,26 @@
-import { TEXT_LENGTH_LIMIT } from "../../utils.js";
+import {
+    EDIT_CARD,
+    EDIT_CARD_TITLE,
+    EDIT_CARD_BODY,
+    EDIT_BTN,
+    EDIT_CANCEL_BTN,
+    SCHEDULE_CARD_BODY,
+    SCHEDULE_CARD_TITLE,
+    SCHEDULE_COLUMN,
+    ACTIVE,
+    INACTIVE,
+    DEFAULT_AUTHOR,
+} from "../../utils/styleNames.js";
+import { TEXT_LENGTH_LIMIT } from "../../utils/utils.js";
 
 export class ScheduleEditCard {
     constructor({ original, passedEventHandler }) {
         this.$originalCard = original;
         this.$originalCardTitle = this.$originalCard.querySelector(
-            ".schedule-card__title"
+            `.${SCHEDULE_CARD_TITLE}`
         );
         this.$originalCardBody = this.$originalCard.querySelector(
-            ".schedule-card__body"
+            `.${SCHEDULE_CARD_BODY}`
         );
         this.passedEventHandler = passedEventHandler;
         this.$editCard;
@@ -22,16 +35,12 @@ export class ScheduleEditCard {
 
     setDOMElement() {
         this.$editCardTitle = this.$editCard.querySelector(
-            ".schedule-edit-card__title"
+            `.${EDIT_CARD_TITLE}`
         );
-        this.$editCardBody = this.$editCard.querySelector(
-            ".schedule-edit-card__body"
-        );
-        this.$editCardEditBtn = this.$editCard.querySelector(
-            ".schedule-edit-card__edit-btn"
-        );
+        this.$editCardBody = this.$editCard.querySelector(`.${EDIT_CARD_BODY}`);
+        this.$editCardEditBtn = this.$editCard.querySelector(`.${EDIT_BTN}`);
         this.$editCardCancleBtn = this.$editCard.querySelector(
-            ".schedule-edit-card__cancel-btn"
+            `.${EDIT_CANCEL_BTN}`
         );
     }
 
@@ -63,9 +72,9 @@ export class ScheduleEditCard {
 
     toggleEditBtn(booleanValue, $editBtn) {
         if (booleanValue) {
-            $editBtn.classList.replace("inactive", "active");
+            $editBtn.classList.replace(INACTIVE, ACTIVE);
         } else {
-            $editBtn.classList.replace("active", "inactive");
+            $editBtn.classList.replace(ACTIVE, INACTIVE);
         }
     }
 
@@ -84,7 +93,7 @@ export class ScheduleEditCard {
     }
 
     editBtnClickEventHandler(target) {
-        if (target.classList.contains("inactive")) {
+        if (target.classList.contains(INACTIVE)) {
             return;
         }
 
@@ -92,7 +101,7 @@ export class ScheduleEditCard {
         const cardData = {
             title: this.$editCardTitle.value,
             body: this.$editCardBody.value,
-            caption: "author by web",
+            caption: DEFAULT_AUTHOR,
             id: cardId,
         };
         this.passedEventHandler.updateCard(cardData);
@@ -111,12 +120,12 @@ export class ScheduleEditCard {
 
     createEditCard() {
         const cardId = this.$originalCard.dataset.cardId;
-        const columnId =
-            this.$originalCard.closest(".schedule-column").dataset.id;
+        const columnId = this.$originalCard.closest(`.${SCHEDULE_COLUMN}`)
+            .dataset.id;
         const cardData = this.passedEventHandler.getCardData(columnId, cardId);
 
         this.$editCard = document.createElement("div");
-        this.$editCard.classList.add("schedule-edit-card");
+        this.$editCard.classList.add(EDIT_CARD);
         this.$editCard.dataset.cardId = cardId;
         this.$editCard.innerHTML = this.template(cardData.title, cardData.body);
 
@@ -126,23 +135,23 @@ export class ScheduleEditCard {
     template(cardTitle, cardBody) {
         return `<form class="schedule-edit-card__text-container">
                     <textarea 
-                        class="schedule-edit-card__title"  
+                        class="${EDIT_CARD_TITLE}"  
                         placeholder="제목을 입력하세요"
                         rows="1"
                         maxLength="${TEXT_LENGTH_LIMIT}"
                     >${cardTitle}</textarea>
                     <textarea 
-                        class="schedule-edit-card__body" 
+                        class="${EDIT_CARD_BODY}" 
                         placeholder="내용을 입력하세요"
                         rows="1"
                         maxLength="${TEXT_LENGTH_LIMIT}"
                     >${cardBody}</textarea>
                 </form>
                 <div class="schedule-edit-card__btns-container">
-                    <button class="schedule-edit-card__cancel-btn">
+                    <button class="${EDIT_CANCEL_BTN}">
                         취소
                     </button>
-                    <button class="schedule-edit-card__edit-btn active">
+                    <button class="${EDIT_BTN} ${ACTIVE}">
                         수정
                     </button>
                 </div>`;

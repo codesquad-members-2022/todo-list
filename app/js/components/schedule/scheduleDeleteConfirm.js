@@ -1,3 +1,9 @@
+import {
+    DELETE_CONFIRM_CANCLE_BTN,
+    DELETE_CONFIRM_DELETE_BTN,
+    DIM_LAYER,
+} from "../../utils/styleNames.js";
+
 let $deleteConfirm;
 
 export function deleteConfirmInit({ $scheduleCard, passedEventHandler }) {
@@ -17,7 +23,7 @@ function render() {
 }
 
 function setDOMElement() {
-    $deleteConfirm = document.querySelector(".dim-layer");
+    $deleteConfirm = document.querySelector(`.${DIM_LAYER}`);
 }
 
 function setEvent($scheduleCard, passedEventHandler) {
@@ -27,14 +33,10 @@ function setEvent($scheduleCard, passedEventHandler) {
 }
 
 function confirmClickEventHandler(event, $scheduleCard, passedEventHandler) {
-    if (
-        event.target.classList.contains("schedule-delete-confirm__cancel-btn")
-    ) {
+    if (event.target.classList.contains(DELETE_CONFIRM_CANCLE_BTN)) {
         cancelBtnClickEventHandler(passedEventHandler);
     }
-    if (
-        event.target.classList.contains("schedule-delete-confirm__delete-btn")
-    ) {
+    if (event.target.classList.contains(DELETE_CONFIRM_DELETE_BTN)) {
         deleteBtnClickEventHandler($scheduleCard, passedEventHandler);
     }
 }
@@ -54,14 +56,14 @@ function removeDeleteConfirm() {
 }
 
 function template() {
-    return `<div class="dim-layer">
+    return `<div class="${DIM_LAYER}">
         <div class="schedule-delete-confirm">
             <p>선택한 카드를 삭제할까요?</p>
             <div class="schedule-delete-confirm__btns-container">
-                <button class="schedule-delete-confirm__cancel-btn">
+                <button class="${DELETE_CONFIRM_CANCLE_BTN}">
                     취소
                 </button>
-                <button class="schedule-delete-confirm__delete-btn">
+                <button class="${DELETE_CONFIRM_DELETE_BTN}">
                     삭제
                 </button>
             </div>
