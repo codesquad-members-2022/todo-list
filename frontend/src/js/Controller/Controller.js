@@ -2,6 +2,7 @@ import { createTagTemplate } from '../utils/createTemplate.js';
 import AlertView from '../Alert/AlertView.js';
 import { Todo } from '../Todo/main.js';
 import Card from '../Todo/Card/main.js';
+import { postCard, deleteCard, patchCard } from '../Utils/api.js';
 
 class Controller {
   constructor({ Header, History }) {
@@ -9,7 +10,7 @@ class Controller {
     this.history = History;
     this.todo = null;
     this.deleteAlertView = null;
-    this.newCard = null;
+    this.actionCard = null;
     this.cardCurValue = {
       title: null,
       content: null,
@@ -32,8 +33,10 @@ class Controller {
       'afterbegin',
       createTagTemplate('main', '', 'main')
     );
+
+    body.insertAdjacentHTML('beforeend', createTagTemplate('div', '', 'dim'));
     this.header.view.render();
-    this.history.view.render();
+    this.initHistory();
     this.initTodo();
   }
 
@@ -52,12 +55,21 @@ class Controller {
       this.deleteAlertView.render();
     }
 
-    function handleClickAccept() {
-      const targetColumn = this.todo.model.columns[this.deletedColumn.id];
-      const targetCard = targetColumn.model.cardList[this.deletedCard.id];
+    async function handleClickAccept() {
+      const targetColumn = this.findTodoColumn(
+        this.deletedColumn.dataset.columnid
+      );
+      const deleteCardId = this.deletedCard.dataset.cardid;
+
+      const targetCard = this.findTodoCard(targetColumn, deleteCardId);
       targetCard.view.renderDeleted(this.deletedCard);
 
-      targetColumn.model.deleteCard(this.deletedCard.id);
+      targetColumn.model.deleteCard(deleteCardId);
+
+      const response = await deleteCard({ cardId: deleteCardId });
+
+      this.updateHistory(response);
+      
       targetColumn.model.updateCardCount();
       targetColumn.view.renderCardCount(
         this.deletedColumn,
@@ -70,9 +82,20 @@ class Controller {
   initTodo() {
     this.todo = Todo;
     this.todo.view.init();
-    this.todo.model.setColumns();
+
+    this.todo.model.fetchColumns(this.carEventInit.bind(this));
     this.todo.view.eventInit({
       ColumnClickHanlder: this.columnClickHanlder.bind(this),
+    });
+  }
+
+  carEventInit(card) {
+    card.view.eventInit({
+      cardId: card.model.id,
+      cardInputHandler: this.cardInputHandler.bind(this),
+      cardAddHandler: this.cardAddHandler.bind(this),
+      cardDeleteHandler: this.cardDeleteHandler.bind(this),
+      hoverHandler: this.cardDeleteHoverHandeler.bind(this),
     });
   }
 
@@ -97,17 +120,19 @@ class Controller {
 
   addCard(target) {
     const targetColumnBox = target.closest('.todo_column_box');
-    const targetColumnID = targetColumnBox.id;
-    const targetColumn = this.todo.model.columns[targetColumnID];
+    const targetColumn = this.findTodoColumn(targetColumnBox.dataset.columnid);
+
     if (!targetColumn.model.updateAddStstue()) {
       this.cancelAddCard(targetColumnBox);
       return;
     }
 
     const cardId = this.updateCardCount('add');
-    this.newCard = new Card({ cardId: cardId });
-    this.newCard.view.renderAddCard(targetColumnBox, cardId);
-    this.newCard.view.eventInit({
+
+    this.actionCard = new Card({ cardId: cardId });
+    this.actionCard.view.renderAddCard(targetColumnBox, cardId);
+    this.actionCard.view.eventInit({
+      cardId,
       cardInputHandler: this.cardInputHandler.bind(this),
       cardAddHandler: this.cardAddHandler.bind(this),
       cardDeleteHandler: this.cardDeleteHandler.bind(this),
@@ -117,7 +142,8 @@ class Controller {
 
   cancelAddCard(targetColumnBox) {
     const cancelCard = targetColumnBox.querySelector('.card.write');
-    this.newCard.view.renderDeleted(cancelCard);
+    
+    this.actionCard.view.renderDeleted(cancelCard);
     this.updateCardCount('cancelAdd');
   }
 
@@ -138,9 +164,22 @@ class Controller {
     accentBtn.removeAttribute('disabled');
   }
 
-  cardAddHandler({ target }) {
+  updateHistory({ history }) {
+    const { userName, createDateTime } = history;
+
+    this.history.model.addHistory(history);
+    const calcTime = this.calcHistoryTime(createDateTime);
+    this.history.view.renderAddHistoryCard({
+      userName,
+      content: this.creatHistoryContent(history),
+      time: calcTime,
+    });
+  }
+
+  async cardAddHandler({ target }) {
     const {
       targetColumnBox,
+      targetColumnID,
       targetCard,
       titleInput,
       contentInput,
@@ -149,17 +188,42 @@ class Controller {
     } = this.getTargetCardInfo(target);
     const titleValue = titleInput.value;
     const contentValue = contentInput.value;
+    const targetColumn = this.findTodoColumn(targetColumnID);
+
+    if (!targetCard.classList.contains('edit')) {
+      targetColumn.model.updateAddStstue();
+      const author = 'web';
+      const columnId = targetColumnID;
+
+      const response = await postCard({
+        card: {
+          author,
+          columnId,
+          content: contentValue,
+          title: titleValue,
+        },
+      });
+      this.updateHistory(response);
+    } else {
+      const response = await patchCard({
+        card: {
+          author: 'web',
+          content: contentValue,
+          title: titleValue,
+        },
+        cardId: targetCard.dataset.cardid,
+      });
+
+      this.updateHistory(response);
+    }
 
     titleText.innerText = titleValue;
     contentText.innerText = contentValue;
-    targetCard.classList.remove('write');
+    this.actionCard.model.title = titleValue;
+    this.actionCard.model.content = contentValue;
 
-    this.newCard.model.title = titleValue;
-    this.newCard.model.content = contentValue;
-
-    const targetColumn = this.todo.model.columns[targetColumnBox.id];
-    targetColumn.model.addCardList(this.newCard);
-    targetColumn.model.updateAddStstue();
+    targetCard.classList.remove('write', 'edit');
+    targetColumn.model.addCardList(this.actionCard);
     targetColumn.view.renderCardCount(
       targetColumnBox,
       targetColumn.model.getCardCount()
@@ -171,17 +235,25 @@ class Controller {
     if (type === 'mouseout' && alert === null) {
       return;
     }
-    const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
-    const targetColumn = this.todo.model.columns[targetColumnBox.id];
-    this.hoverCard = targetColumn.model.cardList[targetCard.id];
+    
+    const { targetColumnBox, targetColumnID, targetCard, targetCardId } =
+      this.getTargetCardInfo(target);
+    const targetColumn = this.findTodoColumn(targetColumnID);
+    this.hoverCard = this.findTodoCard(targetColumn, targetCardId);
     this.hoverCard.view.changeDeleteMode(targetCard);
   }
 
   cardCancelHandler(target) {
-    const { targetColumnBox, targetCard, titleInput, contentInput } =
-      this.getTargetCardInfo(target);
-    const targetColumn = this.todo.model.columns[targetColumnBox.id];
-    const targetCardInfo = targetColumn.model.cardList[targetCard.id];
+    const {
+      targetColumnBox,
+      targetColumnID,
+      targetCard,
+      targetCardId,
+      titleInput,
+      contentInput,
+    } = this.getTargetCardInfo(target);
+    const targetColumn = this.findTodoColumn(targetColumnID);
+    const targetCardInfo = this.findTodoCard(targetColumn, targetCardId);
 
     if (targetCard.classList.contains('edit')) {
       targetCardInfo.view.cancelEditMode({
@@ -198,10 +270,11 @@ class Controller {
   }
 
   cardEditHanler(target) {
-    const { targetColumnBox, targetCard } = this.getTargetCardInfo(target);
-    const targetColumnId = targetColumnBox.id;
-    const targetColumn = this.todo.model.columns[targetColumnId];
-    const editCard = targetColumn.model.cardList[targetCard.id];
+    const { targetColumnID, targetCard, targetCardId } =
+      this.getTargetCardInfo(target);
+    const targetColumn = this.findTodoColumn(targetColumnID);
+    const editCard = this.findTodoCard(targetColumn, targetCardId);
+    this.actionCard = editCard;
     let targetText = null;
     if (
       target.className === 'title_text' ||
@@ -227,15 +300,19 @@ class Controller {
 
   getTargetCardInfo(target) {
     const targetColumnBox = target.closest('.todo_column_box');
+    const targetColumnID = targetColumnBox.dataset.columnid;
     const targetCard = target.closest('.card');
     const titleText = targetCard.querySelector('.title_text');
     const contentText = targetCard.querySelector('.content_text');
     const titleInput = targetCard.querySelector('.title_input');
     const contentInput = targetCard.querySelector('.content_input');
     const accentBtn = targetCard.querySelector('.accent_btn');
+    const targetCardId = targetCard.dataset.cardid;
     return {
       targetColumnBox,
+      targetColumnID,
       targetCard,
+      targetCardId,
       titleInput,
       titleText,
       contentInput,
@@ -244,9 +321,109 @@ class Controller {
     };
   }
 
+  findTodoColumn(columnId) {
+    return this.todo.model.columns[columnId];
+  }
+  findTodoCard(targetColumn, cardId) {
+    return targetColumn.model.cardList[cardId];
+  }
+
+  async initHistory() {
+    this.history.view.render();
+    await this.history.model.fetchHistories();
+    const histories = await this.history.model.getHistories();
+    histories.forEach((history) => {
+      const content = this.creatHistoryContent(history);
+      const calcTime = this.calcHistoryTime(history.createDateTime);
+      this.history.view.renderInitHistoryCard({
+        userName: history.userName,
+        content,
+        time: calcTime,
+      });
+    });
+  }
+
+  calcHistoryTime(historyTime) {
+    const nowTime = new Date();
+    const timeValue = new Date(historyTime);
+
+    const betweenTime = Math.floor(
+      (nowTime.getTime() - timeValue.getTime()) / 1000 / 60
+    );
+    if (betweenTime < 1) return '방금전';
+    if (betweenTime < 60) {
+      return `${betweenTime}분전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+      return `${betweenTimeHour}시간전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+      return `${betweenTimeDay}일전`;
+    }
+  }
+
+  creatHistoryContent(history) {
+    const actionDic = {
+      CREATE: '등록',
+      UPDATE: '수정',
+      DELETE: '삭제',
+      MOVE: '이동',
+    };
+    let historyContent = '';
+    switch (history.action) {
+      case 'CREATE':
+        historyContent = `
+        <strong>${history.columnName}</strong>에 <strong>${
+          history.title
+        }</strong>을(를)
+        <strong>${actionDic[history.action]}</strong>하였습니다.
+        `;
+        break;
+      case 'UPDATE':
+        historyContent = `
+        <strong>${history.fields[0].oldValue}</strong>을(를) <strong>${
+          history.fields[0].newValue
+        }</strong>로
+        <strong>${actionDic[history.action]}</strong>하였습니다.
+        `;
+        break;
+      case 'DELETE':
+        historyContent = `
+        <strong>${history.columnName}</strong>에 <strong>${
+          history.title
+        }</strong>을(를)
+        <strong>${actionDic[history.action]}</strong>하였습니다.
+        `;
+        break;
+      case 'MOVE':
+        historyContent = `
+        <strong>${history.title}</strong>을 <strong>${
+          history.fields[0].oldValue
+        }</strong>에서 <strong>${history.columnName}</strong>로 
+        <strong>${actionDic[history.action]}</strong>하였습니다.
+        `;
+        break;
+    }
+
+    return historyContent;
+  }
+
   menuBtnClickHandler() {
     this.header.model.updateStatus();
     const menuStatus = this.header.model.getMenuStatus();
+    if (menuStatus) {
+      this.history.model
+        .getHistories()
+        .map(({ createDateTime }) => createDateTime)
+        .forEach((historyData, idx) => {
+          const historyTime = this.calcHistoryTime(historyData);
+          this.history.view.resetHistoryTime(historyTime, idx);
+        });
+    }
     this.history.view.animation(menuStatus);
   }
 }

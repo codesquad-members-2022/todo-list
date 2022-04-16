@@ -4,7 +4,7 @@ export default class HeaderModel {
   }
 
   updateStatus() {
-    this.menuStatus ? (this.menuStatus = false) : (this.menuStatus = true);
+    this.menuStatus = !this.menuStatus;
   }
 
   getMenuStatus() {
