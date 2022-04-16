@@ -14,4 +14,8 @@ public enum CardType {
     public String getName() {
         return name;
     }
+
+    public boolean isEqualTo(CardType cardType){
+        return cardType.equals(this);
+    }
 }

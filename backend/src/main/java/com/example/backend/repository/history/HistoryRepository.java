@@ -31,12 +31,9 @@ public class HistoryRepository {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    /**
-     * 별칭
-     */
     public List<HistoryResponse> findHistories(Long memberId, Long cardId) {
         String query = "SELECT h.id, h.content, h.created_at, h.action, m.member_login_id AS author, cd.card_type " +
-                "FROM history AS h JOIN member AS m ON m.id=:member_id JOIN card AS cd ON cd.id=:card_id ORDER BY ㅗDESC LIMIT 10";
+                "FROM history AS h JOIN member AS m ON m.id=:member_id JOIN card AS cd ON cd.id=:card_id ORDER BY h.id DESC LIMIT 10";
         SqlParameterSource parameterSource = new MapSqlParameterSource()
                 .addValue(MEMBER_ID, memberId)
                 .addValue(CARD_ID, cardId);

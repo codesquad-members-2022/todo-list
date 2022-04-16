@@ -5,6 +5,8 @@ import com.example.backend.domain.card.Card;
 import com.example.backend.domain.card.CardType;
 import com.example.backend.repository.card.CardRepository;
 import com.example.backend.repository.card.CardRepositoryQueryHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -25,6 +27,7 @@ import static java.time.LocalDateTime.now;
 @Repository
 public class CardJdbcRepository implements CardRepository {
 
+    private Logger log = LoggerFactory.getLogger(CardJdbcRepository.class);
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
@@ -60,7 +63,9 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public List<Card> findAll() {
+        System.out.println(countCardType(CardType.TODO));
         String query = "SELECT id, writer, position, title, content, card_type, created_at, last_modified_at, visible, member_id FROM card WHERE visible = TRUE";
+        log.info("Query= {}", query);
         return namedParameterJdbcTemplate.query(query, generalMapper);
     }
 
@@ -68,6 +73,7 @@ public class CardJdbcRepository implements CardRepository {
     public Optional<Card> findById(Long id) {
         String query = "SELECT id, writer, position, title, content, card_type, created_at, last_modified_at, visible, member_id FROM card WHERE id = :id";
         Map<String, Object> params = Collections.singletonMap(ID, id);
+        log.info("Query= {}", query);
         return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(query, params, generalMapper));
     }
 
@@ -76,6 +82,7 @@ public class CardJdbcRepository implements CardRepository {
         String query = "UPDATE card SET title=:title, content=:content, card_type=:cardType, position=:position, last_modified_at=:lastModifiedAt WHERE id=:id AND visible = TRUE";
         SqlParameterSource sqlParameterSource = queryHelper.getUpdateParamSource(card);
         namedParameterJdbcTemplate.update(query, sqlParameterSource);
+        log.info("Query= {}", query);
         return card;
     }
 
@@ -94,12 +101,15 @@ public class CardJdbcRepository implements CardRepository {
 
     @Override
     public Card changePosition(Card card, CardType newCardType, Long newPosition) {
-        CardType fromCardType = card.getCardType();
-        if (fromCardType.equals(newCardType)) {
+        CardType oldCardType = card.getCardType();
+        if (oldCardType.isEqualTo(newCardType)) {
             return changeSameCardTypePosition(card, newPosition);
         }
+        int totalCount = countCardType(newCardType);
+        newPosition = newPosition > totalCount ? totalCount + 1 : newPosition;
         Card cCard = changeDifferentCardTypePosition(card, newCardType, newPosition);
         cCard.changePosition(newPosition);
+        cCard.changeCardType(newCardType);
         update(cCard);
         return cCard;
     }
@@ -107,6 +117,8 @@ public class CardJdbcRepository implements CardRepository {
     private Card changeSameCardTypePosition(Card card, Long newPosition) {
         Long oldPosition = card.getPosition();
         Long id = card.getId();
+        int totalCount = countCardType(card.getCardType());
+        newPosition = newPosition > totalCount ? totalCount : newPosition;
         if (newPosition > oldPosition) {
             decreasePosition(id, oldPosition, newPosition);
         } else {
@@ -119,22 +131,30 @@ public class CardJdbcRepository implements CardRepository {
     private void decreasePosition(Long id, Long oldPosition, Long newPosition) {
         String query = "UPDATE card SET position = position-1 WHERE position<= ? AND position > ? AND id <> ?";
         jdbcTemplate.update(query, newPosition, oldPosition, id);
+        log.info("Query= {}", query);
     }
 
     private void increasePosition(Long id, Long oldPosition, Long newPosition) {
         String query = "UPDATE card SET position = position+1 WHERE position>= ? AND position < ? AND id <> ?";
         jdbcTemplate.update(query, newPosition, oldPosition, id);
+        log.info("Query= {}", query);
     }
 
     private Card changeDifferentCardTypePosition(Card card, CardType newCardType, Long newPosition) {
         Long id = card.getId();
-//        card.changeCardType(newCardType);
-//        card.changePosition(newPosition);
         String newCardTypeQuery = "UPDATE card SET position = position +1 WHERE position >= ? AND card_type = ? AND id <>?";
         jdbcTemplate.update(newCardTypeQuery, newPosition, newCardType.name(), id);
+        log.info("Query= {}", newCardTypeQuery);
+
         String orderCardTypeQuery = "UPDATE card SET position = position -1 WHERE position >= ? AND card_type = ? AND id <>?";
         jdbcTemplate.update(orderCardTypeQuery, card.getPosition(), card.getCardType().name(), id);
+        log.info("Query= {}", orderCardTypeQuery);
         return card;
+    }
+
+    private int countCardType(CardType cardType) {
+        String query = "SELECT COUNT(*) FROM card WHERE card_type=?";
+        return jdbcTemplate.queryForObject(query, Integer.class, cardType.name());
     }
 
     private static class CardBuilder {

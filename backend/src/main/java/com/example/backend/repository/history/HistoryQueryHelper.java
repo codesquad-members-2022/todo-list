@@ -43,17 +43,7 @@ public class HistoryQueryHelper {
         }};
     }
 
-    public RowMapper<HistoryRead> getMapper() {
-        return mapper;
-    }
-    private Long id;
-    private String content;
-    private LocalDateTime createdAt;
-    private Action action;
-    private Long memberId;
-    private Long cardId;
-    private String author;
-    private CardType cardType;
+
     private static final RowMapper<HistoryRead> mapper = (rs, rowNum) ->
             new HistoryRead(
                     rs.getLong(ID),
