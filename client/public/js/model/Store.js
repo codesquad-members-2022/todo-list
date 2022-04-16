@@ -13,13 +13,46 @@ export default class Store {
     return this.items;
   }
 
-  addColumn() {}
-  removeColumn() {}
-  updateColumn() {}
+  getHistory() {
+    return this.history;
+  }
 
-  addItem() {}
-  removeItem() {}
+  addColumn() {
+    const columnIds = this.columns.map(({ id }) => id);
+    const lastColumnId = Math.max(...columnIds);
+    const newColumn = {
+      id: this.columns.length ? lastColumnId + 1 : 1,
+      title: "",
+      state: true,
+    };
+    this.columns.push(newColumn);
+    return newColumn;
+  }
+
+  removeColumn(columnId) {
+    const columnIndex = this.items.findIndex((column) => column.id === columnId);
+    this.columns[columnIndex].state = false;
+  }
+
+  updateColumn(columnId, newTitle) {
+    const newColumn = this.columns.find(({ id }) => id === columnId);
+    newColumn.title = newTitle;
+  }
+
+  addItem({ id, columnId, title, content, date }) {
+    const newItem = { id, columnId, title, content, date };
+    this.items.push(newItem);
+    return newItem;
+  }
+
+  removeItem(itemId) {
+    const itemIndex = this.items.findIndex((item) => item.id === itemId);
+    this.items[itemIndex].state = false;
+  }
+
   updateItem() {}
-}
 
-// 컬럼과 아이템 데이터를 관리(가져오기, 생성하기, 삭제하기, 변경하기)
+  addHistory({ date, username = "yellow", action, content }) {
+    this.history.push({ date, username, action, content });
+  }
+}

@@ -5,9 +5,9 @@ const database = [
     gender: "male",
     email: "mansaout@gmail.com",
     columns: [
-      { id: 1, title: "해야할 일", length: 2 },
-      { id: 2, title: "하고 있는 일", length: 1 },
-      { id: 3, title: "완료한 일", length: 0 },
+      { id: 1, title: "해야할 일", state: true },
+      { id: 2, title: "하고 있는 일", state: true },
+      { id: 3, title: "완료한 일", state: true },
     ],
     items: [
       {
@@ -16,6 +16,7 @@ const database = [
         title: "GitHub 공부하기",
         content: "add, commit, push",
         date: "2021-04-05",
+        state: true,
       },
       {
         id: 2,
@@ -23,31 +24,33 @@ const database = [
         title: "블로그에 포스팅할 것",
         content: "* GitHub 공부내용\n* 모던 자바스크립트 1장 공부내용",
         date: "2021-04-05",
+        state: true,
       },
       {
-        id: 4,
+        id: 3,
         columnId: 2,
         title: "HTML/CSS 공부하기",
         content: "input 태그 실습",
         date: "2021-04-05",
+        state: true,
       },
     ],
     history: [
       {
-        date: new Date("2022-04-06"),
+        date: new Date("2022-04-13"),
         username: "yellow",
         action: "add",
         content: "<strong>해야할 일</strong>에 <strong>GitHub 공부하기</strong>를 <strong>등록</strong>하였습니다.",
       },
       {
-        date: new Date("2022-04-07"),
+        date: new Date("2022-04-14"),
         username: "yellow",
         action: "add",
         content:
           "<strong>해야할 일</strong>에 <strong>블로그에 포스팅할 것</strong>를 <strong>등록</strong>하였습니다.",
       },
       {
-        date: new Date("2022-04-08"),
+        date: new Date("2022-04-15"),
         username: "yellow",
         action: "add",
         content:

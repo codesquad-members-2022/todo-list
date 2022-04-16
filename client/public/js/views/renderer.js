@@ -6,22 +6,29 @@ import { createHeader } from "./header/header.js";
 import { createAside } from "./aside/aside.js";
 import { createMain } from "./main/main.js";
 
+const todoContainerEl = qs(".todo-container");
+
 export function renderAllColumns(columnList) {
   columnList.forEach(renderColumn);
 }
 
-export function renderColumn({ id, title, length }) {
+export function renderColumn({ id, title, state }) {
+  if (state === false) return;
+
   const columnListEl = qs(".column-list");
-  insertElement(columnListEl, "beforeend", createColumn({ id, title, length }));
+  insertElement(columnListEl, "beforeend", createColumn({ id, title }));
 }
 
 export function renderAllItems(itemList) {
   itemList.forEach(renderItem);
 }
 
-export function renderItem({ id, columnId, title, content }) {
+export function renderItem({ id, columnId, title, content, state }) {
+  if (state === false) return;
+
   const itemListEl = qs(`[data-column='${columnId}'] .card-list`);
-  insertElement(itemListEl, "beforeend", createItem({ id, title, content }));
+  insertElement(itemListEl, "afterbegin", createItem({ id, title, content }));
+  renderColumnLength(columnId);
 }
 
 export function renderItemForm(columnId) {
@@ -30,11 +37,12 @@ export function renderItemForm(columnId) {
 }
 
 export function renderItemDeleteAlert() {
-  const todoContainerEl = qs(".todo-container");
   insertElement(todoContainerEl, "afterbegin", createItemDeleteAlert());
 }
 
 export function renderAllHistory(historyList) {
+  const historyListEl = qs(".history-list");
+  historyListEl.innerHTML = "";
   historyList.forEach(renderHistory);
 }
 
@@ -44,16 +52,18 @@ export function renderHistory({ username, date, content }) {
 }
 
 export function renderHeader() {
-  const todoContainerEl = qs(".todo-container");
   insertElement(todoContainerEl, "afterbegin", createHeader());
 }
 
 export function renderAside() {
-  const todoContainerEl = qs(".todo-container");
   insertElement(todoContainerEl, "beforeend", createAside());
 }
 
 export function renderMain() {
-  const todoContainerEl = qs(".todo-container");
   insertElement(todoContainerEl, "beforeend", createMain());
+}
+
+export function renderColumnLength(columnId, boolean = true) {
+  const columnLengthEl = qs(`.column[data-column="${columnId}"] .column__header--card-count`);
+  boolean ? columnLengthEl.textContent++ : columnLengthEl.textContent--;
 }
