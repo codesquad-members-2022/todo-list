@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 public class CardAllShowDto {
-    private Map<String, List<CardInformationDto>> cardMap;
+    private final Map<String, List<CardInformationDto>> cardMap;
 
     public CardAllShowDto(Map<String, List<CardInformationDto>> cardMap) {
         this.cardMap = cardMap;

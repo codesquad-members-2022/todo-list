@@ -17,18 +17,20 @@ import javax.validation.constraints.Size;
 public class CardCreateDto {
 
     @NotNull(message = "userId 값이 비었습니다.")
-    private Integer userId;
+    private final Integer userId;
 
     @NotBlank(message = "카드 제목을 입력해주세요.")
     @Size(min = 1, max = 30)
-    private String cardTitle;
+    private final String cardTitle;
 
     @NotBlank(message = "카드 내용을 입력해주세요.")
     @Size(min = 1, max = 500)
-    private String cardContent;
+    private final String cardContent;
 
     @NotBlank(message = "boardName 값이 비었습니다.")
-    private String boardName;
+    private final String boardName;
+
+    private Long boardIdx;
 
     public CardCreateDto(Integer userId, String cardTitle, String cardContent, String boardName) {
         this.userId = userId;
@@ -43,6 +45,7 @@ public class CardCreateDto {
             .cardTitle(cardTitle)
             .cardContent(cardContent)
             .boardName(boardName)
+            .boardIdx(boardIdx)
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -54,5 +57,9 @@ public class CardCreateDto {
             }
         }
         throw new GlobalException(ExceptionType.INVALID_BOARD_NAME);
+    }
+
+    public void setBoardIdx(Long boardIdx) {
+        this.boardIdx = boardIdx;
     }
 }

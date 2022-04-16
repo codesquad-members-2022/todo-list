@@ -22,14 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.todolist.domain.dto.CardAllShowDto;
 import com.todolist.domain.dto.CardCreateDto;
 import com.todolist.domain.dto.CardInformationDto;
+import com.todolist.domain.dto.CardMoveDto;
 import com.todolist.domain.dto.CardPatchDto;
 import com.todolist.domain.dto.CardResponseDto;
 import com.todolist.exception.GlobalException;
 import com.todolist.service.CardService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RequestMapping("/todolist")
 @RestController
 public class CardController {
@@ -67,13 +65,19 @@ public class CardController {
 
     @GetMapping("/{cardId}")
     public ResponseEntity<CardInformationDto> findCard(@PathVariable Integer cardId) {
-        CardInformationDto cardInformation = cardService.findCard(cardId);
+        CardInformationDto cardInformation = cardService.findCardInformation(cardId);
         return ResponseEntity.ok(cardInformation);
     }
 
     @PatchMapping("/{cardId}")
     public ResponseEntity<CardResponseDto> patch(@PathVariable Integer cardId, @Validated @RequestBody CardPatchDto cardPatchDto) {
         cardService.patch(cardId, cardPatchDto);
+        return ResponseEntity.ok(new CardResponseDto(cardId));
+    }
+
+    @PatchMapping("/move")
+    public ResponseEntity<CardResponseDto> move(@RequestBody CardMoveDto cardMoveDto) {
+        Integer cardId = cardService.move(cardMoveDto);
         return ResponseEntity.ok(new CardResponseDto(cardId));
     }
 }

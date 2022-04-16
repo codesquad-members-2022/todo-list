@@ -15,6 +15,7 @@ create TABLE `card` (
     `cardTitle` VARCHAR(50) NOT NULL,
     `cardContent` VARCHAR(255) NOT NULL,
     `boardName` VARCHAR(50) NOT NULL,
+    `boardIdx` BIGINT UNSIGNED NOT NULL,
     `createdTime` TIMESTAMP NOT NULL,
     `removed` TINYINT(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`cardId`),
