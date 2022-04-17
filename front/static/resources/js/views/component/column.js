@@ -55,7 +55,6 @@ class Column {
   }
 
   reRender($column) {
-    console.log(this.hasWritableCard);
     const cardsTemplate = this.#getCardsTemplate();
     const $cards = $column.querySelector('.cards');
     $cards.innerHTML = cardsTemplate;

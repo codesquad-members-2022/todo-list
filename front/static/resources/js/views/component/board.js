@@ -17,14 +17,8 @@ class Board {
     return columnsTemplate;
   }
 
-  template() {
-    return `<div class="column-wrap">
-        ${this.#getColumnsTemplate()}
-      </div>`;
-  }
-
   render() {
-    document.querySelector('main').insertAdjacentHTML('afterbegin', this.template());
+    document.querySelector('.column-wrap').innerHTML = this.#getColumnsTemplate();
   }
 
   #isfindedTarget(target, targetName) {
