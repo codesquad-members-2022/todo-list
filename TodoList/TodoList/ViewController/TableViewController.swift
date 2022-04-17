@@ -184,9 +184,8 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
         if editingStyle == .delete{
             let card = cardBoard[index]
             let deleteId = card[indexPath.section].id
-            Board.shared.deleteCard(deleteId, at: index)
+            Board.shared.deleteCard(id: deleteId, section: index, userID: "chez")
             customTable.deleteSections([indexPath.section], with: .fade)
-            
         }
     }
 }

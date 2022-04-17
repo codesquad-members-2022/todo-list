@@ -11,3 +11,8 @@ struct PostResponse: Codable{
     private(set) var id: Int
     private(set) var modifiedAt: String
 }
+
+struct DeleteRespons: Codable{
+    private(set) var id: Int
+    private(set) var userId: String
+}

@@ -55,10 +55,13 @@ final class Board{
         }
     }
     
-    func deleteCard(id: Int, userID: Int){
-        guard let encodingData: Data = JsonConverter.encodeJson(param: [id,userID]) else { return }
-        URLManager.requestDelete(url: "http://3.39.150.251:8080/api/cards", encodingData: encodingData) { data in        
-        }     
+    func deleteCard(id: Int,  section: BoardSubscriptIndex, userID: String){
+        /*
+        let encodeData = DeleteRespons(id: id, userId: userID)
+        guard let data: Data = JsonConverter.encodeJson(param: encodeData) else { return }
+        URLManager.requestDelete(url: "http://3.39.150.251:8080/api/cards", encodingData: data) { data in
+        }*/
+        self.resetCard(id, at: section)
     }
    
     func patchCard(card: Card, section: BoardSubscriptIndex){
@@ -78,7 +81,6 @@ final class Board{
 }
 
 private extension Board{
-
     func addCard(_ card: Card, at section: BoardSubscriptIndex){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addCard"), object: self)
         
@@ -95,7 +97,7 @@ private extension Board{
     }
     
 
-    func deleteCard(_ id: Int, at section: BoardSubscriptIndex){
+    func resetCard(_ id: Int, at section: BoardSubscriptIndex){
         switch section {
         case .todo:
             for (index,card) in todoCards.enumerated(){
@@ -115,7 +117,10 @@ private extension Board{
                     doneCards.remove(at: index)
                 }
             }
+        default:
+            return
         }
+    }
 
     func patchCard(_ card: Card, at section: BoardSubscriptIndex){
         switch section {
