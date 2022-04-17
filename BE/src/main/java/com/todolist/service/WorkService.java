@@ -4,9 +4,12 @@ import com.todolist.domain.Category;
 import com.todolist.domain.Work;
 import com.todolist.domain.UserLog;
 import com.todolist.dto.ColumnListDto;
+import com.todolist.dto.ModifiedWorkDto;
+import com.todolist.dto.WorkDeletionDto;
 import com.todolist.dto.WorkDto;
 import com.todolist.dto.WorkListDto;
 import com.todolist.dto.WorkCreationDto;
+import com.todolist.dto.WorkModificationDto;
 import com.todolist.dto.WorkMovementDto;
 import com.todolist.repository.CategoryRepository;
 import com.todolist.repository.UserLogRepository;
@@ -61,10 +64,29 @@ public class WorkService {
     @Transactional
     public void move(WorkMovementDto workMovementDto) {
         Work work = workMovementDto.convertToWorkDomain();
-        workRepository.update(work);
+        workRepository.updateCategory(work);
 
         String previousCategoryName = categoryRepository.findNameById(workMovementDto.getPreviousCategoryId());
-        String changedCategoryName = categoryRepository.findNameById(workMovementDto.getChangedCategoryId());
-        userLogRepository.saveLogOfMovementByUser(workMovementDto.convertToUserLogDomain(previousCategoryName, changedCategoryName));
+        String currentCategoryName = categoryRepository.findNameById(workMovementDto.getCurrentCategoryId());
+        userLogRepository.saveLogOfMovementByUser(workMovementDto.convertToUserLogDomain(previousCategoryName, currentCategoryName));
+    }
+
+    @Transactional
+    public void remove(Integer workId, WorkDeletionDto workDeletionDto) {
+        workRepository.delete(workId);
+
+        String currentCategoryName = categoryRepository.findNameById(workDeletionDto.getCurrentCategoryId());
+        userLogRepository.saveLogOfDeletionByUser(workDeletionDto.convertToUserLogDomain(currentCategoryName));
+    }
+
+    @Transactional
+    public ModifiedWorkDto modify(Integer workId, WorkModificationDto workModificationDto) {
+        String title = workRepository.findTitleById(workId);
+        ModifiedWorkDto modifiedWorkDto = workRepository.updateCard(workModificationDto.convertToWorkDomain(workId));
+
+        String currentCategoryName = categoryRepository.findNameById(workModificationDto.getCurrentCategoryId());
+        userLogRepository.saveLogOfModificationByUser(workModificationDto.convertToUserLogDomain(title, currentCategoryName));
+
+        return modifiedWorkDto;
     }
 }

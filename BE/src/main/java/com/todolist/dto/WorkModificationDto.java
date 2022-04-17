@@ -6,27 +6,26 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 
 @Getter
-public class WorkMovementDto {
+public class WorkModificationDto {
 
     private String userId;
-    private Integer workId;
-    private Integer previousCategoryId;
     private Integer currentCategoryId;
     private String title;
+    private String content;
 
-    public Work convertToWorkDomain() {
+    public Work convertToWorkDomain(Integer workId) {
         return Work.builder()
             .id(workId)
-            .categoryId(currentCategoryId)
+            .title(title)
+            .content(content)
             .build();
     }
 
-    public UserLog convertToUserLogDomain(String previousCategoryName, String currentCategoryName) {
+    public UserLog convertToUserLogDomain(String title, String currentCategoryName) {
         return UserLog.builder()
             .userId(userId)
             .title(title)
-            .action(Action.MOVEMENT.getAction())
-            .previousCategory(previousCategoryName)
+            .action(Action.MODIFICATION.getAction())
             .currentCategory(currentCategoryName)
             .updatedDateTime(LocalDateTime.now())
             .build();

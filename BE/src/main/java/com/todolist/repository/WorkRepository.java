@@ -1,6 +1,7 @@
 package com.todolist.repository;
 
 import com.todolist.domain.Work;
+import com.todolist.dto.ModifiedWorkDto;
 import com.todolist.dto.WorkDto;
 import java.util.Calendar;
 import java.util.Collections;
@@ -24,10 +25,14 @@ public class WorkRepository {
         jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<Work> findAllByCategoryId(int categoryId) {
-        return jdbc.query("SELECT id, title, content, created_datetime "
+    public List<Work> findAllByCategoryId(Integer categoryId) {
+        return jdbc.query("SELECT id, title, content "
                 + "FROM work WHERE delete_flag = 0 AND category_id = :categoryId ORDER BY created_datetime DESC",
             Collections.singletonMap("categoryId", categoryId), workRowMapper());
+    }
+
+    public String findTitleById(Integer workId) {
+        return jdbc.queryForObject("SELECT title FROM work WHERE id = :workId", Collections.singletonMap("workId", workId), String.class);
     }
 
     public WorkDto save(Work work) {
@@ -40,21 +45,29 @@ public class WorkRepository {
         return work.convertToDtoForCreation((keyHolder.getKey()).intValue());
     }
 
-    public void update(Work work) {
+    public void updateCategory(Work work) {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(work);
-        jdbc.update("UPDATE work SET category_id = :categoryId, created_datetime = :createdDateTime WHERE id = :id", parameters);
+        jdbc.update("UPDATE work SET category_id = :categoryId WHERE id = :id", parameters);
+    }
+
+    public void delete(Integer workId) {
+        jdbc.update("DELETE FROM work WHERE id = :workId", Collections.singletonMap("workId", workId));
+    }
+
+    public ModifiedWorkDto updateCard(Work work) {
+        SqlParameterSource parameters = new BeanPropertySqlParameterSource(work);
+        jdbc.update("UPDATE work SET title = :title, content = :content WHERE id = :id", parameters);
+
+        return work.convertToDtoForModification();
     }
 
     private RowMapper<Work> workRowMapper() {
         return (rs, rowNum) -> {
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
-            Work work = new Work(
-                rs.getObject("id", Integer.class),
-                rs.getString("title"),
-                rs.getString("content"),
-                rs.getTimestamp("created_datetime", cal).toLocalDateTime()
-            );
+            Work work = Work.builder()
+                .id(rs.getObject("id", Integer.class))
+                .title(rs.getString("title"))
+                .content(rs.getString("content"))
+                .build();
 
             return work;
         };

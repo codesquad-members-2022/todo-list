@@ -25,11 +25,11 @@ INSERT INTO work (category_id, title, content, delete_flag, created_datetime)
 INSERT INTO work (category_id, title, content, delete_flag, created_datetime)
  VALUES (3, '깃 공부', 'rebase와 merge의 차이', false, NOW());
 
-INSERT INTO user_log (user_id, title, action, previous_category, updated_datetime)
+INSERT INTO user_log (user_id, title, action, current_category, updated_datetime)
  VALUES ('ikjo', '자바 공부', '등록', 'TODO', NOW());
 
-INSERT INTO user_log (user_id, title, action, previous_category, updated_datetime)
+INSERT INTO user_log (user_id, title, action, current_category, updated_datetime)
  VALUES ('ikjo', 'MySQL 공부', '등록', 'DOING', NOW());
 
-INSERT INTO user_log (user_id, title, action, previous_category, updated_datetime)
+INSERT INTO user_log (user_id, title, action, current_category, updated_datetime)
  VALUES ('ikjo', '깃 공부', '등록', 'DONE', NOW());
