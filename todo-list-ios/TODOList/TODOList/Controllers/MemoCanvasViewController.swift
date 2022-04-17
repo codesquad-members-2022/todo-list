@@ -16,7 +16,6 @@ final class MemoCanvasViewController: UIViewController {
         view = memoCanvasView
         
         initProperties()
-        initNotificationCenter()
         setLayout()
         subscribeObserver()
     }
@@ -27,14 +26,7 @@ final class MemoCanvasViewController: UIViewController {
         }
     }
     
-    private func initNotificationCenter() {
-        NotificationCenter.default.addObserver(self, selector: #selector(addingMemoCompleted(_:)), name: .MemoDidAdd, object: memoManager)
-    }
-    
-    @objc func addingMemoCompleted(_ notification: Notification) {
-        
-    }
-    
+    private func addTableViewController(containerType: MemoStatus) {
         let tableViewController = MemoContainerViewController(containerType: containerType)
         memoTableViewControllers[containerType] = tableViewController
         
@@ -78,8 +70,8 @@ final class MemoCanvasViewController: UIViewController {
     private func subscribeObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didMemoAdd(_:)),
-                                               name: .MemoDidAdd,
-                                               object: nil)
+                                               name: .memoDidAdd,
+                                               object: memoManager)
     }
     
     @objc func didMemoAdd(_ notification: Notification) {
