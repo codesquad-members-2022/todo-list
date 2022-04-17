@@ -33,10 +33,6 @@ enum Task {
             return ""
         }
     }
-    
-    var typeIdentifier: ObjectIdentifier? {
-        return nil
-    }
 }
 
 class MemoManager {
