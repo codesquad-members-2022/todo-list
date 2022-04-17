@@ -1,7 +1,6 @@
 package com.todolist.project.web.dto;
 
-import com.todolist.project.domain.CardStatus;
-import com.todolist.project.domain.card.Card;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,16 +8,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CardAddDto {
+public class CardListResponseDto {
 
+	private Long id;
 	private int cardIndex;
 	private String title;
 	private String contents;
 	private String writer;
 	private String cardStatus;
-
-	public Card toEntity() {
-		CardStatus card_status = CardStatus.valueOf(this.cardStatus);
-		return new Card(cardIndex, title, contents, writer, card_status);
-	}
+	private LocalDateTime createdTime;
 }

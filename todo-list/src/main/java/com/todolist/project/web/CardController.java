@@ -2,12 +2,20 @@ package com.todolist.project.web;
 
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.CardAddDto;
-import com.todolist.project.web.dto.CardListDto;
+import com.todolist.project.web.dto.CardListRequestDto;
+import com.todolist.project.web.dto.CardListResponseDto;
 import com.todolist.project.web.dto.CardUpdateDto;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RequestMapping("/cards")
@@ -16,27 +24,31 @@ public class CardController {
     private final CardService cardService;
 
     @GetMapping
-    public List<CardListDto> list() {
+    public List<CardListResponseDto> getCardList() {
         return cardService.findAll();
     }
 
-    @GetMapping("/{cardStatus}")
-    public List<CardListDto> listByStatus(@PathVariable String cardStatus) {
+    @GetMapping("/sort")
+    public List<CardListResponseDto> getCardListByStatus(@RequestParam("status") String cardStatus) {
         return cardService.findByStatus(cardStatus);
     }
 
     @PostMapping
-    public int add(@RequestBody CardAddDto dto) {
-        return cardService.addCard(dto);
+    public List<CardListResponseDto> add(@RequestBody CardAddDto dto) {
+        cardService.addCard(dto);
+        return cardService.findAll();
     }
 
     @DeleteMapping("/{id}")
-    public int remove(@PathVariable Long id) {
-        return cardService.removeCard(id);
+    public List<CardListResponseDto> remove(@PathVariable Long id) {
+        CardListRequestDto dto = cardService.findById(id);
+        cardService.removeCard(id);
+        return cardService.findAll();
     }
 
     @PutMapping("/{id}")
-    public int update(@PathVariable Long id, @RequestBody CardUpdateDto dto) {
-        return cardService.updateCard(id, dto);
+    public List<CardListResponseDto> update(@PathVariable Long id, @RequestBody CardUpdateDto dto) {
+       cardService.updateCard(id, dto);
+       return cardService.findAll();
     }
 }

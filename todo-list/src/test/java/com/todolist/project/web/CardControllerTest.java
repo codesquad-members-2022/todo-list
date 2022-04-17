@@ -1,11 +1,18 @@
 package com.todolist.project.web;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.times;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.todolist.project.domain.CardStatus;
 import com.todolist.project.service.CardService;
 import com.todolist.project.web.dto.CardAddDto;
-import com.todolist.project.web.dto.CardListDto;
+import com.todolist.project.web.dto.CardListRequestDto;
 import com.todolist.project.web.dto.CardUpdateDto;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,77 +21,65 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultMatcher;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.times;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CardController.class)
 class CardControllerTest {
-    @Autowired
-    MockMvc mockMvc;
-    @Autowired
-    ObjectMapper objectMapper;
 
-    @MockBean
-    CardService service;
+	@Autowired
+	MockMvc mockMvc;
+	@Autowired
+	ObjectMapper objectMapper;
 
-    CardAddDto addDto;
-    CardUpdateDto updateDto;
-    CardListDto listDto;
+	@MockBean
+	CardService service;
 
-    @BeforeEach
-    void setUp() {
-        updateDto = new CardUpdateDto(1, "title1", "content1", CardStatus.TODO);
-        listDto = new CardListDto(1L, 1, "title1", "content1", "writer", "TODO", LocalDateTime.now());
-        addDto = new CardAddDto(1, "title1", "content1", "writer", "TODO");
-    }
+	CardAddDto addDto;
+	CardUpdateDto updateDto;
+	CardListRequestDto listDto;
 
-    @Test
-    void list() throws Exception {
-        List<CardListDto> list = List.of(this.listDto);
-        given(service.findAll())
-                .willReturn(list);
+	@BeforeEach
+	void setUp() {
+		updateDto = new CardUpdateDto(1, "title1", "content1", "TODO");
+		listDto = new CardListRequestDto(1L, 1, "title1", "content1", "writer", "TODO",
+			LocalDateTime.now());
+		addDto = new CardAddDto(1, "title1", "content1", "writer", "TODO");
+	}
 
-        ResultActions actions = mockMvc.perform(get("/cards").accept(MediaType.APPLICATION_JSON));
+	@Test
+	void list() throws Exception {
+//		List<CardListRequestDto> list = List.of(this.listDto);
+//		given(service.findAll())
+//			.willReturn(list);
 
-        actions.andExpect(status().isOk());
-        //TODO: content().contentType(MediaType.APPLICATION_JSON) -> cast하면 에러나서 해결을 해야한다.
-    }
+		ResultActions actions = mockMvc.perform(get("/cards").accept(MediaType.APPLICATION_JSON));
 
-    @Test
-    void listByStatus() {
-        //TODO: 테스트 작성하기
-    }
+		actions.andExpect(status().isOk());
+		//TODO: content().contentType(MediaType.APPLICATION_JSON) -> cast하면 에러나서 해결을 해야한다.
+	}
 
-    @Test
-    void add() throws Exception {
-        ResultActions actions = mockMvc.perform(post("/cards")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(addDto)));
+	@Test
+	void listByStatus() {
+		//TODO: 테스트 작성하기
+	}
 
-        actions.andExpect(status().is2xxSuccessful());
+	@Test
+	void add() throws Exception {
+		ResultActions actions = mockMvc.perform(post("/cards")
+			.contentType("application/json")
+			.content(objectMapper.writeValueAsString(addDto)));
 
-        then(service).should(times(1)).addCard(any(CardAddDto.class));
-    }
+		actions.andExpect(status().is2xxSuccessful());
 
-    @Test
-    void remove() {
-        //TODO: 테스트 작성하기
-    }
+		then(service).should(times(1)).addCard(any(CardAddDto.class));
+	}
 
-    @Test
-    void update() {
-        //TODO: 테스트 작성하기
-    }
+	@Test
+	void remove() {
+		//TODO: 테스트 작성하기
+	}
+
+	@Test
+	void update() {
+		//TODO: 테스트 작성하기
+	}
 }

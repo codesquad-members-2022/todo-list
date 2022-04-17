@@ -1,7 +1,7 @@
 package com.todolist.project.domain.card;
 
 import com.todolist.project.domain.CardStatus;
-import lombok.Builder;
+import com.todolist.project.web.dto.CardListResponseDto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -16,10 +16,6 @@ public class Card {
     private LocalDateTime createdTime;
     private CardStatus cardStatus;
 
-    public LocalDateTime createTime() {
-        return LocalDateTime.now();
-    }
-
     public Card(Long id, int cardIndex, String title, String contents, String writer, LocalDateTime createdTime, CardStatus cardStatus) {
         this.id = id;
         this.cardIndex = cardIndex;
@@ -30,18 +26,25 @@ public class Card {
         this.cardStatus = cardStatus;
     }
 
-    public Card(int cardIndex, String title, String contents, String writer, CardStatus cardStatus) {
-        this.cardIndex = cardIndex;
-        this.title = title;
-        this.contents = contents;
-        this.writer = writer;
-        this.cardStatus = cardStatus;
-    }
+	public Card(int cardIndex, String title, String contents, String writer,
+		CardStatus cardStatus) {
+		this.cardIndex = cardIndex;
+		this.title = title;
+		this.contents = contents;
+		this.writer = writer;
+		this.cardStatus = cardStatus;
+	}
 
-    public Card(int cardIndex, String title, String contents, CardStatus cardStatus) {
-        this.cardIndex = cardIndex;
-        this.title = title;
-        this.contents = contents;
-        this.cardStatus = cardStatus;
-    }
+	public Card(int cardIndex, String title, String contents, CardStatus cardStatus) {
+		this.cardIndex = cardIndex;
+		this.title = title;
+		this.contents = contents;
+		this.cardStatus = cardStatus;
+		this.createdTime = LocalDateTime.now();
+	}
+
+	public CardListResponseDto toEntity() {
+		return new CardListResponseDto(id, cardIndex, title, contents, writer, cardStatus.name(),
+			createdTime);
+	}
 }
