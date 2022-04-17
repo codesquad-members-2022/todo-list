@@ -1,14 +1,23 @@
 # active profile
 spring:
   profiles:
-    active: "sdd-mysql-db"
+    active: local-h2
 
 ---
-# mem-h2-db
+# profile group
+spring:
+  profiles:
+    group:
+      local-h2: "local-mem-h2, local-log"
+      local-mysql: "local-sdd-mysql, local-log"
+      deploy-mysql: "deploy-aws-mysql, deploy-log"
+
+---
+# local-mem-h2
 spring:
   config:
     activate:
-      on-profile: mem-h2-db
+      on-profile: local-mem-h2
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:todolist;mode=MYSQL;
@@ -19,17 +28,16 @@ spring:
       platform: h2
       mode: always
       schema-locations: classpath:sql/ddl-h2.sql
-      data-locations: classpath:test/*.sql
   h2:
     console:
       enabled: true
 
 ---
-# sdd-mysql-db
+# local-sdd-mysql
 spring:
   config:
     activate:
-      on-profile: sdd-mysql-db
+      on-profile: local-sdd-mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/todolist
@@ -42,13 +50,24 @@ spring:
       schema-locations: classpath:sql/ddl-h2.sql
 
 ---
-# deploy-mysql-db
+# deploy-aws-mysql
 spring:
   config:
     activate:
-      on-profile: deploy-mysql-db
+      on-profile: deploy-aws-mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${TODO_URL}
     username: ${TODO_USER}
     password: ${TODO_PW}
+logging:
+  file:
+    path: ${FILE_PATH}
+
+---
+# log-group
+spring:
+  profiles:
+    group:
+      local-log: "console-log, low-level-log"
+      deploy-log: "file-log, high-level-log"
