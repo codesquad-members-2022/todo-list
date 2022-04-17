@@ -53,7 +53,7 @@ class ActivityListViewController: UITableViewController {
         let factory = FieldFactory()
         let body = factory.make(.body, item)
         let footer = factory.make(.footer, item)
-        cell.setBodyText(body.text)
+        cell.setBodyText(body as! ActivityBody)
         cell.setFooterText(footer.text)
         return cell
     }

@@ -20,8 +20,10 @@ protocol StringData {
 struct ActivityBody: StringData {
     var sort: TextComponent { .body }
     var text: String
-    init(text: String) {
+    var activity: Activity
+    init(text: String, activity: Activity) {
         self.text = text
+        self.activity = activity
     }
 }
 
@@ -65,7 +67,7 @@ struct FieldFactory {
             default:
                 print("\(activity.action) NOT FOUND")
             }
-            return ActivityBody(text: string)
+            return ActivityBody(text: string, activity: activity)
         case .footer:
             //TODO: - DataFormatter 이용하여 "~분전" 설정
             string += activity.modifiedDate

@@ -85,11 +85,62 @@ class ActivityCell: UITableViewCell {
     }
     
     func setFooterText(_ text: String) {
-        self.footerLabel.text = text
+//        self.footerLabel.text = text
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+        let oldDate = dateFormatter.date(from: text)
+        guard let oldDate = oldDate else {
+            return
+        }
+        let timeInterval = oldDate.timeIntervalSinceNow
+        var result = ""
+        let absInterval = abs(timeInterval)
+        switch absInterval {
+        case 0..<60:
+            result = "1분 전"
+        case 60..<3600:
+            let minute = absInterval / 60
+            result = "\(Int(minute))분 전"
+        case 3600..<86400:
+            let hour = absInterval / 3600
+            result = "\(Int(hour))시간 전"
+        case 86400..<Double.greatestFiniteMagnitude :
+            let day = absInterval / 86400
+            result = "\(Int(day))일 전"
+        default:
+            result = "\(Int(absInterval))초 전"
+        }
+        self.footerLabel.text = result
     }
-    
-    func setBodyText(_ text: String) {
-        self.bodyLabel.text = text
+    // MARK: - 중요 키워드 집중
+    func setBodyText(_ activity: ActivityBody) {
+        self.bodyLabel.text = String(activity.text)
+        guard let targetText = bodyLabel.text else { return }
+        let fontSize = UIFont.boldSystemFont(ofSize: 17)
+        let attributedStr = NSMutableAttributedString(string: targetText)
+        let item = activity.activity
+        var actionString: String {
+            var string = ""
+            switch item.action {
+            case "ADD":
+                string = "등록"
+            case "MOVE":
+                string = "이동"
+            case "REMOVE":
+                string = "삭제"
+            case "UPDATE":
+                string = "수정"
+            default:
+                string = "default"
+            }
+            return string
+        }
+        attributedStr.addAttribute(.font, value: fontSize, range: (attributedStr.string as NSString).range(of: String(item.cardTitle)))
+        attributedStr.addAttribute(.font, value: fontSize, range: (attributedStr.string as NSString).range(of: String(item.oldColumnName)))
+        attributedStr.addAttribute(.font, value: fontSize, range: (attributedStr.string as NSString).range(of: String(item.newColumnName)))
+        attributedStr.addAttribute(.font, value: fontSize, range: (attributedStr.string as NSString).range(of: actionString))
+        bodyLabel.attributedText = attributedStr
     }
     
     func setBackgroundColor(_ color: UIColor) {
