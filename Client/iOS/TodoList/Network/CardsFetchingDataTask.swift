@@ -11,8 +11,14 @@ struct Team13API: ServerAPI {
     let endpoint: String = "http://13.125.216.180:8080"
 }
 
+protocol APIService {
+    func fetchUser(completionHandler: @escaping (Result<String,DataTaskError>) -> Void)
+    func fetchAll<T: Codable>(dataType: T.Type, completionHandler: @escaping (Result<T,DataTaskError>) -> Void)
+    func requestDelete(parameter: Int, completionHandler: @escaping (Result<Int, DataTaskError>) -> Void)
+}
 
-class DataTask: SessionDataTask {
+
+class DataTask: SessionDataTask, APIService {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private let api: ServerAPI
@@ -75,6 +81,29 @@ class DataTask: SessionDataTask {
             }
             
             completionHandler(.success(decodedData))
+        }.resume()
+    }
+    
+    func requestDelete(parameter: Int, completionHandler: @escaping (Result<Int, DataTaskError>) -> Void) {
+        guard var url = api.toURL(path: .all) else {
+            completionHandler(.failure(.invalidURL))
+            return
+        }
+        
+        url.appendPathComponent("\(parameter)")
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
+        self.session.dataTask(with: request) { data, response, error in
+            guard
+                let data = data,
+                let cardResponse = try? self.decoder.decode(CardAPIResponse.self, from: data)
+            else {
+                completionHandler(.failure(.notConnect))
+                return
+            }
+            
+            completionHandler(.success(cardResponse.cardId))
         }.resume()
     }
     
