@@ -13,8 +13,7 @@ let [shiftX, shiftY] = [0, 0];
 let $originalCard;
 
 export function renderColumn(columnId, todos) {
-  const columnSelector = `#${columnId}`;
-  const $column = document.querySelector(columnSelector);
+  const $column = document.querySelector(`#${columnId}`);
   const $cards = $column.querySelector(".cards");
   const cardTemplate = todos.reduce((template, todo) => {
     template += `<div class="card" id="card${todo.id}">
@@ -62,39 +61,44 @@ function addCardsDragEvent($cards) {
   }
 }
 
-export function addCardDragEvent(card) {
-  card.addEventListener("mousedown", (event) => {
+export function addCardDragEvent($card) {
+  $card.addEventListener("mousedown", (event) => {
     const $card = event.target.closest(".card");
     shiftX = event.pageX - $card.offsetWidth / 2;
     shiftY = event.pageY - $card.offsetHeight / 2;
     isDowned = true;
     dragStart = true;
   });
-  card.addEventListener("mousemove", () => {
+  $card.addEventListener("mousemove", () => {
     if (isDowned) {
       isDraggable = true;
     }
   });
-}
-
-export function addmouseMoveEvent() {
-  document.body.addEventListener("mousemove", handleMouseMoveEvent);
+  $card.addEventListener("mouseup", () => {
+    isDowned = false;
+    dragStart = false;
+    isDraggable = false;
+  });
 }
 
 function addCopiedCardEvent() {
   const $copiedCard = document.querySelector(".copied-card");
   $copiedCard.addEventListener("mouseup", () => {
-    isDowned = false;
-    dragStart = false;
-    isDraggable = false;
-    $copiedCard.remove();
-    changeOriginalCardStyle($originalCard);
-    updateDraggedCardData();
-    $originalCard.classList.remove("original-card");
+    addDropEvent($copiedCard);
   });
 }
 
-function handleMouseMoveEvent(event) {
+function addDropEvent($copiedCard) {
+  isDowned = false;
+  dragStart = false;
+  isDraggable = false;
+  $copiedCard.remove();
+  changeOriginalCardStyle($originalCard);
+  updateDraggedCardData();
+  $originalCard.classList.remove("original-card");
+}
+
+export function handleMouseMoveEvent(event) {
   const delayTime = 20;
   const columnsLocation = getColumnsLocation();
   const $card = event.target.closest(".card");
@@ -113,11 +117,11 @@ function handleMouseMoveEvent(event) {
 }
 
 function getColumnsLocation() {
-  const columnsArr = document.querySelectorAll(".column");
-  const columnsLocation = [];
-  for (const column of columnsArr) {
-    columnsLocation.push(column.getBoundingClientRect());
-  }
+  const columns = document.querySelectorAll(".column");
+  const columnsArr = [...columns];
+  const columnsLocation = columnsArr.map((column) =>
+    column.getBoundingClientRect()
+  );
   return columnsLocation;
 }
 
@@ -198,7 +202,7 @@ function checkVerticalMove(currentCards, $originalCard) {
   if (prevCardCount <= cardCount && prevCardCount >= 1) {
     const prevCardSelector = `.card:nth-child(${prevCardCount})`;
     const $prevCard = currentCards.querySelector(prevCardSelector);
-    $prevCard.after($originalCard);
+    $prevCard.insertAdjacentElement("afterend", $originalCard);
   } else if (prevCardCount < 1) {
     currentCards.insertAdjacentElement("afterbegin", $originalCard);
   }

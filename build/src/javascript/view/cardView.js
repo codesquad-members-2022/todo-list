@@ -4,7 +4,7 @@ import {
   updateServerCardData,
   deleteCardData,
 } from "../controller/cardController.js";
-import { addCardDragEvent } from "./columnView.js";
+import { addCardsDragEvent } from "./columnView.js";
 
 export async function renderRegisterCard($cards) {
   const $allCards = document.querySelectorAll(".card");
@@ -112,7 +112,16 @@ function updateCard({ target }) {
   applyCardStyle($selectedCard);
   setTextAreaContenteditable($selectedCard, false);
   addServerCardData($selectedCard);
-  addCardDragEvent($selectedCard);
+  addCardsDragEvent($selectedCard);
+  removeTextAreaEvent($selectedCard);
+}
+
+function removeTextAreaEvent($card) {
+  const $textArea = $card.querySelector(".card-text-area");
+  if ($textArea !== null) {
+    console.log("이벤트사라짐");
+    $textArea.removeEventListener("click", removeText);
+  }
 }
 
 export function applyCardStyle($card) {

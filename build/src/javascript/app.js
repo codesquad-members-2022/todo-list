@@ -1,10 +1,14 @@
 import { renderTodos } from "./controller/columnController.js";
-import { addPlusBtnEvent, addmouseMoveEvent } from "./view/columnView.js";
+import { addPlusBtnEvent, handleMouseMoveEvent } from "./view/columnView.js";
 
 init();
 
 function init() {
   window.addEventListener("DOMContentLoaded", renderTodos);
-  addmouseMoveEvent();
+  addDragEvent();
   addPlusBtnEvent();
+}
+
+function addDragEvent() {
+  document.body.addEventListener("mousemove", handleMouseMoveEvent);
 }

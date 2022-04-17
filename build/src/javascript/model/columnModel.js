@@ -8,16 +8,15 @@ const columns = {
 
 export async function getColumns() {
   const todos = await axiosRequest("get", "todos");
-  getAllColumnTodos(todos);
+  setAllColumnTodos(todos);
   return columns;
 }
 
-function getAllColumnTodos(todos) {
+function setAllColumnTodos(todos) {
   const columnNames = Object.keys(columns);
   for (const columnName of columnNames) {
     columns[columnName] = getColumnTodos(todos, columnName);
   }
-  return columns;
 }
 
 function getColumnTodos(todos, columnName) {
