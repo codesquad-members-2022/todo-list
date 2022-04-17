@@ -3,7 +3,7 @@ import UIKit
 class PopupCardView: UIView {
 
     weak var delegate: PopupCardViewDelegate?
-    var memoContainerType: MemoContainerType?
+    var memoContainerType: MemoStatus?
     
     private let containerView: UIView = {
         let view = UIView()

@@ -4,7 +4,7 @@ class MemoContainerView: UIView {
     
     weak var delegate: MemoContainerViewDelegate?
     
-    var containerType: MemoContainerType?
+    var containerType: MemoStatus?
 
     private let containerTitleView: UIView = {
         let view = UIView()

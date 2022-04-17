@@ -4,7 +4,7 @@ class PopupViewController: UIViewController {
 
     weak var delegate: PopupViewDelegate?
     private var alertTitle: String = ""
-    private var containerType: MemoContainerType?
+    private var containerType: MemoStatus?
     var memoTitle: String = ""
     var memoContent: String = ""
     
@@ -20,7 +20,7 @@ class PopupViewController: UIViewController {
         return view
     }()
     
-    convenience init(containerType: MemoContainerType) {
+    convenience init(containerType: MemoStatus) {
         self.init()
         
         self.containerType = containerType
@@ -58,8 +58,8 @@ extension PopupViewController: PopupCardViewDelegate {
     }
     
     // TODO: Server에 데이터 POST
-    func popupCardOkButtonDidTap(title: String, content: String, status: MemoContainerType) {
-        let memo = Memo(title: title, content: content, name: "JK", status: status)
+    func popupCardOkButtonDidTap(title: String, content: String, status: MemoStatus) {
+        let memo = Memo(title: title, content: content, name: "sampleI", status: status)
         self.delegate?.popupViewAddButtonDidTap(memo: memo)
         
         self.dismiss(animated: true)

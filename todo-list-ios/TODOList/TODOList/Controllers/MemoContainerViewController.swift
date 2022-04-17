@@ -1,8 +1,8 @@
 import UIKit
 
 final class MemoContainerViewController: UIViewController {
-
-    private var containerType: MemoContainerType?
+    
+    private var containerType: MemoStatus?
     private var selectedIndexPath: IndexPath?
     private let memoUseCase = MemoUseCase()
     
@@ -12,7 +12,7 @@ final class MemoContainerViewController: UIViewController {
         return containerView
     }()
     
-    convenience init(containerType: MemoContainerType) {
+    convenience init(containerType: MemoStatus) {
         self.init()
         
         self.containerType = containerType
@@ -38,7 +38,7 @@ extension MemoContainerViewController: PopupViewDelegate {
 
 
 extension MemoContainerViewController: MemoContainerViewDelegate {
-    func addButtonDidTap(containerType: MemoContainerType) {
+    func addButtonDidTap(containerType: MemoStatus) {
         let popupViewController = PopupViewController(containerType: containerType)
         popupViewController.modalPresentationStyle = .overCurrentContext
         popupViewController.delegate = self

@@ -1,5 +1,5 @@
 import Foundation
 
 protocol MemoContainerViewDelegate: AnyObject {
-    func addButtonDidTap(containerType: MemoContainerType)
+    func addButtonDidTap(containerType: MemoStatus)
 }

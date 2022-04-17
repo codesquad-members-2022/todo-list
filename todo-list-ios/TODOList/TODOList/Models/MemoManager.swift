@@ -6,7 +6,6 @@ class MemoManager {
         case memoDidAdd = "memoDidAdd"
     }
     
-    private (set) var memoTableViewModels: [MemoContainerType: [Memo]] = [.todo:[], .progress:[], .done:[]]
     
     //임시로 생성자에서 테스트할 객체 생성
     init() {
@@ -22,19 +21,19 @@ class MemoManager {
         memoTableViewModels[containerType]?.remove(at: index)
     }
     
-    func insertSelectedMemoModel(containerType: MemoContainerType, index: Int, memo: Memo) {
+    func insertSelectedMemoModel(containerType: MemoStatus, index: Int, memo: Memo) {
         memoTableViewModels[containerType]?.insert(memo, at: index)
     }
     
-    func appendMemoModels(containerType: MemoContainerType, memos:[Memo]) {
+    func appendMemoModels(containerType: MemoStatus, memos:[Memo]) {
         memoTableViewModels[containerType]?.append(contentsOf: memos)
     }
     
-    func getDesignatedMemosCount(containerType: MemoContainerType)-> Int {
+    func getDesignatedMemosCount(containerType: MemoStatus)-> Int {
         return memoTableViewModels[containerType]?.count ?? 0
     }
     
-    func getDesignatedMemoModel(containerType: MemoContainerType, index: Int)-> Memo? {
+    func getDesignatedMemoModel(containerType: MemoStatus, index: Int)-> Memo? {
         return memoTableViewModels[containerType]?[index] ?? nil
     }
     

@@ -1,22 +1,27 @@
 import Foundation
 
 final class Memo: NSObject, Codable {
-
+    
     let title: String
     let content: String
     let name: String
-    let status: MemoContainerType
+    let status: MemoStatus
     
-    init(title: String, content: String, name: String, status: MemoContainerType) {
+    init(title: String, content: String, name: String, status: MemoStatus) {
         self.title = title
         self.content = content
         self.name = name
         self.status = status
         super.init()
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case content
+        case name = "author"
+        case status
+    }
 }
-
-
 
 extension Memo: NSItemProviderWriting, NSItemProviderReading {
     
@@ -49,9 +54,9 @@ extension Memo: NSItemProviderWriting, NSItemProviderReading {
         } catch {
             fatalError()
         }
-
+        
     }
-
+    
 }
 
 

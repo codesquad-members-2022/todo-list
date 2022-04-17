@@ -8,7 +8,7 @@ final class MemoCanvasViewController: UIViewController {
         return view
     }()
     
-    private (set) var memoTableViewControllers: [MemoContainerType: MemoContainerViewController] = [:]
+    private (set) var memoTableViewControllers: [MemoStatus: MemoContainerViewController] = [:]
     private (set) var memoManager: MemoManager = MemoManager()
     
     override func didMove(toParent parent: UIViewController?) {
@@ -22,7 +22,7 @@ final class MemoCanvasViewController: UIViewController {
     }
     
     private func initProperties() {
-        for containerType in MemoContainerType.allCases {
+        for containerType in MemoStatus.allCases {
             addTableViewController(containerType: containerType)
         }
     }
@@ -35,7 +35,6 @@ final class MemoCanvasViewController: UIViewController {
         
     }
     
-    private func addTableViewController(containerType: MemoContainerType) {
         let tableViewController = MemoContainerViewController(containerType: containerType)
         memoTableViewControllers[containerType] = tableViewController
         
@@ -68,11 +67,11 @@ final class MemoCanvasViewController: UIViewController {
         }
     }
     
-    func removeSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath) {
+    func removeSelectedMemoModel(containerType: MemoStatus, indexPath: IndexPath) {
         memoManager.removeSelectedMemoModel(containerType: containerType, index: indexPath.section)
     }
     
-    func insertSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath, memoModel: Memo) {
+    func insertSelectedMemoModel(containerType: MemoStatus, indexPath: IndexPath, memoModel: Memo) {
         memoManager.insertSelectedMemoModel(containerType: containerType, index: indexPath.section, memo: memoModel)
     }
     
@@ -85,12 +84,11 @@ final class MemoCanvasViewController: UIViewController {
     
     @objc func didMemoAdd(_ notification: Notification) {
         if let memo = notification.userInfo?[UserInfoKeys.memo] as? Memo {
-            addTableViewModel(memo: memo, containerType: memo.status, index: 0)
             updateView(containerType: memo.status)
         }
     }
     
-    private func updateView(containerType: MemoContainerType) {
+    private func updateView(containerType: MemoStatus) {
         memoTableViewControllers[containerType]?.memoContainerView.tableView.reloadData()
         
         guard let currentMemoCount = memoTableViewControllers[containerType]?.memoContainerView.tableView.numberOfSections else {
