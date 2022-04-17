@@ -1,5 +1,10 @@
-package kr.codesquad.todolist.card;
+package kr.codesquad.todolist.controller;
 
+import kr.codesquad.todolist.controller.request.CardRequestDto;
+import kr.codesquad.todolist.controller.response.CardResponseDto;
+import kr.codesquad.todolist.domain.Card;
+import kr.codesquad.todolist.service.CardService;
+import kr.codesquad.todolist.service.HistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,34 +22,32 @@ public class CardApiController {
     public static final String API_USER_KEY = "user";
 
     private final CardService cardService;
+    private final HistoryService historyService;
 
     @GetMapping
     public ResponseEntity readAll(@RequestHeader HttpHeaders headers) {
         String userId = headers.getFirst(API_USER_KEY);
-        CardDto.CardsResponse response = cardService.readAllFrom(Long.parseLong(userId));
+        CardResponseDto.CardsResponse response = cardService.readAllFrom(Long.parseLong(userId));
         return ResponseEntity.ok().body(response);
     }
 
     @PostMapping
-    public ResponseEntity write(@RequestBody @Valid CardDto.WriteRequest request) {
-        CardDto.Redirection response = cardService.create(request);
+    public ResponseEntity write(@RequestBody @Valid CardRequestDto.WriteRequest request) {
+        CardResponseDto.Redirection response = cardService.create(request);
         return ResponseEntity.status(HttpStatus.FOUND)
-                .location(URI.create(getRedirectUri(response)))
+                .location(URI.create(CardService.ERROR_MESSAGE
+                    .apply(API_TODO_REDIRECT_URI, response.getCardId())))
                 .build();
     }
 
     @GetMapping("/card/{id}")
     public ResponseEntity readOneToWrite(@PathVariable("id") Long cardId) {
-        CardDto.CardResponse response = cardService.readFrom(cardId);
+        CardResponseDto.CardResponse response = cardService.readFrom(cardId);
         return ResponseEntity.ok().body(response);
     }
 
-    private String getRedirectUri(CardDto.Redirection response) {
-        return String.format(API_TODO_REDIRECT_URI, response.getCardId());
-    }
-
     @PatchMapping("/card/{id}")
-    public void edit(@PathVariable("id") Long cardId, @RequestBody @Valid CardDto.EditRequest request) {
+    public void edit(@PathVariable("id") Long cardId, @RequestBody @Valid CardRequestDto.EditRequest request) {
         cardService.updateOf(cardId, request);
     }
 
@@ -54,12 +57,14 @@ public class CardApiController {
     }
 
     @PatchMapping("/card/{id}/move")
-    public ResponseEntity move(@PathVariable("id") Long cardId,
-                               @RequestBody @Valid CardDto.MoveRequest request) {
+    public void move(@PathVariable("id") Long cardId, @RequestBody @Valid CardRequestDto.MoveRequest request) {
         Card.TodoStatus toStatus = Card.TodoStatus.from(request.getToStatus());
         Long toOrder = request.getToOrder();
         cardService.moveCardTo(cardId, toStatus, toOrder);
+    }
 
-		return ResponseEntity.ok().build();
+    @GetMapping("/history")
+    public HistoryDTO.Response readAllHistories(@RequestHeader(API_USER_KEY) Long userId) {
+        return historyService.readAllFrom(userId);
     }
 }

@@ -2,17 +2,24 @@
 
 
 [swagger 실행 URL](http://localhost:8080/swagger-ui/index.html)
+[ERD](https://www.erdcloud.com/d/MR5jNfSsokwxpxJ3Z)
+
 
 ### Api 정의서
 
-| URL            | 기능                              |
-|----------------|---------------------------------|
-| GET /api/todo  | `해야할 일/하고있는 일/완료한 일` 별 카드 목록 조회 |
-| POST /api/todo | 새 카드 등록                         |
+| URL                            | 기능                              |
+|--------------------------------|---------------------------------|
+| GET /api/todo                  | `해야할 일/하고있는 일/완료한 일` 별 카드 목록 조회 |
+| POST /api/todo                 | 새 카드 등록                         |
+| GET /api/todo/card/{id}        | 카드 상세 조회                        |
+| PATCH /api/todo/card/{id}      | 카드 수정 (제목/내용)                   |
+| DELETE /api/todo/card/{id}     | 카드 삭제 하기                       |
+| PATCH /api/todo/card/{id}/move | 카드 이동 하기                    |
+| GET /api/todo/history          | 나의 활동 기록 List 반환         |
 
 <br>
 
-### DB(todo_list_table)와 서버(Card)의 분리
+### DB(todo_list_table)와 서버(Card)
 
 | server (Card)  | DB (todo_list_table) |
 |----------------|----------------------|
@@ -107,7 +114,7 @@
 - `검증` 제목은 50글자 이하여야 한다.
 - `검증` 내용은 500글자 이하여야 한다.
 - 전달받은 데이터 검증 처리 후 todo_list_table DB 저장을 실행한다.
-- 동일 작업을 todo_user_history_table 에도 등록 기록을 저장한다.
+- 동일 작업을 todo_history_table 에도 등록 기록을 저장한다.
 - PRG 패턴 결과 응답코드 : 200
   - POST 이후 GET /{user-id}/card/{id} 로 요청 
   - 쓰기 요청 결과 redirect 통한 조회로직에는 사용자와 카드 정보 조회를 통해 데이터 무결성 확인 할 수 있다고 생각
@@ -119,6 +126,45 @@
 
 </details>
 
+
+<details>
+<summary>카드 이동하기</summary>
+
+#### 요구사항
+
+- 사용자는 임의로 카드의 위치 (칼럼, 칼럼 내 정렬 순서) 를 변경할 수 있다.
+  - 사용자는 한 번에 하나의 카드를 선택하여 특정 위치로 이동을 시도할 수 있다. 
+  
+#### 비즈니스 로직
+
+- **PATCH /api/todo/card/{id}** 경로를 통해 요청 받는다.
+- path variable로 카드 id, body로 이동 목표 (칼럼 이름, 칼럼 내 정렬 순서)를 전달 받는다.
+- 카드의 현재 위치와 목표 위치가 같을 경우 아무 동작도 하지 않는다.
+- todo_list_table에 저장된 카드들의 정렬 순서(order)를 다음과 같은 순서로 업데이트한다. 
+- 같은 칼럼 내에서 이동이 발생할 경우:
+  - 높은 순서에서 낮은 순서로 이동하면 원래 위치와 목표 위치 사이의 카드(목표 위치에 원래 있었던 카드 포함)들의 정렬 순서를 1씩 증가시킨다. 
+  - 낮은 순서에서 높은 순서로 이동하면 원래 위치와 목표 위치 사이의 카드(목표 위치에 원래 있었던 카드 포함)들의 정렬 순서를 1씩 감소시킨다.
+- 다른 칼럼으로 이동할 경우:
+  - 목표 위치보다 높은 순서의 카드(목표 위치에 원래 있었던 카드 포함)들의 정렬 순서를 1씩 증가시킨다.
+- 이동하는 카드의 todo_status와 order를 목표 위치의 값으로 업데이트한다. 
+- 다른 칼럼으로 이동하였을 경우 todo_history_table 에 이동 기록을 저장한다. 
+
+</details>
+
+<details>
+<summary>활동 내역 조회</summary>
+
+#### 요구사항
+
+- 사용자는 자신의 카드 등록, 삭제, 변경, 이동 내역을 조회할 수 있다.
+
+#### 비즈니스 로직
+
+- **GET /api/todo/history** 경로를 통해 요청 받는다.
+- 커스텀 HTTP 헤더 `user` 를 통해 사용자 ID를 전달 받는다.
+- todo_history_table에서 사용자 ID가 일치하는 레코드를 조회하여 응답으로 전송한다.
+
+</details>
 
 ---
 
@@ -134,17 +180,12 @@
   - 카드 목록 조회 기능 구현
   - 카드 이동 요청 기능 구현
   - 카드 수정/삭제 기능 구현
-  - **리뷰 수정 할 것**
-    - 메서드 컨벤션상 public을 상단에 올리시는 것을 추천합니다.
-      - CardService updateOf()
-    - 패키징을 통해 dto의 사용 레이어를 구분해보면 어떨까요?
-      흐름을 볼 떄 request, response는 controller 영역에서 쓰이는 dto들인 것 같습니다.
-      최소한 controller에서 쓰이는 dto, service에서 쓰이는 dto 정도는 분리가 되어야 할 것 같습니다.
-
-
+  - 카드 활동 기록 기능 구현 
+    
 
 <details markdown="1">
 <summary>📑 from reviewer </summary>
+
 
 #### 참고
 
@@ -191,9 +232,27 @@
   public static final int COLUMN_INDEX_DELETED = 5;
   ```
 
+
 ### 2nd
 
 [1주차 3th PR](https://github.com/codesquad-members-2022/todo-list/pull/126)
+
+``` java
+    public CardDto.WriteResponse readOf(Long id) {
+      String errorMessage = String.format(ERROR_OF_CARD_ID, id);
+      Card cardInfo = cardDao.findById(id)
+          .orElseThrow(() -> new IllegalArgumentException(errorMessage));
+      return new CardDto.WriteResponse(cardInfo);
+  }
+```
+
+
+> `nit`
+> - 이것은 아마 lambda의 function을 이용하면 좀 더 용이하게 바꿔줄 수 있을 것 같아요.
+> - 개선은 하셨지만 여전히 errorMessage가 스택에 쌓이고 있네요.
+>  지금은 이 부분이 문제가 있다는 것을 인지하시고 차후에 개선하셔도 좋습니다.
+>  <br>
+> 이런 것을 나아가 customException으로 분리할 수 있습니다.
 
 
 ### 3rd
@@ -206,7 +265,7 @@
 - GET /api/todo 는 api 해석상 조회아닌가요?
   - 이후 welcomePage로 가는지 여부는 `백엔드의 관심사`가 아닌 것 같습니다.
 - 메서드 컨벤션상 public을 상단에 올리시는 것을 추천합니다.
-- 패키징을 통해 dto의 사용 레이어를 구분해보면 어떨까요?
+- **패키징을 통해 dto의 사용 레이어를 구분해보면 어떨까요?**
   흐름을 볼 떄 request, response는 controller 영역에서 쓰이는 dto들인 것 같습니다.
   최소한 controller에서 쓰이는 dto, service에서 쓰이는 dto 정도는 분리가 되어야 할 것 같습니다.
 - forEach() -> map() or collect()
@@ -233,6 +292,5 @@
 - to라는 접두어는 A객체가 B객체로 변한다는 의미로 A객체의 메서드로서 존재하는 것이 직관적입니다.
   지금의 로직은 mapper와 같은 단어가 더 적합해 보입니다.
 
-
-
+  
 </details>

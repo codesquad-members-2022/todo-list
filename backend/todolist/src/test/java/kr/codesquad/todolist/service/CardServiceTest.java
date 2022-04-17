@@ -1,11 +1,9 @@
-package kr.codesquad.todolist.card;
+package kr.codesquad.todolist.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
-
+import kr.codesquad.todolist.controller.request.CardRequestDto;
+import kr.codesquad.todolist.controller.response.CardResponseDto;
+import kr.codesquad.todolist.dao.CardDao;
+import kr.codesquad.todolist.domain.Card;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +15,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CardServiceTest {
@@ -34,11 +39,11 @@ class CardServiceTest {
 	@DisplayName("카드 등록 요청시 전달받은 카드정보를 DB에 저장되고, 생성된 card-id를 확인한다.")
 	@Test
 	void create_card_ok() {
-		CardDto.WriteRequest expected = getWriteRequestDto();
+		CardRequestDto.WriteRequest expected = getWriteRequestDto();
 		when(cardDao.save(any()))
 			.thenReturn(getCard());
 
-		CardDto.Redirection actual = cardService.create(expected);
+		CardResponseDto.Redirection actual = cardService.create(expected);
 
 		assertThat(actual.getCardId()).isNotZero();
 	}
@@ -59,7 +64,7 @@ class CardServiceTest {
 		when(cardDao.findById(anyLong()))
 			.thenReturn(Optional.of(expected));
 
-		CardDto.CardResponse actual = cardService.readFrom(CARD_TEST_USER_ID);
+		CardResponseDto.CardResponse actual = cardService.readFrom(CARD_TEST_USER_ID);
 
 		assertAll(
 			() -> assertThat(actual.getCardId()).isEqualTo(expected.getCardId()),
@@ -87,7 +92,7 @@ class CardServiceTest {
 		when(cardDao.findGroupByTodoStatus(anyLong()))
 			.thenReturn(List.of(getCardStatusNumber()));
 
-		CardDto.CardsResponse actual = cardService.readAllFrom(CARD_TEST_USER_ID);
+		CardResponseDto.CardsResponse actual = cardService.readAllFrom(CARD_TEST_USER_ID);
 
 		assertAll(
 			() -> assertThat(actual.getData().get(CARD_TEST_STATUS.getText()).getCount()).isNotZero(),
@@ -102,8 +107,8 @@ class CardServiceTest {
 			CARD_TEST_USER_ID);
 	}
 
-	private CardDto.WriteRequest getWriteRequestDto() {
-		CardDto.WriteRequest request = new CardDto.WriteRequest();
+	private CardRequestDto.WriteRequest getWriteRequestDto() {
+		CardRequestDto.WriteRequest request = new CardRequestDto.WriteRequest();
 		request.setSubject(CARD_TEST_SUBJECT);
 		request.setContent(CARD_TEST_CONTENT);
 		request.setStatus(CARD_TEST_STATUS.getText());

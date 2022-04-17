@@ -1,19 +1,16 @@
-package kr.codesquad.todolist.card;
+package kr.codesquad.todolist.controller.request;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import kr.codesquad.todolist.domain.Card;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-public class CardDto {
+public class CardRequestDto {
 	@Data
 	@NoArgsConstructor
 	public static class WriteRequest {
@@ -37,58 +34,6 @@ public class CardDto {
 				.createdAt(LocalDateTime.now())
 				.userId(userId)
 				.build();
-		}
-	}
-
-	@Data
-	public static class CardResponse {
-		private Long cardId;
-		private String subject;
-		private String content;
-		private String status;
-		private Long order;
-		private Long userId;
-
-		public CardResponse(Card card) {
-			this.cardId = card.getCardId();
-			this.subject = card.getSubject();
-			this.content = card.getContent();
-			this.status = card.getStatus().getText();
-			this.order = card.getOrder();
-			this.userId = card.getUserId();
-		}
-	}
-
-	@Data
-	public static class Redirection {
-		private Long cardId;
-
-		public Redirection(Long cardId) {
-			this.cardId = cardId;
-		}
-	}
-
-	@Data
-	public static class CardsResponse {
-		private final Map<String, CardOfCountsAndListsResponse> data;
-
-		public CardsResponse(List<CardByStatus> cards) {
-			this.data = cards.stream()
-				.collect(Collectors.toMap(
-					key -> key.getStatus().getText(),
-					val -> new CardOfCountsAndListsResponse(val.getCount(), val.toResponse())
-				));
-		}
-	}
-
-	@Data
-	public static class CardOfCountsAndListsResponse {
-		private Long count;
-		private List<CardResponse> cards;
-
-		public CardOfCountsAndListsResponse(Long count, List<CardResponse> cardsByStatus) {
-			this.count = count;
-			this.cards = cardsByStatus;
 		}
 	}
 

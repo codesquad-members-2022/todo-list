@@ -1,5 +1,6 @@
-package kr.codesquad.todolist.card;
+package kr.codesquad.todolist.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @Builder
+@AllArgsConstructor
 public class Card {
 	private Long cardId;
 	private String subject;
@@ -17,10 +19,6 @@ public class Card {
 	private boolean deleted;
 	private LocalDateTime createdAt;
 	private Long userId;
-
-	public boolean isPositionedAt(TodoStatus toStatus, Long toOrder) {
-		return toStatus.equals(this.status) && toOrder.equals(this.order);
-	}
 
 	@Getter
 	@RequiredArgsConstructor
@@ -40,27 +38,31 @@ public class Card {
 		}
 	}
 
-	protected Long getCardId() {
+	public boolean isPositionedAt(TodoStatus toStatus, Long toOrder) {
+		return toStatus.equals(this.status) && toOrder.equals(this.order);
+	}
+
+	public Long getCardId() {
 		return cardId;
 	}
 
-	protected void setCardId(Long cardId) {
+	public void setCardId(Long cardId) {
 		this.cardId = cardId;
 	}
 
-	protected String getSubject() {
+	public String getSubject() {
 		return subject;
 	}
 
-	protected String getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	protected TodoStatus getStatus() {
+	public TodoStatus getStatus() {
 		return status;
 	}
 
-	protected Long getOrder() {
+	public Long getOrder() {
 		return order;
 	}
 
@@ -68,11 +70,11 @@ public class Card {
 		this.order = order;
 	}
 
-	protected LocalDateTime getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	protected Long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
