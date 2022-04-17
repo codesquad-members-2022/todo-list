@@ -9,7 +9,7 @@ final class JSONHandler {
         return try? encoder.encode(model)
     }
     
-    static func convertJSONToObject<T: Decodable>(data: Data) -> T? {
+    static func convertJSONToObject<T: Decodable>(data: Data, targetType: T.Type) -> T? {
         return try? decoder.decode(T.self, from: data)
     }
     

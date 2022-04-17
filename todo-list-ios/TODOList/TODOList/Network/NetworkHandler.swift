@@ -31,7 +31,7 @@ enum HTTPError: Error, CustomStringConvertible {
 }
 
 protocol HttpResponseHandlable{
-    func handleSuccess(data: Data, taskType: Task)
+    func handleSuccess(data: Data, successHandler:((Data)->Void)?)
     func handleFailure(error: Error)
 }
 
@@ -42,30 +42,43 @@ final class NetworkHandler {
         return session
     }()
     
-    static func request(data: Data, url: URL, methodType: HTTPMethod, taskType: Task, responseHandler: HttpResponseHandlable) {
+    static func request(data: Data, url: URL, methodType: HTTPMethod, responseHandler: HttpResponseHandlable, successHandler:@escaping (Data)->Void) {
         var request = URLRequest(url: url)
         request.httpMethod = methodType.rawValue
         request.addValue("application/json", forHTTPHeaderField: "content-type")
+        request.httpBody = data
         session.dataTask(with: request, completionHandler: { data, response, error in
-            
             if let error = error {
-                handleResponse(target: responseHandler, result: .failure(HTTPError.normalError(error: error)), taskType: taskType)
-            }
-            
-            guard let data = data, let response = response else {
-                handleResponse(target: responseHandler, result: .failure(HTTPError.invalidResponseError), taskType: taskType)
+                handleResponse(target: responseHandler, result: .failure(HTTPError.normalError(error: error)), successHandler: nil)
                 return
             }
             
-            handleResponse(target: responseHandler, result: .success(data), taskType: taskType)
-                
+            guard let data = data, let response = response else {
+                handleResponse(target: responseHandler, result: .failure(HTTPError.invalidResponseError), successHandler: nil)
+                return
+            }
+            
+            handleResponse(target: responseHandler, result: .success(data), successHandler: successHandler)
         }).resume()
     }
     
-    static func handleResponse(target: HttpResponseHandlable, result: Result<Data,HTTPError>, taskType: Task) {
+    /*
+        서버가 비활성화되있을 경우,
+        아래 mockRequest를 호출해서, 응답을 받았다고 가정하고 응답 처리 로직을 실행
+     */
+    static func mockRequest(data: Data, url: URL, methodType: HTTPMethod, responseHandler: HttpResponseHandlable, successHandler:@escaping (Data)->Void) {
+        guard let path = Bundle.main.url(forResource: "sample", withExtension: "json") else { return }
+        guard let data = try? Data(contentsOf: path) else {
+            print("json not exists")
+            return
+        }
+        handleResponse(target: responseHandler, result: .success(data), successHandler: successHandler)
+    }
+    
+    static func handleResponse(target: HttpResponseHandlable, result: Result<Data,HTTPError>, successHandler:((Data)->Void)?) {
         switch result {
         case .success(let data):
-            target.handleSuccess(data: data, taskType: taskType)
+            target.handleSuccess(data: data, successHandler: successHandler)
         case .failure(let error):
             target.handleFailure(error: error)
         }
