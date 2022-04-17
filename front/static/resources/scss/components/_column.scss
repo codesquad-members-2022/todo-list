@@ -4,7 +4,6 @@
 
   &-wrap {
     @include flex-box(flex-start, flex-start, 16px);
-    min-height: $column-wrap-height;
     overflow-y: auto;
   }
 
