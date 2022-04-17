@@ -1,22 +1,9 @@
 import {
-  getTodos,
   postTodo,
   putUpdatedCardData,
   deleteServerCardData,
 } from "../model/cardModel.js";
-import {
-  renderColumn,
-  getUpdatedCardContent,
-  addDeleteEvent,
-} from "../view/cardView.js";
-
-export async function renderTodos() {
-  const todos = await getTodos();
-  renderColumn("#have-to-do-column", todos.haveToDoColumn);
-  renderColumn("#doing-column", todos.doingColumn);
-  renderColumn("#done-column", todos.doneColumn);
-  addDeleteEvent();
-}
+import { getUpdatedCardContent } from "../view/cardView.js";
 
 export function addServerCardData(card) {
   const cardData = getUpdatedCardContent(card);
