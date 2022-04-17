@@ -1,4 +1,4 @@
-package com.codesquad.aos.todolist.ui.dialog
+package com.codesquad.aos.todolist.ui.dialog.edit
 
 import android.content.Context
 import android.graphics.Color
@@ -6,17 +6,25 @@ import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.codesquad.aos.todolist.R
 import com.codesquad.aos.todolist.databinding.FragmentCardDialogBinding
+import com.codesquad.aos.todolist.databinding.FragmentCardDialogForEditBinding
 import com.codesquad.aos.todolist.ui.TodoViewModel
 
-class TodoDialogFragment : DialogFragment() {
+class CardEditDialogFragment : DialogFragment() {
 
-    private lateinit var binding: FragmentCardDialogBinding
+    private lateinit var binding: FragmentCardDialogForEditBinding
     private val viewModel: TodoViewModel by activityViewModels()
+
+    private var order = -1
+    private var cardId = -1
+    private var section: String? = ""
+    private var title: String? = ""
+    private var content: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +35,21 @@ class TodoDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCardDialogBinding.inflate(inflater, container, false)
+        binding = FragmentCardDialogForEditBinding.inflate(inflater, container, false)
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
+        val mArgs = arguments
+        mArgs?.let {
+            order = it.getInt("order")
+            cardId = it.getInt("id")
+            section = it.getString("section")
+            title = it.getString("title")
+            content = it.getString("content")
+        }
+
+        Log.d("AppTest", "${order}, ${cardId}, ${title}, ${content}, ${section}")
 
         return binding.root
     }
@@ -55,26 +74,35 @@ class TodoDialogFragment : DialogFragment() {
             binding.cvDialog.layoutParams.width = width
         }
 
-        binding.btnEnroll.setOnClickListener {
+        binding.etEnterTitle.setText(title)
+        binding.etEnterContents.setText(content)
+
+        binding.btnEdit.setOnClickListener {
             if (binding.etEnterContents.text.isNotEmpty() && binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addCard(
-                    binding.etEnterTitle.text.toString(),
+                viewModel.editCard(
+                    cardId,
                     binding.etEnterContents.text.toString(),
-                    "todo"
+                    order,
+                    section!!,
+                    binding.etEnterTitle.text.toString()
                 )
                 dismiss()
             } else if (binding.etEnterTitle.text.isNotEmpty()) {
-                viewModel.addCard(
-                    binding.etEnterTitle.text.toString(),
-                    "",
-                    "todo"
+                viewModel.editCard(
+                    cardId,
+                    binding.etEnterContents.text.toString(),
+                    order,
+                    section!!,
+                    ""
                 )
                 dismiss()
             } else if (binding.etEnterContents.text.isNotEmpty()) {
-                viewModel.addCard(
-                    getString(R.string.new_todo),
-                    binding.etEnterContents.text.toString(),
-                    "todo"
+                viewModel.editCard(
+                    cardId,
+                    "",
+                    order,
+                    section!!,
+                    binding.etEnterTitle.text.toString()
                 )
                 dismiss()
             } else {

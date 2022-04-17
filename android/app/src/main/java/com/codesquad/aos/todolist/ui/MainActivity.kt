@@ -10,8 +10,11 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,10 +24,14 @@ import com.codesquad.aos.todolist.common.utils.VerticalItemDecorator
 import com.codesquad.aos.todolist.data.model.Card
 import com.codesquad.aos.todolist.databinding.ActivityMainBinding
 import com.codesquad.aos.todolist.ui.adapter.LogCardListAdapter
+import com.codesquad.aos.todolist.ui.adapter.LogPagingAdapter
 import com.codesquad.aos.todolist.ui.adapter.TodoCardListAdapter
 import com.codesquad.aos.todolist.ui.dialog.CompleteDialogFragment
 import com.codesquad.aos.todolist.ui.dialog.ProgressDialogFragment
 import com.codesquad.aos.todolist.ui.dialog.TodoDialogFragment
+import com.codesquad.aos.todolist.ui.dialog.edit.CardEditDialogFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import kotlin.math.min
 
 class MainActivity : AppCompatActivity(), DataChangeListener {
@@ -33,9 +40,11 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     private lateinit var todoCardListAdapter: TodoCardListAdapter
     private lateinit var progressCardListAdapter: TodoCardListAdapter
     private lateinit var completeCardListAdapter: TodoCardListAdapter
-    private lateinit var logCardListAdapter: LogCardListAdapter
 
-    private val viewModel: TodoViewModel by viewModels {ViewModelFactory(this)}
+    private lateinit var logCardListAdapter: LogCardListAdapter
+    private lateinit var logPaingAdapter: LogPagingAdapter
+
+    private val viewModel: TodoViewModel by viewModels { ViewModelFactory(this) }
     private val dragListener = DragListener(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,23 +60,47 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
         setTodoRecyclerView()
         setProgressRecyclerView()
         setCompleteRecyclerView()
+
         setLogRecyclerView()
 
-        //
+        setProgressBar()
+
+        // 시작 시 전체 데이터 가져오기
         viewModel.getCardItems()
     }
 
+    // 할 일 전용
     private fun setTodoRecyclerView() {
         todoCardListAdapter = TodoCardListAdapter(
-            { deleteIndex ->
-                viewModel.deleteTodo(deleteIndex)
-            }, this
-        )
+            { cardId ->
+                viewModel.deleteCard(cardId)
+            }, this, {
+                // CardEidtDialog를 열면서 Card 객체(it) 전달하기
+                val args = Bundle()
+                args.putString("title", it.title)
+                args.putInt("id", it.cardId)
+                args.putString("section", it.section)
+                args.putString("content", it.content)
+                args.putInt("order", it.order)
+
+                val cardEditDialogFragment = CardEditDialogFragment()
+                cardEditDialogFragment.arguments = args
+                cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
+            }, {
+                val preOrder = -1
+                val nextOrder = completeCardListAdapter.getFirstElementOrder()
+                val cardId = it
+                val prevSection = "todo"
+                val nextSection = "done"
+
+                viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            })
+
         binding.rvTodo.adapter = todoCardListAdapter
         binding.rvTodo.layoutManager = LinearLayoutManager(this)
         binding.rvTodo.addItemDecoration(VerticalItemDecorator(15))
 
-        val touchHelper = TodoTouchHelper(todoCardListAdapter, viewModel).apply {
+        val touchHelper = TodoTouchHelper(todoCardListAdapter).apply {
             setClamp(170f)  // 170 이
         }
 
@@ -80,23 +113,44 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
             false
         }
 
+        registerForContextMenu(binding.rvTodo)
         // 더미데이터
         //viewModel.addTodo("rvTODO", "TAG 1")
         //viewModel.addTodo("rvTODO", "TAG 2")
     }
 
     private fun setProgressRecyclerView() {
-        progressCardListAdapter = TodoCardListAdapter (
-            { deleteIndex ->
-                viewModel.deleteProgress(deleteIndex)
-            }, this)
+        progressCardListAdapter = TodoCardListAdapter(
+            { cardId ->
+                viewModel.deleteCard(cardId)
+            }, this, {
+                val args = Bundle()
+                args.putString("title", it.title)
+                args.putInt("id", it.cardId)
+                args.putString("section", it.section)
+                args.putString("content", it.content)
+                args.putInt("order", it.order)
+
+                val cardEditDialogFragment = CardEditDialogFragment()
+                cardEditDialogFragment.arguments = args
+                cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
+            },  {
+                val preOrder = -1
+                val nextOrder = completeCardListAdapter.getFirstElementOrder()
+                val cardId = it
+                val prevSection = "doing"
+                val nextSection = "done"
+
+                viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            })
+
         binding.rvProgress.adapter = progressCardListAdapter
         binding.rvProgress.layoutManager = LinearLayoutManager(this)
         binding.rvProgress.addItemDecoration(VerticalItemDecorator(15))
 
         binding.rvProgress.setOnDragListener(progressCardListAdapter.dragInstance)
 
-        val touchHelper = TodoTouchHelper(progressCardListAdapter, viewModel).apply {
+        val touchHelper = TodoTouchHelper(progressCardListAdapter).apply {
             setClamp(170f)  // 170 이
         }
 
@@ -112,17 +166,31 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     }
 
     private fun setCompleteRecyclerView() {
-        completeCardListAdapter = TodoCardListAdapter (
-            { deleteIndex ->
-            viewModel.deleteComplete(deleteIndex)
-            }, this)
+        completeCardListAdapter = TodoCardListAdapter(
+            { cardId ->
+                viewModel.deleteCard(cardId)
+            }, this, {
+                val args = Bundle()
+                args.putString("title", it.title)
+                args.putInt("id", it.cardId)
+                args.putString("section", it.section)
+                args.putString("content", it.content)
+                args.putInt("order", it.order)
+
+                val cardEditDialogFragment = CardEditDialogFragment()
+                cardEditDialogFragment.arguments = args
+                cardEditDialogFragment.show(supportFragmentManager, "EditDialog")
+            }, {
+                Log.d("AppTest", "이미 '완료한 일' 목록에 위치하고 있습니다")
+            })
+
         binding.rvComplete.adapter = completeCardListAdapter
         binding.rvComplete.layoutManager = LinearLayoutManager(this)
         binding.rvComplete.addItemDecoration(VerticalItemDecorator(15))
 
         binding.rvComplete.setOnDragListener(completeCardListAdapter.dragInstance)
 
-        val touchHelper = TodoTouchHelper(completeCardListAdapter, viewModel).apply {
+        val touchHelper = TodoTouchHelper(completeCardListAdapter).apply {
             setClamp(170f)  // 170 이
         }
 
@@ -139,12 +207,30 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
     private fun setLogRecyclerView() {
         logCardListAdapter = LogCardListAdapter()
-        binding.rvLog.adapter = logCardListAdapter
+        logPaingAdapter = LogPagingAdapter()
+
+        binding.rvLog.adapter = logPaingAdapter
         binding.rvLog.layoutManager = LinearLayoutManager(this)
 
-        viewModel.addLog("오늘 할일을 추가했습니다", "1분전")
+        // 로딩 상태
+        logPaingAdapter.addLoadStateListener { combinedLoadStates ->
+            binding.progressBarLog?.isVisible = combinedLoadStates.source.refresh is LoadState.Loading
+
+            if(combinedLoadStates.source.refresh is LoadState.Error){
+                Log.d("AppTest", "loading error")
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.logFlow
+                .collectLatest { logX ->
+                    logPaingAdapter.submitData(logX)
+                }
+        }
+
+       /* viewModel.addLog("오늘 할일을 추가했습니다", "1분전")
         viewModel.addLog("오늘 할일을 추가했습니다", "2분전")
-        viewModel.addLog("오늘 할일을 추가했습니다", "3분전")
+        viewModel.addLog("오늘 할일을 추가했습니다", "3분전")*/
     }
 
 
@@ -194,7 +280,8 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
 
             override fun onDrawerOpened(drawerView: View) {
                 Log.d("AppTest", "onDrawerOpened called")
-
+                viewModel.getLogs()  // 우측 드로어 열린 경우 로그 데이터 가져오기
+                //binding.rvLog.scrollToPosition(0)
             }
 
             override fun onDrawerClosed(drawerView: View) {
@@ -233,36 +320,47 @@ class MainActivity : AppCompatActivity(), DataChangeListener {
     }
 
     // implement DataChangeListener
-    override fun swapData(rvType: Int, sourceIndex: Int, targetIndex: Int) {
-        when(rvType){
-            1 -> viewModel.changeTodoOrder(sourceIndex, targetIndex)
-            2 -> viewModel.changeProgressOrder(sourceIndex, targetIndex)
-            3 -> viewModel.changeCompleteOrder(sourceIndex, targetIndex)
+    override fun swapData(rvType: Int, cardId: Int, nextOrder: Int, preOrder: Int, nextSection: String, prevSection: String) {
+        when (rvType) {
+            1 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            2 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            3 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
         }
     }
 
-    override fun addDataAtEnd(rvType: Int, card: Card) {
-        when(rvType){
+    /*override fun addDataAtEnd(rvType: Int, cardId: Int, nextOrder: Int, preOrder: Int, nextSection: String, prevSection: String) {
+        when (rvType) {
             1 -> viewModel.addTodoCard(card)
             2 -> viewModel.addProgressCard(card)
             3 -> viewModel.addCompleteCard(card)
         }
-    }
+    }*/
 
-    override fun addDataAtInx(rvType: Int, tartgetIndex: Int, card: Card) {
-        when(rvType){
-            1 -> viewModel.addTodoCardAtInx(tartgetIndex, card)
-            2 -> viewModel.addProgressCardAtInx(tartgetIndex, card)
-            3 -> viewModel.addCompleteCardAtInx(tartgetIndex, card)
+    override fun addDataAtInx(rvType: Int, cardId: Int, nextOrder: Int, preOrder: Int, nextSection: String, prevSection: String) {
+        when (rvType) {
+            1 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            2 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
+            3 -> viewModel.moveCard(cardId, nextOrder, preOrder, nextSection, prevSection)
         }
     }
 
     override fun deleteData(rvType: Int, targetIndex: Int) {
-        when(rvType){
+        when (rvType) {
             1 -> viewModel.deleteTodo(targetIndex)
             2 -> viewModel.deleteProgress(targetIndex)
             3 -> viewModel.deleteComplete(targetIndex)
         }
     }
 
+    fun setProgressBar() {
+        viewModel.progressVisible.observe(this) {
+            binding.progressBar?.visibility = if (it) View.VISIBLE else View.GONE
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 앱 선택기로 빠지는 등 앱에서 잠시 멀어진 후 복귀 시 카드들의 order 값 재배치 위함
+        viewModel.batchProcess()
+    }
 }

@@ -28,7 +28,6 @@ class LogCardListAdapter : ListAdapter<Log, LogCardListAdapter.LogCardViewHolder
         val binding: ItemLogBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.item_log, parent, false)
         return LogCardViewHolder(binding)
-
     }
 
     override fun onBindViewHolder(holder: LogCardViewHolder, position: Int) {
