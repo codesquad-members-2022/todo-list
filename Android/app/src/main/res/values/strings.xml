@@ -6,4 +6,12 @@
     <string name="close">Close</string>
     <string name="menu">Menu</string>
     <string name="user_image">User Image</string>
+    <string name="todo_add_content_desc">Todo Add</string>
+    <string name="empty_title_string">제목을 입력하세요</string>
+    <string name="empty_body_string">내용을 입력하세요</string>
+    <string name="dialog_add_title">새로운 카드 추가</string>
+    <string name="dialog_update_title">카드 수정</string>
+    <string name="dialog_add_button">등록</string>
+    <string name="dialog_update_button">수정</string>
+    <string name="dialog_close_button">취소</string>
 </resources>

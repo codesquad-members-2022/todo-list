@@ -10,4 +10,9 @@
 
     <color name="background">#F5F5F7</color>
     <color name="transparent">#00ff0000</color>
+    <color name="number_badge_bg">#9e9e9e</color>
+    <color name="btn_ok_string_disable">#66FFFFFF</color>
+    <color name="btn_ok_string_enable">#FFFFFF</color>
+    <color name="btn_close_bg">#E0E0E0</color>
+    <color name="btn_close_string">#828282</color>
 </resources>

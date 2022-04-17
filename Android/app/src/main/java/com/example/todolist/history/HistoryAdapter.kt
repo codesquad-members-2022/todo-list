@@ -1,4 +1,4 @@
-package com.example.todo_list.history
+package com.example.todolist.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_list.R
-import com.example.todo_list.databinding.HistoryItemBinding
-import com.example.todo_list.history.data.HistoryCard
+import com.example.todolist.R
+import com.example.todolist.databinding.HistoryItemBinding
+import com.example.todolist.history.data.HistoryCard
 
 class HistoryAdapter : ListAdapter<HistoryCard, HistoryAdapter.HistoryViewHolder>(diffUtil) {
     inner class HistoryViewHolder(private val binding: HistoryItemBinding) : RecyclerView.ViewHolder(binding.root) {

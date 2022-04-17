@@ -1,12 +1,12 @@
-package com.example.todo_list.history
+package com.example.todolist.history
 
 import android.text.format.DateUtils
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.databinding.BindingAdapter
-import com.example.todo_list.R
-import com.example.todo_list.history.data.HistoryCard
+import com.example.todolist.R
+import com.example.todolist.history.data.HistoryCard
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,9 +39,9 @@ fun setBody(view: TextView, body: HistoryCard) {
             HtmlCompat.fromHtml(
                 view.context.getString(
                     R.string.history_move_string,
-                    body.todo.contents,
-                    convertStatus(body.from_status),
-                    convertStatus(body.to_status),
+                    body.todoTitle,
+                    convertStatus(body.fromStatus),
+                    convertStatus(body.toStatus),
                     convertAction(body.action)
                 ),
                 FROM_HTML_MODE_LEGACY
@@ -50,8 +50,8 @@ fun setBody(view: TextView, body: HistoryCard) {
             HtmlCompat.fromHtml(
                 view.context.getString(
                     R.string.history_default_string,
-                    convertStatus(body.todo.status),
-                    body.todo.contents,
+                    convertStatus(body.toStatus),
+                    body.todoTitle,
                     convertAction(body.action)
                 ),
                 FROM_HTML_MODE_LEGACY

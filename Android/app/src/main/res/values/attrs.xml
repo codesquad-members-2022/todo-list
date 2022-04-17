@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TodoView">
+        <attr name="title" format="string|reference" />
+        <attr name="badge_count" format="integer" />
+    </declare-styleable>
+</resources>
