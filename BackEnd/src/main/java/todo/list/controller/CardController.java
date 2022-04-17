@@ -1,11 +1,8 @@
 package todo.list.controller;
 
 import org.springframework.web.bind.annotation.*;
-import todo.list.service.dto.CardModifyRequest;
-import todo.list.service.dto.CardCollectionResponse;
-import todo.list.service.dto.CardSaveRequest;
 import todo.list.service.CardService;
-import todo.list.service.dto.CommandResultResponse;
+import todo.list.service.dto.*;
 
 @RestController
 @RequestMapping("/cards")
@@ -18,7 +15,7 @@ public class CardController {
     }
 
     @PostMapping
-    public CommandResultResponse save(@RequestBody CardSaveRequest cardSaveRequest) {
+    public CardCommandResponse save(@RequestBody CardSaveRequest cardSaveRequest) {
         return cardService.save(cardSaveRequest);
     }
 
@@ -28,7 +25,17 @@ public class CardController {
     }
 
     @PatchMapping("/{cardId}")
-    public CommandResultResponse modifyCard(@RequestBody CardModifyRequest cardModifyRequest) {
+    public CardCommandResponse modifyCard(@RequestBody CardModifyRequest cardModifyRequest) {
         return cardService.modify(cardModifyRequest);
+    }
+
+    @DeleteMapping("/{cardId}")
+    public CardCommandResponse delete(@PathVariable Long cardId) {
+        return cardService.delete(cardId);
+    }
+
+    @PatchMapping("/{cardId}/move")
+    public CardCommandResponse move(@PathVariable Long cardId, @RequestBody CardMoveRequest cardMoveRequest) {
+        return cardService.move(cardId, cardMoveRequest);
     }
 }

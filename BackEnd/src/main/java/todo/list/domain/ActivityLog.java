@@ -14,6 +14,10 @@ public class ActivityLog {
         this(null, action, title, nowStatus, null, LocalDateTime.now());
     }
 
+    public ActivityLog(Action action, String title, CardStatus nowStatus, CardStatus beforeStatus) {
+        this(null, action, title, nowStatus, beforeStatus, LocalDateTime.now());
+    }
+
     public ActivityLog(Long id, Action action, String title, CardStatus nowStatus,
                        CardStatus beforeStatus, LocalDateTime createDateTime) {
         this.id = id;
@@ -22,6 +26,10 @@ public class ActivityLog {
         this.nowStatus = nowStatus;
         this.beforeStatus = beforeStatus;
         this.createDateTime = createDateTime;
+    }
+
+    public boolean actionIsMove() {
+        return action.isMove();
     }
 
     public Long getId() {
