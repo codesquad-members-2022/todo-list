@@ -3,6 +3,7 @@ package com.hooria.todo.domain;
 import java.util.Arrays;
 
 public enum Status {
+
     NONE(0), TODO(1), IN_PROGRESS(2), DONE(3);
 
     private final int code;
@@ -17,9 +18,9 @@ public enum Status {
 
     public static Status of(int code) {
         return Arrays.stream(Status.values())
-            .filter(s -> s.code == code)
-            .findFirst()
-            .orElse(NONE);
+                .filter(s -> s.code == code)
+                .findFirst()
+                .orElse(NONE);
     }
 
     public static Status of(String status) {

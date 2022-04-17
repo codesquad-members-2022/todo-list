@@ -43,7 +43,7 @@ class ActivityLogController {
 
         return ResponseEntity.ok().body(response);
     }
-    
+
     @ApiOperation(
             value = "id 에 해당하는 활동로그 읽음 처리",
             notes = "id 에 해당하는 활동로그를 읽음 처리한다.",

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCardParam {
+public class UpdateCardRequest {
 
     private String action;
     private long id;

@@ -5,10 +5,12 @@ import static org.assertj.core.api.Assertions.*;
 import com.hooria.todo.domain.Card;
 import com.hooria.todo.domain.Device;
 import com.hooria.todo.domain.Status;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import javax.sql.DataSource;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,30 +33,30 @@ class CardRepositoryTest {
         //given
         LocalDateTime datetime = LocalDateTime.of(2022, 4, 10, 0, 0);
         List<Card> cards = List.of(
-            new Card(1, Status.TODO, "title1", "content1", "userId1", Device.WEB, datetime, datetime, false, 1),
-            new Card(2, Status.TODO, "title2", "content2", "userId1", Device.IOS, datetime, datetime, false, 2),
-            new Card(5, Status.TODO, "title5", "content5", "userId1", Device.IOS, datetime, datetime, false, 3),
-            new Card(6, Status.TODO, "title6", "content6", "userId1", Device.ANDROID, datetime, datetime, false, 4),
-            new Card(7, Status.TODO, "title7", "content7", "userId1", Device.WEB, datetime, datetime, false, 5),
-            new Card(8, Status.TODO, "title8", "content8", "userId1", Device.IOS, datetime, datetime, false, 6),
-            new Card(9, Status.TODO, "title9", "content9", "userId1", Device.ANDROID, datetime, datetime, false, 7),
-            new Card(10, Status.TODO, "title10", "content10", "userId1", Device.WEB, datetime, datetime, false, 8),
-            new Card(15, Status.IN_PROGRESS, "title15", "content15", "userId1", Device.IOS, datetime, datetime, false, 1),
-            new Card(12, Status.IN_PROGRESS, "title12", "content12", "userId1", Device.IOS, datetime, datetime, false, 2),
-            new Card(11, Status.IN_PROGRESS, "title11", "content11", "userId1", Device.WEB, datetime, datetime, false, 3),
-            new Card(16, Status.IN_PROGRESS, "title16", "content16", "userId1", Device.ANDROID, datetime, datetime, false, 4),
-            new Card(17, Status.IN_PROGRESS, "title17", "content17", "userId1", Device.WEB, datetime, datetime, false, 5),
-            new Card(18, Status.IN_PROGRESS, "title18", "content18", "userId1", Device.IOS, datetime, datetime, false, 6),
-            new Card(19, Status.IN_PROGRESS, "title19", "content19", "userId1", Device.ANDROID, datetime, datetime, false, 7),
-            new Card(20, Status.IN_PROGRESS, "title20", "content20", "userId1", Device.WEB, datetime, datetime, false, 8),
-            new Card(30, Status.DONE, "title30", "content30", "userId1", Device.WEB, datetime, datetime, false, 1),
-            new Card(29, Status.DONE, "title29", "content29", "userId1", Device.ANDROID, datetime, datetime, false, 2),
-            new Card(28, Status.DONE, "title28", "content28", "userId1", Device.IOS, datetime, datetime, false, 3),
-            new Card(27, Status.DONE, "title27", "content27", "userId1", Device.WEB, datetime, datetime, false, 4),
-            new Card(26, Status.DONE, "title26", "content26", "userId1", Device.ANDROID, datetime, datetime, false, 5),
-            new Card(25, Status.DONE, "title25", "content25", "userId1", Device.IOS, datetime, datetime, false, 6),
-            new Card(22, Status.DONE, "title22", "content22", "userId1", Device.IOS, datetime, datetime, false, 7),
-            new Card(21, Status.DONE, "title21", "content21", "userId1", Device.WEB, datetime, datetime, false, 8)
+                new Card(1, Status.TODO, "title1", "content1", "userId1", Device.WEB, datetime, datetime, false, 1),
+                new Card(2, Status.TODO, "title2", "content2", "userId1", Device.IOS, datetime, datetime, false, 2),
+                new Card(5, Status.TODO, "title5", "content5", "userId1", Device.IOS, datetime, datetime, false, 3),
+                new Card(6, Status.TODO, "title6", "content6", "userId1", Device.ANDROID, datetime, datetime, false, 4),
+                new Card(7, Status.TODO, "title7", "content7", "userId1", Device.WEB, datetime, datetime, false, 5),
+                new Card(8, Status.TODO, "title8", "content8", "userId1", Device.IOS, datetime, datetime, false, 6),
+                new Card(9, Status.TODO, "title9", "content9", "userId1", Device.ANDROID, datetime, datetime, false, 7),
+                new Card(10, Status.TODO, "title10", "content10", "userId1", Device.WEB, datetime, datetime, false, 8),
+                new Card(15, Status.IN_PROGRESS, "title15", "content15", "userId1", Device.IOS, datetime, datetime, false, 1),
+                new Card(12, Status.IN_PROGRESS, "title12", "content12", "userId1", Device.IOS, datetime, datetime, false, 2),
+                new Card(11, Status.IN_PROGRESS, "title11", "content11", "userId1", Device.WEB, datetime, datetime, false, 3),
+                new Card(16, Status.IN_PROGRESS, "title16", "content16", "userId1", Device.ANDROID, datetime, datetime, false, 4),
+                new Card(17, Status.IN_PROGRESS, "title17", "content17", "userId1", Device.WEB, datetime, datetime, false, 5),
+                new Card(18, Status.IN_PROGRESS, "title18", "content18", "userId1", Device.IOS, datetime, datetime, false, 6),
+                new Card(19, Status.IN_PROGRESS, "title19", "content19", "userId1", Device.ANDROID, datetime, datetime, false, 7),
+                new Card(20, Status.IN_PROGRESS, "title20", "content20", "userId1", Device.WEB, datetime, datetime, false, 8),
+                new Card(30, Status.DONE, "title30", "content30", "userId1", Device.WEB, datetime, datetime, false, 1),
+                new Card(29, Status.DONE, "title29", "content29", "userId1", Device.ANDROID, datetime, datetime, false, 2),
+                new Card(28, Status.DONE, "title28", "content28", "userId1", Device.IOS, datetime, datetime, false, 3),
+                new Card(27, Status.DONE, "title27", "content27", "userId1", Device.WEB, datetime, datetime, false, 4),
+                new Card(26, Status.DONE, "title26", "content26", "userId1", Device.ANDROID, datetime, datetime, false, 5),
+                new Card(25, Status.DONE, "title25", "content25", "userId1", Device.IOS, datetime, datetime, false, 6),
+                new Card(22, Status.DONE, "title22", "content22", "userId1", Device.IOS, datetime, datetime, false, 7),
+                new Card(21, Status.DONE, "title21", "content21", "userId1", Device.WEB, datetime, datetime, false, 8)
         );
 
         //when
@@ -105,15 +107,15 @@ class CardRepositoryTest {
 
         //then
         assertThat(addedCard).isNotEmpty()
-            .get()
-            .hasFieldOrPropertyWithValue("id", 31L)
-            .hasFieldOrPropertyWithValue("status", card.getStatus())
-            .hasFieldOrPropertyWithValue("title", card.getTitle())
-            .hasFieldOrPropertyWithValue("content", card.getContent())
-            .hasFieldOrPropertyWithValue("userId", card.getUserId())
-            .hasFieldOrPropertyWithValue("device", card.getDevice())
-            .hasFieldOrPropertyWithValue("deletedYn", card.isDeletedYn())
-            .hasFieldOrPropertyWithValue("rowPosition", card.getRowPosition());
+                .get()
+                .hasFieldOrPropertyWithValue("id", 31L)
+                .hasFieldOrPropertyWithValue("status", card.getStatus())
+                .hasFieldOrPropertyWithValue("title", card.getTitle())
+                .hasFieldOrPropertyWithValue("content", card.getContent())
+                .hasFieldOrPropertyWithValue("userId", card.getUserId())
+                .hasFieldOrPropertyWithValue("device", card.getDevice())
+                .hasFieldOrPropertyWithValue("deletedYn", card.isDeletedYn())
+                .hasFieldOrPropertyWithValue("rowPosition", card.getRowPosition());
     }
 
     @Test
@@ -125,15 +127,15 @@ class CardRepositoryTest {
         LocalDateTime datetime = LocalDateTime.of(2022, 4, 10, 1, 0);
         Card existingCard = cardRepository.findById(id).get();
         Card card = new Card(existingCard.getId(),
-            Status.IN_PROGRESS,
-            existingCard.getTitle(),
-            existingCard.getContent(),
-            existingCard.getUserId(),
-            existingCard.getDevice(),
-            existingCard.getCreatedAt(),
-            datetime,
-            existingCard.isDeletedYn(),
-            1
+                Status.IN_PROGRESS,
+                existingCard.getTitle(),
+                existingCard.getContent(),
+                existingCard.getUserId(),
+                existingCard.getDevice(),
+                existingCard.getCreatedAt(),
+                datetime,
+                existingCard.isDeletedYn(),
+                1
         );
 
         //when
@@ -158,8 +160,8 @@ class CardRepositoryTest {
 
         //then
         assertThat(deletedCard).isNotEmpty()
-            .get()
-            .hasFieldOrPropertyWithValue("deletedYn", true);
+                .get()
+                .hasFieldOrPropertyWithValue("deletedYn", true);
     }
 
     @Test
@@ -176,8 +178,8 @@ class CardRepositoryTest {
 
         //then
         assertThat(updatedCard).isNotEmpty()
-            .get()
-            .hasFieldOrPropertyWithValue("id", 1L)
-            .hasFieldOrPropertyWithValue("rowPosition", 9);
+                .get()
+                .hasFieldOrPropertyWithValue("id", 1L)
+                .hasFieldOrPropertyWithValue("rowPosition", 9);
     }
 }

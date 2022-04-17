@@ -1,7 +1,9 @@
 package com.hooria.todo.dto;
 
 import com.hooria.todo.domain.ActivityLog;
+
 import java.time.temporal.ChronoUnit;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -18,9 +18,9 @@ public enum Device {
 
     public static Device of(int code) {
         return Arrays.stream(Device.values())
-            .filter(d -> d.code == code)
-            .findFirst()
-            .orElse(NONE);
+                .filter(d -> d.code == code)
+                .findFirst()
+                .orElse(NONE);
     }
 
     public static Device of(String device) {
