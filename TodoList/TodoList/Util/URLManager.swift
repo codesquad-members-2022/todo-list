@@ -84,5 +84,20 @@ final class URLManager{
             complete(data)
         }.resume()
     }
+    
+    static func requestDelete(url: String, encodingData: Data, complete: @escaping (Data) -> ()){
+        guard let validURL = URL(string: url) else { return }
+        var urlRequest = URLRequest(url: validURL)
+        urlRequest.httpMethod = HttpMethod.delete.getRawValue()
+        urlRequest.httpBody = encodingData
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            guard let data = data else { return }
+            guard let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else { return }
+            
+            complete(data)
+        }.resume()
+    }
 }
 
