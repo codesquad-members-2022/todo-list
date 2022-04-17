@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 
 struct Log: Decodable {
-    init(userId: String, action: Action, created: Date, taskId: Int, from: TaskStatus?, to: TaskStatus?,
+    init(userId: String, action: Action, created: Date, taskId: Int, fromStatus: TaskStatus?, toStatus: TaskStatus?,
          taskTitle: String) {
         self.userId = userId
         self.action = action
         self.createdAt = created
         self.taskId = taskId
-        self.from = from
-        self.to = to
+        self.fromStatus = fromStatus
+        self.toStatus = toStatus
         self.taskTitle = taskTitle
     }
     
@@ -24,13 +24,13 @@ struct Log: Decodable {
     let action: Action
     let createdAt: Date
     let taskId: Int
-    let from: TaskStatus?
-    let to: TaskStatus?
+    let fromStatus: TaskStatus?
+    let toStatus: TaskStatus?
     let taskTitle: String
     
-    enum Codingkeys: String, CodingKey {
-        case from = "fromStatus"
-        case to = "toStatus"
-    }
+//    enum Codingkeys: String, Codable {
+//        case from = "fromStatus"
+//        case to = "toStatus"
+//    }
     
 }
