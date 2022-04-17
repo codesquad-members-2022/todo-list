@@ -7,10 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.max
 import kotlin.math.min
 
-class ItemTouchCallback(
-    private var clamp: Float,
-    private val listener: ItemTouchHelperListener,
-) : ItemTouchHelper.Callback() {
+class ItemTouchCallback(private var clamp: Float) : ItemTouchHelper.Callback() {
 
     private var currentPosition: Int? = null
     private var previousPosition: Int? = null
@@ -30,10 +27,7 @@ class ItemTouchCallback(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder,
-    ): Boolean {
-        listener.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
-        return true
-    }
+    ): Boolean = false
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
 

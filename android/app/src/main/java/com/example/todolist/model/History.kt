@@ -6,7 +6,7 @@ data class History(
     val title: String,
     val nowStatus: String,
     val beforeStatus: String?,
-    val createData: String,
+    val createDateTime: String,
 )
 
 enum class ActionType(val action: String) {

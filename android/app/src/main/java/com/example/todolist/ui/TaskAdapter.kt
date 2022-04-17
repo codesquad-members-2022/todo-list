@@ -1,16 +1,20 @@
 package com.example.todolist.ui
 
+import android.os.Build
 import android.view.*
 import android.widget.PopupMenu
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.databinding.ItemTaskBinding
+import com.example.todolist.model.Status
+import com.example.todolist.model.request.MoveTaskRequest
 import com.example.todolist.model.response.TaskDetailResponse
 
 class TaskAdapter(
-    private val viewModel: TaskViewModel,
+    private val viewModel: TaskRemoteViewModel,
     private val listener: DialogListener,
 ) : ListAdapter<TaskDetailResponse, TaskAdapter.TaskViewHolder>(TaskDiffCallback),
     ItemTouchHelperListener {
@@ -26,10 +30,11 @@ class TaskAdapter(
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.tag = position
     }
 
     inner class TaskViewHolder(private val binding: ItemTaskBinding) :
-        RecyclerView.ViewHolder(binding.root), PopupMenu.OnMenuItemClickListener {
+        RecyclerView.ViewHolder(binding.root), PopupMenu.OnMenuItemClickListener, View.OnTouchListener {
 
         private lateinit var task: TaskDetailResponse
 
@@ -37,6 +42,8 @@ class TaskAdapter(
             this.task = task
             binding.task = task
             binding.executePendingBindings()
+            itemView.setOnTouchListener(this)
+            itemView.setOnDragListener(DragListener())
             binding.clDelete.setOnClickListener { onItemSwipe(layoutPosition) }
             itemView.setOnLongClickListener {
                 showPopup(it)
@@ -54,7 +61,7 @@ class TaskAdapter(
 
         override fun onMenuItemClick(item: MenuItem?): Boolean {
             when (item?.itemId) {
-                R.id.popup_go_done -> viewModel.moveDone(task)
+                R.id.popup_go_done -> viewModel.moveDone(task, Status.DONE)
                 R.id.popup_modify -> listener.updateDialog(task)
                 R.id.popup_delete -> viewModel.deleteTask(task)
             }
@@ -74,6 +81,24 @@ class TaskAdapter(
         fun setTag(isClamped: Boolean) {
             binding.swipeView.tag = isClamped
         }
+
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+            val shadowBuilder = View.DragShadowBuilder(view)
+            val isDrag = getTag()
+            when(event?.action) {
+                MotionEvent.ACTION_DOWN -> { }
+                MotionEvent.ACTION_MOVE -> {
+                    if(!isDrag) {
+                        view?.startDragAndDrop(null, shadowBuilder, view , 0)
+                        return true
+                    }
+                }
+                MotionEvent.ACTION_UP -> return true
+            }
+            view?.performClick()
+            return false
+        }
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
@@ -83,6 +108,14 @@ class TaskAdapter(
 
     override fun onItemSwipe(position: Int) {
         viewModel.deleteTask(getItem(position))
+    }
+
+    override fun add(type: Int, index: Int, task: TaskDetailResponse) {
+        viewModel.addTask(type, index, task)
+    }
+
+    override fun remove(index: Int, task: TaskDetailResponse) {
+        viewModel.remove(index, task)
     }
 }
 

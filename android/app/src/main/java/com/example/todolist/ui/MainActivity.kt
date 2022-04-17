@@ -2,7 +2,9 @@ package com.example.todolist.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -13,7 +15,7 @@ import com.example.todolist.model.response.TaskDetailResponse
 import com.example.todolist.ui.common.ViewModelFactory
 
 class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
-    private val viewModel: TaskViewModel by viewModels { ViewModelFactory() }
+    private val viewModel: TaskRemoteViewModel by viewModels { ViewModelFactory() }
     private lateinit var binding: ActivityMainBinding
     private val historyAdapter: HistoryAdapter by lazy { HistoryAdapter() }
     private val toDoAdapter: TaskAdapter by lazy { TaskAdapter(viewModel, this) }
@@ -33,6 +35,10 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
             historyAdapter.submitList(histories)
         }
 
+        viewModel.error.observe(this) {
+            Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show()
+        }
+
         with(binding) {
             includeTodo.btnAdd.setOnClickListener {
                 NewTaskDialogFragment(Status.TODO).show(supportFragmentManager, "todoDialog")
@@ -50,10 +56,11 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
             }
         }
 
-        val todoItemTouchCallback = ItemTouchCallback(clamp, toDoAdapter)
+        val todoItemTouchCallback = ItemTouchCallback(clamp)
         with(binding.includeTodo.rvTodo) {
             ItemTouchHelper(todoItemTouchCallback).attachToRecyclerView(this)
             adapter = toDoAdapter
+            setOnDragListener(DragListener())
             setOnTouchListener { view, _ ->
                 todoItemTouchCallback.removePreviousClamp(this)
                 view.performClick()
@@ -64,10 +71,11 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
             toDoAdapter.submitList(todoTask.toList())
         }
 
-        val inProgressItemTouchCallback = ItemTouchCallback(clamp, inProgressAdapter)
+        val inProgressItemTouchCallback = ItemTouchCallback(clamp)
         with(binding.includeInProgress.rvInProgress) {
             ItemTouchHelper(inProgressItemTouchCallback).attachToRecyclerView(this)
             adapter = inProgressAdapter
+            setOnDragListener(DragListener())
             setOnTouchListener { view, _ ->
                 inProgressItemTouchCallback.removePreviousClamp(this)
                 view.performClick()
@@ -81,10 +89,11 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
 
 
         binding.includeDone.rvDone.adapter = doneAdapter
-        val doneItemTouchCallback = ItemTouchCallback(clamp, doneAdapter)
+        val doneItemTouchCallback = ItemTouchCallback(clamp)
         with(binding.includeDone.rvDone) {
             ItemTouchHelper(doneItemTouchCallback).attachToRecyclerView(this)
             adapter = doneAdapter
+            setOnDragListener(DragListener())
             setOnTouchListener { view, _ ->
                 doneItemTouchCallback.removePreviousClamp(this)
                 view.performClick()
@@ -98,7 +107,7 @@ class MainActivity : AppCompatActivity(), TaskAdapter.DialogListener {
 
     private fun onDrawerEvent() {
         binding.btnDrawer.setOnClickListener {
-            viewModel.loadDummyData()
+            viewModel.loadHistory()
             binding.dlDrawer.openDrawer(Gravity.RIGHT)
         }
 
