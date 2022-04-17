@@ -122,6 +122,7 @@
 		B58D833B28004802008A811C /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				B50C57B528048D340007F417 /* MemoStatus.swift */,
 				B5FBCFCF280885F400494A56 /* MemoManager.swift */,
 				B58D833628001A9C008A811C /* Memo.swift */,
 			);
@@ -185,7 +186,6 @@
 		B5EC66EA27FC0BBB0042EFCF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B50C57B528048D340007F417 /* MemoStatus.swift */,
 				B5EC66D627FADD9C0042EFCF /* MainViewController.swift */,
 				D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */,
 				D0999D9E2804789D0045491A /* PopupViewController.swift */,
