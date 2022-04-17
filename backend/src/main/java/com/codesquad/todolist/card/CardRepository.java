@@ -25,7 +25,7 @@ public class CardRepository {
     }
 
     public Card create(Card card) {
-        String sql = "insert into card (column_id, title, content, author, next_id, created_date)"
+        String sql = "insert into card (column_id, title, content, author, next_id, created_datetime)"
             + " values (:columnId, :title, :content, :author, :nextId, :createdDateTime)";
         KeyHolder keyHolder = keyHolderFactory.newKeyHolder();
 
@@ -39,14 +39,24 @@ public class CardRepository {
 
     public List<Card> findAll() {
         String sql =
-            "select card_id, column_id, title, content, author, next_id, created_date from card"
+            "select card_id, column_id, title, content, author, next_id, created_datetime from card"
                 + " where deleted = false";
         return jdbcTemplate.query(sql, getCardRowMapper());
     }
 
+    public List<Card> findByColumnId(Integer columnId) {
+        String sql = "select card_id, column_id, title, content, author, next_id, created_datetime from card"
+            + " where column_id = :columnId and deleted = false";
+
+        MapSqlParameterSource source = new MapSqlParameterSource()
+            .addValue("columnId", columnId);
+
+        return jdbcTemplate.query(sql, source, getCardRowMapper());
+    }
+
     public Optional<Card> findById(int cardId) {
         String sql =
-            "select card_id, column_id, title, content, author, next_id, created_date from card"
+            "select card_id, column_id, title, content, author, next_id, created_datetime from card"
                 + " where card_id = :cardId and deleted = false";
 
         MapSqlParameterSource source = new MapSqlParameterSource()
@@ -110,6 +120,6 @@ public class CardRepository {
             rs.getString("content"),
             rs.getString("author"),
             rs.getObject("next_id", Integer.class),
-            rs.getObject("created_date", LocalDateTime.class));
+            rs.getObject("created_datetime", LocalDateTime.class));
     }
 }

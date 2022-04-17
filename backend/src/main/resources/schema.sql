@@ -22,14 +22,14 @@ create table `column`
 drop table if exists `card` cascade;
 create table `card`
 (
-    card_id      bigint(10) not null auto_increment primary key comment '카드 식별 번호',
-    column_id    bigint(10) not null comment '카드가 어떤 컬럼에 속해있는지 식별하기 위한 FK',
-    author       char(200)  not null comment '카드를 만든 사용자 이름',
-    created_date timestamp  not null comment '카드 생성 날짜, 시간',
-    title        char(200)  not null comment '카드 제목',
-    content      char(255)  not null comment '카드 본문',
-    next_id      bigint(10) comment '해당 카드의 바로 다음 순서인 카드의 id',
-    deleted      boolean    not null default false comment 'soft delete 여부',
+    card_id          bigint(10) not null auto_increment primary key comment '카드 식별 번호',
+    column_id        bigint(10) not null comment '카드가 어떤 컬럼에 속해있는지 식별하기 위한 FK',
+    author           char(200)  not null comment '카드를 만든 사용자 이름',
+    created_datetime timestamp  not null comment '카드 생성 날짜, 시간',
+    title            char(200)  not null comment '카드 제목',
+    content          char(255)  not null comment '카드 본문',
+    next_id          bigint(10) comment '해당 카드의 바로 다음 순서인 카드의 id',
+    deleted          boolean    not null default false comment 'soft delete 여부',
     FOREIGN KEY (column_id) references `column` (column_id),
     FOREIGN KEY (next_id) references `card` (card_id)
 );
@@ -37,10 +37,10 @@ create table `card`
 drop table if exists history cascade;
 create table history
 (
-    history_id   bigint(10) not null auto_increment primary key comment '변경내역 식별 번호',
-    card_id      bigint(10) not null comment '어떤 카드에 변경이 발생했는지 식별하기 위한 FK',
-    created_date timestamp  not null comment '변경내역 발생 날짜, 시간',
-    action       char(20)   not null comment '변경 내용(이동,삭제 등)',
+    history_id       bigint(10) not null auto_increment primary key comment '변경내역 식별 번호',
+    card_id          bigint(10) not null comment '어떤 카드에 변경이 발생했는지 식별하기 위한 FK',
+    created_datetime timestamp  not null comment '변경내역 발생 날짜, 시간',
+    action           char(20)   not null comment '변경 내용(이동,삭제 등)',
     FOREIGN KEY (card_id) references card (card_id)
 );
 

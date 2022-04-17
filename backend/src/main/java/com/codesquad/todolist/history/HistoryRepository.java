@@ -1,18 +1,20 @@
 package com.codesquad.todolist.history;
 
-import com.codesquad.todolist.history.domain.Action;
-import com.codesquad.todolist.history.domain.History;
-import com.codesquad.todolist.util.KeyHolderFactory;
-import com.codesquad.todolist.util.page.Criteria;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import com.codesquad.todolist.history.domain.Action;
+import com.codesquad.todolist.history.domain.History;
+import com.codesquad.todolist.util.KeyHolderFactory;
+import com.codesquad.todolist.util.page.Criteria;
 
 @Repository
 public class HistoryRepository {
@@ -27,7 +29,7 @@ public class HistoryRepository {
     }
 
     public History create(History history) {
-        String sql = "insert into history (card_id, created_date, action) values (:cardId, :createdDateTime, :action)";
+        String sql = "insert into history (card_id, created_datetime, action) values (:cardId, :createdDateTime, :action)";
 
         KeyHolder keyHolder = keyHolderFactory.newKeyHolder();
 
@@ -46,7 +48,7 @@ public class HistoryRepository {
 
     public List<History> findAll(Criteria criteria) {
         String sql =
-            "select history_id, user_name, column_name, title, action, history.created_date from history"
+            "select history_id, user_name, column_name, title, action, history.created_datetime from history"
                 + " join card on history.card_id = card.card_id"
                 + " join `column` on card.column_id = `column`.column_id"
                 + " join `user` on `column`.user_id = `user`.user_id"
@@ -62,7 +64,7 @@ public class HistoryRepository {
 
     public Optional<History> findById(Integer historyId) {
         String sql =
-            "select history_id, user_name, column_name, title, action, history.created_date from history"
+            "select history_id, user_name, column_name, title, action, history.created_datetime from history"
                 + " join card on history.card_id = card.card_id"
                 + " join `column` on card.column_id = `column`.column_id"
                 + " join `user` on `column`.user_id = `user`.user_id"
@@ -88,7 +90,7 @@ public class HistoryRepository {
             rs.getString("column_name"),
             rs.getString("title"),
             Action.valueOf(rs.getString("action")),
-            rs.getObject("created_date", LocalDateTime.class)
+            rs.getObject("created_datetime", LocalDateTime.class)
         );
     }
 }

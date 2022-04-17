@@ -79,14 +79,14 @@ public class HistoryRepositoryTest {
     @DisplayName("저장소에 저장된 히스토리 정보가 반환된다")
     public void findAllTest() {
         // given
-        // 슬라이스 크기인 5개를 초과한 History 객체 저장 -> 6개의 History 객체 읽기
         History history_6 = historyRepository.create(new History(card.getCardId(), Action.CREATE));
-
         History history_5 = historyRepository.create(new History(card.getCardId(), Action.CREATE));
         History history_4 = historyRepository.create(new History(card.getCardId(), Action.MOVE));
         History history_3 = historyRepository.create(new History(card.getCardId(), Action.UPDATE));
         History history_2 = historyRepository.create(new History(card.getCardId(), Action.DELETE));
         History history_1 = historyRepository.create(new History(card.getCardId(), Action.DELETE));
+
+        // 슬라이스 크기인 5개를 초과한 History 객체 저장 -> 6개의 History 객체 읽기
         History history_0 = historyRepository.create(new History(card.getCardId(), Action.DELETE));
 
         // when
@@ -95,12 +95,12 @@ public class HistoryRepositoryTest {
         // then
         then(findHistories).extracting("historyId")
             .containsExactly(
-                history_0.getHistoryId(),
                 history_1.getHistoryId(),
                 history_2.getHistoryId(),
                 history_3.getHistoryId(),
                 history_4.getHistoryId(),
-                history_5.getHistoryId()
+                history_5.getHistoryId(),
+                history_6.getHistoryId()
             );
     }
 
