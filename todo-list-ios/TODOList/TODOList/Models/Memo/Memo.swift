@@ -1,6 +1,6 @@
 import Foundation
 
-final class Memo: NSObject, Codable {
+final class Memo: NSObject, Codable, RequestEntityConvertible  {
     
     let title: String
     let content: String
@@ -15,11 +15,9 @@ final class Memo: NSObject, Codable {
         super.init()
     }
     
-    enum CodingKeys: String, CodingKey {
-        case title
-        case content
-        case name = "author"
-        case status
+    func toRequestEntity() -> MemoPostRequest {
+        let entity = MemoPostRequest(title: title, content: content, author: name, status: status.rawValue)
+        return entity
     }
 }
 
