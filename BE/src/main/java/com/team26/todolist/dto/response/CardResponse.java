@@ -1,24 +1,24 @@
 package com.team26.todolist.dto.response;
 
 import com.team26.todolist.domain.Card;
-import com.team26.todolist.domain.CardStatus;
 
 public class CardResponse {
+
     private Long id;
     private String userId;
     private String title;
     private String contents;
-    private CardStatus cardStatus;
+    private Long columnId;
 
     public CardResponse() {
     }
 
-    public CardResponse(Long id, String userId, String title, String contents, CardStatus cardStatus) {
+    public CardResponse(Long id, String userId, String title, String contents, Long columnId) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.contents = contents;
-        this.cardStatus = cardStatus;
+        this.columnId = columnId;
     }
 
     public static CardResponse of(Card card) {
@@ -27,7 +27,7 @@ public class CardResponse {
                 card.getUserId(),
                 card.getTitle(),
                 card.getContents(),
-                card.getCardStatus()
+                card.getColumnId()
         );
     }
 
@@ -47,7 +47,7 @@ public class CardResponse {
         return contents;
     }
 
-    public CardStatus getCardStatus() {
-        return cardStatus;
+    public Long getColumnId() {
+        return columnId;
     }
 }

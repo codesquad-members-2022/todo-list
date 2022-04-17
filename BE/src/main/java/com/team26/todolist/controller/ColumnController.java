@@ -1,12 +1,14 @@
 package com.team26.todolist.controller;
 
-import com.team26.todolist.dto.request.ColumnMoveRequest;
+import com.team26.todolist.dto.request.ColumnChangeOrderRequest;
 import com.team26.todolist.dto.request.ColumnRegistrationRequest;
 import com.team26.todolist.dto.request.ColumnUpdateRequest;
 import com.team26.todolist.dto.response.ColumnResponse;
 import com.team26.todolist.service.ColumnService;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,17 +26,26 @@ public class ColumnController {
         this.columnService = columnService;
     }
 
-    @PostMapping
-    public ResponseEntity<ColumnResponse> createColumn(@RequestBody ColumnRegistrationRequest columnRegistrationRequest) {
-        ColumnResponse savedColumn = columnService.addColumn(columnRegistrationRequest);
+    @GetMapping
+    public ResponseEntity<List<ColumnResponse>> getColumns() {
+        List<ColumnResponse> columns = columnService.findAll();
 
+        return ResponseEntity.ok()
+                .body(columns);
+    }
+
+    @PostMapping
+    public ResponseEntity<ColumnResponse> createColumn(
+            @RequestBody ColumnRegistrationRequest columnRegistrationRequest) {
+        ColumnResponse savedColumn = columnService.addColumn(columnRegistrationRequest);
 
         return ResponseEntity.ok()
                 .body(savedColumn);
     }
 
     @PutMapping
-    public ResponseEntity<ColumnResponse> updateColumn(@RequestBody ColumnUpdateRequest columnUpdateRequest) {
+    public ResponseEntity<ColumnResponse> updateColumn(
+            @RequestBody ColumnUpdateRequest columnUpdateRequest) {
         ColumnResponse updatedCard = columnService.modifyColumn(columnUpdateRequest);
 
         return ResponseEntity.ok()
@@ -42,8 +53,9 @@ public class ColumnController {
     }
 
     @PatchMapping
-    public ResponseEntity<ColumnResponse> changeColumnOrder(@RequestBody ColumnMoveRequest columnMoveRequest) {
-        ColumnResponse movedColumn = columnService.changeColumnOrder(columnMoveRequest);
+    public ResponseEntity<ColumnResponse> changeColumnOrder(
+            @RequestBody ColumnChangeOrderRequest columnChangeOrderRequest) {
+        ColumnResponse movedColumn = columnService.changeColumnOrder(columnChangeOrderRequest);
 
         return ResponseEntity.ok()
                 .body(movedColumn);
@@ -51,7 +63,7 @@ public class ColumnController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteColumn(@RequestBody Long id) {
-        columnService.deleteCard(id);
+        columnService.deleteColumn(id);
         return ResponseEntity.noContent().build();
     }
 }

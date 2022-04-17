@@ -1,7 +1,6 @@
 package com.team26.todolist.repository;
 
 import com.team26.todolist.domain.CardAction;
-import com.team26.todolist.domain.CardStatus;
 import com.team26.todolist.domain.History;
 import java.util.HashMap;
 import java.util.List;
@@ -47,12 +46,8 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         parameters.put("user_id", history.getUserId());
         parameters.put("card_title", history.getCardTitle());
         parameters.put("card_title_before", history.getCardTitleBefore());
-        parameters.put("card_status",
-                history.getCardStatus() == null ? CardStatus.UNCLASSIFIED.name()
-                        : history.getCardStatus().name());
-        parameters.put("card_status_before",
-                history.getCardStatusBefore() == null ? CardStatus.UNCLASSIFIED.name()
-                        : history.getCardStatusBefore().name());
+        parameters.put("column_title", history.getColumnTitle());
+        parameters.put("column_title_before", history.getColumnTitleBefore());
         parameters.put("created_at", history.getCreatedAt());
 
         Long key = (Long) jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
@@ -67,8 +62,9 @@ public class HistoryRepositoryImpl implements HistoryRepository {
                                 rs.getTimestamp("created_at").toLocalDateTime())
                         .cardTitle(rs.getString("card_title"))
                         .cardTitleBefore(rs.getString("card_title_before"))
-                        .cardStatus(CardStatus.valueOf(rs.getString("card_status")))
-                        .cardStatusBefore(CardStatus.valueOf(rs.getString("card_status_before")))
+                        .columnTitle(rs.getString("column_title"))
+                        .columnTitleBefore(rs.getString("column_title_before"))
+                        .id(rs.getLong("id"))
                         .build();
     }
 }

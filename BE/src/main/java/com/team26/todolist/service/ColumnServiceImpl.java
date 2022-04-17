@@ -1,64 +1,69 @@
 package com.team26.todolist.service;
 
 import com.team26.todolist.domain.Column;
-import com.team26.todolist.dto.request.CardUpdateRequest;
-import com.team26.todolist.dto.request.ColumnMoveRequest;
+import com.team26.todolist.dto.request.ColumnChangeOrderRequest;
 import com.team26.todolist.dto.request.ColumnRegistrationRequest;
 import com.team26.todolist.dto.request.ColumnUpdateRequest;
 import com.team26.todolist.dto.response.ColumnResponse;
+import com.team26.todolist.repository.CardRepository;
 import com.team26.todolist.repository.ColumnRepository;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ColumnServiceImpl implements ColumnService{
-
-    private final double DIFFERENCE = 1000.0;
+public class ColumnServiceImpl implements ColumnService {
 
     private final ColumnRepository columnRepository;
+    private final CardRepository cardRepository;
 
-    public ColumnServiceImpl(ColumnRepository columnRepository) {
+    public ColumnServiceImpl(ColumnRepository columnRepository,
+            CardRepository cardRepository) {
         this.columnRepository = columnRepository;
+        this.cardRepository = cardRepository;
     }
 
+    @Override
+    public Column findById(Long id) {
+        return columnRepository.findById(id);
+    }
+
+    @Override
+    public List<ColumnResponse> findAll() {
+        List<Column> columns = columnRepository.findAll();
+        Collections.sort(columns);
+        return columns.stream().map(ColumnResponse::of).collect(Collectors.toList());
+    }
+
+    @Override
     public ColumnResponse addColumn(ColumnRegistrationRequest columnRegistrationRequest) {
-        Double lastOrder = columnRepository.getLastOrder();
-        Double order = lastOrder + DIFFERENCE;
-        Column saveColumn = columnRepository.save(columnRegistrationRequest.toEntity(), order);
+        Column saveColumn = columnRepository.saveNewColumn(columnRegistrationRequest.toEntity());
         return ColumnResponse.of(saveColumn);
     }
 
-    public ColumnResponse changeColumnOrder(ColumnMoveRequest columnMoveRequest) {
-        Double newOrder = getNewOrder(columnMoveRequest);
-        Column updatedColumn = columnRepository.updateOrder(columnMoveRequest.toEntity(), newOrder);
+    @Override
+    public ColumnResponse changeColumnOrder(ColumnChangeOrderRequest columnChangeOrderRequest) {
+        Column column = columnChangeOrderRequest.toEntity();
+        Column leftColumn = columnRepository.findById(columnChangeOrderRequest.getLeftColumnId());
+        Column rightColumn = columnRepository.findById(columnChangeOrderRequest.getRightColumnId());
+        column.setNewOrder(leftColumn, rightColumn);
+
+        Column updatedColumn = columnRepository.updateOrder(column);
         return ColumnResponse.of(updatedColumn);
     }
 
-    private double getNewOrder(ColumnMoveRequest columnMoveRequest) {
-        Double orderLeft = columnMoveRequest.getOrderOfLeftColumn();
-        Double orderRight = columnMoveRequest.getOrderOfRightColumn();
-
-        if (orderLeft == null) {
-            return orderRight - DIFFERENCE;
-        }
-
-        if(orderRight == null) {
-            return orderLeft + DIFFERENCE;
-        }
-
-        return (orderLeft + orderRight) / 2;
-    }
-
+    @Override
     public ColumnResponse modifyColumn(ColumnUpdateRequest columnUpdateRequest) {
-        Column columnBefore = columnRepository.findById(columnUpdateRequest.getId());
-        Double order = columnBefore.getOrder();
-
         Column updatedColumn = columnRepository.updateTitle(columnUpdateRequest.toEntity());
 
         return ColumnResponse.of(updatedColumn);
     }
 
-    public boolean deleteCard(Long id) {
-        return columnRepository.delete(id);
+    @Override
+    public void deleteColumn(Long id) {
+        cardRepository.deleteByColumnId(id);
+        columnRepository.delete(id);
     }
 
 }
