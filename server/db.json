@@ -1,26 +1,32 @@
 {
-  "cardData": {
-    "todo": [],
-
-    "doing": [
-      {
-        "id": "1649773912726",
-        "title": "GitHub 공부하기",
-        "content": "add, commit, push"
-      }
-    ],
-
-    "done": [
-      {
-        "id": "1649773912740",
-        "title": "GitHub 공부 또 하기",
-        "content": "merge vs rebase"
-      }
-    ]
-  },
-
-  "historyData": [
+  "todo": [
     {
+      "id": 1650003556025,
+      "title": "22",
+      "content": "22"
+    },
+    {
+      "id": 1650003592747,
+      "title": "33",
+      "content": "33"
+    }
+  ],
+  "doing": [
+    {
+      "id": 1650003606469,
+      "title": "11",
+      "content": "11"
+    },
+    {
+      "id": 1650005349364,
+      "title": "asdfasd",
+      "content": "czvzxcv"
+    }
+  ],
+  "done": [],
+  "history": [
+    {
+      "id": 1,
       "title": "GitHub 공부하기",
       "content": "add, commit, push",
       "action": "add",
@@ -29,6 +35,7 @@
       "date": "22-04-01-00:00"
     },
     {
+      "id": 2,
       "title": "GitHub 공부하기 찐막",
       "content": "commit 수정하는 법",
       "action": "add",
@@ -37,6 +44,7 @@
       "date": "22-04-01-00:30"
     },
     {
+      "id": 3,
       "title": "GitHub 공부하기",
       "content": "add, commit, push",
       "action": "move",
@@ -45,6 +53,7 @@
       "date": "22-04-01-01:00"
     },
     {
+      "id": 4,
       "title": "GitHub 공부 또 하기",
       "content": "merge vs rebase",
       "action": "add",
@@ -53,6 +62,7 @@
       "date": "22-04-02-10:00"
     },
     {
+      "id": 5,
       "title": "GitHub 공부하기 찐막",
       "content": "commit 수정하는 법",
       "action": "update",
@@ -61,6 +71,7 @@
       "date": "22-04-09-23:00"
     },
     {
+      "id": 6,
       "title": "GitHub 공부하기 찐막",
       "content": "commit 수정하는 법",
       "action": "remove",
@@ -69,12 +80,25 @@
       "date": "22-04-10-13:00"
     },
     {
+      "id": 7,
       "title": "GitHub 공부 또 하기",
       "content": "merge vs rebase",
       "action": "move",
       "prevColumn": "todo",
       "currColumn": "done",
       "date": "22-04-12-10:00"
+    },
+    {
+      "id": "empty-card",
+      "column": {},
+      "title": "asdf",
+      "action": "register"
+    },
+    {
+      "id": "1650005484481",
+      "column": {},
+      "title": "테스트",
+      "action": "remove"
     }
   ]
 }

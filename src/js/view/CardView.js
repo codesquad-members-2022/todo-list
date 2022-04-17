@@ -1,60 +1,53 @@
 import * as util from "../../util/Util.js";
 
-const createCard = (data) => {
-  const newCard = document.createElement("div");
-  const newCardHTML = getCardTemplate(data);
-  newCard.classList.add("task-card registered");
-  newCard.innerHTML = newCardHTML;
-  return newCard;
-};
+function renderCard(
+  targetCard,
+  removeBtnHandler,
+  doubleClickTextHandler,
+  dragDropHandler,
+  store,
+  dataType,
+  newState
+) {
+  // 카드 렌더링
+  renderRegisteredStyle(targetCard, newState);
 
-const getCardTemplate = (data) => {
-  return /*html*/ `          
-  <div class="task-card__header">
-    <div
-      class="task-card__title font-black"
-      contenteditable="false"
-    >
-    ${data[0]}
-    </div>
-    <span class="delete-btn cursor-pointer"
-      ><svg
-        width="16"
-        height="16"
-        viewBox="0 0 12 12"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
-          fill="gray"
-        />
-      </svg>
-    </span>
-  </div>
-  <div
-    class="task-card__content font-black"
-    contenteditable="false"
-  >
-  ${data[1]}
-  </div>
-  <div class="task-card__btns">
-    <button class="task-card__cancle-btn hidden">취소</button>
-    <button class="task-card__register-btn hidden">등록</button>
-  </div>
-  <div class="task-card__footer">
-    author by <span id="author">web</span>
-  </div>
-`;
-};
+  // 삭제 버튼 이벤트
+  const deleteBtn = util.$(".delete-btn.cursor-pointer", targetCard);
+  util.on("click", deleteBtn, (event) => {
+    removeBtnHandler(event, store, dataType);
+  });
 
-const renderCard = (data, callbackRemoveEvt, callbackChangeEvt) => {
-  const card = createCard(data);
-  const deleteBtn = card.querySelector(".delete-btn.cursor-pointer");
-  deleteBtn.addEventListener("click", callbackRemoveEvt);
-  // card.addEvnetListener("dblclick", callbackChangeEvt);
-  const parent = util.$(`.task-column`);
-  parent.appendChild(card);
-};
+  // 수정 이벤트
+  util.on("dblclick", targetCard, (event) => {
+    doubleClickTextHandler(event, store, dataType);
+  });
 
-export { renderCard };
+  // 이동 이벤트
+  // util.on("mousedown", targetCard, (event) => {
+  //   dragDropHandler(event);
+  // });
+}
+
+function renderRegisteredStyle(targetCard, newState) {
+  targetCard.classList.add("registered");
+  if (targetCard.id !== "empty-card") {
+    util.$(".task-card__title", targetCard).textContent = newState.title;
+    util.$(".task-card__content", targetCard).textContent = newState.content;
+  }
+  targetCard.id = newState.id;
+  util.$(".delete-btn.cursor-pointer", targetCard).classList.remove("hidden");
+  util
+    .$(".task-card__cancle-btn.cursor-pointer", targetCard)
+    .classList.add("hidden");
+  util
+    .$(".task-card__register-btn.cursor-pointer", targetCard)
+    .classList.add("hidden");
+  util.$(".task-card__footer", targetCard).classList.remove("hidden");
+  util.$(".task-card__title", targetCard).contentEditable = false;
+  util.$(".task-card__title", targetCard).classList.add("font-black");
+  util.$(".task-card__content", targetCard).contentEditable = false;
+  util.$(".task-card__content", targetCard).classList.add("font-black");
+}
+
+export { renderCard, renderRegisteredStyle };
