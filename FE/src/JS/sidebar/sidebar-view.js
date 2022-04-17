@@ -3,6 +3,7 @@ import { $ } from '../utility/util.js';
 export default class View {
   constructor() {
     this.$menuIcon = $('#menu-icon');
+    this.timer = null;
   }
 
   addClickEvent() {
@@ -10,19 +11,32 @@ export default class View {
   }
 
   checKInputCheckbox = () => {
-    if (!this.$menuIcon.checked) return;
+    if (!this.$menuIcon.checked) {
+      clearInterval(this.timer);
+      return;
+    }
 
     this.getLogData();
   };
 
-  renderSidebar(userId, info) {
+  startSidebarTimer(userId, info) {
     const $sidebarContainer = $('.sidebar-container');
 
+    if (!this.timer) {
+      this.renderSidebar(info, userId, $sidebarContainer);
+    }
+
+    const ONE_MINUTE_MS = 60000;
+    this.timer = setInterval(() => {
+      this.renderSidebar(info, userId, $sidebarContainer);
+    }, ONE_MINUTE_MS);
+  }
+
+  renderSidebar(info, userId, $sidebarContainer) {
     const sidebarDataTemplate = info.reduce(
       (pre, curData) => (pre += this.sidebarActionLog(userId, curData)),
       ''
     );
-    console.log(sidebarDataTemplate);
     $sidebarContainer.innerHTML = sidebarDataTemplate;
   }
 
@@ -37,15 +51,15 @@ export default class View {
     </li>`;
   }
 
-  checkAction({ title, action, previousCategory, changedCategory }) {
+  checkAction({ title, action, previousCategory, currentCategory }) {
     if (action === '이동') {
       return `
-      <b>${title}</b>를 <b>${previousCategory}</b>에서<b>${changedCategory}</b>으로<b>${action}</b>하였습니다
+      <b>${title}</b>를 <b>${previousCategory}</b>에서<b>${currentCategory}</b>으로<b>${action}</b>하였습니다
       `;
     }
 
     return `
-    <b>${previousCategory}</b>에 <b>${title}</b>를 <b>${action}</b>하였습니다
+    <b>${currentCategory}</b>에 <b>${title}</b>를 <b>${action}</b>하였습니다
     `;
   }
 

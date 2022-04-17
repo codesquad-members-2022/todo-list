@@ -21,7 +21,7 @@ export default class Controller {
       if (typeof logData === 'string') userId = logData;
 
       if (Array.isArray(logData)) {
-        this.view.renderSidebar(userId, logData);
+        this.view.startSidebarTimer(userId, logData);
       }
     }
   }
