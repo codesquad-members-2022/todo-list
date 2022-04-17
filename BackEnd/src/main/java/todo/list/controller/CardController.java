@@ -15,9 +15,8 @@ public class CardController {
     }
 
     @PostMapping
-    public CommandResultResponse save(@RequestBody CardSaveRequest cardSaveRequest) {
-        CardCommandResponse cardCommandResponse = cardService.save(cardSaveRequest);
-        return new CommandResultResponse(201, cardCommandResponse);
+    public CardCommandResponse save(@RequestBody CardSaveRequest cardSaveRequest) {
+        return cardService.save(cardSaveRequest);
     }
 
     @GetMapping
@@ -26,20 +25,17 @@ public class CardController {
     }
 
     @PatchMapping("/{cardId}")
-    public CommandResultResponse modifyCard(@RequestBody CardModifyRequest cardModifyRequest) {
-        CardCommandResponse cardCommandResponse = cardService.modify(cardModifyRequest);
-        return new CommandResultResponse(200, cardCommandResponse);
+    public CardCommandResponse modifyCard(@RequestBody CardModifyRequest cardModifyRequest) {
+        return cardService.modify(cardModifyRequest);
     }
 
     @DeleteMapping("/{cardId}")
-    public CommandResultResponse delete(@PathVariable Long cardId) {
-        CardCommandResponse cardCommandResponse = cardService.delete(cardId);
-        return new CommandResultResponse(200, cardCommandResponse);
+    public CardCommandResponse delete(@PathVariable Long cardId) {
+        return cardService.delete(cardId);
     }
 
     @PatchMapping("/{cardId}/move")
-    public CommandResultResponse move(@PathVariable Long cardId, @RequestBody CardMoveRequest cardMoveRequest) {
-        CardCommandResponse cardCommandResponse = cardService.move(cardId, cardMoveRequest);
-        return new CommandResultResponse(200, cardCommandResponse);
+    public CardCommandResponse move(@PathVariable Long cardId, @RequestBody CardMoveRequest cardMoveRequest) {
+        return cardService.move(cardId, cardMoveRequest);
     }
 }

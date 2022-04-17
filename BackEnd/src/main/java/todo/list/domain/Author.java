@@ -4,13 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Author {
-    ANDROID("Android");
-    @JsonValue
-    private String stringValue;
-
-    Author(String stringValue) {
-        this.stringValue = stringValue;
-    }
+    ANDROID;
 
     @JsonCreator
     public static Author valueOfWithCaseInsensitive(String name) {

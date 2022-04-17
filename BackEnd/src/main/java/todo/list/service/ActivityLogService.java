@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class ActivityLogService {
 
     private final ActivityLogRepository activityLogRepository;
@@ -27,6 +26,7 @@ public class ActivityLogService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void save(ActivityLog activityLog) {
         activityLogRepository.save(activityLog);
     }

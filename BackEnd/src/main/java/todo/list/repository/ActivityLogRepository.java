@@ -39,8 +39,9 @@ public class ActivityLogRepository {
     }
 
     public void save(ActivityLog activityLog) {
-        String sql = "insert into activity_log (activity_log_action, title, now_status, create_datetime) " +
-                                        "values(:activity_log_action, :title, :now_status, :create_datetime)";
+        StringBuilder sqlStringBuilder = new StringBuilder();
+        sqlStringBuilder.append("insert into activity_log (activity_log_action, title, now_status, create_datetime) ")
+                                        .append("values(:activity_log_action, :title, :now_status, :create_datetime)");
 
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("activity_log_action", activityLog.getAction().name())
@@ -49,10 +50,11 @@ public class ActivityLogRepository {
                 .addValue("create_datetime", activityLog.getCreateDateTime());
 
         if (activityLog.actionIsMove()) {
-            sql = "insert into activity_log (activity_log_action, title, now_status, before_status, create_datetime) " +
-                                    "values(:activity_log_action, :title, :now_status, :before_status, :create_datetime)";
+            sqlStringBuilder = new StringBuilder();
+            sqlStringBuilder.append("insert into activity_log (activity_log_action, title, now_status, before_status, create_datetime) ")
+                                            .append("values(:activity_log_action, :title, :now_status, :before_status, :create_datetime)");
             params.addValue("before_status", activityLog.getBeforeStatus().name());
         }
-        jdbcTemplate.update(sql, params);
+        jdbcTemplate.update(sqlStringBuilder.toString(), params);
     }
 }
