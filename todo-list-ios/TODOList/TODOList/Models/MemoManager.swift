@@ -1,4 +1,43 @@
 import Foundation
+import OSLog
+
+extension NSNotification.Name {
+    static let memoDidAdd = NSNotification.Name("MemoDidAddNotification")
+    static let memoDidUpdate = NSNotification.Name("MemoDidUpdateNotification")
+    static let memoDidDelete = NSNotification.Name("MemoDidDeleteNotification")
+    static let networkError = NSNotification.Name("Network Error")
+}
+
+enum UserInfoKeys {
+    static let memo = "Memo"
+}
+
+enum Task {
+    case memoList
+    case memoAdd
+    case memoContentUpdate
+    case memoStatusUpdate
+    case memoDelete
+    
+    var path: String {
+        switch self {
+        case .memoList:
+            return ""
+        case .memoAdd:
+            return "task"
+        case .memoContentUpdate:
+            return ""
+        case .memoStatusUpdate:
+            return ""
+        case .memoDelete:
+            return ""
+        }
+    }
+    
+    var typeIdentifier: ObjectIdentifier? {
+        return nil
+    }
+}
 
 class MemoManager {
     
