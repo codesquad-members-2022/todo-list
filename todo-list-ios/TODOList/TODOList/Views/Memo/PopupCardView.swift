@@ -71,7 +71,7 @@ class PopupCardView: UIView {
         button.titleLabel?.font = UIFont(name: FontFactory.normal, size: 14)
         button.layer.cornerRadius = 6
         button.addAction(UIAction(handler: { _ in
-            self.delegate?.popupCardOkButtonDidTap(title: self.titleField.text!, content: self.contentField.text!, status: self.memoContainerType!)
+            self.delegate?.popupCardOkButtonDidTap(title: self.titleField.text, content: self.contentField.text, status: self.memoContainerType)
         }), for: .touchUpInside)
         return button
     }()

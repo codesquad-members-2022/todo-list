@@ -57,11 +57,10 @@ extension PopupViewController: PopupCardViewDelegate {
         dismiss(animated: true)
     }
     
-    // TODO: Server에 데이터 POST
-    func popupCardOkButtonDidTap(title: String, content: String, status: MemoStatus) {
+    func popupCardOkButtonDidTap(title: String?, content: String?, status: MemoStatus?) {
+        guard let title = title, let content = content, let status = status else { return }
         let memo = Memo(title: title, content: content, name: "sampleI", status: status)
         self.delegate?.popupViewAddButtonDidTap(memo: memo)
-        
         self.dismiss(animated: true)
     }
 }

@@ -4,7 +4,6 @@ final class MemoContainerViewController: UIViewController {
     
     private var containerType: MemoStatus?
     private var selectedIndexPath: IndexPath?
-    private let memoUseCase = MemoUseCase()
     
     private (set) var memoContainerView: MemoContainerView = {
         let containerView = MemoContainerView()
@@ -33,9 +32,9 @@ extension MemoContainerViewController: PopupViewDelegate {
     func popupViewAddButtonDidTap(memo: Memo) {
         guard let parentViewController = parent as? MemoCanvasViewController else { return }
         parentViewController.memoManager.sendModelDataToNetworkManager(memo: memo, taskType: .memoAdd, methodType: .post)
+        dismiss(animated: true)
     }
 }
-
 
 extension MemoContainerViewController: MemoContainerViewDelegate {
     func addButtonDidTap(containerType: MemoStatus) {
@@ -85,7 +84,7 @@ extension MemoContainerViewController: UITableViewDataSource & UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let parentViewController = parent as? MemoCanvasViewController,
               let containerType = containerType,
-              let memos = parentViewController.memoTableViewModels[containerType] else { return }
+              let memos = parentViewController.memoManager.memoTableViewModels[containerType] else { return }
         
         let memo = memos[indexPath.section]
         
@@ -117,12 +116,12 @@ extension MemoContainerViewController: UITableViewDragDelegate {
         guard let parentViewController = parent as? MemoCanvasViewController,
               let containerType = containerType,
               let selectedIndexPath = selectedIndexPath else { return }
-
+        
         parentViewController.removeSelectedMemoModel(containerType: containerType, indexPath: selectedIndexPath)
         tableView.beginUpdates()
         tableView.deleteSections([selectedIndexPath.section], with: .automatic)
         tableView.endUpdates()
-    
+        
         self.selectedIndexPath = nil
     }
 }
@@ -167,5 +166,5 @@ extension MemoContainerViewController: UITableViewDropDelegate {
             tableView.endUpdates()
         }
     }
-
+    
 }
