@@ -9,7 +9,6 @@ import UIKit
 
 extension CALayer {
     func addBorder(_ arr_edge: [UIRectEdge], color: UIColor, width: CGFloat) {
-        
         for edge in arr_edge {
             let border = CALayer()
             

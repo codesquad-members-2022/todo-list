@@ -9,31 +9,25 @@ import UIKit
 
 class ContainerViewController: UIViewController {
     
-    enum InspectorState {
-        case opened
-        case closed
-    }
-    
     private let mainViewController = MainViewController()
     private let inspectorViewController = InspectorViewController()
-    private var inspectorState: InspectorState = .closed
+    private lazy var popUpViewController = PopUpViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addChildViewControllers()
+        setUpView()
         
-        mainViewController.delegate = self
-
-        setUpInspectorView()
-
-        addChildViewController(child: mainViewController, parent: self)
-        addChildViewController(child: inspectorViewController, parent: self)
+        setUpDelegates()
     }
     
-    private func setUpInspectorView() {
-        inspectorViewController.view.frame = CGRect(origin: CGPoint(x: view.frame.width,
-                                                                    y: view.frame.origin.y),
-                                                    size: CGSize(width: view.frame.width * 0.35,
-                                                                 height: view.frame.height))
+    private func setUpView() {
+        setUpInspectorView()
+    }
+    
+    private func addChildViewControllers() {
+        addChildViewController(child: mainViewController, parent: self)
+        addChildViewController(child: inspectorViewController, parent: self)
     }
     
     private func addChildViewController(child: UIViewController, parent: UIViewController) {
@@ -41,25 +35,50 @@ class ContainerViewController: UIViewController {
         child.didMove(toParent: parent)
         view.addSubview(child.view)
     }
+    
+    private func setUpDelegates() {
+        mainViewController.delegate = self
+        inspectorViewController.delegate = self
+        mainViewController.kanbanColumnViewControllers.forEach { kanbanColumnViewController in
+            kanbanColumnViewController.delegate = self
+        }
+    }
 }
 
+//MARK: - View Layouts
+
+extension ContainerViewController {
+    private func setUpInspectorView() {
+        inspectorViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        inspectorViewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        inspectorViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        inspectorViewController.view.leadingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        inspectorViewController.view.widthAnchor.constraint(equalToConstant: 428).isActive = true
+    }
+}
+
+//MARK: - Delegates
+
 extension ContainerViewController: MainViewControllerDelegate {
-    func didTapInspectorButton() {
-        switch inspectorState {
-        case .closed:
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
-                
-                self.inspectorViewController.view.frame = CGRect(origin: CGPoint(x: self.view.frame.width * 0.65,
-                                                                                 y: self.view.frame.origin.y),
-                                                                 size: CGSize(width: self.view.frame.width * 0.35,
-                                                                              height: self.view.frame.height))
-            } completion: { [weak self] done in
-                self?.inspectorState = .opened
-            }
-            
-        case .opened:
-            //TODO: 토글 기능 구현
-            break
+    func didTapInspectorOpenButton() {
+        UIView.animate(withDuration: 0.5) {
+            self.inspectorViewController.view.transform = CGAffineTransform(translationX: -428, y: 0)
         }
+    }
+}
+
+extension ContainerViewController: InspectorViewControllerDelegate {
+    func didTapInspectorCloseButton() {
+        UIView.animate(withDuration: 0.5) {
+            self.inspectorViewController.view.transform = .identity
+        }
+    }
+}
+
+extension ContainerViewController: KanbanColumnViewControllerDelegate {
+    func didTapAddButton() {
+        popUpViewController.modalPresentationStyle = .overFullScreen
+        present(popUpViewController, animated: false)
     }
 }

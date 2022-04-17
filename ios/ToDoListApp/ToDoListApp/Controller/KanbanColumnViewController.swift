@@ -15,6 +15,8 @@ class KanbanColumnViewController: UIViewController {
     
     private let type: KanbanType
     
+    weak var delegate: KanbanColumnViewControllerDelegate?
+    
     init(type: KanbanType) {
         self.type = type
         super.init(nibName: nil, bundle: nil)
@@ -27,6 +29,8 @@ class KanbanColumnViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        registerCustomTableView()
+        addTargetActions()
     }
     
     private func setUpView() {
@@ -41,8 +45,6 @@ class KanbanColumnViewController: UIViewController {
     }
     
     private func configureCustomTableView() {
-        tableView.register(KanbanTableViewCell.self, forCellReuseIdentifier: KanbanTableViewCell.indentifier)
-        tableView.dataSource = tableViewDataSource
         tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = 8
         tableView.sectionFooterHeight = 8
@@ -51,8 +53,22 @@ class KanbanColumnViewController: UIViewController {
     
     private func configureTableTitleView() {
         tableTitleView.changeBadgeLabel(text: KanbanTableCellData.dataList.count)
-        tableTitleView.changeTitleLabel(text: type.title)
+        tableTitleView.changeTitleLabel(text: type.description)
     }
+    
+    private func registerCustomTableView() {
+        tableView.register(KanbanTableViewCell.self, forCellReuseIdentifier: KanbanTableViewCell.indentifier)
+        tableView.dataSource = tableViewDataSource
+    }
+    
+    private func addTargetActions() {
+        tableTitleView.addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+    }
+}
+
+//MARK: - View Layouts
+
+extension KanbanColumnViewController {
     
     private func layoutTableTitleView() {
         tableTitleView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,5 +87,13 @@ class KanbanColumnViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+    }
+}
+
+//MARK: - Selector Functions
+
+extension KanbanColumnViewController {
+    @objc func didTapAddButton() {
+        delegate?.didTapAddButton()
     }
 }

@@ -79,7 +79,7 @@ class KanbanTableViewCell: UITableViewCell {
     }
 }
 
-// MARK: - functions
+// MARK: - Functions
 
 extension KanbanTableViewCell {
     

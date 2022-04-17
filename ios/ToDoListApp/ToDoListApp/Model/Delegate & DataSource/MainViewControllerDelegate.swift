@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MainViewControllerDelegate: AnyObject {
-    func didTapInspectorButton()
+    func didTapInspectorOpenButton()
 }

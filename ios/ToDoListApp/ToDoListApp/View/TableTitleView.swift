@@ -27,9 +27,9 @@ class TableTitleView: UIView {
         return label
     }()
     
-    private let addButton: UIButton = {
+    private(set) var addButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: Constant.SFSymbol.plus), for: .normal)
+        button.setImage(UIImage(systemName: Constant.ImageName.plus), for: .normal)
         button.tintColor = .gray
         return button
     }()
@@ -78,7 +78,7 @@ class TableTitleView: UIView {
     }
 }
 
-// MARK: - functions
+// MARK: - Functions
 
 extension TableTitleView {
     func changeBadgeLabel(text count: Int){

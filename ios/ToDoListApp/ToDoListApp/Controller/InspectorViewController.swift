@@ -14,14 +14,17 @@ class InspectorViewController: UIViewController {
     
     private let closeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: Constant.SFSymbol.xmark), for: .normal)
+        button.setImage(UIImage(systemName: Constant.ImageName.xmark), for: .normal)
         button.tintColor = .black
         return button
     }()
     
+    weak var delegate: InspectorViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        addTargetActions()
     }
     
     private func setUpView() {
@@ -30,8 +33,10 @@ class InspectorViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(closeButton)
         
-        configureCustomTableView()
+        registerTableView()
+        configureTableView()
         layoutTableView()
+        
         layoutCloseButton()
     }
     
@@ -41,12 +46,27 @@ class InspectorViewController: UIViewController {
         view.layer.addBorder([.left], color: lineColor, width: 1)
     }
     
-    private func configureCustomTableView() {
-        tableView.register(InspectorTableViewCell.self, forCellReuseIdentifier: InspectorTableViewCell.indentifier)
-        tableView.dataSource = tableViewDataSource
+    private func configureTableView() {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
     }
+    
+    
+    private func registerTableView() {
+        tableView.register(InspectorTableViewCell.self, forCellReuseIdentifier: InspectorTableViewCell.indentifier)
+        tableView.dataSource = tableViewDataSource
+    }
+    
+    private func addTargetActions() {
+        closeButton.addTarget(self,
+                              action: #selector(didTapInspectorCloseButton),
+                              for: .touchUpInside)
+    }
+}
+
+//MARK: - View Layouts
+
+extension InspectorViewController {
     
     private func layoutTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,5 +82,13 @@ class InspectorViewController: UIViewController {
         
         closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -54).isActive = true
+    }
+}
+
+//MARK: - Selector Functions
+
+extension InspectorViewController {
+    @objc func didTapInspectorCloseButton() {
+        delegate?.didTapInspectorCloseButton()
     }
 }

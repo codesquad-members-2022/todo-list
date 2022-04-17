@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E491FF6280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E491FF5280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift */; };
+		1E4920202804590600764EF8 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49201F2804590600764EF8 /* PopUpViewController.swift */; };
+		1E4920222805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4920212805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift */; };
+		1E4920392807F05B00764EF8 /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4920382807F05B00764EF8 /* HTTPHeader.swift */; };
+		1E49203B2807F06E00764EF8 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49203A2807F06E00764EF8 /* HTTPMethod.swift */; };
+		1E49203D2807F07D00764EF8 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49203C2807F07D00764EF8 /* ServerAPI.swift */; };
+		1E4920412807F09800764EF8 /* NetworkManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4920402807F09800764EF8 /* NetworkManger.swift */; };
+		1E4920432807F0B000764EF8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4920422807F0B000764EF8 /* NetworkError.swift */; };
+		1E4920452807F13F00764EF8 /* CardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4920442807F13F00764EF8 /* CardData.swift */; };
 		1E74322E27FA94AC00B908E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E74322D27FA94AC00B908E4 /* AppDelegate.swift */; };
 		1E74323027FA94AC00B908E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E74322F27FA94AC00B908E4 /* SceneDelegate.swift */; };
 		1E74323527FA94AC00B908E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E74323327FA94AC00B908E4 /* Main.storyboard */; };
@@ -22,9 +31,10 @@
 		1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */; };
 		1EF0292E280023A5001AA033 /* MainViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */; };
 		1EF029672802AA62001AA033 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF029662802AA62001AA033 /* TitleView.swift */; };
+		1EF029692802CAE3001AA033 /* InspectorViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF029682802CAE3001AA033 /* InspectorViewControllerDelegate.swift */; };
 		7380B0D927FFC84500B5D052 /* InspectorTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */; };
 		7380B0DB27FFC84F00B5D052 /* InspectorTableCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */; };
-		7380B0DD27FFC85800B5D052 /* CALayer+addBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */; };
+		7380B0DD27FFC85800B5D052 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DC27FFC85800B5D052 /* CALayer+Extension.swift */; };
 		7380B0DF27FFC86A00B5D052 /* InspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0DE27FFC86A00B5D052 /* InspectorViewController.swift */; };
 		7380B0E127FFC87300B5D052 /* InspectorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0E027FFC87300B5D052 /* InspectorTableViewCell.swift */; };
 		7380B0E727FFFE6600B5D052 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380B0E627FFFE6600B5D052 /* PopUpView.swift */; };
@@ -32,6 +42,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E491FF5280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanColumnViewControllerDelegate.swift; sourceTree = "<group>"; };
+		1E49201F2804590600764EF8 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		1E4920212805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpContentsTextViewDelegate.swift; sourceTree = "<group>"; };
+		1E4920382807F05B00764EF8 /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
+		1E49203A2807F06E00764EF8 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		1E49203C2807F07D00764EF8 /* ServerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
+		1E4920402807F09800764EF8 /* NetworkManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManger.swift; sourceTree = "<group>"; };
+		1E4920422807F0B000764EF8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		1E4920442807F13F00764EF8 /* CardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardData.swift; sourceTree = "<group>"; };
 		1E74322A27FA94AC00B908E4 /* ToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E74322D27FA94AC00B908E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E74322F27FA94AC00B908E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,9 +68,10 @@
 		1EF0292827FFD4AE001AA033 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerDelegate.swift; sourceTree = "<group>"; };
 		1EF029662802AA62001AA033 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		1EF029682802CAE3001AA033 /* InspectorViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorViewControllerDelegate.swift; sourceTree = "<group>"; };
 		7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableViewDataSource.swift; sourceTree = "<group>"; };
 		7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableCellData.swift; sourceTree = "<group>"; };
-		7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+addBorder.swift"; sourceTree = "<group>"; };
+		7380B0DC27FFC85800B5D052 /* CALayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		7380B0DE27FFC86A00B5D052 /* InspectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
 		7380B0E027FFC87300B5D052 /* InspectorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorTableViewCell.swift; sourceTree = "<group>"; };
 		7380B0E627FFFE6600B5D052 /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
@@ -69,6 +89,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E4920372807F01400764EF8 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				1E4920382807F05B00764EF8 /* HTTPHeader.swift */,
+				1E49203A2807F06E00764EF8 /* HTTPMethod.swift */,
+				1E49203C2807F07D00764EF8 /* ServerAPI.swift */,
+				1E4920422807F0B000764EF8 /* NetworkError.swift */,
+				1E4920402807F09800764EF8 /* NetworkManger.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		1E74322127FA94AC00B908E4 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +154,7 @@
 				1E7432E627FD269300B908E4 /* MainViewController.swift */,
 				1EF0292027FEBE34001AA033 /* KanbanColumnViewController.swift */,
 				7380B0DE27FFC86A00B5D052 /* InspectorViewController.swift */,
+				1E49201F2804590600764EF8 /* PopUpViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -129,10 +162,12 @@
 		1E7432E527FD184E00B908E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1E4920372807F01400764EF8 /* Entity */,
 				1EF0292A28001B77001AA033 /* Delegate & DataSource */,
 				1E7432F427FD271A00B908E4 /* KanbanTableCellData.swift */,
 				7380B0DA27FFC84F00B5D052 /* InspectorTableCellData.swift */,
 				1EF0291E27FEB9BD001AA033 /* KanbanType.swift */,
+				1E4920442807F13F00764EF8 /* CardData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -141,8 +176,11 @@
 			isa = PBXGroup;
 			children = (
 				1EF0292D280023A5001AA033 /* MainViewControllerDelegate.swift */,
+				1EF029682802CAE3001AA033 /* InspectorViewControllerDelegate.swift */,
+				1E491FF5280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift */,
 				1E7432F027FD26DF00B908E4 /* KanbanTableViewDataSource.swift */,
 				7380B0D827FFC84500B5D052 /* InspectorTableViewDataSource.swift */,
+				1E4920212805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift */,
 			);
 			path = "Delegate & DataSource";
 			sourceTree = "<group>";
@@ -158,7 +196,7 @@
 		1EF0293028002831001AA033 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				7380B0DC27FFC85800B5D052 /* CALayer+addBorder.swift */,
+				7380B0DC27FFC85800B5D052 /* CALayer+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -235,24 +273,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EF0292E280023A5001AA033 /* MainViewControllerDelegate.swift in Sources */,
+				1E4920432807F0B000764EF8 /* NetworkError.swift in Sources */,
 				7380B0E127FFC87300B5D052 /* InspectorTableViewCell.swift in Sources */,
 				7380B0DF27FFC86A00B5D052 /* InspectorViewController.swift in Sources */,
 				1E7432EF27FD26C600B908E4 /* KanbanTableViewCell.swift in Sources */,
+				1E4920452807F13F00764EF8 /* CardData.swift in Sources */,
+				1E4920222805B7B200764EF8 /* PopUpContentsTextViewDelegate.swift in Sources */,
 				7380B0E928001EC500B5D052 /* Constant.swift in Sources */,
-				7380B0DD27FFC85800B5D052 /* CALayer+addBorder.swift in Sources */,
+				7380B0DD27FFC85800B5D052 /* CALayer+Extension.swift in Sources */,
 				1E7432F527FD271A00B908E4 /* KanbanTableCellData.swift in Sources */,
+				1E49203B2807F06E00764EF8 /* HTTPMethod.swift in Sources */,
 				7380B0DB27FFC84F00B5D052 /* InspectorTableCellData.swift in Sources */,
 				1E7432E727FD269300B908E4 /* MainViewController.swift in Sources */,
+				1EF029692802CAE3001AA033 /* InspectorViewControllerDelegate.swift in Sources */,
 				1E7432F727FD27B300B908E4 /* TableTitleView.swift in Sources */,
+				1E4920392807F05B00764EF8 /* HTTPHeader.swift in Sources */,
 				1E74322E27FA94AC00B908E4 /* AppDelegate.swift in Sources */,
 				7380B0E727FFFE6600B5D052 /* PopUpView.swift in Sources */,
 				1E7432F127FD26DF00B908E4 /* KanbanTableViewDataSource.swift in Sources */,
 				1E74323027FA94AC00B908E4 /* SceneDelegate.swift in Sources */,
 				7380B0D927FFC84500B5D052 /* InspectorTableViewDataSource.swift in Sources */,
+				1E491FF6280407D400764EF8 /* KanbanColumnViewControllerDelegate.swift in Sources */,
 				1EF0291F27FEB9BD001AA033 /* KanbanType.swift in Sources */,
+				1E4920202804590600764EF8 /* PopUpViewController.swift in Sources */,
 				1EF0292927FFD4AE001AA033 /* ContainerViewController.swift in Sources */,
 				1EF0292127FEBE34001AA033 /* KanbanColumnViewController.swift in Sources */,
+				1E4920412807F09800764EF8 /* NetworkManger.swift in Sources */,
 				1EF029672802AA62001AA033 /* TitleView.swift in Sources */,
+				1E49203D2807F07D00764EF8 /* ServerAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
