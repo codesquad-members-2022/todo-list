@@ -1,5 +1,6 @@
 .task__card {
   @include flexbox(between);
+  cursor: pointer;
   width: 308px;
   padding: 16px;
   background-color: $white;
@@ -15,18 +16,21 @@
     font-size: 16px;
     line-height: 23px;
   }
+
   &__main {
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
     margin: 8px 0;
   }
+
   &__footer {
     font-weight: 400;
     font-size: 12px;
     line-height: 17px;
     color: $gray2;
   }
+
   &__input {
     &--header {
       font-weight: 700;
@@ -36,9 +40,11 @@
       font-weight: 400;
       width: 100%;
       overflow: hidden;
+      resize: none;
     }
   }
 }
+
 .card__delete-btn {
   cursor: pointer;
   position: absolute;
@@ -51,29 +57,41 @@
   font-size: 14px;
   font-weight: 700;
 
-  &__cancel {
+  @mixin button-style($color, $background, $cursor: pointer) {
+    cursor: $cursor;
     line-height: 20px;
     width: 134px;
     height: 40px;
-    left: 20px;
-    top: 20px;
-    background: $gray3;
+    color: $color;
+    background: $background;
     border-radius: 6px;
     margin-right: 8px;
+
+    @if $cursor == no {
+      cursor: '';
+      margin-right: 0;
+    }
+  }
+
+  &__cancel {
+    @include button-style($gray1, $gray3);
   }
 
   &__save {
-    line-height: 20px;
-    width: 134px;
-    height: 40px;
-    left: 20px;
-    top: 20px;
-    color: $white;
-    background: $blue;
-    border-radius: 6px;
+    @include button-style($white, $skyblue, no);
+  }
+
+  &__edit {
+    @include button-style($white, $blue);
   }
 }
 
 .new-card {
   border: 1px solid $blue;
+}
+
+.delete-candidate-card {
+  background-color: $white-red;
+  box-shadow: inset 0 0 0 1px $red;
+  box-sizing: border-box;
 }
