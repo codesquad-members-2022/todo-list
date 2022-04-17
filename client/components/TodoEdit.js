@@ -77,22 +77,27 @@ export default class TodoEdit {
 
   onUpdateBtn = () => {
     const editData = { title: this.title, content: this.content, userId: this.userId };
-    editLocalStorageById(editData, this.id);
+    editLocalStorageById('todos', editData, this.id);
     this.editTodoElement.classList.remove('todo-border');
 
     this.todoHandleEventListener();
     this.editTodoElement.innerHTML = this.editTemplate();
-    const newTodoData = {};
-    newTodoData.id = this.id;
-    newTodoData.title = this.title;
-    newTodoData.content = this.content;
-    newTodoData.userId = this.userid;
+    const newTodoData = {
+      id: this.id,
+      title: this.title,
+      status: this.status,
+      content: this.content,
+      userId: this.userId,
+    };
     this.setTodoData(newTodoData);
 
-    const newNotice = {};
-    newNotice.title = this.title;
-    newNotice.status = this.status;
+    const newNotice = {
+      title: this.title,
+      status: this.status,
+    };
+
     const notice = createNotice(newNotice, '수정');
     handleNotice(notice);
+    this.editTodoElement.setAttribute('data-drag', true);
   };
 }

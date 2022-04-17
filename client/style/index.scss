@@ -33,6 +33,7 @@ body {
 }
 .column-section {
   width: 1440px;
+  height: calc(100vh - 112px);
   display: flex;
   @include margincenter();
 }
@@ -120,4 +121,30 @@ body {
   &:hover {
     cursor: pointer;
   }
+}
+
+.fabBtn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  background-color: $color-blue;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  .fab__addBtn {
+    text-align: center;
+    line-height: 64px;
+    font-size: 25px;
+    color: $color-white;
+  }
+}
+.input-fab {
+  height: 138px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  z-index: 200;
 }

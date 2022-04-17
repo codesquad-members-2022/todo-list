@@ -1,31 +1,61 @@
-// server.js
 import jsonServer from 'json-server';
+import { Low, JSONFile } from 'lowdb';
+import lodash from 'lodash';
+
 const server = jsonServer.create();
-const router = jsonServer.router('todos.json');
+const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
-// db.json를 조작하기 위해 lowdb를 사용
-import low from 'lowdb';
-import FileSync from 'lowdb/adapters/FileSync.d.ts';
-const adapter = new FileSync('todos.json');
-const db = low(adapter);
-
-// Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
+server.use(jsonServer.bodyParser);
 
-// Add custom routes before JSON Server router
-server.delete('/todos', (req, res) => {
-  // lowdb를 사용해서 db.json에서 completed: true인 todo를 제거
+const db = new Low(new JSONFile('db.json'));
+await db.read();
 
-  //db.get('todos').remove({ completed: true }).write();
-  console.log(req);
-  // todos를 응답
-  res.send(db.get('todos').value());
+db.chain = lodash.chain(db.data);
+server.delete('/todos/:id', (req, res) => {
+  const id = Number(req.params.id);
+
+  const todo = db.chain.get('todos').find({ id: id }).value();
+  if (todo) {
+    todo.isDeleted = true;
+    db.write();
+    res.send({ status: 'OK' });
+    return;
+  }
+
+  res.send({ status: 'FAIL' });
 });
 
-// Use default router
+server.get('/todos', (req, res) => {
+  const todos = db.chain.get('todos').filter({ isDeleted: false }).value();
+  res.send(todos);
+});
+
+server.post('/todos', (req, res) => {
+  const todo = req.body;
+  const todos = db.chain.get('todos').value();
+  todos.push(todo);
+  db.write();
+
+  res.send({ status: 'OK' });
+});
+
+server.put('/todos', (req, res) => {
+  const todo = req.body;
+
+  const existTodo = db.chain.get('todos').find({ id: todo.id }).value();
+  if (existTodo) {
+    res.send({ status: 'OK' });
+    db.write();
+    return;
+  }
+
+  res.send({ status: 'FAIL' });
+});
+
 server.use(router);
 
-server.listen(3000, () => {
+server.listen(5000, () => {
   console.log('JSON Server is running');
 });

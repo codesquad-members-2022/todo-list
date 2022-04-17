@@ -6,12 +6,13 @@ import { $ } from '../utils/dom.js';
 import { createNotice, handleNotice } from '../utils/action.js';
 
 export default class TodoInput {
-  constructor(status, setOnInput, handleAddCount) {
+  constructor(status, setOnInput, handleAddCount, handleMinusCount) {
     this.status = status;
     this.title = '';
     this.content = '';
     this.setOnInput = setOnInput;
     this.handleAddCount = handleAddCount;
+    this.handleMinusCount = handleMinusCount;
   }
 
   onInputContent = ({ target }) => {
@@ -57,7 +58,7 @@ export default class TodoInput {
       return;
     }
     const todo = this.createTodo();
-    const newTodo = new Todo(todo);
+    const newTodo = new Todo(todo, this.handleMinusCount);
     $(`.${this.status}`).insertAdjacentHTML('afterend', newTodo.render());
     newTodo.handleEventListener();
     $(`.input-${this.status}`)?.remove();

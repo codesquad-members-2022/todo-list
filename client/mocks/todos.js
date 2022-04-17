@@ -5,6 +5,7 @@ export const dummyTodos = [
     content: 'add, commit, push',
     status: 'ing',
     userId: 1,
+    columnId: 2,
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const dummyTodos = [
     content: 'add, commit, push',
     status: 'todo',
     userId: 1,
+    columnId: 1,
   },
   {
     id: 3,
@@ -19,14 +21,16 @@ export const dummyTodos = [
     content: 'add, commit, push',
     status: 'complete',
     userId: 2,
+    columnId: 3,
   },
-  { id: 4, title: 'GitHub 공부하기', content: 'add, commit, push', status: 'complete', userId: 2 },
+  { id: 4, title: 'GitHub 공부하기', content: 'add, commit, push', status: 'complete', userId: 2, columnId: 3 },
   {
     id: 5,
     title: 'GitHub 공부하기',
     content: 'add, commit, push',
     status: 'complete',
     userId: 3,
+    columnId: 3,
   },
   {
     id: 6,
@@ -34,5 +38,6 @@ export const dummyTodos = [
     content: 'add, commit, push',
     status: 'complete',
     userId: 3,
+    columnId: 3,
   },
 ];

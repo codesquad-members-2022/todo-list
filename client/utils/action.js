@@ -11,6 +11,7 @@ export const createNotice = (data, action) => {
   const notice = {};
   notice.id = getLastIdByKey('notices') + 1;
   notice.title = data.title;
+  notice.firstStatus = data.firstStatus;
   notice.status = data.status;
   notice.action = action;
   notice.userId = 1;
