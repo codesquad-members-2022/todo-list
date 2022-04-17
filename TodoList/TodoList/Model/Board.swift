@@ -31,7 +31,7 @@ final class Board{
     
     func getAndDivideCard(){
         URLManager.requestGet(url: "http://3.39.150.251:8080/api/cards?userId=chez"){ data in
-            guard let cards: [Card] = JsonConverter.decodeJson(data: data) else { return }
+            guard let cards: [Card] = JsonConverter.decodeJsonArray(data: data) else { return }
             
             self.todoCards.append(contentsOf: cards.filter{ $0.section == .todo })
             self.doingCards.append(contentsOf: cards.filter{ $0.section == .doing })
@@ -43,38 +43,42 @@ final class Board{
     
     func postCard(card: Card, section: BoardSubscriptIndex){
         var newCard = card
-        let postCard = PostCard(section: card.section.rawValue, title: card.title, content: card.content, userID: "chez")
-        guard let encodingData: Data = JsonConverter.encodeJson(param: postCard) else { return }
+        guard let encodingData: Data = JsonConverter.encodeJson(param: newCard) else { return }
         
         URLManager.requestPost(url: "http://3.39.150.251:8080/api/cards", encodingData: encodingData){ data in
-            do{
-                let subData = try JSONDecoder().decode(PostResponse.self, from: data)
-                
-                newCard.changeId(id: subData.id)
-                newCard.changeDate(date: subData.modifiedAt)
-                
-                self.addCard(newCard, at: section)
-            } catch{
-                return
-            }
-            //guard let subData: [PostResponse] = JsonConverter.decodeJson(data: data) else { return }
-            //guard let responseData = subData.first else { return }
+            guard let subData: PostResponse = JsonConverter.decodeJson(data: data) else { return }
             
+            newCard.changeId(id: subData.id)
+            newCard.changeDate(date: subData.modifiedAt)
             
+            self.addCard(newCard, at: section)
         }
     }
     
     func deleteCard(id: Int, userID: Int){
-        
         guard let encodingData: Data = JsonConverter.encodeJson(param: [id,userID]) else { return }
-        
-        URLManager.requestDelete(url: "http://3.39.150.251:8080/api/cards", encodingData: encodingData) { data in
-            
-        }
-        
-        
+        URLManager.requestDelete(url: "http://3.39.150.251:8080/api/cards", encodingData: encodingData) { data in        
+        }     
     }
-    
+   
+    func patchCard(card: Card, section: BoardSubscriptIndex){
+        guard let encodingData: Data = JsonConverter.encodeJson(param: card) else { return }
+        
+        URLManager.requestPost(url: "http://3.39.150.251:8080/api/cards\("?")", encodingData: encodingData){ data in
+            guard let subData: Bool = JsonConverter.decodeJson(data: data) else { return }
+            
+            switch subData{
+            case true:
+                self.patchCard(card: card, section: section)
+            case false:
+                break
+            }
+        }
+    }
+}
+
+private extension Board{
+
     func addCard(_ card: Card, at section: BoardSubscriptIndex){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addCard"), object: self)
         
@@ -90,6 +94,7 @@ final class Board{
         }
     }
     
+
     func deleteCard(_ id: Int, at section: BoardSubscriptIndex){
         switch section {
         case .todo:
@@ -110,13 +115,29 @@ final class Board{
                     doneCards.remove(at: index)
                 }
             }
+        }
+
+    func patchCard(_ card: Card, at section: BoardSubscriptIndex){
+        switch section {
+        case .todo:
+            guard let index = todoCards.firstIndex(where: { $0 == card }) else { break }
+            todoCards[index].changeTitle(title: card.title)
+            todoCards[index].changeContent(content: card.content)
+        case .doing:
+            guard let index = doingCards.firstIndex(where: { $0 == card }) else { break }
+            doingCards[index].changeTitle(title: card.title)
+            doingCards[index].changeContent(content: card.content)
+        case .done:
+            guard let index = doneCards.firstIndex(where: { $0 == card }) else { break }
+            doneCards[index].changeTitle(title: card.title)
+            doneCards[index].changeContent(content: card.content)
+
         case .none:
             return
         }
     }
-}
+    
 
-private extension Board{
     func dateFormatter(date: String) -> Date?{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

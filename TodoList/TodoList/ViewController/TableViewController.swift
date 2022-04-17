@@ -174,12 +174,8 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         guard let customTable = tableView as? TodoTableView, let index = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return }
         let cards = cardBoard[index]
-        let title = cards[indexPath.section].title
-        let body = cards[indexPath.section].content
-        
-        addCardViewController.setaddCardView(title: title, body: body)
+        addCardViewController.patchCardView(card: cards[indexPath.section], section: index)
         self.setModalPresent()
-
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -197,7 +193,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
 
 extension TableViewController: TableHeaderDelegate{
     func cardWillCreated(at section: Int){
-        addCardViewController.sectionNumber = section
+        addCardViewController.setaddCardView(sectionNumber: section)
         addCardViewController.modalPresentationStyle = .overCurrentContext
         addCardViewController.modalTransitionStyle = .crossDissolve
         self.present(addCardViewController, animated: true, completion: nil)
