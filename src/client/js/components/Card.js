@@ -21,38 +21,57 @@ class Card extends Component {
   }
 
   setEvent() {
-    this.addEvent('mouseover', '.delete-btn', () => {
-      this.$target.querySelector('.card').classList.add('delete');
-    });
+    this.addEvent('mouseover', '.delete-btn', () => this.addCardStyle());
 
-    this.addEvent('mouseout', '.delete-btn', (event) => {
-      const alertWrapper = document.querySelector('.alert-wrapper');
-      if (event.relatedTarget !== alertWrapper) {
-        this.$target.querySelector('.card').classList.remove('delete');
-      }
-    });
+    this.addEvent('mouseout', '.delete-btn', () => this.removeCardStyle());
 
-    this.addEvent('click', '.delete-btn', () => {
-      this.$target.querySelector('.card').classList.add('delete');
-      renderAlert({
-        cardId: this.$props.id,
-      });
-    });
+    this.addEvent('click', '.delete-btn', () => this.openAlert());
 
-    this.addEvent('dblclick', '.card', () => this.handleDblclick());
+    this.addEvent('dblclick', '.card', () => this.showEditedInputCard());
   }
 
-  handleDblclick() {
-    const { inputCard } = this.$props.column;
-    if (inputCard) inputCard.removeCard();
+  addCardStyle() {
+    this.$target.querySelector('.card').classList.add('delete');
+  }
+
+  removeCardStyle() {
+    this.$target.querySelector('.card').classList.remove('delete');
+  }
+
+  openAlert() {
+    this.$target.querySelector('.card').classList.add('delete');
+    renderAlert({
+      cardId: this.$props.id,
+    });
+  }
+
+  showEditedInputCard() {
+    this.removeInputCard();
 
     const columnById = columnStore.getColumnWithId(this.$props.columnId);
-    this.$props.column.inputCard = renderEditedInputCard({
+    const taskId = this.$target.dataset.id;
+    const { title, contents } = this.$props;
+
+    renderEditedInputCard({
       target: this.$target,
       column: columnById,
+      title,
+      contents,
+      taskId,
     });
-
     this.$target.classList.add('hidden');
+  }
+
+  removeInputCard() {
+    const column = this.$target.closest('.column');
+    const inputCard = column.querySelector('.deactivate');
+    if (!inputCard) return;
+
+    inputCard.closest('li').remove();
+    const hiddenList = column.querySelector('.hidden');
+    if (!hiddenList) return;
+
+    hiddenList.classList.remove('hidden');
   }
 }
 

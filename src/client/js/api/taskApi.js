@@ -1,4 +1,4 @@
-import { request, BASE_URL, HTTP_METHOD, requestWithoutJson } from './index.js';
+import { request, BASE_URL, HTTP_METHOD } from './index.js';
 
 const TaskApi = {
   getAllTasks() {
@@ -6,18 +6,18 @@ const TaskApi = {
   },
 
   editTask(taskInfo, taskId) {
-    return requestWithoutJson(
+    return request(
       `${BASE_URL}/tasks/${taskId}`,
       HTTP_METHOD.PATCH(taskInfo),
     );
   },
 
   enrollTask(taskInfo) {
-    return requestWithoutJson(`${BASE_URL}/tasks`, HTTP_METHOD.POST(taskInfo));
+    return request(`${BASE_URL}/tasks`, HTTP_METHOD.POST(taskInfo));
   },
 
   deleteTask(taskId) {
-    return requestWithoutJson(`${BASE_URL}/tasks/${taskId}`, HTTP_METHOD.DELETE());
+    return request(`${BASE_URL}/tasks/${taskId}`, HTTP_METHOD.DELETE());
   }
 };
 
