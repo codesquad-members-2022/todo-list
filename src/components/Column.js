@@ -5,11 +5,10 @@ import Cards from "./Cards.js";
 export default class Column extends Component {
   async setup() {
     const columnIndex = Number(this.$target.dataset.index);
-    const cards = await getCards(columnIndex);
     this.setState({
-      columnIndex: columnIndex,
-      cards: cards.map((card) => ({ ...card, cardState: "default" })),
+      columnIndex,
     });
+    this.setCards(columnIndex);
   }
   template() {
     const { title, cards } = this.state;
@@ -30,11 +29,28 @@ export default class Column extends Component {
   mounted() {
     const { cards } = this;
     const $cardWrapper = this.$target.querySelector(".card-wrapper");
-    new Cards($cardWrapper, { cards, undoCreateCard: this.undoCreateCard.bind(this) });
+    new Cards($cardWrapper, {
+      cards,
+      undoCreateCard: this.undoCreateCard.bind(this),
+      deactivatePlusButton: this.deactivatePlusButton.bind(this),
+      setCards: this.setCards.bind(this),
+      notifyNewHistoryData: this.notifyNewHistoryData,
+    });
   }
   get cards() {
     const { cards } = this.state;
     return cards;
+  }
+  async setCards(columnIndex) {
+    const cards = await getCards(columnIndex);
+    this.setState({
+      cards: cards.map((card) => ({ ...card, cardState: "default" })),
+    });
+  }
+  async notifyNewHistoryData() {
+    const $menu = document.querySelector(".menu");
+    const $actionAlert = $menu.querySelector(".action-alert");
+    $actionAlert.classList.remove("hidden-alert");
   }
   setEvent() {
     this.addEvent("click", ".column-plus-button", this.clickPlusButtonHandler.bind(this));
@@ -42,9 +58,19 @@ export default class Column extends Component {
   clickPlusButtonHandler() {
     if (this.state.cards[0]?.cardState === "create") {
       this.undoCreateCard();
+      this.deactivatePlusButton();
     } else {
       this.createCard();
+      this.activatePlusButton();
     }
+  }
+  activatePlusButton() {
+    const $plusButton = this.$target.querySelector(".column-plus-button");
+    $plusButton.classList.add("column-plus-button--active");
+  }
+  deactivatePlusButton() {
+    const $plusButton = this.$target.querySelector(".column-plus-button");
+    $plusButton.classList.remove("column-plus-button--active");
   }
   createCard() {
     const _cards = this.state.cards;

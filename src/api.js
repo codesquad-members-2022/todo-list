@@ -4,6 +4,22 @@ const getMockData = async (resource) => {
   return data;
 };
 
+const postData = async (resource, data) => {
+  fetch("http://localhost:3000/" + resource, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+const deleteData = async (resource) => {
+  fetch("http://localhost:3000/" + resource, {
+    method: "DELETE",
+  });
+};
+
 const getColumns = async () => {
   const columns = await getMockData("columns");
   return columns.map(({ title, id }) => ({
@@ -14,7 +30,12 @@ const getColumns = async () => {
 
 const getCards = async (columnIndex) => {
   const cards = await getMockData(`cards?columnId=${columnIndex}`);
+  cards.sort((a, b) => b.id - a.id);
   return cards;
+};
+
+const postCard = async (card) => {
+  postData("cards", card);
 };
 
 const getHistories = async () => {
@@ -22,4 +43,7 @@ const getHistories = async () => {
   return histories;
 };
 
-export { getColumns, getCards, getHistories };
+const postHistories = async (histories) => {
+  postData("histories", histories);
+};
+export { getColumns, getCards, postCard, getHistories, postHistories, deleteData };
