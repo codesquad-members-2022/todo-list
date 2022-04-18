@@ -7,15 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.todolist.R
+import com.example.todolist.data.NewCard
 import com.example.todolist.databinding.DialogFragmentBinding
 
 class CreateCardDialogFragment : DialogFragment() {
 
     private lateinit var binding: DialogFragmentBinding
-    private val viewModel: TaskViewModel by activityViewModels()
+    private val viewModel: CardViewModel by activityViewModels()
     private var title = ""
     private var content = ""
 
@@ -44,12 +46,13 @@ class CreateCardDialogFragment : DialogFragment() {
 
         setCancelClickListener()
 
-        setAddTaskListener()
+        setAddCardListener()
 
     }
 
     private fun setAddContentChangedListener() {
         binding.tvEditContent.addTextChangedListener(object : TextWatcher {
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -60,19 +63,20 @@ class CreateCardDialogFragment : DialogFragment() {
                 content = s.toString()
                 binding.btnDialogRegister.isEnabled = title.isNotBlank() && content.isNotBlank()
             }
+
         })
     }
 
-    private fun setAddTaskListener() {
+    private fun setAddCardListener() {
         binding.btnDialogRegister.setOnClickListener {
-            viewModel.addTodoCard(title, content)
-            this.dismiss()
-        }
-    }
-
-    private fun setCancelClickListener() {
-        binding.btnDialogCancel.setOnClickListener {
-            dialog?.cancel()
+            kotlin.runCatching {
+                val newCard = this.tag?.let { status -> NewCard(title, content, status) }
+                    ?: throw IllegalArgumentException("tag id null")
+                viewModel.addCard(newCard)
+                this.dismiss()
+            }.onFailure {
+                Toast.makeText(requireContext(), "입력 값이 정확하지 않습니다!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -90,5 +94,13 @@ class CreateCardDialogFragment : DialogFragment() {
             }
         })
     }
+
+    private fun setCancelClickListener() {
+        binding.btnDialogCancel.setOnClickListener {
+            dialog?.cancel()
+        }
+    }
+
+
 
 }

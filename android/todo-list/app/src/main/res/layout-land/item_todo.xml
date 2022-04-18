@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="task"
-            type="com.example.todolist.data.Task" />
+            name="card"
+            type="com.example.todolist.data.Card" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cio_screen"
+            android:id="@+id/clo_screen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/background_white"
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@{task.title}"
+                android:text="@{card.subject}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +58,7 @@
                 android:layout_marginBottom="8dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@{task.body}"
+                android:text="@{card.content}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_title"

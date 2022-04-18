@@ -7,20 +7,42 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.ui.todo.TodoAdapter
+import com.example.todolist.ui.adapter.CardAdapter
 
-class TodoTouchHelper :
+class CardTouchHelper :
     ItemTouchHelper.Callback() {
 
     private var currentDx = 0f
     private var deleteTextViewSize = 0f
+    private val clampSpace = 2.5f
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        deleteTextViewSize = getDeleteTextViewWidth(viewHolder as TodoAdapter.TodoViewHolder)
+        deleteTextViewSize = getDeleteTextViewWidth(viewHolder as CardAdapter.CardViewHolder)
         return makeMovementFlags(UP or DOWN, START)
+    }
+
+    override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+        setTag((viewHolder as CardAdapter.CardViewHolder), currentDx <= -deleteTextViewSize)
+        return 2f
+    }
+
+    private fun getDeleteTextViewWidth(viewHolder: CardAdapter.CardViewHolder): Float {
+        return viewHolder.getDeleteTextViewWidth()
+    }
+
+    private fun getDeleteTextView(viewHolder: CardAdapter.CardViewHolder): TextView? {
+        return viewHolder.getDeleteTextView()
+    }
+
+    private fun getSwipeView(viewHolder: CardAdapter.CardViewHolder): ConstraintLayout? {
+        return viewHolder.getSwipeView()
+    }
+
+    private fun getTag(viewHolder: CardAdapter.CardViewHolder): Boolean {
+        return viewHolder.getTag()
     }
 
     override fun onMove(
@@ -44,11 +66,10 @@ class TodoTouchHelper :
         isCurrentlyActive: Boolean
     ) {
         if (actionState == ACTION_STATE_SWIPE) {
-            viewHolder as TodoAdapter.TodoViewHolder
+            viewHolder as CardAdapter.CardViewHolder
             val view = getSwipeView(viewHolder)
             val isClamped = getTag(viewHolder)
             val deleteTextView = getDeleteTextView(viewHolder)
-
             val newX = deleteTextView?.let { swipe(isClamped, isCurrentlyActive, dX, it) } ?: 0f
 
             currentDx = newX
@@ -70,19 +91,7 @@ class TodoTouchHelper :
         dX: Float,
         textView: View
     ): Float {
-        val newX = if (isClamped) {
-            if (isCurrentlyActive) {
-                if (dX < 0) {
-                    dX / 3 - deleteTextViewSize
-                } else {
-                    dX - deleteTextViewSize
-                }
-            } else {
-                -deleteTextViewSize
-            }
-        } else {
-            dX / 3.5f
-        }
+        val newX = checkClamped(isClamped, isCurrentlyActive, dX)
         return if (newX < 0) {
             textView.visibility = View.VISIBLE
             newX
@@ -92,32 +101,26 @@ class TodoTouchHelper :
         }
     }
 
-    override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-        setTag((viewHolder as TodoAdapter.TodoViewHolder), currentDx <= -deleteTextViewSize)
-        return 2f
+    private fun checkClamped(isClamped: Boolean, isCurrentlyActive: Boolean, dX: Float) =
+        when (isClamped) {
+            true -> checkCurrentlyActive(isCurrentlyActive, dX)
+            false -> dX / clampSpace
+
+        }
+
+    private fun checkCurrentlyActive(isCurrentlyActive: Boolean, dX: Float) =
+        when (isCurrentlyActive) {
+            true -> checkMoved(dX)
+            false -> -deleteTextViewSize
+        }
+
+    private fun checkMoved(dX: Float) = when (dX < 0) {
+        true -> dX / 3 - deleteTextViewSize
+        false -> dX - deleteTextViewSize
     }
 
-    private fun getDeleteTextViewWidth(viewHolder: TodoAdapter.TodoViewHolder): Float {
-        return viewHolder.getDeleteTextViewWidth()
-    }
-
-
-    private fun getDeleteTextView(viewHolder: TodoAdapter.TodoViewHolder): TextView? {
-        return viewHolder.getDeleteTextView()
-    }
-
-
-    private fun getSwipeView(viewHolder: TodoAdapter.TodoViewHolder): ConstraintLayout? {
-        return viewHolder.getSwipeView()
-    }
-
-
-    private fun setTag(viewHolder: TodoAdapter.TodoViewHolder, isClamped: Boolean) {
+    private fun setTag(viewHolder: CardAdapter.CardViewHolder, isClamped: Boolean) {
         viewHolder.setTag(isClamped)
-    }
-
-    private fun getTag(viewHolder: TodoAdapter.TodoViewHolder): Boolean {
-        return viewHolder.getTag()
     }
 
 }

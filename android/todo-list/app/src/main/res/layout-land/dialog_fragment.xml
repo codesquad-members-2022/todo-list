@@ -90,7 +90,7 @@
 
         <Button
             android:id="@+id/btn_dialog_cancel"
-            style="@style/TextBody.Grey"
+            style="@style/TextBody.Grey04"
             android:layout_width="108dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
