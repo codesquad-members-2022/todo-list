@@ -1,6 +1,9 @@
 import UIKit
 
 class PopupCardView: UIView {
+
+    weak var delegate: PopupCardViewDelegate?
+    var memoContainerType: MemoStatus?
     
     private let containerView: UIView = {
         let view = UIView()
@@ -9,24 +12,24 @@ class PopupCardView: UIView {
         return view
     }()
     
-    private let alertLabel: UILabel = {
+    let alertLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "새로운 카드 추가"
         label.font = UIFont(name: FontFactory.bold, size: 16)
         return label
     }()
     
-    private let titleField: UITextField = {
+    let titleField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "제목을 입력하세요"
         textField.font = UIFont(name: FontFactory.bold, size: 14)
         textField.textColor = UIColor(named: ColorAsset.gray3)
+        textField.becomeFirstResponder()
         return textField
     }()
     
-    private let contentField: UITextField = {
+    let contentField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "내용을 입력하세요"
@@ -45,7 +48,7 @@ class PopupCardView: UIView {
         return stackView
     }()
     
-    private let cancelButton: UIButton = {
+    lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("취소", for: .normal)
@@ -53,10 +56,13 @@ class PopupCardView: UIView {
         button.setTitleColor(UIColor(named: ColorAsset.gray3), for: .normal)
         button.titleLabel?.font = UIFont(name: FontFactory.normal, size: 14)
         button.layer.cornerRadius = 6
+        button.addAction(UIAction(handler: { _ in
+            self.delegate?.popupCardCancelButtonDidTap()
+        }), for: .touchUpInside)
         return button
     }()
     
-    private let okButton: UIButton = {
+    lazy var okButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("등록", for: .normal)
@@ -64,6 +70,9 @@ class PopupCardView: UIView {
         button.setTitleColor(UIColor(named: ColorAsset.white), for: .normal)
         button.titleLabel?.font = UIFont(name: FontFactory.normal, size: 14)
         button.layer.cornerRadius = 6
+        button.addAction(UIAction(handler: { _ in
+            self.delegate?.popupCardOkButtonDidTap(title: self.titleField.text, content: self.contentField.text, status: self.memoContainerType)
+        }), for: .touchUpInside)
         return button
     }()
     

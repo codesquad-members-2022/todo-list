@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		B50C57B428047E9F0007F417 /* MemoContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C57B328047E9F0007F417 /* MemoContainerViewController.swift */; };
-		B50C57B628048D340007F417 /* MemoContainerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C57B528048D340007F417 /* MemoContainerType.swift */; };
+		B50C57B628048D340007F417 /* MemoStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50C57B528048D340007F417 /* MemoStatus.swift */; };
+		B563DB73280BF90400D503FC /* MemoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563DB72280BF90300D503FC /* MemoRequest.swift */; };
+		B563DB75280BFD5800D503FC /* RequestEntityConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563DB74280BFD5800D503FC /* RequestEntityConvertible.swift */; };
+		B563DB78280C131700D503FC /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = B563DB77280C131700D503FC /* sample.json */; };
 		B58D833528001988008A811C /* MemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58D833428001988008A811C /* MemoTableViewCell.swift */; };
 		B58D833728001A9C008A811C /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58D833628001A9C008A811C /* Memo.swift */; };
 		B5EC66D327FADD9C0042EFCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66D227FADD9C0042EFCF /* AppDelegate.swift */; };
@@ -22,28 +25,30 @@
 		B5EC66F027FC0D5D0042EFCF /* MemoCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */; };
 		B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */; };
 		B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC66F427FEC3F90042EFCF /* HeaderViewDelegate.swift */; };
+		B5FBCFD0280885F400494A56 /* MemoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FBCFCF280885F400494A56 /* MemoManager.swift */; };
+		B5FBCFD22808A1C100494A56 /* JSONHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FBCFD12808A1C100494A56 /* JSONHandler.swift */; };
 		D019328E27FFD12E00A9CE20 /* MemoCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */; };
 		D019329B2800998600A9CE20 /* PopupCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019329A2800998600A9CE20 /* PopupCardView.swift */; };
 		D0850A7827FEB294009C60E5 /* ResourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7727FEB294009C60E5 /* ResourceFactory.swift */; };
 		D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0850A7927FFB545009C60E5 /* MemoContainerView.swift */; };
 		D0999D9F2804789D0045491A /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999D9E2804789D0045491A /* PopupViewController.swift */; };
-		D0999DD8280689D10045491A /* MemoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999DD7280689D10045491A /* MemoEntity.swift */; };
-		D0999DDA28068B620045491A /* MemoStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0999DD928068B620045491A /* MemoStatus.swift */; };
+		D09CC02D2807C7B0005E0D29 /* PopupViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09CC02C2807C7B0005E0D29 /* PopupViewDelegate.swift */; };
+		D0A471662808549A00AC9179 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A471652808549A00AC9179 /* NetworkHandler.swift */; };
 		D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */; };
 		D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */; };
 		D0FAF3B7280694BF0096A520 /* CommonResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3B6280694BF0096A520 /* CommonResponseType.swift */; };
 		D0FAF3B9280694C90096A520 /* MemoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3B8280694C90096A520 /* MemoResponse.swift */; };
-		D0FAF3BF28069A5E0096A520 /* HistoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3BE28069A5E0096A520 /* HistoryEntity.swift */; };
-		D0FAF3C228069C750096A520 /* MemoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3C128069C750096A520 /* MemoUseCase.swift */; };
-		D0FAF3C428069CF90096A520 /* HistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3C328069CF90096A520 /* HistoryUseCase.swift */; };
-		D0FAF3CE2806A2C80096A520 /* MemoPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3CD2806A2C80096A520 /* MemoPostData.swift */; };
 		D0FAF3D12806A31B0096A520 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D02806A31B0096A520 /* EndPoint.swift */; };
-		D0FAF3D32806A3FF0096A520 /* HTTPRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */; };
+		D0FAF3D52806F7910096A520 /* MemoContainerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */; };
+		D0FAF3D9280724390096A520 /* PopupCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B50C57B328047E9F0007F417 /* MemoContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerViewController.swift; sourceTree = "<group>"; };
-		B50C57B528048D340007F417 /* MemoContainerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerType.swift; sourceTree = "<group>"; };
+		B50C57B528048D340007F417 /* MemoStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStatus.swift; sourceTree = "<group>"; };
+		B563DB72280BF90300D503FC /* MemoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRequest.swift; sourceTree = "<group>"; };
+		B563DB74280BFD5800D503FC /* RequestEntityConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEntityConvertible.swift; sourceTree = "<group>"; };
+		B563DB77280C131700D503FC /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		B58D833428001988008A811C /* MemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableViewCell.swift; sourceTree = "<group>"; };
 		B58D833628001A9C008A811C /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		B5EC66CF27FADD9C0042EFCF /* TODOList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODOList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,23 +64,22 @@
 		B5EC66EF27FC0D5D0042EFCF /* MemoCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCanvasView.swift; sourceTree = "<group>"; };
 		B5EC66F127FC17BA0042EFCF /* SideViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewTableViewCell.swift; sourceTree = "<group>"; };
 		B5EC66F427FEC3F90042EFCF /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewDelegate.swift; sourceTree = "<group>"; };
+		B5FBCFCF280885F400494A56 /* MemoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoManager.swift; path = TODOList/Models/MemoManager.swift; sourceTree = SOURCE_ROOT; };
+		B5FBCFD12808A1C100494A56 /* JSONHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHandler.swift; sourceTree = "<group>"; };
 		D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCanvasViewController.swift; sourceTree = "<group>"; };
 		D019329A2800998600A9CE20 /* PopupCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupCardView.swift; sourceTree = "<group>"; };
 		D0850A7727FEB294009C60E5 /* ResourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceFactory.swift; sourceTree = "<group>"; };
 		D0850A7927FFB545009C60E5 /* MemoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerView.swift; sourceTree = "<group>"; };
 		D0999D9E2804789D0045491A /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
-		D0999DD7280689D10045491A /* MemoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoEntity.swift; sourceTree = "<group>"; };
-		D0999DD928068B620045491A /* MemoStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStatus.swift; sourceTree = "<group>"; };
+		D09CC02C2807C7B0005E0D29 /* PopupViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewDelegate.swift; sourceTree = "<group>"; };
+		D0A471652808549A00AC9179 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		D0B4198C27FD5ED800DBAFDB /* HistoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryInfo.swift; path = TODOList/Models/History/HistoryInfo.swift; sourceTree = SOURCE_ROOT; };
 		D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewDelegate.swift; sourceTree = "<group>"; };
 		D0FAF3B6280694BF0096A520 /* CommonResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponseType.swift; sourceTree = "<group>"; };
 		D0FAF3B8280694C90096A520 /* MemoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoResponse.swift; sourceTree = "<group>"; };
-		D0FAF3BE28069A5E0096A520 /* HistoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntity.swift; sourceTree = "<group>"; };
-		D0FAF3C128069C750096A520 /* MemoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUseCase.swift; sourceTree = "<group>"; };
-		D0FAF3C328069CF90096A520 /* HistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCase.swift; sourceTree = "<group>"; };
-		D0FAF3CD2806A2C80096A520 /* MemoPostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoPostData.swift; sourceTree = "<group>"; };
 		D0FAF3D02806A31B0096A520 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
-		D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestHandler.swift; sourceTree = "<group>"; };
+		D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoContainerViewDelegate.swift; sourceTree = "<group>"; };
+		D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupCardViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B563DB76280C100800D503FC /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B563DB74280BFD5800D503FC /* RequestEntityConvertible.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		B58D8338280047C7008A811C /* Memo */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +132,8 @@
 		B58D833B28004802008A811C /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				B50C57B528048D340007F417 /* MemoStatus.swift */,
+				B5FBCFCF280885F400494A56 /* MemoManager.swift */,
 				B58D833628001A9C008A811C /* Memo.swift */,
 			);
 			path = Memo;
@@ -144,9 +158,7 @@
 		B5EC66D127FADD9C0042EFCF /* TODOList */ = {
 			isa = PBXGroup;
 			children = (
-				D0FAF3CF2806A3130096A520 /* Common */,
-				D0999DE22806933F0045491A /* Data */,
-				D0999DD6280689B60045491A /* Domain */,
+				D0FAF3B1280694840096A520 /* Network */,
 				B5EC66F327FEC3E10042EFCF /* Delegates */,
 				D0850A7627FEB27A009C60E5 /* Resources */,
 				D0B4198E27FD636500DBAFDB /* Models */,
@@ -183,7 +195,6 @@
 		B5EC66EA27FC0BBB0042EFCF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B50C57B528048D340007F417 /* MemoContainerType.swift */,
 				B5EC66D627FADD9C0042EFCF /* MainViewController.swift */,
 				D019328D27FFD12E00A9CE20 /* MemoCanvasViewController.swift */,
 				D0999D9E2804789D0045491A /* PopupViewController.swift */,
@@ -197,6 +208,9 @@
 			children = (
 				D0B4199127FD703600DBAFDB /* SideViewDelegate.swift */,
 				B5EC66F427FEC3F90042EFCF /* HeaderViewDelegate.swift */,
+				D0FAF3D42806F7910096A520 /* MemoContainerViewDelegate.swift */,
+				D0FAF3D8280724390096A520 /* PopupCardViewDelegate.swift */,
+				D09CC02C2807C7B0005E0D29 /* PopupViewDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -204,32 +218,16 @@
 		D0850A7627FEB27A009C60E5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B563DB77280C131700D503FC /* sample.json */,
 				D0850A7727FEB294009C60E5 /* ResourceFactory.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		D0999DD6280689B60045491A /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				D0FAF3C028069C4E0096A520 /* UseCases */,
-				D0FAF3BD28069A520096A520 /* Entities */,
-				D0999DD928068B620045491A /* MemoStatus.swift */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		D0999DE22806933F0045491A /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				D0FAF3B1280694840096A520 /* Network */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		D0B4198E27FD636500DBAFDB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B563DB76280C100800D503FC /* Protocols */,
 				B58D833B28004802008A811C /* Memo */,
 				B58D833A280047FC008A811C /* History */,
 			);
@@ -239,46 +237,22 @@
 		D0FAF3B1280694840096A520 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				D0FAF3BA2806951A0096A520 /* Model */,
-				D0FAF3D22806A3FF0096A520 /* HTTPRequestHandler.swift */,
+				D0FAF3BA2806951A0096A520 /* Entities */,
+				D0A471652808549A00AC9179 /* NetworkHandler.swift */,
+				B5FBCFD12808A1C100494A56 /* JSONHandler.swift */,
+				D0FAF3D02806A31B0096A520 /* EndPoint.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
 		};
-		D0FAF3BA2806951A0096A520 /* Model */ = {
+		D0FAF3BA2806951A0096A520 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				D0FAF3B6280694BF0096A520 /* CommonResponseType.swift */,
 				D0FAF3B8280694C90096A520 /* MemoResponse.swift */,
-				D0FAF3CD2806A2C80096A520 /* MemoPostData.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		D0FAF3BD28069A520096A520 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				D0999DD7280689D10045491A /* MemoEntity.swift */,
-				D0FAF3BE28069A5E0096A520 /* HistoryEntity.swift */,
+				B563DB72280BF90300D503FC /* MemoRequest.swift */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		D0FAF3C028069C4E0096A520 /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-				D0FAF3C128069C750096A520 /* MemoUseCase.swift */,
-				D0FAF3C328069CF90096A520 /* HistoryUseCase.swift */,
-			);
-			path = UseCases;
-			sourceTree = "<group>";
-		};
-		D0FAF3CF2806A3130096A520 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				D0FAF3D02806A31B0096A520 /* EndPoint.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5EC66DF27FADD9F0042EFCF /* LaunchScreen.storyboard in Resources */,
+				B563DB78280C131700D503FC /* sample.json in Resources */,
 				B5EC66DC27FADD9E0042EFCF /* Assets.xcassets in Resources */,
 				B5EC66DA27FADD9C0042EFCF /* Main.storyboard in Resources */,
 			);
@@ -354,13 +329,14 @@
 			files = (
 				D0FAF3D12806A31B0096A520 /* EndPoint.swift in Sources */,
 				D0B4198D27FD5ED800DBAFDB /* HistoryInfo.swift in Sources */,
+				D09CC02D2807C7B0005E0D29 /* PopupViewDelegate.swift in Sources */,
 				B5EC66EE27FC0D3F0042EFCF /* SideView.swift in Sources */,
-				D0999DDA28068B620045491A /* MemoStatus.swift in Sources */,
-				D0FAF3C228069C750096A520 /* MemoUseCase.swift in Sources */,
 				D0FAF3B7280694BF0096A520 /* CommonResponseType.swift in Sources */,
-				D0999DD8280689D10045491A /* MemoEntity.swift in Sources */,
 				D0999D9F2804789D0045491A /* PopupViewController.swift in Sources */,
 				B5EC66F527FEC3F90042EFCF /* HeaderViewDelegate.swift in Sources */,
+				B5FBCFD22808A1C100494A56 /* JSONHandler.swift in Sources */,
+				D0A471662808549A00AC9179 /* NetworkHandler.swift in Sources */,
+				D0FAF3D52806F7910096A520 /* MemoContainerViewDelegate.swift in Sources */,
 				B58D833728001A9C008A811C /* Memo.swift in Sources */,
 				B5EC66D727FADD9C0042EFCF /* MainViewController.swift in Sources */,
 				D0850A7827FEB294009C60E5 /* ResourceFactory.swift in Sources */,
@@ -369,18 +345,18 @@
 				B5EC66F227FC17BA0042EFCF /* SideViewTableViewCell.swift in Sources */,
 				D0FAF3B9280694C90096A520 /* MemoResponse.swift in Sources */,
 				D0B4199227FD703600DBAFDB /* SideViewDelegate.swift in Sources */,
-				D0FAF3BF28069A5E0096A520 /* HistoryEntity.swift in Sources */,
-				B50C57B628048D340007F417 /* MemoContainerType.swift in Sources */,
+				B50C57B628048D340007F417 /* MemoStatus.swift in Sources */,
 				D019329B2800998600A9CE20 /* PopupCardView.swift in Sources */,
 				B5EC66D527FADD9C0042EFCF /* SceneDelegate.swift in Sources */,
+				B563DB73280BF90400D503FC /* MemoRequest.swift in Sources */,
+				B563DB75280BFD5800D503FC /* RequestEntityConvertible.swift in Sources */,
 				B58D833528001988008A811C /* MemoTableViewCell.swift in Sources */,
 				B5EC66F027FC0D5D0042EFCF /* MemoCanvasView.swift in Sources */,
 				D019328E27FFD12E00A9CE20 /* MemoCanvasViewController.swift in Sources */,
 				B5EC66EC27FC0CD10042EFCF /* HeaderView.swift in Sources */,
-				D0FAF3D32806A3FF0096A520 /* HTTPRequestHandler.swift in Sources */,
-				D0FAF3C428069CF90096A520 /* HistoryUseCase.swift in Sources */,
+				D0FAF3D9280724390096A520 /* PopupCardViewDelegate.swift in Sources */,
 				D0850A7A27FFB545009C60E5 /* MemoContainerView.swift in Sources */,
-				D0FAF3CE2806A2C80096A520 /* MemoPostData.swift in Sources */,
+				B5FBCFD0280885F400494A56 /* MemoManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

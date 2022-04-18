@@ -2,19 +2,38 @@ import UIKit
 
 class PopupViewController: UIViewController {
 
-    private var popupCardView: PopupCardView = {
+    weak var delegate: PopupViewDelegate?
+    private var alertTitle: String = ""
+    private var containerType: MemoStatus?
+    var memoTitle: String = ""
+    var memoContent: String = ""
+    
+    lazy var popupCardView: PopupCardView = {
         let view = PopupCardView()
+        view.alertLabel.text = alertTitle
+        view.titleField.text = memoTitle
+        view.contentField.text = memoContent
+        view.memoContainerType = containerType
         view.layer.cornerRadius = 10
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    convenience init(containerType: MemoStatus) {
+        self.init()
+        
+        self.containerType = containerType
+        self.alertTitle = "\(containerType) 추가하기"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addViews()
         setTapGesture()
+        
+        self.popupCardView.delegate = self
     }
     
     
@@ -31,6 +50,21 @@ class PopupViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
 }
+
+
+extension PopupViewController: PopupCardViewDelegate {
+    func popupCardCancelButtonDidTap() {
+        dismiss(animated: true)
+    }
+    
+    func popupCardOkButtonDidTap(title: String?, content: String?, status: MemoStatus?) {
+        guard let title = title, let content = content, let status = status else { return }
+        let memo = Memo(title: title, content: content, name: "sampleI", status: status)
+        self.delegate?.popupViewAddButtonDidTap(memo: memo)
+        self.dismiss(animated: true)
+    }
+}
+
 
 
 extension PopupViewController: UIGestureRecognizerDelegate {

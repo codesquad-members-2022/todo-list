@@ -1,6 +1,6 @@
 import UIKit
 
-class MemoCanvasViewController: UIViewController {
+final class MemoCanvasViewController: UIViewController {
     
     private var memoCanvasView: MemoCanvasView = {
         let view = MemoCanvasView()
@@ -8,31 +8,25 @@ class MemoCanvasViewController: UIViewController {
         return view
     }()
     
-    private (set) var memoTableViewControllers: [MemoContainerType: MemoContainerViewController] = [:]
-    private (set) var memoTableViewModels: [MemoContainerType: [Memo]] = [.todo:[], .progress:[], .done:[]]
+    private (set) var memoTableViewControllers: [MemoStatus: MemoContainerViewController] = [:]
+    private (set) var memoManager: MemoManager = MemoManager()
     
     override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
         view = memoCanvasView
         
         initProperties()
         setLayout()
+        subscribeObserver()
     }
     
     private func initProperties() {
-        for containerType in MemoContainerType.allCases {
-            for index in 0..<3 {
-                addTableViewModel(containerType: containerType, index: index)
-            }
+        for containerType in MemoStatus.allCases {
             addTableViewController(containerType: containerType)
         }
     }
     
-    private func addTableViewModel(containerType: MemoContainerType, index: Int) {
-        let memo = Memo(title: containerType.rawValue, content: "\(index) : 해야할 일의 내용입니다\n할게 너무 많아요\n열심히 하세요", name: "JK \(index)")
-        memoTableViewModels[containerType]?.append(memo)
-    }
-    
-    private func addTableViewController(containerType: MemoContainerType) {
+    private func addTableViewController(containerType: MemoStatus) {
         let tableViewController = MemoContainerViewController(containerType: containerType)
         memoTableViewControllers[containerType] = tableViewController
         
@@ -65,12 +59,34 @@ class MemoCanvasViewController: UIViewController {
         }
     }
     
-    func removeSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath) {
-        memoTableViewModels[containerType]? .remove(at: indexPath.section)
+    func removeSelectedMemoModel(containerType: MemoStatus, indexPath: IndexPath) {
+        memoManager.removeSelectedMemoModel(containerType: containerType, index: indexPath.section)
     }
     
-    func insertSelectedMemoModel(containerType: MemoContainerType, indexPath: IndexPath, memoModel: Memo) {
-        memoTableViewModels[containerType]?.insert(memoModel, at: indexPath.section)
+    func insertSelectedMemoModel(containerType: MemoStatus, indexPath: IndexPath, memoModel: Memo) {
+        memoManager.insertSelectedMemoModel(containerType: containerType, index: indexPath.section, memo: memoModel)
+    }
+    
+    private func subscribeObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didMemoAdd(_:)),
+                                               name: .memoDidAdd,
+                                               object: memoManager)
+    }
+    
+    @objc func didMemoAdd(_ notification: Notification) {
+        if let memo = notification.userInfo?[UserInfoKeys.memo] as? Memo {
+            updateView(containerType: memo.status)
+        }
+    }
+    
+    private func updateView(containerType: MemoStatus) {
+        memoTableViewControllers[containerType]?.memoContainerView.tableView.reloadData()
+        
+        guard let currentMemoCount = memoTableViewControllers[containerType]?.memoContainerView.tableView.numberOfSections else {
+            return
+        }
+        memoTableViewControllers[containerType]?.memoContainerView.countLabel.text = "\(currentMemoCount)"
     }
 }
 

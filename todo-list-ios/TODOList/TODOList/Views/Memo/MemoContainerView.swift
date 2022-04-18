@@ -2,7 +2,9 @@ import UIKit
 
 class MemoContainerView: UIView {
     
-    private var containerType: MemoContainerType?
+    weak var delegate: MemoContainerViewDelegate?
+    
+    var containerType: MemoStatus?
 
     private let containerTitleView: UIView = {
         let view = UIView()
@@ -25,9 +27,8 @@ class MemoContainerView: UIView {
         return label
     }()
     
-    private let countLabel: UILabel = {
+    let countLabel: UILabel = {
         let label = UILabel()
-        label.text = "3"
         label.font = UIFont(name: FontFactory.bold, size: 14)
         label.textColor = UIColor(named: ColorAsset.black)
         label.backgroundColor = UIColor(named: ColorAsset.gray4)
@@ -38,10 +39,13 @@ class MemoContainerView: UIView {
         return label
     }()
     
-    private let addButton: UIButton = {
+    private lazy var addButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(named: "add"), for: .normal)
+        button.addAction(UIAction(handler: { _ in
+            self.delegate?.addButtonDidTap(containerType: self.containerType!)
+        }), for: .touchUpInside)
         return button
     }()
     

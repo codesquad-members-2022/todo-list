@@ -1,18 +1,24 @@
 import Foundation
 
-final class Memo: NSObject, Codable {
-
+final class Memo: NSObject, Codable, RequestEntityConvertible  {
+    
     let title: String
     let content: String
     let name: String
+    let status: MemoStatus
     
-    init(title: String, content: String, name: String) {
+    init(title: String, content: String, name: String, status: MemoStatus) {
         self.title = title
         self.content = content
         self.name = name
+        self.status = status
         super.init()
     }
     
+    func toRequestEntity() -> MemoPostRequest {
+        let entity = MemoPostRequest(title: title, content: content, author: name, status: status.rawValue)
+        return entity
+    }
 }
 
 extension Memo: NSItemProviderWriting, NSItemProviderReading {
@@ -46,9 +52,9 @@ extension Memo: NSItemProviderWriting, NSItemProviderReading {
         } catch {
             fatalError()
         }
-
+        
     }
-
+    
 }
 
 

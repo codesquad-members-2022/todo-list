@@ -1,8 +1,8 @@
 import UIKit
 
-class MemoContainerViewController: UIViewController {
-
-    private var containerType: MemoContainerType?
+final class MemoContainerViewController: UIViewController {
+    
+    private var containerType: MemoStatus?
     private var selectedIndexPath: IndexPath?
     
     private (set) var memoContainerView: MemoContainerView = {
@@ -11,11 +11,37 @@ class MemoContainerViewController: UIViewController {
         return containerView
     }()
     
-    convenience init(containerType: MemoContainerType){
+    convenience init(containerType: MemoStatus) {
         self.init()
+        
         self.containerType = containerType
+        memoContainerView.countLabel.text = "0"
+        memoContainerView.containerType = containerType
         memoContainerView.categoryLabel.text = " \(containerType)"
         view = memoContainerView
+    }
+    
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        self.memoContainerView.delegate = self
+    }
+}
+
+
+extension MemoContainerViewController: PopupViewDelegate {
+    func popupViewAddButtonDidTap(memo: Memo) {
+        guard let parentViewController = parent as? MemoCanvasViewController else { return }
+        parentViewController.memoManager.sendModelDataToNetworkManager(memo: memo, taskType: .memoAdd, methodType: .post)
+        dismiss(animated: true)
+    }
+}
+
+extension MemoContainerViewController: MemoContainerViewDelegate {
+    func addButtonDidTap(containerType: MemoStatus) {
+        let popupViewController = PopupViewController(containerType: containerType)
+        popupViewController.modalPresentationStyle = .overCurrentContext
+        popupViewController.delegate = self
+        present(popupViewController, animated: true)
     }
 }
 
@@ -23,9 +49,8 @@ extension MemoContainerViewController: UITableViewDataSource & UITableViewDelega
     
     func numberOfSections(in tableView: UITableView) -> Int {
         guard let parentViewController = parent as? MemoCanvasViewController,
-              let containerType = containerType,
-              let memos = parentViewController.memoTableViewModels[containerType] else { return 0 }
-        return memos.count
+              let containerType = containerType else { return 0 }
+        return parentViewController.memoManager.getDesignatedMemosCount(containerType: containerType)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,9 +61,9 @@ extension MemoContainerViewController: UITableViewDataSource & UITableViewDelega
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoTableViewCell.identifier, for: indexPath) as? MemoTableViewCell,
               let parentViewController = parent as? MemoCanvasViewController,
               let containerType = containerType,
-              let memos = parentViewController.memoTableViewModels[containerType] else { return UITableViewCell() }
+              let memo = parentViewController.memoManager.getDesignatedMemoModel(containerType: containerType, index: indexPath.section) else { return UITableViewCell() }
         
-        cell.updateStackView(memo: memos[indexPath.section])
+        cell.updateStackView(memo: memo)
         cell.updateStyle()
         return cell
     }
@@ -57,12 +82,18 @@ extension MemoContainerViewController: UITableViewDataSource & UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let parentViewController = parent as? MemoCanvasViewController,
+              let containerType = containerType,
+              let memos = parentViewController.memoManager.memoTableViewModels[containerType] else { return }
+        
+        let memo = memos[indexPath.section]
+        
         let popupViewController = PopupViewController()
+        popupViewController.memoTitle = memo.title
+        popupViewController.memoContent = memo.content
         popupViewController.modalPresentationStyle = .overCurrentContext
         
         switch indexPath.section {
-        case 0:
-            self.present(popupViewController, animated: true)
         default:
             self.present(popupViewController, animated: true)
         }
@@ -74,9 +105,8 @@ extension MemoContainerViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         guard let parentViewController = parent as? MemoCanvasViewController,
               let containerType = containerType,
-              let memos = parentViewController.memoTableViewModels[containerType] else { return [] }
+              let memo = parentViewController.memoManager.getDesignatedMemoModel(containerType: containerType, index: indexPath.section) else { return [] }
         
-        let memo = memos[indexPath.section]
         let itemProvider = NSItemProvider(object: memo)
         selectedIndexPath = indexPath
         return [UIDragItem(itemProvider: itemProvider)]
@@ -86,12 +116,12 @@ extension MemoContainerViewController: UITableViewDragDelegate {
         guard let parentViewController = parent as? MemoCanvasViewController,
               let containerType = containerType,
               let selectedIndexPath = selectedIndexPath else { return }
-
+        
         parentViewController.removeSelectedMemoModel(containerType: containerType, indexPath: selectedIndexPath)
         tableView.beginUpdates()
         tableView.deleteSections([selectedIndexPath.section], with: .automatic)
         tableView.endUpdates()
-    
+        
         self.selectedIndexPath = nil
     }
 }
@@ -136,5 +166,5 @@ extension MemoContainerViewController: UITableViewDropDelegate {
             tableView.endUpdates()
         }
     }
-
+    
 }
