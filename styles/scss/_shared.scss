@@ -28,12 +28,13 @@ $Gray_3: #828282;
 $Gray_5: #E0E0E0;
 $Black: #010101;
 
+
 $White: #FFFFFF;
 
 $Blue: #0075DE;
 
 $White_red: #FFEEEC;
-
+$Gray_4: #bdbdbd;
 %shadow_normal {
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
   border-radius: 6px;
@@ -63,7 +64,7 @@ $White_red: #FFEEEC;
   box-sizing: border-box;
 }
 
-$Gray_4: #bdbdbd;
+
 @mixin flex_none($order:0, $margin-x,$margin-y ) {
   flex: none;
   flex-grow: 0;
@@ -114,31 +115,36 @@ $Gray_4: #bdbdbd;
 
 %card-title {
   @include custom_static($left: 0, $top: 0);
-  @include width_height_bypx(252,23);
+
+  @include width_height_bypx(252, 23);
+
   @include custom_font($family: 'Noto Sans KR', $style: normal, $weight: 700, $size: 16px);
   line-height: 23px;
   color: $Black;
   @include flex_none(0, 8, 0);
 }
 
+%card-caption {
+  @include custom_static($left: 0, $top: 59);
+  @include width_height_bypx($width: 252, $height: 17);
+  @include custom_font($style: normal, $weight: 400, $size: 12px, $family: 'Noto Sans KR');
+  line-height: 17px;
+  color: $Gray_4;
+  @include flex_none(2, 8, 0);
+}
+
 %card-content {
   @include custom_static($left: 0, $top: 31);
-  @include custom_font($family: "Noto Sans KR", $style: normal, $weight: 400, $size: 14px);
-  width: 252px;
-  height: 20px;
+  @include width_height_bypx($width: 252, $height: 20);
+  @include custom_font($style: normal, $weight: 400, $size: 14px, $family: 'Noto Sans KR');
   line-height: 20px;
   color: $Black;
+
   @include flex_none(1, 8, 0);
 }
 
-%card-caption {
-  @include custom_static($left: 0, $top: 59);
-  @include custom_font($family: 'Noto Sans KR', $style: normal, $weight: 400, $size: 12px);
-  width: 252px;
-  height: 17px;
-  line-height: 17px;
-  color: $Gray_4;
-  @include flex_none(2, 0, 8);
+@mixin column-left($pos) {
+  left: #{80+$pos*324}px;
 }
 
 @mixin todo_card($background:null, $border:null, $shadow:null) {
@@ -149,18 +155,15 @@ $Gray_4: #bdbdbd;
   width: 308px;
   height: 108px;
   background: $background;
-  border: $border;
-  box-shadow: $shadow;
+  boder: $border;
+  shadow: $shadow;
 
   .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    @include custom_flex(column, flex-start);
     padding: 16px;
 
     @include custom_static($left: 16, $top: 16);
-    width: 252px;
-    height: 76px;
+    @include width_height_bypx($width: 252, $height: 76);
 
     border-radius: 8px;
     @include flex_none(0, 0, 0);
@@ -192,21 +195,24 @@ $Gray_4: #bdbdbd;
 @mixin Button($background, $color, $right:false) {
   @include custom_flex(row, flex-start);
   padding: 10px;
+
   @include custom_absolute($left: 0, $top: 0);
-  width: 134px;
-  height: 40px;
+  @include width_height_bypx($width: 134, $height: 40);
+
   @if $right {
     left: 142px;
   }
+
   background: $background;
   border-radius: 6px;
+
   span {
     @include custom_static($left: 10, $top: 10);
-    width: 114px;
-    height: 20px;
-    @include custom_font($family: "Noto Sans KR", $style: normal, $weight: 700, $size: 14px);
+    @include width_height_bypx($width: 114, $height: 20);
+    @include custom_font($family: 'Noto Sans KR', $style: normal, $weight: 700, $size: 14px);
     line-height: 20px;
     text-align: center;
+
     color: $color;
     @include flex_none(0, 0, 10);
   }
@@ -219,12 +225,12 @@ $Gray_4: #bdbdbd;
     @include custom_flex(row, flex-start);
     padding: 0px;
     @include custom_static($left: 16, $top: 83);
-    width: 276px;
-    height: 40px;
+    @include width_height_bypx($width: 276, $height: 40);
+
     @include flex_none(1, 16, 0);
 
     .button-left {
-      @include Button($Gray_5, $Gray_3);
+      @include Button($Blue, $White);
     }
 
     .button-right {
@@ -232,19 +238,14 @@ $Gray_4: #bdbdbd;
     }
   }
 
-  .wrapper {
-    @include custom_flex(column, flex-start);
-    @include custom_static($left: 0, $top: 0);
+  .form-wrapper {
+    @include custom_flex(row, flex-start);
     padding: 0px;
-    width: 276px;
-    height: 51px;
-    border-radius: 8px;
 
-    @include flex_none(0, 0, 0);
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin: 0px 0px;
+    @include custom_static($left: 16, $top: 16);
+    @include width_height_bypx($width: 276, $height: 51);
+
+    @include flex_none(0, 16, 0);
 
     .title {
       @extend %card-title;
@@ -257,4 +258,3 @@ $Gray_4: #bdbdbd;
     }
   }
 }
-
