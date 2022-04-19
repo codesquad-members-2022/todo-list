@@ -8,6 +8,7 @@ import codesquad.todo.web.works.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class WorkService {
 
@@ -24,6 +26,7 @@ public class WorkService {
     private final WorkRepository workRepository;
     private final HistoryService historyService;
 
+    @Transactional
     public WorkSaveResponse workSave(User user, WorkSaveRequest workSaveRequest) {
         Work work = buildWork(user, workSaveRequest);
         workRepository.save(work);
@@ -54,6 +57,7 @@ public class WorkService {
                 .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_WORK_ERROR));
     }
 
+    @Transactional
     public WorkUpdateResponse workUpdate(Long workId, WorkUpdateRequest workUpdateRequest) {
         Work work = workRepository.findById(workId)
                 .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_WORK_ERROR));
@@ -65,6 +69,7 @@ public class WorkService {
         return new WorkUpdateResponse(work);
     }
 
+    @Transactional
     public WorkMoveResponse workMove(Long id, Integer targetStatusIndex, WorkStatus targetStatus) {
         Work originWork = findById(id);
         WorkStatus originStatus = originWork.getWorkStatus();
@@ -148,6 +153,7 @@ public class WorkService {
         return new WorkListResponse(workDetails);
     }
 
+    @Transactional
     public WorkDeleteResponse workDelete(Long id) {
         Work work = findById(id);
         WorkStatus originStatus = work.getWorkStatus();
