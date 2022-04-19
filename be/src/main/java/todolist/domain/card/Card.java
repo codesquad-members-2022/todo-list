@@ -33,6 +33,10 @@ public class Card {
         return responseCardDto;
     }
 
+    public boolean isSectionUpdated(String prevSection) {
+        return prevSection == section;
+    }
+
     @Override
     public String toString() {
         return "Card{" +

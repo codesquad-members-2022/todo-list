@@ -1,6 +1,6 @@
 package todolist.domain.event;
 
-import todolist.dto.event.ResponseEventDto;
+import todolist.dto.event.RequestEventDto;
 
 import java.time.LocalDateTime;
 
@@ -12,13 +12,8 @@ public class Event {
     private Action action;
     private LocalDateTime createdAt;
 
-
-    public Event(String cardTitle, String currentSection, Action action) {
-        this(cardTitle, "", currentSection, action);
-    }
-
-    public Event(String cardTitle, String prevSection, String currentSection, Action action) {
-        this(-1L, cardTitle, prevSection, currentSection, action, null);
+    public Event(RequestEventDto dto, Action action) {
+        this(-1L, dto.getTitle(), dto.getPrevSection(), dto.getCurrentSection(), action, null);
     }
 
     public Event(Long id, String cardTitle, String prevSection, String currentSection, Action action, LocalDateTime createdAt) {
@@ -49,9 +44,4 @@ public class Event {
     public Action getAction() {
         return action;
     }
-
-    public ResponseEventDto toResponseEventDto() {
-        return new ResponseEventDto(id, cardTitle, prevSection, currentSection, action, createdAt);
-    }
-
 }
