@@ -21,10 +21,10 @@ final class TableViewController: UIViewController{
 
     private var addCardViewController = AddCardViewController()
 
-    let cardBoard: Board = Board()
+    let cardBoard: Board = Board.shared
 
     let todo = ["해야할 일", "하고있는 일", "끝난 일"]
-    
+    private var selectedSection: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,7 @@ private extension TableViewController{
     // 서버 통신 및 데이터 변환 작업
     func connectURL(){
         NotificationCenter.default.addObserver(self, selector: #selector(setCardData), name: NSNotification.Name(rawValue: "board"), object: cardBoard)
+        NotificationCenter.default.addObserver(self, selector: #selector(createNewCard), name: NSNotification.Name(rawValue: "addCard"), object: cardBoard)
         self.cardBoard.getAndDivideCard()
     }
     
@@ -64,11 +65,24 @@ private extension TableViewController{
             }
         }
     }
-    
+                                               
+    @objc
+    func createNewCard(){
+        // 만든 카드를 테이블뷰 셀 추가 & reload
+        DispatchQueue.main.async {
+            guard let sectionNumber = self.selectedSection else { return }
+            self.todoTable[sectionNumber].reloadData()
+            
+            guard let indexPath = BoardSubscriptIndex(rawValue: sectionNumber) else{ return }
+            self.sectionHeader[sectionNumber].numberLabel.text = String(self.cardBoard[indexPath].count)
+        }
+    }
+                                               
     // 내부 View layout 작업
     func configureSectionHeader(index: Int) -> TableHeader{
         let header = TableHeader()
         header.titleLabel.text = todo[index]
+        header.tableHeaderID = index
         
         if let indexPath = BoardSubscriptIndex(rawValue: index){
             header.numberLabel.text = String(cardBoard[indexPath].count)
@@ -111,6 +125,13 @@ private extension TableViewController{
         tableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
         tableView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor).isActive = true
     }
+    
+    // 셀 클릭 시, 수정 화면 출력 기능
+    func setModalPresent(){
+        addCardViewController.modalPresentationStyle = .overCurrentContext
+        addCardViewController.modalTransitionStyle = .crossDissolve
+        self.present(addCardViewController, animated: true, completion: nil)
+    }
 }
 
 extension TableViewController: UITableViewDataSource, UITableViewDelegate{
@@ -137,6 +158,7 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tableCell.getRawValue()) as? TodoCell, let customTable = tableView as? TodoTableView, let boardIndexPath = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return UITableViewCell() }
+        cell.selectionStyle = .none
         
         let cards = cardBoard[boardIndexPath]
         let cardData = cards[indexPath.section]
@@ -148,12 +170,32 @@ extension TableViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        guard let customTable = tableView as? TodoTableView, let index = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return }
+        let cards = cardBoard[index]
+        addCardViewController.patchCardView(card: cards[indexPath.section], section: index)
+        self.setModalPresent()
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let customTable = tableView as? TodoTableView, let index = BoardSubscriptIndex(rawValue: customTable.tableViewId ?? 4) else { return }
+
+        if editingStyle == .delete{
+            let card = cardBoard[index]
+            let deleteId = card[indexPath.section].id
+            Board.shared.deleteCard(id: deleteId, section: index, userID: "chez")
+            customTable.deleteSections([indexPath.section], with: .fade)
+        }
+    }
 }
 
 extension TableViewController: TableHeaderDelegate{
-    func cardWillCreated(at section: String) {
+    func cardWillCreated(at section: Int){
+        addCardViewController.setaddCardView(sectionNumber: section)
         addCardViewController.modalPresentationStyle = .overCurrentContext
         addCardViewController.modalTransitionStyle = .crossDissolve
         self.present(addCardViewController, animated: true, completion: nil)
+        selectedSection = section
     }
 }

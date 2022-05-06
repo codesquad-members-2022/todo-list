@@ -35,6 +35,11 @@ final class AddCardView: UIView{
         titleTextField.text = title
         bodyTextField.text = body
     }
+    
+    func clear(){
+        titleTextField.text = ""
+        bodyTextField.text = ""
+    }
 }
 
 private extension AddCardView{
@@ -122,6 +127,8 @@ private extension AddCardView{
         confirmButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: 108).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        confirmButton.addTarget(self, action: #selector(touchedConfirmButton(_:)), for: .touchUpInside)
     }
     
     @objc
@@ -131,6 +138,14 @@ private extension AddCardView{
     
     @objc
     func touchedConfirmButton(_ sender: UIButton){
-        self.delegate?.makeCardShoudCanceld()
+        guard let title = titleTextField.text, let body = bodyTextField.text else {
+            return
+        }
+        if title == "" || body == "" {
+            self.delegate?.cardshoudNotMake()
+        }
+        else {
+            self.delegate?.makeCardShoudConfirmed(title: title, content: body)
+        }
     }
 }
