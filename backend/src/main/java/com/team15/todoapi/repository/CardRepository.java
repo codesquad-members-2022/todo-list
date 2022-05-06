@@ -7,4 +7,6 @@ public interface CardRepository {
 	List<Card> findAll(Long memberId);
 
 	Card add(Card card);
+
+	Card update(Card card);
 }

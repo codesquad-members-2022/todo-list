@@ -1,26 +1,23 @@
 package com.team15.todoapi.repository;
 
+import com.team15.todoapi.domain.Card;
 import com.team15.todoapi.domain.History;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
-
 
 @Repository
 public class JdbcHistoryRepository implements HistoryRepository {
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;
-	private final DataSourceTransactionManager transactionManager;
 
-	public JdbcHistoryRepository(DataSource dataSource,
-		DataSourceTransactionManager transactionManager) {
+	public JdbcHistoryRepository(DataSource dataSource) {
 		jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-		this.transactionManager = transactionManager;
 	}
 
 	@Override
@@ -46,8 +43,18 @@ public class JdbcHistoryRepository implements HistoryRepository {
 						+ "WHERE log.member_id = :memberId "
 						+ "ORDER BY log.created_at DESC";
 
-		List<History> histories = jdbcTemplate.query(sql, namedParameters, rowMapper);
-		return histories;
+		return jdbcTemplate.query(sql, namedParameters, rowMapper);
+	}
+
+	@Override
+	public int insert(Card card) {
+		BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(card);
+
+		String sqlForActionLog = "INSERT INTO card_action_log "
+			+ "(created_at, card_id, member_id, card_action_code_id, current_section) "
+			+ "VALUES (:modifiedAt, :id, :memberId, :action, :section)";
+
+		return jdbcTemplate.update(sqlForActionLog, namedParameters);
 	}
 
 	private static RowMapper<History> rowMapper =
