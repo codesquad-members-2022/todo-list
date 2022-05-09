@@ -23,22 +23,28 @@ const setEvents = (taskInfo, cancelAlert) => {
   const cancelButton = $(".delete--cancel-button");
   const deleteButton = $(".delete--delete-button");
   cancelButton.addEventListener("click", (event) => handleCancelButtonClick(event, cancelAlert));
-  deleteButton.addEventListener("click", () => handleDeleteButtonClick(taskInfo));
+  deleteButton.addEventListener("click", (event) => handleDeleteButtonClick(event, taskInfo));
 };
 
 const handleCancelButtonClick = ({ target }, notify) => {
-  const alert = target.closest(".dimmed");
-  alert.remove();
+  removeAlert(target);
   notify();
 };
 
-const handleDeleteButtonClick = ({ listTitle, taskId }) => {
+const handleDeleteButtonClick = ({ target }, { listTitle, taskId }) => {
   TodoListStore.deleteListTask(listTitle, taskId);
+  TodoListStore.update("newTask", listTitle);
+  removeAlert(target);
 };
 
 const alertDeleteInit = (taskInfo, cancelAlert) => {
   render();
   setEvents(taskInfo, cancelAlert);
+};
+
+const removeAlert = (target) => {
+  const alert = target.closest(".dimmed");
+  alert.remove();
 };
 
 export { alertDeleteInit };

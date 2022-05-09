@@ -1,9 +1,10 @@
-import { fetchData, putData } from "../utils/utils.js";
+import { fetchData, postData, putData } from "../utils/utils.js";
 import { serverURL } from "../constants/urlPath.js";
 
 let todoListData;
+let historyData;
 
-const getTodoListData = async () => {
+const fetchTodoListData = async () => {
   todoListData = await fetchData(`${serverURL}/todoList`);
 
   for (const listData of todoListData) {
@@ -19,12 +20,51 @@ const getTodoListData = async () => {
       },
     });
   }
+};
+
+const getTodoListData = async () => {
+  if (!todoListData) {
+    await fetchTodoListData();
+  }
 
   return todoListData;
 };
 
 const updateTodoListData = ([id, updatedList]) => {
   putData(`${serverURL}/todoList/${id}`, updatedList);
+};
+
+const getHistoryData = async () => {
+  historyData = { list: await fetchData(`${serverURL}/history`) };
+  let historyList = historyData.list;
+
+  Object.defineProperty(historyData, "list", {
+    get: () => {
+      return historyList;
+    },
+    set: ([actionType, categories, { title }]) => {
+      const newHistory = {
+        action: actionType,
+        category: categories,
+        title: title,
+        timeStamp: new Date().toString().slice(0, 33),
+        id: historyList.length + 1,
+      };
+
+      historyList.push(newHistory);
+      postHistoryData(newHistory);
+
+      subscribers["history"].forEach((notify) => {
+        notify(historyList);
+      });
+    },
+  });
+
+  return historyList;
+};
+
+const postHistoryData = (newHistory) => {
+  postData(`${serverURL}/history`, newHistory);
 };
 
 const subscribers = {
@@ -40,28 +80,28 @@ const activation = {
 
 const updateListTask = (title, newTask) => {
   const list = todoListData.filter((e) => e.title === title)[0];
+  let actionType;
+
   if (newTask.id) {
     list.task[newTask.id - 1] = newTask;
+    actionType = "변경";
   } else {
     newTask.id = list.task.length + 1;
     list.task.push(newTask);
+    actionType = "등록";
   }
   list.task = [list.id, title, list.task];
+  historyData.list = [actionType, [title], newTask];
 };
 
 const deleteListTask = (title, taskId) => {
   const list = todoListData.filter((e) => e.title === title)[0];
-  if (taskId === list.task.length) {
-    list.task.pop();
-    list.task = [list.id, title, list.task];
-    return;
-  }
-
   list.task = [
     list.id,
     title,
     list.task.filter((task) => {
       if (task.id === taskId) {
+        historyData.list = ["삭제", [title], task];
         return false;
       }
 
@@ -74,7 +114,7 @@ const deleteListTask = (title, taskId) => {
   ];
 };
 
-const subscribe = (key, notify = null, defaultValue = false) => {
+const subscribe = (key, notify = null, defaultValue = null) => {
   if (activation[key] === undefined) {
     activation[key] = defaultValue;
     let value = activation[key];
@@ -101,8 +141,16 @@ const subscribe = (key, notify = null, defaultValue = false) => {
 };
 
 const update = (key, title = null, newTask = null) => {
-  if (newTask) return (activation[key] = [activation[key] + 1, title, newTask]);
+  if (key === "newTask") return (activation[key] = [activation[key] + newTask ? 1 : -1, title, newTask]);
   return (activation[key] = [!activation[key], title]);
 };
 
-export { getTodoListData, updateTodoListData, deleteListTask, subscribe, update };
+export {
+  getTodoListData,
+  updateTodoListData,
+  deleteListTask,
+  subscribe,
+  update,
+  getHistoryData,
+  postHistoryData,
+};

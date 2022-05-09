@@ -15,7 +15,22 @@ export class List {
     this.createTask(this.taskData);
     this.setEvents();
     TodoListStore.subscribe("registration", this.notifyRegistration.bind(this));
-    TodoListStore.subscribe("newTask");
+    TodoListStore.subscribe("newTask", this.notifyListUpdate.bind(this));
+  }
+
+  async notifyListUpdate(id, listTitle, newTask) {
+    if (this.listTitle !== listTitle) {
+      return;
+    }
+
+    const allListData = await TodoListStore.getTodoListData();
+    const currentListData = allListData.filter((listData) => listData.title === listTitle)[0];
+    this.taskData = currentListData.task;
+    const column_list = this.target.querySelector(".column__task--list");
+    const column_task_count = this.target.querySelector(".column__task--count");
+    column_list.innerHTML = "";
+    column_task_count.innerText = this.taskData.length;
+    this.createTask(this.taskData);
   }
 
   notifyRegistration(activation, title) {
@@ -29,8 +44,9 @@ export class List {
   }
 
   createTask(tasksData) {
-    for (const task of tasksData) {
-      new Task(this.listTitle, task);
+    for (const taskData of tasksData) {
+      const task = new Task(this.listTitle, taskData);
+      task.init();
     }
   }
 
@@ -80,7 +96,8 @@ export class List {
   }
 
   addRegistrationCard() {
-    new Task(this.listTitle);
+    const registrationCard = new Task(this.listTitle);
+    registrationCard.init();
   }
 
   removeRegistrationCard() {
