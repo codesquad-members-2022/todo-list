@@ -10,28 +10,28 @@ import UIKit
 class LogViewController: UIViewController {
         
     private var tableView: BoardTableView<Log,LogCell>!
-    private var log: [Log]?
+    private var history: [Log] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .secondarySystemBackground
-//        self.view.layer.borderWidth = 1
+        self.view.layer.borderWidth = 1
         setTableView()
     }
 
     private func setTableView() {
-        guard let log = log else { return }
-        self.tableView = BoardTableView(frame: self.view.frame, style: .plain, list: log, cellConfigurator: { model, cell in
-//            cell.loadCardInfo(info: model)
+        self.tableView = BoardTableView(frame: self.view.frame, style: .plain, list: history, cellConfigurator: { model, cell in
+            
         })
         self.view.addSubview(self.tableView)
         tableViewConstraints()
     }    
     
-    @IBAction func test(_ sender: Any) {
+    @IBAction func tapCloseLogView(_ sender: Any) {
         guard let mainVC = self.parent as? MainViewController else{ return }
         mainVC.TapCloseLogViewButton()
     }
+
 
 }
 

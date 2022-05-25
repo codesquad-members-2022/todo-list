@@ -60,7 +60,7 @@ class CardCell: UITableViewCell, CellIdentifiable {
     }()
     
     
-    func loadCardInfo(info : Todo) {
+    func loadCardInfo(info : CardDisplayable) {
         self.headLabel.text = info.title
         self.bodyLabel.text = info.content
     }

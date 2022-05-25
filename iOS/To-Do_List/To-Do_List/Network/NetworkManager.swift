@@ -16,7 +16,6 @@ final class NetworkManager {
             return
         }
         var urlRequest = URLRequest(url: url)
-        
         //HTTP Method
         let httpMethod = endpoint.getHttpMethod().rawValue
         urlRequest.httpMethod = httpMethod
@@ -61,12 +60,16 @@ final class NetworkManager {
             
             //handling DecodingError
             do {
+                let deleteCase:Any = "DELETE"
+                if urlRequest.httpMethod == HTTPMethod.delete.rawValue {
+                    completionHandler(.success(deleteCase as! T))
+                    return
+                }
                 let fetchedData = try JSONDecoder().decode(T.self, from: data)
                 completionHandler(.success(fetchedData))
             }
             catch {
                 completionHandler(.failure(.decodingError))
-                
             }
         }
         dataTask.resume()
@@ -81,4 +84,8 @@ final class NetworkManager {
         guard let httpResponse = response as? HTTPURLResponse else { return nil }
         return httpResponse.statusCode
     }
+}
+
+struct NoDecode {
+    let noDecode:String = "noDecode"
 }

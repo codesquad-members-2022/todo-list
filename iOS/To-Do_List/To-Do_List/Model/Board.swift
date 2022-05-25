@@ -1,11 +1,17 @@
 //
-//  constants.swift
+//  Board.swift
 //  To-Do_List
 //
-//  Created by Kai Kim on 2022/04/07.
+//  Created by 박진섭 on 2022/04/14.
 //
 
 import Foundation
+
+struct Board:Codable {
+    let todoItems:[Todo]?
+    let progressingItems:[Todo]?
+    let completedItems:[Todo]?
+}
 
 enum BoardType: CustomStringConvertible, Codable {
     
@@ -24,11 +30,21 @@ enum BoardType: CustomStringConvertible, Codable {
         }
     }
     
+    var type:String {
+        switch self {
+        case .todo:
+            return "TODO"
+        case .progressing:
+            return "PROGRESSING"
+        case .completed:
+            return "COMPLETED"
+        }
+    }
 }
 
 extension BoardType {
     
-    func extractList(from data: NetworkResult) -> [Todo] {
+    func extractList(from data: NetworkResult) -> [Todo]? {
         switch self {
         case .todo:
             return data.response.todoItems
@@ -38,5 +54,4 @@ extension BoardType {
             return data.response.completedItems
         }
     }
-    
 }

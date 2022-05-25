@@ -5,7 +5,7 @@
 //  Created by 박진섭 on 2022/04/11.
 //
 
-typealias EditViewInputInfo = (button:String, title:String, content:String)
+typealias EditViewInputInfo = (id : Int?, title:String, content:String)
 
 import UIKit
 
@@ -15,7 +15,8 @@ final class EditCardView:UIView {
     private let defaultButtonColor = UIColor(red: 224 / 255, green: 224 / 255, blue: 224 / 255, alpha: 1)
     private let activeButtonColor = UIColor(red: 0 , green: 117 / 255, blue: 222 / 255, alpha: 1)
     private let buttonCornerRadius:CGFloat = 6.0
-        
+    private var editStyle: EditStyle?
+    
     var delegate:EditCardViewDelegate?
 
     private lazy var titleLabel:UILabel = {
@@ -136,9 +137,20 @@ final class EditCardView:UIView {
 //MARK: -- Set CardView Detail -> ChildView가 생성하기전 호출
 extension EditCardView {
     func setEditCardView(editStyle:EditStyle) {
+        
+        self.editStyle = editStyle
+        
         self.titleLabel.text = editStyle.title
-        self.headLineInputTextField.placeholder = editStyle.headLineTextFieldPlaceholder
-        self.contentInputTextField.placeholder = editStyle.contentTextFieldPlaceholder
+        
+        switch editStyle {
+        case .add:
+            self.headLineInputTextField.placeholder = editStyle.headLineText
+            self.contentInputTextField.placeholder = editStyle.contentTextFieldText
+        case .editContent:
+            self.headLineInputTextField.text = editStyle.headLineText
+            self.contentInputTextField.text = editStyle.contentTextFieldText
+        }
+        //button
         self.confirmButton.setTitle(editStyle.buttonText, for: .normal)
     }
 }
@@ -157,10 +169,17 @@ extension EditCardView {
     }
     
     @objc func didTapConfirmButton() {
-        guard let buttonTitle = confirmButton.titleLabel?.text else { return }
+        guard let editStyle = editStyle else { return }
+        
         let titleText = headLineInputTextField.text ?? ""
         let contentText = contentInputTextField.text ?? ""
-        delegate?.didTapConfirmButton(editViewInfo: EditViewInputInfo(button:buttonTitle, title:titleText, content:contentText))
+        
+        delegate?.didTapConfirmButton(editViewInfo: EditViewInputInfo(
+                                                    id : editStyle.cardId ?? nil ,
+                                                    title:titleText,
+                                                    content:contentText
+            )
+        )
     }
 }
 

@@ -10,7 +10,7 @@ import UIKit
 class LogCell : UITableViewCell,CellIdentifiable{
     
     static let identifier = "LogCell"
-    
+
     private var container: UIView = {
         let label = UIView()
         label.backgroundColor = .white
@@ -30,8 +30,12 @@ class LogCell : UITableViewCell,CellIdentifiable{
     }()
     
     private var image: UIImageView = {
+        let imageSize = CGSize(width: 40.0, height: 40.0)
+        let imageColor = UIColor.white
+        let fontSize = 40.0
+        
         let imageView = UIImageView()
-        let image = "U+1f618".image()
+        let image = "U+1f618".image(size: imageSize, color: imageColor, fontSize: fontSize)
         imageView.image = image
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -110,14 +114,12 @@ class LogCell : UITableViewCell,CellIdentifiable{
         stackView.distribution = .fillProportionally
         self.selectionStyle = .none
         
-
         NSLayoutConstraint.activate([
              
             container.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: inset/2),
             container.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -inset/2),
             container.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -inset/2),
             container.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: inset/2),
-            
             
             image.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
             image.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),

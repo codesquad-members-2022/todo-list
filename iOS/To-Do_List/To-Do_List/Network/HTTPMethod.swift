@@ -11,4 +11,5 @@ enum HTTPMethod:String {
     case post = "POST"
     case put = "PUT"
     case delete = "DELETE"
+    case patch = "PATCH"
 }
